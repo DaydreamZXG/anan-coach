@@ -1,0 +1,163 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2013年",
+          "2014年",
+          "2015年",
+          "2016年",
+          "2017年"
+        ],
+        "label": "投资金额"
+      }
+    ],
+    "columns": [
+      "2013年",
+      "2014年",
+      "2015年",
+      "2016年",
+      "2017年"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "环境污染治理投资总额",
+        "group": null,
+        "label": "环境污染治理投资总额",
+        "unit": null,
+        "values": [
+          9037.2,
+          9575.5,
+          8806.3,
+          9219.8,
+          9539.0
+        ]
+      },
+      {
+        "display_label": "城镇环境基础设施建设投资",
+        "group": null,
+        "label": "城镇环境基础设施建设投资",
+        "unit": null,
+        "values": [
+          5223.0,
+          5463.9,
+          4946.8,
+          5412.0,
+          6085.7
+        ]
+      },
+      {
+        "display_label": "其中:燃气",
+        "group": null,
+        "label": "其中:燃气",
+        "unit": null,
+        "values": [
+          607.9,
+          574.0,
+          463.1,
+          532.0,
+          566.7
+        ]
+      },
+      {
+        "display_label": "集中供热",
+        "group": null,
+        "label": "集中供热",
+        "unit": null,
+        "values": [
+          819.5,
+          763.0,
+          687.8,
+          662.5,
+          778.3
+        ]
+      },
+      {
+        "display_label": "排水",
+        "group": null,
+        "label": "排水",
+        "unit": null,
+        "values": [
+          1055.0,
+          1196.1,
+          1248.5,
+          1485.5,
+          1727.5
+        ]
+      },
+      {
+        "display_label": "园林绿化",
+        "group": null,
+        "label": "园林绿化",
+        "unit": null,
+        "values": [
+          2234.9,
+          2338.5,
+          2075.4,
+          2170.9,
+          2390.2
+        ]
+      },
+      {
+        "display_label": "市容环境卫生",
+        "group": null,
+        "label": "市容环境卫生",
+        "unit": null,
+        "values": [
+          505.7,
+          592.2,
+          472.0,
+          561.1,
+          623.0
+        ]
+      },
+      {
+        "display_label": "工业污染源治理投资",
+        "group": null,
+        "label": "工业污染源治理投资",
+        "unit": null,
+        "values": [
+          849.7,
+          997.7,
+          773.7,
+          819.8,
+          681.5
+        ]
+      },
+      {
+        "display_label": "当年完成环保验收项目环保投资",
+        "group": null,
+        "label": "当年完成环保验收项目环保投资",
+        "unit": null,
+        "values": [
+          2964.5,
+          3113.9,
+          3085.8,
+          2988.8,
+          2771.7
+        ]
+      },
+      {
+        "display_label": "环境污染治理投资总额占国内生产总值比重(%)",
+        "group": null,
+        "label": "环境污染治理投资总额占国内生产总值比重(%)",
+        "unit": null,
+        "values": [
+          1.52,
+          1.49,
+          1.28,
+          1.24,
+          1.15
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

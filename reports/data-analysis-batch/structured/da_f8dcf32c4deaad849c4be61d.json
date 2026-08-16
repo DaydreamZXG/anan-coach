@@ -1,0 +1,245 @@
+{
+  "asset_id": "da_f8dcf32c4deaad849c4be61d",
+  "axes": {
+    "x": {
+      "max": 2018,
+      "min": 2013,
+      "ticks": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 8,
+        "min": 0,
+        "ticks": [
+          0,
+          2,
+          4,
+          6,
+          8
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 5000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "用户规模（亿人）",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": "diamond",
+        "stroke": "solid"
+      }
+    },
+    {
+      "label": "付费用户规模（万人）",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": "square",
+        "stroke": "solid"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "用户规模（亿人）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿人",
+      "values": [
+        6.1,
+        6.3,
+        6.5,
+        6.8,
+        7.1,
+        7.4
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "付费用户规模（万人）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        242,
+        494,
+        1138,
+        2017,
+        2747,
+        3877
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/甘肃/2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0204_a3df79e2faad8da1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0204_a3df79e2faad8da1.png",
+        "paper_title": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_516352b7c14a61d8cf9d",
+        "question_number": 111,
+        "source_jsonl_line": 75326
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0204_a3df79e2faad8da1.png",
+        "paper_title": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_aabbd71289883c9e4d63",
+        "question_number": 112,
+        "source_jsonl_line": 75327
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0204_a3df79e2faad8da1.png",
+        "paper_title": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f259b2648acce1c0e2a3",
+        "question_number": 113,
+        "source_jsonl_line": 75328
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0225_b833c8f4a457afd0.png",
+        "paper_title": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_05de562d56010296a99f",
+        "question_number": 114,
+        "source_jsonl_line": 75329
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0204_a3df79e2faad8da1.png",
+        "paper_title": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9ab6d42168d81be1602f",
+        "question_number": 115,
+        "source_jsonl_line": 75330
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0223_b833c8f4a457afd0.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_90d0ace47ca69916e17a",
+        "question_number": 106,
+        "source_jsonl_line": 94729
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0238_a3df79e2faad8da1.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_8e2ccd57293066d55851",
+        "question_number": 107,
+        "source_jsonl_line": 94730
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0238_a3df79e2faad8da1.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_29baaf7877382ac8f562",
+        "question_number": 108,
+        "source_jsonl_line": 94731
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0223_b833c8f4a457afd0.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_65fd6163e3408567ff0f",
+        "question_number": 109,
+        "source_jsonl_line": 94732
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0223_b833c8f4a457afd0.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_81fd48cede276ee3b700",
+        "question_number": 110,
+        "source_jsonl_line": 94733
+      }
+    ],
+    "sha256": "f8dcf32c4deaad849c4be61da9ebd3c2cf48b039118413da0bb9dd4190ee4f8c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图1：2013～2018年中国数字音乐用户规模及付费用户规模",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f8dcf32c4deaad849c4be61d/column_band_01.jpg",
+        "review-crops/da_f8dcf32c4deaad849c4be61d/column_band_02.jpg",
+        "review-crops/da_f8dcf32c4deaad849c4be61d/column_band_03.jpg",
+        "review-crops/da_f8dcf32c4deaad849c4be61d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.65",
+      "crop_verification_elapsed_seconds:3.957",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

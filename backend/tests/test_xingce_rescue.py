@@ -20,12 +20,22 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.domains.ai.model_cost import ModelTokenUsage
+from app.domains.coach_brick_assembly import (
+    CoachBrickAssembly,
+    CoachBrickAssemblyReason,
+)
 from app.domains.xingce_learning.cause_agent.contracts import (
     CandidateReady,
     CauseAgentEvidence,
     QuestionCauseCandidate,
 )
 from app.domains.xingce_learning.cause_agent.provider import CauseAgentProviderResult
+from app.domains.xingce_learning.rescue.repository import (
+    RescueMethodCardRow,
+    RescueNodeLookup,
+    RescueSimilarQuestionRow,
+)
+from app.domains.xingce_learning.rescue.service import XingceRescueService
 from tests.factories.frozen_release import (
     FrozenKnowledgeNodeSeed,
     FrozenMethodCardSeed,
@@ -328,9 +338,12 @@ def test_rescue_returns_method_card_and_similar_question_for_method_selection(
     assert item["similarQuestion"]["questionId"].startswith("rescue-q-")
     # 同类题必须是另一道题，不能是本组已做过的题。
     assert item["similarQuestion"]["questionId"] not in question_ids
-    assert item["similarQuestion"]["correctOptionIds"]
+    assert "correctOptionIds" not in item["similarQuestion"]
+    assert "explanation" not in item["similarQuestion"]
     assert item["node"]["nodeId"] == _NODE_ID
     assert item["node"]["displayPath"].endswith("言语理解基础")
+    assert item["teachBackAvailable"] is True, item["teachBackReason"]
+    assert item["teachBackReason"] is None
 
 
 def test_rescue_applies_session_cause_to_all_wrong_questions_without_per_question(
@@ -498,3 +511,89 @@ class _TimePressureProvider(SequenceProvider):
             ).hexdigest(),
             latency_ms=25,
         )
+
+
+class _VisualBlockedRescueRepository:
+    def __init__(self, _session) -> None:
+        pass
+
+    def current_review(self, *, user_id: str, review_id: str):
+        return {"session_id": "session-visual", "cause_candidate_version_id": None}
+
+    def per_question_candidate_codes(self, *, candidate_version_id):
+        return {}
+
+    def confirmed_cause_codes(self, *, user_id: str, review_id: str):
+        return ("method_selection",)
+
+    def wrong_question_ids_for_review(self, *, user_id: str, session_id: str):
+        return ("visual-source",)
+
+    def resolve_fresh_release(self):
+        return {"release_id": "release-visual"}
+
+    def knowledge_nodes_for_questions(self, *, question_ids, release):
+        return {
+            "visual-source": RescueNodeLookup(
+                node_id="visual-node",
+                display_path="判断推理/图形推理",
+                module_name="判断推理",
+                method_card_ids=("visual-method",),
+            )
+        }
+
+    def method_cards_by_ids(self, card_ids):
+        return {
+            "visual-method": RescueMethodCardRow(
+                card_id="visual-method",
+                title="先看位置再看数量",
+                module_name="判断推理",
+                tag_path="判断推理/图形推理",
+                recognition="图形有明显位置变化",
+                method_steps=("先标位置", "再数元素"),
+                pitfall="不要同时猜多条规律",
+                fix_action="使用原图复盘",
+                time_budget_sec=60,
+            )
+        }
+
+    def select_similar_question(self, **_kwargs):
+        return [
+            RescueSimilarQuestionRow(
+                question_id=f"visual-transfer-{index}",
+                content_version_id=f"visual-content-{index}",
+                module_name="判断推理",
+                stem="请根据原图选择规律。",
+                options=tuple(
+                    {"label": label, "option_text": f"图形 {label}"} for label in _OPTIONS
+                ),
+                correct_option_ids=("A",),
+                explanation="官方解析",
+                visual_required=True,
+            )
+            for index in range(2)
+        ]
+
+
+class _VisualBlockedAssembler:
+    def assemble(self, *_args, **_kwargs):
+        return CoachBrickAssembly(reason=CoachBrickAssemblyReason.VISUAL_EVIDENCE_UNAVAILABLE)
+
+
+def test_rescue_keeps_original_visual_path_but_does_not_offer_a_dead_button() -> None:
+    rescue = XingceRescueService(
+        _VisualBlockedRescueRepository,
+        brick_assembler=_VisualBlockedAssembler(),  # type: ignore[arg-type]
+    ).rescue(
+        object(),
+        user_id="user-visual",
+        review_id="review-visual",
+    )
+
+    assert len(rescue.items) == 1
+    item = rescue.items[0]
+    assert item.method_card is not None
+    assert item.teach_back_available is False
+    assert item.similar_question is None
+    assert item.teach_back_reason is not None
+    assert "原图和官方解析" in item.teach_back_reason

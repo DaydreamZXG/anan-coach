@@ -1,0 +1,202 @@
+{
+  "asset_id": "da_6188ea4460db967c055adab9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "第一季度",
+    "第二季度",
+    "第三季度",
+    "第四季度"
+  ],
+  "chart_type": "line",
+  "confidence": 0.9,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "A",
+      "label": "A",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "B",
+      "label": "B",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "C",
+      "label": "C",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "D",
+      "label": "D",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河南/2019年420联考《行测》题（河南县级以上）（网友回忆版）_images/img_0200_c404774e6243a3c6.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2019年420联考《行测》题（河南县级以上）（网友回忆版）_images/img_0200_c404774e6243a3c6.png",
+        "paper_title": "2019年420联考《行测》题（河南县级以上）（网友回忆版）",
+        "question_id": "pq_bda346139c88c7dd193d",
+        "question_number": 112,
+        "source_jsonl_line": 58689
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2019年420联考《行测》题（福建卷）（网友回忆版）_images/img_0145_c404774e6243a3c6.png",
+        "paper_title": "2019年420联考《行测》题（福建卷）（网友回忆版）",
+        "question_id": "pq_c031b48bad7fbd0c2340",
+        "question_number": 111,
+        "source_jsonl_line": 78360
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2019年420联考《行测》题（西藏卷）（网友回忆版）_images/img_0197_c404774e6243a3c6.png",
+        "paper_title": "2019年420联考《行测》题（西藏卷）（网友回忆版）",
+        "question_id": "pq_dfee956412834bf4fea5",
+        "question_number": 92,
+        "source_jsonl_line": 79925
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2019年420联考《行测》题（贵州卷）（网友回忆版）_images/img_0194_c404774e6243a3c6.png",
+        "paper_title": "2019年420联考《行测》题（贵州卷）（网友回忆版）",
+        "question_id": "pq_bd4fd86bbe58abe5a751",
+        "question_number": 107,
+        "source_jsonl_line": 81262
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2019年河南省选调生选拔考试《行测》试题（网友回忆版）_images/img_0168_b8a2b0c6fb797afc.png",
+        "paper_title": "2019年河南省选调生选拔考试《行测》试题（网友回忆版）",
+        "question_id": "pq_117c9b29537af0407d81",
+        "question_number": 107,
+        "source_jsonl_line": 88682
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2019年贵州省选调高校优秀毕业生到基层工作考试《行测》试题（网友回忆版）_images/img_0200_c404774e6243a3c6.png",
+        "paper_title": "2019年贵州省选调高校优秀毕业生到基层工作考试《行测》试题（网友回忆版）",
+        "question_id": "pq_6f1d1f3f3fb0bf42559a",
+        "question_number": 107,
+        "source_jsonl_line": 89037
+      }
+    ],
+    "sha256": "6188ea4460db967c055adab98287affa166a32669f64185fafca954a2a89816c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6188ea4460db967c055adab9/column_band_01.jpg",
+        "review-crops/da_6188ea4460db967c055adab9/column_band_02.jpg",
+        "review-crops/da_6188ea4460db967c055adab9/column_band_03.jpg",
+        "review-crops/da_6188ea4460db967c055adab9/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.963",
+      "crop_verification_elapsed_seconds:2.973",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:数值未明确标出，仅能从折线趋势推断",
+      "model_uncertainty:各系列数据未明确标注",
+      "model_uncertainty:单位未明确",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.9,
+    "schema_valid": true
+  }
+}

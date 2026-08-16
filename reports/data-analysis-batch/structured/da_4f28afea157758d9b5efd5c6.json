@@ -1,0 +1,238 @@
+{
+  "asset_id": "da_4f28afea157758d9b5efd5c6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2016年江苏省公务员录用考试《行测》题（A类）_images/img_0171_520fa7730915a3af.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0171_520fa7730915a3af.jpg",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_733baf8377a6a07282a5",
+        "question_number": 126,
+        "source_jsonl_line": 47236
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0171_520fa7730915a3af.jpg",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_2a28e3bf57e26bba464d",
+        "question_number": 127,
+        "source_jsonl_line": 47237
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0196_dd17c17cd915868b.jpg",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_cd23feab79e0b962b482",
+        "question_number": 128,
+        "source_jsonl_line": 47238
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0196_dd17c17cd915868b.jpg",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_089c2f7ebac92cea90cc",
+        "question_number": 129,
+        "source_jsonl_line": 47239
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0196_dd17c17cd915868b.jpg",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_9fad77025b8432eabd50",
+        "question_number": 130,
+        "source_jsonl_line": 47240
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0189_520fa7730915a3af.jpg",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_6f341878a6af71116566",
+        "question_number": 126,
+        "source_jsonl_line": 47371
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0205_dd17c17cd915868b.jpg",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_51a1be8da9ade8aae742",
+        "question_number": 127,
+        "source_jsonl_line": 47372
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0205_dd17c17cd915868b.jpg",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_d67f26bd63537c0ee989",
+        "question_number": 128,
+        "source_jsonl_line": 47373
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0205_dd17c17cd915868b.jpg",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_407267c0dad5e94e604e",
+        "question_number": 129,
+        "source_jsonl_line": 47374
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0189_520fa7730915a3af.jpg",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_877cd7b82677e0402344",
+        "question_number": 130,
+        "source_jsonl_line": 47375
+      }
+    ],
+    "sha256": "4f28afea157758d9b5efd5c66af6e6915151b3bdb31a957a62a991a91b134aed"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "发电总量",
+      "水力发电量",
+      "火力发电量"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "2013年｜第一季度",
+        "group": "发电量",
+        "label": "发电量｜2013年｜第一季度",
+        "unit": null,
+        "values": [
+          11823,
+          1306,
+          10006
+        ]
+      },
+      {
+        "display_label": "2013年｜第二季度",
+        "group": "发电量",
+        "label": "发电量｜2013年｜第二季度",
+        "unit": null,
+        "values": [
+          12519,
+          1985,
+          9949
+        ]
+      },
+      {
+        "display_label": "2013年｜第三季度",
+        "group": "发电量",
+        "label": "发电量｜2013年｜第三季度",
+        "unit": null,
+        "values": [
+          14347,
+          2552,
+          11161
+        ]
+      },
+      {
+        "display_label": "2013年｜第四季度",
+        "group": "发电量",
+        "label": "发电量｜2013年｜第四季度",
+        "unit": null,
+        "values": [
+          13763,
+          2047,
+          11037
+        ]
+      },
+      {
+        "display_label": "2014年｜第一季度",
+        "group": "发电量",
+        "label": "发电量｜2014年｜第一季度",
+        "unit": null,
+        "values": [
+          12719,
+          1453,
+          10782
+        ]
+      },
+      {
+        "display_label": "2014年｜第二季度",
+        "group": "发电量",
+        "label": "发电量｜2014年｜第二季度",
+        "unit": null,
+        "values": [
+          13444,
+          2265,
+          10582
+        ]
+      },
+      {
+        "display_label": "2014年｜第三季度",
+        "group": "发电量",
+        "label": "发电量｜2014年｜第三季度",
+        "unit": null,
+        "values": [
+          14592,
+          3442,
+          10377
+        ]
+      },
+      {
+        "display_label": "2014年｜第四季度",
+        "group": "发电量",
+        "label": "发电量｜2014年｜第四季度",
+        "unit": null,
+        "values": [
+          13883,
+          2284,
+          10677
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

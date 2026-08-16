@@ -1,0 +1,95 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "职工人数（人）｜1月",
+          "职工人数（人）｜2月"
+        ],
+        "label": "职工人数（人）"
+      },
+      {
+        "columns": [
+          "月平均工资（元）｜1月",
+          "月平均工资（元）｜2月"
+        ],
+        "label": "月平均工资（元）"
+      }
+    ],
+    "columns": [
+      "职工人数（人）｜1月",
+      "职工人数（人）｜2月",
+      "月平均工资（元）｜1月",
+      "月平均工资（元）｜2月"
+    ],
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "月平均工资（元）｜1月",
+        "display": "-",
+        "row": "合计"
+      },
+      {
+        "column": "月平均工资（元）｜2月",
+        "display": "-",
+        "row": "合计"
+      }
+    ],
+    "row_header_label": "车间",
+    "rows": [
+      {
+        "label": "甲车间",
+        "unit": null,
+        "values": [
+          500,
+          550,
+          5000,
+          5200
+        ]
+      },
+      {
+        "label": "乙车间",
+        "unit": null,
+        "values": [
+          600,
+          580,
+          4500,
+          4600
+        ]
+      },
+      {
+        "label": "丙车间",
+        "unit": null,
+        "values": [
+          300,
+          320,
+          6000,
+          6500
+        ]
+      },
+      {
+        "label": "丁车间",
+        "unit": null,
+        "values": [
+          200,
+          200,
+          8000,
+          7950
+        ]
+      },
+      {
+        "label": "合计",
+        "unit": null,
+        "values": [
+          1600,
+          1650,
+          null,
+          null
+        ]
+      }
+    ]
+  },
+  "uncertainties": []
+}

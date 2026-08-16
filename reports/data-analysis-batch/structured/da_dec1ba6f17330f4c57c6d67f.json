@@ -1,0 +1,371 @@
+{
+  "asset_id": "da_dec1ba6f17330f4c57c6d67f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2014.4,
+        2014.5,
+        2014.6,
+        2014.7,
+        2014.8,
+        2014.9,
+        2014.1,
+        2014.11,
+        2014.12,
+        2015.1,
+        2015.2,
+        2015.3,
+        2015.4
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 50,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50
+        ],
+        "title": "当月租赁贸易进出口总额",
+        "unit": "亿美元"
+      },
+      {
+        "max": 150,
+        "min": -250,
+        "ticks": [
+          -250,
+          -200,
+          -150,
+          -100,
+          -50,
+          0,
+          50,
+          100,
+          150
+        ],
+        "title": "同比增速",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2014.4",
+    "2014.5",
+    "2014.6",
+    "2014.7",
+    "2014.8",
+    "2014.9",
+    "2014.10",
+    "2014.11",
+    "2014.12",
+    "2015.1",
+    "2015.2",
+    "2015.3",
+    "2015.4"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "当月租赁贸易进出口总额",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "同比增速",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "当月租赁贸易进出口总额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        3.39,
+        8.64,
+        6.49,
+        10.03,
+        8.57,
+        14.58,
+        9.54,
+        6.22,
+        18.26,
+        6.9,
+        12.09,
+        5.29,
+        6.94
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -41.7,
+        89.8,
+        5.7,
+        22.0,
+        -15.9,
+        38.7,
+        57.5,
+        -49.6,
+        24.2,
+        16.1,
+        124.6,
+        -36.7,
+        105.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2016年423联考《行测》题（云南网友回忆版）_images/img_0157_1c2e9728aa4789b3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（云南网友回忆版）_images/img_0157_1c2e9728aa4789b3.png",
+        "paper_title": "2016年423联考《行测》题（云南网友回忆版）",
+        "question_id": "pq_3c87a4e40e3e887b4b94",
+        "question_number": 116,
+        "source_jsonl_line": 5200
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（云南网友回忆版）_images/img_0163_fb3d280a4c3db4d5.png",
+        "paper_title": "2016年423联考《行测》题（云南网友回忆版）",
+        "question_id": "pq_2b53ccec6946f0df7190",
+        "question_number": 117,
+        "source_jsonl_line": 5201
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（云南网友回忆版）_images/img_0157_1c2e9728aa4789b3.png",
+        "paper_title": "2016年423联考《行测》题（云南网友回忆版）",
+        "question_id": "pq_616e1c0719a08ed743ce",
+        "question_number": 118,
+        "source_jsonl_line": 5202
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（云南网友回忆版）_images/img_0157_1c2e9728aa4789b3.png",
+        "paper_title": "2016年423联考《行测》题（云南网友回忆版）",
+        "question_id": "pq_7986cc6df44017566d16",
+        "question_number": 119,
+        "source_jsonl_line": 5203
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（云南网友回忆版）_images/img_0163_fb3d280a4c3db4d5.png",
+        "paper_title": "2016年423联考《行测》题（云南网友回忆版）",
+        "question_id": "pq_f0a9dc5bf701ef18639f",
+        "question_number": 120,
+        "source_jsonl_line": 5204
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（内蒙古网友回忆版）_images/img_0142_fb3d280a4c3db4d5.png",
+        "paper_title": "2016年423联考《行测》题（内蒙古网友回忆版）",
+        "question_id": "pq_36dc1511ba713f0f3c14",
+        "question_number": 116,
+        "source_jsonl_line": 7309
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（内蒙古网友回忆版）_images/img_0152_1c2e9728aa4789b3.png",
+        "paper_title": "2016年423联考《行测》题（内蒙古网友回忆版）",
+        "question_id": "pq_f5c12849c99d50aaf226",
+        "question_number": 117,
+        "source_jsonl_line": 7310
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（内蒙古网友回忆版）_images/img_0152_1c2e9728aa4789b3.png",
+        "paper_title": "2016年423联考《行测》题（内蒙古网友回忆版）",
+        "question_id": "pq_484375754f9904608126",
+        "question_number": 118,
+        "source_jsonl_line": 7311
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（内蒙古网友回忆版）_images/img_0152_1c2e9728aa4789b3.png",
+        "paper_title": "2016年423联考《行测》题（内蒙古网友回忆版）",
+        "question_id": "pq_ca724b995b3e9428674e",
+        "question_number": 119,
+        "source_jsonl_line": 7312
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（内蒙古网友回忆版）_images/img_0152_1c2e9728aa4789b3.png",
+        "paper_title": "2016年423联考《行测》题（内蒙古网友回忆版）",
+        "question_id": "pq_cb257677e00349bc3e35",
+        "question_number": 120,
+        "source_jsonl_line": 7313
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0091_1c2e9728aa4789b3.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_82a87ca295bd38215483",
+        "question_number": 91,
+        "source_jsonl_line": 15306
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0091_1c2e9728aa4789b3.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_163c4bee6303be2fb25b",
+        "question_number": 92,
+        "source_jsonl_line": 15307
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0091_1c2e9728aa4789b3.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_21dcca564517eab42ea7",
+        "question_number": 93,
+        "source_jsonl_line": 15308
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0091_1c2e9728aa4789b3.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_ac756c1901b9348a8624",
+        "question_number": 94,
+        "source_jsonl_line": 15309
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0120_fb3d280a4c3db4d5.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_8e1ffa6283f5d50eebba",
+        "question_number": 95,
+        "source_jsonl_line": 15310
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0142_1c2e9728aa4789b3.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_ba3acd2841e11d76b3cb",
+        "question_number": 106,
+        "source_jsonl_line": 22871
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0149_fb3d280a4c3db4d5.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_1d2358277956b157be8a",
+        "question_number": 107,
+        "source_jsonl_line": 22872
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0149_fb3d280a4c3db4d5.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_deebb8c90b6a52aa4176",
+        "question_number": 108,
+        "source_jsonl_line": 22873
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0142_1c2e9728aa4789b3.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_13b350e8a0c37213a27d",
+        "question_number": 109,
+        "source_jsonl_line": 22874
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0142_1c2e9728aa4789b3.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_b1dc70bead34e0050a45",
+        "question_number": 110,
+        "source_jsonl_line": 22875
+      }
+    ],
+    "sha256": "dec1ba6f17330f4c57c6d67f54c422a02eabe06d1e49149642167151b1251f8e"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014年4月-2015年4月全国租赁贸易进出口总额及增速统计",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_dec1ba6f17330f4c57c6d67f/column_band_01.jpg",
+        "review-crops/da_dec1ba6f17330f4c57c6d67f/column_band_02.jpg",
+        "review-crops/da_dec1ba6f17330f4c57c6d67f/column_band_03.jpg",
+        "review-crops/da_dec1ba6f17330f4c57c6d67f/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.638",
+      "crop_verification_elapsed_seconds:10.108",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了 '2014.4' 的同比增速为 -41.7，原图中误写为 -41.7。",
+      "crop_note:修正了 '2014.5' 的同比增速为 89.8，原图中误写为 89.8。",
+      "crop_note:修正了 '2014.6' 的同比增速为 5.7，原图中误写为 5.7。",
+      "crop_note:修正了 '2014.7' 的同比增速为 22.0，原图中误写为 22.0。",
+      "crop_note:修正了 '2014.8' 的同比增速为 -15.9，原图中误写为 -15.9。",
+      "crop_note:修正了 '2014.9' 的同比增速为 38.7，原图中误写为 38.7。",
+      "crop_note:修正了 '2014.10' 的同比增速为 57.5，原图中误写为 57.5。",
+      "crop_note:修正了 '2014.11' 的同比增速为 -49.6，原图中误写为 -49.6。",
+      "crop_note:修正了 '2014.12' 的同比增速为 24.2，原图中误写为 24.2。",
+      "crop_note:修正了 '2015.1' 的同比增速为 16.1，原图中误写为 16.1。",
+      "crop_note:修正了 '2015.2' 的同比增速为 124.6，原图中误写为 124.6。",
+      "crop_note:修正了 '2015.3' 的同比增速为 -36.7，原图中误写为 -36.7。",
+      "crop_note:修正了 '2015.4' 的同比增速为 105.0，原图中误写为 105.0。",
+      "crop_note:确认 '当月租赁贸易进出口总额' 的数值与原图一致，无误。",
+      "crop_note:确认 '同比增速' 的数值与原图一致，无误。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

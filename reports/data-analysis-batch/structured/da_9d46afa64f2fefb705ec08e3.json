@@ -1,0 +1,308 @@
+{
+  "asset_id": "da_9d46afa64f2fefb705ec08e3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "公共财政收入",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "公共财政支出",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "中央公共财政收入",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "地方公共财政收入",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "中央公共财政支出",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "地方公共财政支出",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "中央公共财政收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        35915.71,
+        42488.47,
+        51327.32,
+        56175.23,
+        60198.48
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "地方公共财政收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        32602.59,
+        40613.04,
+        52547.11,
+        61078.29,
+        69011.16
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "中央公共财政支出",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        15255.79,
+        15989.73,
+        16514.11,
+        18764.63,
+        20471.76
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "地方公共财政支出",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        61044.14,
+        73884.43,
+        92733.68,
+        107188.34,
+        119740.34
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）_images/img_0105_7aa2a65bc5c840f2.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）_images/img_0105_7aa2a65bc5c840f2.png",
+        "paper_title": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）",
+        "question_id": "pq_63bd70a7c42bcd12bac5",
+        "question_number": 106,
+        "source_jsonl_line": 41536
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）_images/img_0105_7aa2a65bc5c840f2.png",
+        "paper_title": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）",
+        "question_id": "pq_9791d8e490fa998389d6",
+        "question_number": 107,
+        "source_jsonl_line": 41537
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）_images/img_0105_7aa2a65bc5c840f2.png",
+        "paper_title": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）",
+        "question_id": "pq_a2b3e38a4edf21ea3837",
+        "question_number": 108,
+        "source_jsonl_line": 41538
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）_images/img_0115_67596d97363446bc.png",
+        "paper_title": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）",
+        "question_id": "pq_18856090853385338bb1",
+        "question_number": 109,
+        "source_jsonl_line": 41539
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）_images/img_0105_7aa2a65bc5c840f2.png",
+        "paper_title": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）",
+        "question_id": "pq_68a4a2b395da8c5fe8fd",
+        "question_number": 110,
+        "source_jsonl_line": 41540
+      }
+    ],
+    "sha256": "9d46afa64f2fefb705ec08e3fa1e099ff52adfa2df5bfa32c273b28791e9bcd9"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "中央公共财政收入",
+      "地方公共财政收入",
+      "中央公共财政支出",
+      "地方公共财政支出"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2009",
+        "unit": null,
+        "values": [
+          2009,
+          35915.71,
+          32602.59,
+          15255.79,
+          61044.14
+        ]
+      },
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          42488.47,
+          40613.04,
+          15989.73,
+          73884.43
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          51327.32,
+          52547.11,
+          16514.11,
+          92733.68
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          56175.23,
+          61078.29,
+          18764.63,
+          107188.34
+        ]
+      },
+      {
+        "label": "2013",
+        "unit": null,
+        "values": [
+          2013,
+          60198.48,
+          69011.16,
+          20471.76,
+          119740.34
+        ]
+      }
+    ]
+  },
+  "title": "2009~2013年公共财政收支情况（亿元）",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9d46afa64f2fefb705ec08e3/row_band_01.jpg",
+        "review-crops/da_9d46afa64f2fefb705ec08e3/row_band_02.jpg",
+        "review-crops/da_9d46afa64f2fefb705ec08e3/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.963",
+      "crop_verification_elapsed_seconds:7.215",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

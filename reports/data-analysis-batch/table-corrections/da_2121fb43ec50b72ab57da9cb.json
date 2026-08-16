@@ -1,0 +1,169 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "城镇居民｜人均可支配收入（元）",
+      "城镇居民｜人均消费支出（元）",
+      "城镇居民｜人均文化消费（元）",
+      "城镇居民｜人均纯收入（元）",
+      "农村居民｜人均消费支出（元）",
+      "农村居民｜支出水平（元）",
+      "农村居民｜增速（%）",
+      "人均文化消费（元）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "display_label": "2003",
+        "group": null,
+        "label": "2003",
+        "unit": null,
+        "values": [
+          8472,
+          6511,
+          420,
+          2622,
+          1943,
+          5.9,
+          53,
+          12.8
+        ]
+      },
+      {
+        "display_label": "2004",
+        "group": null,
+        "label": "2004",
+        "unit": null,
+        "values": [
+          9422,
+          7182,
+          474,
+          2936,
+          2185,
+          12.5,
+          59,
+          11.3
+        ]
+      },
+      {
+        "display_label": "2005",
+        "group": null,
+        "label": "2005",
+        "unit": null,
+        "values": [
+          10493,
+          7943,
+          526,
+          3255,
+          2555,
+          16.9,
+          68,
+          15.3
+        ]
+      },
+      {
+        "display_label": "2006",
+        "group": null,
+        "label": "2006",
+        "unit": null,
+        "values": [
+          11759,
+          8697,
+          591,
+          3587,
+          2829,
+          10.7,
+          74,
+          8.8
+        ]
+      },
+      {
+        "display_label": "2007",
+        "group": null,
+        "label": "2007",
+        "unit": null,
+        "values": [
+          13786,
+          9997,
+          691,
+          4140,
+          3224,
+          14.0,
+          84,
+          13.5
+        ]
+      },
+      {
+        "display_label": "2008",
+        "group": null,
+        "label": "2008",
+        "unit": null,
+        "values": [
+          15781,
+          11243,
+          736,
+          4761,
+          3661,
+          13.6,
+          93,
+          10.7
+        ]
+      },
+      {
+        "display_label": "2009",
+        "group": null,
+        "label": "2009",
+        "unit": null,
+        "values": [
+          17175,
+          12265,
+          827,
+          5153,
+          3993,
+          9.1,
+          108,
+          16.1
+        ]
+      },
+      {
+        "display_label": "2010",
+        "group": null,
+        "label": "2010",
+        "unit": null,
+        "values": [
+          19109,
+          13471,
+          966,
+          5919,
+          4382,
+          9.7,
+          126,
+          16.7
+        ]
+      },
+      {
+        "display_label": "2011",
+        "group": null,
+        "label": "2011",
+        "unit": null,
+        "values": [
+          21810,
+          15161,
+          1102,
+          6977,
+          5221,
+          19.1,
+          165,
+          31.0
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

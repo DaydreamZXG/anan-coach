@@ -1,0 +1,171 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "其中女",
+      "25岁以下",
+      "26-30",
+      "31-35",
+      "36-40",
+      "41-45",
+      "46-50",
+      "51-55",
+      "56-60",
+      "61岁及以上"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "职称",
+    "rows": [
+      {
+        "display_label": "总计｜11546",
+        "group": null,
+        "label": "总计｜11546",
+        "unit": null,
+        "values": [
+          4844,
+          1574,
+          2835,
+          2647,
+          1870,
+          1236,
+          697,
+          448,
+          238,
+          1
+        ]
+      },
+      {
+        "display_label": "中学高级",
+        "group": null,
+        "label": "中学高级",
+        "unit": null,
+        "values": [
+          440,
+          133,
+          null,
+          1,
+          12,
+          66,
+          134,
+          111,
+          82,
+          34
+        ]
+      },
+      {
+        "display_label": "中学一级｜3866",
+        "group": null,
+        "label": "中学一级｜3866",
+        "unit": null,
+        "values": [
+          1350,
+          16,
+          187,
+          830,
+          1092,
+          813,
+          462,
+          289,
+          176,
+          1
+        ]
+      },
+      {
+        "display_label": "中学二级",
+        "group": null,
+        "label": "中学二级",
+        "unit": null,
+        "values": [
+          4954,
+          2249,
+          326,
+          1827,
+          1657,
+          674,
+          263,
+          108,
+          74,
+          25
+        ]
+      },
+      {
+        "display_label": "中学三级",
+        "group": null,
+        "label": "中学三级",
+        "unit": null,
+        "values": [
+          1267,
+          607,
+          558,
+          559,
+          99,
+          25,
+          14,
+          7,
+          2,
+          3
+        ]
+      },
+      {
+        "display_label": "总计中",
+        "group": null,
+        "label": "总计中",
+        "unit": null,
+        "values": [
+          null,
+          4844,
+          822,
+          1378,
+          1242,
+          789,
+          381,
+          154,
+          76,
+          2
+        ]
+      },
+      {
+        "display_label": "女",
+        "group": null,
+        "label": "女",
+        "unit": null,
+        "values": [
+          null,
+          665,
+          300,
+          432,
+          401,
+          265,
+          138,
+          81,
+          28,
+          18
+        ]
+      },
+      {
+        "display_label": "少数民族",
+        "group": null,
+        "label": "少数民族",
+        "unit": null,
+        "values": [
+          null,
+          665,
+          300,
+          432,
+          401,
+          265,
+          138,
+          81,
+          28,
+          18
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

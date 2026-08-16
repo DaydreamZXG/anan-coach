@@ -1,0 +1,315 @@
+{
+  "asset_id": "da_99e7c9a6b6ce04f0f116214b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0092_4c557d26bf687235.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0092_4c557d26bf687235.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_4ec7930efce8e3da56b6",
+        "question_number": 111,
+        "source_jsonl_line": 20571
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0092_4c557d26bf687235.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_45e4af0e557607913b90",
+        "question_number": 112,
+        "source_jsonl_line": 20572
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0092_4c557d26bf687235.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_7a26eeb1d77bd10a00d5",
+        "question_number": 113,
+        "source_jsonl_line": 20573
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0092_4c557d26bf687235.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_2532eb43535833df62ec",
+        "question_number": 114,
+        "source_jsonl_line": 20574
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0092_4c557d26bf687235.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_d2dfa5eb20fde5803336",
+        "question_number": 115,
+        "source_jsonl_line": 20575
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0127_4c557d26bf687235.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_a4fbadae1e566a5379f1",
+        "question_number": 116,
+        "source_jsonl_line": 20706
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0127_4c557d26bf687235.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_809a2e77f01b225de8c6",
+        "question_number": 117,
+        "source_jsonl_line": 20707
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0127_4c557d26bf687235.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_7e2cd89508a9f296187c",
+        "question_number": 118,
+        "source_jsonl_line": 20708
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0127_4c557d26bf687235.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_1670e1a8de1f46ad7e0c",
+        "question_number": 119,
+        "source_jsonl_line": 20709
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0147_e2c1da0a1a98a013.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_ba0b608662d570eaf0cd",
+        "question_number": 120,
+        "source_jsonl_line": 20710
+      }
+    ],
+    "sha256": "99e7c9a6b6ce04f0f116214bf96dfd4122211e14e124acbe993ffe99e44b6747"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "A市",
+      "B市",
+      "C市",
+      "D市",
+      "E市",
+      "F市",
+      "G市",
+      "H市"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "机动车依礼让率｜三季度",
+        "group": "城市",
+        "label": "城市｜机动车依礼让率｜三季度",
+        "unit": null,
+        "values": [
+          98.0,
+          96.0,
+          99.2,
+          97.3,
+          96.5,
+          96.0,
+          94.8,
+          98.2
+        ]
+      },
+      {
+        "display_label": "机动车依礼让率｜四季度",
+        "group": "城市",
+        "label": "城市｜机动车依礼让率｜四季度",
+        "unit": null,
+        "values": [
+          98.8,
+          98.8,
+          98.0,
+          99.6,
+          98.3,
+          98.2,
+          100.0,
+          99.3
+        ]
+      },
+      {
+        "display_label": "行人遵守交通信号灯率｜三季度",
+        "group": "城市",
+        "label": "城市｜行人遵守交通信号灯率｜三季度",
+        "unit": null,
+        "values": [
+          98.0,
+          96.7,
+          97.2,
+          99.1,
+          95.7,
+          96.7,
+          94.7,
+          99.3
+        ]
+      },
+      {
+        "display_label": "行人遵守交通信号灯率｜四季度",
+        "group": "城市",
+        "label": "城市｜行人遵守交通信号灯率｜四季度",
+        "unit": null,
+        "values": [
+          99.4,
+          97.7,
+          98.0,
+          98.9,
+          99.2,
+          99.0,
+          98.2,
+          99.3
+        ]
+      },
+      {
+        "display_label": "非机动车遵守交通信号灯率｜三季度",
+        "group": "城市",
+        "label": "城市｜非机动车遵守交通信号灯率｜三季度",
+        "unit": null,
+        "values": [
+          95.8,
+          96.7,
+          95.4,
+          97.8,
+          91.8,
+          97.0,
+          90.9,
+          97.7
+        ]
+      },
+      {
+        "display_label": "非机动车遵守交通信号灯率｜四季度",
+        "group": "城市",
+        "label": "城市｜非机动车遵守交通信号灯率｜四季度",
+        "unit": null,
+        "values": [
+          96.0,
+          98.0,
+          97.0,
+          100.0,
+          99.3,
+          98.8,
+          98.2,
+          99.4
+        ]
+      },
+      {
+        "display_label": "摩托车安全头盔佩戴率｜三季度",
+        "group": "城市",
+        "label": "城市｜摩托车安全头盔佩戴率｜三季度",
+        "unit": null,
+        "values": [
+          99.6,
+          96.0,
+          92.0,
+          97.0,
+          92.1,
+          96.0,
+          92.0,
+          97.2
+        ]
+      },
+      {
+        "display_label": "摩托车安全头盔佩戴率｜四季度",
+        "group": "城市",
+        "label": "城市｜摩托车安全头盔佩戴率｜四季度",
+        "unit": null,
+        "values": [
+          100.0,
+          98.4,
+          96.0,
+          99.2,
+          98.9,
+          98.8,
+          95.6,
+          99.9
+        ]
+      },
+      {
+        "display_label": "汽车前排驾乘人员安全带使用率｜三季度",
+        "group": "城市",
+        "label": "城市｜汽车前排驾乘人员安全带使用率｜三季度",
+        "unit": null,
+        "values": [
+          99.6,
+          96.5,
+          96.0,
+          97.4,
+          92.5,
+          96.1,
+          91.9,
+          98.8
+        ]
+      },
+      {
+        "display_label": "汽车前排驾乘人员安全带使用率｜四季度",
+        "group": "城市",
+        "label": "城市｜汽车前排驾乘人员安全带使用率｜四季度",
+        "unit": null,
+        "values": [
+          99.2,
+          98.8,
+          98.0,
+          98.6,
+          99.8,
+          99.1,
+          98.2,
+          99.4
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,405 @@
+{
+  "asset_id": "da_704a3f5363a93522b3f3a2a5",
+  "axes": {
+    "x": {
+      "max": 9,
+      "min": 0,
+      "ticks": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 450,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300,
+          350,
+          400,
+          450
+        ],
+        "title": null,
+        "unit": "个"
+      }
+    ]
+  },
+  "categories": [
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "其他",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "中国",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "日本",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "欧洲",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "美国",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "其他",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        6,
+        10,
+        12,
+        26,
+        20,
+        16,
+        32,
+        33,
+        37,
+        28
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "中国",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        9,
+        10,
+        20,
+        25,
+        40,
+        50,
+        112,
+        116,
+        127,
+        120
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "日本",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        7,
+        8,
+        10,
+        8,
+        11,
+        10,
+        17,
+        12,
+        13,
+        12
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "欧洲",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        31,
+        40,
+        44,
+        42,
+        63,
+        55,
+        61,
+        70,
+        77,
+        72
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "美国",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        47,
+        75,
+        77,
+        89,
+        104,
+        134,
+        138,
+        178,
+        159,
+        151
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0128_06c0d7ce3cd95f50.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0128_06c0d7ce3cd95f50.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_39d3da018dad4b97c3ae",
+        "question_number": 106,
+        "source_jsonl_line": 24488
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0131_172f179ef8f7ea13.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_15ce4d6d2e60e30e9415",
+        "question_number": 107,
+        "source_jsonl_line": 24489
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0131_172f179ef8f7ea13.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_63d263efb6cb3da61aae",
+        "question_number": 108,
+        "source_jsonl_line": 24490
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0131_172f179ef8f7ea13.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cf32dc0501249bfbbbf7",
+        "question_number": 109,
+        "source_jsonl_line": 24491
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0131_172f179ef8f7ea13.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7cd0c2b160665aa9098b",
+        "question_number": 110,
+        "source_jsonl_line": 24492
+      }
+    ],
+    "sha256": "704a3f5363a93522b3f3a2a5ba36e5e6ed079f754f7a84b42a1e99bd74aef138"
+  },
+  "structured_visual": null,
+  "table": {
+    "columns": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "rows": [
+      {
+        "label": "其他",
+        "values": [
+          6,
+          10,
+          12,
+          26,
+          20,
+          16,
+          32,
+          33,
+          37,
+          28
+        ]
+      },
+      {
+        "label": "中国",
+        "values": [
+          9,
+          10,
+          20,
+          25,
+          40,
+          50,
+          112,
+          116,
+          127,
+          120
+        ]
+      },
+      {
+        "label": "日本",
+        "values": [
+          7,
+          8,
+          10,
+          8,
+          11,
+          10,
+          17,
+          12,
+          13,
+          12
+        ]
+      },
+      {
+        "label": "欧洲",
+        "values": [
+          31,
+          40,
+          44,
+          42,
+          63,
+          55,
+          61,
+          70,
+          77,
+          72
+        ]
+      },
+      {
+        "label": "美国",
+        "values": [
+          47,
+          75,
+          77,
+          89,
+          104,
+          134,
+          138,
+          178,
+          159,
+          151
+        ]
+      }
+    ]
+  },
+  "title": "2015-2024年全球不同国家、地区FIC创新药研发数量",
+  "unit": "个",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_704a3f5363a93522b3f3a2a5/column_band_01.jpg",
+        "review-crops/da_704a3f5363a93522b3f3a2a5/column_band_02.jpg",
+        "review-crops/da_704a3f5363a93522b3f3a2a5/column_band_03.jpg",
+        "review-crops/da_704a3f5363a93522b3f3a2a5/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:15.183",
+      "crop_verification_elapsed_seconds:10.907",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "table_row_label_column_removed:类别"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

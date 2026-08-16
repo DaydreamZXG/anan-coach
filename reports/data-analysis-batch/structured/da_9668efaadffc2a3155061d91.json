@@ -1,0 +1,232 @@
+{
+  "asset_id": "da_9668efaadffc2a3155061d91",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 70000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000,
+          60000,
+          70000
+        ],
+        "title": "用户数量",
+        "unit": "户"
+      }
+    ]
+  },
+  "categories": [
+    "2010年",
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "固定互联网宽带接入用户",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "移动宽带用户",
+      "style": {
+        "dash": null,
+        "fill": "#808080",
+        "marker": null,
+        "stroke": "#808080"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "固定互联网宽带接入用户",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "户",
+      "values": [
+        12629,
+        15000,
+        17518,
+        18891,
+        20048
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "移动宽带用户",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "户",
+      "values": [
+        4705,
+        12842,
+        23280,
+        40161,
+        58254
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0150_877fe32b82c713e6.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0150_877fe32b82c713e6.jpg",
+        "paper_title": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_75591fb8a0e319244bf3",
+        "question_number": 76,
+        "source_jsonl_line": 85149
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0150_877fe32b82c713e6.jpg",
+        "paper_title": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_8d92c338b5ab76ec8221",
+        "question_number": 77,
+        "source_jsonl_line": 85150
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0157_a3adda24a0b4e043.jpg",
+        "paper_title": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_42bf0e3a2a71fe6dc374",
+        "question_number": 78,
+        "source_jsonl_line": 85151
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0157_a3adda24a0b4e043.jpg",
+        "paper_title": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_49aa9fdc67f1f5949307",
+        "question_number": 79,
+        "source_jsonl_line": 85152
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0157_a3adda24a0b4e043.jpg",
+        "paper_title": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_79ef0c68c54e54d2724e",
+        "question_number": 80,
+        "source_jsonl_line": 85153
+      }
+    ],
+    "sha256": "9668efaadffc2a3155061d91924794f5bef24137ae0be8b706366703c1f54f87"
+  },
+  "structured_visual": null,
+  "table": {
+    "columns": [
+      "年份",
+      "固定互联网宽带接入用户",
+      "移动宽带用户"
+    ],
+    "rows": [
+      {
+        "label": "2010年",
+        "values": [
+          "2010年",
+          12629,
+          4705
+        ]
+      },
+      {
+        "label": "2011年",
+        "values": [
+          "2011年",
+          15000,
+          12842
+        ]
+      },
+      {
+        "label": "2012年",
+        "values": [
+          "2012年",
+          17518,
+          23280
+        ]
+      },
+      {
+        "label": "2013年",
+        "values": [
+          "2013年",
+          18891,
+          40161
+        ]
+      },
+      {
+        "label": "2014年",
+        "values": [
+          "2014年",
+          20048,
+          58254
+        ]
+      }
+    ]
+  },
+  "title": "固定互联网宽带接入用户和移动宽带用户数量",
+  "unit": "户",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9668efaadffc2a3155061d91/column_band_01.jpg",
+        "review-crops/da_9668efaadffc2a3155061d91/column_band_02.jpg",
+        "review-crops/da_9668efaadffc2a3155061d91/column_band_03.jpg",
+        "review-crops/da_9668efaadffc2a3155061d91/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.161",
+      "crop_verification_elapsed_seconds:3.314",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

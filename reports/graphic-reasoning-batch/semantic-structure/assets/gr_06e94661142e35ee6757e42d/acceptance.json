@@ -1,0 +1,24 @@
+{
+  "assetId": "gr_06e94661142e35ee6757e42d",
+  "attempts": 1,
+  "checkpointKey": "5a8d39d9bad58cd5936439542f331c604e35d059614e885efe52b575ee5d2d94",
+  "finalVectorAcceptance": false,
+  "gates": {
+    "answerIsolation": "pass",
+    "modelSchema": "pass",
+    "optionCountAgreement": "pass",
+    "originalImagePresentation": "pass",
+    "panelCountAgreement": "pass",
+    "panelCountResolution": "pass",
+    "sourceHash": "pass",
+    "vectorEnhancement": "not_applicable"
+  },
+  "geometryAuthority": false,
+  "model": "qwen3-vl-30b-a3b",
+  "normalizations": [],
+  "runtimeError": null,
+  "schemaVersion": "graphic-reasoning-semantic-acceptance-v1",
+  "sourceSha256": "06e94661142e35ee6757e42d903d019c853546aa658244a4294ca9317e0e0b13",
+  "status": "semantic_candidate_validated",
+  "validationErrors": []
+}

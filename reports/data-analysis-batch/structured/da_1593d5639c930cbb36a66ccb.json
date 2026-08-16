@@ -1,0 +1,228 @@
+{
+  "asset_id": "da_1593d5639c930cbb36a66ccb",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0237_86d1bb96bd5de352.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0237_86d1bb96bd5de352.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_3e016ea8de3096fe425a",
+        "question_number": 151,
+        "source_jsonl_line": 6950
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0237_86d1bb96bd5de352.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_997a389cb3a48aa00fc0",
+        "question_number": 152,
+        "source_jsonl_line": 6951
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0234_86d1bb96bd5de352.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_2f915d05a56bd91ae64a",
+        "question_number": 150,
+        "source_jsonl_line": 25156
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0234_86d1bb96bd5de352.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_0ad1289491b16ad0e3c4",
+        "question_number": 151,
+        "source_jsonl_line": 25157
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0234_86d1bb96bd5de352.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_9280ffe336ee347babd5",
+        "question_number": 152,
+        "source_jsonl_line": 25158
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0234_86d1bb96bd5de352.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_c92b3c58185ee50690c2",
+        "question_number": 153,
+        "source_jsonl_line": 25159
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0233_86d1bb96bd5de352.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_a841b55ef76a9537e7c5",
+        "question_number": 150,
+        "source_jsonl_line": 40816
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0233_86d1bb96bd5de352.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_3f4d92ed19b0f8541a9e",
+        "question_number": 152,
+        "source_jsonl_line": 40818
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0240_86d1bb96bd5de352.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_7d0683312188a73ce636",
+        "question_number": 153,
+        "source_jsonl_line": 65415
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0244_86d1bb96bd5de352.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_8aa94a8e570278e792b3",
+        "question_number": 151,
+        "source_jsonl_line": 82936
+      }
+    ],
+    "sha256": "1593d5639c930cbb36a66ccb6cad827fe5ad238c556291d24b323108891ad8ed"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "产量（万吨）",
+      "比上年增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "粮食",
+        "unit": null,
+        "values": [
+          "粮食",
+          115.7,
+          -7.3
+        ]
+      },
+      {
+        "label": "蔬菜",
+        "unit": null,
+        "values": [
+          "蔬菜",
+          303.0,
+          -4.5
+        ]
+      },
+      {
+        "label": "肉类",
+        "unit": null,
+        "values": [
+          "肉类",
+          46.3,
+          -2.0
+        ]
+      },
+      {
+        "label": "禽蛋",
+        "unit": null,
+        "values": [
+          "禽蛋",
+          15.1,
+          -1.7
+        ]
+      },
+      {
+        "label": "水产品",
+        "unit": null,
+        "values": [
+          "水产品",
+          6.3,
+          9.0
+        ]
+      },
+      {
+        "label": "牛奶",
+        "unit": null,
+        "values": [
+          "牛奶",
+          64.1,
+          -4.9
+        ]
+      },
+      {
+        "label": "干鲜果品",
+        "unit": null,
+        "values": [
+          "干鲜果品",
+          85.4,
+          -5.5
+        ]
+      }
+    ]
+  },
+  "title": "2010年主要农副产品产量",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1593d5639c930cbb36a66ccb/row_band_01.jpg",
+        "review-crops/da_1593d5639c930cbb36a66ccb/row_band_02.jpg",
+        "review-crops/da_1593d5639c930cbb36a66ccb/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.519",
+      "crop_verification_elapsed_seconds:5.014",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'蔬菜'的产量值为303.0，原为303.0（无变化）",
+      "crop_note:修正了'水产品'的产量值为6.3，原为6.3（无变化）",
+      "crop_note:修正了'牛奶'的产量值为64.1，原为64.1（无变化）",
+      "crop_note:修正了'干鲜果品'的产量值为85.4，原为85.4（无变化）",
+      "crop_note:确认所有负号、小数点和百分号格式正确",
+      "crop_note:确认所有缺失值保持为null，未补0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

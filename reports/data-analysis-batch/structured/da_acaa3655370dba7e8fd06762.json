@@ -1,0 +1,263 @@
+{
+  "asset_id": "da_acaa3655370dba7e8fd06762",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2023年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0074_e75d98a6b17fae80.jpg",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2023年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0074_e75d98a6b17fae80.jpg",
+        "paper_title": "2023年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_67dc7095bca1749883f1",
+        "question_number": 94,
+        "source_jsonl_line": 13610
+      }
+    ],
+    "sha256": "acaa3655370dba7e8fd0676277a4938c2cf1367c253ad15a70ce6a61932af55d"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 0,
+      "estimatedDrawCommandCount": 12,
+      "panelCount": 4,
+      "pointCount": 12
+    },
+    "coordinateSpace": {
+      "height": 306,
+      "width": 500
+    },
+    "evidence": {
+      "converterVersion": "semantic-microcharts-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "39178cea7667cdb88eab92dbfe88f1b93266a50f20241a698aaa5ce3bec64940",
+      "sourceAsset": "da_acaa3655370dba7e8fd06762",
+      "sourceSha256": "acaa3655370dba7e8fd0676277a4938c2cf1367c253ad15a70ce6a61932af55d"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 98,
+          "width": 137,
+          "x": 63,
+          "y": 12
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.98969
+            },
+            {
+              "x": 0.50735,
+              "y": 0.7732
+            },
+            {
+              "x": 1.0,
+              "y": 0.02062
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_acaa3655370dba7e8fd06762-0",
+        "label": "A",
+        "position": 0
+      },
+      {
+        "bounds": {
+          "height": 100,
+          "width": 154,
+          "x": 308,
+          "y": 9
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.01515
+            },
+            {
+              "x": 0.4902,
+              "y": 0.71717
+            },
+            {
+              "x": 1.0,
+              "y": 0.98485
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_acaa3655370dba7e8fd06762-1",
+        "label": "B",
+        "position": 1
+      },
+      {
+        "bounds": {
+          "height": 115,
+          "width": 177,
+          "x": 59,
+          "y": 153
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.97807
+            },
+            {
+              "x": 0.49432,
+              "y": 0.01754
+            },
+            {
+              "x": 1.0,
+              "y": 0.74123
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_acaa3655370dba7e8fd06762-2",
+        "label": "C",
+        "position": 2
+      },
+      {
+        "bounds": {
+          "height": 112,
+          "width": 174,
+          "x": 294,
+          "y": 158
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.73874
+            },
+            {
+              "x": 0.50289,
+              "y": 0.01802
+            },
+            {
+              "x": 1.0,
+              "y": 0.98649
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_acaa3655370dba7e8fd06762-3",
+        "label": "D",
+        "position": 3
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "line_options"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_acaa3655370dba7e8fd06762/column_band_01.jpg",
+        "review-crops/da_acaa3655370dba7e8fd06762/column_band_02.jpg",
+        "review-crops/da_acaa3655370dba7e8fd06762/column_band_03.jpg",
+        "review-crops/da_acaa3655370dba7e8fd06762/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.958",
+      "crop_verification_elapsed_seconds:2.951",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:无法确定x轴和y轴的单位和刻度",
+      "model_uncertainty:无法确定数据点的具体数值",
+      "model_uncertainty:无法确定图中各线段的起止点坐标",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_chart_point:A:A",
+      "crop_note:ignored_unknown_chart_point:A:B",
+      "crop_note:ignored_unknown_chart_point:A:C",
+      "crop_note:ignored_unknown_chart_point:A:D",
+      "crop_note:ignored_unknown_chart_point:B:A",
+      "crop_note:ignored_unknown_chart_point:B:B",
+      "crop_note:ignored_unknown_chart_point:B:C",
+      "crop_note:ignored_unknown_chart_point:B:D",
+      "crop_note:ignored_unknown_chart_point:C:A",
+      "crop_note:ignored_unknown_chart_point:C:B",
+      "crop_note:ignored_unknown_chart_point:C:C",
+      "crop_note:ignored_unknown_chart_point:C:D",
+      "crop_note:ignored_unknown_chart_point:D:A",
+      "crop_note:ignored_unknown_chart_point:D:B",
+      "crop_note:ignored_unknown_chart_point:D:C",
+      "crop_note:ignored_unknown_chart_point:D:D",
+      "non_data_option_sparkline",
+      "foreground_iou:0.762458",
+      "mean_absolute_error:1.985179",
+      "trace_parameters:{\"epsilonRatio\": 0.006, \"minimumContourArea\": 3.0, \"paletteSize\": 6}",
+      "visual_grammar:line_options",
+      "visual_grammar:line_options",
+      "converter:semantic-microcharts-v1",
+      "visual_grammar:line_options",
+      "comparison_artifact:previews/structured_visual/da_acaa3655370dba7e8fd06762-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

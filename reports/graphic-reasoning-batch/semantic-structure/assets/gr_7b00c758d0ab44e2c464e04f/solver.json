@@ -1,0 +1,1298 @@
+{
+  "assetId": "gr_7b00c758d0ab44e2c464e04f",
+  "crossPanelPatterns": [
+    {
+      "confidence": 0.7,
+      "description": "The internal curved and straight elements rotate in position across panels",
+      "from_panels": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "subjects": [
+        "p1e3",
+        "p1e4",
+        "p2e3",
+        "p2e4",
+        "p3e3",
+        "p3e4",
+        "p4e3",
+        "p4e4",
+        "p5e3",
+        "p5e4"
+      ],
+      "to_panels": [
+        6
+      ],
+      "type": "rotation"
+    },
+    {
+      "confidence": 0.6,
+      "description": "The number of internal curved and straight elements varies across panels",
+      "from_panels": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "subjects": [
+        "p1e3",
+        "p1e4",
+        "p2e3",
+        "p2e4",
+        "p3e3",
+        "p3e4",
+        "p4e3",
+        "p4e4",
+        "p5e3",
+        "p5e4"
+      ],
+      "to_panels": [
+        6
+      ],
+      "type": "add_remove"
+    },
+    {
+      "confidence": 0.9,
+      "description": "The outer square and internal grid lines are consistent across all panels",
+      "from_panels": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "subjects": [
+        "p1e1",
+        "p1e2",
+        "p2e1",
+        "p2e2",
+        "p3e1",
+        "p3e2",
+        "p4e1",
+        "p4e2",
+        "p5e1",
+        "p5e2"
+      ],
+      "to_panels": [
+        6
+      ],
+      "type": "sequence_repeat"
+    }
+  ],
+  "layout": {
+    "authority": "cv_model_agreement",
+    "cvCandidate": {
+      "layoutType": "sequence",
+      "optionCount": 4,
+      "panelCount": 10,
+      "panelRoles": [
+        "stem",
+        "stem",
+        "stem",
+        "stem",
+        "stem",
+        "missing",
+        "option",
+        "option",
+        "option",
+        "option"
+      ],
+      "source": "phase1_benchmark_cv"
+    },
+    "layoutType": "sequence",
+    "optionCount": 4,
+    "panelCount": 10
+  },
+  "panels": [
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 1,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 3,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p1e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "polygon",
+          "label": "outer_square",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 2,
+          "features": [],
+          "fill_state": "none",
+          "id": "p1e2",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "center"
+            },
+            {
+              "orientation": "vertical",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_grid_lines",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p1e3",
+          "instances": [
+            {
+              "orientation": "clockwise",
+              "relative_region": "bottom_left"
+            }
+          ],
+          "kind": "arc",
+          "label": "quarter_circle",
+          "line_character": "curved",
+          "orientation": "clockwise",
+          "parts": [],
+          "relative_region": "bottom_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p1e4",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "bottom_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "diagonal_line",
+          "line_character": "straight",
+          "orientation": "diagonal_up",
+          "parts": [],
+          "relative_region": "bottom_left",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 1,
+      "relations": [
+        {
+          "description": "internal grid lines inside outer square",
+          "subjects": [
+            "p1e1",
+            "p1e2"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "quarter circle and diagonal line touch at bottom-left corner",
+          "subjects": [
+            "p1e3",
+            "p1e4"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 4,
+        "junction_count": 1,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 1,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 4,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p2e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "polygon",
+          "label": "outer_square",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 2,
+          "features": [],
+          "fill_state": "none",
+          "id": "p2e2",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "center"
+            },
+            {
+              "orientation": "vertical",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_grid_lines",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p2e3",
+          "instances": [
+            {
+              "orientation": "clockwise",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "arc",
+          "label": "quarter_circle",
+          "line_character": "curved",
+          "orientation": "clockwise",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p2e4",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "diagonal_line",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p2e5",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "top"
+            }
+          ],
+          "kind": "polyline",
+          "label": "horizontal_line",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "top",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 2,
+      "relations": [
+        {
+          "description": "internal grid lines inside outer square",
+          "subjects": [
+            "p2e1",
+            "p2e2"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "quarter circle and diagonal line touch at top-left corner",
+          "subjects": [
+            "p2e3",
+            "p2e4"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 5,
+        "endpoint_count": 4,
+        "junction_count": 1,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 1,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 3,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p3e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "polygon",
+          "label": "outer_square",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 2,
+          "features": [],
+          "fill_state": "none",
+          "id": "p3e2",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "center"
+            },
+            {
+              "orientation": "vertical",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_grid_lines",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p3e3",
+          "instances": [
+            {
+              "orientation": "vertical",
+              "relative_region": "bottom"
+            }
+          ],
+          "kind": "polyline",
+          "label": "V_shape",
+          "line_character": "straight",
+          "orientation": "vertical",
+          "parts": [],
+          "relative_region": "bottom",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p3e4",
+          "instances": [
+            {
+              "orientation": "clockwise",
+              "relative_region": "bottom"
+            }
+          ],
+          "kind": "arc",
+          "label": "semicircle",
+          "line_character": "curved",
+          "orientation": "clockwise",
+          "parts": [],
+          "relative_region": "bottom",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 3,
+      "relations": [
+        {
+          "description": "internal grid lines inside outer square",
+          "subjects": [
+            "p3e1",
+            "p3e2"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "V-shape and semicircle touch at bottom center",
+          "subjects": [
+            "p3e3",
+            "p3e4"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 4,
+        "junction_count": 1,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 1,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 3,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p4e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "polygon",
+          "label": "outer_square",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 2,
+          "features": [],
+          "fill_state": "none",
+          "id": "p4e2",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "center"
+            },
+            {
+              "orientation": "vertical",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_grid_lines",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p4e3",
+          "instances": [
+            {
+              "orientation": "clockwise",
+              "relative_region": "top"
+            }
+          ],
+          "kind": "arc",
+          "label": "semicircle",
+          "line_character": "curved",
+          "orientation": "clockwise",
+          "parts": [],
+          "relative_region": "top",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p4e4",
+          "instances": [
+            {
+              "orientation": "vertical",
+              "relative_region": "bottom"
+            }
+          ],
+          "kind": "polyline",
+          "label": "U_shape",
+          "line_character": "straight",
+          "orientation": "vertical",
+          "parts": [],
+          "relative_region": "bottom",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 4,
+      "relations": [
+        {
+          "description": "internal grid lines inside outer square",
+          "subjects": [
+            "p4e1",
+            "p4e2"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "semicircle and U-shape touch at bottom center",
+          "subjects": [
+            "p4e3",
+            "p4e4"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 4,
+        "junction_count": 1,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 1,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 3,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p5e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "polygon",
+          "label": "outer_square",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 2,
+          "features": [],
+          "fill_state": "none",
+          "id": "p5e2",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "center"
+            },
+            {
+              "orientation": "vertical",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_grid_lines",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p5e3",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_right"
+            }
+          ],
+          "kind": "polyline",
+          "label": "diagonal_line",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "top_right",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p5e4",
+          "instances": [
+            {
+              "orientation": "clockwise",
+              "relative_region": "top_right"
+            }
+          ],
+          "kind": "arc",
+          "label": "quarter_circle",
+          "line_character": "curved",
+          "orientation": "clockwise",
+          "parts": [],
+          "relative_region": "top_right",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 5,
+      "relations": [
+        {
+          "description": "internal grid lines inside outer square",
+          "subjects": [
+            "p5e1",
+            "p5e2"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "diagonal line and quarter circle touch at top-right corner",
+          "subjects": [
+            "p5e3",
+            "p5e4"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 4,
+        "junction_count": 1,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 0,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [],
+      "observations": [],
+      "option_label": null,
+      "position": 6,
+      "relations": [],
+      "role": "missing",
+      "topology": {
+        "component_count": 0,
+        "endpoint_count": 0,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 1,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 3,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p7e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "polygon",
+          "label": "outer_square",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 2,
+          "features": [],
+          "fill_state": "none",
+          "id": "p7e2",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "center"
+            },
+            {
+              "orientation": "vertical",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_grid_lines",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p7e3",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "arc",
+          "label": "semicircle",
+          "line_character": "curved",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "A",
+      "position": 7,
+      "relations": [
+        {
+          "description": "internal grid lines inside outer square",
+          "subjects": [
+            "p7e1",
+            "p7e2"
+          ],
+          "type": "inside"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 2,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 1,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 3,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p8e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "polygon",
+          "label": "outer_square",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 2,
+          "features": [],
+          "fill_state": "none",
+          "id": "p8e2",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "center"
+            },
+            {
+              "orientation": "vertical",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_grid_lines",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p8e3",
+          "instances": [
+            {
+              "orientation": "vertical",
+              "relative_region": "bottom"
+            }
+          ],
+          "kind": "polyline",
+          "label": "V_shape",
+          "line_character": "straight",
+          "orientation": "vertical",
+          "parts": [],
+          "relative_region": "bottom",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p8e4",
+          "instances": [
+            {
+              "orientation": "clockwise",
+              "relative_region": "bottom"
+            }
+          ],
+          "kind": "arc",
+          "label": "semicircle",
+          "line_character": "curved",
+          "orientation": "clockwise",
+          "parts": [],
+          "relative_region": "bottom",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "B",
+      "position": 8,
+      "relations": [
+        {
+          "description": "internal grid lines inside outer square",
+          "subjects": [
+            "p8e1",
+            "p8e2"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "V-shape and semicircle touch at bottom center",
+          "subjects": [
+            "p8e3",
+            "p8e4"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 4,
+        "junction_count": 1,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 1,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 3,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p9e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "polygon",
+          "label": "outer_square",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 2,
+          "features": [],
+          "fill_state": "none",
+          "id": "p9e2",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "center"
+            },
+            {
+              "orientation": "vertical",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_grid_lines",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p9e3",
+          "instances": [
+            {
+              "orientation": "clockwise",
+              "relative_region": "top"
+            }
+          ],
+          "kind": "arc",
+          "label": "semicircle",
+          "line_character": "curved",
+          "orientation": "clockwise",
+          "parts": [],
+          "relative_region": "top",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p9e4",
+          "instances": [
+            {
+              "orientation": "vertical",
+              "relative_region": "bottom"
+            }
+          ],
+          "kind": "polyline",
+          "label": "U_shape",
+          "line_character": "straight",
+          "orientation": "vertical",
+          "parts": [],
+          "relative_region": "bottom",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "C",
+      "position": 9,
+      "relations": [
+        {
+          "description": "internal grid lines inside outer square",
+          "subjects": [
+            "p9e1",
+            "p9e2"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "semicircle and U-shape touch at bottom center",
+          "subjects": [
+            "p9e3",
+            "p9e4"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 4,
+        "junction_count": 1,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 1,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 3,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p10e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "polygon",
+          "label": "outer_square",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 2,
+          "features": [],
+          "fill_state": "none",
+          "id": "p10e2",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "center"
+            },
+            {
+              "orientation": "vertical",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_grid_lines",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p10e3",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "arc",
+          "label": "semicircle",
+          "line_character": "curved",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "D",
+      "position": 10,
+      "relations": [
+        {
+          "description": "internal grid lines inside outer square",
+          "subjects": [
+            "p10e1",
+            "p10e2"
+          ],
+          "type": "inside"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 2,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    }
+  ],
+  "presentation": {
+    "imageAuthority": "source_sha256",
+    "mode": "original_image",
+    "vectorRequired": false
+  },
+  "schemaVersion": "graphic-reasoning-ai-semantic-v1",
+  "source": {
+    "imagePaths": [
+      "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广西/2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0052_7e479c60368caf40.png",
+      "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/海南/2026年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0102_7e479c60368caf40.png",
+      "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/甘肃/2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0127_7e479c60368caf40.png",
+      "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/福建/2026年福建省公务员录用考试《行测》题（网友回忆版）_images/img_0085_c339890fd961ec47.png"
+    ],
+    "questionReferences": [
+      {
+        "field": "stem_html",
+        "knowledgePoint": "数量规律-面",
+        "questionId": "pq_05ff290151a80dc6b59c",
+        "role": "stem",
+        "sourceJsonlLine": 39968
+      },
+      {
+        "field": "stem_html",
+        "knowledgePoint": "数量规律-面",
+        "questionId": "pq_18c82ae463249f011d2b",
+        "role": "stem",
+        "sourceJsonlLine": 79276
+      },
+      {
+        "field": "stem_html",
+        "knowledgePoint": "数量规律-面",
+        "questionId": "pq_79010c9e4e30eb5365b4",
+        "role": "stem",
+        "sourceJsonlLine": 66828
+      },
+      {
+        "field": "stem_html",
+        "knowledgePoint": "数量规律-面",
+        "questionId": "pq_d01a9f06ed249664219b",
+        "role": "stem",
+        "sourceJsonlLine": 76128
+      }
+    ],
+    "sha256": "7b00c758d0ab44e2c464e04f809f8c6e5d4d1fede558131385aff156347be4b0"
+  },
+  "uncertainties": [
+    "The exact nature of the rotation pattern is ambiguous due to varying element types and positions.",
+    "The add-remove pattern is not clearly defined as some elements appear in multiple panels."
+  ],
+  "vectorEnhancement": {
+    "blocking": false,
+    "status": "repair_pending"
+  },
+  "visualGrammar": "regular_geometry"
+}

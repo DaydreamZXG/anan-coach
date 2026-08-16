@@ -1,0 +1,300 @@
+{
+  "asset_id": "da_f89231ee7b80d5d5b381b6b5",
+  "axes": {
+    "x": {
+      "max": 2017,
+      "min": 2013,
+      "ticks": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 40000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000,
+          30000,
+          35000,
+          40000
+        ],
+        "title": null,
+        "unit": "(元)"
+      }
+    ]
+  },
+  "categories": [
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "农村",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "城镇",
+      "style": {
+        "dash": null,
+        "fill": "#A9A9A9",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "全国",
+      "style": {
+        "dash": null,
+        "fill": "#696969",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "农村",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(元)",
+      "values": [
+        9430,
+        10489,
+        11422,
+        12363,
+        13432
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "城镇",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(元)",
+      "values": [
+        18311,
+        20167,
+        21966,
+        23821,
+        25974
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "全国",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(元)",
+      "values": [
+        26467,
+        28844,
+        31195,
+        33616,
+        36390
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0222_04c59848bf5f86fe.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0222_04c59848bf5f86fe.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_eff03c19f45116f3a310",
+        "question_number": 121,
+        "source_jsonl_line": 48031
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0222_04c59848bf5f86fe.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_6db81aa0efb7436118f7",
+        "question_number": 122,
+        "source_jsonl_line": 48032
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0222_04c59848bf5f86fe.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_7dcba4c6d3ef3228df4e",
+        "question_number": 123,
+        "source_jsonl_line": 48033
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0222_04c59848bf5f86fe.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_83ce17cfce9c5f1bbab4",
+        "question_number": 124,
+        "source_jsonl_line": 48034
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0222_04c59848bf5f86fe.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_2e9ece6cadc24fe9130c",
+        "question_number": 125,
+        "source_jsonl_line": 48035
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0315_04c59848bf5f86fe.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_1bc85a6538b71c5c3a88",
+        "question_number": 131,
+        "source_jsonl_line": 48176
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0315_04c59848bf5f86fe.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_de9ee8ae4d4b960ac90a",
+        "question_number": 132,
+        "source_jsonl_line": 48177
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0315_04c59848bf5f86fe.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_ea0543415e41cd0773de",
+        "question_number": 133,
+        "source_jsonl_line": 48178
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0315_04c59848bf5f86fe.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_b949a41c360d7aeb12d5",
+        "question_number": 134,
+        "source_jsonl_line": 48179
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0341_01c8f17473c93ecd.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_1a6b109c42f4865d065a",
+        "question_number": 135,
+        "source_jsonl_line": 48180
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0251_04c59848bf5f86fe.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_c978214f19dea4d0f67a",
+        "question_number": 121,
+        "source_jsonl_line": 48301
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0253_01c8f17473c93ecd.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_14faae6e04798d81c4a3",
+        "question_number": 122,
+        "source_jsonl_line": 48302
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0251_04c59848bf5f86fe.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_a380df1c8f51a4e4a6af",
+        "question_number": 123,
+        "source_jsonl_line": 48303
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0251_04c59848bf5f86fe.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_e9bc5615897d8cbd92d5",
+        "question_number": 124,
+        "source_jsonl_line": 48304
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0251_04c59848bf5f86fe.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_b6f0721c2819f9c6fc0c",
+        "question_number": 125,
+        "source_jsonl_line": 48305
+      }
+    ],
+    "sha256": "f89231ee7b80d5d5b381b6b526e385a39ff4392a2e7a1a2bb4638217f44c20cb"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013—2017年全国、城镇和农村居民人均可支配收入情况",
+  "unit": "(元)",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f89231ee7b80d5d5b381b6b5/column_band_01.jpg",
+        "review-crops/da_f89231ee7b80d5d5b381b6b5/column_band_02.jpg",
+        "review-crops/da_f89231ee7b80d5d5b381b6b5/column_band_03.jpg",
+        "review-crops/da_f89231ee7b80d5d5b381b6b5/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.756",
+      "crop_verification_elapsed_seconds:3.721",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

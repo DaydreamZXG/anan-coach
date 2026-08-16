@@ -19,6 +19,12 @@ from app.domains.planning.repository_support import (
 )
 
 
+# New accounts may not have declared a study schedule yet. Planning still needs
+# a small, real capacity to publish the first diagnostic; this is an internal
+# projection only and is never written back as a user-confirmed preference.
+DEFAULT_UNCONFIRMED_DAILY_MINUTES = 30
+
+
 class CapacityRepositoryMixin:
     def lock_user(self, session: Session, *, user_id: str) -> None:
         owner = session.execute(
@@ -46,13 +52,20 @@ class CapacityRepositoryMixin:
             .mappings()
             .one_or_none()
         )
-        if row is None or row["daily_minutes"] is None or row["study_mode"] is None:
+        if row is None:
             raise PlanningContractError("Daily planning requires an onboarding study schedule")
+        daily_minutes = row["daily_minutes"]
+        study_mode = row["study_mode"]
+        if daily_minutes is None:
+            daily_minutes = DEFAULT_UNCONFIRMED_DAILY_MINUTES
+        if study_mode is None:
+            study_mode = "parttime"
         return ProfileSnapshot(
             profile_version=int(row["profile_version"]),
-            daily_minutes=int(row["daily_minutes"]),
-            study_mode=str(row["study_mode"]),
+            daily_minutes=int(daily_minutes),
+            study_mode=str(study_mode),
         )
+
     def current_or_create_preference(
         self,
         session: Session,

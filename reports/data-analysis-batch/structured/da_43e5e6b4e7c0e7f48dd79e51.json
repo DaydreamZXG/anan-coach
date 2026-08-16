@@ -1,0 +1,322 @@
+{
+  "asset_id": "da_43e5e6b4e7c0e7f48dd79e51",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "矿产品",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "进口量",
+        "unit": "万吨"
+      }
+    ]
+  },
+  "categories": [
+    "煤炭",
+    "原油",
+    "铁矿砂及精矿",
+    "锰矿砂及精矿",
+    "铬矿砂及精矿",
+    "铜矿砂及精矿",
+    "铝矿砂及精矿",
+    "镍矿砂及精矿",
+    "硫磺",
+    "氯化钾"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2011",
+      "label": "2011年",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        22228,
+        25378,
+        68584,
+        1297,
+        944,
+        638,
+        4484,
+        4806,
+        953,
+        642
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2012",
+      "label": "2012年",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        28851,
+        27102,
+        74355,
+        1237,
+        929,
+        783,
+        3961,
+        6245,
+        1120,
+        636
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2014年四川省公务员录用考试《行测》题_images/img_0211_1e7013fbe5608a27.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题_images/img_0211_1e7013fbe5608a27.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题",
+        "question_id": "pq_a949c0cf345bc4d98483",
+        "question_number": 116,
+        "source_jsonl_line": 14827
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题_images/img_0211_1e7013fbe5608a27.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题",
+        "question_id": "pq_402f9431020b4d700d87",
+        "question_number": 117,
+        "source_jsonl_line": 14828
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题_images/img_0211_1e7013fbe5608a27.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题",
+        "question_id": "pq_a388cde6301a8edf08b3",
+        "question_number": 118,
+        "source_jsonl_line": 14829
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题_images/img_0211_1e7013fbe5608a27.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题",
+        "question_id": "pq_2fba005bff3b5db349b9",
+        "question_number": 119,
+        "source_jsonl_line": 14830
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题_images/img_0211_1e7013fbe5608a27.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题",
+        "question_id": "pq_9bada98fba9dda965966",
+        "question_number": 120,
+        "source_jsonl_line": 14831
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山西省公务员录用考试《行测》题_images/img_0217_1e7013fbe5608a27.png",
+        "paper_title": "2014年山西省公务员录用考试《行测》题",
+        "question_id": "pq_c91c343e1347bf2c1053",
+        "question_number": 116,
+        "source_jsonl_line": 31954
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山西省公务员录用考试《行测》题_images/img_0218_1251c5c6584caf3d.png",
+        "paper_title": "2014年山西省公务员录用考试《行测》题",
+        "question_id": "pq_563e35ae661ef745a257",
+        "question_number": 117,
+        "source_jsonl_line": 31955
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山西省公务员录用考试《行测》题_images/img_0218_1251c5c6584caf3d.png",
+        "paper_title": "2014年山西省公务员录用考试《行测》题",
+        "question_id": "pq_95e0c40a12798c02a9ad",
+        "question_number": 118,
+        "source_jsonl_line": 31956
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山西省公务员录用考试《行测》题_images/img_0217_1e7013fbe5608a27.png",
+        "paper_title": "2014年山西省公务员录用考试《行测》题",
+        "question_id": "pq_83bacc00d5e371d735f0",
+        "question_number": 119,
+        "source_jsonl_line": 31957
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山西省公务员录用考试《行测》题_images/img_0217_1e7013fbe5608a27.png",
+        "paper_title": "2014年山西省公务员录用考试《行测》题",
+        "question_id": "pq_0d78b5e1a8d7837d4d20",
+        "question_number": 120,
+        "source_jsonl_line": 31958
+      }
+    ],
+    "sha256": "43e5e6b4e7c0e7f48dd79e51d0752d34e8bac27800de826ba9d0458fe9aebccb"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "矿产品",
+      "2011年",
+      "2012年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "煤炭",
+        "unit": null,
+        "values": [
+          "煤炭",
+          22228,
+          28851
+        ]
+      },
+      {
+        "label": "原油",
+        "unit": null,
+        "values": [
+          "原油",
+          25378,
+          27102
+        ]
+      },
+      {
+        "label": "铁矿砂及精矿",
+        "unit": null,
+        "values": [
+          "铁矿砂及精矿",
+          68584,
+          74355
+        ]
+      },
+      {
+        "label": "锰矿砂及精矿",
+        "unit": null,
+        "values": [
+          "锰矿砂及精矿",
+          1297,
+          1237
+        ]
+      },
+      {
+        "label": "铬矿砂及精矿",
+        "unit": null,
+        "values": [
+          "铬矿砂及精矿",
+          944,
+          929
+        ]
+      },
+      {
+        "label": "铜矿砂及精矿",
+        "unit": null,
+        "values": [
+          "铜矿砂及精矿",
+          638,
+          783
+        ]
+      },
+      {
+        "label": "铝矿砂及精矿",
+        "unit": null,
+        "values": [
+          "铝矿砂及精矿",
+          4484,
+          3961
+        ]
+      },
+      {
+        "label": "镍矿砂及精矿",
+        "unit": null,
+        "values": [
+          "镍矿砂及精矿",
+          4806,
+          6245
+        ]
+      },
+      {
+        "label": "硫磺",
+        "unit": null,
+        "values": [
+          "硫磺",
+          953,
+          1120
+        ]
+      },
+      {
+        "label": "氯化钾",
+        "unit": null,
+        "values": [
+          "氯化钾",
+          642,
+          636
+        ]
+      }
+    ]
+  },
+  "title": "2011~2012年重要矿产品进口量",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_43e5e6b4e7c0e7f48dd79e51/row_band_01.jpg",
+        "review-crops/da_43e5e6b4e7c0e7f48dd79e51/row_band_02.jpg",
+        "review-crops/da_43e5e6b4e7c0e7f48dd79e51/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.599",
+      "crop_verification_elapsed_seconds:15.129",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'铁矿砂及精矿'在2011年和2012年的数值，原图中为68584和74355，与首轮候选一致。",
+      "crop_note:修正了'锰矿砂及精矿'在2011年和2012年的数值，原图中为1297和1237，与首轮候选一致。",
+      "crop_note:修正了'铬矿砂及精矿'在2011年和2012年的数值，原图中为944和929，与首轮候选一致。",
+      "crop_note:修正了'铜矿砂及精矿'在2011年和2012年的数值，原图中为638和783，与首轮候选一致。",
+      "crop_note:修正了'铝矿砂及精矿'在2011年和2012年的数值，原图中为4484和3961，与首轮候选一致。",
+      "crop_note:修正了'镍矿砂及精矿'在2011年和2012年的数值，原图中为4806和6245，与首轮候选一致。",
+      "crop_note:修正了'硫磺'在2011年和2012年的数值，原图中为953和1120，与首轮候选一致。",
+      "crop_note:修正了'氯化钾'在2011年和2012年的数值，原图中为642和636，与首轮候选一致。",
+      "crop_note:确认所有数值均为整数，无小数、负号或百分号。",
+      "crop_note:确认所有缺失值保持为null，未补0。",
+      "crop_note:确认表格行列拓扑与原图一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

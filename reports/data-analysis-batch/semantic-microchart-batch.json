@@ -1,0 +1,1021 @@
+{
+  "converted": [
+    {
+      "asset_id": "da_15bd2f59b683082602442ff6",
+      "comparison_path": "previews/structured_visual/da_15bd2f59b683082602442ff6-comparison.png",
+      "complexity": {
+        "barCount": 4,
+        "estimatedDrawCommandCount": 8,
+        "panelCount": 1,
+        "pointCount": 0
+      },
+      "quality": {
+        "foregroundIoU": 0.121609,
+        "meanAbsoluteError": 11.322628,
+        "pixelDisagreementRatio": 0.06838
+      },
+      "render_sha256": "6145213a38df185e65020907672d363254bcb91696bf954b9b3acf0d63b4d879",
+      "rendered_path": "previews/structured_visual/da_15bd2f59b683082602442ff6.png",
+      "source_sha256": "15bd2f59b683082602442ff6d3221cac1837ca7bf38db98a478fe9e6fe205e74",
+      "structured_path": "structured/da_15bd2f59b683082602442ff6.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "signed_bar"
+      }
+    },
+    {
+      "asset_id": "da_1762806a922d3a72995e09fd",
+      "comparison_path": "previews/structured_visual/da_1762806a922d3a72995e09fd-comparison.png",
+      "complexity": {
+        "barCount": 4,
+        "estimatedDrawCommandCount": 8,
+        "panelCount": 1,
+        "pointCount": 0
+      },
+      "quality": {
+        "foregroundIoU": 0.055065,
+        "meanAbsoluteError": 4.365963,
+        "pixelDisagreementRatio": 0.063431
+      },
+      "render_sha256": "43a6db52678dfd8998041676e3427ed81d34c23e1a71dd36f65e776aa4ed148e",
+      "rendered_path": "previews/structured_visual/da_1762806a922d3a72995e09fd.png",
+      "source_sha256": "1762806a922d3a72995e09fdc735f4caffa2ed8516cf8305d11c1cd28994fbe6",
+      "structured_path": "structured/da_1762806a922d3a72995e09fd.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "signed_bar"
+      }
+    },
+    {
+      "asset_id": "da_191017a0b7140f905c63b990",
+      "comparison_path": "previews/structured_visual/da_191017a0b7140f905c63b990-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 4,
+        "panelCount": 1,
+        "pointCount": 4
+      },
+      "quality": {
+        "foregroundIoU": 0.296296,
+        "meanAbsoluteError": 7.531073,
+        "pixelDisagreementRatio": 0.051664
+      },
+      "render_sha256": "37673818ff674bc6a2f13a8dcb1cdd50c661c1b3ca5b35cf02e918a1c984d078",
+      "rendered_path": "previews/structured_visual/da_191017a0b7140f905c63b990.png",
+      "source_sha256": "191017a0b7140f905c63b9907fafc5cd5cec72430274a2b515cb8f46c24c5fe6",
+      "structured_path": "structured/da_191017a0b7140f905c63b990.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_196b99c737f71d7757afd66d",
+      "comparison_path": "previews/structured_visual/da_196b99c737f71d7757afd66d-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 17,
+        "panelCount": 4,
+        "pointCount": 17
+      },
+      "quality": {
+        "foregroundIoU": 0.324455,
+        "meanAbsoluteError": 4.074975,
+        "pixelDisagreementRatio": 0.043613
+      },
+      "render_sha256": "4c9aa070496c67e44bbc51aa47129d6a17a90eba8174ef18f7cca48304069221",
+      "rendered_path": "previews/structured_visual/da_196b99c737f71d7757afd66d.png",
+      "source_sha256": "196b99c737f71d7757afd66d183170ffec7d4138d37c1c880dc428d2ac56c4fa",
+      "structured_path": "structured/da_196b99c737f71d7757afd66d.json",
+      "trace": {
+        "panelCount": 4,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_options"
+      }
+    },
+    {
+      "asset_id": "da_1cdaa88588e606880162aa06",
+      "comparison_path": "previews/structured_visual/da_1cdaa88588e606880162aa06-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 3,
+        "panelCount": 1,
+        "pointCount": 3
+      },
+      "quality": {
+        "foregroundIoU": 0.321539,
+        "meanAbsoluteError": 5.112381,
+        "pixelDisagreementRatio": 0.052262
+      },
+      "render_sha256": "6b112500148a7cf64e0def26e55d2ec63bbe3c810f0d168b73215257c84a337f",
+      "rendered_path": "previews/structured_visual/da_1cdaa88588e606880162aa06.png",
+      "source_sha256": "1cdaa88588e606880162aa068276310cdedada29466737070375dbb680f810bd",
+      "structured_path": "structured/da_1cdaa88588e606880162aa06.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_21e4130b1a332fb56a790e36",
+      "comparison_path": "previews/structured_visual/da_21e4130b1a332fb56a790e36-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 12,
+        "panelCount": 4,
+        "pointCount": 12
+      },
+      "quality": {
+        "foregroundIoU": 0.388838,
+        "meanAbsoluteError": 2.673953,
+        "pixelDisagreementRatio": 0.038837
+      },
+      "render_sha256": "9d7e3937a2c49cab2c01911a19d7f6537e48fe04abba4c6c27c0b96d8904a08a",
+      "rendered_path": "previews/structured_visual/da_21e4130b1a332fb56a790e36.png",
+      "source_sha256": "21e4130b1a332fb56a790e3682a52520931344a9c2d4d3d2fe955e940399a14a",
+      "structured_path": "structured/da_21e4130b1a332fb56a790e36.json",
+      "trace": {
+        "panelCount": 4,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_options"
+      }
+    },
+    {
+      "asset_id": "da_287f23325243c30d342abce8",
+      "comparison_path": "previews/structured_visual/da_287f23325243c30d342abce8-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 3,
+        "panelCount": 1,
+        "pointCount": 3
+      },
+      "quality": {
+        "foregroundIoU": 0.506344,
+        "meanAbsoluteError": 1.937455,
+        "pixelDisagreementRatio": 0.027417
+      },
+      "render_sha256": "0ff9bc751b2e2d0f65f029d04899338ec75765f3789e86f7a0e61fef1b56442e",
+      "rendered_path": "previews/structured_visual/da_287f23325243c30d342abce8.png",
+      "source_sha256": "287f23325243c30d342abce8cb967a3801b38b1e86897072068532a6846a1223",
+      "structured_path": "structured/da_287f23325243c30d342abce8.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_3289de128a1e80a19b99ae1c",
+      "comparison_path": "previews/structured_visual/da_3289de128a1e80a19b99ae1c-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 3,
+        "panelCount": 1,
+        "pointCount": 3
+      },
+      "quality": {
+        "foregroundIoU": 0.159703,
+        "meanAbsoluteError": 7.496783,
+        "pixelDisagreementRatio": 0.03886
+      },
+      "render_sha256": "3665d3c3e6cbc3bacb3917c7b52a29bafbba20b0c09be2ecd410ce0cb6a8a362",
+      "rendered_path": "previews/structured_visual/da_3289de128a1e80a19b99ae1c.png",
+      "source_sha256": "3289de128a1e80a19b99ae1cd558e3b7da3cb914efcd414afd06c3fa7f3355c4",
+      "structured_path": "structured/da_3289de128a1e80a19b99ae1c.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_3293ef19598a7309247b816a",
+      "comparison_path": "previews/structured_visual/da_3293ef19598a7309247b816a-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 5,
+        "panelCount": 1,
+        "pointCount": 5
+      },
+      "quality": {
+        "foregroundIoU": 0.294227,
+        "meanAbsoluteError": 6.129919,
+        "pixelDisagreementRatio": 0.041117
+      },
+      "render_sha256": "92749d158598d07290fbbf5be2e134382374877dca19d77ef7808b77e2cd801f",
+      "rendered_path": "previews/structured_visual/da_3293ef19598a7309247b816a.png",
+      "source_sha256": "3293ef19598a7309247b816a3d5b88d2ce81df5dd9d984620f629f7df87e87ef",
+      "structured_path": "structured/da_3293ef19598a7309247b816a.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_34206afc5640b71a3e34c306",
+      "comparison_path": "previews/structured_visual/da_34206afc5640b71a3e34c306-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 16,
+        "panelCount": 4,
+        "pointCount": 16
+      },
+      "quality": {
+        "foregroundIoU": 0.473684,
+        "meanAbsoluteError": 4.718389,
+        "pixelDisagreementRatio": 0.065108
+      },
+      "render_sha256": "ccfba8e593501f3c75a92e964d6da74461671fd5b6062466f8d5541cecf036e5",
+      "rendered_path": "previews/structured_visual/da_34206afc5640b71a3e34c306.png",
+      "source_sha256": "34206afc5640b71a3e34c3067fdcc4b1e3ae160ed973689eda9c5d6cb2e7e882",
+      "structured_path": "structured/da_34206afc5640b71a3e34c306.json",
+      "trace": {
+        "panelCount": 4,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_options"
+      }
+    },
+    {
+      "asset_id": "da_3b811035646e3a7666367bf1",
+      "comparison_path": "previews/structured_visual/da_3b811035646e3a7666367bf1-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 4,
+        "panelCount": 1,
+        "pointCount": 4
+      },
+      "quality": {
+        "foregroundIoU": 0.199643,
+        "meanAbsoluteError": 5.332018,
+        "pixelDisagreementRatio": 0.031459
+      },
+      "render_sha256": "d6cd102609b406466cab036c5ab11ed12218c9ebdffff62edad220d3acdfcbae",
+      "rendered_path": "previews/structured_visual/da_3b811035646e3a7666367bf1.png",
+      "source_sha256": "3b811035646e3a7666367bf1bc599817064da7d71c4149855979c519586d91a5",
+      "structured_path": "structured/da_3b811035646e3a7666367bf1.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_3c1a00a2eb8eeaad3509a779",
+      "comparison_path": "previews/structured_visual/da_3c1a00a2eb8eeaad3509a779-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 12,
+        "panelCount": 4,
+        "pointCount": 12
+      },
+      "quality": {
+        "foregroundIoU": 0.312132,
+        "meanAbsoluteError": 2.836524,
+        "pixelDisagreementRatio": 0.023235
+      },
+      "render_sha256": "144bff6c5a9347000c74d4f7303a5a13d291ec295a0104d1c0a68bc86faadf10",
+      "rendered_path": "previews/structured_visual/da_3c1a00a2eb8eeaad3509a779.png",
+      "source_sha256": "3c1a00a2eb8eeaad3509a779cc531c714978aa6406c259c3dd1df4d54471cad5",
+      "structured_path": "structured/da_3c1a00a2eb8eeaad3509a779.json",
+      "trace": {
+        "panelCount": 4,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_options"
+      }
+    },
+    {
+      "asset_id": "da_3deecd32ee7d3ae8a367d100",
+      "comparison_path": "previews/structured_visual/da_3deecd32ee7d3ae8a367d100-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 4,
+        "panelCount": 1,
+        "pointCount": 4
+      },
+      "quality": {
+        "foregroundIoU": 0.349315,
+        "meanAbsoluteError": 4.905793,
+        "pixelDisagreementRatio": 0.036077
+      },
+      "render_sha256": "2f39421d532d73f8c0e02c6739e5b506d8802a5061f64b04eeda14701a993443",
+      "rendered_path": "previews/structured_visual/da_3deecd32ee7d3ae8a367d100.png",
+      "source_sha256": "3deecd32ee7d3ae8a367d1000df591b5005bcdba800e4df0ff5e670feb0ec57b",
+      "structured_path": "structured/da_3deecd32ee7d3ae8a367d100.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_4645eb91c7226d54638e6cfa",
+      "comparison_path": "previews/structured_visual/da_4645eb91c7226d54638e6cfa-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 4,
+        "panelCount": 1,
+        "pointCount": 4
+      },
+      "quality": {
+        "foregroundIoU": 0.443618,
+        "meanAbsoluteError": 3.535043,
+        "pixelDisagreementRatio": 0.030472
+      },
+      "render_sha256": "75e52818540157299ae93bf1e175e33fe2f79740ac1246717cb0e9de3665b967",
+      "rendered_path": "previews/structured_visual/da_4645eb91c7226d54638e6cfa.png",
+      "source_sha256": "4645eb91c7226d54638e6cfa626171122121de5634fd378c0162ff9997c0907d",
+      "structured_path": "structured/da_4645eb91c7226d54638e6cfa.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_47fea9a78a26a16c26214f18",
+      "comparison_path": "previews/structured_visual/da_47fea9a78a26a16c26214f18-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 4,
+        "panelCount": 1,
+        "pointCount": 4
+      },
+      "quality": {
+        "foregroundIoU": 0.238723,
+        "meanAbsoluteError": 5.989178,
+        "pixelDisagreementRatio": 0.039384
+      },
+      "render_sha256": "e890023c786d76ea2b1a6ff732f91a7bab468a76141d86c25f6e762a54b77fcd",
+      "rendered_path": "previews/structured_visual/da_47fea9a78a26a16c26214f18.png",
+      "source_sha256": "47fea9a78a26a16c26214f182f204b6e6845225c731b9311e21f9bcd236465aa",
+      "structured_path": "structured/da_47fea9a78a26a16c26214f18.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_5af8531a1d7b9e461f3cacb7",
+      "comparison_path": "previews/structured_visual/da_5af8531a1d7b9e461f3cacb7-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 5,
+        "panelCount": 1,
+        "pointCount": 5
+      },
+      "quality": {
+        "foregroundIoU": 0.122828,
+        "meanAbsoluteError": 3.972767,
+        "pixelDisagreementRatio": 0.021872
+      },
+      "render_sha256": "71648d92f9a5a1a65dbcff507369ffa1e737e546127b93329a53c955f1fd3306",
+      "rendered_path": "previews/structured_visual/da_5af8531a1d7b9e461f3cacb7.png",
+      "source_sha256": "5af8531a1d7b9e461f3cacb76fdd6b5902ff62c4abc2bf9c020bac64bd9d361c",
+      "structured_path": "structured/da_5af8531a1d7b9e461f3cacb7.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_5cc59dd32f2d3dcef3a0442b",
+      "comparison_path": "previews/structured_visual/da_5cc59dd32f2d3dcef3a0442b-comparison.png",
+      "complexity": {
+        "barCount": 4,
+        "estimatedDrawCommandCount": 8,
+        "panelCount": 1,
+        "pointCount": 0
+      },
+      "quality": {
+        "foregroundIoU": 0.187532,
+        "meanAbsoluteError": 6.885534,
+        "pixelDisagreementRatio": 0.033921
+      },
+      "render_sha256": "356efb2bed1a4d1d967e4c30448e10cb6fa2069c390d4d13698e50f519348ea3",
+      "rendered_path": "previews/structured_visual/da_5cc59dd32f2d3dcef3a0442b.png",
+      "source_sha256": "5cc59dd32f2d3dcef3a0442b341d006ea897ef30aa1a8aedc72df8433fe77775",
+      "structured_path": "structured/da_5cc59dd32f2d3dcef3a0442b.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "signed_bar"
+      }
+    },
+    {
+      "asset_id": "da_6fafe200231467d204c50ae2",
+      "comparison_path": "previews/structured_visual/da_6fafe200231467d204c50ae2-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 7,
+        "panelCount": 1,
+        "pointCount": 7
+      },
+      "quality": {
+        "foregroundIoU": 0.24605,
+        "meanAbsoluteError": 5.377118,
+        "pixelDisagreementRatio": 0.035132
+      },
+      "render_sha256": "b4fe7ca851cb44f3e719b80d2fc934e68a6c0522156104bf6ffdb7eb49ad94b5",
+      "rendered_path": "previews/structured_visual/da_6fafe200231467d204c50ae2.png",
+      "source_sha256": "6fafe200231467d204c50ae2010992286337767bbc73a9485bb1b72b085037b9",
+      "structured_path": "structured/da_6fafe200231467d204c50ae2.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_6ffc51667fae1749f7fbbbff",
+      "comparison_path": "previews/structured_visual/da_6ffc51667fae1749f7fbbbff-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 4,
+        "panelCount": 1,
+        "pointCount": 4
+      },
+      "quality": {
+        "foregroundIoU": 0.203457,
+        "meanAbsoluteError": 3.251966,
+        "pixelDisagreementRatio": 0.027523
+      },
+      "render_sha256": "b849f44a0a09332a7a81fc685f9e0395d597b07fb7a1a818d45e7317752e96c1",
+      "rendered_path": "previews/structured_visual/da_6ffc51667fae1749f7fbbbff.png",
+      "source_sha256": "6ffc51667fae1749f7fbbbff92ca3d636a1c66629c400cd42e4a89738d871b30",
+      "structured_path": "structured/da_6ffc51667fae1749f7fbbbff.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_7356dd9df19ad58d289fbd28",
+      "comparison_path": "previews/structured_visual/da_7356dd9df19ad58d289fbd28-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 27,
+        "panelCount": 8,
+        "pointCount": 27
+      },
+      "quality": {
+        "foregroundIoU": 0.376906,
+        "meanAbsoluteError": 4.21547,
+        "pixelDisagreementRatio": 0.072306
+      },
+      "render_sha256": "07c6331955a60766b275c3c2a23d4849cb453b31f39fcfcd760238814da9e58c",
+      "rendered_path": "previews/structured_visual/da_7356dd9df19ad58d289fbd28.png",
+      "source_sha256": "7356dd9df19ad58d289fbd28d3eaca16c8ded29ec255bd3a9bc04d308425f636",
+      "structured_path": "structured/da_7356dd9df19ad58d289fbd28.json",
+      "trace": {
+        "panelCount": 8,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_options"
+      }
+    },
+    {
+      "asset_id": "da_84c13c78ba36f75b82ef56aa",
+      "comparison_path": "previews/structured_visual/da_84c13c78ba36f75b82ef56aa-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 16,
+        "panelCount": 4,
+        "pointCount": 16
+      },
+      "quality": {
+        "foregroundIoU": 0.439169,
+        "meanAbsoluteError": 2.030482,
+        "pixelDisagreementRatio": 0.017072
+      },
+      "render_sha256": "02bcdae12919e3511d615cea5da82b8e0f2027fa123239c197f6af231c8d926b",
+      "rendered_path": "previews/structured_visual/da_84c13c78ba36f75b82ef56aa.png",
+      "source_sha256": "84c13c78ba36f75b82ef56aaf392d4c67752c51dff207c24d80ee98205393c68",
+      "structured_path": "structured/da_84c13c78ba36f75b82ef56aa.json",
+      "trace": {
+        "panelCount": 4,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_options"
+      }
+    },
+    {
+      "asset_id": "da_878d9d415b662eadfde2f812",
+      "comparison_path": "previews/structured_visual/da_878d9d415b662eadfde2f812-comparison.png",
+      "complexity": {
+        "barCount": 4,
+        "estimatedDrawCommandCount": 8,
+        "panelCount": 1,
+        "pointCount": 0
+      },
+      "quality": {
+        "foregroundIoU": 0.222054,
+        "meanAbsoluteError": 8.151775,
+        "pixelDisagreementRatio": 0.058052
+      },
+      "render_sha256": "9c782a823c8e8a463628d49f157ca4773a0a5cf04e07c60d21e7eab83f81fdd0",
+      "rendered_path": "previews/structured_visual/da_878d9d415b662eadfde2f812.png",
+      "source_sha256": "878d9d415b662eadfde2f812c443effa1813d19a46f4494fb28611608fdc2b62",
+      "structured_path": "structured/da_878d9d415b662eadfde2f812.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "signed_bar"
+      }
+    },
+    {
+      "asset_id": "da_8e6d38947962747bcccad447",
+      "comparison_path": "previews/structured_visual/da_8e6d38947962747bcccad447-comparison.png",
+      "complexity": {
+        "barCount": 4,
+        "estimatedDrawCommandCount": 8,
+        "panelCount": 1,
+        "pointCount": 0
+      },
+      "quality": {
+        "foregroundIoU": 0.509468,
+        "meanAbsoluteError": 2.562037,
+        "pixelDisagreementRatio": 0.030869
+      },
+      "render_sha256": "cfa5265d51d77359c4dad686ef8e360dc312f941b7f67044cd3f42275bdffd2a",
+      "rendered_path": "previews/structured_visual/da_8e6d38947962747bcccad447.png",
+      "source_sha256": "8e6d38947962747bcccad447e8275a78fda2e678639e0d41898bcabbcb498a9b",
+      "structured_path": "structured/da_8e6d38947962747bcccad447.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "signed_bar"
+      }
+    },
+    {
+      "asset_id": "da_99520dd7fb39de9a78bea16d",
+      "comparison_path": "previews/structured_visual/da_99520dd7fb39de9a78bea16d-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 4,
+        "panelCount": 1,
+        "pointCount": 4
+      },
+      "quality": {
+        "foregroundIoU": 0.330288,
+        "meanAbsoluteError": 3.693774,
+        "pixelDisagreementRatio": 0.029705
+      },
+      "render_sha256": "b565fa9892660e5af5624307999282337775e8936fada0b5e3dfbe9ca8be6cc3",
+      "rendered_path": "previews/structured_visual/da_99520dd7fb39de9a78bea16d.png",
+      "source_sha256": "99520dd7fb39de9a78bea16d58605910c294a8af19fd83f66290f18ca735f132",
+      "structured_path": "structured/da_99520dd7fb39de9a78bea16d.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_9bf4f28df395cdbca6e305ce",
+      "comparison_path": "previews/structured_visual/da_9bf4f28df395cdbca6e305ce-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 4,
+        "panelCount": 1,
+        "pointCount": 4
+      },
+      "quality": {
+        "foregroundIoU": 0.26825,
+        "meanAbsoluteError": 4.399953,
+        "pixelDisagreementRatio": 0.034493
+      },
+      "render_sha256": "4f50241fef79b4dc0f9b2e2b6280267475b4e5cf523e81df7ef9fc07a783613e",
+      "rendered_path": "previews/structured_visual/da_9bf4f28df395cdbca6e305ce.png",
+      "source_sha256": "9bf4f28df395cdbca6e305cebdbc020a7cd297ef5de151232cf974c02a0dcdbb",
+      "structured_path": "structured/da_9bf4f28df395cdbca6e305ce.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_9e873e33dd9c716f43c09f33",
+      "comparison_path": "previews/structured_visual/da_9e873e33dd9c716f43c09f33-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 4,
+        "panelCount": 1,
+        "pointCount": 4
+      },
+      "quality": {
+        "foregroundIoU": 0.295186,
+        "meanAbsoluteError": 5.933663,
+        "pixelDisagreementRatio": 0.033657
+      },
+      "render_sha256": "aa42bf73cd10eda2e6db0d5832140b38c668f8c6d615b49ec121df77e16b8460",
+      "rendered_path": "previews/structured_visual/da_9e873e33dd9c716f43c09f33.png",
+      "source_sha256": "9e873e33dd9c716f43c09f33ad292ba51cf41dc4980c7eee56f36293c8602579",
+      "structured_path": "structured/da_9e873e33dd9c716f43c09f33.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "curve_chart"
+      }
+    },
+    {
+      "asset_id": "da_9f0441a051900e1d4930a12c",
+      "comparison_path": "previews/structured_visual/da_9f0441a051900e1d4930a12c-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 12,
+        "panelCount": 4,
+        "pointCount": 12
+      },
+      "quality": {
+        "foregroundIoU": 0.288099,
+        "meanAbsoluteError": 2.466455,
+        "pixelDisagreementRatio": 0.019823
+      },
+      "render_sha256": "450d215a766f4630ac82b39ee54caaaaaf38b6bb93a753963776a883ed7835b5",
+      "rendered_path": "previews/structured_visual/da_9f0441a051900e1d4930a12c.png",
+      "source_sha256": "9f0441a051900e1d4930a12ce58afa14e85c338204aad79c0d7705778ceab379",
+      "structured_path": "structured/da_9f0441a051900e1d4930a12c.json",
+      "trace": {
+        "panelCount": 4,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_options"
+      }
+    },
+    {
+      "asset_id": "da_a40115e31f2823c9e3cbe47f",
+      "comparison_path": "previews/structured_visual/da_a40115e31f2823c9e3cbe47f-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 16,
+        "panelCount": 4,
+        "pointCount": 16
+      },
+      "quality": {
+        "foregroundIoU": 0.456104,
+        "meanAbsoluteError": 2.675331,
+        "pixelDisagreementRatio": 0.027872
+      },
+      "render_sha256": "546d5813d91b0a051dd066255065d868d8a85d654891e0ba70121cbeddfea02e",
+      "rendered_path": "previews/structured_visual/da_a40115e31f2823c9e3cbe47f.png",
+      "source_sha256": "a40115e31f2823c9e3cbe47fba5b062f768258ce96c72ff0c871d5e9269706cc",
+      "structured_path": "structured/da_a40115e31f2823c9e3cbe47f.json",
+      "trace": {
+        "panelCount": 4,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_options"
+      }
+    },
+    {
+      "asset_id": "da_a62a7d51d4f3c440062fa613",
+      "comparison_path": "previews/structured_visual/da_a62a7d51d4f3c440062fa613-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 5,
+        "panelCount": 1,
+        "pointCount": 5
+      },
+      "quality": {
+        "foregroundIoU": 0.560272,
+        "meanAbsoluteError": 4.539886,
+        "pixelDisagreementRatio": 0.036622
+      },
+      "render_sha256": "023ad2b99339d28779cc8b0cfbafd9c143ee9d9fcaf6e9ae03a006b4ea32cca8",
+      "rendered_path": "previews/structured_visual/da_a62a7d51d4f3c440062fa613.png",
+      "source_sha256": "a62a7d51d4f3c440062fa613eff2003067182249471c3f6b1aeedda6f55f849c",
+      "structured_path": "structured/da_a62a7d51d4f3c440062fa613.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_aa694092ba538f117a2e931f",
+      "comparison_path": "previews/structured_visual/da_aa694092ba538f117a2e931f-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 4,
+        "panelCount": 1,
+        "pointCount": 4
+      },
+      "quality": {
+        "foregroundIoU": 0.496933,
+        "meanAbsoluteError": 4.192891,
+        "pixelDisagreementRatio": 0.037275
+      },
+      "render_sha256": "df5c29b0940814703413ce0178021708373b6acf2748da2770da22fcdeefba36",
+      "rendered_path": "previews/structured_visual/da_aa694092ba538f117a2e931f.png",
+      "source_sha256": "aa694092ba538f117a2e931f6f97e569988d24e90d4eecd728cce945e901fd6b",
+      "structured_path": "structured/da_aa694092ba538f117a2e931f.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_acaa3655370dba7e8fd06762",
+      "comparison_path": "previews/structured_visual/da_acaa3655370dba7e8fd06762-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 12,
+        "panelCount": 4,
+        "pointCount": 12
+      },
+      "quality": {
+        "foregroundIoU": 0.257882,
+        "meanAbsoluteError": 2.994436,
+        "pixelDisagreementRatio": 0.081216
+      },
+      "render_sha256": "39178cea7667cdb88eab92dbfe88f1b93266a50f20241a698aaa5ce3bec64940",
+      "rendered_path": "previews/structured_visual/da_acaa3655370dba7e8fd06762.png",
+      "source_sha256": "acaa3655370dba7e8fd0676277a4938c2cf1367c253ad15a70ce6a61932af55d",
+      "structured_path": "structured/da_acaa3655370dba7e8fd06762.json",
+      "trace": {
+        "panelCount": 4,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_options"
+      }
+    },
+    {
+      "asset_id": "da_afa5d9811427ceb7d56adead",
+      "comparison_path": "previews/structured_visual/da_afa5d9811427ceb7d56adead-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 3,
+        "panelCount": 1,
+        "pointCount": 3
+      },
+      "quality": {
+        "foregroundIoU": 0.104958,
+        "meanAbsoluteError": 6.869163,
+        "pixelDisagreementRatio": 0.196882
+      },
+      "render_sha256": "4e911635fa3f3c9cc1e495ce6f412cb5b6e83044d041eabb07c5217fb097bc01",
+      "rendered_path": "previews/structured_visual/da_afa5d9811427ceb7d56adead.png",
+      "source_sha256": "afa5d9811427ceb7d56adead1f7e0ea8a1cf8422681e0696e494aebe1b6db2c3",
+      "structured_path": "structured/da_afa5d9811427ceb7d56adead.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_b7b2bd5597aa22c5cd970980",
+      "comparison_path": "previews/structured_visual/da_b7b2bd5597aa22c5cd970980-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 13,
+        "panelCount": 4,
+        "pointCount": 13
+      },
+      "quality": {
+        "foregroundIoU": 0.235989,
+        "meanAbsoluteError": 2.757881,
+        "pixelDisagreementRatio": 0.031392
+      },
+      "render_sha256": "e118500cb68e27b1cf99bd10a56e98bb0925b1420e71c00e8891e43bd7d0f57a",
+      "rendered_path": "previews/structured_visual/da_b7b2bd5597aa22c5cd970980.png",
+      "source_sha256": "b7b2bd5597aa22c5cd9709805f01eea5635c6f18fd497778f8dd14c96d5497ec",
+      "structured_path": "structured/da_b7b2bd5597aa22c5cd970980.json",
+      "trace": {
+        "panelCount": 4,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_options"
+      }
+    },
+    {
+      "asset_id": "da_c01ec01874768dbe30aa93f7",
+      "comparison_path": "previews/structured_visual/da_c01ec01874768dbe30aa93f7-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 4,
+        "panelCount": 1,
+        "pointCount": 4
+      },
+      "quality": {
+        "foregroundIoU": 0.320168,
+        "meanAbsoluteError": 4.116652,
+        "pixelDisagreementRatio": 0.028904
+      },
+      "render_sha256": "a00f46526c55ea49aced724ae99c6b8c7ffc56336dde1b653f8e100a0bdef6a4",
+      "rendered_path": "previews/structured_visual/da_c01ec01874768dbe30aa93f7.png",
+      "source_sha256": "c01ec01874768dbe30aa93f77c54d055d4efe2c19625765a48d16bc766345e9e",
+      "structured_path": "structured/da_c01ec01874768dbe30aa93f7.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_c725f131e7da044ab0c585cf",
+      "comparison_path": "previews/structured_visual/da_c725f131e7da044ab0c585cf-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 4,
+        "panelCount": 1,
+        "pointCount": 4
+      },
+      "quality": {
+        "foregroundIoU": 0.464748,
+        "meanAbsoluteError": 6.656599,
+        "pixelDisagreementRatio": 0.053718
+      },
+      "render_sha256": "27f09aa81c173a5ced9c4c10166243092df3e4b4bdd88766b8bee03730a20b4b",
+      "rendered_path": "previews/structured_visual/da_c725f131e7da044ab0c585cf.png",
+      "source_sha256": "c725f131e7da044ab0c585cf4a955faadc755c89db442d0897ec784441e57620",
+      "structured_path": "structured/da_c725f131e7da044ab0c585cf.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_with_axis"
+      }
+    },
+    {
+      "asset_id": "da_c8a70d19eefbb7fae668fcac",
+      "comparison_path": "previews/structured_visual/da_c8a70d19eefbb7fae668fcac-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 52,
+        "panelCount": 4,
+        "pointCount": 52
+      },
+      "quality": {
+        "foregroundIoU": 0.474333,
+        "meanAbsoluteError": 2.335791,
+        "pixelDisagreementRatio": 0.059767
+      },
+      "render_sha256": "0a9dc7a0108a6f411645f172d433dc085921bd31558cfb40794bc2d2a0b1544f",
+      "rendered_path": "previews/structured_visual/da_c8a70d19eefbb7fae668fcac.png",
+      "source_sha256": "c8a70d19eefbb7fae668fcac7827df5798166df64d82a54560d1c5604de936d7",
+      "structured_path": "structured/da_c8a70d19eefbb7fae668fcac.json",
+      "trace": {
+        "panelCount": 4,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "curve_options"
+      }
+    },
+    {
+      "asset_id": "da_c9eb41951469475c8a0e7e84",
+      "comparison_path": "previews/structured_visual/da_c9eb41951469475c8a0e7e84-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 19,
+        "panelCount": 4,
+        "pointCount": 19
+      },
+      "quality": {
+        "foregroundIoU": 0.161984,
+        "meanAbsoluteError": 6.713958,
+        "pixelDisagreementRatio": 0.114632
+      },
+      "render_sha256": "e4050a6894683cde46530ef4ed7b422b01bcc293b9576984a27ba7cb6e270a3a",
+      "rendered_path": "previews/structured_visual/da_c9eb41951469475c8a0e7e84.png",
+      "source_sha256": "c9eb41951469475c8a0e7e84fda8423336145aaa17158782b68fd27dd87e87f4",
+      "structured_path": "structured/da_c9eb41951469475c8a0e7e84.json",
+      "trace": {
+        "panelCount": 4,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_options_with_axis"
+      }
+    },
+    {
+      "asset_id": "da_cc187ac7d2b26ca080edfdf9",
+      "comparison_path": "previews/structured_visual/da_cc187ac7d2b26ca080edfdf9-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 15,
+        "panelCount": 4,
+        "pointCount": 15
+      },
+      "quality": {
+        "foregroundIoU": 0.339441,
+        "meanAbsoluteError": 2.552956,
+        "pixelDisagreementRatio": 0.041742
+      },
+      "render_sha256": "dd2b47dbf78ee2c3c465f14708ded486ba1b9c32e45efbdd8861c14f77bec81d",
+      "rendered_path": "previews/structured_visual/da_cc187ac7d2b26ca080edfdf9.png",
+      "source_sha256": "cc187ac7d2b26ca080edfdf9aa6c6d5b0051f65a805c9351866272d9b9ff9ca2",
+      "structured_path": "structured/da_cc187ac7d2b26ca080edfdf9.json",
+      "trace": {
+        "panelCount": 4,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_options"
+      }
+    },
+    {
+      "asset_id": "da_e45a847c8c2e23683859511d",
+      "comparison_path": "previews/structured_visual/da_e45a847c8c2e23683859511d-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 3,
+        "panelCount": 1,
+        "pointCount": 3
+      },
+      "quality": {
+        "foregroundIoU": 0.288936,
+        "meanAbsoluteError": 3.938541,
+        "pixelDisagreementRatio": 0.0289
+      },
+      "render_sha256": "4b3b6325ae32b7bc52f00fa84fdc3e0e546ca89362e4673448ce3c3c66dd73aa",
+      "rendered_path": "previews/structured_visual/da_e45a847c8c2e23683859511d.png",
+      "source_sha256": "e45a847c8c2e23683859511d640639a6a0e96fc52f87d448f89baef4839541cb",
+      "structured_path": "structured/da_e45a847c8c2e23683859511d.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_e79bf630af3f7f38f98a8a95",
+      "comparison_path": "previews/structured_visual/da_e79bf630af3f7f38f98a8a95-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 22,
+        "panelCount": 4,
+        "pointCount": 22
+      },
+      "quality": {
+        "foregroundIoU": 0.324022,
+        "meanAbsoluteError": 5.120749,
+        "pixelDisagreementRatio": 0.034687
+      },
+      "render_sha256": "7b13579171535646be7e30d7fd6642213c38262c097c31f540dced8a5e08a710",
+      "rendered_path": "previews/structured_visual/da_e79bf630af3f7f38f98a8a95.png",
+      "source_sha256": "e79bf630af3f7f38f98a8a9543c07d17cc484390dd1ee6fd4056c3f220f93158",
+      "structured_path": "structured/da_e79bf630af3f7f38f98a8a95.json",
+      "trace": {
+        "panelCount": 4,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "curve_options_with_axis"
+      }
+    },
+    {
+      "asset_id": "da_f9b3865eb7d68d46d806acb5",
+      "comparison_path": "previews/structured_visual/da_f9b3865eb7d68d46d806acb5-comparison.png",
+      "complexity": {
+        "barCount": 0,
+        "estimatedDrawCommandCount": 4,
+        "panelCount": 1,
+        "pointCount": 4
+      },
+      "quality": {
+        "foregroundIoU": 0.541488,
+        "meanAbsoluteError": 3.064429,
+        "pixelDisagreementRatio": 0.032324
+      },
+      "render_sha256": "42b189422c8a431ef0a154eabb13afd4f1f9647d93b05a7839f1e041dd335c7d",
+      "rendered_path": "previews/structured_visual/da_f9b3865eb7d68d46d806acb5.png",
+      "source_sha256": "f9b3865eb7d68d46d806acb5357d25a98e22fa220682489bd916e67194d44eb5",
+      "structured_path": "structured/da_f9b3865eb7d68d46d806acb5.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "line_sequence"
+      }
+    },
+    {
+      "asset_id": "da_fca772bef3f397f1cb59f98a",
+      "comparison_path": "previews/structured_visual/da_fca772bef3f397f1cb59f98a-comparison.png",
+      "complexity": {
+        "barCount": 4,
+        "estimatedDrawCommandCount": 8,
+        "panelCount": 1,
+        "pointCount": 0
+      },
+      "quality": {
+        "foregroundIoU": 0.320923,
+        "meanAbsoluteError": 6.041692,
+        "pixelDisagreementRatio": 0.061852
+      },
+      "render_sha256": "8fffc4db9b228ce164495815654a75a25b48797978f0a27ce6f958150d7c960c",
+      "rendered_path": "previews/structured_visual/da_fca772bef3f397f1cb59f98a.png",
+      "source_sha256": "fca772bef3f397f1cb59f98a534ff88b1f3a663d73aa8626efdded04370723e8",
+      "structured_path": "structured/da_fca772bef3f397f1cb59f98a.json",
+      "trace": {
+        "panelCount": 1,
+        "strategy": "semantic_microchart",
+        "visualGrammar": "signed_bar"
+      }
+    }
+  ],
+  "converted_count": 42,
+  "failure_count": 0,
+  "failures": [],
+  "inventory_statuses": {
+    "needs_manual_review": 62,
+    "success": 1424
+  },
+  "schema_version": "data-analysis-semantic-microchart-batch-v1",
+  "target_count": 42
+}

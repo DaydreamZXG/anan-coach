@@ -1,0 +1,203 @@
+{
+  "asset_id": "da_5b4af1699c6d02f42d79d98d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1200,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000,
+          1200
+        ],
+        "title": null,
+        "unit": "(亿立方米)"
+      },
+      {
+        "max": 50.0,
+        "min": -150.0,
+        "ticks": [
+          -150.0,
+          -125.0,
+          -100.0,
+          -75.0,
+          -50.0,
+          -25.0,
+          0.0,
+          25.0,
+          50.0
+        ],
+        "title": null,
+        "unit": "(%)"
+      }
+    ]
+  },
+  "categories": [
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "天然气进口量",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "增速",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "天然气进口量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(亿立方米)",
+      "values": [
+        421,
+        525,
+        591,
+        611,
+        746,
+        946
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(%)",
+      "values": [
+        34.8,
+        24.9,
+        12.5,
+        3.4,
+        21.9,
+        26.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0109_18e4cbec011c3cc3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0109_18e4cbec011c3cc3.png",
+        "paper_title": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验",
+        "question_id": "pq_b9456c4f4f32924d9dd2",
+        "question_number": 53,
+        "source_jsonl_line": 87550
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0109_18e4cbec011c3cc3.png",
+        "paper_title": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验",
+        "question_id": "pq_7afe32266149271c918b",
+        "question_number": 54,
+        "source_jsonl_line": 87551
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0109_18e4cbec011c3cc3.png",
+        "paper_title": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验",
+        "question_id": "pq_a308f80beaaa94514e77",
+        "question_number": 55,
+        "source_jsonl_line": 87552
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0109_18e4cbec011c3cc3.png",
+        "paper_title": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验",
+        "question_id": "pq_abeae726722f83cf53f5",
+        "question_number": 56,
+        "source_jsonl_line": 87553
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0109_18e4cbec011c3cc3.png",
+        "paper_title": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验",
+        "question_id": "pq_49479e5ad9ac8c520b65",
+        "question_number": 57,
+        "source_jsonl_line": 87554
+      }
+    ],
+    "sha256": "5b4af1699c6d02f42d79d98d575182a099586ccce15ad3d928fdd144a7d5f1c0"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图4 天然气进口年度走势",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5b4af1699c6d02f42d79d98d/column_band_01.jpg",
+        "review-crops/da_5b4af1699c6d02f42d79d98d/column_band_02.jpg",
+        "review-crops/da_5b4af1699c6d02f42d79d98d/column_band_03.jpg",
+        "review-crops/da_5b4af1699c6d02f42d79d98d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.521",
+      "crop_verification_elapsed_seconds:3.468",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

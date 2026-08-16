@@ -1,0 +1,118 @@
+{
+  "confidence": null,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "总人口数（人）"
+        ],
+        "label": "总人口数"
+      },
+      {
+        "columns": [
+          "男性人口数（人）"
+        ],
+        "label": "男性人口数"
+      },
+      {
+        "columns": [
+          "女性人口数（人）"
+        ],
+        "label": "女性人口数"
+      },
+      {
+        "columns": [
+          "占总人口数的比重（%）｜0-14岁",
+          "占总人口数的比重（%）｜15-59岁",
+          "占总人口数的比重（%）｜60岁以上"
+        ],
+        "label": "占总人口数的比重（%）"
+      },
+      "rows:[{",
+      "label"
+    ],
+    "columns": [
+      "总人口数（人）",
+      "男性人口数（人）",
+      "女性人口数（人）",
+      "占总人口数的比重（%）｜0-14岁",
+      "占总人口数的比重（%）｜15-59岁",
+      "占总人口数的比重（%）｜60岁以上"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          11700,
+          6083,
+          5617,
+          15,
+          72,
+          13
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          13400,
+          6916,
+          6484,
+          17,
+          70,
+          13
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          14500,
+          7597,
+          6903,
+          17,
+          69,
+          14
+        ]
+      },
+      {
+        "label": "2013",
+        "unit": null,
+        "values": [
+          16600,
+          8701,
+          7899,
+          18,
+          68,
+          14
+        ]
+      },
+      {
+        "label": "2014",
+        "unit": null,
+        "values": [
+          16900,
+          8502,
+          8398,
+          20,
+          65,
+          15
+        ]
+      }
+    ],
+    "values": [
+      11700,
+      6083,
+      5617,
+      15,
+      72,
+      13
+    ]
+  },
+  "uncertainties": []
+}

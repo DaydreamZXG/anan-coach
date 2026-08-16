@@ -1,0 +1,221 @@
+{
+  "asset_id": "da_d8e1c1bfc945ea5a4f46942e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0095_88fefe57d0b215b8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0095_88fefe57d0b215b8.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_8f2e32e058548627a68a",
+        "question_number": 96,
+        "source_jsonl_line": 71207
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0103_b7d60a8790a42434.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_1d8628ef7967580d6a73",
+        "question_number": 97,
+        "source_jsonl_line": 71208
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0103_b7d60a8790a42434.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_fcd0c8dcdc18f1d45d6e",
+        "question_number": 98,
+        "source_jsonl_line": 71209
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0103_b7d60a8790a42434.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_9639d51adabb295fc12d",
+        "question_number": 99,
+        "source_jsonl_line": 71210
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0103_b7d60a8790a42434.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_b5ce4fccffe8331e14c1",
+        "question_number": 100,
+        "source_jsonl_line": 71211
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0109_88fefe57d0b215b8.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_f76cec934068fc7efd73",
+        "question_number": 96,
+        "source_jsonl_line": 89736
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0102_b7d60a8790a42434.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_390b3e98fa75d4da578a",
+        "question_number": 97,
+        "source_jsonl_line": 89737
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0109_88fefe57d0b215b8.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_8611d600f497ac59d499",
+        "question_number": 98,
+        "source_jsonl_line": 89738
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0102_b7d60a8790a42434.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_17ec5b1f8ec721700993",
+        "question_number": 99,
+        "source_jsonl_line": 89739
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0102_b7d60a8790a42434.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_2dc4aa4157e9f1491bf3",
+        "question_number": 100,
+        "source_jsonl_line": 89740
+      }
+    ],
+    "sha256": "d8e1c1bfc945ea5a4f46942e6ce4da96a8c8b748cd905b45895cb0a73dfd48f0"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "行业",
+      "营业收入（亿元）",
+      "同比增长（%）",
+      "拉动规上服务业增长（百分点）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "信息传输、软件和信息技术服务业",
+        "unit": null,
+        "values": [
+          "信息传输、软件和信息技术服务业",
+          744.27,
+          19.7,
+          4.9
+        ]
+      },
+      {
+        "label": "电信、广播电视和卫星传输服务",
+        "unit": null,
+        "values": [
+          "电信、广播电视和卫星传输服务",
+          305.13,
+          11.6,
+          1.3
+        ]
+      },
+      {
+        "label": "互联网和相关服务业",
+        "unit": null,
+        "values": [
+          "互联网和相关服务业",
+          109.23,
+          23.5,
+          0.8
+        ]
+      },
+      {
+        "label": "#互联网其他信息服务",
+        "unit": null,
+        "values": [
+          "#互联网其他信息服务",
+          89.51,
+          16.9,
+          0.5
+        ]
+      },
+      {
+        "label": "软件和信息技术服务业",
+        "unit": null,
+        "values": [
+          "软件和信息技术服务业",
+          329.91,
+          26.8,
+          2.8
+        ]
+      },
+      {
+        "label": "#应用软件开发",
+        "unit": null,
+        "values": [
+          "#应用软件开发",
+          191.59,
+          33.2,
+          1.9
+        ]
+      }
+    ]
+  },
+  "title": "2021年上半年湖北省规上信息软件业主要细分行业发展情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d8e1c1bfc945ea5a4f46942e/row_band_01.jpg",
+        "review-crops/da_d8e1c1bfc945ea5a4f46942e/row_band_02.jpg",
+        "review-crops/da_d8e1c1bfc945ea5a4f46942e/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.459",
+      "crop_verification_elapsed_seconds:7.881",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

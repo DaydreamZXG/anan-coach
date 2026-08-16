@@ -1,0 +1,294 @@
+{
+  "asset_id": "da_767085fa434d38c5278abe9f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广州市考/2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）_images/img_0111_4cc9eb6cd672154b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）_images/img_0111_4cc9eb6cd672154b.png",
+        "paper_title": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）",
+        "question_id": "pq_1379515968ab5b91a8e7",
+        "question_number": 91,
+        "source_jsonl_line": 37653
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）_images/img_0106_b237f6c561a996ae.png",
+        "paper_title": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）",
+        "question_id": "pq_d023631dc2f0b97b5fbb",
+        "question_number": 92,
+        "source_jsonl_line": 37654
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）_images/img_0111_4cc9eb6cd672154b.png",
+        "paper_title": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）",
+        "question_id": "pq_d9073507646beca6ef3b",
+        "question_number": 93,
+        "source_jsonl_line": 37655
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）_images/img_0111_4cc9eb6cd672154b.png",
+        "paper_title": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）",
+        "question_id": "pq_060138111c9e986ab5db",
+        "question_number": 94,
+        "source_jsonl_line": 37656
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）_images/img_0111_4cc9eb6cd672154b.png",
+        "paper_title": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）",
+        "question_id": "pq_5841682f81c061285659",
+        "question_number": 95,
+        "source_jsonl_line": 37657
+      }
+    ],
+    "sha256": "767085fa434d38c5278abe9f5b814a6ab78ca414c372ff66af017d189b97789e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "雅溪",
+      "童新",
+      "桃甘",
+      "英远",
+      "东丰"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目｜类型",
+    "rows": [
+      {
+        "display_label": "拨款",
+        "group": "艺术表演团体",
+        "label": "艺术表演团体｜拨款",
+        "unit": "万元",
+        "values": [
+          0,
+          659,
+          0,
+          0,
+          35
+        ]
+      },
+      {
+        "display_label": "支出",
+        "group": "艺术表演团体",
+        "label": "艺术表演团体｜支出",
+        "unit": "万元",
+        "values": [
+          0,
+          625,
+          0,
+          0,
+          35
+        ]
+      },
+      {
+        "display_label": "拨款",
+        "group": "文化展示及纪念机构",
+        "label": "文化展示及纪念机构｜拨款",
+        "unit": "万元",
+        "values": [
+          704,
+          0,
+          0,
+          0,
+          1064
+        ]
+      },
+      {
+        "display_label": "支出",
+        "group": "文化展示及纪念机构",
+        "label": "文化展示及纪念机构｜支出",
+        "unit": "万元",
+        "values": [
+          699,
+          0,
+          0,
+          0,
+          1064
+        ]
+      },
+      {
+        "display_label": "拨款",
+        "group": "图书馆",
+        "label": "图书馆｜拨款",
+        "unit": "万元",
+        "values": [
+          2592,
+          1880,
+          2877,
+          4413,
+          3244
+        ]
+      },
+      {
+        "display_label": "支出",
+        "group": "图书馆",
+        "label": "图书馆｜支出",
+        "unit": "万元",
+        "values": [
+          2665,
+          1871,
+          3058,
+          4072,
+          3289
+        ]
+      },
+      {
+        "display_label": "拨款",
+        "group": "群众文化",
+        "label": "群众文化｜拨款",
+        "unit": "万元",
+        "values": [
+          1832,
+          1796,
+          9922,
+          7637,
+          2817
+        ]
+      },
+      {
+        "display_label": "支出",
+        "group": "群众文化",
+        "label": "群众文化｜支出",
+        "unit": "万元",
+        "values": [
+          1180,
+          1774,
+          9775,
+          11590,
+          2888
+        ]
+      },
+      {
+        "display_label": "拨款",
+        "group": "艺术表演场馆",
+        "label": "艺术表演场馆｜拨款",
+        "unit": "万元",
+        "values": [
+          0,
+          0,
+          4665,
+          0,
+          20
+        ]
+      },
+      {
+        "display_label": "支出",
+        "group": "艺术表演场馆",
+        "label": "艺术表演场馆｜支出",
+        "unit": "万元",
+        "values": [
+          0,
+          0,
+          4665,
+          0,
+          20
+        ]
+      },
+      {
+        "display_label": "拨款",
+        "group": "文化活动",
+        "label": "文化活动｜拨款",
+        "unit": "万元",
+        "values": [
+          582,
+          0,
+          2320,
+          0,
+          1039
+        ]
+      },
+      {
+        "display_label": "支出",
+        "group": "文化活动",
+        "label": "文化活动｜支出",
+        "unit": "万元",
+        "values": [
+          582,
+          0,
+          2314,
+          0,
+          1039
+        ]
+      },
+      {
+        "display_label": "拨款",
+        "group": "其他",
+        "label": "其他｜拨款",
+        "unit": "万元",
+        "values": [
+          890,
+          6796,
+          6068,
+          4179,
+          1129
+        ]
+      },
+      {
+        "display_label": "支出",
+        "group": "其他",
+        "label": "其他｜支出",
+        "unit": "万元",
+        "values": [
+          239,
+          6732,
+          2330,
+          2755,
+          1180
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

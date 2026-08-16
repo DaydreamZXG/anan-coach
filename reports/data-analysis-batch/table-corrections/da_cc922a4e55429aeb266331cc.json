@@ -1,0 +1,200 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2001年｜国家和地区",
+          "2001年｜国内生产总值",
+          "2001年｜占世界的比重（%）"
+        ],
+        "label": "2001年"
+      },
+      {
+        "columns": [
+          "2005年｜国家和地区",
+          "2005年｜国内生产总值",
+          "2005年｜占世界的比重（%）"
+        ],
+        "label": "2005年"
+      },
+      "rows:[{",
+      "label",
+      "1",
+      "unit",
+      null,
+      "values"
+    ],
+    "columns": [
+      "2001年｜国家和地区",
+      "2001年｜国内生产总值",
+      "2001年｜占世界的比重（%）",
+      "2005年｜国家和地区",
+      "2005年｜国内生产总值",
+      "2005年｜占世界的比重（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "位次",
+    "rows": [
+      {
+        "display_label": "世界总计",
+        "group": null,
+        "label": "世界总计",
+        "unit": null,
+        "values": [
+          "世界总计",
+          315750,
+          100.0,
+          "世界总计",
+          443849,
+          100.0
+        ]
+      },
+      {
+        "display_label": "1",
+        "group": null,
+        "label": "1",
+        "unit": null,
+        "values": [
+          "美国",
+          100759,
+          31.9,
+          "美国",
+          124551,
+          28.1
+        ]
+      },
+      {
+        "display_label": "2",
+        "group": null,
+        "label": "2",
+        "unit": null,
+        "values": [
+          "日本",
+          41624,
+          13.2,
+          "日本",
+          45059,
+          10.2
+        ]
+      },
+      {
+        "display_label": "3",
+        "group": null,
+        "label": "3",
+        "unit": null,
+        "values": [
+          "德国",
+          18913,
+          6.0,
+          "德国",
+          27819,
+          6.3
+        ]
+      },
+      {
+        "display_label": "4",
+        "group": null,
+        "label": "4",
+        "unit": null,
+        "values": [
+          "英国",
+          14313,
+          4.5,
+          "中国",
+          22289,
+          5.0
+        ]
+      },
+      {
+        "display_label": "5",
+        "group": null,
+        "label": "5",
+        "unit": null,
+        "values": [
+          "法国",
+          13398,
+          4.2,
+          "英国",
+          21926,
+          4.9
+        ]
+      },
+      {
+        "display_label": "6",
+        "group": null,
+        "label": "6",
+        "unit": null,
+        "values": [
+          "中国",
+          13248,
+          4.2,
+          "法国",
+          21102,
+          4.8
+        ]
+      },
+      {
+        "display_label": "7",
+        "group": null,
+        "label": "7",
+        "unit": null,
+        "values": [
+          "意大利",
+          10904,
+          3.5,
+          "意大利",
+          17230,
+          3.9
+        ]
+      },
+      {
+        "display_label": "8",
+        "group": null,
+        "label": "8",
+        "unit": null,
+        "values": [
+          "加拿大",
+          7051,
+          2.2,
+          "西班牙",
+          11237,
+          2.5
+        ]
+      },
+      {
+        "display_label": "9",
+        "group": null,
+        "label": "9",
+        "unit": null,
+        "values": [
+          "墨西哥",
+          6221,
+          2.0,
+          "加拿大",
+          11152,
+          2.5
+        ]
+      },
+      {
+        "display_label": "10",
+        "group": null,
+        "label": "10",
+        "unit": null,
+        "values": [
+          "西班牙",
+          6084,
+          1.9,
+          "巴西",
+          7941,
+          1.8
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

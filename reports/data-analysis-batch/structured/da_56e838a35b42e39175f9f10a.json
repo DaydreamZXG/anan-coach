@@ -1,0 +1,190 @@
+{
+  "asset_id": "da_56e838a35b42e39175f9f10a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河北/2014年河北省公务员录用考试《行测》题_images/img_0122_1452bd770e10e21f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省公务员录用考试《行测》题_images/img_0122_1452bd770e10e21f.png",
+        "paper_title": "2014年河北省公务员录用考试《行测》题",
+        "question_id": "pq_29bd9c3bc76168ffdb5e",
+        "question_number": 96,
+        "source_jsonl_line": 55100
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省公务员录用考试《行测》题_images/img_0122_1452bd770e10e21f.png",
+        "paper_title": "2014年河北省公务员录用考试《行测》题",
+        "question_id": "pq_33114bd39d4bb7d7c56b",
+        "question_number": 97,
+        "source_jsonl_line": 55101
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省公务员录用考试《行测》题_images/img_0144_a8740b1505f1166d.png",
+        "paper_title": "2014年河北省公务员录用考试《行测》题",
+        "question_id": "pq_a94b9505772922884204",
+        "question_number": 98,
+        "source_jsonl_line": 55102
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省公务员录用考试《行测》题_images/img_0144_a8740b1505f1166d.png",
+        "paper_title": "2014年河北省公务员录用考试《行测》题",
+        "question_id": "pq_19d36f674138105bf4a0",
+        "question_number": 99,
+        "source_jsonl_line": 55103
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省公务员录用考试《行测》题_images/img_0122_1452bd770e10e21f.png",
+        "paper_title": "2014年河北省公务员录用考试《行测》题",
+        "question_id": "pq_053462fc2cf34338ca6a",
+        "question_number": 100,
+        "source_jsonl_line": 55104
+      }
+    ],
+    "sha256": "56e838a35b42e39175f9f10af22975f1c9224f420c58ebc4ed558e26f05d5c8b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "出口额｜第1列",
+      "同比增长（%）｜第2列",
+      "地区｜第3列",
+      "出口额｜第4列",
+      "同比增长（%）｜第5列"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "秦皇岛",
+        "group": null,
+        "label": "秦皇岛",
+        "unit": null,
+        "values": [
+          "4.2 亿美元",
+          10.6,
+          "沧州",
+          "4870 万美元",
+          36.4
+        ]
+      },
+      {
+        "display_label": "石家庄",
+        "group": null,
+        "label": "石家庄",
+        "unit": null,
+        "values": [
+          "3.3 亿美元",
+          22.5,
+          "张家口",
+          "2570 万美元",
+          22.2
+        ]
+      },
+      {
+        "display_label": "保定",
+        "group": null,
+        "label": "保定",
+        "unit": null,
+        "values": [
+          "2.5 亿美元",
+          37.8,
+          "承德",
+          "2416 万美元",
+          14.7
+        ]
+      },
+      {
+        "display_label": "唐山",
+        "group": null,
+        "label": "唐山",
+        "unit": null,
+        "values": [
+          "1.7 亿美元",
+          16.4,
+          "衡水",
+          "2151 万美元",
+          4.0
+        ]
+      },
+      {
+        "display_label": "邯郸",
+        "group": null,
+        "label": "邯郸",
+        "unit": null,
+        "values": [
+          "1.2 亿美元",
+          57.3,
+          "邢台",
+          "1481 万美元",
+          8.7
+        ]
+      },
+      {
+        "display_label": "廊坊",
+        "group": null,
+        "label": "廊坊",
+        "unit": null,
+        "values": [
+          "7512 万美元",
+          24.1,
+          "全省",
+          "15.0 亿美元",
+          22.4
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

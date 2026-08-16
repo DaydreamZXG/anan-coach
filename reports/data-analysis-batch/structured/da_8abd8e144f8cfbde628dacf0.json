@@ -1,0 +1,218 @@
+{
+  "asset_id": "da_8abd8e144f8cfbde628dacf0",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2002,
+        2003,
+        2004,
+        2005,
+        2006
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 12000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000,
+          12000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "出口额",
+      "style": {
+        "dash": null,
+        "fill": "lightgray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "进口额",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "进出口总额比上年增长",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "出口额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        3256,
+        4382,
+        5933,
+        7620,
+        9691
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "进口额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        2952,
+        4128,
+        5612,
+        6600,
+        7916
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "进出口总额比上年增长",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        21.8,
+        37.1,
+        35.7,
+        23.2,
+        23.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2011年广东省公务员录用考试《行测》题_images/img_0093_1c1f4153d6b2bb98.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年广东省公务员录用考试《行测》题_images/img_0093_1c1f4153d6b2bb98.png",
+        "paper_title": "2011年广东省公务员录用考试《行测》题",
+        "question_id": "pq_e20fbef1dafd79956f28",
+        "question_number": 86,
+        "source_jsonl_line": 33918
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年广东省公务员录用考试《行测》题_images/img_0093_1c1f4153d6b2bb98.png",
+        "paper_title": "2011年广东省公务员录用考试《行测》题",
+        "question_id": "pq_50a6e64630c9cfd0cde0",
+        "question_number": 87,
+        "source_jsonl_line": 33919
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年广东省公务员录用考试《行测》题_images/img_0093_1c1f4153d6b2bb98.png",
+        "paper_title": "2011年广东省公务员录用考试《行测》题",
+        "question_id": "pq_ff4193b5e1fc6e8f2983",
+        "question_number": 88,
+        "source_jsonl_line": 33920
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年广东省公务员录用考试《行测》题_images/img_0093_1c1f4153d6b2bb98.png",
+        "paper_title": "2011年广东省公务员录用考试《行测》题",
+        "question_id": "pq_cd25886b194d0be2164a",
+        "question_number": 89,
+        "source_jsonl_line": 33921
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年广东省公务员录用考试《行测》题_images/img_0093_1c1f4153d6b2bb98.png",
+        "paper_title": "2011年广东省公务员录用考试《行测》题",
+        "question_id": "pq_b445cf9182fd9f0c9a92",
+        "question_number": 90,
+        "source_jsonl_line": 33922
+      }
+    ],
+    "sha256": "8abd8e144f8cfbde628dacf0a312c1218277dce7783f6515c164e3f276d795bb"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8abd8e144f8cfbde628dacf0/column_band_01.jpg",
+        "review-crops/da_8abd8e144f8cfbde628dacf0/column_band_02.jpg",
+        "review-crops/da_8abd8e144f8cfbde628dacf0/column_band_03.jpg",
+        "review-crops/da_8abd8e144f8cfbde628dacf0/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.956",
+      "crop_verification_elapsed_seconds:4.473",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

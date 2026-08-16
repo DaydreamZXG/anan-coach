@@ -1,0 +1,165 @@
+{
+  "asset_id": "da_c4d745fceb0b974b25b19416",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0148_897e397181f4b3ed.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0148_897e397181f4b3ed.png",
+        "paper_title": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）",
+        "question_id": "pq_61ff21569ae4bbdc8766",
+        "question_number": 76,
+        "source_jsonl_line": 41616
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0148_897e397181f4b3ed.png",
+        "paper_title": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）",
+        "question_id": "pq_af073e50d1f3333f8744",
+        "question_number": 77,
+        "source_jsonl_line": 41617
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0156_96dd478a27952d01.png",
+        "paper_title": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）",
+        "question_id": "pq_05cd8dac3b41430ca2a4",
+        "question_number": 78,
+        "source_jsonl_line": 41618
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0156_96dd478a27952d01.png",
+        "paper_title": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）",
+        "question_id": "pq_36493f050df2fe5f2bfa",
+        "question_number": 79,
+        "source_jsonl_line": 41619
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0148_897e397181f4b3ed.png",
+        "paper_title": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）",
+        "question_id": "pq_0ddaf19fa1f03e3a2229",
+        "question_number": 80,
+        "source_jsonl_line": 41620
+      }
+    ],
+    "sha256": "c4d745fceb0b974b25b19416b7cce80eb4f017e3730a8a2fe4c118bbeb9ab5b1"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1995年",
+      "2005年",
+      "2015年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "大学",
+        "group": "全国1%人口抽样调查受教育程度人口构成（万人）",
+        "label": "全国1%人口抽样调查受教育程度人口构成（万人）｜大学",
+        "unit": null,
+        "values": [
+          2501,
+          6764,
+          17093
+        ]
+      },
+      {
+        "display_label": "高中",
+        "group": "全国1%人口抽样调查受教育程度人口构成（万人）",
+        "label": "全国1%人口抽样调查受教育程度人口构成（万人）｜高中",
+        "unit": null,
+        "values": [
+          10031,
+          15083,
+          21084
+        ]
+      },
+      {
+        "display_label": "初中",
+        "group": "全国1%人口抽样调查受教育程度人口构成（万人）",
+        "label": "全国1%人口抽样调查受教育程度人口构成（万人）｜初中",
+        "unit": null,
+        "values": [
+          33045,
+          46735,
+          48942
+        ]
+      },
+      {
+        "display_label": "小学",
+        "group": "全国1%人口抽样调查受教育程度人口构成（万人）",
+        "label": "全国1%人口抽样调查受教育程度人口构成（万人）｜小学",
+        "unit": null,
+        "values": [
+          46560,
+          40706,
+          33463
+        ]
+      },
+      {
+        "display_label": "总人口",
+        "group": "全国1%人口抽样调查受教育程度人口构成（万人）",
+        "label": "全国1%人口抽样调查受教育程度人口构成（万人）｜总人口",
+        "unit": null,
+        "values": [
+          120778,
+          130628,
+          137349
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

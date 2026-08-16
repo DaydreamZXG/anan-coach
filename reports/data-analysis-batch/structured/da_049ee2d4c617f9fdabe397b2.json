@@ -1,0 +1,259 @@
+{
+  "asset_id": "da_049ee2d4c617f9fdabe397b2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "项目",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "金额",
+        "unit": "元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比±%",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "1-6",
+      "label": "1-6月",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        12425,
+        7618,
+        2861,
+        848,
+        647,
+        379,
+        489,
+        1228,
+        902,
+        264
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比±%",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.6,
+        10.0,
+        15.2,
+        8.7,
+        22.8,
+        16.1,
+        14.9,
+        0.6,
+        null,
+        14.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2009年浙江省公务员录用考试《行测》题_images/img_0234_c14bb6a96d148a3d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0234_c14bb6a96d148a3d.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_fd4da17fd6ab98a3fbb1",
+        "question_number": 121,
+        "source_jsonl_line": 60033
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0234_c14bb6a96d148a3d.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_4739791f5ab4dbd3ed92",
+        "question_number": 122,
+        "source_jsonl_line": 60034
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0234_c14bb6a96d148a3d.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_6d8f96b2cc7306ad0ffa",
+        "question_number": 123,
+        "source_jsonl_line": 60035
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0251_9189999266e8de22.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_14b6176b59402b22a1db",
+        "question_number": 124,
+        "source_jsonl_line": 60036
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0251_9189999266e8de22.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_2e167fa3c09330548632",
+        "question_number": 125,
+        "source_jsonl_line": 60037
+      }
+    ],
+    "sha256": "049ee2d4c617f9fdabe397b200227af0b010fddcf655f11a4f3cc739f808394d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1-6月",
+      "同比±%"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "label": "人均可支配收入",
+        "unit": null,
+        "values": [
+          12425,
+          10.6
+        ]
+      },
+      {
+        "label": "人均消费性支出",
+        "unit": null,
+        "values": [
+          7618,
+          10.0
+        ]
+      },
+      {
+        "label": "食品",
+        "unit": null,
+        "values": [
+          2861,
+          15.2
+        ]
+      },
+      {
+        "label": "衣着",
+        "unit": null,
+        "values": [
+          848,
+          8.7
+        ]
+      },
+      {
+        "label": "居住",
+        "unit": null,
+        "values": [
+          647,
+          22.8
+        ]
+      },
+      {
+        "label": "家庭设备用品服务",
+        "unit": null,
+        "values": [
+          379,
+          16.1
+        ]
+      },
+      {
+        "label": "医疗保健",
+        "unit": null,
+        "values": [
+          489,
+          14.9
+        ]
+      },
+      {
+        "label": "交通和通讯",
+        "unit": null,
+        "values": [
+          1228,
+          0.6
+        ]
+      },
+      {
+        "label": "娱乐教育文化",
+        "unit": null,
+        "values": [
+          902,
+          null
+        ]
+      },
+      {
+        "label": "其他商品和服务",
+        "unit": null,
+        "values": [
+          264,
+          14.1
+        ]
+      }
+    ]
+  },
+  "title": "2008年1-6月浙江省城乡居民收支数据",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_049ee2d4c617f9fdabe397b2/row_band_01.jpg",
+        "review-crops/da_049ee2d4c617f9fdabe397b2/row_band_02.jpg",
+        "review-crops/da_049ee2d4c617f9fdabe397b2/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.198",
+      "crop_verification_elapsed_seconds:6.43",
+      "candidate_value_changes_after_crop:2",
+      "model_uncertainty:'X'在'娱乐教育文化'的同比±%中表示缺失值，未明确说明其含义",
+      "crop_note:将'娱乐教育文化'的同比±%中的'X'修正为null，以符合缺失值规范。",
+      "table_row_label_column_removed:项目"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

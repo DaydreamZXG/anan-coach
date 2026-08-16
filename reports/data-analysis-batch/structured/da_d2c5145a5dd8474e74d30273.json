@@ -1,0 +1,239 @@
+{
+  "asset_id": "da_d2c5145a5dd8474e74d30273",
+  "axes": {
+    "x": {
+      "max": 2000,
+      "min": 0,
+      "ticks": [
+        0,
+        400,
+        800,
+        1200,
+        1600,
+        2000
+      ],
+      "title": null,
+      "unit": "亿元"
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年E",
+    "2021年E",
+    "2022年E"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "私有云",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "公有云",
+      "style": {
+        "dash": null,
+        "fill": "#A9A9A9",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "私有云",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        47.6,
+        70.2,
+        102.5,
+        170.1,
+        264.8,
+        437.4,
+        668.3,
+        787.8,
+        961.9,
+        1171.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "公有云",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        168.6,
+        216.8,
+        275.6,
+        344.8,
+        426.8,
+        525.4,
+        644.2,
+        949.6,
+        1297.8,
+        1731.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0110_5faa999c790399e0.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0110_5faa999c790399e0.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_81a8310aea279bf6538a",
+        "question_number": 111,
+        "source_jsonl_line": 10519
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0110_5faa999c790399e0.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_0c5e691fef29b5ecf443",
+        "question_number": 112,
+        "source_jsonl_line": 10520
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0110_5faa999c790399e0.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_c580cf91b35f4723a531",
+        "question_number": 113,
+        "source_jsonl_line": 10521
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0185_33058a3ba0d14e0e.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_77752b3506c07b3051ed",
+        "question_number": 114,
+        "source_jsonl_line": 10522
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0110_5faa999c790399e0.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_39a2cbf8aefb77089f30",
+        "question_number": 115,
+        "source_jsonl_line": 10523
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0174_5faa999c790399e0.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_db8d66a2a3bb6a4487cd",
+        "question_number": 116,
+        "source_jsonl_line": 10654
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0174_5faa999c790399e0.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_f31699c63c0a6295248d",
+        "question_number": 117,
+        "source_jsonl_line": 10655
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0174_5faa999c790399e0.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_9391e208118760e00559",
+        "question_number": 118,
+        "source_jsonl_line": 10656
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0191_33058a3ba0d14e0e.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_85ba00f3981283013fc1",
+        "question_number": 119,
+        "source_jsonl_line": 10657
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0174_5faa999c790399e0.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_ae1c6cb61757cb0950cd",
+        "question_number": 120,
+        "source_jsonl_line": 10658
+      }
+    ],
+    "sha256": "d2c5145a5dd8474e74d302730a014097ca0cd44cbadfbc49d1bf3a50a9fbab69"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013-2022年某地区云计算市场规模现状及预测",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d2c5145a5dd8474e74d30273/column_band_01.jpg",
+        "review-crops/da_d2c5145a5dd8474e74d30273/column_band_02.jpg",
+        "review-crops/da_d2c5145a5dd8474e74d30273/column_band_03.jpg",
+        "review-crops/da_d2c5145a5dd8474e74d30273/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.849",
+      "crop_verification_elapsed_seconds:6.456",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:图中未明确标注单位，仅从上下文推断为'亿元'，可能存在误差。",
+      "model_uncertainty:预测值（含'E'）的准确性依赖于原始数据来源，未提供验证。",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

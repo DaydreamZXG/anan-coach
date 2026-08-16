@@ -1,0 +1,177 @@
+{
+  "asset_id": "da_3230f4af2fd474dfe7d2ee13",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）_images/img_0122_91b7dfb46b7004cf.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）_images/img_0122_91b7dfb46b7004cf.png",
+        "paper_title": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_853bf14c2c850bafc7a5",
+        "question_number": 111,
+        "source_jsonl_line": 104513
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）_images/img_0122_91b7dfb46b7004cf.png",
+        "paper_title": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_27dedb51ad5b0b8b5b04",
+        "question_number": 112,
+        "source_jsonl_line": 104514
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）_images/img_0122_91b7dfb46b7004cf.png",
+        "paper_title": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5edfa384e9161e814112",
+        "question_number": 113,
+        "source_jsonl_line": 104515
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）_images/img_0122_91b7dfb46b7004cf.png",
+        "paper_title": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_da7ac35076da96fe547f",
+        "question_number": 114,
+        "source_jsonl_line": 104516
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）_images/img_0136_6297e2ae39643628.png",
+        "paper_title": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_016ecebdaa44a29da7a3",
+        "question_number": 115,
+        "source_jsonl_line": 104517
+      }
+    ],
+    "sha256": "3230f4af2fd474dfe7d2ee1302b958791ccfbcf63d0f25dffe086561e8ef421c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "第一季度",
+      "上半年",
+      "前三季度",
+      "全年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "居民人均可支配收入",
+        "unit": null,
+        "values": [
+          10345,
+          18463,
+          27650,
+          36883
+        ]
+      },
+      {
+        "label": "其中工资性收入",
+        "unit": null,
+        "values": [
+          5871,
+          10576,
+          15678,
+          20590
+        ]
+      },
+      {
+        "label": "经营净收入",
+        "unit": null,
+        "values": [
+          1733,
+          2841,
+          4352,
+          6175
+        ]
+      },
+      {
+        "label": "财产净收入",
+        "unit": null,
+        "values": [
+          920,
+          1665,
+          2463,
+          3227
+        ]
+      },
+      {
+        "label": "转移净收入",
+        "unit": null,
+        "values": [
+          1822,
+          3382,
+          5157,
+          6892
+        ]
+      }
+    ]
+  },
+  "title": "2022年全国居民人均可支配收入情况表",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3230f4af2fd474dfe7d2ee13/row_band_01.jpg",
+        "review-crops/da_3230f4af2fd474dfe7d2ee13/row_band_02.jpg",
+        "review-crops/da_3230f4af2fd474dfe7d2ee13/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.217",
+      "crop_verification_elapsed_seconds:7.266",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了第二张图中'其中工资性收入'的第三季度数据为15678，与第一张图一致。",
+      "crop_note:修正了第二张图中'经营净收入'的第三季度数据为4352，与第一张图一致。",
+      "crop_note:修正了第三张图中'财产净收入'的第三季度数据为2463，与第一张图一致。",
+      "crop_note:修正了第三张图中'转移净收入'的第三季度数据为5157，与第一张图一致。",
+      "crop_note:确认所有数据均为整数，无小数、负号或百分号。",
+      "crop_note:确认所有缺失值保持为null，未补0。",
+      "table_row_label_column_removed:<blank>"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,277 @@
+{
+  "asset_id": "da_17fb7e7a5d30454b35e5ad0e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广州市考/2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0203_db80df607759902d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0203_db80df607759902d.png",
+        "paper_title": "2017年广州市公务员录用考试《行测》题（单考区卷）",
+        "question_id": "pq_ae44f53e2dc66a760299",
+        "question_number": 91,
+        "source_jsonl_line": 37453
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0221_bae41c50bf6482b5.png",
+        "paper_title": "2017年广州市公务员录用考试《行测》题（单考区卷）",
+        "question_id": "pq_583ec73bb08f0a804e0c",
+        "question_number": 92,
+        "source_jsonl_line": 37454
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0221_bae41c50bf6482b5.png",
+        "paper_title": "2017年广州市公务员录用考试《行测》题（单考区卷）",
+        "question_id": "pq_68719122450a63f9f73e",
+        "question_number": 93,
+        "source_jsonl_line": 37455
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0203_db80df607759902d.png",
+        "paper_title": "2017年广州市公务员录用考试《行测》题（单考区卷）",
+        "question_id": "pq_057395ee16857a981b84",
+        "question_number": 94,
+        "source_jsonl_line": 37456
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0221_bae41c50bf6482b5.png",
+        "paper_title": "2017年广州市公务员录用考试《行测》题（单考区卷）",
+        "question_id": "pq_a2711402873f8591da34",
+        "question_number": 95,
+        "source_jsonl_line": 37457
+      }
+    ],
+    "sha256": "17fb7e7a5d30454b35e5ad0e8c436541c13f5a937ca2d21b32c82be580a4f085"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "招生人数｜本科院校",
+          "招生人数｜专科院校"
+        ],
+        "label": "招生人数"
+      },
+      {
+        "columns": [
+          "在校人数｜本科院校",
+          "在校人数｜专科院校"
+        ],
+        "label": "在校人数"
+      },
+      {
+        "columns": [
+          "毕业人数｜本科院校",
+          "毕业人数｜专科院校"
+        ],
+        "label": "毕业人数"
+      }
+    ],
+    "columns": [
+      "招生人数｜本科院校",
+      "招生人数｜专科院校",
+      "在校人数｜本科院校",
+      "在校人数｜专科院校",
+      "毕业人数｜本科院校",
+      "毕业人数｜专科院校"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "label": "全国",
+        "unit": "万人",
+        "values": [
+          389,
+          348,
+          1577,
+          1049,
+          681,
+          319
+        ]
+      },
+      {
+        "label": "安徽",
+        "unit": "万人",
+        "values": [
+          16,
+          17,
+          62,
+          51,
+          14,
+          15
+        ]
+      },
+      {
+        "label": "北京",
+        "unit": "万人",
+        "values": [
+          13,
+          3,
+          51,
+          10,
+          12,
+          4
+        ]
+      },
+      {
+        "label": "广东",
+        "unit": "万人",
+        "values": [
+          27,
+          28,
+          104,
+          82,
+          22,
+          25
+        ]
+      },
+      {
+        "label": "河北",
+        "unit": "万人",
+        "values": [
+          17,
+          16,
+          68,
+          50,
+          16,
+          17
+        ]
+      },
+      {
+        "label": "河南",
+        "unit": "万人",
+        "values": [
+          24,
+          27,
+          100,
+          77,
+          22,
+          24
+        ]
+      },
+      {
+        "label": "湖南",
+        "unit": "万人",
+        "values": [
+          17,
+          17,
+          68,
+          50,
+          15,
+          15
+        ]
+      },
+      {
+        "label": "江苏",
+        "unit": "万人",
+        "values": [
+          26,
+          19,
+          103,
+          68,
+          26,
+          24
+        ]
+      },
+      {
+        "label": "山东",
+        "unit": "万人",
+        "values": [
+          24,
+          30,
+          98,
+          92,
+          23,
+          25
+        ]
+      },
+      {
+        "label": "四川",
+        "unit": "万人",
+        "values": [
+          21,
+          21,
+          78,
+          60,
+          18,
+          19
+        ]
+      },
+      {
+        "label": "浙江",
+        "unit": "万人",
+        "values": [
+          15,
+          12,
+          61,
+          38,
+          14,
+          12
+        ]
+      }
+    ]
+  },
+  "title": "2015年各部分省（市）普通本专科院校学生情况",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_17fb7e7a5d30454b35e5ad0e/row_band_01.jpg",
+        "review-crops/da_17fb7e7a5d30454b35e5ad0e/row_band_02.jpg",
+        "review-crops/da_17fb7e7a5d30454b35e5ad0e/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.299",
+      "crop_verification_elapsed_seconds:7.871",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

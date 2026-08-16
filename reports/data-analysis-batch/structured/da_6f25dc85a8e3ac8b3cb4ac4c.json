@@ -1,0 +1,217 @@
+{
+  "asset_id": "da_6f25dc85a8e3ac8b3cb4ac4c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "参加培训",
+    "提升职务",
+    "改善工作环境",
+    "提高薪酬"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "参加培训",
+      "style": {
+        "dash": null,
+        "fill": "#6495ED",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "提升职务",
+      "style": {
+        "dash": null,
+        "fill": "#DC143C",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "改善工作环境",
+      "style": {
+        "dash": null,
+        "fill": "#9ACD32",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "提高薪酬",
+      "style": {
+        "dash": null,
+        "fill": "#9370DB",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -93.0,
+      2.5,
+      182.0,
+      248.5,
+      267.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 2.5,
+        "label": "参加培训",
+        "share": 0.26527778,
+        "start_angle": -93.0,
+        "sweep_angle": 95.5
+      },
+      {
+        "end_angle": 182.0,
+        "label": "提升职务",
+        "share": 0.49861111,
+        "start_angle": 2.5,
+        "sweep_angle": 179.5
+      },
+      {
+        "end_angle": 248.5,
+        "label": "改善工作环境",
+        "share": 0.18472222,
+        "start_angle": 182.0,
+        "sweep_angle": 66.5
+      },
+      {
+        "end_angle": 267.0,
+        "label": "提高薪酬",
+        "share": 0.05138889,
+        "start_angle": 248.5,
+        "sweep_angle": 18.5
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.26527778,
+        0.49861111,
+        0.18472222,
+        0.05138889
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2017年深圳市公务员录用考试《行测》题_images/img_0165_835fc16504f6edc3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年深圳市公务员录用考试《行测》题_images/img_0165_835fc16504f6edc3.png",
+        "paper_title": "2017年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_1868fe45142384a2bd02",
+        "question_number": 91,
+        "source_jsonl_line": 67747
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年深圳市公务员录用考试《行测》题_images/img_0165_835fc16504f6edc3.png",
+        "paper_title": "2017年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_41f6eb9ca82a717f71f5",
+        "question_number": 92,
+        "source_jsonl_line": 67748
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年深圳市公务员录用考试《行测》题_images/img_0165_835fc16504f6edc3.png",
+        "paper_title": "2017年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_5d01478dd3557ef3a85b",
+        "question_number": 93,
+        "source_jsonl_line": 67749
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年深圳市公务员录用考试《行测》题_images/img_0165_835fc16504f6edc3.png",
+        "paper_title": "2017年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_bb9f24c862fc23353b63",
+        "question_number": 94,
+        "source_jsonl_line": 67750
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年深圳市公务员录用考试《行测》题_images/img_0165_835fc16504f6edc3.png",
+        "paper_title": "2017年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_2a689c98f87fbd0781b5",
+        "question_number": 95,
+        "source_jsonl_line": 67751
+      }
+    ],
+    "sha256": "6f25dc85a8e3ac8b3cb4ac4cd3ca30b411ac07d4fa93fbe5ed04896b0b5f38f1"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6f25dc85a8e3ac8b3cb4ac4c/quadrant_01.jpg",
+        "review-crops/da_6f25dc85a8e3ac8b3cb4ac4c/quadrant_02.jpg",
+        "review-crops/da_6f25dc85a8e3ac8b3cb4ac4c/quadrant_03.jpg",
+        "review-crops/da_6f25dc85a8e3ac8b3cb4ac4c/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.584",
+      "crop_verification_elapsed_seconds:0.699",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:图中未明确说明各环对应公司顺序，仅通过注释推断，存在不确定性。",
+      "model_uncertainty:饼图环内百分比未明确对应具体分类，需结合注释推断，存在解释性风险。",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.6847",
+      "hough_circle_radius_ratio:0.4571",
+      "radial_line_candidates:0",
+      "detected_boundaries:4"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

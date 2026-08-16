@@ -1,0 +1,686 @@
+{
+  "assetId": "gr_09a239f1f5c89bec86ff315d",
+  "crossPanelPatterns": [
+    {
+      "confidence": 0.9,
+      "description": "the arrangement of triangles rotates 90 degrees clockwise from panel 1 to panel 2",
+      "from_panels": [
+        1
+      ],
+      "subjects": [
+        "triangle"
+      ],
+      "to_panels": [
+        2
+      ],
+      "type": "rotation"
+    },
+    {
+      "confidence": 0.9,
+      "description": "the arrangement of triangles rotates 90 degrees clockwise from panel 2 to panel 3",
+      "from_panels": [
+        2
+      ],
+      "subjects": [
+        "triangle"
+      ],
+      "to_panels": [
+        3
+      ],
+      "type": "rotation"
+    },
+    {
+      "confidence": 0.9,
+      "description": "the arrangement of triangles rotates 90 degrees clockwise from panel 3 to panel 4",
+      "from_panels": [
+        3
+      ],
+      "subjects": [
+        "triangle"
+      ],
+      "to_panels": [
+        4
+      ],
+      "type": "rotation"
+    },
+    {
+      "confidence": 0.9,
+      "description": "the arrangement of triangles rotates 90 degrees clockwise from panel 4 to panel 5",
+      "from_panels": [
+        4
+      ],
+      "subjects": [
+        "triangle"
+      ],
+      "to_panels": [
+        5
+      ],
+      "type": "rotation"
+    }
+  ],
+  "layout": {
+    "authority": "cv_model_agreement",
+    "cvCandidate": {
+      "layoutType": "sequence",
+      "optionCount": 4,
+      "panelCount": 9,
+      "panelRoles": [
+        "stem",
+        "stem",
+        "stem",
+        "stem",
+        "missing",
+        "option",
+        "option",
+        "option",
+        "option"
+      ],
+      "source": "phase1_benchmark_cv"
+    },
+    "layoutType": "sequence",
+    "optionCount": 4,
+    "panelCount": 9
+  },
+  "panels": [
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 4,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 12,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 4,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p1e1",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_left"
+            },
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_right"
+            },
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "bottom_left"
+            },
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "bottom_right"
+            }
+          ],
+          "kind": "polygon",
+          "label": "triangle",
+          "line_character": "straight",
+          "orientation": "mixed",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [
+        "four identical right triangles arranged symmetrically around a central point, forming a cross-like structure"
+      ],
+      "option_label": null,
+      "position": 1,
+      "relations": [
+        {
+          "description": "four triangles arranged in a cross pattern, each sharing a vertex at the center",
+          "subjects": [
+            "p1e1"
+          ],
+          "type": "connected"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 12,
+        "junction_count": 1,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 4,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 12,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 4,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p2e1",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_left"
+            },
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_right"
+            },
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "bottom_left"
+            },
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "bottom_right"
+            }
+          ],
+          "kind": "polygon",
+          "label": "triangle",
+          "line_character": "straight",
+          "orientation": "mixed",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [
+        "four identical right triangles arranged in a rotational pattern, each rotated 90 degrees clockwise from the previous, forming a spiral-like structure"
+      ],
+      "option_label": null,
+      "position": 2,
+      "relations": [
+        {
+          "description": "four triangles arranged in a rotational pattern, each rotated 90 degrees clockwise from the previous",
+          "subjects": [
+            "p2e1"
+          ],
+          "type": "connected"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 12,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 4,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 12,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 4,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p3e1",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_left"
+            },
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_right"
+            },
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "bottom_left"
+            },
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "bottom_right"
+            }
+          ],
+          "kind": "polygon",
+          "label": "triangle",
+          "line_character": "straight",
+          "orientation": "mixed",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [
+        "four identical right triangles arranged in a rotational pattern, each rotated 90 degrees clockwise from the previous, forming a spiral-like structure"
+      ],
+      "option_label": null,
+      "position": 3,
+      "relations": [
+        {
+          "description": "four triangles arranged in a rotational pattern, each rotated 90 degrees clockwise from the previous",
+          "subjects": [
+            "p3e1"
+          ],
+          "type": "connected"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 12,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 4,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 12,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 4,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p4e1",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_left"
+            },
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_right"
+            },
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "bottom_left"
+            },
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "bottom_right"
+            }
+          ],
+          "kind": "polygon",
+          "label": "triangle",
+          "line_character": "straight",
+          "orientation": "mixed",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [
+        "four identical right triangles arranged in a rotational pattern, each rotated 90 degrees clockwise from the previous, forming a spiral-like structure"
+      ],
+      "option_label": null,
+      "position": 4,
+      "relations": [
+        {
+          "description": "four triangles arranged in a rotational pattern, each rotated 90 degrees clockwise from the previous",
+          "subjects": [
+            "p4e1"
+          ],
+          "type": "connected"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 12,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 0,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [],
+      "observations": [
+        "missing panel, expected to follow the observed pattern"
+      ],
+      "option_label": null,
+      "position": 5,
+      "relations": [],
+      "role": "missing",
+      "topology": {
+        "component_count": 0,
+        "endpoint_count": 0,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 4,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 12,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 4,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p6e1",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_left"
+            },
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_right"
+            },
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "bottom_left"
+            },
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "bottom_right"
+            }
+          ],
+          "kind": "polygon",
+          "label": "triangle",
+          "line_character": "straight",
+          "orientation": "mixed",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [
+        "four identical right triangles arranged in a rotational pattern, each rotated 90 degrees clockwise from the previous, forming a spiral-like structure"
+      ],
+      "option_label": "A",
+      "position": 6,
+      "relations": [
+        {
+          "description": "four triangles arranged in a rotational pattern, each rotated 90 degrees clockwise from the previous",
+          "subjects": [
+            "p6e1"
+          ],
+          "type": "connected"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 12,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 4,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 12,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 4,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p7e1",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_left"
+            },
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_right"
+            },
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "bottom_left"
+            },
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "bottom_right"
+            }
+          ],
+          "kind": "polygon",
+          "label": "triangle",
+          "line_character": "straight",
+          "orientation": "mixed",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [
+        "four identical right triangles arranged symmetrically around a central point, forming a cross-like structure"
+      ],
+      "option_label": "B",
+      "position": 7,
+      "relations": [
+        {
+          "description": "four triangles arranged in a cross pattern, each sharing a vertex at the center",
+          "subjects": [
+            "p7e1"
+          ],
+          "type": "connected"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 12,
+        "junction_count": 1,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 4,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 12,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 4,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p8e1",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_left"
+            },
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_right"
+            },
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "bottom_left"
+            },
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "bottom_right"
+            }
+          ],
+          "kind": "polygon",
+          "label": "triangle",
+          "line_character": "straight",
+          "orientation": "mixed",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [
+        "four identical right triangles arranged in a rotational pattern, each rotated 90 degrees clockwise from the previous, forming a spiral-like structure"
+      ],
+      "option_label": "C",
+      "position": 8,
+      "relations": [
+        {
+          "description": "four triangles arranged in a rotational pattern, each rotated 90 degrees clockwise from the previous",
+          "subjects": [
+            "p8e1"
+          ],
+          "type": "connected"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 12,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 4,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 12,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 4,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p9e1",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_left"
+            },
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_right"
+            },
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "bottom_left"
+            },
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "bottom_right"
+            }
+          ],
+          "kind": "polygon",
+          "label": "triangle",
+          "line_character": "straight",
+          "orientation": "mixed",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [
+        "four identical right triangles arranged in a rotational pattern, each rotated 90 degrees clockwise from the previous, forming a spiral-like structure"
+      ],
+      "option_label": "D",
+      "position": 9,
+      "relations": [
+        {
+          "description": "four triangles arranged in a rotational pattern, each rotated 90 degrees clockwise from the previous",
+          "subjects": [
+            "p9e1"
+          ],
+          "type": "connected"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 12,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    }
+  ],
+  "presentation": {
+    "imageAuthority": "source_sha256",
+    "mode": "original_image",
+    "vectorRequired": false
+  },
+  "schemaVersion": "graphic-reasoning-ai-semantic-v1",
+  "source": {
+    "imagePaths": [
+      "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2014年广东省公务员录用考试《行测》题（县级以上）_images/img_0065_c25f145fd26c1adf.png"
+    ],
+    "questionReferences": [
+      {
+        "field": "stem_html",
+        "knowledgePoint": "位置规律-旋转",
+        "questionId": "pq_3737248a9b016f4f6320",
+        "role": "stem",
+        "sourceJsonlLine": 34382
+      }
+    ],
+    "sha256": "09a239f1f5c89bec86ff315d718a08ccc7580faa9a7de791af3deed86b00b084"
+  },
+  "uncertainties": [
+    "The exact nature of the rotation pattern is consistent, but the orientation of the triangles in the missing panel is uncertain due to the lack of visual information."
+  ],
+  "vectorEnhancement": {
+    "blocking": false,
+    "status": "repair_pending"
+  },
+  "visualGrammar": "regular_geometry"
+}

@@ -46,6 +46,10 @@ interface MaterialReaderData {
   annotationElapsedMs: number;
   annotationContentHeight: number;
   horizontalRegions: HorizontalAnnotationRegion[];
+  annotationSurfaceSwitchAvailable: boolean;
+  annotationActiveSurface: string;
+  annotationToolbarAvailable: boolean;
+  annotationTool: string;
 }
 
 interface MaterialReaderHost {
@@ -74,6 +78,10 @@ type MaterialReaderViewData = Omit<
   | "annotationStrokes"
   | "annotationElapsedSeconds"
   | "annotationElapsedMs"
+  | "annotationSurfaceSwitchAvailable"
+  | "annotationActiveSurface"
+  | "annotationToolbarAvailable"
+  | "annotationTool"
 >;
 
 const initialReaderData: MaterialReaderViewData = {
@@ -111,6 +119,10 @@ Component({
     annotationStrokes: { type: null, value: [] },
     annotationElapsedSeconds: { type: Number, value: 0 },
     annotationElapsedMs: { type: Number, value: -1 },
+    annotationSurfaceSwitchAvailable: { type: Boolean, value: false },
+    annotationActiveSurface: { type: String, value: "material" },
+    annotationToolbarAvailable: { type: Boolean, value: true },
+    annotationTool: { type: String, value: "pan" },
     blocks: { type: null, value: [] },
     anchors: { type: null, value: [] },
     state: { type: Object, value: createMaterialReaderState() },
@@ -153,6 +165,7 @@ Component({
       this.measureReadPercent(event.detail.scrollTop, event.detail.scrollHeight);
       if (
         Number.isFinite(event.detail.scrollHeight) &&
+        event.detail.scrollHeight > 0 &&
         Math.abs(event.detail.scrollHeight - this.data.annotationContentHeight) >= 1
       ) {
         this.setData({ annotationContentHeight: event.detail.scrollHeight });
@@ -164,12 +177,17 @@ Component({
         query
           .select(
             this.data.readerMode === "question_first"
-              ? ".material-reader__inline-body"
-              : ".material-reader__body",
+              ? ".material-reader__inline-scroll"
+              : ".material-reader__body-scroll",
           )
           .fields({ size: true, scrollOffset: true });
         query.exec((results: Array<{ height?: number; scrollHeight?: number } | null>) => {
-          const height = results[0]?.scrollHeight ?? results[0]?.height ?? 0;
+          const measured = results[0];
+          const scrollHeight = measured?.scrollHeight ?? 0;
+          const viewportHeight = measured?.height ?? 0;
+          // scroll-view 才拥有可靠的 scrollHeight。短材料在部分基础库中会回传
+          // scrollHeight: 0，此时至少使用可触摸的视口高度，不能把画布留成 0 高。
+          const height = scrollHeight > 0 ? scrollHeight : viewportHeight;
           if (height > 0 && Math.abs(height - this.data.annotationContentHeight) >= 1) {
             this.setData({ annotationContentHeight: height });
           }
@@ -287,6 +305,17 @@ Component({
     },
     openAnnotationMore() {
       this.triggerEvent("annotationmore");
+    },
+    switchAnnotationSurface(
+      event: WechatMiniprogram.CustomEvent<{ surface: "question" | "material" }>,
+    ) {
+      this.triggerEvent("annotationsurfacechange", event.detail);
+    },
+    changeAnnotationTool(event: WechatMiniprogram.CustomEvent<{ tool: string }>) {
+      this.triggerEvent("annotationtoolchange", event.detail);
+    },
+    focusAnnotationCanvas() {
+      this.triggerEvent("annotationfocus");
     },
     stopPropagation() {},
   },

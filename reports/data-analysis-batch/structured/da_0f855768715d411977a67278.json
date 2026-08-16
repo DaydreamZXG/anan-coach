@@ -1,0 +1,197 @@
+{
+  "asset_id": "da_0f855768715d411977a67278",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0152_2ae75de9fe776035.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0152_2ae75de9fe776035.png",
+        "paper_title": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4640668357b5f6b29c3a",
+        "question_number": 116,
+        "source_jsonl_line": 104398
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0159_b515a25374eed54f.png",
+        "paper_title": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a3d7854b603f7dc020e8",
+        "question_number": 117,
+        "source_jsonl_line": 104399
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0159_b515a25374eed54f.png",
+        "paper_title": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_33ba2217511d70e19e20",
+        "question_number": 118,
+        "source_jsonl_line": 104400
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0152_2ae75de9fe776035.png",
+        "paper_title": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7ce0b7844e661844fc37",
+        "question_number": 119,
+        "source_jsonl_line": 104401
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0152_2ae75de9fe776035.png",
+        "paper_title": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e497c3a5e69404650554",
+        "question_number": 120,
+        "source_jsonl_line": 104402
+      }
+    ],
+    "sha256": "0f855768715d411977a67278de1d368b118d357adb8f552cf29aadb6ba1bc775"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "交通固定资产投资额（亿元）",
+      "同比增长率（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "铁路",
+    "rows": [
+      {
+        "label": "铁路",
+        "unit": null,
+        "values": [
+          7109,
+          -5.1
+        ]
+      },
+      {
+        "label": "公路",
+        "unit": null,
+        "values": [
+          28527,
+          9.7
+        ]
+      },
+      {
+        "label": "其中：高速公路",
+        "unit": null,
+        "values": [
+          16262,
+          7.3
+        ]
+      },
+      {
+        "label": "普通国省道",
+        "unit": null,
+        "values": [
+          5973,
+          6.5
+        ]
+      },
+      {
+        "label": "农村公路",
+        "unit": null,
+        "values": [
+          4733,
+          15.6
+        ]
+      },
+      {
+        "label": "水路",
+        "unit": null,
+        "values": [
+          1679,
+          10.9
+        ]
+      },
+      {
+        "label": "其中：内河建设",
+        "unit": null,
+        "values": [
+          867,
+          16.7
+        ]
+      },
+      {
+        "label": "沿海建设",
+        "unit": null,
+        "values": [
+          794,
+          9.9
+        ]
+      },
+      {
+        "label": "民航",
+        "unit": null,
+        "values": [
+          1231,
+          0.7
+        ]
+      }
+    ]
+  },
+  "title": "2022年交通固定资产投资及同比增长率",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0f855768715d411977a67278/row_band_01.jpg",
+        "review-crops/da_0f855768715d411977a67278/row_band_02.jpg",
+        "review-crops/da_0f855768715d411977a67278/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.716",
+      "crop_verification_elapsed_seconds:5.633",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'公路'行的'交通固定资产投资额（亿元）'为28527，与第二张图一致。",
+      "crop_note:修正了'水路'行的'交通固定资产投资额（亿元）'为1679，与第三张图一致。",
+      "crop_note:修正了'其中：内河建设'行的'交通固定资产投资额（亿元）'为867，与第三张图一致。",
+      "crop_note:修正了'沿海建设'行的'交通固定资产投资额（亿元）'为794，与第三张图一致。",
+      "crop_note:修正了'民航'行的'交通固定资产投资额（亿元）'为1231，与第三张图一致。",
+      "crop_note:确认所有数值的负号、小数点、百分号和缺失值均正确，未补0。",
+      "table_row_label_column_removed:铁路"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

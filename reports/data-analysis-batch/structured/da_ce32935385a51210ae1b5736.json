@@ -1,0 +1,169 @@
+{
+  "asset_id": "da_ce32935385a51210ae1b5736",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 380,
+        "min": 0,
+        "ticks": [],
+        "title": null,
+        "unit": "人"
+      }
+    ]
+  },
+  "categories": [
+    "20",
+    "25",
+    "30",
+    "35",
+    "40",
+    "45",
+    "50",
+    "55",
+    "60",
+    "65"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "做出第一次重大发明的人数",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "做出重大发明创造的项数",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "做出第一次重大发明的人数",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        20,
+        80,
+        260,
+        280,
+        340,
+        200,
+        80,
+        40,
+        20,
+        0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "做出重大发明创造的项数",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "项",
+      "values": [
+        40,
+        80,
+        340,
+        360,
+        380,
+        280,
+        160,
+        80,
+        40,
+        0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2008年陕西省公务员录用考试《行测》题_images/img_0111_7fe185d51b05bed0.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年陕西省公务员录用考试《行测》题_images/img_0111_7fe185d51b05bed0.png",
+        "paper_title": "2008年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_8caec62ced77eac9b608",
+        "question_number": 125,
+        "source_jsonl_line": 96408
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年陕西省公务员录用考试《行测》题_images/img_0113_4cc6686745a445d9.png",
+        "paper_title": "2008年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_009805921b53871f7fa3",
+        "question_number": 126,
+        "source_jsonl_line": 96409
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年陕西省公务员录用考试《行测》题_images/img_0111_7fe185d51b05bed0.png",
+        "paper_title": "2008年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_2499f91c284fffb03c88",
+        "question_number": 127,
+        "source_jsonl_line": 96410
+      }
+    ],
+    "sha256": "ce32935385a51210ae1b5736c24b101a5fa395712e632b914e23ff58ad91f139"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "人才成功曲线图",
+  "unit": "人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.047",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "independent_compact_chart_adjudication"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b_compact_chart",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

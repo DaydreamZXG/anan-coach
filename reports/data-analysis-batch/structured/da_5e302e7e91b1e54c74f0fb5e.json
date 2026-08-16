@@ -1,0 +1,234 @@
+{
+  "asset_id": "da_5e302e7e91b1e54c74f0fb5e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "监测量",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "条次",
+      "values": [
+        157860,
+        63299,
+        62134,
+        13914,
+        297207
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "涉嫌违法量",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "条次",
+      "values": [
+        88,
+        10,
+        496,
+        0,
+        594
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "涉嫌违法率",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        0.06,
+        null,
+        0.8,
+        0.0,
+        0.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2016年北京市公务员录用考试《行测》题_images/img_0188_614f7689438f5275.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年北京市公务员录用考试《行测》题_images/img_0188_614f7689438f5275.jpg",
+        "paper_title": "2016年北京市公务员录用考试《行测》题",
+        "question_id": "pq_067a3b11e480aefcdb19",
+        "question_number": 131,
+        "source_jsonl_line": 9734
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年北京市公务员录用考试《行测》题_images/img_0187_3ea4252d0aef0489.jpg",
+        "paper_title": "2016年北京市公务员录用考试《行测》题",
+        "question_id": "pq_73f9b7e0dd7c208ad38e",
+        "question_number": 132,
+        "source_jsonl_line": 9735
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年北京市公务员录用考试《行测》题_images/img_0188_614f7689438f5275.jpg",
+        "paper_title": "2016年北京市公务员录用考试《行测》题",
+        "question_id": "pq_40cce7728843ec23e036",
+        "question_number": 133,
+        "source_jsonl_line": 9736
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年北京市公务员录用考试《行测》题_images/img_0188_614f7689438f5275.jpg",
+        "paper_title": "2016年北京市公务员录用考试《行测》题",
+        "question_id": "pq_b6bd7d081cd7ab9efdee",
+        "question_number": 134,
+        "source_jsonl_line": 9737
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年北京市公务员录用考试《行测》题_images/img_0188_614f7689438f5275.jpg",
+        "paper_title": "2016年北京市公务员录用考试《行测》题",
+        "question_id": "pq_2f632f860c4ad1fdb570",
+        "question_number": 135,
+        "source_jsonl_line": 9738
+      }
+    ],
+    "sha256": "5e302e7e91b1e54c74f0fb5e407bcac55d48b5cc9e357311e953d6fc12aee101"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "媒体类型",
+      "监测量",
+      "涉嫌违法量",
+      "涉嫌违法率"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "电视",
+        "unit": null,
+        "values": [
+          "电视",
+          157860,
+          88,
+          0.06
+        ]
+      },
+      {
+        "label": "广播",
+        "unit": null,
+        "values": [
+          "广播",
+          63299,
+          10,
+          null
+        ]
+      },
+      {
+        "label": "平面",
+        "unit": null,
+        "values": [
+          "平面",
+          62134,
+          496,
+          0.8
+        ]
+      },
+      {
+        "label": "网络",
+        "unit": null,
+        "values": [
+          "网络",
+          13914,
+          0,
+          0.0
+        ]
+      },
+      {
+        "label": "合计",
+        "unit": null,
+        "values": [
+          "合计",
+          297207,
+          594,
+          0.2
+        ]
+      }
+    ]
+  },
+  "title": "2015年7月D市监测各类媒体广告概况",
+  "unit": "条次",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5e302e7e91b1e54c74f0fb5e/row_band_01.jpg",
+        "review-crops/da_5e302e7e91b1e54c74f0fb5e/row_band_02.jpg",
+        "review-crops/da_5e302e7e91b1e54c74f0fb5e/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.366",
+      "crop_verification_elapsed_seconds:0.97",
+      "candidate_value_changes_after_crop:1",
+      "model_uncertainty:'?' 表示缺失值，未明确说明是否为零或可推断",
+      "model_uncertainty:表中 '单位：条次' 为全局单位，未明确标注在每个数值列",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

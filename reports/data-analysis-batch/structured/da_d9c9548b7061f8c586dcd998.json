@@ -1,0 +1,306 @@
+{
+  "asset_id": "da_d9c9548b7061f8c586dcd998",
+  "axes": {
+    "x": {
+      "max": 6,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 3,
+        "min": 0,
+        "ticks": [
+          0,
+          0.5,
+          1,
+          1.5,
+          2,
+          2.5,
+          3
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2010年",
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "产量（亿吨）",
+      "style": {
+        "dash": null,
+        "fill": "lightgray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "销量（亿吨）",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "产量（亿吨）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿吨",
+      "values": [
+        2.14,
+        2.28,
+        2.41,
+        2.51,
+        2.62,
+        2.71
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "销量（亿吨）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿吨",
+      "values": [
+        2.13,
+        2.28,
+        2.41,
+        2.52,
+        2.62,
+        2.66
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2017年422联考《行测》题（云南卷）_images/img_0169_51a06dbebafa0bc9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（云南卷）_images/img_0169_51a06dbebafa0bc9.png",
+        "paper_title": "2017年422联考《行测》题（云南卷）",
+        "question_id": "pq_62dd54295a8e1c1315af",
+        "question_number": 116,
+        "source_jsonl_line": 5320
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（云南卷）_images/img_0183_65726a038e7a929b.png",
+        "paper_title": "2017年422联考《行测》题（云南卷）",
+        "question_id": "pq_497015dc2ff6d1663f2d",
+        "question_number": 117,
+        "source_jsonl_line": 5321
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（云南卷）_images/img_0169_51a06dbebafa0bc9.png",
+        "paper_title": "2017年422联考《行测》题（云南卷）",
+        "question_id": "pq_009dac7a374633117944",
+        "question_number": 118,
+        "source_jsonl_line": 5322
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（云南卷）_images/img_0183_65726a038e7a929b.png",
+        "paper_title": "2017年422联考《行测》题（云南卷）",
+        "question_id": "pq_18b86dddbfefd569307c",
+        "question_number": 119,
+        "source_jsonl_line": 5323
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（云南卷）_images/img_0183_65726a038e7a929b.png",
+        "paper_title": "2017年422联考《行测》题（云南卷）",
+        "question_id": "pq_9087d6aed42fd5c04d3f",
+        "question_number": 120,
+        "source_jsonl_line": 5324
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）_images/img_0254_65726a038e7a929b.png",
+        "paper_title": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_747d0df6ef0f815b43c5",
+        "question_number": 111,
+        "source_jsonl_line": 58568
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）_images/img_0254_65726a038e7a929b.png",
+        "paper_title": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_6b241c7c754f5ea7480f",
+        "question_number": 112,
+        "source_jsonl_line": 58569
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）_images/img_0278_51a06dbebafa0bc9.png",
+        "paper_title": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_702046390be51decd0c4",
+        "question_number": 113,
+        "source_jsonl_line": 58570
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）_images/img_0254_65726a038e7a929b.png",
+        "paper_title": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_d93e1ec7649880b0e0b0",
+        "question_number": 114,
+        "source_jsonl_line": 58571
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）_images/img_0254_65726a038e7a929b.png",
+        "paper_title": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_99d3da3180e209349227",
+        "question_number": 115,
+        "source_jsonl_line": 58572
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（海南卷）_images/img_0175_65726a038e7a929b.png",
+        "paper_title": "2017年422联考《行测》题（海南卷）",
+        "question_id": "pq_0be4342d209428e6cf70",
+        "question_number": 101,
+        "source_jsonl_line": 65867
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（海南卷）_images/img_0175_65726a038e7a929b.png",
+        "paper_title": "2017年422联考《行测》题（海南卷）",
+        "question_id": "pq_ee085a1b82103cce375a",
+        "question_number": 102,
+        "source_jsonl_line": 65868
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（海南卷）_images/img_0175_65726a038e7a929b.png",
+        "paper_title": "2017年422联考《行测》题（海南卷）",
+        "question_id": "pq_323e4a59f20801434530",
+        "question_number": 103,
+        "source_jsonl_line": 65869
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（海南卷）_images/img_0175_65726a038e7a929b.png",
+        "paper_title": "2017年422联考《行测》题（海南卷）",
+        "question_id": "pq_37bb2588b8e79b032516",
+        "question_number": 104,
+        "source_jsonl_line": 65870
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（海南卷）_images/img_0201_51a06dbebafa0bc9.png",
+        "paper_title": "2017年422联考《行测》题（海南卷）",
+        "question_id": "pq_87b2fcb2a9414b7fad01",
+        "question_number": 105,
+        "source_jsonl_line": 65871
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（甘肃卷）_images/img_0212_51a06dbebafa0bc9.png",
+        "paper_title": "2017年422联考《行测》题（甘肃卷）",
+        "question_id": "pq_5a9493b23758f3957855",
+        "question_number": 116,
+        "source_jsonl_line": 75091
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（甘肃卷）_images/img_0220_65726a038e7a929b.png",
+        "paper_title": "2017年422联考《行测》题（甘肃卷）",
+        "question_id": "pq_5c84f5ba0cc5354d4523",
+        "question_number": 117,
+        "source_jsonl_line": 75092
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（甘肃卷）_images/img_0220_65726a038e7a929b.png",
+        "paper_title": "2017年422联考《行测》题（甘肃卷）",
+        "question_id": "pq_44c2293cb4a36b873e08",
+        "question_number": 118,
+        "source_jsonl_line": 75093
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（甘肃卷）_images/img_0220_65726a038e7a929b.png",
+        "paper_title": "2017年422联考《行测》题（甘肃卷）",
+        "question_id": "pq_fc93a84fed62a6fa9ff7",
+        "question_number": 119,
+        "source_jsonl_line": 75094
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（甘肃卷）_images/img_0212_51a06dbebafa0bc9.png",
+        "paper_title": "2017年422联考《行测》题（甘肃卷）",
+        "question_id": "pq_76125bd4300c3270998d",
+        "question_number": 120,
+        "source_jsonl_line": 75095
+      }
+    ],
+    "sha256": "d9c9548b7061f8c586dcd9989e822a7085127ec3d52c13aefc960617b8f443e2"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2010-2015年我国水果产销量情况",
+  "unit": "亿吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d9c9548b7061f8c586dcd998/column_band_01.jpg",
+        "review-crops/da_d9c9548b7061f8c586dcd998/column_band_02.jpg",
+        "review-crops/da_d9c9548b7061f8c586dcd998/column_band_03.jpg",
+        "review-crops/da_d9c9548b7061f8c586dcd998/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.465",
+      "crop_verification_elapsed_seconds:4.004",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

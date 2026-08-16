@@ -1,0 +1,356 @@
+{
+  "asset_id": "da_a6c605a95aef74f3cea4a058",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "类别",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "人均支出（元）",
+        "unit": "元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比增长（%）",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "食品烟酒",
+    "衣着",
+    "居住",
+    "生活用品及服务",
+    "交通通信",
+    "教育文化娱乐",
+    "医疗保健",
+    "其他用品及服务"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "城镇居民 人均支出（元）",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "城镇居民 同比增长（%）",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "农村居民 人均支出（元）",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "农村居民 同比增长（%）",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇居民 人均支出（元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        8958,
+        1735,
+        7644,
+        1800,
+        3909,
+        3050,
+        2481,
+        814
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "城镇居民 同比增长（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        3.2,
+        -5.8,
+        3.2,
+        -1.1,
+        -0.6,
+        -8.2,
+        -1.6,
+        3.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "农村居民 人均支出（元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        5485,
+        864,
+        3503,
+        934,
+        2230,
+        1683,
+        1632,
+        300
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "农村居民 同比增长（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.5,
+        0.5,
+        5.7,
+        3.7,
+        4.6,
+        2.3,
+        3.3,
+        5.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0151_7a53b53ea861ea9b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0151_7a53b53ea861ea9b.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_5eca2e41ebaafe961063",
+        "question_number": 96,
+        "source_jsonl_line": 35928
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0147_7ba2552f849f7ba5.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_b880adb8b821bea50097",
+        "question_number": 97,
+        "source_jsonl_line": 35929
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0151_7a53b53ea861ea9b.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_7b8dc636cddf04efda3d",
+        "question_number": 98,
+        "source_jsonl_line": 35930
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0151_7a53b53ea861ea9b.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_40998e7e2b8eb9229ea9",
+        "question_number": 99,
+        "source_jsonl_line": 35931
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0151_7a53b53ea861ea9b.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_fb56ced7179a70f3e90a",
+        "question_number": 100,
+        "source_jsonl_line": 35932
+      }
+    ],
+    "sha256": "a6c605a95aef74f3cea4a058daf33dfd7e93c1580b218f2f0799dc479e9c42d6"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "类别",
+      "城镇居民 人均支出（元）",
+      "城镇居民 同比增长（%）",
+      "农村居民 人均支出（元）",
+      "农村居民 同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "食品烟酒",
+        "unit": null,
+        "values": [
+          "食品烟酒",
+          8958,
+          3.2,
+          5485,
+          5.5
+        ]
+      },
+      {
+        "label": "衣着",
+        "unit": null,
+        "values": [
+          "衣着",
+          1735,
+          -5.8,
+          864,
+          0.5
+        ]
+      },
+      {
+        "label": "居住",
+        "unit": null,
+        "values": [
+          "居住",
+          7644,
+          3.2,
+          3503,
+          5.7
+        ]
+      },
+      {
+        "label": "生活用品及服务",
+        "unit": null,
+        "values": [
+          "生活用品及服务",
+          1800,
+          -1.1,
+          934,
+          3.7
+        ]
+      },
+      {
+        "label": "交通通信",
+        "unit": null,
+        "values": [
+          "交通通信",
+          3909,
+          -0.6,
+          2230,
+          4.6
+        ]
+      },
+      {
+        "label": "教育文化娱乐",
+        "unit": null,
+        "values": [
+          "教育文化娱乐",
+          3050,
+          -8.2,
+          1683,
+          2.3
+        ]
+      },
+      {
+        "label": "医疗保健",
+        "unit": null,
+        "values": [
+          "医疗保健",
+          2481,
+          -1.6,
+          1632,
+          3.3
+        ]
+      },
+      {
+        "label": "其他用品及服务",
+        "unit": null,
+        "values": [
+          "其他用品及服务",
+          814,
+          3.5,
+          300,
+          5.9
+        ]
+      }
+    ]
+  },
+  "title": "2022年城乡居民消费支出主要情况",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a6c605a95aef74f3cea4a058/row_band_01.jpg",
+        "review-crops/da_a6c605a95aef74f3cea4a058/row_band_02.jpg",
+        "review-crops/da_a6c605a95aef74f3cea4a058/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:13.758",
+      "crop_verification_elapsed_seconds:4.074",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

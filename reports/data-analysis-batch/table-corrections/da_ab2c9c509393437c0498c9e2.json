@@ -1,0 +1,104 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "投诉"
+        ],
+        "label": "投诉"
+      },
+      {
+        "columns": [
+          "举报"
+        ],
+        "label": "举报"
+      }
+    ],
+    "columns": [
+      "投诉",
+      "举报"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "互联网渠道",
+    "rows": [
+      {
+        "label": "热线电话",
+        "unit": "件",
+        "values": [
+          304498,
+          61021
+        ]
+      },
+      {
+        "label": "官方网站",
+        "unit": "件",
+        "values": [
+          62890,
+          121266
+        ]
+      },
+      {
+        "label": "微信小程序",
+        "unit": "件",
+        "values": [
+          92029,
+          35292
+        ]
+      },
+      {
+        "label": "APP",
+        "unit": "件",
+        "values": [
+          78696,
+          38045
+        ]
+      },
+      {
+        "label": "公众号",
+        "unit": "件",
+        "values": [
+          7189,
+          2518
+        ]
+      },
+      {
+        "label": "其他小程序",
+        "unit": "件",
+        "values": [
+          7280,
+          2304
+        ]
+      },
+      {
+        "label": "来函",
+        "unit": "件",
+        "values": [
+          2078,
+          2291
+        ]
+      },
+      {
+        "label": "其他",
+        "unit": "件",
+        "values": [
+          1403,
+          392
+        ]
+      },
+      {
+        "label": "合计",
+        "unit": "件",
+        "values": [
+          556063,
+          263129
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

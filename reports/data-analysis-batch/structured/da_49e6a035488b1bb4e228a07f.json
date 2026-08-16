@@ -1,0 +1,222 @@
+{
+  "asset_id": "da_49e6a035488b1bb4e228a07f",
+  "axes": {
+    "x": {
+      "max": 6,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 35.0,
+        "min": -5.0,
+        "ticks": [
+          -5.0,
+          0.0,
+          5.0,
+          10.0,
+          15.0,
+          20.0,
+          25.0,
+          30.0,
+          35.0
+        ],
+        "title": "增幅",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1~2月",
+    "1~3月",
+    "1~4月",
+    "1~5月",
+    "1~6月",
+    "1~7月",
+    "1~8月"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "全国",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": "diamond",
+        "stroke": "solid"
+      }
+    },
+    {
+      "label": "贵阳",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": "square",
+        "stroke": "solid"
+      }
+    },
+    {
+      "label": "昆明",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": "triangle",
+        "stroke": "dashed"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        30.0,
+        29.0,
+        28.0,
+        27.5,
+        26.5,
+        25.5,
+        25.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "贵阳",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        30.0,
+        12.5,
+        11.0,
+        9.5,
+        3.5,
+        2.0,
+        0.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "昆明",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        25.0,
+        27.0,
+        16.0,
+        18.5,
+        16.0,
+        15.0,
+        15.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2008年云南省公务员录用考试《行测》题_images/img_0169_2bc85f49e1330623.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年云南省公务员录用考试《行测》题_images/img_0169_2bc85f49e1330623.png",
+        "paper_title": "2008年云南省公务员录用考试《行测》题",
+        "question_id": "pq_e65c0931730a7bfb705d",
+        "question_number": 126,
+        "source_jsonl_line": 4196
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年云南省公务员录用考试《行测》题_images/img_0169_2bc85f49e1330623.png",
+        "paper_title": "2008年云南省公务员录用考试《行测》题",
+        "question_id": "pq_bde75d6fa247039a8cdb",
+        "question_number": 127,
+        "source_jsonl_line": 4197
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年云南省公务员录用考试《行测》题_images/img_0169_2bc85f49e1330623.png",
+        "paper_title": "2008年云南省公务员录用考试《行测》题",
+        "question_id": "pq_00c6131efa319c7ffa3a",
+        "question_number": 128,
+        "source_jsonl_line": 4198
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年云南省公务员录用考试《行测》题_images/img_0169_2bc85f49e1330623.png",
+        "paper_title": "2008年云南省公务员录用考试《行测》题",
+        "question_id": "pq_3edaf759f80a955abbb5",
+        "question_number": 129,
+        "source_jsonl_line": 4199
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年云南省公务员录用考试《行测》题_images/img_0176_377ca0ec9756ab99.png",
+        "paper_title": "2008年云南省公务员录用考试《行测》题",
+        "question_id": "pq_a8093c9da7d4a053bd0d",
+        "question_number": 130,
+        "source_jsonl_line": 4200
+      }
+    ],
+    "sha256": "49e6a035488b1bb4e228a07f2fe7ba48410aecc28c01d906115efbd6cde22dd4"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2007年1~8月房地产开发投资同比增幅变化",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_49e6a035488b1bb4e228a07f/column_band_01.jpg",
+        "review-crops/da_49e6a035488b1bb4e228a07f/column_band_02.jpg",
+        "review-crops/da_49e6a035488b1bb4e228a07f/column_band_03.jpg",
+        "review-crops/da_49e6a035488b1bb4e228a07f/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.822",
+      "crop_verification_elapsed_seconds:4.457",
+      "candidate_value_changes_after_crop:5",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

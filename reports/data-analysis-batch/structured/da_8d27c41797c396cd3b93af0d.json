@@ -1,0 +1,191 @@
+{
+  "asset_id": "da_8d27c41797c396cd3b93af0d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2008年黑龙江省公务员录用考试《行测》题_images/img_0138_2d3399ba479e4612.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年黑龙江省公务员录用考试《行测》题_images/img_0138_2d3399ba479e4612.png",
+        "paper_title": "2008年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_1357a0f0f4072b7ef296",
+        "question_number": 121,
+        "source_jsonl_line": 101009
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年黑龙江省公务员录用考试《行测》题_images/img_0144_13de57da102c27ea.png",
+        "paper_title": "2008年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_713907106b19c1c276b9",
+        "question_number": 122,
+        "source_jsonl_line": 101010
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年黑龙江省公务员录用考试《行测》题_images/img_0144_13de57da102c27ea.png",
+        "paper_title": "2008年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_9ffa860ad896079851b1",
+        "question_number": 123,
+        "source_jsonl_line": 101011
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年黑龙江省公务员录用考试《行测》题_images/img_0144_13de57da102c27ea.png",
+        "paper_title": "2008年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_f342edb095bef065c61c",
+        "question_number": 124,
+        "source_jsonl_line": 101012
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年黑龙江省公务员录用考试《行测》题_images/img_0144_13de57da102c27ea.png",
+        "paper_title": "2008年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_c2f34a931d1dbad18f7b",
+        "question_number": 125,
+        "source_jsonl_line": 101013
+      }
+    ],
+    "sha256": "8d27c41797c396cd3b93af0d8de13e73e48d90dbc5ca20d2880d46eb5aee510f"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "产值（亿元）",
+      "比上年增长（%）",
+      "占规模以上工业比重（%）"
+    ],
+    "corner_header": {
+      "lower_label": "比上年增长（%）",
+      "style": "diagonal",
+      "upper_label": "产值（亿元）"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "装备工业",
+        "group": "工业经济指标",
+        "label": "工业经济指标｜装备工业",
+        "unit": null,
+        "values": [
+          816.0,
+          18.9,
+          null
+        ]
+      },
+      {
+        "display_label": "石化工业",
+        "group": "工业经济指标",
+        "label": "工业经济指标｜石化工业",
+        "unit": null,
+        "values": [
+          998.3,
+          15.4,
+          18.5
+        ]
+      },
+      {
+        "display_label": "能源工业",
+        "group": "工业经济指标",
+        "label": "工业经济指标｜能源工业",
+        "unit": null,
+        "values": [
+          2439.4,
+          16.7,
+          45.2
+        ]
+      },
+      {
+        "display_label": "食品工业",
+        "group": "工业经济指标",
+        "label": "工业经济指标｜食品工业",
+        "unit": null,
+        "values": [
+          null,
+          13.7,
+          11.4
+        ]
+      },
+      {
+        "display_label": "医药工业",
+        "group": "工业经济指标",
+        "label": "工业经济指标｜医药工业",
+        "unit": null,
+        "values": [
+          123.0,
+          4.4,
+          2.3
+        ]
+      },
+      {
+        "display_label": "林木加工业",
+        "group": "工业经济指标",
+        "label": "工业经济指标｜林木加工业",
+        "unit": null,
+        "values": [
+          114.4,
+          8.9,
+          2.1
+        ]
+      },
+      {
+        "display_label": "六大基地合计",
+        "group": "工业经济指标",
+        "label": "工业经济指标｜六大基地合计",
+        "unit": null,
+        "values": [
+          5105.2,
+          15.9,
+          94.6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

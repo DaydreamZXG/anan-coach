@@ -1,0 +1,126 @@
+{
+  "confidence": null,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口额",
+          "比上年增长(%)"
+        ],
+        "label": "出口"
+      },
+      {
+        "columns": [
+          "进口额",
+          "比上年增长(%)"
+        ],
+        "label": "进口"
+      }
+    ],
+    "columns": [
+      "出口额",
+      "比上年增长(%)",
+      "进口额",
+      "比上年增长(%)"
+    ],
+    "confidence": 1,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家和地区",
+    "rows": [
+      {
+        "label": "美国",
+        "unit": "亿美元",
+        "values": [
+          3518,
+          8.4,
+          1329,
+          8.8
+        ]
+      },
+      {
+        "label": "欧盟",
+        "unit": "亿美元",
+        "values": [
+          3340,
+          -6.2,
+          2121,
+          0.4
+        ]
+      },
+      {
+        "label": "中国香港",
+        "unit": "亿美元",
+        "values": [
+          3235,
+          20.7,
+          180,
+          15.9
+        ]
+      },
+      {
+        "label": "东盟",
+        "unit": "亿美元",
+        "values": [
+          2043,
+          20.1,
+          1958,
+          1.5
+        ]
+      },
+      {
+        "label": "日本",
+        "unit": "亿美元",
+        "values": [
+          1516,
+          2.3,
+          1778,
+          -8.6
+        ]
+      },
+      {
+        "label": "韩国",
+        "unit": "亿美元",
+        "values": [
+          877,
+          5.7,
+          1686,
+          3.7
+        ]
+      },
+      {
+        "label": "印度",
+        "unit": "亿美元",
+        "values": [
+          477,
+          -5.7,
+          188,
+          -19.6
+        ]
+      },
+      {
+        "label": "俄罗斯",
+        "unit": "亿美元",
+        "values": [
+          441,
+          13.2,
+          441,
+          9.2
+        ]
+      },
+      {
+        "label": "中国台湾",
+        "unit": "亿美元",
+        "values": [
+          368,
+          4.8,
+          1322,
+          5.8
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

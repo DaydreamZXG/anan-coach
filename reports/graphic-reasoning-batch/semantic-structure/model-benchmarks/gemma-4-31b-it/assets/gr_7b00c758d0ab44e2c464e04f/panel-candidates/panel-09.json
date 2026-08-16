@@ -1,0 +1,53 @@
+{
+  "curves": [
+    {
+      "connects": "bottom_left_to_bottom_right_via_top",
+      "feat": [],
+      "k": "arc",
+      "reg": "center"
+    }
+  ],
+  "dots": [],
+  "facts": [
+    "A vertical line segment connects the top frame edge to the top of an arc.",
+    "An arc spans from the bottom frame edge, peaking at the vertical line.",
+    "Two diagonal lines extend from a central point on the vertical line to the bottom corners of the frame."
+  ],
+  "frame": {
+    "grid": null,
+    "k": "square"
+  },
+  "lines": [
+    {
+      "connects": "top_edge_to_arc_top",
+      "feat": [],
+      "ori": "vertical",
+      "reg": "center"
+    },
+    {
+      "connects": "center_point_to_bottom_left_corner",
+      "feat": [],
+      "ori": "diagonal_down",
+      "reg": "left"
+    },
+    {
+      "connects": "center_point_to_bottom_right_corner",
+      "feat": [],
+      "ori": "diagonal_down",
+      "reg": "right"
+    }
+  ],
+  "opt": "C",
+  "p": 9,
+  "role": "option",
+  "schema": "graphic-reasoning-regular-panel-v1",
+  "shapes": [],
+  "symbols": [],
+  "topo": [
+    4,
+    6,
+    1,
+    1
+  ],
+  "uncertain": []
+}

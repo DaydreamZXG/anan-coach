@@ -1,0 +1,267 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "增加值（亿元）",
+          "增速（%）"
+        ],
+        "label": "2012年全国各城市第三产业增加值情况"
+      }
+    ],
+    "columns": [
+      "增加值（亿元）",
+      "增速（%）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "城市",
+    "rows": [
+      {
+        "label": "广州",
+        "unit": "亿元",
+        "values": [
+          8617,
+          11.1
+        ]
+      },
+      {
+        "label": "深圳",
+        "unit": "亿元",
+        "values": [
+          7207,
+          12.3
+        ]
+      },
+      {
+        "label": "成都",
+        "unit": "亿元",
+        "values": [
+          4000,
+          11.5
+        ]
+      },
+      {
+        "label": "杭州",
+        "unit": "亿元",
+        "values": [
+          3921,
+          10.1
+        ]
+      },
+      {
+        "label": "南京",
+        "unit": "亿元",
+        "values": [
+          3846,
+          11.8
+        ]
+      },
+      {
+        "label": "武汉",
+        "unit": "亿元",
+        "values": [
+          3833,
+          10.1
+        ]
+      },
+      {
+        "label": "青岛",
+        "unit": "亿元",
+        "values": [
+          3575,
+          10.6
+        ]
+      },
+      {
+        "label": "大连",
+        "unit": "亿元",
+        "values": [
+          2917,
+          10.6
+        ]
+      },
+      {
+        "label": "宁波",
+        "unit": "亿元",
+        "values": [
+          2739,
+          10.6
+        ]
+      },
+      {
+        "label": "济南",
+        "unit": "亿元",
+        "values": [
+          2622,
+          10.1
+        ]
+      },
+      {
+        "label": "长沙",
+        "unit": "亿元",
+        "values": [
+          2535,
+          12.0
+        ]
+      },
+      {
+        "label": "哈尔滨",
+        "unit": "亿元",
+        "values": [
+          2404,
+          9.4
+        ]
+      },
+      {
+        "label": "长春",
+        "unit": "亿元",
+        "values": [
+          2292,
+          13.1
+        ]
+      },
+      {
+        "label": "西安",
+        "unit": "亿元",
+        "values": [
+          2280,
+          12.2
+        ]
+      },
+      {
+        "label": "郑州",
+        "unit": "亿元",
+        "values": [
+          2196,
+          8.4
+        ]
+      },
+      {
+        "label": "福州",
+        "unit": "亿元",
+        "values": [
+          1934,
+          10.6
+        ]
+      },
+      {
+        "label": "石家庄",
+        "unit": "亿元",
+        "values": [
+          1807,
+          10.0
+        ]
+      },
+      {
+        "label": "合肥",
+        "unit": "亿元",
+        "values": [
+          1631,
+          12.3
+        ]
+      },
+      {
+        "label": "昆明",
+        "unit": "亿元",
+        "values": [
+          1474,
+          13.0
+        ]
+      },
+      {
+        "label": "呼和浩特",
+        "unit": "亿元",
+        "values": [
+          1453,
+          10.8
+        ]
+      },
+      {
+        "label": "厦门",
+        "unit": "亿元",
+        "values": [
+          1418,
+          11.7
+        ]
+      },
+      {
+        "label": "太原",
+        "unit": "亿元",
+        "values": [
+          1240,
+          11.3
+        ]
+      },
+      {
+        "label": "南宁",
+        "unit": "亿元",
+        "values": [
+          1221,
+          9.6
+        ]
+      },
+      {
+        "label": "乌鲁木齐",
+        "unit": "亿元",
+        "values": [
+          1157,
+          18.6
+        ]
+      },
+      {
+        "label": "南昌",
+        "unit": "亿元",
+        "values": [
+          1116,
+          14.5
+        ]
+      },
+      {
+        "label": "贵阳",
+        "unit": "亿元",
+        "values": [
+          911,
+          14.1
+        ]
+      },
+      {
+        "label": "兰州",
+        "unit": "亿元",
+        "values": [
+          775,
+          14.8
+        ]
+      },
+      {
+        "label": "海口",
+        "unit": "亿元",
+        "values": [
+          561,
+          9.4
+        ]
+      },
+      {
+        "label": "银川",
+        "unit": "亿元",
+        "values": [
+          465,
+          10.1
+        ]
+      },
+      {
+        "label": "西宁",
+        "unit": "亿元",
+        "values": [
+          380,
+          11.8
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

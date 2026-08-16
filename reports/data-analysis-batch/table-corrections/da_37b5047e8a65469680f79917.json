@@ -1,0 +1,118 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "饭店数量（家）"
+        ],
+        "label": "饭店数量"
+      },
+      {
+        "columns": [
+          "营业收入（亿元）"
+        ],
+        "label": "营业收入"
+      },
+      {
+        "columns": [
+          "餐饮收入占比（%）"
+        ],
+        "label": "餐饮收入占比"
+      },
+      {
+        "columns": [
+          "客房收入占比（%）"
+        ],
+        "label": "客房收入占比"
+      }
+    ],
+    "columns": [
+      "饭店数量（家）",
+      "营业收入（亿元）",
+      "餐饮收入占比（%）",
+      "客房收入占比（%）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "星级",
+    "rows": [
+      {
+        "display_label": "一星级",
+        "group": null,
+        "label": "一星级",
+        "unit": null,
+        "values": [
+          87,
+          0.3,
+          44.4,
+          52.5
+        ]
+      },
+      {
+        "display_label": "二星级",
+        "group": null,
+        "label": "二星级",
+        "unit": null,
+        "values": [
+          2342,
+          27.2,
+          31.3,
+          36.7
+        ]
+      },
+      {
+        "display_label": "三星级",
+        "group": null,
+        "label": "三星级",
+        "unit": null,
+        "values": [
+          5354,
+          121.4,
+          45.1,
+          41.8
+        ]
+      },
+      {
+        "display_label": "四星级",
+        "group": null,
+        "label": "四星级",
+        "unit": null,
+        "values": [
+          2438,
+          162.9,
+          44.2,
+          41.7
+        ]
+      },
+      {
+        "display_label": "五星级",
+        "group": null,
+        "label": "五星级",
+        "unit": null,
+        "values": [
+          816,
+          184.7,
+          43.7,
+          45.2
+        ]
+      },
+      {
+        "display_label": "全国",
+        "group": null,
+        "label": "全国",
+        "unit": null,
+        "values": [
+          11037,
+          496.5,
+          43.5,
+          42.8
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

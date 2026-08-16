@@ -1,0 +1,49 @@
+{
+  "asset_count": 1486,
+  "classification_counts": {
+    "combo": 233,
+    "grouped_bar": 261,
+    "line": 98,
+    "pie_donut": 84,
+    "scatter": 1,
+    "stacked_bar": 51,
+    "structured_visual": 60,
+    "table": 698
+  },
+  "deterministic_validation": {
+    "counts": {
+      "candidate_files": 1486,
+      "crop_corrected_values": 435,
+      "crop_verified_values": 50033,
+      "missing_to_zero_conflicts": 0,
+      "pie_angle_conservation_valid": 84,
+      "pie_share_conservation_valid": 84,
+      "processed": 1486,
+      "schema_valid": 1486,
+      "series_lengths_consistent": 644,
+      "structured_visual_contract_valid": 60,
+      "table_topology_valid": 698
+    },
+    "problems": []
+  },
+  "failed_count": 0,
+  "generated_at": "2026-08-10T21:31:25+0800",
+  "image_reference_occurrence_count": 15214,
+  "needs_manual_review_count": 0,
+  "pending_count": 0,
+  "processable_count": 1486,
+  "processing_status_counts": {
+    "success": 1486
+  },
+  "question_occurrence_count": 14280,
+  "schema_version": "data-analysis-inventory-v1",
+  "sources": [
+    {
+      "asset_root": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets",
+      "question_jsonl": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613/paper_questions.jsonl",
+      "source_question_occurrences": 14280,
+      "unique_content_hash_assets": 1486
+    }
+  ],
+  "unsupported_count": 0
+}

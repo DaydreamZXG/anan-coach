@@ -1,0 +1,2 @@
+{"assetId": "gr_4dd72e3165dfde713f0b2eb2", "reason": "qwen_semantic_candidate_schema_invalid", "sha256": "4dd72e3165dfde713f0b2eb289a08e584460ab41fb63f1aa09deb2d2dcaceabc", "status": "repair_pending", "validationErrors": ["categories"]}
+{"assetId": "gr_f5ef08c8d0feb472655e3f3f", "reason": "qwen_semantic_candidate_schema_invalid", "sha256": "f5ef08c8d0feb472655e3f3fa47b8148d27e747b4463e4988d5d870a6278db7c", "status": "repair_pending", "validationErrors": ["semantic_notes"]}

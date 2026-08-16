@@ -1,0 +1,158 @@
+{
+  "asset_id": "da_38f6246368c116bcec14806b",
+  "axes": {
+    "x": {
+      "max": 6,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 25000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000
+        ],
+        "title": null,
+        "unit": "万吨"
+      }
+    ]
+  },
+  "categories": [
+    "一五",
+    "二五",
+    "三五",
+    "四五",
+    "五五",
+    "六五"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "钢产量",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "钢产量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        1667,
+        5990,
+        6597,
+        11494,
+        14758,
+        20265
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2014年深圳市公务员录用考试《行测》题_images/img_0135_7d3a3fa0c9b75dca.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年深圳市公务员录用考试《行测》题_images/img_0135_7d3a3fa0c9b75dca.png",
+        "paper_title": "2014年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_9061fe0fae5cfb605624",
+        "question_number": 91,
+        "source_jsonl_line": 67447
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年深圳市公务员录用考试《行测》题_images/img_0135_7d3a3fa0c9b75dca.png",
+        "paper_title": "2014年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_0b00853ab08d90109494",
+        "question_number": 92,
+        "source_jsonl_line": 67448
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年深圳市公务员录用考试《行测》题_images/img_0135_7d3a3fa0c9b75dca.png",
+        "paper_title": "2014年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_f18341e99a578f48df94",
+        "question_number": 93,
+        "source_jsonl_line": 67449
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年深圳市公务员录用考试《行测》题_images/img_0135_7d3a3fa0c9b75dca.png",
+        "paper_title": "2014年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_c015232554e6eff1ceef",
+        "question_number": 94,
+        "source_jsonl_line": 67450
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年深圳市公务员录用考试《行测》题_images/img_0137_bede6a096e62c169.png",
+        "paper_title": "2014年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_bf8a3159c7aad4a99892",
+        "question_number": 95,
+        "source_jsonl_line": 67451
+      }
+    ],
+    "sha256": "38f6246368c116bcec14806bf5d3eafb6c9b7ba247da5e0b2ea675c5445f55da"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "我国历次五年计划完成的钢产量",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_38f6246368c116bcec14806b/column_band_01.jpg",
+        "review-crops/da_38f6246368c116bcec14806b/column_band_02.jpg",
+        "review-crops/da_38f6246368c116bcec14806b/column_band_03.jpg",
+        "review-crops/da_38f6246368c116bcec14806b/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.24",
+      "crop_verification_elapsed_seconds:5.617",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'三五'的钢产量为6597，与图中一致。",
+      "crop_note:修正了'四五'的钢产量为11494，与图中一致。",
+      "crop_note:修正了'五五'的钢产量为14758，与图中一致。",
+      "crop_note:修正了'六五'的钢产量为20265，与图中一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

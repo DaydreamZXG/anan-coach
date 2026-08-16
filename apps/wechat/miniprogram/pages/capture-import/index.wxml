@@ -1,6 +1,6 @@
 <view class="capture-page {{permissionDenied || (state && state.status === 'idle') ? 'capture-page--dark' : ''}} {{permissionDenied ? 'capture-page--permission' : ''}} {{!permissionDenied && state && state.status === 'idle' && captureStage === 'camera' ? 'capture-page--camera' : ''}}">
   <block wx:if="{{configurationError}}">
-    <workbench-nav id="runtime-workbench-nav" title="拍照搜题" back-behavior="emit" bind:back="goBack" />
+    <workbench-nav id="runtime-workbench-nav" title="{{bookMode ? '导入题本' : '拍照搜题'}}" back-behavior="emit" bind:back="goBack" />
     <state-view
       state="error"
       title="拍照识别暂时无法使用"
@@ -63,11 +63,11 @@
         mode="aspectFit"
         bindtap="editPendingImage"
       />
-      <view class="crop-edit-hint">点一下图片就能重新裁剪</view>
+      <view class="crop-edit-hint">点一下图片就能重新裁剪；可移动缩放后调整题目区域</view>
     </view>
     <view class="crop-actions">
       <button hover-class="item--hover" class="control-center crop-actions__quiet" bindtap="discardPendingImage">重拍</button>
-      <button hover-class="item--hover" class="control-center crop-actions__tool" bindtap="editPendingImage">重新裁剪</button>
+      <button hover-class="item--hover" class="control-center crop-actions__tool" bindtap="editPendingImage">调整选区</button>
       <button hover-class="item--hover" class="control-center crop-actions__confirm tap-tactile" bindtap="confirmPendingImage">确认</button>
     </view>
   </block>
@@ -75,16 +75,17 @@
   <block wx:elif="{{state && state.status === 'idle'}}">
     <workbench-nav
       id="runtime-workbench-nav"
-      title="拍照搜题"
+      title="{{bookMode ? '导入名师题本' : '拍照搜题'}}"
       tone="dark"
       back-behavior="emit"
       bind:back="goBack"
     />
     <view class="capture-camera-tools">
-      <view class="capture-mode-switch">
+      <view wx:if="{{!bookMode}}" class="capture-mode-switch">
         <button hover-class="item--hover" class="capture-mode {{mode === 'search' ? 'capture-mode--active' : ''}}" data-mode="search" bindtap="chooseMode">单题</button>
-        <button hover-class="item--hover" class="capture-mode {{mode === 'import' ? 'capture-mode--active' : ''}}" data-mode="import" bindtap="chooseMode">共享材料</button>
+        <button hover-class="item--hover" class="capture-mode {{mode === 'import' ? 'capture-mode--active' : ''}}" data-mode="import" bindtap="chooseMode">整页/题本</button>
       </view>
+      <view wx:else class="question-book-camera-label">名师题本 · 自动找原题</view>
       <button hover-class="item--hover" class="capture-channel-entry" bindtap="openChannelSheet">微信发图</button>
     </view>
 
@@ -106,8 +107,8 @@
         <view class="camera-corner camera-corner--bl"></view>
         <view class="camera-corner camera-corner--br"></view>
         <view class="camera-frame__copy">
-          <view class="camera-frame__title">{{mode === 'search' ? '把题干和选项都拍全' : '拍完整的共享材料，或导入 PDF'}}</view>
-          <view wx:if="{{mode === 'import'}}" class="camera-frame__hint">可以多页材料，也能一页多题</view>
+          <view class="camera-frame__title">{{mode === 'search' ? '把题干和选项都拍全' : '拍下这一页题目'}}</view>
+          <view wx:if="{{mode === 'import'}}" class="camera-frame__hint">一页多题也可以；连续拍摄会整理进同一本题本</view>
         </view>
       </view>
       <view class="camera-track">
@@ -128,9 +129,16 @@
       </view>
       <view wx:else class="material-actions">
         <button hover-class="item--hover" class="control-center material-action" disabled="{{!cameraReady}}" bindtap="chooseCamera">拍摄材料</button>
-        <button hover-class="item--hover" class="control-center material-action" bindtap="chooseAlbum">相册</button>
-        <button hover-class="item--hover" class="control-center material-action material-action--primary tap-tactile" bindtap="choosePdf">导入 PDF</button>
+        <button hover-class="item--hover" class="control-center material-action" bindtap="chooseAlbum">从相册选图</button>
       </view>
+      <button wx:if="{{mode === 'import'}}" hover-class="item--hover" class="pdf-upload-card tap-tactile" bindtap="choosePdf">
+        <view class="pdf-upload-card__mark">PDF</view>
+        <view class="pdf-upload-card__body">
+          <view class="pdf-upload-card__title">上传 PDF 题本</view>
+          <view class="pdf-upload-card__copy">从微信选 PDF · PDF 先发到文件传输助手或聊天</view>
+        </view>
+        <view class="pdf-upload-card__arrow" aria-hidden="true">›</view>
+      </button>
       <view class="camera-privacy">题图只用来做这次的搜索并存进你的个人记录，不会进公共题库，也不会拿去训练模型。</view>
     </view>
   </block>
@@ -138,13 +146,13 @@
   <block wx:elif="{{state && (state.status === 'uploading' || state.status === 'processing')}}">
     <workbench-nav
       id="runtime-workbench-nav"
-      title="识别处理中"
+      title="{{bookMode ? '正在整理题本' : '识别处理中'}}"
       show-back="{{false}}"
     />
     <view class="searching-screen">
       <view class="searching-spinner"></view>
-      <view class="searching-title">{{state.status === 'uploading' ? '正在读取题面...' : '在五万道真题里找这一道...'}}</view>
-      <view class="searching-copy">{{state.status === 'uploading' ? '上传进度 ' + (state.uploadProgress ? state.uploadProgress.percent : 0) + '%' : (state.workspace.processingLabel || '找到原题，就把当年的解析一并带给你')}}</view>
+      <view class="searching-title">{{state.status === 'uploading' ? '正在读取题面...' : (mode === 'import' ? '正在把题本拆成一道道原题...' : '在五万道真题里找这一道...')}}</view>
+      <view class="searching-copy">{{state.status === 'uploading' ? '上传进度 ' + (state.uploadProgress ? state.uploadProgress.percent : 0) + '%' : (state.workspace.processingLabel || (mode === 'import' ? '能自动对上的直接整理，只把有歧义的留给你' : '找到原题，就把当年的解析一并带给你'))}}</view>
     </view>
   </block>
 
@@ -293,6 +301,10 @@
       bind:back="restart"
     />
     <view class="match-content">
+      <view wx:if="{{batchProgress.visible}}" class="book-progress">
+        <view class="book-progress__title">{{batchProgress.title}}</view>
+        <view class="book-progress__detail">{{batchProgress.detail}}</view>
+      </view>
       <view class="match-title">{{state.activeQuestionUnit.match.candidates.length > 1 ? '找到相似题目' : '找到匹配题目'}}</view>
       <view class="match-copy">{{state.activeQuestionUnit.match.candidates.length > 1 ? '题库里找到几道很像的，你看看要找的是哪一道。' : '对一下题面，看看是不是同一道。'}}</view>
       <view class="question-unit-tabs" wx:if="{{state.workspace.questionUnits.length > 1}}">
@@ -319,6 +331,73 @@
     </view>
     <view class="capture-bottom-dock">
       <button hover-class="item--hover" class="capture-primary-button tap-tactile" loading="{{state.submitting}}" bindtap="confirmImport">确认并查看解析</button>
+    </view>
+  </block>
+
+  <block wx:elif="{{bookMode && state && state.status === 'success'}}">
+    <workbench-nav
+      id="runtime-workbench-nav"
+      title="题本已保存"
+      back-behavior="emit"
+      bind:back="goBack"
+    />
+    <view class="question-book-receipt">
+      <view class="question-book-aurora"></view>
+      <view class="question-book-receipt__eyebrow">岸岸已接好这本题</view>
+      <view class="question-book-receipt__title">{{questionBookState && questionBookState.book ? questionBookState.book.title : '正在保存你的题本…'}}</view>
+
+      <view wx:if="{{!questionBookState || (questionBookState.status === 'saving' && !questionBookState.book)}}" class="question-book-saving">
+        <view class="searching-spinner searching-spinner--cyan"></view>
+        <text>识别结果已确认，正在放进“我的题本”</text>
+      </view>
+
+      <block wx:elif="{{questionBookState.book}}">
+        <view class="question-book-stats">
+          <view class="question-book-stat">
+            <text class="question-book-stat__value">{{questionBookState.book.resolvedQuestionCount}}</text>
+            <text class="question-book-stat__label">已找到原题</text>
+          </view>
+          <view class="question-book-stat__divider"></view>
+          <view class="question-book-stat">
+            <text class="question-book-stat__value">{{questionBookState.book.totalQuestionCount}}</text>
+            <text class="question-book-stat__label">识别题目</text>
+          </view>
+        </view>
+        <view wx:if="{{questionBookState.book.unresolvedQuestionCount > 0}}" class="question-book-note">
+          还有 {{questionBookState.book.unresolvedQuestionCount}} 题没可靠命中，先保留在题本里，不影响已匹配题目开练。
+        </view>
+        <view wx:else class="question-book-note question-book-note--ready">全部题目都已对上题库，可以直接练。</view>
+        <view class="question-book-loop-copy">{{questionBookPlanMessage || '正在接入你今天的训练安排…'}}</view>
+        <view wx:if="{{questionBookState.status === 'error'}}" class="question-book-error">{{questionBookState.errorMessage}}</view>
+
+        <button
+          wx:if="{{questionBookPlanStatus === 'ready'}}"
+          hover-class="item--hover"
+          class="control-center question-book-primary tap-tactile"
+          loading="{{questionBookState.status === 'starting'}}"
+          disabled="{{questionBookState.status === 'starting'}}"
+          bindtap="startQuestionBookPractice"
+        >开始练这本题</button>
+        <button
+          wx:elif="{{questionBookPlanStatus === 'loading' || questionBookPlanStatus === 'idle'}}"
+          hover-class="item--hover"
+          class="control-center question-book-primary"
+          loading="{{true}}"
+          disabled="{{true}}"
+        >正在接入今日训练</button>
+        <button
+          wx:else
+          hover-class="item--hover"
+          class="control-center question-book-primary tap-tactile"
+          bindtap="openQuestionBookAdjustment"
+        >调整今天再练</button>
+        <button hover-class="item--hover" class="control-center question-book-secondary" bindtap="openQuestionBookLibrary">去我的学习资料</button>
+      </block>
+
+      <block wx:elif="{{questionBookState && questionBookState.status === 'error'}}">
+        <view class="question-book-error">{{questionBookState.errorMessage}}</view>
+        <button hover-class="item--hover" class="control-center question-book-primary tap-tactile" bindtap="retryQuestionBookSave">重新保存题本</button>
+      </block>
     </view>
   </block>
 

@@ -1,0 +1,144 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2011年｜诊疗人次（亿人次）",
+          "2012年｜诊疗人次（亿人次）"
+        ],
+        "label": "诊疗人次（亿人次）"
+      },
+      {
+        "columns": [
+          "2011年｜入院人数（万人）",
+          "2012年｜入院人数（万人）"
+        ],
+        "label": "入院人数（万人）"
+      }
+    ],
+    "columns": [
+      "2011年｜诊疗人次（亿人次）",
+      "2012年｜诊疗人次（亿人次）",
+      "2011年｜入院人数（万人）",
+      "2012年｜入院人数（万人）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "医疗卫生机构",
+    "rows": [
+      {
+        "display_label": "医疗卫生机构合计",
+        "group": null,
+        "label": "医疗卫生机构合计",
+        "unit": null,
+        "values": [
+          62.7,
+          68.9,
+          15298,
+          17812
+        ]
+      },
+      {
+        "display_label": "医院",
+        "group": null,
+        "label": "医院",
+        "unit": null,
+        "values": [
+          22.6,
+          25.4,
+          10755,
+          12727
+        ]
+      },
+      {
+        "display_label": "三级医院",
+        "group": null,
+        "label": "三级医院",
+        "unit": null,
+        "values": [
+          9.0,
+          10.9,
+          3717,
+          4726
+        ]
+      },
+      {
+        "display_label": "二级医院",
+        "group": null,
+        "label": "二级医院",
+        "unit": null,
+        "values": [
+          9.9,
+          10.5,
+          5567,
+          6242
+        ]
+      },
+      {
+        "display_label": "一级医院",
+        "group": null,
+        "label": "一级医院",
+        "unit": null,
+        "values": [
+          1.5,
+          1.7,
+          536,
+          649
+        ]
+      },
+      {
+        "display_label": "公立医院",
+        "group": null,
+        "label": "公立医院",
+        "unit": null,
+        "values": [
+          20.5,
+          22.9,
+          9708,
+          11331
+        ]
+      },
+      {
+        "display_label": "民营医院",
+        "group": null,
+        "label": "民营医院",
+        "unit": null,
+        "values": [
+          2.1,
+          2.5,
+          1047,
+          1396
+        ]
+      },
+      {
+        "display_label": "基层医疗卫生机构",
+        "group": null,
+        "label": "基层医疗卫生机构",
+        "unit": null,
+        "values": [
+          38.1,
+          41.1,
+          3775,
+          4209
+        ]
+      },
+      {
+        "display_label": "其他机构",
+        "group": null,
+        "label": "其他机构",
+        "unit": null,
+        "values": [
+          2.0,
+          2.4,
+          768,
+          876
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

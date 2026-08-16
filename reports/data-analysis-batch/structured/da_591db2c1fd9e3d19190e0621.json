@@ -1,0 +1,169 @@
+{
+  "asset_id": "da_591db2c1fd9e3d19190e0621",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2008年云南省公务员录用考试《行测》题_images/img_0150_78e14d66595133ed.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年云南省公务员录用考试《行测》题_images/img_0150_78e14d66595133ed.png",
+        "paper_title": "2008年云南省公务员录用考试《行测》题",
+        "question_id": "pq_e9c39c95f540d73a5440",
+        "question_number": 121,
+        "source_jsonl_line": 4191
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年云南省公务员录用考试《行测》题_images/img_0157_960011cfb5047364.png",
+        "paper_title": "2008年云南省公务员录用考试《行测》题",
+        "question_id": "pq_811720f2f0c5b8796560",
+        "question_number": 122,
+        "source_jsonl_line": 4192
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年云南省公务员录用考试《行测》题_images/img_0150_78e14d66595133ed.png",
+        "paper_title": "2008年云南省公务员录用考试《行测》题",
+        "question_id": "pq_8ed35d724c775a6eec8c",
+        "question_number": 123,
+        "source_jsonl_line": 4193
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年云南省公务员录用考试《行测》题_images/img_0157_960011cfb5047364.png",
+        "paper_title": "2008年云南省公务员录用考试《行测》题",
+        "question_id": "pq_392dff3b66d884e635b6",
+        "question_number": 124,
+        "source_jsonl_line": 4194
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年云南省公务员录用考试《行测》题_images/img_0157_960011cfb5047364.png",
+        "paper_title": "2008年云南省公务员录用考试《行测》题",
+        "question_id": "pq_4b44eb27598d8c31ea8e",
+        "question_number": 125,
+        "source_jsonl_line": 4195
+      }
+    ],
+    "sha256": "591db2c1fd9e3d19190e0621d0a7bc572bf527d6877bd87f15e6607d23d0118f"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "8:00",
+      "9:00",
+      "10:00",
+      "11:00",
+      "12:00",
+      "13:00"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "1",
+        "group": "时间",
+        "label": "时间｜1",
+        "unit": null,
+        "values": [
+          7111,
+          7905,
+          8342,
+          8451,
+          8485,
+          7213
+        ]
+      },
+      {
+        "display_label": "2",
+        "group": "时间",
+        "label": "时间｜2",
+        "unit": null,
+        "values": [
+          8432,
+          9013,
+          9152,
+          9237,
+          9306,
+          8435
+        ]
+      },
+      {
+        "display_label": "3",
+        "group": "时间",
+        "label": "时间｜3",
+        "unit": null,
+        "values": [
+          5555,
+          5921,
+          5989,
+          6143,
+          6233,
+          5987
+        ]
+      },
+      {
+        "display_label": "4",
+        "group": "时间",
+        "label": "时间｜4",
+        "unit": null,
+        "values": [
+          954,
+          1063,
+          1121,
+          1242,
+          1299,
+          1098
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

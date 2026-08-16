@@ -1,0 +1,586 @@
+{
+  "asset_id": "da_746b0b9d3298397979f5ad6c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/海南/2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0156_3940184a53652ef8.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0156_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_bc56424cca5819c0f76c",
+        "question_number": 106,
+        "source_jsonl_line": 64768
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0156_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_e4bcb834aea373e57de3",
+        "question_number": 107,
+        "source_jsonl_line": 64769
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0181_b9bcf48bdeb83725.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_07ddad8a70bf5b86fb4e",
+        "question_number": 108,
+        "source_jsonl_line": 64770
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0156_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_8e84a7fba06ff59d3f11",
+        "question_number": 109,
+        "source_jsonl_line": 64771
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0156_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_68da5786b1de5531401d",
+        "question_number": 110,
+        "source_jsonl_line": 64772
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0155_b9bcf48bdeb83725.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_8b044301945e9e9ddcee",
+        "question_number": 106,
+        "source_jsonl_line": 76411
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0176_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_0a8c3eaa9e35805a5183",
+        "question_number": 107,
+        "source_jsonl_line": 76412
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0176_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_7a07241aac79aceee1e1",
+        "question_number": 108,
+        "source_jsonl_line": 76413
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0176_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_eca1b9149fc51c2df411",
+        "question_number": 109,
+        "source_jsonl_line": 76414
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0176_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_9ac9b589e814531e8f73",
+        "question_number": 110,
+        "source_jsonl_line": 76415
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0153_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_bdb2edba21ad2571ad01",
+        "question_number": 106,
+        "source_jsonl_line": 82291
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0153_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_fa53341b0c4b829c2bec",
+        "question_number": 107,
+        "source_jsonl_line": 82292
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0153_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_7ab03e5a5b7bd9357a90",
+        "question_number": 108,
+        "source_jsonl_line": 82293
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0153_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_b633797ecb04998bcc3f",
+        "question_number": 109,
+        "source_jsonl_line": 82294
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0153_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_18f2f3b6b0f5d898ec73",
+        "question_number": 110,
+        "source_jsonl_line": 82295
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0152_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_5fc97dd528bdcaa3a960",
+        "question_number": 106,
+        "source_jsonl_line": 92015
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0152_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_91ef1c1114e781479b05",
+        "question_number": 107,
+        "source_jsonl_line": 92016
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0152_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_65cd181d37a6e3348d9a",
+        "question_number": 108,
+        "source_jsonl_line": 92017
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0152_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_37a66834fc3e8446d418",
+        "question_number": 109,
+        "source_jsonl_line": 92018
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0152_3940184a53652ef8.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_b68273026c2783ac44a0",
+        "question_number": 110,
+        "source_jsonl_line": 92019
+      }
+    ],
+    "sha256": "746b0b9d3298397979f5ad6cbbb24689c2c9adf75cb72dc1fecebf5a6267177d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "国际储备(不包括黄金,亿美元)｜2000年",
+          "国际储备(不包括黄金,亿美元)｜2005年",
+          "国际储备(不包括黄金,亿美元)｜2006年"
+        ],
+        "label": "国际储备(不包括黄金,亿美元)"
+      },
+      {
+        "columns": [
+          "黄金储备(万盎司)｜2000年",
+          "黄金储备(万盎司)｜2005年",
+          "黄金储备(万盎司)｜2006年"
+        ],
+        "label": "黄金储备(万盎司)"
+      }
+    ],
+    "columns": [
+      "国际储备(不包括黄金,亿美元)｜2000年",
+      "国际储备(不包括黄金,亿美元)｜2005年",
+      "国际储备(不包括黄金,亿美元)｜2006年",
+      "黄金储备(万盎司)｜2000年",
+      "黄金储备(万盎司)｜2005年",
+      "黄金储备(万盎司)｜2006年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家",
+    "rows": [
+      {
+        "display_label": "中国｜2000年",
+        "group": null,
+        "label": "中国｜2000年",
+        "unit": null,
+        "values": [
+          1682.8,
+          8215.1,
+          10684.9,
+          1270.0,
+          1929.0,
+          1929.0
+        ]
+      },
+      {
+        "display_label": "中国｜2005年",
+        "group": null,
+        "label": "中国｜2005年",
+        "unit": null,
+        "values": [
+          null,
+          8215.1,
+          10684.9,
+          1270.0,
+          1929.0,
+          1929.0
+        ]
+      },
+      {
+        "display_label": "中国｜2006年",
+        "group": null,
+        "label": "中国｜2006年",
+        "unit": null,
+        "values": [
+          null,
+          8215.1,
+          10684.9,
+          1270.0,
+          1929.0,
+          1929.0
+        ]
+      },
+      {
+        "display_label": "印度｜2000年",
+        "group": null,
+        "label": "印度｜2000年",
+        "unit": null,
+        "values": [
+          379.0,
+          1319.2,
+          1707.4,
+          1150.2,
+          1150.2,
+          1150.2
+        ]
+      },
+      {
+        "display_label": "印度｜2005年",
+        "group": null,
+        "label": "印度｜2005年",
+        "unit": null,
+        "values": [
+          null,
+          1319.2,
+          1707.4,
+          1150.2,
+          1150.2,
+          1150.2
+        ]
+      },
+      {
+        "display_label": "印度｜2006年",
+        "group": null,
+        "label": "印度｜2006年",
+        "unit": null,
+        "values": [
+          null,
+          1319.2,
+          1707.4,
+          1150.2,
+          1150.2,
+          1150.2
+        ]
+      },
+      {
+        "display_label": "日本｜2000年",
+        "group": null,
+        "label": "日本｜2000年",
+        "unit": null,
+        "values": [
+          3549.0,
+          8342.8,
+          8796.8,
+          2454.7,
+          2460.2,
+          2460.2
+        ]
+      },
+      {
+        "display_label": "日本｜2005年",
+        "group": null,
+        "label": "日本｜2005年",
+        "unit": null,
+        "values": [
+          null,
+          8342.8,
+          8796.8,
+          2454.7,
+          2460.2,
+          2460.2
+        ]
+      },
+      {
+        "display_label": "日本｜2006年",
+        "group": null,
+        "label": "日本｜2006年",
+        "unit": null,
+        "values": [
+          null,
+          8342.8,
+          8796.8,
+          2454.7,
+          2460.2,
+          2460.2
+        ]
+      },
+      {
+        "display_label": "韩国｜2000年",
+        "group": null,
+        "label": "韩国｜2000年",
+        "unit": null,
+        "values": [
+          961.3,
+          2103.2,
+          2388.8,
+          43.9,
+          45.8,
+          41.8
+        ]
+      },
+      {
+        "display_label": "韩国｜2005年",
+        "group": null,
+        "label": "韩国｜2005年",
+        "unit": null,
+        "values": [
+          null,
+          2103.2,
+          2388.8,
+          43.9,
+          45.8,
+          41.8
+        ]
+      },
+      {
+        "display_label": "韩国｜2006年",
+        "group": null,
+        "label": "韩国｜2006年",
+        "unit": null,
+        "values": [
+          null,
+          2103.2,
+          2388.8,
+          43.9,
+          45.8,
+          41.8
+        ]
+      },
+      {
+        "display_label": "美国｜2000年",
+        "group": null,
+        "label": "美国｜2000年",
+        "unit": null,
+        "values": [
+          566.0,
+          540.8,
+          548.5,
+          26161.1,
+          26155.1,
+          26149.9
+        ]
+      },
+      {
+        "display_label": "美国｜2005年",
+        "group": null,
+        "label": "美国｜2005年",
+        "unit": null,
+        "values": [
+          null,
+          540.8,
+          548.5,
+          26161.1,
+          26155.1,
+          26149.9
+        ]
+      },
+      {
+        "display_label": "美国｜2006年",
+        "group": null,
+        "label": "美国｜2006年",
+        "unit": null,
+        "values": [
+          null,
+          540.8,
+          548.5,
+          26161.1,
+          26155.1,
+          26149.9
+        ]
+      },
+      {
+        "display_label": "法国｜2000年",
+        "group": null,
+        "label": "法国｜2000年",
+        "unit": null,
+        "values": [
+          370.4,
+          277.5,
+          426.5,
+          9724.5,
+          9085.2,
+          8744.3
+        ]
+      },
+      {
+        "display_label": "法国｜2005年",
+        "group": null,
+        "label": "法国｜2005年",
+        "unit": null,
+        "values": [
+          null,
+          277.5,
+          426.5,
+          9724.5,
+          9085.2,
+          8744.3
+        ]
+      },
+      {
+        "display_label": "法国｜2006年",
+        "group": null,
+        "label": "法国｜2006年",
+        "unit": null,
+        "values": [
+          null,
+          277.5,
+          426.5,
+          9724.5,
+          9085.2,
+          8744.3
+        ]
+      },
+      {
+        "display_label": "德国｜2000年",
+        "group": null,
+        "label": "德国｜2000年",
+        "unit": null,
+        "values": [
+          568.9,
+          451.4,
+          416.9,
+          11151.9,
+          11020.7,
+          11003.7
+        ]
+      },
+      {
+        "display_label": "德国｜2005年",
+        "group": null,
+        "label": "德国｜2005年",
+        "unit": null,
+        "values": [
+          null,
+          451.4,
+          416.9,
+          11151.9,
+          11020.7,
+          11003.7
+        ]
+      },
+      {
+        "display_label": "德国｜2006年",
+        "group": null,
+        "label": "德国｜2006年",
+        "unit": null,
+        "values": [
+          null,
+          451.4,
+          416.9,
+          11151.9,
+          11020.7,
+          11003.7
+        ]
+      },
+      {
+        "display_label": "英国｜2000年",
+        "group": null,
+        "label": "英国｜2000年",
+        "unit": null,
+        "values": [
+          387.7,
+          384.7,
+          407.0,
+          1567.4,
+          999.3,
+          997.5
+        ]
+      },
+      {
+        "display_label": "英国｜2005年",
+        "group": null,
+        "label": "英国｜2005年",
+        "unit": null,
+        "values": [
+          null,
+          384.7,
+          407.0,
+          1567.4,
+          999.3,
+          997.5
+        ]
+      },
+      {
+        "display_label": "英国｜2006年",
+        "group": null,
+        "label": "英国｜2006年",
+        "unit": null,
+        "values": [
+          null,
+          384.7,
+          407.0,
+          1567.4,
+          999.3,
+          997.5
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

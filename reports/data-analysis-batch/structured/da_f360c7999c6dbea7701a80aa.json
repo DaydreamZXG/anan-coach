@@ -1,0 +1,286 @@
+{
+  "asset_id": "da_f360c7999c6dbea7701a80aa",
+  "axes": {
+    "x": {
+      "max": 9,
+      "min": 2,
+      "ticks": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "title": "月份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 300,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300
+        ],
+        "title": "投资额",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2005年",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "2004年",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "2003年",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2005",
+      "label": "2005年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        173.8,
+        149.6,
+        189.9,
+        194.5,
+        269.2,
+        228.9,
+        229.2,
+        266.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2004",
+      "label": "2004年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        142.7,
+        155.5,
+        168.3,
+        182.3,
+        223.2,
+        198.1,
+        213.8,
+        241.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2003",
+      "label": "2003年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        97.2,
+        121.3,
+        133.1,
+        156.9,
+        205.9,
+        178.9,
+        176.1,
+        245.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2008年安徽省公务员录用考试《行测》题_images/img_0097_63c99e365055edc1.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年安徽省公务员录用考试《行测》题_images/img_0097_63c99e365055edc1.jpg",
+        "paper_title": "2008年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_51feacf6d5c8496785f4",
+        "question_number": 131,
+        "source_jsonl_line": 26621
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年安徽省公务员录用考试《行测》题_images/img_0097_63c99e365055edc1.jpg",
+        "paper_title": "2008年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_b2ca523294d6699532e5",
+        "question_number": 132,
+        "source_jsonl_line": 26622
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年安徽省公务员录用考试《行测》题_images/img_0097_63c99e365055edc1.jpg",
+        "paper_title": "2008年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_80f1604823119ad08ba7",
+        "question_number": 133,
+        "source_jsonl_line": 26623
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年安徽省公务员录用考试《行测》题_images/img_0097_63c99e365055edc1.jpg",
+        "paper_title": "2008年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_740c44a3b78e80f46570",
+        "question_number": 134,
+        "source_jsonl_line": 26624
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年安徽省公务员录用考试《行测》题_images/img_0097_63c99e365055edc1.jpg",
+        "paper_title": "2008年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_ccf6a61fa4b7b1baa404",
+        "question_number": 135,
+        "source_jsonl_line": 26625
+      }
+    ],
+    "sha256": "f360c7999c6dbea7701a80aa2d9bf3e797a418c7b1f9e8ed6858c8e03f197d56"
+  },
+  "structured_visual": null,
+  "table": {
+    "columns": [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "rows": [
+      {
+        "label": "2005年",
+        "values": [
+          173.8,
+          149.6,
+          189.9,
+          194.5,
+          269.2,
+          228.9,
+          229.2,
+          266.1
+        ]
+      },
+      {
+        "label": "2004年",
+        "values": [
+          142.7,
+          155.5,
+          168.3,
+          182.3,
+          223.2,
+          198.1,
+          213.8,
+          241.2
+        ]
+      },
+      {
+        "label": "2003年",
+        "values": [
+          97.2,
+          121.3,
+          133.1,
+          156.9,
+          205.9,
+          178.9,
+          176.1,
+          245.1
+        ]
+      }
+    ]
+  },
+  "title": "以下是某市2003~2005年2~9月的固定资产投资额情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f360c7999c6dbea7701a80aa/column_band_01.jpg",
+        "review-crops/da_f360c7999c6dbea7701a80aa/column_band_02.jpg",
+        "review-crops/da_f360c7999c6dbea7701a80aa/column_band_03.jpg",
+        "review-crops/da_f360c7999c6dbea7701a80aa/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.026",
+      "crop_verification_elapsed_seconds:6.426",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "table_row_label_column_removed:年份"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

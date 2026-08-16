@@ -1,0 +1,326 @@
+{
+  "asset_id": "da_1a2277d04c3d18147bb67411",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/新疆/2014年新疆维吾尔自治区公务员录用考试《行测》题（网友回忆版）_images/img_0098_6462a1d8bbbc235c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年新疆维吾尔自治区公务员录用考试《行测》题（网友回忆版）_images/img_0098_6462a1d8bbbc235c.png",
+        "paper_title": "2014年新疆维吾尔自治区公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_84116317138271b922bb",
+        "question_number": 116,
+        "source_jsonl_line": 42194
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年新疆维吾尔自治区公务员录用考试《行测》题（网友回忆版）_images/img_0098_6462a1d8bbbc235c.png",
+        "paper_title": "2014年新疆维吾尔自治区公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ec2debcb34b4cf9f5ec3",
+        "question_number": 117,
+        "source_jsonl_line": 42195
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年新疆维吾尔自治区公务员录用考试《行测》题（网友回忆版）_images/img_0098_6462a1d8bbbc235c.png",
+        "paper_title": "2014年新疆维吾尔自治区公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e32fd76bf4ba86e54f6f",
+        "question_number": 118,
+        "source_jsonl_line": 42196
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年新疆维吾尔自治区公务员录用考试《行测》题（网友回忆版）_images/img_0111_5f51ed08981592d0.png",
+        "paper_title": "2014年新疆维吾尔自治区公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3c06658439b1d8e4dd98",
+        "question_number": 119,
+        "source_jsonl_line": 42197
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年新疆维吾尔自治区公务员录用考试《行测》题（网友回忆版）_images/img_0098_6462a1d8bbbc235c.png",
+        "paper_title": "2014年新疆维吾尔自治区公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_559cd93e9747ede4c316",
+        "question_number": 120,
+        "source_jsonl_line": 42198
+      }
+    ],
+    "sha256": "1a2277d04c3d18147bb67411b5ca42a426164d487ab075d6bb1e63515562e7af"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2007年｜保费收入",
+          "2007年｜占比"
+        ],
+        "label": "2007年"
+      },
+      {
+        "columns": [
+          "2008年｜保费收入",
+          "2008年｜占比"
+        ],
+        "label": "2008年"
+      },
+      {
+        "columns": [
+          "2009年｜保费收入",
+          "2009年｜占比"
+        ],
+        "label": "2009年"
+      },
+      {
+        "columns": [
+          "2010年｜保费收入",
+          "2010年｜占比"
+        ],
+        "label": "2010年"
+      }
+    ],
+    "columns": [
+      "2007年｜保费收入",
+      "2007年｜占比",
+      "2008年｜保费收入",
+      "2008年｜占比",
+      "2009年｜保费收入",
+      "2009年｜占比",
+      "2010年｜保费收入",
+      "2010年｜占比"
+    ],
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "2009年｜占比",
+        "display": "?",
+        "row": "非寿险收入构成｜意外险"
+      }
+    ],
+    "row_header_label": "险种",
+    "rows": [
+      {
+        "display_label": "人寿保险",
+        "group": "寿险收入构成",
+        "label": "寿险收入构成｜人寿保险",
+        "unit": null,
+        "values": [
+          4463.44,
+          90.19,
+          6658.09,
+          90.74,
+          7457.22,
+          91.57,
+          9679.31,
+          92.18
+        ]
+      },
+      {
+        "display_label": "意外伤害保险",
+        "group": "寿险收入构成",
+        "label": "寿险收入构成｜意外伤害保险",
+        "unit": null,
+        "values": [
+          115.8,
+          2.34,
+          130.85,
+          1.78,
+          156.13,
+          1.92,
+          189.83,
+          1.81
+        ]
+      },
+      {
+        "display_label": "健康保险",
+        "group": "寿险收入构成",
+        "label": "寿险收入构成｜健康保险",
+        "unit": null,
+        "values": [
+          369.73,
+          7.47,
+          548.63,
+          7.48,
+          530.83,
+          6.52,
+          631.74,
+          6.02
+        ]
+      },
+      {
+        "display_label": "小计",
+        "group": "寿险收入构成",
+        "label": "寿险收入构成｜小计",
+        "unit": null,
+        "values": [
+          4948.97,
+          100.0,
+          7337.57,
+          100.0,
+          8144.18,
+          100.0,
+          10200.88,
+          100.0
+        ]
+      },
+      {
+        "display_label": "车险",
+        "group": "非寿险收入构成",
+        "label": "非寿险收入构成｜车险",
+        "unit": null,
+        "values": [
+          1484.28,
+          71.14,
+          1702.52,
+          69.6,
+          2155.61,
+          72.02,
+          3004.15,
+          74.6
+        ]
+      },
+      {
+        "display_label": "企财险",
+        "group": "非寿险收入构成",
+        "label": "非寿险收入构成｜企财险",
+        "unit": null,
+        "values": [
+          186.83,
+          8.95,
+          209.63,
+          8.57,
+          221.43,
+          7.4,
+          271.61,
+          6.74
+        ]
+      },
+      {
+        "display_label": "货运险",
+        "group": "非寿险收入构成",
+        "label": "非寿险收入构成｜货运险",
+        "unit": null,
+        "values": [
+          63.11,
+          3.02,
+          70.97,
+          2.9,
+          61.27,
+          2.05,
+          78.74,
+          1.96
+        ]
+      },
+      {
+        "display_label": "意外险",
+        "group": "非寿险收入构成",
+        "label": "非寿险收入构成｜意外险",
+        "unit": null,
+        "values": [
+          74.31,
+          3.56,
+          72.71,
+          2.97,
+          73.92,
+          null,
+          85.53,
+          2.12
+        ]
+      },
+      {
+        "display_label": "责任险",
+        "group": "非寿险收入构成",
+        "label": "非寿险收入构成｜责任险",
+        "unit": null,
+        "values": [
+          66.6,
+          3.19,
+          81.75,
+          3.34,
+          92.91,
+          3.08,
+          115.88,
+          2.88
+        ]
+      },
+      {
+        "display_label": "其他",
+        "group": "非寿险收入构成",
+        "label": "非寿险收入构成｜其他",
+        "unit": null,
+        "values": [
+          211.35,
+          10.13,
+          308.67,
+          12.62,
+          388.46,
+          12.98,
+          470.98,
+          11.7
+        ]
+      },
+      {
+        "display_label": "小计",
+        "group": "非寿险收入构成",
+        "label": "非寿险收入构成｜小计",
+        "unit": null,
+        "values": [
+          2086.48,
+          100.0,
+          2446.25,
+          100.0,
+          2992.9,
+          100.0,
+          4026.89,
+          100.0
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

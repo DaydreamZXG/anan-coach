@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "graphic-reasoning-semantic-scene-v2",
+  "title": "AI-readable graphic reasoning semantic scene",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "assetId",
+    "source",
+    "presentation",
+    "layout",
+    "visualGrammar",
+    "panels",
+    "reasoningCandidates",
+    "globalUncertainties",
+    "extraction"
+  ],
+  "properties": {
+    "schemaVersion": {"const": "graphic-reasoning-semantic-scene-v2"},
+    "assetId": {"type": "string", "pattern": "^gr_[0-9a-f]{24}$"},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sha256", "imagePath"],
+      "properties": {
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "imagePath": {"type": "string", "pattern": "^input/images/gr_[0-9a-f]{24}\\.(png|jpg|jpeg|gif)$"}
+      }
+    },
+    "presentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "vectorRequired"],
+      "properties": {
+        "mode": {"const": "original_image"},
+        "vectorRequired": {"const": false}
+      }
+    },
+    "layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["layoutType", "panelCount", "optionCount", "layoutIssues"],
+      "properties": {
+        "layoutType": {"enum": ["sequence", "matrix", "classification", "analogy", "folding", "other"]},
+        "panelCount": {"type": "integer", "minimum": 1, "maximum": 32},
+        "optionCount": {"type": "integer", "minimum": 0, "maximum": 16},
+        "layoutIssues": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "visualGrammar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primary", "secondary"],
+      "properties": {
+        "primary": {"enum": ["regular_geometry", "curve_circle_arc", "textured_geometry", "textured_pie", "glyph_life_object", "folded_3d", "rare_vector", "mixed", "unknown"]},
+        "secondary": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "panels": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "items": {"$ref": "#/$defs/panel"}
+    },
+    "reasoningCandidates": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/crossPanelRelation"}
+    },
+    "globalUncertainties": {"type": "array", "items": {"type": "string"}},
+    "extraction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "sourceInspected", "qualityStatus", "repairReasons"],
+      "properties": {
+        "method": {"enum": ["model_visual_inspection", "model_visual_inspection_plus_deterministic_cv"]},
+        "sourceInspected": {"const": true},
+        "qualityStatus": {"enum": ["structured_candidate", "repair_pending"]},
+        "repairReasons": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  },
+  "$defs": {
+    "panel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "position", "role", "optionLabel", "frame", "visualFacts", "uncertainties"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^p[1-9][0-9]*$"},
+        "position": {"type": "integer", "minimum": 1, "maximum": 32},
+        "role": {"enum": ["stem", "sequence", "missing", "option", "sample"]},
+        "optionLabel": {"type": ["string", "null"], "pattern": "^[A-P]$"},
+        "frame": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "rows", "columns"],
+          "properties": {
+            "kind": {"enum": ["none", "square", "rectangle", "circle", "grid", "dot_array", "irregular", "unknown"]},
+            "rows": {"type": ["integer", "null"], "minimum": 1},
+            "columns": {"type": ["integer", "null"], "minimum": 1}
+          }
+        },
+        "visualFacts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["elements", "relations", "topology", "counts", "observations"],
+          "properties": {
+            "elements": {"type": "array", "items": {"$ref": "#/$defs/element"}},
+            "relations": {"type": "array", "items": {"$ref": "#/$defs/relation"}},
+            "topology": {"$ref": "#/$defs/topology"},
+            "counts": {"$ref": "#/$defs/counts"},
+            "observations": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "uncertainties": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "element": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "label", "textContent", "count", "instances", "parts", "attributes", "confidence"],
+      "properties": {
+        "id": {"type": "string"},
+        "kind": {"enum": ["line", "polyline", "polygon", "rect", "circle", "ellipse", "arc", "curve", "dot", "grid", "arrow", "textGlyph", "lifeObject", "objectPart", "wireframe", "face", "textureSector", "semanticSymbol"]},
+        "label": {"type": ["string", "null"]},
+        "textContent": {"type": ["string", "null"]},
+        "count": {"type": "integer", "minimum": 1},
+        "instances": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/instance"}},
+        "parts": {"type": "array", "items": {"type": "string"}},
+        "attributes": {"type": "object"},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "instance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["relativeRegion", "orientation", "lineCharacter", "fillState", "texture"],
+      "properties": {
+        "relativeRegion": {"enum": ["top_left", "top", "top_right", "left", "center", "right", "bottom_left", "bottom", "bottom_right", "spanning", "unknown"]},
+        "orientation": {"enum": ["horizontal", "vertical", "diagonal_up", "diagonal_down", "up", "down", "left", "right", "clockwise", "counterclockwise", "mixed", "none", "unknown"]},
+        "lineCharacter": {"enum": ["straight", "curved", "mixed", "not_applicable", "unknown"]},
+        "fillState": {"enum": ["hollow", "solid", "textured", "none", "unknown"]},
+        "texture": {"enum": ["none", "dots", "grid", "diagonal", "crosshatch", "solid", "unknown"]}
+      }
+    },
+    "relation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "subjects", "description", "confidence"],
+      "properties": {
+        "type": {"enum": ["connected", "touching", "intersecting", "inside", "contains", "overlapping", "disjoint", "aligned", "parallel", "perpendicular", "adjacent", "opposite", "sameObjectPart", "holds", "pointsTo", "frontOf", "behind"]},
+        "subjects": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "description": {"type": "string"},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "topology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["componentCount", "endpointCount", "junctionCount", "loopCount", "notes"],
+      "properties": {
+        "componentCount": {"type": ["integer", "null"], "minimum": 0},
+        "endpointCount": {"type": ["integer", "null"], "minimum": 0},
+        "junctionCount": {"type": ["integer", "null"], "minimum": 0},
+        "loopCount": {"type": ["integer", "null"], "minimum": 0},
+        "notes": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["straightSegmentCount", "curveCount", "circleCount", "closedShapeCount", "dotCount", "filledRegionCount", "symbolCount", "textCount"],
+      "properties": {
+        "straightSegmentCount": {"type": ["integer", "null"], "minimum": 0},
+        "curveCount": {"type": ["integer", "null"], "minimum": 0},
+        "circleCount": {"type": ["integer", "null"], "minimum": 0},
+        "closedShapeCount": {"type": ["integer", "null"], "minimum": 0},
+        "dotCount": {"type": ["integer", "null"], "minimum": 0},
+        "filledRegionCount": {"type": ["integer", "null"], "minimum": 0},
+        "symbolCount": {"type": ["integer", "null"], "minimum": 0},
+        "textCount": {"type": ["integer", "null"], "minimum": 0}
+      }
+    },
+    "crossPanelRelation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "fromPanels", "toPanels", "subjects", "description", "confidence", "status"],
+      "properties": {
+        "type": {"enum": ["rotation", "reflection", "translation", "overlay_union", "overlay_intersection", "overlay_difference", "overlay_xor", "count_delta", "add_remove", "permutation", "connection_change", "fill_change", "texture_change", "direction_change", "sequence_repeat", "analogy_mapping", "folding", "unknown"]},
+        "fromPanels": {"type": "array", "items": {"type": "string"}},
+        "toPanels": {"type": "array", "items": {"type": "string"}},
+        "subjects": {"type": "array", "items": {"type": "string"}},
+        "description": {"type": "string"},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "status": {"enum": ["observed", "candidate", "uncertain"]}
+      }
+    }
+  }
+}
+

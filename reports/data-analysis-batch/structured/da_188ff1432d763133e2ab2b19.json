@@ -1,0 +1,236 @@
+{
+  "asset_id": "da_188ff1432d763133e2ab2b19",
+  "axes": {
+    "x": {
+      "max": 2005,
+      "min": 2000,
+      "ticks": [
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1200,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000,
+          1200
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 500,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2000",
+    "2001",
+    "2002",
+    "2003",
+    "2004",
+    "2005"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "农村装机容量（万千瓦）",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "农村发电量（亿千瓦时）",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "农村用电量（亿千瓦时）",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": "triangle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "农村装机容量（万千瓦）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万千瓦",
+      "values": [
+        698.5,
+        896.9,
+        812.4,
+        862.3,
+        993.6,
+        1099.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "农村发电量（亿千瓦时）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿千瓦时",
+      "values": [
+        205.05,
+        213.82,
+        235.51,
+        237.6,
+        271.2,
+        348.4
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "农村用电量（亿千瓦时）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿千瓦时",
+      "values": [
+        242.13,
+        261.08,
+        299.34,
+        343.3,
+        393.3,
+        437.57
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2008年黑龙江省公务员录用考试《行测》题_images/img_0164_53fa4b0286b589e8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年黑龙江省公务员录用考试《行测》题_images/img_0164_53fa4b0286b589e8.png",
+        "paper_title": "2008年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_1b7adf3d2c6344aec32f",
+        "question_number": 126,
+        "source_jsonl_line": 101014
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年黑龙江省公务员录用考试《行测》题_images/img_0164_53fa4b0286b589e8.png",
+        "paper_title": "2008年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_28fc1c87b6439b5de72d",
+        "question_number": 127,
+        "source_jsonl_line": 101015
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年黑龙江省公务员录用考试《行测》题_images/img_0164_53fa4b0286b589e8.png",
+        "paper_title": "2008年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_4e2eb7a0b1e9e363cf17",
+        "question_number": 128,
+        "source_jsonl_line": 101016
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年黑龙江省公务员录用考试《行测》题_images/img_0186_55f6062cd89ca676.png",
+        "paper_title": "2008年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_cca5a14eedcab115f644",
+        "question_number": 129,
+        "source_jsonl_line": 101017
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年黑龙江省公务员录用考试《行测》题_images/img_0186_55f6062cd89ca676.png",
+        "paper_title": "2008年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_0010cd453137803b6f71",
+        "question_number": 130,
+        "source_jsonl_line": 101018
+      }
+    ],
+    "sha256": "188ff1432d763133e2ab2b19d0826d9e2346e6b5a4338c055f707529e0b33c75"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "全国农村用电发电情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_188ff1432d763133e2ab2b19/column_band_01.jpg",
+        "review-crops/da_188ff1432d763133e2ab2b19/column_band_02.jpg",
+        "review-crops/da_188ff1432d763133e2ab2b19/column_band_03.jpg",
+        "review-crops/da_188ff1432d763133e2ab2b19/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.865",
+      "crop_verification_elapsed_seconds:9.08",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

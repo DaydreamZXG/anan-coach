@@ -1,0 +1,355 @@
+{
+  "asset_id": "da_b508dc9bb0279cab859f4209",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "医院总体",
+    "综合医院",
+    "中医医院",
+    "专科医院",
+    "其他"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "个人办",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "社会办",
+      "style": {
+        "dash": "line",
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "政府办",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "个人办",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        25.8,
+        25.8,
+        28.2,
+        25.8,
+        32.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "社会办",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        28.2,
+        28.2,
+        81.2,
+        35.1,
+        13.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "政府办",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        46,
+        46,
+        13.5,
+        42.3,
+        54.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2015年黑龙江省公务员录用考试《行测》题_images/img_0143_44981790af8778d3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题_images/img_0143_44981790af8778d3.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_24b82ac90acbf08c504a",
+        "question_number": 126,
+        "source_jsonl_line": 101943
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题_images/img_0143_44981790af8778d3.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_afc5a703bd2369708b85",
+        "question_number": 127,
+        "source_jsonl_line": 101944
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题_images/img_0145_8875701f544680b6.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_ed4a5cb9e47a4fcd1199",
+        "question_number": 128,
+        "source_jsonl_line": 101945
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题_images/img_0143_44981790af8778d3.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_3e616905cffefe9ae0e8",
+        "question_number": 129,
+        "source_jsonl_line": 101946
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题_images/img_0143_44981790af8778d3.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_08bb0cccf1d7ffbb47f1",
+        "question_number": 130,
+        "source_jsonl_line": 101947
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0120_8875701f544680b6.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_f7c86881d7bd65e4271b",
+        "question_number": 121,
+        "source_jsonl_line": 102068
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0121_44981790af8778d3.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_8c484766d191643558ab",
+        "question_number": 122,
+        "source_jsonl_line": 102069
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0121_44981790af8778d3.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_58842dcaa4210f6c0b8d",
+        "question_number": 123,
+        "source_jsonl_line": 102070
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0121_44981790af8778d3.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_2e6bc394347b5eaf85a7",
+        "question_number": 124,
+        "source_jsonl_line": 102071
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0120_8875701f544680b6.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_c7b93fdc1c0988e691b0",
+        "question_number": 125,
+        "source_jsonl_line": 102072
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）_images/img_0124_44981790af8778d3.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）",
+        "question_id": "pq_9c9877cbe53ddc88e521",
+        "question_number": 111,
+        "source_jsonl_line": 102188
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）_images/img_0124_44981790af8778d3.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）",
+        "question_id": "pq_8eb8c71215fff89affd7",
+        "question_number": 112,
+        "source_jsonl_line": 102189
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）_images/img_0124_44981790af8778d3.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）",
+        "question_id": "pq_2730217c2fa9e6bc4c78",
+        "question_number": 113,
+        "source_jsonl_line": 102190
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）_images/img_0124_44981790af8778d3.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）",
+        "question_id": "pq_65e8df1e67f7639d4835",
+        "question_number": 114,
+        "source_jsonl_line": 102191
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）_images/img_0124_44981790af8778d3.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）",
+        "question_id": "pq_90ecf2911a2161de694c",
+        "question_number": 115,
+        "source_jsonl_line": 102192
+      }
+    ],
+    "sha256": "b508dc9bb0279cab859f420952aa8b4cb9887371943c0b2afbd7d25e67ae262e"
+  },
+  "structured_visual": null,
+  "table": {
+    "columns": [
+      "2006",
+      "2007",
+      "2008",
+      "2009",
+      "2010"
+    ],
+    "rows": [
+      {
+        "label": "医院总数（家）",
+        "values": [
+          19246,
+          19852,
+          19712,
+          20291,
+          20918
+        ]
+      },
+      {
+        "label": "综合医院（%）",
+        "values": [
+          68.2,
+          67.4,
+          66.6,
+          65.9,
+          65.4
+        ]
+      },
+      {
+        "label": "中医医院（%）",
+        "values": [
+          13.8,
+          13.7,
+          13.6,
+          13.4,
+          13.3
+        ]
+      },
+      {
+        "label": "专科医院（%）",
+        "values": [
+          15.7,
+          16.5,
+          17.4,
+          18.3,
+          18.9
+        ]
+      },
+      {
+        "label": "其他类（%）",
+        "values": [
+          2.3,
+          2.4,
+          2.4,
+          2.4,
+          2.4
+        ]
+      }
+    ]
+  },
+  "title": "2010年我国各类医疗卫生机构按主办单位分类的分布情况",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b508dc9bb0279cab859f4209/column_band_01.jpg",
+        "review-crops/da_b508dc9bb0279cab859f4209/column_band_02.jpg",
+        "review-crops/da_b508dc9bb0279cab859f4209/column_band_03.jpg",
+        "review-crops/da_b508dc9bb0279cab859f4209/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.25",
+      "crop_verification_elapsed_seconds:2.99",
+      "candidate_value_changes_after_crop:7",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_chart_point:其他类:个人办",
+      "crop_note:ignored_unknown_chart_point:其他类:社会办",
+      "crop_note:ignored_unknown_chart_point:其他类:政府办",
+      "table_row_label_column_removed:年份"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

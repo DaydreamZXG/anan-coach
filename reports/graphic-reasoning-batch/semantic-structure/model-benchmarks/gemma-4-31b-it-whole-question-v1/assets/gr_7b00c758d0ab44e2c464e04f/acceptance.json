@@ -1,0 +1,35 @@
+{
+  "assetId": "gr_7b00c758d0ab44e2c464e04f",
+  "attempts": 1,
+  "checkpointKey": "2b88e0f5938ba3368d5cd714e300a61b4a206071ba2db024a024c61dd02e6e7d",
+  "finalVectorAcceptance": false,
+  "gates": {
+    "answerIsolation": "pass",
+    "modelSchema": "pass",
+    "optionCountAgreement": "pass",
+    "originalImagePresentation": "pass",
+    "panelCountAgreement": "pass",
+    "panelCountResolution": "pass",
+    "sourceHash": "pass",
+    "vectorEnhancement": "not_applicable"
+  },
+  "geometryAuthority": false,
+  "model": "gemma-4-31b-it",
+  "normalizations": [],
+  "panelCropEvidence": {
+    "available": true,
+    "count": 10,
+    "missingSlotsWithoutCrop": 0,
+    "source": "deterministic_cv_panel_boxes"
+  },
+  "qualityStatus": "unreviewed",
+  "repairReasons": [
+    "factual_quality_not_reviewed"
+  ],
+  "runtimeError": null,
+  "schemaStatus": "validated",
+  "schemaVersion": "graphic-reasoning-semantic-acceptance-v1",
+  "sourceSha256": "7b00c758d0ab44e2c464e04f809f8c6e5d4d1fede558131385aff156347be4b0",
+  "status": "repair_pending",
+  "validationErrors": []
+}

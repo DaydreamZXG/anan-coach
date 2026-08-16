@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "graphic-vector-model-selection-v1",
+  "decisionDate": "2026-08-10",
+  "currentWorkstationPolicy": {
+    "gpuState": "shared_half_capacity_reported_by_user",
+    "action": "do_not_install_restart_or_batch_infer_until_user_reports_capacity_available",
+    "qwenRole": "semantic_grouping_only",
+    "qwenGeometryAuthority": false
+  },
+  "orderedCandidates": [
+    {
+      "model": "OmniSVG1.1_4B",
+      "role": "first_specialized_image_to_svg_candidate",
+      "officialRepository": "https://github.com/OmniSVG/OmniSVG",
+      "officialModel": "https://huggingface.co/OmniSVG/OmniSVG1.1_4B",
+      "reportedGpuMemory": "17G",
+      "reason": "official image-to-SVG inference path and lower published memory than the 8B variant",
+      "acceptanceBoundary": "raw SVG is parsed and verified only; coordinates are never final"
+    },
+    {
+      "model": "starvector-1b-im2svg",
+      "role": "small baseline and fallback",
+      "officialRepository": "https://github.com/joanrod/star-vector",
+      "officialModel": "https://huggingface.co/starvector/starvector-1b-im2svg",
+      "reason": "small open image-to-SVG model with SVG code output",
+      "acceptanceBoundary": "same candidate-only gates as OmniSVG"
+    },
+    {
+      "model": "RefineSVG",
+      "role": "research_challenger_not_yet_scheduled",
+      "paper": "https://arxiv.org/abs/2607.27699",
+      "officialRepositoryClaimedByPaper": "https://github.com/liuxiaobo66/RefineSVG",
+      "reason": "render-observe-correct design directly targets geometric drift, but the release is too new to displace the reproducible first benchmark before checkpoint and inference readiness are verified"
+    }
+  ],
+  "firstRun": {
+    "assetId": "gr_7b00c758d0ab44e2c464e04f",
+    "panelId": "panel-1",
+    "batchSize": 1,
+    "candidateCountPerModel": 1,
+    "requiredOutputs": [
+      "raw candidate SVG",
+      "typed candidate JSON",
+      "pixel verification JSON",
+      "deterministic refinement JSON",
+      "redraw comparison"
+    ],
+    "stopConditions": [
+      "raster or forbidden SVG element",
+      "untyped geometry",
+      "missing expected line or curve family",
+      "duplicate line or circle",
+      "hollow region promoted to fill",
+      "pixel or topology gate failure"
+    ]
+  }
+}

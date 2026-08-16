@@ -1,0 +1,192 @@
+{
+  "asset_id": "da_771deb3d41e897c602703ef3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2012年国家公务员录用考试《行测》题_images/img_0118_780d5ef01ca7fcdb.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0118_780d5ef01ca7fcdb.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_39b570c498a1fa7d6967",
+        "question_number": 121,
+        "source_jsonl_line": 17791
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0118_780d5ef01ca7fcdb.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_2f1e234cb6f954cd8912",
+        "question_number": 122,
+        "source_jsonl_line": 17792
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0128_1d15d12d4903bbc6.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_8218b9048e260b4ad400",
+        "question_number": 123,
+        "source_jsonl_line": 17793
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0118_780d5ef01ca7fcdb.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_765823bc33b7fb739aaf",
+        "question_number": 124,
+        "source_jsonl_line": 17794
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0118_780d5ef01ca7fcdb.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_5f86b0a604c99ea61761",
+        "question_number": 125,
+        "source_jsonl_line": 17795
+      }
+    ],
+    "sha256": "771deb3d41e897c602703ef378f435f363e91aebd1594e32e5c020c857bb7d87"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "长三角｜占地区生产总值比重",
+          "长三角｜增长速度"
+        ],
+        "label": "长三角"
+      },
+      {
+        "columns": [
+          "珠三角｜占地区生产总值比重",
+          "珠三角｜增长速度"
+        ],
+        "label": "珠三角"
+      },
+      {
+        "columns": [
+          "京津冀｜占地区生产总值比重",
+          "京津冀｜增长速度"
+        ],
+        "label": "京津冀"
+      },
+      {
+        "columns": [
+          "全国｜占国内生产总值比重",
+          "全国｜增长速度"
+        ],
+        "label": "全国"
+      }
+    ],
+    "columns": [
+      "长三角｜占地区生产总值比重",
+      "长三角｜增长速度",
+      "珠三角｜占地区生产总值比重",
+      "珠三角｜增长速度",
+      "京津冀｜占地区生产总值比重",
+      "京津冀｜增长速度",
+      "全国｜占国内生产总值比重",
+      "全国｜增长速度"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "第一产业产值",
+        "group": null,
+        "label": "第一产业产值",
+        "unit": null,
+        "values": [
+          4.7,
+          3.6,
+          5.0,
+          4.4,
+          6.6,
+          3.3,
+          10.2,
+          4.3
+        ]
+      },
+      {
+        "display_label": "第二产业产值",
+        "group": null,
+        "label": "第二产业产值",
+        "unit": null,
+        "values": [
+          50.6,
+          13.4,
+          50.4,
+          14.5,
+          43.8,
+          15.2,
+          46.8,
+          12.2
+        ]
+      },
+      {
+        "display_label": "第三产业产值",
+        "group": null,
+        "label": "第三产业产值",
+        "unit": null,
+        "values": [
+          44.7,
+          10.7,
+          44.6,
+          10.1,
+          49.6,
+          11.4,
+          43.0,
+          9.5
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

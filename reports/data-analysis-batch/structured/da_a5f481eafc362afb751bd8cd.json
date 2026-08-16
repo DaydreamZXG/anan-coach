@@ -1,0 +1,249 @@
+{
+  "asset_id": "da_a5f481eafc362afb751bd8cd",
+  "axes": {
+    "x": {
+      "max": 7,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 9000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000,
+          8000,
+          9000
+        ],
+        "title": null,
+        "unit": "元"
+      }
+    ]
+  },
+  "categories": [
+    "2010年一季度",
+    "2010年二季度",
+    "2010年三季度",
+    "2011年一季度",
+    "2011年二季度",
+    "2011年三季度"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "城镇居民人均可支配收入",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "城镇居民人均消费支出",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "农村居民人均纯收入",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "农村居民人均消费支出",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇居民人均可支配收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        7444,
+        5713,
+        5883,
+        8431,
+        6586,
+        6796
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "城镇居民人均消费支出",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        3740,
+        3350,
+        3643,
+        4211,
+        3845,
+        4370
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "农村居民人均纯收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        1789,
+        1651,
+        2461,
+        1955,
+        1961,
+        3006
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "农村居民人均消费支出",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        998,
+        998,
+        1268,
+        1526,
+        1250,
+        1526
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2012年江苏省公务员录用考试《行测》题（B类）_images/img_0293_8299790508e61b0e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（B类）_images/img_0293_8299790508e61b0e.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_40ccdb9143b9a77946fe",
+        "question_number": 151,
+        "source_jsonl_line": 46056
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（B类）_images/img_0293_8299790508e61b0e.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_95c64590450cfc5d5b27",
+        "question_number": 152,
+        "source_jsonl_line": 46057
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（B类）_images/img_0293_8299790508e61b0e.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_933f32f30c1d2b6b6f3c",
+        "question_number": 153,
+        "source_jsonl_line": 46058
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（B类）_images/img_0293_8299790508e61b0e.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_6e3f4a78583bf6ac63a7",
+        "question_number": 154,
+        "source_jsonl_line": 46059
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（B类）_images/img_0293_8299790508e61b0e.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_461a4c98dac4ac185094",
+        "question_number": 155,
+        "source_jsonl_line": 46060
+      }
+    ],
+    "sha256": "a5f481eafc362afb751bd8cd1f3f11f773134b13fee2df32956fd177020bc448"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "城乡居民人均可支配收入和消费支出",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a5f481eafc362afb751bd8cd/column_band_01.jpg",
+        "review-crops/da_a5f481eafc362afb751bd8cd/column_band_02.jpg",
+        "review-crops/da_a5f481eafc362afb751bd8cd/column_band_03.jpg",
+        "review-crops/da_a5f481eafc362afb751bd8cd/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.076",
+      "crop_verification_elapsed_seconds:7.921",
+      "candidate_value_changes_after_crop:3",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

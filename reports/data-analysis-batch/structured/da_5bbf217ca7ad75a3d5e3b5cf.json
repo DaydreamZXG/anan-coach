@@ -1,0 +1,179 @@
+{
+  "asset_id": "da_5bbf217ca7ad75a3d5e3b5cf",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0224_cb844b7c0d7094f0.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0224_cb844b7c0d7094f0.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_a7bb95fae257a786da1f",
+        "question_number": 121,
+        "source_jsonl_line": 18991
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0229_d2dfa076880cc525.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_319f561ab64c354d9a70",
+        "question_number": 122,
+        "source_jsonl_line": 18992
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0229_d2dfa076880cc525.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_64103d6026fcd46189db",
+        "question_number": 123,
+        "source_jsonl_line": 18993
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0229_d2dfa076880cc525.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_5f4d9645bf390fd8ac2e",
+        "question_number": 124,
+        "source_jsonl_line": 18994
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0229_d2dfa076880cc525.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_a61f49d1bcdae710f3f8",
+        "question_number": 125,
+        "source_jsonl_line": 18995
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0153_d2dfa076880cc525.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_730a9f5c112a1ca70fc5",
+        "question_number": 116,
+        "source_jsonl_line": 19121
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0153_d2dfa076880cc525.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_b1ac37cb9db8068f35e5",
+        "question_number": 117,
+        "source_jsonl_line": 19122
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0153_d2dfa076880cc525.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_d5dfb1c2da267e926a52",
+        "question_number": 118,
+        "source_jsonl_line": 19123
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0153_d2dfa076880cc525.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_e0bfa0cefe183a85ccb7",
+        "question_number": 119,
+        "source_jsonl_line": 19124
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0184_cb844b7c0d7094f0.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_eaaec801380a89c4fadd",
+        "question_number": 120,
+        "source_jsonl_line": 19125
+      }
+    ],
+    "sha256": "5bbf217ca7ad75a3d5e3b5cf7f2f3cfedc724f32bf0a85b72bd6a2ba324a3d72"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2015年",
+      "2016年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "在线餐饮外卖市场",
+        "group": "年份",
+        "label": "年份｜在线餐饮外卖市场",
+        "unit": null,
+        "values": [
+          530.6,
+          1761.5
+        ]
+      },
+      {
+        "display_label": "移动出行市场",
+        "group": "年份",
+        "label": "年份｜移动出行市场",
+        "unit": null,
+        "values": [
+          999.0,
+          2038.0
+        ]
+      },
+      {
+        "display_label": "在线旅游市场",
+        "group": "年份",
+        "label": "年份｜在线旅游市场",
+        "unit": null,
+        "values": [
+          4487.2,
+          6138.0
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

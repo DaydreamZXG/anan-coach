@@ -1,0 +1,243 @@
+{
+  "asset_id": "da_781ec79542093b6272bc34f2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0119_1546c2a7899d02da.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0119_1546c2a7899d02da.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_a4ecf9ea548939cd08b1",
+        "question_number": 76,
+        "source_jsonl_line": 36458
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0119_1546c2a7899d02da.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_b4adf2735f4a36fc4041",
+        "question_number": 77,
+        "source_jsonl_line": 36459
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0119_1546c2a7899d02da.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_097ab0a78c047b66cf71",
+        "question_number": 78,
+        "source_jsonl_line": 36460
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0119_1546c2a7899d02da.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_48714272378e7abe5048",
+        "question_number": 79,
+        "source_jsonl_line": 36461
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0119_1546c2a7899d02da.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_d58dfaba89e28774353c",
+        "question_number": 80,
+        "source_jsonl_line": 36462
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0122_1546c2a7899d02da.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_0ed1ebf326873a88c525",
+        "question_number": 76,
+        "source_jsonl_line": 91165
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0122_1546c2a7899d02da.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_b78c4fe0f99316328a81",
+        "question_number": 77,
+        "source_jsonl_line": 91166
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0125_85500f63f02b78b2.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_05ae20078dd803f112f8",
+        "question_number": 78,
+        "source_jsonl_line": 91167
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0122_1546c2a7899d02da.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_a4608ff6fd43d875813d",
+        "question_number": 79,
+        "source_jsonl_line": 91168
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0122_1546c2a7899d02da.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_4aedc5964a0fb39d0928",
+        "question_number": 80,
+        "source_jsonl_line": 91169
+      }
+    ],
+    "sha256": "781ec79542093b6272bc34f27316fbd789a078a0e43ff6a3a26980643f7fad26"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2015年",
+      "2014年",
+      "2013年",
+      "2012年",
+      "2011年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "社会服务机构单位数（个）",
+        "group": "2011-2015年我国部分社会服务机构情况",
+        "label": "2011-2015年我国部分社会服务机构情况｜社会服务机构单位数（个）",
+        "unit": null,
+        "values": [
+          1765004,
+          1668143,
+          1562298,
+          1366650,
+          1293986
+        ]
+      },
+      {
+        "display_label": "社会工作单位数（个）",
+        "group": "2011-2015年我国部分社会服务机构情况",
+        "label": "2011-2015年我国部分社会服务机构情况｜社会工作单位数（个）",
+        "unit": null,
+        "values": [
+          413372,
+          370893,
+          323061,
+          179045,
+          146451
+        ]
+      },
+      {
+        "display_label": "社会福利医院单位数（个）",
+        "group": "2011-2015年我国部分社会服务机构情况",
+        "label": "2011-2015年我国部分社会服务机构情况｜社会福利院单位数（个）｜社会福利医院单位数（个）",
+        "unit": null,
+        "values": [
+          151,
+          156,
+          155,
+          156,
+          155
+        ]
+      },
+      {
+        "display_label": "儿童福利机构单位数（个）",
+        "group": "2011-2015年我国部分社会服务机构情况",
+        "label": "2011-2015年我国部分社会服务机构情况｜社会福利院单位数（个）｜儿童福利机构单位数（个）",
+        "unit": null,
+        "values": [
+          478,
+          545,
+          529,
+          463,
+          397
+        ]
+      },
+      {
+        "display_label": "社会福利企业单位数（个）",
+        "group": "2011-2015年我国部分社会服务机构情况",
+        "label": "2011-2015年我国部分社会服务机构情况｜社会福利院单位数（个）｜社会福利企业单位数（个）",
+        "unit": null,
+        "values": [
+          14585,
+          16389,
+          18227,
+          20232,
+          21507
+        ]
+      },
+      {
+        "display_label": "老龄机构单位数（个）",
+        "group": "2011-2015年我国部分社会服务机构情况",
+        "label": "2011-2015年我国部分社会服务机构情况｜社会福利院单位数（个）｜老龄机构单位数（个）",
+        "unit": null,
+        "values": [
+          2280,
+          2558,
+          2571,
+          2583,
+          2503
+        ]
+      },
+      {
+        "display_label": "基金会单位数（个）",
+        "group": "2011-2015年我国部分社会服务机构情况",
+        "label": "2011-2015年我国部分社会服务机构情况｜社会福利院单位数（个）｜基金会单位数（个）",
+        "unit": null,
+        "values": [
+          4784,
+          4117,
+          3549,
+          3029,
+          2614
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

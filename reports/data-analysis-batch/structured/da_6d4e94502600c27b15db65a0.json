@@ -1,0 +1,259 @@
+{
+  "asset_id": "da_6d4e94502600c27b15db65a0",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "工业机器人",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "服务机器人",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "工业机器人",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        186.9,
+        271.1,
+        353.1,
+        389.6,
+        355.5,
+        422.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "服务机器人",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        39.9,
+        64.8,
+        87.6,
+        117.8,
+        150.8,
+        222.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "特种机器人",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        18.7,
+        26.9,
+        35.9,
+        44.1,
+        52.9,
+        66.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0154_09ddde8c5ff6649d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0154_09ddde8c5ff6649d.png",
+        "paper_title": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_eeb27c4660373f6602d4",
+        "question_number": 121,
+        "source_jsonl_line": 50166
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0164_5276f627aca54c59.png",
+        "paper_title": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_a3a5b2c59004663b3e1f",
+        "question_number": 122,
+        "source_jsonl_line": 50167
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0154_09ddde8c5ff6649d.png",
+        "paper_title": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_7864167830042b86de3a",
+        "question_number": 123,
+        "source_jsonl_line": 50168
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0154_09ddde8c5ff6649d.png",
+        "paper_title": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_d9bbf6e86a967933416d",
+        "question_number": 124,
+        "source_jsonl_line": 50169
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0154_09ddde8c5ff6649d.png",
+        "paper_title": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_1def32a9479d44cfe380",
+        "question_number": 125,
+        "source_jsonl_line": 50170
+      }
+    ],
+    "sha256": "6d4e94502600c27b15db65a073ea88d434e8148f2e298fe5d57e7315844e117b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "工业机器人",
+      "服务机器人",
+      "特种机器人"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2015",
+        "unit": null,
+        "values": [
+          2015,
+          186.9,
+          39.9,
+          18.7
+        ]
+      },
+      {
+        "label": "2016",
+        "unit": null,
+        "values": [
+          2016,
+          271.1,
+          64.8,
+          26.9
+        ]
+      },
+      {
+        "label": "2017",
+        "unit": null,
+        "values": [
+          2017,
+          353.1,
+          87.6,
+          35.9
+        ]
+      },
+      {
+        "label": "2018",
+        "unit": null,
+        "values": [
+          2018,
+          389.6,
+          117.8,
+          44.1
+        ]
+      },
+      {
+        "label": "2019",
+        "unit": null,
+        "values": [
+          2019,
+          355.5,
+          150.8,
+          52.9
+        ]
+      },
+      {
+        "label": "2020",
+        "unit": null,
+        "values": [
+          2020,
+          422.5,
+          222.2,
+          66.5
+        ]
+      }
+    ]
+  },
+  "title": "表 2015-2020年我国机器人销售额",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6d4e94502600c27b15db65a0/row_band_01.jpg",
+        "review-crops/da_6d4e94502600c27b15db65a0/row_band_02.jpg",
+        "review-crops/da_6d4e94502600c27b15db65a0/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.815",
+      "crop_verification_elapsed_seconds:2.021",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

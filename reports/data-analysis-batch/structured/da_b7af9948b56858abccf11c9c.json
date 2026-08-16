@@ -1,0 +1,343 @@
+{
+  "asset_id": "da_b7af9948b56858abccf11c9c",
+  "axes": {
+    "x": {
+      "max": 2016,
+      "min": 1951,
+      "ticks": [
+        1951,
+        1956,
+        1961,
+        1966,
+        1971,
+        1976,
+        1981,
+        1986,
+        1991,
+        1996,
+        2001,
+        2006,
+        2011,
+        2016
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 800,
+        "min": 400,
+        "ticks": [
+          400,
+          500,
+          600,
+          700,
+          800
+        ],
+        "title": "降水量",
+        "unit": "mm"
+      }
+    ]
+  },
+  "categories": [
+    "1951",
+    "1956",
+    "1961",
+    "1966",
+    "1971",
+    "1976",
+    "1981",
+    "1986",
+    "1991",
+    "1996",
+    "2001",
+    "2006",
+    "2011",
+    "2016"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "历年值",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "1981~2010年平均值",
+      "style": {
+        "dash": "dashed",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "历年值",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "mm",
+      "values": [
+        570,
+        720,
+        620,
+        600,
+        650,
+        600,
+        680,
+        620,
+        600,
+        650,
+        620,
+        600,
+        650,
+        720
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "1981_2010",
+      "label": "1981~2010年平均值",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "mm",
+      "values": [
+        600,
+        600,
+        600,
+        600,
+        600,
+        600,
+        600,
+        600,
+        600,
+        600,
+        600,
+        600,
+        600,
+        600
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0117_ba5a527320bbdabc.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0117_ba5a527320bbdabc.png",
+        "paper_title": "2018年421联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_b312e6115c91bf36908d",
+        "question_number": 106,
+        "source_jsonl_line": 5430
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0138_81b694cf5b7150e9.png",
+        "paper_title": "2018年421联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_2f18435a3a008990f524",
+        "question_number": 107,
+        "source_jsonl_line": 5431
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0117_ba5a527320bbdabc.png",
+        "paper_title": "2018年421联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_df376db7d1c93a3d72a1",
+        "question_number": 108,
+        "source_jsonl_line": 5432
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0117_ba5a527320bbdabc.png",
+        "paper_title": "2018年421联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_90da47ff554b8cbed77f",
+        "question_number": 109,
+        "source_jsonl_line": 5433
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0117_ba5a527320bbdabc.png",
+        "paper_title": "2018年421联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_f815cf26c4af67bfd9f9",
+        "question_number": 110,
+        "source_jsonl_line": 5434
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0123_ba5a527320bbdabc.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_01df6f99612f40540709",
+        "question_number": 101,
+        "source_jsonl_line": 25751
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0123_ba5a527320bbdabc.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_891bd2df512203b402c6",
+        "question_number": 102,
+        "source_jsonl_line": 25752
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0123_ba5a527320bbdabc.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_6d964d0ffb76760a13a9",
+        "question_number": 103,
+        "source_jsonl_line": 25753
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0123_ba5a527320bbdabc.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_5c771d44130872575fdf",
+        "question_number": 104,
+        "source_jsonl_line": 25754
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0127_81b694cf5b7150e9.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_1f34b848a74957bd9f19",
+        "question_number": 105,
+        "source_jsonl_line": 25755
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0118_ba5a527320bbdabc.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_292c4b21e6ed87875485",
+        "question_number": 106,
+        "source_jsonl_line": 59763
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0125_81b694cf5b7150e9.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_36480ec7ebb18276d9ea",
+        "question_number": 107,
+        "source_jsonl_line": 59764
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0118_ba5a527320bbdabc.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_e8accab8b5cbca81ccb2",
+        "question_number": 108,
+        "source_jsonl_line": 59765
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0125_81b694cf5b7150e9.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_26ca665674324472c6b8",
+        "question_number": 109,
+        "source_jsonl_line": 59766
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0118_ba5a527320bbdabc.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_a49786f7b9b1c9941793",
+        "question_number": 110,
+        "source_jsonl_line": 59767
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（海南卷）（网友回忆版）_images/img_0134_ba5a527320bbdabc.png",
+        "paper_title": "2018年421联考《行测》题（海南卷）（网友回忆版）",
+        "question_id": "pq_25e12b2289c67024bd9e",
+        "question_number": 96,
+        "source_jsonl_line": 65972
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（海南卷）（网友回忆版）_images/img_0134_ba5a527320bbdabc.png",
+        "paper_title": "2018年421联考《行测》题（海南卷）（网友回忆版）",
+        "question_id": "pq_9fa5cdfdaef6afc53cbf",
+        "question_number": 97,
+        "source_jsonl_line": 65973
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（海南卷）（网友回忆版）_images/img_0134_ba5a527320bbdabc.png",
+        "paper_title": "2018年421联考《行测》题（海南卷）（网友回忆版）",
+        "question_id": "pq_d29399f7159cdb14ac2e",
+        "question_number": 98,
+        "source_jsonl_line": 65974
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（海南卷）（网友回忆版）_images/img_0134_ba5a527320bbdabc.png",
+        "paper_title": "2018年421联考《行测》题（海南卷）（网友回忆版）",
+        "question_id": "pq_f64e976b0f21d5021256",
+        "question_number": 99,
+        "source_jsonl_line": 65975
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（海南卷）（网友回忆版）_images/img_0134_ba5a527320bbdabc.png",
+        "paper_title": "2018年421联考《行测》题（海南卷）（网友回忆版）",
+        "question_id": "pq_3d064644d8fa79841954",
+        "question_number": 100,
+        "source_jsonl_line": 65976
+      }
+    ],
+    "sha256": "b7af9948b56858abccf11c9ce76d547d6747bb9154778d9f1d59aa783d62296e"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "1951~2016年全国平均降水量年际变化",
+  "unit": "mm",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b7af9948b56858abccf11c9c/column_band_01.jpg",
+        "review-crops/da_b7af9948b56858abccf11c9c/column_band_02.jpg",
+        "review-crops/da_b7af9948b56858abccf11c9c/column_band_03.jpg",
+        "review-crops/da_b7af9948b56858abccf11c9c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.901",
+      "crop_verification_elapsed_seconds:8.523",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "asset_id": "da_7102c87d52a4359ad2e61fd3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2014年天津市公务员录用考试《行测》题_images/img_0120_c2c5e61877bacafc.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年天津市公务员录用考试《行测》题_images/img_0120_c2c5e61877bacafc.png",
+        "paper_title": "2014年天津市公务员录用考试《行测》题",
+        "question_id": "pq_29f0311a5f38ba705081",
+        "question_number": 106,
+        "source_jsonl_line": 22491
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年天津市公务员录用考试《行测》题_images/img_0120_c2c5e61877bacafc.png",
+        "paper_title": "2014年天津市公务员录用考试《行测》题",
+        "question_id": "pq_4a6c809eac5a9d205961",
+        "question_number": 107,
+        "source_jsonl_line": 22492
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年天津市公务员录用考试《行测》题_images/img_0121_d7726948e1e84b84.png",
+        "paper_title": "2014年天津市公务员录用考试《行测》题",
+        "question_id": "pq_b570563326afa4e082f9",
+        "question_number": 108,
+        "source_jsonl_line": 22493
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年天津市公务员录用考试《行测》题_images/img_0120_c2c5e61877bacafc.png",
+        "paper_title": "2014年天津市公务员录用考试《行测》题",
+        "question_id": "pq_1bd95d9f70d7cd2f52d9",
+        "question_number": 109,
+        "source_jsonl_line": 22494
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年天津市公务员录用考试《行测》题_images/img_0120_c2c5e61877bacafc.png",
+        "paper_title": "2014年天津市公务员录用考试《行测》题",
+        "question_id": "pq_dfeb57781f71c9d5170c",
+        "question_number": 110,
+        "source_jsonl_line": 22495
+      }
+    ],
+    "sha256": "7102c87d52a4359ad2e61fd35b09f417a60f897ebd0d9145ee621dc0b3e1f047"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "人口数（人）",
+      "人口比重（%）",
+      "人口密度（人/平方公里）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全省",
+        "unit": null,
+        "values": [
+          "全省",
+          36894216,
+          100,
+          298
+        ]
+      },
+      {
+        "label": "A市",
+        "unit": null,
+        "values": [
+          "A市",
+          7115370,
+          19.29,
+          581
+        ]
+      },
+      {
+        "label": "B市",
+        "unit": null,
+        "values": [
+          "B市",
+          3531347,
+          9.57,
+          2078
+        ]
+      },
+      {
+        "label": "C市",
+        "unit": null,
+        "values": [
+          "C市",
+          2778508,
+          7.53,
+          673
+        ]
+      },
+      {
+        "label": "D市",
+        "unit": null,
+        "values": [
+          "D市",
+          2503388,
+          6.78,
+          109
+        ]
+      },
+      {
+        "label": "E市",
+        "unit": null,
+        "values": [
+          "E市",
+          8128530,
+          22.03,
+          720
+        ]
+      },
+      {
+        "label": "F市",
+        "unit": null,
+        "values": [
+          "F市",
+          4809983,
+          13.04,
+          373
+        ]
+      },
+      {
+        "label": "G市",
+        "unit": null,
+        "values": [
+          "G市",
+          2655549,
+          7.17,
+          101
+        ]
+      },
+      {
+        "label": "H市",
+        "unit": null,
+        "values": [
+          "H市",
+          2589343,
+          6.94,
+          135
+        ]
+      },
+      {
+        "label": "I市",
+        "unit": null,
+        "values": [
+          "I市",
+          2821996,
+          7.65,
+          210
+        ]
+      }
+    ]
+  },
+  "title": "S省人口地区分布情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_7102c87d52a4359ad2e61fd3/row_band_01.jpg",
+        "review-crops/da_7102c87d52a4359ad2e61fd3/row_band_02.jpg",
+        "review-crops/da_7102c87d52a4359ad2e61fd3/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.465",
+      "crop_verification_elapsed_seconds:6.872",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

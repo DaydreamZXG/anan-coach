@@ -1,0 +1,217 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "本月（亿元）",
+          "比年初增减（亿元）"
+        ],
+        "label": "A 省本月金融机构存款贷款"
+      }
+    ],
+    "columns": [
+      "本月（亿元）",
+      "比年初增减（亿元）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标名称",
+    "rows": [
+      {
+        "display_label": "金融机构人民币存款余额",
+        "group": null,
+        "label": "金融机构人民币存款余额",
+        "unit": null,
+        "values": [
+          119919.39,
+          12046.4
+        ]
+      },
+      {
+        "display_label": "境内存款",
+        "group": null,
+        "label": "境内存款",
+        "unit": null,
+        "values": [
+          119629.8,
+          12021.0
+        ]
+      },
+      {
+        "display_label": "住户存款",
+        "group": null,
+        "label": "住户存款",
+        "unit": null,
+        "values": [
+          43313.71,
+          2750.7
+        ]
+      },
+      {
+        "display_label": "非金融企业存款",
+        "group": null,
+        "label": "非金融企业存款",
+        "unit": null,
+        "values": [
+          45047.05,
+          6113.7
+        ]
+      },
+      {
+        "display_label": "广义政府存款",
+        "group": null,
+        "label": "广义政府存款",
+        "unit": null,
+        "values": [
+          23861.36,
+          3118.0
+        ]
+      },
+      {
+        "display_label": "非银行业金融机构存款",
+        "group": null,
+        "label": "非银行业金融机构存款",
+        "unit": null,
+        "values": [
+          7407.67,
+          38.6
+        ]
+      },
+      {
+        "display_label": "境外存款",
+        "group": null,
+        "label": "境外存款",
+        "unit": null,
+        "values": [
+          289.6,
+          25.3
+        ]
+      },
+      {
+        "display_label": "金融机构人民币贷款余额",
+        "group": null,
+        "label": "金融机构人民币贷款余额",
+        "unit": null,
+        "values": [
+          87478.2,
+          8608.8
+        ]
+      },
+      {
+        "display_label": "境内贷款",
+        "group": null,
+        "label": "境内贷款",
+        "unit": null,
+        "values": [
+          87414.56,
+          8634.0
+        ]
+      },
+      {
+        "display_label": "住户贷款",
+        "group": null,
+        "label": "住户贷款",
+        "unit": null,
+        "values": [
+          24279.75,
+          4079.6
+        ]
+      },
+      {
+        "display_label": "短期贷款",
+        "group": "住户贷款",
+        "label": "住户贷款｜短期贷款",
+        "unit": null,
+        "values": [
+          4877.97,
+          70.3
+        ]
+      },
+      {
+        "display_label": "中长期贷款",
+        "group": "住户贷款",
+        "label": "住户贷款｜中长期贷款",
+        "unit": null,
+        "values": [
+          19401.78,
+          4009.3
+        ]
+      },
+      {
+        "display_label": "非金融业及机关团体贷款",
+        "group": null,
+        "label": "非金融业及机关团体贷款",
+        "unit": null,
+        "values": [
+          63131.64,
+          4554.1
+        ]
+      },
+      {
+        "display_label": "短期贷款",
+        "group": "非金融业及机关团体贷款",
+        "label": "非金融业及机关团体贷款｜短期贷款",
+        "unit": null,
+        "values": [
+          25706.37,
+          -207.1
+        ]
+      },
+      {
+        "display_label": "中长期贷款",
+        "group": "非金融业及机关团体贷款",
+        "label": "非金融业及机关团体贷款｜中长期贷款",
+        "unit": null,
+        "values": [
+          31120.97,
+          3809.0
+        ]
+      },
+      {
+        "display_label": "票据融资",
+        "group": null,
+        "label": "票据融资",
+        "unit": null,
+        "values": [
+          5537.55,
+          762.0
+        ]
+      },
+      {
+        "display_label": "各项垫款",
+        "group": null,
+        "label": "各项垫款",
+        "unit": null,
+        "values": [
+          140.89,
+          8.1
+        ]
+      },
+      {
+        "display_label": "非银行金融机构贷款",
+        "group": null,
+        "label": "非银行金融机构贷款",
+        "unit": null,
+        "values": [
+          3.17,
+          0.3
+        ]
+      },
+      {
+        "display_label": "境外贷款",
+        "group": null,
+        "label": "境外贷款",
+        "unit": null,
+        "values": [
+          63.64,
+          -25.2
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,196 @@
+{
+  "asset_id": "da_b21e153b60a64df87edf83f2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "东部,14.3%",
+    "西部,50.0%",
+    "中部,35.7%"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "东部",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "西部",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "中部",
+      "style": {
+        "dash": null,
+        "fill": "#808080",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -50.0,
+      51.0,
+      271.418,
+      310.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 51.0,
+        "label": "东部,14.3%",
+        "share": 0.28055556,
+        "start_angle": -50.0,
+        "sweep_angle": 101.0
+      },
+      {
+        "end_angle": 271.418,
+        "label": "西部,50.0%",
+        "share": 0.61227201,
+        "start_angle": 51.0,
+        "sweep_angle": 220.418
+      },
+      {
+        "end_angle": 310.0,
+        "label": "中部,35.7%",
+        "share": 0.10717244,
+        "start_angle": 271.418,
+        "sweep_angle": 38.582
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.28055556,
+        0.61227201,
+        0.10717244
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0099_85a9f2befa26c46d.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0099_85a9f2befa26c46d.jpg",
+        "paper_title": "2009年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_36996b388160feb8e095",
+        "question_number": 101,
+        "source_jsonl_line": 11254
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0099_85a9f2befa26c46d.jpg",
+        "paper_title": "2009年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_5be0d2bc65156c69453d",
+        "question_number": 102,
+        "source_jsonl_line": 11255
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0099_85a9f2befa26c46d.jpg",
+        "paper_title": "2009年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_2a8fbc85aaae7cba3741",
+        "question_number": 103,
+        "source_jsonl_line": 11256
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0107_90cf3abebc833d1f.jpg",
+        "paper_title": "2009年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_d15eb81c2cbdde9d5ed8",
+        "question_number": 104,
+        "source_jsonl_line": 11257
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0099_85a9f2befa26c46d.jpg",
+        "paper_title": "2009年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_7fb34ea65b5c1d27f1d0",
+        "question_number": 105,
+        "source_jsonl_line": 11258
+      }
+    ],
+    "sha256": "b21e153b60a64df87edf83f29cab812f574c13bc0ebf79b7766e2c5947254470"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图表一 2004年中国农村绝对贫困人口地区分布",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b21e153b60a64df87edf83f2/quadrant_01.jpg",
+        "review-crops/da_b21e153b60a64df87edf83f2/quadrant_02.jpg",
+        "review-crops/da_b21e153b60a64df87edf83f2/quadrant_03.jpg",
+        "review-crops/da_b21e153b60a64df87edf83f2/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.908",
+      "crop_verification_elapsed_seconds:0.816",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.2663",
+      "hough_circle_radius_ratio:0.3011",
+      "radial_line_candidates:7",
+      "detected_boundaries:3"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

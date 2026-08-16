@@ -1,0 +1,275 @@
+{
+  "asset_root": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets",
+  "missing_assets": 4,
+  "resolved_assets": 65099,
+  "schema_version": "question-image-inventory-v1",
+  "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613/paper_questions.jsonl",
+  "total_questions": 104762,
+  "tracks": [
+    {
+      "missing_references": 0,
+      "questions": 27649,
+      "questions_with_any_image": 737,
+      "questions_with_explanation_image": 285,
+      "questions_with_question_image": 599,
+      "roles": {
+        "analysis": {
+          "references": 465,
+          "unique_assets": 88
+        },
+        "material": {
+          "references": 501,
+          "unique_assets": 63
+        },
+        "option": {
+          "references": 173,
+          "unique_assets": 58
+        },
+        "solution": {
+          "references": 465,
+          "unique_assets": 88
+        },
+        "stem": {
+          "references": 739,
+          "unique_assets": 170
+        }
+      },
+      "track": "verbal",
+      "unique_assets": 279,
+      "unique_explanation_assets": 88,
+      "unique_question_assets": 253
+    },
+    {
+      "missing_references": 0,
+      "questions": 23609,
+      "questions_with_any_image": 3290,
+      "questions_with_explanation_image": 2868,
+      "questions_with_question_image": 1019,
+      "roles": {
+        "analysis": {
+          "references": 16918,
+          "unique_assets": 1495
+        },
+        "material": {
+          "references": 10,
+          "unique_assets": 2
+        },
+        "option": {
+          "references": 1250,
+          "unique_assets": 284
+        },
+        "solution": {
+          "references": 16918,
+          "unique_assets": 1495
+        },
+        "stem": {
+          "references": 1189,
+          "unique_assets": 457
+        }
+      },
+      "track": "judgment_non_graphic",
+      "unique_assets": 1945,
+      "unique_explanation_assets": 1495,
+      "unique_question_assets": 674
+    },
+    {
+      "missing_references": 0,
+      "questions": 19816,
+      "questions_with_any_image": 1475,
+      "questions_with_explanation_image": 1023,
+      "questions_with_question_image": 740,
+      "roles": {
+        "analysis": {
+          "references": 3342,
+          "unique_assets": 906
+        },
+        "material": {
+          "references": 129,
+          "unique_assets": 22
+        },
+        "option": {
+          "references": 798,
+          "unique_assets": 215
+        },
+        "solution": {
+          "references": 3342,
+          "unique_assets": 906
+        },
+        "stem": {
+          "references": 706,
+          "unique_assets": 306
+        }
+      },
+      "track": "knowledge_science",
+      "unique_assets": 1299,
+      "unique_explanation_assets": 906,
+      "unique_question_assets": 515
+    },
+    {
+      "missing_references": 6,
+      "questions": 14580,
+      "questions_with_any_image": 14274,
+      "questions_with_explanation_image": 12644,
+      "questions_with_question_image": 12963,
+      "roles": {
+        "analysis": {
+          "references": 71227,
+          "unique_assets": 25586
+        },
+        "material": {
+          "references": 65204,
+          "unique_assets": 2886
+        },
+        "option": {
+          "references": 6424,
+          "unique_assets": 1523
+        },
+        "solution": {
+          "references": 71227,
+          "unique_assets": 25586
+        },
+        "stem": {
+          "references": 835,
+          "unique_assets": 254
+        }
+      },
+      "track": "data_analysis",
+      "unique_assets": 28738,
+      "unique_explanation_assets": 25586,
+      "unique_question_assets": 4135
+    },
+    {
+      "missing_references": 2,
+      "questions": 12154,
+      "questions_with_any_image": 11000,
+      "questions_with_explanation_image": 10889,
+      "questions_with_question_image": 4101,
+      "roles": {
+        "analysis": {
+          "references": 66367,
+          "unique_assets": 25763
+        },
+        "material": {
+          "references": 415,
+          "unique_assets": 111
+        },
+        "option": {
+          "references": 6377,
+          "unique_assets": 1980
+        },
+        "solution": {
+          "references": 66367,
+          "unique_assets": 25763
+        },
+        "stem": {
+          "references": 6986,
+          "unique_assets": 1898
+        }
+      },
+      "track": "quantity",
+      "unique_assets": 28569,
+      "unique_explanation_assets": 25763,
+      "unique_question_assets": 3653
+    },
+    {
+      "missing_references": 0,
+      "questions": 6302,
+      "questions_with_any_image": 6270,
+      "questions_with_explanation_image": 1927,
+      "questions_with_question_image": 6270,
+      "roles": {
+        "analysis": {
+          "references": 3986,
+          "unique_assets": 1481
+        },
+        "material": {
+          "references": 0,
+          "unique_assets": 0
+        },
+        "option": {
+          "references": 199,
+          "unique_assets": 163
+        },
+        "solution": {
+          "references": 3986,
+          "unique_assets": 1481
+        },
+        "stem": {
+          "references": 6329,
+          "unique_assets": 3449
+        }
+      },
+      "track": "graphic_reasoning",
+      "unique_assets": 5087,
+      "unique_explanation_assets": 1481,
+      "unique_question_assets": 3612
+    },
+    {
+      "missing_references": 0,
+      "questions": 360,
+      "questions_with_any_image": 215,
+      "questions_with_explanation_image": 120,
+      "questions_with_question_image": 215,
+      "roles": {
+        "analysis": {
+          "references": 145,
+          "unique_assets": 123
+        },
+        "material": {
+          "references": 115,
+          "unique_assets": 10
+        },
+        "option": {
+          "references": 128,
+          "unique_assets": 127
+        },
+        "solution": {
+          "references": 145,
+          "unique_assets": 123
+        },
+        "stem": {
+          "references": 136,
+          "unique_assets": 97
+        }
+      },
+      "track": "perceptual_speed",
+      "unique_assets": 349,
+      "unique_explanation_assets": 123,
+      "unique_question_assets": 233
+    },
+    {
+      "missing_references": 0,
+      "questions": 292,
+      "questions_with_any_image": 20,
+      "questions_with_explanation_image": 16,
+      "questions_with_question_image": 8,
+      "roles": {
+        "analysis": {
+          "references": 82,
+          "unique_assets": 37
+        },
+        "material": {
+          "references": 0,
+          "unique_assets": 0
+        },
+        "option": {
+          "references": 0,
+          "unique_assets": 0
+        },
+        "solution": {
+          "references": 82,
+          "unique_assets": 37
+        },
+        "stem": {
+          "references": 20,
+          "unique_assets": 9
+        }
+      },
+      "track": "other",
+      "unique_assets": 45,
+      "unique_explanation_assets": 37,
+      "unique_question_assets": 9
+    }
+  ],
+  "unique_assets": 65103
+}

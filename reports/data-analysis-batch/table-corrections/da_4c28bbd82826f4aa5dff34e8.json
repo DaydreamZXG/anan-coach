@@ -1,0 +1,71 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "年份｜2010",
+          "年份｜2011",
+          "年份｜2012",
+          "年份｜2013",
+          "年份｜2014",
+          "年份｜2015",
+          "年份｜2016",
+          "年份｜2017"
+        ],
+        "label": "年份"
+      }
+    ],
+    "columns": [
+      "年份｜2010",
+      "年份｜2011",
+      "年份｜2012",
+      "年份｜2013",
+      "年份｜2014",
+      "年份｜2015",
+      "年份｜2016",
+      "年份｜2017"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "男博士比率",
+        "group": null,
+        "label": "男博士比率",
+        "unit": null,
+        "values": [
+          8.0,
+          9.0,
+          8.8,
+          8.5,
+          9.0,
+          10.0,
+          11.5,
+          15.9
+        ]
+      },
+      {
+        "display_label": "女博士比率",
+        "group": null,
+        "label": "女博士比率",
+        "unit": null,
+        "values": [
+          6.9,
+          7.5,
+          7.0,
+          7.6,
+          7.6,
+          8.0,
+          8.3,
+          9.2
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,301 @@
+{
+  "asset_id": "da_58dae8e69cc2118570408e26",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2013年天津市公务员录用考试《行测》题_images/img_0176_49895e570c923f7f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年天津市公务员录用考试《行测》题_images/img_0176_49895e570c923f7f.png",
+        "paper_title": "2013年天津市公务员录用考试《行测》题",
+        "question_id": "pq_cd95414df0fddc8ad3a2",
+        "question_number": 111,
+        "source_jsonl_line": 22376
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年天津市公务员录用考试《行测》题_images/img_0176_49895e570c923f7f.png",
+        "paper_title": "2013年天津市公务员录用考试《行测》题",
+        "question_id": "pq_37a843c2e94fe3b950f4",
+        "question_number": 112,
+        "source_jsonl_line": 22377
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年天津市公务员录用考试《行测》题_images/img_0176_49895e570c923f7f.png",
+        "paper_title": "2013年天津市公务员录用考试《行测》题",
+        "question_id": "pq_edc9252548c77f2c5d04",
+        "question_number": 113,
+        "source_jsonl_line": 22378
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年天津市公务员录用考试《行测》题_images/img_0176_49895e570c923f7f.png",
+        "paper_title": "2013年天津市公务员录用考试《行测》题",
+        "question_id": "pq_242476b2e03166f3f5e3",
+        "question_number": 114,
+        "source_jsonl_line": 22379
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年天津市公务员录用考试《行测》题_images/img_0176_49895e570c923f7f.png",
+        "paper_title": "2013年天津市公务员录用考试《行测》题",
+        "question_id": "pq_25127d82023104265514",
+        "question_number": 115,
+        "source_jsonl_line": 22380
+      }
+    ],
+    "sha256": "58dae8e69cc2118570408e260aa7700f878f19b6f72fef782a1f97627a61cb17"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "投资额",
+      "增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "投资完成额",
+        "unit": null,
+        "values": [
+          "投资完成额",
+          7221.64,
+          30.4
+        ]
+      },
+      {
+        "label": "房地产开发投资",
+        "unit": null,
+        "values": [
+          "房地产开发投资",
+          1165.39,
+          26.5
+        ]
+      },
+      {
+        "label": "国有经济控股",
+        "unit": null,
+        "values": [
+          "国有经济控股",
+          2031.23,
+          -7.5
+        ]
+      },
+      {
+        "label": "住宅",
+        "unit": null,
+        "values": [
+          "住宅",
+          984.81,
+          26.3
+        ]
+      },
+      {
+        "label": "按产业分",
+        "unit": null,
+        "values": [
+          "按产业分",
+          null,
+          null
+        ]
+      },
+      {
+        "label": "第一产业",
+        "unit": null,
+        "values": [
+          "第一产业",
+          197.07,
+          106.2
+        ]
+      },
+      {
+        "label": "第二产业",
+        "unit": null,
+        "values": [
+          "第二产业",
+          4041.63,
+          27.2
+        ]
+      },
+      {
+        "label": "第三产业",
+        "unit": null,
+        "values": [
+          "第三产业",
+          2982.94,
+          31.7
+        ]
+      },
+      {
+        "label": "按隶属关系分",
+        "unit": null,
+        "values": [
+          "按隶属关系分",
+          null,
+          null
+        ]
+      },
+      {
+        "label": "中央项目",
+        "unit": null,
+        "values": [
+          "中央项目",
+          516.19,
+          -26.5
+        ]
+      },
+      {
+        "label": "地方项目",
+        "unit": null,
+        "values": [
+          "地方项目",
+          6705.45,
+          38.7
+        ]
+      },
+      {
+        "label": "按建设性质分",
+        "unit": null,
+        "values": [
+          "按建设性质分",
+          null,
+          null
+        ]
+      },
+      {
+        "label": "新建",
+        "unit": null,
+        "values": [
+          "新建",
+          2515.89,
+          31.4
+        ]
+      },
+      {
+        "label": "扩建",
+        "unit": null,
+        "values": [
+          "扩建",
+          1420.5,
+          22.5
+        ]
+      },
+      {
+        "label": "改建和技术改造",
+        "unit": null,
+        "values": [
+          "改建和技术改造",
+          1773.09,
+          41.8
+        ]
+      },
+      {
+        "label": "按构成分",
+        "unit": null,
+        "values": [
+          "按构成分",
+          null,
+          null
+        ]
+      },
+      {
+        "label": "建筑工程",
+        "unit": null,
+        "values": [
+          "建筑工程",
+          3950.5,
+          34.1
+        ]
+      },
+      {
+        "label": "安装工程",
+        "unit": null,
+        "values": [
+          "安装工程",
+          329.94,
+          15.9
+        ]
+      },
+      {
+        "label": "设备、工器具购置",
+        "unit": null,
+        "values": [
+          "设备、工器具购置",
+          2181.19,
+          27.1
+        ]
+      },
+      {
+        "label": "其它费用",
+        "unit": null,
+        "values": [
+          "其它费用",
+          760.01,
+          28.9
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_58dae8e69cc2118570408e26/row_band_01.jpg",
+        "review-crops/da_58dae8e69cc2118570408e26/row_band_02.jpg",
+        "review-crops/da_58dae8e69cc2118570408e26/row_band_03.jpg",
+        "review-crops/da_58dae8e69cc2118570408e26/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.295",
+      "crop_verification_elapsed_seconds:8.809",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,463 @@
+{
+  "asset_id": "da_f4ff802a4c2520e2f3633c87",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "绝对额(亿元)",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "增速(%)",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "金融业增加值-绝对额(亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        368.9,
+        392.1,
+        440.5,
+        492.4,
+        653.3,
+        1054.3,
+        1298.3,
+        1597.0,
+        2105.9,
+        2600.1
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "-",
+      "label": "金融业增加值-增速(%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.9,
+        6.8,
+        7.5,
+        18.9,
+        21.3,
+        38.6,
+        12.0,
+        28.1,
+        17.0,
+        6.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "第三产业增加值-绝对额(亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        3891.9,
+        4493.3,
+        5198.0,
+        6612.2,
+        7914.1,
+        9730.9,
+        11888.5,
+        13629.1,
+        17131.5,
+        20842.2
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "-",
+      "label": "第三产业增加值-增速(%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        11.6,
+        12.4,
+        13.4,
+        14.9,
+        15.5,
+        16.4,
+        13.4,
+        13.6,
+        13.3,
+        11.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "地区国内生产总值-绝对额(亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        10606.9,
+        12442.9,
+        15003.6,
+        18598.7,
+        21742.1,
+        26018.5,
+        30982.0,
+        34457.3,
+        41425.5,
+        49110.3
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "-",
+      "label": "地区国内生产总值-增速(%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        11.7,
+        13.6,
+        14.8,
+        14.5,
+        14.9,
+        14.9,
+        12.7,
+        12.4,
+        12.7,
+        11.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2013年江苏省公务员录用考试《行测》题（A类）_images/img_0126_c1073c83106b5466.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（A类）_images/img_0126_c1073c83106b5466.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_fadf4552a00670632ff9",
+        "question_number": 86,
+        "source_jsonl_line": 46231
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（A类）_images/img_0126_c1073c83106b5466.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_53aa44a86cf8869b9720",
+        "question_number": 87,
+        "source_jsonl_line": 46232
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（A类）_images/img_0126_c1073c83106b5466.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_2f7bbc7edd1b4e227b35",
+        "question_number": 88,
+        "source_jsonl_line": 46233
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（A类）_images/img_0126_c1073c83106b5466.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_ebc6727128250ab37699",
+        "question_number": 89,
+        "source_jsonl_line": 46234
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（A类）_images/img_0126_c1073c83106b5466.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_17647fa0f1451a33cf75",
+        "question_number": 90,
+        "source_jsonl_line": 46235
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（B类）_images/img_0216_c1073c83106b5466.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_872815566b032ca7034c",
+        "question_number": 146,
+        "source_jsonl_line": 46396
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（B类）_images/img_0216_c1073c83106b5466.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_786e9bc3ff7be599820c",
+        "question_number": 147,
+        "source_jsonl_line": 46397
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（B类）_images/img_0216_c1073c83106b5466.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_bd1cf199c585262679e6",
+        "question_number": 148,
+        "source_jsonl_line": 46398
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（B类）_images/img_0216_c1073c83106b5466.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_857ca6f87cf9c3a9d6d7",
+        "question_number": 149,
+        "source_jsonl_line": 46399
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（B类）_images/img_0238_ae3f1c90726934e8.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_e5d9aa61b6ebfe2b7a50",
+        "question_number": 150,
+        "source_jsonl_line": 46400
+      }
+    ],
+    "sha256": "f4ff802a4c2520e2f3633c87ce70caf2801e937edf99f0206984bae4679f3f56"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "金融业增加值-绝对额(亿元)",
+      "金融业增加值-增速(%)",
+      "第三产业增加值-绝对额(亿元)",
+      "第三产业增加值-增速(%)",
+      "地区国内生产总值-绝对额(亿元)",
+      "地区国内生产总值-增速(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2002",
+        "unit": null,
+        "values": [
+          2002,
+          368.9,
+          5.9,
+          3891.9,
+          11.6,
+          10606.9,
+          11.7
+        ]
+      },
+      {
+        "label": "2003",
+        "unit": null,
+        "values": [
+          2003,
+          392.1,
+          6.8,
+          4493.3,
+          12.4,
+          12442.9,
+          13.6
+        ]
+      },
+      {
+        "label": "2004",
+        "unit": null,
+        "values": [
+          2004,
+          440.5,
+          7.5,
+          5198.0,
+          13.4,
+          15003.6,
+          14.8
+        ]
+      },
+      {
+        "label": "2005",
+        "unit": null,
+        "values": [
+          2005,
+          492.4,
+          18.9,
+          6612.2,
+          14.9,
+          18598.7,
+          14.5
+        ]
+      },
+      {
+        "label": "2006",
+        "unit": null,
+        "values": [
+          2006,
+          653.3,
+          21.3,
+          7914.1,
+          15.5,
+          21742.1,
+          14.9
+        ]
+      },
+      {
+        "label": "2007",
+        "unit": null,
+        "values": [
+          2007,
+          1054.3,
+          38.6,
+          9730.9,
+          16.4,
+          26018.5,
+          14.9
+        ]
+      },
+      {
+        "label": "2008",
+        "unit": null,
+        "values": [
+          2008,
+          1298.3,
+          12.0,
+          11888.5,
+          13.4,
+          30982.0,
+          12.7
+        ]
+      },
+      {
+        "label": "2009",
+        "unit": null,
+        "values": [
+          2009,
+          1597.0,
+          28.1,
+          13629.1,
+          13.6,
+          34457.3,
+          12.4
+        ]
+      },
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          2105.9,
+          17.0,
+          17131.5,
+          13.3,
+          41425.5,
+          12.7
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          2600.1,
+          6.2,
+          20842.2,
+          11.1,
+          49110.3,
+          11.0
+        ]
+      }
+    ]
+  },
+  "title": "2002～2011年江苏金融业增加值情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f4ff802a4c2520e2f3633c87/row_band_01.jpg",
+        "review-crops/da_f4ff802a4c2520e2f3633c87/row_band_02.jpg",
+        "review-crops/da_f4ff802a4c2520e2f3633c87/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:19.66",
+      "crop_verification_elapsed_seconds:20.34",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

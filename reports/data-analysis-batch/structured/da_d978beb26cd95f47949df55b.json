@@ -1,0 +1,234 @@
+{
+  "asset_id": "da_d978beb26cd95f47949df55b",
+  "axes": {
+    "x": {
+      "max": 8,
+      "min": 0,
+      "ticks": [
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 12000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000,
+          12000
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 7100,
+        "min": 6400,
+        "ticks": [
+          6400,
+          6500,
+          6600,
+          6700,
+          6800,
+          6900,
+          7000,
+          7100
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008"
+  ],
+  "chart_type": "scatter",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": null,
+      "render_as": "point",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        6000,
+        7000,
+        7500,
+        7200,
+        9000,
+        9500,
+        9500
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": null,
+      "render_as": "point",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        6500,
+        6600,
+        6700,
+        6800,
+        7000,
+        6900,
+        6800
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": null,
+      "render_as": "point",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        6000,
+        6200,
+        6400,
+        6600,
+        6800,
+        7000,
+        7200
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": null,
+      "render_as": "point",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        6000,
+        6200,
+        6400,
+        6600,
+        6800,
+        7000,
+        7200
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/福建/2008年福建省公务员录用考试《行测》题_images/img_0123_8a861d32b306a47c.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2008年福建省公务员录用考试《行测》题_images/img_0123_8a861d32b306a47c.png",
+        "paper_title": "2008年福建省公务员录用考试《行测》题",
+        "question_id": "pq_4966e88d9f80dba4520d",
+        "question_number": 129,
+        "source_jsonl_line": 76304
+      }
+    ],
+    "sha256": "d978beb26cd95f47949df55be5ff8f6dd9184df56573ad32fddce591970367b0"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d978beb26cd95f47949df55b/column_band_01.jpg",
+        "review-crops/da_d978beb26cd95f47949df55b/column_band_02.jpg",
+        "review-crops/da_d978beb26cd95f47949df55b/column_band_03.jpg",
+        "review-crops/da_d978beb26cd95f47949df55b/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.425",
+      "crop_verification_elapsed_seconds:7.391",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_chart_point:2002:0",
+      "crop_note:ignored_unknown_chart_point:2003:0",
+      "crop_note:ignored_unknown_chart_point:2004:0",
+      "crop_note:ignored_unknown_chart_point:2005:0",
+      "crop_note:ignored_unknown_chart_point:2006:0",
+      "crop_note:ignored_unknown_chart_point:2007:0",
+      "crop_note:ignored_unknown_chart_point:2008:0",
+      "crop_note:ignored_unknown_chart_point:2002:1",
+      "crop_note:ignored_unknown_chart_point:2003:1",
+      "crop_note:ignored_unknown_chart_point:2004:1",
+      "crop_note:ignored_unknown_chart_point:2005:1",
+      "crop_note:ignored_unknown_chart_point:2006:1",
+      "crop_note:ignored_unknown_chart_point:2007:1",
+      "crop_note:ignored_unknown_chart_point:2008:1",
+      "crop_note:ignored_unknown_chart_point:2002:2",
+      "crop_note:ignored_unknown_chart_point:2003:2",
+      "crop_note:ignored_unknown_chart_point:2004:2",
+      "crop_note:ignored_unknown_chart_point:2005:2",
+      "crop_note:ignored_unknown_chart_point:2006:2",
+      "crop_note:ignored_unknown_chart_point:2007:2",
+      "crop_note:ignored_unknown_chart_point:2008:2",
+      "crop_note:ignored_unknown_chart_point:2002:3",
+      "crop_note:ignored_unknown_chart_point:2003:3",
+      "crop_note:ignored_unknown_chart_point:2004:3",
+      "crop_note:ignored_unknown_chart_point:2005:3",
+      "crop_note:ignored_unknown_chart_point:2006:3",
+      "crop_note:ignored_unknown_chart_point:2007:3",
+      "crop_note:ignored_unknown_chart_point:2008:3"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

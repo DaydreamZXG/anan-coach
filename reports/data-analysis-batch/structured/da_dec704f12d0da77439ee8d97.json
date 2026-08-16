@@ -1,0 +1,325 @@
+{
+  "asset_id": "da_dec704f12d0da77439ee8d97",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0167_3dd754932133f4a8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0167_3dd754932133f4a8.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_efdfaa77d32fbae7ecb4",
+        "question_number": 111,
+        "source_jsonl_line": 63708
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0167_3dd754932133f4a8.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_03b0fb962b74f00aba34",
+        "question_number": 112,
+        "source_jsonl_line": 63709
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0166_cce7a697dfdcb710.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_6ab5c56942c2f0dbcca8",
+        "question_number": 113,
+        "source_jsonl_line": 63710
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0167_3dd754932133f4a8.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_829bf0f2aea9af1e6aa0",
+        "question_number": 114,
+        "source_jsonl_line": 63711
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0166_cce7a697dfdcb710.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_07da4165ad60a691dfbc",
+        "question_number": 115,
+        "source_jsonl_line": 63712
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0168_cce7a697dfdcb710.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_cb983b2edcc424a001b0",
+        "question_number": 106,
+        "source_jsonl_line": 63828
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0163_3dd754932133f4a8.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_4e60d77194bba3e8d9d5",
+        "question_number": 107,
+        "source_jsonl_line": 63829
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0163_3dd754932133f4a8.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_220de5527ba61ea3c5ee",
+        "question_number": 108,
+        "source_jsonl_line": 63830
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0163_3dd754932133f4a8.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_ffc7b4edacb135138c8d",
+        "question_number": 109,
+        "source_jsonl_line": 63831
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0163_3dd754932133f4a8.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_8736473ab441fae67f31",
+        "question_number": 110,
+        "source_jsonl_line": 63832
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0121_3dd754932133f4a8.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_6b41b30bb87cc9432aa8",
+        "question_number": 101,
+        "source_jsonl_line": 63943
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0136_cce7a697dfdcb710.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_d70f0121ff48e60d0766",
+        "question_number": 102,
+        "source_jsonl_line": 63944
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0136_cce7a697dfdcb710.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_7199ed1b92976d4e3f65",
+        "question_number": 103,
+        "source_jsonl_line": 63945
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0121_3dd754932133f4a8.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_44f99c0de3fa5f5c0463",
+        "question_number": 104,
+        "source_jsonl_line": 63946
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0121_3dd754932133f4a8.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_be942937fd426c85c589",
+        "question_number": 105,
+        "source_jsonl_line": 63947
+      }
+    ],
+    "sha256": "dec704f12d0da77439ee8d97f7dfa2f828ab7622f1ab64ac48977a386e890e78"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "6月｜销售额（亿元）",
+          "6月｜同比增长（%）",
+          "6月｜环比增长（%）"
+        ],
+        "label": "6月"
+      },
+      {
+        "columns": [
+          "1-6月累计｜销售额（亿元）",
+          "1-6月累计｜同比增长（%）"
+        ],
+        "label": "1-6月累计"
+      }
+    ],
+    "columns": [
+      "6月｜销售额（亿元）",
+      "6月｜同比增长（%）",
+      "6月｜环比增长（%）",
+      "1-6月累计｜销售额（亿元）",
+      "1-6月累计｜同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类型",
+    "rows": [
+      {
+        "display_label": "一、福利彩票",
+        "group": null,
+        "label": "一、福利彩票",
+        "unit": null,
+        "values": [
+          130.8,
+          16.5,
+          -0.5,
+          748.6,
+          10.6
+        ]
+      },
+      {
+        "display_label": "（一）乐透数字型",
+        "group": "一、福利彩票",
+        "label": "一、福利彩票｜（一）乐透数字型",
+        "unit": null,
+        "values": [
+          71.8,
+          3.7,
+          -8.3,
+          433.1,
+          -6
+        ]
+      },
+      {
+        "display_label": "（二）即开型",
+        "group": null,
+        "label": "（二）即开型",
+        "unit": null,
+        "values": [
+          28.3,
+          30.3,
+          11.8,
+          175.6,
+          33.2
+        ]
+      },
+      {
+        "display_label": "（三）基诺型",
+        "group": null,
+        "label": "（三）基诺型",
+        "unit": null,
+        "values": [
+          30.7,
+          44.2,
+          10.2,
+          139.9,
+          65.5
+        ]
+      },
+      {
+        "display_label": "二、体育彩票",
+        "group": null,
+        "label": "二、体育彩票",
+        "unit": null,
+        "values": [
+          189,
+          -19.2,
+          -3.7,
+          1072,
+          -3.2
+        ]
+      },
+      {
+        "display_label": "（一）乐透数字型",
+        "group": "二、体育彩票",
+        "label": "二、体育彩票｜（一）乐透数字型",
+        "unit": null,
+        "values": [
+          58.6,
+          5,
+          -5,
+          330.9,
+          -13
+        ]
+      },
+      {
+        "display_label": "（二）竞猜型",
+        "group": null,
+        "label": "（二）竞猜型",
+        "unit": null,
+        "values": [
+          104.5,
+          -33.1,
+          -4.1,
+          580,
+          -3
+        ]
+      },
+      {
+        "display_label": "（三）即开型",
+        "group": null,
+        "label": "（三）即开型",
+        "unit": null,
+        "values": [
+          25.9,
+          18.5,
+          1.4,
+          161.1,
+          24.7
+        ]
+      },
+      {
+        "display_label": "（四）视频型",
+        "group": null,
+        "label": "（四）视频型",
+        "unit": null,
+        "values": [
+          0.0015,
+          143.4,
+          355.1,
+          0.0046,
+          -25.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "assetId": "gr_814f04ca63ec75e0fd69a9fb",
+  "attempts": 2,
+  "checkpointKey": "0d64bdcbf9d033bccaabbe68a8214efde8fd88450735c297593095b73c34a384",
+  "finalVectorAcceptance": false,
+  "gates": {
+    "answerIsolation": "pass",
+    "modelSchema": "pass",
+    "optionCountAgreement": "pass",
+    "originalImagePresentation": "pass",
+    "panelCountAgreement": "pass",
+    "panelCountResolution": "pass",
+    "sourceHash": "pass",
+    "vectorEnhancement": "not_applicable"
+  },
+  "geometryAuthority": false,
+  "model": "qwen3-vl-30b-a3b",
+  "normalizations": [
+    {
+      "field": "panel_count",
+      "from": "9",
+      "reason": "model_list_contains_one_unboxed_missing_marker_not_counted_by_cv",
+      "to": "10"
+    }
+  ],
+  "runtimeError": null,
+  "schemaVersion": "graphic-reasoning-semantic-acceptance-v1",
+  "sourceSha256": "814f04ca63ec75e0fd69a9fbb46e7b19791c28db16478af6bcc5645ffc7a8483",
+  "status": "semantic_candidate_validated",
+  "validationErrors": []
+}

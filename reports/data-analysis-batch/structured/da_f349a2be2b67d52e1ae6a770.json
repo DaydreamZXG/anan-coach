@@ -1,0 +1,273 @@
+{
+  "asset_id": "da_f349a2be2b67d52e1ae6a770",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 57,
+        "min": 52,
+        "ticks": [],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2009.7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "2010.1",
+    "2",
+    "3",
+    "4",
+    "5"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "中国制造业采购经理指数（PMI）",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "PMI",
+      "label": "中国制造业采购经理指数（PMI）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        53,
+        54,
+        54.9,
+        55.1,
+        55.1,
+        57,
+        56,
+        52.3,
+        55,
+        56,
+        53.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0164_b5fa61f7705f2e88.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0164_b5fa61f7705f2e88.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_b6d6c96afb08695ab9da",
+        "question_number": 86,
+        "source_jsonl_line": 6645
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0164_b5fa61f7705f2e88.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_0427adec5925c4f48eac",
+        "question_number": 87,
+        "source_jsonl_line": 6646
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0164_b5fa61f7705f2e88.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_12991027eaee9bcb5818",
+        "question_number": 88,
+        "source_jsonl_line": 6647
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0175_d7d0c4cbfee6cd84.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_426f5050fda8906f0d0f",
+        "question_number": 89,
+        "source_jsonl_line": 6648
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0175_d7d0c4cbfee6cd84.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_7b674e5da8386956cf82",
+        "question_number": 90,
+        "source_jsonl_line": 6649
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0170_b5fa61f7705f2e88.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_8745f4d2d283e69388c5",
+        "question_number": 86,
+        "source_jsonl_line": 24852
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0169_d7d0c4cbfee6cd84.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_224af7b5f90a6c06653b",
+        "question_number": 87,
+        "source_jsonl_line": 24853
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0169_d7d0c4cbfee6cd84.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_f07cdb1082d8e4b520a7",
+        "question_number": 88,
+        "source_jsonl_line": 24854
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0170_b5fa61f7705f2e88.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_bcdaa5528e0bed26c42d",
+        "question_number": 89,
+        "source_jsonl_line": 24855
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0170_b5fa61f7705f2e88.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_cba32cfde6dc5940b728",
+        "question_number": 90,
+        "source_jsonl_line": 24856
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0163_d7d0c4cbfee6cd84.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_0e3a5a86c25232e88d67",
+        "question_number": 86,
+        "source_jsonl_line": 31410
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0163_d7d0c4cbfee6cd84.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_82ac17c96ba7f82d04cc",
+        "question_number": 87,
+        "source_jsonl_line": 31411
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0163_d7d0c4cbfee6cd84.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_3b041fc47d0b3f741b0f",
+        "question_number": 88,
+        "source_jsonl_line": 31412
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0173_b5fa61f7705f2e88.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_2157089be22b9c9f191d",
+        "question_number": 89,
+        "source_jsonl_line": 31413
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0173_b5fa61f7705f2e88.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_370389a082d21f9a755c",
+        "question_number": 90,
+        "source_jsonl_line": 31414
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0167_b5fa61f7705f2e88.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_cec21f50e37a6a014898",
+        "question_number": 86,
+        "source_jsonl_line": 40152
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0167_b5fa61f7705f2e88.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_19106d3ee8fa47924394",
+        "question_number": 87,
+        "source_jsonl_line": 40153
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0174_d7d0c4cbfee6cd84.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_720ed0e75b8ddf6b2ac1",
+        "question_number": 88,
+        "source_jsonl_line": 40154
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0167_b5fa61f7705f2e88.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_fe7341f39e39a5c62a47",
+        "question_number": 89,
+        "source_jsonl_line": 40155
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0174_d7d0c4cbfee6cd84.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_ef1bfd7990702a696382",
+        "question_number": 90,
+        "source_jsonl_line": 40156
+      }
+    ],
+    "sha256": "f349a2be2b67d52e1ae6a770af2d1cdccad0bcd8a856f797c0bfeb6beb465331"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "中国制造业采购经理指数（PMI）",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:1.642",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "independent_compact_chart_adjudication"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b_compact_chart",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

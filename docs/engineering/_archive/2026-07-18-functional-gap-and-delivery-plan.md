@@ -1,7 +1,7 @@
 # 岸岸功能实现核对与开发计划
 
 > 步骤 10 开发基线：Git `2ea39314e`
-> 产品边界：[2026-07-18-canonical-product-boundaries.md](../product/2026-07-18-canonical-product-boundaries.md)
+> 历史产品边界：[2026-07-18-canonical-product-boundaries.md](../../product/_archive/2026-07-18-canonical-product-boundaries.md)
 > 最后更新：2026-07-21
 
 ## 1. 结论先行

@@ -1,0 +1,338 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2006年全年"
+        ],
+        "label": "2006年全年"
+      },
+      {
+        "columns": [
+          "2007年|一季度",
+          "2007年|二季度",
+          "2007年|三季度",
+          "2007年|四季度",
+          "2007年|全年"
+        ],
+        "label": "2007年"
+      }
+    ],
+    "columns": [
+      "2006年全年",
+      "2007年|一季度",
+      "2007年|二季度",
+      "2007年|三季度",
+      "2007年|四季度",
+      "2007年|全年"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "2007年",
+      "style": "diagonal",
+      "upper_label": "2006年全年"
+    },
+    "missing_cells": [],
+    "row_header_label": "2007年",
+    "rows": [
+      {
+        "display_label": "总指数",
+        "group": null,
+        "label": "总指数",
+        "unit": null,
+        "values": [
+          102.35,
+          104.4,
+          107.09,
+          118.57,
+          116.71,
+          112.15
+        ]
+      },
+      {
+        "display_label": "小麦种子",
+        "group": null,
+        "label": "小麦种子",
+        "unit": null,
+        "values": [
+          102.3,
+          100.16,
+          104.19,
+          102.4,
+          106.44,
+          105.01
+        ]
+      },
+      {
+        "display_label": "稻谷种子",
+        "group": null,
+        "label": "稻谷种子",
+        "unit": null,
+        "values": [
+          104.26,
+          102.09,
+          104.49,
+          105.28,
+          105.8,
+          104.02
+        ]
+      },
+      {
+        "display_label": "玉米种子",
+        "group": null,
+        "label": "玉米种子",
+        "unit": null,
+        "values": [
+          103.66,
+          100.19,
+          102.64,
+          101.13,
+          104.68,
+          102.14
+        ]
+      },
+      {
+        "display_label": "仔猪",
+        "group": null,
+        "label": "仔猪",
+        "unit": null,
+        "values": [
+          84.8,
+          115.24,
+          140.66,
+          170.4,
+          180.74,
+          156.74
+        ]
+      },
+      {
+        "display_label": "酒糟",
+        "group": null,
+        "label": "酒糟",
+        "unit": null,
+        "values": [
+          102.55,
+          102.56,
+          107.75,
+          102.36,
+          106.42,
+          104.92
+        ]
+      },
+      {
+        "display_label": "豆饼",
+        "group": null,
+        "label": "豆饼",
+        "unit": null,
+        "values": [
+          102.4,
+          102.02,
+          104.45,
+          109.23,
+          122.7,
+          111.51
+        ]
+      },
+      {
+        "display_label": "氮肥",
+        "group": null,
+        "label": "氮肥",
+        "unit": null,
+        "values": [
+          100.67,
+          100.71,
+          101.64,
+          101.13,
+          104.88,
+          102.0
+        ]
+      },
+      {
+        "display_label": "磷肥",
+        "group": null,
+        "label": "磷肥",
+        "unit": null,
+        "values": [
+          101.25,
+          101.49,
+          102.83,
+          102.43,
+          105.09,
+          102.94
+        ]
+      },
+      {
+        "display_label": "钾肥",
+        "group": null,
+        "label": "钾肥",
+        "unit": null,
+        "values": [
+          102.32,
+          101.77,
+          103.05,
+          103.75,
+          106.99,
+          103.73
+        ]
+      },
+      {
+        "display_label": "复合肥料",
+        "group": null,
+        "label": "复合肥料",
+        "unit": null,
+        "values": [
+          102.42,
+          102.84,
+          102.67,
+          103.45,
+          106.25,
+          103.64
+        ]
+      },
+      {
+        "display_label": "杀虫剂",
+        "group": null,
+        "label": "杀虫剂",
+        "unit": null,
+        "values": [
+          101.56,
+          101.39,
+          104.3,
+          103.39,
+          105.67,
+          104.75
+        ]
+      },
+      {
+        "display_label": "杀菌剂",
+        "group": null,
+        "label": "杀菌剂",
+        "unit": null,
+        "values": [
+          97.46,
+          103.05,
+          104.34,
+          104.66,
+          105.25,
+          104.63
+        ]
+      },
+      {
+        "display_label": "除草剂",
+        "group": null,
+        "label": "除草剂",
+        "unit": null,
+        "values": [
+          101.32,
+          102.95,
+          102.78,
+          103.71,
+          105.24,
+          103.11
+        ]
+      },
+      {
+        "display_label": "农用薄膜",
+        "group": null,
+        "label": "农用薄膜",
+        "unit": null,
+        "values": [
+          103.93,
+          104.04,
+          105.26,
+          104.07,
+          105.75,
+          104.97
+        ]
+      },
+      {
+        "display_label": "农用机油",
+        "group": null,
+        "label": "农用机油",
+        "unit": null,
+        "values": [
+          107.46,
+          106.59,
+          105.73,
+          106.48,
+          107.82,
+          106.57
+        ]
+      },
+      {
+        "display_label": "农业用柴油",
+        "group": null,
+        "label": "农业用柴油",
+        "unit": null,
+        "values": [
+          110.6,
+          107.22,
+          105.52,
+          101.73,
+          107.63,
+          105.22
+        ]
+      },
+      {
+        "display_label": "农业用电",
+        "group": null,
+        "label": "农业用电",
+        "unit": null,
+        "values": [
+          100.13,
+          100.83,
+          100.44,
+          99.76,
+          99.91,
+          100.13
+        ]
+      },
+      {
+        "display_label": "排灌费",
+        "group": null,
+        "label": "排灌费",
+        "unit": null,
+        "values": [
+          104.29,
+          102.85,
+          105.14,
+          105.64,
+          101.78,
+          102.99
+        ]
+      },
+      {
+        "display_label": "机播作业费",
+        "group": null,
+        "label": "机播作业费",
+        "unit": null,
+        "values": [
+          108.29,
+          109.84,
+          104.44,
+          107.11,
+          108.18,
+          106.83
+        ]
+      },
+      {
+        "display_label": "机收作业费",
+        "group": null,
+        "label": "机收作业费",
+        "unit": null,
+        "values": [
+          108.44,
+          109.57,
+          106.28,
+          104.15,
+          109.25,
+          107.51
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

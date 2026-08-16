@@ -1,0 +1,249 @@
+{
+  "asset_id": "da_0e3c3a0a63903a1eeb92d3ee",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0117_c0da318a9e1670df.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0117_c0da318a9e1670df.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_a4ecf9ea548939cd08b1",
+        "question_number": 76,
+        "source_jsonl_line": 36458
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0117_c0da318a9e1670df.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_b4adf2735f4a36fc4041",
+        "question_number": 77,
+        "source_jsonl_line": 36459
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0117_c0da318a9e1670df.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_097ab0a78c047b66cf71",
+        "question_number": 78,
+        "source_jsonl_line": 36460
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0117_c0da318a9e1670df.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_48714272378e7abe5048",
+        "question_number": 79,
+        "source_jsonl_line": 36461
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0117_c0da318a9e1670df.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_d58dfaba89e28774353c",
+        "question_number": 80,
+        "source_jsonl_line": 36462
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0121_c0da318a9e1670df.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_0ed1ebf326873a88c525",
+        "question_number": 76,
+        "source_jsonl_line": 91165
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0121_c0da318a9e1670df.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_b78c4fe0f99316328a81",
+        "question_number": 77,
+        "source_jsonl_line": 91166
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0124_1f547a9de344315c.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_05ae20078dd803f112f8",
+        "question_number": 78,
+        "source_jsonl_line": 91167
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0121_c0da318a9e1670df.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_a4608ff6fd43d875813d",
+        "question_number": 79,
+        "source_jsonl_line": 91168
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）_images/img_0121_c0da318a9e1670df.png",
+        "paper_title": "广东省2019年选调优秀大学毕业生笔试 综合行政能力测验题（网友回忆版）",
+        "question_id": "pq_4aedc5964a0fb39d0928",
+        "question_number": 80,
+        "source_jsonl_line": 91169
+      }
+    ],
+    "sha256": "0e3c3a0a63903a1eeb92d3ee33b631aaae89a934441e51617ff86b0e8909978e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2015年",
+      "2014年",
+      "2013年",
+      "2012年",
+      "2011年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "社区服务机构数（个）",
+        "unit": null,
+        "values": [
+          360956,
+          251368,
+          251939,
+          200162,
+          160352
+        ]
+      },
+      {
+        "label": "社区服务中心数（个）",
+        "unit": null,
+        "values": [
+          24138,
+          23088,
+          19014,
+          15497,
+          14391
+        ]
+      },
+      {
+        "label": "社区服务站数（个）",
+        "unit": null,
+        "values": [
+          128083,
+          120188,
+          108377,
+          87931,
+          56156
+        ]
+      },
+      {
+        "label": "其他社区服务设施数（个）",
+        "unit": null,
+        "values": [
+          119777,
+          107174,
+          123658,
+          95925,
+          89805
+        ]
+      },
+      {
+        "label": "便民、利民服务网点（个）",
+        "unit": null,
+        "values": [
+          248643,
+          302039,
+          358518,
+          397222,
+          452868
+        ]
+      },
+      {
+        "label": "社区服务机构覆盖率（%）",
+        "unit": null,
+        "values": [
+          22.5,
+          21.1,
+          18.8,
+          15.3,
+          23.6
+        ]
+      }
+    ]
+  },
+  "title": "2011-2015年我国社区服务机构情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0e3c3a0a63903a1eeb92d3ee/row_band_01.jpg",
+        "review-crops/da_0e3c3a0a63903a1eeb92d3ee/row_band_02.jpg",
+        "review-crops/da_0e3c3a0a63903a1eeb92d3ee/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.516",
+      "crop_verification_elapsed_seconds:16.19",
+      "candidate_value_changes_after_crop:1",
+      "crop_note:修正了'社区服务站数（个）'在2013年的数值，原为'106377'，根据图像应为'108377'。",
+      "crop_note:修正了'便民、利民服务网点（个）'在2015年的数值，原为'248643'，根据图像应为'248643'，但原数据中为'248643'，实际图像中为'248643'，确认无误。",
+      "crop_note:修正了'便民、利民服务网点（个）'在2014年的数值，原为'302039'，根据图像应为'302039'，确认无误。",
+      "crop_note:修正了'便民、利民服务网点（个）'在2013年的数值，原为'358518'，根据图像应为'358518'，确认无误。",
+      "crop_note:修正了'便民、利民服务网点（个）'在2012年的数值，原为'397222'，根据图像应为'397222'，确认无误。",
+      "crop_note:修正了'便民、利民服务网点（个）'在2011年的数值，原为'452868'，根据图像应为'452868'，确认无误。",
+      "crop_note:修正了'其他社区服务设施数（个）'在2015年的数值，原为'119777'，根据图像应为'119777'，确认无误。",
+      "crop_note:修正了'其他社区服务设施数（个）'在2014年的数值，原为'107174'，根据图像应为'107174'，确认无误。",
+      "crop_note:修正了'其他社区服务设施数（个）'在2013年的数值，原为'123658'，根据图像应为'123658'，确认无误。",
+      "crop_note:修正了'其他社区服务设施数（个）'在2012年的数值，原为'95925'，根据图像应为'95925'，确认无误。",
+      "crop_note:修正了'其他社区服务设施数（个）'在2011年的数值，原为'89805'，根据图像应为'89805'，确认无误。",
+      "crop_note:修正了'便民、利民服务网点（个）'在2015年的数值，原为'248643'，根据图像应为'248643'，确认无误。",
+      "crop_note:修正了'便民、利民服务网点（个）'在2014年的数值，原为'302039'，根据图像应为'302039'，确认无误。",
+      "crop_note:修正了'便民、利民服务网点（个）'在2013年的数值，原为'358518'，根据图像应为'358518'，确认无误。",
+      "crop_note:修正了'便民、利民服务网点（个）'在2012年的数值，原为'397222'，根据图像应为'397222'，确认无误。",
+      "crop_note:修正了'便民、利民服务网点（个）'在2011年的数值，原为'452868'，根据图像应为'452868'，确认无误。",
+      "crop_note:修正了'社区服务机构覆盖率（%）'在2015年的数值，原为'22.5'，根据图像应为'22.5'，确认无误。",
+      "crop_note:修正了'社区服务机构覆盖率（%）'在2014年的数值，原为'21.1'，根据图像应为'21.1'，确认无误。",
+      "crop_note:修正了'社区服务机构覆盖率（%）'在2013年的数值，原为'18.8'，根据图像应为'18.8'，确认无误。",
+      "crop_note:修正了'社区服务机构覆盖率（%）'在2012年的数值，原为'15.3'，根据图像应为'15.3'，确认无误。",
+      "crop_note:修正了'社区服务机构覆盖率（%）'在2011年的数值，原为'23.6'，根据图像应为'23.6'，确认无误。",
+      "table_row_label_column_removed:指标"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

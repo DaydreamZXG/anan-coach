@@ -1,0 +1,305 @@
+{
+  "asset_id": "da_2e1568a80880d972cb4aa848",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "支出",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        24539,
+        30391,
+        16632,
+        7481,
+        1365,
+        5882,
+        1432,
+        3195,
+        2469,
+        2120,
+        595
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "增速",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        1.8,
+        0.3,
+        4.5,
+        4.2,
+        -3.8,
+        4.3,
+        0.6,
+        1.2,
+        -5.0,
+        0.2,
+        4.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0095_f1764fb9cc470e1e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0095_f1764fb9cc470e1e.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_2a04216a9b84116a6cee",
+        "question_number": 91,
+        "source_jsonl_line": 90441
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0097_834794efa643c9ad.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_8cce0b7bd81d5e362442",
+        "question_number": 92,
+        "source_jsonl_line": 90442
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0095_f1764fb9cc470e1e.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_2997939df5afb0e3ee0e",
+        "question_number": 93,
+        "source_jsonl_line": 90443
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0095_f1764fb9cc470e1e.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_75fd2bd396446bf47cfa",
+        "question_number": 94,
+        "source_jsonl_line": 90444
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0095_f1764fb9cc470e1e.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_b8deed23cf10d77f2dba",
+        "question_number": 95,
+        "source_jsonl_line": 90445
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0097_f1764fb9cc470e1e.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_1e202c0451ad6e994491",
+        "question_number": 91,
+        "source_jsonl_line": 95934
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0097_f1764fb9cc470e1e.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_ca300d425956b9019ae0",
+        "question_number": 92,
+        "source_jsonl_line": 95935
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0097_f1764fb9cc470e1e.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_8d8c4b38aec4b95ddd78",
+        "question_number": 93,
+        "source_jsonl_line": 95936
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0097_f1764fb9cc470e1e.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_280a4404891c9b2bb488",
+        "question_number": 94,
+        "source_jsonl_line": 95937
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0097_f1764fb9cc470e1e.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_f80c1f9e1d403e59a38b",
+        "question_number": 95,
+        "source_jsonl_line": 95938
+      }
+    ],
+    "sha256": "2e1568a80880d972cb4aa848b7f2afebe5f5094526896048f970e3b3f3ef8b35"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "支出",
+      "增速"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全国",
+        "unit": null,
+        "values": [
+          24539,
+          1.8
+        ]
+      },
+      {
+        "label": "城镇居民",
+        "unit": null,
+        "values": [
+          30391,
+          0.3
+        ]
+      },
+      {
+        "label": "农村居民",
+        "unit": null,
+        "values": [
+          16632,
+          4.5
+        ]
+      },
+      {
+        "label": "食品烟酒",
+        "unit": null,
+        "values": [
+          7481,
+          4.2
+        ]
+      },
+      {
+        "label": "衣着",
+        "unit": null,
+        "values": [
+          1365,
+          -3.8
+        ]
+      },
+      {
+        "label": "居住",
+        "unit": null,
+        "values": [
+          5882,
+          4.3
+        ]
+      },
+      {
+        "label": "生活用品及服务",
+        "unit": null,
+        "values": [
+          1432,
+          0.6
+        ]
+      },
+      {
+        "label": "交通通信",
+        "unit": null,
+        "values": [
+          3195,
+          1.2
+        ]
+      },
+      {
+        "label": "教育文化娱乐",
+        "unit": null,
+        "values": [
+          2469,
+          -5.0
+        ]
+      },
+      {
+        "label": "医疗保健",
+        "unit": null,
+        "values": [
+          2120,
+          0.2
+        ]
+      },
+      {
+        "label": "其他用品及服务",
+        "unit": null,
+        "values": [
+          595,
+          4.6
+        ]
+      }
+    ]
+  },
+  "title": "2022年全国居民人均消费支出及同比增速",
+  "unit": "元（支出）、%（增速）",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2e1568a80880d972cb4aa848/row_band_01.jpg",
+        "review-crops/da_2e1568a80880d972cb4aa848/row_band_02.jpg",
+        "review-crops/da_2e1568a80880d972cb4aa848/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.135",
+      "crop_verification_elapsed_seconds:9.741",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'衣着'的增速为-3.8，原图中为-3.8，正确。",
+      "crop_note:修正了'教育文化娱乐'的增速为-5.0，原图中为-5.0，正确。",
+      "crop_note:修正了'其他用品及服务'的支出为595，原图中为595，正确。",
+      "crop_note:确认所有数值格式正确，包括负号、小数点和百分号。",
+      "crop_note:确认所有缺失值保持为null，未补0。",
+      "table_row_label_column_removed:<blank>"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

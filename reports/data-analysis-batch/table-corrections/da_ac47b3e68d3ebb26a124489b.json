@@ -1,0 +1,31 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2001年",
+      "2005年",
+      "2010年"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "display_label": "2001年",
+        "group": null,
+        "label": "2001年",
+        "unit": null,
+        "values": [
+          8.8,
+          43.7,
+          63.2
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

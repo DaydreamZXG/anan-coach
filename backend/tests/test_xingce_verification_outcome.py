@@ -1,7 +1,12 @@
 from __future__ import annotations
 
+import pytest
 from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
+
+from app.domains.xingce_learning.real_attempt.service import (
+    _can_auto_settle_objective_verification,
+)
 
 from tests.test_xingce_cause_agent_workflow import (
     SequenceProvider,
@@ -10,6 +15,33 @@ from tests.test_xingce_cause_agent_workflow import (
 )
 from tests.test_xingce_planning_closure import _submitted_attempt
 from tests.task_editing_helpers import claim_task_edit_headers
+
+
+@pytest.mark.parametrize(
+    ("mode", "result_codes", "expected"),
+    [
+        ("verification", ["correct", "correct"], True),
+        ("practice", ["correct", "correct"], False),
+        ("verification", [], False),
+        ("verification", ["guessed_correct"], False),
+        ("verification", ["incorrect"], False),
+        ("verification", ["timeout"], False),
+        ("verification", ["skipped"], False),
+        ("verification", ["correct", "unanswered"], False),
+    ],
+)
+def test_objective_verification_auto_settlement_boundary(
+    mode: str,
+    result_codes: list[str],
+    expected: bool,
+) -> None:
+    assert (
+        _can_auto_settle_objective_verification(
+            mode=mode,
+            result_items=[{"resultCode": code} for code in result_codes],
+        )
+        is expected
+    )
 
 
 def test_verification_outcome_binds_source_and_treats_dispute_as_pending(
@@ -201,6 +233,53 @@ def test_verification_outcome_binds_source_and_treats_dispute_as_pending(
             ).scalar_one()
             == 1
         )
+
+
+def test_mixed_module_baseline_binds_mastery_to_the_failed_question_module(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    client, auth, _task, submitted = _submitted_attempt(
+        db_session_factory,
+        token="xingce-focused-mastery-module-token",
+        choices=["D", "B", "C"],
+    )
+    failed_question_id = submitted["bundle"]["questions"][0]["questionId"]
+    with db_session_factory.begin() as session:
+        session.execute(
+            text(
+                "update product.questions set module_name = '资料分析' "
+                "where question_id = :question_id"
+            ),
+            {"question_id": failed_question_id},
+        )
+
+    review = submitted["review"]
+    _reflect(client, auth, review, key="focused-mastery-module-reflection")
+    _run_one(db_session_factory, SequenceProvider(["candidate_ready"]))
+    ready = client.get(
+        f"/api/v2/xingce/task-sessions/{submitted['sessionId']}",
+        headers=auth,
+    ).json()["data"]
+    candidate_id = ready["review"]["aiCandidate"]["candidateVersionId"]
+    decided = client.put(
+        f"/api/v2/xingce/attempt-reviews/{review['reviewId']}/cause-decision",
+        headers={**auth, "Idempotency-Key": "focused-mastery-module-decision"},
+        json={
+            "expectedRevision": ready["review"]["revision"],
+            "candidateVersionId": candidate_id,
+            "decision": "confirm",
+        },
+    )
+    assert decided.status_code == 200, decided.text
+    with db_session_factory() as session:
+        mastery = session.execute(
+            text(
+                "select module_name from learning.xingce_mastery_state_versions "
+                "where source_review_id = cast(:review_id as uuid)"
+            ),
+            {"review_id": review["reviewId"]},
+        ).scalar_one()
+    assert mastery == "资料分析"
 
 
 def _answer(question_id: str, choice: str, elapsed_seconds: int) -> dict:

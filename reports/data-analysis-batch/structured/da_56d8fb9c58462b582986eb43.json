@@ -1,0 +1,425 @@
+{
+  "asset_id": "da_56d8fb9c58462b582986eb43",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2017年422联考《行测》题（陕西卷）_images/img_0100_01fc9f59b0aba29f.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0100_01fc9f59b0aba29f.jpg",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_eb6eed12b4087fae71b3",
+        "question_number": 76,
+        "source_jsonl_line": 97624
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0096_6c6f16aac4c03936.jpg",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_b6afc5253dc4474b773b",
+        "question_number": 77,
+        "source_jsonl_line": 97625
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0100_01fc9f59b0aba29f.jpg",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_af51d50df1e55f9e08b6",
+        "question_number": 78,
+        "source_jsonl_line": 97626
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0100_01fc9f59b0aba29f.jpg",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_e9b3a7f8fcfd6e9e67c0",
+        "question_number": 79,
+        "source_jsonl_line": 97627
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0096_6c6f16aac4c03936.jpg",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_53249b90226052250971",
+        "question_number": 80,
+        "source_jsonl_line": 97628
+      }
+    ],
+    "sha256": "56d8fb9c58462b582986eb433cb608c919cf197f3994cd66119cebe01b205b99"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "企业数｜同比增速",
+          "企业数｜环比增速"
+        ],
+        "label": "企业数"
+      },
+      {
+        "columns": [
+          "投资金额｜同比增速",
+          "投资金额｜环比增速"
+        ],
+        "label": "投资金额"
+      }
+    ],
+    "columns": [
+      "企业数｜同比增速",
+      "企业数｜环比增速",
+      "投资金额｜同比增速",
+      "投资金额｜环比增速"
+    ],
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "投资金额｜同比增速",
+        "display": "-",
+        "row": "上海"
+      },
+      {
+        "column": "投资金额｜环比增速",
+        "display": "-",
+        "row": "上海"
+      }
+    ],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "黑龙江",
+        "group": null,
+        "label": "黑龙江",
+        "unit": null,
+        "values": [
+          5759.7,
+          426.9,
+          647.4,
+          52.9
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          13502.0,
+          310.3,
+          null,
+          null
+        ]
+      },
+      {
+        "display_label": "江苏",
+        "group": null,
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          22059.3,
+          961.3,
+          7242.1,
+          147.1
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": null,
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          22732.9,
+          702.9,
+          8127.2,
+          26.6
+        ]
+      },
+      {
+        "display_label": "安徽",
+        "group": null,
+        "label": "安徽",
+        "unit": null,
+        "values": [
+          8392.5,
+          588.8,
+          3893.5,
+          132.7
+        ]
+      },
+      {
+        "display_label": "福建",
+        "group": null,
+        "label": "福建",
+        "unit": null,
+        "values": [
+          8370.8,
+          367.5,
+          2449.0,
+          79.5
+        ]
+      },
+      {
+        "display_label": "江西",
+        "group": null,
+        "label": "江西",
+        "unit": null,
+        "values": [
+          5635.9,
+          432.8,
+          2824.1,
+          177.1
+        ]
+      },
+      {
+        "display_label": "山东",
+        "group": null,
+        "label": "山东",
+        "unit": null,
+        "values": [
+          18152.0,
+          1153.3,
+          6326.2,
+          226.6
+        ]
+      },
+      {
+        "display_label": "河南",
+        "group": null,
+        "label": "河南",
+        "unit": null,
+        "values": [
+          16382.5,
+          1055.9,
+          9853.3,
+          242.1
+        ]
+      },
+      {
+        "display_label": "湖北",
+        "group": null,
+        "label": "湖北",
+        "unit": null,
+        "values": [
+          9872.3,
+          673.8,
+          4741.1,
+          213.0
+        ]
+      },
+      {
+        "display_label": "湖南",
+        "group": null,
+        "label": "湖南",
+        "unit": null,
+        "values": [
+          8533.5,
+          807.8,
+          3536.2,
+          333.3
+        ]
+      },
+      {
+        "display_label": "广东",
+        "group": null,
+        "label": "广东",
+        "unit": null,
+        "values": [
+          33587.8,
+          1094.4,
+          5882.7,
+          174.6
+        ]
+      },
+      {
+        "display_label": "广西",
+        "group": null,
+        "label": "广西",
+        "unit": null,
+        "values": [
+          8488.6,
+          480.9,
+          4445.5,
+          226.3
+        ]
+      },
+      {
+        "display_label": "海南",
+        "group": null,
+        "label": "海南",
+        "unit": null,
+        "values": [
+          1479.7,
+          76.8,
+          969.4,
+          6.4
+        ]
+      },
+      {
+        "display_label": "重庆",
+        "group": null,
+        "label": "重庆",
+        "unit": null,
+        "values": [
+          5750.9,
+          382.2,
+          1755.6,
+          141.2
+        ]
+      },
+      {
+        "display_label": "四川",
+        "group": null,
+        "label": "四川",
+        "unit": null,
+        "values": [
+          15406.2,
+          1005.4,
+          7818.2,
+          384.5
+        ]
+      },
+      {
+        "display_label": "贵州",
+        "group": null,
+        "label": "贵州",
+        "unit": null,
+        "values": [
+          5189.5,
+          455.1,
+          2414.5,
+          106.4
+        ]
+      },
+      {
+        "display_label": "云南",
+        "group": null,
+        "label": "云南",
+        "unit": null,
+        "values": [
+          8636.5,
+          569.6,
+          4557.8,
+          124.9
+        ]
+      },
+      {
+        "display_label": "西藏",
+        "group": null,
+        "label": "西藏",
+        "unit": null,
+        "values": [
+          27.5,
+          1.5,
+          24.5,
+          0.0
+        ]
+      },
+      {
+        "display_label": "陕西",
+        "group": null,
+        "label": "陕西",
+        "unit": null,
+        "values": [
+          7072.7,
+          505.9,
+          1855.5,
+          67.4
+        ]
+      },
+      {
+        "display_label": "甘肃",
+        "group": null,
+        "label": "甘肃",
+        "unit": null,
+        "values": [
+          4039.3,
+          275.9,
+          1428.6,
+          56.3
+        ]
+      },
+      {
+        "display_label": "青海",
+        "group": null,
+        "label": "青海",
+        "unit": null,
+        "values": [
+          991.7,
+          67.6,
+          183.9,
+          8.7
+        ]
+      },
+      {
+        "display_label": "宁夏",
+        "group": null,
+        "label": "宁夏",
+        "unit": null,
+        "values": [
+          1685.9,
+          88.3,
+          510.5,
+          3.4
+        ]
+      },
+      {
+        "display_label": "新疆",
+        "group": null,
+        "label": "新疆",
+        "unit": null,
+        "values": [
+          4408.5,
+          352.0,
+          1831.1,
+          92.5
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

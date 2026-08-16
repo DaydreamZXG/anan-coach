@@ -241,36 +241,18 @@ export class TodayController {
     this.progressVerifiedSessionKey = null;
 
     try {
-      const progress = await this.dependencies.getProgress(session.accessToken);
-      if (!this.isRequestCurrent(generation, session)) return;
-      if (!validProgressOwnership(progress)) {
-        this.dashboardOwnerSessionKey = null;
-        this.publish({
-          ...initialState,
-          status: "error",
-          errorMessage: "建档信息还没对上，今日计划先不读取，重新登录一下就好。",
-        });
-        return;
-      }
-      if (!progress.completed) {
-        const nextStep = progress.nextStep;
-        if (nextStep === "workspace") return;
-        this.capacityAttempt = null;
-        this.conflictedCapacityVersionId = null;
-        this.dashboardOwnerSessionKey = null;
-        this.publish({ ...initialState, status: "redirecting" });
-        try {
-          await this.dependencies.navigateOnboarding(nextStep);
-        } catch {
-          if (this.isRequestCurrent(generation, session)) {
-            this.publish({
-              ...initialState,
-              status: "error",
-              errorMessage: "建档页面没打开，今日计划先保持锁定，别急，再试一次。",
-            });
-          }
-        }
-        return;
+      // Progress is still synchronized as account/profile evidence and can
+      // surface a real 401, but an incomplete profile no longer owns workspace
+      // access. Planning can project missing schedule facts as an unconfirmed
+      // system default and publish today's real task.
+      try {
+        await this.dependencies.getProgress(session.accessToken);
+        if (!this.isRequestCurrent(generation, session)) return;
+      } catch (error) {
+        // Progress is optional profile context, not a learning gate. Only a
+        // real authentication failure may prevent the authenticated plan read.
+        if (isAuthenticationFailure(error)) throw error;
+        if (!this.isRequestCurrent(generation, session)) return;
       }
       this.progressVerifiedSessionKey = sessionKey;
 
@@ -367,10 +349,6 @@ function isAuthenticationFailure(error: unknown): boolean {
     error instanceof ApiClientError &&
     (error.statusCode === 401 || error.payload?.code === "authentication_required")
   );
-}
-
-function validProgressOwnership(progress: OnboardingProgress): boolean {
-  return (progress.nextStep === "workspace") === progress.completed;
 }
 
 function capacityFingerprint(command: DailyCapacityCommand): string {

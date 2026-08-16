@@ -1,0 +1,252 @@
+{
+  "asset_id": "da_cc187ac7d2b26ca080edfdf9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2016年四川省公务员录用考试《行测》题（下半年）_images/img_0192_09f86d3efebc4a5f.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0192_09f86d3efebc4a5f.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_5afad8bbfa243dc56f07",
+        "question_number": 98,
+        "source_jsonl_line": 15413
+      }
+    ],
+    "sha256": "cc187ac7d2b26ca080edfdf9aa6c6d5b0051f65a805c9351866272d9b9ff9ca2"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 0,
+      "estimatedDrawCommandCount": 15,
+      "panelCount": 4,
+      "pointCount": 15
+    },
+    "coordinateSpace": {
+      "height": 187,
+      "width": 700
+    },
+    "evidence": {
+      "converterVersion": "semantic-microcharts-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "dd2b47dbf78ee2c3c465f14708ded486ba1b9c32e45efbdd8861c14f77bec81d",
+      "sourceAsset": "da_cc187ac7d2b26ca080edfdf9",
+      "sourceSha256": "cc187ac7d2b26ca080edfdf9aa6c6d5b0051f65a805c9351866272d9b9ff9ca2"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 47,
+          "width": 154,
+          "x": 29,
+          "y": 51
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.02174
+            },
+            {
+              "x": 0.37255,
+              "y": 0.98913
+            },
+            {
+              "x": 0.69935,
+              "y": 0.54348
+            },
+            {
+              "x": 1.0,
+              "y": 0.70652
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_cc187ac7d2b26ca080edfdf9-0",
+        "label": "A",
+        "position": 0
+      },
+      {
+        "bounds": {
+          "height": 67,
+          "width": 156,
+          "x": 188,
+          "y": 38
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.42424
+            },
+            {
+              "x": 0.30323,
+              "y": 0.01515
+            },
+            {
+              "x": 0.65161,
+              "y": 0.83333
+            },
+            {
+              "x": 1.0,
+              "y": 0.98485
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_cc187ac7d2b26ca080edfdf9-1",
+        "label": "B",
+        "position": 1
+      },
+      {
+        "bounds": {
+          "height": 61,
+          "width": 151,
+          "x": 352,
+          "y": 45
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.46667
+            },
+            {
+              "x": 0.31333,
+              "y": 0.01667
+            },
+            {
+              "x": 0.66,
+              "y": 0.975
+            },
+            {
+              "x": 1.0,
+              "y": 0.85
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_cc187ac7d2b26ca080edfdf9-2",
+        "label": "C",
+        "position": 2
+      },
+      {
+        "bounds": {
+          "height": 80,
+          "width": 166,
+          "x": 507,
+          "y": 35
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.00633
+            },
+            {
+              "x": 0.63636,
+              "y": 0.75316
+            },
+            {
+              "x": 1.0,
+              "y": 0.98734
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_cc187ac7d2b26ca080edfdf9-3",
+        "label": "D",
+        "position": 3
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "line_options"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:1.994",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:图中为化学结构式，非标准图表类型，无法提取结构化数据",
+      "route_reason:A/B/C/D为图形选项",
+      "route_panel_count:1",
+      "foreground_iou:0.779261",
+      "mean_absolute_error:2.232052",
+      "trace_parameters:{\"epsilonRatio\": 0.002, \"minimumContourArea\": 1.2, \"paletteSize\": 2}",
+      "visual_grammar:line_options",
+      "visual_grammar:line_options",
+      "converter:semantic-microcharts-v1",
+      "visual_grammar:line_options",
+      "comparison_artifact:previews/structured_visual/da_cc187ac7d2b26ca080edfdf9-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,262 @@
+{
+  "asset_id": "da_13b411d966514cfdbd6a9418",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0254_a00841e61e30afaa.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0254_a00841e61e30afaa.png",
+        "paper_title": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_3c0ba8d47508848a93d5",
+        "question_number": 101,
+        "source_jsonl_line": 85487
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0254_a00841e61e30afaa.png",
+        "paper_title": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_821b31e65acc29a589c9",
+        "question_number": 102,
+        "source_jsonl_line": 85488
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0254_a00841e61e30afaa.png",
+        "paper_title": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_24b4c296027d3dc4fbf4",
+        "question_number": 103,
+        "source_jsonl_line": 85489
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0254_a00841e61e30afaa.png",
+        "paper_title": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_cbccd71719d4059a2bc8",
+        "question_number": 104,
+        "source_jsonl_line": 85490
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0254_a00841e61e30afaa.png",
+        "paper_title": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_25cb02597a4d7b4a862a",
+        "question_number": 105,
+        "source_jsonl_line": 85491
+      }
+    ],
+    "sha256": "13b411d966514cfdbd6a94187705ef287a6cf76ae230bbaeeebc6c70c2e85b1b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "工业总产值｜实绩（亿元）",
+          "工业总产值｜同比±%"
+        ],
+        "label": "工业总产值"
+      },
+      {
+        "columns": [
+          "企业家数｜企业家数（家）"
+        ],
+        "label": "企业家数"
+      },
+      {
+        "columns": [
+          "其中：产值｜其中：产值（亿元）",
+          "其中：产值｜同比±%"
+        ],
+        "label": "其中：产值"
+      },
+      {
+        "columns": [
+          "利润｜利润（亿元）",
+          "利润｜同比±%"
+        ],
+        "label": "利润"
+      }
+    ],
+    "columns": [
+      "工业总产值｜实绩（亿元）",
+      "工业总产值｜同比±%",
+      "企业家数｜企业家数（家）",
+      "其中：产值｜其中：产值（亿元）",
+      "其中：产值｜同比±%",
+      "利润｜利润（亿元）",
+      "利润｜同比±%"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "行业名称",
+    "rows": [
+      {
+        "display_label": "袜业",
+        "group": null,
+        "label": "袜业",
+        "unit": null,
+        "values": [
+          678.79,
+          28.1,
+          178,
+          245.58,
+          4.1,
+          15.51,
+          -1.1
+        ]
+      },
+      {
+        "display_label": "珍珠业",
+        "group": null,
+        "label": "珍珠业",
+        "unit": null,
+        "values": [
+          51.17,
+          13.3,
+          26,
+          47.58,
+          10.6,
+          4.47,
+          9.6
+        ]
+      },
+      {
+        "display_label": "铜加工及新型材料业",
+        "group": null,
+        "label": "铜加工及新型材料业",
+        "unit": null,
+        "values": [
+          585.96,
+          24.8,
+          92,
+          473.65,
+          25,
+          28.59,
+          27.3
+        ]
+      },
+      {
+        "display_label": "机电装备制造业",
+        "group": null,
+        "label": "机电装备制造业",
+        "unit": null,
+        "values": [
+          552.06,
+          13.7,
+          171,
+          366.02,
+          11.1,
+          23.93,
+          -0.2
+        ]
+      },
+      {
+        "display_label": "纺织服装业",
+        "group": null,
+        "label": "纺织服装业",
+        "unit": null,
+        "values": [
+          536.02,
+          4.0,
+          181,
+          296.32,
+          -1.0,
+          17.98,
+          0.5
+        ]
+      },
+      {
+        "display_label": "环保新能源产业",
+        "group": null,
+        "label": "环保新能源产业",
+        "unit": null,
+        "values": [
+          144.22,
+          17.0,
+          37,
+          140.78,
+          15.2,
+          7.94,
+          -13.2
+        ]
+      },
+      {
+        "display_label": "六大行业合计",
+        "group": null,
+        "label": "六大行业合计",
+        "unit": null,
+        "values": [
+          2548.22,
+          13.9,
+          685,
+          1569.93,
+          11.4,
+          98.43,
+          5.6
+        ]
+      },
+      {
+        "display_label": "工业企业合计",
+        "group": null,
+        "label": "工业企业合计",
+        "unit": null,
+        "values": [
+          2922.89,
+          8.8,
+          797,
+          1903.02,
+          11.0,
+          119.01,
+          1.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

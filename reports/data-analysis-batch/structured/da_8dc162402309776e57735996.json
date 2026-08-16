@@ -1,0 +1,373 @@
+{
+  "asset_id": "da_8dc162402309776e57735996",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0123_f0fa05d4ce3f091a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0123_f0fa05d4ce3f091a.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_3506735d6965021b4c20",
+        "question_number": 121,
+        "source_jsonl_line": 20186
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0134_32dea116dcf74e63.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_a3d6ba3dba2b22381c84",
+        "question_number": 122,
+        "source_jsonl_line": 20187
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0134_32dea116dcf74e63.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_1bdafc5c68ff45062ff8",
+        "question_number": 123,
+        "source_jsonl_line": 20188
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0123_f0fa05d4ce3f091a.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_9e78eb1376ed503cd9ca",
+        "question_number": 124,
+        "source_jsonl_line": 20189
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0123_f0fa05d4ce3f091a.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_2b867dba91c84c7a4759",
+        "question_number": 125,
+        "source_jsonl_line": 20190
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0119_32dea116dcf74e63.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_2e6c2694dcd8c5e8c077",
+        "question_number": 111,
+        "source_jsonl_line": 20306
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0119_32dea116dcf74e63.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_9d0860bbf4babecc6c56",
+        "question_number": 112,
+        "source_jsonl_line": 20307
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0119_32dea116dcf74e63.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_80dd11afc8434381f38d",
+        "question_number": 113,
+        "source_jsonl_line": 20308
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0119_32dea116dcf74e63.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_b5e3653f93ff25bc5c13",
+        "question_number": 114,
+        "source_jsonl_line": 20309
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0119_32dea116dcf74e63.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_7edfac757de79dea1282",
+        "question_number": 115,
+        "source_jsonl_line": 20310
+      }
+    ],
+    "sha256": "8dc162402309776e5773599638da5153159236027d62305ed5da480238ee7d59"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "抽检量｜第1列",
+      "合格量｜第2列",
+      "种类｜第3列",
+      "抽检量｜第4列",
+      "合格量｜第5列"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "种类",
+    "rows": [
+      {
+        "display_label": "粮食加工品",
+        "group": null,
+        "label": "粮食加工品",
+        "unit": null,
+        "values": [
+          23131,
+          22751,
+          "肉制品",
+          18104,
+          17779
+        ]
+      },
+      {
+        "display_label": "食用油、油脂及其制品",
+        "group": null,
+        "label": "食用油、油脂及其制品",
+        "unit": null,
+        "values": [
+          13879,
+          13741,
+          "乳制品",
+          8704,
+          8690
+        ]
+      },
+      {
+        "display_label": "调味品",
+        "group": null,
+        "label": "调味品",
+        "unit": null,
+        "values": [
+          18862,
+          18615,
+          "饮料",
+          10515,
+          10440
+        ]
+      },
+      {
+        "display_label": "茶叶及相关制品",
+        "group": null,
+        "label": "茶叶及相关制品",
+        "unit": null,
+        "values": [
+          2710,
+          2681,
+          "方便食品",
+          4033,
+          3984
+        ]
+      },
+      {
+        "display_label": "酒类",
+        "group": null,
+        "label": "酒类",
+        "unit": null,
+        "values": [
+          19091,
+          18484,
+          "饼干",
+          3589,
+          3559
+        ]
+      },
+      {
+        "display_label": "薯类和膨化食品",
+        "group": null,
+        "label": "薯类和膨化食品",
+        "unit": null,
+        "values": [
+          3525,
+          3481,
+          "罐头",
+          2136,
+          2133
+        ]
+      },
+      {
+        "display_label": "炒货食品及坚果制品",
+        "group": null,
+        "label": "炒货食品及坚果制品",
+        "unit": null,
+        "values": [
+          10678,
+          10489,
+          "冷冻饮品",
+          465,
+          456
+        ]
+      },
+      {
+        "display_label": "可可及焙烤咖啡产品",
+        "group": null,
+        "label": "可可及焙烤咖啡产品",
+        "unit": null,
+        "values": [
+          251,
+          251,
+          "速冻食品",
+          11620,
+          11596
+        ]
+      },
+      {
+        "display_label": "淀粉及淀粉制品",
+        "group": null,
+        "label": "淀粉及淀粉制品",
+        "unit": null,
+        "values": [
+          7787,
+          7495,
+          "糖果制品",
+          6517,
+          6481
+        ]
+      },
+      {
+        "display_label": "糕点",
+        "group": null,
+        "label": "糕点",
+        "unit": null,
+        "values": [
+          14517,
+          14214,
+          "蔬菜制品",
+          9241,
+          8598
+        ]
+      },
+      {
+        "display_label": "保健食品",
+        "group": null,
+        "label": "保健食品",
+        "unit": null,
+        "values": [
+          1808,
+          1784,
+          "水果制品",
+          5744,
+          5611
+        ]
+      },
+      {
+        "display_label": "特殊膳食食品",
+        "group": null,
+        "label": "特殊膳食食品",
+        "unit": null,
+        "values": [
+          352,
+          351,
+          "蛋制品",
+          1185,
+          1182
+        ]
+      },
+      {
+        "display_label": "特殊医学用途配方食品",
+        "group": null,
+        "label": "特殊医学用途配方食品",
+        "unit": null,
+        "values": [
+          88,
+          88,
+          "食糖",
+          1914,
+          1888
+        ]
+      },
+      {
+        "display_label": "婴幼儿配方食品",
+        "group": null,
+        "label": "婴幼儿配方食品",
+        "unit": null,
+        "values": [
+          1296,
+          1292,
+          "水产制品",
+          2873,
+          2837
+        ]
+      },
+      {
+        "display_label": "餐饮食品",
+        "group": null,
+        "label": "餐饮食品",
+        "unit": null,
+        "values": [
+          37795,
+          35986,
+          "豆制品",
+          7103,
+          7040
+        ]
+      },
+      {
+        "display_label": "食品添加剂",
+        "group": null,
+        "label": "食品添加剂",
+        "unit": null,
+        "values": [
+          112,
+          112,
+          "蜂产品",
+          1165,
+          1149
+        ]
+      },
+      {
+        "display_label": "食用农产品",
+        "group": null,
+        "label": "食用农产品",
+        "unit": null,
+        "values": [
+          169040,
+          164905,
+          "其他",
+          573,
+          568
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

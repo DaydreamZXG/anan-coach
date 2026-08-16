@@ -1,0 +1,659 @@
+{
+  "asset_id": "da_1674dcc478eb391a7a3fc93c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年龄组（岁）",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "合计",
+        "unit": "%"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "小计",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "0～4",
+    "5～14",
+    "15～24",
+    "25～34",
+    "35～44",
+    "45～54",
+    "55～64",
+    "65～"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "合计",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        14.6,
+        6.2,
+        3.4,
+        4.8,
+        8.5,
+        13.7,
+        19.7,
+        26.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "小计",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        15.3,
+        6.3,
+        3.3,
+        4.9,
+        8.0,
+        13.2,
+        19.1,
+        27.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "东部",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        14.4,
+        7.6,
+        4.6,
+        4.9,
+        7.7,
+        13.2,
+        21.9,
+        32.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "中部",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        11.3,
+        3.8,
+        1.8,
+        3.6,
+        5.4,
+        10.1,
+        12.5,
+        17.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "西部",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        19.7,
+        7.6,
+        3.6,
+        6.4,
+        10.8,
+        16.4,
+        22.6,
+        32.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "小计",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        14.1,
+        6.1,
+        3.5,
+        4.5,
+        8.9,
+        14.1,
+        20.4,
+        24.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "东部",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        21.3,
+        10.3,
+        4.0,
+        4.7,
+        9.5,
+        15.8,
+        23.7,
+        30.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_8",
+      "label": "中部",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        12.8,
+        5.6,
+        3.1,
+        5.1,
+        8.4,
+        13.1,
+        16.7,
+        20.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_9",
+      "label": "西部",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        9.3,
+        3.5,
+        3.4,
+        3.9,
+        8.9,
+        13.2,
+        20.5,
+        22.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0135_9affc21bea283596.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0135_9affc21bea283596.png",
+        "paper_title": "2018年421联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_9dbe674a1415faae8d9b",
+        "question_number": 111,
+        "source_jsonl_line": 5435
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0154_28a3cf3063c0d7f4.png",
+        "paper_title": "2018年421联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_73f3d7c4bdd34edec45f",
+        "question_number": 112,
+        "source_jsonl_line": 5436
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0135_9affc21bea283596.png",
+        "paper_title": "2018年421联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_8a682b7e9f84cb9dd846",
+        "question_number": 113,
+        "source_jsonl_line": 5437
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0135_9affc21bea283596.png",
+        "paper_title": "2018年421联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_bcdcb61cf94ead67472e",
+        "question_number": 114,
+        "source_jsonl_line": 5438
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0135_9affc21bea283596.png",
+        "paper_title": "2018年421联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_a0975800c64fb67ec0ec",
+        "question_number": 115,
+        "source_jsonl_line": 5439
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0167_9affc21bea283596.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_f9ad615bf2e2014db243",
+        "question_number": 111,
+        "source_jsonl_line": 25761
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0185_28a3cf3063c0d7f4.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_6acdcfd458de9099d5de",
+        "question_number": 112,
+        "source_jsonl_line": 25762
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0167_9affc21bea283596.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_29db7ba7d1c1426e1d60",
+        "question_number": 113,
+        "source_jsonl_line": 25763
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0185_28a3cf3063c0d7f4.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_0465e058306ed2c065d5",
+        "question_number": 114,
+        "source_jsonl_line": 25764
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0167_9affc21bea283596.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_e34d50a1c0b601fc849b",
+        "question_number": 115,
+        "source_jsonl_line": 25765
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0222_9affc21bea283596.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_d141cce4b099a5beb5aa",
+        "question_number": 121,
+        "source_jsonl_line": 59778
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0222_9affc21bea283596.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_37a26c99a932b236e8e1",
+        "question_number": 122,
+        "source_jsonl_line": 59779
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0222_9affc21bea283596.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_fd65cf89134d0574d82e",
+        "question_number": 123,
+        "source_jsonl_line": 59780
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0222_9affc21bea283596.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_cc9588b2a3a869313406",
+        "question_number": 124,
+        "source_jsonl_line": 59781
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0241_28a3cf3063c0d7f4.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_1019f04d002b9df68f07",
+        "question_number": 125,
+        "source_jsonl_line": 59782
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（海南卷）（网友回忆版）_images/img_0204_9affc21bea283596.png",
+        "paper_title": "2018年421联考《行测》题（海南卷）（网友回忆版）",
+        "question_id": "pq_24930cbc20c01383aafc",
+        "question_number": 106,
+        "source_jsonl_line": 65982
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（海南卷）（网友回忆版）_images/img_0199_28a3cf3063c0d7f4.png",
+        "paper_title": "2018年421联考《行测》题（海南卷）（网友回忆版）",
+        "question_id": "pq_009cce65edafa3aec5ba",
+        "question_number": 107,
+        "source_jsonl_line": 65983
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（海南卷）（网友回忆版）_images/img_0199_28a3cf3063c0d7f4.png",
+        "paper_title": "2018年421联考《行测》题（海南卷）（网友回忆版）",
+        "question_id": "pq_809f832c6ec974b88c0a",
+        "question_number": 108,
+        "source_jsonl_line": 65984
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（海南卷）（网友回忆版）_images/img_0204_9affc21bea283596.png",
+        "paper_title": "2018年421联考《行测》题（海南卷）（网友回忆版）",
+        "question_id": "pq_fd0a47459b3047315d76",
+        "question_number": 109,
+        "source_jsonl_line": 65985
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（海南卷）（网友回忆版）_images/img_0199_28a3cf3063c0d7f4.png",
+        "paper_title": "2018年421联考《行测》题（海南卷）（网友回忆版）",
+        "question_id": "pq_0c596f48ce96cd71b2f3",
+        "question_number": 110,
+        "source_jsonl_line": 65986
+      }
+    ],
+    "sha256": "1674dcc478eb391a7a3fc93caee8b4d7fe1c34cc861cb028b99e1c6cd565af24"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "合计｜合计"
+        ],
+        "label": "合计"
+      },
+      {
+        "columns": [
+          "城市｜小计",
+          "城市｜东部",
+          "城市｜中部",
+          "城市｜西部"
+        ],
+        "label": "城市"
+      },
+      {
+        "columns": [
+          "农村｜小计",
+          "农村｜东部",
+          "农村｜中部",
+          "农村｜西部"
+        ],
+        "label": "农村"
+      }
+    ],
+    "columns": [
+      "合计｜合计",
+      "城市｜小计",
+      "城市｜东部",
+      "城市｜中部",
+      "城市｜西部",
+      "农村｜小计",
+      "农村｜东部",
+      "农村｜中部",
+      "农村｜西部"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年龄组（岁）",
+    "rows": [
+      {
+        "label": "0～4",
+        "unit": "%",
+        "values": [
+          14.6,
+          15.3,
+          14.4,
+          11.3,
+          19.7,
+          14.1,
+          21.3,
+          12.8,
+          9.3
+        ]
+      },
+      {
+        "label": "5～14",
+        "unit": "%",
+        "values": [
+          6.2,
+          6.3,
+          7.6,
+          3.8,
+          7.6,
+          6.1,
+          10.3,
+          5.6,
+          3.5
+        ]
+      },
+      {
+        "label": "15～24",
+        "unit": "%",
+        "values": [
+          3.4,
+          3.3,
+          4.6,
+          1.8,
+          3.6,
+          3.5,
+          4.0,
+          3.1,
+          3.4
+        ]
+      },
+      {
+        "label": "25～34",
+        "unit": "%",
+        "values": [
+          4.8,
+          4.9,
+          4.9,
+          3.6,
+          6.4,
+          4.5,
+          4.7,
+          5.1,
+          3.9
+        ]
+      },
+      {
+        "label": "35～44",
+        "unit": "%",
+        "values": [
+          8.5,
+          8.0,
+          7.7,
+          5.4,
+          10.8,
+          8.9,
+          9.5,
+          8.4,
+          8.9
+        ]
+      },
+      {
+        "label": "45～54",
+        "unit": "%",
+        "values": [
+          13.7,
+          13.2,
+          13.2,
+          10.1,
+          16.4,
+          14.1,
+          15.8,
+          13.1,
+          13.2
+        ]
+      },
+      {
+        "label": "55～64",
+        "unit": "%",
+        "values": [
+          19.7,
+          19.1,
+          21.9,
+          12.5,
+          22.6,
+          20.4,
+          23.7,
+          16.7,
+          20.5
+        ]
+      },
+      {
+        "label": "65～",
+        "unit": "%",
+        "values": [
+          26.4,
+          27.8,
+          32.8,
+          17.4,
+          32.8,
+          24.8,
+          30.9,
+          20.3,
+          22.4
+        ]
+      }
+    ]
+  },
+  "title": "调查人口分年龄别两周就诊率",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1674dcc478eb391a7a3fc93c/row_band_01.jpg",
+        "review-crops/da_1674dcc478eb391a7a3fc93c/row_band_02.jpg",
+        "review-crops/da_1674dcc478eb391a7a3fc93c/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:16.046",
+      "crop_verification_elapsed_seconds:56.782",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了第二张图中 '5～14' 行的 '小计' 值从 '6.3' 为 '6.3'（原为 '6.3'，无误）",
+      "crop_note:修正了第二张图中 '5～14' 行的 '东部' 值从 '7.6' 为 '7.6'（原为 '7.6'，无误）",
+      "crop_note:修正了第二张图中 '5～14' 行的 '中部' 值从 '3.8' 为 '3.8'（原为 '3.8'，无误）",
+      "crop_note:修正了第二张图中 '5～14' 行的 '西部' 值从 '7.6' 为 '7.6'（原为 '7.6'，无误）",
+      "crop_note:修正了第二张图中 '5～14' 行的 '小计' 值从 '6.1' 为 '6.1'（原为 '6.1'，无误）",
+      "crop_note:修正了第二张图中 '5～14' 行的 '东部' 值从 '10.3' 为 '10.3'（原为 '10.3'，无误）",
+      "crop_note:修正了第二张图中 '5～14' 行的 '中部' 值从 '5.6' 为 '5.6'（原为 '5.6'，无误）",
+      "crop_note:修正了第二张图中 '5～14' 行的 '西部' 值从 '3.5' 为 '3.5'（原为 '3.5'，无误）",
+      "crop_note:修正了第三张图中 '35～44' 行的 '合计' 值从 '8.5' 为 '8.5'（原为 '8.5'，无误）",
+      "crop_note:修正了第三张图中 '35～44' 行的 '小计' 值从 '8.0' 为 '8.0'（原为 '8.0'，无误）",
+      "crop_note:修正了第三张图中 '35～44' 行的 '东部' 值从 '7.7' 为 '7.7'（原为 '7.7'，无误）",
+      "crop_note:修正了第三张图中 '35～44' 行的 '中部' 值从 '5.4' 为 '5.4'（原为 '5.4'，无误）",
+      "crop_note:修正了第三张图中 '35～44' 行的 '西部' 值从 '10.8' 为 '10.8'（原为 '10.8'，无误）",
+      "crop_note:修正了第三张图中 '35～44' 行的 '小计' 值从 '8.9' 为 '8.9'（原为 '8.9'，无误）",
+      "crop_note:修正了第三张图中 '35～44' 行的 '东部' 值从 '9.5' 为 '9.5'（原为 '9.5'，无误）",
+      "crop_note:修正了第三张图中 '35～44' 行的 '中部' 值从 '8.4' 为 '8.4'（原为 '8.4'，无误）",
+      "crop_note:修正了第三张图中 '35～44' 行的 '西部' 值从 '8.9' 为 '8.9'（原为 '8.9'，无误）",
+      "crop_note:修正了第三张图中 '45～54' 行的 '合计' 值从 '13.7' 为 '13.7'（原为 '13.7'，无误）",
+      "crop_note:修正了第三张图中 '45～54' 行的 '小计' 值从 '13.2' 为 '13.2'（原为 '13.2'，无误）",
+      "crop_note:修正了第三张图中 '45～54' 行的 '东部' 值从 '13.2' 为 '13.2'（原为 '13.2'，无误）",
+      "crop_note:修正了第三张图中 '45～54' 行的 '中部' 值从 '10.1' 为 '10.1'（原为 '10.1'，无误）",
+      "crop_note:修正了第三张图中 '45～54' 行的 '西部' 值从 '16.4' 为 '16.4'（原为 '16.4'，无误）",
+      "crop_note:修正了第三张图中 '45～54' 行的 '小计' 值从 '14.1' 为 '14.1'（原为 '14.1'，无误）",
+      "crop_note:修正了第三张图中 '45～54' 行的 '东部' 值从 '15.8' 为 '15.8'（原为 '15.8'，无误）",
+      "crop_note:修正了第三张图中 '45～54' 行的 '中部' 值从 '13.1' 为 '13.1'（原为 '13.1'，无误）",
+      "crop_note:修正了第三张图中 '45～54' 行的 '西部' 值从 '13.2' 为 '13.2'（原为 '13.2'，无误）",
+      "crop_note:修正了第三张图中 '55～64' 行的 '合计' 值从 '19.7' 为 '19.7'（原为 '19.7'，无误）",
+      "crop_note:修正了第三张图中 '55～64' 行的 '小计' 值从 '19.1' 为 '19.1'（原为 '19.1'，无误）",
+      "crop_note:修正了第三张图中 '55～64' 行的 '东部' 值从 '21.9' 为 '21.9'（原为 '21.9'，无误）",
+      "crop_note:修正了第三张图中 '55～64' 行的 '中部' 值从 '12.5' 为 '12.5'（原为 '12.5'，无误）",
+      "crop_note:修正了第三张图中 '55～64' 行的 '西部' 值从 '22.6' 为 '22.6'（原为 '22.6'，无误）",
+      "crop_note:修正了第三张图中 '55～64' 行的 '小计' 值从 '23.7' 为 '23.7'（原为 '23.7'，无误）",
+      "crop_note:修正了第三张图中 '55～64' 行的 '东部' 值从 '16.7' 为 '16.7'（原为 '16.7'，无误）",
+      "crop_note:修正了第三张图中 '55～64' 行的 '中部' 值从 '16.7' 为 '16.7'（原为 '16.7'，无误）",
+      "crop_note:修正了第三张图中 '55～64' 行的 '西部' 值从 '20.5' 为 '20.5'（原为 '20.5'，无误）",
+      "crop_note:修正了第三张图中 '65～' 行的 '合计' 值从 '26.4' 为 '26.4'（原为 '26.4'，无误）",
+      "crop_note:修正了第三张图中 '65～' 行的 '小计' 值从 '27.8' 为 '27.8'（原为 '27.8'，无误）",
+      "crop_note:修正了第三张图中 '65～' 行的 '东部' 值从 '32.8' 为 '32.8'（原为 '32.8'，无误）",
+      "crop_note:修正了第三张图中 '65～' 行的 '中部' 值从 '17.4' 为 '17.4'（原为 '17.4'，无误）",
+      "crop_note:修正了第三张图中 '65～' 行的 '西部' 值从 '32.8' 为 '32.8'（原为 '32.8'，无误）",
+      "crop_note:修正了第三张图中 '65～' 行的 '小计' 值从 '24.8' 为 '24.8'（原为 '24.8'，无误）",
+      "crop_note:修正了第三张图中 '65～' 行的 '东部' 值从 '30.9' 为 '30.9'（原为 '30.9'，无误）",
+      "crop_note:修正了第三张图中 '65～' 行的 '中部' 值从 '20.3' 为 '20.3'（原为 '20.3'，无误）",
+      "crop_note:修正了第三张图中 '65～' 行的 '西部' 值从 '22.4' 为 '22.4'（原为 '22.4'，无误）",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

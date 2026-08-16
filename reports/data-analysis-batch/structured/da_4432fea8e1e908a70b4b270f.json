@@ -1,0 +1,320 @@
+{
+  "asset_id": "da_4432fea8e1e908a70b4b270f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "娱乐频道",
+    "新闻频道",
+    "生活频道",
+    "体育频道",
+    "文化频道",
+    "音乐频道",
+    "科技频道"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "20",
+      "label": "20岁及以下",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        25.4,
+        18.3,
+        22.8,
+        9.9,
+        32.3,
+        35.9,
+        27.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "21-30",
+      "label": "21-30岁",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        63.6,
+        62.3,
+        65.2,
+        63.7,
+        49.2,
+        57.5,
+        45.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "31-40",
+      "label": "31-40岁",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        8.3,
+        14.7,
+        8.2,
+        18.7,
+        10.8,
+        4.7,
+        15.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "41-50",
+      "label": "41-50岁",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        2.2,
+        2.6,
+        2.2,
+        4.4,
+        3.1,
+        1.6,
+        4.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "51",
+      "label": "51岁及以上",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.5,
+        2.1,
+        1.6,
+        3.3,
+        4.6,
+        0.3,
+        6.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2013年广东省公务员录用考试《行测》题（三）_images/img_0089_8824949111c25a3e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（三）_images/img_0089_8824949111c25a3e.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（三）",
+        "question_id": "pq_168e8426194acf1f1de0",
+        "question_number": 86,
+        "source_jsonl_line": 34218
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（三）_images/img_0089_8824949111c25a3e.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（三）",
+        "question_id": "pq_be69f382653e44a99778",
+        "question_number": 87,
+        "source_jsonl_line": 34219
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（三）_images/img_0089_8824949111c25a3e.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（三）",
+        "question_id": "pq_7ab9212a9af858e73a38",
+        "question_number": 88,
+        "source_jsonl_line": 34220
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（三）_images/img_0089_8824949111c25a3e.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（三）",
+        "question_id": "pq_ed03131b6bafdbab0c10",
+        "question_number": 89,
+        "source_jsonl_line": 34221
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（三）_images/img_0097_a3c94e0a1a893dc9.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（三）",
+        "question_id": "pq_969071b7c3b0e852824c",
+        "question_number": 90,
+        "source_jsonl_line": 34222
+      }
+    ],
+    "sha256": "4432fea8e1e908a70b4b270f2a50f6753004c3a0cf3f52ee0e1cdeaef721e4ba"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "娱乐频道",
+      "新闻频道",
+      "生活频道",
+      "体育频道",
+      "文化频道",
+      "音乐频道",
+      "科技频道"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "20岁及以下",
+        "unit": null,
+        "values": [
+          25.4,
+          18.3,
+          22.8,
+          9.9,
+          32.3,
+          35.9,
+          27.3
+        ]
+      },
+      {
+        "label": "21-30岁",
+        "unit": null,
+        "values": [
+          63.6,
+          62.3,
+          65.2,
+          63.7,
+          49.2,
+          57.5,
+          45.5
+        ]
+      },
+      {
+        "label": "31-40岁",
+        "unit": null,
+        "values": [
+          8.3,
+          14.7,
+          8.2,
+          18.7,
+          10.8,
+          4.7,
+          15.9
+        ]
+      },
+      {
+        "label": "41-50岁",
+        "unit": null,
+        "values": [
+          2.2,
+          2.6,
+          2.2,
+          4.4,
+          3.1,
+          1.6,
+          4.5
+        ]
+      },
+      {
+        "label": "51岁及以上",
+        "unit": null,
+        "values": [
+          0.5,
+          2.1,
+          1.6,
+          3.3,
+          4.6,
+          0.3,
+          6.8
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4432fea8e1e908a70b4b270f/row_band_01.jpg",
+        "review-crops/da_4432fea8e1e908a70b4b270f/row_band_02.jpg",
+        "review-crops/da_4432fea8e1e908a70b4b270f/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.059",
+      "crop_verification_elapsed_seconds:7.026",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:20岁及以下:5!=7",
+      "crop_note:ignored_table_row_length_mismatch:21-30岁:5!=7",
+      "crop_note:ignored_table_row_length_mismatch:31-40岁:5!=7",
+      "crop_note:ignored_table_row_length_mismatch:41-50岁:5!=7",
+      "crop_note:ignored_table_row_length_mismatch:51岁及以上:5!=7",
+      "crop_note:ignored_table_row_length_mismatch:20岁及以下:5!=7",
+      "crop_note:ignored_table_row_length_mismatch:21-30岁:5!=7",
+      "crop_note:ignored_table_row_length_mismatch:31-40岁:5!=7",
+      "crop_note:ignored_table_row_length_mismatch:41-50岁:5!=7",
+      "crop_note:ignored_table_row_length_mismatch:20岁及以下:5!=7",
+      "crop_note:ignored_table_row_length_mismatch:21-30岁:5!=7",
+      "crop_note:ignored_table_row_length_mismatch:31-40岁:5!=7"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "asset_id": "da_acb65a0eff2470a453fe278c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0118_5f8adbef4641435c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0118_5f8adbef4641435c.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_9680acb66697b84e1363",
+        "question_number": 106,
+        "source_jsonl_line": 71892
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0118_5f8adbef4641435c.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_67f3136a5bb2e0393d94",
+        "question_number": 107,
+        "source_jsonl_line": 71893
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0133_ba33f0f5b91ecbb5.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_ff8f0e7faf5958141815",
+        "question_number": 108,
+        "source_jsonl_line": 71894
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0118_5f8adbef4641435c.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_34b6609d7bb22d83e6ef",
+        "question_number": 109,
+        "source_jsonl_line": 71895
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0118_5f8adbef4641435c.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_74f843320605607bcd6c",
+        "question_number": 110,
+        "source_jsonl_line": 71896
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0120_5f8adbef4641435c.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_cf39c664ab0f23298024",
+        "question_number": 106,
+        "source_jsonl_line": 90616
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0120_5f8adbef4641435c.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_7bc35b2dcc7675ed0afa",
+        "question_number": 107,
+        "source_jsonl_line": 90617
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0120_5f8adbef4641435c.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_a77e6bd5776df3a18e47",
+        "question_number": 108,
+        "source_jsonl_line": 90618
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0120_5f8adbef4641435c.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_1a45d3eeaccb7e1e666e",
+        "question_number": 109,
+        "source_jsonl_line": 90619
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0120_5f8adbef4641435c.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_1d0e752b0e413025c3e5",
+        "question_number": 110,
+        "source_jsonl_line": 90620
+      }
+    ],
+    "sha256": "acb65a0eff2470a453fe278ca83090cff207edd12b735a8c5bbc59e2b7c99feb"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "机构类型",
+      "产品数量（支）",
+      "设立规模（亿元）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "证券公司及其资管子公司",
+        "unit": null,
+        "values": [
+          "证券公司及其资管子公司",
+          601,
+          266.6
+        ]
+      },
+      {
+        "label": "证券公司私募子公司",
+        "unit": null,
+        "values": [
+          "证券公司私募子公司",
+          13,
+          17.4
+        ]
+      },
+      {
+        "label": "基金管理公司",
+        "unit": null,
+        "values": [
+          "基金管理公司",
+          168,
+          45.75
+        ]
+      },
+      {
+        "label": "基金子公司",
+        "unit": null,
+        "values": [
+          "基金子公司",
+          86,
+          95.2
+        ]
+      },
+      {
+        "label": "期货公司及其资管子公司",
+        "unit": null,
+        "values": [
+          "期货公司及其资管子公司",
+          60,
+          15.88
+        ]
+      }
+    ]
+  },
+  "title": "2024年11月各类证券期货经营机构私募资管产品备案情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_acb65a0eff2470a453fe278c/row_band_01.jpg",
+        "review-crops/da_acb65a0eff2470a453fe278c/row_band_02.jpg",
+        "review-crops/da_acb65a0eff2470a453fe278c/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.422",
+      "crop_verification_elapsed_seconds:1.478",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

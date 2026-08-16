@@ -1,0 +1,270 @@
+{
+  "asset_id": "da_84274749a0cd5a7dc5a11df7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/青海/2014年青海省公务员录用考试《行测》题_images/img_0123_cbd8a984589e1dfc.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年青海省公务员录用考试《行测》题_images/img_0123_cbd8a984589e1dfc.png",
+        "paper_title": "2014年青海省公务员录用考试《行测》题",
+        "question_id": "pq_d4e920b552c62a244930",
+        "question_number": 111,
+        "source_jsonl_line": 99109
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年青海省公务员录用考试《行测》题_images/img_0130_5154d0825a3ec0e0.png",
+        "paper_title": "2014年青海省公务员录用考试《行测》题",
+        "question_id": "pq_8ac70ebe550ef49a142f",
+        "question_number": 112,
+        "source_jsonl_line": 99110
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年青海省公务员录用考试《行测》题_images/img_0130_5154d0825a3ec0e0.png",
+        "paper_title": "2014年青海省公务员录用考试《行测》题",
+        "question_id": "pq_b8f531e48fa68840c671",
+        "question_number": 113,
+        "source_jsonl_line": 99111
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年青海省公务员录用考试《行测》题_images/img_0123_cbd8a984589e1dfc.png",
+        "paper_title": "2014年青海省公务员录用考试《行测》题",
+        "question_id": "pq_8f322f7fe4d2c53ae11d",
+        "question_number": 114,
+        "source_jsonl_line": 99112
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年青海省公务员录用考试《行测》题_images/img_0130_5154d0825a3ec0e0.png",
+        "paper_title": "2014年青海省公务员录用考试《行测》题",
+        "question_id": "pq_419bcfd61f96f2a52f00",
+        "question_number": 115,
+        "source_jsonl_line": 99113
+      }
+    ],
+    "sha256": "84274749a0cd5a7dc5a11df7807c449c23d8167787218a9a1929d53fa492eca6"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "快递业务量｜排名",
+          "快递业务量｜城市",
+          "快递业务量｜快递业务量（万件）"
+        ],
+        "label": "快递业务量"
+      },
+      {
+        "columns": [
+          "快递业务收入｜排名",
+          "快递业务收入｜城市",
+          "快递业务收入｜快递业务收入（万元）"
+        ],
+        "label": "快递业务收入"
+      }
+    ],
+    "columns": [
+      "快递业务量｜排名",
+      "快递业务量｜城市",
+      "快递业务量｜快递业务量（万件）",
+      "快递业务收入｜排名",
+      "快递业务收入｜城市",
+      "快递业务收入｜快递业务收入（万元）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "排名",
+    "rows": [
+      {
+        "display_label": "1",
+        "group": null,
+        "label": "1",
+        "unit": null,
+        "values": [
+          1,
+          "上海",
+          32982.9,
+          1,
+          "上海",
+          894272.6
+        ]
+      },
+      {
+        "display_label": "2",
+        "group": null,
+        "label": "2",
+        "unit": null,
+        "values": [
+          2,
+          "北京",
+          31423.8,
+          2,
+          "深圳",
+          444581.9
+        ]
+      },
+      {
+        "display_label": "3",
+        "group": null,
+        "label": "3",
+        "unit": null,
+        "values": [
+          3,
+          "广州",
+          26133.9,
+          3,
+          "北京",
+          367993.7
+        ]
+      },
+      {
+        "display_label": "4",
+        "group": null,
+        "label": "4",
+        "unit": null,
+        "values": [
+          4,
+          "深圳",
+          20636.7,
+          4,
+          "广州",
+          357959.1
+        ]
+      },
+      {
+        "display_label": "5",
+        "group": null,
+        "label": "5",
+        "unit": null,
+        "values": [
+          5,
+          "杭州",
+          14307.3,
+          5,
+          "杭州",
+          189332.0
+        ]
+      },
+      {
+        "display_label": "6",
+        "group": null,
+        "label": "6",
+        "unit": null,
+        "values": [
+          6,
+          "金华（义乌）",
+          9874.6,
+          6,
+          "苏州",
+          183492.0
+        ]
+      },
+      {
+        "display_label": "7",
+        "group": null,
+        "label": "7",
+        "unit": null,
+        "values": [
+          7,
+          "东莞",
+          9796.7,
+          7,
+          "东莞",
+          161296.5
+        ]
+      },
+      {
+        "display_label": "8",
+        "group": null,
+        "label": "8",
+        "unit": null,
+        "values": [
+          8,
+          "苏州",
+          9607.6,
+          8,
+          "金华（义乌）",
+          104047.8
+        ]
+      },
+      {
+        "display_label": "9",
+        "group": null,
+        "label": "9",
+        "unit": null,
+        "values": [
+          9,
+          "武汉",
+          6375.3,
+          9,
+          "宁波",
+          81322.2
+        ]
+      },
+      {
+        "display_label": "10",
+        "group": null,
+        "label": "10",
+        "unit": null,
+        "values": [
+          10,
+          "南京",
+          5965.3,
+          10,
+          "南京",
+          78334.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

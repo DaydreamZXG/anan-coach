@@ -1,0 +1,174 @@
+{
+  "asset_id": "da_3214f4414f01e133dd99f28a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "早稻 69.90",
+    "小麦 20.84",
+    "大麦 8.76",
+    "其他谷物 2.60"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      12.32,
+      308.937,
+      344.788,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 12.32,
+        "label": "早稻 69.90",
+        "share": 0.03422219,
+        "start_angle": 0.0,
+        "sweep_angle": 12.32
+      },
+      {
+        "end_angle": 308.937,
+        "label": "小麦 20.84",
+        "share": 0.82393739,
+        "start_angle": 12.32,
+        "sweep_angle": 296.617
+      },
+      {
+        "end_angle": 344.788,
+        "label": "大麦 8.76",
+        "share": 0.099585,
+        "start_angle": 308.937,
+        "sweep_angle": 35.851
+      },
+      {
+        "end_angle": 360.0,
+        "label": "其他谷物 2.60",
+        "share": 0.04225541,
+        "start_angle": 344.788,
+        "sweep_angle": 15.212
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.03422219,
+        0.82393739,
+        0.099585,
+        0.04225541
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2008年浙江省公务员录用考试《行测》题_images/img_0329_4a9338799a1a0272.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年浙江省公务员录用考试《行测》题_images/img_0329_4a9338799a1a0272.png",
+        "paper_title": "2008年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_a17aea721ec875a661bb",
+        "question_number": 126,
+        "source_jsonl_line": 59908
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年浙江省公务员录用考试《行测》题_images/img_0335_89b06904bfeea659.png",
+        "paper_title": "2008年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_8adaae39e8602d3d1b40",
+        "question_number": 127,
+        "source_jsonl_line": 59909
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年浙江省公务员录用考试《行测》题_images/img_0329_4a9338799a1a0272.png",
+        "paper_title": "2008年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_9cd6bf40c2eaecece990",
+        "question_number": 128,
+        "source_jsonl_line": 59910
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年浙江省公务员录用考试《行测》题_images/img_0329_4a9338799a1a0272.png",
+        "paper_title": "2008年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_22104695c831dd007438",
+        "question_number": 129,
+        "source_jsonl_line": 59911
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年浙江省公务员录用考试《行测》题_images/img_0329_4a9338799a1a0272.png",
+        "paper_title": "2008年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_ef89c0db521f4b844ffb",
+        "question_number": 130,
+        "source_jsonl_line": 59912
+      }
+    ],
+    "sha256": "3214f4414f01e133dd99f28a6aa54ab82d585757354e4fb208ba82405cb1e6fb"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2003年谷物类粮食总产量结构图",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3214f4414f01e133dd99f28a/quadrant_01.jpg",
+        "review-crops/da_3214f4414f01e133dd99f28a/quadrant_02.jpg",
+        "review-crops/da_3214f4414f01e133dd99f28a/quadrant_03.jpg",
+        "review-crops/da_3214f4414f01e133dd99f28a/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.149",
+      "crop_verification_elapsed_seconds:3.269",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了第二张图中玉米的数值为21.50，与第一张图一致",
+      "crop_note:确认单位为万吨，与第二张图一致",
+      "crop_note:确认晚稻数值为577.00，与第三张图一致",
+      "crop_note:确认所有标签按顺时针顺序排列，无缺失或错误",
+      "label_geometry_count_mismatch:6!=4",
+      "circle_edge_coverage:0.9861",
+      "hough_circle_radius_ratio:0.3887",
+      "radial_line_candidates:11",
+      "detected_boundaries:4"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

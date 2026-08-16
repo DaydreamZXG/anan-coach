@@ -6,7 +6,7 @@
     <state-view
       wx:elif="{{status === 'error'}}"
       state="error"
-      title="档案没加载出来"
+      title="我的页面暂时没加载出来"
       description="{{errorMessage}}"
       request-id="{{requestId}}"
       action-text="再试一次"
@@ -28,31 +28,6 @@
           <view class="identity-meta">{{studyDayLabel}}</view>
           <view class="identity-target">国考 · {{targetPositionLabel}}</view>
         </view>
-      </view>
-
-      <view class="profile-card archive-card fade-slide-in fade-slide-in--2">
-        <view class="card-head">
-          <view class="card-title">备考档案</view>
-          <button hover-class="item--hover" class="card-link" bindtap="openQualificationProfile">
-            <text>查看和修改</text>
-            <image class="link-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" />
-          </button>
-        </view>
-        <view wx:if="{{qualificationContextStatus === 'error'}}" class="context-error-card">
-          <view class="context-error-card__title">报考资料没同步好</view>
-          <view class="context-error-card__copy">{{qualificationContextError}}</view>
-          <view wx:if="{{qualificationContextRequestId}}" class="context-error-card__request">问题编号 · {{qualificationContextRequestId}}</view>
-          <button hover-class="item--hover" class="context-error-card__retry" bindtap="retryProfileContext">再试一次</button>
-        </view>
-        <view wx:else class="archive-grid">
-          <view class="archive-item"><view class="archive-label">学历与专业</view><view class="archive-value">{{educationMajorLabel}}</view></view>
-          <view class="archive-item"><view class="archive-label">考生身份</view><view class="archive-value">{{candidateIdentityLabel}}</view></view>
-          <view class="archive-item"><view class="archive-label">政治面貌</view><view class="archive-value">{{politicalStatusLabel}}</view></view>
-          <view class="archive-item"><view class="archive-label">户籍与意向地区</view><view class="archive-value">{{regionLabel}}</view></view>
-          <view class="archive-item"><view class="archive-label">工作经历</view><view class="archive-value">{{workExperienceLabel}}</view></view>
-          <view class="archive-item"><view class="archive-label">服务基层项目经历</view><view class="archive-value">{{serviceProjectLabel}}</view></view>
-        </view>
-        <view wx:if="{{qualificationContextStatus !== 'error' && !qualificationReady}}" class="archive-prompt">补完整资格资料，岗位核验才会更准确。</view>
       </view>
 
       <view class="profile-card target-card fade-slide-in fade-slide-in--3">
@@ -93,7 +68,18 @@
             <view class="study-metric"><view class="archive-label">周末</view><view class="study-value type-data">{{weekendHoursLabel}}</view></view>
             <view class="study-metric"><view class="archive-label">常用节奏</view><view class="study-value study-value--small">{{studyRhythmLabel}}</view></view>
           </view>
+          <view wx:if="{{!studyPreferenceReady && studyPreferenceHint}}" class="archive-prompt">{{studyPreferenceHint}}</view>
         </block>
+      </view>
+
+      <view class="asset-section fade-slide-in fade-slide-in--4">
+        <view class="section-title">学习资产</view>
+        <view class="asset-grid">
+          <button hover-class="item--hover" class="asset-item" bindtap="openPrivateKnowledge"><view class="asset-icon"><image class="asset-icon__image" src="/assets/icons/profile/library.svg" mode="aspectFit" /></view><text>学习资料</text></button>
+          <button hover-class="item--hover" class="asset-item" bindtap="openLearningProfile"><view class="asset-icon"><image class="asset-icon__image" src="/assets/icons/profile/reflection.svg" mode="aspectFit" /></view><text>错题与反思</text></button>
+          <button hover-class="item--hover" class="asset-item" bindtap="openLearningPackets"><view class="asset-icon"><image class="asset-icon__image" src="/assets/icons/profile/knowledge-cards.svg" mode="aspectFit" /></view><text>知识卡</text></button>
+          <button hover-class="item--hover" class="asset-item" bindtap="openReportCenter"><view class="asset-icon"><image class="asset-icon__image" src="/assets/icons/profile/mock-exam.svg" mode="aspectFit" /></view><text>模考成绩</text></button>
+        </view>
       </view>
 
       <button hover-class="item--hover" class="profile-card coach-setting" bindtap="openNotificationSettings">
@@ -107,6 +93,37 @@
         <view class="coach-setting__state">设置</view>
         <image class="link-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" />
       </button>
+
+      <view class="profile-card archive-card fade-slide-in fade-slide-in--4">
+        <view class="card-head">
+          <view class="card-title">备考档案</view>
+          <button hover-class="item--hover" class="card-link" bindtap="openQualificationProfile">
+            <text>{{qualificationReady ? '查看和修改' : '需要时再补'}}</text>
+            <image class="link-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" />
+          </button>
+        </view>
+        <view wx:if="{{qualificationContextStatus === 'error'}}" class="context-error-card">
+          <view class="context-error-card__title">报考资料暂时没同步好</view>
+          <view class="context-error-card__copy">{{qualificationContextError}}</view>
+          <view wx:if="{{qualificationContextRequestId}}" class="context-error-card__request">问题编号 · {{qualificationContextRequestId}}</view>
+          <button hover-class="item--hover" class="context-error-card__retry" bindtap="retryProfileContext">再试一次</button>
+        </view>
+        <button wx:elif="{{!qualificationReady}}" hover-class="item--hover" class="archive-empty" bindtap="openQualificationProfile">
+          <view class="archive-empty__main">
+            <view class="archive-empty__title">报考资料还没补齐</view>
+            <view class="archive-empty__copy">不影响开始学习，需要核验岗位时再补。</view>
+          </view>
+          <image class="link-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" />
+        </button>
+        <view wx:else class="archive-grid">
+          <view class="archive-item"><view class="archive-label">学历与专业</view><view class="archive-value">{{educationMajorLabel}}</view></view>
+          <view class="archive-item"><view class="archive-label">考生身份</view><view class="archive-value">{{candidateIdentityLabel}}</view></view>
+          <view class="archive-item"><view class="archive-label">政治面貌</view><view class="archive-value">{{politicalStatusLabel}}</view></view>
+          <view class="archive-item"><view class="archive-label">户籍与意向地区</view><view class="archive-value">{{regionLabel}}</view></view>
+          <view class="archive-item"><view class="archive-label">工作经历</view><view class="archive-value">{{workExperienceLabel}}</view></view>
+          <view class="archive-item"><view class="archive-label">服务基层项目经历</view><view class="archive-value">{{serviceProjectLabel}}</view></view>
+        </view>
+      </view>
 
       <view class="profile-card community-entry fade-slide-in fade-slide-in--4">
         <view class="community-entry__head">
@@ -122,16 +139,6 @@
         <view class="community-entry__actions">
           <button hover-class="item--hover" class="community-entry__button community-entry__button--primary" bindtap="openCommunity">去逛逛</button>
           <button hover-class="item--hover" class="community-entry__button" bindtap="openCommunityContributions">我的贡献</button>
-        </view>
-      </view>
-
-      <view class="asset-section">
-        <view class="section-title">学习资产</view>
-        <view class="asset-grid">
-          <button hover-class="item--hover" class="asset-item" bindtap="openPrivateKnowledge"><view class="asset-icon"><image class="asset-icon__image" src="/assets/icons/profile/library.svg" mode="aspectFit" /></view><text>资料库</text></button>
-          <button hover-class="item--hover" class="asset-item" bindtap="openLearningProfile"><view class="asset-icon"><image class="asset-icon__image" src="/assets/icons/profile/reflection.svg" mode="aspectFit" /></view><text>错题与反思</text></button>
-          <button hover-class="item--hover" class="asset-item" bindtap="openLearningPackets"><view class="asset-icon"><image class="asset-icon__image" src="/assets/icons/profile/knowledge-cards.svg" mode="aspectFit" /></view><text>知识卡</text></button>
-          <button hover-class="item--hover" class="asset-item" bindtap="openReportCenter"><view class="asset-icon"><image class="asset-icon__image" src="/assets/icons/profile/mock-exam.svg" mode="aspectFit" /></view><text>模考成绩</text></button>
         </view>
       </view>
 

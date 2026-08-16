@@ -1,0 +1,244 @@
+{
+  "asset_id": "da_9309622930cb435c0e90031c",
+  "axes": {
+    "x": {
+      "max": 25000,
+      "min": 0,
+      "ticks": [
+        0,
+        5000,
+        10000,
+        15000,
+        20000,
+        25000
+      ],
+      "title": null,
+      "unit": "件"
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年",
+    "2023年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "发证量",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "申请量",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "发证量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "件",
+      "values": [
+        1800,
+        2154,
+        2670,
+        3815,
+        6614,
+        11727,
+        13087,
+        9106,
+        11316
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "申请量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "件",
+      "values": [
+        2058,
+        2360,
+        3228,
+        4431,
+        8319,
+        14375,
+        20353,
+        14403,
+        12503
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0130_d8228759abcd4f67.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0130_d8228759abcd4f67.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_cbc374ad8a38d6c60759",
+        "question_number": 116,
+        "source_jsonl_line": 21231
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0130_d8228759abcd4f67.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_74c3511cf64e35c9d995",
+        "question_number": 117,
+        "source_jsonl_line": 21232
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0127_cfde85812e99c24a.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_741a1b88354d3f6ccf70",
+        "question_number": 118,
+        "source_jsonl_line": 21233
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0130_d8228759abcd4f67.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_15794653c22203d059ec",
+        "question_number": 119,
+        "source_jsonl_line": 21234
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0130_d8228759abcd4f67.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_889426f0bebdd789e40f",
+        "question_number": 120,
+        "source_jsonl_line": 21235
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0103_d8228759abcd4f67.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_580850ea3be1b1ec04fd",
+        "question_number": 111,
+        "source_jsonl_line": 21491
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0090_cfde85812e99c24a.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_53f73f5ee16cd8782a8e",
+        "question_number": 112,
+        "source_jsonl_line": 21492
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0103_d8228759abcd4f67.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_f5081c557d99fea07e92",
+        "question_number": 113,
+        "source_jsonl_line": 21493
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0103_d8228759abcd4f67.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_4dc6c0b9055e5eb81da2",
+        "question_number": 114,
+        "source_jsonl_line": 21494
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0103_d8228759abcd4f67.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_fe97a060d0ac2f1f8870",
+        "question_number": 115,
+        "source_jsonl_line": 21495
+      }
+    ],
+    "sha256": "9309622930cb435c0e90031c9d20bc9ea40a889a7d7934e61f8d973a17e9357d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2015-2023年我国集成电路布图设计登记申请和发证情况",
+  "unit": "件",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9309622930cb435c0e90031c/column_band_01.jpg",
+        "review-crops/da_9309622930cb435c0e90031c/column_band_02.jpg",
+        "review-crops/da_9309622930cb435c0e90031c/column_band_03.jpg",
+        "review-crops/da_9309622930cb435c0e90031c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.112",
+      "crop_verification_elapsed_seconds:5.252",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

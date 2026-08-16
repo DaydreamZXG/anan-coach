@@ -1,0 +1,366 @@
+{
+  "asset_id": "da_f525c0938f10aa30a1b9d2b7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2026年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0117_146ff9d41926cc62.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0117_146ff9d41926cc62.png",
+        "paper_title": "2026年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_91f7278968acd270507f",
+        "question_number": 96,
+        "source_jsonl_line": 13812
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0117_146ff9d41926cc62.png",
+        "paper_title": "2026年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1feaa69a207993795deb",
+        "question_number": 97,
+        "source_jsonl_line": 13813
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0117_146ff9d41926cc62.png",
+        "paper_title": "2026年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5d9ac7400480582f51a4",
+        "question_number": 98,
+        "source_jsonl_line": 13814
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0117_146ff9d41926cc62.png",
+        "paper_title": "2026年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bef626c0ebcd4b612087",
+        "question_number": 99,
+        "source_jsonl_line": 13815
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0131_aba37bc8b210351b.png",
+        "paper_title": "2026年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_459606feb56731c97376",
+        "question_number": 100,
+        "source_jsonl_line": 13816
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0199_146ff9d41926cc62.png",
+        "paper_title": "2026年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_65b0a3ec3adc597e0abc",
+        "question_number": 121,
+        "source_jsonl_line": 28770
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0201_aba37bc8b210351b.png",
+        "paper_title": "2026年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0b55c3a12c5a93e6f0f3",
+        "question_number": 122,
+        "source_jsonl_line": 28771
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0199_146ff9d41926cc62.png",
+        "paper_title": "2026年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_59870b352c1048d940a6",
+        "question_number": 123,
+        "source_jsonl_line": 28772
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0199_146ff9d41926cc62.png",
+        "paper_title": "2026年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c1b60b7b3c748abcc741",
+        "question_number": 124,
+        "source_jsonl_line": 28773
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0199_146ff9d41926cc62.png",
+        "paper_title": "2026年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8b843a0f1c537889d212",
+        "question_number": 125,
+        "source_jsonl_line": 28774
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0092_146ff9d41926cc62.png",
+        "paper_title": "2026年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_44def0fe432015461024",
+        "question_number": 106,
+        "source_jsonl_line": 33529
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0095_aba37bc8b210351b.png",
+        "paper_title": "2026年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_90d60184e4d2b2b2f692",
+        "question_number": 107,
+        "source_jsonl_line": 33530
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0092_146ff9d41926cc62.png",
+        "paper_title": "2026年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2b8f38031e936afe923a",
+        "question_number": 108,
+        "source_jsonl_line": 33531
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0095_aba37bc8b210351b.png",
+        "paper_title": "2026年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ac6618d0021fde061705",
+        "question_number": 109,
+        "source_jsonl_line": 33532
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0092_146ff9d41926cc62.png",
+        "paper_title": "2026年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_85c879b111cb77f59058",
+        "question_number": 110,
+        "source_jsonl_line": 33533
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）_images/img_0175_146ff9d41926cc62.png",
+        "paper_title": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_5e7cb76dc2f4691053c2",
+        "question_number": 111,
+        "source_jsonl_line": 44366
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）_images/img_0169_aba37bc8b210351b.png",
+        "paper_title": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_3a46e52406f0f0d745c6",
+        "question_number": 112,
+        "source_jsonl_line": 44367
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）_images/img_0175_146ff9d41926cc62.png",
+        "paper_title": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_6d33fcbd958e91901688",
+        "question_number": 113,
+        "source_jsonl_line": 44368
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）_images/img_0175_146ff9d41926cc62.png",
+        "paper_title": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_087eec4fcb76b10ec531",
+        "question_number": 114,
+        "source_jsonl_line": 44369
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）_images/img_0175_146ff9d41926cc62.png",
+        "paper_title": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_8bfdf2e275d6b2d772c0",
+        "question_number": 115,
+        "source_jsonl_line": 44370
+      }
+    ],
+    "sha256": "f525c0938f10aa30a1b9d2b72154319f59e57dbda1a41f762e045dbecb857d9a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "5月｜金额（亿元）",
+          "5月｜占比（%）"
+        ],
+        "label": "5月"
+      },
+      {
+        "columns": [
+          "6月｜金额（亿元）",
+          "6月｜占比（%）"
+        ],
+        "label": "6月"
+      }
+    ],
+    "columns": [
+      "5月｜金额（亿元）",
+      "5月｜占比（%）",
+      "6月｜金额（亿元）",
+      "6月｜占比（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "持有机构",
+    "rows": [
+      {
+        "display_label": "商业银行",
+        "group": null,
+        "label": "商业银行",
+        "unit": null,
+        "values": [
+          366807.08,
+          71.92,
+          371255.62,
+          71.87
+        ]
+      },
+      {
+        "display_label": "信用社",
+        "group": null,
+        "label": "信用社",
+        "unit": null,
+        "values": [
+          2662.62,
+          0.52,
+          2630.15,
+          0.51
+        ]
+      },
+      {
+        "display_label": "保险机构",
+        "group": null,
+        "label": "保险机构",
+        "unit": null,
+        "values": [
+          23560.8,
+          4.62,
+          23895.21,
+          4.63
+        ]
+      },
+      {
+        "display_label": "证券公司",
+        "group": null,
+        "label": "证券公司",
+        "unit": null,
+        "values": [
+          4554.05,
+          0.89,
+          4914.22,
+          0.95
+        ]
+      },
+      {
+        "display_label": "非法人产品",
+        "group": null,
+        "label": "非法人产品",
+        "unit": null,
+        "values": [
+          44273.84,
+          8.68,
+          45476.05,
+          8.8
+        ]
+      },
+      {
+        "display_label": "境外机构",
+        "group": null,
+        "label": "境外机构",
+        "unit": null,
+        "values": [
+          89.35,
+          0.02,
+          95.15,
+          0.02
+        ]
+      },
+      {
+        "display_label": "其他",
+        "group": null,
+        "label": "其他",
+        "unit": null,
+        "values": [
+          46382.4,
+          9.09,
+          46228.54,
+          8.95
+        ]
+      },
+      {
+        "display_label": "柜台市场",
+        "group": null,
+        "label": "柜台市场",
+        "unit": null,
+        "values": [
+          256.4,
+          0.05,
+          287.17,
+          0.06
+        ]
+      },
+      {
+        "display_label": "其他市场",
+        "group": null,
+        "label": "其他市场",
+        "unit": null,
+        "values": [
+          21449.95,
+          4.21,
+          21768.36,
+          4.21
+        ]
+      },
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          510036.49,
+          100,
+          516550.47,
+          100
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

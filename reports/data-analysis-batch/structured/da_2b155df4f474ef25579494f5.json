@@ -1,0 +1,212 @@
+{
+  "asset_id": "da_2b155df4f474ef25579494f5",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2008年深圳市公务员录用考试《行测》题（下半年）_images/img_0203_1aae1a0df55f3025.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（下半年）_images/img_0203_1aae1a0df55f3025.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_2034113aab3e030e70a5",
+        "question_number": 81,
+        "source_jsonl_line": 67047
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（下半年）_images/img_0203_1aae1a0df55f3025.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_a8d857feb911d643c39e",
+        "question_number": 82,
+        "source_jsonl_line": 67048
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（下半年）_images/img_0196_3114e9cb18e114c1.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_11c232d4dc72f154f186",
+        "question_number": 83,
+        "source_jsonl_line": 67049
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（下半年）_images/img_0203_1aae1a0df55f3025.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_810899618de1dfafd2a1",
+        "question_number": 84,
+        "source_jsonl_line": 67050
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（下半年）_images/img_0203_1aae1a0df55f3025.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_193db240a030fc88b969",
+        "question_number": 85,
+        "source_jsonl_line": 67051
+      }
+    ],
+    "sha256": "2b155df4f474ef25579494f5f867d6f8d771aa85d2be2d86f94c53fd8a81fafd"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "国有单位",
+      "集体单位",
+      "股份合作单位",
+      "联营单位",
+      "有限责任公司",
+      "股份有限公司",
+      "私营企业",
+      "港澳台商投资单位",
+      "外商投资单位",
+      "个体"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2000",
+        "unit": null,
+        "values": [
+          2000,
+          8102,
+          1499,
+          155,
+          42,
+          687,
+          457,
+          1268,
+          310,
+          332,
+          2136
+        ]
+      },
+      {
+        "label": "2001",
+        "unit": null,
+        "values": [
+          2001,
+          7640,
+          1291,
+          153,
+          45,
+          841,
+          483,
+          1257,
+          326,
+          345,
+          2131
+        ]
+      },
+      {
+        "label": "2002",
+        "unit": null,
+        "values": [
+          2002,
+          7163,
+          1122,
+          161,
+          45,
+          1083,
+          538,
+          1999,
+          367,
+          391,
+          2269
+        ]
+      },
+      {
+        "label": "2003",
+        "unit": null,
+        "values": [
+          2003,
+          6876,
+          1000,
+          173,
+          44,
+          1261,
+          592,
+          2545,
+          409,
+          454,
+          2377
+        ]
+      },
+      {
+        "label": "2004",
+        "unit": null,
+        "values": [
+          2004,
+          6710,
+          897,
+          192,
+          44,
+          1436,
+          625,
+          2994,
+          470,
+          563,
+          2521
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2b155df4f474ef25579494f5/row_band_01.jpg",
+        "review-crops/da_2b155df4f474ef25579494f5/row_band_02.jpg",
+        "review-crops/da_2b155df4f474ef25579494f5/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.33",
+      "crop_verification_elapsed_seconds:7.476",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

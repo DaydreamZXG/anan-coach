@@ -1,0 +1,244 @@
+{
+  "asset_id": "da_83af499ed298d7f1e04be00d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 5.4,
+        "min": 4.5,
+        "ticks": [
+          4.5,
+          4.6,
+          4.7,
+          4.8,
+          4.9,
+          5,
+          5.1,
+          5.2,
+          5.3,
+          5.4
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 135000,
+        "min": 129000,
+        "ticks": [
+          129000,
+          130000,
+          131000,
+          132000,
+          133000,
+          134000,
+          135000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2006年",
+    "2007年",
+    "2008年",
+    "2009年",
+    "2010年",
+    "2011年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "总人口（万人）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "自然增长率（%）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "right",
+      "id": "series_1",
+      "label": "总人口（万人）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        131448,
+        132129,
+        132802,
+        133450,
+        134091,
+        134735
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "自然增长率（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.3,
+        5.2,
+        5.1,
+        4.9,
+        4.8,
+        4.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0107_b1601d445ebf391a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0107_b1601d445ebf391a.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_c02cfdc6983474bf338f",
+        "question_number": 96,
+        "source_jsonl_line": 34728
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0111_299e20b093d129df.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_8d324afb1f9d92e8b54a",
+        "question_number": 97,
+        "source_jsonl_line": 34729
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0111_299e20b093d129df.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_04a432714c22d4d8e9fa",
+        "question_number": 98,
+        "source_jsonl_line": 34730
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0111_299e20b093d129df.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_c54289621fdab4d2533f",
+        "question_number": 99,
+        "source_jsonl_line": 34731
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0111_299e20b093d129df.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_558116a862d7dab46480",
+        "question_number": 100,
+        "source_jsonl_line": 34732
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（县级以上）_images/img_0069_299e20b093d129df.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_49ed6dde089daaa56ccd",
+        "question_number": 86,
+        "source_jsonl_line": 34818
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（县级以上）_images/img_0076_b1601d445ebf391a.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_045fe3b7932deff5d4e6",
+        "question_number": 87,
+        "source_jsonl_line": 34819
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（县级以上）_images/img_0069_299e20b093d129df.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_dbc74c85da01293724c6",
+        "question_number": 88,
+        "source_jsonl_line": 34820
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（县级以上）_images/img_0076_b1601d445ebf391a.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_f55f319ab45e28e105a5",
+        "question_number": 89,
+        "source_jsonl_line": 34821
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（县级以上）_images/img_0076_b1601d445ebf391a.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_33b6546c61968632eda1",
+        "question_number": 90,
+        "source_jsonl_line": 34822
+      }
+    ],
+    "sha256": "83af499ed298d7f1e04be00de434946815dcb0e9fbe4447cb8209318c2c8916a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "人口及其自然增长率变化趋势",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_83af499ed298d7f1e04be00d/column_band_01.jpg",
+        "review-crops/da_83af499ed298d7f1e04be00d/column_band_02.jpg",
+        "review-crops/da_83af499ed298d7f1e04be00d/column_band_03.jpg",
+        "review-crops/da_83af499ed298d7f1e04be00d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.544",
+      "crop_verification_elapsed_seconds:4.046",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,350 @@
+{
+  "asset_id": "da_0c67c495da19fab7ab40b002",
+  "axes": {
+    "x": {
+      "max": 2023,
+      "min": 2012,
+      "ticks": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 12000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000,
+          12000
+        ],
+        "title": "收入",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "财政补助",
+      "style": {
+        "dash": null,
+        "fill": "hatch",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "个人缴费",
+      "style": {
+        "dash": null,
+        "fill": "hatch",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "财政补助",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        672,
+        910,
+        1264,
+        1585,
+        2045,
+        3943,
+        4446,
+        5733,
+        5936,
+        6272,
+        6358,
+        6613
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "个人缴费",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        179,
+        243,
+        342,
+        476,
+        680,
+        1491,
+        2396,
+        2737,
+        3029,
+        3242,
+        3336,
+        3723
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0182_ab70e29d1edd73aa.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0182_ab70e29d1edd73aa.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f8331da26593072dffdf",
+        "question_number": 116,
+        "source_jsonl_line": 24498
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0182_ab70e29d1edd73aa.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fa057cbec23a98d58e76",
+        "question_number": 117,
+        "source_jsonl_line": 24499
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0190_4ee379e02002b5b8.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_175ebaac94805cc88889",
+        "question_number": 118,
+        "source_jsonl_line": 24500
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0190_4ee379e02002b5b8.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a0486d3c7c097ab8bad7",
+        "question_number": 119,
+        "source_jsonl_line": 24501
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0182_ab70e29d1edd73aa.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fb60f6bf9d6add86d4e0",
+        "question_number": 120,
+        "source_jsonl_line": 24502
+      }
+    ],
+    "sha256": "0c67c495da19fab7ab40b002b18ae0a78bcd98499eb0ab1727d4c5029a6b9d7b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "财政补助",
+      "个人缴费"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "2012",
+        "group": "城乡居民医疗保险收入来源",
+        "label": "城乡居民医疗保险收入来源｜2012",
+        "unit": "亿元",
+        "values": [
+          672,
+          179
+        ]
+      },
+      {
+        "display_label": "2013",
+        "group": "城乡居民医疗保险收入来源",
+        "label": "城乡居民医疗保险收入来源｜2013",
+        "unit": "亿元",
+        "values": [
+          910,
+          243
+        ]
+      },
+      {
+        "display_label": "2014",
+        "group": "城乡居民医疗保险收入来源",
+        "label": "城乡居民医疗保险收入来源｜2014",
+        "unit": "亿元",
+        "values": [
+          1264,
+          342
+        ]
+      },
+      {
+        "display_label": "2015",
+        "group": "城乡居民医疗保险收入来源",
+        "label": "城乡居民医疗保险收入来源｜2015",
+        "unit": "亿元",
+        "values": [
+          1585,
+          476
+        ]
+      },
+      {
+        "display_label": "2016",
+        "group": "城乡居民医疗保险收入来源",
+        "label": "城乡居民医疗保险收入来源｜2016",
+        "unit": "亿元",
+        "values": [
+          2045,
+          680
+        ]
+      },
+      {
+        "display_label": "2017",
+        "group": "城乡居民医疗保险收入来源",
+        "label": "城乡居民医疗保险收入来源｜2017",
+        "unit": "亿元",
+        "values": [
+          3943,
+          1491
+        ]
+      },
+      {
+        "display_label": "2018",
+        "group": "城乡居民医疗保险收入来源",
+        "label": "城乡居民医疗保险收入来源｜2018",
+        "unit": "亿元",
+        "values": [
+          4446,
+          2396
+        ]
+      },
+      {
+        "display_label": "2019",
+        "group": "城乡居民医疗保险收入来源",
+        "label": "城乡居民医疗保险收入来源｜2019",
+        "unit": "亿元",
+        "values": [
+          5733,
+          2737
+        ]
+      },
+      {
+        "display_label": "2020",
+        "group": "城乡居民医疗保险收入来源",
+        "label": "城乡居民医疗保险收入来源｜2020",
+        "unit": "亿元",
+        "values": [
+          5936,
+          3029
+        ]
+      },
+      {
+        "display_label": "2021",
+        "group": "城乡居民医疗保险收入来源",
+        "label": "城乡居民医疗保险收入来源｜2021",
+        "unit": "亿元",
+        "values": [
+          6272,
+          3242
+        ]
+      },
+      {
+        "display_label": "2022",
+        "group": "城乡居民医疗保险收入来源",
+        "label": "城乡居民医疗保险收入来源｜2022",
+        "unit": "亿元",
+        "values": [
+          6358,
+          3336
+        ]
+      },
+      {
+        "display_label": "2023",
+        "group": "城乡居民医疗保险收入来源",
+        "label": "城乡居民医疗保险收入来源｜2023",
+        "unit": "亿元",
+        "values": [
+          6613,
+          3723
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": "2012～2023年城乡居民医疗保险收入来源结构",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0c67c495da19fab7ab40b002/column_band_01.jpg",
+        "review-crops/da_0c67c495da19fab7ab40b002/column_band_02.jpg",
+        "review-crops/da_0c67c495da19fab7ab40b002/column_band_03.jpg",
+        "review-crops/da_0c67c495da19fab7ab40b002/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:13.396",
+      "crop_verification_elapsed_seconds:5.47",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "asset_id": "da_ba0d90b5ecce017e41e5da0e",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 90000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000,
+          60000,
+          70000,
+          80000,
+          90000
+        ],
+        "title": null,
+        "unit": "万人次"
+      }
+    ]
+  },
+  "categories": [
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "国际航线旅客吞吐量",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "国内航线旅客吞吐量",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "国际航线旅客吞吐量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        57117,
+        62379,
+        6345,
+        7089,
+        8582
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "国内航线旅客吞吐量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        57117,
+        62379,
+        69086,
+        76064,
+        82895
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2017年江苏省公务员录用考试《行测》题(B类)_images/img_0269_d76f9dc2e285ea0d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(B类)_images/img_0269_d76f9dc2e285ea0d.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(B类)",
+        "question_id": "pq_2c8f289adccded562a99",
+        "question_number": 131,
+        "source_jsonl_line": 47776
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(B类)_images/img_0283_44a59f45753c42b5.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(B类)",
+        "question_id": "pq_edecaaf2f2ada222d0eb",
+        "question_number": 132,
+        "source_jsonl_line": 47777
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(B类)_images/img_0269_d76f9dc2e285ea0d.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(B类)",
+        "question_id": "pq_403d16bcead53a2b9c8c",
+        "question_number": 133,
+        "source_jsonl_line": 47778
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(B类)_images/img_0283_44a59f45753c42b5.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(B类)",
+        "question_id": "pq_3793c0be96a281e13522",
+        "question_number": 134,
+        "source_jsonl_line": 47779
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(B类)_images/img_0283_44a59f45753c42b5.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(B类)",
+        "question_id": "pq_d8b943e4d7521297d473",
+        "question_number": 135,
+        "source_jsonl_line": 47780
+      }
+    ],
+    "sha256": "ba0d90b5ecce017e41e5da0e955241b959f7e26462d598a8c430739cb712000c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "“十二五”时期中国机场旅客吞吐量",
+  "unit": "万人次",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ba0d90b5ecce017e41e5da0e/column_band_01.jpg",
+        "review-crops/da_ba0d90b5ecce017e41e5da0e/column_band_02.jpg",
+        "review-crops/da_ba0d90b5ecce017e41e5da0e/column_band_03.jpg",
+        "review-crops/da_ba0d90b5ecce017e41e5da0e/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.204",
+      "crop_verification_elapsed_seconds:3.061",
+      "candidate_value_changes_after_crop:2",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

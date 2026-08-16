@@ -7,10 +7,8 @@ export type AbilityGoalLoadResult =
   | { kind: "failed"; message: string; requestId: string };
 
 export async function loadAbilityGoal(
-  ready: boolean,
   load: () => Promise<TodayDashboard>,
 ): Promise<AbilityGoalLoadResult> {
-  if (!ready) return { kind: "missing" };
   try {
     return { kind: "ready", dashboard: await load() };
   } catch (error) {

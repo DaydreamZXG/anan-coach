@@ -1,0 +1,315 @@
+{
+  "asset_id": "da_73cfd65b3216f3c2f9f5b6db",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 8000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000,
+          8000
+        ],
+        "title": null,
+        "unit": "万吨"
+      },
+      {
+        "max": 16.0,
+        "min": 0,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0,
+          12.0,
+          14.0,
+          16.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1-2月",
+    "1-3月",
+    "1-4月",
+    "1-5月",
+    "1-6月",
+    "1-7月",
+    "1-8月",
+    "1-9月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "生铁产量",
+      "style": {
+        "dash": null,
+        "fill": "#E0E0E0",
+        "marker": "none",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "粗钢产量",
+      "style": {
+        "dash": null,
+        "fill": "#606060",
+        "marker": "none",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "生铁同比增长率",
+      "style": {
+        "dash": "dashed",
+        "fill": "#000000",
+        "marker": "diamond",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "粗钢同比增长率",
+      "style": {
+        "dash": "dashed",
+        "fill": "#000000",
+        "marker": "triangle_up",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "生铁产量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        1149,
+        1527,
+        2314,
+        2905,
+        3526,
+        4111,
+        4672,
+        5263
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "粗钢产量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        1744,
+        2362,
+        3143,
+        3939,
+        4792,
+        5584,
+        6348,
+        7160
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "生铁同比增长率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        7.1,
+        8.0,
+        6.8,
+        5.8,
+        5.6,
+        5.4,
+        5.0,
+        4.9
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "粗钢同比增长率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        13.7,
+        11.0,
+        8.7,
+        8.2,
+        9.3,
+        9.5,
+        9.3,
+        9.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2015年江苏省公务员录用考试《行测》题（B类）_images/img_0109_9acbcdb98f17425f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（B类）_images/img_0109_9acbcdb98f17425f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_03251c46694dd318495d",
+        "question_number": 91,
+        "source_jsonl_line": 47006
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（B类）_images/img_0109_9acbcdb98f17425f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_734dd946c6631c46f2a4",
+        "question_number": 92,
+        "source_jsonl_line": 47007
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（B类）_images/img_0109_9acbcdb98f17425f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_33a1136bfabe35c846a8",
+        "question_number": 93,
+        "source_jsonl_line": 47008
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（B类）_images/img_0114_68271e005014b910.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_069e259d9f626647da70",
+        "question_number": 94,
+        "source_jsonl_line": 47009
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（B类）_images/img_0109_9acbcdb98f17425f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_218bfc5385579d099139",
+        "question_number": 95,
+        "source_jsonl_line": 47010
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（C类）_images/img_0108_68271e005014b910.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_1ff272db96cee329b9e7",
+        "question_number": 86,
+        "source_jsonl_line": 47101
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（C类）_images/img_0108_68271e005014b910.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_ca89df55fbb128879676",
+        "question_number": 87,
+        "source_jsonl_line": 47102
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（C类）_images/img_0095_9acbcdb98f17425f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_d9bef81e5020c0efe0d8",
+        "question_number": 88,
+        "source_jsonl_line": 47103
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（C类）_images/img_0108_68271e005014b910.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_02d6444f204ab16cb4ec",
+        "question_number": 89,
+        "source_jsonl_line": 47104
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（C类）_images/img_0095_9acbcdb98f17425f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_8e734ca62696390d01cc",
+        "question_number": 90,
+        "source_jsonl_line": 47105
+      }
+    ],
+    "sha256": "73cfd65b3216f3c2f9f5b6dbecc14a332c042da93d2e43aa44845bea984e9aac"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_73cfd65b3216f3c2f9f5b6db/column_band_01.jpg",
+        "review-crops/da_73cfd65b3216f3c2f9f5b6db/column_band_02.jpg",
+        "review-crops/da_73cfd65b3216f3c2f9f5b6db/column_band_03.jpg",
+        "review-crops/da_73cfd65b3216f3c2f9f5b6db/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.812",
+      "crop_verification_elapsed_seconds:7.934",
+      "candidate_value_changes_after_crop:4",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

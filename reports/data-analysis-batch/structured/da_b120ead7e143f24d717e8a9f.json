@@ -1,0 +1,516 @@
+{
+  "asset_id": "da_b120ead7e143f24d717e8a9f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "评价指标",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0209_703c1383f2b97c6e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0209_703c1383f2b97c6e.png",
+        "paper_title": "2021年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_df5ee2602898a52b0d67",
+        "question_number": 91,
+        "source_jsonl_line": 5775
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0209_703c1383f2b97c6e.png",
+        "paper_title": "2021年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e51338d838965cdc639f",
+        "question_number": 92,
+        "source_jsonl_line": 5776
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0209_703c1383f2b97c6e.png",
+        "paper_title": "2021年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_79094eb35171c4a5cc9f",
+        "question_number": 93,
+        "source_jsonl_line": 5777
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0209_703c1383f2b97c6e.png",
+        "paper_title": "2021年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_51128d20d6131aadc766",
+        "question_number": 94,
+        "source_jsonl_line": 5778
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0264_b8d2a71cf502c391.png",
+        "paper_title": "2021年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6b60e9ea47fefd551df6",
+        "question_number": 95,
+        "source_jsonl_line": 5779
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年天津市公务员考试《行测》题（网友回忆版）_images/img_0278_703c1383f2b97c6e.png",
+        "paper_title": "2021年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_5f270cc53deffe2e5a08",
+        "question_number": 111,
+        "source_jsonl_line": 23923
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年天津市公务员考试《行测》题（网友回忆版）_images/img_0288_b8d2a71cf502c391.png",
+        "paper_title": "2021年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_31a6c4639e8838c80f8b",
+        "question_number": 112,
+        "source_jsonl_line": 23924
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年天津市公务员考试《行测》题（网友回忆版）_images/img_0288_b8d2a71cf502c391.png",
+        "paper_title": "2021年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_99a73558dcb0d4426615",
+        "question_number": 113,
+        "source_jsonl_line": 23925
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年天津市公务员考试《行测》题（网友回忆版）_images/img_0288_b8d2a71cf502c391.png",
+        "paper_title": "2021年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_40fc9616fbdffc15cf66",
+        "question_number": 114,
+        "source_jsonl_line": 23926
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年天津市公务员考试《行测》题（网友回忆版）_images/img_0278_703c1383f2b97c6e.png",
+        "paper_title": "2021年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_3e3feb9097181ec8e2ed",
+        "question_number": 115,
+        "source_jsonl_line": 23927
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0345_703c1383f2b97c6e.png",
+        "paper_title": "2021年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f4406659efd450a72109",
+        "question_number": 101,
+        "source_jsonl_line": 28185
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0342_b8d2a71cf502c391.png",
+        "paper_title": "2021年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_79241ad37e6d03d42fed",
+        "question_number": 102,
+        "source_jsonl_line": 28186
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0345_703c1383f2b97c6e.png",
+        "paper_title": "2021年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0c6e71b848576b47ff33",
+        "question_number": 103,
+        "source_jsonl_line": 28187
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0342_b8d2a71cf502c391.png",
+        "paper_title": "2021年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f4c5caab6d87dfedf22f",
+        "question_number": 104,
+        "source_jsonl_line": 28188
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0345_703c1383f2b97c6e.png",
+        "paper_title": "2021年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_116ab255b11c24c9fa7c",
+        "question_number": 105,
+        "source_jsonl_line": 28189
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0266_b8d2a71cf502c391.png",
+        "paper_title": "2021年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_69ba34bfb429482f51fa",
+        "question_number": 111,
+        "source_jsonl_line": 32789
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0266_b8d2a71cf502c391.png",
+        "paper_title": "2021年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9ff9503ed521d7f1fcca",
+        "question_number": 112,
+        "source_jsonl_line": 32790
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0266_b8d2a71cf502c391.png",
+        "paper_title": "2021年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_042bad9887c59a73c9b2",
+        "question_number": 113,
+        "source_jsonl_line": 32791
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0266_b8d2a71cf502c391.png",
+        "paper_title": "2021年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_08fe25f1b81d4f34ae9c",
+        "question_number": 114,
+        "source_jsonl_line": 32792
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0315_703c1383f2b97c6e.png",
+        "paper_title": "2021年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_68d80c27f87657636cc1",
+        "question_number": 115,
+        "source_jsonl_line": 32793
+      }
+    ],
+    "sha256": "b120ead7e143f24d717e8a9ffacdf40a3d0d54f97567d6f6875d3fa5b25c284d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2005年",
+      "2010年",
+      "2015年",
+      "2018年",
+      "2019年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "评价指标",
+    "rows": [
+      {
+        "label": "中国创新指数",
+        "unit": null,
+        "values": [
+          100.0,
+          133.0,
+          174.0,
+          211.8,
+          228.3
+        ]
+      },
+      {
+        "label": "一、创新环境指数",
+        "unit": null,
+        "values": [
+          100.0,
+          135.7,
+          174.9,
+          226.2,
+          249.9
+        ]
+      },
+      {
+        "label": "1.劳动力中的大专及以上学历人数指数",
+        "unit": null,
+        "values": [
+          100.0,
+          161.7,
+          244.9,
+          260.0,
+          269.5
+        ]
+      },
+      {
+        "label": "2.人均GDP指数",
+        "unit": null,
+        "values": [
+          100.0,
+          166.6,
+          239.2,
+          288.2,
+          304.8
+        ]
+      },
+      {
+        "label": "3.理工科毕业生占适龄人口比重指数",
+        "unit": null,
+        "values": [
+          100.0,
+          142.8,
+          183.9,
+          211.8,
+          220.5
+        ]
+      },
+      {
+        "label": "4.科技拨款占财政拨款的比重指数",
+        "unit": null,
+        "values": [
+          100.0,
+          116.4,
+          101.2,
+          109.6,
+          114.0
+        ]
+      },
+      {
+        "label": "5.享受加计扣除减免税企业所占比重指数",
+        "unit": null,
+        "values": [
+          100.0,
+          103.0,
+          150.3,
+          343.1,
+          476.7
+        ]
+      },
+      {
+        "label": "二、创新投入指数",
+        "unit": null,
+        "values": [
+          100.0,
+          132.3,
+          164.2,
+          193.4,
+          199.1
+        ]
+      },
+      {
+        "label": "1.每万人R&D人员全时当量指数",
+        "unit": null,
+        "values": [
+          100.0,
+          182.5,
+          262.0,
+          300.8,
+          328.5
+        ]
+      },
+      {
+        "label": "2.R&D经费占GDP比重指数",
+        "unit": null,
+        "values": [
+          100.0,
+          130.7,
+          157.5,
+          163.6,
+          170.5
+        ]
+      },
+      {
+        "label": "3.基础研究人员人均经费指数",
+        "unit": null,
+        "values": [
+          100.0,
+          163.5,
+          248.0,
+          313.4,
+          298.6
+        ]
+      },
+      {
+        "label": "4.企业R&D经费占主营业务收入比重指数",
+        "unit": null,
+        "values": [
+          100.0,
+          112.8,
+          125.5,
+          136.7,
+          142.1
+        ]
+      },
+      {
+        "label": "三、创新产出指数",
+        "unit": null,
+        "values": [
+          100.0,
+          137.2,
+          208.3,
+          264.1,
+          295.3
+        ]
+      },
+      {
+        "label": "1.每万人科技论文数指数",
+        "unit": null,
+        "values": [
+          100.0,
+          152.8,
+          165.4,
+          182.8,
+          193.0
+        ]
+      },
+      {
+        "label": "2.每万名R&D人员专利授权数指数",
+        "unit": null,
+        "values": [
+          100.0,
+          230.6,
+          337.9,
+          423.9,
+          429.3
+        ]
+      },
+      {
+        "label": "3.发明专利授权数占专利授权数的比重指数",
+        "unit": null,
+        "values": [
+          100.0,
+          89.3,
+          136.7,
+          122.8,
+          144.8
+        ]
+      },
+      {
+        "label": "4.每百家企业商标拥有量指数",
+        "unit": null,
+        "values": [
+          100.0,
+          100.1,
+          180.0,
+          325.3,
+          386.4
+        ]
+      },
+      {
+        "label": "四、创新成效指数",
+        "unit": null,
+        "values": [
+          100.0,
+          126.8,
+          148.7,
+          163.7,
+          168.8
+        ]
+      },
+      {
+        "label": "1.新产品销售收入占主营业务收入的比重指数",
+        "unit": null,
+        "values": [
+          100.0,
+          115.2,
+          127.3,
+          161.5,
+          170.8
+        ]
+      },
+      {
+        "label": "2.高新技术产品出口额占货物出口额的比重指数",
+        "unit": null,
+        "values": [
+          100.0,
+          109.0,
+          100.7,
+          104.9,
+          102.1
+        ]
+      },
+      {
+        "label": "3.单位GDP能耗指数",
+        "unit": null,
+        "values": [
+          100.0,
+          123.8,
+          151.7,
+          169.1,
+          173.8
+        ]
+      },
+      {
+        "label": "4.人均主营业务收入指数",
+        "unit": null,
+        "values": [
+          100.0,
+          179.0,
+          292.5,
+          302.3,
+          328.4
+        ]
+      }
+    ]
+  },
+  "title": "中国创新指数情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b120ead7e143f24d717e8a9f/row_band_01.jpg",
+        "review-crops/da_b120ead7e143f24d717e8a9f/row_band_02.jpg",
+        "review-crops/da_b120ead7e143f24d717e8a9f/row_band_03.jpg",
+        "review-crops/da_b120ead7e143f24d717e8a9f/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:17.686",
+      "crop_verification_elapsed_seconds:21.821",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:中国创新指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:一、创新环境指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:1.劳动力中的大专及以上学历人数指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:2.人均GDP指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:3.理工科毕业生占适龄人口比重指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:1.劳动力中的大专及以上学历人数指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:2.人均GDP指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:3.理工科毕业生占适龄人口比重指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:4.科技拨款占财政拨款的比重指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:5.享受加计扣除减免税企业所占比重指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:二、创新投入指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:1.每万人R&D人员全时当量指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:2.R&D经费占GDP比重指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:3.基础研究人员人均经费指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:1.每万人R&D人员全时当量指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:2.R&D经费占GDP比重指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:3.基础研究人员人均经费指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:4.企业R&D经费占主营业务收入比重指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:三、创新产出指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:1.每万人科技论文数指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:2.每万名R&D人员专利授权数指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:3.发明专利授权数占专利授权数的比重指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:4.每百家企业商标拥有量指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:3.发明专利授权数占专利授权数的比重指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:4.每百家企业商标拥有量指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:四、创新成效指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:1.新产品销售收入占主营业务收入的比重指数:5!=6",
+      "crop_note:ignored_unknown_table_row:2.高新技术产品出口占货物出口额的比重指数",
+      "crop_note:ignored_table_row_length_mismatch:3.单位GDP能耗指数:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:4.人均主营业务收入指数:5!=6",
+      "table_row_label_column_removed:评价指标"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

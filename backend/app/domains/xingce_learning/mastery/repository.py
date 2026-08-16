@@ -10,6 +10,109 @@ from sqlalchemy.orm import Session
 
 
 class XingceMasteryRepository:
+    def focused_module_name(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        session_id: str,
+        candidate_version_id: str | None,
+    ) -> str | None:
+        """Return the module actually implicated by the frozen cause evidence.
+
+        Baseline groups intentionally span modules, so deriving mastery from the
+        whole bundle would erase the learning target. Prefer the agent's
+        per-question grounded candidates; older candidates fall back to the
+        session's incorrect or low-confidence assessments.
+        """
+
+        value = session.execute(
+            text(
+                """
+                with candidate_questions as (
+                  select distinct assessment.question_id
+                  from learning.xingce_cause_candidate_versions candidate
+                  cross join lateral jsonb_array_elements(
+                    coalesce(candidate.payload->'questionCandidates', '[]'::jsonb)
+                  ) item
+                  join learning.xingce_assessments assessment
+                    on assessment.user_id = candidate.user_id
+                   and assessment.session_id = candidate.session_id
+                   and assessment.question_id = item->>'questionId'
+                  where candidate.user_id = cast(:user_id as uuid)
+                    and candidate.session_id = cast(:session_id as uuid)
+                    and candidate.candidate_version_id =
+                        cast(:candidate_version_id as uuid)
+                    and item->>'status' = 'candidate'
+                ), fallback_questions as (
+                  select distinct assessment.question_id
+                  from learning.xingce_assessments assessment
+                  join learning.xingce_answer_versions answer
+                    on answer.answer_version_id = assessment.answer_version_id
+                   and answer.user_id = assessment.user_id
+                   and answer.session_id = assessment.session_id
+                   and answer.question_id = assessment.question_id
+                  where assessment.user_id = cast(:user_id as uuid)
+                    and assessment.session_id = cast(:session_id as uuid)
+                    and (
+                      assessment.result_code <> 'correct'
+                      or coalesce(
+                        assessment.result_snapshot->>'confidenceEvidence',
+                        answer.payload->>'confidence'
+                      ) = 'low'
+                    )
+                ), focused_questions as (
+                  select question_id from candidate_questions
+                  union all
+                  select question_id from fallback_questions
+                  where not exists (select 1 from candidate_questions)
+                )
+                select question.module_name
+                from focused_questions focused
+                join product.questions question
+                  on question.question_id = focused.question_id
+                where question.status in ('active', 'canonical')
+                  and nullif(btrim(question.module_name), '') is not null
+                group by question.module_name
+                order by count(*) desc, question.module_name
+                limit 1
+                """
+            ),
+            {
+                "user_id": user_id,
+                "session_id": session_id,
+                "candidate_version_id": candidate_version_id,
+            },
+        ).scalar_one_or_none()
+        return str(value) if value is not None else None
+
+    def current_for_review(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        review_id: str,
+        for_update: bool = False,
+    ) -> RowMapping | None:
+        suffix = " for update of current" if for_update else ""
+        return session.execute(
+            text(
+                """
+                select current.*
+                from learning.xingce_mastery_state_versions current
+                where current.user_id = cast(:user_id as uuid)
+                  and current.source_review_id = cast(:review_id as uuid)
+                  and not exists (
+                    select 1 from learning.xingce_mastery_state_versions successor
+                    where successor.supersedes_mastery_version_id = current.mastery_version_id
+                  )
+                order by current.version_no desc
+                limit 1
+                """ + suffix
+            ),
+            {"user_id": user_id, "review_id": review_id},
+        ).mappings().one_or_none()
+
     def queue_counts(
         self,
         session: Session,
@@ -335,7 +438,7 @@ class XingceMasteryRepository:
         *,
         user_id: str,
         session_id: str,
-        reflection_version_id: str,
+        reflection_version_id: str | None,
     ) -> list[RowMapping]:
         return list(
             session.execute(

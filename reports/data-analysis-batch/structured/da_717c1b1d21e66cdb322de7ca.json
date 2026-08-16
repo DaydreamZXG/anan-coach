@@ -1,0 +1,183 @@
+{
+  "asset_id": "da_717c1b1d21e66cdb322de7ca",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广州市考/2016年广州市公务员录用考试《行测》题_images/img_0187_86ecb8e580b75e72.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广州市公务员录用考试《行测》题_images/img_0187_86ecb8e580b75e72.png",
+        "paper_title": "2016年广州市公务员录用考试《行测》题",
+        "question_id": "pq_eeaeb81cc6c9083c2555",
+        "question_number": 91,
+        "source_jsonl_line": 37353
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广州市公务员录用考试《行测》题_images/img_0183_cafccf186c6127ea.png",
+        "paper_title": "2016年广州市公务员录用考试《行测》题",
+        "question_id": "pq_dc081e070e9e93d7d61e",
+        "question_number": 92,
+        "source_jsonl_line": 37354
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广州市公务员录用考试《行测》题_images/img_0183_cafccf186c6127ea.png",
+        "paper_title": "2016年广州市公务员录用考试《行测》题",
+        "question_id": "pq_a86c512ffbcf666af477",
+        "question_number": 93,
+        "source_jsonl_line": 37355
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广州市公务员录用考试《行测》题_images/img_0183_cafccf186c6127ea.png",
+        "paper_title": "2016年广州市公务员录用考试《行测》题",
+        "question_id": "pq_53203d813b0099142d08",
+        "question_number": 94,
+        "source_jsonl_line": 37356
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广州市公务员录用考试《行测》题_images/img_0187_86ecb8e580b75e72.png",
+        "paper_title": "2016年广州市公务员录用考试《行测》题",
+        "question_id": "pq_3bc71bf77dd1ff5fdc8f",
+        "question_number": 95,
+        "source_jsonl_line": 37357
+      }
+    ],
+    "sha256": "717c1b1d21e66cdb322de7cab5b4757330e611761adefef62f0c01ff590f3767"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "用电量（亿千瓦时）",
+      "比上年增长（%）"
+    ],
+    "corner_header": {
+      "lower_label": "比上年增长（%）",
+      "style": "diagonal",
+      "upper_label": "用电量（亿千瓦时）"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "合计",
+        "group": "工业用电情况",
+        "label": "工业用电情况｜合计",
+        "unit": null,
+        "values": [
+          787.02,
+          0.18
+        ]
+      },
+      {
+        "display_label": "其中：规模以上工业小计",
+        "group": "工业用电情况",
+        "label": "工业用电情况｜其中：规模以上工业小计",
+        "unit": null,
+        "values": [
+          706.95,
+          -0.61
+        ]
+      },
+      {
+        "display_label": "其中：石油加工、炼焦及核燃料加工业",
+        "group": "工业用电情况",
+        "label": "工业用电情况｜其中：石油加工、炼焦及核燃料加工业",
+        "unit": null,
+        "values": [
+          44.18,
+          5.88
+        ]
+      },
+      {
+        "display_label": "化学原料及化学制品制造业",
+        "group": "工业用电情况",
+        "label": "工业用电情况｜化学原料及化学制品制造业",
+        "unit": null,
+        "values": [
+          99.8,
+          4.04
+        ]
+      },
+      {
+        "display_label": "非金属矿物制品业",
+        "group": "工业用电情况",
+        "label": "工业用电情况｜非金属矿物制品业",
+        "unit": null,
+        "values": [
+          16.23,
+          -9.34
+        ]
+      },
+      {
+        "display_label": "黑色金属冶炼及压延加工业",
+        "group": "工业用电情况",
+        "label": "工业用电情况｜黑色金属冶炼及压延加工业",
+        "unit": null,
+        "values": [
+          153.17,
+          -2.33
+        ]
+      },
+      {
+        "display_label": "电力、热力的生产和供应业",
+        "group": "工业用电情况",
+        "label": "工业用电情况｜电力、热力的生产和供应业",
+        "unit": null,
+        "values": [
+          110.15,
+          0.73
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

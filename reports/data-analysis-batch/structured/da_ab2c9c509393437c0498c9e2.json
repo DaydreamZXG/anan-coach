@@ -1,0 +1,252 @@
+{
+  "asset_id": "da_ab2c9c509393437c0498c9e2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0112_bbe019ed978f8cd1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0112_bbe019ed978f8cd1.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_93959cb8cc92a0ad760e",
+        "question_number": 111,
+        "source_jsonl_line": 20966
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0143_38920f02594ec311.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_99e7d77a7cc6e300d9be",
+        "question_number": 112,
+        "source_jsonl_line": 20967
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0143_38920f02594ec311.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_aff2d3172b47f42986cc",
+        "question_number": 113,
+        "source_jsonl_line": 20968
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0112_bbe019ed978f8cd1.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_3e5a249bcc4d7715ac13",
+        "question_number": 114,
+        "source_jsonl_line": 20969
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0143_38920f02594ec311.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_198081a4af7652b9f36c",
+        "question_number": 115,
+        "source_jsonl_line": 20970
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0119_bbe019ed978f8cd1.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_fe4508b835c5ba351312",
+        "question_number": 111,
+        "source_jsonl_line": 21096
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0119_bbe019ed978f8cd1.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_9ddd24614436a919bd7b",
+        "question_number": 112,
+        "source_jsonl_line": 21097
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0119_bbe019ed978f8cd1.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_1b7d34bccd82032058d7",
+        "question_number": 113,
+        "source_jsonl_line": 21098
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0119_bbe019ed978f8cd1.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_23b1f4b8f52fe043a0dd",
+        "question_number": 114,
+        "source_jsonl_line": 21099
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0132_38920f02594ec311.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_eebe6f855f6f3d7da425",
+        "question_number": 115,
+        "source_jsonl_line": 21100
+      }
+    ],
+    "sha256": "ab2c9c509393437c0498c9e21d53091631d659fff4f3936eac4aed3cd8dde7f8"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "投诉｜投诉"
+        ],
+        "label": "投诉"
+      },
+      {
+        "columns": [
+          "举报｜举报"
+        ],
+        "label": "举报"
+      }
+    ],
+    "columns": [
+      "投诉｜投诉",
+      "举报｜举报"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "互联网渠道",
+    "rows": [
+      {
+        "display_label": "热线电话",
+        "group": null,
+        "label": "热线电话",
+        "unit": "件",
+        "values": [
+          304498,
+          61021
+        ]
+      },
+      {
+        "display_label": "官方网站",
+        "group": null,
+        "label": "官方网站",
+        "unit": "件",
+        "values": [
+          62890,
+          121266
+        ]
+      },
+      {
+        "display_label": "微信小程序",
+        "group": null,
+        "label": "微信小程序",
+        "unit": "件",
+        "values": [
+          92029,
+          35292
+        ]
+      },
+      {
+        "display_label": "APP",
+        "group": null,
+        "label": "APP",
+        "unit": "件",
+        "values": [
+          78696,
+          38045
+        ]
+      },
+      {
+        "display_label": "公众号",
+        "group": null,
+        "label": "公众号",
+        "unit": "件",
+        "values": [
+          7189,
+          2518
+        ]
+      },
+      {
+        "display_label": "其他小程序",
+        "group": null,
+        "label": "其他小程序",
+        "unit": "件",
+        "values": [
+          7280,
+          2304
+        ]
+      },
+      {
+        "display_label": "来函",
+        "group": null,
+        "label": "来函",
+        "unit": "件",
+        "values": [
+          2078,
+          2291
+        ]
+      },
+      {
+        "display_label": "其他",
+        "group": null,
+        "label": "其他",
+        "unit": "件",
+        "values": [
+          1403,
+          392
+        ]
+      },
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": "件",
+        "values": [
+          556063,
+          263129
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

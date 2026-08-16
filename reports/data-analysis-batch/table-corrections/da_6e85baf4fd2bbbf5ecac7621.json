@@ -1,0 +1,206 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "全市居民",
+      "城镇居民",
+      "农村居民"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "display_label": "工资性收入",
+        "group": null,
+        "label": "工资性收入",
+        "unit": null,
+        "values": [
+          15475,
+          22119,
+          5316
+        ]
+      },
+      {
+        "display_label": "经营净收入",
+        "group": null,
+        "label": "经营净收入",
+        "unit": null,
+        "values": [
+          4697,
+          4361,
+          5210
+        ]
+      },
+      {
+        "display_label": "财产净收入",
+        "group": null,
+        "label": "财产净收入",
+        "unit": null,
+        "values": [
+          1792,
+          2724,
+          367
+        ]
+      },
+      {
+        "display_label": "转移净收入",
+        "group": null,
+        "label": "转移净收入",
+        "unit": null,
+        "values": [
+          6956,
+          8735,
+          4240
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "column_groups": [],
+        "columns": [
+          "全市居民",
+          "城镇居民",
+          "农村居民"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "工资性收入",
+            "group": null,
+            "label": "工资性收入",
+            "unit": null,
+            "values": [
+              15475,
+              22119,
+              5316
+            ]
+          },
+          {
+            "display_label": "经营净收入",
+            "group": null,
+            "label": "经营净收入",
+            "unit": null,
+            "values": [
+              4697,
+              4361,
+              5210
+            ]
+          },
+          {
+            "display_label": "财产净收入",
+            "group": null,
+            "label": "财产净收入",
+            "unit": null,
+            "values": [
+              1792,
+              2724,
+              367
+            ]
+          },
+          {
+            "display_label": "转移净收入",
+            "group": null,
+            "label": "转移净收入",
+            "unit": null,
+            "values": [
+              6956,
+              8735,
+              4240
+            ]
+          }
+        ],
+        "title": "表 1  2019 年 A 市城乡居民各类人均收入"
+      },
+      {
+        "column_groups": [],
+        "columns": [
+          "2018 年",
+          "2019 年"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "全市城镇企业职工基本养老保险",
+            "group": null,
+            "label": "全市城镇企业职工基本养老保险",
+            "unit": null,
+            "values": [
+              1050.33,
+              1127.72
+            ]
+          },
+          {
+            "display_label": "城乡居民社会养老保险",
+            "group": null,
+            "label": "城乡居民社会养老保险",
+            "unit": null,
+            "values": [
+              1120.12,
+              1162.68
+            ]
+          },
+          {
+            "display_label": "城镇职工基本医疗保险",
+            "group": null,
+            "label": "城镇职工基本医疗保险",
+            "unit": null,
+            "values": [
+              678.56,
+              720.63
+            ]
+          },
+          {
+            "display_label": "城乡居民基本医疗保险",
+            "group": null,
+            "label": "城乡居民基本医疗保险",
+            "unit": null,
+            "values": [
+              2587.67,
+              2551.44
+            ]
+          },
+          {
+            "display_label": "工伤保险",
+            "group": null,
+            "label": "工伤保险",
+            "unit": null,
+            "values": [
+              576.87,
+              661.67
+            ]
+          },
+          {
+            "display_label": "生育保险",
+            "group": null,
+            "label": "生育保险",
+            "unit": null,
+            "values": [
+              439.69,
+              466.95
+            ]
+          },
+          {
+            "display_label": "失业保险",
+            "group": null,
+            "label": "失业保险",
+            "unit": null,
+            "values": [
+              489.96,
+              514.95
+            ]
+          }
+        ],
+        "title": "表 2  2018~2019 年 A 市各类保险参保人数"
+      }
+    ],
+    "title": "表 1  2019 年 A 市城乡居民各类人均收入"
+  },
+  "uncertainties": []
+}

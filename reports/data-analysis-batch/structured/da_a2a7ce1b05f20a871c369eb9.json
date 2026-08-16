@@ -1,0 +1,260 @@
+{
+  "asset_id": "da_a2a7ce1b05f20a871c369eb9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 160,
+        "min": 100,
+        "ticks": [
+          100,
+          120,
+          140,
+          160
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "工业",
+    "建筑业",
+    "交通运输、仓储和邮政业",
+    "社会服务业",
+    "信息传输、计算机服务和软件业",
+    "住宿和餐饮业",
+    "批发和零售业",
+    "房地产业"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "企业景气指数",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "企业家信心指数",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "企业景气指数",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        130.1,
+        133.6,
+        130.7,
+        130.8,
+        149.7,
+        122.3,
+        147.4,
+        135.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "企业家信心指数",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        133.7,
+        142.2,
+        127.9,
+        152.8,
+        127.8,
+        147.4,
+        142.5,
+        133.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2014年黑龙江省公务员录用考试《行测》题_images/img_0135_0703342746337c12.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省公务员录用考试《行测》题_images/img_0135_0703342746337c12.png",
+        "paper_title": "2014年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_533a3f97e35c2884d28d",
+        "question_number": 111,
+        "source_jsonl_line": 101808
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省公务员录用考试《行测》题_images/img_0137_5918f510244f7c7d.png",
+        "paper_title": "2014年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_593084330c7e9013eae3",
+        "question_number": 112,
+        "source_jsonl_line": 101809
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省公务员录用考试《行测》题_images/img_0135_0703342746337c12.png",
+        "paper_title": "2014年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_68eeb53df19179ff0be0",
+        "question_number": 113,
+        "source_jsonl_line": 101810
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省公务员录用考试《行测》题_images/img_0137_5918f510244f7c7d.png",
+        "paper_title": "2014年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_fe3f0f8b6b00144c2d37",
+        "question_number": 114,
+        "source_jsonl_line": 101811
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省公务员录用考试《行测》题_images/img_0137_5918f510244f7c7d.png",
+        "paper_title": "2014年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_86e322a625d7af295957",
+        "question_number": 115,
+        "source_jsonl_line": 101812
+      }
+    ],
+    "sha256": "a2a7ce1b05f20a871c369eb9238bcf581bac417cf3193bf7ac03d6deddc74ddd"
+  },
+  "structured_visual": null,
+  "table": {
+    "columns": [
+      "企业景气指数",
+      "企业家信心指数"
+    ],
+    "rows": [
+      {
+        "label": "工业",
+        "values": [
+          130.1,
+          133.7
+        ]
+      },
+      {
+        "label": "建筑业",
+        "values": [
+          133.6,
+          142.2
+        ]
+      },
+      {
+        "label": "交通运输、仓储和邮政业",
+        "values": [
+          130.7,
+          127.9
+        ]
+      },
+      {
+        "label": "社会服务业",
+        "values": [
+          130.8,
+          132.9
+        ]
+      },
+      {
+        "label": "信息传输、计算机服务和软件业",
+        "values": [
+          149.7,
+          152.8
+        ]
+      },
+      {
+        "label": "住宿和餐饮业",
+        "values": [
+          122.3,
+          127.8
+        ]
+      },
+      {
+        "label": "批发和零售业",
+        "values": [
+          147.4,
+          142.5
+        ]
+      },
+      {
+        "label": "房地产业",
+        "values": [
+          135.3,
+          133.1
+        ]
+      }
+    ]
+  },
+  "title": "2010年一季度全国各行业景气指数和企业家信心指数",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a2a7ce1b05f20a871c369eb9/column_band_01.jpg",
+        "review-crops/da_a2a7ce1b05f20a871c369eb9/column_band_02.jpg",
+        "review-crops/da_a2a7ce1b05f20a871c369eb9/column_band_03.jpg",
+        "review-crops/da_a2a7ce1b05f20a871c369eb9/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.058",
+      "crop_verification_elapsed_seconds:4.385",
+      "candidate_value_changes_after_crop:3",
+      "crop_note:compact_delta_verification",
+      "table_row_label_column_removed:行业"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,278 @@
+{
+  "asset_id": "da_d5f8e854528bbce880b2f294",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1200,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000,
+          1200
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "赛事场次",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "赛事场次",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "场",
+      "values": [
+        22,
+        33,
+        39,
+        51,
+        134,
+        328,
+        1102
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0146_10c7704810a3e386.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0146_10c7704810a3e386.png",
+        "paper_title": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_025f7bf95f25037519d8",
+        "question_number": 111,
+        "source_jsonl_line": 7664
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0155_d21e91b8e3cc9b7d.png",
+        "paper_title": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_df4f69e53fe2c17fa909",
+        "question_number": 112,
+        "source_jsonl_line": 7665
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0155_d21e91b8e3cc9b7d.png",
+        "paper_title": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_a56aaaf902a830574613",
+        "question_number": 113,
+        "source_jsonl_line": 7666
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0146_10c7704810a3e386.png",
+        "paper_title": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_09221e787482d8c3ad0a",
+        "question_number": 114,
+        "source_jsonl_line": 7667
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0146_10c7704810a3e386.png",
+        "paper_title": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_9e1782f665c330b63936",
+        "question_number": 115,
+        "source_jsonl_line": 7668
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0151_10c7704810a3e386.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_559e436d57913a3f5715",
+        "question_number": 106,
+        "source_jsonl_line": 23678
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0151_10c7704810a3e386.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_ef1dfdfb0676cc418dea",
+        "question_number": 107,
+        "source_jsonl_line": 23679
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0185_d21e91b8e3cc9b7d.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_80c45dbcee284580fd4d",
+        "question_number": 108,
+        "source_jsonl_line": 23680
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0151_10c7704810a3e386.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_c8ab2d2574bd441dfe8d",
+        "question_number": 109,
+        "source_jsonl_line": 23681
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0151_10c7704810a3e386.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_3b0377f8cfaf10012ea6",
+        "question_number": 110,
+        "source_jsonl_line": 23682
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（安徽卷）（网友回忆版）_images/img_0252_10c7704810a3e386.png",
+        "paper_title": "2019年420联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_dd0a8822cb04dbe957da",
+        "question_number": 106,
+        "source_jsonl_line": 27970
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（安徽卷）（网友回忆版）_images/img_0263_d21e91b8e3cc9b7d.png",
+        "paper_title": "2019年420联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_1c0efcf3168657d670a7",
+        "question_number": 107,
+        "source_jsonl_line": 27971
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（安徽卷）（网友回忆版）_images/img_0252_10c7704810a3e386.png",
+        "paper_title": "2019年420联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_9af83435ec26f8d0c888",
+        "question_number": 108,
+        "source_jsonl_line": 27972
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（安徽卷）（网友回忆版）_images/img_0252_10c7704810a3e386.png",
+        "paper_title": "2019年420联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_28581fe4650e1f95c912",
+        "question_number": 109,
+        "source_jsonl_line": 27973
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（安徽卷）（网友回忆版）_images/img_0252_10c7704810a3e386.png",
+        "paper_title": "2019年420联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_f1ec69bfa2e314c9f59b",
+        "question_number": 110,
+        "source_jsonl_line": 27974
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）_images/img_0109_10c7704810a3e386.png",
+        "paper_title": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）",
+        "question_id": "pq_0b6fb666597c50271c8d",
+        "question_number": 106,
+        "source_jsonl_line": 32544
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）_images/img_0122_d21e91b8e3cc9b7d.png",
+        "paper_title": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）",
+        "question_id": "pq_41777202ce7267dfb7b0",
+        "question_number": 107,
+        "source_jsonl_line": 32545
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）_images/img_0109_10c7704810a3e386.png",
+        "paper_title": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）",
+        "question_id": "pq_5df86eda418507262fdf",
+        "question_number": 108,
+        "source_jsonl_line": 32546
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）_images/img_0109_10c7704810a3e386.png",
+        "paper_title": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）",
+        "question_id": "pq_eca8febb3c91d43c0107",
+        "question_number": 109,
+        "source_jsonl_line": 32547
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）_images/img_0109_10c7704810a3e386.png",
+        "paper_title": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）",
+        "question_id": "pq_63bd74d97f7a58e53594",
+        "question_number": 110,
+        "source_jsonl_line": 32548
+      }
+    ],
+    "sha256": "d5f8e854528bbce880b2f294b471dcc024ce6a03f95e5d2509e76bafff2cb2af"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2011年至2017年我国马拉松赛事场次趋势",
+  "unit": "场",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d5f8e854528bbce880b2f294/column_band_01.jpg",
+        "review-crops/da_d5f8e854528bbce880b2f294/column_band_02.jpg",
+        "review-crops/da_d5f8e854528bbce880b2f294/column_band_03.jpg",
+        "review-crops/da_d5f8e854528bbce880b2f294/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.073",
+      "crop_verification_elapsed_seconds:2.136",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

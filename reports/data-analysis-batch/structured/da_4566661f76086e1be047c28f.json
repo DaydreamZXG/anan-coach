@@ -1,0 +1,315 @@
+{
+  "asset_id": "da_4566661f76086e1be047c28f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2008年",
+    "2009年",
+    "2010年",
+    "2011年",
+    "2012年"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "种子",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元/亩",
+      "values": [
+        26.27,
+        29.48,
+        36.17,
+        42.51,
+        48.32
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "化肥",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元/亩",
+      "values": [
+        124.02,
+        108.22,
+        105.98,
+        124.15,
+        133.57
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "农药",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元/亩",
+      "values": [
+        42.37,
+        40.69,
+        43.17,
+        44.51,
+        48.97
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "机械作业费",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元/亩",
+      "values": [
+        81.79,
+        87.71,
+        104.87,
+        125.04,
+        147.14
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "人工成本",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元/亩",
+      "values": [
+        214.65,
+        226.82,
+        266.58,
+        327.96,
+        426.62
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "土地成本",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元/亩",
+      "values": [
+        109.04,
+        122.53,
+        141.43,
+        159.68,
+        174.97
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/上海/2016年上海市公务员录用考试《行测》题（B类）_images/img_0184_57696c7344295e01.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0184_57696c7344295e01.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_879f05482b1f42e0485f",
+        "question_number": 136,
+        "source_jsonl_line": 1751
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0184_57696c7344295e01.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_f04b18a0e9273e5c86a0",
+        "question_number": 137,
+        "source_jsonl_line": 1752
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0184_57696c7344295e01.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_f2a4a9a20388f0f315b6",
+        "question_number": 138,
+        "source_jsonl_line": 1753
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0205_feb8755517d2fdf4.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_f6047477330561bb521d",
+        "question_number": 139,
+        "source_jsonl_line": 1754
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0205_feb8755517d2fdf4.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_36848e89d7f66028599a",
+        "question_number": 140,
+        "source_jsonl_line": 1755
+      }
+    ],
+    "sha256": "4566661f76086e1be047c28fca5fd1f21f606faaf5af2b742aef625d7163fc1b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2008年",
+      "2009年",
+      "2010年",
+      "2011年",
+      "2012年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "种子",
+        "unit": "元/亩",
+        "values": [
+          26.27,
+          29.48,
+          36.17,
+          42.51,
+          48.32
+        ]
+      },
+      {
+        "label": "化肥",
+        "unit": "元/亩",
+        "values": [
+          124.02,
+          108.22,
+          105.98,
+          124.15,
+          133.57
+        ]
+      },
+      {
+        "label": "农药",
+        "unit": "元/亩",
+        "values": [
+          42.37,
+          40.69,
+          43.17,
+          44.51,
+          48.97
+        ]
+      },
+      {
+        "label": "机械作业费",
+        "unit": "元/亩",
+        "values": [
+          81.79,
+          87.71,
+          104.87,
+          125.04,
+          147.14
+        ]
+      },
+      {
+        "label": "人工成本",
+        "unit": "元/亩",
+        "values": [
+          214.65,
+          226.82,
+          266.58,
+          327.96,
+          426.62
+        ]
+      },
+      {
+        "label": "土地成本",
+        "unit": "元/亩",
+        "values": [
+          109.04,
+          122.53,
+          141.43,
+          159.68,
+          174.97
+        ]
+      }
+    ]
+  },
+  "title": "2008~2012年水稻生产的主要成本构成",
+  "unit": "元/亩",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4566661f76086e1be047c28f/row_band_01.jpg",
+        "review-crops/da_4566661f76086e1be047c28f/row_band_02.jpg",
+        "review-crops/da_4566661f76086e1be047c28f/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:13.5",
+      "crop_verification_elapsed_seconds:13.472",
+      "candidate_value_changes_after_crop:0",
+      "table_row_label_column_removed:<blank>"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

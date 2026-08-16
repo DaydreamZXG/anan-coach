@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "non-graphic-question-visual-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "assetId", "source", "route", "subtype", "status", "reasoningLayer", "renderLayer", "verification"],
+  "properties": {
+    "schemaVersion": {"const": "non-graphic-question-visual-v1"},
+    "assetId": {"type": "string", "pattern": "^qi_[0-9a-f]{24}$"},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["localPath", "sha256", "width", "height", "roles", "questionIds"],
+      "properties": {
+        "localPath": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "width": {"type": "integer", "minimum": 1},
+        "height": {"type": "integer", "minimum": 1},
+        "roles": {"type": "array", "items": {"type": "string"}},
+        "questionIds": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+      }
+    },
+    "route": {"enum": ["data_visual", "perceptual_grid", "reasoning_diagram", "annotated_raster"]},
+    "subtype": {"type": "string"},
+    "status": {"enum": ["success", "needs_review", "unsupported", "failed", "pending"]},
+    "reasoningLayer": {"type": "object"},
+    "renderLayer": {"type": "object"},
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceHashVerified", "semanticModel", "semanticModelNoCoordinates", "coordinateAuthority", "cvMetrics", "cvChecks", "validationErrors", "reviewReasons", "modelElapsedSeconds"],
+      "properties": {
+        "sourceHashVerified": {"const": true},
+        "semanticModel": {"type": "string"},
+        "semanticModelNoCoordinates": {"type": "boolean"},
+        "coordinateAuthority": {"const": "deterministic_cv_only"},
+        "cvMetrics": {"type": "object"},
+        "cvChecks": {"type": "object"},
+        "validationErrors": {"type": "array", "items": {"type": "string"}},
+        "reviewReasons": {"type": "array", "items": {"type": "string"}},
+        "modelElapsedSeconds": {"type": "number", "minimum": 0}
+      }
+    }
+  }
+}

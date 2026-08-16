@@ -1,0 +1,202 @@
+{
+  "asset_id": "da_eb03b84f52acfd1747f06573",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2013年921联考《行测》题（河南卷）_images/img_0102_f05ef87b6bd2dfce.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0102_f05ef87b6bd2dfce.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_6d8a82fe75d1ae497350",
+        "question_number": 106,
+        "source_jsonl_line": 40926
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0108_31e19b424f1f1d78.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_8a1e5de79e9713a6fe2a",
+        "question_number": 107,
+        "source_jsonl_line": 40927
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0108_31e19b424f1f1d78.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_c5a8d1e61cc21b46bb5e",
+        "question_number": 108,
+        "source_jsonl_line": 40928
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0108_31e19b424f1f1d78.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_c2f548007edd4aa7be65",
+        "question_number": 109,
+        "source_jsonl_line": 40929
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0102_f05ef87b6bd2dfce.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_abe7bc3a8fb9506c8c9c",
+        "question_number": 110,
+        "source_jsonl_line": 40930
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0107_f05ef87b6bd2dfce.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_88bde32865315a60c505",
+        "question_number": 106,
+        "source_jsonl_line": 57603
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0107_f05ef87b6bd2dfce.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_be6371c4b641195ca8b1",
+        "question_number": 107,
+        "source_jsonl_line": 57604
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0107_f05ef87b6bd2dfce.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_a999d0287fd284dd3717",
+        "question_number": 108,
+        "source_jsonl_line": 57605
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0107_f05ef87b6bd2dfce.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_f05ed0c514ce0ca7625a",
+        "question_number": 109,
+        "source_jsonl_line": 57606
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0107_f05ef87b6bd2dfce.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_896a56029b39ea4b5d3d",
+        "question_number": 110,
+        "source_jsonl_line": 57607
+      }
+    ],
+    "sha256": "eb03b84f52acfd1747f06573de7d35e8690693522e3efcc722eaf0a3ec91aa84"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1小时以下",
+      "1~2小时",
+      "2~3小时",
+      "3小时以上"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年龄",
+    "rows": [
+      {
+        "label": "12~20岁",
+        "unit": null,
+        "values": [
+          12.1,
+          63.6,
+          9.1,
+          9.1
+        ]
+      },
+      {
+        "label": "21~40岁",
+        "unit": null,
+        "values": [
+          37.3,
+          44.2,
+          10.5,
+          10.5
+        ]
+      },
+      {
+        "label": "41~60岁",
+        "unit": null,
+        "values": [
+          null,
+          44.9,
+          11.3,
+          6.6
+        ]
+      },
+      {
+        "label": "61岁及以上",
+        "unit": null,
+        "values": [
+          null,
+          43.1,
+          15.5,
+          6.0
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_eb03b84f52acfd1747f06573/row_band_01.jpg",
+        "review-crops/da_eb03b84f52acfd1747f06573/row_band_02.jpg",
+        "review-crops/da_eb03b84f52acfd1747f06573/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.089",
+      "crop_verification_elapsed_seconds:1.373",
+      "candidate_value_changes_after_crop:4",
+      "crop_note:compact_delta_verification",
+      "table_row_label_column_removed:年龄"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

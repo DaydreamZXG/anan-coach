@@ -1,0 +1,275 @@
+{
+  "asset_id": "da_406d82e819f2d89f599783de",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 90000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000,
+          60000,
+          70000,
+          80000,
+          90000
+        ],
+        "title": null,
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "2003年",
+    "2004年",
+    "2005年",
+    "2006年",
+    "2007年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "全国就业人员",
+      "style": {
+        "dash": null,
+        "fill": "lightgray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "其中城镇就业人员",
+      "style": {
+        "dash": null,
+        "fill": "darkgray",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国就业人员",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        74432,
+        75200,
+        75825,
+        76400,
+        76990
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "其中城镇就业人员",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        25639,
+        26476,
+        27331,
+        28310,
+        29350
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2009年426联考《行测》题（天津_陕西_湖北）_images/img_0236_a3f5601d0961c12b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0236_a3f5601d0961c12b.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_f84d0012f6764a21f17a",
+        "question_number": 116,
+        "source_jsonl_line": 22021
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0233_72ed4dcb3c280e24.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_1fcd3268c48382b8ec3e",
+        "question_number": 117,
+        "source_jsonl_line": 22022
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0233_72ed4dcb3c280e24.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_64d69e69fab82de93674",
+        "question_number": 118,
+        "source_jsonl_line": 22023
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0233_72ed4dcb3c280e24.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_2eaf02e13d1b9bb4ca92",
+        "question_number": 119,
+        "source_jsonl_line": 22024
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0233_72ed4dcb3c280e24.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_92b17a934ab67f72c0b9",
+        "question_number": 120,
+        "source_jsonl_line": 22025
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0228_72ed4dcb3c280e24.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_ac0ebf094e2605d740f7",
+        "question_number": 116,
+        "source_jsonl_line": 68992
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0228_72ed4dcb3c280e24.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_9197360d9b4f4e992257",
+        "question_number": 117,
+        "source_jsonl_line": 68993
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0228_72ed4dcb3c280e24.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_9658df8b32d766df02ac",
+        "question_number": 118,
+        "source_jsonl_line": 68994
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0228_72ed4dcb3c280e24.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_8661f131498c26a1fd2d",
+        "question_number": 119,
+        "source_jsonl_line": 68995
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0228_72ed4dcb3c280e24.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_f58586dd34977fe17ac4",
+        "question_number": 120,
+        "source_jsonl_line": 68996
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0234_72ed4dcb3c280e24.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_c9d1c86e9d5d4df7e28d",
+        "question_number": 116,
+        "source_jsonl_line": 96539
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0234_72ed4dcb3c280e24.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_a4260e6ba74a5a8f6d8b",
+        "question_number": 117,
+        "source_jsonl_line": 96540
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0234_72ed4dcb3c280e24.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_f7ae6d298067d9ffd251",
+        "question_number": 118,
+        "source_jsonl_line": 96541
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0234_72ed4dcb3c280e24.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_e5bed8389202a053d66b",
+        "question_number": 119,
+        "source_jsonl_line": 96542
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0256_a3f5601d0961c12b.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_6af7d85c5abffdb8069b",
+        "question_number": 120,
+        "source_jsonl_line": 96543
+      }
+    ],
+    "sha256": "406d82e819f2d89f599783de02a4f16043801ed3c0d766ff4c08a924059f435c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2003年-2007年全国就业与城镇就业人数",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_406d82e819f2d89f599783de/column_band_01.jpg",
+        "review-crops/da_406d82e819f2d89f599783de/column_band_02.jpg",
+        "review-crops/da_406d82e819f2d89f599783de/column_band_03.jpg",
+        "review-crops/da_406d82e819f2d89f599783de/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.885",
+      "crop_verification_elapsed_seconds:12.408",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2003年全国就业人员数值为74432（原为74432，正确）",
+      "crop_note:修正了2003年城镇就业人员数值为25639（原为25639，正确）",
+      "crop_note:修正了2004年全国就业人员数值为75200（原为75200，正确）",
+      "crop_note:修正了2004年城镇就业人员数值为26476（原为26476，正确）",
+      "crop_note:修正了2005年全国就业人员数值为75825（原为75825，正确）",
+      "crop_note:修正了2005年城镇就业人员数值为27331（原为27331，正确）",
+      "crop_note:修正了2006年全国就业人员数值为76400（原为76400，正确）",
+      "crop_note:修正了2006年城镇就业人员数值为28310（原为28310，正确）",
+      "crop_note:修正了2007年全国就业人员数值为76990（原为76990，正确）",
+      "crop_note:修正了2007年城镇就业人员数值为29350（原为29350，正确）"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

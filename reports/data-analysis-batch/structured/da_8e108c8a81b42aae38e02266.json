@@ -1,0 +1,243 @@
+{
+  "asset_id": "da_8e108c8a81b42aae38e02266",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0109_c881c8c874bcf94c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0109_c881c8c874bcf94c.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_fcdccca17c3d0980d863",
+        "question_number": 116,
+        "source_jsonl_line": 20441
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0123_ce0f8ee92a935878.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_f36ec8835e6682d16b73",
+        "question_number": 117,
+        "source_jsonl_line": 20442
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0123_ce0f8ee92a935878.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_c7a9a488bb612a5e00a9",
+        "question_number": 118,
+        "source_jsonl_line": 20443
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0123_ce0f8ee92a935878.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_afaecff31e03ee0404c1",
+        "question_number": 119,
+        "source_jsonl_line": 20444
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0123_ce0f8ee92a935878.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_4f08e148cb727c5a1a82",
+        "question_number": 120,
+        "source_jsonl_line": 20445
+      }
+    ],
+    "sha256": "8e108c8a81b42aae38e02266634699c5f3c87710976c73ca67217e0a06f94dce"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "",
+      "接入用户",
+      "其中：xDSL 用户",
+      "光纤用户",
+      "其中：100Mbps速率以上用户"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2月",
+        "unit": null,
+        "values": [
+          "2月",
+          49222,
+          296,
+          46274,
+          44516
+        ]
+      },
+      {
+        "label": "3月",
+        "unit": null,
+        "values": [
+          "3月",
+          49726,
+          295,
+          46707,
+          45072
+        ]
+      },
+      {
+        "label": "4月",
+        "unit": null,
+        "values": [
+          "4月",
+          50061,
+          293,
+          47053,
+          45517
+        ]
+      },
+      {
+        "label": "5月",
+        "unit": null,
+        "values": [
+          "5月",
+          50516,
+          292,
+          47515,
+          46104
+        ]
+      },
+      {
+        "label": "6月",
+        "unit": null,
+        "values": [
+          "6月",
+          50961,
+          290,
+          47968,
+          46649
+        ]
+      },
+      {
+        "label": "7月",
+        "unit": null,
+        "values": [
+          "7月",
+          51374,
+          290,
+          48416,
+          47173
+        ]
+      },
+      {
+        "label": "8月",
+        "unit": null,
+        "values": [
+          "8月",
+          51865,
+          290,
+          48921,
+          47710
+        ]
+      },
+      {
+        "label": "9月",
+        "unit": null,
+        "values": [
+          "9月",
+          52629,
+          291,
+          49643,
+          48450
+        ]
+      },
+      {
+        "label": "10月",
+        "unit": null,
+        "values": [
+          "10月",
+          53146,
+          290,
+          50077,
+          49026
+        ]
+      },
+      {
+        "label": "11月",
+        "unit": null,
+        "values": [
+          "11月",
+          53540,
+          288,
+          50466,
+          49557
+        ]
+      },
+      {
+        "label": "12月",
+        "unit": null,
+        "values": [
+          "12月",
+          53579,
+          283,
+          50551,
+          49848
+        ]
+      }
+    ]
+  },
+  "title": "2021年2-12月各月末固定互联网宽带接入用户数",
+  "unit": "万户",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8e108c8a81b42aae38e02266/row_band_01.jpg",
+        "review-crops/da_8e108c8a81b42aae38e02266/row_band_02.jpg",
+        "review-crops/da_8e108c8a81b42aae38e02266/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.587",
+      "crop_verification_elapsed_seconds:12.427",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

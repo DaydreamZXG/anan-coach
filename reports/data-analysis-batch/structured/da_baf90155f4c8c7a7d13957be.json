@@ -1,0 +1,268 @@
+{
+  "asset_id": "da_baf90155f4c8c7a7d13957be",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0236_7526a882c7ea57bc.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0236_7526a882c7ea57bc.png",
+        "paper_title": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_49c74b40ad9f4867b962",
+        "question_number": 111,
+        "source_jsonl_line": 83742
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0236_7526a882c7ea57bc.png",
+        "paper_title": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3e0ce8aa8f285c810eed",
+        "question_number": 112,
+        "source_jsonl_line": 83743
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0280_a61cf4cc8da90faf.png",
+        "paper_title": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4b2d46061eb0a6d52935",
+        "question_number": 113,
+        "source_jsonl_line": 83744
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0236_7526a882c7ea57bc.png",
+        "paper_title": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6bb963274a1cdfaef77e",
+        "question_number": 114,
+        "source_jsonl_line": 83745
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0280_a61cf4cc8da90faf.png",
+        "paper_title": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_95bfceb7ec7ab52fde53",
+        "question_number": 115,
+        "source_jsonl_line": 83746
+      }
+    ],
+    "sha256": "baf90155f4c8c7a7d13957bef5e89c5af08a75df44e767db1ed405cc6c55efbb"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "绝对量",
+      "同比增长率（百分点）",
+      "同比增速（百分点）"
+    ],
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "同比增速（百分点）",
+        "display": "—",
+        "row": "项目｜个体工商户（万户）"
+      },
+      {
+        "column": "同比增速（百分点）",
+        "display": "—",
+        "row": "项目｜农民专业合作社（万户）"
+      },
+      {
+        "column": "同比增速（百分点）",
+        "display": "—",
+        "row": "项目｜生产总值（亿元）"
+      },
+      {
+        "column": "同比增速（百分点）",
+        "display": "—",
+        "row": "项目｜年人均生产总值（元）"
+      },
+      {
+        "column": "同比增速（百分点）",
+        "display": "—",
+        "row": "项目｜税收总额（亿元）"
+      }
+    ],
+    "row_header_label": "指标｜分类",
+    "rows": [
+      {
+        "display_label": "市场主体（万户）",
+        "group": "项目",
+        "label": "项目｜市场主体（万户）",
+        "unit": null,
+        "values": [
+          343.8,
+          8.2,
+          1.1
+        ]
+      },
+      {
+        "display_label": "其中：企业（万户）",
+        "group": "项目",
+        "label": "项目｜其中：企业（万户）",
+        "unit": null,
+        "values": [
+          90.7,
+          12,
+          -2.9
+        ]
+      },
+      {
+        "display_label": "个体工商户（万户）",
+        "group": "项目",
+        "label": "项目｜个体工商户（万户）",
+        "unit": null,
+        "values": [
+          246.5,
+          6.9,
+          null
+        ]
+      },
+      {
+        "display_label": "农民专业合作社（万户）",
+        "group": "项目",
+        "label": "项目｜农民专业合作社（万户）",
+        "unit": null,
+        "values": [
+          66.2,
+          5.8,
+          null
+        ]
+      },
+      {
+        "display_label": "注册资本（万亿元）",
+        "group": "项目",
+        "label": "项目｜注册资本（万亿元）",
+        "unit": null,
+        "values": [
+          129.23,
+          27.7,
+          -2.9
+        ]
+      },
+      {
+        "display_label": "新登记市场主体（万户）",
+        "group": "项目",
+        "label": "项目｜新登记市场主体（万户）",
+        "unit": null,
+        "values": [
+          66.1,
+          5.1,
+          -25.5
+        ]
+      },
+      {
+        "display_label": "生产总值（亿元）",
+        "group": "项目",
+        "label": "项目｜生产总值（亿元）",
+        "unit": null,
+        "values": [
+          25315.4,
+          5.7,
+          null
+        ]
+      },
+      {
+        "display_label": "年人均生产总值（元）",
+        "group": "项目",
+        "label": "项目｜年人均生产总值（元）",
+        "unit": null,
+        "values": [
+          58008,
+          5.9,
+          null
+        ]
+      },
+      {
+        "display_label": "规模以上工业主营业务收入（亿元）",
+        "group": "项目",
+        "label": "项目｜规模以上工业主营业务收入（亿元）",
+        "unit": null,
+        "values": [
+          26489.9,
+          15.8,
+          6.9
+        ]
+      },
+      {
+        "display_label": "规模以上工业利税总额（亿元）",
+        "group": "项目",
+        "label": "项目｜规模以上工业利税总额（亿元）",
+        "unit": null,
+        "values": [
+          2925.1,
+          20.7,
+          -7.5
+        ]
+      },
+      {
+        "display_label": "其中：利润总额（亿元）",
+        "group": "项目",
+        "label": "项目｜其中：利润总额（亿元）",
+        "unit": null,
+        "values": [
+          1460.3,
+          41.8,
+          -51.9
+        ]
+      },
+      {
+        "display_label": "税收总额（亿元）",
+        "group": "项目",
+        "label": "项目｜税收总额（亿元）",
+        "unit": null,
+        "values": [
+          1464.8,
+          5.1,
+          null
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

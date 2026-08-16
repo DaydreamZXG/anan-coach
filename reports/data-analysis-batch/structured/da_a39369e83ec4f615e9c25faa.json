@@ -1,0 +1,179 @@
+{
+  "asset_id": "da_a39369e83ec4f615e9c25faa",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广州市考/2014年广州市公务员录用考试《行测》题_images/img_0072_022311c90fcc7c8f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广州市公务员录用考试《行测》题_images/img_0072_022311c90fcc7c8f.png",
+        "paper_title": "2014年广州市公务员录用考试《行测》题",
+        "question_id": "pq_f9199ef6991aa5cd77dd",
+        "question_number": 86,
+        "source_jsonl_line": 37148
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广州市公务员录用考试《行测》题_images/img_0072_022311c90fcc7c8f.png",
+        "paper_title": "2014年广州市公务员录用考试《行测》题",
+        "question_id": "pq_964c9d6a041c65101692",
+        "question_number": 87,
+        "source_jsonl_line": 37149
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广州市公务员录用考试《行测》题_images/img_0072_022311c90fcc7c8f.png",
+        "paper_title": "2014年广州市公务员录用考试《行测》题",
+        "question_id": "pq_de8b10826a75e92e94eb",
+        "question_number": 88,
+        "source_jsonl_line": 37150
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广州市公务员录用考试《行测》题_images/img_0090_c9fade5dd081b8cb.png",
+        "paper_title": "2014年广州市公务员录用考试《行测》题",
+        "question_id": "pq_1f0136ceb197d5ddca39",
+        "question_number": 89,
+        "source_jsonl_line": 37151
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广州市公务员录用考试《行测》题_images/img_0090_c9fade5dd081b8cb.png",
+        "paper_title": "2014年广州市公务员录用考试《行测》题",
+        "question_id": "pq_85892c70cc9b9dbec82b",
+        "question_number": 90,
+        "source_jsonl_line": 37152
+      }
+    ],
+    "sha256": "a39369e83ec4f615e9c25faaf2371a448ef5b4ade29241206adc64a68222333d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "串门聊天",
+      "听收音机、看电视",
+      "打牌、打麻将",
+      "看书",
+      "户外运动",
+      "上网",
+      "旅游",
+      "其他"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "18岁及以下",
+        "group": "社区不同年龄群体业余生活情况",
+        "label": "社区不同年龄群体业余生活情况｜18岁及以下",
+        "unit": null,
+        "values": [
+          15,
+          37.5,
+          2.5,
+          25,
+          45,
+          85,
+          30,
+          2.5
+        ]
+      },
+      {
+        "display_label": "19—36岁",
+        "group": "社区不同年龄群体业余生活情况",
+        "label": "社区不同年龄群体业余生活情况｜19—36岁",
+        "unit": null,
+        "values": [
+          26.8,
+          47.7,
+          20.9,
+          29.5,
+          38.6,
+          59.8,
+          19.8,
+          9.1
+        ]
+      },
+      {
+        "display_label": "37—59岁",
+        "group": "社区不同年龄群体业余生活情况",
+        "label": "社区不同年龄群体业余生活情况｜37—59岁",
+        "unit": null,
+        "values": [
+          23.2,
+          49.2,
+          21.3,
+          21.8,
+          38.9,
+          33.4,
+          13.7,
+          3.7
+        ]
+      },
+      {
+        "display_label": "60岁及以上",
+        "group": "社区不同年龄群体业余生活情况",
+        "label": "社区不同年龄群体业余生活情况｜60岁及以上",
+        "unit": null,
+        "values": [
+          37.1,
+          50.8,
+          34.5,
+          19,
+          12.9,
+          2.6,
+          6,
+          13.8
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

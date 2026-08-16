@@ -7,6 +7,7 @@ from typing import Any
 from uuid import uuid4
 
 from fastapi.testclient import TestClient
+import pytest
 from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 
@@ -50,6 +51,31 @@ def test_xingce_attempt_repository_reuses_neutral_question_selector() -> None:
     assert issubclass(XingceAttemptRepository, XingceQuestionRepository)
     assert "select_frozen_questions" not in XingceAttemptRepository.__dict__
     assert "select_targeted_frozen_questions" not in XingceAttemptRepository.__dict__
+
+
+def test_objective_verification_auto_settlement_migration_is_narrow_and_forward_only(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    migration = importlib.import_module(
+        "migrations.versions.20260814_112_auto_settle_objective_verification"
+    )
+    statements: list[str] = []
+    monkeypatch.setattr(migration.op, "execute", statements.append)
+
+    migration.upgrade()
+
+    assert migration.revision == "20260814_112"
+    assert migration.down_revision == "20260814_111"
+    assert len(statements) == 2
+    replacement = statements[1]
+    assert "state = 'mastery_recorded'" in replacement
+    assert "revision = 1" in replacement
+    assert "requires_cause_decision = false" in replacement
+    assert "reflection_version_id is null" in replacement
+    assert "cause_candidate_version_id is null" in replacement
+    assert "cause_decision_version_id is null" in replacement
+    with pytest.raises(RuntimeError, match="forward-only"):
+        migration.downgrade()
 
 
 def test_all_correct_reflection_rejects_unsupported_cause_and_completes_plan(
@@ -459,35 +485,11 @@ def test_due_mastery_version_runs_independent_verification_and_schedules_first_r
         },
     )
     assert submitted_verification.status_code == 200, submitted_verification.text
-    verification_review = submitted_verification.json()["data"]["review"]
-    verification_reflection = client.put(
-        f"/api/v2/xingce/attempt-reviews/{verification_review['reviewId']}/reflection",
-        headers={**auth, "Idempotency-Key": "mastery-verification-reflection"},
-        json={
-            "expectedRevision": verification_review["revision"],
-            "rawText": "三道独立新题都能说明判断依据，没有沿用原题答案。",
-            "tags": ["独立验证"],
-            "strategyNote": "首次间隔复测继续检查迁移。",
-            "doubtNote": None,
-        },
-    )
-    assert verification_reflection.status_code == 200, verification_reflection.text
-    verification_reflected = verification_reflection.json()["data"]
-    verification_candidate_id = verification_reflected["review"]["aiCandidate"][
-        "candidateVersionId"
-    ]
-    completed = client.put(
-        f"/api/v2/xingce/attempt-reviews/{verification_review['reviewId']}/cause-decision",
-        headers={**auth, "Idempotency-Key": "mastery-verification-decision"},
-        json={
-            "expectedRevision": verification_reflected["review"]["revision"],
-            "candidateVersionId": verification_candidate_id,
-            "decision": "reject",
-            "replacementCause": None,
-        },
-    )
-    assert completed.status_code == 200, completed.text
-    assert completed.json()["data"]["review"]["state"] == "mastery_recorded"
+    completed = submitted_verification.json()["data"]
+    assert completed["state"] == "completed"
+    assert completed["review"]["state"] == "mastery_recorded"
+    assert completed["review"]["reflection"] is None
+    assert completed["review"]["aiCandidate"]["candidateVersionId"] is None
 
     with db_session_factory() as session:
         versions = list(

@@ -1,0 +1,290 @@
+{
+  "asset_id": "da_3528c1df4d065217744d6efd",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 700,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600,
+          700
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "广东",
+    "江苏",
+    "浙江",
+    "山东",
+    "上海",
+    "北京",
+    "四川",
+    "河南",
+    "河北",
+    "辽宁"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "数据",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "数据",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        630,
+        353,
+        313,
+        266,
+        221,
+        216,
+        199,
+        198,
+        188,
+        178
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0101_7e8db32d9edfc3be.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0101_7e8db32d9edfc3be.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_b8a29df2eba4a1601953",
+        "question_number": 116,
+        "source_jsonl_line": 40422
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0107_283476c960de2443.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_2a9bf58615cf3020261c",
+        "question_number": 117,
+        "source_jsonl_line": 40423
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0101_7e8db32d9edfc3be.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_faeab9c433b0edffe688",
+        "question_number": 118,
+        "source_jsonl_line": 40424
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0101_7e8db32d9edfc3be.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_2757830c9f2b37b5d605",
+        "question_number": 119,
+        "source_jsonl_line": 40425
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0101_7e8db32d9edfc3be.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_132c1fd5f082973a99a8",
+        "question_number": 120,
+        "source_jsonl_line": 40426
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0107_283476c960de2443.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_e9dc34dbd37ccb443f60",
+        "question_number": 116,
+        "source_jsonl_line": 41834
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0113_7e8db32d9edfc3be.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_043cc78487631c60a351",
+        "question_number": 117,
+        "source_jsonl_line": 41835
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0107_283476c960de2443.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_99b111d3b9c2b3356e82",
+        "question_number": 118,
+        "source_jsonl_line": 41836
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0107_283476c960de2443.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_76f878f75927a208482d",
+        "question_number": 119,
+        "source_jsonl_line": 41837
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0113_7e8db32d9edfc3be.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_7e3346410252b24898fc",
+        "question_number": 120,
+        "source_jsonl_line": 41838
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0107_7e8db32d9edfc3be.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_ee235c815d44e31e8cba",
+        "question_number": 116,
+        "source_jsonl_line": 57373
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0114_283476c960de2443.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_a78bc1e2d21c60b7668f",
+        "question_number": 117,
+        "source_jsonl_line": 57374
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0107_7e8db32d9edfc3be.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_69f834ee4d532fde0863",
+        "question_number": 118,
+        "source_jsonl_line": 57375
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0107_7e8db32d9edfc3be.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_538689475f668060c1f8",
+        "question_number": 119,
+        "source_jsonl_line": 57376
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0107_7e8db32d9edfc3be.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_237bd281bf181ecedbd1",
+        "question_number": 120,
+        "source_jsonl_line": 57377
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0106_7e8db32d9edfc3be.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_8bb1a9637aa8c4625788",
+        "question_number": 116,
+        "source_jsonl_line": 74611
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0106_7e8db32d9edfc3be.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_8f668c2c0d2e3a5a6f98",
+        "question_number": 117,
+        "source_jsonl_line": 74612
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0106_7e8db32d9edfc3be.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_b7770a91dbba22b5e3bf",
+        "question_number": 118,
+        "source_jsonl_line": 74613
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0106_7e8db32d9edfc3be.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_387338f9c01951370015",
+        "question_number": 119,
+        "source_jsonl_line": 74614
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0106_7e8db32d9edfc3be.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_797dbb11d5591051f824",
+        "question_number": 120,
+        "source_jsonl_line": 74615
+      }
+    ],
+    "sha256": "3528c1df4d065217744d6efdc4cc02cb9a99af8a7f14b33565b114f9b685f1e2"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2010年1—6月电信主营业务收入排名前十的省份（亿元）",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3528c1df4d065217744d6efd/column_band_01.jpg",
+        "review-crops/da_3528c1df4d065217744d6efd/column_band_02.jpg",
+        "review-crops/da_3528c1df4d065217744d6efd/column_band_03.jpg",
+        "review-crops/da_3528c1df4d065217744d6efd/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.014",
+      "crop_verification_elapsed_seconds:6.571",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了标题中的文字，确保与图中一致：'2010年1—6月电信主营业务收入排名前十的省份（亿元）'。",
+      "crop_note:确认所有数值正确无误，未发现负号、小数或百分号错误。",
+      "crop_note:确认所有缺失值保持为null，未补0。",
+      "crop_note:确认x轴标签顺序与图中一致，未发现错位。",
+      "crop_note:确认y轴刻度范围和单位正确。",
+      "crop_note:确认图例标签'数据'正确。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

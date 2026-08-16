@@ -1,0 +1,276 @@
+{
+  "asset_id": "da_c5c33fc22f633cee35af656d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 13500,
+        "min": 10500,
+        "ticks": [
+          10500,
+          11000,
+          11500,
+          12000,
+          12500,
+          13000,
+          13500
+        ],
+        "title": null,
+        "unit": "万吨"
+      }
+    ]
+  },
+  "categories": [
+    "2007年",
+    "2008年",
+    "2009年",
+    "2010年",
+    "2011年",
+    "2012年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "全国夏粮产量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国夏粮产量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        11534,
+        12041,
+        12335,
+        12310,
+        12639,
+        12995
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0061_31bd8ba068996321.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0061_31bd8ba068996321.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_828efa43e2cce411040b",
+        "question_number": 111,
+        "source_jsonl_line": 40657
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0081_b85fa75b208883ac.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_92de2439e67ccef993c6",
+        "question_number": 112,
+        "source_jsonl_line": 40658
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0061_31bd8ba068996321.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_6c000b41a2d3045fe860",
+        "question_number": 113,
+        "source_jsonl_line": 40659
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0081_b85fa75b208883ac.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_a823fb85f6a95678c44a",
+        "question_number": 114,
+        "source_jsonl_line": 40660
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0061_31bd8ba068996321.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_1d1a6dcafd4720c84484",
+        "question_number": 115,
+        "source_jsonl_line": 40661
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0060_31bd8ba068996321.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_5e9a48a7d29821f31adc",
+        "question_number": 111,
+        "source_jsonl_line": 42069
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0084_b85fa75b208883ac.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_d1753811e7eb22e14058",
+        "question_number": 112,
+        "source_jsonl_line": 42070
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0084_b85fa75b208883ac.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_48100e0f3b944e10a72e",
+        "question_number": 113,
+        "source_jsonl_line": 42071
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0084_b85fa75b208883ac.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_95707a86d0a6041abde6",
+        "question_number": 114,
+        "source_jsonl_line": 42072
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0084_b85fa75b208883ac.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_ec278944afd153d82d47",
+        "question_number": 115,
+        "source_jsonl_line": 42073
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0066_b85fa75b208883ac.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_10d4986f2b03f1ab457d",
+        "question_number": 111,
+        "source_jsonl_line": 57488
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0066_b85fa75b208883ac.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_ef659268898c11741462",
+        "question_number": 112,
+        "source_jsonl_line": 57489
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0066_b85fa75b208883ac.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_50eadcecfa456be7d1a9",
+        "question_number": 113,
+        "source_jsonl_line": 57490
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0100_31bd8ba068996321.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_7911d12be77289ee33dd",
+        "question_number": 114,
+        "source_jsonl_line": 57491
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0066_b85fa75b208883ac.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_bd031e6dada716397986",
+        "question_number": 115,
+        "source_jsonl_line": 57492
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0065_b85fa75b208883ac.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_edfb1f5bc8fc0826bd69",
+        "question_number": 111,
+        "source_jsonl_line": 77266
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0065_b85fa75b208883ac.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_cac65405543e08088efe",
+        "question_number": 112,
+        "source_jsonl_line": 77267
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0091_31bd8ba068996321.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_5eb8421beaced72c3c50",
+        "question_number": 113,
+        "source_jsonl_line": 77268
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0091_31bd8ba068996321.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_9ef4d0ad4ee6b9070290",
+        "question_number": 114,
+        "source_jsonl_line": 77269
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0091_31bd8ba068996321.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_fb8d1b237b3a2b31a489",
+        "question_number": 115,
+        "source_jsonl_line": 77270
+      }
+    ],
+    "sha256": "c5c33fc22f633cee35af656dbf9910986e671cd3c6f3823af678d35cde29860b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2007-2012年全国夏粮产量",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c5c33fc22f633cee35af656d/column_band_01.jpg",
+        "review-crops/da_c5c33fc22f633cee35af656d/column_band_02.jpg",
+        "review-crops/da_c5c33fc22f633cee35af656d/column_band_03.jpg",
+        "review-crops/da_c5c33fc22f633cee35af656d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.203",
+      "crop_verification_elapsed_seconds:2.221",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

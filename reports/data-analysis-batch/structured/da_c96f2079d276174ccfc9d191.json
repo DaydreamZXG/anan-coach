@@ -1,0 +1,363 @@
+{
+  "asset_id": "da_c96f2079d276174ccfc9d191",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "费用额",
+        "unit": "元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "药费占比",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "次均门诊费用-费用额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        138.8,
+        152.5,
+        167.3,
+        180.2,
+        193.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "次均门诊费用-药费占比",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        43.2,
+        44.4,
+        48.5,
+        51.5,
+        51.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "次均门诊费用-检查费占比",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        18.3,
+        18.2,
+        18.4,
+        18.5,
+        18.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "人均住院费用-费用额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        5363.3,
+        5856.2,
+        6415.9,
+        6909.9,
+        7325.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "人均住院费用-药费占比",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        43.8,
+        43.9,
+        43.4,
+        42.2,
+        41.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "人均住院费用-检查费占比",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.7,
+        7.0,
+        7.2,
+        7.5,
+        7.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2014年浙江省公务员录用考试《行测》题（A类）_images/img_0149_b661021d1fef9ad7.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0149_b661021d1fef9ad7.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_35e52e1ae5df6e120303",
+        "question_number": 116,
+        "source_jsonl_line": 60798
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0154_9942532037707634.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_ec2d9708e2cb4f6c0bd7",
+        "question_number": 117,
+        "source_jsonl_line": 60799
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0154_9942532037707634.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_f0a81432585f86b37ac7",
+        "question_number": 118,
+        "source_jsonl_line": 60800
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0149_b661021d1fef9ad7.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_fa1ffc3ee66242d76278",
+        "question_number": 119,
+        "source_jsonl_line": 60801
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0149_b661021d1fef9ad7.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_823df9192b70b82fa5ea",
+        "question_number": 120,
+        "source_jsonl_line": 60802
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0118_b661021d1fef9ad7.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_48ea537e8fc0a7be44d5",
+        "question_number": 106,
+        "source_jsonl_line": 60918
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0128_9942532037707634.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_7069e00c1920961e1d42",
+        "question_number": 107,
+        "source_jsonl_line": 60919
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0128_9942532037707634.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_acac52576621b899f06d",
+        "question_number": 108,
+        "source_jsonl_line": 60920
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0118_b661021d1fef9ad7.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_fe66ca8a683f8db5dad4",
+        "question_number": 109,
+        "source_jsonl_line": 60921
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0118_b661021d1fef9ad7.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_7e76e4ba14545b824c4c",
+        "question_number": 110,
+        "source_jsonl_line": 60922
+      }
+    ],
+    "sha256": "c96f2079d276174ccfc9d19145abf13bacd29551dd3c414e4e61bc44bc533ce1"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "次均门诊费用-费用额",
+      "次均门诊费用-药费占比",
+      "次均门诊费用-检查费占比",
+      "人均住院费用-费用额",
+      "人均住院费用-药费占比",
+      "人均住院费用-检查费占比"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2008",
+        "unit": null,
+        "values": [
+          2008,
+          138.8,
+          43.2,
+          18.3,
+          5363.3,
+          43.8,
+          6.7
+        ]
+      },
+      {
+        "label": "2009",
+        "unit": null,
+        "values": [
+          2009,
+          152.5,
+          44.4,
+          18.2,
+          5856.2,
+          43.9,
+          7.0
+        ]
+      },
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          167.3,
+          48.5,
+          18.4,
+          6415.9,
+          43.4,
+          7.2
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          180.2,
+          51.5,
+          18.5,
+          6909.9,
+          42.2,
+          7.5
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          193.4,
+          51.3,
+          18.7,
+          7325.1,
+          41.3,
+          7.7
+        ]
+      }
+    ]
+  },
+  "title": "公立医院服务费用情况",
+  "unit": "元, %",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c96f2079d276174ccfc9d191/row_band_01.jpg",
+        "review-crops/da_c96f2079d276174ccfc9d191/row_band_02.jpg",
+        "review-crops/da_c96f2079d276174ccfc9d191/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.832",
+      "crop_verification_elapsed_seconds:2.14",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

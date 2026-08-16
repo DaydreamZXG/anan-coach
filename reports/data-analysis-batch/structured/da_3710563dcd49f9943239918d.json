@@ -1,0 +1,271 @@
+{
+  "asset_id": "da_3710563dcd49f9943239918d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0113_56a6f4f846e3c2fa.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0113_56a6f4f846e3c2fa.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_ee1542cf2f763a4aded6",
+        "question_number": 116,
+        "source_jsonl_line": 70627
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0113_56a6f4f846e3c2fa.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_e7003ddb330fc17c90e4",
+        "question_number": 117,
+        "source_jsonl_line": 70628
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0113_56a6f4f846e3c2fa.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_b1c9646bf420b4c8ca98",
+        "question_number": 118,
+        "source_jsonl_line": 70629
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0113_56a6f4f846e3c2fa.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_3ecff87c1c6b83e38fa8",
+        "question_number": 119,
+        "source_jsonl_line": 70630
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0142_24a87acb39a3cba2.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_9c90950e8acbb06e3dd6",
+        "question_number": 120,
+        "source_jsonl_line": 70631
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0154_24a87acb39a3cba2.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_1c1d1f2c51ab39a052ff",
+        "question_number": 116,
+        "source_jsonl_line": 88811
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0122_56a6f4f846e3c2fa.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_6b4f980459b387bc49ae",
+        "question_number": 117,
+        "source_jsonl_line": 88812
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0154_24a87acb39a3cba2.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_121fbe894744f31fd207",
+        "question_number": 118,
+        "source_jsonl_line": 88813
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0154_24a87acb39a3cba2.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_82304c515d47641db310",
+        "question_number": 119,
+        "source_jsonl_line": 88814
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0122_56a6f4f846e3c2fa.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_07b0dd1240dcc26a277a",
+        "question_number": 120,
+        "source_jsonl_line": 88815
+      }
+    ],
+    "sha256": "3710563dcd49f9943239918d49dabba1cf77edfdc067ca48b87c62db2be9144c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "企业数（家）",
+      "企业数（家）｜同比增速（%）",
+      "投资金额（亿元）",
+      "投资金额（亿元）｜同比增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "行业",
+    "rows": [
+      {
+        "display_label": "总计",
+        "group": null,
+        "label": "总计",
+        "unit": null,
+        "values": [
+          60533,
+          69.8,
+          8856,
+          0.9
+        ]
+      },
+      {
+        "display_label": "其中：农、林、牧、渔业",
+        "group": null,
+        "label": "其中：农、林、牧、渔业",
+        "unit": null,
+        "values": [
+          741,
+          5.0,
+          53,
+          -26.4
+        ]
+      },
+      {
+        "display_label": "制造业",
+        "group": null,
+        "label": "制造业",
+        "unit": null,
+        "values": [
+          6152,
+          23.4,
+          2713,
+          20.1
+        ]
+      },
+      {
+        "display_label": "电力、热力、燃气及水生产和供应业",
+        "group": null,
+        "label": "电力、热力、燃气及水生产和供应业",
+        "unit": null,
+        "values": [
+          284,
+          -23.7,
+          291,
+          23.6
+        ]
+      },
+      {
+        "display_label": "交通运输、仓储和邮政业",
+        "group": null,
+        "label": "交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          754,
+          45.8,
+          314,
+          -16.0
+        ]
+      },
+      {
+        "display_label": "信息传输、软件和信息技术服务业",
+        "group": null,
+        "label": "信息传输、软件和信息技术服务业",
+        "unit": null,
+        "values": [
+          7222,
+          127.9,
+          773,
+          -44.4
+        ]
+      },
+      {
+        "display_label": "批发和零售业",
+        "group": null,
+        "label": "批发和零售业",
+        "unit": null,
+        "values": [
+          22853,
+          86.1,
+          643,
+          -16.5
+        ]
+      },
+      {
+        "display_label": "房地产业",
+        "group": null,
+        "label": "房地产业",
+        "unit": null,
+        "values": [
+          1053,
+          42.9,
+          1489,
+          31.4
+        ]
+      },
+      {
+        "display_label": "租赁和商务服务业",
+        "group": null,
+        "label": "租赁和商务服务业",
+        "unit": null,
+        "values": [
+          9099,
+          78.9,
+          1196,
+          6.4
+        ]
+      },
+      {
+        "display_label": "居民服务、修理和其他服务业",
+        "group": null,
+        "label": "居民服务、修理和其他服务业",
+        "unit": null,
+        "values": [
+          485,
+          39.0,
+          37,
+          -2.6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

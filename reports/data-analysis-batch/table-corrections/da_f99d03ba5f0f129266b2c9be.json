@@ -1,0 +1,118 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "货物周转量｜绝对量（亿吨公里）",
+          "货物周转量｜同比增（%）"
+        ],
+        "label": "货物周转量"
+      },
+      {
+        "columns": [
+          "货运量｜绝对量（亿吨）",
+          "货运量｜同比增（%）"
+        ],
+        "label": "货运量"
+      },
+      {
+        "columns": [
+          "旅客周转量｜绝对量（亿人公里）",
+          "旅客周转量｜同比增（%）"
+        ],
+        "label": "旅客周转量"
+      },
+      {
+        "columns": [
+          "客运量｜绝对量（万人）",
+          "客运量｜同比增（%）"
+        ],
+        "label": "客运量"
+      }
+    ],
+    "columns": [
+      "货物周转量｜绝对量（亿吨公里）",
+      "货物周转量｜同比增（%）",
+      "货运量｜绝对量（亿吨）",
+      "货运量｜同比增（%）",
+      "旅客周转量｜绝对量（亿人公里）",
+      "旅客周转量｜同比增（%）",
+      "客运量｜绝对量（万人）",
+      "客运量｜同比增（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "运输方式",
+    "rows": [
+      {
+        "display_label": "铁路",
+        "group": null,
+        "label": "铁路",
+        "unit": null,
+        "values": [
+          2446.8,
+          -3.7,
+          78000,
+          3.7,
+          201.9,
+          15,
+          4796.5,
+          8.2
+        ]
+      },
+      {
+        "display_label": "公路",
+        "group": null,
+        "label": "公路",
+        "unit": null,
+        "values": [
+          2103.5,
+          12.3,
+          127000,
+          30.5,
+          161.4,
+          -7,
+          13495,
+          -16.6
+        ]
+      },
+      {
+        "display_label": "民航",
+        "group": null,
+        "label": "民航",
+        "unit": null,
+        "values": [
+          "--",
+          "--",
+          7.6,
+          7.9,
+          "--",
+          "--",
+          1491.6,
+          6.8
+        ]
+      },
+      {
+        "display_label": "总计",
+        "group": null,
+        "label": "总计",
+        "unit": null,
+        "values": [
+          4550.3,
+          3.1,
+          204000,
+          18.9,
+          363.3,
+          4,
+          19783.1,
+          -10.1
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

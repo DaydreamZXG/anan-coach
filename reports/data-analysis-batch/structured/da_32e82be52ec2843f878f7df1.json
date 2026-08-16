@@ -1,0 +1,250 @@
+{
+  "asset_id": "da_32e82be52ec2843f878f7df1",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "申请量占全省的比重（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        16.8,
+        21.3,
+        22.9,
+        31.5,
+        39.6,
+        43.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "授权量占全省的比重（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        3,
+        3.2,
+        4.4,
+        5.4,
+        9.6,
+        16.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "万人拥有量（件）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "件",
+      "values": [
+        null,
+        5.7,
+        10.2,
+        14.2,
+        18.6,
+        27.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2017年江苏省公务员录用考试《行测》题(A类)_images/img_0234_55f1570728f1e01e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0234_55f1570728f1e01e.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_a0ffa0bfd85dc4a37ede",
+        "question_number": 126,
+        "source_jsonl_line": 47636
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0235_fde279dc74ee7a4d.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_fc8446c15831eb7e213f",
+        "question_number": 127,
+        "source_jsonl_line": 47637
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0234_55f1570728f1e01e.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_9ba7db52f1da07521d0b",
+        "question_number": 128,
+        "source_jsonl_line": 47638
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0234_55f1570728f1e01e.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_d8f44e5cf8c5d14a731d",
+        "question_number": 129,
+        "source_jsonl_line": 47639
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0234_55f1570728f1e01e.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_69c4763a05a4cf1ca2a5",
+        "question_number": 130,
+        "source_jsonl_line": 47640
+      }
+    ],
+    "sha256": "32e82be52ec2843f878f7df1fa631550a951eeef369c65b9278fd02d938b3e4b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "申请量占全省的比重（%）",
+      "授权量占全省的比重（%）",
+      "万人拥有量（件）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          16.8,
+          3,
+          null
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          21.3,
+          3.2,
+          5.7
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          22.9,
+          4.4,
+          10.2
+        ]
+      },
+      {
+        "label": "2013",
+        "unit": null,
+        "values": [
+          2013,
+          31.5,
+          5.4,
+          14.2
+        ]
+      },
+      {
+        "label": "2014",
+        "unit": null,
+        "values": [
+          2014,
+          39.6,
+          9.6,
+          18.6
+        ]
+      },
+      {
+        "label": "2015",
+        "unit": null,
+        "values": [
+          2015,
+          43.8,
+          16.8,
+          27.4
+        ]
+      }
+    ]
+  },
+  "title": "表2010-2015年J省S市发明专利情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_32e82be52ec2843f878f7df1/row_band_01.jpg",
+        "review-crops/da_32e82be52ec2843f878f7df1/row_band_02.jpg",
+        "review-crops/da_32e82be52ec2843f878f7df1/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.26",
+      "crop_verification_elapsed_seconds:10.329",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:'—' 表示数据缺失，已转换为 null",
+      "crop_note:修正了2010年'万人拥有量'的缺失值为'—'，保持为null",
+      "crop_note:确认所有数值的小数点、百分号和负号正确",
+      "crop_note:确认所有缺失值保持为null，未补0",
+      "crop_note:确认年份顺序和数据对齐正确",
+      "crop_note:确认'申请量占全省的比重（%）'、'授权量占全省的比重（%）'、'万人拥有量（件）'的数值与表格一致"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

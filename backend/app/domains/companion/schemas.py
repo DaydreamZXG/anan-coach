@@ -124,10 +124,61 @@ class CompanionMemoryState(CompanionBaseModel):
     long_term_enabled: bool = Field(alias="longTermEnabled")
     items: list[CompanionMemoryItem]
     short_term: CompanionMemorySummary = Field(alias="shortTerm")
-    maximum_long_term_items: Literal[20] = Field(
-        default=20,
-        alias="maximumLongTermItems",
+    maximum_long_term_items: None = Field(default=None, alias="maximumLongTermItems")
+
+
+class CompanionCoachPreference(CompanionBaseModel):
+    memory_id: UUID = Field(alias="memoryId")
+    revision: int = Field(ge=1)
+    category: CompanionMemoryCategory
+    content: str = Field(min_length=1, max_length=240)
+    effect: Literal["applied_to_answers", "needs_confirmation", "context_only"]
+    action_url: str | None = Field(default=None, alias="actionUrl")
+
+
+class CompanionCoachRecheck(CompanionBaseModel):
+    request_id: UUID = Field(alias="requestId")
+    revision: int = Field(ge=1)
+    profile_version_id: UUID = Field(alias="profileVersionId")
+    pattern_id: str = Field(alias="patternId", pattern=r"^[0-9a-f]{64}$")
+    state: Literal["pending_reverification"]
+    note: str | None = Field(default=None, max_length=500)
+    created_at: datetime = Field(alias="createdAt")
+    retest_url: str = Field(alias="retestUrl")
+
+
+class CompanionCoachRetest(CompanionBaseModel):
+    due_now: int = Field(alias="dueNow", ge=0)
+    scheduled: int = Field(ge=0)
+    stable: int = Field(ge=0)
+    action_url: str = Field(alias="actionUrl")
+
+
+class CompanionCoachUnderstanding(CompanionBaseModel):
+    contract_version: Literal["learner-coach-context@v2"] = Field(
+        default="learner-coach-context@v2",
+        alias="contractVersion",
     )
+    coach_context: dict[str, object] = Field(alias="coachContext")
+    explicit_preferences: list[CompanionCoachPreference] = Field(
+        alias="explicitPreferences",
+    )
+    pending_rechecks: list[CompanionCoachRecheck] = Field(alias="pendingRechecks")
+    retest: CompanionCoachRetest
+
+
+class CompanionCoachRecheckCommand(CompanionBaseModel):
+    command_id: str = Field(alias="commandId", min_length=8, max_length=260)
+    profile_version_id: UUID = Field(alias="profileVersionId")
+    pattern_id: str = Field(alias="patternId", pattern=r"^[0-9a-f]{64}$")
+    note: str | None = Field(default=None, max_length=500)
+
+
+class CompanionCoachRecheckReceipt(CompanionBaseModel):
+    request_id: UUID = Field(alias="requestId")
+    state: Literal["pending_reverification"]
+    revision: int = Field(ge=1)
+    retest_url: str = Field(alias="retestUrl")
 
 
 class CompanionMemoryWriteRequest(CompanionBaseModel):

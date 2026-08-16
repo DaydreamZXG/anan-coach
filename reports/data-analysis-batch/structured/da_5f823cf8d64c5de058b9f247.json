@@ -1,0 +1,164 @@
+{
+  "asset_id": "da_5f823cf8d64c5de058b9f247",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 60,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "传统经典文化",
+    "现代文化",
+    "古代文化",
+    "民间民族文化",
+    "通俗流行文化",
+    "异国文化",
+    "全球共同文化",
+    "宗教文化",
+    "前卫文化",
+    "后现代文化"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "大学生喜欢的十类文化百分比",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "大学生喜欢的十类文化百分比",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        48.89,
+        45,
+        43.11,
+        36.86,
+        33.35,
+        29.19,
+        25.16,
+        12.95,
+        12.58,
+        11.75
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山西/2008年山西省公务员录用考试《行测》题_images/img_0218_f7d85e85e0c4f3d7.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山西省公务员录用考试《行测》题_images/img_0218_f7d85e85e0c4f3d7.png",
+        "paper_title": "2008年山西省公务员录用考试《行测》题",
+        "question_id": "pq_e35b419492a181ade81b",
+        "question_number": 111,
+        "source_jsonl_line": 31045
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山西省公务员录用考试《行测》题_images/img_0240_bc46bd210ef2865b.png",
+        "paper_title": "2008年山西省公务员录用考试《行测》题",
+        "question_id": "pq_c015aee6404adabbb9c2",
+        "question_number": 112,
+        "source_jsonl_line": 31046
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山西省公务员录用考试《行测》题_images/img_0218_f7d85e85e0c4f3d7.png",
+        "paper_title": "2008年山西省公务员录用考试《行测》题",
+        "question_id": "pq_6716b1bf2fa9c0fc1181",
+        "question_number": 113,
+        "source_jsonl_line": 31047
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山西省公务员录用考试《行测》题_images/img_0218_f7d85e85e0c4f3d7.png",
+        "paper_title": "2008年山西省公务员录用考试《行测》题",
+        "question_id": "pq_978d70fbe382137f5902",
+        "question_number": 114,
+        "source_jsonl_line": 31048
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山西省公务员录用考试《行测》题_images/img_0240_bc46bd210ef2865b.png",
+        "paper_title": "2008年山西省公务员录用考试《行测》题",
+        "question_id": "pq_eed9a332ed180cb9050d",
+        "question_number": 115,
+        "source_jsonl_line": 31049
+      }
+    ],
+    "sha256": "5f823cf8d64c5de058b9f247c0bdec07927f75a91f84f7ff53afcaebc2c17c93"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "大学生喜欢的十类文化百分比排序图",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5f823cf8d64c5de058b9f247/column_band_01.jpg",
+        "review-crops/da_5f823cf8d64c5de058b9f247/column_band_02.jpg",
+        "review-crops/da_5f823cf8d64c5de058b9f247/column_band_03.jpg",
+        "review-crops/da_5f823cf8d64c5de058b9f247/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.672",
+      "crop_verification_elapsed_seconds:3.328",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

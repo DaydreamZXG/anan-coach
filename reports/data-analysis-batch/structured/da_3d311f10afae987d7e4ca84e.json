@@ -1,0 +1,214 @@
+{
+  "asset_id": "da_3d311f10afae987d7e4ca84e",
+  "axes": {
+    "x": {
+      "max": 12,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 4000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000
+        ],
+        "title": null,
+        "unit": "万件"
+      },
+      {
+        "max": 12000,
+        "min": 0,
+        "ticks": [
+          0,
+          3000,
+          6000,
+          9000,
+          12000
+        ],
+        "title": null,
+        "unit": "件"
+      }
+    ]
+  },
+  "categories": [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "受理举报数量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "安全事件报告数量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "受理举报数量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万件",
+      "values": [
+        718,
+        903,
+        859,
+        1297,
+        1306,
+        1213,
+        2900,
+        2590,
+        1234,
+        1063,
+        1166,
+        1254
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "安全事件报告数量",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "件",
+      "values": [
+        10515,
+        6913,
+        9650,
+        8822,
+        9259,
+        9031,
+        8785,
+        8989,
+        9709,
+        8362,
+        8428,
+        8237
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2023年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0060_c83cf377ea421689.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0060_c83cf377ea421689.png",
+        "paper_title": "2023年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9f07465c4c2e3c29999a",
+        "question_number": 126,
+        "source_jsonl_line": 10934
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0060_c83cf377ea421689.png",
+        "paper_title": "2023年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c0e31842122aa5ce9bb0",
+        "question_number": 127,
+        "source_jsonl_line": 10935
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0060_c83cf377ea421689.png",
+        "paper_title": "2023年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cc1298866efce76d9d03",
+        "question_number": 128,
+        "source_jsonl_line": 10936
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0060_c83cf377ea421689.png",
+        "paper_title": "2023年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_abe282d05c5893cab68a",
+        "question_number": 129,
+        "source_jsonl_line": 10937
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0060_c83cf377ea421689.png",
+        "paper_title": "2023年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_064126b25ce5bf08146f",
+        "question_number": 130,
+        "source_jsonl_line": 10938
+      }
+    ],
+    "sha256": "3d311f10afae987d7e4ca84e73cad74f423d7c6f5aadb663cc889da11c4c2b6a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2018年全国各级网络举报部门受理举报数量及CNCERT接收到的网络安全事件报告数量",
+  "unit": "万件",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3d311f10afae987d7e4ca84e/column_band_01.jpg",
+        "review-crops/da_3d311f10afae987d7e4ca84e/column_band_02.jpg",
+        "review-crops/da_3d311f10afae987d7e4ca84e/column_band_03.jpg",
+        "review-crops/da_3d311f10afae987d7e4ca84e/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.403",
+      "crop_verification_elapsed_seconds:8.74",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

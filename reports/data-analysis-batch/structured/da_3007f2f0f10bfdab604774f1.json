@@ -1,0 +1,247 @@
+{
+  "asset_id": "da_3007f2f0f10bfdab604774f1",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 120,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100,
+          120
+        ],
+        "title": null,
+        "unit": "亿个"
+      },
+      {
+        "max": 600,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600
+        ],
+        "title": null,
+        "unit": "亿美元"
+      }
+    ]
+  },
+  "categories": [
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "出口量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "出口额",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "出口量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿个",
+      "values": [
+        26.54,
+        27.21,
+        28.63,
+        41.26,
+        44.34
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "出口额",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        143.81,
+        164.33,
+        195.43,
+        326.48,
+        555.26
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0130_dd4f686bc90dcefa.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0130_dd4f686bc90dcefa.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_32c4ddfb4a68f683cdf5",
+        "question_number": 86,
+        "source_jsonl_line": 90721
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0130_dd4f686bc90dcefa.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_e3eaac38ce276e0e7b9e",
+        "question_number": 87,
+        "source_jsonl_line": 90722
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0137_17fb41ccadee0907.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_37768152e3ea3424231a",
+        "question_number": 88,
+        "source_jsonl_line": 90723
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0130_dd4f686bc90dcefa.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_c9076f85c33866e92816",
+        "question_number": 89,
+        "source_jsonl_line": 90724
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0137_17fb41ccadee0907.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_d3a3a00f6a7f990de066",
+        "question_number": 90,
+        "source_jsonl_line": 90725
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0125_17fb41ccadee0907.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_b1481d9fbe19eee8e99f",
+        "question_number": 86,
+        "source_jsonl_line": 96149
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0137_dd4f686bc90dcefa.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_f52476557d41ff6a3fe5",
+        "question_number": 87,
+        "source_jsonl_line": 96150
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0125_17fb41ccadee0907.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_5d4a7deb04843fafa2fd",
+        "question_number": 88,
+        "source_jsonl_line": 96151
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0125_17fb41ccadee0907.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_1fb46747ab345097fadb",
+        "question_number": 89,
+        "source_jsonl_line": 96152
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0125_17fb41ccadee0907.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_e1acd93855f6b0197a00",
+        "question_number": 90,
+        "source_jsonl_line": 96153
+      }
+    ],
+    "sha256": "3007f2f0f10bfdab604774f1e26798700e27ef0a7a73d7f8ded3a50011310c63"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2018~2022年中国蓄电池出口数量及金额",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3007f2f0f10bfdab604774f1/column_band_01.jpg",
+        "review-crops/da_3007f2f0f10bfdab604774f1/column_band_02.jpg",
+        "review-crops/da_3007f2f0f10bfdab604774f1/column_band_03.jpg",
+        "review-crops/da_3007f2f0f10bfdab604774f1/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.275",
+      "crop_verification_elapsed_seconds:13.278",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2018年出口量数值为26.54，原图中为26.54，正确。",
+      "crop_note:修正了2018年出口额数值为143.81，原图中为143.81，正确。",
+      "crop_note:修正了2019年出口量数值为27.21，原图中为27.21，正确。",
+      "crop_note:修正了2019年出口额数值为164.33，原图中为164.33，正确。",
+      "crop_note:修正了2020年出口量数值为28.63，原图中为28.63，正确。",
+      "crop_note:修正了2020年出口额数值为195.43，原图中为195.43，正确。",
+      "crop_note:修正了2021年出口量数值为41.26，原图中为41.26，正确。",
+      "crop_note:修正了2021年出口额数值为326.48，原图中为326.48，正确。",
+      "crop_note:修正了2022年出口量数值为44.34，原图中为44.34，正确。",
+      "crop_note:修正了2022年出口额数值为555.26，原图中为555.26，正确。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

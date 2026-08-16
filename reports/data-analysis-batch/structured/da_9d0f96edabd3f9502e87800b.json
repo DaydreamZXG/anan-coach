@@ -1,0 +1,160 @@
+{
+  "asset_id": "da_9d0f96edabd3f9502e87800b",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2009,
+        2010,
+        2011,
+        2012,
+        2013
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 12000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000,
+          12000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "规模以上工业增加值",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "规模以上工业增加值",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        6287.8,
+        8182.8,
+        10509.4,
+        11099.6,
+        11711.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）_images/img_0091_0a2b243d560e5c73.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）_images/img_0091_0a2b243d560e5c73.png",
+        "paper_title": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）",
+        "question_id": "pq_1aeb28c20f86aa788060",
+        "question_number": 96,
+        "source_jsonl_line": 41266
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）_images/img_0091_0a2b243d560e5c73.png",
+        "paper_title": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）",
+        "question_id": "pq_81557aa4ce01e26f8786",
+        "question_number": 97,
+        "source_jsonl_line": 41267
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）_images/img_0091_0a2b243d560e5c73.png",
+        "paper_title": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）",
+        "question_id": "pq_cb2d768849d3c672a018",
+        "question_number": 98,
+        "source_jsonl_line": 41268
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）_images/img_0106_faed3bf9baf9767b.png",
+        "paper_title": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）",
+        "question_id": "pq_256759fd2d1fc299c67b",
+        "question_number": 99,
+        "source_jsonl_line": 41269
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）_images/img_0091_0a2b243d560e5c73.png",
+        "paper_title": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）",
+        "question_id": "pq_10e631a529d0258cc6ef",
+        "question_number": 100,
+        "source_jsonl_line": 41270
+      }
+    ],
+    "sha256": "9d0f96edabd3f9502e87800b77202527255e0552f2c4f4ae98df9132e96618f6"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2009~2013年规模以上工业增加值图",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9d0f96edabd3f9502e87800b/column_band_01.jpg",
+        "review-crops/da_9d0f96edabd3f9502e87800b/column_band_02.jpg",
+        "review-crops/da_9d0f96edabd3f9502e87800b/column_band_03.jpg",
+        "review-crops/da_9d0f96edabd3f9502e87800b/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.776",
+      "crop_verification_elapsed_seconds:1.212",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

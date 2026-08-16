@@ -414,6 +414,20 @@ describe("position route lifecycle contracts", () => {
     page.onUnload.call(page);
   });
 
+  it("decodes the comparison delimiter passed by the WeChat route runtime", async () => {
+    const definition = await capturePage(
+      () => import("../miniprogram/pages/positions/compare/index"),
+    );
+    const page = instantiatePage(definition);
+
+    page.onLoad.call(page, { ids: "position-1%2Cposition-2" });
+
+    expect(requests).toHaveLength(3);
+    const comparisonRequest = requestEndingWith("/api/v2/positions/compare");
+    expect(comparisonRequest.data).toEqual({ positionIds: ["position-1", "position-2"] });
+    page.onUnload.call(page);
+  });
+
   it.each([
     ["detail", () => import("../miniprogram/pages/positions/detail/index")],
     ["goal", () => import("../miniprogram/pages/positions/goal/index")],

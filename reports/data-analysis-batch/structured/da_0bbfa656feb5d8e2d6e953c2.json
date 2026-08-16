@@ -1,0 +1,207 @@
+{
+  "asset_id": "da_0bbfa656feb5d8e2d6e953c2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0193_315bd38cf1d94d41.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0193_315bd38cf1d94d41.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_aad5f5332dda408dfc3b",
+        "question_number": 96,
+        "source_jsonl_line": 35728
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0196_9bdae97ba5b53f6b.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_7d999681927f3c65cb7c",
+        "question_number": 97,
+        "source_jsonl_line": 35729
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0196_9bdae97ba5b53f6b.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_0299031defe3508f3617",
+        "question_number": 98,
+        "source_jsonl_line": 35730
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0193_315bd38cf1d94d41.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_0e62851495fe5fa636e9",
+        "question_number": 99,
+        "source_jsonl_line": 35731
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0196_9bdae97ba5b53f6b.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_b1c54a0437e4acc5eee1",
+        "question_number": 100,
+        "source_jsonl_line": 35732
+      }
+    ],
+    "sha256": "0bbfa656feb5d8e2d6e953c2f901432c6f0ef9d2a72fd48fa007b59cc438d12f"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2019年",
+      "2020年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "街道数（个）",
+        "unit": null,
+        "values": [
+          8515,
+          8773
+        ]
+      },
+      {
+        "label": "社区卫生服务中心数（个）",
+        "unit": null,
+        "values": [
+          9561,
+          9826
+        ]
+      },
+      {
+        "label": "床位数（万张）",
+        "unit": null,
+        "values": [
+          21.5,
+          22.6
+        ]
+      },
+      {
+        "label": "卫生人员数（万人）",
+        "unit": null,
+        "values": [
+          48.8,
+          52.1
+        ]
+      },
+      {
+        "label": "#卫生技术人员",
+        "unit": null,
+        "values": [
+          41.5,
+          44.4
+        ]
+      },
+      {
+        "label": "#执业（助理）医师",
+        "unit": null,
+        "values": [
+          17.0,
+          18.2
+        ]
+      },
+      {
+        "label": "诊疗人次（亿人次）",
+        "unit": null,
+        "values": [
+          6.9,
+          6.2
+        ]
+      },
+      {
+        "label": "入院人数（万人）",
+        "unit": null,
+        "values": [
+          339.5,
+          292.7
+        ]
+      },
+      {
+        "label": "平均每名医师日均担负诊疗人次",
+        "unit": null,
+        "values": [
+          16.5,
+          13.9
+        ]
+      },
+      {
+        "label": "出院者平均住院天数",
+        "unit": null,
+        "values": [
+          9.7,
+          6.1
+        ]
+      }
+    ]
+  },
+  "title": "表2 全国社区卫生服务情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0bbfa656feb5d8e2d6e953c2/row_band_01.jpg",
+        "review-crops/da_0bbfa656feb5d8e2d6e953c2/row_band_02.jpg",
+        "review-crops/da_0bbfa656feb5d8e2d6e953c2/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.855",
+      "crop_verification_elapsed_seconds:7.582",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了‘卫生人员数（万人）’的2019年值为48.8，原为48.8（无变化）。",
+      "crop_note:修正了‘#卫生技术人员’的2019年值为41.5，原为41.5（无变化）。",
+      "crop_note:修正了‘#执业（助理）医师’的2019年值为17.0，原为17.0（无变化）。",
+      "crop_note:修正了‘诊疗人次（亿人次）’的2019年值为6.9，原为6.9（无变化）。",
+      "crop_note:修正了‘入院人数（万人）’的2019年值为339.5，原为339.5（无变化）。",
+      "crop_note:修正了‘平均每名医师日均担负诊疗人次’的2019年值为16.5，原为16.5（无变化）。",
+      "crop_note:修正了‘出院者平均住院天数’的2019年值为9.7，原为9.7（无变化）。",
+      "crop_note:确认所有数值格式正确，无负号、百分号或缺失值需要修正。",
+      "table_row_label_column_removed:指标"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

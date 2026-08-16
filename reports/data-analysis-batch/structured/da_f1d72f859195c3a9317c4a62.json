@@ -1,0 +1,158 @@
+{
+  "asset_id": "da_f1d72f859195c3a9317c4a62",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1200,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000,
+          1200
+        ],
+        "title": null,
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "不到18岁",
+    "18～24岁",
+    "25～30岁",
+    "31～35岁",
+    "36～40岁",
+    "41～45岁",
+    "50岁以上"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "网民增长量",
+      "style": {
+        "dash": null,
+        "fill": "#4d4d4d",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "网民增长量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        948,
+        981,
+        937,
+        479,
+        432,
+        399,
+        125
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/贵州/2010年贵州省公务员录用考试《行测》题_images/img_0133_5747565874c5eb7e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0133_5747565874c5eb7e.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_c17f637eda3e4aae9450",
+        "question_number": 106,
+        "source_jsonl_line": 80267
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0133_5747565874c5eb7e.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_edd910f6c2f83a58d6b0",
+        "question_number": 107,
+        "source_jsonl_line": 80268
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0133_5747565874c5eb7e.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_0b9d40ecb929d9fbf581",
+        "question_number": 108,
+        "source_jsonl_line": 80269
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0138_a5723f4ce6be1608.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_21516a1d349f87f0101a",
+        "question_number": 109,
+        "source_jsonl_line": 80270
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0138_a5723f4ce6be1608.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_3a643617e67944519bb9",
+        "question_number": 110,
+        "source_jsonl_line": 80271
+      }
+    ],
+    "sha256": "f1d72f859195c3a9317c4a6267d0cf8126494903eed089313bb91813ad38d66f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图2 2008年上半年我国各年龄段网民增长量",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f1d72f859195c3a9317c4a62/column_band_01.jpg",
+        "review-crops/da_f1d72f859195c3a9317c4a62/column_band_02.jpg",
+        "review-crops/da_f1d72f859195c3a9317c4a62/column_band_03.jpg",
+        "review-crops/da_f1d72f859195c3a9317c4a62/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.723",
+      "crop_verification_elapsed_seconds:2.314",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

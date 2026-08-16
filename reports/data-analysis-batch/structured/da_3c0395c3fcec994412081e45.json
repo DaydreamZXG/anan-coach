@@ -1,0 +1,234 @@
+{
+  "asset_id": "da_3c0395c3fcec994412081e45",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1000,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600,
+          700,
+          800,
+          900,
+          1000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2005年",
+    "2006年",
+    "2007年",
+    "2008年",
+    "2009年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "普通高等教育本专科招生数",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "中等职业教育招生数",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "普通高中招生数",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "普通高等教育本专科招生数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        504,
+        546,
+        566,
+        608,
+        640
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "中等职业教育招生数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        656,
+        748,
+        810,
+        812,
+        874
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "普通高中招生数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        878,
+        871,
+        840,
+        837,
+        830
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2010年江苏省公务员录用考试《行测》题（B类）_images/img_0320_abbeef45cdf661ea.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（B类）_images/img_0320_abbeef45cdf661ea.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_bd3276e92258293e522f",
+        "question_number": 146,
+        "source_jsonl_line": 45341
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（B类）_images/img_0351_db031db890a90b03.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_fe7a150a10bac4b29579",
+        "question_number": 147,
+        "source_jsonl_line": 45342
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（B类）_images/img_0320_abbeef45cdf661ea.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_9c25281262ec5aaf8ee4",
+        "question_number": 148,
+        "source_jsonl_line": 45343
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（B类）_images/img_0320_abbeef45cdf661ea.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_a68f3a7b6b55a1fa435c",
+        "question_number": 149,
+        "source_jsonl_line": 45344
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（B类）_images/img_0320_abbeef45cdf661ea.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_aaac0aa0828d0dfcb224",
+        "question_number": 150,
+        "source_jsonl_line": 45345
+      }
+    ],
+    "sha256": "3c0395c3fcec994412081e45233a398f6ee14c84329af4ef8e552e2ae6d7905f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2005——2009年各类教育招生数",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3c0395c3fcec994412081e45/column_band_01.jpg",
+        "review-crops/da_3c0395c3fcec994412081e45/column_band_02.jpg",
+        "review-crops/da_3c0395c3fcec994412081e45/column_band_03.jpg",
+        "review-crops/da_3c0395c3fcec994412081e45/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.766",
+      "crop_verification_elapsed_seconds:13.615",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2005年普通高等教育本专科招生数为504（原为504）",
+      "crop_note:修正了2005年中等职业教育招生数为656（原为656）",
+      "crop_note:修正了2005年普通高中招生数为878（原为878）",
+      "crop_note:修正了2006年普通高等教育本专科招生数为546（原为546）",
+      "crop_note:修正了2006年中等职业教育招生数为748（原为748）",
+      "crop_note:修正了2006年普通高中招生数为871（原为871）",
+      "crop_note:修正了2007年普通高等教育本专科招生数为566（原为566）",
+      "crop_note:修正了2007年中等职业教育招生数为810（原为810）",
+      "crop_note:修正了2007年普通高中招生数为840（原为840）",
+      "crop_note:修正了2008年普通高等教育本专科招生数为608（原为608）",
+      "crop_note:修正了2008年中等职业教育招生数为812（原为812）",
+      "crop_note:修正了2008年普通高中招生数为837（原为837）",
+      "crop_note:修正了2009年普通高等教育本专科招生数为640（原为640）",
+      "crop_note:修正了2009年中等职业教育招生数为874（原为874）",
+      "crop_note:修正了2009年普通高中招生数为830（原为830）",
+      "crop_note:确认所有数值均为正数，无负号",
+      "crop_note:确认所有数值均为整数，无小数",
+      "crop_note:确认所有数值均无百分号",
+      "crop_note:确认所有数值均无缺失值，无null"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,348 @@
+{
+  "asset_id": "da_532fffe5137e65ee1f726afd",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 37,
+        "min": 1,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "一次能源生产量（亿吨标准煤）",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "一次能源消费量（亿吨标准煤）",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "石油产量（亿吨）",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "石油消费量（亿吨）",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "一次能源生产量（亿吨标准煤）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿吨标准煤",
+      "values": [
+        26.1,
+        27.5,
+        29.7,
+        31.8,
+        33.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "一次能源消费量（亿吨标准煤）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿吨标准煤",
+      "values": [
+        29.1,
+        30.7,
+        32.5,
+        34.8,
+        36.2
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "石油产量（亿吨）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿吨",
+      "values": [
+        1.9,
+        1.89,
+        2.03,
+        2.04,
+        2.07
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "石油消费量（亿吨）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿吨",
+      "values": [
+        3.6,
+        3.84,
+        4.34,
+        4.45,
+        4.91
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2014年412联考《行测》题（云南卷）_images/img_0084_f202ef3f16ccc33d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（云南卷）_images/img_0084_f202ef3f16ccc33d.png",
+        "paper_title": "2014年412联考《行测》题（云南卷）",
+        "question_id": "pq_9d55a82ec7848986ba26",
+        "question_number": 106,
+        "source_jsonl_line": 4950
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（云南卷）_images/img_0084_f202ef3f16ccc33d.png",
+        "paper_title": "2014年412联考《行测》题（云南卷）",
+        "question_id": "pq_df87e7ec4b4a9cccc4a1",
+        "question_number": 107,
+        "source_jsonl_line": 4951
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（云南卷）_images/img_0086_a05f4d9e790c99f8.png",
+        "paper_title": "2014年412联考《行测》题（云南卷）",
+        "question_id": "pq_8742bfa86d0bbae48dd3",
+        "question_number": 108,
+        "source_jsonl_line": 4952
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（云南卷）_images/img_0086_a05f4d9e790c99f8.png",
+        "paper_title": "2014年412联考《行测》题（云南卷）",
+        "question_id": "pq_c3c8effe731e20ba995f",
+        "question_number": 109,
+        "source_jsonl_line": 4953
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（云南卷）_images/img_0086_a05f4d9e790c99f8.png",
+        "paper_title": "2014年412联考《行测》题（云南卷）",
+        "question_id": "pq_5ac0501f2524765da022",
+        "question_number": 110,
+        "source_jsonl_line": 4954
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（内蒙古卷）_images/img_0123_f202ef3f16ccc33d.png",
+        "paper_title": "2014年412联考《行测》题（内蒙古卷）",
+        "question_id": "pq_de1b4f3a861e3e66514f",
+        "question_number": 106,
+        "source_jsonl_line": 7059
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（内蒙古卷）_images/img_0125_a05f4d9e790c99f8.png",
+        "paper_title": "2014年412联考《行测》题（内蒙古卷）",
+        "question_id": "pq_d306b67a7412ada688e9",
+        "question_number": 107,
+        "source_jsonl_line": 7060
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（内蒙古卷）_images/img_0125_a05f4d9e790c99f8.png",
+        "paper_title": "2014年412联考《行测》题（内蒙古卷）",
+        "question_id": "pq_622a1447bbc7166df7d9",
+        "question_number": 108,
+        "source_jsonl_line": 7061
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（内蒙古卷）_images/img_0123_f202ef3f16ccc33d.png",
+        "paper_title": "2014年412联考《行测》题（内蒙古卷）",
+        "question_id": "pq_055b5f56c589e418af5e",
+        "question_number": 109,
+        "source_jsonl_line": 7062
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（内蒙古卷）_images/img_0123_f202ef3f16ccc33d.png",
+        "paper_title": "2014年412联考《行测》题（内蒙古卷）",
+        "question_id": "pq_8e514c08919bf3fb6e3c",
+        "question_number": 110,
+        "source_jsonl_line": 7063
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（宁夏卷）_images/img_0074_f202ef3f16ccc33d.png",
+        "paper_title": "2014年412联考《行测》题（宁夏卷）",
+        "question_id": "pq_bfa190926155ca2bb62b",
+        "question_number": 106,
+        "source_jsonl_line": 25266
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（宁夏卷）_images/img_0074_f202ef3f16ccc33d.png",
+        "paper_title": "2014年412联考《行测》题（宁夏卷）",
+        "question_id": "pq_ca657f0170dc5d3a9d27",
+        "question_number": 107,
+        "source_jsonl_line": 25267
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（宁夏卷）_images/img_0074_f202ef3f16ccc33d.png",
+        "paper_title": "2014年412联考《行测》题（宁夏卷）",
+        "question_id": "pq_4b80392c39c26cb20918",
+        "question_number": 108,
+        "source_jsonl_line": 25268
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（宁夏卷）_images/img_0074_f202ef3f16ccc33d.png",
+        "paper_title": "2014年412联考《行测》题（宁夏卷）",
+        "question_id": "pq_1d5519d53edf797e4b5f",
+        "question_number": 109,
+        "source_jsonl_line": 25269
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（宁夏卷）_images/img_0079_a05f4d9e790c99f8.png",
+        "paper_title": "2014年412联考《行测》题（宁夏卷）",
+        "question_id": "pq_2c36c9e0384728bccb21",
+        "question_number": 110,
+        "source_jsonl_line": 25270
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（广西卷）_images/img_0096_f202ef3f16ccc33d.png",
+        "paper_title": "2014年412联考《行测》题（广西卷）",
+        "question_id": "pq_f14214055b7fb53e1b7d",
+        "question_number": 111,
+        "source_jsonl_line": 38557
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（广西卷）_images/img_0096_f202ef3f16ccc33d.png",
+        "paper_title": "2014年412联考《行测》题（广西卷）",
+        "question_id": "pq_d4cb3babfbaddbb99be8",
+        "question_number": 112,
+        "source_jsonl_line": 38558
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（广西卷）_images/img_0119_a05f4d9e790c99f8.png",
+        "paper_title": "2014年412联考《行测》题（广西卷）",
+        "question_id": "pq_ece6c0e112b55cef166e",
+        "question_number": 113,
+        "source_jsonl_line": 38559
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（广西卷）_images/img_0096_f202ef3f16ccc33d.png",
+        "paper_title": "2014年412联考《行测》题（广西卷）",
+        "question_id": "pq_36dd5604033cefa9d453",
+        "question_number": 114,
+        "source_jsonl_line": 38560
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（广西卷）_images/img_0096_f202ef3f16ccc33d.png",
+        "paper_title": "2014年412联考《行测》题（广西卷）",
+        "question_id": "pq_e3453de242c86e073280",
+        "question_number": 115,
+        "source_jsonl_line": 38561
+      }
+    ],
+    "sha256": "532fffe5137e65ee1f726afd61607e7e610176ab8a9cc2c2892c9f14fe2b1581"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.456",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "independent_compact_chart_adjudication"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b_compact_chart",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

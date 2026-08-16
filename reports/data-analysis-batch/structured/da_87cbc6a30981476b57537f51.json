@@ -1,0 +1,258 @@
+{
+  "asset_id": "da_87cbc6a30981476b57537f51",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ],
+        "title": "金额",
+        "unit": "亿美元"
+      },
+      {
+        "max": 60,
+        "min": -60,
+        "ticks": [
+          -60,
+          -40,
+          -20,
+          0,
+          20,
+          40,
+          60
+        ],
+        "title": "同比增速",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2017年3月",
+    "2017年4月",
+    "2017年5月",
+    "2017年6月",
+    "2017年7月",
+    "2017年8月",
+    "2017年9月",
+    "2017年10月",
+    "2017年11月",
+    "2017年12月",
+    "2018年1月",
+    "2018年2月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "金额",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "同比增速",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "金额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        24.9,
+        18.8,
+        27.8,
+        26.5,
+        19.6,
+        23.8,
+        21.9,
+        18.4,
+        24.0,
+        27.8,
+        22.2,
+        15.6
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        24.2,
+        12.2,
+        54.5,
+        32.1,
+        -4.6,
+        29.5,
+        3.5,
+        10.5,
+        11.9,
+        24.1,
+        16.3,
+        1.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2019年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0174_aea584b1126a0e9f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0174_aea584b1126a0e9f.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_fee6cb534f9a523b2063",
+        "question_number": 116,
+        "source_jsonl_line": 19251
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0174_aea584b1126a0e9f.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_0bf23cadc70b78dd2614",
+        "question_number": 117,
+        "source_jsonl_line": 19252
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0174_aea584b1126a0e9f.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_64bf52bb30e29c1c6b05",
+        "question_number": 118,
+        "source_jsonl_line": 19253
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0212_352bf37268f7e9f6.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_ba6e3624be53796dfe67",
+        "question_number": 119,
+        "source_jsonl_line": 19254
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0174_aea584b1126a0e9f.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_d2e87bc04e1b15cf7247",
+        "question_number": 120,
+        "source_jsonl_line": 19255
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0126_aea584b1126a0e9f.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_3151c5746e852a4b9119",
+        "question_number": 111,
+        "source_jsonl_line": 19381
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0168_352bf37268f7e9f6.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_aea933fe13fb0ae6fa0d",
+        "question_number": 112,
+        "source_jsonl_line": 19382
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0126_aea584b1126a0e9f.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_981b2c877ff157e1a3bd",
+        "question_number": 113,
+        "source_jsonl_line": 19383
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0168_352bf37268f7e9f6.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_5bec1b92a27b31267c2a",
+        "question_number": 114,
+        "source_jsonl_line": 19384
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0126_aea584b1126a0e9f.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_5115d3df31b8dc87d60e",
+        "question_number": 115,
+        "source_jsonl_line": 19385
+      }
+    ],
+    "sha256": "87cbc6a30981476b57537f5135ac3f8efe96370c5ef78342fff63ea02453b712"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2017年3月～2018年2月全国进口药品金额及同比增速",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_87cbc6a30981476b57537f51/column_band_01.jpg",
+        "review-crops/da_87cbc6a30981476b57537f51/column_band_02.jpg",
+        "review-crops/da_87cbc6a30981476b57537f51/column_band_03.jpg",
+        "review-crops/da_87cbc6a30981476b57537f51/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.714",
+      "crop_verification_elapsed_seconds:0.765",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

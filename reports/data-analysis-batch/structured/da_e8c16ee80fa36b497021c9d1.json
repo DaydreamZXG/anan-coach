@@ -1,0 +1,185 @@
+{
+  "asset_id": "da_e8c16ee80fa36b497021c9d1",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 8000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000,
+          8000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "不具有公开募捐资格的基金会",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "具有公开募捐资格的基金会",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "不具有公开募捐资格的基金会",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        2647,
+        3236,
+        3829,
+        4629,
+        5109
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "具有公开募捐资格的基金会",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        1470,
+        1548,
+        1730,
+        1678,
+        1925
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/新疆/2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0208_deecace738e58821.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0208_deecace738e58821.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_21c92e3fa0aebb81122b",
+        "question_number": 106,
+        "source_jsonl_line": 43206
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0208_deecace738e58821.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_3d1051ae1ba7e95596d9",
+        "question_number": 107,
+        "source_jsonl_line": 43207
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0208_deecace738e58821.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_7fdc87b2900933822a1a",
+        "question_number": 108,
+        "source_jsonl_line": 43208
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0208_deecace738e58821.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_4f75f2f89aaa0fa70d55",
+        "question_number": 109,
+        "source_jsonl_line": 43209
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0259_12805005ab248715.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_cca53c7da497172241ca",
+        "question_number": 110,
+        "source_jsonl_line": 43210
+      }
+    ],
+    "sha256": "e8c16ee80fa36b497021c9d139b5e5c628fb5e9ba89209c9836333e9a53293ab"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014~2018年基金会情况",
+  "unit": "个",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e8c16ee80fa36b497021c9d1/column_band_01.jpg",
+        "review-crops/da_e8c16ee80fa36b497021c9d1/column_band_02.jpg",
+        "review-crops/da_e8c16ee80fa36b497021c9d1/column_band_03.jpg",
+        "review-crops/da_e8c16ee80fa36b497021c9d1/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.447",
+      "crop_verification_elapsed_seconds:3.679",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

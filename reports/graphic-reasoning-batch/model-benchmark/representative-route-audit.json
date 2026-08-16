@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "graphic-vector-representative-route-audit-v1",
+  "status": "two_route_conflicts_quarantined_and_replaced",
+  "reviewedAt": "2026-08-11",
+  "finalAcceptedAssets": 0,
+  "conflicts": [
+    {
+      "assetId": "gr_048b858b959cf9ba2f67f676",
+      "assignedSubtype": "straight_line_network",
+      "observedFamilies": ["curve", "closed_irregular_outline"],
+      "reason": "Representative panel is visibly curvilinear; straight-only benchmark semantics are false. Qwen also mislabeled the curves as straight, so the candidate is not reusable.",
+      "action": "route_conflict_quarantined",
+      "replacementAssetId": "gr_06e94661142e35ee6757e42d"
+    },
+    {
+      "assetId": "gr_04e035b524f3d4f31f2913cf",
+      "assignedSubtype": "closed_polygon_composition",
+      "observedFamilies": ["arc", "closed_polygon", "semantic_symbol"],
+      "reason": "Representative panel mixes a crescent curve with four-pointed stars and is not a clean polygon-only benchmark.",
+      "action": "route_conflict_quarantined",
+      "replacementAssetId": "gr_09a239f1f5c89bec86ff315d"
+    }
+  ],
+  "replacementPolicy": "Preserve rejected inputs and semantic evidence; exclude them from the active queue without renaming repair_pending as success."
+}

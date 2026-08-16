@@ -1,0 +1,267 @@
+{
+  "asset_id": "da_6b7b79ddf82896223f86d592",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2014年深圳市公务员录用考试《行测》题_images/img_0146_fab734545c262f6e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年深圳市公务员录用考试《行测》题_images/img_0146_fab734545c262f6e.png",
+        "paper_title": "2014年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_65e4dc22405f690dbfe4",
+        "question_number": 96,
+        "source_jsonl_line": 67452
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年深圳市公务员录用考试《行测》题_images/img_0145_c67f413acd285dec.png",
+        "paper_title": "2014年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_4fe37b30128cd3ae7f2d",
+        "question_number": 97,
+        "source_jsonl_line": 67453
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年深圳市公务员录用考试《行测》题_images/img_0146_fab734545c262f6e.png",
+        "paper_title": "2014年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_91ea7b2f74abef754f79",
+        "question_number": 98,
+        "source_jsonl_line": 67454
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年深圳市公务员录用考试《行测》题_images/img_0145_c67f413acd285dec.png",
+        "paper_title": "2014年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_35a32a9761c26ca64950",
+        "question_number": 99,
+        "source_jsonl_line": 67455
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年深圳市公务员录用考试《行测》题_images/img_0145_c67f413acd285dec.png",
+        "paper_title": "2014年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_4c8b4e990178c78b3f5b",
+        "question_number": 100,
+        "source_jsonl_line": 67456
+      }
+    ],
+    "sha256": "6b7b79ddf82896223f86d59236c13b3768ae8103c60de558362befb93a76dcc9"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "科技项目数 (项)",
+      "科技项目数/广东省总数 (%)",
+      "新产品开发项目数 (项)",
+      "新产品开发项目数/广东省总数 (%)",
+      "R&D 项目数 (项)",
+      "R&D 项目数/广东省总数 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "广东省",
+        "unit": null,
+        "values": [
+          "广东省",
+          7504,
+          100,
+          5858,
+          100,
+          3815,
+          100
+        ]
+      },
+      {
+        "label": "珠江三角洲",
+        "unit": null,
+        "values": [
+          "珠江三角洲",
+          6224,
+          82.9,
+          5040,
+          86,
+          3376,
+          88.5
+        ]
+      },
+      {
+        "label": "广州",
+        "unit": null,
+        "values": [
+          "广州",
+          1765,
+          23.5,
+          1351,
+          23.1,
+          1292,
+          33.9
+        ]
+      },
+      {
+        "label": "深圳",
+        "unit": null,
+        "values": [
+          "深圳",
+          1466,
+          19.5,
+          1273,
+          21.7,
+          758,
+          19.9
+        ]
+      },
+      {
+        "label": "珠海",
+        "unit": null,
+        "values": [
+          "珠海",
+          272,
+          3.6,
+          216,
+          3.7,
+          95,
+          2.5
+        ]
+      },
+      {
+        "label": "佛山",
+        "unit": null,
+        "values": [
+          "佛山",
+          886,
+          11.8,
+          747,
+          12.8,
+          522,
+          13.7
+        ]
+      },
+      {
+        "label": "江门",
+        "unit": null,
+        "values": [
+          "江门",
+          248,
+          3.3,
+          176,
+          3,
+          96,
+          2.5
+        ]
+      },
+      {
+        "label": "肇庆",
+        "unit": null,
+        "values": [
+          "肇庆",
+          141,
+          1.9,
+          117,
+          2,
+          45,
+          1.2
+        ]
+      },
+      {
+        "label": "惠州",
+        "unit": null,
+        "values": [
+          "惠州",
+          281,
+          3.7,
+          256,
+          4.4,
+          47,
+          1.2
+        ]
+      },
+      {
+        "label": "东莞",
+        "unit": null,
+        "values": [
+          "东莞",
+          656,
+          8.7,
+          496,
+          8.5,
+          249,
+          6.5
+        ]
+      },
+      {
+        "label": "中山",
+        "unit": null,
+        "values": [
+          "中山",
+          509,
+          6.8,
+          408,
+          7,
+          272,
+          7.1
+        ]
+      }
+    ]
+  },
+  "title": "2004年珠三角规模以上工业企业科技项目情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6b7b79ddf82896223f86d592/row_band_01.jpg",
+        "review-crops/da_6b7b79ddf82896223f86d592/row_band_02.jpg",
+        "review-crops/da_6b7b79ddf82896223f86d592/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.525",
+      "crop_verification_elapsed_seconds:8.395",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

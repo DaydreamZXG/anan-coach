@@ -1,0 +1,328 @@
+{
+  "asset_id": "da_b1ab74998e6c68526b90b057",
+  "axes": {
+    "x": {
+      "max": 11,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 53,
+        "min": 46,
+        "ticks": [
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2021年8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月",
+    "2022年1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "制造业采购经理人指数",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "与上月比较无变化",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "制造业采购经理人指数",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        50.1,
+        49.6,
+        49.2,
+        50.1,
+        50.3,
+        50.1,
+        50.2,
+        49.5,
+        47.4,
+        49.6,
+        50.2,
+        49.0,
+        49.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "与上月比较无变化",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0076_53ac1fed1d63577d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0076_53ac1fed1d63577d.png",
+        "paper_title": "2023年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bbea7328c87cf0287f13",
+        "question_number": 91,
+        "source_jsonl_line": 5975
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0076_53ac1fed1d63577d.png",
+        "paper_title": "2023年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_28e7d3793ce67bfe6266",
+        "question_number": 92,
+        "source_jsonl_line": 5976
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0076_53ac1fed1d63577d.png",
+        "paper_title": "2023年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f2f5662c8a0933b105bb",
+        "question_number": 93,
+        "source_jsonl_line": 5977
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0079_d4a30ba05ca364f3.png",
+        "paper_title": "2023年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e7317c392c8e7f1c2017",
+        "question_number": 94,
+        "source_jsonl_line": 5978
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0076_53ac1fed1d63577d.png",
+        "paper_title": "2023年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fe534c2a26b5c6925ac5",
+        "question_number": 95,
+        "source_jsonl_line": 5979
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0114_53ac1fed1d63577d.png",
+        "paper_title": "2023年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9115934d47b6b702ee95",
+        "question_number": 116,
+        "source_jsonl_line": 26246
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0114_53ac1fed1d63577d.png",
+        "paper_title": "2023年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d429138b1fb006989585",
+        "question_number": 117,
+        "source_jsonl_line": 26247
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0114_53ac1fed1d63577d.png",
+        "paper_title": "2023年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1a29cf016849ab565e24",
+        "question_number": 118,
+        "source_jsonl_line": 26248
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0117_d4a30ba05ca364f3.png",
+        "paper_title": "2023年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_26144d5e4d7e3e5a2d20",
+        "question_number": 119,
+        "source_jsonl_line": 26249
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0114_53ac1fed1d63577d.png",
+        "paper_title": "2023年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7526e76e938e63b243a3",
+        "question_number": 120,
+        "source_jsonl_line": 26250
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0114_d4a30ba05ca364f3.png",
+        "paper_title": "2023年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_893fa8ada93048ac572c",
+        "question_number": 106,
+        "source_jsonl_line": 39682
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0113_53ac1fed1d63577d.png",
+        "paper_title": "2023年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_226f8a9d74cfaae6aa36",
+        "question_number": 107,
+        "source_jsonl_line": 39683
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0113_53ac1fed1d63577d.png",
+        "paper_title": "2023年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1ed0b2efff4d54c2ea36",
+        "question_number": 108,
+        "source_jsonl_line": 39684
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0114_d4a30ba05ca364f3.png",
+        "paper_title": "2023年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e657462c31aeb6295824",
+        "question_number": 109,
+        "source_jsonl_line": 39685
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0114_d4a30ba05ca364f3.png",
+        "paper_title": "2023年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5cc3c97027a8c88a0211",
+        "question_number": 110,
+        "source_jsonl_line": 39686
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0073_d4a30ba05ca364f3.png",
+        "paper_title": "2023年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bb30239fbe80a680885c",
+        "question_number": 111,
+        "source_jsonl_line": 59168
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0073_d4a30ba05ca364f3.png",
+        "paper_title": "2023年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7800bbf5aa8c1b349c26",
+        "question_number": 112,
+        "source_jsonl_line": 59169
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0075_53ac1fed1d63577d.png",
+        "paper_title": "2023年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a907287a2db4a22b916d",
+        "question_number": 113,
+        "source_jsonl_line": 59170
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0075_53ac1fed1d63577d.png",
+        "paper_title": "2023年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_00874b72a7e8fa17ac5b",
+        "question_number": 114,
+        "source_jsonl_line": 59171
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0075_53ac1fed1d63577d.png",
+        "paper_title": "2023年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f7c5282a481c6df8b291",
+        "question_number": 115,
+        "source_jsonl_line": 59172
+      }
+    ],
+    "sha256": "b1ab74998e6c68526b90b0571dfe871b3339f250391271168d9365bab3f52183"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "制造业采购经理人指数走势图",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b1ab74998e6c68526b90b057/column_band_01.jpg",
+        "review-crops/da_b1ab74998e6c68526b90b057/column_band_02.jpg",
+        "review-crops/da_b1ab74998e6c68526b90b057/column_band_03.jpg",
+        "review-crops/da_b1ab74998e6c68526b90b057/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.605",
+      "crop_verification_elapsed_seconds:6.995",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

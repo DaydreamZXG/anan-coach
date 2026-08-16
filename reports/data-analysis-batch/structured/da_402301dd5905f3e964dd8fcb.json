@@ -1,0 +1,230 @@
+{
+  "asset_id": "da_402301dd5905f3e964dd8fcb",
+  "axes": {
+    "x": {
+      "max": 2023,
+      "min": 2013,
+      "ticks": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 90000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000,
+          60000,
+          70000,
+          80000,
+          90000
+        ],
+        "title": "全省生产总值",
+        "unit": "亿元"
+      },
+      {
+        "max": 12,
+        "min": 0,
+        "ticks": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12
+        ],
+        "title": "比上年增速",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "全省生产总值",
+      "style": {
+        "dash": null,
+        "fill": "#f0f0f0",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "比上年增速",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全省生产总值",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        37335,
+        40023,
+        43508,
+        47254,
+        52403,
+        58003,
+        62462,
+        64689,
+        74041,
+        78061,
+        82553
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比上年增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        8.3,
+        7.7,
+        8.0,
+        7.5,
+        7.8,
+        7.1,
+        6.8,
+        3.6,
+        8.7,
+        3.2,
+        6.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山西/2024年山西省县级纪委监委公务员录用考试《行测》题（网友回忆版）_images/img_0132_7f8a507037ea44e2.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省县级纪委监委公务员录用考试《行测》题（网友回忆版）_images/img_0132_7f8a507037ea44e2.png",
+        "paper_title": "2024年山西省县级纪委监委公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1163ce5a5539d00cc99b",
+        "question_number": 96,
+        "source_jsonl_line": 33274
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省县级纪委监委公务员录用考试《行测》题（网友回忆版）_images/img_0157_96a016a1c7fa6e76.png",
+        "paper_title": "2024年山西省县级纪委监委公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c2621ffdef038a1f54be",
+        "question_number": 97,
+        "source_jsonl_line": 33275
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省县级纪委监委公务员录用考试《行测》题（网友回忆版）_images/img_0132_7f8a507037ea44e2.png",
+        "paper_title": "2024年山西省县级纪委监委公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_05da16837f7175e0b6d1",
+        "question_number": 98,
+        "source_jsonl_line": 33276
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省县级纪委监委公务员录用考试《行测》题（网友回忆版）_images/img_0157_96a016a1c7fa6e76.png",
+        "paper_title": "2024年山西省县级纪委监委公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4d0759bc36980e7407e9",
+        "question_number": 99,
+        "source_jsonl_line": 33277
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省县级纪委监委公务员录用考试《行测》题（网友回忆版）_images/img_0132_7f8a507037ea44e2.png",
+        "paper_title": "2024年山西省县级纪委监委公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c484e01d85414247a33a",
+        "question_number": 100,
+        "source_jsonl_line": 33278
+      }
+    ],
+    "sha256": "402301dd5905f3e964dd8fcb33420fec56ed961b5dc8d1c6d17391754d70661d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013-2023年S省全省生产总值及增速",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_402301dd5905f3e964dd8fcb/column_band_01.jpg",
+        "review-crops/da_402301dd5905f3e964dd8fcb/column_band_02.jpg",
+        "review-crops/da_402301dd5905f3e964dd8fcb/column_band_03.jpg",
+        "review-crops/da_402301dd5905f3e964dd8fcb/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.373",
+      "crop_verification_elapsed_seconds:9.436",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

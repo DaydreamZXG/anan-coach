@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "graphic-reasoning-representative-review-v1",
+  "status": "reviewed_but_not_final",
+  "source": "visual comparison inspection plus representative-manifest.jsonl contract validation",
+  "contractValidation": {
+    "selectedAssets": 7,
+    "errors": 0,
+    "command": "python3 reports/graphic-reasoning-batch/pipeline.py validate --manifest reports/graphic-reasoning-batch/representative-manifest.jsonl"
+  },
+  "samples": {
+    "regular_geometry": {
+      "assetId": "gr_0005c7c298edc6cc19fd151c",
+      "decision": "repair_pending",
+      "observed": ["line/polygon topology retained", "no generic circle primitive"],
+      "remaining": ["panel-level semantic transformation is not inferred", "glyph/question-mark semantics remain evidence-only"]
+    },
+    "curve_circle_arc": {
+      "assetId": "gr_52036129fb44f1fade1f19ea",
+      "decision": "repair_pending",
+      "observed": ["no duplicate circle overlay", "deterministic contour and curve candidate emitted"],
+      "remaining": ["arrowhead and curved boundary need a dedicated topology check"]
+    },
+    "glyph_life_object": {
+      "assetId": "gr_02451daab642df52bacd5a0b",
+      "decision": "repair_pending",
+      "observed": ["six panel regions retained", "glyph contours are vector paths, not raster background"],
+      "remaining": ["exact Chinese glyph content is not promoted without verified OCR/semantic mapping"]
+    },
+    "textured_pie": {
+      "assetId": "gr_11402c834514d26870f740fb",
+      "decision": "repair_pending",
+      "observed": ["sector angles recorded", "arc/face/dot/diagonal primitives used", "no hundreds-of-lines contour fallback"],
+      "remaining": ["numeric glyphs and every radial boundary require final deterministic cross-check"]
+    },
+    "folded_3d": {
+      "assetId": "gr_044fa833a9cb6b61e43b892e",
+      "decision": "repair_pending",
+      "observed": ["wireframe and face primitives emitted", "no source image background"],
+      "remaining": ["colored face labels and topology equivalence need dedicated validation"]
+    },
+    "rare_vector": {
+      "assetId": "gr_004d2482ff612f6c898294b1",
+      "decision": "repair_pending",
+      "observed": ["unframed repeated figures split by connected components"],
+      "remaining": ["rare geometry family has no semantic renderer acceptance yet"]
+    }
+  },
+  "finalityRule": "No sample is marked final; all selected samples remain repair_pending until grammar-specific evidence closes the listed gaps."
+}

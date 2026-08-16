@@ -1,0 +1,198 @@
+{
+  "asset_id": "da_37dfd2db2159236bec85fe2d",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 8000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000,
+          8000
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 230000,
+        "min": 160000,
+        "ticks": [
+          160000,
+          170000,
+          180000,
+          190000,
+          200000,
+          210000,
+          220000,
+          230000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2007年",
+    "2008年",
+    "2009年",
+    "2010年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "机构数（单位：个）",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "从业人员（单位：人）",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "机构数（单位：个）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        4512,
+        5114,
+        6139,
+        6864
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "从业人员（单位：人）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        85413,
+        184678,
+        208174,
+        220653
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2012年广东省公务员录用考试《行测》题_images/img_0112_b91d57b9c19ddfe3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广东省公务员录用考试《行测》题_images/img_0112_b91d57b9c19ddfe3.png",
+        "paper_title": "2012年广东省公务员录用考试《行测》题",
+        "question_id": "pq_78b101ee54da03806d39",
+        "question_number": 96,
+        "source_jsonl_line": 34028
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广东省公务员录用考试《行测》题_images/img_0112_b91d57b9c19ddfe3.png",
+        "paper_title": "2012年广东省公务员录用考试《行测》题",
+        "question_id": "pq_2a6cdfa831b86c68ec8d",
+        "question_number": 97,
+        "source_jsonl_line": 34029
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广东省公务员录用考试《行测》题_images/img_0112_b91d57b9c19ddfe3.png",
+        "paper_title": "2012年广东省公务员录用考试《行测》题",
+        "question_id": "pq_3be470915721476d5a65",
+        "question_number": 98,
+        "source_jsonl_line": 34030
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广东省公务员录用考试《行测》题_images/img_0112_b91d57b9c19ddfe3.png",
+        "paper_title": "2012年广东省公务员录用考试《行测》题",
+        "question_id": "pq_02a874db1c62005f68d2",
+        "question_number": 99,
+        "source_jsonl_line": 34031
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广东省公务员录用考试《行测》题_images/img_0112_b91d57b9c19ddfe3.png",
+        "paper_title": "2012年广东省公务员录用考试《行测》题",
+        "question_id": "pq_23df5a0f2d2e1a402766",
+        "question_number": 100,
+        "source_jsonl_line": 34032
+      }
+    ],
+    "sha256": "37dfd2db2159236bec85fe2db02880fc1a8a29d175dd14dbc187b02519c1ebe1"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_37dfd2db2159236bec85fe2d/column_band_01.jpg",
+        "review-crops/da_37dfd2db2159236bec85fe2d/column_band_02.jpg",
+        "review-crops/da_37dfd2db2159236bec85fe2d/column_band_03.jpg",
+        "review-crops/da_37dfd2db2159236bec85fe2d/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.905",
+      "crop_verification_elapsed_seconds:3.795",
+      "candidate_value_changes_after_crop:1",
+      "crop_note:combined_crop_response_malformed;used_individual_crop_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

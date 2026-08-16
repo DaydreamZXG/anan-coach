@@ -1,0 +1,17 @@
+{
+  "assetId": "gr_7b00c758d0ab44e2c464e04f",
+  "attempts": 2,
+  "checkpointKey": "f8d2a0459f90dc65fd4c87aab4d73b0cac0a4d5506e0aa3515af1ec1077c8eed",
+  "model": "gemma-4-31b-it",
+  "position": 2,
+  "qualityStatus": "blocked_by_schema",
+  "runtimeError": null,
+  "schemaStatus": "invalid",
+  "schemaVersion": "graphic-reasoning-panel-acceptance-v3",
+  "status": "repair_pending",
+  "validationErrors": [
+    "objects[0].orientations",
+    "objects[1].orientations",
+    "objects[2].orientations"
+  ]
+}

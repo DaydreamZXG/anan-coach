@@ -1,0 +1,158 @@
+{
+  "asset_id": "da_afa5d9811427ceb7d56adead",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2025年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0071_91e530ad697fa2c3.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0071_91e530ad697fa2c3.png",
+        "paper_title": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3615ec1de14fdfff3844",
+        "question_number": 115,
+        "source_jsonl_line": 8388
+      }
+    ],
+    "sha256": "afa5d9811427ceb7d56adead1f7e0ea8a1cf8422681e0696e494aebe1b6db2c3"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 0,
+      "estimatedDrawCommandCount": 3,
+      "panelCount": 1,
+      "pointCount": 3
+    },
+    "coordinateSpace": {
+      "height": 245,
+      "width": 339
+    },
+    "evidence": {
+      "converterVersion": "semantic-microcharts-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "4e911635fa3f3c9cc1e495ce6f412cb5b6e83044d041eabb07c5217fb097bc01",
+      "sourceAsset": "da_afa5d9811427ceb7d56adead",
+      "sourceSha256": "afa5d9811427ceb7d56adead1f7e0ea8a1cf8422681e0696e494aebe1b6db2c3"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 214,
+          "width": 269,
+          "x": 32,
+          "y": 12
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [
+            {
+              "shape": "square",
+              "x": 0.03545,
+              "y": 0.49296
+            },
+            {
+              "shape": "square",
+              "x": 0.48881,
+              "y": 0.04225
+            },
+            {
+              "shape": "square",
+              "x": 0.96269,
+              "y": 0.95775
+            }
+          ],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.49296
+            },
+            {
+              "x": 0.50746,
+              "y": 0.04695
+            },
+            {
+              "x": 1.0,
+              "y": 0.95305
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_afa5d9811427ceb7d56adead-0",
+        "label": null,
+        "position": 0
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "line_sequence"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.363",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:图中未提供明确的坐标轴、单位、分类或系列标签，无法确定数据含义。",
+      "model_uncertainty:图中仅显示三个点和连接线，无法判断其代表的变量或趋势。",
+      "route_reason:该图像为一个简单的节点连接图，表示结构或关系，属于示意图类型",
+      "route_panel_count:1",
+      "foreground_iou:0.812649",
+      "mean_absolute_error:4.920551",
+      "trace_parameters:{\"epsilonRatio\": 0.0007, \"minimumContourArea\": 0.2, \"paletteSize\": 3}",
+      "visual_grammar:line_sequence",
+      "visual_grammar:line_sequence",
+      "converter:semantic-microcharts-v1",
+      "visual_grammar:line_sequence",
+      "comparison_artifact:previews/structured_visual/da_afa5d9811427ceb7d56adead-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "assetId": "gr_06e94661142e35ee6757e42d",
+  "candidate": {
+    "authority": "semantic_candidate",
+    "elements": [
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e1",
+        "kind": "polyline",
+        "label": null,
+        "line_character": "straight",
+        "observations": [
+          "a central vertex with three straight line segments extending outward"
+        ],
+        "orientation_bucket": "mixed",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e2",
+        "kind": "polyline",
+        "label": null,
+        "line_character": "straight",
+        "observations": [
+          "a straight line segment extending from the central vertex"
+        ],
+        "orientation_bucket": "mixed",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e3",
+        "kind": "polyline",
+        "label": null,
+        "line_character": "straight",
+        "observations": [
+          "a straight line segment extending from the central vertex"
+        ],
+        "orientation_bucket": "mixed",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e4",
+        "kind": "polyline",
+        "label": null,
+        "line_character": "straight",
+        "observations": [
+          "a straight line segment extending from the central vertex"
+        ],
+        "orientation_bucket": "mixed",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      }
+    ],
+    "relations": [
+      {
+        "confidence": 0.95,
+        "subjects": [
+          "e1",
+          "e2"
+        ],
+        "type": "connected"
+      },
+      {
+        "confidence": 0.95,
+        "subjects": [
+          "e1",
+          "e3"
+        ],
+        "type": "connected"
+      },
+      {
+        "confidence": 0.95,
+        "subjects": [
+          "e1",
+          "e4"
+        ],
+        "type": "connected"
+      }
+    ],
+    "schema_version": "graphic-semantic-candidate-v1",
+    "topology_candidates": {
+      "component_count": 1,
+      "endpoint_count": 4,
+      "junction_count": 1,
+      "loop_count": 0,
+      "notes": [
+        "one central junction connecting four line segments"
+      ]
+    },
+    "uncertainties": [
+      "the exact nature of the line segments as chemical bonds is inferred but not visually confirmed"
+    ],
+    "visual_grammar": "regular_geometry"
+  },
+  "geometryAuthority": false,
+  "model": "qwen3-vl-30b-a3b",
+  "modelInputSha256": "92e3b96e1e1a85499d2d7ea6dac77c42ae0390e57fb0e7043a25d2feff9227fe",
+  "normalizations": [],
+  "panelId": "panel-1",
+  "rawCandidate": {
+    "authority": "semantic_candidate",
+    "elements": [
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e1",
+        "kind": "polyline",
+        "label": null,
+        "line_character": "straight",
+        "observations": [
+          "a central vertex with three straight line segments extending outward"
+        ],
+        "orientation_bucket": "mixed",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e2",
+        "kind": "polyline",
+        "label": null,
+        "line_character": "straight",
+        "observations": [
+          "a straight line segment extending from the central vertex"
+        ],
+        "orientation_bucket": "mixed",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e3",
+        "kind": "polyline",
+        "label": null,
+        "line_character": "straight",
+        "observations": [
+          "a straight line segment extending from the central vertex"
+        ],
+        "orientation_bucket": "mixed",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e4",
+        "kind": "polyline",
+        "label": null,
+        "line_character": "straight",
+        "observations": [
+          "a straight line segment extending from the central vertex"
+        ],
+        "orientation_bucket": "mixed",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      }
+    ],
+    "relations": [
+      {
+        "confidence": 0.95,
+        "subjects": [
+          "e1",
+          "e2"
+        ],
+        "type": "connected"
+      },
+      {
+        "confidence": 0.95,
+        "subjects": [
+          "e1",
+          "e3"
+        ],
+        "type": "connected"
+      },
+      {
+        "confidence": 0.95,
+        "subjects": [
+          "e1",
+          "e4"
+        ],
+        "type": "connected"
+      }
+    ],
+    "schema_version": "graphic-semantic-candidate-v1",
+    "topology_candidates": {
+      "component_count": 1,
+      "endpoint_count": 4,
+      "junction_count": 1,
+      "loop_count": 0,
+      "notes": [
+        "one central junction connecting four line segments"
+      ]
+    },
+    "uncertainties": [
+      "the exact nature of the line segments as chemical bonds is inferred but not visually confirmed"
+    ],
+    "visual_grammar": "regular_geometry"
+  },
+  "regularSubtype": "straight_line_network",
+  "role": "stem",
+  "schemaVersion": "graphic-semantic-observation-v1",
+  "sourceSha256": "06e94661142e35ee6757e42d903d019c853546aa658244a4294ca9317e0e0b13",
+  "status": "valid_semantic_candidate",
+  "validationErrors": []
+}

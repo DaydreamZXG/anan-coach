@@ -1,0 +1,297 @@
+{
+  "asset_id": "da_4be8dc52867730ab1942774a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "全国信息社会指数",
+        "unit": null
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "全国信息经济指数",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国信息社会指数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.3274,
+        0.345,
+        0.3807,
+        0.417,
+        0.4351
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "全国信息经济指数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.3114,
+        0.3316,
+        0.3462,
+        0.3683,
+        0.3795
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "网络社会发展指数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.3109,
+        0.3353,
+        0.3617,
+        0.381,
+        0.3852
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "在线政府指数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.5031,
+        0.3914,
+        0.441,
+        0.545,
+        0.545
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "数字生活指数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.3015,
+        0.3528,
+        0.4141,
+        0.4589,
+        0.5038
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2016年吉林省公务员录用考试《行测》题（甲级）_images/img_0114_05850ed95ce06cec.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年吉林省公务员录用考试《行测》题（甲级）_images/img_0114_05850ed95ce06cec.png",
+        "paper_title": "2016年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_0b3a483ed3d6a4c8798c",
+        "question_number": 101,
+        "source_jsonl_line": 12597
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年吉林省公务员录用考试《行测》题（甲级）_images/img_0114_05850ed95ce06cec.png",
+        "paper_title": "2016年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_08df7aa8ba80c6882089",
+        "question_number": 102,
+        "source_jsonl_line": 12598
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年吉林省公务员录用考试《行测》题（甲级）_images/img_0126_2f702e5ef6ef1547.png",
+        "paper_title": "2016年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_74a5862b75a6bcacdacd",
+        "question_number": 103,
+        "source_jsonl_line": 12599
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年吉林省公务员录用考试《行测》题（甲级）_images/img_0126_2f702e5ef6ef1547.png",
+        "paper_title": "2016年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_b86fa93ea74dd5b78db3",
+        "question_number": 104,
+        "source_jsonl_line": 12600
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年吉林省公务员录用考试《行测》题（甲级）_images/img_0114_05850ed95ce06cec.png",
+        "paper_title": "2016年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_f0c5649484fec117a4c2",
+        "question_number": 105,
+        "source_jsonl_line": 12601
+      }
+    ],
+    "sha256": "4be8dc52867730ab1942774adaf1da253f6b3638d9f4c3a93c99bf074c17bbc1"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "全国信息社会指数",
+      "全国信息经济指数",
+      "网络社会发展指数",
+      "在线政府指数",
+      "数字生活指数"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          0.3274,
+          0.3114,
+          0.3109,
+          0.5031,
+          0.3015
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          0.345,
+          0.3316,
+          0.3353,
+          0.3914,
+          0.3528
+        ]
+      },
+      {
+        "label": "2013",
+        "unit": null,
+        "values": [
+          2013,
+          0.3807,
+          0.3462,
+          0.3617,
+          0.441,
+          0.4141
+        ]
+      },
+      {
+        "label": "2014",
+        "unit": null,
+        "values": [
+          2014,
+          0.417,
+          0.3683,
+          0.381,
+          0.545,
+          0.4589
+        ]
+      },
+      {
+        "label": "2015",
+        "unit": null,
+        "values": [
+          2015,
+          0.4351,
+          0.3795,
+          0.3852,
+          0.545,
+          0.5038
+        ]
+      }
+    ]
+  },
+  "title": "2011-2015年中国信息社会指数走势",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4be8dc52867730ab1942774a/row_band_01.jpg",
+        "review-crops/da_4be8dc52867730ab1942774a/row_band_02.jpg",
+        "review-crops/da_4be8dc52867730ab1942774a/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:17.543",
+      "crop_verification_elapsed_seconds:10.685",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

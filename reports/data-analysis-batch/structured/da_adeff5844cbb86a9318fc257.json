@@ -1,0 +1,187 @@
+{
+  "asset_id": "da_adeff5844cbb86a9318fc257",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2013年北京市公务员录用考试《行测》题_images/img_0127_898bac69ca66b8f1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年北京市公务员录用考试《行测》题_images/img_0127_898bac69ca66b8f1.png",
+        "paper_title": "2013年北京市公务员录用考试《行测》题",
+        "question_id": "pq_a0d36519bdf677097383",
+        "question_number": 131,
+        "source_jsonl_line": 9329
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年北京市公务员录用考试《行测》题_images/img_0125_aa0cc368ab71ec65.png",
+        "paper_title": "2013年北京市公务员录用考试《行测》题",
+        "question_id": "pq_4dcdf67d6c9fb0370774",
+        "question_number": 132,
+        "source_jsonl_line": 9330
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年北京市公务员录用考试《行测》题_images/img_0127_898bac69ca66b8f1.png",
+        "paper_title": "2013年北京市公务员录用考试《行测》题",
+        "question_id": "pq_4a61ddf1b7983f9bf464",
+        "question_number": 133,
+        "source_jsonl_line": 9331
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年北京市公务员录用考试《行测》题_images/img_0127_898bac69ca66b8f1.png",
+        "paper_title": "2013年北京市公务员录用考试《行测》题",
+        "question_id": "pq_c06375a64e2dd46c2d0f",
+        "question_number": 134,
+        "source_jsonl_line": 9332
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年北京市公务员录用考试《行测》题_images/img_0127_898bac69ca66b8f1.png",
+        "paper_title": "2013年北京市公务员录用考试《行测》题",
+        "question_id": "pq_b1fbc83a1c5a172cfc10",
+        "question_number": 135,
+        "source_jsonl_line": 9333
+      }
+    ],
+    "sha256": "adeff5844cbb86a9318fc257b8db0d7deae4996380164ba941451c49a44275de"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "全国",
+      "东部地区",
+      "中部地区",
+      "西部地区"
+    ],
+    "corner_header": {
+      "lower_label": "/",
+      "style": "diagonal",
+      "upper_label": "/"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "制造业",
+        "group": "地区",
+        "label": "地区｜制造业",
+        "unit": null,
+        "values": [
+          36.0,
+          44.8,
+          23.0,
+          15.4
+        ]
+      },
+      {
+        "display_label": "建筑业",
+        "group": "地区",
+        "label": "地区｜建筑业",
+        "unit": null,
+        "values": [
+          17.7,
+          13.4,
+          24.7,
+          27.4
+        ]
+      },
+      {
+        "display_label": "交通运输、仓储和邮政业",
+        "group": "地区",
+        "label": "地区｜交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          6.6,
+          5.5,
+          8.1,
+          9.3
+        ]
+      },
+      {
+        "display_label": "批发零售业",
+        "group": "地区",
+        "label": "地区｜批发零售业",
+        "unit": null,
+        "values": [
+          10.1,
+          8.7,
+          13.1,
+          12.5
+        ]
+      },
+      {
+        "display_label": "住宿餐饮业",
+        "group": "地区",
+        "label": "地区｜住宿餐饮业",
+        "unit": null,
+        "values": [
+          5.3,
+          4.5,
+          5.9,
+          7.3
+        ]
+      },
+      {
+        "display_label": "居民服务和其他服务业",
+        "group": "地区",
+        "label": "地区｜居民服务和其他服务业",
+        "unit": null,
+        "values": [
+          12.2,
+          12.3,
+          11.4,
+          12.2
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

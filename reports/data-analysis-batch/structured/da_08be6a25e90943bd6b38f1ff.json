@@ -1,0 +1,390 @@
+{
+  "asset_id": "da_08be6a25e90943bd6b38f1ff",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "指标",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "1-6月",
+        "unit": "元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比±%",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "农村居民人均现金收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        6100,
+        13.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "人均消费性支出",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        3451,
+        16.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "食品",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        1327,
+        18.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "衣着",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        266,
+        8.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "居住",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        697,
+        48.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "家庭设备用品服务",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        185,
+        16.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "交通和通讯",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        386,
+        -3.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_8",
+      "label": "文化教育、娱乐",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        274,
+        0.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_9",
+      "label": "医疗保健",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        239,
+        8.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_10",
+      "label": "其他商品和服务",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        77,
+        2.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2009年浙江省公务员录用考试《行测》题_images/img_0242_8cbfe7420b112479.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0242_8cbfe7420b112479.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_fd4da17fd6ab98a3fbb1",
+        "question_number": 121,
+        "source_jsonl_line": 60033
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0242_8cbfe7420b112479.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_4739791f5ab4dbd3ed92",
+        "question_number": 122,
+        "source_jsonl_line": 60034
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0242_8cbfe7420b112479.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_6d8f96b2cc7306ad0ffa",
+        "question_number": 123,
+        "source_jsonl_line": 60035
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0250_1448d050e1a9ed8b.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_14b6176b59402b22a1db",
+        "question_number": 124,
+        "source_jsonl_line": 60036
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0250_1448d050e1a9ed8b.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_2e167fa3c09330548632",
+        "question_number": 125,
+        "source_jsonl_line": 60037
+      }
+    ],
+    "sha256": "08be6a25e90943bd6b38f1ff7739edf564bab190551fea1f8829a04de1143ab3"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1-6月",
+      "同比±%"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "农村居民人均现金收入",
+        "unit": "元",
+        "values": [
+          6100,
+          13.6
+        ]
+      },
+      {
+        "label": "人均消费性支出",
+        "unit": "元",
+        "values": [
+          3451,
+          16.5
+        ]
+      },
+      {
+        "label": "食品",
+        "unit": "元",
+        "values": [
+          1327,
+          18.3
+        ]
+      },
+      {
+        "label": "衣着",
+        "unit": "元",
+        "values": [
+          266,
+          8.6
+        ]
+      },
+      {
+        "label": "居住",
+        "unit": "元",
+        "values": [
+          697,
+          48.5
+        ]
+      },
+      {
+        "label": "家庭设备用品服务",
+        "unit": "元",
+        "values": [
+          185,
+          16.0
+        ]
+      },
+      {
+        "label": "交通和通讯",
+        "unit": "元",
+        "values": [
+          386,
+          -3.2
+        ]
+      },
+      {
+        "label": "文化教育、娱乐",
+        "unit": "元",
+        "values": [
+          274,
+          0.2
+        ]
+      },
+      {
+        "label": "医疗保健",
+        "unit": "元",
+        "values": [
+          239,
+          8.3
+        ]
+      },
+      {
+        "label": "其他商品和服务",
+        "unit": "元",
+        "values": [
+          77,
+          2.9
+        ]
+      }
+    ]
+  },
+  "title": "农村居民收支（元）",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_08be6a25e90943bd6b38f1ff/row_band_01.jpg",
+        "review-crops/da_08be6a25e90943bd6b38f1ff/row_band_02.jpg",
+        "review-crops/da_08be6a25e90943bd6b38f1ff/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.499",
+      "crop_verification_elapsed_seconds:3.264",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:农村居民人均现金收入:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:人均消费性支出:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:食品:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:食品:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:衣着:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:居住:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:家庭设备用品服务:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:交通和通讯:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:交通和通讯:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:文化教育、娱乐:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:医疗保健:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:其他商品和服务:2!=3",
+      "table_row_label_column_removed:指标"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

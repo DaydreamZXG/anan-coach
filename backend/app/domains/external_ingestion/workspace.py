@@ -21,8 +21,10 @@ from app.domains.external_ingestion.matching.errors import MatchingAuthorization
 from app.domains.external_ingestion.matching.repository import SQLContentMatchRepository
 from app.domains.external_ingestion.matching.service import MatchingService
 from app.domains.external_ingestion.recognition.models import (
+    QuestionUnit,
     RecognitionCandidatePayload,
     TextSpan,
+    VisualFeatureHash,
 )
 from app.domains.external_ingestion.recognition.repository import SQLRecognitionRepository
 from app.domains.external_ingestion.recognition.service import RecognitionService
@@ -529,14 +531,85 @@ def _match_query(
             for ref in segment.text_span_refs
             if ref in spans
         ).strip()
+    visual_fingerprints, visual_feature_hashes = _unit_visual_evidence(
+        payload=payload,
+        unit=unit,
+    )
     return MatchQuery(
         track=track,
         promptText=prompt,
         optionTexts=tuple(item for item in options if item),
         materialTexts=tuple(item for item in materials if item),
-        visualFingerprints=payload.visual_fingerprints,
-        visualFeatureHashes=payload.visual_feature_hashes,
+        visualFingerprints=visual_fingerprints,
+        visualFeatureHashes=visual_feature_hashes,
     )
+
+
+def _unit_visual_evidence(
+    *,
+    payload: RecognitionCandidatePayload,
+    unit: QuestionUnit,
+) -> tuple[tuple[str, ...], tuple[VisualFeatureHash, ...]]:
+    """Project only visual evidence that can be attributed to one question.
+
+    New revisions may carry exact questionUnitId-bound region evidence. Older
+    revisions intentionally store only page/whole-input hashes: a one-question
+    upload remains safe, while copying those hashes to every question is false
+    evidence. For multi-question legacy artifacts a page fingerprint is retained
+    only when exactly one question owns that page. Transform hashes without region
+    identity remain limited to a single-question artifact.
+    """
+
+    region = next(
+        (
+            item
+            for item in payload.question_region_visual_evidence
+            if item.question_unit_id == unit.question_unit_id
+        ),
+        None,
+    )
+    if region is not None:
+        return region.visual_fingerprints, region.visual_feature_hashes
+
+    if len(payload.question_units) == 1:
+        return payload.visual_fingerprints, payload.visual_feature_hashes
+
+    segments = {item.segment_id: item for item in payload.segments}
+
+    def pages_for(candidate: QuestionUnit) -> set[int]:
+        refs = {
+            *candidate.prompt_segment_refs,
+            *candidate.option_segment_refs,
+            *candidate.material_segment_refs,
+        }
+        return {segment.box.page_no for ref in refs if (segment := segments.get(ref)) is not None}
+
+    pages_by_unit = {
+        candidate.question_unit_id: pages_for(candidate) for candidate in payload.question_units
+    }
+    unit_pages = pages_by_unit.get(unit.question_unit_id, set())
+    if len(unit_pages) != 1:
+        return (), ()
+    page_owners: dict[int, set[str]] = {}
+    for question_unit_id, page_nos in pages_by_unit.items():
+        for page_no in page_nos:
+            page_owners.setdefault(page_no, set()).add(question_unit_id)
+
+    page_count = len(payload.page_image_sha256)
+    fingerprints_are_page_scoped = (
+        page_count > 0
+        and len(payload.visual_fingerprints) == page_count
+        and all(1 <= page_no <= page_count for page_no in unit_pages)
+    )
+    if not fingerprints_are_page_scoped:
+        return (), ()
+
+    fingerprints = tuple(
+        payload.visual_fingerprints[page_no - 1]
+        for page_no in sorted(unit_pages)
+        if page_owners.get(page_no) == {unit.question_unit_id}
+    )
+    return fingerprints, ()
 
 
 def _workspace_units(

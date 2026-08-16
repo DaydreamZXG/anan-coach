@@ -1,0 +1,147 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "1995年",
+          "2002年",
+          "2003年",
+          "2004年",
+          "2005年",
+          "2006年"
+        ],
+        "label": "广播电视节目制作时数"
+      }
+    ],
+    "columns": [
+      "1995年",
+      "2002年",
+      "2003年",
+      "2004年",
+      "2005年",
+      "2006年"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "display_label": "广播节目制作",
+        "group": null,
+        "label": "广播节目制作",
+        "unit": null,
+        "values": [
+          2332164,
+          3774001,
+          4301505,
+          5267457,
+          6139227,
+          6192339
+        ]
+      },
+      {
+        "display_label": "新闻",
+        "group": "广播节目制作",
+        "label": "广播节目制作｜新闻",
+        "unit": null,
+        "values": [
+          353368,
+          531278,
+          628090,
+          858579,
+          1066880,
+          1055077
+        ]
+      },
+      {
+        "display_label": "专题",
+        "group": "广播节目制作",
+        "label": "广播节目制作｜专题",
+        "unit": null,
+        "values": [
+          1054140,
+          1703554,
+          1861943,
+          1579675,
+          1822621,
+          1728485
+        ]
+      },
+      {
+        "display_label": "综艺",
+        "group": "广播节目制作",
+        "label": "广播节目制作｜综艺",
+        "unit": null,
+        "values": [
+          924656,
+          1161402,
+          1376816,
+          1606519,
+          1937290,
+          1986800
+        ]
+      },
+      {
+        "display_label": "电视节目制作",
+        "group": null,
+        "label": "电视节目制作",
+        "unit": null,
+        "values": [
+          383513,
+          1072704,
+          1185507,
+          2117158,
+          2553861,
+          2618034
+        ]
+      },
+      {
+        "display_label": "新闻",
+        "group": "电视节目制作",
+        "label": "电视节目制作｜新闻",
+        "unit": null,
+        "values": [
+          80800,
+          256883,
+          280273,
+          474218,
+          637956,
+          646337
+        ]
+      },
+      {
+        "display_label": "专题",
+        "group": "电视节目制作",
+        "label": "电视节目制作｜专题",
+        "unit": null,
+        "values": [
+          193391,
+          379240,
+          433083,
+          486311,
+          525528,
+          540369
+        ]
+      },
+      {
+        "display_label": "综艺",
+        "group": "电视节目制作",
+        "label": "电视节目制作｜综艺",
+        "unit": null,
+        "values": [
+          109322,
+          218955,
+          228802,
+          321318,
+          382350,
+          407442
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

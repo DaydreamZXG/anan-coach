@@ -1,0 +1,180 @@
+{
+  "asset_id": "da_67f758c1a744da04198bc5d9",
+  "axes": {
+    "x": {
+      "max": 30000,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 30000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000,
+          30000
+        ],
+        "title": null,
+        "unit": "元"
+      }
+    ]
+  },
+  "categories": [
+    "工资性收入",
+    "经营净收入",
+    "财产净收入",
+    "转移净收入"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "城镇居民",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "农村居民",
+      "style": {
+        "dash": null,
+        "fill": "#808080",
+        "marker": "square",
+        "stroke": "#808080"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇居民",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        29578,
+        5584,
+        5238,
+        8882
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "农村居民",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        8449,
+        6972,
+        509,
+        4203
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0123_393a158662da238b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0123_393a158662da238b.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_5f4f60b92800faddcdf6",
+        "question_number": 91,
+        "source_jsonl_line": 36023
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0123_393a158662da238b.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_1f07e42ef98ea4fb8667",
+        "question_number": 92,
+        "source_jsonl_line": 36024
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0129_6b625ca0dcfd8acd.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_0c22737f93fae2f259fa",
+        "question_number": 93,
+        "source_jsonl_line": 36025
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0129_6b625ca0dcfd8acd.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_6cc8b167466850a8696e",
+        "question_number": 94,
+        "source_jsonl_line": 36026
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0129_6b625ca0dcfd8acd.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_aec69caac0ba44dcf138",
+        "question_number": 95,
+        "source_jsonl_line": 36027
+      }
+    ],
+    "sha256": "67f758c1a744da04198bc5d99a2c6f8557ffe05957b026a43923d7199dc23050"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2022年全国居民人均可支配收入构成(元)",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_67f758c1a744da04198bc5d9/column_band_01.jpg",
+        "review-crops/da_67f758c1a744da04198bc5d9/column_band_02.jpg",
+        "review-crops/da_67f758c1a744da04198bc5d9/column_band_03.jpg",
+        "review-crops/da_67f758c1a744da04198bc5d9/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.539",
+      "crop_verification_elapsed_seconds:2.283",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

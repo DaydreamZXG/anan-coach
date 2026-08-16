@@ -1,0 +1,124 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2015年",
+          "2014年",
+          "2013年",
+          "2012年",
+          "2011年"
+        ],
+        "label": "2011-2015年我国部分社会服务机构情况"
+      }
+    ],
+    "columns": [
+      "2015年",
+      "2014年",
+      "2013年",
+      "2012年",
+      "2011年"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "社会服务机构单位数（个）",
+        "group": null,
+        "label": "社会服务机构单位数（个）",
+        "unit": null,
+        "values": [
+          1765004,
+          1668143,
+          1562298,
+          1366650,
+          1293986
+        ]
+      },
+      {
+        "display_label": "社会工作单位数（个）",
+        "group": null,
+        "label": "社会工作单位数（个）",
+        "unit": null,
+        "values": [
+          413372,
+          370893,
+          323061,
+          179045,
+          146451
+        ]
+      },
+      {
+        "display_label": "社会福利医院单位数（个）",
+        "group": "社会福利院单位数（个）",
+        "label": "社会福利院单位数（个）｜社会福利医院单位数（个）",
+        "unit": null,
+        "values": [
+          151,
+          156,
+          155,
+          156,
+          155
+        ]
+      },
+      {
+        "display_label": "儿童福利机构单位数（个）",
+        "group": "社会福利院单位数（个）",
+        "label": "社会福利院单位数（个）｜儿童福利机构单位数（个）",
+        "unit": null,
+        "values": [
+          478,
+          545,
+          529,
+          463,
+          397
+        ]
+      },
+      {
+        "display_label": "社会福利企业单位数（个）",
+        "group": "社会福利院单位数（个）",
+        "label": "社会福利院单位数（个）｜社会福利企业单位数（个）",
+        "unit": null,
+        "values": [
+          14585,
+          16389,
+          18227,
+          20232,
+          21507
+        ]
+      },
+      {
+        "display_label": "老龄机构单位数（个）",
+        "group": "社会福利院单位数（个）",
+        "label": "社会福利院单位数（个）｜老龄机构单位数（个）",
+        "unit": null,
+        "values": [
+          2280,
+          2558,
+          2571,
+          2583,
+          2503
+        ]
+      },
+      {
+        "display_label": "基金会单位数（个）",
+        "group": "社会福利院单位数（个）",
+        "label": "社会福利院单位数（个）｜基金会单位数（个）",
+        "unit": null,
+        "values": [
+          4784,
+          4117,
+          3549,
+          3029,
+          2614
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

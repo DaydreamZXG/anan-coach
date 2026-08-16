@@ -1,0 +1,167 @@
+{
+  "asset_id": "da_cc2a41f8df0796e084c80b61",
+  "axes": {
+    "x": {
+      "max": 70,
+      "min": 0,
+      "ticks": [
+        0,
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70
+      ],
+      "title": null,
+      "unit": "%"
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "日用品",
+    "服饰类",
+    "食品饮料",
+    "护肤美容发用品",
+    "家电及电子产品",
+    "图书、文具、乐器等",
+    "母婴及儿童用品",
+    "汽车相关用品",
+    "装修建材、家具",
+    "奢侈品和贵金属用品",
+    "其他"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "网购商品情况",
+      "style": {
+        "dash": "solid",
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "网购商品情况",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        65.8,
+        58.0,
+        51.3,
+        38.1,
+        35.2,
+        31.9,
+        21.6,
+        11.6,
+        6.6,
+        4.6,
+        2.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0280_905fbf73a9e8b420.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0280_905fbf73a9e8b420.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_262377fa32696c24dcbe",
+        "question_number": 116,
+        "source_jsonl_line": 48696
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0280_905fbf73a9e8b420.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_cd26e90d69edd7152f26",
+        "question_number": 117,
+        "source_jsonl_line": 48697
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0300_20297d040a06383a.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_87928220d3ef05840987",
+        "question_number": 118,
+        "source_jsonl_line": 48698
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0300_20297d040a06383a.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_bb7f8e56618b1ae8ad50",
+        "question_number": 119,
+        "source_jsonl_line": 48699
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0300_20297d040a06383a.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_2a7e7f5b423ceb31cbe0",
+        "question_number": 120,
+        "source_jsonl_line": 48700
+      }
+    ],
+    "sha256": "cc2a41f8df0796e084c80b61a0885e054e3df176f32ba84c6f50dc23d937af7d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "某市参与2018年“双11”网购的受访者网购商品情况（可多选）",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cc2a41f8df0796e084c80b61/column_band_01.jpg",
+        "review-crops/da_cc2a41f8df0796e084c80b61/column_band_02.jpg",
+        "review-crops/da_cc2a41f8df0796e084c80b61/column_band_03.jpg",
+        "review-crops/da_cc2a41f8df0796e084c80b61/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.008",
+      "crop_verification_elapsed_seconds:3.139",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

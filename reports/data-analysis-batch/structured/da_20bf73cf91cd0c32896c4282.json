@@ -1,0 +1,263 @@
+{
+  "asset_id": "da_20bf73cf91cd0c32896c4282",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "指标",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "利润总额",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "比上年增长%",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "利润总额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        54544,
+        14989,
+        882,
+        31651,
+        14038,
+        16620
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比上年增长%",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        25.4,
+        15.0,
+        34.0,
+        31.2,
+        10.6,
+        46.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2013年浙江省公务员录用考试《行测》题（A类）_images/img_0162_c383e7df63002aad.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（A类）_images/img_0162_c383e7df63002aad.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_e30e5a22fb3b90997388",
+        "question_number": 116,
+        "source_jsonl_line": 60548
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（A类）_images/img_0162_c383e7df63002aad.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_a0c4d08a11befa66f9d7",
+        "question_number": 117,
+        "source_jsonl_line": 60549
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（A类）_images/img_0198_e62126558006086a.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_d21b6ee494fdb08947c6",
+        "question_number": 118,
+        "source_jsonl_line": 60550
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（A类）_images/img_0162_c383e7df63002aad.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_0f98dc5be26316f765a5",
+        "question_number": 119,
+        "source_jsonl_line": 60551
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（A类）_images/img_0162_c383e7df63002aad.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_77687f6a373eefa84bcc",
+        "question_number": 120,
+        "source_jsonl_line": 60552
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0177_c383e7df63002aad.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_06231dabd5b82d325f0a",
+        "question_number": 106,
+        "source_jsonl_line": 60668
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0179_e62126558006086a.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_b4eeefb4b335797df425",
+        "question_number": 107,
+        "source_jsonl_line": 60669
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0179_e62126558006086a.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_ba7d9fd6a924250cf65c",
+        "question_number": 108,
+        "source_jsonl_line": 60670
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0177_c383e7df63002aad.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_bb7bdce9b749ac361e2d",
+        "question_number": 109,
+        "source_jsonl_line": 60671
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0177_c383e7df63002aad.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_40f294f0e5efc54532ef",
+        "question_number": 110,
+        "source_jsonl_line": 60672
+      }
+    ],
+    "sha256": "20bf73cf91cd0c32896c4282f9b42c43f19a72a967fdd0e7f5a75bea9cd316e4"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "利润总额",
+      "比上年增长%"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "规模以上工业",
+        "unit": null,
+        "values": [
+          "规模以上工业",
+          54544,
+          25.4
+        ]
+      },
+      {
+        "label": "其中：国有及国有控股企业",
+        "unit": null,
+        "values": [
+          "其中：国有及国有控股企业",
+          14989,
+          15.0
+        ]
+      },
+      {
+        "label": "其中：集体企业",
+        "unit": null,
+        "values": [
+          "其中：集体企业",
+          882,
+          34.0
+        ]
+      },
+      {
+        "label": "股份制企业",
+        "unit": null,
+        "values": [
+          "股份制企业",
+          31651,
+          31.2
+        ]
+      },
+      {
+        "label": "外商及港澳台商投资企业",
+        "unit": null,
+        "values": [
+          "外商及港澳台商投资企业",
+          14038,
+          10.6
+        ]
+      },
+      {
+        "label": "其中：私营企业",
+        "unit": null,
+        "values": [
+          "其中：私营企业",
+          16620,
+          46.0
+        ]
+      }
+    ]
+  },
+  "title": "2011年我国规模以上工业企业实现利润及其增长速度",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_20bf73cf91cd0c32896c4282/row_band_01.jpg",
+        "review-crops/da_20bf73cf91cd0c32896c4282/row_band_02.jpg",
+        "review-crops/da_20bf73cf91cd0c32896c4282/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.851",
+      "crop_verification_elapsed_seconds:7.269",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

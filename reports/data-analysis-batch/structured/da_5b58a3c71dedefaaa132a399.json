@@ -1,0 +1,306 @@
+{
+  "asset_id": "da_5b58a3c71dedefaaa132a399",
+  "axes": {
+    "x": {
+      "max": 6,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 10000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000,
+          8000,
+          9000,
+          10000
+        ],
+        "title": null,
+        "unit": "万人"
+      },
+      {
+        "max": 120.0,
+        "min": -20.0,
+        "ticks": [
+          -20.0,
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0,
+          120.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "公共汽电车客运量",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "轨道交通客运量",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "公共汽电车客运量增速",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "triangle",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "轨道交通客运量增速",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "triangle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "公共汽电车客运量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        5782,
+        4564,
+        5324,
+        5864,
+        5665,
+        5491
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "轨道交通客运量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        7729,
+        5534,
+        9023,
+        9194,
+        8819,
+        8357
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "公共汽电车客运量增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        9.9,
+        -12.7,
+        96.0,
+        85.0,
+        71.7,
+        60.3
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "轨道交通客运量增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        46.7,
+        70.7,
+        70.1,
+        71.6,
+        54.6,
+        44.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0185_c23f6bc78bcc130b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0185_c23f6bc78bcc130b.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_9c198b4e41f8bfa3e1d8",
+        "question_number": 116,
+        "source_jsonl_line": 49761
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0192_e22e45d7a11d69a1.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_bf7e7bed99ba20ec2bb1",
+        "question_number": 117,
+        "source_jsonl_line": 49762
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0185_c23f6bc78bcc130b.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_d9884532a6040683c847",
+        "question_number": 118,
+        "source_jsonl_line": 49763
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0192_e22e45d7a11d69a1.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_8cb8ed55950dba5e7150",
+        "question_number": 119,
+        "source_jsonl_line": 49764
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0192_e22e45d7a11d69a1.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_3de71e4e5ddb543cfa45",
+        "question_number": 120,
+        "source_jsonl_line": 49765
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0192_e22e45d7a11d69a1.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_356a4375ed3fc956000f",
+        "question_number": 116,
+        "source_jsonl_line": 49896
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0192_e22e45d7a11d69a1.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_3755e87e25d60221dfc0",
+        "question_number": 117,
+        "source_jsonl_line": 49897
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0200_c23f6bc78bcc130b.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_7ace6f05261b38d1a9b4",
+        "question_number": 118,
+        "source_jsonl_line": 49898
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0192_e22e45d7a11d69a1.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_4fef0897e1dfa7c9e031",
+        "question_number": 119,
+        "source_jsonl_line": 49899
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0192_e22e45d7a11d69a1.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_3375898fb2d680f139ad",
+        "question_number": 120,
+        "source_jsonl_line": 49900
+      }
+    ],
+    "sha256": "5b58a3c71dedefaaa132a39941720f09c8ce41a817ce041eda499d49c3a443d8"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2021年1—6月某市轨道交通与公共汽电车客运量及同比增速",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5b58a3c71dedefaaa132a399/column_band_01.jpg",
+        "review-crops/da_5b58a3c71dedefaaa132a399/column_band_02.jpg",
+        "review-crops/da_5b58a3c71dedefaaa132a399/column_band_03.jpg",
+        "review-crops/da_5b58a3c71dedefaaa132a399/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.286",
+      "crop_verification_elapsed_seconds:6.892",
+      "candidate_value_changes_after_crop:1",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

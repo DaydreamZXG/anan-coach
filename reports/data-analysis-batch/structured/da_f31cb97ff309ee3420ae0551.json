@@ -1,0 +1,190 @@
+{
+  "asset_id": "da_f31cb97ff309ee3420ae0551",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2009年云南省公务员录用考试《行测》题_images/img_0160_f848330bc5b833f2.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年云南省公务员录用考试《行测》题_images/img_0160_f848330bc5b833f2.png",
+        "paper_title": "2009年云南省公务员录用考试《行测》题",
+        "question_id": "pq_d2c8e9c7f0c819e36c0f",
+        "question_number": 126,
+        "source_jsonl_line": 4326
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年云南省公务员录用考试《行测》题_images/img_0170_5ff72036ff3f2619.png",
+        "paper_title": "2009年云南省公务员录用考试《行测》题",
+        "question_id": "pq_722984968d0219cc7668",
+        "question_number": 127,
+        "source_jsonl_line": 4327
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年云南省公务员录用考试《行测》题_images/img_0160_f848330bc5b833f2.png",
+        "paper_title": "2009年云南省公务员录用考试《行测》题",
+        "question_id": "pq_4b47c7e720cdeccf1bd7",
+        "question_number": 128,
+        "source_jsonl_line": 4328
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年云南省公务员录用考试《行测》题_images/img_0160_f848330bc5b833f2.png",
+        "paper_title": "2009年云南省公务员录用考试《行测》题",
+        "question_id": "pq_f31c3525f406ef8e198d",
+        "question_number": 129,
+        "source_jsonl_line": 4329
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年云南省公务员录用考试《行测》题_images/img_0170_5ff72036ff3f2619.png",
+        "paper_title": "2009年云南省公务员录用考试《行测》题",
+        "question_id": "pq_1bdcff203742167c60ed",
+        "question_number": 130,
+        "source_jsonl_line": 4330
+      }
+    ],
+    "sha256": "f31cb97ff309ee3420ae0551371228bf12e343eb371df84d9b41bc0a9123fd82"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "产品名称",
+      "单位",
+      "产量计划",
+      "产量实际",
+      "产值计划",
+      "产值实际",
+      "实际（扣除超产部分）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "氢氧化铝",
+        "unit": null,
+        "values": [
+          "氢氧化铝",
+          "吨",
+          250,
+          50,
+          250000,
+          5000,
+          5000
+        ]
+      },
+      {
+        "label": "普通铝锭",
+        "unit": null,
+        "values": [
+          "普通铝锭",
+          "吨",
+          380,
+          420,
+          190000,
+          210000,
+          190000
+        ]
+      },
+      {
+        "label": "拉丝铝",
+        "unit": null,
+        "values": [
+          "拉丝铝",
+          "吨",
+          550,
+          300,
+          1100000,
+          600000,
+          600000
+        ]
+      },
+      {
+        "label": "稀土铝",
+        "unit": null,
+        "values": [
+          "稀土铝",
+          "吨",
+          700,
+          850,
+          280000,
+          340000,
+          280000
+        ]
+      },
+      {
+        "label": "电工铝",
+        "unit": null,
+        "values": [
+          "电工铝",
+          "吨",
+          null,
+          100,
+          null,
+          150000,
+          null
+        ]
+      }
+    ]
+  },
+  "title": "某铝厂计划完成情况统计表",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f31cb97ff309ee3420ae0551/row_band_01.jpg",
+        "review-crops/da_f31cb97ff309ee3420ae0551/row_band_02.jpg",
+        "review-crops/da_f31cb97ff309ee3420ae0551/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.996",
+      "crop_verification_elapsed_seconds:6.673",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:表格中存在'—'符号，表示数据缺失，但未明确说明是否为零或不可用。",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

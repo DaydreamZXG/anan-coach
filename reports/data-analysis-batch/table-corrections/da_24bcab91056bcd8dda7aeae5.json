@@ -1,0 +1,117 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年总末人口（万人）",
+      "65岁及以上人口（万人）",
+      "老年人口抚养比（%）",
+      "各类养老机构数量（万个）",
+      "各类养老机构床位数（万张）"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "年总末人口（万人）",
+      "style": "diagonal",
+      "upper_label": "人口年龄结构"
+    },
+    "missing_cells": [],
+    "row_header_label": "年总末人口（万人）",
+    "rows": [
+      {
+        "display_label": "2018年",
+        "group": null,
+        "label": "2018年",
+        "unit": null,
+        "values": [
+          140541,
+          16724,
+          16.8,
+          16.8,
+          727.1
+        ]
+      },
+      {
+        "display_label": "2019年",
+        "group": null,
+        "label": "2019年",
+        "unit": null,
+        "values": [
+          141008,
+          17767,
+          17.8,
+          20.4,
+          775
+        ]
+      },
+      {
+        "display_label": "2020年",
+        "group": null,
+        "label": "2020年",
+        "unit": null,
+        "values": [
+          141212,
+          19064,
+          19.7,
+          32.9,
+          821
+        ]
+      },
+      {
+        "display_label": "2021年",
+        "group": null,
+        "label": "2021年",
+        "unit": null,
+        "values": [
+          141260,
+          20056,
+          20.8,
+          35.8,
+          815.9
+        ]
+      },
+      {
+        "display_label": "2022年",
+        "group": null,
+        "label": "2022年",
+        "unit": null,
+        "values": [
+          141175,
+          20978,
+          21.8,
+          38.7,
+          829.4
+        ]
+      },
+      {
+        "display_label": "2023年",
+        "group": null,
+        "label": "2023年",
+        "unit": null,
+        "values": [
+          140967,
+          21676,
+          22.5,
+          40.4,
+          823
+        ]
+      },
+      {
+        "display_label": "2024年",
+        "group": null,
+        "label": "2024年",
+        "unit": null,
+        "values": [
+          140828,
+          22023,
+          22.6,
+          40.6,
+          799.3
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

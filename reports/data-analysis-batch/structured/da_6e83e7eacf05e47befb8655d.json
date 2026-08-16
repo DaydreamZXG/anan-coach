@@ -1,0 +1,206 @@
+{
+  "asset_id": "da_6e83e7eacf05e47befb8655d",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 14000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000,
+          12000,
+          14000
+        ],
+        "title": "老年人口规模",
+        "unit": "（万人）"
+      },
+      {
+        "max": 10,
+        "min": 0,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "title": "老年人口比例",
+        "unit": "（%）"
+      }
+    ]
+  },
+  "categories": [
+    "1953年",
+    "1964年",
+    "1982年",
+    "1990年",
+    "2000年",
+    "2010年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "老年人口规模（万人）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "老年人口比例（%）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "老年人口规模（万人）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        2569,
+        2473,
+        4950,
+        6315,
+        8811,
+        11883
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "老年人口比例（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        4.41,
+        3.56,
+        4.91,
+        5.57,
+        6.96,
+        8.87
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广州市考/2015年广州市公务员录用考试《行测》题_images/img_0105_703d11baf3cb73b1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年广州市公务员录用考试《行测》题_images/img_0105_703d11baf3cb73b1.png",
+        "paper_title": "2015年广州市公务员录用考试《行测》题",
+        "question_id": "pq_79ec6671a1103efbccc2",
+        "question_number": 96,
+        "source_jsonl_line": 37258
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年广州市公务员录用考试《行测》题_images/img_0105_703d11baf3cb73b1.png",
+        "paper_title": "2015年广州市公务员录用考试《行测》题",
+        "question_id": "pq_c85e376e8302a2f30cee",
+        "question_number": 97,
+        "source_jsonl_line": 37259
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年广州市公务员录用考试《行测》题_images/img_0120_85a79b419b799ed8.png",
+        "paper_title": "2015年广州市公务员录用考试《行测》题",
+        "question_id": "pq_744c1a916042618fc5bb",
+        "question_number": 98,
+        "source_jsonl_line": 37260
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年广州市公务员录用考试《行测》题_images/img_0105_703d11baf3cb73b1.png",
+        "paper_title": "2015年广州市公务员录用考试《行测》题",
+        "question_id": "pq_4a4790c8cdd5395f39f6",
+        "question_number": 99,
+        "source_jsonl_line": 37261
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年广州市公务员录用考试《行测》题_images/img_0120_85a79b419b799ed8.png",
+        "paper_title": "2015年广州市公务员录用考试《行测》题",
+        "question_id": "pq_faefed9598503d6ed7aa",
+        "question_number": 100,
+        "source_jsonl_line": 37262
+      }
+    ],
+    "sha256": "6e83e7eacf05e47befb8655db776079bca3a70f5e9ff589fc18075a34ad3de7a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "建国以来六次人口普查65岁及以上老年人口规模及比例变化",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6e83e7eacf05e47befb8655d/column_band_01.jpg",
+        "review-crops/da_6e83e7eacf05e47befb8655d/column_band_02.jpg",
+        "review-crops/da_6e83e7eacf05e47befb8655d/column_band_03.jpg",
+        "review-crops/da_6e83e7eacf05e47befb8655d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.451",
+      "crop_verification_elapsed_seconds:4.193",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

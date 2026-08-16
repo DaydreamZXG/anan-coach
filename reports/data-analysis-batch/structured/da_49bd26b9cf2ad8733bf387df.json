@@ -1,0 +1,255 @@
+{
+  "asset_id": "da_49bd26b9cf2ad8733bf387df",
+  "axes": {
+    "x": {
+      "max": 2023,
+      "min": 2018,
+      "ticks": [
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 180.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0,
+          120.0,
+          140.0,
+          160.0,
+          180.0
+        ],
+        "title": null,
+        "unit": "(平方米)"
+      },
+      {
+        "max": 2.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          0.2,
+          0.4,
+          0.6,
+          0.8,
+          1.0,
+          1.2,
+          1.4,
+          1.6,
+          1.8,
+          2.0
+        ],
+        "title": null,
+        "unit": "(册)"
+      }
+    ]
+  },
+  "categories": [
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "每万人公共图书馆建筑面积",
+      "style": {
+        "dash": "solid",
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "人均公共图书馆藏量",
+      "style": {
+        "dash": "dot",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "每万人公共图书馆建筑面积",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(平方米)",
+      "values": [
+        114.4,
+        121.4,
+        126.5,
+        135.5,
+        148.6,
+        160.3
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "人均公共图书馆藏量",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(册)",
+      "values": [
+        0.74,
+        0.79,
+        0.84,
+        0.89,
+        0.96,
+        1.02
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0230_92f9bd1cd73c8290.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0230_92f9bd1cd73c8290.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_5635d5c8dbbe7df8394d",
+        "question_number": 131,
+        "source_jsonl_line": 50711
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0230_92f9bd1cd73c8290.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_9ea673c48ec45a4a3777",
+        "question_number": 132,
+        "source_jsonl_line": 50712
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0230_92f9bd1cd73c8290.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_438af7fb31941fdfaa13",
+        "question_number": 133,
+        "source_jsonl_line": 50713
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0240_bb3c19393d37e7aa.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_76c57a72b0b3234e01de",
+        "question_number": 134,
+        "source_jsonl_line": 50714
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0240_bb3c19393d37e7aa.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_4788b7aa605782a2c49a",
+        "question_number": 135,
+        "source_jsonl_line": 50715
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0233_92f9bd1cd73c8290.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_5dec85cc72d0a6d26924",
+        "question_number": 131,
+        "source_jsonl_line": 50846
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0233_92f9bd1cd73c8290.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_2c01fa61302e3084f354",
+        "question_number": 132,
+        "source_jsonl_line": 50847
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0234_bb3c19393d37e7aa.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_1271c3560803ef7af3a0",
+        "question_number": 133,
+        "source_jsonl_line": 50848
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0234_bb3c19393d37e7aa.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_63e04ff1c86203567c06",
+        "question_number": 134,
+        "source_jsonl_line": 50849
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0233_92f9bd1cd73c8290.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_77142c09df7b2ebab008",
+        "question_number": 135,
+        "source_jsonl_line": 50850
+      }
+    ],
+    "sha256": "49bd26b9cf2ad8733bf387dfbca67c6a911e711813e645290293b9a7d3b23777"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2018-2023年末全国每万人公共图书馆建筑面积及人均公共图书馆藏量情况",
+  "unit": "(平方米)",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_49bd26b9cf2ad8733bf387df/column_band_01.jpg",
+        "review-crops/da_49bd26b9cf2ad8733bf387df/column_band_02.jpg",
+        "review-crops/da_49bd26b9cf2ad8733bf387df/column_band_03.jpg",
+        "review-crops/da_49bd26b9cf2ad8733bf387df/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.025",
+      "crop_verification_elapsed_seconds:3.88",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

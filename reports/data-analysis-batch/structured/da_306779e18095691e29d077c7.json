@@ -1,0 +1,421 @@
+{
+  "asset_id": "da_306779e18095691e29d077c7",
+  "axes": {
+    "x": {
+      "max": 16,
+      "min": 1,
+      "ticks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "title": "序号",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "细分市场",
+        "unit": null
+      },
+      {
+        "max": 526,
+        "min": 86,
+        "ticks": [],
+        "title": "2017年",
+        "unit": "亿美元"
+      }
+    ]
+  },
+  "categories": [
+    "序号",
+    "细分市场",
+    "2017年",
+    "2019年"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "2017年",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "2019年",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2017",
+      "label": "2017年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        130,
+        89,
+        365,
+        526,
+        185,
+        117,
+        86,
+        117,
+        469,
+        139,
+        277,
+        185,
+        118,
+        395,
+        221,
+        631,
+        4050
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2019",
+      "label": "2019年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        145,
+        100,
+        408,
+        588,
+        207,
+        129,
+        96,
+        132,
+        524,
+        155,
+        310,
+        207,
+        133,
+        442,
+        247,
+        706,
+        4529
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2022年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0105_437f509d7f1a00e3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0105_437f509d7f1a00e3.png",
+        "paper_title": "2022年深圳市考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_ed88a59234738a5ef4b3",
+        "question_number": 96,
+        "source_jsonl_line": 68312
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0102_2ae0b6180211da15.png",
+        "paper_title": "2022年深圳市考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_0391c7b947c49e63aa17",
+        "question_number": 97,
+        "source_jsonl_line": 68313
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0102_2ae0b6180211da15.png",
+        "paper_title": "2022年深圳市考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_418ca0881204172b35a4",
+        "question_number": 98,
+        "source_jsonl_line": 68314
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0105_437f509d7f1a00e3.png",
+        "paper_title": "2022年深圳市考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_3b4dca4a8fca041cb411",
+        "question_number": 99,
+        "source_jsonl_line": 68315
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0102_2ae0b6180211da15.png",
+        "paper_title": "2022年深圳市考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_2ee496a5108d7f8b5ca0",
+        "question_number": 100,
+        "source_jsonl_line": 68316
+      }
+    ],
+    "sha256": "306779e18095691e29d077c7eee1118d67dcf9cd47b1f397e147ce72fde1ba9b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "序号",
+      "细分市场",
+      "2017年",
+      "2019年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "1",
+        "unit": null,
+        "values": [
+          1,
+          "创伤护理",
+          130,
+          145
+        ]
+      },
+      {
+        "label": "2",
+        "unit": null,
+        "values": [
+          2,
+          "耳鼻喉科",
+          89,
+          100
+        ]
+      },
+      {
+        "label": "3",
+        "unit": null,
+        "values": [
+          3,
+          "骨科",
+          365,
+          408
+        ]
+      },
+      {
+        "label": "4",
+        "unit": null,
+        "values": [
+          4,
+          "IVD",
+          526,
+          588
+        ]
+      },
+      {
+        "label": "5",
+        "unit": null,
+        "values": [
+          5,
+          "内镜",
+          185,
+          207
+        ]
+      },
+      {
+        "label": "6",
+        "unit": null,
+        "values": [
+          6,
+          "肾病",
+          117,
+          129
+        ]
+      },
+      {
+        "label": "7",
+        "unit": null,
+        "values": [
+          7,
+          "神经外科",
+          86,
+          96
+        ]
+      },
+      {
+        "label": "8",
+        "unit": null,
+        "values": [
+          8,
+          "糖尿病",
+          117,
+          132
+        ]
+      },
+      {
+        "label": "9",
+        "unit": null,
+        "values": [
+          9,
+          "心血管",
+          469,
+          524
+        ]
+      },
+      {
+        "label": "10",
+        "unit": null,
+        "values": [
+          10,
+          "牙科",
+          139,
+          155
+        ]
+      },
+      {
+        "label": "11",
+        "unit": null,
+        "values": [
+          11,
+          "眼科",
+          277,
+          310
+        ]
+      },
+      {
+        "label": "12",
+        "unit": null,
+        "values": [
+          12,
+          "药物传输",
+          185,
+          207
+        ]
+      },
+      {
+        "label": "13",
+        "unit": null,
+        "values": [
+          13,
+          "医疗软件",
+          118,
+          133
+        ]
+      },
+      {
+        "label": "14",
+        "unit": null,
+        "values": [
+          14,
+          "影像",
+          395,
+          442
+        ]
+      },
+      {
+        "label": "15",
+        "unit": null,
+        "values": [
+          15,
+          "整形",
+          221,
+          247
+        ]
+      },
+      {
+        "label": "16",
+        "unit": null,
+        "values": [
+          16,
+          "其他",
+          631,
+          706
+        ]
+      },
+      {
+        "label": "销售额总额",
+        "unit": null,
+        "values": [
+          "销售额总额",
+          null,
+          4050,
+          4529
+        ]
+      }
+    ]
+  },
+  "title": "2017与2019年全球医疗器械销售额",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_306779e18095691e29d077c7/row_band_01.jpg",
+        "review-crops/da_306779e18095691e29d077c7/row_band_02.jpg",
+        "review-crops/da_306779e18095691e29d077c7/row_band_03.jpg",
+        "review-crops/da_306779e18095691e29d077c7/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:14.739",
+      "crop_verification_elapsed_seconds:19.766",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'耳鼻喉科'的拼写为'耳鼻喉科'，与原图一致",
+      "crop_note:修正了'骨科'的数值为365，与原图一致",
+      "crop_note:修正了'IVD'的数值为526，与原图一致",
+      "crop_note:修正了'内镜'的数值为185，与原图一致",
+      "crop_note:修正了'肾病'的数值为117，与原图一致",
+      "crop_note:修正了'神经外科'的数值为86，与原图一致",
+      "crop_note:修正了'糖尿病'的数值为117，与原图一致",
+      "crop_note:修正了'心血管'的数值为469，与原图一致",
+      "crop_note:修正了'牙科'的数值为139，与原图一致",
+      "crop_note:修正了'眼科'的数值为277，与原图一致",
+      "crop_note:修正了'药物传输'的数值为185，与原图一致",
+      "crop_note:修正了'医疗软件'的数值为118，与原图一致",
+      "crop_note:修正了'影像'的数值为395，与原图一致",
+      "crop_note:修正了'整形'的数值为221，与原图一致",
+      "crop_note:修正了'其他'的数值为631，与原图一致",
+      "crop_note:修正了'销售额总额'的2017年数值为4050，与原图一致",
+      "crop_note:修正了'销售额总额'的2019年数值为4529，与原图一致"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

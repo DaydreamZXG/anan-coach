@@ -1,0 +1,248 @@
+{
+  "asset_id": "da_f99d03ba5f0f129266b2c9be",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2017年四川省公务员录用考试《行测》题（下半年）_images/img_0186_7bb86a610e2473d3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年四川省公务员录用考试《行测》题（下半年）_images/img_0186_7bb86a610e2473d3.png",
+        "paper_title": "2017年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_52e2742c7f7099d63914",
+        "question_number": 91,
+        "source_jsonl_line": 15606
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年四川省公务员录用考试《行测》题（下半年）_images/img_0186_7bb86a610e2473d3.png",
+        "paper_title": "2017年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_a022571d6bd47a56d624",
+        "question_number": 92,
+        "source_jsonl_line": 15607
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年四川省公务员录用考试《行测》题（下半年）_images/img_0199_1efe468612871f69.png",
+        "paper_title": "2017年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_af22bb8adbd2e74329db",
+        "question_number": 93,
+        "source_jsonl_line": 15608
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年四川省公务员录用考试《行测》题（下半年）_images/img_0186_7bb86a610e2473d3.png",
+        "paper_title": "2017年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_d8355ab12df379613206",
+        "question_number": 94,
+        "source_jsonl_line": 15609
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年四川省公务员录用考试《行测》题（下半年）_images/img_0186_7bb86a610e2473d3.png",
+        "paper_title": "2017年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_095d7e845d6cb033f4fe",
+        "question_number": 95,
+        "source_jsonl_line": 15610
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市公务员录用考试《行测》题（下半年）_images/img_0184_7bb86a610e2473d3.png",
+        "paper_title": "2017年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_e6a4472bcda6d6357e8c",
+        "question_number": 106,
+        "source_jsonl_line": 94049
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市公务员录用考试《行测》题（下半年）_images/img_0184_7bb86a610e2473d3.png",
+        "paper_title": "2017年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_a48240db195e36b6e20f",
+        "question_number": 107,
+        "source_jsonl_line": 94050
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市公务员录用考试《行测》题（下半年）_images/img_0194_1efe468612871f69.png",
+        "paper_title": "2017年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_28c0c56b7d48c3bc4bf5",
+        "question_number": 108,
+        "source_jsonl_line": 94051
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市公务员录用考试《行测》题（下半年）_images/img_0184_7bb86a610e2473d3.png",
+        "paper_title": "2017年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_129d3f4514fa20c761b5",
+        "question_number": 109,
+        "source_jsonl_line": 94052
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市公务员录用考试《行测》题（下半年）_images/img_0184_7bb86a610e2473d3.png",
+        "paper_title": "2017年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_6574024a32b815d9eb4f",
+        "question_number": 110,
+        "source_jsonl_line": 94053
+      }
+    ],
+    "sha256": "f99d03ba5f0f129266b2c9bea90aa85c5c955c385596f0ecaa77200d2bf070f8"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "货物周转量｜绝对量（亿吨公里）",
+          "货物周转量｜同比增（%）"
+        ],
+        "label": "货物周转量"
+      },
+      {
+        "columns": [
+          "货运量｜绝对量（亿吨）",
+          "货运量｜同比增（%）"
+        ],
+        "label": "货运量"
+      },
+      {
+        "columns": [
+          "旅客周转量｜绝对量（亿人公里）",
+          "旅客周转量｜同比增（%）"
+        ],
+        "label": "旅客周转量"
+      },
+      {
+        "columns": [
+          "客运量｜绝对量（万人）",
+          "客运量｜同比增（%）"
+        ],
+        "label": "客运量"
+      }
+    ],
+    "columns": [
+      "货物周转量｜绝对量（亿吨公里）",
+      "货物周转量｜同比增（%）",
+      "货运量｜绝对量（亿吨）",
+      "货运量｜同比增（%）",
+      "旅客周转量｜绝对量（亿人公里）",
+      "旅客周转量｜同比增（%）",
+      "客运量｜绝对量（万人）",
+      "客运量｜同比增（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "运输方式",
+    "rows": [
+      {
+        "display_label": "铁路",
+        "group": null,
+        "label": "铁路",
+        "unit": null,
+        "values": [
+          2446.8,
+          -3.7,
+          78000,
+          3.7,
+          201.9,
+          15,
+          4796.5,
+          8.2
+        ]
+      },
+      {
+        "display_label": "公路",
+        "group": null,
+        "label": "公路",
+        "unit": null,
+        "values": [
+          2103.5,
+          12.3,
+          127000,
+          30.5,
+          161.4,
+          -7,
+          13495,
+          -16.6
+        ]
+      },
+      {
+        "display_label": "民航",
+        "group": null,
+        "label": "民航",
+        "unit": null,
+        "values": [
+          null,
+          null,
+          7.6,
+          7.9,
+          null,
+          null,
+          1491.6,
+          6.8
+        ]
+      },
+      {
+        "display_label": "总计",
+        "group": null,
+        "label": "总计",
+        "unit": null,
+        "values": [
+          4550.3,
+          3.1,
+          204000,
+          18.9,
+          363.3,
+          4,
+          19783.1,
+          -10.1
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,249 @@
+{
+  "asset_id": "da_31e6d3f1fac7aeab4ba8fd5f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "省市",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "上半年经济总量",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比增长",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "上海",
+    "江苏",
+    "浙江",
+    "安徽"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "上半年经济总量",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "同比增长",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "规模以上工业总产值同比增长",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "上半年经济总量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        26222,
+        66968,
+        45004,
+        25732
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "同比增长",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.1,
+        5.7,
+        5.8,
+        5.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "规模以上工业总产值同比增长",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.6,
+        7.4,
+        7.6,
+        8.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/上海/2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0180_fc31156f902e4371.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0180_fc31156f902e4371.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9b04f86936c24cca7beb",
+        "question_number": 126,
+        "source_jsonl_line": 4066
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0180_fc31156f902e4371.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b9deddc01b86e0c6c286",
+        "question_number": 127,
+        "source_jsonl_line": 4067
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0180_fc31156f902e4371.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_69a7e5b8e8997b634103",
+        "question_number": 128,
+        "source_jsonl_line": 4068
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0180_fc31156f902e4371.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f08340382223c653911d",
+        "question_number": 129,
+        "source_jsonl_line": 4069
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0180_fc31156f902e4371.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_dd0603d89cc67b3a4019",
+        "question_number": 130,
+        "source_jsonl_line": 4070
+      }
+    ],
+    "sha256": "31e6d3f1fac7aeab4ba8fd5f13e98cf96dfaccd7246334d2b66b67b7b8a430f8"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "上海",
+      "江苏",
+      "浙江",
+      "安徽"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "省市",
+    "rows": [
+      {
+        "label": "上半年经济总量（亿元）",
+        "unit": null,
+        "values": [
+          26222,
+          66968,
+          45004,
+          25732
+        ]
+      },
+      {
+        "label": "同比增长",
+        "unit": "%",
+        "values": [
+          5.1,
+          5.7,
+          5.8,
+          5.6
+        ]
+      },
+      {
+        "label": "其中：规模以上工业总产值同比增长",
+        "unit": null,
+        "values": [
+          5.6,
+          7.4,
+          7.6,
+          8.4
+        ]
+      }
+    ]
+  },
+  "title": "表1 2025年上半年长三角三省一市经济总量与同比增速",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_31e6d3f1fac7aeab4ba8fd5f/row_band_01.jpg",
+        "review-crops/da_31e6d3f1fac7aeab4ba8fd5f/row_band_02.jpg",
+        "review-crops/da_31e6d3f1fac7aeab4ba8fd5f/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.392",
+      "crop_verification_elapsed_seconds:7.366",
+      "candidate_value_changes_after_crop:0",
+      "table_row_label_column_removed:省市"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

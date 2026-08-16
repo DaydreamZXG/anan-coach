@@ -1,0 +1,194 @@
+{
+  "asset_id": "da_5e9fdf96411f4938d63f4e70",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 0,
+        "min": -8,
+        "ticks": [],
+        "title": null,
+        "unit": "(%)"
+      }
+    ]
+  },
+  "categories": [
+    "2015年2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月",
+    "2016年1月",
+    "2月"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "环比",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "同比",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "环比",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(%)",
+      "values": [
+        -1.0,
+        -0.1,
+        -0.3,
+        -0.1,
+        -0.6,
+        -0.9,
+        -1.0,
+        -0.6,
+        -0.5,
+        -0.7,
+        -0.8,
+        -0.7,
+        -0.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "同比",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(%)",
+      "values": [
+        -6.2,
+        -5.9,
+        -5.9,
+        -5.9,
+        -6.2,
+        -6.9,
+        -7.7,
+        -7.7,
+        -7.6,
+        -7.6,
+        -7.6,
+        -6.9,
+        -6.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0181_454179efe73c5e25.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0181_454179efe73c5e25.png",
+        "paper_title": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_f81f2d75fdc5022cd615",
+        "question_number": 76,
+        "source_jsonl_line": 86194
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0181_454179efe73c5e25.png",
+        "paper_title": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_7e578c28dc09b2451eeb",
+        "question_number": 77,
+        "source_jsonl_line": 86195
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0218_a6aade7631de1916.png",
+        "paper_title": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_cfe1f39b25ff7a20c27c",
+        "question_number": 78,
+        "source_jsonl_line": 86196
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0218_a6aade7631de1916.png",
+        "paper_title": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_8af0e553b8875e03e892",
+        "question_number": 79,
+        "source_jsonl_line": 86197
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0218_a6aade7631de1916.png",
+        "paper_title": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_da4ee607a4638005f406",
+        "question_number": 80,
+        "source_jsonl_line": 86198
+      }
+    ],
+    "sha256": "5e9fdf96411f4938d63f4e70c3a4656d4c08de007cc465856b2192d45e2aba32"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "生产资料出厂价格涨跌幅",
+  "unit": "(%)",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.182",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "independent_compact_chart_adjudication"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b_compact_chart",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

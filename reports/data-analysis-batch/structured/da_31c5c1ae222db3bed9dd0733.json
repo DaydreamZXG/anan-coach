@@ -1,0 +1,371 @@
+{
+  "asset_id": "da_31c5c1ae222db3bed9dd0733",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0068_5f68c1729882586a.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0068_5f68c1729882586a.jpg",
+        "paper_title": "2022年天津市公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_121e2776e677c04d45ca",
+        "question_number": 81,
+        "source_jsonl_line": 24013
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0068_5f68c1729882586a.jpg",
+        "paper_title": "2022年天津市公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_c70729af1f7eda328638",
+        "question_number": 82,
+        "source_jsonl_line": 24014
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0070_3b8d24202086437e.jpg",
+        "paper_title": "2022年天津市公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_e0a2c30fba2b7dc79c35",
+        "question_number": 83,
+        "source_jsonl_line": 24015
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0070_3b8d24202086437e.jpg",
+        "paper_title": "2022年天津市公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_d2acb9e50e171a61b576",
+        "question_number": 84,
+        "source_jsonl_line": 24016
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0068_5f68c1729882586a.jpg",
+        "paper_title": "2022年天津市公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_757a12726d22d9996ab8",
+        "question_number": 85,
+        "source_jsonl_line": 24017
+      }
+    ],
+    "sha256": "31c5c1ae222db3bed9dd073381e6e9355cbf7f89fbaae9310c3c22cad9d2660d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "数量(家)",
+      "营业收入(亿元)",
+      "餐饮收入比重(%)",
+      "客房收入比重(%)",
+      "平均房价(元/间夜)",
+      "平均出租率(%)",
+      "每间可供出租客房收入(元/间夜)",
+      "每间客房平均营业收入(元)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "全国",
+        "group": "目标",
+        "label": "目标｜全国",
+        "unit": null,
+        "values": [
+          2650,
+          165.5,
+          39.07,
+          39.31,
+          394.07,
+          35.07,
+          138.2,
+          27790.85
+        ]
+      },
+      {
+        "display_label": "北京",
+        "group": "目标",
+        "label": "目标｜北京",
+        "unit": null,
+        "values": [
+          286,
+          12.65,
+          25.84,
+          39.46,
+          455.69,
+          18.8,
+          85.67,
+          17757.42
+        ]
+      },
+      {
+        "display_label": "天津",
+        "group": "目标",
+        "label": "目标｜天津",
+        "unit": null,
+        "values": [
+          67,
+          3.16,
+          29.66,
+          45.01,
+          414.38,
+          29.98,
+          124.24,
+          24861.28
+        ]
+      },
+      {
+        "display_label": "石家庄",
+        "group": "目标",
+        "label": "目标｜石家庄",
+        "unit": null,
+        "values": [
+          41,
+          2.85,
+          45.24,
+          38.07,
+          323.59,
+          40.8,
+          132.04,
+          27513.31
+        ]
+      },
+      {
+        "display_label": "秦皇岛",
+        "group": "目标",
+        "label": "目标｜秦皇岛",
+        "unit": null,
+        "values": [
+          23,
+          0.22,
+          45.26,
+          25.72,
+          229.09,
+          7.28,
+          16.67,
+          5018.16
+        ]
+      },
+      {
+        "display_label": "太原",
+        "group": "目标",
+        "label": "目标｜太原",
+        "unit": null,
+        "values": [
+          13,
+          0.73,
+          41.18,
+          22.19,
+          282.65,
+          29.82,
+          84.3,
+          33473.51
+        ]
+      },
+      {
+        "display_label": "呼和浩特",
+        "group": "目标",
+        "label": "目标｜呼和浩特",
+        "unit": null,
+        "values": [
+          22,
+          0.85,
+          46.05,
+          39.78,
+          271.87,
+          32.14,
+          87.38,
+          17812.27
+        ]
+      },
+      {
+        "display_label": "沈阳",
+        "group": "目标",
+        "label": "目标｜沈阳",
+        "unit": null,
+        "values": [
+          47,
+          1.5,
+          37.81,
+          40.63,
+          261.62,
+          31.33,
+          81.97,
+          14192.06
+        ]
+      },
+      {
+        "display_label": "大连",
+        "group": "目标",
+        "label": "目标｜大连",
+        "unit": null,
+        "values": [
+          78,
+          2.61,
+          31.27,
+          36.76,
+          282.67,
+          27.93,
+          78.95,
+          17287.21
+        ]
+      },
+      {
+        "display_label": "长春",
+        "group": "目标",
+        "label": "目标｜长春",
+        "unit": null,
+        "values": [
+          22,
+          0.72,
+          41.68,
+          39.98,
+          312.38,
+          30.88,
+          96.47,
+          15470.04
+        ]
+      },
+      {
+        "display_label": "哈尔滨",
+        "group": "目标",
+        "label": "目标｜哈尔滨",
+        "unit": null,
+        "values": [
+          38,
+          0.76,
+          26.05,
+          52.53,
+          226.95,
+          35.36,
+          80.25,
+          12543.0
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": "目标",
+        "label": "目标｜上海",
+        "unit": null,
+        "values": [
+          173,
+          25.2,
+          34.88,
+          38.69,
+          577.99,
+          38.92,
+          224.97,
+          51872.78
+        ]
+      },
+      {
+        "display_label": "南京",
+        "group": "目标",
+        "label": "目标｜南京",
+        "unit": null,
+        "values": [
+          46,
+          7.61,
+          29.0,
+          25.98,
+          464.1,
+          43.32,
+          201.03,
+          57708.81
+        ]
+      },
+      {
+        "display_label": "无锡",
+        "group": "目标",
+        "label": "目标｜无锡",
+        "unit": null,
+        "values": [
+          12,
+          1.63,
+          63.68,
+          23.1,
+          374.48,
+          39.96,
+          149.64,
+          44743.88
+        ]
+      },
+      {
+        "display_label": "苏州",
+        "group": "目标",
+        "label": "目标｜苏州",
+        "unit": null,
+        "values": [
+          50,
+          4.36,
+          64.46,
+          28.36,
+          399.31,
+          31.5,
+          125.8,
+          35276.42
+        ]
+      },
+      {
+        "display_label": "杭州",
+        "group": "目标",
+        "label": "目标｜杭州",
+        "unit": null,
+        "values": [
+          102,
+          7.4,
+          40.83,
+          35.63,
+          390.21,
+          38.94,
+          151.93,
+          35295.96
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

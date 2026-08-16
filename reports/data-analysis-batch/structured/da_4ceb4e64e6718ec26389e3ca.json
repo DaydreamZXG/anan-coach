@@ -1,0 +1,242 @@
+{
+  "asset_id": "da_4ceb4e64e6718ec26389e3ca",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0260_47254a083e33181f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0260_47254a083e33181f.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7ba57711a62e9fd1b384",
+        "question_number": 116,
+        "source_jsonl_line": 83627
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0264_f87c3b09482fd1ff.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e1f7a3d6915a17c1041c",
+        "question_number": 117,
+        "source_jsonl_line": 83628
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0264_f87c3b09482fd1ff.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c51c92c4245ba293407f",
+        "question_number": 118,
+        "source_jsonl_line": 83629
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0264_f87c3b09482fd1ff.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7866f83df2e04178f1f0",
+        "question_number": 119,
+        "source_jsonl_line": 83630
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0264_f87c3b09482fd1ff.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_065be727f5b128ef9508",
+        "question_number": 120,
+        "source_jsonl_line": 83631
+      }
+    ],
+    "sha256": "4ceb4e64e6718ec26389e3ca41bc6dee7509415c32cd8b65cae69f2deed65b9e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "",
+      "播种面积 (万亩)",
+      "总产量 (亿公斤)",
+      "单位面积产量 (公斤/亩)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全年粮食",
+        "unit": null,
+        "values": [
+          "全年粮食",
+          175555,
+          6579,
+          375
+        ]
+      },
+      {
+        "label": "一、分季节",
+        "unit": null,
+        "values": [
+          "一、分季节",
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "1、夏粮",
+        "unit": null,
+        "values": [
+          "1、夏粮",
+          40055,
+          1388,
+          346
+        ]
+      },
+      {
+        "label": "2、早稻",
+        "unit": null,
+        "values": [
+          "2、早稻",
+          7186,
+          286,
+          398
+        ]
+      },
+      {
+        "label": "3、秋粮",
+        "unit": null,
+        "values": [
+          "3、秋粮",
+          128314,
+          4905,
+          382
+        ]
+      },
+      {
+        "label": "二、分品种",
+        "unit": null,
+        "values": [
+          "二、分品种",
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "1、谷物",
+        "unit": null,
+        "values": [
+          "1、谷物",
+          149528,
+          6102,
+          408
+        ]
+      },
+      {
+        "label": "其中：稻谷",
+        "unit": null,
+        "values": [
+          "其中：稻谷",
+          45284,
+          2121,
+          468
+        ]
+      },
+      {
+        "label": "小麦",
+        "unit": null,
+        "values": [
+          "小麦",
+          36402,
+          1314,
+          361
+        ]
+      },
+      {
+        "label": "玉米",
+        "unit": null,
+        "values": [
+          "玉米",
+          63193,
+          2573,
+          407
+        ]
+      },
+      {
+        "label": "2、豆类",
+        "unit": null,
+        "values": [
+          "2、豆类",
+          15257,
+          191,
+          125
+        ]
+      },
+      {
+        "label": "3、薯类",
+        "unit": null,
+        "values": [
+          "3、薯类",
+          10770,
+          286,
+          265
+        ]
+      }
+    ]
+  },
+  "title": "2018年全国粮食种植及产量情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4ceb4e64e6718ec26389e3ca/row_band_01.jpg",
+        "review-crops/da_4ceb4e64e6718ec26389e3ca/row_band_02.jpg",
+        "review-crops/da_4ceb4e64e6718ec26389e3ca/row_band_03.jpg",
+        "review-crops/da_4ceb4e64e6718ec26389e3ca/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.42",
+      "crop_verification_elapsed_seconds:14.287",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

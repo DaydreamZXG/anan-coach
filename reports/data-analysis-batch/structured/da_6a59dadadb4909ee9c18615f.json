@@ -1,0 +1,471 @@
+{
+  "asset_id": "da_6a59dadadb4909ee9c18615f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "时间",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "处理数量（个）",
+        "unit": "个"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "处理数量占比（%）",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "CN",
+      "label": "CN域名",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        42,
+        91,
+        76,
+        32,
+        43,
+        19,
+        33,
+        58,
+        52,
+        87,
+        40,
+        302,
+        204,
+        58,
+        254,
+        229
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "CN",
+      "label": "非CN域名",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        1870,
+        860,
+        2019,
+        761,
+        785,
+        810,
+        1445,
+        4675,
+        2572,
+        2246,
+        2626,
+        2693,
+        2598,
+        641,
+        3230,
+        1749
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "支付交易类",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        64.9,
+        52.6,
+        80.5,
+        49.4,
+        60.4,
+        66.0,
+        53.0,
+        87.3,
+        83.2,
+        78.2,
+        83.6,
+        79.8,
+        79.3,
+        46.6,
+        77.4,
+        73.2
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "金融证券类",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        34.4,
+        45.8,
+        18.9,
+        50.3,
+        39.6,
+        33.3,
+        46.8,
+        12.4,
+        15.9,
+        21.2,
+        13.5,
+        19.1,
+        20.2,
+        51.9,
+        22.3,
+        25.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2019年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0267_c50b9dafb398dc2e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0267_c50b9dafb398dc2e.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_84d236c5bdd729d6ea7b",
+        "question_number": 126,
+        "source_jsonl_line": 19261
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0278_86ad4bca54414009.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_631ce23a4a256859d9f2",
+        "question_number": 127,
+        "source_jsonl_line": 19262
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0278_86ad4bca54414009.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_7af39502111d2eac53cc",
+        "question_number": 128,
+        "source_jsonl_line": 19263
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0267_c50b9dafb398dc2e.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_d2724352c65ff378303c",
+        "question_number": 129,
+        "source_jsonl_line": 19264
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0278_86ad4bca54414009.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_f5781efe90c021bda529",
+        "question_number": 130,
+        "source_jsonl_line": 19265
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0219_c50b9dafb398dc2e.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_e48fbc7b721d58234303",
+        "question_number": 121,
+        "source_jsonl_line": 19391
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0219_c50b9dafb398dc2e.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_e0d7af7ee9e389e79fb6",
+        "question_number": 122,
+        "source_jsonl_line": 19392
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0219_c50b9dafb398dc2e.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_6d4cd2f855849ece9012",
+        "question_number": 123,
+        "source_jsonl_line": 19393
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0219_c50b9dafb398dc2e.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_c3543d63a0832ccd6bf9",
+        "question_number": 124,
+        "source_jsonl_line": 19394
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0219_c50b9dafb398dc2e.png",
+        "paper_title": "2019年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_ca213e1ebf4ad38d1891",
+        "question_number": 125,
+        "source_jsonl_line": 19395
+      }
+    ],
+    "sha256": "6a59dadadb4909ee9c18615f52ac722bd99cd8483fe6709133955edddb4002a2"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "时间",
+      "CN域名",
+      "非CN域名",
+      "支付交易类",
+      "金融证券类"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2017年1月",
+        "unit": null,
+        "values": [
+          "2017年1月",
+          42,
+          1870,
+          64.9,
+          34.4
+        ]
+      },
+      {
+        "label": "2017年2月",
+        "unit": null,
+        "values": [
+          "2017年2月",
+          91,
+          860,
+          52.6,
+          45.8
+        ]
+      },
+      {
+        "label": "2017年3月",
+        "unit": null,
+        "values": [
+          "2017年3月",
+          76,
+          2019,
+          80.5,
+          18.9
+        ]
+      },
+      {
+        "label": "2017年4月",
+        "unit": null,
+        "values": [
+          "2017年4月",
+          32,
+          761,
+          49.4,
+          50.3
+        ]
+      },
+      {
+        "label": "2017年5月",
+        "unit": null,
+        "values": [
+          "2017年5月",
+          43,
+          785,
+          60.4,
+          39.6
+        ]
+      },
+      {
+        "label": "2017年6月",
+        "unit": null,
+        "values": [
+          "2017年6月",
+          19,
+          810,
+          66.0,
+          33.3
+        ]
+      },
+      {
+        "label": "2017年7月",
+        "unit": null,
+        "values": [
+          "2017年7月",
+          33,
+          1445,
+          53.0,
+          46.8
+        ]
+      },
+      {
+        "label": "2017年8月",
+        "unit": null,
+        "values": [
+          "2017年8月",
+          58,
+          4675,
+          87.3,
+          12.4
+        ]
+      },
+      {
+        "label": "2017年9月",
+        "unit": null,
+        "values": [
+          "2017年9月",
+          52,
+          2572,
+          83.2,
+          15.9
+        ]
+      },
+      {
+        "label": "2017年10月",
+        "unit": null,
+        "values": [
+          "2017年10月",
+          87,
+          2246,
+          78.2,
+          21.2
+        ]
+      },
+      {
+        "label": "2017年11月",
+        "unit": null,
+        "values": [
+          "2017年11月",
+          40,
+          2626,
+          83.6,
+          13.5
+        ]
+      },
+      {
+        "label": "2017年12月",
+        "unit": null,
+        "values": [
+          "2017年12月",
+          302,
+          2693,
+          79.8,
+          19.1
+        ]
+      },
+      {
+        "label": "2018年1月",
+        "unit": null,
+        "values": [
+          "2018年1月",
+          204,
+          2598,
+          79.3,
+          20.2
+        ]
+      },
+      {
+        "label": "2018年2月",
+        "unit": null,
+        "values": [
+          "2018年2月",
+          58,
+          641,
+          46.6,
+          51.9
+        ]
+      },
+      {
+        "label": "2018年3月",
+        "unit": null,
+        "values": [
+          "2018年3月",
+          254,
+          3230,
+          77.4,
+          22.3
+        ]
+      },
+      {
+        "label": "2018年4月",
+        "unit": null,
+        "values": [
+          "2018年4月",
+          229,
+          1749,
+          73.2,
+          25.8
+        ]
+      }
+    ]
+  },
+  "title": "2017年1月～2018年4月全国钓鱼网站处理情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6a59dadadb4909ee9c18615f/row_band_01.jpg",
+        "review-crops/da_6a59dadadb4909ee9c18615f/row_band_02.jpg",
+        "review-crops/da_6a59dadadb4909ee9c18615f/row_band_03.jpg",
+        "review-crops/da_6a59dadadb4909ee9c18615f/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:18.748",
+      "crop_verification_elapsed_seconds:15.148",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

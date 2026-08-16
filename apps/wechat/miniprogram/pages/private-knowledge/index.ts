@@ -1,12 +1,14 @@
 import { ApiClient, ApiClientError } from "../../api/client";
+import { ExternalLearningApi } from "../../api/external-learning";
 import type { RecognitionRevision } from "../../api/external-learning-contracts";
+import type { PrivateQuestionBookSummary } from "../../api/generated/types.gen";
 import {
   PrivateKnowledgeApi,
   type PrivateCitation,
   type PrivateSourceSummary,
 } from "./features/api/private-knowledge";
 import { currentAuthSession } from "../../auth/session";
-import { routes } from "../../app/navigation/routes";
+import { questionBookImportUrl, routes } from "../../app/navigation/routes";
 import { navigateBackOr } from "./shared/app/navigation/safe-back";
 import type { LocalSourceArtifactFile } from "../../features/external-learning/contracts";
 import {
@@ -68,10 +70,15 @@ interface PageData {
   citationOpen: boolean;
   activeCitation: PrivateCitationView | null;
   initialSection: string;
+  questionBooks: PrivateQuestionBookSummary[];
+  questionBooksStatus: "loading" | "ready" | "error";
+  questionBooksError: string;
+  questionBookBusyId: string;
 }
 
 interface PageCustom {
   loadSources(): Promise<boolean>;
+  loadQuestionBooks(): Promise<boolean>;
   inputTitle(event: WechatMiniprogram.Input): void;
   selectDocumentKind(event: WechatMiniprogram.PickerChange): void;
   chooseImage(): Promise<void>;
@@ -87,6 +94,10 @@ interface PageCustom {
   prepareRoundTrip(event: WechatMiniprogram.BaseEvent): void;
   exportMarkdown(event: WechatMiniprogram.BaseEvent): Promise<void>;
   deleteSource(event: WechatMiniprogram.BaseEvent): void;
+  newQuestionBook(): void;
+  openQuestionBook(event: WechatMiniprogram.BaseEvent): void;
+  deleteQuestionBook(event: WechatMiniprogram.BaseEvent): void;
+  confirmDeleteQuestionBook(book: PrivateQuestionBookSummary): Promise<void>;
   confirmDelete(source: PrivateSourceSummary): Promise<void>;
   waitForDeletion(
     gateway: PrivateKnowledgeApi,
@@ -124,6 +135,7 @@ const retryFiles = new WeakMap<PrivateKnowledgePageInstance, LocalSourceArtifact
 interface PrivateKnowledgeRuntime {
   requests: PrivateKnowledgeRequestOwner;
   gateway: PrivateKnowledgeApi;
+  questionBooks: ExternalLearningApi;
 }
 
 interface PrivateKnowledgeRequest {
@@ -168,6 +180,10 @@ Page<PageData, PageCustom>({
     citationOpen: false,
     activeCitation: null,
     initialSection: "",
+    questionBooks: [],
+    questionBooksStatus: "loading",
+    questionBooksError: "",
+    questionBookBusyId: "",
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -189,6 +205,7 @@ Page<PageData, PageCustom>({
       const runtime = {
         requests,
         gateway: new PrivateKnowledgeApi(new ApiClient(undefined, auth.accessToken)),
+        questionBooks: new ExternalLearningApi(new ApiClient(undefined, auth.accessToken)),
       };
       pageRuntimes.set(this, runtime);
       requests.show(auth);
@@ -199,6 +216,7 @@ Page<PageData, PageCustom>({
     void this.loadSources().then((current) => {
       if (current) this.applyInitialSection();
     });
+    void this.loadQuestionBooks();
   },
 
   onHide() {
@@ -226,6 +244,30 @@ Page<PageData, PageCustom>({
     } catch (error) {
       if (!requestIsCurrent(this, request)) return false;
       this.fail(error, "私人资料库没有加载成功。");
+      return true;
+    }
+  },
+
+  async loadQuestionBooks() {
+    const request = beginRequest(this, "question-books");
+    if (!request) return false;
+    this.setData({ questionBooksStatus: "loading", questionBooksError: "" });
+    try {
+      const result = await request.runtime.questionBooks.listQuestionBooks();
+      if (!requestIsCurrent(this, request)) return false;
+      this.setData({
+        questionBooksStatus: "ready",
+        questionBooks: result.books,
+        questionBooksError: "",
+      });
+      return true;
+    } catch (error) {
+      if (!requestIsCurrent(this, request)) return false;
+      this.setData({
+        questionBooksStatus: "error",
+        questionBooksError:
+          error instanceof ApiClientError ? error.message : "我的题本暂时没有加载成功。",
+      });
       return true;
     }
   },
@@ -546,6 +588,85 @@ Page<PageData, PageCustom>({
     });
   },
 
+  newQuestionBook() {
+    const runtime = pageRuntimes.get(this);
+    if (!runtimeIsActive(this, runtime)) return;
+    void wx.navigateTo({ url: questionBookImportUrl() });
+  },
+
+  openQuestionBook(event: WechatMiniprogram.BaseEvent) {
+    const bookId = String(event.currentTarget.dataset.bookId ?? "");
+    const book = this.data.questionBooks.find((item) => item.bookId === bookId);
+    const runtime = pageRuntimes.get(this);
+    if (!book || !runtimeIsActive(this, runtime)) return;
+    void wx.navigateTo({
+      url: questionBookImportUrl({ bookId: book.bookId, importId: book.importId }),
+    });
+  },
+
+  deleteQuestionBook(event: WechatMiniprogram.BaseEvent) {
+    const bookId = String(event.currentTarget.dataset.bookId ?? "");
+    const book = this.data.questionBooks.find((item) => item.bookId === bookId);
+    const runtime = pageRuntimes.get(this);
+    if (!book || this.data.questionBookBusyId || !runtimeIsActive(this, runtime)) return;
+    wx.showModal({
+      title: "彻底删除这本题？",
+      content: "原题本、识别结果和个人索引会一起删除，不能恢复。",
+      confirmText: "彻底删除",
+      confirmColor: "#C83F56",
+      success: (result) => {
+        if (result.confirm && runtimeIsActive(this, runtime)) {
+          void this.confirmDeleteQuestionBook(book);
+        }
+      },
+    });
+  },
+
+  async confirmDeleteQuestionBook(book: PrivateQuestionBookSummary) {
+    const request = beginRequest(this, "question-book-delete");
+    if (!request) return;
+    this.setData({ questionBookBusyId: book.bookId, questionBooksError: "" });
+    try {
+      const deletionKey = await createIdempotencyKey("question-book-delete");
+      if (!requestIsCurrent(this, request)) return;
+      const deletion = await request.runtime.questionBooks.deleteQuestionBook(
+        book.bookId,
+        deletionKey,
+      );
+      if (!requestIsCurrent(this, request)) return;
+      for (let attempt = 0; attempt < 40; attempt += 1) {
+        const current = await request.runtime.questionBooks.getQuestionBookDeletion(
+          deletion.deletionRequestId,
+        );
+        if (!requestIsCurrent(this, request)) return;
+        if (current.state === "completed") {
+          this.setData({ questionBookBusyId: "" });
+          await this.loadQuestionBooks();
+          return;
+        }
+        if (current.state === "failed") throw new Error("题本删除没有完成，请稍后重试。");
+        const currentAfterDelay = await request.runtime.requests.delay(
+          500,
+          request.lease,
+          currentAuthSession(),
+        );
+        if (!currentAfterDelay || !requestIsCurrent(this, request)) return;
+      }
+      throw new Error("题本仍在删除中，请稍后刷新查看。");
+    } catch (error) {
+      if (!requestIsCurrent(this, request)) return;
+      this.setData({
+        questionBookBusyId: "",
+        questionBooksError:
+          error instanceof ApiClientError
+            ? error.message
+            : error instanceof Error
+              ? error.message
+              : "题本删除没有完成。",
+      });
+    }
+  },
+
   async confirmDelete(source: PrivateSourceSummary) {
     const request = beginRequest(this, "delete");
     if (!request) return;
@@ -638,6 +759,7 @@ Page<PageData, PageCustom>({
 
   retry() {
     void this.loadSources();
+    void this.loadQuestionBooks();
   },
 
   openImportPanel() {
@@ -732,6 +854,7 @@ Page<PageData, PageCustom>({
       return;
     }
     const selectors: Record<string, string> = {
+      books: "#library-question-books",
       sources: "#library-sources",
       search: "#library-search",
     };
@@ -860,6 +983,10 @@ function resetForSessionChange(page: PrivateKnowledgePageInstance): void {
     backgroundProcessing: false,
     citationOpen: false,
     activeCitation: null,
+    questionBooks: [],
+    questionBooksStatus: "loading",
+    questionBooksError: "",
+    questionBookBusyId: "",
   });
 }
 

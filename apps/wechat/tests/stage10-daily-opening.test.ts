@@ -118,12 +118,16 @@ describe("step 10 daily opening", () => {
   it("renders weather as information and keeps the authoritative plan action", () => {
     const presentation = presentDailyOpening(opening());
     expect(presentation.weatherHeadline).toBe("南昌市红谷滩区 · 多云\u00a031°");
+    expect(presentation.weatherCompactLabel).toBe("多云 · 降雨45% · 31°");
     expect(presentation.planTitle).toBe("资料分析 · 增长率复测");
     expect(presentation.coffeeVisible).toBe(true);
-    expect(todayTemplate).toContain("{{openingView.weatherHeadline}}");
+    expect(todayTemplate).toContain("{{openingView.weatherCompactLabel}}");
+    expect(todayTemplate).toContain('class="header-weather"');
     expect(todayTemplate).toContain('bindtap="requestWeatherLocation"');
-    expect(todayTemplate).toContain('bindtap="startDailyOpening"');
-    expect(todayTemplate).toContain('bindtap="declineDailyCoffee"');
+    expect(todayTemplate).not.toContain('class="opening-card"');
+    expect(todayTemplate).not.toContain("今日节奏");
+    expect(todayTemplate).not.toContain('bindtap="startDailyOpening"');
+    expect(todayTemplate).not.toContain('bindtap="declineDailyCoffee"');
     expect(todayTemplate).not.toContain('bindtap="openCoffeeAssistant"');
     expect(todayTemplate).not.toContain("帮我看看");
     expect(todayTemplate).not.toContain("openWeatherAttribution");

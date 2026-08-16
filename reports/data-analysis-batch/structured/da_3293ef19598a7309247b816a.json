@@ -1,0 +1,228 @@
+{
+  "asset_id": "da_3293ef19598a7309247b816a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2025年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0211_495ac8835f231923.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0211_495ac8835f231923.png",
+        "paper_title": "2025年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6ec3baba02b9353e4caa",
+        "question_number": 124,
+        "source_jsonl_line": 28648
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0152_495ac8835f231923.png",
+        "paper_title": "2025年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_b4439a370728b97d8d82",
+        "question_number": 109,
+        "source_jsonl_line": 44134
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0194_495ac8835f231923.png",
+        "paper_title": "2025年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_db1814fd052155f311cc",
+        "question_number": 124,
+        "source_jsonl_line": 56661
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0205_495ac8835f231923.png",
+        "paper_title": "2025年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cda7844dbef94fa1b7e0",
+        "question_number": 119,
+        "source_jsonl_line": 74274
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年重庆市公务员录用考试《行测》题（网友回忆版）_images/img_0236_495ac8835f231923.png",
+        "paper_title": "2025年重庆市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6771a92153b0438292b8",
+        "question_number": 119,
+        "source_jsonl_line": 96062
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年陕西省公务员录用考试《行测》题（网友回忆版）_images/img_0198_495ac8835f231923.png",
+        "paper_title": "2025年陕西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_329f1c2d5951149bdb28",
+        "question_number": 119,
+        "source_jsonl_line": 98637
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年青海省公务员录用考试《行测》题（网友回忆版）_images/img_0223_31d2a19bf3f5c445.png",
+        "paper_title": "2025年青海省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_053d5a3d36a63291abe7",
+        "question_number": 119,
+        "source_jsonl_line": 100767
+      }
+    ],
+    "sha256": "3293ef19598a7309247b816a3d5b88d2ce81df5dd9d984620f629f7df87e87ef"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 0,
+      "estimatedDrawCommandCount": 5,
+      "panelCount": 1,
+      "pointCount": 5
+    },
+    "coordinateSpace": {
+      "height": 223,
+      "width": 355
+    },
+    "evidence": {
+      "converterVersion": "semantic-microcharts-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "92749d158598d07290fbbf5be2e134382374877dca19d77ef7808b77e2cd801f",
+      "sourceAsset": "da_3293ef19598a7309247b816a",
+      "sourceSha256": "3293ef19598a7309247b816a3d5b88d2ce81df5dd9d984620f629f7df87e87ef"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 198,
+          "width": 333,
+          "x": 11,
+          "y": 7
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [
+            {
+              "shape": "diamond",
+              "x": 0.01657,
+              "y": 0.5203
+            },
+            {
+              "shape": "diamond",
+              "x": 0.25753,
+              "y": 0.63959
+            },
+            {
+              "shape": "circle",
+              "x": 0.5,
+              "y": 0.03046
+            },
+            {
+              "shape": "diamond",
+              "x": 0.74247,
+              "y": 0.64721
+            },
+            {
+              "shape": "diamond",
+              "x": 0.98193,
+              "y": 0.96954
+            }
+          ],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.5203
+            },
+            {
+              "x": 0.26205,
+              "y": 0.63959
+            },
+            {
+              "x": 0.50301,
+              "y": 0.02792
+            },
+            {
+              "x": 0.73193,
+              "y": 0.63706
+            },
+            {
+              "x": 1.0,
+              "y": 0.97208
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_3293ef19598a7309247b816a-0",
+        "label": null,
+        "position": 0
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "line_sequence"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3293ef19598a7309247b816a/column_band_01.jpg",
+        "review-crops/da_3293ef19598a7309247b816a/column_band_02.jpg",
+        "review-crops/da_3293ef19598a7309247b816a/column_band_03.jpg",
+        "review-crops/da_3293ef19598a7309247b816a/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.694",
+      "crop_verification_elapsed_seconds:2.797",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:x-axis labels are missing, so categories cannot be determined.",
+      "model_uncertainty:y-axis values are not labeled, so exact numerical values cannot be determined.",
+      "non_data_option_sparkline",
+      "foreground_iou:0.847628",
+      "mean_absolute_error:1.910074",
+      "trace_parameters:{\"epsilonRatio\": 0.0007, \"minimumContourArea\": 0.2, \"paletteSize\": 2}",
+      "visual_grammar:line_sequence",
+      "visual_grammar:line_sequence",
+      "converter:semantic-microcharts-v1",
+      "visual_grammar:line_sequence",
+      "comparison_artifact:previews/structured_visual/da_3293ef19598a7309247b816a-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "asset_id": "da_d4d7e137c35407556615372c",
+  "axes": {
+    "x": {
+      "max": 9000,
+      "min": 0,
+      "ticks": [
+        0,
+        1000,
+        2000,
+        3000,
+        4000,
+        5000,
+        6000,
+        7000,
+        8000,
+        9000
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 8155,
+        "min": 0,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2014年1季度",
+    "2013年3季度",
+    "2013年1季度",
+    "2012年3季度",
+    "2012年1季度",
+    "2011年3季度",
+    "2011年1季度"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "城镇居民人均可支配收入",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "农村居民人均现金收入",
+      "style": {
+        "dash": null,
+        "fill": "#C0C0C0",
+        "marker": null,
+        "stroke": "#C0C0C0"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇居民人均可支配收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        8155,
+        6222,
+        7427,
+        5712,
+        6796,
+        5259,
+        5953
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "农村居民人均现金收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        3224,
+        3356,
+        1947,
+        3009,
+        1744,
+        2396,
+        1519
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2015年国家公务员录用考试《行测》题（地市级）_images/img_0079_899d4dde4c9954c7.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（地市级）_images/img_0079_899d4dde4c9954c7.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_eb282a0f8005292dc50a",
+        "question_number": 111,
+        "source_jsonl_line": 18186
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（地市级）_images/img_0079_899d4dde4c9954c7.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_82e7ec56c3d296b62034",
+        "question_number": 112,
+        "source_jsonl_line": 18187
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（地市级）_images/img_0090_04a0d5a3b3f2eb13.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_df8dd626028d5aee7fd8",
+        "question_number": 113,
+        "source_jsonl_line": 18188
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（地市级）_images/img_0090_04a0d5a3b3f2eb13.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_a80f64f668e6558bc718",
+        "question_number": 114,
+        "source_jsonl_line": 18189
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（地市级）_images/img_0079_899d4dde4c9954c7.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_a66289e5cf3d3dc85233",
+        "question_number": 115,
+        "source_jsonl_line": 18190
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（省部级）_images/img_0115_899d4dde4c9954c7.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（省部级）",
+        "question_id": "pq_cb7ce408f10d40202d79",
+        "question_number": 116,
+        "source_jsonl_line": 18321
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（省部级）_images/img_0115_899d4dde4c9954c7.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（省部级）",
+        "question_id": "pq_c17f94c3dfbd7a9b6277",
+        "question_number": 117,
+        "source_jsonl_line": 18322
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（省部级）_images/img_0115_899d4dde4c9954c7.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（省部级）",
+        "question_id": "pq_08ca36fa6ad01b5366de",
+        "question_number": 118,
+        "source_jsonl_line": 18323
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（省部级）_images/img_0129_04a0d5a3b3f2eb13.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（省部级）",
+        "question_id": "pq_db66ef47aa2cf4deaa92",
+        "question_number": 119,
+        "source_jsonl_line": 18324
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（省部级）_images/img_0115_899d4dde4c9954c7.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（省部级）",
+        "question_id": "pq_7a1ffaec4628cdce6390",
+        "question_number": 120,
+        "source_jsonl_line": 18325
+      }
+    ],
+    "sha256": "d4d7e137c35407556615372c17ada429e0649469ab5add517000c06dfd4db801"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2011年1季度-2014年1季度全国农村居民与城镇居民收入情况",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d4d7e137c35407556615372c/column_band_01.jpg",
+        "review-crops/da_d4d7e137c35407556615372c/column_band_02.jpg",
+        "review-crops/da_d4d7e137c35407556615372c/column_band_03.jpg",
+        "review-crops/da_d4d7e137c35407556615372c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.732",
+      "crop_verification_elapsed_seconds:5.23",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

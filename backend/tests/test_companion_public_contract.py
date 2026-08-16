@@ -6,6 +6,7 @@ import pytest
 from app.domains.companion.context import (
     CompanionContextAssembler,
     _build_persona_prompt,
+    _context_payload,
     _context_retrieval_candidates,
     _selected_citations,
 )
@@ -73,6 +74,41 @@ def _context() -> CompanionContextRecord:
             },
             "decisionSummary": {"reviewDueCount": 0},
         },
+        learner_coach_context={
+            "contractVersion": "learner-coach-context@v1",
+            "profileVersionId": "profile-1",
+            "profile": {
+                "profileVersionId": "profile-1",
+                "versionNo": 3,
+                "ability": {
+                    "estimate": {
+                        "total": {"recommended": 112},
+                        "xingce": {"recommended": 62},
+                        "shenlun": {"recommended": 50},
+                    }
+                },
+                "evidenceSummary": {
+                    "scoreEvidenceCount": 1,
+                    "xingceAttemptCount": 0,
+                    "xingceMasteryCount": 0,
+                    "essayMasteryCount": 0,
+                    "taskExecutionCount": 1,
+                    "externalAnswerCount": 0,
+                },
+                "decisionSummary": {"reviewDueCount": 0},
+            },
+            "recognition": {
+                "level": "verifying",
+                "label": "正在验证",
+                "observation": "岸岸正在用任务证据验证当前判断。",
+                "evidenceCount": 2,
+                "stableMasteryCount": 0,
+            },
+            "freshness": "current",
+            "strategyDirective": {"active": None, "pending": None},
+            "generatedAt": "2026-08-13T10:00:00Z",
+            "validUntil": "2026-08-14T10:00:00Z",
+        },
     )
 
 
@@ -101,6 +137,7 @@ def test_punctuation_only_question_is_invalid() -> None:
 
 def test_context_sources_separate_model_payload_from_public_summary() -> None:
     context = _context()
+    payload = _context_payload(context)
     candidates = _context_retrieval_candidates(context)
     summaries = {
         candidate.reference.kind: candidate.display_summary for candidate in candidates
@@ -115,6 +152,11 @@ def test_context_sources_separate_model_payload_from_public_summary() -> None:
         "当前综合能力参考值约 112 分（行测约 62 分、申论约 50 分）；"
         "本次判断汇总了 2 条已记录学习证据；当前没有待复测项目。"
     )
+    assert payload["coachContext"] == context.learner_coach_context
+    brain = next(item for item in candidates if item.reference.kind == "learning_brain")
+    assert brain.reference.source_id == context.learner_coach_context["profileVersionId"]
+    assert "learner-coach-context@v1" in brain.text
+    assert '"recognition"' in brain.text
     assert summaries["daily_plan"] == (
         "今日共 2 项，预计 75 分钟：行测「行测提分练习：言语理解与表达」，60 分钟；"
         "申论「建立申论材料地图」，15 分钟。"
@@ -208,4 +250,4 @@ def test_context_snapshot_resolves_state_before_retrieval() -> None:
         fallback_state_version="request-state",
     )
 
-    assert snapshot.state_version == context.learning_brain_profile["profileVersionId"]
+    assert snapshot.state_version == context.learner_coach_context["profileVersionId"]

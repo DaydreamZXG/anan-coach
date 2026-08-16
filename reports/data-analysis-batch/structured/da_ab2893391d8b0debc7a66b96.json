@@ -1,0 +1,350 @@
+{
+  "asset_id": "da_ab2893391d8b0debc7a66b96",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2008年江苏省公务员录用考试《行测》题（A类）_images/img_0155_b3a71acbc5a3fb81.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（A类）_images/img_0155_b3a71acbc5a3fb81.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_9cb3460079317227d1d6",
+        "question_number": 91,
+        "source_jsonl_line": 44461
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（A类）_images/img_0152_903a1f4a14ea19dd.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_c300c5103468e4c5078a",
+        "question_number": 92,
+        "source_jsonl_line": 44462
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（A类）_images/img_0152_903a1f4a14ea19dd.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_bb56bdea760cc7932fbe",
+        "question_number": 93,
+        "source_jsonl_line": 44463
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（A类）_images/img_0155_b3a71acbc5a3fb81.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_9c6a536ea18482240726",
+        "question_number": 94,
+        "source_jsonl_line": 44464
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（A类）_images/img_0152_903a1f4a14ea19dd.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_a5e1e6af92f1d5edba73",
+        "question_number": 95,
+        "source_jsonl_line": 44465
+      }
+    ],
+    "sha256": "ab2893391d8b0debc7a66b964f6d1268754f7ca1dad1adbb6e611dfb0586e3cb"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "7月份城镇居民最低生活保障人数 (人)",
+      "7月份城镇居民最低生活保障家庭数 (户)",
+      "7月份城镇最低生活保障累计支出 (万元)",
+      "7月份人均支出水平 (元)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "北京市",
+        "unit": null,
+        "values": [
+          "北京市",
+          147738,
+          72474,
+          27264.2,
+          260.41
+        ]
+      },
+      {
+        "label": "东城区",
+        "unit": null,
+        "values": [
+          "东城区",
+          14442,
+          7076,
+          2762.8,
+          269.7
+        ]
+      },
+      {
+        "label": "西城区",
+        "unit": null,
+        "values": [
+          "西城区",
+          11739,
+          6238,
+          2147.7,
+          261.13
+        ]
+      },
+      {
+        "label": "崇文区",
+        "unit": null,
+        "values": [
+          "崇文区",
+          8835,
+          4710,
+          1871.7,
+          284.9
+        ]
+      },
+      {
+        "label": "宣武区",
+        "unit": null,
+        "values": [
+          "宣武区",
+          14623,
+          7075,
+          2851.7,
+          277.03
+        ]
+      },
+      {
+        "label": "朝阳区",
+        "unit": null,
+        "values": [
+          "朝阳区",
+          14084,
+          6958,
+          2743.0,
+          280.57
+        ]
+      },
+      {
+        "label": "丰台区",
+        "unit": null,
+        "values": [
+          "丰台区",
+          14485,
+          6869,
+          2666.2,
+          263.64
+        ]
+      },
+      {
+        "label": "石景山区",
+        "unit": null,
+        "values": [
+          13661,
+          6069,
+          null,
+          2774.6,
+          285.59
+        ]
+      },
+      {
+        "label": "海淀区",
+        "unit": null,
+        "values": [
+          1452,
+          876,
+          null,
+          283.6,
+          283.4
+        ]
+      },
+      {
+        "label": "门头沟区",
+        "unit": null,
+        "values": [
+          "门头沟区",
+          15329,
+          6559,
+          2800.4,
+          257.6
+        ]
+      },
+      {
+        "label": "房山区",
+        "unit": null,
+        "values": [
+          "房山区",
+          8388,
+          3823,
+          1184.4,
+          202.77
+        ]
+      },
+      {
+        "label": "通州区",
+        "unit": null,
+        "values": [
+          "通州区",
+          4091,
+          2129,
+          646.5,
+          220.16
+        ]
+      },
+      {
+        "label": "顺义区",
+        "unit": null,
+        "values": [
+          "顺义区",
+          1452,
+          876,
+          283.6,
+          283.4
+        ]
+      },
+      {
+        "label": "昌平区",
+        "unit": null,
+        "values": [
+          1517,
+          996,
+          null,
+          292.8,
+          267.25
+        ]
+      },
+      {
+        "label": "大兴区",
+        "unit": null,
+        "values": [
+          1317,
+          747,
+          null,
+          238.1,
+          248.07
+        ]
+      },
+      {
+        "label": "怀柔区",
+        "unit": null,
+        "values": [
+          "怀柔区",
+          3285,
+          1670,
+          393.0,
+          172.82
+        ]
+      },
+      {
+        "label": "平谷区",
+        "unit": null,
+        "values": [
+          "平谷区",
+          5838,
+          2192,
+          740.5,
+          165.4
+        ]
+      },
+      {
+        "label": "密云县",
+        "unit": null,
+        "values": [
+          "密云县",
+          1297,
+          750,
+          242.6,
+          261.79
+        ]
+      },
+      {
+        "label": "延庆县",
+        "unit": null,
+        "values": [
+          "延庆县",
+          1851,
+          866,
+          275.9,
+          210.84
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ab2893391d8b0debc7a66b96/row_band_01.jpg",
+        "review-crops/da_ab2893391d8b0debc7a66b96/row_band_02.jpg",
+        "review-crops/da_ab2893391d8b0debc7a66b96/row_band_03.jpg",
+        "review-crops/da_ab2893391d8b0debc7a66b96/row_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:13.952",
+      "crop_verification_elapsed_seconds:10.828",
+      "candidate_value_changes_after_crop:14",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:北京市:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:东城区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:西城区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:东城区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:西城区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:崇文区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:宣武区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:朝阳区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:丰台区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:石景山区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:海淀区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:顺义区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:昌平区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:大兴区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:怀柔区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:平谷区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:密云县:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:延庆县:4!=5"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

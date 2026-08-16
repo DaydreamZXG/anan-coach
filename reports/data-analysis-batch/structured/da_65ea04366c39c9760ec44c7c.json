@@ -1,0 +1,240 @@
+{
+  "asset_id": "da_65ea04366c39c9760ec44c7c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 50,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50
+        ],
+        "title": null,
+        "unit": "万吨"
+      },
+      {
+        "max": 6,
+        "min": 0,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "title": null,
+        "unit": "千美元/吨"
+      }
+    ]
+  },
+  "categories": [
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "出口数量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "出口均价",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "出口数量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        32.6,
+        30.1,
+        32.5,
+        32.9,
+        35.5,
+        36.5
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "出口均价",
+      "render_as": "point",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "千美元/吨",
+      "values": [
+        3.8,
+        4.2,
+        4.3,
+        4.5,
+        4.5,
+        4.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0208_f8fe3a1cbf5fe0d2.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0208_f8fe3a1cbf5fe0d2.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_0e50a4094107086b8b16",
+        "question_number": 121,
+        "source_jsonl_line": 10529
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0218_ac27a66fe9a9caae.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_c54343cd79f0b499b892",
+        "question_number": 122,
+        "source_jsonl_line": 10530
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0208_f8fe3a1cbf5fe0d2.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_158139afc0924da03bc4",
+        "question_number": 123,
+        "source_jsonl_line": 10531
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0218_ac27a66fe9a9caae.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_ab4ddd4dc9ac7a095b6b",
+        "question_number": 124,
+        "source_jsonl_line": 10532
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0218_ac27a66fe9a9caae.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_33091fe143fa385d2432",
+        "question_number": 125,
+        "source_jsonl_line": 10533
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0288_ac27a66fe9a9caae.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_fd4c3968bbdb78c59e9b",
+        "question_number": 126,
+        "source_jsonl_line": 10664
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0281_f8fe3a1cbf5fe0d2.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_c02c43c0c1195ea8f0e6",
+        "question_number": 127,
+        "source_jsonl_line": 10665
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0281_f8fe3a1cbf5fe0d2.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_ff644a94df7397d8355e",
+        "question_number": 128,
+        "source_jsonl_line": 10666
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0281_f8fe3a1cbf5fe0d2.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_4d9445fb9a75b102bf25",
+        "question_number": 129,
+        "source_jsonl_line": 10667
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0281_f8fe3a1cbf5fe0d2.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_fe5a7ab47ac7bd3ad7de",
+        "question_number": 130,
+        "source_jsonl_line": 10668
+      }
+    ],
+    "sha256": "65ea04366c39c9760ec44c7cf90cf475a89a79e87e87c2c657fe78b3bb25e01a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013年~2018年我国茶叶出口量及出口均价走势图",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_65ea04366c39c9760ec44c7c/column_band_01.jpg",
+        "review-crops/da_65ea04366c39c9760ec44c7c/column_band_02.jpg",
+        "review-crops/da_65ea04366c39c9760ec44c7c/column_band_03.jpg",
+        "review-crops/da_65ea04366c39c9760ec44c7c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.769",
+      "crop_verification_elapsed_seconds:3.492",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

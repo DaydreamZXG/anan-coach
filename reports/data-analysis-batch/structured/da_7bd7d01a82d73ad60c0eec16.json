@@ -1,0 +1,187 @@
+{
+  "asset_id": "da_7bd7d01a82d73ad60c0eec16",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2013年北京市公务员录用考试《行测》题_images/img_0126_13baf9e2615a9923.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年北京市公务员录用考试《行测》题_images/img_0126_13baf9e2615a9923.png",
+        "paper_title": "2013年北京市公务员录用考试《行测》题",
+        "question_id": "pq_a0d36519bdf677097383",
+        "question_number": 131,
+        "source_jsonl_line": 9329
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年北京市公务员录用考试《行测》题_images/img_0121_1306fe0deb4943bb.png",
+        "paper_title": "2013年北京市公务员录用考试《行测》题",
+        "question_id": "pq_4dcdf67d6c9fb0370774",
+        "question_number": 132,
+        "source_jsonl_line": 9330
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年北京市公务员录用考试《行测》题_images/img_0126_13baf9e2615a9923.png",
+        "paper_title": "2013年北京市公务员录用考试《行测》题",
+        "question_id": "pq_4a61ddf1b7983f9bf464",
+        "question_number": 133,
+        "source_jsonl_line": 9331
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年北京市公务员录用考试《行测》题_images/img_0126_13baf9e2615a9923.png",
+        "paper_title": "2013年北京市公务员录用考试《行测》题",
+        "question_id": "pq_c06375a64e2dd46c2d0f",
+        "question_number": 134,
+        "source_jsonl_line": 9332
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年北京市公务员录用考试《行测》题_images/img_0126_13baf9e2615a9923.png",
+        "paper_title": "2013年北京市公务员录用考试《行测》题",
+        "question_id": "pq_b1fbc83a1c5a172cfc10",
+        "question_number": 135,
+        "source_jsonl_line": 9333
+      }
+    ],
+    "sha256": "7bd7d01a82d73ad60c0eec161d8050744cd4e2438eec84bf545b2b46bc33ed0b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "全部农民工",
+      "本地农民工",
+      "外出农民工",
+      "30岁以下青年农民工"
+    ],
+    "corner_header": {
+      "lower_label": "/",
+      "style": "diagonal",
+      "upper_label": "/"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "不识字或识字很少",
+        "group": "农民工类型",
+        "label": "农民工类型｜不识字或识字很少",
+        "unit": null,
+        "values": [
+          1.5,
+          2.1,
+          0.9,
+          0.3
+        ]
+      },
+      {
+        "display_label": "小学",
+        "group": "农民工类型",
+        "label": "农民工类型｜小学",
+        "unit": null,
+        "values": [
+          14.4,
+          18.4,
+          10.7,
+          5.9
+        ]
+      },
+      {
+        "display_label": "初中",
+        "group": "农民工类型",
+        "label": "农民工类型｜初中",
+        "unit": null,
+        "values": [
+          61.1,
+          59.0,
+          62.9,
+          59.8
+        ]
+      },
+      {
+        "display_label": "高中",
+        "group": "农民工类型",
+        "label": "农民工类型｜高中",
+        "unit": null,
+        "values": [
+          13.2,
+          13.9,
+          12.7,
+          14.5
+        ]
+      },
+      {
+        "display_label": "中专",
+        "group": "农民工类型",
+        "label": "农民工类型｜中专",
+        "unit": null,
+        "values": [
+          4.5,
+          3.2,
+          5.8,
+          8.6
+        ]
+      },
+      {
+        "display_label": "大专及以上",
+        "group": "农民工类型",
+        "label": "农民工类型｜大专及以上",
+        "unit": null,
+        "values": [
+          5.3,
+          3.4,
+          7.0,
+          10.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,330 @@
+{
+  "asset_id": "da_41f1458f2dc1ba510ae01145",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0132_66c0740ab24173ed.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0132_66c0740ab24173ed.png",
+        "paper_title": "2025年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ff216c819421c364e380",
+        "question_number": 106,
+        "source_jsonl_line": 6190
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0144_45f89de26655c92f.png",
+        "paper_title": "2025年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8db6c484cacb6c7255b5",
+        "question_number": 107,
+        "source_jsonl_line": 6191
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0144_45f89de26655c92f.png",
+        "paper_title": "2025年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b140ce7175fb40e03879",
+        "question_number": 108,
+        "source_jsonl_line": 6192
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0132_66c0740ab24173ed.png",
+        "paper_title": "2025年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3cd9927d8f8877f00ca7",
+        "question_number": 109,
+        "source_jsonl_line": 6193
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0144_45f89de26655c92f.png",
+        "paper_title": "2025年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_30a168df03b86dd60298",
+        "question_number": 110,
+        "source_jsonl_line": 6194
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0144_66c0740ab24173ed.png",
+        "paper_title": "2025年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2451e55194c7cf705134",
+        "question_number": 111,
+        "source_jsonl_line": 26481
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0144_66c0740ab24173ed.png",
+        "paper_title": "2025年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_09b7a5732266b519f435",
+        "question_number": 112,
+        "source_jsonl_line": 26482
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0144_66c0740ab24173ed.png",
+        "paper_title": "2025年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1eed13505fa13e2a911b",
+        "question_number": 113,
+        "source_jsonl_line": 26483
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0144_66c0740ab24173ed.png",
+        "paper_title": "2025年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0c887dcc9dab293e8b98",
+        "question_number": 114,
+        "source_jsonl_line": 26484
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0144_66c0740ab24173ed.png",
+        "paper_title": "2025年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_142ca859249ae7fe8ad3",
+        "question_number": 115,
+        "source_jsonl_line": 26485
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0152_66c0740ab24173ed.png",
+        "paper_title": "2025年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_aa52fdd9a4fa355be759",
+        "question_number": 111,
+        "source_jsonl_line": 59408
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0152_66c0740ab24173ed.png",
+        "paper_title": "2025年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_930bb500173ed59b87fd",
+        "question_number": 112,
+        "source_jsonl_line": 59409
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0164_45f89de26655c92f.png",
+        "paper_title": "2025年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_54d2e48c1a915a8758e1",
+        "question_number": 113,
+        "source_jsonl_line": 59410
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0164_45f89de26655c92f.png",
+        "paper_title": "2025年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f129bbaa8dafe1695596",
+        "question_number": 114,
+        "source_jsonl_line": 59411
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0152_66c0740ab24173ed.png",
+        "paper_title": "2025年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_83323f448f9549bd0e89",
+        "question_number": 115,
+        "source_jsonl_line": 59412
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0131_66c0740ab24173ed.png",
+        "paper_title": "2025年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_872c885ea9f9e7d54a35",
+        "question_number": 101,
+        "source_jsonl_line": 66747
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0131_66c0740ab24173ed.png",
+        "paper_title": "2025年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_70c56c29f908f17b199d",
+        "question_number": 102,
+        "source_jsonl_line": 66748
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0131_66c0740ab24173ed.png",
+        "paper_title": "2025年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e3f4a5d398862634b0ea",
+        "question_number": 103,
+        "source_jsonl_line": 66749
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0131_66c0740ab24173ed.png",
+        "paper_title": "2025年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a25a45afc2dcf6f56c66",
+        "question_number": 104,
+        "source_jsonl_line": 66750
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0156_45f89de26655c92f.png",
+        "paper_title": "2025年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_52f64c530295dc67a10d",
+        "question_number": 105,
+        "source_jsonl_line": 66751
+      }
+    ],
+    "sha256": "41f1458f2dc1ba510ae01145639fcaafebe8cda3baf76872019f8a6a3d572128"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口量｜数量（万辆）",
+          "出口量｜增速（%）"
+        ],
+        "label": "出口量"
+      },
+      {
+        "columns": [
+          "出口额｜金额（亿元）",
+          "出口额｜增速（%）"
+        ],
+        "label": "出口额"
+      }
+    ],
+    "columns": [
+      "出口量｜数量（万辆）",
+      "出口量｜增速（%）",
+      "出口额｜金额（亿元）",
+      "出口额｜增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "月份",
+    "rows": [
+      {
+        "display_label": "1月",
+        "group": null,
+        "label": "1月",
+        "unit": null,
+        "values": [
+          155.8,
+          34.7,
+          6.7,
+          24.9
+        ]
+      },
+      {
+        "display_label": "2月",
+        "group": null,
+        "label": "2月",
+        "unit": null,
+        "values": [
+          107.6,
+          26.2,
+          4.9,
+          37.6
+        ]
+      },
+      {
+        "display_label": "3月",
+        "group": null,
+        "label": "3月",
+        "unit": null,
+        "values": [
+          126.9,
+          -0.4,
+          5.0,
+          -5.5
+        ]
+      },
+      {
+        "display_label": "4月",
+        "group": null,
+        "label": "4月",
+        "unit": null,
+        "values": [
+          136.1,
+          9.6,
+          5.2,
+          3.1
+        ]
+      },
+      {
+        "display_label": "5月",
+        "group": null,
+        "label": "5月",
+        "unit": null,
+        "values": [
+          117.5,
+          9.8,
+          4.3,
+          -5.0
+        ]
+      },
+      {
+        "display_label": "6月",
+        "group": null,
+        "label": "6月",
+        "unit": null,
+        "values": [
+          134.4,
+          9.5,
+          4.7,
+          2.9
+        ]
+      },
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          778.3,
+          14.0,
+          30.8,
+          8.6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

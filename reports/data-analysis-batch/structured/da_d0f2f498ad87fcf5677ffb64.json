@@ -1,0 +1,271 @@
+{
+  "asset_id": "da_d0f2f498ad87fcf5677ffb64",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "新材料及其应用",
+    "农业技术",
+    "其他",
+    "电子信息技",
+    "现代交通",
+    "先进制造技术",
+    "新能源与高效节能",
+    "城市建设与社会发展",
+    "环境保护与资源综合利用技术",
+    "生物、医药和医疗器械技术"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      92.421,
+      139.976,
+      185.994,
+      227.671,
+      269.475,
+      303.943,
+      325.757,
+      341.402,
+      351.908,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 92.421,
+        "label": "新材料及其应用",
+        "share": 0.25672447,
+        "start_angle": 0.0,
+        "sweep_angle": 92.421
+      },
+      {
+        "end_angle": 139.976,
+        "label": "农业技术",
+        "share": 0.13209803,
+        "start_angle": 92.421,
+        "sweep_angle": 47.555
+      },
+      {
+        "end_angle": 185.994,
+        "label": "其他",
+        "share": 0.12782743,
+        "start_angle": 139.976,
+        "sweep_angle": 46.018
+      },
+      {
+        "end_angle": 227.671,
+        "label": "电子信息技",
+        "share": 0.11576925,
+        "start_angle": 185.994,
+        "sweep_angle": 41.677
+      },
+      {
+        "end_angle": 269.475,
+        "label": "现代交通",
+        "share": 0.11612308,
+        "start_angle": 227.671,
+        "sweep_angle": 41.804
+      },
+      {
+        "end_angle": 303.943,
+        "label": "先进制造技术",
+        "share": 0.09574288,
+        "start_angle": 269.475,
+        "sweep_angle": 34.467
+      },
+      {
+        "end_angle": 325.757,
+        "label": "新能源与高效节能",
+        "share": 0.06059659,
+        "start_angle": 303.943,
+        "sweep_angle": 21.815
+      },
+      {
+        "end_angle": 341.402,
+        "label": "城市建设与社会发展",
+        "share": 0.04345689,
+        "start_angle": 325.757,
+        "sweep_angle": 15.644
+      },
+      {
+        "end_angle": 351.908,
+        "label": "环境保护与资源综合利用技术",
+        "share": 0.02918337,
+        "start_angle": 341.402,
+        "sweep_angle": 10.506
+      },
+      {
+        "end_angle": 360.0,
+        "label": "生物、医药和医疗器械技术",
+        "share": 0.022478,
+        "start_angle": 351.908,
+        "sweep_angle": 8.092
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.25672447,
+        0.13209803,
+        0.12782743,
+        0.11576925,
+        0.11612308,
+        0.09574288,
+        0.06059659,
+        0.04345689,
+        0.02918337,
+        0.022478
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/上海/2016年上海市公务员录用考试《行测》题（A类）_images/img_0085_a5528e294093b8dd.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（A类）_images/img_0085_a5528e294093b8dd.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（A类）",
+        "question_id": "pq_ae5950580cee5023d2a0",
+        "question_number": 96,
+        "source_jsonl_line": 1611
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（A类）_images/img_0088_95d430ad411f7f51.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（A类）",
+        "question_id": "pq_9aeef1ce54eb317aa0e2",
+        "question_number": 97,
+        "source_jsonl_line": 1612
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（A类）_images/img_0088_95d430ad411f7f51.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（A类）",
+        "question_id": "pq_bc52ad6c9522284059d0",
+        "question_number": 98,
+        "source_jsonl_line": 1613
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（A类）_images/img_0088_95d430ad411f7f51.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（A类）",
+        "question_id": "pq_fef224d284caebde5bce",
+        "question_number": 99,
+        "source_jsonl_line": 1614
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（A类）_images/img_0088_95d430ad411f7f51.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（A类）",
+        "question_id": "pq_f7f6e932898417639648",
+        "question_number": 100,
+        "source_jsonl_line": 1615
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0138_a5528e294093b8dd.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_04a001b3343be50be8e0",
+        "question_number": 126,
+        "source_jsonl_line": 1741
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0125_95d430ad411f7f51.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_ba07abe14143ee559dda",
+        "question_number": 127,
+        "source_jsonl_line": 1742
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0125_95d430ad411f7f51.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_7e4d127ff21b00b0708d",
+        "question_number": 128,
+        "source_jsonl_line": 1743
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0138_a5528e294093b8dd.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_48b674a432392b27a26a",
+        "question_number": 129,
+        "source_jsonl_line": 1744
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0125_95d430ad411f7f51.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_8fcbfe602fb19ef103fc",
+        "question_number": 130,
+        "source_jsonl_line": 1745
+      }
+    ],
+    "sha256": "d0f2f498ad87fcf5677ffb646529e47321beadc3f450b0c6ea3938c816ac84d7"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013年全国技术合同成交金额按技术领域分布（亿元）",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d0f2f498ad87fcf5677ffb64/quadrant_01.jpg",
+        "review-crops/da_d0f2f498ad87fcf5677ffb64/quadrant_02.jpg",
+        "review-crops/da_d0f2f498ad87fcf5677ffb64/quadrant_03.jpg",
+        "review-crops/da_d0f2f498ad87fcf5677ffb64/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.571",
+      "crop_verification_elapsed_seconds:1.626",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "label_geometry_count_mismatch:11!=10",
+      "circle_edge_coverage:0.9472",
+      "hough_circle_radius_ratio:0.3546",
+      "radial_line_candidates:47",
+      "detected_boundaries:10"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

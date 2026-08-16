@@ -1,0 +1,412 @@
+{
+  "asset_id": "da_12f5be8efbd2122f5ea24d04",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "金融机构",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "总资产",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "总负债",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "银行业金融机构",
+    "其中：大型商业银行",
+    "股份制商业银行",
+    "城市商业银行",
+    "农村金融机构",
+    "其他类金融机构"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "总资产-金额(亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2328934,
+        899329,
+        431150,
+        293063,
+        314519,
+        450873
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "总资产-同比增速(%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        12.5,
+        9.7,
+        11.5,
+        19.7,
+        12.3,
+        14.8
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "-",
+      "label": "总负债-金额(亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2147187,
+        770521,
+        402922,
+        273812,
+        291766,
+        408166
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "-",
+      "label": "总负债-同比增速(%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        12.6,
+        9.8,
+        11.5,
+        20,
+        12.1,
+        14.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2018年421联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0180_8f68aa8b6061e86e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0180_8f68aa8b6061e86e.png",
+        "paper_title": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_b11f8d414609c94f10c4",
+        "question_number": 111,
+        "source_jsonl_line": 7544
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0190_7a2a214221c57bd8.png",
+        "paper_title": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_881128709b203fb670f3",
+        "question_number": 112,
+        "source_jsonl_line": 7545
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0180_8f68aa8b6061e86e.png",
+        "paper_title": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_c169bec0dd04c2cea9e2",
+        "question_number": 113,
+        "source_jsonl_line": 7546
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0180_8f68aa8b6061e86e.png",
+        "paper_title": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_2a5a408f00b2e09cc74c",
+        "question_number": 114,
+        "source_jsonl_line": 7547
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0180_8f68aa8b6061e86e.png",
+        "paper_title": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_1b55b3f498b7a6d7973e",
+        "question_number": 115,
+        "source_jsonl_line": 7548
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（天津卷）（网友回忆版）_images/img_0113_8f68aa8b6061e86e.png",
+        "paper_title": "2018年421联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_b2684c4a7b323dcc6c9c",
+        "question_number": 101,
+        "source_jsonl_line": 23503
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（天津卷）（网友回忆版）_images/img_0113_8f68aa8b6061e86e.png",
+        "paper_title": "2018年421联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_af2c7a4dab716ed106e0",
+        "question_number": 102,
+        "source_jsonl_line": 23504
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（天津卷）（网友回忆版）_images/img_0113_8f68aa8b6061e86e.png",
+        "paper_title": "2018年421联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_e5b4ae886c62a17cb8f2",
+        "question_number": 103,
+        "source_jsonl_line": 23505
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（天津卷）（网友回忆版）_images/img_0113_8f68aa8b6061e86e.png",
+        "paper_title": "2018年421联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_629bf431931f277b8f8e",
+        "question_number": 104,
+        "source_jsonl_line": 23506
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（天津卷）（网友回忆版）_images/img_0142_7a2a214221c57bd8.png",
+        "paper_title": "2018年421联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_2719581a20fcf1a70a68",
+        "question_number": 105,
+        "source_jsonl_line": 23507
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（安徽卷）（网友回忆版）_images/img_0215_8f68aa8b6061e86e.png",
+        "paper_title": "2018年421联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_cce4036c0a3a22dfd183",
+        "question_number": 101,
+        "source_jsonl_line": 27855
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（安徽卷）（网友回忆版）_images/img_0226_7a2a214221c57bd8.png",
+        "paper_title": "2018年421联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_a046f4c554ebdaaeae95",
+        "question_number": 102,
+        "source_jsonl_line": 27856
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（安徽卷）（网友回忆版）_images/img_0215_8f68aa8b6061e86e.png",
+        "paper_title": "2018年421联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_3f549be8a310cffcb462",
+        "question_number": 103,
+        "source_jsonl_line": 27857
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（安徽卷）（网友回忆版）_images/img_0215_8f68aa8b6061e86e.png",
+        "paper_title": "2018年421联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_e8761053db8893c95ae7",
+        "question_number": 104,
+        "source_jsonl_line": 27858
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（安徽卷）（网友回忆版）_images/img_0215_8f68aa8b6061e86e.png",
+        "paper_title": "2018年421联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_bb9e1df943855856b61b",
+        "question_number": 105,
+        "source_jsonl_line": 27859
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（河北卷）（网友回忆版）_images/img_0258_8f68aa8b6061e86e.png",
+        "paper_title": "2018年421联考《行测》题（河北卷）（网友回忆版）",
+        "question_id": "pq_5b68bc71e257e5b9db8b",
+        "question_number": 121,
+        "source_jsonl_line": 55748
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（河北卷）（网友回忆版）_images/img_0258_8f68aa8b6061e86e.png",
+        "paper_title": "2018年421联考《行测》题（河北卷）（网友回忆版）",
+        "question_id": "pq_4cfc5d781aa4dbff820d",
+        "question_number": 122,
+        "source_jsonl_line": 55749
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（河北卷）（网友回忆版）_images/img_0276_7a2a214221c57bd8.png",
+        "paper_title": "2018年421联考《行测》题（河北卷）（网友回忆版）",
+        "question_id": "pq_39c8735c0e7412bff954",
+        "question_number": 123,
+        "source_jsonl_line": 55750
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（河北卷）（网友回忆版）_images/img_0258_8f68aa8b6061e86e.png",
+        "paper_title": "2018年421联考《行测》题（河北卷）（网友回忆版）",
+        "question_id": "pq_65df1cd1d9e29f2e8d37",
+        "question_number": 124,
+        "source_jsonl_line": 55751
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（河北卷）（网友回忆版）_images/img_0258_8f68aa8b6061e86e.png",
+        "paper_title": "2018年421联考《行测》题（河北卷）（网友回忆版）",
+        "question_id": "pq_9149b9a033b4e2ef3d71",
+        "question_number": 125,
+        "source_jsonl_line": 55752
+      }
+    ],
+    "sha256": "12f5be8efbd2122f5ea24d04970f7dfe73b4b1a8f3abff531b90f492fe0ecbf2"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "金融机构",
+      "总资产-金额(亿元)",
+      "总资产-同比增速(%)",
+      "总负债-金额(亿元)",
+      "总负债-同比增速(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "银行业金融机构",
+        "unit": null,
+        "values": [
+          "银行业金融机构",
+          2328934,
+          12.5,
+          2147187,
+          12.6
+        ]
+      },
+      {
+        "label": "其中：大型商业银行",
+        "unit": null,
+        "values": [
+          "其中：大型商业银行",
+          899329,
+          9.7,
+          770521,
+          9.8
+        ]
+      },
+      {
+        "label": "股份制商业银行",
+        "unit": null,
+        "values": [
+          "股份制商业银行",
+          431150,
+          11.5,
+          402922,
+          11.5
+        ]
+      },
+      {
+        "label": "城市商业银行",
+        "unit": null,
+        "values": [
+          "城市商业银行",
+          293063,
+          19.7,
+          273812,
+          20
+        ]
+      },
+      {
+        "label": "农村金融机构",
+        "unit": null,
+        "values": [
+          "农村金融机构",
+          314519,
+          12.3,
+          291766,
+          12.1
+        ]
+      },
+      {
+        "label": "其他类金融机构",
+        "unit": null,
+        "values": [
+          "其他类金融机构",
+          450873,
+          14.8,
+          408166,
+          14.8
+        ]
+      }
+    ]
+  },
+  "title": "2017年5月我国银行业金融机构资产负债表情况(境内)",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_12f5be8efbd2122f5ea24d04/row_band_01.jpg",
+        "review-crops/da_12f5be8efbd2122f5ea24d04/row_band_02.jpg",
+        "review-crops/da_12f5be8efbd2122f5ea24d04/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.469",
+      "crop_verification_elapsed_seconds:10.42",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'总资产-金额(亿元)'中'银行业金融机构'的数值为2328934，与原图一致。",
+      "crop_note:修正了'总资产-同比增速(%)'中'城市商业银行'的数值为19.7，与原图一致。",
+      "crop_note:修正了'总负债-同比增速(%)'中'城市商业银行'的数值为20，与原图一致。",
+      "crop_note:修正了'总负债-金额(亿元)'中'其他类金融机构'的数值为408166，与原图一致。",
+      "crop_note:确认所有数值的小数点、百分号和单位均正确无误。",
+      "crop_note:确认所有缺失值保持为null，未补0。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

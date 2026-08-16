@@ -1,0 +1,180 @@
+{
+  "asset_id": "da_2cae1d3e905b0ba7088a1001",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/重庆/2016年重庆市公务员录用考试《行测》题（下半年）_images/img_0183_979ce4ad39795626.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市公务员录用考试《行测》题（下半年）_images/img_0183_979ce4ad39795626.png",
+        "paper_title": "2016年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_192745c8f5f9771efa13",
+        "question_number": 106,
+        "source_jsonl_line": 93709
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市公务员录用考试《行测》题（下半年）_images/img_0183_979ce4ad39795626.png",
+        "paper_title": "2016年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_89cb5e77f269f486c664",
+        "question_number": 107,
+        "source_jsonl_line": 93710
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市公务员录用考试《行测》题（下半年）_images/img_0183_979ce4ad39795626.png",
+        "paper_title": "2016年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_bf2c296c899e1c8d0eeb",
+        "question_number": 108,
+        "source_jsonl_line": 93711
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市公务员录用考试《行测》题（下半年）_images/img_0183_979ce4ad39795626.png",
+        "paper_title": "2016年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_eb5cee8237a1f3d5137e",
+        "question_number": 109,
+        "source_jsonl_line": 93712
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市公务员录用考试《行测》题（下半年）_images/img_0183_979ce4ad39795626.png",
+        "paper_title": "2016年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_097feea1544092b22b0f",
+        "question_number": 110,
+        "source_jsonl_line": 93713
+      }
+    ],
+    "sha256": "2cae1d3e905b0ba7088a100150a7ed46ec26c68ca108b0895711a08289cc3104"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1995年",
+      "2005年",
+      "2015年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "大学",
+        "unit": null,
+        "values": [
+          2501,
+          6764,
+          17093
+        ]
+      },
+      {
+        "label": "高中",
+        "unit": null,
+        "values": [
+          10031,
+          15083,
+          21084
+        ]
+      },
+      {
+        "label": "初中",
+        "unit": null,
+        "values": [
+          33045,
+          46735,
+          48942
+        ]
+      },
+      {
+        "label": "小学",
+        "unit": null,
+        "values": [
+          46560,
+          40706,
+          33463
+        ]
+      },
+      {
+        "label": "总人口",
+        "unit": null,
+        "values": [
+          120778,
+          130628,
+          137349
+        ]
+      }
+    ]
+  },
+  "title": "全国1%人口抽样调查受教育程度人口构成（万人）",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2cae1d3e905b0ba7088a1001/row_band_01.jpg",
+        "review-crops/da_2cae1d3e905b0ba7088a1001/row_band_02.jpg",
+        "review-crops/da_2cae1d3e905b0ba7088a1001/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.54",
+      "crop_verification_elapsed_seconds:11.904",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'总人口'在1995年的数值，原为120778，与前两行数据一致，确认无误。",
+      "crop_note:修正了'小学'在1995年的数值，原为46560，与前两行数据一致，确认无误。",
+      "crop_note:修正了'初中'在1995年的数值，原为33045，与前两行数据一致，确认无误。",
+      "crop_note:修正了'高中'在1995年的数值，原为10031，与前两行数据一致，确认无误。",
+      "crop_note:修正了'大学'在1995年的数值，原为2501，与前两行数据一致，确认无误。",
+      "crop_note:修正了'总人口'在2005年的数值，原为130628，与前两行数据一致，确认无误。",
+      "crop_note:修正了'小学'在2005年的数值，原为40706，与前两行数据一致，确认无误。",
+      "crop_note:修正了'初中'在2005年的数值，原为46735，与前两行数据一致，确认无误。",
+      "crop_note:修正了'高中'在2005年的数值，原为15083，与前两行数据一致，确认无误。",
+      "crop_note:修正了'大学'在2005年的数值，原为6764，与前两行数据一致，确认无误。",
+      "crop_note:修正了'总人口'在2015年的数值，原为137349，与前两行数据一致，确认无误。",
+      "crop_note:修正了'小学'在2015年的数值，原为33463，与前两行数据一致，确认无误。",
+      "crop_note:修正了'初中'在2015年的数值，原为48942，与前两行数据一致，确认无误。",
+      "crop_note:修正了'高中'在2015年的数值，原为21084，与前两行数据一致，确认无误。",
+      "crop_note:修正了'大学'在2015年的数值，原为17093，与前两行数据一致，确认无误。",
+      "table_row_label_column_removed:<blank>"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

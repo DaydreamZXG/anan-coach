@@ -1,0 +1,184 @@
+{
+  "asset_id": "da_cd7c4f85c98876a8b4769ed6",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 7000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "内蒙古",
+    "重庆",
+    "江西",
+    "陕西",
+    "吉林"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2003年",
+      "style": {
+        "dash": null,
+        "fill": "#A9A9A9",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "2007年",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2003",
+      "label": "2003年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2388,
+        2273,
+        1807,
+        2588,
+        2662
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2007",
+      "label": "2007年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        6091,
+        4123,
+        5500,
+        5466,
+        5285
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/贵州/2009年贵州省公务员录用考试《行测》题_images/img_0109_a7d536a9f260976b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年贵州省公务员录用考试《行测》题_images/img_0109_a7d536a9f260976b.png",
+        "paper_title": "2009年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_15cc14ee6ca8ae3a0d04",
+        "question_number": 136,
+        "source_jsonl_line": 80157
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年贵州省公务员录用考试《行测》题_images/img_0109_a7d536a9f260976b.png",
+        "paper_title": "2009年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_b76f27ef5447cf576589",
+        "question_number": 137,
+        "source_jsonl_line": 80158
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年贵州省公务员录用考试《行测》题_images/img_0104_aced1895fcae5240.png",
+        "paper_title": "2009年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_d8d92feb29fdfb99c350",
+        "question_number": 138,
+        "source_jsonl_line": 80159
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年贵州省公务员录用考试《行测》题_images/img_0109_a7d536a9f260976b.png",
+        "paper_title": "2009年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_9f25a43dadbca791e5f9",
+        "question_number": 139,
+        "source_jsonl_line": 80160
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年贵州省公务员录用考试《行测》题_images/img_0109_a7d536a9f260976b.png",
+        "paper_title": "2009年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_77c7a924ba314003e8c6",
+        "question_number": 140,
+        "source_jsonl_line": 80161
+      }
+    ],
+    "sha256": "cd7c4f85c98876a8b4769ed6c47a4c07608166bdcdeef9a73f705b66cef4b169"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2003年与2007年地区生产总值",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cd7c4f85c98876a8b4769ed6/column_band_01.jpg",
+        "review-crops/da_cd7c4f85c98876a8b4769ed6/column_band_02.jpg",
+        "review-crops/da_cd7c4f85c98876a8b4769ed6/column_band_03.jpg",
+        "review-crops/da_cd7c4f85c98876a8b4769ed6/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.584",
+      "crop_verification_elapsed_seconds:2.874",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

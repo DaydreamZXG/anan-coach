@@ -1,0 +1,348 @@
+{
+  "asset_id": "da_abb3813be5fa731ee1dfaaeb",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "地区生产总值",
+    "固定资产投资",
+    "社会消费品零售额",
+    "地方财政收入",
+    "实际利用外资",
+    "进出口贸易额"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "长三角",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        21.4,
+        14.7,
+        18.9,
+        23.5,
+        47.9,
+        36.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "珠三角",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        9.4,
+        4.1,
+        8.0,
+        7.7,
+        17.4,
+        25.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "京津冀",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.8,
+        9.7,
+        10.1,
+        11.7,
+        19.9,
+        14.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "全国",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.3,
+        23.8,
+        18.4,
+        18.4,
+        17.4,
+        34.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2012年国家公务员录用考试《行测》题_images/img_0120_084255f6d45b1dcc.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0120_084255f6d45b1dcc.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_39b570c498a1fa7d6967",
+        "question_number": 121,
+        "source_jsonl_line": 17791
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0120_084255f6d45b1dcc.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_2f1e234cb6f954cd8912",
+        "question_number": 122,
+        "source_jsonl_line": 17792
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0124_22925eabd01f4db5.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_8218b9048e260b4ad400",
+        "question_number": 123,
+        "source_jsonl_line": 17793
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0120_084255f6d45b1dcc.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_765823bc33b7fb739aaf",
+        "question_number": 124,
+        "source_jsonl_line": 17794
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0120_084255f6d45b1dcc.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_5f86b0a604c99ea61761",
+        "question_number": 125,
+        "source_jsonl_line": 17795
+      }
+    ],
+    "sha256": "abb3813be5fa731ee1dfaaebfc8a4f9ae8f37ba23ad548f3bcac37f890f7ee1e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "长三角｜占全国比重",
+          "长三角｜增长速度"
+        ],
+        "label": "长三角"
+      },
+      {
+        "columns": [
+          "珠三角｜占全国比重",
+          "珠三角｜增长速度"
+        ],
+        "label": "珠三角"
+      },
+      {
+        "columns": [
+          "京津冀｜占全国比重",
+          "京津冀｜增长速度"
+        ],
+        "label": "京津冀"
+      },
+      {
+        "columns": [
+          "全国｜增长速度"
+        ],
+        "label": "全国"
+      }
+    ],
+    "columns": [
+      "长三角｜占全国比重",
+      "长三角｜增长速度",
+      "珠三角｜占全国比重",
+      "珠三角｜增长速度",
+      "京津冀｜占全国比重",
+      "京津冀｜增长速度",
+      "全国｜增长速度"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "label": "地区生产总值",
+        "unit": null,
+        "values": [
+          21.4,
+          11.8,
+          9.4,
+          12.0,
+          10.8,
+          12.7,
+          10.3
+        ]
+      },
+      {
+        "label": "固定资产投资",
+        "unit": null,
+        "values": [
+          14.7,
+          17.7,
+          4.1,
+          18.2,
+          9.7,
+          22.6,
+          23.8
+        ]
+      },
+      {
+        "label": "社会消费品零售额",
+        "unit": null,
+        "values": [
+          18.9,
+          18.6,
+          8.0,
+          16.8,
+          10.1,
+          18.2,
+          18.4
+        ]
+      },
+      {
+        "label": "地方财政收入",
+        "unit": null,
+        "values": [
+          23.5,
+          21.1,
+          7.7,
+          24.4,
+          11.7,
+          21.7,
+          18.4
+        ]
+      },
+      {
+        "label": "实际利用外资",
+        "unit": null,
+        "values": [
+          47.9,
+          10.6,
+          17.4,
+          4.8,
+          19.9,
+          12.8,
+          17.4
+        ]
+      },
+      {
+        "label": "进出口贸易额",
+        "unit": null,
+        "values": [
+          36.6,
+          35.3,
+          25.3,
+          28.4,
+          14.3,
+          38.3,
+          34.7
+        ]
+      }
+    ]
+  },
+  "title": "表2 2010三大经济圈主要经济指标（%）",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_abb3813be5fa731ee1dfaaeb/row_band_01.jpg",
+        "review-crops/da_abb3813be5fa731ee1dfaaeb/row_band_02.jpg",
+        "review-crops/da_abb3813be5fa731ee1dfaaeb/row_band_03.jpg",
+        "review-crops/da_abb3813be5fa731ee1dfaaeb/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.641",
+      "crop_verification_elapsed_seconds:4.772",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_table_cell:地区生产总值:长三角",
+      "crop_note:ignored_unknown_table_cell:地区生产总值:珠三角",
+      "crop_note:ignored_unknown_table_cell:地区生产总值:京津冀",
+      "crop_note:ignored_unknown_table_cell:地区生产总值:全国",
+      "crop_note:ignored_unknown_table_cell:固定资产投资:长三角",
+      "crop_note:ignored_unknown_table_cell:固定资产投资:珠三角",
+      "crop_note:ignored_unknown_table_cell:固定资产投资:京津冀",
+      "crop_note:ignored_unknown_table_cell:固定资产投资:全国",
+      "crop_note:ignored_unknown_table_cell:社会消费品零售额:长三角",
+      "crop_note:ignored_unknown_table_cell:社会消费品零售额:珠三角",
+      "crop_note:ignored_unknown_table_cell:社会消费品零售额:京津冀",
+      "crop_note:ignored_unknown_table_cell:社会消费品零售额:全国",
+      "crop_note:ignored_unknown_table_cell:地方财政收入:长三角",
+      "crop_note:ignored_unknown_table_cell:地方财政收入:珠三角",
+      "crop_note:ignored_unknown_table_cell:地方财政收入:京津冀",
+      "crop_note:ignored_unknown_table_cell:地方财政收入:全国",
+      "crop_note:ignored_unknown_table_cell:实际利用外资:长三角",
+      "crop_note:ignored_unknown_table_cell:实际利用外资:珠三角",
+      "crop_note:ignored_unknown_table_cell:实际利用外资:京津冀",
+      "crop_note:ignored_unknown_table_cell:实际利用外资:全国",
+      "crop_note:ignored_unknown_table_cell:进出口贸易额:长三角",
+      "crop_note:ignored_unknown_table_cell:进出口贸易额:珠三角",
+      "crop_note:ignored_unknown_table_cell:进出口贸易额:京津冀",
+      "crop_note:ignored_unknown_table_cell:进出口贸易额:全国",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

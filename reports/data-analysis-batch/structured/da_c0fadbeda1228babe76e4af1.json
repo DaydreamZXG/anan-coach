@@ -1,0 +1,285 @@
+{
+  "asset_id": "da_c0fadbeda1228babe76e4af1",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "时间",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "期末运营里程 (公里)",
+        "unit": "公里"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "当期客运总量 (万人次)",
+        "unit": "万人次"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "期末运营里程 (公里)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "公里",
+      "values": [
+        140.8,
+        140.8,
+        140.8,
+        140.8,
+        140.8,
+        140.8,
+        140.8,
+        140.8,
+        151.4,
+        151.4,
+        151.4
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "当期客运总量 (万人次)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        1869,
+        1826,
+        2336,
+        2388,
+        2594,
+        2435,
+        3450,
+        2587,
+        2579,
+        2439,
+        2242
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0071_e708bd13ec6f2ff3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0071_e708bd13ec6f2ff3.png",
+        "paper_title": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_23885567a9e59907f253",
+        "question_number": 106,
+        "source_jsonl_line": 84577
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0079_f60c6a0c8a9989b8.png",
+        "paper_title": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_85d172ec83c564081d4d",
+        "question_number": 107,
+        "source_jsonl_line": 84578
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0079_f60c6a0c8a9989b8.png",
+        "paper_title": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_773b32e4fb01e1ac17e8",
+        "question_number": 108,
+        "source_jsonl_line": 84579
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0071_e708bd13ec6f2ff3.png",
+        "paper_title": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d25263635b81579bb0f7",
+        "question_number": 109,
+        "source_jsonl_line": 84580
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0071_e708bd13ec6f2ff3.png",
+        "paper_title": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bcf58de411e6a2113898",
+        "question_number": 110,
+        "source_jsonl_line": 84581
+      }
+    ],
+    "sha256": "c0fadbeda1228babe76e4af1c71e2dd5faf2594d9e828af9844056acfe943d4e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "时间",
+      "期末运营里程 (公里)",
+      "当期客运总量 (万人次)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "1月",
+        "unit": null,
+        "values": [
+          "1月",
+          140.8,
+          1869
+        ]
+      },
+      {
+        "label": "2月",
+        "unit": null,
+        "values": [
+          "2月",
+          140.8,
+          1826
+        ]
+      },
+      {
+        "label": "3月",
+        "unit": null,
+        "values": [
+          "3月",
+          140.8,
+          2336
+        ]
+      },
+      {
+        "label": "4月",
+        "unit": null,
+        "values": [
+          "4月",
+          140.8,
+          2388
+        ]
+      },
+      {
+        "label": "5月",
+        "unit": null,
+        "values": [
+          "5月",
+          140.8,
+          2594
+        ]
+      },
+      {
+        "label": "6月",
+        "unit": null,
+        "values": [
+          "6月",
+          140.8,
+          2435
+        ]
+      },
+      {
+        "label": "7月",
+        "unit": null,
+        "values": [
+          "7月",
+          140.8,
+          3450
+        ]
+      },
+      {
+        "label": "8月",
+        "unit": null,
+        "values": [
+          "8月",
+          140.8,
+          2587
+        ]
+      },
+      {
+        "label": "9月",
+        "unit": null,
+        "values": [
+          "9月",
+          151.4,
+          2579
+        ]
+      },
+      {
+        "label": "10月",
+        "unit": null,
+        "values": [
+          "10月",
+          151.4,
+          2439
+        ]
+      },
+      {
+        "label": "11月",
+        "unit": null,
+        "values": [
+          "11月",
+          151.4,
+          2242
+        ]
+      }
+    ]
+  },
+  "title": "2025年1-11月c市城市轨道交通运营里程及客运总量情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c0fadbeda1228babe76e4af1/row_band_01.jpg",
+        "review-crops/da_c0fadbeda1228babe76e4af1/row_band_02.jpg",
+        "review-crops/da_c0fadbeda1228babe76e4af1/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.979",
+      "crop_verification_elapsed_seconds:2.033",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_table_cell:9:期末运营里程 (公里)",
+      "crop_note:ignored_unknown_table_cell:10:期末运营里程 (公里)",
+      "crop_note:ignored_unknown_table_cell:11:期末运营里程 (公里)",
+      "crop_note:ignored_unknown_table_cell:9:当期客运总量 (万人次)",
+      "crop_note:ignored_unknown_table_cell:10:当期客运总量 (万人次)",
+      "crop_note:ignored_unknown_table_cell:11:当期客运总量 (万人次)"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

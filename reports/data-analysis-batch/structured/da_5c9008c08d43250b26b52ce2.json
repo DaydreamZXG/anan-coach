@@ -1,0 +1,257 @@
+{
+  "asset_id": "da_5c9008c08d43250b26b52ce2",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 250,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "1981",
+    "2012"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "1981",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "2012",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "彩电",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "台",
+      "values": [
+        0.6,
+        136.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "洗衣机",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "台",
+      "values": [
+        5.3,
+        98.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "电冰箱",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "台",
+      "values": [
+        0.2,
+        98.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "空调",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "台",
+      "values": [
+        0.1,
+        126.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "计算机",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "台",
+      "values": [
+        5.9,
+        87.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "家用汽车",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "辆",
+      "values": [
+        0.3,
+        21.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "移动电话",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "部",
+      "values": [
+        19.5,
+        212.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2014年江苏省公务员录用考试《行测》题（C类）_images/img_0259_4fddf54da9cf5246.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0259_4fddf54da9cf5246.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_2588175cc27da8515621",
+        "question_number": 86,
+        "source_jsonl_line": 46801
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0271_7575ade99821bbad.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_7d3fe3efe941402bb21b",
+        "question_number": 87,
+        "source_jsonl_line": 46802
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0259_4fddf54da9cf5246.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_702cea6a98dc955dd56d",
+        "question_number": 88,
+        "source_jsonl_line": 46803
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0259_4fddf54da9cf5246.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_1be32515c457f148a146",
+        "question_number": 89,
+        "source_jsonl_line": 46804
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0259_4fddf54da9cf5246.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_f158fb67a58764603f60",
+        "question_number": 90,
+        "source_jsonl_line": 46805
+      }
+    ],
+    "sha256": "5c9008c08d43250b26b52ce20a5a158fdfc174c93c0c9dab88457696ee109db0"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "全国城镇居民每百户拥有耐用消费品情况",
+  "unit": "台/部/辆",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5c9008c08d43250b26b52ce2/column_band_01.jpg",
+        "review-crops/da_5c9008c08d43250b26b52ce2/column_band_02.jpg",
+        "review-crops/da_5c9008c08d43250b26b52ce2/column_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.836",
+      "crop_verification_elapsed_seconds:2.536",
+      "candidate_value_changes_after_crop:1",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

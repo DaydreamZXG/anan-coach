@@ -91,10 +91,13 @@ def test_explicit_memory_is_idempotent_revisioned_isolated_and_clearable(
 
     assert memory.active_provider_items(user_id=USER_A) == (
         {
+            "memoryId": str(first.memory_id),
             "category": "explanation_preference",
             "content": "资料分析先给列式，再说为什么。",
+            "revision": 2,
         },
     )
+    assert memory.state(user_id=USER_A, now=NOW).maximum_long_term_items is None
     memory.set_enabled(user_id=USER_A, enabled=False, now=NOW)
     db_session.commit()
     assert memory.active_provider_items(user_id=USER_A) == ()

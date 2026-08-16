@@ -1,0 +1,299 @@
+{
+  "asset_id": "da_1f6508217e89caee2ea0b5a7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0143_bb4c19c11c45695c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0143_bb4c19c11c45695c.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_225fabde52c3e14dd511",
+        "question_number": 116,
+        "source_jsonl_line": 20311
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0164_7c3490002673a6f4.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_fafa53fa8d54a99e96e4",
+        "question_number": 117,
+        "source_jsonl_line": 20312
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0164_7c3490002673a6f4.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_b646687287b3170968c7",
+        "question_number": 118,
+        "source_jsonl_line": 20313
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0164_7c3490002673a6f4.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_eacdaa5e9b53c2c527d7",
+        "question_number": 119,
+        "source_jsonl_line": 20314
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0164_7c3490002673a6f4.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_75ad90cb502b8275f6b5",
+        "question_number": 120,
+        "source_jsonl_line": 20315
+      }
+    ],
+    "sha256": "1f6508217e89caee2ea0b5a7288a9c81df457eb4fdf58fb0852cd841b666ff2e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1月",
+      "电话举报",
+      "微信举报",
+      "网上举报",
+      "其他渠道举报"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "1月",
+        "unit": null,
+        "values": [
+          "1月",
+          7759,
+          9410,
+          2365,
+          132
+        ]
+      },
+      {
+        "label": "2月",
+        "unit": null,
+        "values": [
+          "2月",
+          2993,
+          7288,
+          1223,
+          63
+        ]
+      },
+      {
+        "label": "3月",
+        "unit": null,
+        "values": [
+          "3月",
+          12310,
+          18588,
+          2540,
+          238
+        ]
+      },
+      {
+        "label": "4月",
+        "unit": null,
+        "values": [
+          "4月",
+          16898,
+          22585,
+          2707,
+          347
+        ]
+      },
+      {
+        "label": "5月",
+        "unit": null,
+        "values": [
+          "5月",
+          19113,
+          23657,
+          2628,
+          413
+        ]
+      },
+      {
+        "label": "6月",
+        "unit": null,
+        "values": [
+          "6月",
+          18441,
+          19676,
+          2724,
+          888
+        ]
+      },
+      {
+        "label": "7月",
+        "unit": null,
+        "values": [
+          "7月",
+          18160,
+          18888,
+          2569,
+          766
+        ]
+      },
+      {
+        "label": "8月",
+        "unit": null,
+        "values": [
+          "8月",
+          12222,
+          17276,
+          2413,
+          493
+        ]
+      },
+      {
+        "label": "9月",
+        "unit": null,
+        "values": [
+          "9月",
+          15265,
+          17646,
+          2554,
+          949
+        ]
+      },
+      {
+        "label": "10月",
+        "unit": null,
+        "values": [
+          "10月",
+          12512,
+          15195,
+          2923,
+          746
+        ]
+      },
+      {
+        "label": "11月",
+        "unit": null,
+        "values": [
+          "11月",
+          14862,
+          20213,
+          4573,
+          943
+        ]
+      },
+      {
+        "label": "12月",
+        "unit": null,
+        "values": [
+          "12月",
+          11970,
+          14069,
+          4116,
+          1001
+        ]
+      }
+    ]
+  },
+  "title": "2020年各月不同途径的环保举报数量",
+  "unit": "件",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1f6508217e89caee2ea0b5a7/row_band_01.jpg",
+        "review-crops/da_1f6508217e89caee2ea0b5a7/row_band_02.jpg",
+        "review-crops/da_1f6508217e89caee2ea0b5a7/row_band_03.jpg",
+        "review-crops/da_1f6508217e89caee2ea0b5a7/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.218",
+      "crop_verification_elapsed_seconds:31.05",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'其他渠道举报'在1月的数值，从'132'更正为'132'（原图一致）",
+      "crop_note:修正了'电话举报'在2月的数值，从'2993'更正为'2993'（原图一致）",
+      "crop_note:修正了'微信举报'在2月的数值，从'7288'更正为'7288'（原图一致）",
+      "crop_note:修正了'网上举报'在2月的数值，从'1223'更正为'1223'（原图一致）",
+      "crop_note:修正了'其他渠道举报'在2月的数值，从'63'更正为'63'（原图一致）",
+      "crop_note:修正了'电话举报'在3月的数值，从'12310'更正为'12310'（原图一致）",
+      "crop_note:修正了'微信举报'在3月的数值，从'18588'更正为'18588'（原图一致）",
+      "crop_note:修正了'网上举报'在3月的数值，从'2540'更正为'2540'（原图一致）",
+      "crop_note:修正了'其他渠道举报'在3月的数值，从'238'更正为'238'（原图一致）",
+      "crop_note:修正了'电话举报'在4月的数值，从'16898'更正为'16898'（原图一致）",
+      "crop_note:修正了'微信举报'在4月的数值，从'22585'更正为'22585'（原图一致）",
+      "crop_note:修正了'网上举报'在4月的数值，从'2707'更正为'2707'（原图一致）",
+      "crop_note:修正了'其他渠道举报'在4月的数值，从'347'更正为'347'（原图一致）",
+      "crop_note:修正了'电话举报'在5月的数值，从'19113'更正为'19113'（原图一致）",
+      "crop_note:修正了'微信举报'在5月的数值，从'23657'更正为'23657'（原图一致）",
+      "crop_note:修正了'网上举报'在5月的数值，从'2628'更正为'2628'（原图一致）",
+      "crop_note:修正了'其他渠道举报'在5月的数值，从'413'更正为'413'（原图一致）",
+      "crop_note:修正了'电话举报'在6月的数值，从'18441'更正为'18441'（原图一致）",
+      "crop_note:修正了'微信举报'在6月的数值，从'19676'更正为'19676'（原图一致）",
+      "crop_note:修正了'网上举报'在6月的数值，从'2724'更正为'2724'（原图一致）",
+      "crop_note:修正了'其他渠道举报'在6月的数值，从'888'更正为'888'（原图一致）",
+      "crop_note:修正了'电话举报'在7月的数值，从'18160'更正为'18160'（原图一致）",
+      "crop_note:修正了'微信举报'在7月的数值，从'18888'更正为'18888'（原图一致）",
+      "crop_note:修正了'网上举报'在7月的数值，从'2569'更正为'2569'（原图一致）",
+      "crop_note:修正了'其他渠道举报'在7月的数值，从'766'更正为'766'（原图一致）",
+      "crop_note:修正了'电话举报'在8月的数值，从'12222'更正为'12222'（原图一致）",
+      "crop_note:修正了'微信举报'在8月的数值，从'17276'更正为'17276'（原图一致）",
+      "crop_note:修正了'网上举报'在8月的数值，从'2413'更正为'2413'（原图一致）",
+      "crop_note:修正了'其他渠道举报'在8月的数值，从'493'更正为'493'（原图一致）",
+      "crop_note:修正了'电话举报'在9月的数值，从'15265'更正为'15265'（原图一致）",
+      "crop_note:修正了'微信举报'在9月的数值，从'17646'更正为'17646'（原图一致）",
+      "crop_note:修正了'网上举报'在9月的数值，从'2554'更正为'2554'（原图一致）",
+      "crop_note:修正了'其他渠道举报'在9月的数值，从'949'更正为'949'（原图一致）",
+      "crop_note:修正了'电话举报'在10月的数值，从'12512'更正为'12512'（原图一致）",
+      "crop_note:修正了'微信举报'在10月的数值，从'15195'更正为'15195'（原图一致）",
+      "crop_note:修正了'网上举报'在10月的数值，从'2923'更正为'2923'（原图一致）",
+      "crop_note:修正了'其他渠道举报'在10月的数值，从'746'更正为'746'（原图一致）",
+      "crop_note:修正了'电话举报'在11月的数值，从'14862'更正为'14862'（原图一致）",
+      "crop_note:修正了'微信举报'在11月的数值，从'20213'更正为'20213'（原图一致）",
+      "crop_note:修正了'网上举报'在11月的数值，从'4573'更正为'4573'（原图一致）",
+      "crop_note:修正了'其他渠道举报'在11月的数值，从'943'更正为'943'（原图一致）",
+      "crop_note:修正了'电话举报'在12月的数值，从'11970'更正为'11970'（原图一致）",
+      "crop_note:修正了'微信举报'在12月的数值，从'14069'更正为'14069'（原图一致）",
+      "crop_note:修正了'网上举报'在12月的数值，从'4116'更正为'4116'（原图一致）",
+      "crop_note:修正了'其他渠道举报'在12月的数值，从'1001'更正为'1001'（原图一致）"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

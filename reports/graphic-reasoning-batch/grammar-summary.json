@@ -1,0 +1,95 @@
+{
+  "counts": {
+    "curve_circle_arc": 16,
+    "folded_3d": 1034,
+    "glyph_life_object": 282,
+    "rare_vector": 676,
+    "regular_geometry": 2664,
+    "textured_geometry": 124,
+    "textured_pie": 37
+  },
+  "notFinal": "No full-batch success claim; contour/Hough outputs are paused until grammar-specific renderers pass representative review.",
+  "routes": {
+    "curve_circle_arc": "deterministic_circle_ellipse_arc_bezier_candidate",
+    "folded_3d": "deterministic_wireframe_and_face_topology",
+    "glyph_life_object": "cv_region_boxes_plus_qwen_semantics_no_model_coordinates",
+    "rare_vector": "deterministic_path_group_repair_pending",
+    "regular_geometry": "deterministic_line_polyline_polygon",
+    "textured_geometry": "deterministic_face_and_texture_primitives",
+    "textured_pie": "deterministic_sector_angles_plus_dot_grid_diagonal_texture"
+  },
+  "samples": {
+    "curve_circle_arc": [
+      "gr_113ecd2cfc7e0a0018791ce1",
+      "gr_16fd77a4bc4398bfe5c41398",
+      "gr_1fcef08c4684d24444b2b358",
+      "gr_208d6085169390a5605e206c",
+      "gr_38825e9dcbed3fc7087894f1",
+      "gr_3b76f6f685922487678d540d",
+      "gr_52036129fb44f1fade1f19ea",
+      "gr_677d2917fd16597441f7509d"
+    ],
+    "folded_3d": [
+      "gr_008d60869deb08abe6ad3142",
+      "gr_01f0e50ff2ba7d43b7b496a4",
+      "gr_030fef91cafe270d454685f0",
+      "gr_0393eec05432d8f2d1b97654",
+      "gr_03a5ad9ffa5e892bc18cf2cc",
+      "gr_03b39afdef6e68a2e636ff89",
+      "gr_041f7ba4af7c256339d13bc9",
+      "gr_042010ae70fdd0c1ddcd1829"
+    ],
+    "glyph_life_object": [
+      "gr_02451daab642df52bacd5a0b",
+      "gr_03e6d709d218e79f60647958",
+      "gr_04548a6685fe527d759c32dd",
+      "gr_0566252c0406591e1f731964",
+      "gr_0566324a7577e0abb1c813d9",
+      "gr_086982d1a3058c34948e5def",
+      "gr_08b1c20c28d2e8e5a34b9f91",
+      "gr_0bc2170a2ad8b561b5975e44"
+    ],
+    "rare_vector": [
+      "gr_004d2482ff612f6c898294b1",
+      "gr_0110b6c995cea98b6c37d8df",
+      "gr_01497853f241180154096d5f",
+      "gr_0189979f689022324d759a12",
+      "gr_018eee347b427f786c903d74",
+      "gr_01b0a555d836d867fb273012",
+      "gr_01b50bc20b6c2e674df9f9f9",
+      "gr_020dda4f087718509aaf635a"
+    ],
+    "regular_geometry": [
+      "gr_0005c7c298edc6cc19fd151c",
+      "gr_000a129ccb5bf586e464a038",
+      "gr_007e47ff5ede18f8f4ddd6ce",
+      "gr_0081452c1b4cca144d9e52f2",
+      "gr_008ebe3fdf27887798a8c510",
+      "gr_00a9aa9d9e7cdc2f9a5f9c9f",
+      "gr_00ae856769d9aabdc8b0d5b6",
+      "gr_00be4d0801451d49211ac9ca"
+    ],
+    "textured_geometry": [
+      "gr_02b86a2e131c57fbe1a14fef",
+      "gr_03d63f4329466314237fc0be",
+      "gr_044b9350314599e24f6984dc",
+      "gr_0671a392ee2a386dc93aa3d1",
+      "gr_072bbaa586db56bbfb73fbc3",
+      "gr_07472cde6d4c769cb76de3ea",
+      "gr_08240c09fb45de206e3e85e6",
+      "gr_0bc0550fac752d25a7a59ea1"
+    ],
+    "textured_pie": [
+      "gr_06c7622f522adff55edcd2f5",
+      "gr_0804472c65833528e86a4b53",
+      "gr_0d444881ec91dc137d44d88e",
+      "gr_10e76512fbc7bb62fcaad48f",
+      "gr_10f671ce9b112096fb6707e3",
+      "gr_11402c834514d26870f740fb",
+      "gr_18133e99e185fd6ead3d2c17",
+      "gr_1c2eff57e4fb792547382005"
+    ]
+  },
+  "schemaVersion": "graphic-reasoning-grammar-routing-v1",
+  "status": "classification_delivered_renderer_pending"
+}

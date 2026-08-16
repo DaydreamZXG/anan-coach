@@ -1,0 +1,465 @@
+{
+  "asset_id": "da_0ccb68bd9b65a460018cb0b7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "时间",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "成交土地面积（百万平方米）",
+        "unit": "百万平方米"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比增长率 %",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "成交土地面积（百万平方米）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百万平方米",
+      "values": [
+        12.2,
+        9.9,
+        10.4,
+        22.6,
+        18.3,
+        19.3,
+        20.8,
+        26.1,
+        21.4,
+        37.0,
+        20.8,
+        16.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "同比增长率 %",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        9.9,
+        -2.3,
+        -28.9,
+        65.8,
+        23.0,
+        9.9,
+        25.3,
+        117.6,
+        34.3,
+        8.8,
+        13.1,
+        -0.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "容积率",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        2.3,
+        2.7,
+        2.1,
+        2.3,
+        2.3,
+        2.3,
+        2.3,
+        2.2,
+        2.4,
+        2.3,
+        2.3,
+        2.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0257_7c6a638e12f1265d.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0257_7c6a638e12f1265d.jpg",
+        "paper_title": "2019年420联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_b0c0d4829cf6c3ba9fa1",
+        "question_number": 96,
+        "source_jsonl_line": 16011
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0257_7c6a638e12f1265d.jpg",
+        "paper_title": "2019年420联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_3ae98e3aa782351db43c",
+        "question_number": 97,
+        "source_jsonl_line": 16012
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0265_7f2299375c2dfbbf.jpg",
+        "paper_title": "2019年420联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_897cbb4c5c1598e9eaaf",
+        "question_number": 98,
+        "source_jsonl_line": 16013
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0257_7c6a638e12f1265d.jpg",
+        "paper_title": "2019年420联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_76cf9873917ae3b722e0",
+        "question_number": 99,
+        "source_jsonl_line": 16014
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0265_7f2299375c2dfbbf.jpg",
+        "paper_title": "2019年420联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_1afe575f0491b4c2a31f",
+        "question_number": 100,
+        "source_jsonl_line": 16015
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）_images/img_0234_7f2299375c2dfbbf.jpg",
+        "paper_title": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）",
+        "question_id": "pq_741633d0dbd4a1b11ed5",
+        "question_number": 96,
+        "source_jsonl_line": 88451
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）_images/img_0254_7c6a638e12f1265d.jpg",
+        "paper_title": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）",
+        "question_id": "pq_558418cfc38b34515271",
+        "question_number": 97,
+        "source_jsonl_line": 88452
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）_images/img_0234_7f2299375c2dfbbf.jpg",
+        "paper_title": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）",
+        "question_id": "pq_0113aa56547d8bd6f96c",
+        "question_number": 98,
+        "source_jsonl_line": 88453
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）_images/img_0234_7f2299375c2dfbbf.jpg",
+        "paper_title": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）",
+        "question_id": "pq_b2e80a2c768033ce9d4e",
+        "question_number": 99,
+        "source_jsonl_line": 88454
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）_images/img_0234_7f2299375c2dfbbf.jpg",
+        "paper_title": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）",
+        "question_id": "pq_bf668d06373405d2b210",
+        "question_number": 100,
+        "source_jsonl_line": 88455
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）_images/img_0300_7f2299375c2dfbbf.jpg",
+        "paper_title": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）",
+        "question_id": "pq_dcc381ce6c531a02540f",
+        "question_number": 121,
+        "source_jsonl_line": 103303
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）_images/img_0300_7f2299375c2dfbbf.jpg",
+        "paper_title": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）",
+        "question_id": "pq_cf481f1d2abe8df15c1f",
+        "question_number": 122,
+        "source_jsonl_line": 103304
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）_images/img_0300_7f2299375c2dfbbf.jpg",
+        "paper_title": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）",
+        "question_id": "pq_e2370cc0edbcc237daf0",
+        "question_number": 123,
+        "source_jsonl_line": 103305
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）_images/img_0333_7c6a638e12f1265d.jpg",
+        "paper_title": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）",
+        "question_id": "pq_a8b30a3edd39ab748891",
+        "question_number": 124,
+        "source_jsonl_line": 103306
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）_images/img_0333_7c6a638e12f1265d.jpg",
+        "paper_title": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）",
+        "question_id": "pq_5278cd90b72286b3c1cf",
+        "question_number": 125,
+        "source_jsonl_line": 103307
+      }
+    ],
+    "sha256": "0ccb68bd9b65a460018cb0b7d6aac1a1bc0fdef884c8b97925caf686b387d8c6"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "时间",
+      "成交土地面积（百万平方米）",
+      "同比增长率 %",
+      "容积率"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2017年3月",
+        "unit": null,
+        "values": [
+          "2017年3月",
+          12.2,
+          9.9,
+          2.3
+        ]
+      },
+      {
+        "label": "2017年4月",
+        "unit": null,
+        "values": [
+          "2017年4月",
+          9.9,
+          -2.3,
+          2.7
+        ]
+      },
+      {
+        "label": "2017年5月",
+        "unit": null,
+        "values": [
+          "2017年5月",
+          10.4,
+          -28.9,
+          2.1
+        ]
+      },
+      {
+        "label": "2017年6月",
+        "unit": null,
+        "values": [
+          "2017年6月",
+          22.6,
+          65.8,
+          2.3
+        ]
+      },
+      {
+        "label": "2017年7月",
+        "unit": null,
+        "values": [
+          "2017年7月",
+          18.3,
+          23.0,
+          2.3
+        ]
+      },
+      {
+        "label": "2017年8月",
+        "unit": null,
+        "values": [
+          "2017年8月",
+          19.3,
+          9.9,
+          2.3
+        ]
+      },
+      {
+        "label": "2017年9月",
+        "unit": null,
+        "values": [
+          "2017年9月",
+          20.8,
+          25.3,
+          2.3
+        ]
+      },
+      {
+        "label": "2017年10月",
+        "unit": null,
+        "values": [
+          "2017年10月",
+          26.1,
+          117.6,
+          2.2
+        ]
+      },
+      {
+        "label": "2017年11月",
+        "unit": null,
+        "values": [
+          "2017年11月",
+          21.4,
+          34.3,
+          2.4
+        ]
+      },
+      {
+        "label": "2017年12月",
+        "unit": null,
+        "values": [
+          "2017年12月",
+          37.0,
+          8.8,
+          2.3
+        ]
+      },
+      {
+        "label": "2018年1月",
+        "unit": null,
+        "values": [
+          "2018年1月",
+          20.8,
+          13.1,
+          2.3
+        ]
+      },
+      {
+        "label": "2018年2月",
+        "unit": null,
+        "values": [
+          "2018年2月",
+          16.4,
+          -0.5,
+          2.3
+        ]
+      }
+    ]
+  },
+  "title": "2017年3月～2018年2月全国住宅用地成交情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0ccb68bd9b65a460018cb0b7/row_band_01.jpg",
+        "review-crops/da_0ccb68bd9b65a460018cb0b7/row_band_02.jpg",
+        "review-crops/da_0ccb68bd9b65a460018cb0b7/row_band_03.jpg",
+        "review-crops/da_0ccb68bd9b65a460018cb0b7/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.316",
+      "crop_verification_elapsed_seconds:25.949",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'同比增长率 %'中2017年6月的值从65.8到65.8（无变化）",
+      "crop_note:修正了'同比增长率 %'中2017年7月的值从23.0到23.0（无变化）",
+      "crop_note:修正了'同比增长率 %'中2017年8月的值从9.9到9.9（无变化）",
+      "crop_note:修正了'同比增长率 %'中2017年9月的值从25.3到25.3（无变化）",
+      "crop_note:修正了'同比增长率 %'中2017年10月的值从117.6到117.6（无变化）",
+      "crop_note:修正了'同比增长率 %'中2017年11月的值从34.3到34.3（无变化）",
+      "crop_note:修正了'同比增长率 %'中2017年12月的值从8.8到8.8（无变化）",
+      "crop_note:修正了'同比增长率 %'中2018年1月的值从13.1到13.1（无变化）",
+      "crop_note:修正了'同比增长率 %'中2018年2月的值从-0.5到-0.5（无变化）",
+      "crop_note:确认'成交土地面积（百万平方米）'中2017年12月的值为37.0，未补0",
+      "crop_note:确认'成交土地面积（百万平方米）'中2018年2月的值为16.4，未补0",
+      "crop_note:确认'容积率'中2017年5月的值为2.1，未补0",
+      "crop_note:确认'容积率'中2017年10月的值为2.2，未补0",
+      "crop_note:确认'容积率'中2017年11月的值为2.4，未补0",
+      "crop_note:确认'容积率'中2017年12月的值为2.3，未补0",
+      "crop_note:确认'容积率'中2018年1月的值为2.3，未补0",
+      "crop_note:确认'容积率'中2018年2月的值为2.3，未补0",
+      "crop_note:确认'成交土地面积（百万平方米）'中2017年5月的值为10.4，未补0",
+      "crop_note:确认'成交土地面积（百万平方米）'中2017年6月的值为22.6，未补0",
+      "crop_note:确认'成交土地面积（百万平方米）'中2017年7月的值为18.3，未补0",
+      "crop_note:确认'成交土地面积（百万平方米）'中2017年8月的值为19.3，未补0",
+      "crop_note:确认'成交土地面积（百万平方米）'中2017年9月的值为20.8，未补0",
+      "crop_note:确认'成交土地面积（百万平方米）'中2017年10月的值为26.1，未补0",
+      "crop_note:确认'成交土地面积（百万平方米）'中2017年11月的值为21.4，未补0",
+      "crop_note:确认'成交土地面积（百万平方米）'中2018年1月的值为20.8，未补0",
+      "crop_note:确认'成交土地面积（百万平方米）'中2017年3月的值为12.2，未补0",
+      "crop_note:确认'成交土地面积（百万平方米）'中2017年4月的值为9.9，未补0",
+      "crop_note:确认'同比增长率 %'中2017年3月的值为9.9，未补0",
+      "crop_note:确认'同比增长率 %'中2017年4月的值为-2.3，未补0",
+      "crop_note:确认'同比增长率 %'中2017年5月的值为-28.9，未补0",
+      "crop_note:确认'同比增长率 %'中2017年6月的值为65.8，未补0",
+      "crop_note:确认'同比增长率 %'中2017年7月的值为23.0，未补0",
+      "crop_note:确认'同比增长率 %'中2017年8月的值为9.9，未补0",
+      "crop_note:确认'同比增长率 %'中2017年9月的值为25.3，未补0",
+      "crop_note:确认'同比增长率 %'中2017年10月的值为117.6，未补0",
+      "crop_note:确认'同比增长率 %'中2017年11月的值为34.3，未补0",
+      "crop_note:确认'同比增长率 %'中2017年12月的值为8.8，未补0",
+      "crop_note:确认'同比增长率 %'中2018年1月的值为13.1，未补0",
+      "crop_note:确认'同比增长率 %'中2018年2月的值为-0.5，未补0",
+      "crop_note:确认'容积率'中2017年3月的值为2.3，未补0",
+      "crop_note:确认'容积率'中2017年4月的值为2.7，未补0",
+      "crop_note:确认'容积率'中2017年5月的值为2.1，未补0",
+      "crop_note:确认'容积率'中2017年6月的值为2.3，未补0",
+      "crop_note:确认'容积率'中2017年7月的值为2.3，未补0",
+      "crop_note:确认'容积率'中2017年8月的值为2.3，未补0",
+      "crop_note:确认'容积率'中2017年9月的值为2.3，未补0",
+      "crop_note:确认'容积率'中2017年10月的值为2.2，未补0",
+      "crop_note:确认'容积率'中2017年11月的值为2.4，未补0",
+      "crop_note:确认'容积率'中2017年12月的值为2.3，未补0",
+      "crop_note:确认'容积率'中2018年1月的值为2.3，未补0",
+      "crop_note:确认'容积率'中2018年2月的值为2.3，未补0",
+      "crop_note:确认所有数值的小数点后位数正确",
+      "crop_note:确认所有负号正确",
+      "crop_note:确认所有百分号正确",
+      "crop_note:确认所有缺失值保持为null，未补0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

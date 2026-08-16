@@ -1,0 +1,196 @@
+{
+  "asset_id": "da_8c0f4280a3182ec13bbddb9d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "第一产业",
+    "第二产业",
+    "第三产业"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "第一产业",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "第二产业",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "第三产业",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -42.5,
+      73.5,
+      259.669,
+      317.5
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 73.5,
+        "label": "第一产业",
+        "share": 0.32222222,
+        "start_angle": -42.5,
+        "sweep_angle": 116.0
+      },
+      {
+        "end_angle": 259.669,
+        "label": "第二产业",
+        "share": 0.51713583,
+        "start_angle": 73.5,
+        "sweep_angle": 186.169
+      },
+      {
+        "end_angle": 317.5,
+        "label": "第三产业",
+        "share": 0.16064195,
+        "start_angle": 259.669,
+        "sweep_angle": 57.831
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.32222222,
+        0.51713583,
+        0.16064195
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2013年陕西省公务员录用考试《行测》题_images/img_0175_adace9f3e69c1422.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0175_adace9f3e69c1422.jpg",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_db396fde5895c8c2330c",
+        "question_number": 131,
+        "source_jsonl_line": 97154
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0175_adace9f3e69c1422.jpg",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_c79d9fd307e3c808bfb8",
+        "question_number": 132,
+        "source_jsonl_line": 97155
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0175_adace9f3e69c1422.jpg",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_2f4be9d19d83ee41216a",
+        "question_number": 133,
+        "source_jsonl_line": 97156
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0175_adace9f3e69c1422.jpg",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_a07f99d4d350b9d28c5a",
+        "question_number": 134,
+        "source_jsonl_line": 97157
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0175_adace9f3e69c1422.jpg",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_ad9ed7bf08fc917179a7",
+        "question_number": 135,
+        "source_jsonl_line": 97158
+      }
+    ],
+    "sha256": "8c0f4280a3182ec13bbddb9de253c0f12b72d81241b8482335fd6d16aa7b5ec1"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图2 2002年及2011年三次产业构成",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8c0f4280a3182ec13bbddb9d/quadrant_01.jpg",
+        "review-crops/da_8c0f4280a3182ec13bbddb9d/quadrant_02.jpg",
+        "review-crops/da_8c0f4280a3182ec13bbddb9d/quadrant_03.jpg",
+        "review-crops/da_8c0f4280a3182ec13bbddb9d/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.254",
+      "crop_verification_elapsed_seconds:0.906",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.7028",
+      "hough_circle_radius_ratio:0.1174",
+      "radial_line_candidates:1",
+      "detected_boundaries:3"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

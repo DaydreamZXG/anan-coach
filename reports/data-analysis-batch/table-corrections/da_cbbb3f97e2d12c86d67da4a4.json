@@ -1,0 +1,156 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "11月",
+          "11月|同比增速(%)"
+        ],
+        "label": "11月"
+      },
+      {
+        "columns": [
+          "1-11月",
+          "1-11月|同比增速(%)"
+        ],
+        "label": "1-11月"
+      }
+    ],
+    "columns": [
+      "11月",
+      "11月|同比增速(%)",
+      "1-11月",
+      "1-11月|同比增速(%)"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "货物运输总量（亿吨）｜2014年",
+        "group": null,
+        "label": "货物运输总量（亿吨）｜2014年",
+        "unit": null,
+        "values": [
+          39.3,
+          7.1,
+          393.2,
+          7.3
+        ]
+      },
+      {
+        "display_label": "其中：铁路（亿吨）｜2014年",
+        "group": null,
+        "label": "其中：铁路（亿吨）｜2014年",
+        "unit": null,
+        "values": [
+          3.2,
+          -6.5,
+          35.0,
+          -3.2
+        ]
+      },
+      {
+        "display_label": "公路（亿吨）｜2014年",
+        "group": null,
+        "label": "公路（亿吨）｜2014年",
+        "unit": null,
+        "values": [
+          30.7,
+          8.6,
+          303.6,
+          8.8
+        ]
+      },
+      {
+        "display_label": "水运（亿吨）｜2014年",
+        "group": null,
+        "label": "水运（亿吨）｜2014年",
+        "unit": null,
+        "values": [
+          5.4,
+          7.6,
+          54.5,
+          6.8
+        ]
+      },
+      {
+        "display_label": "民航（亿吨）｜2014年",
+        "group": null,
+        "label": "民航（亿吨）｜2014年",
+        "unit": null,
+        "values": [
+          55.5,
+          3.4,
+          538.0,
+          5.7
+        ]
+      },
+      {
+        "display_label": "货物周转总量（亿吨公里）｜2014年",
+        "group": null,
+        "label": "货物周转总量（亿吨公里）｜2014年",
+        "unit": null,
+        "values": [
+          16409.2,
+          8.6,
+          164873.0,
+          10.1
+        ]
+      },
+      {
+        "display_label": "其中：铁路（亿吨公里）｜2014年",
+        "group": null,
+        "label": "其中：铁路（亿吨公里）｜2014年",
+        "unit": null,
+        "values": [
+          2354.4,
+          -6.4,
+          25200.7,
+          -5.2
+        ]
+      },
+      {
+        "display_label": "公路（亿吨公里）｜2014年",
+        "group": null,
+        "label": "公路（亿吨公里）｜2014年",
+        "unit": null,
+        "values": [
+          5833.0,
+          10.4,
+          55448.0,
+          9.8
+        ]
+      },
+      {
+        "display_label": "水运（亿吨公里）｜2014年",
+        "group": null,
+        "label": "水运（亿吨公里）｜2014年",
+        "unit": null,
+        "values": [
+          8204.1,
+          12.5,
+          84056.0,
+          16.0
+        ]
+      },
+      {
+        "display_label": "民航（亿吨公里）｜2014年",
+        "group": null,
+        "label": "民航（亿吨公里）｜2014年",
+        "unit": null,
+        "values": [
+          17.6,
+          8.5,
+          168.7,
+          8.8
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

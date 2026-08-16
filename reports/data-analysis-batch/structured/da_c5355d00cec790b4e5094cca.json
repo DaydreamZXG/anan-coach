@@ -1,0 +1,333 @@
+{
+  "asset_id": "da_c5355d00cec790b4e5094cca",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 600.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          100.0,
+          200.0,
+          300.0,
+          400.0,
+          500.0,
+          600.0
+        ],
+        "title": null,
+        "unit": "(GWh)"
+      }
+    ]
+  },
+  "categories": [
+    "2019",
+    "2020",
+    "2021",
+    "2022"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "储能锂电池",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "solid",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "数码锂电池",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "solid",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "动力锂电池",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "hatch",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "储能锂电池",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(GWh)",
+      "values": [
+        9.5,
+        16.2,
+        47.7,
+        130.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "数码锂电池",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(GWh)",
+      "values": [
+        36.5,
+        46.2,
+        53.5,
+        48.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "动力锂电池",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(GWh)",
+      "values": [
+        71.0,
+        80.0,
+        226.0,
+        480.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2024年云南公务员录用考试《行测》题（网友回忆版）_images/img_0062_607400adca712874.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年云南公务员录用考试《行测》题（网友回忆版）_images/img_0062_607400adca712874.png",
+        "paper_title": "2024年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3ce970c513ee949fcbb2",
+        "question_number": 86,
+        "source_jsonl_line": 6070
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年云南公务员录用考试《行测》题（网友回忆版）_images/img_0062_607400adca712874.png",
+        "paper_title": "2024年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_81745fd7f26bb215feab",
+        "question_number": 87,
+        "source_jsonl_line": 6071
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年云南公务员录用考试《行测》题（网友回忆版）_images/img_0062_607400adca712874.png",
+        "paper_title": "2024年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9c49ef5837b0553e6376",
+        "question_number": 88,
+        "source_jsonl_line": 6072
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年云南公务员录用考试《行测》题（网友回忆版）_images/img_0062_607400adca712874.png",
+        "paper_title": "2024年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_25829d14efe8b81482e3",
+        "question_number": 89,
+        "source_jsonl_line": 6073
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年云南公务员录用考试《行测》题（网友回忆版）_images/img_0080_03bb505f9cd6d2f9.png",
+        "paper_title": "2024年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bec4e2d31b31d4004b38",
+        "question_number": 90,
+        "source_jsonl_line": 6074
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0103_607400adca712874.png",
+        "paper_title": "2024年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_65991a1b14bd62866268",
+        "question_number": 111,
+        "source_jsonl_line": 26361
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0103_607400adca712874.png",
+        "paper_title": "2024年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_702e7a51beca7916c722",
+        "question_number": 112,
+        "source_jsonl_line": 26362
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0103_607400adca712874.png",
+        "paper_title": "2024年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d2c2e03898b2d776eb46",
+        "question_number": 113,
+        "source_jsonl_line": 26363
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0103_607400adca712874.png",
+        "paper_title": "2024年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_47ef67ec008f15347928",
+        "question_number": 114,
+        "source_jsonl_line": 26364
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0103_607400adca712874.png",
+        "paper_title": "2024年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3beb03899f5100e5302c",
+        "question_number": 115,
+        "source_jsonl_line": 26365
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0091_607400adca712874.png",
+        "paper_title": "2024年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8c6b55918aecdb09ec7a",
+        "question_number": 101,
+        "source_jsonl_line": 39787
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0090_03bb505f9cd6d2f9.png",
+        "paper_title": "2024年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1f11e0f961288e54e573",
+        "question_number": 102,
+        "source_jsonl_line": 39788
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0091_607400adca712874.png",
+        "paper_title": "2024年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5393843fcc3e15ed07bc",
+        "question_number": 103,
+        "source_jsonl_line": 39789
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0091_607400adca712874.png",
+        "paper_title": "2024年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b868cb2271d77ec4da99",
+        "question_number": 104,
+        "source_jsonl_line": 39790
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0090_03bb505f9cd6d2f9.png",
+        "paper_title": "2024年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_adb7876206ed7e75dc29",
+        "question_number": 105,
+        "source_jsonl_line": 39791
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0057_03bb505f9cd6d2f9.png",
+        "paper_title": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_5cca4cdb36c938ef9848",
+        "question_number": 101,
+        "source_jsonl_line": 44011
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0057_03bb505f9cd6d2f9.png",
+        "paper_title": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_4b45285642e8ac1b5580",
+        "question_number": 102,
+        "source_jsonl_line": 44012
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0069_607400adca712874.png",
+        "paper_title": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_8f0e78766bb89b5f3c97",
+        "question_number": 103,
+        "source_jsonl_line": 44013
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0069_607400adca712874.png",
+        "paper_title": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_97bb4f0c5df21a542b55",
+        "question_number": 104,
+        "source_jsonl_line": 44014
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0057_03bb505f9cd6d2f9.png",
+        "paper_title": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_13573257edd34767c676",
+        "question_number": 105,
+        "source_jsonl_line": 44015
+      }
+    ],
+    "sha256": "c5355d00cec790b4e5094ccac75eaedc490b07d1ea60e3f959e080f38b33d169"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2019-2022年中国锂电池出货量",
+  "unit": "(GWh)",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c5355d00cec790b4e5094cca/column_band_01.jpg",
+        "review-crops/da_c5355d00cec790b4e5094cca/column_band_02.jpg",
+        "review-crops/da_c5355d00cec790b4e5094cca/column_band_03.jpg",
+        "review-crops/da_c5355d00cec790b4e5094cca/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.58",
+      "crop_verification_elapsed_seconds:3.389",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,268 @@
+{
+  "asset_id": "da_be3ec4c2054f34a5bf7db9a7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "月份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 2000,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000,
+          1200,
+          1400,
+          1600,
+          1800,
+          2000
+        ],
+        "title": "数量",
+        "unit": "支"
+      },
+      {
+        "max": 800,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600,
+          700,
+          800
+        ],
+        "title": "规模",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2023年11月",
+    "2023年12月",
+    "2024年1月",
+    "2024年2月",
+    "2024年3月",
+    "2024年4月",
+    "2024年5月",
+    "2024年6月",
+    "2024年7月",
+    "2024年8月",
+    "2024年9月",
+    "2024年10月",
+    "2024年11月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "产品数量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "设立规模",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "产品数量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "支",
+      "values": [
+        844,
+        952,
+        809,
+        497,
+        754,
+        759,
+        666,
+        861,
+        878,
+        782,
+        698,
+        477,
+        928
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "设立规模",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1608.29,
+        1444.37,
+        1526.84,
+        1234.82,
+        1534.25,
+        1518.72,
+        1522.19,
+        1410.37,
+        1543.38,
+        1690.8,
+        1491.41,
+        1324.49,
+        1440.84
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0120_de2072ab2f059052.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0120_de2072ab2f059052.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_9680acb66697b84e1363",
+        "question_number": 106,
+        "source_jsonl_line": 71892
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0120_de2072ab2f059052.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_67f3136a5bb2e0393d94",
+        "question_number": 107,
+        "source_jsonl_line": 71893
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0135_d0620941832dc999.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_ff8f0e7faf5958141815",
+        "question_number": 108,
+        "source_jsonl_line": 71894
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0120_de2072ab2f059052.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_34b6609d7bb22d83e6ef",
+        "question_number": 109,
+        "source_jsonl_line": 71895
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0120_de2072ab2f059052.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_74f843320605607bcd6c",
+        "question_number": 110,
+        "source_jsonl_line": 71896
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0117_de2072ab2f059052.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_cf39c664ab0f23298024",
+        "question_number": 106,
+        "source_jsonl_line": 90616
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0117_de2072ab2f059052.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_7bc35b2dcc7675ed0afa",
+        "question_number": 107,
+        "source_jsonl_line": 90617
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0117_de2072ab2f059052.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_a77e6bd5776df3a18e47",
+        "question_number": 108,
+        "source_jsonl_line": 90618
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0117_de2072ab2f059052.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_1a45d3eeaccb7e1e666e",
+        "question_number": 109,
+        "source_jsonl_line": 90619
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0117_de2072ab2f059052.png",
+        "paper_title": "2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_1d0e752b0e413025c3e5",
+        "question_number": 110,
+        "source_jsonl_line": 90620
+      }
+    ],
+    "sha256": "be3ec4c2054f34a5bf7db9a7c2f80120d64611a74c5565ef1c27eb640e291fbe"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2023年11月-2024年11月证券期货经营机构资管产品月度备案数量及规模趋势",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_be3ec4c2054f34a5bf7db9a7/column_band_01.jpg",
+        "review-crops/da_be3ec4c2054f34a5bf7db9a7/column_band_02.jpg",
+        "review-crops/da_be3ec4c2054f34a5bf7db9a7/column_band_03.jpg",
+        "review-crops/da_be3ec4c2054f34a5bf7db9a7/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.097",
+      "crop_verification_elapsed_seconds:8.352",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "asset_id": "da_2d51e7c79783030e8ab44e4c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 6.9,
+        "min": 6.2,
+        "ticks": [
+          6.2,
+          6.3,
+          6.4,
+          6.5,
+          6.6,
+          6.7,
+          6.8,
+          6.9
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2011年第一季度",
+    "第二季度",
+    "第三季度",
+    "第四季度",
+    "2012年第一季度",
+    "第二季度",
+    "第三季度",
+    "第四季度"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "我国国内生产总值增长速度",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "我国国内生产总值增长速度",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.8,
+        6.8,
+        6.7,
+        6.7,
+        6.8,
+        6.7,
+        6.5,
+        6.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2019年420联考《行测》题（吉林乙级）（网友回忆版）_images/img_0104_f3b8462fec280d72.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（吉林乙级）（网友回忆版）_images/img_0104_f3b8462fec280d72.png",
+        "paper_title": "2019年420联考《行测》题（吉林乙级）（网友回忆版）",
+        "question_id": "pq_05b7f1632066b0a893f2",
+        "question_number": 91,
+        "source_jsonl_line": 13102
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（吉林乙级）（网友回忆版）_images/img_0104_f3b8462fec280d72.png",
+        "paper_title": "2019年420联考《行测》题（吉林乙级）（网友回忆版）",
+        "question_id": "pq_d0d9dc05415bb48c4f35",
+        "question_number": 92,
+        "source_jsonl_line": 13103
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（吉林乙级）（网友回忆版）_images/img_0104_f3b8462fec280d72.png",
+        "paper_title": "2019年420联考《行测》题（吉林乙级）（网友回忆版）",
+        "question_id": "pq_c50d714b3b205ffdcb17",
+        "question_number": 93,
+        "source_jsonl_line": 13104
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（吉林乙级）（网友回忆版）_images/img_0104_f3b8462fec280d72.png",
+        "paper_title": "2019年420联考《行测》题（吉林乙级）（网友回忆版）",
+        "question_id": "pq_31cf3957a7dac8743e8d",
+        "question_number": 94,
+        "source_jsonl_line": 13105
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（吉林乙级）（网友回忆版）_images/img_0149_429183f24309b0af.png",
+        "paper_title": "2019年420联考《行测》题（吉林乙级）（网友回忆版）",
+        "question_id": "pq_3bca592eb7c6a4ad07f0",
+        "question_number": 95,
+        "source_jsonl_line": 13106
+      }
+    ],
+    "sha256": "2d51e7c79783030e8ab44e4cdd2860159df8a9f2c293587f883ca2eee33d669c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "我国国内生产总值增长速度（季度同比）",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2d51e7c79783030e8ab44e4c/column_band_01.jpg",
+        "review-crops/da_2d51e7c79783030e8ab44e4c/column_band_02.jpg",
+        "review-crops/da_2d51e7c79783030e8ab44e4c/column_band_03.jpg",
+        "review-crops/da_2d51e7c79783030e8ab44e4c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.046",
+      "crop_verification_elapsed_seconds:5.022",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

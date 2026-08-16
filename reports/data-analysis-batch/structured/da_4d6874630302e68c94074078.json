@@ -1,0 +1,199 @@
+{
+  "asset_id": "da_4d6874630302e68c94074078",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 50000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 20,
+        "min": -20,
+        "ticks": [
+          -20,
+          -15,
+          -10,
+          -5,
+          0,
+          5,
+          10,
+          15,
+          20
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2009年",
+    "2010年",
+    "2011年",
+    "2012年",
+    "2013年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "平均工资",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "同比增速",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "平均工资",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        18199,
+        20759,
+        24556,
+        28752,
+        32706
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        6.6,
+        14.1,
+        18.3,
+        17.1,
+        13.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2015年山东省公务员录用考试《行测》题_images/img_0149_0912d3b78c3ce354.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省公务员录用考试《行测》题_images/img_0149_0912d3b78c3ce354.png",
+        "paper_title": "2015年山东省公务员录用考试《行测》题",
+        "question_id": "pq_23efb41b7a65fbc18c9d",
+        "question_number": 106,
+        "source_jsonl_line": 29840
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省公务员录用考试《行测》题_images/img_0149_0912d3b78c3ce354.png",
+        "paper_title": "2015年山东省公务员录用考试《行测》题",
+        "question_id": "pq_658f3a3f81171e640e2d",
+        "question_number": 107,
+        "source_jsonl_line": 29841
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省公务员录用考试《行测》题_images/img_0152_2f5ad6e96be33b52.png",
+        "paper_title": "2015年山东省公务员录用考试《行测》题",
+        "question_id": "pq_272ad8fcc2d2a7057c4e",
+        "question_number": 108,
+        "source_jsonl_line": 29842
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省公务员录用考试《行测》题_images/img_0149_0912d3b78c3ce354.png",
+        "paper_title": "2015年山东省公务员录用考试《行测》题",
+        "question_id": "pq_4e5b007a817bb5091a27",
+        "question_number": 109,
+        "source_jsonl_line": 29843
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省公务员录用考试《行测》题_images/img_0149_0912d3b78c3ce354.png",
+        "paper_title": "2015年山东省公务员录用考试《行测》题",
+        "question_id": "pq_22885d05eb06db610de6",
+        "question_number": 110,
+        "source_jsonl_line": 29844
+      }
+    ],
+    "sha256": "4d6874630302e68c94074078e1e9d89b5dcaab85c668444b32dc9182cbec13a3"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2009-2013年城镇私营单位就业人员年平均工资及增速",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4d6874630302e68c94074078/column_band_01.jpg",
+        "review-crops/da_4d6874630302e68c94074078/column_band_02.jpg",
+        "review-crops/da_4d6874630302e68c94074078/column_band_03.jpg",
+        "review-crops/da_4d6874630302e68c94074078/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.649",
+      "crop_verification_elapsed_seconds:2.992",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

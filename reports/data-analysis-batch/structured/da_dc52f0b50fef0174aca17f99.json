@@ -1,0 +1,263 @@
+{
+  "asset_id": "da_dc52f0b50fef0174aca17f99",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0045_53998c5869b8fd31.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0045_53998c5869b8fd31.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_44adfd6f07aa223b966a",
+        "question_number": 106,
+        "source_jsonl_line": 40412
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0048_acde93d1617c8632.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_5c44068fe5850f01a3fc",
+        "question_number": 107,
+        "source_jsonl_line": 40413
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0045_53998c5869b8fd31.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_39e3ce00276d6d72227c",
+        "question_number": 108,
+        "source_jsonl_line": 40414
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0045_53998c5869b8fd31.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_3d004c411d6c08713dd0",
+        "question_number": 109,
+        "source_jsonl_line": 40415
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0048_acde93d1617c8632.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_eaf57aedbf8d6c311cd2",
+        "question_number": 110,
+        "source_jsonl_line": 40416
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0042_53998c5869b8fd31.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_9e6ba0a6ac5290dc161a",
+        "question_number": 106,
+        "source_jsonl_line": 41824
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0042_53998c5869b8fd31.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_66ee7e1a13e70ec96a8e",
+        "question_number": 107,
+        "source_jsonl_line": 41825
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0051_acde93d1617c8632.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_34eb89fc838e7940063f",
+        "question_number": 108,
+        "source_jsonl_line": 41826
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0042_53998c5869b8fd31.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_ec01824fe70c0008cfdd",
+        "question_number": 109,
+        "source_jsonl_line": 41827
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0042_53998c5869b8fd31.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_ec611d1b0329e9b432ff",
+        "question_number": 110,
+        "source_jsonl_line": 41828
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0046_53998c5869b8fd31.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_54a7363f13264b7bb262",
+        "question_number": 106,
+        "source_jsonl_line": 57363
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0046_53998c5869b8fd31.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_32f5fce3c1dda2761eba",
+        "question_number": 107,
+        "source_jsonl_line": 57364
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0046_53998c5869b8fd31.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_a657f5653668a5391896",
+        "question_number": 108,
+        "source_jsonl_line": 57365
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0046_53998c5869b8fd31.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_7965c9208a67edc4ceec",
+        "question_number": 109,
+        "source_jsonl_line": 57366
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0062_acde93d1617c8632.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_21567a742000f49db8db",
+        "question_number": 110,
+        "source_jsonl_line": 57367
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0045_53998c5869b8fd31.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_a8da85868d2852d653a4",
+        "question_number": 106,
+        "source_jsonl_line": 74601
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0045_53998c5869b8fd31.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_f0327833b13616889197",
+        "question_number": 107,
+        "source_jsonl_line": 74602
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0045_53998c5869b8fd31.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_aa1589ff32145ce97989",
+        "question_number": 108,
+        "source_jsonl_line": 74603
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0045_53998c5869b8fd31.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_4404888dbd39ff2a1879",
+        "question_number": 109,
+        "source_jsonl_line": 74604
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年917联考《行测》题（河南_福建_甘肃_重庆_新疆兵团）_images/img_0061_acde93d1617c8632.png",
+        "paper_title": "2011年917联考《行测》题（河南/福建/甘肃/重庆/新疆兵团）",
+        "question_id": "pq_0bdee9096d50df242880",
+        "question_number": 110,
+        "source_jsonl_line": 74605
+      }
+    ],
+    "sha256": "dc52f0b50fef0174aca17f99c88ff449fa5fbaa666c904f31ab637f38aa71b43"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "客运量（人次）｜第1列",
+      "航线｜第2列",
+      "客运量（人次）｜第3列"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "航线",
+    "rows": [
+      {
+        "display_label": "厦门—金门",
+        "group": null,
+        "label": "厦门—金门",
+        "unit": null,
+        "values": [
+          79289,
+          "金门—厦门",
+          81961
+        ]
+      },
+      {
+        "display_label": "马尾—马祖",
+        "group": null,
+        "label": "马尾—马祖",
+        "unit": null,
+        "values": [
+          7756,
+          "马祖—马尾",
+          6748
+        ]
+      },
+      {
+        "display_label": "泉州—金门",
+        "group": null,
+        "label": "泉州—金门",
+        "unit": null,
+        "values": [
+          5817,
+          "金门—泉州",
+          7077
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

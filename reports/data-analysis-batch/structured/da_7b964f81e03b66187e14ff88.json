@@ -1,0 +1,214 @@
+{
+  "asset_id": "da_7b964f81e03b66187e14ff88",
+  "axes": {
+    "x": {
+      "max": 250,
+      "min": 0,
+      "ticks": [
+        0,
+        50,
+        100,
+        150,
+        200,
+        250
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 231.8,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "全国",
+    "东部",
+    "中部",
+    "西部"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2019年",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "2020年",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "2021年",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2019",
+      "label": "2019年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        67.2,
+        133.0,
+        33.1,
+        56.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2020",
+      "label": "2020年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        109.0,
+        182.1,
+        79.9,
+        59.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2021",
+      "label": "2021年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        135.2,
+        231.8,
+        80.2,
+        89.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0148_6bce23f6288fe5e5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0148_6bce23f6288fe5e5.png",
+        "paper_title": "2024年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3b6645db979d9e833d87",
+        "question_number": 86,
+        "source_jsonl_line": 36118
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0140_f1d1c0c73b452576.png",
+        "paper_title": "2024年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_25bdc6b6bc87c37620f8",
+        "question_number": 87,
+        "source_jsonl_line": 36119
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0148_6bce23f6288fe5e5.png",
+        "paper_title": "2024年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_60a686bee5367687f373",
+        "question_number": 88,
+        "source_jsonl_line": 36120
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0148_6bce23f6288fe5e5.png",
+        "paper_title": "2024年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e8d3fe052cb0ab35c7ed",
+        "question_number": 89,
+        "source_jsonl_line": 36121
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0148_6bce23f6288fe5e5.png",
+        "paper_title": "2024年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_99c91c1c13de5ec5db04",
+        "question_number": 90,
+        "source_jsonl_line": 36122
+      }
+    ],
+    "sha256": "7b964f81e03b66187e14ff888f26e27a80f69c96aa1ca829b78757635d9b98a3"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2019-2021年县域农业农村信息化建设乡村人均社会资本投入",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_7b964f81e03b66187e14ff88/column_band_01.jpg",
+        "review-crops/da_7b964f81e03b66187e14ff88/column_band_02.jpg",
+        "review-crops/da_7b964f81e03b66187e14ff88/column_band_03.jpg",
+        "review-crops/da_7b964f81e03b66187e14ff88/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.75",
+      "crop_verification_elapsed_seconds:2.738",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

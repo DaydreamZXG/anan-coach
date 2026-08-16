@@ -1,0 +1,117 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "一季度",
+      "二季度",
+      "三季度",
+      "四季度"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标｜分类",
+    "rows": [
+      {
+        "display_label": "2013年",
+        "group": "货量运(单位: 亿吨)",
+        "label": "货量运(单位: 亿吨)｜2013年",
+        "unit": "亿吨",
+        "values": [
+          1.4,
+          1.5,
+          1.6,
+          1.7
+        ]
+      },
+      {
+        "display_label": "2014年",
+        "group": "货量运(单位: 亿吨)",
+        "label": "货量运(单位: 亿吨)｜2014年",
+        "unit": "亿吨",
+        "values": [
+          1.6,
+          1.7,
+          1.9,
+          1.9
+        ]
+      },
+      {
+        "display_label": "2013年",
+        "group": "货运周转量(单位: 亿吨公里)",
+        "label": "货运周转量(单位: 亿吨公里)｜2013年",
+        "unit": "亿吨公里",
+        "values": [
+          288,
+          322.6,
+          342.4,
+          397.9
+        ]
+      },
+      {
+        "display_label": "2014年",
+        "group": "货运周转量(单位: 亿吨公里)",
+        "label": "货运周转量(单位: 亿吨公里)｜2014年",
+        "unit": "亿吨公里",
+        "values": [
+          312.9,
+          338.8,
+          367.9,
+          442.5
+        ]
+      },
+      {
+        "display_label": "2013年",
+        "group": "客运量(单位: 万人)",
+        "label": "客运量(单位: 万人)｜2013年",
+        "unit": "万人",
+        "values": [
+          342,
+          370,
+          442,
+          442
+        ]
+      },
+      {
+        "display_label": "2014年",
+        "group": "客运量(单位: 万人)",
+        "label": "客运量(单位: 万人)｜2014年",
+        "unit": "万人",
+        "values": [
+          335,
+          387,
+          443,
+          440
+        ]
+      },
+      {
+        "display_label": "2013年",
+        "group": "客运周转量(单位: 亿人公里)",
+        "label": "客运周转量(单位: 亿人公里)｜2013年",
+        "unit": "亿人公里",
+        "values": [
+          1.9,
+          2,
+          2.3,
+          2.3
+        ]
+      },
+      {
+        "display_label": "2014年",
+        "group": "客运周转量(单位: 亿人公里)",
+        "label": "客运周转量(单位: 亿人公里)｜2014年",
+        "unit": "亿人公里",
+        "values": [
+          1.9,
+          2.1,
+          2.3,
+          2.3
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

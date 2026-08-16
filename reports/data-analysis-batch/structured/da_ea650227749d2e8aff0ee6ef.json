@@ -1,0 +1,199 @@
+{
+  "asset_id": "da_ea650227749d2e8aff0ee6ef",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 6000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000
+        ],
+        "title": "亿元",
+        "unit": "亿元"
+      },
+      {
+        "max": 30,
+        "min": -5,
+        "ticks": [
+          -5,
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30
+        ],
+        "title": "%",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2005年",
+    "2006年",
+    "2007年",
+    "2008年",
+    "2009年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "固定资产投资",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "比上年增长",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "固定资产投资",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2827.2,
+        3371.5,
+        3966.6,
+        3848.5,
+        4858.4
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比上年增长",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        11.8,
+        19.3,
+        17.6,
+        -3.0,
+        26.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2011年北京市公务员录用考试《行测》题_images/img_0092_0131ff312293d4b6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年北京市公务员录用考试《行测》题_images/img_0092_0131ff312293d4b6.png",
+        "paper_title": "2011年北京市公务员录用考试《行测》题",
+        "question_id": "pq_a2903fb3a42f7449b2b4",
+        "question_number": 116,
+        "source_jsonl_line": 9044
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年北京市公务员录用考试《行测》题_images/img_0087_56678d19bce7ab8f.png",
+        "paper_title": "2011年北京市公务员录用考试《行测》题",
+        "question_id": "pq_915ace172cecc2bace4d",
+        "question_number": 117,
+        "source_jsonl_line": 9045
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年北京市公务员录用考试《行测》题_images/img_0092_0131ff312293d4b6.png",
+        "paper_title": "2011年北京市公务员录用考试《行测》题",
+        "question_id": "pq_cb8afb8afd682bc00c52",
+        "question_number": 118,
+        "source_jsonl_line": 9046
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年北京市公务员录用考试《行测》题_images/img_0092_0131ff312293d4b6.png",
+        "paper_title": "2011年北京市公务员录用考试《行测》题",
+        "question_id": "pq_c38c2c1defa84f90b2a8",
+        "question_number": 119,
+        "source_jsonl_line": 9047
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年北京市公务员录用考试《行测》题_images/img_0092_0131ff312293d4b6.png",
+        "paper_title": "2011年北京市公务员录用考试《行测》题",
+        "question_id": "pq_831c81821e32a31d7c8d",
+        "question_number": 120,
+        "source_jsonl_line": 9048
+      }
+    ],
+    "sha256": "ea650227749d2e8aff0ee6eff320dde62be599c532f87a4c4628d48f1db2297f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2005-2009年全社会固定资产投资及增长速度",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ea650227749d2e8aff0ee6ef/column_band_01.jpg",
+        "review-crops/da_ea650227749d2e8aff0ee6ef/column_band_02.jpg",
+        "review-crops/da_ea650227749d2e8aff0ee6ef/column_band_03.jpg",
+        "review-crops/da_ea650227749d2e8aff0ee6ef/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.336",
+      "crop_verification_elapsed_seconds:2.874",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

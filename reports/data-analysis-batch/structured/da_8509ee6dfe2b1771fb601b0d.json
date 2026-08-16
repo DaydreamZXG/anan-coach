@@ -1,0 +1,291 @@
+{
+  "asset_id": "da_8509ee6dfe2b1771fb601b0d",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 90,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90
+        ],
+        "title": null,
+        "unit": "万公顷"
+      }
+    ]
+  },
+  "categories": [
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "基础设施及其他用地",
+      "style": {
+        "dash": null,
+        "fill": "#696969",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "住宅用地",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "商服用地",
+      "style": {
+        "dash": null,
+        "fill": "#F5F5F5",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "工矿仓储用地",
+      "style": {
+        "dash": null,
+        "fill": "#E6E6FA",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "基础设施及其他用地",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万公顷",
+      "values": [
+        37.3,
+        33.5,
+        33.7,
+        37.9,
+        45.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "住宅用地",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万公顷",
+      "values": [
+        10.9,
+        10.5,
+        11.5,
+        10.1,
+        7.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "商服用地",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万公顷",
+      "values": [
+        3.5,
+        3.7,
+        4.1,
+        3.6,
+        3.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "工矿仓储用地",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万公顷",
+      "values": [
+        13.3,
+        14.7,
+        16.7,
+        17.5,
+        19.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0102_858464d0f6207473.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0102_858464d0f6207473.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_9234d7f63e99c31caca2",
+        "question_number": 41,
+        "source_jsonl_line": 63588
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0102_858464d0f6207473.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_30f8d4354cb25a843fef",
+        "question_number": 42,
+        "source_jsonl_line": 63589
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0102_858464d0f6207473.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_bdacccc0b2e143ce0b91",
+        "question_number": 43,
+        "source_jsonl_line": 63590
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0102_858464d0f6207473.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_c96984064c9716844572",
+        "question_number": 44,
+        "source_jsonl_line": 63591
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0117_666df0d959d2f809.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_4ab8222fe1c2b0a2f8f9",
+        "question_number": 45,
+        "source_jsonl_line": 63592
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0097_666df0d959d2f809.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_c098ca9967ab0252ec8e",
+        "question_number": 41,
+        "source_jsonl_line": 90181
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0110_858464d0f6207473.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_101c1080b71de54ca0c6",
+        "question_number": 42,
+        "source_jsonl_line": 90182
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0110_858464d0f6207473.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_7c8d7f3c92e04f60a156",
+        "question_number": 43,
+        "source_jsonl_line": 90183
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0097_666df0d959d2f809.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_88607727736cf4e9d06e",
+        "question_number": 44,
+        "source_jsonl_line": 90184
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0110_858464d0f6207473.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_4a1bcfd3eb1fdec56d82",
+        "question_number": 45,
+        "source_jsonl_line": 90185
+      }
+    ],
+    "sha256": "8509ee6dfe2b1771fb601b0dd56b7814f40a04c29dd53e29c8f715cd7cf32899"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图1 2018-2022年国有建设用地供应情况",
+  "unit": "万公顷",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8509ee6dfe2b1771fb601b0d/column_band_01.jpg",
+        "review-crops/da_8509ee6dfe2b1771fb601b0d/column_band_02.jpg",
+        "review-crops/da_8509ee6dfe2b1771fb601b0d/column_band_03.jpg",
+        "review-crops/da_8509ee6dfe2b1771fb601b0d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.73",
+      "crop_verification_elapsed_seconds:5.53",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "asset_id": "da_72596c971dac6955f70accec",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2017年422联考《行测》题（陕西卷）_images/img_0041_4a02e0f5896c2592.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0041_4a02e0f5896c2592.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_616c744a7ddc0bb8104f",
+        "question_number": 71,
+        "source_jsonl_line": 97619
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0040_f513a67e8e22b861.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_65e418ffff797a813245",
+        "question_number": 72,
+        "source_jsonl_line": 97620
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0040_f513a67e8e22b861.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_87d13b6f149bc7dc27b2",
+        "question_number": 73,
+        "source_jsonl_line": 97621
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0041_4a02e0f5896c2592.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_4124da16eef654fd9e6a",
+        "question_number": 74,
+        "source_jsonl_line": 97622
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0041_4a02e0f5896c2592.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_e6d219fc83107c87e74b",
+        "question_number": 75,
+        "source_jsonl_line": 97623
+      }
+    ],
+    "sha256": "72596c971dac6955f70accec56a8dcc292a2cdee5a4d7bde54a75c7ee7499a78"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2011年",
+      "2012年",
+      "2013年",
+      "2014年",
+      "2015年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "16-20岁",
+        "group": "年份",
+        "label": "年份｜16-20岁",
+        "unit": null,
+        "values": [
+          6.3,
+          4.9,
+          4.7,
+          3.5,
+          3.7
+        ]
+      },
+      {
+        "display_label": "21-30岁",
+        "group": "年份",
+        "label": "年份｜21-30岁",
+        "unit": null,
+        "values": [
+          32.7,
+          31.9,
+          30.8,
+          30.2,
+          29.2
+        ]
+      },
+      {
+        "display_label": "31-40岁",
+        "group": "年份",
+        "label": "年份｜31-40岁",
+        "unit": null,
+        "values": [
+          22.7,
+          22.5,
+          22.9,
+          22.8,
+          22.3
+        ]
+      },
+      {
+        "display_label": "41-50岁",
+        "group": "年份",
+        "label": "年份｜41-50岁",
+        "unit": null,
+        "values": [
+          24.0,
+          25.6,
+          26.4,
+          26.4,
+          26.9
+        ]
+      },
+      {
+        "display_label": "50岁以上",
+        "group": "年份",
+        "label": "年份｜50岁以上",
+        "unit": null,
+        "values": [
+          14.3,
+          15.1,
+          15.2,
+          17.1,
+          17.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,538 @@
+{
+  "asset_id": "da_58b509dd6a065639aff09df4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "时间",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "金额",
+        "unit": "亿元人民币"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比 (%)",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2017年",
+    "2016年",
+    "2015年",
+    "2014年",
+    "2013年",
+    "2012年",
+    "2011年"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "进出口 金额",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "进出口 同比 (%)",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "出口 金额",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "出口 同比 (%)",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "进口 金额",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "进口 同比 (%)",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "进出口 金额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元人民币",
+      "values": [
+        46991,
+        43947,
+        40745,
+        40053,
+        33814,
+        30422,
+        28875
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "进出口 同比 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.9,
+        7.9,
+        1.7,
+        18.3,
+        11.2,
+        2.2,
+        15.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "出口 金额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元人民币",
+      "values": [
+        15407,
+        13918,
+        13617,
+        13461,
+        13020,
+        12699,
+        12936
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "出口 同比 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.7,
+        2.2,
+        1.2,
+        3.4,
+        2.5,
+        -4.5,
+        7.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "进口 金额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元人民币",
+      "values": [
+        31584,
+        30030,
+        27127,
+        26591,
+        20794,
+        17722,
+        15939
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_6",
+      "label": "进口 同比 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.17,
+        10.7,
+        2.0,
+        27.9,
+        17.3,
+        8.0,
+        22.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0203_9b4bce1952027fc9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0203_9b4bce1952027fc9.png",
+        "paper_title": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_9a731f5a40a7125c4500",
+        "question_number": 116,
+        "source_jsonl_line": 7669
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0185_cefac45c3a2f9781.png",
+        "paper_title": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_adf10d269560923ba14e",
+        "question_number": 117,
+        "source_jsonl_line": 7670
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0203_9b4bce1952027fc9.png",
+        "paper_title": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_1cc3b47d881c697f2152",
+        "question_number": 118,
+        "source_jsonl_line": 7671
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0185_cefac45c3a2f9781.png",
+        "paper_title": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_a0dbb61198c1042c183f",
+        "question_number": 119,
+        "source_jsonl_line": 7672
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0185_cefac45c3a2f9781.png",
+        "paper_title": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_6dda1dce206bebfa5d41",
+        "question_number": 120,
+        "source_jsonl_line": 7673
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0188_9b4bce1952027fc9.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_379aab54a04e81105c6b",
+        "question_number": 111,
+        "source_jsonl_line": 23683
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0188_9b4bce1952027fc9.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_72c71166889014665b02",
+        "question_number": 112,
+        "source_jsonl_line": 23684
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0188_9b4bce1952027fc9.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_14c1aedd75a92f39819e",
+        "question_number": 113,
+        "source_jsonl_line": 23685
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0188_9b4bce1952027fc9.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_8535067b845c9b3db1be",
+        "question_number": 114,
+        "source_jsonl_line": 23686
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0188_9b4bce1952027fc9.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_84ceba005cb9821b1766",
+        "question_number": 115,
+        "source_jsonl_line": 23687
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（安徽卷）（网友回忆版）_images/img_0193_9b4bce1952027fc9.png",
+        "paper_title": "2019年420联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_56af76dbf4b135bb8bf9",
+        "question_number": 101,
+        "source_jsonl_line": 27965
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（安徽卷）（网友回忆版）_images/img_0193_9b4bce1952027fc9.png",
+        "paper_title": "2019年420联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_476f250620c31eca8fb3",
+        "question_number": 102,
+        "source_jsonl_line": 27966
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（安徽卷）（网友回忆版）_images/img_0193_9b4bce1952027fc9.png",
+        "paper_title": "2019年420联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_84aef2bf95cc7d608109",
+        "question_number": 103,
+        "source_jsonl_line": 27967
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（安徽卷）（网友回忆版）_images/img_0241_cefac45c3a2f9781.png",
+        "paper_title": "2019年420联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_e5b9015c7a75975e0bf2",
+        "question_number": 104,
+        "source_jsonl_line": 27968
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（安徽卷）（网友回忆版）_images/img_0193_9b4bce1952027fc9.png",
+        "paper_title": "2019年420联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_f4be9f458ef8d3ec6651",
+        "question_number": 105,
+        "source_jsonl_line": 27969
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（江西乡镇）（网友回忆版）_images/img_0285_cefac45c3a2f9781.png",
+        "paper_title": "2019年420联考《行测》题（江西乡镇）（网友回忆版）",
+        "question_id": "pq_27a353206bf3411e8b91",
+        "question_number": 111,
+        "source_jsonl_line": 52910
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（江西乡镇）（网友回忆版）_images/img_0233_9b4bce1952027fc9.png",
+        "paper_title": "2019年420联考《行测》题（江西乡镇）（网友回忆版）",
+        "question_id": "pq_ee6a2abe75b106f27bc9",
+        "question_number": 112,
+        "source_jsonl_line": 52911
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（江西乡镇）（网友回忆版）_images/img_0233_9b4bce1952027fc9.png",
+        "paper_title": "2019年420联考《行测》题（江西乡镇）（网友回忆版）",
+        "question_id": "pq_3169b66c86a3ebe3891b",
+        "question_number": 113,
+        "source_jsonl_line": 52912
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（江西乡镇）（网友回忆版）_images/img_0233_9b4bce1952027fc9.png",
+        "paper_title": "2019年420联考《行测》题（江西乡镇）（网友回忆版）",
+        "question_id": "pq_191470cd26afef9ec141",
+        "question_number": 114,
+        "source_jsonl_line": 52913
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（江西乡镇）（网友回忆版）_images/img_0233_9b4bce1952027fc9.png",
+        "paper_title": "2019年420联考《行测》题（江西乡镇）（网友回忆版）",
+        "question_id": "pq_aad3d0512d8af669d87b",
+        "question_number": 115,
+        "source_jsonl_line": 52914
+      }
+    ],
+    "sha256": "58b509dd6a065639aff09df42fbd0703f6ab3d10dbd32c59ca9b450465aab0d5"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "时间",
+      "进出口 金额",
+      "进出口 同比 (%)",
+      "出口 金额",
+      "出口 同比 (%)",
+      "进口 金额",
+      "进口 同比 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2017年",
+        "unit": null,
+        "values": [
+          "2017年",
+          46991,
+          6.9,
+          15407,
+          10.7,
+          31584,
+          5.17
+        ]
+      },
+      {
+        "label": "2016年",
+        "unit": null,
+        "values": [
+          "2016年",
+          43947,
+          7.9,
+          13918,
+          2.2,
+          30030,
+          10.7
+        ]
+      },
+      {
+        "label": "2015年",
+        "unit": null,
+        "values": [
+          "2015年",
+          40745,
+          1.7,
+          13617,
+          1.2,
+          27127,
+          2.0
+        ]
+      },
+      {
+        "label": "2014年",
+        "unit": null,
+        "values": [
+          "2014年",
+          40053,
+          18.3,
+          13461,
+          3.4,
+          26591,
+          27.9
+        ]
+      },
+      {
+        "label": "2013年",
+        "unit": null,
+        "values": [
+          "2013年",
+          33814,
+          11.2,
+          13020,
+          2.5,
+          20794,
+          17.3
+        ]
+      },
+      {
+        "label": "2012年",
+        "unit": null,
+        "values": [
+          "2012年",
+          30422,
+          2.2,
+          12699,
+          -4.5,
+          17722,
+          8.0
+        ]
+      },
+      {
+        "label": "2011年",
+        "unit": null,
+        "values": [
+          "2011年",
+          28875,
+          15.4,
+          12936,
+          7.7,
+          15939,
+          22.5
+        ]
+      }
+    ]
+  },
+  "title": "2011年-2017年我国服务进出口统计（金额单位：亿元人民币）",
+  "unit": "亿元人民币",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_58b509dd6a065639aff09df4/row_band_01.jpg",
+        "review-crops/da_58b509dd6a065639aff09df4/row_band_02.jpg",
+        "review-crops/da_58b509dd6a065639aff09df4/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:19.301",
+      "crop_verification_elapsed_seconds:13.489",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

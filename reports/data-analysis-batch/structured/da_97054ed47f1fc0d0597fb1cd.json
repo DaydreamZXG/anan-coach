@@ -1,0 +1,186 @@
+{
+  "asset_id": "da_97054ed47f1fc0d0597fb1cd",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 6,
+        "min": 0,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "title": null,
+        "unit": "万亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "城镇",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "农村",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万亿元",
+      "values": [
+        3.77,
+        4.26,
+        4.75,
+        1.8,
+        2.36,
+        1.69
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "农村",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万亿元",
+      "values": [
+        0.8,
+        0.87,
+        0.97,
+        0.43,
+        0.55,
+        0.36
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0149_e3c920690839c9b6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0149_e3c920690839c9b6.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_3ff0e03b1952d985c760",
+        "question_number": 111,
+        "source_jsonl_line": 30805
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0149_e3c920690839c9b6.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_9c3093226962318b9932",
+        "question_number": 112,
+        "source_jsonl_line": 30806
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0156_ec771129f7798d33.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_ccc9e9a68b41e07181f5",
+        "question_number": 113,
+        "source_jsonl_line": 30807
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0149_e3c920690839c9b6.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_a4827e5c08459c9afb98",
+        "question_number": 114,
+        "source_jsonl_line": 30808
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0149_e3c920690839c9b6.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_e88ee3781848c85abd9f",
+        "question_number": 115,
+        "source_jsonl_line": 30809
+      }
+    ],
+    "sha256": "97054ed47f1fc0d0597fb1cd004858e7aff5b70aa62d39e711c79c13225c6e86"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2017-2022年中国城镇和农村旅游收入情况",
+  "unit": "万亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_97054ed47f1fc0d0597fb1cd/column_band_01.jpg",
+        "review-crops/da_97054ed47f1fc0d0597fb1cd/column_band_02.jpg",
+        "review-crops/da_97054ed47f1fc0d0597fb1cd/column_band_03.jpg",
+        "review-crops/da_97054ed47f1fc0d0597fb1cd/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.097",
+      "crop_verification_elapsed_seconds:3.569",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "curves": [
+    {
+      "connects": "left to top",
+      "feat": [],
+      "k": "arc",
+      "reg": "center"
+    }
+  ],
+  "dots": [],
+  "facts": [
+    "2x2 grid frame",
+    "top-left cell contains an arc and a diagonal line",
+    "top-right cell is split by a diagonal line"
+  ],
+  "frame": {
+    "grid": [
+      2,
+      2
+    ],
+    "k": "grid"
+  },
+  "lines": [
+    {
+      "connects": "top-left to arc",
+      "feat": [],
+      "ori": "diagonal_down",
+      "reg": "center"
+    }
+  ],
+  "opt": null,
+  "p": 2,
+  "role": "stem",
+  "schema": "graphic-reasoning-regular-panel-v1",
+  "shapes": [
+    {
+      "feat": [
+        "right_angle"
+      ],
+      "fill": "hollow",
+      "k": "polygon",
+      "n": 1,
+      "ori": [
+        "up"
+      ],
+      "reg": [
+        "center"
+      ]
+    }
+  ],
+  "symbols": [],
+  "topo": [
+    5,
+    6,
+    3,
+    4
+  ],
+  "uncertain": []
+}

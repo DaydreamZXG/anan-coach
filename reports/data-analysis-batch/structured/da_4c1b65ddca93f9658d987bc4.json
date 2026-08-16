@@ -1,0 +1,305 @@
+{
+  "asset_id": "da_4c1b65ddca93f9658d987bc4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2009年426联考《行测》题（天津_陕西_湖北）_images/img_0206_6aec62c771baf164.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0206_6aec62c771baf164.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_6c52c4aed9507d0e75d3",
+        "question_number": 111,
+        "source_jsonl_line": 22016
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0214_9ea00c05337b0f41.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_5848514eddd9a147a89e",
+        "question_number": 112,
+        "source_jsonl_line": 22017
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0214_9ea00c05337b0f41.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_eb154acc302166071925",
+        "question_number": 113,
+        "source_jsonl_line": 22018
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0206_6aec62c771baf164.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_dd623b6bc51acd3b5e8e",
+        "question_number": 114,
+        "source_jsonl_line": 22019
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0214_9ea00c05337b0f41.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_0b51d3cfe11a6cb97573",
+        "question_number": 115,
+        "source_jsonl_line": 22020
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0211_9ea00c05337b0f41.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_e69183f0a15263318acd",
+        "question_number": 111,
+        "source_jsonl_line": 68987
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0211_9ea00c05337b0f41.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_666d49113b652be79142",
+        "question_number": 112,
+        "source_jsonl_line": 68988
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0211_9ea00c05337b0f41.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_199e8c24cd38fe542f6c",
+        "question_number": 113,
+        "source_jsonl_line": 68989
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0211_9ea00c05337b0f41.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_baa44521397bd6de8ea1",
+        "question_number": 114,
+        "source_jsonl_line": 68990
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0211_9ea00c05337b0f41.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_5f04a329ee1249c2673f",
+        "question_number": 115,
+        "source_jsonl_line": 68991
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0207_9ea00c05337b0f41.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_1d9805bf77ee6a82946f",
+        "question_number": 111,
+        "source_jsonl_line": 96534
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0209_6aec62c771baf164.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_d72d4ad46d3a4f900de3",
+        "question_number": 112,
+        "source_jsonl_line": 96535
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0207_9ea00c05337b0f41.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_ed0215e8cc1d367c3915",
+        "question_number": 113,
+        "source_jsonl_line": 96536
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0207_9ea00c05337b0f41.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_22e77199c7185415f072",
+        "question_number": 114,
+        "source_jsonl_line": 96537
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0207_9ea00c05337b0f41.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_2e20df860411844ac21e",
+        "question_number": 115,
+        "source_jsonl_line": 96538
+      }
+    ],
+    "sha256": "4c1b65ddca93f9658d987bc4d007e82bbf3da319175b9be0dbbf56e9b03d41ca"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1995年",
+      "2002年",
+      "2003年",
+      "2004年",
+      "2005年",
+      "2006年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "广播节目制作",
+        "group": "广播电视节目制作时数",
+        "label": "广播电视节目制作时数｜广播节目制作",
+        "unit": null,
+        "values": [
+          2332164,
+          3774001,
+          4301505,
+          5267457,
+          6139227,
+          6192339
+        ]
+      },
+      {
+        "display_label": "新闻",
+        "group": "广播电视节目制作时数",
+        "label": "广播电视节目制作时数｜广播节目制作｜新闻",
+        "unit": null,
+        "values": [
+          353368,
+          531278,
+          628090,
+          858579,
+          1066880,
+          1055077
+        ]
+      },
+      {
+        "display_label": "专题",
+        "group": "广播电视节目制作时数",
+        "label": "广播电视节目制作时数｜广播节目制作｜专题",
+        "unit": null,
+        "values": [
+          1054140,
+          1703554,
+          1861943,
+          1579675,
+          1822621,
+          1728485
+        ]
+      },
+      {
+        "display_label": "综艺",
+        "group": "广播电视节目制作时数",
+        "label": "广播电视节目制作时数｜广播节目制作｜综艺",
+        "unit": null,
+        "values": [
+          924656,
+          1161402,
+          1376816,
+          1606519,
+          1937290,
+          1986800
+        ]
+      },
+      {
+        "display_label": "电视节目制作",
+        "group": "广播电视节目制作时数",
+        "label": "广播电视节目制作时数｜电视节目制作",
+        "unit": null,
+        "values": [
+          383513,
+          1072704,
+          1185507,
+          2117158,
+          2553861,
+          2618034
+        ]
+      },
+      {
+        "display_label": "新闻",
+        "group": "广播电视节目制作时数",
+        "label": "广播电视节目制作时数｜电视节目制作｜新闻",
+        "unit": null,
+        "values": [
+          80800,
+          256883,
+          280273,
+          474218,
+          637956,
+          646337
+        ]
+      },
+      {
+        "display_label": "专题",
+        "group": "广播电视节目制作时数",
+        "label": "广播电视节目制作时数｜电视节目制作｜专题",
+        "unit": null,
+        "values": [
+          193391,
+          379240,
+          433083,
+          486311,
+          525528,
+          540369
+        ]
+      },
+      {
+        "display_label": "综艺",
+        "group": "广播电视节目制作时数",
+        "label": "广播电视节目制作时数｜电视节目制作｜综艺",
+        "unit": null,
+        "values": [
+          109322,
+          218955,
+          228802,
+          321318,
+          382350,
+          407442
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

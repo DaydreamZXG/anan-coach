@@ -1,0 +1,164 @@
+{
+  "assetId": "gr_814f04ca63ec75e0fd69a9fb",
+  "candidate": {
+    "authority": "semantic_candidate",
+    "elements": [
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e1",
+        "kind": "grid",
+        "label": null,
+        "line_character": "straight",
+        "observations": [],
+        "orientation_bucket": "mixed",
+        "parts": [],
+        "relative_region": "spanning",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "hollow",
+        "id": "e2",
+        "kind": "polygon",
+        "label": null,
+        "line_character": "straight",
+        "observations": [],
+        "orientation_bucket": "horizontal",
+        "parts": [],
+        "relative_region": "top",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "hollow",
+        "id": "e3",
+        "kind": "polygon",
+        "label": null,
+        "line_character": "straight",
+        "observations": [],
+        "orientation_bucket": "diagonal_up",
+        "parts": [],
+        "relative_region": "bottom_left",
+        "text_content": null
+      }
+    ],
+    "relations": [
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e2",
+          "e1"
+        ],
+        "type": "inside"
+      },
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e3",
+          "e1"
+        ],
+        "type": "inside"
+      }
+    ],
+    "schema_version": "graphic-semantic-candidate-v1",
+    "topology_candidates": {
+      "component_count": 3,
+      "endpoint_count": 10,
+      "junction_count": 0,
+      "loop_count": 0,
+      "notes": []
+    },
+    "uncertainties": [],
+    "visual_grammar": "regular_geometry"
+  },
+  "geometryAuthority": false,
+  "model": "qwen3-vl-30b-a3b",
+  "modelInputSha256": "5e7fc904f4effe7df221d916427964c4a8913788f4525fd0bd79f5a419cb9a96",
+  "normalizations": [
+    {
+      "field": "elements[1].relative_region",
+      "from": "top_center",
+      "to": "top"
+    }
+  ],
+  "panelId": "panel-1",
+  "rawCandidate": {
+    "authority": "semantic_candidate",
+    "elements": [
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e1",
+        "kind": "grid",
+        "label": null,
+        "line_character": "straight",
+        "observations": [],
+        "orientation_bucket": "mixed",
+        "parts": [],
+        "relative_region": "spanning",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "hollow",
+        "id": "e2",
+        "kind": "polygon",
+        "label": null,
+        "line_character": "straight",
+        "observations": [],
+        "orientation_bucket": "horizontal",
+        "parts": [],
+        "relative_region": "top_center",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "hollow",
+        "id": "e3",
+        "kind": "polygon",
+        "label": null,
+        "line_character": "straight",
+        "observations": [],
+        "orientation_bucket": "diagonal_up",
+        "parts": [],
+        "relative_region": "bottom_left",
+        "text_content": null
+      }
+    ],
+    "relations": [
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e2",
+          "e1"
+        ],
+        "type": "inside"
+      },
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e3",
+          "e1"
+        ],
+        "type": "inside"
+      }
+    ],
+    "schema_version": "graphic-semantic-candidate-v1",
+    "topology_candidates": {
+      "component_count": 3,
+      "endpoint_count": 10,
+      "junction_count": 0,
+      "loop_count": 0,
+      "notes": []
+    },
+    "uncertainties": [],
+    "visual_grammar": "regular_geometry"
+  },
+  "regularSubtype": "grid_partition",
+  "role": "stem",
+  "schemaVersion": "graphic-semantic-observation-v1",
+  "sourceSha256": "814f04ca63ec75e0fd69a9fbb46e7b19791c28db16478af6bcc5645ffc7a8483",
+  "status": "valid_semantic_candidate",
+  "validationErrors": []
+}

@@ -1,0 +1,133 @@
+{
+  "asset_id": "da_e0c4b8932493ca90113ebed4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖南/2009年湖南省公务员录用考试《行测》题_images/img_0121_26199b4d5167dd15.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年湖南省公务员录用考试《行测》题_images/img_0121_26199b4d5167dd15.png",
+        "paper_title": "2009年湖南省公务员录用考试《行测》题",
+        "question_id": "pq_adbf257188f795936dd6",
+        "question_number": 136,
+        "source_jsonl_line": 72292
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年湖南省公务员录用考试《行测》题_images/img_0121_26199b4d5167dd15.png",
+        "paper_title": "2009年湖南省公务员录用考试《行测》题",
+        "question_id": "pq_89fc417e95736159c91b",
+        "question_number": 137,
+        "source_jsonl_line": 72293
+      }
+    ],
+    "sha256": "e0c4b8932493ca90113ebed4baf951447508105df8964dce00f3a431c8c7ce1a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "笔试｜合格",
+          "笔试｜不合格"
+        ],
+        "label": "笔试"
+      },
+      {
+        "columns": [
+          "合计｜合计"
+        ],
+        "label": "合计"
+      }
+    ],
+    "columns": [
+      "笔试｜合格",
+      "笔试｜不合格",
+      "合计｜合计"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "面试",
+    "rows": [
+      {
+        "display_label": "合格",
+        "group": null,
+        "label": "合格",
+        "unit": null,
+        "values": [
+          350,
+          0,
+          350
+        ]
+      },
+      {
+        "display_label": "不合格",
+        "group": null,
+        "label": "不合格",
+        "unit": null,
+        "values": [
+          700,
+          1575,
+          2275
+        ]
+      },
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          1050,
+          1575,
+          2625
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

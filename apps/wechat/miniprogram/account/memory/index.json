@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "岸岸的记忆",
+  "navigationBarTitleText": "岸岸对我的了解",
   "usingComponents": {
     "state-view": "../../design-system/primitives/state-view/index",
     "ui-toggle": "../shared/design-system/primitives/ui-toggle/index"

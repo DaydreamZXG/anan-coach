@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "grouped-bar-chart-v1",
+  "sourceQuestionId": "cq_03ea803d569c90b5b17c072c",
+  "chartType": "groupedBar",
+  "title": "2022-2025年Q市法律热线咨询量",
+  "unit": "人次",
+  "categories": ["一季度", "二季度", "三季度", "四季度"],
+  "series": [
+    {
+      "id": "2022",
+      "label": "2022年",
+      "style": {"fill": "#111111", "stroke": "#111111", "dash": null},
+      "values": [34658, 34027, 32610, 49702]
+    },
+    {
+      "id": "2023",
+      "label": "2023年",
+      "style": {"fill": "#a7a7a7", "stroke": "#a7a7a7", "dash": null},
+      "values": [47010, 49483, 49429, 39991]
+    },
+    {
+      "id": "2024",
+      "label": "2024年",
+      "style": {"fill": "#ffffff", "stroke": "#111111", "dash": null},
+      "values": [42504, 50085, 57725, 63193]
+    },
+    {
+      "id": "2025",
+      "label": "2025年",
+      "style": {"fill": "#ffffff", "stroke": "#111111", "dash": "5 4"},
+      "values": [52802, null, null, null]
+    }
+  ],
+  "yAxis": {"min": 0, "max": 70000, "step": 10000},
+  "verification": {
+    "wholeImage": "12/13 values exact",
+    "quarterCropReview": "13/13 values exact",
+    "missingValuesPreserved": true
+  }
+}

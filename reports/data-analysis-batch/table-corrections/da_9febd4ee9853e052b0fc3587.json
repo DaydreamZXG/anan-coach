@@ -1,0 +1,169 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "一季度",
+      "二季度",
+      "三季度",
+      "四季度"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "增速",
+      "style": "diagonal",
+      "upper_label": "金额"
+    },
+    "missing_cells": [],
+    "row_header_label": "增速",
+    "rows": [
+      {
+        "display_label": "大型商业银行｜总资产｜金额",
+        "group": null,
+        "label": "大型商业银行｜总资产｜金额",
+        "unit": null,
+        "values": [
+          166.42,
+          171.53,
+          173.26,
+          176.76
+        ]
+      },
+      {
+        "display_label": "大型商业银行｜总资产｜增速",
+        "group": null,
+        "label": "大型商业银行｜总资产｜增速",
+        "unit": null,
+        "values": [
+          13.95,
+          13.29,
+          12.08,
+          13.12
+        ]
+      },
+      {
+        "display_label": "大型商业银行｜总负债｜金额",
+        "group": null,
+        "label": "大型商业银行｜总负债｜金额",
+        "unit": null,
+        "values": [
+          153.3,
+          158.45,
+          159.78,
+          162.9
+        ]
+      },
+      {
+        "display_label": "大型商业银行｜总负债｜增速",
+        "group": null,
+        "label": "大型商业银行｜总负债｜增速",
+        "unit": null,
+        "values": [
+          14.52,
+          13.77,
+          12.44,
+          13.52
+        ]
+      },
+      {
+        "display_label": "股份制商业银行｜总资产｜金额",
+        "group": null,
+        "label": "股份制商业银行｜总资产｜金额",
+        "unit": null,
+        "values": [
+          68.92,
+          69.56,
+          69.59,
+          70.88
+        ]
+      },
+      {
+        "display_label": "股份制商业银行｜总资产｜增速",
+        "group": null,
+        "label": "股份制商业银行｜总资产｜增速",
+        "unit": null,
+        "values": [
+          7.53,
+          6.98,
+          6.72,
+          6.65
+        ]
+      },
+      {
+        "display_label": "股份制商业银行｜总负债｜金额",
+        "group": null,
+        "label": "股份制商业银行｜总负债｜金额",
+        "unit": null,
+        "values": [
+          63.37,
+          64.01,
+          63.94,
+          65.1
+        ]
+      },
+      {
+        "display_label": "股份制商业银行｜总负债｜增速",
+        "group": null,
+        "label": "股份制商业银行｜总负债｜增速",
+        "unit": null,
+        "values": [
+          7.62,
+          7.02,
+          6.76,
+          6.62
+        ]
+      },
+      {
+        "display_label": "城市商业银行｜总资产｜金额",
+        "group": null,
+        "label": "城市商业银行｜总资产｜金额",
+        "unit": null,
+        "values": [
+          52.03,
+          53.33,
+          54.28,
+          55.2
+        ]
+      },
+      {
+        "display_label": "城市商业银行｜总资产｜增速",
+        "group": null,
+        "label": "城市商业银行｜总资产｜增速",
+        "unit": null,
+        "values": [
+          11.46,
+          11.05,
+          11.39,
+          10.66
+        ]
+      },
+      {
+        "display_label": "城市商业银行｜总负债｜金额",
+        "group": null,
+        "label": "城市商业银行｜总负债｜金额",
+        "unit": null,
+        "values": [
+          48.21,
+          49.43,
+          50.29,
+          51.13
+        ]
+      },
+      {
+        "display_label": "城市商业银行｜总负债｜增速",
+        "group": null,
+        "label": "城市商业银行｜总负债｜增速",
+        "unit": null,
+        "values": [
+          11.84,
+          11.33,
+          11.67,
+          10.75
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

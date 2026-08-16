@@ -1,0 +1,180 @@
+{
+  "asset_id": "da_cf73770a2f17c0012667ed01",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        1985,
+        1990,
+        1995,
+        2000,
+        2005,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 400,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300,
+          350,
+          400
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "1985",
+    "1990",
+    "1995",
+    "2000",
+    "2005",
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "非公有制经济总量",
+      "style": {
+        "dash": "solid",
+        "fill": "blue",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "非公有制经济总量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1.78,
+        4.63,
+        16.86,
+        30.42,
+        64.06,
+        169.01,
+        218.23,
+        258.23,
+        291.54,
+        324.43,
+        348.12
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2016年四川省公务员录用考试《行测》题（下半年）_images/img_0133_b152c6c1117367f7.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0133_b152c6c1117367f7.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_f1eedfc87f5d057911f1",
+        "question_number": 86,
+        "source_jsonl_line": 15401
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0133_b152c6c1117367f7.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_239a5b6beb281e0767d6",
+        "question_number": 87,
+        "source_jsonl_line": 15402
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0133_b152c6c1117367f7.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_162173b196b58f7f8bbd",
+        "question_number": 88,
+        "source_jsonl_line": 15403
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0133_b152c6c1117367f7.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_3f33002351ca6fd8ecb3",
+        "question_number": 89,
+        "source_jsonl_line": 15404
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0133_b152c6c1117367f7.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_3425d8c6e43d0543db3c",
+        "question_number": 90,
+        "source_jsonl_line": 15405
+      }
+    ],
+    "sha256": "cf73770a2f17c0012667ed016020ea930514b3761cd0e6eaadf0e4697605ea2f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "建市以来某市主要年份非公有制经济总量示意图",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cf73770a2f17c0012667ed01/column_band_01.jpg",
+        "review-crops/da_cf73770a2f17c0012667ed01/column_band_02.jpg",
+        "review-crops/da_cf73770a2f17c0012667ed01/column_band_03.jpg",
+        "review-crops/da_cf73770a2f17c0012667ed01/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.405",
+      "crop_verification_elapsed_seconds:3.938",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

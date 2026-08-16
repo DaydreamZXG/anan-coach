@@ -1,0 +1,108 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "人数｜第1列",
+      "国家｜第2列",
+      "人数｜第3列"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "国家｜第2列",
+        "display": "—",
+        "row": "印度"
+      },
+      {
+        "column": "人数｜第3列",
+        "display": "—",
+        "row": "印度"
+      }
+    ],
+    "row_header_label": null,
+    "rows": [
+      {
+        "display_label": "蒙古",
+        "group": null,
+        "label": "蒙古",
+        "unit": null,
+        "values": [
+          7112,
+          "巴基斯坦",
+          8516
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          62442,
+          "哈萨克斯坦",
+          8287
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": null,
+        "values": [
+          17961,
+          "俄罗斯",
+          13340
+        ]
+      },
+      {
+        "display_label": "越南",
+        "group": null,
+        "label": "越南",
+        "unit": null,
+        "values": [
+          13549,
+          "法国",
+          7592
+        ]
+      },
+      {
+        "display_label": "泰国",
+        "group": null,
+        "label": "泰国",
+        "unit": null,
+        "values": [
+          14145,
+          "德国",
+          5451
+        ]
+      },
+      {
+        "display_label": "印度尼西亚",
+        "group": null,
+        "label": "印度尼西亚",
+        "unit": null,
+        "values": [
+          10957,
+          "美国",
+          23292
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": null,
+        "label": "印度",
+        "unit": null,
+        "values": [
+          9370,
+          null,
+          null
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,204 @@
+{
+  "asset_id": "da_f5df540ac2d95080d4bfdd86",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 4900,
+        "min": 4000,
+        "ticks": [
+          4000,
+          4100,
+          4200,
+          4300,
+          4400,
+          4500,
+          4600,
+          4700,
+          4800,
+          4900
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 4.5,
+        "min": 0,
+        "ticks": [
+          0,
+          0.5,
+          1,
+          1.5,
+          2,
+          2.5,
+          3,
+          3.5,
+          4,
+          4.5
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2008年",
+    "2009年",
+    "2010年",
+    "2011年",
+    "2012年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "文化产业总产值（万元）",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "从业人口总数（百人）",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "black",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "文化产业总产值（万元）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        4526,
+        4571,
+        4310,
+        4695,
+        4840
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "从业人口总数（百人）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百人",
+      "values": [
+        2.7,
+        4.2,
+        2.4,
+        3.5,
+        3.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2013年广东省公务员录用考试《行测》题（一）_images/img_0079_7c72b486a5da880e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（一）_images/img_0079_7c72b486a5da880e.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（一）",
+        "question_id": "pq_4344d3f8db7c8843b1bd",
+        "question_number": 96,
+        "source_jsonl_line": 34128
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（一）_images/img_0079_7c72b486a5da880e.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（一）",
+        "question_id": "pq_6180a047564b0aaa4c6b",
+        "question_number": 97,
+        "source_jsonl_line": 34129
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（一）_images/img_0079_7c72b486a5da880e.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（一）",
+        "question_id": "pq_1dd89ed1c592e9cfbf7a",
+        "question_number": 98,
+        "source_jsonl_line": 34130
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（一）_images/img_0079_7c72b486a5da880e.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（一）",
+        "question_id": "pq_69250b5e7a1cc064394e",
+        "question_number": 99,
+        "source_jsonl_line": 34131
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（一）_images/img_0084_478b954b51ed2fa5.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（一）",
+        "question_id": "pq_3db036519144239cb79d",
+        "question_number": 100,
+        "source_jsonl_line": 34132
+      }
+    ],
+    "sha256": "f5df540ac2d95080d4bfdd8647740b59264eb357081b79febd3eb0554cf6463e"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "某市2008年至2012年文化产业发展状况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f5df540ac2d95080d4bfdd86/column_band_01.jpg",
+        "review-crops/da_f5df540ac2d95080d4bfdd86/column_band_02.jpg",
+        "review-crops/da_f5df540ac2d95080d4bfdd86/column_band_03.jpg",
+        "review-crops/da_f5df540ac2d95080d4bfdd86/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.673",
+      "crop_verification_elapsed_seconds:2.964",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

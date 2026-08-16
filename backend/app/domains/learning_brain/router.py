@@ -9,8 +9,15 @@ from sqlalchemy.orm import Session
 from app.db.session import get_db_session
 from app.domains.auth.deps import get_current_user
 from app.domains.auth.repository import AuthenticatedUser
+from app.domains.learning_brain.agent import (
+    LearningBrainAgentService,
+    maybe_suggest_strategy_safely,
+)
 from app.domains.learning_brain.schemas import (
+    DailyStrategySuggestionCommand,
+    DailyStrategySuggestionResult,
     ErrorPatternDetail,
+    LearnerCoachContext,
     LearningBrainProfileVersion,
     ModuleAbility,
     StrategyCandidateCommand,
@@ -42,6 +49,10 @@ def get_learning_brain_service() -> LearningBrainService:
     return LearningBrainService()
 
 
+def get_learning_brain_agent_service() -> LearningBrainAgentService:
+    return LearningBrainAgentService()
+
+
 def _idempotency_key(
     value: Annotated[str, Header(alias="Idempotency-Key", min_length=8, max_length=160)],
 ) -> str:
@@ -66,6 +77,54 @@ def get_learning_brain_profile(
     except (LearningBrainContractError, PositionRuleReleaseUnavailable) as exc:
         session.rollback()
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.get(
+    "/coach-context",
+    response_model=PublicApiEnvelope[LearnerCoachContext],
+)
+def get_learner_coach_context(
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    service: Annotated[LearningBrainService, Depends(get_learning_brain_service)],
+) -> PublicApiEnvelope[LearnerCoachContext]:
+    try:
+        result = service.get_coach_context(session, user_id=current_user.user_id)
+        session.commit()
+        return public_success_envelope(request=request, response=response, data=result)
+    except (LearningBrainContractError, PositionRuleReleaseUnavailable) as exc:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.post(
+    "/strategy-suggestions/daily",
+    response_model=PublicApiEnvelope[DailyStrategySuggestionResult],
+)
+def suggest_daily_learning_strategy(
+    _command: DailyStrategySuggestionCommand,
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    agent: Annotated[LearningBrainAgentService, Depends(get_learning_brain_agent_service)],
+) -> PublicApiEnvelope[DailyStrategySuggestionResult]:
+    result = maybe_suggest_strategy_safely(
+        session,
+        user_id=current_user.user_id,
+        trigger_kind="daily_first_entry",
+        service=agent,
+    )
+    available = result is not None and result.candidate is not None
+    data = DailyStrategySuggestionResult(
+        status="suggested" if available else "unavailable",
+        suggestion_id=result.suggestion_id if result is not None else None,
+        skipped_reason=(result.skipped_reason if result is not None else "safe_unavailable"),
+        candidate=result.candidate if available and result is not None else None,
+    )
+    return public_success_envelope(request=request, response=response, data=data)
 
 
 @router.get(

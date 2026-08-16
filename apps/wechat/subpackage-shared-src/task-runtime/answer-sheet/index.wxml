@@ -21,7 +21,7 @@
         <view class="answer-card__module-counts">{{moduleCounts}}</view>
       </view>
       <view class="answer-card__grid">
-        <view wx:for="{{items}}" wx:key="index" class="answer-card__cell">
+        <view wx:for="{{renderItems}}" wx:key="index" class="answer-card__cell">
           <button hover-class="item--hover"
             class="answer-card__question answer-card__question--{{item.active ? 'current' : item.state}} {{!item.active && item.marked ? 'answer-card__question--marked' : ''}}"
             aria-label="第 {{item.label}} 题{{item.active ? '，当前题' : item.marked ? '，已存疑' : item.state === 'answered' ? '，已作答' : '，未作答'}}"

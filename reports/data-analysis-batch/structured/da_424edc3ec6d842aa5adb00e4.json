@@ -1,0 +1,331 @@
+{
+  "asset_id": "da_424edc3ec6d842aa5adb00e4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2016年山东省公务员录用考试《行测》题_images/img_0130_99d915d0dd1e735d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0130_99d915d0dd1e735d.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_40fce198a4eb4483c0c9",
+        "question_number": 106,
+        "source_jsonl_line": 29960
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0127_57164b10a1563c10.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_5e987ab43dd1fd67d138",
+        "question_number": 107,
+        "source_jsonl_line": 29961
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0127_57164b10a1563c10.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_3695a1f63cae3df51017",
+        "question_number": 108,
+        "source_jsonl_line": 29962
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0127_57164b10a1563c10.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_d72da74e16a2e424c78e",
+        "question_number": 109,
+        "source_jsonl_line": 29963
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0127_57164b10a1563c10.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_4ce46724e3b5d8e03123",
+        "question_number": 110,
+        "source_jsonl_line": 29964
+      }
+    ],
+    "sha256": "424edc3ec6d842aa5adb00e480ae1963472199746c0ef29f9c4ff1078a599af5"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "毕业人数（人）｜硕士",
+          "毕业人数（人）｜博士"
+        ],
+        "label": "毕业人数（人）"
+      },
+      {
+        "columns": [
+          "招生人数（人）｜硕士",
+          "招生人数（人）｜博士"
+        ],
+        "label": "招生人数（人）"
+      },
+      {
+        "columns": [
+          "在校人数（人）｜硕士",
+          "在校人数（人）｜博士"
+        ],
+        "label": "在校人数（人）"
+      }
+    ],
+    "columns": [
+      "毕业人数（人）｜硕士",
+      "毕业人数（人）｜博士",
+      "招生人数（人）｜硕士",
+      "招生人数（人）｜博士",
+      "在校人数（人）｜硕士",
+      "在校人数（人）｜博士"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "学科",
+    "rows": [
+      {
+        "display_label": "哲学",
+        "group": null,
+        "label": "哲学",
+        "unit": null,
+        "values": [
+          425,
+          210,
+          430,
+          263,
+          1356,
+          944
+        ]
+      },
+      {
+        "display_label": "经济学",
+        "group": null,
+        "label": "经济学",
+        "unit": null,
+        "values": [
+          4218,
+          708,
+          5094,
+          970,
+          11818,
+          3705
+        ]
+      },
+      {
+        "display_label": "法学",
+        "group": null,
+        "label": "法学",
+        "unit": null,
+        "values": [
+          6185,
+          1027,
+          6753,
+          1161,
+          17882,
+          4630
+        ]
+      },
+      {
+        "display_label": "教育学",
+        "group": null,
+        "label": "教育学",
+        "unit": null,
+        "values": [
+          2474,
+          252,
+          3721,
+          374,
+          8692,
+          1535
+        ]
+      },
+      {
+        "display_label": "文学",
+        "group": null,
+        "label": "文学",
+        "unit": null,
+        "values": [
+          3863,
+          570,
+          4204,
+          675,
+          10953,
+          2847
+        ]
+      },
+      {
+        "display_label": "历史学",
+        "group": null,
+        "label": "历史学",
+        "unit": null,
+        "values": [
+          370,
+          193,
+          474,
+          195,
+          1349,
+          714
+        ]
+      },
+      {
+        "display_label": "理学",
+        "group": null,
+        "label": "理学",
+        "unit": null,
+        "values": [
+          3671,
+          2802,
+          5500,
+          4099,
+          15283,
+          14617
+        ]
+      },
+      {
+        "display_label": "工学",
+        "group": null,
+        "label": "工学",
+        "unit": null,
+        "values": [
+          22398,
+          4666,
+          27055,
+          6499,
+          74697,
+          28613
+        ]
+      },
+      {
+        "display_label": "农学",
+        "group": null,
+        "label": "农学",
+        "unit": null,
+        "values": [
+          1952,
+          600,
+          2276,
+          687,
+          5690,
+          2623
+        ]
+      },
+      {
+        "display_label": "医学",
+        "group": null,
+        "label": "医学",
+        "unit": null,
+        "values": [
+          2599,
+          1503,
+          3625,
+          1419,
+          9645,
+          4879
+        ]
+      },
+      {
+        "display_label": "军事学",
+        "group": null,
+        "label": "军事学",
+        "unit": null,
+        "values": [
+          19,
+          6,
+          14,
+          12,
+          70,
+          50
+        ]
+      },
+      {
+        "display_label": "管理学",
+        "group": null,
+        "label": "管理学",
+        "unit": null,
+        "values": [
+          9169,
+          997,
+          11603,
+          1271,
+          28669,
+          5867
+        ]
+      },
+      {
+        "display_label": "艺术学",
+        "group": null,
+        "label": "艺术学",
+        "unit": null,
+        "values": [
+          2209,
+          271,
+          2688,
+          337,
+          7348,
+          1180
+        ]
+      },
+      {
+        "display_label": "总计",
+        "group": null,
+        "label": "总计",
+        "unit": null,
+        "values": [
+          59552,
+          13805,
+          73437,
+          17962,
+          193452,
+          72204
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

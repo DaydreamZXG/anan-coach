@@ -1,0 +1,158 @@
+{
+  "asset_id": "da_0cb99c37bab2c1ac3e85eaf2",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "全球",
+    "中国",
+    "冰岛",
+    "美国",
+    "日本",
+    "韩国",
+    "俄罗斯",
+    "印度"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "互联网普及率",
+      "style": {
+        "dash": null,
+        "fill": "darkgray",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "互联网普及率",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        21.1,
+        19.1,
+        85.4,
+        71.9,
+        68.7,
+        71.2,
+        20.8,
+        5.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/贵州/2010年贵州省公务员录用考试《行测》题_images/img_0124_2511eeeeb5805eaa.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0124_2511eeeeb5805eaa.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_c17f637eda3e4aae9450",
+        "question_number": 106,
+        "source_jsonl_line": 80267
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0124_2511eeeeb5805eaa.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_edd910f6c2f83a58d6b0",
+        "question_number": 107,
+        "source_jsonl_line": 80268
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0124_2511eeeeb5805eaa.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_0b9d40ecb929d9fbf581",
+        "question_number": 108,
+        "source_jsonl_line": 80269
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0137_9699c55c17c6ab16.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_21516a1d349f87f0101a",
+        "question_number": 109,
+        "source_jsonl_line": 80270
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0137_9699c55c17c6ab16.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_3a643617e67944519bb9",
+        "question_number": 110,
+        "source_jsonl_line": 80271
+      }
+    ],
+    "sha256": "0cb99c37bab2c1ac3e85eaf2ccc4e19ac2f6fc896593d73c5aace0535146d63a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图1 全球部分国家互联网普及率",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0cb99c37bab2c1ac3e85eaf2/column_band_01.jpg",
+        "review-crops/da_0cb99c37bab2c1ac3e85eaf2/column_band_02.jpg",
+        "review-crops/da_0cb99c37bab2c1ac3e85eaf2/column_band_03.jpg",
+        "review-crops/da_0cb99c37bab2c1ac3e85eaf2/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.063",
+      "crop_verification_elapsed_seconds:3.154",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "checks": [
+    {
+      "assetId": "qi_0263ac94b1dad9a1cf379dac",
+      "cvRegionCount": 1,
+      "modelCoordinateLeak": false,
+      "observableEntityCount": 1,
+      "reviewReasons": [],
+      "sourceHashVerified": true,
+      "status": "success"
+    },
+    {
+      "assetId": "qi_03cd0c03c464b47dc6c24747",
+      "cvRegionCount": 6,
+      "modelCoordinateLeak": false,
+      "observableEntityCount": 6,
+      "reviewReasons": [
+        "semantic_uncertainties_present"
+      ],
+      "sourceHashVerified": true,
+      "status": "needs_review"
+    },
+    {
+      "assetId": "qi_045f7906528672020b7aa40d",
+      "cvRegionCount": 1,
+      "modelCoordinateLeak": false,
+      "observableEntityCount": 1,
+      "reviewReasons": [],
+      "sourceHashVerified": true,
+      "status": "success"
+    },
+    {
+      "assetId": "qi_046056ef439ba8064f812ac8",
+      "cvRegionCount": 1,
+      "modelCoordinateLeak": false,
+      "observableEntityCount": 1,
+      "reviewReasons": [],
+      "sourceHashVerified": true,
+      "status": "success"
+    },
+    {
+      "assetId": "qi_05e772a989608587c064bfb1",
+      "cvRegionCount": 1,
+      "modelCoordinateLeak": false,
+      "observableEntityCount": 8,
+      "reviewReasons": [
+        "semantic_uncertainties_present"
+      ],
+      "sourceHashVerified": true,
+      "status": "needs_review"
+    },
+    {
+      "assetId": "qi_06d745791427b40e1e08d8ea",
+      "cvRegionCount": 2,
+      "modelCoordinateLeak": false,
+      "observableEntityCount": 3,
+      "reviewReasons": [],
+      "sourceHashVerified": true,
+      "status": "success"
+    },
+    {
+      "assetId": "qi_092ae0a02dfe23be5fca3b92",
+      "cvRegionCount": 13,
+      "modelCoordinateLeak": false,
+      "observableEntityCount": 5,
+      "reviewReasons": [],
+      "sourceHashVerified": true,
+      "status": "success"
+    },
+    {
+      "assetId": "qi_0e65aaaf94557b80eb4e97e0",
+      "cvRegionCount": 9,
+      "modelCoordinateLeak": false,
+      "observableEntityCount": 11,
+      "reviewReasons": [],
+      "sourceHashVerified": true,
+      "status": "success"
+    },
+    {
+      "assetId": "qi_10b7f5ab5aa4ca2c567f3284",
+      "cvRegionCount": 1,
+      "modelCoordinateLeak": false,
+      "observableEntityCount": 6,
+      "reviewReasons": [
+        "semantic_uncertainties_present"
+      ],
+      "sourceHashVerified": true,
+      "status": "needs_review"
+    },
+    {
+      "assetId": "qi_124692ca14873f1dbdb5b72d",
+      "cvRegionCount": 4,
+      "modelCoordinateLeak": false,
+      "observableEntityCount": 3,
+      "reviewReasons": [],
+      "sourceHashVerified": true,
+      "status": "success"
+    },
+    {
+      "assetId": "qi_137e6065bec59f505445ef4f",
+      "cvRegionCount": 8,
+      "modelCoordinateLeak": false,
+      "observableEntityCount": 5,
+      "reviewReasons": [],
+      "sourceHashVerified": true,
+      "status": "success"
+    },
+    {
+      "assetId": "qi_15d591a4bb0a7e6c674fc5c2",
+      "cvRegionCount": 4,
+      "modelCoordinateLeak": false,
+      "observableEntityCount": 4,
+      "reviewReasons": [
+        "semantic_uncertainties_present"
+      ],
+      "sourceHashVerified": true,
+      "status": "needs_review"
+    }
+  ],
+  "evidenceArtifacts": [
+    "non-graphic-review-evidence/qi_0263ac94b1dad9a1cf379dac-source-vs-cv.png",
+    "non-graphic-review-evidence/qi_03cd0c03c464b47dc6c24747-source-vs-cv.png",
+    "non-graphic-review-evidence/qi_045f7906528672020b7aa40d-source-vs-cv.png",
+    "non-graphic-review-evidence/qi_046056ef439ba8064f812ac8-source-vs-cv.png",
+    "non-graphic-review-evidence/qi_05e772a989608587c064bfb1-source-vs-cv.png",
+    "non-graphic-review-evidence/qi_06d745791427b40e1e08d8ea-source-vs-cv.png",
+    "non-graphic-review-evidence/qi_092ae0a02dfe23be5fca3b92-source-vs-cv.png",
+    "non-graphic-review-evidence/qi_0e65aaaf94557b80eb4e97e0-source-vs-cv.png",
+    "non-graphic-review-evidence/qi_10b7f5ab5aa4ca2c567f3284-source-vs-cv.png",
+    "non-graphic-review-evidence/qi_124692ca14873f1dbdb5b72d-source-vs-cv.png",
+    "non-graphic-review-evidence/qi_137e6065bec59f505445ef4f-source-vs-cv.png",
+    "non-graphic-review-evidence/qi_15d591a4bb0a7e6c674fc5c2-source-vs-cv.png"
+  ],
+  "gateDefinition": "source hash verified; no model coordinates; at least one observable entity; deterministic CV region evidence retained",
+  "gatePassed": true,
+  "sampleCount": 12,
+  "schemaVersion": "annotated-raster-photo-sample-acceptance-v1",
+  "statusCounts": {
+    "needs_review": 4,
+    "success": 8
+  }
+}

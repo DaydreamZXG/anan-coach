@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "graphic-reasoning-ai-semantic-v1",
+  "title": "图形推理解题 AI 语义输入",
+  "type": "object",
+  "required": ["schemaVersion", "assetId", "source", "presentation", "layout", "panels", "crossPanelPatterns", "uncertainties", "vectorEnhancement"],
+  "properties": {
+    "schemaVersion": {"const": "graphic-reasoning-ai-semantic-v1"},
+    "assetId": {"type": "string", "pattern": "^gr_"},
+    "source": {
+      "type": "object",
+      "required": ["sha256", "imagePaths", "questionReferences"],
+      "properties": {
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "imagePaths": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "questionReferences": {"type": "array"}
+      }
+    },
+    "presentation": {
+      "type": "object",
+      "required": ["mode", "imageAuthority"],
+      "properties": {
+        "mode": {"const": "original_image"},
+        "imageAuthority": {"const": "source_sha256"}
+      }
+    },
+    "layout": {
+      "type": "object",
+      "required": ["layoutType", "panelCount", "optionCount", "authority"],
+      "properties": {
+        "layoutType": {"enum": ["sequence", "matrix_3x3", "classification_2x3", "other"]},
+        "panelCount": {"type": "integer", "minimum": 1, "maximum": 32},
+        "optionCount": {"type": "integer", "minimum": 0, "maximum": 16},
+        "authority": {"enum": ["deterministic_cv", "cv_model_agreement", "qwen_missing_marker_recovery", "review_required"]}
+      }
+    },
+    "panels": {"type": "array", "minItems": 1, "maxItems": 32},
+    "crossPanelPatterns": {"type": "array"},
+    "uncertainties": {"type": "array"},
+    "vectorEnhancement": {
+      "type": "object",
+      "required": ["blocking", "status"],
+      "properties": {
+        "blocking": {"const": false},
+        "status": {"enum": ["not_attempted", "repair_pending", "available"]}
+      }
+    }
+  }
+}

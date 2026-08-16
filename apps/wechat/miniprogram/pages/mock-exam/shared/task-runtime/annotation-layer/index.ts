@@ -1,4 +1,5 @@
 import type { AnnotationStroke } from "../../../../../task-runtime/contracts";
+import { arrayPropertyItems } from "../component-property";
 import {
   capturedHorizontalX,
   horizontalRegionAtPoint,
@@ -158,6 +159,10 @@ interface AnnotationLayerHost {
     lassoSelectedCount: number;
     drawnStrokeCount: number;
     strokePrefix: string;
+    surfaceSwitchAvailable: boolean;
+    activeSurface: string;
+    toolbarAvailable: boolean;
+    activeTool: string;
   };
   setData(patch: Record<string, unknown>): void;
   triggerEvent(name: string, detail?: Record<string, unknown>): void;
@@ -165,7 +170,11 @@ interface AnnotationLayerHost {
 }
 
 function currentStrokes(host: AnnotationLayerHost): AnnotationStroke[] {
-  return Array.isArray(host.data.strokes) ? (host.data.strokes as AnnotationStroke[]) : [];
+  return arrayPropertyItems<AnnotationStroke>(host.data.strokes);
+}
+
+function normalizeAnnotationTool(value: string): "pan" | "pen" | "highlighter" | "eraser" {
+  return value === "pen" || value === "highlighter" || value === "eraser" ? value : "pan";
 }
 
 /** 本题活跃毫秒时钟；宿主没有传 elapsedMs 时退回 elapsedSeconds 的秒级精度。 */
@@ -281,17 +290,12 @@ function scheduleRedraw(host: AnnotationLayerHost, retryIfMissing = false): void
  */
 function syncSegments(host: AnnotationLayerHost): void {
   const state = runtime(host);
-  const raw = host.data.segments;
-  if (!Array.isArray(raw) || state.contentHeight <= 0) {
+  const raw = arrayPropertyItems<AnchorSegmentRect>(host.data.segments);
+  if (raw.length === 0 || state.contentHeight <= 0) {
     state.segments = [];
     return;
   }
-  const next = normalizeSegmentRects(
-    raw as AnchorSegmentRect[],
-    state,
-    host.data.scrollTop,
-    state.contentHeight,
-  );
+  const next = normalizeSegmentRects(raw, state, host.data.scrollTop, state.contentHeight);
   state.segments = next.length > 0 ? next : [];
 }
 
@@ -427,6 +431,13 @@ Component({
     horizontalRegions: { type: null, value: [] },
     /** 多内容面共享同一题的 annotations 时，用前缀保证笔迹 ID 与所属画布稳定。 */
     strokePrefix: { type: String, value: "stroke" },
+    /** 一个草稿入口在题面与共享材料之间切换；仅控制入口，不合并两种笔迹坐标系。 */
+    surfaceSwitchAvailable: { type: Boolean, value: false },
+    activeSurface: { type: String, value: "question" },
+    /** 连续草稿由宿主指定哪一块画布承载唯一工具栏。 */
+    toolbarAvailable: { type: Boolean, value: true },
+    /** 多画布只共享临时工具，不共享笔迹坐标或持久化 reducer。 */
+    activeTool: { type: String, value: "pan" },
   },
   data: {
     // 打开草稿先保持题面可滚动、选项可点；用户明确选画笔后才挂载全屏作画层。
@@ -473,9 +484,9 @@ Component({
       }
     },
     horizontalRegions(this: AnnotationLayerHost) {
-      runtime(this).horizontalRegions = Array.isArray(this.data.horizontalRegions)
-        ? (this.data.horizontalRegions as HorizontalAnnotationRegion[])
-        : [];
+      runtime(this).horizontalRegions = arrayPropertyItems<HorizontalAnnotationRegion>(
+        this.data.horizontalRegions,
+      );
       scheduleRedraw(this);
     },
     // 滚动只更新绘制偏移，重绘即可（同步、零重测、零坐标写入）。
@@ -483,13 +494,24 @@ Component({
       runtime(this).scrollTop = this.data.scrollTop;
       scheduleRedraw(this);
     },
+    activeTool(this: AnnotationLayerHost) {
+      const next = normalizeAnnotationTool(this.data.activeTool);
+      if (next === this.data.tool) return;
+      const state = runtime(this);
+      state.activeStroke = null;
+      state.activeStrokeStartedAt = 0;
+      state.lassoPath = [];
+      state.selectedStrokeIds = new Set();
+      this.setData({ tool: next, lassoSelectedCount: 0 });
+      scheduleRedraw(this);
+    },
   },
   lifetimes: {
     // 属性观察器不会为初始值触发；attach 后必须补一次首绘。
     attached() {
-      runtime(this).horizontalRegions = Array.isArray(this.data.horizontalRegions)
-        ? this.data.horizontalRegions
-        : [];
+      runtime(this).horizontalRegions = arrayPropertyItems<HorizontalAnnotationRegion>(
+        this.data.horizontalRegions,
+      );
       scheduleRedraw(this, true);
     },
     detached() {
@@ -534,17 +556,27 @@ Component({
       const state = runtime(this);
       state.lassoPath = [];
       state.selectedStrokeIds = new Set();
+      const tool = normalizeAnnotationTool(String(event.currentTarget.dataset.tool ?? "pan"));
       this.setData({
-        tool: String(event.currentTarget.dataset.tool ?? "pan"),
+        tool,
         lassoSelectedCount: 0,
       });
+      this.triggerEvent("toolchange", { tool });
       ensureCanvas(this, () => {
         redraw(this);
       });
     },
 
+    switchSurface(event: WechatMiniprogram.BaseEvent) {
+      const surface = String(event.currentTarget.dataset.surface ?? "");
+      if (surface !== "question" && surface !== "material") return;
+      if (surface === this.data.activeSurface) return;
+      this.triggerEvent("surfacechange", { surface });
+    },
+
     onTouchStart(event: WechatMiniprogram.TouchEvent) {
       const state = runtime(this);
+      if (this.data.tool !== "pan") this.triggerEvent("focus");
       const touch = contentPoint(this, event);
       if (!touch) {
         ensureCanvas(this, () => {});

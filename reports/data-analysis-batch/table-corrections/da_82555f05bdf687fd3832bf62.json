@@ -1,0 +1,107 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口额（万美元）",
+          "出口量（亿个）"
+        ],
+        "label": "出口情况"
+      }
+    ],
+    "columns": [
+      "出口额（万美元）",
+      "出口量（亿个）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "广东",
+        "group": null,
+        "label": "广东",
+        "unit": null,
+        "values": [
+          35167,
+          140.3
+        ]
+      },
+      {
+        "display_label": "江苏",
+        "group": null,
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          33044,
+          67.9
+        ]
+      },
+      {
+        "display_label": "山东",
+        "group": null,
+        "label": "山东",
+        "unit": null,
+        "values": [
+          5942,
+          34.3
+        ]
+      },
+      {
+        "display_label": "湖南",
+        "group": null,
+        "label": "湖南",
+        "unit": null,
+        "values": [
+          5370,
+          20.9
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          3899,
+          4.4
+        ]
+      },
+      {
+        "display_label": "天津",
+        "group": null,
+        "label": "天津",
+        "unit": null,
+        "values": [
+          3177,
+          12.6
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": null,
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          1434,
+          10.0
+        ]
+      },
+      {
+        "display_label": "其他",
+        "group": null,
+        "label": "其他",
+        "unit": null,
+        "values": [
+          3443,
+          9.9
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,38 @@
+{
+  "curves": [
+    {
+      "connects": "left_edge_to_right_vertical_line",
+      "feat": [
+        "convex_right"
+      ],
+      "k": "arc",
+      "reg": "center"
+    }
+  ],
+  "dots": [],
+  "facts": [
+    "A grid of 1 row and 3 columns",
+    "A semi-ellipse or arc connects the left frame edge to the second vertical grid line"
+  ],
+  "frame": {
+    "grid": [
+      1,
+      3
+    ],
+    "k": "grid"
+  },
+  "lines": [],
+  "opt": "A",
+  "p": 7,
+  "role": "option",
+  "schema": "graphic-reasoning-regular-panel-v1",
+  "shapes": [],
+  "symbols": [],
+  "topo": [
+    4,
+    6,
+    4,
+    1
+  ],
+  "uncertain": []
+}

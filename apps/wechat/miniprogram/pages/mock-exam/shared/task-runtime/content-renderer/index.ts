@@ -9,6 +9,7 @@ import {
   type RichContentBlock,
   type RichContentView,
 } from "./model";
+import { arrayPropertyItems } from "../component-property";
 
 interface ContentRendererData {
   blocks: unknown;
@@ -256,11 +257,11 @@ function syncContent(host: ContentRendererHost): void {
 }
 
 function normalizeBlocks(value: unknown): RichContentBlock[] {
-  return Array.isArray(value) ? (value as RichContentBlock[]) : [];
+  return arrayPropertyItems<RichContentBlock>(value);
 }
 
 function normalizeAnchors(value: unknown): ContentAnchor[] {
-  return Array.isArray(value) ? (value as ContentAnchor[]) : [];
+  return arrayPropertyItems<ContentAnchor>(value);
 }
 
 function emitZoom(

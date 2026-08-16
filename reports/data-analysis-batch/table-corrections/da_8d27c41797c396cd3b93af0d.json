@@ -1,0 +1,121 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "产值（亿元）",
+          "比上年增长（%）",
+          "占规模以上工业比重（%）"
+        ],
+        "label": "工业经济指标"
+      }
+    ],
+    "columns": [
+      "产值（亿元）",
+      "比上年增长（%）",
+      "占规模以上工业比重（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "比上年增长（%）",
+      "style": "diagonal",
+      "upper_label": "产值（亿元）"
+    },
+    "missing_cells": [
+      {
+        "column": "占规模以上工业比重（%）",
+        "display": "?",
+        "row": "装备工业"
+      },
+      {
+        "column": "产值（亿元）",
+        "display": "?",
+        "row": "食品工业"
+      }
+    ],
+    "row_header_label": "比上年增长（%）",
+    "rows": [
+      {
+        "display_label": "装备工业",
+        "group": null,
+        "label": "装备工业",
+        "unit": null,
+        "values": [
+          816.0,
+          18.9,
+          null
+        ]
+      },
+      {
+        "display_label": "石化工业",
+        "group": null,
+        "label": "石化工业",
+        "unit": null,
+        "values": [
+          998.3,
+          15.4,
+          18.5
+        ]
+      },
+      {
+        "display_label": "能源工业",
+        "group": null,
+        "label": "能源工业",
+        "unit": null,
+        "values": [
+          2439.4,
+          16.7,
+          45.2
+        ]
+      },
+      {
+        "display_label": "食品工业",
+        "group": null,
+        "label": "食品工业",
+        "unit": null,
+        "values": [
+          null,
+          13.7,
+          11.4
+        ]
+      },
+      {
+        "display_label": "医药工业",
+        "group": null,
+        "label": "医药工业",
+        "unit": null,
+        "values": [
+          123.0,
+          4.4,
+          2.3
+        ]
+      },
+      {
+        "display_label": "林木加工业",
+        "group": null,
+        "label": "林木加工业",
+        "unit": null,
+        "values": [
+          114.4,
+          8.9,
+          2.1
+        ]
+      },
+      {
+        "display_label": "六大基地合计",
+        "group": null,
+        "label": "六大基地合计",
+        "unit": null,
+        "values": [
+          5105.2,
+          15.9,
+          94.6
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

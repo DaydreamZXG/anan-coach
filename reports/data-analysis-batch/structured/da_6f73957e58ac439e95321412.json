@@ -1,0 +1,213 @@
+{
+  "asset_id": "da_6f73957e58ac439e95321412",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2008年陕西省公务员录用考试《行测》题_images/img_0117_76f17a0cd7da78eb.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年陕西省公务员录用考试《行测》题_images/img_0117_76f17a0cd7da78eb.jpg",
+        "paper_title": "2008年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_d9c1f48ce442dccb2e6d",
+        "question_number": 128,
+        "source_jsonl_line": 96411
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年陕西省公务员录用考试《行测》题_images/img_0117_76f17a0cd7da78eb.jpg",
+        "paper_title": "2008年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_237538864c93117fd9cb",
+        "question_number": 129,
+        "source_jsonl_line": 96412
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年陕西省公务员录用考试《行测》题_images/img_0117_76f17a0cd7da78eb.jpg",
+        "paper_title": "2008年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_8f18137c7911f5e20c2a",
+        "question_number": 130,
+        "source_jsonl_line": 96413
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年陕西省公务员录用考试《行测》题_images/img_0117_76f17a0cd7da78eb.jpg",
+        "paper_title": "2008年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_380a354bc0aed670c3c4",
+        "question_number": 131,
+        "source_jsonl_line": 96414
+      }
+    ],
+    "sha256": "6f73957e58ac439e95321412d693a4e686f6d860282b4fbc2d8b8f4f27e61b5e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "序号",
+      "国别",
+      "人数",
+      "年份"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "1",
+        "unit": null,
+        "values": [
+          1,
+          "新加坡",
+          64,
+          1987
+        ]
+      },
+      {
+        "label": "2",
+        "unit": null,
+        "values": [
+          2,
+          "荷兰",
+          37,
+          1991
+        ]
+      },
+      {
+        "label": "3",
+        "unit": null,
+        "values": [
+          3,
+          "日本",
+          36,
+          1992
+        ]
+      },
+      {
+        "label": "4",
+        "unit": null,
+        "values": [
+          4,
+          "英国",
+          21,
+          1992
+        ]
+      },
+      {
+        "label": "5",
+        "unit": null,
+        "values": [
+          5,
+          "韩国",
+          20.46,
+          1992
+        ]
+      },
+      {
+        "label": "6",
+        "unit": null,
+        "values": [
+          6,
+          "波兰",
+          20.01,
+          1992
+        ]
+      },
+      {
+        "label": "7",
+        "unit": null,
+        "values": [
+          7,
+          "以色列",
+          16.63,
+          1984
+        ]
+      },
+      {
+        "label": "8",
+        "unit": null,
+        "values": [
+          8,
+          "意大利",
+          15.63,
+          1990
+        ]
+      },
+      {
+        "label": "9",
+        "unit": null,
+        "values": [
+          9,
+          "德国",
+          14.53,
+          1989
+        ]
+      },
+      {
+        "label": "10",
+        "unit": null,
+        "values": [
+          10,
+          "乌克兰",
+          11,
+          1989
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6f73957e58ac439e95321412/row_band_01.jpg",
+        "review-crops/da_6f73957e58ac439e95321412/row_band_02.jpg",
+        "review-crops/da_6f73957e58ac439e95321412/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.317",
+      "crop_verification_elapsed_seconds:6.149",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

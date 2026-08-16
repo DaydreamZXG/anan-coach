@@ -1,0 +1,20 @@
+{
+  "answerIsolation": true,
+  "assetId": "gr_06e94661142e35ee6757e42d",
+  "model": "qwen3-vl-30b-a3b",
+  "officialAnswer": "D",
+  "originalImageCorrect": true,
+  "originalImagePrediction": {
+    "answer": "D",
+    "reason": "图形中右侧的分支数量依次减少，同时左侧的分支逐渐向右移动并合并，最后一个图形应为右侧分支最少且左侧分支最靠右的形态，D符合此规律。"
+  },
+  "originalImageRaw": "{\"answer\":\"D\",\"reason\":\"图形中右侧的分支数量依次减少，同时左侧的分支逐渐向右移动并合并，最后一个图形应为右侧分支最少且左侧分支最靠右的形态，D符合此规律。\"}",
+  "schemaVersion": "graphic-reasoning-semantic-solver-evaluation-v1",
+  "semanticJsonCorrect": false,
+  "semanticJsonPrediction": {
+    "answer": "A",
+    "information_sufficient": true,
+    "reason": "面板1-4显示图形整体向右平移，同时主多段线、分支多段线和扇形多段线顺时针旋转。面板5为空，需根据规律推断。选项A、B、C、D中，A与前序面板的平移和旋转趋势一致：主多段线、分支多段线、扇形多段线均向右移动且顺时针旋转，中心点保持不变，直线段数仍为7。B、C、D在位置和方向上未体现一致的平移与旋转，尤其B、C、D的多段线方向与前序旋转趋势不符。因此，A最符合跨面板的平移与旋转规律。"
+  },
+  "semanticJsonRaw": "{\"answer\":\"A\",\"reason\":\"面板1-4显示图形整体向右平移，同时主多段线、分支多段线和扇形多段线顺时针旋转。面板5为空，需根据规律推断。选项A、B、C、D中，A与前序面板的平移和旋转趋势一致：主多段线、分支多段线、扇形多段线均向右移动且顺时针旋转，中心点保持不变，直线段数仍为7。B、C、D在位置和方向上未体现一致的平移与旋转，尤其B、C、D的多段线方向与前序旋转趋势不符。因此，A最符合跨面板的平移与旋转规律。\",\"information_sufficient\":true}"
+}

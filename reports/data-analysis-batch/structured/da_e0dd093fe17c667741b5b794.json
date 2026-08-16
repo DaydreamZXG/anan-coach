@@ -1,0 +1,280 @@
+{
+  "asset_id": "da_e0dd093fe17c667741b5b794",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "其他省 (市)",
+    "广东",
+    "浙江",
+    "北京",
+    "其他省 (市)",
+    "广东",
+    "江苏",
+    "山东",
+    "其他省 (市)",
+    "江苏",
+    "江苏",
+    "北京",
+    "其他省 (市)",
+    "北京",
+    "江苏",
+    "山东"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.9,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -44.0,
+      25.5,
+      62.5,
+      78.0,
+      96.5,
+      107.5,
+      126.5,
+      136.5,
+      150.5,
+      207.5,
+      215.5,
+      225.0,
+      236.5,
+      252.0,
+      262.0,
+      302.0,
+      316.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 25.5,
+        "label": "其他省 (市)",
+        "share": 0.19305556,
+        "start_angle": -44.0,
+        "sweep_angle": 69.5
+      },
+      {
+        "end_angle": 62.5,
+        "label": "广东",
+        "share": 0.10277778,
+        "start_angle": 25.5,
+        "sweep_angle": 37.0
+      },
+      {
+        "end_angle": 78.0,
+        "label": "浙江",
+        "share": 0.04305556,
+        "start_angle": 62.5,
+        "sweep_angle": 15.5
+      },
+      {
+        "end_angle": 96.5,
+        "label": "北京",
+        "share": 0.05138889,
+        "start_angle": 78.0,
+        "sweep_angle": 18.5
+      },
+      {
+        "end_angle": 107.5,
+        "label": "其他省 (市)",
+        "share": 0.03055556,
+        "start_angle": 96.5,
+        "sweep_angle": 11.0
+      },
+      {
+        "end_angle": 126.5,
+        "label": "广东",
+        "share": 0.05277778,
+        "start_angle": 107.5,
+        "sweep_angle": 19.0
+      },
+      {
+        "end_angle": 136.5,
+        "label": "江苏",
+        "share": 0.02777778,
+        "start_angle": 126.5,
+        "sweep_angle": 10.0
+      },
+      {
+        "end_angle": 150.5,
+        "label": "山东",
+        "share": 0.03888889,
+        "start_angle": 136.5,
+        "sweep_angle": 14.0
+      },
+      {
+        "end_angle": 207.5,
+        "label": "其他省 (市)",
+        "share": 0.15833333,
+        "start_angle": 150.5,
+        "sweep_angle": 57.0
+      },
+      {
+        "end_angle": 215.5,
+        "label": "江苏",
+        "share": 0.02222222,
+        "start_angle": 207.5,
+        "sweep_angle": 8.0
+      },
+      {
+        "end_angle": 225.0,
+        "label": "江苏",
+        "share": 0.02638889,
+        "start_angle": 215.5,
+        "sweep_angle": 9.5
+      },
+      {
+        "end_angle": 236.5,
+        "label": "北京",
+        "share": 0.03194444,
+        "start_angle": 225.0,
+        "sweep_angle": 11.5
+      },
+      {
+        "end_angle": 252.0,
+        "label": "其他省 (市)",
+        "share": 0.04305556,
+        "start_angle": 236.5,
+        "sweep_angle": 15.5
+      },
+      {
+        "end_angle": 262.0,
+        "label": "北京",
+        "share": 0.02777778,
+        "start_angle": 252.0,
+        "sweep_angle": 10.0
+      },
+      {
+        "end_angle": 302.0,
+        "label": "江苏",
+        "share": 0.11111111,
+        "start_angle": 262.0,
+        "sweep_angle": 40.0
+      },
+      {
+        "end_angle": 316.0,
+        "label": "山东",
+        "share": 0.03888889,
+        "start_angle": 302.0,
+        "sweep_angle": 14.0
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.19305556,
+        0.10277778,
+        0.04305556,
+        0.05138889,
+        0.03055556,
+        0.05277778,
+        0.02777778,
+        0.03888889,
+        0.15833333,
+        0.02222222,
+        0.02638889,
+        0.03194444,
+        0.04305556,
+        0.02777778,
+        0.11111111,
+        0.03888889
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0291_3b0fe06dc717f075.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0291_3b0fe06dc717f075.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_a571e0f41e257110d2f6",
+        "question_number": 119,
+        "source_jsonl_line": 48964
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0316_566b86a6f38d3c8a.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_53a996fd992c6d1848c7",
+        "question_number": 117,
+        "source_jsonl_line": 49097
+      }
+    ],
+    "sha256": "e0dd093fe17c667741b5b794b3cca28bab8bbd63052bb2e6e7b9a8376c61228d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e0dd093fe17c667741b5b794/quadrant_01.jpg",
+        "review-crops/da_e0dd093fe17c667741b5b794/quadrant_02.jpg",
+        "review-crops/da_e0dd093fe17c667741b5b794/quadrant_03.jpg",
+        "review-crops/da_e0dd093fe17c667741b5b794/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.24",
+      "crop_verification_elapsed_seconds:1.874",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:饼图未提供具体数值，仅能识别标签和相对比例",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_invalid_pie_label_correction:18",
+      "crop_note:ignored_invalid_pie_label_correction:19",
+      "crop_note:ignored_invalid_pie_label_correction:20",
+      "crop_note:ignored_invalid_pie_label_correction:22",
+      "crop_note:ignored_invalid_pie_label_correction:23",
+      "circle_edge_coverage:0.2778",
+      "hough_circle_radius_ratio:0.3823",
+      "radial_line_candidates:0",
+      "detected_boundaries:16"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.9,
+    "schema_valid": true
+  }
+}

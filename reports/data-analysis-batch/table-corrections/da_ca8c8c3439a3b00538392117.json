@@ -1,0 +1,127 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2012年",
+          "2013年",
+          "2014年",
+          "2015年"
+        ],
+        "label": "国内生产总值"
+      }
+    ],
+    "columns": [
+      "2012年",
+      "2013年",
+      "2014年",
+      "2015年"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "分类",
+    "rows": [
+      {
+        "display_label": "国内生产总值",
+        "group": null,
+        "label": "国内生产总值",
+        "unit": null,
+        "values": [
+          540367.0,
+          595244.0,
+          643974.0,
+          689052.0
+        ]
+      },
+      {
+        "display_label": "全国研究与试验发展（R&D）经费支出",
+        "group": null,
+        "label": "全国研究与试验发展（R&D）经费支出",
+        "unit": null,
+        "values": [
+          10298.4,
+          11846.6,
+          13015.6,
+          14169.9
+        ]
+      },
+      {
+        "display_label": "基础研究",
+        "group": "按活动类型分",
+        "label": "按活动类型分｜基础研究",
+        "unit": null,
+        "values": [
+          498.8,
+          555.0,
+          613.5,
+          716.1
+        ]
+      },
+      {
+        "display_label": "应用研究",
+        "group": "按活动类型分",
+        "label": "按活动类型分｜应用研究",
+        "unit": null,
+        "values": [
+          1162.0,
+          1269.1,
+          1398.5,
+          1528.7
+        ]
+      },
+      {
+        "display_label": "试验发展",
+        "group": "按活动类型分",
+        "label": "按活动类型分｜试验发展",
+        "unit": null,
+        "values": [
+          8637.6,
+          10022.5,
+          11003.6,
+          11925.1
+        ]
+      },
+      {
+        "display_label": "企业",
+        "group": "按执行部门分",
+        "label": "按执行部门分｜企业",
+        "unit": null,
+        "values": [
+          7842.2,
+          9075.8,
+          10060.6,
+          10881.3
+        ]
+      },
+      {
+        "display_label": "政府属研究机构",
+        "group": "按执行部门分",
+        "label": "按执行部门分｜政府属研究机构",
+        "unit": null,
+        "values": [
+          1548.9,
+          1781.4,
+          1926.2,
+          2136.5
+        ]
+      },
+      {
+        "display_label": "高校",
+        "group": "按执行部门分",
+        "label": "按执行部门分｜高校",
+        "unit": null,
+        "values": [
+          780.6,
+          856.7,
+          898.1,
+          998.6
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

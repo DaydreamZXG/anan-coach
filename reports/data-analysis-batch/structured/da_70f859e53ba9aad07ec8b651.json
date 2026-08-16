@@ -1,0 +1,290 @@
+{
+  "asset_id": "da_70f859e53ba9aad07ec8b651",
+  "axes": {
+    "x": {
+      "max": 2008,
+      "min": 2004,
+      "ticks": [
+        2004,
+        2005,
+        2006,
+        2007,
+        2008
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "经济类型",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "出口",
+    "进口"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "国有企业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万美元",
+      "values": [
+        1284597,
+        1437264,
+        1579037,
+        1774933,
+        2079459,
+        747453,
+        724622,
+        668662,
+        725334,
+        832382
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "集体企业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万美元",
+      "values": [
+        379995,
+        424385,
+        446692,
+        488119,
+        710286,
+        217800,
+        295997,
+        267035,
+        312123,
+        429304
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "中外合作企业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万美元",
+      "values": [
+        37426,
+        50670,
+        94802,
+        152958,
+        141916,
+        33172,
+        46125,
+        97208,
+        143808,
+        142576
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "中外合资企业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万美元",
+      "values": [
+        1543837,
+        2004875,
+        2398139,
+        2846005,
+        3405400,
+        1658827,
+        1988967,
+        2392255,
+        2780454,
+        3112895
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "外商独资企业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万美元",
+      "values": [
+        4941109,
+        7367236,
+        9868906,
+        12563577,
+        13948670,
+        5339996,
+        7016541,
+        8250451,
+        9534416,
+        9604995
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2010年江苏省公务员录用考试《行测》题（C类）_images/img_0223_0a3aa48ec63b3d7f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（C类）_images/img_0223_0a3aa48ec63b3d7f.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_bfc127f03b0354473de9",
+        "question_number": 86,
+        "source_jsonl_line": 45436
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（C类）_images/img_0226_173440fea75ef21b.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_336866e4a23881d2c8e4",
+        "question_number": 87,
+        "source_jsonl_line": 45437
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（C类）_images/img_0223_0a3aa48ec63b3d7f.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_27a9f0b29b61674687f3",
+        "question_number": 88,
+        "source_jsonl_line": 45438
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（C类）_images/img_0223_0a3aa48ec63b3d7f.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_369c2b90c0a3a82067b6",
+        "question_number": 89,
+        "source_jsonl_line": 45439
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（C类）_images/img_0223_0a3aa48ec63b3d7f.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_b86a9bd6da26dbf9e4f3",
+        "question_number": 90,
+        "source_jsonl_line": 45440
+      }
+    ],
+    "sha256": "70f859e53ba9aad07ec8b6510998b54c6c0ea6ab6cac35aa4c42bf9ab5d63021"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2004",
+      "2005",
+      "2006",
+      "2007",
+      "2008"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "经济类型",
+    "rows": [
+      {
+        "label": "出口",
+        "unit": null,
+        "values": [
+          "国有企业",
+          1284597,
+          1437264,
+          1579037,
+          1774933
+        ]
+      },
+      {
+        "label": "进口",
+        "unit": null,
+        "values": [
+          "国有企业",
+          747453,
+          724622,
+          668662,
+          725334
+        ]
+      }
+    ]
+  },
+  "title": "2004~2008年江苏省各经济类型企业进出口额",
+  "unit": "万美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_70f859e53ba9aad07ec8b651/row_band_01.jpg",
+        "review-crops/da_70f859e53ba9aad07ec8b651/row_band_02.jpg",
+        "review-crops/da_70f859e53ba9aad07ec8b651/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.648",
+      "crop_verification_elapsed_seconds:4.726",
+      "candidate_value_changes_after_crop:8",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_out_of_range_table_cell:出口:2008",
+      "crop_note:ignored_unknown_table_cell:出口:集体企业",
+      "crop_note:ignored_unknown_table_cell:出口:中外合作企业",
+      "crop_note:ignored_unknown_table_cell:出口:中外合资企业",
+      "crop_note:ignored_unknown_table_cell:出口:外商独资企业",
+      "crop_note:ignored_out_of_range_table_cell:进口:2008",
+      "crop_note:ignored_unknown_table_cell:进口:集体企业",
+      "crop_note:ignored_unknown_table_cell:进口:中外合作企业",
+      "crop_note:ignored_unknown_table_cell:进口:中外合资企业",
+      "crop_note:ignored_unknown_table_cell:进口:外商独资企业",
+      "table_row_label_column_removed:经济类型"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "asset_id": "da_8ef193fe402273c9b0fcf9a0",
+  "axes": {
+    "x": {
+      "max": 2018,
+      "min": 2010,
+      "ticks": [
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 721202,
+        "min": 0,
+        "ticks": [],
+        "title": "销售收入",
+        "unit": "百万元人民币"
+      },
+      {
+        "max": 37.1,
+        "min": 0,
+        "ticks": [],
+        "title": "同比增长率",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2010年",
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "销售收入",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "同比增长率",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": "circle",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "销售收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百万元人民币",
+      "values": [
+        182548,
+        203929,
+        220198,
+        239025,
+        288197,
+        395009,
+        521574,
+        603621,
+        721202
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增长率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        24.5,
+        11.7,
+        8.0,
+        8.5,
+        20.6,
+        37.1,
+        32.0,
+        15.7,
+        19.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0189_4abaade16fc7efeb.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0189_4abaade16fc7efeb.png",
+        "paper_title": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e883af362c265ba788a9",
+        "question_number": 106,
+        "source_jsonl_line": 83737
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0188_4fb41dd442a831b5.png",
+        "paper_title": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4249f544170885851259",
+        "question_number": 107,
+        "source_jsonl_line": 83738
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0188_4fb41dd442a831b5.png",
+        "paper_title": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3dc6444dc0167297b776",
+        "question_number": 108,
+        "source_jsonl_line": 83739
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0188_4fb41dd442a831b5.png",
+        "paper_title": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5188215346b81b7b74b2",
+        "question_number": 109,
+        "source_jsonl_line": 83740
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0188_4fb41dd442a831b5.png",
+        "paper_title": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5b6fb12480ab3ed7795d",
+        "question_number": 110,
+        "source_jsonl_line": 83741
+      }
+    ],
+    "sha256": "8ef193fe402273c9b0fcf9a0a79e540daf26ca992adef9dde96a0f38e1516e65"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2010-2018年华为公司销售收入与同比增长率",
+  "unit": "百万元人民币",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8ef193fe402273c9b0fcf9a0/column_band_01.jpg",
+        "review-crops/da_8ef193fe402273c9b0fcf9a0/column_band_02.jpg",
+        "review-crops/da_8ef193fe402273c9b0fcf9a0/column_band_03.jpg",
+        "review-crops/da_8ef193fe402273c9b0fcf9a0/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.424",
+      "crop_verification_elapsed_seconds:5.163",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

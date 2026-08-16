@@ -1,0 +1,189 @@
+{
+  "asset_id": "da_b9516487b67e95f131840417",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 250,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "投资金额（亿元）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "投资次数（次）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "投资金额（亿元）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        22.91,
+        100.7,
+        230.8,
+        70.9,
+        207
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "投资次数（次）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "次",
+      "values": [
+        58,
+        45,
+        34,
+        33,
+        77
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0085_85e2407e2d8ae1b6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0085_85e2407e2d8ae1b6.png",
+        "paper_title": "2023年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_af8f678d44c54d0c60be",
+        "question_number": 81,
+        "source_jsonl_line": 30685
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0088_0bf5d04cd36479f8.png",
+        "paper_title": "2023年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_a692069e1d1e0b9d9d59",
+        "question_number": 82,
+        "source_jsonl_line": 30686
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0088_0bf5d04cd36479f8.png",
+        "paper_title": "2023年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_0dae920b900b2f08b497",
+        "question_number": 83,
+        "source_jsonl_line": 30687
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0085_85e2407e2d8ae1b6.png",
+        "paper_title": "2023年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_00fb64f2adc84465006a",
+        "question_number": 84,
+        "source_jsonl_line": 30688
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0085_85e2407e2d8ae1b6.png",
+        "paper_title": "2023年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_a7f520b3538e1ebe65bf",
+        "question_number": 85,
+        "source_jsonl_line": 30689
+      }
+    ],
+    "sha256": "b9516487b67e95f131840417c6e414ed737c4f58d626b0d8827b69abf4397e97"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2017-2021年中国跨境电商领域投资情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b9516487b67e95f131840417/column_band_01.jpg",
+        "review-crops/da_b9516487b67e95f131840417/column_band_02.jpg",
+        "review-crops/da_b9516487b67e95f131840417/column_band_03.jpg",
+        "review-crops/da_b9516487b67e95f131840417/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.388",
+      "crop_verification_elapsed_seconds:3.486",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

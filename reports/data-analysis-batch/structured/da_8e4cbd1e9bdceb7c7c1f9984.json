@@ -1,0 +1,179 @@
+{
+  "asset_id": "da_8e4cbd1e9bdceb7c7c1f9984",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 4306,
+        "min": -10,
+        "ticks": [],
+        "title": null,
+        "unit": "(万人、%)"
+      }
+    ]
+  },
+  "categories": [
+    "2001年",
+    "2002年",
+    "2003年",
+    "2004年",
+    "2005年",
+    "2006年",
+    "2007年",
+    "2008年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "保障人数",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "年增长率",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "保障人数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        304.6,
+        407.8,
+        367.1,
+        488.0,
+        825.0,
+        1593.1,
+        3566.3,
+        4305.5
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "年增长率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        null,
+        33.9,
+        -10.0,
+        32.9,
+        69.1,
+        null,
+        123.9,
+        20.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2010年广东省公务员录用考试《行测》题_images/img_0117_e7d0ef91463174a5.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年广东省公务员录用考试《行测》题_images/img_0117_e7d0ef91463174a5.jpg",
+        "paper_title": "2010年广东省公务员录用考试《行测》题",
+        "question_id": "pq_bb7509b4bc7a68479805",
+        "question_number": 75,
+        "source_jsonl_line": 33823
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年广东省公务员录用考试《行测》题_images/img_0117_e7d0ef91463174a5.jpg",
+        "paper_title": "2010年广东省公务员录用考试《行测》题",
+        "question_id": "pq_270b89a70f9fcb839ea6",
+        "question_number": 76,
+        "source_jsonl_line": 33824
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年广东省公务员录用考试《行测》题_images/img_0130_90e35c0862c363ef.jpg",
+        "paper_title": "2010年广东省公务员录用考试《行测》题",
+        "question_id": "pq_386e4835c3e890d5a4d5",
+        "question_number": 77,
+        "source_jsonl_line": 33825
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年广东省公务员录用考试《行测》题_images/img_0130_90e35c0862c363ef.jpg",
+        "paper_title": "2010年广东省公务员录用考试《行测》题",
+        "question_id": "pq_505158841207f490412d",
+        "question_number": 78,
+        "source_jsonl_line": 33826
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年广东省公务员录用考试《行测》题_images/img_0130_90e35c0862c363ef.jpg",
+        "paper_title": "2010年广东省公务员录用考试《行测》题",
+        "question_id": "pq_243ac0597a57972cd76d",
+        "question_number": 79,
+        "source_jsonl_line": 33827
+      }
+    ],
+    "sha256": "8e4cbd1e9bdceb7c7c1f998484ec9032117d2ad31158bc47ed3ebd76bd08680f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "农村最低生活保障",
+  "unit": "(万人、%)",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.715",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "independent_compact_chart_adjudication"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b_compact_chart",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

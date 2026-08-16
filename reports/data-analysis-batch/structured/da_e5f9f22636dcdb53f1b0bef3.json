@@ -1,0 +1,211 @@
+{
+  "asset_id": "da_e5f9f22636dcdb53f1b0bef3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "30*37",
+    "38*40",
+    "41*42",
+    ">42",
+    "<15",
+    "16*17",
+    "20",
+    "21*22"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      14.608,
+      22.341,
+      75.463,
+      83.098,
+      129.642,
+      281.047,
+      324.215,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 14.608,
+        "label": "30*37",
+        "share": 0.0405782,
+        "start_angle": 0.0,
+        "sweep_angle": 14.608
+      },
+      {
+        "end_angle": 22.341,
+        "label": "38*40",
+        "share": 0.02148043,
+        "start_angle": 14.608,
+        "sweep_angle": 7.733
+      },
+      {
+        "end_angle": 75.463,
+        "label": "41*42",
+        "share": 0.14756183,
+        "start_angle": 22.341,
+        "sweep_angle": 53.122
+      },
+      {
+        "end_angle": 83.098,
+        "label": ">42",
+        "share": 0.02120604,
+        "start_angle": 75.463,
+        "sweep_angle": 7.634
+      },
+      {
+        "end_angle": 129.642,
+        "label": "<15",
+        "share": 0.1292896,
+        "start_angle": 83.098,
+        "sweep_angle": 46.544
+      },
+      {
+        "end_angle": 281.047,
+        "label": "16*17",
+        "share": 0.42056874,
+        "start_angle": 129.642,
+        "sweep_angle": 151.405
+      },
+      {
+        "end_angle": 324.215,
+        "label": "20",
+        "share": 0.11991275,
+        "start_angle": 281.047,
+        "sweep_angle": 43.169
+      },
+      {
+        "end_angle": 360.0,
+        "label": "21*22",
+        "share": 0.09940243,
+        "start_angle": 324.215,
+        "sweep_angle": 35.785
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.0405782,
+        0.02148043,
+        0.14756183,
+        0.02120604,
+        0.1292896,
+        0.42056874,
+        0.11991275,
+        0.09940243
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/重庆/2008年重庆市公务员录用考试《行测》题_images/img_0175_54f3787c8f35326e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年重庆市公务员录用考试《行测》题_images/img_0175_54f3787c8f35326e.png",
+        "paper_title": "2008年重庆市公务员录用考试《行测》题",
+        "question_id": "pq_0ab61941737da6a5108d",
+        "question_number": 96,
+        "source_jsonl_line": 91905
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年重庆市公务员录用考试《行测》题_images/img_0175_54f3787c8f35326e.png",
+        "paper_title": "2008年重庆市公务员录用考试《行测》题",
+        "question_id": "pq_48f4e217676c15d4fa98",
+        "question_number": 97,
+        "source_jsonl_line": 91906
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年重庆市公务员录用考试《行测》题_images/img_0168_d4264b16605d9da1.png",
+        "paper_title": "2008年重庆市公务员录用考试《行测》题",
+        "question_id": "pq_fea9ead13a57c84bdd73",
+        "question_number": 98,
+        "source_jsonl_line": 91907
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年重庆市公务员录用考试《行测》题_images/img_0175_54f3787c8f35326e.png",
+        "paper_title": "2008年重庆市公务员录用考试《行测》题",
+        "question_id": "pq_759aa5cb5d5af7c15927",
+        "question_number": 99,
+        "source_jsonl_line": 91908
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年重庆市公务员录用考试《行测》题_images/img_0168_d4264b16605d9da1.png",
+        "paper_title": "2008年重庆市公务员录用考试《行测》题",
+        "question_id": "pq_b1658a3ab19d7701c0e7",
+        "question_number": 100,
+        "source_jsonl_line": 91909
+      }
+    ],
+    "sha256": "e5f9f22636dcdb53f1b0bef3e0860509e78f6f1512c0179193deec5c38fd2415"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2006年1月液晶电视产品的尺寸比例结构",
+  "unit": "寸",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e5f9f22636dcdb53f1b0bef3/quadrant_01.jpg",
+        "review-crops/da_e5f9f22636dcdb53f1b0bef3/quadrant_02.jpg",
+        "review-crops/da_e5f9f22636dcdb53f1b0bef3/quadrant_03.jpg",
+        "review-crops/da_e5f9f22636dcdb53f1b0bef3/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:1.677",
+      "crop_verification_elapsed_seconds:1.722",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "label_geometry_count_mismatch:9!=8",
+      "circle_edge_coverage:0.9847",
+      "hough_circle_radius_ratio:0.3858",
+      "radial_line_candidates:17",
+      "detected_boundaries:8"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

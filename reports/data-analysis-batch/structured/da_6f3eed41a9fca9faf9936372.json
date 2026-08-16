@@ -1,0 +1,331 @@
+{
+  "asset_id": "da_6f3eed41a9fca9faf9936372",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2014年江苏省公务员录用考试《行测》题（A类）_images/img_0189_db7d7166ccfa2f13.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（A类）_images/img_0189_db7d7166ccfa2f13.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_a3a68cfad39e1de0612a",
+        "question_number": 91,
+        "source_jsonl_line": 46596
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（A类）_images/img_0190_8dc6a4dee37f8cbf.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_f03d12590add7e52a9d3",
+        "question_number": 92,
+        "source_jsonl_line": 46597
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（A类）_images/img_0190_8dc6a4dee37f8cbf.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_abc4f1a72bb011494172",
+        "question_number": 93,
+        "source_jsonl_line": 46598
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（A类）_images/img_0190_8dc6a4dee37f8cbf.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_99b797feee3090bc70b0",
+        "question_number": 94,
+        "source_jsonl_line": 46599
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（A类）_images/img_0190_8dc6a4dee37f8cbf.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_10658c7d255b2c75d85c",
+        "question_number": 95,
+        "source_jsonl_line": 46600
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（B类）_images/img_0104_8dc6a4dee37f8cbf.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_5f5385791eb70a936c40",
+        "question_number": 81,
+        "source_jsonl_line": 46691
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（B类）_images/img_0104_8dc6a4dee37f8cbf.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_9294df5b51ae52235a99",
+        "question_number": 82,
+        "source_jsonl_line": 46692
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（B类）_images/img_0104_8dc6a4dee37f8cbf.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_033e177588f697e45be1",
+        "question_number": 83,
+        "source_jsonl_line": 46693
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（B类）_images/img_0125_db7d7166ccfa2f13.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_c8fd94adbb12be52211d",
+        "question_number": 84,
+        "source_jsonl_line": 46694
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（B类）_images/img_0125_db7d7166ccfa2f13.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_bfe4d7edc2bd244343a4",
+        "question_number": 85,
+        "source_jsonl_line": 46695
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0249_db7d7166ccfa2f13.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_a70a38c24736d73ffeb3",
+        "question_number": 81,
+        "source_jsonl_line": 46796
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0249_db7d7166ccfa2f13.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_33cd2c674248799f7c54",
+        "question_number": 82,
+        "source_jsonl_line": 46797
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0262_8dc6a4dee37f8cbf.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_6296c4965f0f2bcb84c0",
+        "question_number": 83,
+        "source_jsonl_line": 46798
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0262_8dc6a4dee37f8cbf.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_610486191e2843b3b27b",
+        "question_number": 84,
+        "source_jsonl_line": 46799
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0249_db7d7166ccfa2f13.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_5bccb02dd0182da574fa",
+        "question_number": 85,
+        "source_jsonl_line": 46800
+      }
+    ],
+    "sha256": "6f3eed41a9fca9faf9936372cb37c4fb70804ef08ab804c9b7d1a371f48dfedf"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1-2月",
+      "1-3月",
+      "1-4月",
+      "1-5月",
+      "1-6月",
+      "1-7月",
+      "1-8月",
+      "1-9月",
+      "1-10月",
+      "1-11月",
+      "1-12月"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "时期",
+    "rows": [
+      {
+        "display_label": "完成总额",
+        "group": null,
+        "label": "完成总额",
+        "unit": null,
+        "values": [
+          4306,
+          7839,
+          10946,
+          14142,
+          16557,
+          19789,
+          22476,
+          25511,
+          29134,
+          32822,
+          35983
+        ]
+      },
+      {
+        "display_label": "国有及国有控股",
+        "group": null,
+        "label": "国有及国有控股",
+        "unit": null,
+        "values": [
+          841,
+          1494,
+          2090,
+          2797,
+          3340,
+          4107,
+          4725,
+          5326,
+          6139,
+          6905,
+          7456
+        ]
+      },
+      {
+        "display_label": "港澳台及外商",
+        "group": null,
+        "label": "港澳台及外商",
+        "unit": null,
+        "values": [
+          533,
+          927,
+          1297,
+          1639,
+          1902,
+          2269,
+          2588,
+          2897,
+          3267,
+          3613,
+          3911
+        ]
+      },
+      {
+        "display_label": "民间投资",
+        "group": null,
+        "label": "民间投资",
+        "unit": null,
+        "values": [
+          2932,
+          5418,
+          7560,
+          9707,
+          11316,
+          13413,
+          15161,
+          17288,
+          19727,
+          22303,
+          24526
+        ]
+      },
+      {
+        "display_label": "第一产业",
+        "group": null,
+        "label": "第一产业",
+        "unit": null,
+        "values": [
+          34,
+          54,
+          76,
+          95,
+          94,
+          112,
+          130,
+          150,
+          168,
+          185,
+          199
+        ]
+      },
+      {
+        "display_label": "第二产业",
+        "group": null,
+        "label": "第二产业",
+        "unit": null,
+        "values": [
+          2287,
+          4195,
+          5877,
+          7408,
+          8450,
+          10101,
+          11409,
+          13051,
+          14974,
+          16831,
+          18426
+        ]
+      },
+      {
+        "display_label": "第三产业",
+        "group": null,
+        "label": "第三产业",
+        "unit": null,
+        "values": [
+          1985,
+          3589,
+          4994,
+          6640,
+          8013,
+          9576,
+          10936,
+          12310,
+          13992,
+          15806,
+          17358
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

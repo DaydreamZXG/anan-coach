@@ -1,0 +1,193 @@
+{
+  "asset_id": "da_b136d0e2bb5adfeadc495c11",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ],
+        "title": null,
+        "unit": "亿元"
+      },
+      {
+        "max": 5,
+        "min": 0,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "title": null,
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "政府所属研究机构",
+    "工业企业",
+    "高等学校",
+    "其他"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "研发经费",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "研发人员",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "研发经费",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2.8,
+        89.9,
+        4.1,
+        25.3
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "研发人员",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        0.6,
+        3.9,
+        1.9,
+        1.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/重庆/2017年重庆市公务员录用考试《行测》题（下半年）_images/img_0211_4294e341ee9c446f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市公务员录用考试《行测》题（下半年）_images/img_0211_4294e341ee9c446f.png",
+        "paper_title": "2017年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_1db75951418a12811b70",
+        "question_number": 111,
+        "source_jsonl_line": 94054
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市公务员录用考试《行测》题（下半年）_images/img_0226_14f7d5d16eb1ec41.png",
+        "paper_title": "2017年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_5786b5fe49182be7b276",
+        "question_number": 112,
+        "source_jsonl_line": 94055
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市公务员录用考试《行测》题（下半年）_images/img_0211_4294e341ee9c446f.png",
+        "paper_title": "2017年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_4c91bd9e5f9fdbdee55a",
+        "question_number": 113,
+        "source_jsonl_line": 94056
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市公务员录用考试《行测》题（下半年）_images/img_0226_14f7d5d16eb1ec41.png",
+        "paper_title": "2017年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_50644fb212e9765c694d",
+        "question_number": 114,
+        "source_jsonl_line": 94057
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市公务员录用考试《行测》题（下半年）_images/img_0226_14f7d5d16eb1ec41.png",
+        "paper_title": "2017年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_d4b8b1d9d45f751956a7",
+        "question_number": 115,
+        "source_jsonl_line": 94058
+      }
+    ],
+    "sha256": "b136d0e2bb5adfeadc495c117fc8a9a6c7abe582d2462585c6a8b70798808bd7"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014年该省研发经费来源及研发人员构成",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b136d0e2bb5adfeadc495c11/column_band_01.jpg",
+        "review-crops/da_b136d0e2bb5adfeadc495c11/column_band_02.jpg",
+        "review-crops/da_b136d0e2bb5adfeadc495c11/column_band_03.jpg",
+        "review-crops/da_b136d0e2bb5adfeadc495c11/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.14",
+      "crop_verification_elapsed_seconds:2.093",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,225 @@
+{
+  "asset_id": "da_a8ee8c55d183f4479e8d71bc",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 600,
+        "min": 0,
+        "ticks": [
+          0,
+          300,
+          600
+        ],
+        "title": null,
+        "unit": "部"
+      }
+    ]
+  },
+  "categories": [
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "国产电影（部）",
+      "style": {
+        "dash": null,
+        "fill": "#F0F0F0",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "进口电影（部）",
+      "style": {
+        "dash": null,
+        "fill": "#696969",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "国产电影（部）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "部",
+      "values": [
+        278,
+        381,
+        355,
+        393,
+        412
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "进口电影（部）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "部",
+      "values": [
+        80,
+        90,
+        109,
+        122,
+        129
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）_images/img_0241_00e15adaa31caf40.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）_images/img_0241_00e15adaa31caf40.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）",
+        "question_id": "pq_6e889edba26de6c1b918",
+        "question_number": 91,
+        "source_jsonl_line": 68127
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）_images/img_0262_934a5a7f1e484f52.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）",
+        "question_id": "pq_ad28e8163f95e1255297",
+        "question_number": 92,
+        "source_jsonl_line": 68128
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）_images/img_0241_00e15adaa31caf40.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）",
+        "question_id": "pq_a6fe28dd48e662cffdbe",
+        "question_number": 93,
+        "source_jsonl_line": 68129
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）_images/img_0241_00e15adaa31caf40.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）",
+        "question_id": "pq_749b2f82788c4389ade8",
+        "question_number": 94,
+        "source_jsonl_line": 68130
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）_images/img_0241_00e15adaa31caf40.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）",
+        "question_id": "pq_91bc4b33c8d3701b0631",
+        "question_number": 95,
+        "source_jsonl_line": 68131
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）_images/img_0121_00e15adaa31caf40.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）",
+        "question_id": "pq_7e7470d87c5892af6b99",
+        "question_number": 71,
+        "source_jsonl_line": 68207
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）_images/img_0121_00e15adaa31caf40.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）",
+        "question_id": "pq_1eb726b4d9397089ad0d",
+        "question_number": 72,
+        "source_jsonl_line": 68208
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）_images/img_0156_934a5a7f1e484f52.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）",
+        "question_id": "pq_9f43abe07db92dfcec97",
+        "question_number": 73,
+        "source_jsonl_line": 68209
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）_images/img_0121_00e15adaa31caf40.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）",
+        "question_id": "pq_e910d26c5421622ad03f",
+        "question_number": 74,
+        "source_jsonl_line": 68210
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）_images/img_0156_934a5a7f1e484f52.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）",
+        "question_id": "pq_91f0a26c4287675703d5",
+        "question_number": 75,
+        "source_jsonl_line": 68211
+      }
+    ],
+    "sha256": "a8ee8c55d183f4479e8d71bcb76d896bf50e73b6ee69a20eea8860a49076e7a2"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2015—2019年我国上映电影构成",
+  "unit": "部",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a8ee8c55d183f4479e8d71bc/column_band_01.jpg",
+        "review-crops/da_a8ee8c55d183f4479e8d71bc/column_band_02.jpg",
+        "review-crops/da_a8ee8c55d183f4479e8d71bc/column_band_03.jpg",
+        "review-crops/da_a8ee8c55d183f4479e8d71bc/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.813",
+      "crop_verification_elapsed_seconds:3.0",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

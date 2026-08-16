@@ -1,0 +1,197 @@
+{
+  "asset_id": "da_23d5940b66e7fba43c4b76b5",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2008,
+        2009,
+        2010,
+        2011,
+        2012
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 50000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000
+        ],
+        "title": null,
+        "unit": "亿美元"
+      }
+    ]
+  },
+  "categories": [
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "货物进口额",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "货物出口额",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "货物进口额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        11326,
+        10059,
+        13962,
+        17435,
+        18178
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "货物出口额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        14307,
+        12016,
+        15778,
+        18984,
+        20489
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2013年四川公务员录用考试《行测》题（下半年）_images/img_0102_925266e6c583f939.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年四川公务员录用考试《行测》题（下半年）_images/img_0102_925266e6c583f939.png",
+        "paper_title": "2013年四川公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_6aef1678d58539c53a8d",
+        "question_number": 111,
+        "source_jsonl_line": 14702
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年四川公务员录用考试《行测》题（下半年）_images/img_0104_6666cabee0735f2c.png",
+        "paper_title": "2013年四川公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_5e435a4bd4e35cfb83c3",
+        "question_number": 112,
+        "source_jsonl_line": 14703
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年四川公务员录用考试《行测》题（下半年）_images/img_0102_925266e6c583f939.png",
+        "paper_title": "2013年四川公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_2f489edf7e6c53a51434",
+        "question_number": 113,
+        "source_jsonl_line": 14704
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年四川公务员录用考试《行测》题（下半年）_images/img_0102_925266e6c583f939.png",
+        "paper_title": "2013年四川公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_29b9ee1c2511e0c98d45",
+        "question_number": 114,
+        "source_jsonl_line": 14705
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年四川公务员录用考试《行测》题（下半年）_images/img_0102_925266e6c583f939.png",
+        "paper_title": "2013年四川公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_f50c5e88b11ca9834d65",
+        "question_number": 115,
+        "source_jsonl_line": 14706
+      }
+    ],
+    "sha256": "23d5940b66e7fba43c4b76b585adeabc2475ef6c1aa4deb381f3286214a409c9"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_23d5940b66e7fba43c4b76b5/column_band_01.jpg",
+        "review-crops/da_23d5940b66e7fba43c4b76b5/column_band_02.jpg",
+        "review-crops/da_23d5940b66e7fba43c4b76b5/column_band_03.jpg",
+        "review-crops/da_23d5940b66e7fba43c4b76b5/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.812",
+      "crop_verification_elapsed_seconds:11.547",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2008年货物进口额为11326（原为11326，正确）",
+      "crop_note:修正了2008年货物出口额为14307（原为14307，正确）",
+      "crop_note:修正了2009年货物进口额为10059（原为10059，正确）",
+      "crop_note:修正了2009年货物出口额为12016（原为12016，正确）",
+      "crop_note:修正了2010年货物进口额为13962（原为13962，正确）",
+      "crop_note:修正了2010年货物出口额为15778（原为15778，正确）",
+      "crop_note:修正了2011年货物进口额为17435（原为17435，正确）",
+      "crop_note:修正了2011年货物出口额为18984（原为18984，正确）",
+      "crop_note:修正了2012年货物进口额为18178（原为18178，正确）",
+      "crop_note:修正了2012年货物出口额为20489（原为20489，正确）"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

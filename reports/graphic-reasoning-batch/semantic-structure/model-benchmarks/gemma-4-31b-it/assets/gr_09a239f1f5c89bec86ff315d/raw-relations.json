@@ -1,0 +1,25 @@
+{
+  "patterns": [
+    {
+      "confidence": 0.8,
+      "fact": "四个直角三角形的直角顶点在各自区域内发生规律性旋转或位置变换",
+      "from": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "subjects": [
+        "rightTriangle"
+      ],
+      "to": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "type": "rotation"
+    }
+  ],
+  "uncertain": []
+}

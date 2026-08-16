@@ -1,0 +1,229 @@
+{
+  "asset_id": "da_d93edcde06cb57d89aa5728d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2009年浙江省公务员录用考试《行测》题_images/img_0194_11223cf2b19cf59e.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0194_11223cf2b19cf59e.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_88556e42caaa60117c1d",
+        "question_number": 113,
+        "source_jsonl_line": 60025
+      }
+    ],
+    "sha256": "d93edcde06cb57d89aa5728d463c9a8826bb64b2304f403ac30403f5a6e041ac"
+  },
+  "structured_visual": {
+    "complexity": {
+      "estimatedDrawCommandCount": 29,
+      "optionCount": 4,
+      "sectorCount": 4
+    },
+    "coordinateSpace": {
+      "height": 265,
+      "width": 673
+    },
+    "evidence": {
+      "converterVersion": "semantic-pie-options-v1",
+      "geometryEngine": "human_verified_sector_geometry",
+      "renderSha256": "43cd71ad5c4033861a19958ada1d36369ab7543cba6449977abcbaacbbec7efd",
+      "sourceAsset": "da_d93edcde06cb57d89aa5728d",
+      "sourceSha256": "d93edcde06cb57d89aa5728d463c9a8826bb64b2304f403ac30403f5a6e041ac"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticPieOptions",
+    "layoutType": "sequence",
+    "options": [
+      {
+        "boundariesDegrees": [
+          0,
+          90
+        ],
+        "center": {
+          "x": 97,
+          "y": 115
+        },
+        "frame": {
+          "height": 158,
+          "width": 158,
+          "x": 20,
+          "y": 32
+        },
+        "id": "da_d93edcde06cb57d89aa5728d-0",
+        "label": "A",
+        "labelY": 208,
+        "position": 0,
+        "radius": 60,
+        "sectors": [
+          {
+            "startDegrees": 0,
+            "style": "diagonal",
+            "sweepDegrees": 90
+          }
+        ]
+      },
+      {
+        "boundariesDegrees": [
+          0,
+          156
+        ],
+        "center": {
+          "x": 261,
+          "y": 113
+        },
+        "frame": {
+          "height": 158,
+          "width": 158,
+          "x": 178,
+          "y": 32
+        },
+        "id": "da_d93edcde06cb57d89aa5728d-1",
+        "label": "B",
+        "labelY": 208,
+        "position": 1,
+        "radius": 59,
+        "sectors": [
+          {
+            "startDegrees": 156,
+            "style": "diagonal",
+            "sweepDegrees": 204
+          }
+        ]
+      },
+      {
+        "boundariesDegrees": [
+          108,
+          207
+        ],
+        "center": {
+          "x": 415,
+          "y": 113
+        },
+        "frame": {
+          "height": 158,
+          "width": 158,
+          "x": 336,
+          "y": 32
+        },
+        "id": "da_d93edcde06cb57d89aa5728d-2",
+        "label": "C",
+        "labelY": 208,
+        "position": 2,
+        "radius": 61,
+        "sectors": [
+          {
+            "startDegrees": 207,
+            "style": "diagonal",
+            "sweepDegrees": 261
+          }
+        ]
+      },
+      {
+        "boundariesDegrees": [
+          109,
+          270,
+          314
+        ],
+        "center": {
+          "x": 573,
+          "y": 111
+        },
+        "frame": {
+          "height": 158,
+          "width": 158,
+          "x": 494,
+          "y": 32
+        },
+        "id": "da_d93edcde06cb57d89aa5728d-3",
+        "label": "D",
+        "labelY": 208,
+        "position": 3,
+        "radius": 62,
+        "sectors": [
+          {
+            "startDegrees": 0,
+            "style": "diagonal",
+            "sweepDegrees": 360
+          }
+        ]
+      }
+    ],
+    "schemaVersion": "semantic-pie-options-v1",
+    "styleVocabulary": [
+      "diagonal"
+    ],
+    "visualGrammar": "patterned_pie_options"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d93edcde06cb57d89aa5728d/quadrant_01.jpg",
+        "review-crops/da_d93edcde06cb57d89aa5728d/quadrant_02.jpg",
+        "review-crops/da_d93edcde06cb57d89aa5728d/quadrant_03.jpg",
+        "review-crops/da_d93edcde06cb57d89aa5728d/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.131",
+      "crop_verification_elapsed_seconds:0.597",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:饼图未提供具体数值，仅能识别标签和相对比例",
+      "crop_note:compact_delta_verification",
+      "non_data_multiple_choice_pies",
+      "foreground_iou:0.580694",
+      "mean_absolute_error:11.314621",
+      "trace_parameters:{\"epsilonRatio\": 0.01, \"minimumContourArea\": 5.0, \"paletteSize\": 2}",
+      "visual_grammar:patterned_pie_options",
+      "angle_convention:zero_at_twelve_clockwise",
+      "converter:semantic-pie-options-v1",
+      "visual_grammar:patterned_pie_options",
+      "angle_convention:zero_at_twelve_clockwise",
+      "comparison_artifact:previews/structured_visual/da_d93edcde06cb57d89aa5728d-comparison.png",
+      "manual_qa:real_radial_boundaries_recovered_with_center_crossing_hough_and_source_pair_inspection"
+    ],
+    "ocr_engine": "human_verified_sector_geometry",
+    "ocr_mean_confidence": 0.96,
+    "schema_valid": true
+  }
+}

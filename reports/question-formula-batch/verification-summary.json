@@ -1,0 +1,12 @@
+{
+  "asset_count": 55345,
+  "pending_count": 0,
+  "processed_count": 55345,
+  "schema_invalid": [],
+  "schema_invalid_count": 0,
+  "schema_version": "formula-verification-summary-v1",
+  "status_counts": {
+    "candidate_auto": 52296,
+    "verified_override": 3049
+  }
+}

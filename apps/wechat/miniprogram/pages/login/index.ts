@@ -1,6 +1,7 @@
 import { ApiClient } from "../../api/client";
 import { clearSession, storeWechatSession } from "../../api/auth";
 import type { WechatAuthSessionData } from "../../api/generated/types.gen";
+import { LearningBrainApi } from "../../api/learning-brain";
 import { OnboardingApi } from "../../api/onboarding";
 import {
   clearPendingAuthReturn,
@@ -8,11 +9,7 @@ import {
   loginReturnTarget,
   storePendingAuthReturn,
 } from "../../app/navigation/auth-return";
-import {
-  onboardingNavigationTarget,
-  routes,
-  type RegisteredNavigationTarget,
-} from "../../app/navigation/routes";
+import { type RegisteredNavigationTarget } from "../../app/navigation/routes";
 import { PageControllerRegistry } from "../../app/runtime/controller-registry";
 import { currentAuthSession, currentDeviceId } from "../../auth/session";
 import { clearLegacyEssayPending } from "../../features/essay-task/pending-store";
@@ -20,6 +17,12 @@ import {
   WechatLoginController,
   type WechatLoginState,
 } from "../../features/identity/wechat-login-controller";
+import {
+  bootstrapSilentWechatSession,
+  SILENT_WECHAT_LEGAL_ACCEPTED,
+  silentEntryErrorMessage,
+  silentEntryNavigationTarget,
+} from "../../features/identity/silent-entry";
 import { clearOnboardingPendingForUser } from "../../features/onboarding/pending-store";
 
 const controllers = new PageControllerRegistry<object, WechatLoginController>();
@@ -42,7 +45,6 @@ Page({
   data: {
     submitting: false,
     restoring: false,
-    legalAccepted: false,
     errorCode: "",
     errorMessage: "",
   },
@@ -50,42 +52,23 @@ Page({
   onLoad(options: Record<string, string | undefined>) {
     const runtime = controllers.attach(this);
     runtime.controller = createController(this, loginReturnTarget(options.returnTo));
-    void runtime.controller.resume();
+    void bootstrapSilentWechatSession(runtime.controller, () => currentAuthSession() !== undefined);
   },
 
   onUnload() {
     controllers.detach(this);
   },
 
-  login() {
-    if (!this.data.legalAccepted) {
-      void wx.showToast({ title: "先勾选同意用户协议和隐私指引哦", icon: "none" });
-      return;
-    }
-    void controllers.get(this)?.controller?.login();
-  },
-
-  toggleLegalConsent(event: WechatMiniprogram.CheckboxGroupChange) {
-    this.setData({ legalAccepted: event.detail.value.includes("accepted") });
-  },
-
-  openTerms() {
-    void wx.navigateTo({ url: routes.terms });
-  },
-
-  openPrivacy() {
-    wx.openPrivacyContract({
-      fail: () => {
-        void wx.showToast({ title: "哎，隐私指引暂时打不开，稍后再试哦", icon: "none" });
-      },
-    });
+  retry() {
+    const controller = controllers.get(this)?.controller;
+    if (!controller) return;
+    void bootstrapSilentWechatSession(controller, () => currentAuthSession() !== undefined);
   },
 });
 
 function createController(
   page: {
     setData(state: Partial<WechatLoginState>): void;
-    data: { legalAccepted: boolean };
   },
   requestedReturn: RegisteredNavigationTarget | null,
 ) {
@@ -93,7 +76,7 @@ function createController(
   return new WechatLoginController({
     requestCode: loginCode,
     deviceId: currentDeviceId,
-    legalAccepted: () => page.data.legalAccepted,
+    legalAccepted: () => SILENT_WECHAT_LEGAL_ACCEPTED,
     authenticate: async (request) =>
       (await client.post<WechatAuthSessionData>("/api/v2/auth/wechat", request)).data,
     restoreProgress: async () => {
@@ -120,19 +103,41 @@ function createController(
         storePendingAuthReturn(session.userId, requestedReturn.url);
       }
       const pendingReturn = session ? loadPendingAuthReturn(session.userId) : requestedReturn;
-      const target =
-        nextStep === "workspace" && pendingReturn
-          ? pendingReturn
-          : onboardingNavigationTarget(nextStep);
+      const hasLearningEvidence = session
+        ? await loadLearningEvidenceState(session.accessToken, nextStep)
+        : false;
+      const target = silentEntryNavigationTarget(nextStep, pendingReturn, hasLearningEvidence);
       await navigateFromLogin(target);
-      if (nextStep === "workspace" && pendingReturn && session) {
+      if (pendingReturn && session && target.url === pendingReturn.url) {
         clearPendingAuthReturn(session.userId);
       }
     },
     publish: (state) => {
-      page.setData(state);
+      page.setData({
+        ...state,
+        errorMessage: silentEntryErrorMessage(state.errorMessage),
+      });
     },
   });
+}
+
+async function loadLearningEvidenceState(
+  accessToken: string,
+  nextStep: WechatAuthSessionData["onboardingProgress"]["nextStep"],
+): Promise<boolean | null> {
+  if (nextStep === "workspace") return true;
+  try {
+    const { data } = await new LearningBrainApi(
+      new ApiClient(undefined, accessToken),
+    ).getCoachContext();
+    return data.recognition.evidenceCount > 0;
+  } catch (error) {
+    // The legacy onboarding checklist must never become a hard gate when the
+    // read-only coach projection is temporarily unavailable. Today can still
+    // build a default real task for a learner with no evidence.
+    console.warn("[identity] coach recognition unavailable during silent entry", error);
+    return null;
+  }
 }
 
 async function navigateFromLogin(target: RegisteredNavigationTarget): Promise<void> {

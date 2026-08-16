@@ -1,0 +1,121 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "展会数量（场）",
+      "展会展出面积（万平方米）",
+      "会展业总产值（亿元）",
+      "出境参展项目数量（个）",
+      "出境参展净面积（万平方米）",
+      "出境参展企业数（家）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "2009",
+        "group": null,
+        "label": "2009",
+        "unit": null,
+        "values": [
+          4920,
+          4990,
+          1817,
+          1183,
+          42.64,
+          30185
+        ]
+      },
+      {
+        "display_label": "2010",
+        "group": null,
+        "label": "2010",
+        "unit": null,
+        "values": [
+          6200,
+          7440,
+          2482,
+          1316,
+          51.75,
+          36007
+        ]
+      },
+      {
+        "display_label": "2011",
+        "group": null,
+        "label": "2011",
+        "unit": null,
+        "values": [
+          6830,
+          8120,
+          3016,
+          1375,
+          60.5,
+          40190
+        ]
+      },
+      {
+        "display_label": "2012",
+        "group": null,
+        "label": "2012",
+        "unit": null,
+        "values": [
+          7189,
+          8990,
+          3500,
+          1528,
+          69.73,
+          47376
+        ]
+      },
+      {
+        "display_label": "2013",
+        "group": null,
+        "label": "2013",
+        "unit": null,
+        "values": [
+          7319,
+          9391,
+          3870,
+          1391,
+          61.8,
+          47494
+        ]
+      },
+      {
+        "display_label": "2014",
+        "group": null,
+        "label": "2014",
+        "unit": null,
+        "values": [
+          8009,
+          10276,
+          4184,
+          1447,
+          70.7,
+          47787
+        ]
+      },
+      {
+        "display_label": "2015",
+        "group": null,
+        "label": "2015",
+        "unit": null,
+        "values": [
+          9283,
+          11798,
+          4803,
+          1385,
+          63.9,
+          46000
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

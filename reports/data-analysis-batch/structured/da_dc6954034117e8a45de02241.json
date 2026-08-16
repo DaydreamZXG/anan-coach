@@ -1,0 +1,188 @@
+{
+  "asset_id": "da_dc6954034117e8a45de02241",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 40,
+        "min": -50,
+        "ticks": [],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "欧盟",
+    "美国",
+    "东盟",
+    "日本",
+    "中国香港",
+    "韩国",
+    "中国台湾",
+    "巴西",
+    "印度",
+    "俄罗斯",
+    "南非"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "比上年增长（出口）（%）",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "比上年增长（进口）（%）",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "比上年增长（出口）（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        20,
+        18,
+        16,
+        14,
+        10,
+        -10,
+        14,
+        20,
+        30,
+        20,
+        18
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "比上年增长（进口）（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        22,
+        20,
+        18,
+        16,
+        12,
+        -50,
+        16,
+        24,
+        40,
+        32,
+        16
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0207_b2b252d34f4c9db6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0207_b2b252d34f4c9db6.png",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_4cd8fe498b0f254004c9",
+        "question_number": 126,
+        "source_jsonl_line": 52790
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0207_b2b252d34f4c9db6.png",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_a83aa6bb2e694e849fad",
+        "question_number": 127,
+        "source_jsonl_line": 52791
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0207_b2b252d34f4c9db6.png",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_ff00f0fd04f632f2ea9c",
+        "question_number": 128,
+        "source_jsonl_line": 52792
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0207_b2b252d34f4c9db6.png",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_b6f06bfbfcd7764c3ca4",
+        "question_number": 129,
+        "source_jsonl_line": 52793
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0211_5c0f9b1aa0b73e26.png",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_a0b29e3d3cc736db26c7",
+        "question_number": 130,
+        "source_jsonl_line": 52794
+      }
+    ],
+    "sha256": "dc6954034117e8a45de02241de91c714aa18d7dd095dfe6606b1a72438662f35"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2017年对主要国家和地区货物进出口增长速度",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:1.933",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "independent_compact_chart_adjudication"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b_compact_chart",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "asset_id": "da_7107de342f104e45fb5abd10",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 9000,
+        "min": 0,
+        "ticks": [
+          0.0,
+          1000.0,
+          2000.0,
+          3000.0,
+          4000.0,
+          5000.0,
+          6000.0,
+          7000.0,
+          8000.0,
+          9000.0
+        ],
+        "title": null,
+        "unit": "万户"
+      }
+    ]
+  },
+  "categories": [
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "移动电话年末用户（万户）",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "固定互联网宽带接入用户数（万户）",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "移动电话年末用户",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万户",
+      "values": [
+        6229.1,
+        6367.2,
+        7121.0,
+        7581.8,
+        8195.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "固定互联网宽带接入用户数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万户",
+      "values": [
+        1127.6,
+        1226.5,
+        1612.0,
+        1910.1,
+        2159.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河北/2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0106_c9e9018b580f8350.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0106_c9e9018b580f8350.png",
+        "paper_title": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）",
+        "question_id": "pq_1e38e7bf15ac0798082b",
+        "question_number": 111,
+        "source_jsonl_line": 55868
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0106_c9e9018b580f8350.png",
+        "paper_title": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）",
+        "question_id": "pq_d5208589e77307c94386",
+        "question_number": 112,
+        "source_jsonl_line": 55869
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0106_c9e9018b580f8350.png",
+        "paper_title": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）",
+        "question_id": "pq_1e947ee8352bf1293be7",
+        "question_number": 113,
+        "source_jsonl_line": 55870
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0149_496e6f71e92ebdff.png",
+        "paper_title": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）",
+        "question_id": "pq_69c1f1e185078085a8b3",
+        "question_number": 114,
+        "source_jsonl_line": 55871
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0106_c9e9018b580f8350.png",
+        "paper_title": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）",
+        "question_id": "pq_e1a17c1994633c7dd538",
+        "question_number": 115,
+        "source_jsonl_line": 55872
+      }
+    ],
+    "sha256": "7107de342f104e45fb5abd106833166e6aa59a68eb9734330dee600178e9db9c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014-2018年年末移动电话用户和固定互联网宽带接入用户数",
+  "unit": "万户",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_7107de342f104e45fb5abd10/column_band_01.jpg",
+        "review-crops/da_7107de342f104e45fb5abd10/column_band_02.jpg",
+        "review-crops/da_7107de342f104e45fb5abd10/column_band_03.jpg",
+        "review-crops/da_7107de342f104e45fb5abd10/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.175",
+      "crop_verification_elapsed_seconds:2.765",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

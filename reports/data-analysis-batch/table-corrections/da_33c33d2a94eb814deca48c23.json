@@ -1,0 +1,106 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "国内（万辆）",
+          "同比增长（%）"
+        ],
+        "label": "国内"
+      },
+      {
+        "columns": [
+          "出口（万辆）",
+          "同比增长（%）"
+        ],
+        "label": "出口"
+      }
+    ],
+    "columns": [
+      "国内（万辆）",
+      "同比增长（%）",
+      "出口（万辆）",
+      "同比增长（%）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "月份",
+    "rows": [
+      {
+        "label": "1~12",
+        "unit": null,
+        "values": [
+          829.2,
+          33.5,
+          120.3,
+          77.6
+        ]
+      },
+      {
+        "label": "7",
+        "unit": null,
+        "values": [
+          67.9,
+          26.0,
+          10.1,
+          87.0
+        ]
+      },
+      {
+        "label": "8",
+        "unit": null,
+        "values": [
+          75.6,
+          29.7,
+          9.0,
+          8.1
+        ]
+      },
+      {
+        "label": "9",
+        "unit": null,
+        "values": [
+          80.8,
+          22.8,
+          9.6,
+          92.8
+        ]
+      },
+      {
+        "label": "10",
+        "unit": null,
+        "values": [
+          83.2,
+          37.3,
+          12.4,
+          12.8
+        ]
+      },
+      {
+        "label": "11",
+        "unit": null,
+        "values": [
+          92.9,
+          33.9,
+          9.7,
+          1.6
+        ]
+      },
+      {
+        "label": "12",
+        "unit": null,
+        "values": [
+          108.0,
+          47.5,
+          11.1,
+          36.5
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

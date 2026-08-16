@@ -1,0 +1,290 @@
+{
+  "asset_id": "da_2ff24530f3621effb75d3691",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/宁夏/2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0117_91a4cb2435217a91.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0117_91a4cb2435217a91.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_5f06d8c764c290228a2f",
+        "question_number": 111,
+        "source_jsonl_line": 24997
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0117_91a4cb2435217a91.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_2802906d3407befc312a",
+        "question_number": 113,
+        "source_jsonl_line": 24999
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0117_91a4cb2435217a91.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_6f0712157f09af53ccd5",
+        "question_number": 111,
+        "source_jsonl_line": 41949
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0117_91a4cb2435217a91.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_9b0a6a40cef2350d8e59",
+        "question_number": 112,
+        "source_jsonl_line": 41950
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0108_91a4cb2435217a91.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_0de984fba473bc93af96",
+        "question_number": 111,
+        "source_jsonl_line": 65253
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0125_91a4cb2435217a91.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_bdc33847a9d216e7b09a",
+        "question_number": 112,
+        "source_jsonl_line": 79551
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0131_91a4cb2435217a91.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_560c69ee32c290fbdc49",
+        "question_number": 112,
+        "source_jsonl_line": 82777
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0111_91a4cb2435217a91.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_4f1e85e57dc94407b080",
+        "question_number": 111,
+        "source_jsonl_line": 92620
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0113_91a4cb2435217a91.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_0c034f42b98b07ad7882",
+        "question_number": 111,
+        "source_jsonl_line": 97014
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0127_91a4cb2435217a91.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_87f8d192b67bcf7fd856",
+        "question_number": 112,
+        "source_jsonl_line": 98990
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0127_91a4cb2435217a91.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_5f3a92121b9f1be82028",
+        "question_number": 115,
+        "source_jsonl_line": 98993
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0114_91a4cb2435217a91.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_e785d8bdd566cc301ecd",
+        "question_number": 111,
+        "source_jsonl_line": 101534
+      }
+    ],
+    "sha256": "2ff24530f3621effb75d36918d674a12b2bcb078544233a808893cf6edd25c51"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口｜出口额（亿美元）",
+          "出口｜比上年增长（%）"
+        ],
+        "label": "出口"
+      },
+      {
+        "columns": [
+          "进口｜进口额（亿美元）",
+          "进口｜比上年增长（%）"
+        ],
+        "label": "进口"
+      }
+    ],
+    "columns": [
+      "出口｜出口额（亿美元）",
+      "出口｜比上年增长（%）",
+      "进口｜进口额（亿美元）",
+      "进口｜比上年增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家和地区",
+    "rows": [
+      {
+        "display_label": "欧盟",
+        "group": null,
+        "label": "欧盟",
+        "unit": "亿美元",
+        "values": [
+          3560,
+          14.4,
+          2112,
+          25.4
+        ]
+      },
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": "亿美元",
+        "values": [
+          3245,
+          14.5,
+          1222,
+          19.6
+        ]
+      },
+      {
+        "display_label": "中国香港",
+        "group": null,
+        "label": "中国香港",
+        "unit": "亿美元",
+        "values": [
+          2680,
+          22.8,
+          155,
+          26.4
+        ]
+      },
+      {
+        "display_label": "东盟",
+        "group": null,
+        "label": "东盟",
+        "unit": "亿美元",
+        "values": [
+          1701,
+          23.1,
+          1928,
+          24.6
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": "亿美元",
+        "values": [
+          1483,
+          22.5,
+          1946,
+          10.1
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": "亿美元",
+        "values": [
+          829,
+          20.6,
+          1627,
+          17.6
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": null,
+        "label": "印度",
+        "unit": "亿美元",
+        "values": [
+          505,
+          23.5,
+          234,
+          12.1
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": null,
+        "label": "俄罗斯",
+        "unit": "亿美元",
+        "values": [
+          389,
+          31.4,
+          403,
+          55.6
+        ]
+      },
+      {
+        "display_label": "中国台湾",
+        "group": null,
+        "label": "中国台湾",
+        "unit": "亿美元",
+        "values": [
+          351,
+          18.3,
+          1249,
+          7.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

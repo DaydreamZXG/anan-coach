@@ -80,18 +80,25 @@
         state="{{materialReaderState}}"
         interactionActive="{{materialCaptureActive}}"
         annotateAvailable="{{true}}"
-        inlineAnnotateButton="{{true}}"
-        annotateActive="{{annotationMode === 'annotate' && annotationSurface === 'material'}}"
-        annotationOpen="{{annotationMode === 'annotate' && annotationSurface === 'material'}}"
+        inlineAnnotateButton="{{false}}"
+        annotateActive="{{annotationMode === 'annotate'}}"
+        annotationOpen="{{annotationMode === 'annotate'}}"
         annotationStrokes="{{materialAnnotations}}"
         annotationElapsedSeconds="{{question.elapsedSeconds}}"
         annotationElapsedMs="{{question.elapsedMs || -1}}"
+        annotationSurfaceSwitchAvailable="{{false}}"
+        annotationActiveSurface="{{annotationSurface || 'material'}}"
+        annotationToolbarAvailable="{{annotationCanvas === 'material' || materialOpen}}"
+        annotationTool="{{annotationTool}}"
         bindstatechange="updateMaterialReaderState"
         bindpositionchange="updateMaterialPosition"
         bindannotate="openMaterialAnnotation"
         bindstrokeschange="changeMaterialAnnotations"
         bindannotatedone="closeAnnotation"
         bindannotationmore="toggleTools"
+        bindannotationsurfacechange="switchAnnotationSurface"
+        bindannotationtoolchange="changeAnnotationTool"
+        bindannotationfocus="focusMaterialAnnotation"
       />
 
       <!-- 题目舞台同时承载滚动题面与草稿层；平板双栏时草稿不会再伸进左侧材料栏。 -->
@@ -182,19 +189,26 @@
       </scroll-view>
 
       <!-- 与行测练习页共用的题面草稿：同一组件、同一笔迹契约、同一检查点保存链路。 -->
-      <view class="mock-annotation-host {{touchOwner === 'annotation' && annotationSurface === 'question' ? 'mock-annotation-host--active' : ''}}">
+      <view class="mock-annotation-host {{touchOwner === 'annotation' ? 'mock-annotation-host--active' : ''}}">
         <annotation-layer
           wx:if="{{annotationMode === 'annotate' || questionAnnotations.length}}"
-          mode="{{annotationMode === 'annotate' && annotationSurface === 'question' ? 'annotate' : 'static'}}"
+          mode="{{annotationMode === 'annotate' ? 'annotate' : 'static'}}"
           strokes="{{questionAnnotations}}"
           elapsedSeconds="{{question.elapsedSeconds}}"
           elapsedMs="{{question.elapsedMs || -1}}"
           segments="{{annotationSegments}}"
           scroll-top="{{questionScrollPosition}}"
           content-height="{{questionContentHeight}}"
+          surfaceSwitchAvailable="{{false}}"
+          activeSurface="{{annotationSurface || 'question'}}"
+          toolbarAvailable="{{annotationCanvas === 'question' && !materialOpen}}"
+          activeTool="{{annotationTool}}"
           bindstrokeschange="changeAnnotations"
           binddone="closeAnnotation"
           bindmore="toggleTools"
+          bindsurfacechange="switchAnnotationSurface"
+          bindtoolchange="changeAnnotationTool"
+          bindfocus="focusQuestionAnnotation"
         />
       </view>
       </view>

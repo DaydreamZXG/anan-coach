@@ -16,6 +16,7 @@ from app.domains.ai.governance.retrieval import (
     context_candidate,
 )
 from app.domains.companion.repository import CompanionContextRecord
+from app.domains.companion.memory import CompanionMemoryStore
 from app.domains.companion.schemas import CompanionCitation
 
 
@@ -61,7 +62,10 @@ class CompanionContextAssembler:
         decision: IntentDecision,
     ) -> CompanionContextBundle:
         provider_payload = _context_payload(context)
-        candidates = _context_retrieval_candidates(context)
+        memory_items = CompanionMemoryStore(self.session).active_provider_items(
+            user_id=user_id,
+        )
+        candidates = (*_context_retrieval_candidates(context), *_memory_candidates(memory_items))
         if decision.companion_intent in {"rest", "encouragement"}:
             candidates = tuple(
                 item
@@ -74,6 +78,21 @@ class CompanionContextAssembler:
             context=request_context,
             context_sources=candidates,
         )
+        selected_memory_refs = {
+            item.reference.source_id
+            for item in retrieval.sources
+            if item.reference.kind == "explicit_user_memory"
+        }
+        selected_memory = [
+            item
+            for item in memory_items
+            if f"companion-memory:{item['memoryId']}" in selected_memory_refs
+        ]
+        if selected_memory:
+            provider_payload["userMemory"] = {
+                "source": "explicit_user",
+                "items": selected_memory,
+            }
         AIGovernanceRepository().record_retrieval_bundle(
             self.session,
             user_id=user_id,
@@ -116,6 +135,7 @@ def _context_payload(context: CompanionContextRecord) -> dict[str, object]:
             "todayOmissionReason": context.essay_plan_omission_reason,
         },
         "learningBrain": context.learning_brain_profile,
+        "coachContext": context.learner_coach_context,
         "rank": {
             "level": context.rank_level,
             "name": context.rank_name,
@@ -131,6 +151,8 @@ def _context_state_version(
     *,
     fallback: str,
 ) -> str:
+    if context.learner_coach_context is not None:
+        return str(context.learner_coach_context["profileVersionId"])
     if context.learning_brain_profile is None:
         return fallback
     return str(context.learning_brain_profile["profileVersionId"])
@@ -146,6 +168,8 @@ def _build_persona_prompt() -> str:
         "learningBrain 中的能力、模块、错误模式与计划结论都带内部版本；版本只用于系统追溯，"
         "对用户只说明可理解的事实和证据，不得输出 JSON、英文键名、枚举值、UUID、算法名、版本号或内部来源标识。"
         "learningBrain 的 strategyDirective 记录本周策略：active 为已生效安排，pending 为待确认候选；"
+        "coachContext 是岸岸对用户的统一当前认识，recognition 和 freshness 已由服务端根据"
+        "版本化证据编译；不得根据聊天内容自行升级认识层级或忽略过期/冲突状态。"
         "用户问及「为什么这样排」等排期原因时，引用对应 rationale 解释；pending 存在且用户询问学习安排时，"
         "可主动请其确认，确认前不得当作已生效，也不得把候选写成新的能力事实。"
         "不得把本次回答、用户情绪或未确认候选写成新的能力事实。"
@@ -287,7 +311,24 @@ def _context_retrieval_candidates(context: CompanionContextRecord) -> tuple[Any,
             display_summary=_activity_citation_summary(context),
         )
     )
-    if context.learning_brain_profile is not None:
+    if context.learner_coach_context is not None:
+        coach_context = context.learner_coach_context
+        profile_value = coach_context.get("profile")
+        profile = profile_value if isinstance(profile_value, dict) else {}
+        candidates.append(
+            context_candidate(
+                kind="learning_brain",
+                source_id=str(coach_context["profileVersionId"]),
+                version=str(profile.get("versionNo", 1)),
+                anchor="coach-context-evidence",
+                title="岸岸当前认识",
+                text_value=json.dumps(coach_context, ensure_ascii=False, sort_keys=True),
+                trust_scope="learning_brain",
+                source_weight=1.0,
+                display_summary=_learning_brain_citation_summary(profile),
+            )
+        )
+    elif context.learning_brain_profile is not None:
         profile = context.learning_brain_profile
         candidates.append(
             context_candidate(
@@ -375,6 +416,36 @@ def _context_retrieval_candidates(context: CompanionContextRecord) -> tuple[Any,
             )
         )
     return tuple(candidates)
+
+
+def _memory_candidates(
+    items: tuple[dict[str, str | int], ...],
+) -> tuple[Any, ...]:
+    labels = {
+        "explanation_preference": "讲解偏好",
+        "study_constraint": "学习约束（需在设置中确认后才能改变计划）",
+        "personal_note": "个人备忘",
+    }
+    return tuple(
+        context_candidate(
+            kind="explicit_user_memory",
+            source_id=f"companion-memory:{item['memoryId']}",
+            version=str(item["revision"]),
+            anchor=str(item["category"]),
+            title=labels.get(str(item["category"]), "用户主动记忆"),
+            text_value=str(item["content"]),
+            trust_scope="explicit_user_memory",
+            source_weight=0.72,
+            display_summary=f"用户主动保存的{labels.get(str(item['category']), '记忆')}。",
+            untrusted_input=True,
+            retrieval_score={
+                "explanation_preference": 0.55,
+                "study_constraint": 0.3,
+                "personal_note": 0.0,
+            }.get(str(item["category"]), 0.0),
+        )
+        for item in items
+    )
 
 
 def _selected_citations(

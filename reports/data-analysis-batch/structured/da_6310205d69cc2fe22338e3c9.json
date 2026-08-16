@@ -1,0 +1,243 @@
+{
+  "asset_id": "da_6310205d69cc2fe22338e3c9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2015年深圳市公务员录用考试《行测》题_images/img_0170_8f9df6450782b0ff.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年深圳市公务员录用考试《行测》题_images/img_0170_8f9df6450782b0ff.png",
+        "paper_title": "2015年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_6230079951ccf70daa89",
+        "question_number": 91,
+        "source_jsonl_line": 67547
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年深圳市公务员录用考试《行测》题_images/img_0170_8f9df6450782b0ff.png",
+        "paper_title": "2015年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_c987c336e073a3849625",
+        "question_number": 92,
+        "source_jsonl_line": 67548
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年深圳市公务员录用考试《行测》题_images/img_0187_50eefcd212f02ec5.png",
+        "paper_title": "2015年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_d7bbfe38b245a35ef0e8",
+        "question_number": 93,
+        "source_jsonl_line": 67549
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年深圳市公务员录用考试《行测》题_images/img_0187_50eefcd212f02ec5.png",
+        "paper_title": "2015年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_835081949065d28132e1",
+        "question_number": 94,
+        "source_jsonl_line": 67550
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年深圳市公务员录用考试《行测》题_images/img_0187_50eefcd212f02ec5.png",
+        "paper_title": "2015年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_52eef939fda9dad3b4fe",
+        "question_number": 95,
+        "source_jsonl_line": 67551
+      }
+    ],
+    "sha256": "6310205d69cc2fe22338e3c9d0087cf0b01879d1436b9e5845a3e9a125cf23eb"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "行业",
+      "增加值 (亿元)",
+      "劳动者报酬 (亿元)",
+      "就业人数",
+      "人均劳动报酬 (万元/人)",
+      "劳动生产率 (万元/人)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "纺织服装、鞋、帽行业",
+        "unit": null,
+        "values": [
+          "纺织服装、鞋、帽行业",
+          304.81,
+          191.36,
+          120.73,
+          1.59,
+          2.52
+        ]
+      },
+      {
+        "label": "皮革、毛皮、羽毛(绒)及其制造业",
+        "unit": null,
+        "values": [
+          "皮革、毛皮、羽毛(绒)及其制造业",
+          197.48,
+          135.64,
+          101.6,
+          1.34,
+          1.94
+        ]
+      },
+      {
+        "label": "家具制造业",
+        "unit": null,
+        "values": [
+          "家具制造业",
+          126.56,
+          62.23,
+          36.78,
+          1.69,
+          3.44
+        ]
+      },
+      {
+        "label": "文教体育用品制造业",
+        "unit": null,
+        "values": [
+          "文教体育用品制造业",
+          154.86,
+          99.77,
+          77.39,
+          1.29,
+          2.0
+        ]
+      },
+      {
+        "label": "化学纤维制造业",
+        "unit": null,
+        "values": [
+          "化学纤维制造业",
+          9.51,
+          4.23,
+          2.49,
+          1.7,
+          3.82
+        ]
+      },
+      {
+        "label": "橡胶制造业",
+        "unit": null,
+        "values": [
+          "橡胶制造业",
+          51.73,
+          26.72,
+          16.77,
+          1.59,
+          3.08
+        ]
+      },
+      {
+        "label": "塑料制品业",
+        "unit": null,
+        "values": [
+          "塑料制品业",
+          353.2,
+          146.32,
+          91.43,
+          1.6,
+          3.86
+        ]
+      },
+      {
+        "label": "工艺品及其他制造业",
+        "unit": null,
+        "values": [
+          "工艺品及其他制造业",
+          134.14,
+          76.35,
+          49.93,
+          1.53,
+          2.69
+        ]
+      },
+      {
+        "label": "8个低效行业合计",
+        "unit": null,
+        "values": [
+          "8个低效行业合计",
+          1332.29,
+          742.62,
+          497.12,
+          1.49,
+          null
+        ]
+      },
+      {
+        "label": "比重 (%)",
+        "unit": null,
+        "values": [
+          "比重 (%)",
+          17.8,
+          25.7,
+          29.6,
+          1.72,
+          4.45
+        ]
+      }
+    ]
+  },
+  "title": "2004年广东省制造业内部8个低效行业统计情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6310205d69cc2fe22338e3c9/row_band_01.jpg",
+        "review-crops/da_6310205d69cc2fe22338e3c9/row_band_02.jpg",
+        "review-crops/da_6310205d69cc2fe22338e3c9/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.239",
+      "crop_verification_elapsed_seconds:2.984",
+      "candidate_value_changes_after_crop:1",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

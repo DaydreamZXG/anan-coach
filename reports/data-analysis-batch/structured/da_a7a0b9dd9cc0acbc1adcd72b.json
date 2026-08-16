@@ -1,0 +1,283 @@
+{
+  "asset_id": "da_a7a0b9dd9cc0acbc1adcd72b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "指标",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "绝对数",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "比上年增长%",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "六大主导产业",
+    "汽车",
+    "装备制造",
+    "家用电器",
+    "食品及农副产品加工",
+    "新型平板显示",
+    "新能源及光伏"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "绝对数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        951.6,
+        145.78,
+        288.84,
+        298.86,
+        154.46,
+        33.96,
+        29.71
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比上年增长%",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        15.9,
+        3.2,
+        19.7,
+        12.5,
+        20.2,
+        44.2,
+        41.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2016年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0150_4b8dcf6d8d642fed.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0150_4b8dcf6d8d642fed.png",
+        "paper_title": "2016年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_3e8b124eaac6fae3f41a",
+        "question_number": 96,
+        "source_jsonl_line": 86414
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0164_0aa7bc254f8032ca.png",
+        "paper_title": "2016年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_59bea51427dff693ca6d",
+        "question_number": 97,
+        "source_jsonl_line": 86415
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0164_0aa7bc254f8032ca.png",
+        "paper_title": "2016年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_f5b81f5e696721a525b6",
+        "question_number": 98,
+        "source_jsonl_line": 86416
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0164_0aa7bc254f8032ca.png",
+        "paper_title": "2016年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_465c17e5b16c4d6f6bab",
+        "question_number": 99,
+        "source_jsonl_line": 86417
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0150_4b8dcf6d8d642fed.png",
+        "paper_title": "2016年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_3dd65455cf3c6c80846b",
+        "question_number": 100,
+        "source_jsonl_line": 86418
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0194_0aa7bc254f8032ca.png",
+        "paper_title": "2016年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_014de9c4f53a69247324",
+        "question_number": 96,
+        "source_jsonl_line": 93819
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0155_4b8dcf6d8d642fed.png",
+        "paper_title": "2016年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_fb3473dfef94385e77c1",
+        "question_number": 97,
+        "source_jsonl_line": 93820
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0155_4b8dcf6d8d642fed.png",
+        "paper_title": "2016年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_57d2f068480c4e0a6842",
+        "question_number": 98,
+        "source_jsonl_line": 93821
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0194_0aa7bc254f8032ca.png",
+        "paper_title": "2016年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_60653620e615b5aafa0b",
+        "question_number": 99,
+        "source_jsonl_line": 93822
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0155_4b8dcf6d8d642fed.png",
+        "paper_title": "2016年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_a3a442aed6ab84e059f1",
+        "question_number": 100,
+        "source_jsonl_line": 93823
+      }
+    ],
+    "sha256": "a7a0b9dd9cc0acbc1adcd72b3a8e546d37fd47395749363508f3a7ed7441ace2"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "绝对数",
+      "比上年增长%"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "六大主导产业",
+        "unit": null,
+        "values": [
+          "六大主导产业",
+          951.6,
+          15.9
+        ]
+      },
+      {
+        "label": "汽车",
+        "unit": null,
+        "values": [
+          "汽车",
+          145.78,
+          3.2
+        ]
+      },
+      {
+        "label": "装备制造",
+        "unit": null,
+        "values": [
+          "装备制造",
+          288.84,
+          19.7
+        ]
+      },
+      {
+        "label": "家用电器",
+        "unit": null,
+        "values": [
+          "家用电器",
+          298.86,
+          12.5
+        ]
+      },
+      {
+        "label": "食品及农副产品加工",
+        "unit": null,
+        "values": [
+          "食品及农副产品加工",
+          154.46,
+          20.2
+        ]
+      },
+      {
+        "label": "新型平板显示",
+        "unit": null,
+        "values": [
+          "新型平板显示",
+          33.96,
+          44.2
+        ]
+      },
+      {
+        "label": "新能源及光伏",
+        "unit": null,
+        "values": [
+          "新能源及光伏",
+          29.71,
+          41.3
+        ]
+      }
+    ]
+  },
+  "title": "2014年A市六大主导产业增加值及其增长速度",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a7a0b9dd9cc0acbc1adcd72b/row_band_01.jpg",
+        "review-crops/da_a7a0b9dd9cc0acbc1adcd72b/row_band_02.jpg",
+        "review-crops/da_a7a0b9dd9cc0acbc1adcd72b/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.187",
+      "crop_verification_elapsed_seconds:2.325",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

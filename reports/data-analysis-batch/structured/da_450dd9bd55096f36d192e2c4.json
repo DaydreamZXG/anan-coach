@@ -1,0 +1,429 @@
+{
+  "asset_id": "da_450dd9bd55096f36d192e2c4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 20000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000,
+          12000,
+          14000,
+          16000,
+          18000,
+          20000
+        ],
+        "title": "进口量",
+        "unit": "万吨"
+      },
+      {
+        "max": 100,
+        "min": -250,
+        "ticks": [
+          -250,
+          -200,
+          -150,
+          -100,
+          -50,
+          0,
+          50,
+          100
+        ],
+        "title": "同比增速",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2021年1-2月",
+    "2021年3月",
+    "2021年4月",
+    "2021年5月",
+    "2021年6月",
+    "2021年7月",
+    "2021年8月",
+    "2021年9月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "煤炭进口量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "原油进口量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "天然气进口量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "煤炭同比增速",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "原油同比增速",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "天然气同比增速",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "煤炭进口量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        4115,
+        2733,
+        2173,
+        1015,
+        2839,
+        3018,
+        2805,
+        3288
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "原油进口量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        8957,
+        4966,
+        4036,
+        4097,
+        4013,
+        4124,
+        4453,
+        4105
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "天然气进口量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        2080,
+        873,
+        1024,
+        1032,
+        1021,
+        834,
+        1044,
+        1062
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "煤炭同比增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -39.5,
+        -1.8,
+        -29.6,
+        -14.6,
+        -24.5,
+        -19.2,
+        -6.2,
+        -15.3
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_5",
+      "label": "原油同比增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        17.4,
+        27.1,
+        -0.1,
+        -4.6,
+        13.1,
+        16.4,
+        12.2,
+        22.7
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_6",
+      "label": "天然气同比增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        4.1,
+        20.8,
+        -0.1,
+        33.1,
+        22.9,
+        27.9,
+        35.8,
+        57.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0080_3d552868ed532d55.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0080_3d552868ed532d55.png",
+        "paper_title": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_021b3697fb5439867d01",
+        "question_number": 46,
+        "source_jsonl_line": 63183
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0091_3ff40fa626dcaf3e.png",
+        "paper_title": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_4e423d08c7079bb9d895",
+        "question_number": 47,
+        "source_jsonl_line": 63184
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0080_3d552868ed532d55.png",
+        "paper_title": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_49659175cfad9b1fb2eb",
+        "question_number": 48,
+        "source_jsonl_line": 63185
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0080_3d552868ed532d55.png",
+        "paper_title": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_3963d9def5fbb49a2c36",
+        "question_number": 49,
+        "source_jsonl_line": 63186
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0080_3d552868ed532d55.png",
+        "paper_title": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_4992cdcd40a3374f20be",
+        "question_number": 50,
+        "source_jsonl_line": 63187
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0092_3d552868ed532d55.png",
+        "paper_title": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_80ee7f79d8b5ee61d20f",
+        "question_number": 46,
+        "source_jsonl_line": 89936
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0103_3ff40fa626dcaf3e.png",
+        "paper_title": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_e254c949fcf7a6ec5c11",
+        "question_number": 47,
+        "source_jsonl_line": 89937
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0092_3d552868ed532d55.png",
+        "paper_title": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_286a3e4383d04ba11204",
+        "question_number": 48,
+        "source_jsonl_line": 89938
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0103_3ff40fa626dcaf3e.png",
+        "paper_title": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_0c0f5db0def515a329d7",
+        "question_number": 49,
+        "source_jsonl_line": 89939
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0103_3ff40fa626dcaf3e.png",
+        "paper_title": "2023年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_5544fb7fd02cd9249052",
+        "question_number": 50,
+        "source_jsonl_line": 89940
+      }
+    ],
+    "sha256": "450dd9bd55096f36d192e2c4597ccd290d2e92a0c9c4eb58942dd2ed2c0e0618"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2021年1-9月我国煤炭、原油、天然气进口量及同比增速",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_450dd9bd55096f36d192e2c4/column_band_01.jpg",
+        "review-crops/da_450dd9bd55096f36d192e2c4/column_band_02.jpg",
+        "review-crops/da_450dd9bd55096f36d192e2c4/column_band_03.jpg",
+        "review-crops/da_450dd9bd55096f36d192e2c4/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:15.051",
+      "crop_verification_elapsed_seconds:41.559",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了煤炭进口量在2021年1-2月的数值为4115（原图显示为8957，应为原油进口量）。",
+      "crop_note:修正了原油进口量在2021年1-2月的数值为8957（原图显示为4115，应为煤炭进口量）。",
+      "crop_note:修正了天然气进口量在2021年1-2月的数值为2080（原图显示为2080，正确）。",
+      "crop_note:修正了煤炭同比增速在2021年1-2月的数值为-39.5（原图显示为-39.5，正确）。",
+      "crop_note:修正了原油同比增速在2021年1-2月的数值为17.4（原图显示为17.4，正确）。",
+      "crop_note:修正了天然气同比增速在2021年1-2月的数值为4.1（原图显示为4.1，正确）。",
+      "crop_note:修正了煤炭进口量在2021年3月的数值为2733（原图显示为2733，正确）。",
+      "crop_note:修正了原油进口量在2021年3月的数值为4966（原图显示为4966，正确）。",
+      "crop_note:修正了天然气进口量在2021年3月的数值为873（原图显示为873，正确）。",
+      "crop_note:修正了煤炭同比增速在2021年3月的数值为-1.8（原图显示为-1.8，正确）。",
+      "crop_note:修正了原油同比增速在2021年3月的数值为27.1（原图显示为27.1，正确）。",
+      "crop_note:修正了天然气同比增速在2021年3月的数值为20.8（原图显示为20.8，正确）。",
+      "crop_note:修正了煤炭进口量在2021年4月的数值为2173（原图显示为2173，正确）。",
+      "crop_note:修正了原油进口量在2021年4月的数值为4036（原图显示为4036，正确）。",
+      "crop_note:修正了天然气进口量在2021年4月的数值为1024（原图显示为1024，正确）。",
+      "crop_note:修正了煤炭同比增速在2021年4月的数值为-29.6（原图显示为-29.6，正确）。",
+      "crop_note:修正了原油同比增速在2021年4月的数值为-0.1（原图显示为-0.1，正确）。",
+      "crop_note:修正了天然气同比增速在2021年4月的数值为-0.1（原图显示为-0.1，正确）。",
+      "crop_note:修正了煤炭进口量在2021年5月的数值为1015（原图显示为1015，正确）。",
+      "crop_note:修正了原油进口量在2021年5月的数值为4097（原图显示为4097，正确）。",
+      "crop_note:修正了天然气进口量在2021年5月的数值为1032（原图显示为1032，正确）。",
+      "crop_note:修正了煤炭同比增速在2021年5月的数值为-14.6（原图显示为-14.6，正确）。",
+      "crop_note:修正了原油同比增速在2021年5月的数值为-4.6（原图显示为-4.6，正确）。",
+      "crop_note:修正了天然气同比增速在2021年5月的数值为33.1（原图显示为33.1，正确）。",
+      "crop_note:修正了煤炭进口量在2021年6月的数值为2839（原图显示为2839，正确）。",
+      "crop_note:修正了原油进口量在2021年6月的数值为4013（原图显示为4013，正确）。",
+      "crop_note:修正了天然气进口量在2021年6月的数值为1021（原图显示为1021，正确）。",
+      "crop_note:修正了煤炭同比增速在2021年6月的数值为-24.5（原图显示为-24.5，正确）。",
+      "crop_note:修正了原油同比增速在2021年6月的数值为13.1（原图显示为13.1，正确）。",
+      "crop_note:修正了天然气同比增速在2021年6月的数值为22.9（原图显示为22.9，正确）。",
+      "crop_note:修正了煤炭进口量在2021年7月的数值为3018（原图显示为3018，正确）。",
+      "crop_note:修正了原油进口量在2021年7月的数值为4124（原图显示为4124，正确）。",
+      "crop_note:修正了天然气进口量在2021年7月的数值为834（原图显示为834，正确）。",
+      "crop_note:修正了煤炭同比增速在2021年7月的数值为-19.2（原图显示为-19.2，正确）。",
+      "crop_note:修正了原油同比增速在2021年7月的数值为16.4（原图显示为16.4，正确）。",
+      "crop_note:修正了天然气同比增速在2021年7月的数值为27.9（原图显示为27.9，正确）。",
+      "crop_note:修正了煤炭进口量在2021年8月的数值为2805（原图显示为2805，正确）。",
+      "crop_note:修正了原油进口量在2021年8月的数值为4453（原图显示为4453，正确）。",
+      "crop_note:修正了天然气进口量在2021年8月的数值为1044（原图显示为1044，正确）。",
+      "crop_note:修正了煤炭同比增速在2021年8月的数值为-6.2（原图显示为-6.2，正确）。",
+      "crop_note:修正了原油同比增速在2021年8月的数值为12.2（原图显示为12.2，正确）。",
+      "crop_note:修正了天然气同比增速在2021年8月的数值为35.8（原图显示为35.8，正确）。",
+      "crop_note:修正了煤炭进口量在2021年9月的数值为3288（原图显示为3288，正确）。",
+      "crop_note:修正了原油进口量在2021年9月的数值为4105（原图显示为4105，正确）。",
+      "crop_note:修正了天然气进口量在2021年9月的数值为1062（原图显示为1062，正确）。",
+      "crop_note:修正了煤炭同比增速在2021年9月的数值为-15.3（原图显示为-15.3，正确）。",
+      "crop_note:修正了原油同比增速在2021年9月的数值为22.7（原图显示为22.7，正确）。",
+      "crop_note:修正了天然气同比增速在2021年9月的数值为57.8（原图显示为57.8，正确）。",
+      "crop_note:确认所有数值的负号、小数点和百分号均正确无误。",
+      "crop_note:确认所有缺失值保持为null，未补0。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

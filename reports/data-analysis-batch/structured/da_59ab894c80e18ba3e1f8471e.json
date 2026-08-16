@@ -1,0 +1,211 @@
+{
+  "asset_id": "da_59ab894c80e18ba3e1f8471e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0229_b07afaede3371358.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0229_b07afaede3371358.jpg",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_7d715476b9f7e3e4ffaa",
+        "question_number": 121,
+        "source_jsonl_line": 48166
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0229_b07afaede3371358.jpg",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_c125f844ef149039867f",
+        "question_number": 122,
+        "source_jsonl_line": 48167
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0232_a0b08b0b89cf2d2a.jpg",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_e625fa49bfde75471b11",
+        "question_number": 123,
+        "source_jsonl_line": 48168
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0229_b07afaede3371358.jpg",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_5f6eb85bc48b6e7d2d90",
+        "question_number": 124,
+        "source_jsonl_line": 48169
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0229_b07afaede3371358.jpg",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_956bf15137042b605533",
+        "question_number": 125,
+        "source_jsonl_line": 48170
+      }
+    ],
+    "sha256": "59ab894c80e18ba3e1f8471ef5f6631afa074d4ee68426cf57b1aeb9c2930e52"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "完成营业额（万美元）｜2013",
+      "完成营业额（万美元）｜2014",
+      "完成营业额（万美元）｜2015",
+      "完成营业额（万美元）｜2016",
+      "当年派出人数（人）｜2013",
+      "当年派出人数（人）｜2014",
+      "当年派出人数（人）｜2015",
+      "当年派出人数（人）｜2016"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "洲名",
+    "rows": [
+      {
+        "display_label": "亚洲",
+        "group": null,
+        "label": "亚洲",
+        "unit": null,
+        "values": [
+          6439738,
+          6483818,
+          6907010,
+          7685147,
+          130888,
+          134534,
+          133373,
+          140888
+        ]
+      },
+      {
+        "display_label": "非洲",
+        "group": null,
+        "label": "非洲",
+        "unit": null,
+        "values": [
+          4789064,
+          5297475,
+          5478376,
+          5146029,
+          111959,
+          107842,
+          97555,
+          71548
+        ]
+      },
+      {
+        "display_label": "欧洲",
+        "group": null,
+        "label": "欧洲",
+        "unit": null,
+        "values": [
+          822737,
+          715057,
+          878279,
+          798582,
+          9603,
+          10162,
+          6989,
+          5737
+        ]
+      },
+      {
+        "display_label": "拉丁美洲",
+        "group": null,
+        "label": "拉丁美洲",
+        "unit": null,
+        "values": [
+          1330942,
+          1318059,
+          1640035,
+          1453965,
+          16070,
+          13990,
+          13253,
+          9398
+        ]
+      },
+      {
+        "display_label": "北美洲",
+        "group": null,
+        "label": "北美洲",
+        "unit": null,
+        "values": [
+          125919,
+          201736,
+          281411,
+          231590,
+          814,
+          367,
+          403,
+          491
+        ]
+      },
+      {
+        "display_label": "大洋洲",
+        "group": null,
+        "label": "大洋洲",
+        "unit": null,
+        "values": [
+          204927,
+          224761,
+          222313,
+          407936,
+          1586,
+          2256,
+          1497,
+          2184
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

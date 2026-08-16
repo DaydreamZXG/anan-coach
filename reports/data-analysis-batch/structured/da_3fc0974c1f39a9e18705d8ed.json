@@ -1,0 +1,536 @@
+{
+  "asset_id": "da_3fc0974c1f39a9e18705d8ed",
+  "axes": {
+    "x": {
+      "max": 2010,
+      "min": 2003,
+      "ticks": [
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "名称",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "洗衣机（台）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        92.69,
+        94.94,
+        91.45,
+        93.06,
+        92.91,
+        91.23,
+        92.91,
+        94.26
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "电冰箱（台）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        98.6,
+        98.93,
+        97.79,
+        99.27,
+        100.04,
+        97.87,
+        99.23,
+        100.36
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "空调机（台）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        105.23,
+        115.7,
+        146.89,
+        152.42,
+        161.02,
+        170.73,
+        180.05,
+        186.62
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "摩托车（辆）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        25.53,
+        29.41,
+        32.65,
+        31.84,
+        30.38,
+        26.85,
+        25.63,
+        25.82
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "家用汽车（辆）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        2.98,
+        3.52,
+        8.71,
+        11.03,
+        13.86,
+        19.65,
+        23.72,
+        26.43
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "彩色电视机（台）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        159.39,
+        163.14,
+        178.62,
+        181.02,
+        182.89,
+        176.18,
+        181.63,
+        185.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "固定电话（部）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        100.1,
+        99.37,
+        96.84,
+        95.81,
+        95.54,
+        90.07,
+        89.71,
+        89.13
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_8",
+      "label": "移动电话（部）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        130.64,
+        144.58,
+        174.73,
+        182.63,
+        190.69,
+        188.95,
+        191.57,
+        198.01
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_9",
+      "label": "家用电脑（台）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        40.23,
+        44.72,
+        59.47,
+        64.83,
+        73.76,
+        79.45,
+        84.53,
+        89.84
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2013年山东省公务员录用考试《行测》题_images/img_0099_a1925ddd3adbf900.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年山东省公务员录用考试《行测》题_images/img_0099_a1925ddd3adbf900.jpg",
+        "paper_title": "2013年山东省公务员录用考试《行测》题",
+        "question_id": "pq_a7a4dfacd1439a3c2a67",
+        "question_number": 111,
+        "source_jsonl_line": 29605
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年山东省公务员录用考试《行测》题_images/img_0099_a1925ddd3adbf900.jpg",
+        "paper_title": "2013年山东省公务员录用考试《行测》题",
+        "question_id": "pq_d71d8aa5908da671f0ce",
+        "question_number": 112,
+        "source_jsonl_line": 29606
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年山东省公务员录用考试《行测》题_images/img_0101_15fe36b398fc8519.jpg",
+        "paper_title": "2013年山东省公务员录用考试《行测》题",
+        "question_id": "pq_817a731a6a6a9d91071a",
+        "question_number": 113,
+        "source_jsonl_line": 29607
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年山东省公务员录用考试《行测》题_images/img_0101_15fe36b398fc8519.jpg",
+        "paper_title": "2013年山东省公务员录用考试《行测》题",
+        "question_id": "pq_0dcdf4c6c4f44935a961",
+        "question_number": 114,
+        "source_jsonl_line": 29608
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年山东省公务员录用考试《行测》题_images/img_0101_15fe36b398fc8519.jpg",
+        "paper_title": "2013年山东省公务员录用考试《行测》题",
+        "question_id": "pq_1327d6dcd6030c2342ff",
+        "question_number": 115,
+        "source_jsonl_line": 29609
+      }
+    ],
+    "sha256": "3fc0974c1f39a9e18705d8ed8483259c97ae36e19fdf77b9c89a62c7aa8cb51f"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2003",
+      "2004",
+      "2005",
+      "2006",
+      "2007",
+      "2008",
+      "2009",
+      "2010"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "名称",
+    "rows": [
+      {
+        "label": "洗衣机（台）",
+        "unit": null,
+        "values": [
+          92.69,
+          94.94,
+          91.45,
+          93.06,
+          92.91,
+          91.23,
+          92.91,
+          94.26
+        ]
+      },
+      {
+        "label": "电冰箱（台）",
+        "unit": null,
+        "values": [
+          98.6,
+          98.93,
+          97.79,
+          99.27,
+          100.04,
+          97.87,
+          99.23,
+          100.36
+        ]
+      },
+      {
+        "label": "空调机（台）",
+        "unit": null,
+        "values": [
+          105.23,
+          115.7,
+          146.89,
+          152.42,
+          161.02,
+          170.73,
+          180.05,
+          186.62
+        ]
+      },
+      {
+        "label": "摩托车（辆）",
+        "unit": null,
+        "values": [
+          25.53,
+          29.41,
+          32.65,
+          31.84,
+          30.38,
+          26.85,
+          25.63,
+          25.82
+        ]
+      },
+      {
+        "label": "家用汽车（辆）",
+        "unit": null,
+        "values": [
+          2.98,
+          3.52,
+          8.71,
+          11.03,
+          13.86,
+          19.65,
+          23.72,
+          26.43
+        ]
+      },
+      {
+        "label": "彩色电视机（台）",
+        "unit": null,
+        "values": [
+          159.39,
+          163.14,
+          178.62,
+          181.02,
+          182.89,
+          176.18,
+          181.63,
+          185.7
+        ]
+      },
+      {
+        "label": "固定电话（部）",
+        "unit": null,
+        "values": [
+          100.1,
+          99.37,
+          96.84,
+          95.81,
+          95.54,
+          90.07,
+          89.71,
+          89.13
+        ]
+      },
+      {
+        "label": "移动电话（部）",
+        "unit": null,
+        "values": [
+          130.64,
+          144.58,
+          174.73,
+          182.63,
+          190.69,
+          188.95,
+          191.57,
+          198.01
+        ]
+      },
+      {
+        "label": "家用电脑（台）",
+        "unit": null,
+        "values": [
+          40.23,
+          44.72,
+          59.47,
+          64.83,
+          73.76,
+          79.45,
+          84.53,
+          89.84
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3fc0974c1f39a9e18705d8ed/row_band_01.jpg",
+        "review-crops/da_3fc0974c1f39a9e18705d8ed/row_band_02.jpg",
+        "review-crops/da_3fc0974c1f39a9e18705d8ed/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:23.719",
+      "crop_verification_elapsed_seconds:54.208",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'洗衣机（台）'在2003年的数值为92.69，原图显示为92.69，正确。",
+      "crop_note:修正了'电冰箱（台）'在2003年的数值为98.60，原图显示为98.6，正确。",
+      "crop_note:修正了'空调机（台）'在2003年的数值为105.23，原图显示为105.23，正确。",
+      "crop_note:修正了'摩托车（辆）'在2003年的数值为25.53，原图显示为25.53，正确。",
+      "crop_note:修正了'家用汽车（辆）'在2003年的数值为2.98，原图显示为2.98，正确。",
+      "crop_note:修正了'彩色电视机（台）'在2003年的数值为159.39，原图显示为159.39，正确。",
+      "crop_note:修正了'固定电话（部）'在2003年的数值为100.10，原图显示为100.1，正确。",
+      "crop_note:修正了'移动电话（部）'在2003年的数值为130.64，原图显示为130.64，正确。",
+      "crop_note:修正了'家用电脑（台）'在2003年的数值为40.23，原图显示为40.23，正确。",
+      "crop_note:修正了'电冰箱（台）'在2004年的数值为98.93，原图显示为98.93，正确。",
+      "crop_note:修正了'空调机（台）'在2004年的数值为115.70，原图显示为115.7，正确。",
+      "crop_note:修正了'摩托车（辆）'在2004年的数值为29.41，原图显示为29.41，正确。",
+      "crop_note:修正了'家用汽车（辆）'在2004年的数值为3.52，原图显示为3.52，正确。",
+      "crop_note:修正了'彩色电视机（台）'在2004年的数值为163.14，原图显示为163.14，正确。",
+      "crop_note:修正了'固定电话（部）'在2004年的数值为99.37，原图显示为99.37，正确。",
+      "crop_note:修正了'移动电话（部）'在2004年的数值为144.58，原图显示为144.58，正确。",
+      "crop_note:修正了'家用电脑（台）'在2004年的数值为44.72，原图显示为44.72，正确。",
+      "crop_note:修正了'空调机（台）'在2005年的数值为146.89，原图显示为146.89，正确。",
+      "crop_note:修正了'摩托车（辆）'在2005年的数值为32.65，原图显示为32.65，正确。",
+      "crop_note:修正了'家用汽车（辆）'在2005年的数值为8.71，原图显示为8.71，正确。",
+      "crop_note:修正了'彩色电视机（台）'在2005年的数值为178.62，原图显示为178.62，正确。",
+      "crop_note:修正了'固定电话（部）'在2005年的数值为96.84，原图显示为96.84，正确。",
+      "crop_note:修正了'移动电话（部）'在2005年的数值为174.73，原图显示为174.73，正确。",
+      "crop_note:修正了'家用电脑（台）'在2005年的数值为59.47，原图显示为59.47，正确。",
+      "crop_note:修正了'空调机（台）'在2006年的数值为152.42，原图显示为152.42，正确。",
+      "crop_note:修正了'摩托车（辆）'在2006年的数值为31.84，原图显示为31.84，正确。",
+      "crop_note:修正了'家用汽车（辆）'在2006年的数值为11.03，原图显示为11.03，正确。",
+      "crop_note:修正了'彩色电视机（台）'在2006年的数值为181.02，原图显示为181.02，正确。",
+      "crop_note:修正了'固定电话（部）'在2006年的数值为95.81，原图显示为95.81，正确。",
+      "crop_note:修正了'移动电话（部）'在2006年的数值为182.63，原图显示为182.63，正确。",
+      "crop_note:修正了'家用电脑（台）'在2006年的数值为64.83，原图显示为64.83，正确。",
+      "crop_note:修正了'空调机（台）'在2007年的数值为161.02，原图显示为161.02，正确。",
+      "crop_note:修正了'摩托车（辆）'在2007年的数值为30.38，原图显示为30.38，正确。",
+      "crop_note:修正了'家用汽车（辆）'在2007年的数值为13.86，原图显示为13.86，正确。",
+      "crop_note:修正了'彩色电视机（台）'在2007年的数值为182.89，原图显示为182.89，正确。",
+      "crop_note:修正了'固定电话（部）'在2007年的数值为95.54，原图显示为95.54，正确。",
+      "crop_note:修正了'移动电话（部）'在2007年的数值为190.69，原图显示为190.69，正确。",
+      "crop_note:修正了'家用电脑（台）'在2007年的数值为73.76，原图显示为73.76，正确。",
+      "crop_note:修正了'空调机（台）'在2008年的数值为170.73，原图显示为170.73，正确。",
+      "crop_note:修正了'摩托车（辆）'在2008年的数值为26.85，原图显示为26.85，正确。",
+      "crop_note:修正了'家用汽车（辆）'在2008年的数值为19.65，原图显示为19.65，正确。",
+      "crop_note:修正了'彩色电视机（台）'在2008年的数值为176.18，原图显示为176.18，正确。",
+      "crop_note:修正了'固定电话（部）'在2008年的数值为90.07，原图显示为90.07，正确。",
+      "crop_note:修正了'移动电话（部）'在2008年的数值为188.95，原图显示为188.95，正确。",
+      "crop_note:修正了'家用电脑（台）'在2008年的数值为79.45，原图显示为79.45，正确。",
+      "crop_note:修正了'空调机（台）'在2009年的数值为180.05，原图显示为180.05，正确。",
+      "crop_note:修正了'摩托车（辆）'在2009年的数值为25.63，原图显示为25.63，正确。",
+      "crop_note:修正了'家用汽车（辆）'在2009年的数值为23.72，原图显示为23.72，正确。",
+      "crop_note:修正了'彩色电视机（台）'在2009年的数值为181.63，原图显示为181.63，正确。",
+      "crop_note:修正了'固定电话（部）'在2009年的数值为89.71，原图显示为89.71，正确。",
+      "crop_note:修正了'移动电话（部）'在2009年的数值为191.57，原图显示为191.57，正确。",
+      "crop_note:修正了'家用电脑（台）'在2009年的数值为84.53，原图显示为84.53，正确。",
+      "crop_note:修正了'空调机（台）'在2010年的数值为186.62，原图显示为186.62，正确。",
+      "crop_note:修正了'摩托车（辆）'在2010年的数值为25.82，原图显示为25.82，正确。",
+      "crop_note:修正了'家用汽车（辆）'在2010年的数值为26.43，原图显示为26.43，正确。",
+      "crop_note:修正了'彩色电视机（台）'在2010年的数值为185.70，原图显示为185.7，正确。",
+      "crop_note:修正了'固定电话（部）'在2010年的数值为89.13，原图显示为89.13，正确。",
+      "crop_note:修正了'移动电话（部）'在2010年的数值为198.01，原图显示为198.01，正确。",
+      "crop_note:修正了'家用电脑（台）'在2010年的数值为89.84，原图显示为89.84，正确。",
+      "table_row_label_column_removed:名称"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

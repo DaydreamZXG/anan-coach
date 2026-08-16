@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "graphic-reasoning-line-network-debug-v1",
+  "assetId": "gr_06e94661142e35ee6757e42d",
+  "status": "repair_pending",
+  "sourceRole": "representative_straight_line_network",
+  "acceptedSolverWritten": false,
+  "deterministicFacts": {
+    "lineCharacter": "straight_only",
+    "closedShapes": 0,
+    "curves": 0,
+    "textGlyphs": 0,
+    "filledRegions": 0,
+    "topology": "one connected open branching network per visible panel"
+  },
+  "modelTrials": [
+    {
+      "promptVariant": "additional_short_rays_on_original_panel_crops",
+      "defects": [
+        "p2 left additional-ray count included the backbone arm",
+        "p3 and p4 right fan counts missed closely spaced rays",
+        "option right fan counts were inconsistent with the visible centerlines"
+      ]
+    },
+    {
+      "promptVariant": "terminal_arms_on_6x_nearest_neighbor_crops",
+      "defects": [
+        "p3 right fan was undercounted",
+        "p4 right fan was undercounted",
+        "the result is useful as a semantic candidate but not a geometry authority"
+      ]
+    }
+  ],
+  "decision": "Do not create solver.json until a centerline graph or an independently verified branch-count gate closes the fan-ray counts.",
+  "debugImages": "panel-*-6x.png and panel-*-endpoints.png"
+}

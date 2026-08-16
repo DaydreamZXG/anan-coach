@@ -40,6 +40,38 @@ def record_pending_xingce_evidence(
     )
 
 
+def record_settled_xingce_evidence(
+    session: Session,
+    *,
+    repository: XingceAttemptRepository,
+    command_id: str,
+    user_id: str,
+    task_session: RowMapping,
+    assessment_ids: list[str],
+    execution_version_id: str,
+    created_at: datetime,
+) -> RowMapping:
+    """Record terminal evidence when no reflection is truthfully required."""
+    if not assessment_ids or len(assessment_ids) != len(set(assessment_ids)):
+        raise ValueError("Xingce planning evidence requires unique assessments")
+    return repository.insert_plan_evidence(
+        session,
+        values={
+            "evidence_version_id": str(uuid4()),
+            "command_id": command_id,
+            "user_id": user_id,
+            "session_id": str(task_session["session_id"]),
+            "work_item_key": str(task_session["work_item_key"]),
+            "version_no": 1,
+            "state": "settled",
+            "assessment_ids": json.dumps(assessment_ids, sort_keys=True),
+            "execution_version_id": execution_version_id,
+            "supersedes_evidence_version_id": None,
+            "created_at": created_at,
+        },
+    )
+
+
 def settle_xingce_evidence(
     session: Session,
     *,

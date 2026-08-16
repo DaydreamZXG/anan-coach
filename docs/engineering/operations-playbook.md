@@ -2,7 +2,8 @@
 
 > 活知识：本文件是"怎么做"的唯一汇总，会随工具链演化持续更新。历史交接文档里的
 > 操作片段（如 `2026-07-26-session-handoff.md` §四）已并入此处，交接文档只作历史追溯。
-> 当前真相/待办见 `docs/engineering/global-backlog.md`。
+> 产品和系统边界见 `docs/product/anan-product-system-spec.md`；待办账本见
+> `docs/engineering/global-backlog.md`，其中状态使用前必须按当前代码与环境重验。
 
 ## 1. 前端门禁（微信小程序）
 
@@ -56,7 +57,7 @@
 
 ## 7. 产品与 UI 文案
 
-- 产品边界：`docs/product/2026-07-18-canonical-product-boundaries.md`（产品负责人已确认，契约性质）。
+- 产品边界：`docs/product/anan-product-system-spec.md`。
 - UI 体系规范：`apps/wechat/DESIGN_SPEC.md`（青色主系、灰阶 4 档、字号 13 档、按钮五档、
   validate-tokens 退役规则防回流）。
 - 岸岸声音：`docs/design/2026-07-26-anan-voice-guide.md`（文案/语气参考）。

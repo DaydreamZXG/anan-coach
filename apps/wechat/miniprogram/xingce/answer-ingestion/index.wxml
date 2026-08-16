@@ -76,7 +76,7 @@
     <block wx:elif="{{state.status === 'success'}}">
       <state-view custom-class="answer-state-view" state="empty" title="答案已保存" description="这次外部作答已经进入你的学习记录。" />
       <view class="success-receipt external-card"><view class="card-title">答案已经保存</view><view class="card-copy">岸岸会把它作为低权重的外部作答参考；没有真实批改结果前，不会据此计算正确率。</view></view>
-      <view class="action-stack"><ui-button label="继续录入其他学习包" variant="secondary" bind:action="resetDraft" /></view>
+      <view class="action-stack"><ui-button wx:if="{{coachEntryActive}}" label="继续第一次教练会谈" bind:action="continueCoachMeeting" /><ui-button label="继续录入其他学习包" variant="secondary" bind:action="resetDraft" /></view>
     </block>
 
     <view wx:if="{{state.confirmationOpen}}" class="sheet-mask motion-mask" catchtouchmove="noop"></view>

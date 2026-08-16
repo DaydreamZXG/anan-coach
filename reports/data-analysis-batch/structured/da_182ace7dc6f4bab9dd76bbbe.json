@@ -1,0 +1,530 @@
+{
+  "asset_id": "da_182ace7dc6f4bab9dd76bbbe",
+  "axes": {
+    "x": {
+      "max": 2019,
+      "min": 2013,
+      "ticks": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "总产值",
+    "其中：封装",
+    "外延芯片",
+    "应用市场",
+    "其中：汽车照明",
+    "通用照明",
+    "景观照明",
+    "显示屏",
+    "背光应用",
+    "信号及指示",
+    "其他"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "总产值",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2576,
+        3507,
+        4245,
+        5216,
+        6538,
+        7374,
+        7548
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "其中：封装",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        403,
+        517,
+        615,
+        748,
+        963,
+        1054,
+        959
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "外延芯片",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        105,
+        138,
+        151,
+        182,
+        232,
+        240,
+        201
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "应用市场",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2068,
+        2852,
+        3479,
+        4286,
+        5343,
+        6080,
+        6388
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "其中：汽车照明",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        27,
+        30,
+        45,
+        60,
+        75,
+        90,
+        97
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "通用照明",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        696,
+        1145,
+        1551,
+        2040,
+        2551,
+        2679,
+        2707
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "景观照明",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        435,
+        475,
+        478,
+        579,
+        799,
+        1007,
+        1108
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_8",
+      "label": "显示屏",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        240,
+        307,
+        425,
+        549,
+        727,
+        947,
+        1089
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_9",
+      "label": "背光应用",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        340,
+        435,
+        475,
+        519,
+        513,
+        505,
+        503
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_10",
+      "label": "信号及指示",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        87,
+        89,
+        90,
+        90,
+        91,
+        92,
+        84
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_11",
+      "label": "其他",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        243,
+        371,
+        415,
+        449,
+        587,
+        760,
+        800
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0174_21ee9cce0ff47ae3.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0174_21ee9cce0ff47ae3.jpg",
+        "paper_title": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_a1ae26851e988d0e1920",
+        "question_number": 111,
+        "source_jsonl_line": 19911
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0202_a9e3f5557bff7b42.jpg",
+        "paper_title": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_c049066657ac8c7fe01c",
+        "question_number": 112,
+        "source_jsonl_line": 19912
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0174_21ee9cce0ff47ae3.jpg",
+        "paper_title": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_7e829452f1a6452fec05",
+        "question_number": 113,
+        "source_jsonl_line": 19913
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0202_a9e3f5557bff7b42.jpg",
+        "paper_title": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_20847aaf30cb360c74f4",
+        "question_number": 114,
+        "source_jsonl_line": 19914
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0202_a9e3f5557bff7b42.jpg",
+        "paper_title": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_17f738518e0d7f6f60ec",
+        "question_number": 115,
+        "source_jsonl_line": 19915
+      }
+    ],
+    "sha256": "182ace7dc6f4bab9dd76bbbe59db537986d822cb531845fd246be92b8b718a39"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2013",
+      "2014",
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "label": "总产值",
+        "unit": "亿元",
+        "values": [
+          2576,
+          3507,
+          4245,
+          5216,
+          6538,
+          7374,
+          7548
+        ]
+      },
+      {
+        "label": "其中：封装",
+        "unit": "亿元",
+        "values": [
+          403,
+          517,
+          615,
+          748,
+          963,
+          1054,
+          959
+        ]
+      },
+      {
+        "label": "外延芯片",
+        "unit": "亿元",
+        "values": [
+          105,
+          138,
+          151,
+          182,
+          232,
+          240,
+          201
+        ]
+      },
+      {
+        "label": "应用市场",
+        "unit": "亿元",
+        "values": [
+          2068,
+          2852,
+          3479,
+          4286,
+          5343,
+          6080,
+          6388
+        ]
+      },
+      {
+        "label": "其中：汽车照明",
+        "unit": "亿元",
+        "values": [
+          27,
+          30,
+          45,
+          60,
+          75,
+          90,
+          97
+        ]
+      },
+      {
+        "label": "通用照明",
+        "unit": "亿元",
+        "values": [
+          696,
+          1145,
+          1551,
+          2040,
+          2551,
+          2679,
+          2707
+        ]
+      },
+      {
+        "label": "景观照明",
+        "unit": "亿元",
+        "values": [
+          435,
+          475,
+          478,
+          579,
+          799,
+          1007,
+          1108
+        ]
+      },
+      {
+        "label": "显示屏",
+        "unit": "亿元",
+        "values": [
+          240,
+          307,
+          425,
+          549,
+          727,
+          947,
+          1089
+        ]
+      },
+      {
+        "label": "背光应用",
+        "unit": "亿元",
+        "values": [
+          340,
+          435,
+          475,
+          519,
+          513,
+          505,
+          503
+        ]
+      },
+      {
+        "label": "信号及指示",
+        "unit": "亿元",
+        "values": [
+          87,
+          89,
+          90,
+          90,
+          91,
+          92,
+          84
+        ]
+      },
+      {
+        "label": "其他",
+        "unit": "亿元",
+        "values": [
+          243,
+          371,
+          415,
+          449,
+          587,
+          760,
+          800
+        ]
+      }
+    ]
+  },
+  "title": "2013年~2019年我国LED产业不同领域产值规模",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_182ace7dc6f4bab9dd76bbbe/row_band_01.jpg",
+        "review-crops/da_182ace7dc6f4bab9dd76bbbe/row_band_02.jpg",
+        "review-crops/da_182ace7dc6f4bab9dd76bbbe/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:20.537",
+      "crop_verification_elapsed_seconds:21.084",
+      "candidate_value_changes_after_crop:0",
+      "table_row_label_column_removed:年份"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

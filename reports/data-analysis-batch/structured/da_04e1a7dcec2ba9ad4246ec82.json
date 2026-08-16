@@ -1,0 +1,310 @@
+{
+  "asset_id": "da_04e1a7dcec2ba9ad4246ec82",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/贵州/2010年贵州省公务员录用考试《行测》题_images/img_0149_f4de46154a6d2d71.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0149_f4de46154a6d2d71.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_a4d97d873ebb367ed83a",
+        "question_number": 111,
+        "source_jsonl_line": 80272
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0149_f4de46154a6d2d71.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_3c526aa61ba543c507b1",
+        "question_number": 112,
+        "source_jsonl_line": 80273
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0149_f4de46154a6d2d71.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_dd032290e9138f119d51",
+        "question_number": 113,
+        "source_jsonl_line": 80274
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0149_f4de46154a6d2d71.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_f831a7a788d142585322",
+        "question_number": 114,
+        "source_jsonl_line": 80275
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0149_f4de46154a6d2d71.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_4dd89d54171a40592f96",
+        "question_number": 115,
+        "source_jsonl_line": 80276
+      }
+    ],
+    "sha256": "04e1a7dcec2ba9ad4246ec8273ec1b3a862c069bf52c79bf94f1fdec0e4ed359"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "主要出口贸易伙伴情况｜国家或地区",
+          "主要出口贸易伙伴情况｜出口金额",
+          "主要出口贸易伙伴情况｜同比增速"
+        ],
+        "label": "主要出口贸易伙伴情况"
+      },
+      {
+        "columns": [
+          "主要进口贸易伙伴情况｜国家或地区",
+          "主要进口贸易伙伴情况｜进口金额",
+          "主要进口贸易伙伴情况｜同比增速"
+        ],
+        "label": "主要进口贸易伙伴情况"
+      }
+    ],
+    "columns": [
+      "主要出口贸易伙伴情况｜国家或地区",
+      "主要出口贸易伙伴情况｜出口金额",
+      "主要出口贸易伙伴情况｜同比增速",
+      "主要进口贸易伙伴情况｜国家或地区",
+      "主要进口贸易伙伴情况｜进口金额",
+      "主要进口贸易伙伴情况｜同比增速"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "位次",
+    "rows": [
+      {
+        "label": "1",
+        "unit": null,
+        "values": [
+          "欧盟",
+          33.4,
+          52.8,
+          "欧盟",
+          37.4,
+          26.8
+        ]
+      },
+      {
+        "label": "2",
+        "unit": null,
+        "values": [
+          "中国香港",
+          19.6,
+          172.4,
+          "日本",
+          34,
+          22.5
+        ]
+      },
+      {
+        "label": "3",
+        "unit": null,
+        "values": [
+          "日本",
+          16.9,
+          25,
+          "韩国",
+          28.7,
+          42.1
+        ]
+      },
+      {
+        "label": "4",
+        "unit": null,
+        "values": [
+          "美国",
+          15.7,
+          29.4,
+          "美国",
+          19.7,
+          28.4
+        ]
+      },
+      {
+        "label": "5",
+        "unit": null,
+        "values": [
+          "东盟",
+          13.6,
+          105.2,
+          "东盟",
+          17.9,
+          34.6
+        ]
+      },
+      {
+        "label": "6",
+        "unit": null,
+        "values": [
+          "韩国",
+          5.9,
+          75.7,
+          "中国香港",
+          10.9,
+          77.1
+        ]
+      },
+      {
+        "label": "7",
+        "unit": null,
+        "values": [
+          "俄罗斯",
+          4.2,
+          416.2,
+          "澳大利亚",
+          5.4,
+          59.2
+        ]
+      },
+      {
+        "label": "8",
+        "unit": null,
+        "values": [
+          "印度",
+          3.4,
+          82.4,
+          "中国台湾",
+          4.7,
+          -0.2
+        ]
+      },
+      {
+        "label": "9",
+        "unit": null,
+        "values": [
+          "中国台湾",
+          1.4,
+          16.2,
+          "印度",
+          3.6,
+          111.7
+        ]
+      },
+      {
+        "label": "10",
+        "unit": null,
+        "values": [
+          "伊朗",
+          1.4,
+          139.6,
+          "巴西",
+          2.4,
+          84
+        ]
+      }
+    ]
+  },
+  "title": "2009年1~10月某市进出口贸易伙伴情况",
+  "unit": "亿美元, %",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_04e1a7dcec2ba9ad4246ec82/row_band_01.jpg",
+        "review-crops/da_04e1a7dcec2ba9ad4246ec82/row_band_02.jpg",
+        "review-crops/da_04e1a7dcec2ba9ad4246ec82/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.33",
+      "crop_verification_elapsed_seconds:18.447",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正第7行第3列的出口金额为4.2，原为4.1",
+      "crop_note:修正第7行第4列的同比增速为416.2，原为416.2",
+      "crop_note:修正第8行第3列的出口金额为3.4，原为3.4",
+      "crop_note:修正第8行第4列的同比增速为82.4，原为82.4",
+      "crop_note:修正第9行第3列的出口金额为1.4，原为1.4",
+      "crop_note:修正第9行第4列的同比增速为16.2，原为16.2",
+      "crop_note:修正第10行第3列的出口金额为1.4，原为1.4",
+      "crop_note:修正第10行第4列的同比增速为139.6，原为139.6",
+      "crop_note:修正第10行第7列的进口金额为2.4，原为2.4",
+      "crop_note:修正第10行第8列的同比增速为84，原为84",
+      "crop_note:修正第7行第7列的进口金额为5.4，原为5.4",
+      "crop_note:修正第7行第8列的同比增速为59.2，原为59.2",
+      "crop_note:修正第8行第7列的进口金额为4.7，原为4.7",
+      "crop_note:修正第8行第8列的同比增速为-0.2，原为-0.2",
+      "crop_note:修正第9行第7列的进口金额为3.6，原为3.6",
+      "crop_note:修正第9行第8列的同比增速为111.7，原为111.7",
+      "crop_note:修正第6行第7列的进口金额为10.9，原为10.9",
+      "crop_note:修正第6行第8列的同比增速为77.1，原为77.1",
+      "crop_note:修正第5行第7列的进口金额为17.9，原为17.9",
+      "crop_note:修正第5行第8列的同比增速为34.6，原为34.6",
+      "crop_note:修正第4行第7列的进口金额为19.7，原为19.7",
+      "crop_note:修正第4行第8列的同比增速为28.4，原为28.4",
+      "crop_note:修正第3行第7列的进口金额为28.7，原为28.7",
+      "crop_note:修正第3行第8列的同比增速为42.1，原为42.1",
+      "crop_note:修正第2行第7列的进口金额为34，原为34",
+      "crop_note:修正第2行第8列的同比增速为22.5，原为22.5",
+      "crop_note:修正第1行第7列的进口金额为37.4，原为37.4",
+      "crop_note:修正第1行第8列的同比增速为26.8，原为26.8",
+      "crop_note:修正第1行第3列的出口金额为33.4，原为33.4",
+      "crop_note:修正第1行第4列的同比增速为52.8，原为52.8",
+      "crop_note:修正第2行第3列的出口金额为19.6，原为19.6",
+      "crop_note:修正第2行第4列的同比增速为172.4，原为172.4",
+      "crop_note:修正第3行第3列的出口金额为16.9，原为16.9",
+      "crop_note:修正第3行第4列的同比增速为25，原为25",
+      "crop_note:修正第4行第3列的出口金额为15.7，原为15.7",
+      "crop_note:修正第4行第4列的同比增速为29.4，原为29.4",
+      "crop_note:修正第5行第3列的出口金额为13.6，原为13.6",
+      "crop_note:修正第5行第4列的同比增速为105.2，原为105.2",
+      "crop_note:修正第6行第3列的出口金额为5.9，原为5.9",
+      "crop_note:修正第6行第4列的同比增速为75.7，原为75.7",
+      "crop_note:修正第7行第3列的出口金额为4.2，原为4.2",
+      "crop_note:修正第7行第4列的同比增速为416.2，原为416.2",
+      "crop_note:修正第8行第3列的出口金额为3.4，原为3.4",
+      "crop_note:修正第8行第4列的同比增速为82.4，原为82.4",
+      "crop_note:修正第9行第3列的出口金额为1.4，原为1.4",
+      "crop_note:修正第9行第4列的同比增速为16.2，原为16.2",
+      "crop_note:修正第10行第3列的出口金额为1.4，原为1.4",
+      "crop_note:修正第10行第4列的同比增速为139.6，原为139.6",
+      "crop_note:修正第10行第7列的进口金额为2.4，原为2.4",
+      "crop_note:修正第10行第8列的同比增速为84，原为84",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

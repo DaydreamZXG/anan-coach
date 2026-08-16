@@ -1,0 +1,191 @@
+{
+  "asset_id": "da_5af8531a1d7b9e461f3cacb7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0291_e39269c51ab29961.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0291_e39269c51ab29961.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_3a03af2b742333ab4982",
+        "question_number": 119,
+        "source_jsonl_line": 19519
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0328_e39269c51ab29961.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_17066f5136d6bd1803b1",
+        "question_number": 124,
+        "source_jsonl_line": 19659
+      }
+    ],
+    "sha256": "5af8531a1d7b9e461f3cacb76fdd6b5902ff62c4abc2bf9c020bac64bd9d361c"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 0,
+      "estimatedDrawCommandCount": 5,
+      "panelCount": 1,
+      "pointCount": 5
+    },
+    "coordinateSpace": {
+      "height": 288,
+      "width": 408
+    },
+    "evidence": {
+      "converterVersion": "semantic-microcharts-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "71648d92f9a5a1a65dbcff507369ffa1e737e546127b93329a53c955f1fd3306",
+      "sourceAsset": "da_5af8531a1d7b9e461f3cacb7",
+      "sourceSha256": "5af8531a1d7b9e461f3cacb76fdd6b5902ff62c4abc2bf9c020bac64bd9d361c"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 118,
+          "width": 313,
+          "x": 48,
+          "y": 54
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [
+            {
+              "shape": "square",
+              "x": 0.0,
+              "y": 0.99573
+            },
+            {
+              "shape": "diamond",
+              "x": 0.25641,
+              "y": 0.08547
+            },
+            {
+              "shape": "circle",
+              "x": 0.5,
+              "y": 0.01709
+            },
+            {
+              "shape": "diamond",
+              "x": 0.74199,
+              "y": 0.19231
+            },
+            {
+              "shape": "diamond",
+              "x": 0.98878,
+              "y": 0.94872
+            }
+          ],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.95726
+            },
+            {
+              "x": 0.24679,
+              "y": 0.08547
+            },
+            {
+              "x": 0.47756,
+              "y": 0.03846
+            },
+            {
+              "x": 0.75,
+              "y": 0.19231
+            },
+            {
+              "x": 1.0,
+              "y": 0.95299
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_5af8531a1d7b9e461f3cacb7-0",
+        "label": null,
+        "position": 0
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "line_sequence"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5af8531a1d7b9e461f3cacb7/column_band_01.jpg",
+        "review-crops/da_5af8531a1d7b9e461f3cacb7/column_band_02.jpg",
+        "review-crops/da_5af8531a1d7b9e461f3cacb7/column_band_03.jpg",
+        "review-crops/da_5af8531a1d7b9e461f3cacb7/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.027",
+      "crop_verification_elapsed_seconds:0.539",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:X轴和Y轴的标题、单位、刻度和范围未明确给出，仅能推断存在两个坐标轴。",
+      "model_uncertainty:数据点的具体数值无法从图中读取，仅能识别其趋势和位置。",
+      "model_uncertainty:图中未提供图例，无法确定系列标签。",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_chart_point:候选分类:候选系列名",
+      "non_data_option_sparkline",
+      "foreground_iou:0.842265",
+      "mean_absolute_error:0.959644",
+      "trace_parameters:{\"epsilonRatio\": 0.0007, \"minimumContourArea\": 0.2, \"paletteSize\": 2}",
+      "visual_grammar:line_sequence",
+      "visual_grammar:line_sequence",
+      "converter:semantic-microcharts-v1",
+      "visual_grammar:line_sequence",
+      "comparison_artifact:previews/structured_visual/da_5af8531a1d7b9e461f3cacb7-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

@@ -58,6 +58,63 @@ class VisualFeatureHash(StrictModel):
     edge_dhash: Hash64Hex = Field(alias="edgeDhash")
 
 
+class NormalizedRegionBox(StrictModel):
+    """Normalized page region without a duplicated page identity."""
+
+    x: float = Field(ge=0, le=1)
+    y: float = Field(ge=0, le=1)
+    width: float = Field(gt=0, le=1)
+    height: float = Field(gt=0, le=1)
+
+    @model_validator(mode="after")
+    def within_page(self) -> "NormalizedRegionBox":
+        if self.x + self.width > 1 or self.y + self.height > 1:
+            raise ValueError("normalized region box must remain inside its page")
+        return self
+
+
+class QuestionRegionVisualEvidence(StrictModel):
+    """Immutable visual hashes owned by exactly one recognized question unit."""
+
+    contract_version: Literal["question-region-visual-evidence@v1"] = Field(
+        default="question-region-visual-evidence@v1", alias="contractVersion"
+    )
+    question_unit_id: Sha256Hex = Field(alias="questionUnitId")
+    page_no: int = Field(alias="pageNo", ge=1)
+    box: NormalizedRegionBox
+    source_page_image_sha256: Sha256Hex = Field(alias="sourcePageImageSha256")
+    visual_fingerprints: tuple[Sha256Hex, ...] = Field(
+        alias="visualFingerprints", min_length=1
+    )
+    visual_feature_hashes: tuple[VisualFeatureHash, ...] = Field(
+        alias="visualFeatureHashes", min_length=1
+    )
+    derivation: Literal["prompt-vertical-band@v1"] = "prompt-vertical-band@v1"
+
+    @model_validator(mode="after")
+    def fingerprints_match_feature_hashes(self) -> "QuestionRegionVisualEvidence":
+        if len(self.visual_fingerprints) != len(self.visual_feature_hashes):
+            raise ValueError("region fingerprints must map one-to-one to feature hashes")
+        from app.domains.external_ingestion.recognition.visual_hash import (
+            fingerprint_sha256,
+        )
+
+        expected = tuple(
+            fingerprint_sha256(
+                {
+                    "phash": item.phash,
+                    "dhash": item.dhash,
+                    "ahash": item.ahash,
+                    "edge_dhash": item.edge_dhash,
+                }
+            )
+            for item in self.visual_feature_hashes
+        )
+        if self.visual_fingerprints != expected:
+            raise ValueError("region fingerprints must be derived from their feature hashes")
+        return self
+
+
 class ArtifactInput(StrictModel):
     artifact_version_id: UUID = Field(alias="artifactVersionId")
     owner_user_id: UUID = Field(alias="ownerUserId")
@@ -182,6 +239,9 @@ class RecognitionCandidatePayload(StrictModel):
     visual_feature_hashes: tuple[VisualFeatureHash, ...] = Field(
         default=(), alias="visualFeatureHashes"
     )
+    question_region_visual_evidence: tuple[QuestionRegionVisualEvidence, ...] = Field(
+        default=(), alias="questionRegionVisualEvidence"
+    )
     processor_request_id_hash: Sha256Hex = Field(alias="processorRequestIdHash")
     processor_output_contract: NonBlank = Field(alias="processorOutputContract")
     request_hash: Sha256Hex = Field(alias="requestHash")
@@ -218,6 +278,18 @@ class RecognitionCandidatePayload(StrictModel):
             unit_ids = [item.question_unit_id for item in self.question_units]
             if len(unit_ids) != len(set(unit_ids)):
                 raise ValueError("question-unit ids must be unique")
+            region_unit_ids = [
+                item.question_unit_id for item in self.question_region_visual_evidence
+            ]
+            if len(region_unit_ids) != len(set(region_unit_ids)):
+                raise ValueError("question-region evidence unit ids must be unique")
+            if set(region_unit_ids) - set(unit_ids):
+                raise ValueError("question-region evidence must resolve to a question unit")
+            if any(
+                item.page_no > len(self.page_image_sha256)
+                for item in self.question_region_visual_evidence
+            ):
+                raise ValueError("question-region evidence page must resolve to a rendered page")
             by_id = {item.segment_id: item for item in self.segments}
             prompt_owners: set[str] = set()
             option_owners: set[str] = set()
@@ -253,6 +325,11 @@ class RecognitionCandidatePayload(StrictModel):
         elif self.kind == RecognitionKind.ANSWER_SHEET_OMR:
             if not self.omr_marks:
                 raise ValueError("OMR candidates require marks")
+        if (
+            self.kind != RecognitionKind.EXAM_SEGMENTATION
+            and self.question_region_visual_evidence
+        ):
+            raise ValueError("question-region evidence is only valid for exam segmentation")
         return self
 
 
@@ -401,6 +478,9 @@ class ProcessorResult(StrictModel):
     visual_fingerprints: tuple[Sha256Hex, ...] = Field(default=(), alias="visualFingerprints")
     visual_feature_hashes: tuple[VisualFeatureHash, ...] = Field(
         default=(), alias="visualFeatureHashes"
+    )
+    trusted_rendered_page_images: tuple[bytes, ...] = Field(
+        default=(), exclude=True, repr=False
     )
     confidence: float | None = Field(default=None, ge=0, le=1)
 

@@ -1,0 +1,176 @@
+{
+  "asset_id": "da_cbf853ad1097748e44c26c17",
+  "axes": {
+    "x": {
+      "max": 3,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1200,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000,
+          1200
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "同城快递",
+    "异地快递",
+    "国际/港澳台快递"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2015年1-7月",
+      "style": {
+        "dash": "solid",
+        "fill": "#696969",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "2016年1-7月",
+      "style": {
+        "dash": "solid",
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2015_1-7",
+      "label": "2015年1-7月",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        203.3,
+        777.0,
+        202.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2016_1-7",
+      "label": "2016年1-7月",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        288.2,
+        1085.6,
+        230.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2017年422联考《行测》题（山东卷）_images/img_0197_0a74f7893f8af51b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0197_0a74f7893f8af51b.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_ba8acea5633f02f5899c",
+        "question_number": 111,
+        "source_jsonl_line": 30085
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0197_0a74f7893f8af51b.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_268ba2fb313562fce67c",
+        "question_number": 112,
+        "source_jsonl_line": 30086
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0197_0a74f7893f8af51b.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_d0298a5564a7e6ab0bd1",
+        "question_number": 113,
+        "source_jsonl_line": 30087
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0197_0a74f7893f8af51b.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_85c281170f7d0c2bce12",
+        "question_number": 114,
+        "source_jsonl_line": 30088
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0221_5c9ff7f6703143cd.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_72bd3d0eb097973ae874",
+        "question_number": 115,
+        "source_jsonl_line": 30089
+      }
+    ],
+    "sha256": "cbf853ad1097748e44c26c173fd495d0df6706d5b2249954b64b94402159a28f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "分专业快递业务收入比较",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cbf853ad1097748e44c26c17/column_band_01.jpg",
+        "review-crops/da_cbf853ad1097748e44c26c17/column_band_02.jpg",
+        "review-crops/da_cbf853ad1097748e44c26c17/column_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.156",
+      "crop_verification_elapsed_seconds:2.277",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

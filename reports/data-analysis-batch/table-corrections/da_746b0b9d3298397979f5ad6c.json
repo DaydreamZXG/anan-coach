@@ -1,0 +1,376 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "国际储备(不包括黄金,亿美元)｜2000年",
+          "国际储备(不包括黄金,亿美元)｜2005年",
+          "国际储备(不包括黄金,亿美元)｜2006年"
+        ],
+        "label": "国际储备(不包括黄金,亿美元)"
+      },
+      {
+        "columns": [
+          "黄金储备(万盎司)｜2000年",
+          "黄金储备(万盎司)｜2005年",
+          "黄金储备(万盎司)｜2006年"
+        ],
+        "label": "黄金储备(万盎司)"
+      }
+    ],
+    "columns": [
+      "国际储备(不包括黄金,亿美元)｜2000年",
+      "国际储备(不包括黄金,亿美元)｜2005年",
+      "国际储备(不包括黄金,亿美元)｜2006年",
+      "黄金储备(万盎司)｜2000年",
+      "黄金储备(万盎司)｜2005年",
+      "黄金储备(万盎司)｜2006年"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家",
+    "rows": [
+      {
+        "display_label": "中国｜2000年",
+        "group": null,
+        "label": "中国｜2000年",
+        "unit": null,
+        "values": [
+          1682.8,
+          8215.1,
+          10684.9,
+          1270.0,
+          1929.0,
+          1929.0
+        ]
+      },
+      {
+        "display_label": "中国｜2005年",
+        "group": null,
+        "label": "中国｜2005年",
+        "unit": null,
+        "values": [
+          null,
+          8215.1,
+          10684.9,
+          1270.0,
+          1929.0,
+          1929.0
+        ]
+      },
+      {
+        "display_label": "中国｜2006年",
+        "group": null,
+        "label": "中国｜2006年",
+        "unit": null,
+        "values": [
+          null,
+          8215.1,
+          10684.9,
+          1270.0,
+          1929.0,
+          1929.0
+        ]
+      },
+      {
+        "display_label": "印度｜2000年",
+        "group": null,
+        "label": "印度｜2000年",
+        "unit": null,
+        "values": [
+          379.0,
+          1319.2,
+          1707.4,
+          1150.2,
+          1150.2,
+          1150.2
+        ]
+      },
+      {
+        "display_label": "印度｜2005年",
+        "group": null,
+        "label": "印度｜2005年",
+        "unit": null,
+        "values": [
+          null,
+          1319.2,
+          1707.4,
+          1150.2,
+          1150.2,
+          1150.2
+        ]
+      },
+      {
+        "display_label": "印度｜2006年",
+        "group": null,
+        "label": "印度｜2006年",
+        "unit": null,
+        "values": [
+          null,
+          1319.2,
+          1707.4,
+          1150.2,
+          1150.2,
+          1150.2
+        ]
+      },
+      {
+        "display_label": "日本｜2000年",
+        "group": null,
+        "label": "日本｜2000年",
+        "unit": null,
+        "values": [
+          3549.0,
+          8342.8,
+          8796.8,
+          2454.7,
+          2460.2,
+          2460.2
+        ]
+      },
+      {
+        "display_label": "日本｜2005年",
+        "group": null,
+        "label": "日本｜2005年",
+        "unit": null,
+        "values": [
+          null,
+          8342.8,
+          8796.8,
+          2454.7,
+          2460.2,
+          2460.2
+        ]
+      },
+      {
+        "display_label": "日本｜2006年",
+        "group": null,
+        "label": "日本｜2006年",
+        "unit": null,
+        "values": [
+          null,
+          8342.8,
+          8796.8,
+          2454.7,
+          2460.2,
+          2460.2
+        ]
+      },
+      {
+        "display_label": "韩国｜2000年",
+        "group": null,
+        "label": "韩国｜2000年",
+        "unit": null,
+        "values": [
+          961.3,
+          2103.2,
+          2388.8,
+          43.9,
+          45.8,
+          41.8
+        ]
+      },
+      {
+        "display_label": "韩国｜2005年",
+        "group": null,
+        "label": "韩国｜2005年",
+        "unit": null,
+        "values": [
+          null,
+          2103.2,
+          2388.8,
+          43.9,
+          45.8,
+          41.8
+        ]
+      },
+      {
+        "display_label": "韩国｜2006年",
+        "group": null,
+        "label": "韩国｜2006年",
+        "unit": null,
+        "values": [
+          null,
+          2103.2,
+          2388.8,
+          43.9,
+          45.8,
+          41.8
+        ]
+      },
+      {
+        "display_label": "美国｜2000年",
+        "group": null,
+        "label": "美国｜2000年",
+        "unit": null,
+        "values": [
+          566.0,
+          540.8,
+          548.5,
+          26161.1,
+          26155.1,
+          26149.9
+        ]
+      },
+      {
+        "display_label": "美国｜2005年",
+        "group": null,
+        "label": "美国｜2005年",
+        "unit": null,
+        "values": [
+          null,
+          540.8,
+          548.5,
+          26161.1,
+          26155.1,
+          26149.9
+        ]
+      },
+      {
+        "display_label": "美国｜2006年",
+        "group": null,
+        "label": "美国｜2006年",
+        "unit": null,
+        "values": [
+          null,
+          540.8,
+          548.5,
+          26161.1,
+          26155.1,
+          26149.9
+        ]
+      },
+      {
+        "display_label": "法国｜2000年",
+        "group": null,
+        "label": "法国｜2000年",
+        "unit": null,
+        "values": [
+          370.4,
+          277.5,
+          426.5,
+          9724.5,
+          9085.2,
+          8744.3
+        ]
+      },
+      {
+        "display_label": "法国｜2005年",
+        "group": null,
+        "label": "法国｜2005年",
+        "unit": null,
+        "values": [
+          null,
+          277.5,
+          426.5,
+          9724.5,
+          9085.2,
+          8744.3
+        ]
+      },
+      {
+        "display_label": "法国｜2006年",
+        "group": null,
+        "label": "法国｜2006年",
+        "unit": null,
+        "values": [
+          null,
+          277.5,
+          426.5,
+          9724.5,
+          9085.2,
+          8744.3
+        ]
+      },
+      {
+        "display_label": "德国｜2000年",
+        "group": null,
+        "label": "德国｜2000年",
+        "unit": null,
+        "values": [
+          568.9,
+          451.4,
+          416.9,
+          11151.9,
+          11020.7,
+          11003.7
+        ]
+      },
+      {
+        "display_label": "德国｜2005年",
+        "group": null,
+        "label": "德国｜2005年",
+        "unit": null,
+        "values": [
+          null,
+          451.4,
+          416.9,
+          11151.9,
+          11020.7,
+          11003.7
+        ]
+      },
+      {
+        "display_label": "德国｜2006年",
+        "group": null,
+        "label": "德国｜2006年",
+        "unit": null,
+        "values": [
+          null,
+          451.4,
+          416.9,
+          11151.9,
+          11020.7,
+          11003.7
+        ]
+      },
+      {
+        "display_label": "英国｜2000年",
+        "group": null,
+        "label": "英国｜2000年",
+        "unit": null,
+        "values": [
+          387.7,
+          384.7,
+          407.0,
+          1567.4,
+          999.3,
+          997.5
+        ]
+      },
+      {
+        "display_label": "英国｜2005年",
+        "group": null,
+        "label": "英国｜2005年",
+        "unit": null,
+        "values": [
+          null,
+          384.7,
+          407.0,
+          1567.4,
+          999.3,
+          997.5
+        ]
+      },
+      {
+        "display_label": "英国｜2006年",
+        "group": null,
+        "label": "英国｜2006年",
+        "unit": null,
+        "values": [
+          null,
+          384.7,
+          407.0,
+          1567.4,
+          999.3,
+          997.5
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

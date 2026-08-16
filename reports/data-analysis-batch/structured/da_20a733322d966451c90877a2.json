@@ -1,0 +1,315 @@
+{
+  "asset_id": "da_20a733322d966451c90877a2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "收入项目",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "收入金额 (亿元)",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "预算完成率 (%)",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "收入金额 (亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        109.16,
+        26.26,
+        47.57,
+        35.33
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "预算完成率 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        99.2,
+        102.2,
+        100.8,
+        95.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "同比增收 (亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        30.15,
+        7.13,
+        16.02,
+        null
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0269_73cba0279126a695.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0269_73cba0279126a695.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_19ded5a64d180380f817",
+        "question_number": 126,
+        "source_jsonl_line": 61793
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0276_895534962333afbb.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_4e0b9b8043b2d820f4f3",
+        "question_number": 127,
+        "source_jsonl_line": 61794
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0276_895534962333afbb.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_8317fd376c30488f97ab",
+        "question_number": 128,
+        "source_jsonl_line": 61795
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0269_73cba0279126a695.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_9acdbd7973bc46d6d82b",
+        "question_number": 129,
+        "source_jsonl_line": 61796
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0269_73cba0279126a695.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_377702659459b58cac94",
+        "question_number": 130,
+        "source_jsonl_line": 61797
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0293_73cba0279126a695.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_334094dd1e89ce13be77",
+        "question_number": 126,
+        "source_jsonl_line": 61933
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0293_73cba0279126a695.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_d2f3cabfc88890883dd7",
+        "question_number": 127,
+        "source_jsonl_line": 61934
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0293_73cba0279126a695.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_69531342b8f43a0bd93a",
+        "question_number": 128,
+        "source_jsonl_line": 61935
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0293_73cba0279126a695.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_7583c0977029b68569e3",
+        "question_number": 129,
+        "source_jsonl_line": 61936
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0293_73cba0279126a695.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_af320cfd6efa01b029c5",
+        "question_number": 130,
+        "source_jsonl_line": 61937
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0298_73cba0279126a695.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_4817c6522dab35fa8a63",
+        "question_number": 126,
+        "source_jsonl_line": 87841
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0298_73cba0279126a695.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_125fdb1f2a816acc9950",
+        "question_number": 127,
+        "source_jsonl_line": 87842
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0298_73cba0279126a695.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_82369a95b13228b46d6a",
+        "question_number": 128,
+        "source_jsonl_line": 87843
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0298_73cba0279126a695.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_952c059d8cc407dc5695",
+        "question_number": 129,
+        "source_jsonl_line": 87844
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0342_895534962333afbb.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_e20d12248aa0572765f7",
+        "question_number": 130,
+        "source_jsonl_line": 87845
+      }
+    ],
+    "sha256": "20a733322d966451c90877a2d6dbeb2548410e5986f59bab16316ebfa50de878"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "收入项目",
+      "收入金额 (亿元)",
+      "预算完成率 (%)",
+      "同比增收 (亿元)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "财政预算总收入",
+        "unit": null,
+        "values": [
+          "财政预算总收入",
+          109.16,
+          99.2,
+          30.15
+        ]
+      },
+      {
+        "label": "其中：一般预算收入",
+        "unit": null,
+        "values": [
+          "其中：一般预算收入",
+          26.26,
+          102.2,
+          7.13
+        ]
+      },
+      {
+        "label": "上划中央收入",
+        "unit": null,
+        "values": [
+          "上划中央收入",
+          47.57,
+          100.8,
+          16.02
+        ]
+      },
+      {
+        "label": "基金收入",
+        "unit": null,
+        "values": [
+          "基金收入",
+          35.33,
+          95.1,
+          null
+        ]
+      }
+    ]
+  },
+  "title": "2016年某市本级财政预算收入及增收状况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_20a733322d966451c90877a2/row_band_01.jpg",
+        "review-crops/da_20a733322d966451c90877a2/row_band_02.jpg",
+        "review-crops/da_20a733322d966451c90877a2/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.495",
+      "crop_verification_elapsed_seconds:10.642",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:同比增收 (亿元) 中基金收入的数值为明确缺失值，标记为 null",
+      "crop_note:确认 '收入金额 (亿元)' 中所有数值正确，无负号或小数错误",
+      "crop_note:确认 '预算完成率 (%)' 中所有数值正确，无百分号缺失或错误",
+      "crop_note:确认 '同比增收 (亿元)' 中 '基金收入' 项为缺失值，保持 null，未补 0",
+      "crop_note:确认 '基金收入' 的 '同比增收' 值在图中为 '?'，与 null 一致",
+      "crop_note:确认 '财政预算总收入' 的 '收入金额' 为 109.16，与图中一致",
+      "crop_note:确认 '其中：一般预算收入' 的 '收入金额' 为 26.26，与图中一致",
+      "crop_note:确认 '上划中央收入' 的 '收入金额' 为 47.57，与图中一致",
+      "crop_note:确认 '基金收入' 的 '收入金额' 为 35.33，与图中一致",
+      "crop_note:确认 '预算完成率' 计算逻辑正确，与注释一致"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

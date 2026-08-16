@@ -1,0 +1,113 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "纯收入",
+      "工资性收入",
+      "家庭经营性收入",
+      "财产性收入",
+      "转移性收入"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "纯收入（单位：元）｜1990年",
+        "group": null,
+        "label": "纯收入（单位：元）｜1990年",
+        "unit": null,
+        "values": [
+          668.31,
+          338.8,
+          518.55,
+          0,
+          28.96
+        ]
+      },
+      {
+        "display_label": "纯收入（单位：元）｜1995年",
+        "group": null,
+        "label": "纯收入（单位：元）｜1995年",
+        "unit": null,
+        "values": [
+          1577.74,
+          353.7,
+          1125.79,
+          40.98,
+          57.27
+        ]
+      },
+      {
+        "display_label": "纯收入（单位：元）｜2000年",
+        "group": null,
+        "label": "纯收入（单位：元）｜2000年",
+        "unit": null,
+        "values": [
+          2253.42,
+          702.3,
+          1427.27,
+          45.04,
+          78.81
+        ]
+      },
+      {
+        "display_label": "纯收入（单位：元）｜2005年",
+        "group": null,
+        "label": "纯收入（单位：元）｜2005年",
+        "unit": null,
+        "values": [
+          3254.93,
+          1174.53,
+          1844.53,
+          88.45,
+          147.42
+        ]
+      },
+      {
+        "display_label": "纯收入（单位：元）｜2007年",
+        "group": null,
+        "label": "纯收入（单位：元）｜2007年",
+        "unit": null,
+        "values": [
+          4140.36,
+          1596.22,
+          2193.67,
+          128.22,
+          222.25
+        ]
+      },
+      {
+        "display_label": "纯收入（单位：元）｜2008年",
+        "group": null,
+        "label": "纯收入（单位：元）｜2008年",
+        "unit": null,
+        "values": [
+          4760.62,
+          1853.73,
+          2435.56,
+          148.09,
+          323.24
+        ]
+      },
+      {
+        "display_label": "纯收入（单位：元）｜2009年",
+        "group": null,
+        "label": "纯收入（单位：元）｜2009年",
+        "unit": null,
+        "values": [
+          5153,
+          2061,
+          2527,
+          167,
+          398
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

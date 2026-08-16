@@ -1,0 +1,235 @@
+{
+  "asset_id": "da_cf4798beb495afa89f6396a9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0087_a7cbbb8f6b221bb8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0087_a7cbbb8f6b221bb8.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_5ae98a1b00aa6f180cf2",
+        "question_number": 82,
+        "source_jsonl_line": 15206
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0092_9aa69283e4306797.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_b811371c738c0408f2bc",
+        "question_number": 83,
+        "source_jsonl_line": 15207
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0092_9aa69283e4306797.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_274c40c88d272ca9a124",
+        "question_number": 84,
+        "source_jsonl_line": 15208
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0092_9aa69283e4306797.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_728b833a3ce923b08ee9",
+        "question_number": 85,
+        "source_jsonl_line": 15209
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0087_a7cbbb8f6b221bb8.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_0195ffd8f183bd238fde",
+        "question_number": 86,
+        "source_jsonl_line": 15210
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0085_9aa69283e4306797.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_ac33a6f783a11b7d0a53",
+        "question_number": 82,
+        "source_jsonl_line": 85976
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0085_9aa69283e4306797.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_cd3aeff5467e74f29df6",
+        "question_number": 83,
+        "source_jsonl_line": 85977
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0085_9aa69283e4306797.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_6d58700afcc9133061e8",
+        "question_number": 84,
+        "source_jsonl_line": 85978
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0085_9aa69283e4306797.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_bd2f73a5eca841c140a4",
+        "question_number": 85,
+        "source_jsonl_line": 85979
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0171_a7cbbb8f6b221bb8.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_6edd0d84c532bedd503f",
+        "question_number": 86,
+        "source_jsonl_line": 85980
+      }
+    ],
+    "sha256": "cf4798beb495afa89f6396a9a49af74ca2df565310d4a9cc6b4704bb0553def8"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "出口",
+      "出口｜同比增减",
+      "进口",
+      "进口｜同比增减"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "原木（万立方米）",
+        "group": null,
+        "label": "原木（万立方米）",
+        "unit": "万立方米",
+        "values": [
+          1.31,
+          263.89,
+          4515.94,
+          19.18
+        ]
+      },
+      {
+        "display_label": "锯材（万立方米）",
+        "group": null,
+        "label": "锯材（万立方米）",
+        "unit": "万立方米",
+        "values": [
+          45.82,
+          -4.5,
+          2404.3,
+          16.32
+        ]
+      },
+      {
+        "display_label": "胶合板（万立方米）",
+        "group": null,
+        "label": "胶合板（万立方米）",
+        "unit": "万立方米",
+        "values": [
+          1026.34,
+          2.315,
+          15.47,
+          -13.48
+        ]
+      },
+      {
+        "display_label": "纤维板（万立方米）",
+        "group": null,
+        "label": "纤维板（万立方米）",
+        "unit": "万立方米",
+        "values": [
+          306.87,
+          -14.97,
+          22.62,
+          6.93
+        ]
+      },
+      {
+        "display_label": "刨花板（万立方米）",
+        "group": null,
+        "label": "刨花板（万立方米）",
+        "unit": "万立方米",
+        "values": [
+          27.13,
+          25.2,
+          58.68,
+          8.52
+        ]
+      },
+      {
+        "display_label": "木家具（亿美元）",
+        "group": null,
+        "label": "木家具（亿美元）",
+        "unit": "亿美元",
+        "values": [
+          194.41,
+          6.06,
+          7.06,
+          18.97
+        ]
+      },
+      {
+        "display_label": "纸和纸制品（万吨）",
+        "group": null,
+        "label": "纸和纸制品（万吨）",
+        "unit": "万吨",
+        "values": [
+          762.23,
+          18.28,
+          297.12,
+          -8.7
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

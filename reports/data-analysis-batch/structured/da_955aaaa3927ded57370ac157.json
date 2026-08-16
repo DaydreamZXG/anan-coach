@@ -1,0 +1,278 @@
+{
+  "asset_id": "da_955aaaa3927ded57370ac157",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 7000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000
+        ],
+        "title": null,
+        "unit": "(亿元)"
+      },
+      {
+        "max": 70.0,
+        "min": -50.0,
+        "ticks": [
+          -50.0,
+          -40.0,
+          -30.0,
+          -20.0,
+          -10.0,
+          0.0,
+          10.0,
+          20.0,
+          30.0,
+          40.0,
+          50.0,
+          60.0,
+          70.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2020年上半年",
+    "2020年下半年",
+    "2021年上半年",
+    "2021年下半年",
+    "2022年上半年",
+    "2022年下半年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "营业收入",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "利润",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "利润同比增速",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "triangle",
+        "stroke": "green"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "营业收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(亿元)",
+      "values": [
+        4313,
+        5669,
+        5819,
+        5692,
+        5654,
+        6605
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "利润",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(亿元)",
+      "values": [
+        460,
+        573,
+        725,
+        480,
+        584,
+        504
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "利润同比增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -10.2,
+        28.5,
+        57.6,
+        -16.2,
+        -19.4,
+        5.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0212_84b8096473b34797.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0212_84b8096473b34797.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_ae76627a15890d83e5a5",
+        "question_number": 126,
+        "source_jsonl_line": 50306
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0212_84b8096473b34797.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_29324874e2ab652a497d",
+        "question_number": 127,
+        "source_jsonl_line": 50307
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0212_84b8096473b34797.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_1eb853472e976b389548",
+        "question_number": 128,
+        "source_jsonl_line": 50308
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0212_84b8096473b34797.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_b9f6a1efae80b1e6ca92",
+        "question_number": 129,
+        "source_jsonl_line": 50309
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0212_84b8096473b34797.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_0a62615c99eafcbd1db1",
+        "question_number": 130,
+        "source_jsonl_line": 50310
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0221_3e29fc659629eefb.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_931f36406c12cbf8d0b9",
+        "question_number": 126,
+        "source_jsonl_line": 50441
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0221_3e29fc659629eefb.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_5fd4205b3d068fddf049",
+        "question_number": 127,
+        "source_jsonl_line": 50442
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0203_84b8096473b34797.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_48095514b1c1c3b053da",
+        "question_number": 128,
+        "source_jsonl_line": 50443
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0203_84b8096473b34797.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_781c25febf073c843cd6",
+        "question_number": 129,
+        "source_jsonl_line": 50444
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0221_3e29fc659629eefb.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_61c6a46feb34ba5c68e3",
+        "question_number": 130,
+        "source_jsonl_line": 50445
+      }
+    ],
+    "sha256": "955aaaa3927ded57370ac15724a18c00b23640327f95fc7bce1719391811d9de"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2020年上半年~2022年下半年江苏省、设区市国资委监管企业部分财务数据",
+  "unit": "(亿元)",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_955aaaa3927ded57370ac157/column_band_01.jpg",
+        "review-crops/da_955aaaa3927ded57370ac157/column_band_02.jpg",
+        "review-crops/da_955aaaa3927ded57370ac157/column_band_03.jpg",
+        "review-crops/da_955aaaa3927ded57370ac157/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.519",
+      "crop_verification_elapsed_seconds:5.268",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

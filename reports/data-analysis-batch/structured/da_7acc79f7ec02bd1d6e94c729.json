@@ -1,0 +1,192 @@
+{
+  "asset_id": "da_7acc79f7ec02bd1d6e94c729",
+  "axes": {
+    "x": {
+      "max": 2006,
+      "min": 1994,
+      "ticks": [
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 30,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1994",
+    "1995",
+    "1996",
+    "1997",
+    "1998",
+    "1999",
+    "2000",
+    "2001",
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "全国报纸印刷量增长率",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国报纸印刷量增长率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        8.12,
+        15.7,
+        9.12,
+        17.17,
+        17.44,
+        17.9,
+        25.62,
+        17.4,
+        13.68,
+        15.76,
+        14.52,
+        3.18,
+        4.39
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2008年国家公务员录用考试《行测》题_images/img_0154_056440f10263b01a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0154_056440f10263b01a.png",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_e6c0209217f8ef333e27",
+        "question_number": 121,
+        "source_jsonl_line": 17236
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0154_056440f10263b01a.png",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_3233f7e45f656404022b",
+        "question_number": 122,
+        "source_jsonl_line": 17237
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0154_056440f10263b01a.png",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_75cbf128e891f2a2423c",
+        "question_number": 123,
+        "source_jsonl_line": 17238
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0150_fbd5cd16d08e4863.png",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_79c841355aee29e9523c",
+        "question_number": 124,
+        "source_jsonl_line": 17239
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0150_fbd5cd16d08e4863.png",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_65753e6243a7e74ecf21",
+        "question_number": 125,
+        "source_jsonl_line": 17240
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0154_056440f10263b01a.png",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_0288497486c30a00df73",
+        "question_number": 126,
+        "source_jsonl_line": 17241
+      }
+    ],
+    "sha256": "7acc79f7ec02bd1d6e94c7293c4b5c5b4e52c8ec6c3a376af29525f98935ce85"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "表2:1994至2006年全国报纸印刷量增长率",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_7acc79f7ec02bd1d6e94c729/column_band_01.jpg",
+        "review-crops/da_7acc79f7ec02bd1d6e94c729/column_band_02.jpg",
+        "review-crops/da_7acc79f7ec02bd1d6e94c729/column_band_03.jpg",
+        "review-crops/da_7acc79f7ec02bd1d6e94c729/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.276",
+      "crop_verification_elapsed_seconds:4.088",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "asset_id": "da_11621226935090a4b92d04b8",
+  "axes": {
+    "x": {
+      "max": 2020,
+      "min": 2015,
+      "ticks": [],
+      "title": "年份",
+      "unit": "年"
+    },
+    "y": [
+      {
+        "max": 25,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25
+        ],
+        "title": "增速",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年"
+  ],
+  "chart_type": "line",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "GDP增速",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": "triangle",
+        "stroke": "solid"
+      }
+    },
+    {
+      "label": "数字经济增速",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": "square",
+        "stroke": "solid"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "GDP",
+      "label": "GDP增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        7.0,
+        8.4,
+        11.5,
+        10.5,
+        7.3,
+        3.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "数字经济增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        15.8,
+        18.9,
+        20.3,
+        20.9,
+        15.6,
+        9.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0065_546fb588ca1fd128.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0065_546fb588ca1fd128.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b0fa997996456eb657d7",
+        "question_number": 86,
+        "source_jsonl_line": 16701
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0065_546fb588ca1fd128.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2ae8e449f1e3f5678149",
+        "question_number": 87,
+        "source_jsonl_line": 16702
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0065_546fb588ca1fd128.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_726d3694a3217000a662",
+        "question_number": 88,
+        "source_jsonl_line": 16703
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0065_546fb588ca1fd128.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8c3635572a88ffad0919",
+        "question_number": 89,
+        "source_jsonl_line": 16704
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0077_1ca1c16062e16caa.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8c805d4b79bce25454fa",
+        "question_number": 90,
+        "source_jsonl_line": 16705
+      }
+    ],
+    "sha256": "11621226935090a4b92d04b845778c94036d6c5ecc9ee54f49641f1046b23a79"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "我国数字经济增速与GDP增速",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_11621226935090a4b92d04b8/column_band_01.jpg",
+        "review-crops/da_11621226935090a4b92d04b8/column_band_02.jpg",
+        "review-crops/da_11621226935090a4b92d04b8/column_band_03.jpg",
+        "review-crops/da_11621226935090a4b92d04b8/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.465",
+      "crop_verification_elapsed_seconds:8.056",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了GDP增速在2017年的数值为11.5%，原图显示为11.50%。",
+      "crop_note:修正了数字经济增速在2019年的数值为15.6%，原图显示为15.60%。",
+      "crop_note:修正了数字经济增速在2020年的数值为9.7%，原图显示为9.70%。",
+      "crop_note:修正了GDP增速在2020年的数值为3.0%，原图显示为3.00%。",
+      "crop_note:修正了数字经济增速在2015年的数值为15.8%，原图显示为15.80%。",
+      "crop_note:修正了GDP增速在2015年的数值为7.0%，原图显示为7.00%。",
+      "crop_note:修正了数字经济增速在2016年的数值为18.9%，原图显示为18.90%。",
+      "crop_note:修正了数字经济增速在2017年的数值为20.3%，原图显示为20.30%。",
+      "crop_note:修正了数字经济增速在2018年的数值为20.9%，原图显示为20.90%。",
+      "crop_note:修正了GDP增速在2016年的数值为8.4%，原图显示为8.40%。",
+      "crop_note:修正了GDP增速在2018年的数值为10.5%，原图显示为10.50%。",
+      "crop_note:修正了GDP增速在2019年的数值为7.3%，原图显示为7.30%。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

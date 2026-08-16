@@ -1,0 +1,211 @@
+{
+  "asset_id": "da_788f87e6da7342c1c36e0818",
+  "axes": {
+    "x": {
+      "max": 40000,
+      "min": 0,
+      "ticks": [
+        0,
+        5000,
+        10000,
+        15000,
+        20000,
+        25000,
+        30000,
+        35000,
+        40000
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 150,
+        "min": 0,
+        "ticks": [
+          0,
+          30,
+          60,
+          90,
+          120,
+          150
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "上海",
+    "广东",
+    "浙江",
+    "天津",
+    "河北",
+    "湖北",
+    "山西",
+    "四川",
+    "安徽",
+    "重庆",
+    "黑龙江",
+    "云南",
+    "广西",
+    "江西",
+    "贵州",
+    "海南"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2013",
+      "label": "2013年部分地区百强企业总营业收入排名",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        39200.04,
+        37311.3,
+        30717.8,
+        27012.0,
+        22307.4,
+        18600.0,
+        17868.9,
+        13050.3,
+        12935.2,
+        9605.0,
+        9256.05,
+        9242.47,
+        7770.76,
+        6547.38,
+        5579.3,
+        4488.5
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "2013",
+      "label": "2013年部分地区营收过百亿企业数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        124,
+        85,
+        100,
+        55,
+        53,
+        36,
+        36,
+        30,
+        30,
+        30,
+        21,
+        22,
+        20,
+        16,
+        16,
+        16
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2014年吉林省公务员录用考试《行测》题（乙级）_images/img_0090_be8e0f56946e4ab3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（乙级）_images/img_0090_be8e0f56946e4ab3.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_e1a985d383aa328c2881",
+        "question_number": 96,
+        "source_jsonl_line": 11877
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（乙级）_images/img_0090_be8e0f56946e4ab3.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_fafeb401830430a783a9",
+        "question_number": 97,
+        "source_jsonl_line": 11878
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（乙级）_images/img_0090_be8e0f56946e4ab3.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_36ad0b71291e89f7b210",
+        "question_number": 98,
+        "source_jsonl_line": 11879
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（乙级）_images/img_0091_5b45bf31bf9f5948.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_b6ae6b737ee8310980fc",
+        "question_number": 99,
+        "source_jsonl_line": 11880
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（乙级）_images/img_0090_be8e0f56946e4ab3.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_bac51f30d3f6acd23a27",
+        "question_number": 100,
+        "source_jsonl_line": 11881
+      }
+    ],
+    "sha256": "788f87e6da7342c1c36e081868736a2588c8a4089f9d12ad6147e946c335cd8d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013年部分地区百强企业总营业收入排名",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_788f87e6da7342c1c36e0818/column_band_01.jpg",
+        "review-crops/da_788f87e6da7342c1c36e0818/column_band_02.jpg",
+        "review-crops/da_788f87e6da7342c1c36e0818/column_band_03.jpg",
+        "review-crops/da_788f87e6da7342c1c36e0818/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.575",
+      "crop_verification_elapsed_seconds:11.899",
+      "candidate_value_changes_after_crop:8",
+      "model_uncertainty:图表包含两个独立的柱状图，分别表示总营业收入和营收过百亿企业数，需分别解析。",
+      "model_uncertainty:底部图表的x轴标签与顶部图表的x轴标签不完全一致，可能存在数据对应关系的不确定性。",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_chart_point:山东:2013年部分地区营收过百亿企业数",
+      "crop_note:ignored_unknown_chart_point:江苏:2013年部分地区营收过百亿企业数",
+      "crop_note:ignored_unknown_chart_point:河南:2013年部分地区营收过百亿企业数"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "asset_id": "da_219f657dc7b2e9e44cc9c6f0",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2012年北京市公务员录用考试《行测》题_images/img_0096_4e0633eeff268612.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年北京市公务员录用考试《行测》题_images/img_0096_4e0633eeff268612.png",
+        "paper_title": "2012年北京市公务员录用考试《行测》题",
+        "question_id": "pq_e79778d8d5e7941baf2e",
+        "question_number": 121,
+        "source_jsonl_line": 9184
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年北京市公务员录用考试《行测》题_images/img_0094_0aab20971ef8d7e6.png",
+        "paper_title": "2012年北京市公务员录用考试《行测》题",
+        "question_id": "pq_5756884d7cae96ea881b",
+        "question_number": 122,
+        "source_jsonl_line": 9185
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年北京市公务员录用考试《行测》题_images/img_0094_0aab20971ef8d7e6.png",
+        "paper_title": "2012年北京市公务员录用考试《行测》题",
+        "question_id": "pq_72d5333a3f39cb32ef4f",
+        "question_number": 123,
+        "source_jsonl_line": 9186
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年北京市公务员录用考试《行测》题_images/img_0094_0aab20971ef8d7e6.png",
+        "paper_title": "2012年北京市公务员录用考试《行测》题",
+        "question_id": "pq_ad0fbe9e197978fbb363",
+        "question_number": 124,
+        "source_jsonl_line": 9187
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年北京市公务员录用考试《行测》题_images/img_0096_4e0633eeff268612.png",
+        "paper_title": "2012年北京市公务员录用考试《行测》题",
+        "question_id": "pq_2f6ad9b5215a0213e3c5",
+        "question_number": 125,
+        "source_jsonl_line": 9188
+      }
+    ],
+    "sha256": "219f657dc7b2e9e44cc9c6f032ad28592d176038b73ba66d3e1cd5e596c8f8d3"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "天数",
+      "上年同期天数",
+      "排名",
+      "上年同期排名"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "兰州",
+        "group": "当年非蓝天日数排名前10位的城市",
+        "label": "当年非蓝天日数排名前10位的城市｜兰州",
+        "unit": null,
+        "values": [
+          141,
+          121,
+          1,
+          1
+        ]
+      },
+      {
+        "display_label": "乌鲁木齐",
+        "group": "当年非蓝天日数排名前10位的城市",
+        "label": "当年非蓝天日数排名前10位的城市｜乌鲁木齐",
+        "unit": null,
+        "values": [
+          105,
+          101,
+          2,
+          2
+        ]
+      },
+      {
+        "display_label": "北京",
+        "group": "当年非蓝天日数排名前10位的城市",
+        "label": "当年非蓝天日数排名前10位的城市｜北京",
+        "unit": null,
+        "values": [
+          79,
+          81,
+          3,
+          3
+        ]
+      },
+      {
+        "display_label": "合肥",
+        "group": "当年非蓝天日数排名前10位的城市",
+        "label": "当年非蓝天日数排名前10位的城市｜合肥",
+        "unit": null,
+        "values": [
+          76,
+          36,
+          4,
+          29
+        ]
+      },
+      {
+        "display_label": "武汉",
+        "group": "当年非蓝天日数排名前10位的城市",
+        "label": "当年非蓝天日数排名前10位的城市｜武汉",
+        "unit": null,
+        "values": [
+          74,
+          71,
+          5,
+          6
+        ]
+      },
+      {
+        "display_label": "赤峰",
+        "group": "当年非蓝天日数排名前10位的城市",
+        "label": "当年非蓝天日数排名前10位的城市｜赤峰",
+        "unit": null,
+        "values": [
+          73,
+          30,
+          6,
+          38
+        ]
+      },
+      {
+        "display_label": "西安",
+        "group": "当年非蓝天日数排名前10位的城市",
+        "label": "当年非蓝天日数排名前10位的城市｜西安",
+        "unit": null,
+        "values": [
+          68,
+          62,
+          7,
+          9
+        ]
+      },
+      {
+        "display_label": "开封",
+        "group": "当年非蓝天日数排名前10位的城市",
+        "label": "当年非蓝天日数排名前10位的城市｜开封",
+        "unit": null,
+        "values": [
+          65,
+          32,
+          8,
+          34
+        ]
+      },
+      {
+        "display_label": "扬州",
+        "group": "当年非蓝天日数排名前10位的城市",
+        "label": "当年非蓝天日数排名前10位的城市｜扬州",
+        "unit": null,
+        "values": [
+          62,
+          35,
+          9,
+          31
+        ]
+      },
+      {
+        "display_label": "太原",
+        "group": "当年非蓝天日数排名前10位的城市",
+        "label": "当年非蓝天日数排名前10位的城市｜太原",
+        "unit": null,
+        "values": [
+          56,
+          78,
+          10,
+          4
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "发电总量",
+          "水力发电量",
+          "火力发电量"
+        ],
+        "label": "发电量"
+      }
+    ],
+    "columns": [
+      "发电总量",
+      "水力发电量",
+      "火力发电量"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "时间",
+    "rows": [
+      {
+        "display_label": "2013年｜第一季度",
+        "group": null,
+        "label": "2013年｜第一季度",
+        "unit": null,
+        "values": [
+          11823,
+          1306,
+          10006
+        ]
+      },
+      {
+        "display_label": "2013年｜第二季度",
+        "group": null,
+        "label": "2013年｜第二季度",
+        "unit": null,
+        "values": [
+          12519,
+          1985,
+          9949
+        ]
+      },
+      {
+        "display_label": "2013年｜第三季度",
+        "group": null,
+        "label": "2013年｜第三季度",
+        "unit": null,
+        "values": [
+          14347,
+          2552,
+          11161
+        ]
+      },
+      {
+        "display_label": "2013年｜第四季度",
+        "group": null,
+        "label": "2013年｜第四季度",
+        "unit": null,
+        "values": [
+          13763,
+          2047,
+          11037
+        ]
+      },
+      {
+        "display_label": "2014年｜第一季度",
+        "group": null,
+        "label": "2014年｜第一季度",
+        "unit": null,
+        "values": [
+          12719,
+          1453,
+          10782
+        ]
+      },
+      {
+        "display_label": "2014年｜第二季度",
+        "group": null,
+        "label": "2014年｜第二季度",
+        "unit": null,
+        "values": [
+          13444,
+          2265,
+          10582
+        ]
+      },
+      {
+        "display_label": "2014年｜第三季度",
+        "group": null,
+        "label": "2014年｜第三季度",
+        "unit": null,
+        "values": [
+          14592,
+          3442,
+          10377
+        ]
+      },
+      {
+        "display_label": "2014年｜第四季度",
+        "group": null,
+        "label": "2014年｜第四季度",
+        "unit": null,
+        "values": [
+          13883,
+          2284,
+          10677
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

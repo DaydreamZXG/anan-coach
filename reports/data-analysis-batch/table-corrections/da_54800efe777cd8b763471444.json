@@ -1,0 +1,310 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "信息技术咨询服务收入｜本期累计",
+          "信息技术咨询服务收入｜同比增长（%）"
+        ],
+        "label": "信息技术咨询服务收入"
+      },
+      {
+        "columns": [
+          "数据处理和运营服务收入｜本期累计",
+          "数据处理和运营服务收入｜同比增长（%）"
+        ],
+        "label": "数据处理和运营服务收入"
+      },
+      {
+        "columns": [
+          "嵌入式系统软件收入｜本期累计",
+          "嵌入式系统软件收入｜同比增长（%）"
+        ],
+        "label": "嵌入式系统软件收入"
+      },
+      {
+        "columns": [
+          "IC设计收入｜本期累计",
+          "IC设计收入｜同比增长（%）"
+        ],
+        "label": "IC设计收入"
+      }
+    ],
+    "columns": [
+      "信息技术咨询服务收入｜本期累计",
+      "信息技术咨询服务收入｜同比增长（%）",
+      "数据处理和运营服务收入｜本期累计",
+      "数据处理和运营服务收入｜同比增长（%）",
+      "嵌入式系统软件收入｜本期累计",
+      "嵌入式系统软件收入｜同比增长（%）",
+      "IC设计收入｜本期累计",
+      "IC设计收入｜同比增长（%）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "城市名称",
+    "rows": [
+      {
+        "display_label": "大连",
+        "group": null,
+        "label": "大连",
+        "unit": null,
+        "values": [
+          130.51,
+          22.2,
+          133.48,
+          24.7,
+          52.2,
+          16.2,
+          2.37,
+          19.0
+        ]
+      },
+      {
+        "display_label": "宁波",
+        "group": null,
+        "label": "宁波",
+        "unit": null,
+        "values": [
+          2.97,
+          20.5,
+          11.78,
+          28.8,
+          29.94,
+          16.0,
+          2.25,
+          21.7
+        ]
+      },
+      {
+        "display_label": "厦门",
+        "group": null,
+        "label": "厦门",
+        "unit": null,
+        "values": [
+          53.35,
+          28.3,
+          35.82,
+          29.2,
+          38.6,
+          18.9,
+          8.56,
+          41.8
+        ]
+      },
+      {
+        "display_label": "青岛",
+        "group": null,
+        "label": "青岛",
+        "unit": null,
+        "values": [
+          63.26,
+          39.5,
+          56.44,
+          41.0,
+          166.03,
+          38.7,
+          9.51,
+          43.3
+        ]
+      },
+      {
+        "display_label": "深圳",
+        "group": null,
+        "label": "深圳",
+        "unit": null,
+        "values": [
+          24.4,
+          27.3,
+          206.84,
+          28.3,
+          472.19,
+          17.4,
+          6.95,
+          11.6
+        ]
+      },
+      {
+        "display_label": "沈阳",
+        "group": null,
+        "label": "沈阳",
+        "unit": null,
+        "values": [
+          73.03,
+          19.9,
+          83.73,
+          22.2,
+          84.42,
+          24.4,
+          10.2,
+          17.2
+        ]
+      },
+      {
+        "display_label": "长春",
+        "group": null,
+        "label": "长春",
+        "unit": null,
+        "values": [
+          0.89,
+          20.1,
+          2.7,
+          21.7,
+          10.15,
+          21.4,
+          0.03,
+          20.7
+        ]
+      },
+      {
+        "display_label": "哈尔滨",
+        "group": null,
+        "label": "哈尔滨",
+        "unit": null,
+        "values": [
+          3.02,
+          10.1,
+          2.09,
+          21.8,
+          3.36,
+          16.2,
+          0.19,
+          17.0
+        ]
+      },
+      {
+        "display_label": "南京",
+        "group": null,
+        "label": "南京",
+        "unit": null,
+        "values": [
+          100.3,
+          21.8,
+          130.9,
+          37.5,
+          154.5,
+          14.9,
+          12.3,
+          3.3
+        ]
+      },
+      {
+        "display_label": "杭州",
+        "group": null,
+        "label": "杭州",
+        "unit": null,
+        "values": [
+          13.09,
+          35.7,
+          258.28,
+          53.3,
+          164.78,
+          17.5,
+          8.06,
+          10.6
+        ]
+      },
+      {
+        "display_label": "济南",
+        "group": null,
+        "label": "济南",
+        "unit": null,
+        "values": [
+          112.54,
+          20.3,
+          74.01,
+          33.3,
+          28.08,
+          11.9,
+          0.1,
+          34.9
+        ]
+      },
+      {
+        "display_label": "武汉",
+        "group": null,
+        "label": "武汉",
+        "unit": null,
+        "values": [
+          36.68,
+          33.1,
+          60.34,
+          34.2,
+          45.93,
+          32.1,
+          1.2,
+          20.4
+        ]
+      },
+      {
+        "display_label": "广州",
+        "group": null,
+        "label": "广州",
+        "unit": null,
+        "values": [
+          178.67,
+          18.1,
+          209.64,
+          16.1,
+          14.05,
+          21.3,
+          13.74,
+          22.1
+        ]
+      },
+      {
+        "display_label": "成都",
+        "group": null,
+        "label": "成都",
+        "unit": null,
+        "values": [
+          59.62,
+          28.5,
+          190.57,
+          8.4,
+          3.6,
+          8.7,
+          18.87,
+          12.9
+        ]
+      },
+      {
+        "display_label": "西安",
+        "group": null,
+        "label": "西安",
+        "unit": null,
+        "values": [
+          84.22,
+          32.7,
+          14.37,
+          33.3,
+          32.28,
+          26.0,
+          14.25,
+          26.5
+        ]
+      },
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          936.56,
+          24.2,
+          1470.98,
+          28.0,
+          1300.11,
+          20.5,
+          108.6,
+          19.1
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,249 @@
+{
+  "asset_id": "da_75dc78d4a1dba226e829abb5",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0296_b682e30b9bf675b7.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0296_b682e30b9bf675b7.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_6aa6b736d4ac157601e7",
+        "question_number": 131,
+        "source_jsonl_line": 49641
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0296_b682e30b9bf675b7.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_637b59e198a3d25d4587",
+        "question_number": 132,
+        "source_jsonl_line": 49642
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0302_c3e10ddacafb3c2b.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_77cc6be7c5460a7910bf",
+        "question_number": 133,
+        "source_jsonl_line": 49643
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0296_b682e30b9bf675b7.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_3eb9d5eefbaecc86294a",
+        "question_number": 134,
+        "source_jsonl_line": 49644
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0296_b682e30b9bf675b7.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_da6760575613da874afd",
+        "question_number": 135,
+        "source_jsonl_line": 49645
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0257_b682e30b9bf675b7.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_a9d8e404c5d168c7e724",
+        "question_number": 131,
+        "source_jsonl_line": 49776
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0263_c3e10ddacafb3c2b.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_45d0bf887b4fb5a0c040",
+        "question_number": 132,
+        "source_jsonl_line": 49777
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0257_b682e30b9bf675b7.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_aa9c54f41b358072ef5d",
+        "question_number": 133,
+        "source_jsonl_line": 49778
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0257_b682e30b9bf675b7.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_5ed3c7222f0293caa99c",
+        "question_number": 134,
+        "source_jsonl_line": 49779
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0257_b682e30b9bf675b7.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_3f1bbd7c7507ef15e262",
+        "question_number": 135,
+        "source_jsonl_line": 49780
+      }
+    ],
+    "sha256": "75dc78d4a1dba226e829abb55f643fda1c94dc5b1c6897be4a19267e4e16b644"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2020年｜日均产量(万吨)",
+          "2020年｜同比增长(%)"
+        ],
+        "label": "2020年"
+      },
+      {
+        "columns": [
+          "2021年｜日均产量(万吨)",
+          "2021年｜同比增长(%)"
+        ],
+        "label": "2021年"
+      }
+    ],
+    "columns": [
+      "2020年｜日均产量(万吨)",
+      "2020年｜同比增长(%)",
+      "2021年｜日均产量(万吨)",
+      "2021年｜同比增长(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "2021年｜日均产量(万吨)",
+        "display": "—",
+        "row": "12 月"
+      },
+      {
+        "column": "2021年｜同比增长(%)",
+        "display": "—",
+        "row": "12 月"
+      }
+    ],
+    "row_header_label": "月份",
+    "rows": [
+      {
+        "display_label": "7 月",
+        "group": null,
+        "label": "7 月",
+        "unit": null,
+        "values": [
+          53.1,
+          0.6,
+          54.4,
+          0.4
+        ]
+      },
+      {
+        "display_label": "8 月",
+        "group": null,
+        "label": "8 月",
+        "unit": null,
+        "values": [
+          53.7,
+          2.3,
+          55.1,
+          3.3
+        ]
+      },
+      {
+        "display_label": "9 月",
+        "group": null,
+        "label": "9 月",
+        "unit": null,
+        "values": [
+          53.7,
+          2.4,
+          54.7,
+          3.4
+        ]
+      },
+      {
+        "display_label": "10 月",
+        "group": null,
+        "label": "10 月",
+        "unit": null,
+        "values": [
+          52.9,
+          1.4,
+          54.9,
+          3.5
+        ]
+      },
+      {
+        "display_label": "11 月",
+        "group": null,
+        "label": "11 月",
+        "unit": null,
+        "values": [
+          53.2,
+          1.2,
+          55.6,
+          2.8
+        ]
+      },
+      {
+        "display_label": "12 月",
+        "group": null,
+        "label": "12 月",
+        "unit": null,
+        "values": [
+          52.5,
+          0.9,
+          null,
+          null
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

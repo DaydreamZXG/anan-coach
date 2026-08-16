@@ -1,0 +1,247 @@
+{
+  "asset_id": "da_7b0620cc6bc56400bcf74a36",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 66000,
+        "min": 50000,
+        "ticks": [
+          50000,
+          52000,
+          54000,
+          56000,
+          58000,
+          60000,
+          62000,
+          64000,
+          66000
+        ],
+        "title": null,
+        "unit": "万吨"
+      },
+      {
+        "max": 6,
+        "min": -6,
+        "ticks": [
+          -6,
+          -4,
+          -2,
+          0,
+          2,
+          4,
+          6
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "粮食产量",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "同比增长",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "粮食产量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        52871,
+        53082,
+        54640,
+        57121,
+        58957
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增长",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.4,
+        0.4,
+        2.9,
+        4.5,
+        3.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/福建/2019年福建省选调生考试《行政职业能力测验》_images/img_0105_71407e3a334dbd7c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年福建省选调生考试《行政职业能力测验》_images/img_0105_71407e3a334dbd7c.png",
+        "paper_title": "2019年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_91720511bb13e6586ef4",
+        "question_number": 101,
+        "source_jsonl_line": 78470
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年福建省选调生考试《行政职业能力测验》_images/img_0105_71407e3a334dbd7c.png",
+        "paper_title": "2019年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_763ea877c9f355c11588",
+        "question_number": 102,
+        "source_jsonl_line": 78471
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年福建省选调生考试《行政职业能力测验》_images/img_0105_71407e3a334dbd7c.png",
+        "paper_title": "2019年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_d2e7ce11ccd752d9bca3",
+        "question_number": 103,
+        "source_jsonl_line": 78472
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年福建省选调生考试《行政职业能力测验》_images/img_0105_71407e3a334dbd7c.png",
+        "paper_title": "2019年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_317c7268e51e6fc759ca",
+        "question_number": 104,
+        "source_jsonl_line": 78473
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年福建省选调生考试《行政职业能力测验》_images/img_0105_71407e3a334dbd7c.png",
+        "paper_title": "2019年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_a5ea629197c0a3e4de54",
+        "question_number": 105,
+        "source_jsonl_line": 78474
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年福建省选调生考试《行政职业能力测验》_images/img_0107_71407e3a334dbd7c.png",
+        "paper_title": "2019年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_c283e878344511485d31",
+        "question_number": 101,
+        "source_jsonl_line": 88921
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年福建省选调生考试《行政职业能力测验》_images/img_0115_f30ea77f1e869804.png",
+        "paper_title": "2019年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_e4944260b75e8f0f4272",
+        "question_number": 102,
+        "source_jsonl_line": 88922
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年福建省选调生考试《行政职业能力测验》_images/img_0115_f30ea77f1e869804.png",
+        "paper_title": "2019年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_b0288a085144aed95335",
+        "question_number": 103,
+        "source_jsonl_line": 88923
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年福建省选调生考试《行政职业能力测验》_images/img_0107_71407e3a334dbd7c.png",
+        "paper_title": "2019年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_7016801760174743773a",
+        "question_number": 104,
+        "source_jsonl_line": 88924
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年福建省选调生考试《行政职业能力测验》_images/img_0107_71407e3a334dbd7c.png",
+        "paper_title": "2019年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_290ba62fb0183dbba910",
+        "question_number": 105,
+        "source_jsonl_line": 88925
+      }
+    ],
+    "sha256": "7b0620cc6bc56400bcf74a36dfbc850b6ae92979034348117459dba2878862d8"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2008年~2012年粮食产量及其增长速度",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_7b0620cc6bc56400bcf74a36/column_band_01.jpg",
+        "review-crops/da_7b0620cc6bc56400bcf74a36/column_band_02.jpg",
+        "review-crops/da_7b0620cc6bc56400bcf74a36/column_band_03.jpg",
+        "review-crops/da_7b0620cc6bc56400bcf74a36/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.005",
+      "crop_verification_elapsed_seconds:2.72",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "asset_id": "da_5cb8bcec35c475fe7e400d6f",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 250,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2003年",
+    "2004年",
+    "2005年",
+    "2006年",
+    "2007年",
+    "2008年",
+    "2009年"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "EPC项目投资",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "triangle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "EPC",
+      "label": "EPC项目投资",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        8.51,
+        10.98,
+        13.1,
+        18.92,
+        65.56,
+        116.7,
+        195.32
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2010年江苏省公务员录用考试《行测》题（B类）_images/img_0345_e64d119a9823142b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（B类）_images/img_0345_e64d119a9823142b.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_9692276f97b81b921c69",
+        "question_number": 151,
+        "source_jsonl_line": 45346
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（B类）_images/img_0352_e2d382e531a78209.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_0c2d326a279c4a3e5d20",
+        "question_number": 152,
+        "source_jsonl_line": 45347
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（B类）_images/img_0345_e64d119a9823142b.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_d687955b5acbd4b59681",
+        "question_number": 153,
+        "source_jsonl_line": 45348
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（B类）_images/img_0352_e2d382e531a78209.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_4b820714b6a5a659c777",
+        "question_number": 154,
+        "source_jsonl_line": 45349
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（B类）_images/img_0352_e2d382e531a78209.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_90b9450a3860db16a189",
+        "question_number": 155,
+        "source_jsonl_line": 45350
+      }
+    ],
+    "sha256": "5cb8bcec35c475fe7e400d6f6d8e97d5a2d2c3b186761c7a16a325bef82b750b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2003一2009年EPC项目投资变化情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5cb8bcec35c475fe7e400d6f/column_band_01.jpg",
+        "review-crops/da_5cb8bcec35c475fe7e400d6f/column_band_02.jpg",
+        "review-crops/da_5cb8bcec35c475fe7e400d6f/column_band_03.jpg",
+        "review-crops/da_5cb8bcec35c475fe7e400d6f/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.194",
+      "crop_verification_elapsed_seconds:1.271",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "asset_id": "da_6951510e36b6aed31442ea46",
+  "axes": {
+    "x": {
+      "max": 40,
+      "min": 0,
+      "ticks": [
+        0,
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        40
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "发展中地区（总体）",
+    "北非",
+    "西亚",
+    "拉丁美洲和加勒比",
+    "东亚",
+    "东南亚",
+    "南亚",
+    "撒哈拉以南非洲"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2015年目标",
+      "style": {
+        "dash": null,
+        "fill": "#696969",
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "2000—2002年",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "1990—1992年",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2015",
+      "label": "2015年目标",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        10,
+        2,
+        3,
+        7,
+        8,
+        9,
+        1,
+        18
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2000_2002",
+      "label": "2000—2002年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        17,
+        4,
+        10,
+        10,
+        11,
+        13,
+        12,
+        25
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "1990_1992",
+      "label": "1990—1992年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        20,
+        4,
+        7,
+        13,
+        16,
+        18,
+        22,
+        36
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2008年国家公务员录用考试《行测》题_images/img_0157_545f0c44d7afc5dd.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0157_545f0c44d7afc5dd.jpg",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_5bc5898256ec12d9a0a5",
+        "question_number": 127,
+        "source_jsonl_line": 17242
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0157_545f0c44d7afc5dd.jpg",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_71778507197b4fb2d70a",
+        "question_number": 128,
+        "source_jsonl_line": 17243
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0157_545f0c44d7afc5dd.jpg",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_288268827cf802c40538",
+        "question_number": 129,
+        "source_jsonl_line": 17244
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0161_50856a53ccb02490.jpg",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_5eb4fc0dba125497fd02",
+        "question_number": 130,
+        "source_jsonl_line": 17245
+      }
+    ],
+    "sha256": "6951510e36b6aed31442ea465917b66a9f85b04815ea65fcf2c86a6bef065a33"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "1990至1992年和2000至2002年全球发展中地区饥饿人口的比例示意图",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6951510e36b6aed31442ea46/column_band_01.jpg",
+        "review-crops/da_6951510e36b6aed31442ea46/column_band_02.jpg",
+        "review-crops/da_6951510e36b6aed31442ea46/column_band_03.jpg",
+        "review-crops/da_6951510e36b6aed31442ea46/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.367",
+      "crop_verification_elapsed_seconds:7.429",
+      "candidate_value_changes_after_crop:4",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

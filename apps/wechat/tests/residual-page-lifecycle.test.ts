@@ -20,17 +20,17 @@ import archiveSource from "../miniprogram/pages/profile/archive/index.ts?raw";
 
 describe("ability goal loading semantics", () => {
   it("distinguishes no data, authentication loss and server failure", async () => {
-    const missing = await loadAbilityGoal(true, () =>
+    const missing = await loadAbilityGoal(() =>
       Promise.reject(new ApiClientError("goal missing", 404, "request-404")),
     );
     expect(missing).toEqual({ kind: "missing" });
 
     const authentication = new ApiClientError("expired", 401, "request-401");
-    await expect(loadAbilityGoal(true, () => Promise.reject(authentication))).rejects.toBe(
+    await expect(loadAbilityGoal(() => Promise.reject(authentication))).rejects.toBe(
       authentication,
     );
 
-    const failed = await loadAbilityGoal(true, () =>
+    const failed = await loadAbilityGoal(() =>
       Promise.reject(new ApiClientError("upstream unavailable", 503, "request-503")),
     );
     expect(failed).toEqual({

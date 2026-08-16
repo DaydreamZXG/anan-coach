@@ -1,0 +1,416 @@
+{
+  "asset_id": "da_a137bdee2fd4c00646882a21",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "产量",
+        "unit": "万吨"
+      }
+    ]
+  },
+  "categories": [
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "谷物",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        2971.1,
+        2514.5,
+        2607.1,
+        2631.2,
+        2652.7,
+        2717.8,
+        2723.0,
+        2815.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "豆类",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        91.6,
+        99.7,
+        104.6,
+        101.0,
+        100.0,
+        100.9,
+        109.0,
+        92.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "薯类",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        397.1,
+        412.7,
+        428.6,
+        462.5,
+        470.8,
+        473.6,
+        483.7,
+        479.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "油料",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        217.3,
+        228.5,
+        249.9,
+        261.8,
+        268.5,
+        278.5,
+        286.6,
+        290.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "棉花",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        1.57,
+        1.67,
+        1.55,
+        1.49,
+        1.42,
+        1.46,
+        1.33,
+        1.31
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "甘蔗",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        124.6,
+        127.9,
+        116.3,
+        93.9,
+        93.4,
+        76.7,
+        61.3,
+        56.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0177_89edf3d11782f290.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0177_89edf3d11782f290.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_819d05fbc8e4805f0b31",
+        "question_number": 87,
+        "source_jsonl_line": 15211
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0181_87990e2c146e03cb.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_f9e4795983f7efe90eff",
+        "question_number": 88,
+        "source_jsonl_line": 15212
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0181_87990e2c146e03cb.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_9357d71cf92762a222b0",
+        "question_number": 89,
+        "source_jsonl_line": 15213
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0181_87990e2c146e03cb.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_0ba627c8de850595c3de",
+        "question_number": 90,
+        "source_jsonl_line": 15214
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0181_87990e2c146e03cb.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_a6d4260b1992fec19c92",
+        "question_number": 91,
+        "source_jsonl_line": 15215
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0172_87990e2c146e03cb.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_8253e41d7d7765cbec6d",
+        "question_number": 87,
+        "source_jsonl_line": 85981
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0172_87990e2c146e03cb.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_c26daf54ee64db478f66",
+        "question_number": 88,
+        "source_jsonl_line": 85982
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0191_89edf3d11782f290.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_640db4829f43c5d6e9bd",
+        "question_number": 89,
+        "source_jsonl_line": 85983
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0172_87990e2c146e03cb.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_de94bd3898218696cc3c",
+        "question_number": 90,
+        "source_jsonl_line": 85984
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）_images/img_0172_87990e2c146e03cb.png",
+        "paper_title": "2016年3月四川省选调优秀大学生到基层工作考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_0b2da0cc7ce0c151a658",
+        "question_number": 91,
+        "source_jsonl_line": 85985
+      }
+    ],
+    "sha256": "a137bdee2fd4c00646882a218d804e81c188aa0ee51f8f3d45d6993c44ae49c1"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "谷物",
+      "豆类",
+      "薯类",
+      "油料",
+      "棉花",
+      "甘蔗"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2006",
+        "unit": null,
+        "values": [
+          2006,
+          2971.1,
+          91.6,
+          397.1,
+          217.3,
+          1.57,
+          124.6
+        ]
+      },
+      {
+        "label": "2007",
+        "unit": null,
+        "values": [
+          2007,
+          2514.5,
+          99.7,
+          412.7,
+          228.5,
+          1.67,
+          127.9
+        ]
+      },
+      {
+        "label": "2008",
+        "unit": null,
+        "values": [
+          2008,
+          2607.1,
+          104.6,
+          428.6,
+          249.9,
+          1.55,
+          116.3
+        ]
+      },
+      {
+        "label": "2009",
+        "unit": null,
+        "values": [
+          2009,
+          2631.2,
+          101.0,
+          462.5,
+          261.8,
+          1.49,
+          93.9
+        ]
+      },
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          2652.7,
+          100.0,
+          470.8,
+          268.5,
+          1.42,
+          93.4
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          2717.8,
+          100.9,
+          473.6,
+          278.5,
+          1.46,
+          76.7
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          2723.0,
+          109.0,
+          483.7,
+          286.6,
+          1.33,
+          61.3
+        ]
+      },
+      {
+        "label": "2013",
+        "unit": null,
+        "values": [
+          2013,
+          2815.3,
+          92.1,
+          479.7,
+          290.4,
+          1.31,
+          56.9
+        ]
+      }
+    ]
+  },
+  "title": "2006-2013年四川省部分农产品产量情况",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a137bdee2fd4c00646882a21/row_band_01.jpg",
+        "review-crops/da_a137bdee2fd4c00646882a21/row_band_02.jpg",
+        "review-crops/da_a137bdee2fd4c00646882a21/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:15.789",
+      "crop_verification_elapsed_seconds:12.259",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

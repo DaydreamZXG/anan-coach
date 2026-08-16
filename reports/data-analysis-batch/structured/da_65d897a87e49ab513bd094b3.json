@@ -1,0 +1,266 @@
+{
+  "asset_id": "da_65d897a87e49ab513bd094b3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "棚户区类型",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "满意度",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "国有工矿",
+    "国有垦区（农场）",
+    "国有林区（林场）",
+    "城中村",
+    "城市危房",
+    "其他"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "满意",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        21.8,
+        36.5,
+        27.5,
+        22.6,
+        23.0,
+        24.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "基本满意",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        39.8,
+        38.3,
+        49.6,
+        41.3,
+        38.9,
+        36.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "不满意",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        15.9,
+        13.7,
+        15.3,
+        16.7,
+        12.2,
+        9.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "不清楚",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        22.5,
+        11.5,
+        7.6,
+        19.4,
+        25.9,
+        29.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2016年江苏省公务员录用考试《行测》题（A类）_images/img_0160_7f4a38a3051180e8.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0160_7f4a38a3051180e8.jpg",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_e9f4cadbc7f92a1a042f",
+        "question_number": 121,
+        "source_jsonl_line": 47231
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0160_7f4a38a3051180e8.jpg",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_569f86137d9a016b6008",
+        "question_number": 122,
+        "source_jsonl_line": 47232
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0166_4eb0dd10eb18b40c.jpg",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_c317e07bac8d563355ad",
+        "question_number": 123,
+        "source_jsonl_line": 47233
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0166_4eb0dd10eb18b40c.jpg",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_e43b600f85adf65f66a1",
+        "question_number": 124,
+        "source_jsonl_line": 47234
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0160_7f4a38a3051180e8.jpg",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_9e0f6cb6a07108088a84",
+        "question_number": 125,
+        "source_jsonl_line": 47235
+      }
+    ],
+    "sha256": "65d897a87e49ab513bd094b31f831debefaa2e4fd00c60d57f61c6de06860d19"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "国有工矿",
+      "国有垦区（农场）",
+      "国有林区（林场）",
+      "城中村",
+      "城市危房",
+      "其他"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "棚户区类型",
+    "rows": [
+      {
+        "label": "满意",
+        "unit": "%",
+        "values": [
+          21.8,
+          36.5,
+          27.5,
+          22.6,
+          23.0,
+          24.8
+        ]
+      },
+      {
+        "label": "基本满意",
+        "unit": "%",
+        "values": [
+          39.8,
+          38.3,
+          49.6,
+          41.3,
+          38.9,
+          36.5
+        ]
+      },
+      {
+        "label": "不满意",
+        "unit": "%",
+        "values": [
+          15.9,
+          15.9,
+          13.7,
+          15.3,
+          16.7,
+          12.2
+        ]
+      },
+      {
+        "label": "不清楚",
+        "unit": "%",
+        "values": [
+          22.5,
+          22.5,
+          11.5,
+          7.6,
+          19.4,
+          25.9
+        ]
+      }
+    ]
+  },
+  "title": "受访棚户区居民对配套公共服务设施改造状况的评价",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_65d897a87e49ab513bd094b3/row_band_01.jpg",
+        "review-crops/da_65d897a87e49ab513bd094b3/row_band_02.jpg",
+        "review-crops/da_65d897a87e49ab513bd094b3/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.599",
+      "crop_verification_elapsed_seconds:2.91",
+      "candidate_value_changes_after_crop:10",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_out_of_range_table_cell:不满意:其他",
+      "crop_note:ignored_out_of_range_table_cell:不清楚:其他",
+      "table_row_label_column_removed:棚户区类型"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

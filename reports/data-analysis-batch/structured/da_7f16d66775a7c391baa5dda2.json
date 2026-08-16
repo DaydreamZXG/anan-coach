@@ -1,0 +1,477 @@
+{
+  "asset_id": "da_7f16d66775a7c391baa5dda2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0056_328a8b9e6436f8a1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0056_328a8b9e6436f8a1.png",
+        "paper_title": "2019年420联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_8df179991b09cea3aadb",
+        "question_number": 61,
+        "source_jsonl_line": 97859
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0056_328a8b9e6436f8a1.png",
+        "paper_title": "2019年420联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_b7d8f34e43d18f6694c5",
+        "question_number": 62,
+        "source_jsonl_line": 97860
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0056_328a8b9e6436f8a1.png",
+        "paper_title": "2019年420联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_da957871e3e31951295d",
+        "question_number": 63,
+        "source_jsonl_line": 97861
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0051_d52be478cc2f68b2.png",
+        "paper_title": "2019年420联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_40b6163b395d718cabae",
+        "question_number": 64,
+        "source_jsonl_line": 97862
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0056_328a8b9e6436f8a1.png",
+        "paper_title": "2019年420联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_cf1bbf35594b2e0ae86f",
+        "question_number": 65,
+        "source_jsonl_line": 97863
+      }
+    ],
+    "sha256": "7f16d66775a7c391baa5dda2355fac55ce97e46b1fff8757b0a573fe355da5ce"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "全国居民平均｜2018",
+          "全国居民平均｜2008"
+        ],
+        "label": "全国居民平均"
+      },
+      {
+        "columns": [
+          "男｜2018",
+          "男｜2008"
+        ],
+        "label": "男"
+      },
+      {
+        "columns": [
+          "女｜2018",
+          "女｜2008"
+        ],
+        "label": "女"
+      },
+      {
+        "columns": [
+          "城镇｜2018",
+          "城镇｜2008"
+        ],
+        "label": "城镇"
+      },
+      {
+        "columns": [
+          "农村｜2018",
+          "农村｜2008"
+        ],
+        "label": "农村"
+      }
+    ],
+    "columns": [
+      "全国居民平均｜2018",
+      "全国居民平均｜2008",
+      "男｜2018",
+      "男｜2008",
+      "女｜2018",
+      "女｜2008",
+      "城镇｜2018",
+      "城镇｜2008",
+      "农村｜2018",
+      "农村｜2008"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "活动类别",
+    "rows": [
+      {
+        "display_label": "睡觉休息",
+        "group": null,
+        "label": "睡觉休息",
+        "unit": null,
+        "values": [
+          559,
+          542,
+          556,
+          540,
+          562,
+          544,
+          556,
+          539,
+          563,
+          545
+        ]
+      },
+      {
+        "display_label": "个人卫生护理",
+        "group": null,
+        "label": "个人卫生护理",
+        "unit": null,
+        "values": [
+          50,
+          46,
+          48,
+          46,
+          52,
+          46,
+          52,
+          50,
+          47,
+          42
+        ]
+      },
+      {
+        "display_label": "用餐餐或其他饮食",
+        "group": null,
+        "label": "用餐餐或其他饮食",
+        "unit": null,
+        "values": [
+          104,
+          101,
+          104,
+          106,
+          105,
+          96,
+          105,
+          103,
+          103,
+          100
+        ]
+      },
+      {
+        "display_label": "就业工作",
+        "group": null,
+        "label": "就业工作",
+        "unit": null,
+        "values": [
+          177,
+          149,
+          217,
+          179,
+          139,
+          120,
+          197,
+          195,
+          145,
+          98
+        ]
+      },
+      {
+        "display_label": "家庭生产经营活动",
+        "group": null,
+        "label": "家庭生产经营活动",
+        "unit": null,
+        "values": [
+          87,
+          118,
+          98,
+          129,
+          76,
+          109,
+          42,
+          11,
+          156,
+          239
+        ]
+      },
+      {
+        "display_label": "家务劳动",
+        "group": null,
+        "label": "家务劳动",
+        "unit": null,
+        "values": [
+          86,
+          102,
+          45,
+          47,
+          126,
+          155,
+          79,
+          101,
+          97,
+          105
+        ]
+      },
+      {
+        "display_label": "陪伴照料家人",
+        "group": null,
+        "label": "陪伴照料家人",
+        "unit": null,
+        "values": [
+          53,
+          23,
+          30,
+          13,
+          75,
+          33,
+          58,
+          23,
+          45,
+          23
+        ]
+      },
+      {
+        "display_label": "购买商品或服务（含看病就医）",
+        "group": null,
+        "label": "购买商品或服务（含看病就医）",
+        "unit": null,
+        "values": [
+          21,
+          20,
+          15,
+          15,
+          26,
+          25,
+          25,
+          28,
+          14,
+          10
+        ]
+      },
+      {
+        "display_label": "公益活动",
+        "group": null,
+        "label": "公益活动",
+        "unit": null,
+        "values": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          2,
+          3
+        ]
+      },
+      {
+        "display_label": "健身锻炼",
+        "group": null,
+        "label": "健身锻炼",
+        "unit": null,
+        "values": [
+          31,
+          23,
+          32,
+          24,
+          30,
+          22,
+          41,
+          36,
+          16,
+          9
+        ]
+      },
+      {
+        "display_label": "听广播或音乐",
+        "group": null,
+        "label": "听广播或音乐",
+        "unit": null,
+        "values": [
+          6,
+          1,
+          6,
+          1,
+          5,
+          1,
+          6,
+          1,
+          5,
+          1
+        ]
+      },
+      {
+        "display_label": "看电视",
+        "group": null,
+        "label": "看电视",
+        "unit": null,
+        "values": [
+          100,
+          126,
+          104,
+          131,
+          97,
+          121,
+          98,
+          133,
+          104,
+          117
+        ]
+      },
+      {
+        "display_label": "阅读书报刊",
+        "group": null,
+        "label": "阅读书报刊",
+        "unit": null,
+        "values": [
+          9,
+          11,
+          11,
+          14,
+          8,
+          9,
+          12,
+          18,
+          5,
+          4
+        ]
+      },
+      {
+        "display_label": "休闲娱乐",
+        "group": null,
+        "label": "休闲娱乐",
+        "unit": null,
+        "values": [
+          65,
+          35,
+          73,
+          45,
+          58,
+          27,
+          69,
+          48,
+          58,
+          22
+        ]
+      },
+      {
+        "display_label": "社会交往",
+        "group": null,
+        "label": "社会交往",
+        "unit": null,
+        "values": [
+          24,
+          23,
+          27,
+          22,
+          22,
+          24,
+          24,
+          22,
+          25,
+          25
+        ]
+      },
+      {
+        "display_label": "学习培训",
+        "group": null,
+        "label": "学习培训",
+        "unit": null,
+        "values": [
+          27,
+          25,
+          28,
+          26,
+          27,
+          25,
+          29,
+          29,
+          24,
+          21
+        ]
+      },
+      {
+        "display_label": "交通活动",
+        "group": null,
+        "label": "交通活动",
+        "unit": null,
+        "values": [
+          38,
+          75,
+          44,
+          83,
+          33,
+          67,
+          44,
+          85,
+          30,
+          64
+        ]
+      },
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          1440,
+          1440,
+          1440,
+          1440,
+          1440,
+          1440,
+          1440,
+          1440,
+          1440,
+          1440
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

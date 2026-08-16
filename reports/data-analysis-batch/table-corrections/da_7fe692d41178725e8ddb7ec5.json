@@ -1,0 +1,139 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "绝对数",
+      "同比增长（%）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "货物运输总量",
+        "group": null,
+        "label": "货物运输总量",
+        "unit": "亿吨",
+        "values": [
+          514.6,
+          7.1
+        ]
+      },
+      {
+        "display_label": "其中：铁路",
+        "group": "货物运输总量",
+        "label": "货物运输总量｜其中：铁路",
+        "unit": "亿吨",
+        "values": [
+          40.3,
+          9.2
+        ]
+      },
+      {
+        "display_label": "公路",
+        "group": "货物运输总量",
+        "label": "货物运输总量｜公路",
+        "unit": "亿吨",
+        "values": [
+          395.9,
+          7.4
+        ]
+      },
+      {
+        "display_label": "水运",
+        "group": "货物运输总量",
+        "label": "货物运输总量｜水运",
+        "unit": "亿吨",
+        "values": [
+          69.9,
+          4.7
+        ]
+      },
+      {
+        "display_label": "民航",
+        "group": "货物运输总量",
+        "label": "货物运输总量｜民航",
+        "unit": "万吨",
+        "values": [
+          738.5,
+          4.6
+        ]
+      },
+      {
+        "display_label": "管道",
+        "group": "货物运输总量",
+        "label": "货物运输总量｜管道",
+        "unit": "亿吨",
+        "values": [
+          8.5,
+          5.4
+        ]
+      },
+      {
+        "display_label": "货物运输周转量",
+        "group": null,
+        "label": "货物运输周转量",
+        "unit": "亿吨公里",
+        "values": [
+          205451.5,
+          4.1
+        ]
+      },
+      {
+        "display_label": "其中：铁路",
+        "group": "货物运输周转量",
+        "label": "货物运输周转量｜其中：铁路",
+        "unit": "亿吨公里",
+        "values": [
+          28821.0,
+          6.9
+        ]
+      },
+      {
+        "display_label": "公路",
+        "group": "货物运输周转量",
+        "label": "货物运输周转量｜公路",
+        "unit": "亿吨公里",
+        "values": [
+          71202.5,
+          6.6
+        ]
+      },
+      {
+        "display_label": "水运",
+        "group": "货物运输周转量",
+        "label": "货物运输周转量｜水运",
+        "unit": "亿吨公里",
+        "values": [
+          99303.6,
+          0.7
+        ]
+      },
+      {
+        "display_label": "民航",
+        "group": "货物运输周转量",
+        "label": "货物运输周转量｜民航",
+        "unit": "亿吨公里",
+        "values": [
+          262.4,
+          7.7
+        ]
+      },
+      {
+        "display_label": "管道",
+        "group": "货物运输周转量",
+        "label": "货物运输周转量｜管道",
+        "unit": "亿吨公里",
+        "values": [
+          5862.0,
+          22.5
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

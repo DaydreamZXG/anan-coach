@@ -1,0 +1,166 @@
+{
+  "asset_id": "da_3ce2d9b408a6a3d65fe3a562",
+  "axes": {
+    "x": {
+      "max": 50,
+      "min": 0,
+      "ticks": [
+        0,
+        10,
+        20,
+        30,
+        40,
+        50
+      ],
+      "title": null,
+      "unit": "%"
+    },
+    "y": [
+      {
+        "max": 1,
+        "min": 0,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "缺乏合适创业项目",
+    "获得创业贷款难",
+    "缺乏创业经验人脉关系",
+    "能力差难以承受风险",
+    "难以找到创业基地",
+    "家人朋友不支持",
+    "没有什么障碍",
+    "其他"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "农民工认为在本市（区、县）自主创业的最大障碍",
+      "style": {
+        "dash": "solid",
+        "fill": "blue",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "农民工认为在本市（区、县）自主创业的最大障碍",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        43.3,
+        40.5,
+        39.7,
+        31.9,
+        24.1,
+        5.1,
+        1.3,
+        5.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2016年四川省公务员录用考试《行测》题（下半年）_images/img_0185_a30abdb4f567191e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0185_a30abdb4f567191e.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_81e1cf8f9db9dd947e04",
+        "question_number": 96,
+        "source_jsonl_line": 15411
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0185_a30abdb4f567191e.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_6b8828e600a9f9a1d063",
+        "question_number": 97,
+        "source_jsonl_line": 15412
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0185_a30abdb4f567191e.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_5afad8bbfa243dc56f07",
+        "question_number": 98,
+        "source_jsonl_line": 15413
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0185_a30abdb4f567191e.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_cbab28cdfa3416913688",
+        "question_number": 99,
+        "source_jsonl_line": 15414
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0185_a30abdb4f567191e.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_aa0349a3abdeba05bc6e",
+        "question_number": 100,
+        "source_jsonl_line": 15415
+      }
+    ],
+    "sha256": "3ce2d9b408a6a3d65fe3a5623a5870e4715b5d4d460c1205d3d3e81ef0a087cf"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "农民工认为在本市（区、县）自主创业的最大障碍",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3ce2d9b408a6a3d65fe3a562/column_band_01.jpg",
+        "review-crops/da_3ce2d9b408a6a3d65fe3a562/column_band_02.jpg",
+        "review-crops/da_3ce2d9b408a6a3d65fe3a562/column_band_03.jpg",
+        "review-crops/da_3ce2d9b408a6a3d65fe3a562/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.653",
+      "crop_verification_elapsed_seconds:8.209",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'其他'类别的数值，从5.1%更正为5.2%。",
+      "crop_note:确认'没有什么障碍'的数值为1.3%，与图中一致。",
+      "crop_note:确认'家人朋友不支持'的数值为5.1%，与图中一致。",
+      "crop_note:确认'缺乏合适创业项目'的数值为43.3%，与图中一致。",
+      "crop_note:确认'获得创业贷款难'的数值为40.5%，与图中一致。",
+      "crop_note:确认'缺乏创业经验人脉关系'的数值为39.7%，与图中一致。",
+      "crop_note:确认'能力差难以承受风险'的数值为31.9%，与图中一致。",
+      "crop_note:确认'难以找到创业基地'的数值为24.1%，与图中一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

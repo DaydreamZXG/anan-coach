@@ -1,0 +1,268 @@
+{
+  "asset_id": "da_bc0be4434f2ea29303f25b07",
+  "axes": {
+    "x": {
+      "max": 2017,
+      "min": 2013,
+      "ticks": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 25.0,
+        "min": -10.0,
+        "ticks": [
+          -10.0,
+          -5.0,
+          0.0,
+          5.0,
+          10.0,
+          15.0,
+          20.0,
+          25.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "总资产",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "销售总收入",
+      "style": {
+        "dash": "dot",
+        "fill": "black",
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "销售总费用",
+      "style": {
+        "dash": "dash",
+        "fill": "black",
+        "marker": "triangle",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "销售总费用",
+      "style": {
+        "dash": "dash",
+        "fill": "black",
+        "marker": "triangle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "总资产",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        1.9,
+        19.1,
+        17.0,
+        5.1,
+        4.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "销售总收入",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        11.4,
+        14.0,
+        9.3,
+        18.8,
+        3.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "销售总费用",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        7.0,
+        12.3,
+        2.2,
+        5.1,
+        -8.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0431_5a803dcb4215f52d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0431_5a803dcb4215f52d.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_7d1271437c0568bca2e7",
+        "question_number": 131,
+        "source_jsonl_line": 48576
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0434_6bf48d43830c4b06.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_9b9da285f87dcd1ac5dc",
+        "question_number": 132,
+        "source_jsonl_line": 48577
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0434_6bf48d43830c4b06.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_0a0b5ad2bb392d6bbd76",
+        "question_number": 133,
+        "source_jsonl_line": 48578
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0431_5a803dcb4215f52d.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_0f40192d949fed55f4cc",
+        "question_number": 134,
+        "source_jsonl_line": 48579
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0434_6bf48d43830c4b06.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_46ac4dd5d3e351cad4ed",
+        "question_number": 135,
+        "source_jsonl_line": 48580
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0340_5a803dcb4215f52d.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_a9914f52d0b7f9ca9d7f",
+        "question_number": 121,
+        "source_jsonl_line": 48701
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0353_6bf48d43830c4b06.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_a68a3b76ae433c44819f",
+        "question_number": 122,
+        "source_jsonl_line": 48702
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0340_5a803dcb4215f52d.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_171a33e622b4d472d1e3",
+        "question_number": 123,
+        "source_jsonl_line": 48703
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0340_5a803dcb4215f52d.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_b4422f9175b6afc10c87",
+        "question_number": 124,
+        "source_jsonl_line": 48704
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0353_6bf48d43830c4b06.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_cebc81ba37dc21f5fce6",
+        "question_number": 125,
+        "source_jsonl_line": 48705
+      }
+    ],
+    "sha256": "bc0be4434f2ea29303f25b0779d0b7ff196b5d6a063c49c9bdaee5df8dade700"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图2013-2017年某市服务业小微样本企业总资产、销售总收入和销售总费用增速",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_bc0be4434f2ea29303f25b07/column_band_01.jpg",
+        "review-crops/da_bc0be4434f2ea29303f25b07/column_band_02.jpg",
+        "review-crops/da_bc0be4434f2ea29303f25b07/column_band_03.jpg",
+        "review-crops/da_bc0be4434f2ea29303f25b07/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.245",
+      "crop_verification_elapsed_seconds:4.267",
+      "candidate_value_changes_after_crop:2",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

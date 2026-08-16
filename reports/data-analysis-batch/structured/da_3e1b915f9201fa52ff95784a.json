@@ -1,0 +1,205 @@
+{
+  "asset_id": "da_3e1b915f9201fa52ff95784a",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 35,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35
+        ],
+        "title": "净增人口",
+        "unit": "（万人）"
+      },
+      {
+        "max": 3580,
+        "min": 3380,
+        "ticks": [
+          3380,
+          3400,
+          3420,
+          3440,
+          3460,
+          3480,
+          3500,
+          3520,
+          3540,
+          3560,
+          3580
+        ],
+        "title": "总人口",
+        "unit": "（万人）"
+      }
+    ]
+  },
+  "categories": [
+    "2001年",
+    "2002年",
+    "2003年",
+    "2004年",
+    "2005年",
+    "2006年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "净增人口",
+      "style": {
+        "dash": null,
+        "fill": "#808080",
+        "marker": "none",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "总人口",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "triangle",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "净增人口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "（万人）",
+      "values": [
+        30,
+        26,
+        22,
+        23,
+        24,
+        23
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "总人口",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "（万人）",
+      "values": [
+        3400,
+        3420,
+        3440,
+        3460,
+        3480,
+        3500
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0092_2956d8e59afdfc5b.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0092_2956d8e59afdfc5b.jpg",
+        "paper_title": "2009年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_2afe22162c82ee7c1d7a",
+        "question_number": 96,
+        "source_jsonl_line": 11249
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0092_2956d8e59afdfc5b.jpg",
+        "paper_title": "2009年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_075d31de90f9a9cc0b11",
+        "question_number": 97,
+        "source_jsonl_line": 11250
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0092_2956d8e59afdfc5b.jpg",
+        "paper_title": "2009年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_c74f29135cc2a7bde1ce",
+        "question_number": 98,
+        "source_jsonl_line": 11251
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0092_2956d8e59afdfc5b.jpg",
+        "paper_title": "2009年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_f3e8e97455dfbde4ce15",
+        "question_number": 99,
+        "source_jsonl_line": 11252
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0092_2956d8e59afdfc5b.jpg",
+        "paper_title": "2009年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_0ed4daec32fcf2792303",
+        "question_number": 100,
+        "source_jsonl_line": 11253
+      }
+    ],
+    "sha256": "3e1b915f9201fa52ff95784a871688863b10a3f77d8594a330825556ea2d1918"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2001-2006年人口增长情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3e1b915f9201fa52ff95784a/column_band_01.jpg",
+        "review-crops/da_3e1b915f9201fa52ff95784a/column_band_02.jpg",
+        "review-crops/da_3e1b915f9201fa52ff95784a/column_band_03.jpg",
+        "review-crops/da_3e1b915f9201fa52ff95784a/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.959",
+      "crop_verification_elapsed_seconds:7.943",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

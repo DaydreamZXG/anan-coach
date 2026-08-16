@@ -1,0 +1,217 @@
+{
+  "asset_id": "da_ab88a45060eab73ea7aafa9c",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 300,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300
+        ],
+        "title": "日均产量",
+        "unit": "亿千瓦时"
+      },
+      {
+        "max": 20,
+        "min": -50,
+        "ticks": [
+          -50,
+          -40,
+          -30,
+          -20,
+          -10,
+          0,
+          10,
+          20
+        ],
+        "title": "增速",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2017年9月",
+    "10月",
+    "11月",
+    "12月",
+    "2018年1-2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "日均产量（亿千瓦时）",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "增速（%）",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "日均产量（亿千瓦时）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿千瓦时",
+      "values": [
+        174.0,
+        162.5,
+        173.2,
+        184.2,
+        177.2,
+        170.4,
+        170.3,
+        175.6,
+        185.0,
+        206.5,
+        206.6,
+        182.8
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "增速（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.3,
+        2.5,
+        2.4,
+        6.3,
+        11.0,
+        2.1,
+        6.9,
+        9.8,
+        6.7,
+        5.7,
+        7.3,
+        4.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0178_9990f1a9f5baec3a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0178_9990f1a9f5baec3a.png",
+        "paper_title": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_ac61401070cacc5ecf6d",
+        "question_number": 116,
+        "source_jsonl_line": 54480
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0178_9990f1a9f5baec3a.png",
+        "paper_title": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_3f62ff2d4650d059ab9b",
+        "question_number": 117,
+        "source_jsonl_line": 54481
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0178_9990f1a9f5baec3a.png",
+        "paper_title": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_615cae77fb8f764f17fb",
+        "question_number": 118,
+        "source_jsonl_line": 54482
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0178_9990f1a9f5baec3a.png",
+        "paper_title": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_539ebad2898e8244fac8",
+        "question_number": 119,
+        "source_jsonl_line": 54483
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0178_9990f1a9f5baec3a.png",
+        "paper_title": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_c79a7bfa802c0f0ca170",
+        "question_number": 120,
+        "source_jsonl_line": 54484
+      }
+    ],
+    "sha256": "ab88a45060eab73ea7aafa9c296447b8018cac9bfd1c1d00bb0dc884b4753f68"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "发电量同比增速及日均产量",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ab88a45060eab73ea7aafa9c/column_band_01.jpg",
+        "review-crops/da_ab88a45060eab73ea7aafa9c/column_band_02.jpg",
+        "review-crops/da_ab88a45060eab73ea7aafa9c/column_band_03.jpg",
+        "review-crops/da_ab88a45060eab73ea7aafa9c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.569",
+      "crop_verification_elapsed_seconds:7.605",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

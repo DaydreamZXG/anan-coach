@@ -1,0 +1,258 @@
+{
+  "asset_id": "da_dd151ae4cbe8824e355e39ea",
+  "axes": {
+    "x": {
+      "max": 2011,
+      "min": 2007,
+      "ticks": [
+        2007,
+        2008,
+        2009,
+        2010,
+        2011
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 30000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000,
+          30000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "高收入户人均纯收入",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "triangle",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "人均纯收入",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "低收入户人均纯收入",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "高收入户人均纯收入",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        17594,
+        19819,
+        21473,
+        24661,
+        28404
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "人均纯收入",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        8265,
+        9258,
+        10007,
+        11303,
+        13071
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "低收入户人均纯收入",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        2505,
+        2766,
+        2988,
+        3391,
+        3687
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2014年浙江省公务员录用考试《行测》题（A类）_images/img_0172_da70f72440239b54.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0172_da70f72440239b54.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_5f18b74a59fd4338e3bf",
+        "question_number": 126,
+        "source_jsonl_line": 60808
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0172_da70f72440239b54.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_fe8c66e24c8cf4a3b9ae",
+        "question_number": 127,
+        "source_jsonl_line": 60809
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0172_da70f72440239b54.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_4bd82cfbc800d8cf557e",
+        "question_number": 128,
+        "source_jsonl_line": 60810
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0172_da70f72440239b54.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_03297b7c6a48154defe4",
+        "question_number": 129,
+        "source_jsonl_line": 60811
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0172_da70f72440239b54.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_431eaa4b2452156726fe",
+        "question_number": 130,
+        "source_jsonl_line": 60812
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0149_7bedcabf6738966e.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_5f0ec19c8475928f0093",
+        "question_number": 116,
+        "source_jsonl_line": 60928
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0149_7bedcabf6738966e.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_96fdb05b771ce006f87d",
+        "question_number": 117,
+        "source_jsonl_line": 60929
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0155_da70f72440239b54.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_45bde178e09d39ea766a",
+        "question_number": 118,
+        "source_jsonl_line": 60930
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0155_da70f72440239b54.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_eea022459712ad1839a1",
+        "question_number": 119,
+        "source_jsonl_line": 60931
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0155_da70f72440239b54.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_baf3a2ce2071d36491d9",
+        "question_number": 120,
+        "source_jsonl_line": 60932
+      }
+    ],
+    "sha256": "dd151ae4cbe8824e355e39ea490297a7f674d9a50e2807ec917b9dd99c945cc8"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "农村居民及高低收入户人均纯收入",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_dd151ae4cbe8824e355e39ea/column_band_01.jpg",
+        "review-crops/da_dd151ae4cbe8824e355e39ea/column_band_02.jpg",
+        "review-crops/da_dd151ae4cbe8824e355e39ea/column_band_03.jpg",
+        "review-crops/da_dd151ae4cbe8824e355e39ea/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.41",
+      "crop_verification_elapsed_seconds:3.93",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

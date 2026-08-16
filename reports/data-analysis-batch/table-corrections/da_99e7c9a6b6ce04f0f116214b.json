@@ -1,0 +1,199 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "A市",
+          "B市",
+          "C市",
+          "D市",
+          "E市",
+          "F市",
+          "G市",
+          "H市"
+        ],
+        "label": "城市"
+      }
+    ],
+    "columns": [
+      "A市",
+      "B市",
+      "C市",
+      "D市",
+      "E市",
+      "F市",
+      "G市",
+      "H市"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "机动车依礼让率｜三季度",
+        "group": null,
+        "label": "机动车依礼让率｜三季度",
+        "unit": null,
+        "values": [
+          98.0,
+          96.0,
+          99.2,
+          97.3,
+          96.5,
+          96.0,
+          94.8,
+          98.2
+        ]
+      },
+      {
+        "display_label": "机动车依礼让率｜四季度",
+        "group": null,
+        "label": "机动车依礼让率｜四季度",
+        "unit": null,
+        "values": [
+          98.8,
+          98.8,
+          98.0,
+          99.6,
+          98.3,
+          98.2,
+          100.0,
+          99.3
+        ]
+      },
+      {
+        "display_label": "行人遵守交通信号灯率｜三季度",
+        "group": null,
+        "label": "行人遵守交通信号灯率｜三季度",
+        "unit": null,
+        "values": [
+          98.0,
+          96.7,
+          97.2,
+          99.1,
+          95.7,
+          96.7,
+          94.7,
+          99.3
+        ]
+      },
+      {
+        "display_label": "行人遵守交通信号灯率｜四季度",
+        "group": null,
+        "label": "行人遵守交通信号灯率｜四季度",
+        "unit": null,
+        "values": [
+          99.4,
+          97.7,
+          98.0,
+          98.9,
+          99.2,
+          99.0,
+          98.2,
+          99.3
+        ]
+      },
+      {
+        "display_label": "非机动车遵守交通信号灯率｜三季度",
+        "group": null,
+        "label": "非机动车遵守交通信号灯率｜三季度",
+        "unit": null,
+        "values": [
+          95.8,
+          96.7,
+          95.4,
+          97.8,
+          91.8,
+          97.0,
+          90.9,
+          97.7
+        ]
+      },
+      {
+        "display_label": "非机动车遵守交通信号灯率｜四季度",
+        "group": null,
+        "label": "非机动车遵守交通信号灯率｜四季度",
+        "unit": null,
+        "values": [
+          96.0,
+          98.0,
+          97.0,
+          100.0,
+          99.3,
+          98.8,
+          98.2,
+          99.4
+        ]
+      },
+      {
+        "display_label": "摩托车安全头盔佩戴率｜三季度",
+        "group": null,
+        "label": "摩托车安全头盔佩戴率｜三季度",
+        "unit": null,
+        "values": [
+          99.6,
+          96.0,
+          92.0,
+          97.0,
+          92.1,
+          96.0,
+          92.0,
+          97.2
+        ]
+      },
+      {
+        "display_label": "摩托车安全头盔佩戴率｜四季度",
+        "group": null,
+        "label": "摩托车安全头盔佩戴率｜四季度",
+        "unit": null,
+        "values": [
+          100.0,
+          98.4,
+          96.0,
+          99.2,
+          98.9,
+          98.8,
+          95.6,
+          99.9
+        ]
+      },
+      {
+        "display_label": "汽车前排驾乘人员安全带使用率｜三季度",
+        "group": null,
+        "label": "汽车前排驾乘人员安全带使用率｜三季度",
+        "unit": null,
+        "values": [
+          99.6,
+          96.5,
+          96.0,
+          97.4,
+          92.5,
+          96.1,
+          91.9,
+          98.8
+        ]
+      },
+      {
+        "display_label": "汽车前排驾乘人员安全带使用率｜四季度",
+        "group": null,
+        "label": "汽车前排驾乘人员安全带使用率｜四季度",
+        "unit": null,
+        "values": [
+          99.2,
+          98.8,
+          98.0,
+          98.6,
+          99.8,
+          99.1,
+          98.2,
+          99.4
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

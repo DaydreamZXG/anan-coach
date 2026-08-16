@@ -1,0 +1,279 @@
+{
+  "asset_id": "da_f1b49d8a0fea01dce7b406e8",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2013年江苏省公务员录用考试《行测》题（B类）_images/img_0198_548cb57681216d14.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（B类）_images/img_0198_548cb57681216d14.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_49b97ba0a37dc761eea9",
+        "question_number": 141,
+        "source_jsonl_line": 46391
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（B类）_images/img_0198_548cb57681216d14.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_120d5b59ec3571144f9e",
+        "question_number": 142,
+        "source_jsonl_line": 46392
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（B类）_images/img_0198_548cb57681216d14.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_f6a3d294be6682fb4ba1",
+        "question_number": 143,
+        "source_jsonl_line": 46393
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（B类）_images/img_0198_548cb57681216d14.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_99b12519400fd531dcf2",
+        "question_number": 144,
+        "source_jsonl_line": 46394
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（B类）_images/img_0211_ffe8209fbd929be5.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_8ce2289300601ca0ae99",
+        "question_number": 145,
+        "source_jsonl_line": 46395
+      }
+    ],
+    "sha256": "f1b49d8a0fea01dce7b406e809dc963b95907ceede89c23e437cd563632a4813"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "出生率｜第1列",
+      "死亡率｜第2列",
+      "自然增长率｜第3列",
+      "年份｜第4列",
+      "出生率｜第5列",
+      "死亡率｜第6列",
+      "自然增长率｜第7列"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "display_label": "1990",
+        "group": null,
+        "label": "1990",
+        "unit": null,
+        "values": [
+          21.06,
+          5.67,
+          14.35,
+          2001,
+          13.38,
+          6.43,
+          6.95
+        ]
+      },
+      {
+        "display_label": "1991",
+        "group": null,
+        "label": "1991",
+        "unit": null,
+        "values": [
+          19.68,
+          5.7,
+          12.98,
+          2002,
+          12.86,
+          6.41,
+          6.45
+        ]
+      },
+      {
+        "display_label": "1992",
+        "group": null,
+        "label": "1992",
+        "unit": null,
+        "values": [
+          18.24,
+          6.64,
+          11.5,
+          2003,
+          12.41,
+          6.4,
+          6.01
+        ]
+      },
+      {
+        "display_label": "1993",
+        "group": null,
+        "label": "1993",
+        "unit": null,
+        "values": [
+          18.09,
+          6.64,
+          11.45,
+          2004,
+          12.29,
+          6.42,
+          5.87
+        ]
+      },
+      {
+        "display_label": "1994",
+        "group": null,
+        "label": "1994",
+        "unit": null,
+        "values": [
+          17.7,
+          6.49,
+          11.21,
+          2005,
+          12.4,
+          6.51,
+          5.89
+        ]
+      },
+      {
+        "display_label": "1995",
+        "group": null,
+        "label": "1995",
+        "unit": null,
+        "values": [
+          17.12,
+          6.57,
+          10.55,
+          2006,
+          12.09,
+          6.81,
+          5.28
+        ]
+      },
+      {
+        "display_label": "1996",
+        "group": null,
+        "label": "1996",
+        "unit": null,
+        "values": [
+          16.98,
+          6.56,
+          10.42,
+          2007,
+          12.1,
+          6.93,
+          5.17
+        ]
+      },
+      {
+        "display_label": "1997",
+        "group": null,
+        "label": "1997",
+        "unit": null,
+        "values": [
+          16.57,
+          6.51,
+          10.06,
+          2008,
+          12.14,
+          7.06,
+          5.08
+        ]
+      },
+      {
+        "display_label": "1998",
+        "group": null,
+        "label": "1998",
+        "unit": null,
+        "values": [
+          15.64,
+          6.5,
+          9.14,
+          2009,
+          11.95,
+          7.08,
+          4.87
+        ]
+      },
+      {
+        "display_label": "1999",
+        "group": null,
+        "label": "1999",
+        "unit": null,
+        "values": [
+          14.64,
+          6.46,
+          8.1,
+          2010,
+          11.9,
+          7.11,
+          4.79
+        ]
+      },
+      {
+        "display_label": "2000",
+        "group": null,
+        "label": "2000",
+        "unit": null,
+        "values": [
+          14.03,
+          6.45,
+          7.58,
+          2011,
+          11.93,
+          7.14,
+          4.79
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,307 @@
+{
+  "asset_id": "da_dd341c853e7794e491d3b1ee",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011
+      ],
+      "title": "年",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90,
+          100
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "0-14岁",
+      "style": {
+        "dash": null,
+        "fill": "#333333",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "15-64岁",
+      "style": {
+        "dash": null,
+        "fill": "#CCCCCC",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "65岁及以上",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "0-14",
+      "label": "0-14岁",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        19.8,
+        19.4,
+        19.0,
+        18.5,
+        16.6,
+        16.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "15-64",
+      "label": "15-64岁",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        72.3,
+        72.5,
+        72.7,
+        73.0,
+        74.5,
+        74.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "65",
+      "label": "65岁及以上",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        7.9,
+        8.1,
+        8.3,
+        8.5,
+        8.9,
+        9.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2014年四川省公务员录用考试《行测》题（下半年）_images/img_0138_93ebc15995845628.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题（下半年）_images/img_0138_93ebc15995845628.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_dc2297172abf9453dc9a",
+        "question_number": 96,
+        "source_jsonl_line": 14927
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题（下半年）_images/img_0138_93ebc15995845628.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_83bd2903dbfd07345cbf",
+        "question_number": 97,
+        "source_jsonl_line": 14928
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题（下半年）_images/img_0152_6d93868c28382d59.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_9737aafda8716e8534bc",
+        "question_number": 98,
+        "source_jsonl_line": 14929
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题（下半年）_images/img_0138_93ebc15995845628.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_c0a5a9fc7e60abb759ec",
+        "question_number": 99,
+        "source_jsonl_line": 14930
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题（下半年）_images/img_0138_93ebc15995845628.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_54e447b903e8423b3735",
+        "question_number": 100,
+        "source_jsonl_line": 14931
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省公务员录用考试《行测》题_images/img_0164_93ebc15995845628.png",
+        "paper_title": "2014年河南省公务员录用考试《行测》题",
+        "question_id": "pq_6b6c0d974a5354541ebe",
+        "question_number": 116,
+        "source_jsonl_line": 57733
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省公务员录用考试《行测》题_images/img_0164_93ebc15995845628.png",
+        "paper_title": "2014年河南省公务员录用考试《行测》题",
+        "question_id": "pq_0d64de438a3092998fa7",
+        "question_number": 117,
+        "source_jsonl_line": 57734
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省公务员录用考试《行测》题_images/img_0164_93ebc15995845628.png",
+        "paper_title": "2014年河南省公务员录用考试《行测》题",
+        "question_id": "pq_8188e36cde10ab7b64be",
+        "question_number": 118,
+        "source_jsonl_line": 57735
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省公务员录用考试《行测》题_images/img_0164_93ebc15995845628.png",
+        "paper_title": "2014年河南省公务员录用考试《行测》题",
+        "question_id": "pq_3c4f83ca5f529c4ed627",
+        "question_number": 119,
+        "source_jsonl_line": 57736
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省公务员录用考试《行测》题_images/img_0192_6d93868c28382d59.png",
+        "paper_title": "2014年河南省公务员录用考试《行测》题",
+        "question_id": "pq_773c4d6f691088ea8167",
+        "question_number": 120,
+        "source_jsonl_line": 57737
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年甘肃省公务员录用考试《行测》题_images/img_0154_93ebc15995845628.png",
+        "paper_title": "2014年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_983b3e2cf0deb01b4ad8",
+        "question_number": 111,
+        "source_jsonl_line": 74726
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年甘肃省公务员录用考试《行测》题_images/img_0154_93ebc15995845628.png",
+        "paper_title": "2014年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_ff201f24a6f14143a6b4",
+        "question_number": 112,
+        "source_jsonl_line": 74727
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年甘肃省公务员录用考试《行测》题_images/img_0168_6d93868c28382d59.png",
+        "paper_title": "2014年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_45d678c3a8fb43f5019c",
+        "question_number": 113,
+        "source_jsonl_line": 74728
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年甘肃省公务员录用考试《行测》题_images/img_0154_93ebc15995845628.png",
+        "paper_title": "2014年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_b05ac55690ecb5f765a3",
+        "question_number": 114,
+        "source_jsonl_line": 74729
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年甘肃省公务员录用考试《行测》题_images/img_0154_93ebc15995845628.png",
+        "paper_title": "2014年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_004c5d286570714fe9d9",
+        "question_number": 115,
+        "source_jsonl_line": 74730
+      }
+    ],
+    "sha256": "dd341c853e7794e491d3b1eeb41c776ba0fa44365b0a834f040d3ed84d35f354"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_dd341c853e7794e491d3b1ee/column_band_01.jpg",
+        "review-crops/da_dd341c853e7794e491d3b1ee/column_band_02.jpg",
+        "review-crops/da_dd341c853e7794e491d3b1ee/column_band_03.jpg",
+        "review-crops/da_dd341c853e7794e491d3b1ee/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.603",
+      "crop_verification_elapsed_seconds:5.47",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

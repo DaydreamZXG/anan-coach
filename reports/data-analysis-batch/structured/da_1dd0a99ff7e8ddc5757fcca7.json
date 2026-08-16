@@ -1,0 +1,306 @@
+{
+  "asset_id": "da_1dd0a99ff7e8ddc5757fcca7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "行业",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "2012年",
+        "unit": "元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "2013年",
+        "unit": "元"
+      }
+    ]
+  },
+  "categories": [
+    "农、林、牧、渔业",
+    "采矿业",
+    "制造业",
+    "建筑业",
+    "交通运输、仓储和邮政业",
+    "住宿和餐饮业",
+    "信息传输、软件和信息技术服务业",
+    "金融业",
+    "房地产业",
+    "科学研究和技术服务业",
+    "文化、体育和娱乐业"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2012",
+      "label": "2012年",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        21973,
+        29684,
+        28215,
+        30911,
+        28159,
+        23933,
+        39518,
+        32696,
+        30778,
+        36598,
+        26177
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "2013",
+      "label": "2013年",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        24645,
+        33081,
+        32035,
+        34882,
+        33141,
+        27352,
+        44060,
+        37253,
+        35038,
+        42854,
+        30402
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2015年山东省公务员录用考试《行测》题_images/img_0153_e57f88712364926d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省公务员录用考试《行测》题_images/img_0153_e57f88712364926d.png",
+        "paper_title": "2015年山东省公务员录用考试《行测》题",
+        "question_id": "pq_23efb41b7a65fbc18c9d",
+        "question_number": 106,
+        "source_jsonl_line": 29840
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省公务员录用考试《行测》题_images/img_0153_e57f88712364926d.png",
+        "paper_title": "2015年山东省公务员录用考试《行测》题",
+        "question_id": "pq_658f3a3f81171e640e2d",
+        "question_number": 107,
+        "source_jsonl_line": 29841
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省公务员录用考试《行测》题_images/img_0157_1c456e0ef8bbba12.png",
+        "paper_title": "2015年山东省公务员录用考试《行测》题",
+        "question_id": "pq_272ad8fcc2d2a7057c4e",
+        "question_number": 108,
+        "source_jsonl_line": 29842
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省公务员录用考试《行测》题_images/img_0153_e57f88712364926d.png",
+        "paper_title": "2015年山东省公务员录用考试《行测》题",
+        "question_id": "pq_4e5b007a817bb5091a27",
+        "question_number": 109,
+        "source_jsonl_line": 29843
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省公务员录用考试《行测》题_images/img_0153_e57f88712364926d.png",
+        "paper_title": "2015年山东省公务员录用考试《行测》题",
+        "question_id": "pq_22885d05eb06db610de6",
+        "question_number": 110,
+        "source_jsonl_line": 29844
+      }
+    ],
+    "sha256": "1dd0a99ff7e8ddc5757fcca72f59a4bb88e4c696f8e01ab9b00560e5f4c313ad"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "行业",
+      "2012年",
+      "2013年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "农、林、牧、渔业",
+        "unit": null,
+        "values": [
+          "农、林、牧、渔业",
+          21973,
+          24645
+        ]
+      },
+      {
+        "label": "采矿业",
+        "unit": null,
+        "values": [
+          "采矿业",
+          29684,
+          33081
+        ]
+      },
+      {
+        "label": "制造业",
+        "unit": null,
+        "values": [
+          "制造业",
+          28215,
+          32035
+        ]
+      },
+      {
+        "label": "建筑业",
+        "unit": null,
+        "values": [
+          "建筑业",
+          30911,
+          34882
+        ]
+      },
+      {
+        "label": "交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          "交通运输、仓储和邮政业",
+          28159,
+          33141
+        ]
+      },
+      {
+        "label": "住宿和餐饮业",
+        "unit": null,
+        "values": [
+          "住宿和餐饮业",
+          23933,
+          27352
+        ]
+      },
+      {
+        "label": "信息传输、软件和信息技术服务业",
+        "unit": null,
+        "values": [
+          "信息传输、软件和信息技术服务业",
+          39518,
+          44060
+        ]
+      },
+      {
+        "label": "金融业",
+        "unit": null,
+        "values": [
+          "金融业",
+          32696,
+          37253
+        ]
+      },
+      {
+        "label": "房地产业",
+        "unit": null,
+        "values": [
+          "房地产业",
+          30778,
+          35038
+        ]
+      },
+      {
+        "label": "科学研究和技术服务业",
+        "unit": null,
+        "values": [
+          "科学研究和技术服务业",
+          36598,
+          42854
+        ]
+      },
+      {
+        "label": "文化、体育和娱乐业",
+        "unit": null,
+        "values": [
+          "文化、体育和娱乐业",
+          26177,
+          30402
+        ]
+      }
+    ]
+  },
+  "title": "2012-2013年城镇私营单位部分行业就业人员年平均工资",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1dd0a99ff7e8ddc5757fcca7/row_band_01.jpg",
+        "review-crops/da_1dd0a99ff7e8ddc5757fcca7/row_band_02.jpg",
+        "review-crops/da_1dd0a99ff7e8ddc5757fcca7/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.534",
+      "crop_verification_elapsed_seconds:5.902",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:农、林、牧、渔业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:采矿业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:制造业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:采矿业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:制造业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:建筑业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:交通运输、仓储和邮政业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:住宿和餐饮业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:信息传输、软件和信息技术服务业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:金融业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:信息传输、软件和信息技术服务业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:金融业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:房地产业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:科学研究和技术服务业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:文化、体育和娱乐业:2!=3"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

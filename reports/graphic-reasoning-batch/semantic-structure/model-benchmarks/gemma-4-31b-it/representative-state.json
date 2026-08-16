@@ -1,0 +1,34 @@
+{
+  "assets": 5,
+  "observedAt": "2026-08-11T12:45:30.694754+00:00",
+  "repairPending": 3,
+  "rows": [
+    {
+      "assetId": "gr_7b00c758d0ab44e2c464e04f",
+      "qualityStatus": "unsupported_by_simple_regular_v1",
+      "status": "repair_pending"
+    },
+    {
+      "assetId": "gr_06e94661142e35ee6757e42d",
+      "qualityStatus": "unsupported_by_simple_regular_v1",
+      "status": "repair_pending"
+    },
+    {
+      "assetId": "gr_0751a8530a3a10bda058e654",
+      "qualityStatus": "unsupported_by_simple_regular_v1",
+      "status": "repair_pending"
+    },
+    {
+      "assetId": "gr_09a239f1f5c89bec86ff315d",
+      "qualityStatus": "representative_visible_facts_and_answer_preservation_pass",
+      "status": "semantic_solver_validated"
+    },
+    {
+      "assetId": "gr_814f04ca63ec75e0fd69a9fb",
+      "qualityStatus": "representative_visible_facts_and_answer_preservation_pass",
+      "status": "semantic_solver_validated"
+    }
+  ],
+  "schemaVersion": "graphic-reasoning-representative-semantic-state-v1",
+  "semanticSolverValidated": 2
+}

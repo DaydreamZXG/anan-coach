@@ -1,0 +1,272 @@
+{
+  "asset_id": "da_458ae76bcb9967bbf00538da",
+  "axes": {
+    "x": {
+      "max": 10,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 800,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800
+        ],
+        "title": "人数（千人）",
+        "unit": "千人"
+      },
+      {
+        "max": 12,
+        "min": 0,
+        "ticks": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12
+        ],
+        "title": "学校数（百所）",
+        "unit": "百所"
+      }
+    ]
+  },
+  "categories": [
+    "陕西",
+    "河北",
+    "江苏",
+    "山西",
+    "山东",
+    "浙江",
+    "江西",
+    "安徽",
+    "福建",
+    "湖南",
+    "重庆",
+    "广东",
+    "河南",
+    "辽宁",
+    "广西",
+    "四川",
+    "湖北"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "招生总数",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "hatch",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "专任教师数",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "hatch",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "学校数",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "招生总数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "千人",
+      "values": [
+        320,
+        450,
+        470,
+        280,
+        500,
+        400,
+        240,
+        430,
+        250,
+        350,
+        200,
+        700,
+        600,
+        250,
+        250,
+        500,
+        400
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "专任教师数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "千人",
+      "values": [
+        80,
+        80,
+        100,
+        300,
+        110,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "学校数",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百所",
+      "values": [
+        6,
+        8,
+        7,
+        4,
+        6,
+        5,
+        4,
+        7,
+        5,
+        6,
+        3,
+        10,
+        9,
+        2,
+        2,
+        7,
+        6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2012年山东省公务员录用考试《行测》题_images/img_0130_2c63fcfb9821b645.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年山东省公务员录用考试《行测》题_images/img_0130_2c63fcfb9821b645.png",
+        "paper_title": "2012年山东省公务员录用考试《行测》题",
+        "question_id": "pq_3c583a95ad970146aaab",
+        "question_number": 111,
+        "source_jsonl_line": 29485
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年山东省公务员录用考试《行测》题_images/img_0133_6c6d8c1fe189e3c5.png",
+        "paper_title": "2012年山东省公务员录用考试《行测》题",
+        "question_id": "pq_0439c22a989fcac72efd",
+        "question_number": 112,
+        "source_jsonl_line": 29486
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年山东省公务员录用考试《行测》题_images/img_0130_2c63fcfb9821b645.png",
+        "paper_title": "2012年山东省公务员录用考试《行测》题",
+        "question_id": "pq_506b79dd704301179036",
+        "question_number": 113,
+        "source_jsonl_line": 29487
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年山东省公务员录用考试《行测》题_images/img_0130_2c63fcfb9821b645.png",
+        "paper_title": "2012年山东省公务员录用考试《行测》题",
+        "question_id": "pq_f9d4a3e235fb0b8aa0d4",
+        "question_number": 114,
+        "source_jsonl_line": 29488
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年山东省公务员录用考试《行测》题_images/img_0133_6c6d8c1fe189e3c5.png",
+        "paper_title": "2012年山东省公务员录用考试《行测》题",
+        "question_id": "pq_d994bc4962786e204d38",
+        "question_number": 115,
+        "source_jsonl_line": 29489
+      }
+    ],
+    "sha256": "458ae76bcb9967bbf00538da2bff51f61266b8b167412627f96a73c951838ab9"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2009年我国部分省市普通高中情况",
+  "unit": "人数（千人）",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_458ae76bcb9967bbf00538da/column_band_01.jpg",
+        "review-crops/da_458ae76bcb9967bbf00538da/column_band_02.jpg",
+        "review-crops/da_458ae76bcb9967bbf00538da/column_band_03.jpg",
+        "review-crops/da_458ae76bcb9967bbf00538da/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.229",
+      "crop_verification_elapsed_seconds:10.672",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

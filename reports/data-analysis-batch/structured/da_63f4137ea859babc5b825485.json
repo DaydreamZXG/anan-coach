@@ -1,0 +1,180 @@
+{
+  "asset_id": "da_63f4137ea859babc5b825485",
+  "axes": {
+    "x": {
+      "max": 4,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 60,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "渤海",
+    "黄海",
+    "东海",
+    "南海"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2009年",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "2010年",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2009",
+      "label": "2009年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        20.4,
+        1.9,
+        37.4,
+        6.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2010",
+      "label": "2010年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        24.5,
+        5.6,
+        50.5,
+        6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/重庆/2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0120_997e2bc78e1719e1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0120_997e2bc78e1719e1.png",
+        "paper_title": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_7354b00b8aaf792f3a69",
+        "question_number": 116,
+        "source_jsonl_line": 93019
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0120_997e2bc78e1719e1.png",
+        "paper_title": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_f1c2e0939ff720193718",
+        "question_number": 117,
+        "source_jsonl_line": 93020
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0123_d2e9ca7b151d76c7.png",
+        "paper_title": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_7af46469c39344d591d0",
+        "question_number": 118,
+        "source_jsonl_line": 93021
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0123_d2e9ca7b151d76c7.png",
+        "paper_title": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_30e5e12c76ca432758d9",
+        "question_number": 119,
+        "source_jsonl_line": 93022
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0120_997e2bc78e1719e1.png",
+        "paper_title": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_51785f7dab503363b962",
+        "question_number": 120,
+        "source_jsonl_line": 93023
+      }
+    ],
+    "sha256": "63f4137ea859babc5b8254851da0e69db08d3d524fb267f30288d5de5fdfce57"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2010年四大海区近岸海域四类、劣四类海水年际比较图",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_63f4137ea859babc5b825485/column_band_01.jpg",
+        "review-crops/da_63f4137ea859babc5b825485/column_band_02.jpg",
+        "review-crops/da_63f4137ea859babc5b825485/column_band_03.jpg",
+        "review-crops/da_63f4137ea859babc5b825485/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.361",
+      "crop_verification_elapsed_seconds:2.289",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

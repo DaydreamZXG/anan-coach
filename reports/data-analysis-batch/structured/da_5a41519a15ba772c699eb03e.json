@@ -1,0 +1,370 @@
+{
+  "asset_id": "da_5a41519a15ba772c699eb03e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "学校（机构）名称",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "占地面积（平方米）",
+        "unit": "平方米"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "一般图书（万册）",
+        "unit": "万册"
+      }
+    ]
+  },
+  "categories": [
+    "总计",
+    "一、中央部委所属",
+    "1.教育部所属",
+    "2.其他部委所属",
+    "二、市属",
+    "（一）公办",
+    "1.地方教育部门所属",
+    "2.地方非教育部门所属",
+    "（二）民办"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "占地面积（平方米）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "平方米",
+      "values": [
+        41191091,
+        25354119,
+        18238410,
+        7115709,
+        15836972,
+        12620706,
+        7335128,
+        5285578,
+        3216266
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "一般图书（万册）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万册",
+      "values": [
+        9522,
+        6012,
+        4614,
+        1398,
+        3510,
+        2802,
+        2223,
+        579,
+        708
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "固定资产总值（万元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        9250496,
+        6239056,
+        4797211,
+        1441845,
+        3016440,
+        2551252,
+        1908410,
+        null,
+        465188
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "其中：教学、科研、仪器设备",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        2743931,
+        1759337,
+        1340641,
+        418696,
+        984994,
+        927732,
+        805895,
+        121837,
+        56862
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "学校产权建筑面积（平方米）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "平方米",
+      "values": [
+        30861538,
+        21178115,
+        15147474,
+        6030641,
+        9683423,
+        8237820,
+        6011475,
+        2226345,
+        1445603
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2013年北京市公务员录用考试《行测》题_images/img_0081_f27f011b4b2d46db.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年北京市公务员录用考试《行测》题_images/img_0081_f27f011b4b2d46db.png",
+        "paper_title": "2013年北京市公务员录用考试《行测》题",
+        "question_id": "pq_97e39b31675e3069e99c",
+        "question_number": 116,
+        "source_jsonl_line": 9314
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年北京市公务员录用考试《行测》题_images/img_0080_31d0a96065735a36.png",
+        "paper_title": "2013年北京市公务员录用考试《行测》题",
+        "question_id": "pq_dea65f3c3cb07ab9454a",
+        "question_number": 117,
+        "source_jsonl_line": 9315
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年北京市公务员录用考试《行测》题_images/img_0081_f27f011b4b2d46db.png",
+        "paper_title": "2013年北京市公务员录用考试《行测》题",
+        "question_id": "pq_abf047a8e30d2b99b427",
+        "question_number": 118,
+        "source_jsonl_line": 9316
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年北京市公务员录用考试《行测》题_images/img_0080_31d0a96065735a36.png",
+        "paper_title": "2013年北京市公务员录用考试《行测》题",
+        "question_id": "pq_0f09b9f71e34a02234c0",
+        "question_number": 119,
+        "source_jsonl_line": 9317
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年北京市公务员录用考试《行测》题_images/img_0080_31d0a96065735a36.png",
+        "paper_title": "2013年北京市公务员录用考试《行测》题",
+        "question_id": "pq_ee854d08ed6910690e22",
+        "question_number": 120,
+        "source_jsonl_line": 9318
+      }
+    ],
+    "sha256": "5a41519a15ba772c699eb03e021aaf45798a5a55cfb33683cb993c657d250e1b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "学校（机构）名称",
+      "占地面积（平方米）",
+      "一般图书（万册）",
+      "固定资产总值（万元）",
+      "其中：教学、科研、仪器设备",
+      "学校产权建筑面积（平方米）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "总计",
+        "unit": null,
+        "values": [
+          "总计",
+          41191091,
+          9522,
+          9250496,
+          2743931,
+          30861538
+        ]
+      },
+      {
+        "label": "一、中央部委所属",
+        "unit": null,
+        "values": [
+          "一、中央部委所属",
+          25354119,
+          6012,
+          6239056,
+          1759337,
+          21178115
+        ]
+      },
+      {
+        "label": "1.教育部所属",
+        "unit": null,
+        "values": [
+          "1.教育部所属",
+          18238410,
+          4614,
+          4797211,
+          1340641,
+          15147474
+        ]
+      },
+      {
+        "label": "2.其他部委所属",
+        "unit": null,
+        "values": [
+          "2.其他部委所属",
+          7115709,
+          1398,
+          1441845,
+          418696,
+          6030641
+        ]
+      },
+      {
+        "label": "二、市属",
+        "unit": null,
+        "values": [
+          "二、市属",
+          15836972,
+          3510,
+          3016440,
+          984994,
+          9683423
+        ]
+      },
+      {
+        "label": "（一）公办",
+        "unit": null,
+        "values": [
+          "（一）公办",
+          12620706,
+          2802,
+          2551252,
+          927732,
+          8237820
+        ]
+      },
+      {
+        "label": "1.地方教育部门所属",
+        "unit": null,
+        "values": [
+          "1.地方教育部门所属",
+          7335128,
+          2223,
+          1908410,
+          805895,
+          6011475
+        ]
+      },
+      {
+        "label": "2.地方非教育部门所属",
+        "unit": null,
+        "values": [
+          "2.地方非教育部门所属",
+          5285578,
+          579,
+          465188,
+          null,
+          2226345
+        ]
+      },
+      {
+        "label": "（二）民办",
+        "unit": null,
+        "values": [
+          "（二）民办",
+          3216266,
+          708,
+          2551252,
+          56862,
+          1445603
+        ]
+      }
+    ]
+  },
+  "title": "2011一2012学年度某市普通高等学校基本办学条件情况",
+  "unit": "万元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5a41519a15ba772c699eb03e/row_band_01.jpg",
+        "review-crops/da_5a41519a15ba772c699eb03e/row_band_02.jpg",
+        "review-crops/da_5a41519a15ba772c699eb03e/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:20.435",
+      "crop_verification_elapsed_seconds:17.159",
+      "candidate_value_changes_after_crop:3",
+      "model_uncertainty:固定资产总值（万元）中'2.地方非教育部门所属'的值为缺失，标记为null",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

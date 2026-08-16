@@ -1,0 +1,346 @@
+{
+  "asset_id": "da_cedcb3ba7b798c5d1104b12a",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 35,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 8000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2011年2月",
+    "2011年3月",
+    "2011年4月",
+    "2011年5月",
+    "2011年6月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "累计收入（亿元）",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "累计增速（%）",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "当月同比增速（%）",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "累计收入（亿元）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2167,
+        3454,
+        4822,
+        6237,
+        8065
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "累计增速（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        23.8,
+        32.7,
+        30.7,
+        29.3,
+        32.9
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "当月同比增速（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        23.8,
+        27,
+        27.9,
+        28.2,
+        29.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0204_3ee9f69d93403fe1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0204_3ee9f69d93403fe1.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_8ef7dc06253c724fb06e",
+        "question_number": 146,
+        "source_jsonl_line": 4836
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0204_3ee9f69d93403fe1.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_f59f70ac0470dbda526f",
+        "question_number": 147,
+        "source_jsonl_line": 4837
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0200_3ee9f69d93403fe1.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_ff3066af411d93d2fcae",
+        "question_number": 145,
+        "source_jsonl_line": 6944
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0200_3ee9f69d93403fe1.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_133b8b26cc80ab85805a",
+        "question_number": 146,
+        "source_jsonl_line": 6945
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0197_8f01e667419720a3.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_58d97da7e6c7d5eae632",
+        "question_number": 147,
+        "source_jsonl_line": 6946
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0200_3ee9f69d93403fe1.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_c9ad4b97d47adc4b7e2e",
+        "question_number": 148,
+        "source_jsonl_line": 6947
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0197_8f01e667419720a3.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_5d03d0c8f5933eecbb31",
+        "question_number": 149,
+        "source_jsonl_line": 6948
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0181_3ee9f69d93403fe1.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_f3ffb69d6d8aa845b8ec",
+        "question_number": 145,
+        "source_jsonl_line": 14582
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0181_3ee9f69d93403fe1.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_11f2ee38278199ca586c",
+        "question_number": 147,
+        "source_jsonl_line": 14584
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0181_3ee9f69d93403fe1.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_011ab8f5af0f2a1bc1ba",
+        "question_number": 148,
+        "source_jsonl_line": 14585
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0196_3ee9f69d93403fe1.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_3ce2250b52ab49693587",
+        "question_number": 145,
+        "source_jsonl_line": 25151
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0196_3ee9f69d93403fe1.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_d8dab9a49de204e260b5",
+        "question_number": 146,
+        "source_jsonl_line": 25152
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0196_3ee9f69d93403fe1.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_9e3ea77ed322cb5fb243",
+        "question_number": 147,
+        "source_jsonl_line": 25153
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0196_3ee9f69d93403fe1.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_f27071d6b2cdae91a488",
+        "question_number": 148,
+        "source_jsonl_line": 25154
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0196_3ee9f69d93403fe1.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_5b78bbcd14be2f8e8010",
+        "question_number": 149,
+        "source_jsonl_line": 25155
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0185_8f01e667419720a3.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_2502cb6fdda64d1826d8",
+        "question_number": 145,
+        "source_jsonl_line": 27305
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0196_3ee9f69d93403fe1.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_344f2aefa7f0659970e6",
+        "question_number": 146,
+        "source_jsonl_line": 27306
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0196_3ee9f69d93403fe1.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_a21823fb0442a675e5cf",
+        "question_number": 147,
+        "source_jsonl_line": 27307
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0196_3ee9f69d93403fe1.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_b93ba946ebd04caf7235",
+        "question_number": 148,
+        "source_jsonl_line": 27308
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0185_8f01e667419720a3.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_bf35972f5960bc1664cf",
+        "question_number": 149,
+        "source_jsonl_line": 27309
+      }
+    ],
+    "sha256": "cedcb3ba7b798c5d1104b12a2e18f9b9c1eee137ffe8b34bde06a5d5af993a8c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2011年上半年软件业务收入情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cedcb3ba7b798c5d1104b12a/column_band_01.jpg",
+        "review-crops/da_cedcb3ba7b798c5d1104b12a/column_band_02.jpg",
+        "review-crops/da_cedcb3ba7b798c5d1104b12a/column_band_03.jpg",
+        "review-crops/da_cedcb3ba7b798c5d1104b12a/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.824",
+      "crop_verification_elapsed_seconds:3.753",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

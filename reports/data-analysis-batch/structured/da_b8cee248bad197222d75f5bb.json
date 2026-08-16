@@ -1,0 +1,257 @@
+{
+  "asset_id": "da_b8cee248bad197222d75f5bb",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 15000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000
+        ],
+        "title": "用户规模",
+        "unit": "万人"
+      },
+      {
+        "max": 20,
+        "min": 14,
+        "ticks": [
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "title": "使用率",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2015年12月",
+    "2016年6月",
+    "2016年12月",
+    "2017年6月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "在线教育用户规模",
+      "style": {
+        "dash": null,
+        "fill": "#1F77B4",
+        "marker": null,
+        "stroke": "#1F77B4"
+      }
+    },
+    {
+      "label": "手机在线教育用户规模",
+      "style": {
+        "dash": null,
+        "fill": "#FF7F0E",
+        "marker": null,
+        "stroke": "#FF7F0E"
+      }
+    },
+    {
+      "label": "在线教育使用率",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "triangle",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "在线教育用户规模",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        11014,
+        11789,
+        13764,
+        14426
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "手机在线教育用户规模",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        5303,
+        6987,
+        9798,
+        11990
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "在线教育使用率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        16,
+        16.6,
+        18.8,
+        19.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0185_b1c413b5831b6362.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0185_b1c413b5831b6362.png",
+        "paper_title": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_7a7a665850ac1d00f1ee",
+        "question_number": 121,
+        "source_jsonl_line": 87976
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0185_b1c413b5831b6362.png",
+        "paper_title": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_c92929b64f2e800879de",
+        "question_number": 122,
+        "source_jsonl_line": 87977
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0194_fad5d659495a81a9.png",
+        "paper_title": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_7a8d9a86bce1639c010f",
+        "question_number": 123,
+        "source_jsonl_line": 87978
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0194_fad5d659495a81a9.png",
+        "paper_title": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_8f10dadc8b0b9d5674bf",
+        "question_number": 124,
+        "source_jsonl_line": 87979
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0185_b1c413b5831b6362.png",
+        "paper_title": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_7dfa71e4f9e079ea435e",
+        "question_number": 125,
+        "source_jsonl_line": 87980
+      }
+    ],
+    "sha256": "b8cee248bad197222d75f5bb4b9cacb0c53c41bed7931b277828aa7fcdf52c0b"
+  },
+  "structured_visual": null,
+  "table": {
+    "columns": [
+      "2015年12月",
+      "2016年6月",
+      "2016年12月",
+      "2017年6月"
+    ],
+    "rows": [
+      {
+        "label": "在线教育用户规模",
+        "values": [
+          11014,
+          11789,
+          13764,
+          14426
+        ]
+      },
+      {
+        "label": "手机在线教育用户规模",
+        "values": [
+          5303,
+          6987,
+          9798,
+          11990
+        ]
+      },
+      {
+        "label": "在线教育使用率",
+        "values": [
+          16,
+          16.6,
+          18.8,
+          19.2
+        ]
+      }
+    ]
+  },
+  "title": "2015年12月-2017年6月我国在线教育用户及手机在线教育用户规模（万人）",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b8cee248bad197222d75f5bb/column_band_01.jpg",
+        "review-crops/da_b8cee248bad197222d75f5bb/column_band_02.jpg",
+        "review-crops/da_b8cee248bad197222d75f5bb/column_band_03.jpg",
+        "review-crops/da_b8cee248bad197222d75f5bb/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.813",
+      "crop_verification_elapsed_seconds:4.752",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "table_row_label_column_removed:<blank>"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

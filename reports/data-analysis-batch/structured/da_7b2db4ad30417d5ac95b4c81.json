@@ -1,0 +1,206 @@
+{
+  "asset_id": "da_7b2db4ad30417d5ac95b4c81",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "完成量",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        "7.04 亿件",
+        "148.99 万件",
+        "7.8 亿件",
+        "5596.04 万件",
+        "707.92 万笔"
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "增速 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        9.1,
+        -52.2,
+        -7.4,
+        -18.6,
+        -48.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0240_82fedf2340528525.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0240_82fedf2340528525.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_444d3a05e0e9579a6187",
+        "question_number": 96,
+        "source_jsonl_line": 34928
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0245_b98eaf6e43ee5caa.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_49cb3ca91c917831a124",
+        "question_number": 97,
+        "source_jsonl_line": 34929
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0245_b98eaf6e43ee5caa.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_16e0c8c96826936e3d3c",
+        "question_number": 98,
+        "source_jsonl_line": 34930
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0240_82fedf2340528525.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_7777673886e51f7f3cc1",
+        "question_number": 99,
+        "source_jsonl_line": 34931
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0240_82fedf2340528525.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_acc40f36d474af0e8c3c",
+        "question_number": 100,
+        "source_jsonl_line": 34932
+      }
+    ],
+    "sha256": "7b2db4ad30417d5ac95b4c8195c4a7539559250e4b16e10c3c1752e7f542ede8"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "类型",
+      "完成量",
+      "增速 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "函件",
+        "unit": null,
+        "values": [
+          "函件",
+          "7.04 亿件",
+          9.1
+        ]
+      },
+      {
+        "label": "包裹",
+        "unit": null,
+        "values": [
+          "包裹",
+          "148.99 万件",
+          -52.2
+        ]
+      },
+      {
+        "label": "报纸",
+        "unit": null,
+        "values": [
+          "报纸",
+          "7.8 亿件",
+          -7.4
+        ]
+      },
+      {
+        "label": "杂志",
+        "unit": null,
+        "values": [
+          "杂志",
+          "5596.04 万件",
+          -18.6
+        ]
+      },
+      {
+        "label": "汇兑",
+        "unit": null,
+        "values": [
+          "汇兑",
+          "707.92 万笔",
+          -48.8
+        ]
+      }
+    ]
+  },
+  "title": "2016年某省主要邮政普遍服务项目完成情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_7b2db4ad30417d5ac95b4c81/row_band_01.jpg",
+        "review-crops/da_7b2db4ad30417d5ac95b4c81/row_band_02.jpg",
+        "review-crops/da_7b2db4ad30417d5ac95b4c81/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.876",
+      "crop_verification_elapsed_seconds:2.324",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

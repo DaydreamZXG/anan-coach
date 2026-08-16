@@ -1,0 +1,264 @@
+{
+  "asset_id": "da_7f16de2489e0a4e171888bdf",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2009年江苏省公务员录用考试《行测》题（A类）_images/img_0202_1bb350f9bd7fe4ea.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0202_1bb350f9bd7fe4ea.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_96905e58fc050a0314bd",
+        "question_number": 86,
+        "source_jsonl_line": 44816
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0202_1bb350f9bd7fe4ea.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_923c6555438b026ee2e7",
+        "question_number": 87,
+        "source_jsonl_line": 44817
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0202_1bb350f9bd7fe4ea.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_3a31f2b0b43fc7c016e4",
+        "question_number": 88,
+        "source_jsonl_line": 44818
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0210_2ab48576848b349c.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_a7679408298c999bf4ae",
+        "question_number": 89,
+        "source_jsonl_line": 44819
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0210_2ab48576848b349c.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_d0e5f2bd3dca86aad2e4",
+        "question_number": 90,
+        "source_jsonl_line": 44820
+      }
+    ],
+    "sha256": "7f16de2489e0a4e171888bdf4d2700287b93e6e2d90673a02d4682bf54c9f65f"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2000",
+      "2001",
+      "2002",
+      "2003",
+      "2004",
+      "2005",
+      "2006"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "上市公司数目（家）",
+        "group": "上市公司情况",
+        "label": "上市公司情况｜上市公司数目（家）",
+        "unit": null,
+        "values": [
+          1088,
+          1160,
+          1224,
+          1287,
+          1377,
+          1381,
+          1434
+        ]
+      },
+      {
+        "display_label": "上市股票数目（只）",
+        "group": "上市公司情况",
+        "label": "上市公司情况｜上市股票数目（只）",
+        "unit": null,
+        "values": [
+          1174,
+          1240,
+          1310,
+          1372,
+          1463,
+          1467,
+          1520
+        ]
+      },
+      {
+        "display_label": "A 股",
+        "group": "上市公司情况",
+        "label": "上市公司情况｜上市股票数目（只）｜A 股",
+        "unit": null,
+        "values": [
+          1060,
+          1130,
+          1199,
+          1261,
+          1353,
+          1358,
+          1411
+        ]
+      },
+      {
+        "display_label": "B 股",
+        "group": "上市公司情况",
+        "label": "上市公司情况｜上市股票数目（只）｜B 股",
+        "unit": null,
+        "values": [
+          114,
+          110,
+          111,
+          111,
+          110,
+          109,
+          109
+        ]
+      },
+      {
+        "display_label": "股票成交金额（亿元）",
+        "group": "上市公司情况",
+        "label": "上市公司情况｜股票成交金额（亿元）",
+        "unit": null,
+        "values": [
+          60827,
+          38305,
+          27990,
+          32115,
+          42334,
+          31665,
+          90469
+        ]
+      },
+      {
+        "display_label": "A 股",
+        "group": "上市公司情况",
+        "label": "上市公司情况｜股票成交金额（亿元）｜A 股",
+        "unit": null,
+        "values": [
+          60279,
+          33242,
+          27142,
+          31270,
+          41576,
+          31099,
+          89217
+        ]
+      },
+      {
+        "display_label": "B 股",
+        "group": "上市公司情况",
+        "label": "上市公司情况｜股票成交金额（亿元）｜B 股",
+        "unit": null,
+        "values": [
+          548,
+          5063,
+          848,
+          845,
+          758,
+          566,
+          1252
+        ]
+      },
+      {
+        "display_label": "总成交股本（亿股）",
+        "group": "上市公司情况",
+        "label": "上市公司情况｜总成交股本（亿股）",
+        "unit": null,
+        "values": [
+          4758.38,
+          3152.29,
+          3016.19,
+          4163.08,
+          5827.73,
+          6623.73,
+          16145.23
+        ]
+      },
+      {
+        "display_label": "A 股",
+        "group": "上市公司情况",
+        "label": "上市公司情况｜总成交股本（亿股）｜A 股",
+        "unit": null,
+        "values": [
+          4558.02,
+          2463.41,
+          2859.49,
+          3992.28,
+          5672.91,
+          6470.87,
+          15808.62
+        ]
+      },
+      {
+        "display_label": "B 股",
+        "group": "上市公司情况",
+        "label": "上市公司情况｜总成交股本（亿股）｜B 股",
+        "unit": null,
+        "values": [
+          200.36,
+          688.88,
+          156.7,
+          170.8,
+          154.82,
+          152.86,
+          336.61
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

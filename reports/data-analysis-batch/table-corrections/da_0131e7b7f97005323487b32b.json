@@ -1,0 +1,119 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2019|增长"
+        ],
+        "label": "2019年"
+      },
+      {
+        "columns": [
+          "2018|增长"
+        ],
+        "label": "2018年"
+      },
+      {
+        "columns": [
+          "2017|增长"
+        ],
+        "label": "2017年"
+      },
+      {
+        "columns": [
+          "2016|增长"
+        ],
+        "label": "2016年"
+      },
+      {
+        "columns": [
+          "2015|增长"
+        ],
+        "label": "2015年"
+      }
+    ],
+    "columns": [
+      "2019|增长",
+      "2018|增长",
+      "2017|增长",
+      "2016|增长",
+      "2015|增长"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标名称",
+    "rows": [
+      {
+        "label": "经济发展新动能",
+        "unit": null,
+        "values": [
+          332.0,
+          269.0,
+          204.1,
+          159.1,
+          124.8
+        ]
+      },
+      {
+        "label": "经济活力",
+        "unit": null,
+        "values": [
+          313.6,
+          292.0,
+          266.5,
+          225.2,
+          153.5
+        ]
+      },
+      {
+        "label": "创新活动",
+        "unit": null,
+        "values": [
+          201.4,
+          174.2,
+          143.2,
+          126.2,
+          113.5
+        ]
+      },
+      {
+        "label": "网络经济",
+        "unit": null,
+        "values": [
+          856.5,
+          603.0,
+          362.1,
+          199.9,
+          136.3
+        ]
+      },
+      {
+        "label": "转型升级",
+        "unit": null,
+        "values": [
+          141.4,
+          140.0,
+          120.4,
+          119.3,
+          107.9
+        ]
+      },
+      {
+        "label": "知识能力",
+        "unit": null,
+        "values": [
+          147.2,
+          135.9,
+          128.5,
+          125.1,
+          112.6
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

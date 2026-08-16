@@ -1,0 +1,279 @@
+{
+  "asset_id": "da_6f81278f167df260b99e73a6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0258_4afdc37e6862bc6b.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0258_4afdc37e6862bc6b.png",
+        "paper_title": "2021年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_86a730da4690a54f9da3",
+        "question_number": 96,
+        "source_jsonl_line": 5780
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0284_88be23a1e363fe82.png",
+        "paper_title": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_929cdfc07ea25d42c547",
+        "question_number": 116,
+        "source_jsonl_line": 8029
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2021年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0195_88be23a1e363fe82.png",
+        "paper_title": "2021年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_30fd78a0e1c7fd46a8b3",
+        "question_number": 91,
+        "source_jsonl_line": 13407
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2021年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0380_4afdc37e6862bc6b.png",
+        "paper_title": "2021年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_653c0197c8d8e4685a2f",
+        "question_number": 106,
+        "source_jsonl_line": 28190
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2021年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0389_4afdc37e6862bc6b.png",
+        "paper_title": "2021年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3f50a79ce0dfdd5b5f10",
+        "question_number": 124,
+        "source_jsonl_line": 32802
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2021年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0362_4afdc37e6862bc6b.png",
+        "paper_title": "2021年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ea8c53e642ef2ca9f3f5",
+        "question_number": 126,
+        "source_jsonl_line": 53685
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2021年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0209_4afdc37e6862bc6b.png",
+        "paper_title": "2021年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f7e68e4e100f58fd8bed",
+        "question_number": 111,
+        "source_jsonl_line": 56128
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2021年湖北省公务员录用考试《行测》题（网友回忆版）_images/img_0235_4afdc37e6862bc6b.png",
+        "paper_title": "2021年湖北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ecad2fac71f2f3c646b9",
+        "question_number": 106,
+        "source_jsonl_line": 70867
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2021年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0371_4afdc37e6862bc6b.png",
+        "paper_title": "2021年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a7dfdcf9cf915968fa9c",
+        "question_number": 116,
+        "source_jsonl_line": 83987
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2021年重庆市公务员录用考试《行测》题（网友回忆版）_images/img_0306_4afdc37e6862bc6b.png",
+        "paper_title": "2021年重庆市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_abc927562bb75c87bc78",
+        "question_number": 116,
+        "source_jsonl_line": 95179
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2021年陕西省公务员录用考试《行测》题（网友回忆版）_images/img_0285_4afdc37e6862bc6b.png",
+        "paper_title": "2021年陕西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f3d2c489a512461dcbb3",
+        "question_number": 111,
+        "source_jsonl_line": 98149
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2021年青海省公务员录用考试《行测》题（网友回忆版）_images/img_0279_88be23a1e363fe82.png",
+        "paper_title": "2021年青海省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a9805f9e837967c6b075",
+        "question_number": 111,
+        "source_jsonl_line": 100279
+      }
+    ],
+    "sha256": "6f81278f167df260b99e73a665eb08dd482429e6c22904486c2e6e2717704ca3"
+  },
+  "structured_visual": {
+    "complexity": {
+      "estimatedDrawCommandCount": 20,
+      "optionCount": 4,
+      "sectorCount": 4
+    },
+    "coordinateSpace": {
+      "height": 159,
+      "width": 700
+    },
+    "evidence": {
+      "converterVersion": "semantic-pie-options-v1",
+      "geometryEngine": "human_verified_sector_geometry",
+      "renderSha256": "8b52edb6ec6b3e93807d2a82bc6f6176d6f4da7aede9b2f88d1a4e5e66289ae0",
+      "sourceAsset": "da_6f81278f167df260b99e73a6",
+      "sourceSha256": "6f81278f167df260b99e73a665eb08dd482429e6c22904486c2e6e2717704ca3"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticPieOptions",
+    "layoutType": "sequence",
+    "options": [
+      {
+        "center": {
+          "x": 112,
+          "y": 77
+        },
+        "frame": null,
+        "id": "da_6f81278f167df260b99e73a6-0",
+        "label": "A",
+        "labelY": 134,
+        "position": 0,
+        "radius": 65,
+        "sectors": [
+          {
+            "startDegrees": 0,
+            "style": "diagonal",
+            "sweepDegrees": 90
+          }
+        ]
+      },
+      {
+        "center": {
+          "x": 277,
+          "y": 79
+        },
+        "frame": null,
+        "id": "da_6f81278f167df260b99e73a6-1",
+        "label": "B",
+        "labelY": 134,
+        "position": 1,
+        "radius": 64,
+        "sectors": [
+          {
+            "startDegrees": 0,
+            "style": "diagonal",
+            "sweepDegrees": 25
+          }
+        ]
+      },
+      {
+        "center": {
+          "x": 461,
+          "y": 79
+        },
+        "frame": null,
+        "id": "da_6f81278f167df260b99e73a6-2",
+        "label": "C",
+        "labelY": 134,
+        "position": 2,
+        "radius": 64,
+        "sectors": [
+          {
+            "startDegrees": 0,
+            "style": "diagonal",
+            "sweepDegrees": 180
+          }
+        ]
+      },
+      {
+        "center": {
+          "x": 629,
+          "y": 79
+        },
+        "frame": null,
+        "id": "da_6f81278f167df260b99e73a6-3",
+        "label": "D",
+        "labelY": 134,
+        "position": 3,
+        "radius": 65,
+        "sectors": [
+          {
+            "startDegrees": 0,
+            "style": "diagonal",
+            "sweepDegrees": 160
+          }
+        ]
+      }
+    ],
+    "schemaVersion": "semantic-pie-options-v1",
+    "styleVocabulary": [
+      "diagonal"
+    ],
+    "visualGrammar": "patterned_pie_options"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6f81278f167df260b99e73a6/quadrant_01.jpg",
+        "review-crops/da_6f81278f167df260b99e73a6/quadrant_02.jpg",
+        "review-crops/da_6f81278f167df260b99e73a6/quadrant_03.jpg",
+        "review-crops/da_6f81278f167df260b99e73a6/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:1.277",
+      "crop_verification_elapsed_seconds:2.031",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:饼图未提供具体数值或百分比，仅能识别标签和视觉比例",
+      "crop_note:确认 labels_clockwise 顺序为 A, B, C, D，与图中标签位置一致。",
+      "crop_note:未发现数字、负号、小数、百分号或缺失值相关错误，无需修正。",
+      "non_data_multiple_choice_pies",
+      "foreground_iou:0.585561",
+      "mean_absolute_error:17.581581",
+      "trace_parameters:{\"epsilonRatio\": 0.01, \"minimumContourArea\": 5.0, \"paletteSize\": 4}",
+      "converter:semantic-pie-options-v1",
+      "visual_grammar:patterned_pie_options",
+      "angle_convention:zero_at_twelve_clockwise",
+      "comparison_artifact:previews/structured_visual/da_6f81278f167df260b99e73a6-comparison.png",
+      "manual_qa:source_redraw_pair_inspected; sector_order_and_fill_verified"
+    ],
+    "ocr_engine": "human_verified_sector_geometry",
+    "ocr_mean_confidence": 0.96,
+    "schema_valid": true
+  }
+}

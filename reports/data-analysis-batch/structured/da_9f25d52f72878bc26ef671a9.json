@@ -1,0 +1,187 @@
+{
+  "asset_id": "da_9f25d52f72878bc26ef671a9",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2003,
+        2004,
+        2005,
+        2006,
+        2007
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1600,
+        "min": 0,
+        "ticks": [
+          0,
+          400,
+          800,
+          1200,
+          1600
+        ],
+        "title": null,
+        "unit": "亿吨"
+      }
+    ]
+  },
+  "categories": [
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "甲国",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "乙国",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "甲国",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿吨",
+      "values": [
+        1037,
+        1132,
+        1189,
+        1289,
+        1401
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "乙国",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿吨",
+      "values": [
+        1256,
+        1263,
+        1254,
+        1253,
+        1262
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/福建/2010年福建省公务员录用考试《行测》题（春季）_images/img_0124_542a1ebbb8fa2538.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年福建省公务员录用考试《行测》题（春季）_images/img_0124_542a1ebbb8fa2538.jpg",
+        "paper_title": "2010年福建省公务员录用考试《行测》题（春季）",
+        "question_id": "pq_4a4c4cd8074b905924ea",
+        "question_number": 111,
+        "source_jsonl_line": 76786
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年福建省公务员录用考试《行测》题（春季）_images/img_0125_41d311d8434a5e99.jpg",
+        "paper_title": "2010年福建省公务员录用考试《行测》题（春季）",
+        "question_id": "pq_dfd9991bd3813bd2af5b",
+        "question_number": 112,
+        "source_jsonl_line": 76787
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年福建省公务员录用考试《行测》题（春季）_images/img_0125_41d311d8434a5e99.jpg",
+        "paper_title": "2010年福建省公务员录用考试《行测》题（春季）",
+        "question_id": "pq_daa742e9ff2da4f72ce6",
+        "question_number": 113,
+        "source_jsonl_line": 76788
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年福建省公务员录用考试《行测》题（春季）_images/img_0125_41d311d8434a5e99.jpg",
+        "paper_title": "2010年福建省公务员录用考试《行测》题（春季）",
+        "question_id": "pq_a1bf0845abde14820611",
+        "question_number": 114,
+        "source_jsonl_line": 76789
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年福建省公务员录用考试《行测》题（春季）_images/img_0125_41d311d8434a5e99.jpg",
+        "paper_title": "2010年福建省公务员录用考试《行测》题（春季）",
+        "question_id": "pq_1d46dfa9a5468cde911c",
+        "question_number": 115,
+        "source_jsonl_line": 76790
+      }
+    ],
+    "sha256": "9f25d52f72878bc26ef671a98173bce7ca86fb42f937edd7f8ff02f7734c1615"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "亿吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9f25d52f72878bc26ef671a9/column_band_01.jpg",
+        "review-crops/da_9f25d52f72878bc26ef671a9/column_band_02.jpg",
+        "review-crops/da_9f25d52f72878bc26ef671a9/column_band_03.jpg",
+        "review-crops/da_9f25d52f72878bc26ef671a9/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.699",
+      "crop_verification_elapsed_seconds:2.846",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

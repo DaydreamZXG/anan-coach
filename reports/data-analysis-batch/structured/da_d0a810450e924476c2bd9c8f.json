@@ -1,0 +1,400 @@
+{
+  "asset_id": "da_d0a810450e924476c2bd9c8f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2015年四川省公务员录用考试《行测》题（上半年）_images/img_0059_965782d6af9c43a8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年四川省公务员录用考试《行测》题（上半年）_images/img_0059_965782d6af9c43a8.png",
+        "paper_title": "2015年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_84d176a8f5891a8ef728",
+        "question_number": 86,
+        "source_jsonl_line": 15110
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年四川省公务员录用考试《行测》题（上半年）_images/img_0077_cf7dbdfefea84578.png",
+        "paper_title": "2015年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_8bf2b290ddb790f401a5",
+        "question_number": 87,
+        "source_jsonl_line": 15111
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年四川省公务员录用考试《行测》题（上半年）_images/img_0059_965782d6af9c43a8.png",
+        "paper_title": "2015年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_a4cc5786d859c55cf65d",
+        "question_number": 88,
+        "source_jsonl_line": 15112
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年四川省公务员录用考试《行测》题（上半年）_images/img_0059_965782d6af9c43a8.png",
+        "paper_title": "2015年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_40956439a7f984851fea",
+        "question_number": 89,
+        "source_jsonl_line": 15113
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年四川省公务员录用考试《行测》题（上半年）_images/img_0059_965782d6af9c43a8.png",
+        "paper_title": "2015年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_a484e626a7a57a321074",
+        "question_number": 90,
+        "source_jsonl_line": 15114
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山西省公务员录用考试《行测》题_images/img_0090_965782d6af9c43a8.png",
+        "paper_title": "2015年山西省公务员录用考试《行测》题",
+        "question_id": "pq_db9a16484029c672cf89",
+        "question_number": 101,
+        "source_jsonl_line": 32059
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山西省公务员录用考试《行测》题_images/img_0090_965782d6af9c43a8.png",
+        "paper_title": "2015年山西省公务员录用考试《行测》题",
+        "question_id": "pq_e25f19d21e7b25c1ffd4",
+        "question_number": 102,
+        "source_jsonl_line": 32060
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山西省公务员录用考试《行测》题_images/img_0100_cf7dbdfefea84578.png",
+        "paper_title": "2015年山西省公务员录用考试《行测》题",
+        "question_id": "pq_617149d76f4ccb4b046b",
+        "question_number": 103,
+        "source_jsonl_line": 32061
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山西省公务员录用考试《行测》题_images/img_0100_cf7dbdfefea84578.png",
+        "paper_title": "2015年山西省公务员录用考试《行测》题",
+        "question_id": "pq_aa0cae767dd3f7d62df8",
+        "question_number": 104,
+        "source_jsonl_line": 32062
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山西省公务员录用考试《行测》题_images/img_0090_965782d6af9c43a8.png",
+        "paper_title": "2015年山西省公务员录用考试《行测》题",
+        "question_id": "pq_4ab462417fcfdd950f78",
+        "question_number": 105,
+        "source_jsonl_line": 32063
+      }
+    ],
+    "sha256": "d0a810450e924476c2bd9c8fbb9e4539911bd512f52112901960f38feea5856d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2008年",
+      "2009年",
+      "2010年",
+      "2011年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "display_label": "制造业",
+        "group": null,
+        "label": "制造业",
+        "unit": null,
+        "values": [
+          37.2,
+          36.1,
+          36.7,
+          36.0
+        ]
+      },
+      {
+        "display_label": "建筑业",
+        "group": null,
+        "label": "建筑业",
+        "unit": null,
+        "values": [
+          13.8,
+          15.2,
+          16.1,
+          17.7
+        ]
+      },
+      {
+        "display_label": "交通运输、仓储和邮政业",
+        "group": null,
+        "label": "交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          6.4,
+          6.8,
+          6.9,
+          6.6
+        ]
+      },
+      {
+        "display_label": "批发零售业",
+        "group": null,
+        "label": "批发零售业",
+        "unit": null,
+        "values": [
+          9.0,
+          10.0,
+          10.0,
+          10.1
+        ]
+      },
+      {
+        "display_label": "住宿餐饮业",
+        "group": null,
+        "label": "住宿餐饮业",
+        "unit": null,
+        "values": [
+          5.5,
+          6.0,
+          6.0,
+          5.3
+        ]
+      },
+      {
+        "display_label": "居民服务和其他服务业",
+        "group": null,
+        "label": "居民服务和其他服务业",
+        "unit": null,
+        "values": [
+          12.2,
+          12.7,
+          12.7,
+          12.2
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "column_groups": [],
+        "columns": [
+          "2008年",
+          "2009年",
+          "2010年",
+          "2011年"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "制造业",
+            "group": null,
+            "label": "制造业",
+            "unit": null,
+            "values": [
+              37.2,
+              36.1,
+              36.7,
+              36.0
+            ]
+          },
+          {
+            "display_label": "建筑业",
+            "group": null,
+            "label": "建筑业",
+            "unit": null,
+            "values": [
+              13.8,
+              15.2,
+              16.1,
+              17.7
+            ]
+          },
+          {
+            "display_label": "交通运输、仓储和邮政业",
+            "group": null,
+            "label": "交通运输、仓储和邮政业",
+            "unit": null,
+            "values": [
+              6.4,
+              6.8,
+              6.9,
+              6.6
+            ]
+          },
+          {
+            "display_label": "批发零售业",
+            "group": null,
+            "label": "批发零售业",
+            "unit": null,
+            "values": [
+              9.0,
+              10.0,
+              10.0,
+              10.1
+            ]
+          },
+          {
+            "display_label": "住宿餐饮业",
+            "group": null,
+            "label": "住宿餐饮业",
+            "unit": null,
+            "values": [
+              5.5,
+              6.0,
+              6.0,
+              5.3
+            ]
+          },
+          {
+            "display_label": "居民服务和其他服务业",
+            "group": null,
+            "label": "居民服务和其他服务业",
+            "unit": null,
+            "values": [
+              12.2,
+              12.7,
+              12.7,
+              12.2
+            ]
+          }
+        ],
+        "sections": [],
+        "title": "表一  2008年~2011年我国农民工从事的主要行业分布"
+      },
+      {
+        "column_groups": [],
+        "columns": [
+          "全国",
+          "东部地区",
+          "中部地区",
+          "西部地区"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "制造业",
+            "group": null,
+            "label": "制造业",
+            "unit": null,
+            "values": [
+              36.0,
+              44.8,
+              23.0,
+              15.4
+            ]
+          },
+          {
+            "display_label": "建筑业",
+            "group": null,
+            "label": "建筑业",
+            "unit": null,
+            "values": [
+              17.7,
+              13.4,
+              24.7,
+              27.4
+            ]
+          },
+          {
+            "display_label": "交通运输、仓储和邮政业",
+            "group": null,
+            "label": "交通运输、仓储和邮政业",
+            "unit": null,
+            "values": [
+              6.6,
+              5.5,
+              8.1,
+              9.3
+            ]
+          },
+          {
+            "display_label": "批发零售业",
+            "group": null,
+            "label": "批发零售业",
+            "unit": null,
+            "values": [
+              10.1,
+              8.7,
+              13.1,
+              12.5
+            ]
+          },
+          {
+            "display_label": "住宿餐饮业",
+            "group": null,
+            "label": "住宿餐饮业",
+            "unit": null,
+            "values": [
+              5.3,
+              4.5,
+              5.9,
+              7.3
+            ]
+          },
+          {
+            "display_label": "居民服务和其他服务业",
+            "group": null,
+            "label": "居民服务和其他服务业",
+            "unit": null,
+            "values": [
+              12.2,
+              12.3,
+              11.4,
+              12.2
+            ]
+          }
+        ],
+        "sections": [],
+        "title": "表二  2011年农民工在不同地区从事的主要行业分布"
+      }
+    ],
+    "title": "表一  2008年~2011年我国农民工从事的主要行业分布"
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,256 @@
+{
+  "asset_id": "da_aaa6e82e61130c883b7b1943",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 50000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000,
+          30000,
+          35000,
+          40000,
+          45000,
+          50000
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 50,
+        "min": 0,
+        "ticks": [
+          0.0,
+          5.0,
+          10.0,
+          15.0,
+          20.0,
+          25.0,
+          30.0,
+          35.0,
+          40.0,
+          45.0,
+          50.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "用户规模（万人）",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "占网民规模比例",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "用户规模（万人）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        11014,
+        13764,
+        15518,
+        20123,
+        23246,
+        42296
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "占网民规模比例",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        16.0,
+        18.8,
+        20.1,
+        24.3,
+        27.2,
+        46.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0055_352695080f09ec25.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0055_352695080f09ec25.png",
+        "paper_title": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_3853c514ae1a7596ecdb",
+        "question_number": 86,
+        "source_jsonl_line": 36848
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0055_352695080f09ec25.png",
+        "paper_title": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_e6f09f0f1940de8dd361",
+        "question_number": 87,
+        "source_jsonl_line": 36849
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0055_352695080f09ec25.png",
+        "paper_title": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_56933e660cbf2a7cae21",
+        "question_number": 88,
+        "source_jsonl_line": 36850
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0070_1fe7949f97717687.png",
+        "paper_title": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_491e7c079e1bab66f081",
+        "question_number": 89,
+        "source_jsonl_line": 36851
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0055_352695080f09ec25.png",
+        "paper_title": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_0de71435f50e38e2cee4",
+        "question_number": 90,
+        "source_jsonl_line": 36852
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0066_352695080f09ec25.png",
+        "paper_title": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_26954189f1721ba613cd",
+        "question_number": 86,
+        "source_jsonl_line": 91555
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0066_352695080f09ec25.png",
+        "paper_title": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_ba88c9267b64700ad31b",
+        "question_number": 87,
+        "source_jsonl_line": 91556
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0066_352695080f09ec25.png",
+        "paper_title": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_46c6f68949d002f83114",
+        "question_number": 88,
+        "source_jsonl_line": 91557
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0066_352695080f09ec25.png",
+        "paper_title": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_cf26aa05921b28b2317a",
+        "question_number": 89,
+        "source_jsonl_line": 91558
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0066_352695080f09ec25.png",
+        "paper_title": "广东省2021年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_b0c96acce22efc6d52ad",
+        "question_number": 90,
+        "source_jsonl_line": 91559
+      }
+    ],
+    "sha256": "aaa6e82e61130c883b7b1943cc37a70e328219a1812f631c4c291bedb0d8998c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2015-2020年我国在线教育发展情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_aaa6e82e61130c883b7b1943/column_band_01.jpg",
+        "review-crops/da_aaa6e82e61130c883b7b1943/column_band_02.jpg",
+        "review-crops/da_aaa6e82e61130c883b7b1943/column_band_03.jpg",
+        "review-crops/da_aaa6e82e61130c883b7b1943/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.438",
+      "crop_verification_elapsed_seconds:3.897",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,246 @@
+{
+  "asset_id": "da_ade47281c6c8f9f782307527",
+  "axes": {
+    "x": {
+      "max": 35000,
+      "min": 0,
+      "ticks": [
+        0,
+        5000,
+        10000,
+        15000,
+        20000,
+        25000,
+        30000,
+        35000
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 35000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000,
+          30000,
+          35000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "稻谷",
+    "小麦",
+    "玉米",
+    "大豆"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "中国",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "印度",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "美国",
+      "style": {
+        "dash": null,
+        "fill": "lightgray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "巴西",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "中国",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        19335,
+        11246,
+        16604,
+        1555
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "印度",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        14826,
+        7857,
+        30738,
+        905
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "美国",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        924,
+        589,
+        1929,
+        8054
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "巴西",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        1210,
+        589,
+        5902,
+        5992
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2011年国家公务员录用考试《行测》题_images/img_0099_0256daf47595f45c.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年国家公务员录用考试《行测》题_images/img_0099_0256daf47595f45c.jpg",
+        "paper_title": "2011年国家公务员录用考试《行测》题",
+        "question_id": "pq_0ea243935090845260af",
+        "question_number": 121,
+        "source_jsonl_line": 17656
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年国家公务员录用考试《行测》题_images/img_0099_0256daf47595f45c.jpg",
+        "paper_title": "2011年国家公务员录用考试《行测》题",
+        "question_id": "pq_710144bdbc925ca3fff8",
+        "question_number": 122,
+        "source_jsonl_line": 17657
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年国家公务员录用考试《行测》题_images/img_0105_f507d9ec97865d9c.jpg",
+        "paper_title": "2011年国家公务员录用考试《行测》题",
+        "question_id": "pq_e2219d2d98a074c0470b",
+        "question_number": 123,
+        "source_jsonl_line": 17658
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年国家公务员录用考试《行测》题_images/img_0105_f507d9ec97865d9c.jpg",
+        "paper_title": "2011年国家公务员录用考试《行测》题",
+        "question_id": "pq_0accf9f5b5357a45cbc4",
+        "question_number": 124,
+        "source_jsonl_line": 17659
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年国家公务员录用考试《行测》题_images/img_0105_f507d9ec97865d9c.jpg",
+        "paper_title": "2011年国家公务员录用考试《行测》题",
+        "question_id": "pq_e051ce7274165a030056",
+        "question_number": 125,
+        "source_jsonl_line": 17660
+      }
+    ],
+    "sha256": "ade47281c6c8f9f78230752774594deb4798902966ada6fa4ce35ba8404713e4"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2008年部分国家各种谷物产量",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ade47281c6c8f9f782307527/column_band_01.jpg",
+        "review-crops/da_ade47281c6c8f9f782307527/column_band_02.jpg",
+        "review-crops/da_ade47281c6c8f9f782307527/column_band_03.jpg",
+        "review-crops/da_ade47281c6c8f9f782307527/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.0",
+      "crop_verification_elapsed_seconds:3.51",
+      "candidate_value_changes_after_crop:1",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "asset_id": "da_2078b7d32dca9d22fe7d955c",
+  "axes": {
+    "x": {
+      "max": 30000,
+      "min": 0,
+      "ticks": [
+        0,
+        5000,
+        10000,
+        15000,
+        20000,
+        25000,
+        30000
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 30000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000,
+          30000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2004年度",
+    "2005年度",
+    "2006年度",
+    "2007年度",
+    "2008年度",
+    "2009年度",
+    "2010年度",
+    "2011年度",
+    "2012年度",
+    "2013年度"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "城镇居民人均可支配收入（元）",
+      "style": {
+        "dash": null,
+        "fill": "#FF7F50",
+        "marker": null,
+        "stroke": "#FF7F50"
+      }
+    },
+    {
+      "label": "农村居民人均现金收入（元）",
+      "style": {
+        "dash": null,
+        "fill": "#6495ED",
+        "marker": null,
+        "stroke": "#6495ED"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇居民人均可支配收入（元）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        17260,
+        19988,
+        10652,
+        20879,
+        22743,
+        24065,
+        23199,
+        26132,
+        25436,
+        null
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "农村居民人均现金收入（元）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        4106,
+        5930,
+        6243,
+        7067,
+        8581,
+        8268,
+        9658,
+        8709,
+        9853,
+        10238
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2014年江西省法检系统招录考试《行测》题_images/img_0070_ec500e5d3481d60b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江西省法检系统招录考试《行测》题_images/img_0070_ec500e5d3481d60b.png",
+        "paper_title": "2014年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_c32f47a0a182f0d4987c",
+        "question_number": 106,
+        "source_jsonl_line": 52015
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江西省法检系统招录考试《行测》题_images/img_0070_ec500e5d3481d60b.png",
+        "paper_title": "2014年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_7001bbcb6811bcc8f7f8",
+        "question_number": 107,
+        "source_jsonl_line": 52016
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江西省法检系统招录考试《行测》题_images/img_0080_2e020862c94ba390.png",
+        "paper_title": "2014年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_b724f782146312ed8037",
+        "question_number": 108,
+        "source_jsonl_line": 52017
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江西省法检系统招录考试《行测》题_images/img_0080_2e020862c94ba390.png",
+        "paper_title": "2014年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_a3e44908465511555327",
+        "question_number": 109,
+        "source_jsonl_line": 52018
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江西省法检系统招录考试《行测》题_images/img_0080_2e020862c94ba390.png",
+        "paper_title": "2014年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_55e9df48dc004627cb05",
+        "question_number": 110,
+        "source_jsonl_line": 52019
+      }
+    ],
+    "sha256": "2078b7d32dca9d22fe7d955c6319ecd227065fa7518a12e71ff0f82f0320fcfa"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2004-2013年某设区市农村居民与城镇居民收入情况",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2078b7d32dca9d22fe7d955c/column_band_01.jpg",
+        "review-crops/da_2078b7d32dca9d22fe7d955c/column_band_02.jpg",
+        "review-crops/da_2078b7d32dca9d22fe7d955c/column_band_03.jpg",
+        "review-crops/da_2078b7d32dca9d22fe7d955c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.09",
+      "crop_verification_elapsed_seconds:8.449",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

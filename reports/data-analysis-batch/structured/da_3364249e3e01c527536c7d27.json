@@ -1,0 +1,282 @@
+{
+  "asset_id": "da_3364249e3e01c527536c7d27",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 140000,
+        "min": 130000,
+        "ticks": [
+          130000,
+          132000,
+          134000,
+          136000,
+          138000,
+          140000
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 5.5,
+        "min": 3,
+        "ticks": [
+          3,
+          3.5,
+          4,
+          4.5,
+          5,
+          5.5
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2006年",
+    "2007年",
+    "2008年",
+    "2009年",
+    "2010年",
+    "2011年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "总人口（万人）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "自然增长率（%）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "总人口（万人）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        131448,
+        132129,
+        132802,
+        133450,
+        134091,
+        134735
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "自然增长率（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.28,
+        5.17,
+        5.08,
+        4.87,
+        4.79,
+        4.79
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2014年四川省公务员录用考试《行测》题（下半年）_images/img_0141_ba54e9163a64599d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题（下半年）_images/img_0141_ba54e9163a64599d.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_dc2297172abf9453dc9a",
+        "question_number": 96,
+        "source_jsonl_line": 14927
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题（下半年）_images/img_0141_ba54e9163a64599d.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_83bd2903dbfd07345cbf",
+        "question_number": 97,
+        "source_jsonl_line": 14928
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题（下半年）_images/img_0146_e79cce2fff9f7ead.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_9737aafda8716e8534bc",
+        "question_number": 98,
+        "source_jsonl_line": 14929
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题（下半年）_images/img_0141_ba54e9163a64599d.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_c0a5a9fc7e60abb759ec",
+        "question_number": 99,
+        "source_jsonl_line": 14930
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题（下半年）_images/img_0141_ba54e9163a64599d.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_54e447b903e8423b3735",
+        "question_number": 100,
+        "source_jsonl_line": 14931
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省公务员录用考试《行测》题_images/img_0162_ba54e9163a64599d.png",
+        "paper_title": "2014年河南省公务员录用考试《行测》题",
+        "question_id": "pq_6b6c0d974a5354541ebe",
+        "question_number": 116,
+        "source_jsonl_line": 57733
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省公务员录用考试《行测》题_images/img_0162_ba54e9163a64599d.png",
+        "paper_title": "2014年河南省公务员录用考试《行测》题",
+        "question_id": "pq_0d64de438a3092998fa7",
+        "question_number": 117,
+        "source_jsonl_line": 57734
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省公务员录用考试《行测》题_images/img_0162_ba54e9163a64599d.png",
+        "paper_title": "2014年河南省公务员录用考试《行测》题",
+        "question_id": "pq_8188e36cde10ab7b64be",
+        "question_number": 118,
+        "source_jsonl_line": 57735
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省公务员录用考试《行测》题_images/img_0162_ba54e9163a64599d.png",
+        "paper_title": "2014年河南省公务员录用考试《行测》题",
+        "question_id": "pq_3c4f83ca5f529c4ed627",
+        "question_number": 119,
+        "source_jsonl_line": 57736
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省公务员录用考试《行测》题_images/img_0193_e79cce2fff9f7ead.png",
+        "paper_title": "2014年河南省公务员录用考试《行测》题",
+        "question_id": "pq_773c4d6f691088ea8167",
+        "question_number": 120,
+        "source_jsonl_line": 57737
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年甘肃省公务员录用考试《行测》题_images/img_0151_ba54e9163a64599d.png",
+        "paper_title": "2014年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_983b3e2cf0deb01b4ad8",
+        "question_number": 111,
+        "source_jsonl_line": 74726
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年甘肃省公务员录用考试《行测》题_images/img_0151_ba54e9163a64599d.png",
+        "paper_title": "2014年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_ff201f24a6f14143a6b4",
+        "question_number": 112,
+        "source_jsonl_line": 74727
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年甘肃省公务员录用考试《行测》题_images/img_0170_e79cce2fff9f7ead.png",
+        "paper_title": "2014年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_45d678c3a8fb43f5019c",
+        "question_number": 113,
+        "source_jsonl_line": 74728
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年甘肃省公务员录用考试《行测》题_images/img_0151_ba54e9163a64599d.png",
+        "paper_title": "2014年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_b05ac55690ecb5f765a3",
+        "question_number": 114,
+        "source_jsonl_line": 74729
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年甘肃省公务员录用考试《行测》题_images/img_0151_ba54e9163a64599d.png",
+        "paper_title": "2014年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_004c5d286570714fe9d9",
+        "question_number": 115,
+        "source_jsonl_line": 74730
+      }
+    ],
+    "sha256": "3364249e3e01c527536c7d27e4902f76a32b1d1d9134b6ff6660237d56f3fdb1"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2006-2011年全国人口及其自然增长率变化趋势",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3364249e3e01c527536c7d27/column_band_01.jpg",
+        "review-crops/da_3364249e3e01c527536c7d27/column_band_02.jpg",
+        "review-crops/da_3364249e3e01c527536c7d27/column_band_03.jpg",
+        "review-crops/da_3364249e3e01c527536c7d27/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.66",
+      "crop_verification_elapsed_seconds:10.757",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了总人口数据：2006年为131448，2007年为132129，2008年为132802，2009年为133450，2010年为134091，2011年为134735。",
+      "crop_note:修正了自然增长率数据：2006年为5.28，2007年为5.17，2008年为5.08，2009年为4.87，2010年为4.79，2011年为4.79。",
+      "crop_note:确认所有数值格式正确，包括小数点、百分号和单位。",
+      "crop_note:确认所有缺失值保持为null，未补0。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

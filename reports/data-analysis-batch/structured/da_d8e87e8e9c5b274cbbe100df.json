@@ -1,0 +1,223 @@
+{
+  "asset_id": "da_d8e87e8e9c5b274cbbe100df",
+  "axes": {
+    "x": {
+      "max": 2012,
+      "min": 2005,
+      "ticks": [
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1600,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000,
+          1200,
+          1400,
+          1600
+        ],
+        "title": "销售额",
+        "unit": "亿元"
+      },
+      {
+        "max": 100,
+        "min": -10,
+        "ticks": [
+          -10,
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90,
+          100
+        ],
+        "title": "比上年增长",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "销售额",
+      "style": {
+        "dash": null,
+        "fill": "lightgray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "比上年增长",
+      "style": {
+        "dash": "dashed",
+        "fill": "none",
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "销售额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        411,
+        496,
+        632,
+        604,
+        756,
+        968,
+        1278,
+        1410
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比上年增长",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        81.6,
+        20.5,
+        27.4,
+        -4.4,
+        25.2,
+        32.0,
+        10.4,
+        null
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2014年江苏省公务员录用考试《行测》题（C类）_images/img_0290_d8f225570966a195.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0290_d8f225570966a195.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_097eef3c4db89463b534",
+        "question_number": 91,
+        "source_jsonl_line": 46806
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0285_53fdad53454274f9.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_4cbdd27e8519ff10ec0e",
+        "question_number": 92,
+        "source_jsonl_line": 46807
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0285_53fdad53454274f9.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_c0212d82d322d98b5e2a",
+        "question_number": 93,
+        "source_jsonl_line": 46808
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0290_d8f225570966a195.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_d54b441b5bd0a66f3860",
+        "question_number": 94,
+        "source_jsonl_line": 46809
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0285_53fdad53454274f9.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_747278b8646bf9663a6e",
+        "question_number": 95,
+        "source_jsonl_line": 46810
+      }
+    ],
+    "sha256": "d8e87e8e9c5b274cbbe100df4a557e82316fd0f650922070a609db2f0bf31b60"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2005~2012年全国福利彩票销售额及其增长率",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d8e87e8e9c5b274cbbe100df/column_band_01.jpg",
+        "review-crops/da_d8e87e8e9c5b274cbbe100df/column_band_02.jpg",
+        "review-crops/da_d8e87e8e9c5b274cbbe100df/column_band_03.jpg",
+        "review-crops/da_d8e87e8e9c5b274cbbe100df/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.052",
+      "crop_verification_elapsed_seconds:3.68",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

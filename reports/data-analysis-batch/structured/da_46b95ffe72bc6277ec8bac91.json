@@ -1,0 +1,347 @@
+{
+  "asset_id": "da_46b95ffe72bc6277ec8bac91",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "分类",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "金额（万元）",
+        "unit": "万元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "占总收入比重（%）",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "捐赠收入",
+    "其中：银行捐赠汇款收入",
+    "在线捐款收入",
+    "网上商城捐款收入",
+    "物质捐赠收入",
+    "其他收入",
+    "收入合计"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2011_-",
+      "label": "2011年度-金额（万元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        1824.9,
+        1196.5,
+        254.6,
+        373.8,
+        null,
+        8.6,
+        1833.5
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "2011_-",
+      "label": "2011年度-占总收入比重（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        99.53,
+        65.25,
+        13.89,
+        20.39,
+        null,
+        0.47,
+        100
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2012_-",
+      "label": "2012年度-金额（万元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        2473.1,
+        1402.0,
+        353.4,
+        573.2,
+        144.5,
+        70.8,
+        2543.9
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "2012_-",
+      "label": "2012年度-占总收入比重（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        97.22,
+        55.12,
+        13.89,
+        22.53,
+        5.68,
+        2.78,
+        100
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2015年黑龙江省公务员录用考试《行测》题_images/img_0110_a677bb72d7590ee6.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题_images/img_0110_a677bb72d7590ee6.jpg",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_31169d9668496e06dfb8",
+        "question_number": 121,
+        "source_jsonl_line": 101938
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题_images/img_0119_363c0d458b88c6cc.jpg",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_623a1fe09f43597ecedf",
+        "question_number": 122,
+        "source_jsonl_line": 101939
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题_images/img_0119_363c0d458b88c6cc.jpg",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_c0ad46e859b1ee29f80f",
+        "question_number": 123,
+        "source_jsonl_line": 101940
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题_images/img_0119_363c0d458b88c6cc.jpg",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_db5e0d9731890a919473",
+        "question_number": 124,
+        "source_jsonl_line": 101941
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题_images/img_0119_363c0d458b88c6cc.jpg",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_d9e224ca179073a03ae9",
+        "question_number": 125,
+        "source_jsonl_line": 101942
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0151_363c0d458b88c6cc.jpg",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_d3c88e317ef405579a60",
+        "question_number": 126,
+        "source_jsonl_line": 102073
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0151_363c0d458b88c6cc.jpg",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_267bdcf414251191d3ba",
+        "question_number": 127,
+        "source_jsonl_line": 102074
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0160_a677bb72d7590ee6.jpg",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_e26f7f6a1cdb793c3428",
+        "question_number": 128,
+        "source_jsonl_line": 102075
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0160_a677bb72d7590ee6.jpg",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_81af9c71be783da47c0d",
+        "question_number": 129,
+        "source_jsonl_line": 102076
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0160_a677bb72d7590ee6.jpg",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_b0b29caacfbbc6571ea1",
+        "question_number": 130,
+        "source_jsonl_line": 102077
+      }
+    ],
+    "sha256": "46b95ffe72bc6277ec8bac91dc209d85c7ca6ea162d51c899e99cfb9b780683d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "分类",
+      "2011年度-金额（万元）",
+      "2011年度-占总收入比重（%）",
+      "2012年度-金额（万元）",
+      "2012年度-占总收入比重（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "捐赠收入",
+        "unit": null,
+        "values": [
+          "捐赠收入",
+          1824.9,
+          99.53,
+          2473.1,
+          97.22
+        ]
+      },
+      {
+        "label": "其中：银行捐赠汇款收入",
+        "unit": null,
+        "values": [
+          "其中：银行捐赠汇款收入",
+          1196.5,
+          65.25,
+          1402.0,
+          55.12
+        ]
+      },
+      {
+        "label": "在线捐款收入",
+        "unit": null,
+        "values": [
+          "在线捐款收入",
+          254.6,
+          13.89,
+          353.4,
+          13.89
+        ]
+      },
+      {
+        "label": "网上商城捐款收入",
+        "unit": null,
+        "values": [
+          "网上商城捐款收入",
+          373.8,
+          20.39,
+          573.2,
+          22.53
+        ]
+      },
+      {
+        "label": "物质捐赠收入",
+        "unit": null,
+        "values": [
+          "物质捐赠收入",
+          null,
+          null,
+          144.5,
+          5.68
+        ]
+      },
+      {
+        "label": "其他收入",
+        "unit": null,
+        "values": [
+          "其他收入",
+          8.6,
+          0.47,
+          70.8,
+          2.78
+        ]
+      },
+      {
+        "label": "收入合计",
+        "unit": null,
+        "values": [
+          "收入合计",
+          1833.5,
+          100,
+          2543.9,
+          100
+        ]
+      }
+    ]
+  },
+  "title": "表1 免费午餐基金收入明细表",
+  "unit": "万元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_46b95ffe72bc6277ec8bac91/row_band_01.jpg",
+        "review-crops/da_46b95ffe72bc6277ec8bac91/row_band_02.jpg",
+        "review-crops/da_46b95ffe72bc6277ec8bac91/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:13.325",
+      "crop_verification_elapsed_seconds:14.063",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:物质捐赠收入在2011年度的金额和占比数据缺失，仅在2012年度有数据",
+      "crop_note:修正了'物质捐赠收入'在2011年度的金额和占比为null，与原图一致",
+      "crop_note:确认'其他收入'在2011年度的金额为8.6万元，占比为0.47%",
+      "crop_note:确认'收入合计'在2011年度的金额为1833.5万元，占比为100%",
+      "crop_note:确认'收入合计'在2012年度的金额为2543.9万元，占比为100%"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "confidence": 1,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "1995年",
+          "2005年",
+          "2015年"
+        ],
+        "label": "全国1%人口抽样调查受教育程度人口构成（万人）"
+      }
+    ],
+    "columns": [
+      "1995年",
+      "2005年",
+      "2015年"
+    ],
+    "confidence": 1,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "受教育程度",
+    "rows": [
+      {
+        "display_label": "大学",
+        "group": null,
+        "label": "大学",
+        "unit": null,
+        "values": [
+          2501,
+          6764,
+          17093
+        ]
+      },
+      {
+        "display_label": "高中",
+        "group": null,
+        "label": "高中",
+        "unit": null,
+        "values": [
+          10031,
+          15083,
+          21084
+        ]
+      },
+      {
+        "display_label": "初中",
+        "group": null,
+        "label": "初中",
+        "unit": null,
+        "values": [
+          33045,
+          46735,
+          48942
+        ]
+      },
+      {
+        "display_label": "小学",
+        "group": null,
+        "label": "小学",
+        "unit": null,
+        "values": [
+          46560,
+          40706,
+          33463
+        ]
+      },
+      {
+        "display_label": "总人口",
+        "group": null,
+        "label": "总人口",
+        "unit": null,
+        "values": [
+          120778,
+          130628,
+          137349
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

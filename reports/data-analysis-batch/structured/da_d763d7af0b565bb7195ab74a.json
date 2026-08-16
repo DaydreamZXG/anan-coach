@@ -1,0 +1,343 @@
+{
+  "asset_id": "da_d763d7af0b565bb7195ab74a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "R&D 经费投入额",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "按活动类型分",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2010",
+    "2011"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "R_D",
+      "label": "R&D 经费投入额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        7062.6,
+        8687
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "基础研究",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        324.5,
+        411.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "应用研究",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        893.8,
+        1028.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "试验发展",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        5844.3,
+        7246.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "企业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        5185.5,
+        6577.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "研究机构",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1186.4,
+        1306.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "高等院校",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        597.3,
+        688.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_8",
+      "label": "其他",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        93.4,
+        114.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2015年四川省公务员录用考试《行测》题（上半年）_images/img_0094_294e99030d6b90b5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年四川省公务员录用考试《行测》题（上半年）_images/img_0094_294e99030d6b90b5.png",
+        "paper_title": "2015年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_24719576dc3ca55cd93a",
+        "question_number": 91,
+        "source_jsonl_line": 15115
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年四川省公务员录用考试《行测》题（上半年）_images/img_0094_294e99030d6b90b5.png",
+        "paper_title": "2015年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_638474cb9f7f786ba059",
+        "question_number": 92,
+        "source_jsonl_line": 15116
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年四川省公务员录用考试《行测》题（上半年）_images/img_0115_fc8b8b589e78e21b.png",
+        "paper_title": "2015年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_5e7ba66d1afe4d97c668",
+        "question_number": 93,
+        "source_jsonl_line": 15117
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年四川省公务员录用考试《行测》题（上半年）_images/img_0115_fc8b8b589e78e21b.png",
+        "paper_title": "2015年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_e8008fc50302375be00a",
+        "question_number": 94,
+        "source_jsonl_line": 15118
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年四川省公务员录用考试《行测》题（上半年）_images/img_0115_fc8b8b589e78e21b.png",
+        "paper_title": "2015年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_1fdb0bd11139b5e8e9e2",
+        "question_number": 95,
+        "source_jsonl_line": 15119
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山西省公务员录用考试《行测》题_images/img_0170_fc8b8b589e78e21b.png",
+        "paper_title": "2015年山西省公务员录用考试《行测》题",
+        "question_id": "pq_e91892d7bd91c7370d3d",
+        "question_number": 116,
+        "source_jsonl_line": 32074
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山西省公务员录用考试《行测》题_images/img_0170_fc8b8b589e78e21b.png",
+        "paper_title": "2015年山西省公务员录用考试《行测》题",
+        "question_id": "pq_66ad236b1f946461ea3d",
+        "question_number": 117,
+        "source_jsonl_line": 32075
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山西省公务员录用考试《行测》题_images/img_0190_294e99030d6b90b5.png",
+        "paper_title": "2015年山西省公务员录用考试《行测》题",
+        "question_id": "pq_084a01ef1ac01cef0df6",
+        "question_number": 118,
+        "source_jsonl_line": 32076
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山西省公务员录用考试《行测》题_images/img_0170_fc8b8b589e78e21b.png",
+        "paper_title": "2015年山西省公务员录用考试《行测》题",
+        "question_id": "pq_d6754f07438fa7145dd1",
+        "question_number": 119,
+        "source_jsonl_line": 32077
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山西省公务员录用考试《行测》题_images/img_0170_fc8b8b589e78e21b.png",
+        "paper_title": "2015年山西省公务员录用考试《行测》题",
+        "question_id": "pq_bc81a74b89605b53373a",
+        "question_number": 120,
+        "source_jsonl_line": 32078
+      }
+    ],
+    "sha256": "d763d7af0b565bb7195ab74acfd1eb7457f87607576c6f29acccdd2d5a41e2fc"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "R&D 经费投入额",
+      "基础研究",
+      "应用研究",
+      "试验发展",
+      "企业",
+      "研究机构",
+      "高等院校",
+      "其他"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          7062.6,
+          324.5,
+          893.8,
+          5844.3,
+          5185.5,
+          1186.4,
+          597.3,
+          93.4
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          8687,
+          411.8,
+          1028.4,
+          7246.8,
+          6577.3,
+          1306.7,
+          688.9,
+          114.1
+        ]
+      }
+    ]
+  },
+  "title": "我国 2010~2011 年 R&D 经费投入统计表",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d763d7af0b565bb7195ab74a/row_band_01.jpg",
+        "review-crops/da_d763d7af0b565bb7195ab74a/row_band_02.jpg",
+        "review-crops/da_d763d7af0b565bb7195ab74a/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.789",
+      "crop_verification_elapsed_seconds:3.995",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,400 @@
+{
+  "asset_id": "da_a80255dec44e527a301ed80f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2009年426联考《行测》题（天津_陕西_湖北）_images/img_0112_4fea635e8f4d108d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0112_4fea635e8f4d108d.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_86a90630d33f8ce11a86",
+        "question_number": 101,
+        "source_jsonl_line": 22006
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0112_4fea635e8f4d108d.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_879f604e1f20d8eb65fe",
+        "question_number": 102,
+        "source_jsonl_line": 22007
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0124_e688013b6122d53e.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_d24a8b1eeca042fc9576",
+        "question_number": 103,
+        "source_jsonl_line": 22008
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0124_e688013b6122d53e.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_b83eafe4ba7658e6d9b8",
+        "question_number": 104,
+        "source_jsonl_line": 22009
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0124_e688013b6122d53e.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_c481f7e6482768937d46",
+        "question_number": 105,
+        "source_jsonl_line": 22010
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0108_e688013b6122d53e.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_72197172a076cd647b81",
+        "question_number": 101,
+        "source_jsonl_line": 68977
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0108_e688013b6122d53e.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_55c2de96217e5a52978e",
+        "question_number": 102,
+        "source_jsonl_line": 68978
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0108_e688013b6122d53e.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_47ba77c26b5ecacd40da",
+        "question_number": 103,
+        "source_jsonl_line": 68979
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0108_e688013b6122d53e.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_7f8c4100360fd24d0b71",
+        "question_number": 104,
+        "source_jsonl_line": 68980
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0108_e688013b6122d53e.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_88f066c4dc8ed35b4f27",
+        "question_number": 105,
+        "source_jsonl_line": 68981
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0109_4fea635e8f4d108d.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_4b44b8469a3dfb190928",
+        "question_number": 101,
+        "source_jsonl_line": 96524
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0114_e688013b6122d53e.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_f530ecc2817a95b78246",
+        "question_number": 102,
+        "source_jsonl_line": 96525
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0109_4fea635e8f4d108d.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_18b9630a086c168ed19a",
+        "question_number": 103,
+        "source_jsonl_line": 96526
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0114_e688013b6122d53e.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_e85a56eff4d73950f8f3",
+        "question_number": 104,
+        "source_jsonl_line": 96527
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0114_e688013b6122d53e.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_6db26e52e35e4e120d73",
+        "question_number": 105,
+        "source_jsonl_line": 96528
+      }
+    ],
+    "sha256": "a80255dec44e527a301ed80fb9737e9f0a6ace21f9b34961ea168c46815f2064"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "全国｜全国"
+        ],
+        "label": "全国"
+      },
+      {
+        "columns": [
+          "城市｜城市"
+        ],
+        "label": "城市"
+      },
+      {
+        "columns": [
+          "农村｜农村"
+        ],
+        "label": "农村"
+      }
+    ],
+    "columns": [
+      "全国｜全国",
+      "城市｜城市",
+      "农村｜农村"
+    ],
+    "corner_header": {
+      "lower_label": "城市",
+      "style": "diagonal",
+      "upper_label": "全国"
+    },
+    "missing_cells": [],
+    "row_header_label": "城市",
+    "rows": [
+      {
+        "display_label": "商品零售价格总指数",
+        "group": null,
+        "label": "商品零售价格总指数",
+        "unit": null,
+        "values": [
+          106.8,
+          106.5,
+          107.5
+        ]
+      },
+      {
+        "display_label": "食品",
+        "group": null,
+        "label": "食品",
+        "unit": null,
+        "values": [
+          114.5,
+          115,
+          113.4
+        ]
+      },
+      {
+        "display_label": "饮料、烟酒",
+        "group": null,
+        "label": "饮料、烟酒",
+        "unit": null,
+        "values": [
+          103.6,
+          103.9,
+          103.1
+        ]
+      },
+      {
+        "display_label": "服装、鞋帽",
+        "group": null,
+        "label": "服装、鞋帽",
+        "unit": null,
+        "values": [
+          98.3,
+          97.9,
+          99.3
+        ]
+      },
+      {
+        "display_label": "纺织品",
+        "group": null,
+        "label": "纺织品",
+        "unit": null,
+        "values": [
+          100.6,
+          100.3,
+          101
+        ]
+      },
+      {
+        "display_label": "家用电器及音像器材",
+        "group": null,
+        "label": "家用电器及音像器材",
+        "unit": null,
+        "values": [
+          97.1,
+          96.5,
+          98.5
+        ]
+      },
+      {
+        "display_label": "文化办公用品",
+        "group": null,
+        "label": "文化办公用品",
+        "unit": null,
+        "values": [
+          96.9,
+          96,
+          99.3
+        ]
+      },
+      {
+        "display_label": "日用品",
+        "group": null,
+        "label": "日用品",
+        "unit": null,
+        "values": [
+          104,
+          103.9,
+          104.3
+        ]
+      },
+      {
+        "display_label": "体育娱乐用品",
+        "group": null,
+        "label": "体育娱乐用品",
+        "unit": null,
+        "values": [
+          98,
+          96.9,
+          100.4
+        ]
+      },
+      {
+        "display_label": "交通、通信用品",
+        "group": null,
+        "label": "交通、通信用品",
+        "unit": null,
+        "values": [
+          93.6,
+          93.1,
+          95.1
+        ]
+      },
+      {
+        "display_label": "家具",
+        "group": null,
+        "label": "家具",
+        "unit": null,
+        "values": [
+          102.9,
+          102.9,
+          102.8
+        ]
+      },
+      {
+        "display_label": "化妆品",
+        "group": null,
+        "label": "化妆品",
+        "unit": null,
+        "values": [
+          100.6,
+          100.6,
+          100.7
+        ]
+      },
+      {
+        "display_label": "金银珠宝",
+        "group": null,
+        "label": "金银珠宝",
+        "unit": null,
+        "values": [
+          124.2,
+          124,
+          124.9
+        ]
+      },
+      {
+        "display_label": "中西药品及医疗保健用品",
+        "group": null,
+        "label": "中西药品及医疗保健用品",
+        "unit": null,
+        "values": [
+          102.7,
+          102.7,
+          102.7
+        ]
+      },
+      {
+        "display_label": "书报杂志及电子出版物",
+        "group": null,
+        "label": "书报杂志及电子出版物",
+        "unit": null,
+        "values": [
+          101.1,
+          101.5,
+          100.4
+        ]
+      },
+      {
+        "display_label": "燃料",
+        "group": null,
+        "label": "燃料",
+        "unit": null,
+        "values": [
+          124.5,
+          122,
+          130.5
+        ]
+      },
+      {
+        "display_label": "建筑材料及五金电料",
+        "group": null,
+        "label": "建筑材料及五金电料",
+        "unit": null,
+        "values": [
+          110.7,
+          109.9,
+          112.2
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

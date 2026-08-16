@@ -1,0 +1,287 @@
+{
+  "asset_id": "da_ca8c8c3439a3b00538392117",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2018年421联考《行测》题（四川卷）（网友回忆版）_images/img_0146_5233f564c9e4a575.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（四川卷）（网友回忆版）_images/img_0146_5233f564c9e4a575.png",
+        "paper_title": "2018年421联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_15e2cf9d9520b45224fb",
+        "question_number": 91,
+        "source_jsonl_line": 15806
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（四川卷）（网友回忆版）_images/img_0146_5233f564c9e4a575.png",
+        "paper_title": "2018年421联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_88418f3d5cbe27762d8f",
+        "question_number": 92,
+        "source_jsonl_line": 15807
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（四川卷）（网友回忆版）_images/img_0136_caf6ee45be21f8e4.png",
+        "paper_title": "2018年421联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_061f69acdfa289e94e8a",
+        "question_number": 93,
+        "source_jsonl_line": 15808
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（四川卷）（网友回忆版）_images/img_0136_caf6ee45be21f8e4.png",
+        "paper_title": "2018年421联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_dcbcf87211234ff1a780",
+        "question_number": 94,
+        "source_jsonl_line": 15809
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（四川卷）（网友回忆版）_images/img_0146_5233f564c9e4a575.png",
+        "paper_title": "2018年421联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_124ea00802479606da4d",
+        "question_number": 95,
+        "source_jsonl_line": 15810
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年黑龙江省公务员考试（乡镇）题（网友回忆版）_images/img_0236_5233f564c9e4a575.png",
+        "paper_title": "2018年黑龙江省公务员考试（乡镇）题（网友回忆版）",
+        "question_id": "pq_9b6ea9ca11bcef47d97a",
+        "question_number": 116,
+        "source_jsonl_line": 103053
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年黑龙江省公务员考试（乡镇）题（网友回忆版）_images/img_0236_5233f564c9e4a575.png",
+        "paper_title": "2018年黑龙江省公务员考试（乡镇）题（网友回忆版）",
+        "question_id": "pq_9afc5a7b83b0941387af",
+        "question_number": 117,
+        "source_jsonl_line": 103054
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年黑龙江省公务员考试（乡镇）题（网友回忆版）_images/img_0236_5233f564c9e4a575.png",
+        "paper_title": "2018年黑龙江省公务员考试（乡镇）题（网友回忆版）",
+        "question_id": "pq_cacc59bd48eae9e08fdf",
+        "question_number": 118,
+        "source_jsonl_line": 103055
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年黑龙江省公务员考试（乡镇）题（网友回忆版）_images/img_0236_5233f564c9e4a575.png",
+        "paper_title": "2018年黑龙江省公务员考试（乡镇）题（网友回忆版）",
+        "question_id": "pq_aa7d56bd1393c740b648",
+        "question_number": 119,
+        "source_jsonl_line": 103056
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年黑龙江省公务员考试（乡镇）题（网友回忆版）_images/img_0236_5233f564c9e4a575.png",
+        "paper_title": "2018年黑龙江省公务员考试（乡镇）题（网友回忆版）",
+        "question_id": "pq_312015ab1c38871a1836",
+        "question_number": 120,
+        "source_jsonl_line": 103057
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年黑龙江省公务员考试（公检法）题（网友回忆版）_images/img_0219_caf6ee45be21f8e4.png",
+        "paper_title": "2018年黑龙江省公务员考试（公检法）题（网友回忆版）",
+        "question_id": "pq_d3c95e290f40fe640357",
+        "question_number": 116,
+        "source_jsonl_line": 103173
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年黑龙江省公务员考试（公检法）题（网友回忆版）_images/img_0219_caf6ee45be21f8e4.png",
+        "paper_title": "2018年黑龙江省公务员考试（公检法）题（网友回忆版）",
+        "question_id": "pq_495ca46594b5a6fa005e",
+        "question_number": 117,
+        "source_jsonl_line": 103174
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年黑龙江省公务员考试（公检法）题（网友回忆版）_images/img_0227_5233f564c9e4a575.png",
+        "paper_title": "2018年黑龙江省公务员考试（公检法）题（网友回忆版）",
+        "question_id": "pq_de0aa3f201b7c8d04e57",
+        "question_number": 118,
+        "source_jsonl_line": 103175
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年黑龙江省公务员考试（公检法）题（网友回忆版）_images/img_0227_5233f564c9e4a575.png",
+        "paper_title": "2018年黑龙江省公务员考试（公检法）题（网友回忆版）",
+        "question_id": "pq_c9846ac79501963f9394",
+        "question_number": 119,
+        "source_jsonl_line": 103176
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年黑龙江省公务员考试（公检法）题（网友回忆版）_images/img_0227_5233f564c9e4a575.png",
+        "paper_title": "2018年黑龙江省公务员考试（公检法）题（网友回忆版）",
+        "question_id": "pq_4407ba9b25b20bedd662",
+        "question_number": 120,
+        "source_jsonl_line": 103177
+      }
+    ],
+    "sha256": "ca8c8c3439a3b005383921170a867d42737b64a6f6c8a7d1f854a9563753e00c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2012年",
+      "2013年",
+      "2014年",
+      "2015年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "国内生产总值",
+        "group": "国内生产总值",
+        "label": "国内生产总值｜国内生产总值",
+        "unit": null,
+        "values": [
+          540367.0,
+          595244.0,
+          643974.0,
+          689052.0
+        ]
+      },
+      {
+        "display_label": "全国研究与试验发展（R&D）经费支出",
+        "group": "国内生产总值",
+        "label": "国内生产总值｜全国研究与试验发展（R&D）经费支出",
+        "unit": null,
+        "values": [
+          10298.4,
+          11846.6,
+          13015.6,
+          14169.9
+        ]
+      },
+      {
+        "display_label": "基础研究",
+        "group": "国内生产总值",
+        "label": "国内生产总值｜按活动类型分｜基础研究",
+        "unit": null,
+        "values": [
+          498.8,
+          555.0,
+          613.5,
+          716.1
+        ]
+      },
+      {
+        "display_label": "应用研究",
+        "group": "国内生产总值",
+        "label": "国内生产总值｜按活动类型分｜应用研究",
+        "unit": null,
+        "values": [
+          1162.0,
+          1269.1,
+          1398.5,
+          1528.7
+        ]
+      },
+      {
+        "display_label": "试验发展",
+        "group": "国内生产总值",
+        "label": "国内生产总值｜按活动类型分｜试验发展",
+        "unit": null,
+        "values": [
+          8637.6,
+          10022.5,
+          11003.6,
+          11925.1
+        ]
+      },
+      {
+        "display_label": "企业",
+        "group": "国内生产总值",
+        "label": "国内生产总值｜按执行部门分｜企业",
+        "unit": null,
+        "values": [
+          7842.2,
+          9075.8,
+          10060.6,
+          10881.3
+        ]
+      },
+      {
+        "display_label": "政府属研究机构",
+        "group": "国内生产总值",
+        "label": "国内生产总值｜按执行部门分｜政府属研究机构",
+        "unit": null,
+        "values": [
+          1548.9,
+          1781.4,
+          1926.2,
+          2136.5
+        ]
+      },
+      {
+        "display_label": "高校",
+        "group": "国内生产总值",
+        "label": "国内生产总值｜按执行部门分｜高校",
+        "unit": null,
+        "values": [
+          780.6,
+          856.7,
+          898.1,
+          998.6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

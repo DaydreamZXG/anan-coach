@@ -1,0 +1,207 @@
+{
+  "asset_id": "da_94d5f9df27209cecb5a6c172",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "研究机构",
+    "企业",
+    "高等学校",
+    "其他"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "研究机构",
+      "style": {
+        "dash": null,
+        "fill": "pattern",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "企业",
+      "style": {
+        "dash": null,
+        "fill": "solid",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "高等学校",
+      "style": {
+        "dash": null,
+        "fill": "diagonal",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "其他",
+      "style": {
+        "dash": null,
+        "fill": "hatch",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -80.5,
+      131.5,
+      150.0,
+      263.0,
+      279.5
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 131.5,
+        "label": "研究机构",
+        "share": 0.58888889,
+        "start_angle": -80.5,
+        "sweep_angle": 212.0
+      },
+      {
+        "end_angle": 150.0,
+        "label": "企业",
+        "share": 0.05138889,
+        "start_angle": 131.5,
+        "sweep_angle": 18.5
+      },
+      {
+        "end_angle": 263.0,
+        "label": "高等学校",
+        "share": 0.31388889,
+        "start_angle": 150.0,
+        "sweep_angle": 113.0
+      },
+      {
+        "end_angle": 279.5,
+        "label": "其他",
+        "share": 0.04583333,
+        "start_angle": 263.0,
+        "sweep_angle": 16.5
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.58888889,
+        0.05138889,
+        0.31388889,
+        0.04583333
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2009年浙江省公务员录用考试《行测》题_images/img_0269_53d7db9d1a1682c2.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0269_53d7db9d1a1682c2.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_aceadc93da576de61da2",
+        "question_number": 126,
+        "source_jsonl_line": 60038
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0269_53d7db9d1a1682c2.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_6000b09f3ca775aef865",
+        "question_number": 127,
+        "source_jsonl_line": 60039
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0269_53d7db9d1a1682c2.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_08f4ecb7240250c446d5",
+        "question_number": 128,
+        "source_jsonl_line": 60040
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0283_7fc7265bb14796f4.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_91e6e9249de81c65defc",
+        "question_number": 129,
+        "source_jsonl_line": 60041
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0269_53d7db9d1a1682c2.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_3c981e99c6d74bac3536",
+        "question_number": 130,
+        "source_jsonl_line": 60042
+      }
+    ],
+    "sha256": "94d5f9df27209cecb5a6c172aeb654a46783b0c7f60e6403a718e37a6e258ca8"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "按执行部门分",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_94d5f9df27209cecb5a6c172/quadrant_01.jpg",
+        "review-crops/da_94d5f9df27209cecb5a6c172/quadrant_02.jpg",
+        "review-crops/da_94d5f9df27209cecb5a6c172/quadrant_03.jpg",
+        "review-crops/da_94d5f9df27209cecb5a6c172/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.823",
+      "crop_verification_elapsed_seconds:0.831",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.5571",
+      "hough_circle_radius_ratio:0.2556",
+      "radial_line_candidates:0",
+      "detected_boundaries:4"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

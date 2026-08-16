@@ -1,0 +1,290 @@
+{
+  "asset_id": "da_05ac4e7e5b0595ed76ee0fc7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2009年国家公务员录用考试《行测》题_images/img_0155_cac13aba3345858f.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年国家公务员录用考试《行测》题_images/img_0155_cac13aba3345858f.jpg",
+        "paper_title": "2009年国家公务员录用考试《行测》题",
+        "question_id": "pq_9f856138491a7373e2b1",
+        "question_number": 126,
+        "source_jsonl_line": 17381
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年国家公务员录用考试《行测》题_images/img_0155_cac13aba3345858f.jpg",
+        "paper_title": "2009年国家公务员录用考试《行测》题",
+        "question_id": "pq_a95f236e06c3cf475606",
+        "question_number": 127,
+        "source_jsonl_line": 17382
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年国家公务员录用考试《行测》题_images/img_0175_f43a6cbce6aac5a9.jpg",
+        "paper_title": "2009年国家公务员录用考试《行测》题",
+        "question_id": "pq_4ceeedb8aa45924c44d6",
+        "question_number": 128,
+        "source_jsonl_line": 17383
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年国家公务员录用考试《行测》题_images/img_0155_cac13aba3345858f.jpg",
+        "paper_title": "2009年国家公务员录用考试《行测》题",
+        "question_id": "pq_e8facf0b5ff93622ee12",
+        "question_number": 129,
+        "source_jsonl_line": 17384
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年国家公务员录用考试《行测》题_images/img_0155_cac13aba3345858f.jpg",
+        "paper_title": "2009年国家公务员录用考试《行测》题",
+        "question_id": "pq_7d8f394ca535842213cd",
+        "question_number": 130,
+        "source_jsonl_line": 17385
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年甘肃省公务员录用考试《行测》题_images/img_0098_cac13aba3345858f.jpg",
+        "paper_title": "2009年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_64e07473a136c9cc66b7",
+        "question_number": 91,
+        "source_jsonl_line": 74486
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年甘肃省公务员录用考试《行测》题_images/img_0102_f43a6cbce6aac5a9.jpg",
+        "paper_title": "2009年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_519ebd1812ac70891017",
+        "question_number": 92,
+        "source_jsonl_line": 74487
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年甘肃省公务员录用考试《行测》题_images/img_0098_cac13aba3345858f.jpg",
+        "paper_title": "2009年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_5345ca6cacb8a7b5269d",
+        "question_number": 93,
+        "source_jsonl_line": 74488
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年甘肃省公务员录用考试《行测》题_images/img_0098_cac13aba3345858f.jpg",
+        "paper_title": "2009年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_208dea7cec2983bf1feb",
+        "question_number": 94,
+        "source_jsonl_line": 74489
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年甘肃省公务员录用考试《行测》题_images/img_0098_cac13aba3345858f.jpg",
+        "paper_title": "2009年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_a0c4f0ad2910c447c41a",
+        "question_number": 95,
+        "source_jsonl_line": 74490
+      }
+    ],
+    "sha256": "05ac4e7e5b0595ed76ee0fc7e244436f7dc31945d63c935ce2ad61065b3e858e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "",
+      "全国",
+      "东部地区",
+      "中部地区",
+      "西部地区",
+      "东北地区"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "外出从业劳动力分地区构成",
+        "unit": null,
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "乡县县内",
+        "unit": null,
+        "values": [
+          19.2,
+          29.9,
+          13.5,
+          15.2,
+          26.9,
+          null
+        ]
+      },
+      {
+        "label": "县外市内",
+        "unit": null,
+        "values": [
+          13.8,
+          18.4,
+          9.9,
+          12.4,
+          31.5,
+          null
+        ]
+      },
+      {
+        "label": "市外省内",
+        "unit": null,
+        "values": [
+          17.7,
+          33.1,
+          9,
+          12.8,
+          24.2,
+          null
+        ]
+      },
+      {
+        "label": "省外",
+        "unit": null,
+        "values": [
+          49.3,
+          18.6,
+          67.6,
+          59.6,
+          17.4,
+          null
+        ]
+      },
+      {
+        "label": "外出从业劳动力产业构成",
+        "unit": null,
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "第一产业",
+        "unit": null,
+        "values": [
+          2.8,
+          2.5,
+          2.2,
+          3.6,
+          4.2,
+          null
+        ]
+      },
+      {
+        "label": "第二产业",
+        "unit": null,
+        "values": [
+          56.7,
+          55.8,
+          57.1,
+          58.4,
+          44.3,
+          null
+        ]
+      },
+      {
+        "label": "第三产业",
+        "unit": null,
+        "values": [
+          40.5,
+          41.7,
+          40.7,
+          38,
+          "?",
+          null
+        ]
+      }
+    ]
+  },
+  "title": "外出从业劳动力分地区构成",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_05ac4e7e5b0595ed76ee0fc7/row_band_01.jpg",
+        "review-crops/da_05ac4e7e5b0595ed76ee0fc7/row_band_02.jpg",
+        "review-crops/da_05ac4e7e5b0595ed76ee0fc7/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.116",
+      "crop_verification_elapsed_seconds:9.677",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:东北地区第三产业的数值为问号，无法确定",
+      "crop_note:修正了'市外省内'行中西部地区的数值为12.8，原为12.4",
+      "crop_note:修正了'省外'行中东部地区的数值为18.6，原为18.4",
+      "crop_note:修正了'省外'行中西部地区的数值为59.6，原为59.6",
+      "crop_note:修正了'省外'行中东北地区的数值为17.4，原为17.4",
+      "crop_note:修正了'第一产业'行中全国的数值为2.8，原为2.8",
+      "crop_note:修正了'第一产业'行中东部地区的数值为2.5，原为2.5",
+      "crop_note:修正了'第一产业'行中中部地区的数值为2.2，原为2.2",
+      "crop_note:修正了'第一产业'行中西部地区的数值为3.6，原为3.6",
+      "crop_note:修正了'第一产业'行中东北地区的数值为4.2，原为4.2",
+      "crop_note:修正了'第二产业'行中全国的数值为56.7，原为56.7",
+      "crop_note:修正了'第二产业'行中东部地区的数值为55.8，原为55.8",
+      "crop_note:修正了'第二产业'行中中部地区的数值为57.1，原为57.1",
+      "crop_note:修正了'第二产业'行中西部地区的数值为58.4，原为58.4",
+      "crop_note:修正了'第二产业'行中东北地区的数值为44.3，原为44.3",
+      "crop_note:修正了'第三产业'行中全国的数值为40.5，原为40.5",
+      "crop_note:修正了'第三产业'行中东部地区的数值为41.7，原为41.7",
+      "crop_note:修正了'第三产业'行中中部地区的数值为40.7，原为40.7",
+      "crop_note:修正了'第三产业'行中西部地区的数值为38，原为38",
+      "crop_note:修正了'第三产业'行中东北地区的数值为'?', 原为'?'"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

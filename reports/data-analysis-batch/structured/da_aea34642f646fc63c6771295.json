@@ -1,0 +1,234 @@
+{
+  "asset_id": "da_aea34642f646fc63c6771295",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1200,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000,
+          1200
+        ],
+        "title": "交易规模",
+        "unit": "亿元"
+      },
+      {
+        "max": 75,
+        "min": -50,
+        "ticks": [
+          -50,
+          -25,
+          0,
+          25,
+          50,
+          75
+        ],
+        "title": "环比增速",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "第一季度",
+    "第二季度",
+    "第三季度",
+    "第四季度"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "交易规模",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "环比增速",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "交易规模",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        231.1,
+        363.3,
+        493.9,
+        673.2
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "环比增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        55.5,
+        57.2,
+        35.9,
+        36.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0218_575dc5f4021301f5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0218_575dc5f4021301f5.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_a7bb95fae257a786da1f",
+        "question_number": 121,
+        "source_jsonl_line": 18991
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0232_96ab4c1004ec628d.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_319f561ab64c354d9a70",
+        "question_number": 122,
+        "source_jsonl_line": 18992
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0232_96ab4c1004ec628d.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_64103d6026fcd46189db",
+        "question_number": 123,
+        "source_jsonl_line": 18993
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0232_96ab4c1004ec628d.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_5f4d9645bf390fd8ac2e",
+        "question_number": 124,
+        "source_jsonl_line": 18994
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0232_96ab4c1004ec628d.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_a61f49d1bcdae710f3f8",
+        "question_number": 125,
+        "source_jsonl_line": 18995
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0161_96ab4c1004ec628d.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_730a9f5c112a1ca70fc5",
+        "question_number": 116,
+        "source_jsonl_line": 19121
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0161_96ab4c1004ec628d.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_b1ac37cb9db8068f35e5",
+        "question_number": 117,
+        "source_jsonl_line": 19122
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0161_96ab4c1004ec628d.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_d5dfb1c2da267e926a52",
+        "question_number": 118,
+        "source_jsonl_line": 19123
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0161_96ab4c1004ec628d.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_e0bfa0cefe183a85ccb7",
+        "question_number": 119,
+        "source_jsonl_line": 19124
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0190_575dc5f4021301f5.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_eaaec801380a89c4fadd",
+        "question_number": 120,
+        "source_jsonl_line": 19125
+      }
+    ],
+    "sha256": "aea34642f646fc63c6771295a7b9621a37b768b6a24dce2f8c3dadcb0836f309"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2016年中国在线餐饮外卖市场交易规模及环比增速",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_aea34642f646fc63c6771295/column_band_01.jpg",
+        "review-crops/da_aea34642f646fc63c6771295/column_band_02.jpg",
+        "review-crops/da_aea34642f646fc63c6771295/column_band_03.jpg",
+        "review-crops/da_aea34642f646fc63c6771295/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.074",
+      "crop_verification_elapsed_seconds:2.133",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,246 @@
+{
+  "asset_id": "da_7de1e55352eb96a9993f740d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2017年北京市公务员录用考试《行测》题_images/img_0204_ab7754e9d5d25886.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年北京市公务员录用考试《行测》题_images/img_0204_ab7754e9d5d25886.png",
+        "paper_title": "2017年北京市公务员录用考试《行测》题",
+        "question_id": "pq_1dd969120046f5864fad",
+        "question_number": 121,
+        "source_jsonl_line": 9859
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年北京市公务员录用考试《行测》题_images/img_0204_ab7754e9d5d25886.png",
+        "paper_title": "2017年北京市公务员录用考试《行测》题",
+        "question_id": "pq_3af47e431d4811a00d43",
+        "question_number": 122,
+        "source_jsonl_line": 9860
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年北京市公务员录用考试《行测》题_images/img_0197_ea76fb1af4dba0d7.png",
+        "paper_title": "2017年北京市公务员录用考试《行测》题",
+        "question_id": "pq_a03b3f1d127397190be0",
+        "question_number": 123,
+        "source_jsonl_line": 9861
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年北京市公务员录用考试《行测》题_images/img_0204_ab7754e9d5d25886.png",
+        "paper_title": "2017年北京市公务员录用考试《行测》题",
+        "question_id": "pq_72a189178a3bd45f137b",
+        "question_number": 124,
+        "source_jsonl_line": 9862
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年北京市公务员录用考试《行测》题_images/img_0197_ea76fb1af4dba0d7.png",
+        "paper_title": "2017年北京市公务员录用考试《行测》题",
+        "question_id": "pq_d87bc5d90b1fe6ab7a93",
+        "question_number": 125,
+        "source_jsonl_line": 9863
+      }
+    ],
+    "sha256": "7de1e55352eb96a9993f740dcaaf18743187b566beca142bed1a8ed0b5450732"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "新设立企业｜新设立企业数量（家）",
+          "新设立企业｜同比增速（%）"
+        ],
+        "label": "新设立企业"
+      },
+      {
+        "columns": [
+          "直接投资金额｜直接投资金额（亿元）",
+          "直接投资金额｜同比增速（%）"
+        ],
+        "label": "直接投资金额"
+      }
+    ],
+    "columns": [
+      "新设立企业｜新设立企业数量（家）",
+      "新设立企业｜同比增速（%）",
+      "直接投资金额｜直接投资金额（亿元）",
+      "直接投资金额｜同比增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "行业",
+    "rows": [
+      {
+        "display_label": "总计",
+        "group": null,
+        "label": "总计",
+        "unit": null,
+        "values": [
+          26575,
+          11.8,
+          7813.5,
+          6.4
+        ]
+      },
+      {
+        "display_label": "其中：农、林、牧、渔业",
+        "group": null,
+        "label": "其中：农、林、牧、渔业",
+        "unit": null,
+        "values": [
+          609,
+          -15.3,
+          94.8,
+          1.3
+        ]
+      },
+      {
+        "display_label": "制造业",
+        "group": null,
+        "label": "制造业",
+        "unit": null,
+        "values": [
+          4507,
+          -13.0,
+          2452.3,
+          0.0
+        ]
+      },
+      {
+        "display_label": "电力、燃气及水生产和供应业",
+        "group": null,
+        "label": "电力、燃气及水生产和供应业",
+        "unit": null,
+        "values": [
+          264,
+          26.9,
+          139.4,
+          3.1
+        ]
+      },
+      {
+        "display_label": "交通运输、仓储和邮政业",
+        "group": null,
+        "label": "交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          449,
+          19.4,
+          259.7,
+          -5.0
+        ]
+      },
+      {
+        "display_label": "信息传输、计算机服务和软件业",
+        "group": null,
+        "label": "信息传输、计算机服务和软件业",
+        "unit": null,
+        "values": [
+          1311,
+          33.6,
+          237.1,
+          40.1
+        ]
+      },
+      {
+        "display_label": "批发和零售业",
+        "group": null,
+        "label": "批发和零售业",
+        "unit": null,
+        "values": [
+          9156,
+          14.8,
+          744.0,
+          28.0
+        ]
+      },
+      {
+        "display_label": "房地产业",
+        "group": null,
+        "label": "房地产业",
+        "unit": null,
+        "values": [
+          387,
+          -13.2,
+          1789.8,
+          -15.9
+        ]
+      },
+      {
+        "display_label": "租赁和商务服务业",
+        "group": null,
+        "label": "租赁和商务服务业",
+        "unit": null,
+        "values": [
+          4465,
+          12.7,
+          623.3,
+          -18.8
+        ]
+      },
+      {
+        "display_label": "居民服务和其他服务业",
+        "group": null,
+        "label": "居民服务和其他服务业",
+        "unit": null,
+        "values": [
+          217,
+          19.9,
+          44.4,
+          0.8
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

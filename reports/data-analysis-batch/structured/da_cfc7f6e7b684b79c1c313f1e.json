@@ -1,0 +1,279 @@
+{
+  "asset_id": "da_cfc7f6e7b684b79c1c313f1e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "券种",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "发行日期",
+        "unit": null
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "兑付日期",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "02年五年期国库券",
+    "02年三年期国库券",
+    "03年五年期国库券",
+    "03年三年期国库券"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "series_1",
+      "label": "发行日期",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        "2002.4.1",
+        "2002.7.1",
+        "2003.3.1",
+        "2003.3.1"
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_2",
+      "label": "兑付日期",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        "2007.4.1",
+        "2005.7.1",
+        "2008.3.1",
+        "2006.3.1"
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_3",
+      "label": "年利率",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.5,
+        9.5,
+        15.86,
+        13.96
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "2004_4_1",
+      "label": "2004年4月1日",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        101.2,
+        109.3,
+        108.4,
+        108.7
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "2004_6_1",
+      "label": "2004年6月1日",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        106.0,
+        113.0,
+        113.0,
+        112.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2008年江苏省公务员录用考试《行测》题（A类）_images/img_0168_5b1c9b29ecd7cbe4.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（A类）_images/img_0168_5b1c9b29ecd7cbe4.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_38978ff28d9bcff3e68d",
+        "question_number": 96,
+        "source_jsonl_line": 44466
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（A类）_images/img_0166_47a45c1ee9456c00.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_b27fe9858a6572c385be",
+        "question_number": 97,
+        "source_jsonl_line": 44467
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（A类）_images/img_0166_47a45c1ee9456c00.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_da2400ef636fb1c832b5",
+        "question_number": 98,
+        "source_jsonl_line": 44468
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（A类）_images/img_0168_5b1c9b29ecd7cbe4.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_85cdbd7bf58ed65fd888",
+        "question_number": 99,
+        "source_jsonl_line": 44469
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（A类）_images/img_0166_47a45c1ee9456c00.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_a930821f2f31310af33b",
+        "question_number": 100,
+        "source_jsonl_line": 44470
+      }
+    ],
+    "sha256": "cfc7f6e7b684b79c1c313f1e64c6592f7b4a2dc88d1819ca64edf495155d211e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "券种",
+      "发行日期",
+      "兑付日期",
+      "年利率",
+      "2004年4月1日",
+      "2004年6月1日"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "02年五年期国库券",
+        "unit": null,
+        "values": [
+          "02年五年期国库券",
+          "2002.4.1",
+          "2007.4.1",
+          10.5,
+          101.2,
+          105.0
+        ]
+      },
+      {
+        "label": "02年三年期国库券",
+        "unit": null,
+        "values": [
+          "02年三年期国库券",
+          "2002.7.1",
+          "2005.7.1",
+          9.5,
+          109.3,
+          113.0
+        ]
+      },
+      {
+        "label": "03年五年期国库券",
+        "unit": null,
+        "values": [
+          "03年五年期国库券",
+          "2003.3.1",
+          "2008.3.1",
+          15.86,
+          108.4,
+          113.0
+        ]
+      },
+      {
+        "label": "03年三年期国库券",
+        "unit": null,
+        "values": [
+          "03年三年期国库券",
+          "2003.3.1",
+          "2006.3.1",
+          13.96,
+          108.7,
+          112.8
+        ]
+      }
+    ]
+  },
+  "title": "上海证券交易所100元国库券价格",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cfc7f6e7b684b79c1c313f1e/row_band_01.jpg",
+        "review-crops/da_cfc7f6e7b684b79c1c313f1e/row_band_02.jpg",
+        "review-crops/da_cfc7f6e7b684b79c1c313f1e/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.987",
+      "crop_verification_elapsed_seconds:7.168",
+      "candidate_value_changes_after_crop:1",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

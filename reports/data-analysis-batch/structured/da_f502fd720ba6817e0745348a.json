@@ -1,0 +1,362 @@
+{
+  "asset_id": "da_f502fd720ba6817e0745348a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.92,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0168_a760906e40ccaf2c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0168_a760906e40ccaf2c.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cc5bb3f0d370bdb83786",
+        "question_number": 111,
+        "source_jsonl_line": 24253
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0168_a760906e40ccaf2c.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_691e5bd06fab2dc4961a",
+        "question_number": 112,
+        "source_jsonl_line": 24254
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0168_a760906e40ccaf2c.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_17927fab28aea12c168e",
+        "question_number": 113,
+        "source_jsonl_line": 24255
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0168_a760906e40ccaf2c.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b9c3fdfcfb2b1ba6dbcb",
+        "question_number": 114,
+        "source_jsonl_line": 24256
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0201_dcf149c2a2d003f8.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b386fc559fb58e1ea809",
+        "question_number": 115,
+        "source_jsonl_line": 24257
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0176_dcf149c2a2d003f8.png",
+        "paper_title": "2024年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ffda94afacd285b2bac5",
+        "question_number": 101,
+        "source_jsonl_line": 28515
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0176_dcf149c2a2d003f8.png",
+        "paper_title": "2024年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b4fd74a865b374cf178b",
+        "question_number": 102,
+        "source_jsonl_line": 28516
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0179_a760906e40ccaf2c.png",
+        "paper_title": "2024年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6f6b7b0f4cea2a64e810",
+        "question_number": 103,
+        "source_jsonl_line": 28517
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0179_a760906e40ccaf2c.png",
+        "paper_title": "2024年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_72f7b3f1ef9a607aec32",
+        "question_number": 104,
+        "source_jsonl_line": 28518
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0179_a760906e40ccaf2c.png",
+        "paper_title": "2024年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_781afa03d7e9a11dd204",
+        "question_number": 105,
+        "source_jsonl_line": 28519
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0140_a760906e40ccaf2c.png",
+        "paper_title": "2024年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ed7a7d283d90fe915c37",
+        "question_number": 116,
+        "source_jsonl_line": 33169
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0140_a760906e40ccaf2c.png",
+        "paper_title": "2024年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_38a3869088d914f635ad",
+        "question_number": 117,
+        "source_jsonl_line": 33170
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0170_dcf149c2a2d003f8.png",
+        "paper_title": "2024年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cfb22fef49408f57f49e",
+        "question_number": 118,
+        "source_jsonl_line": 33171
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0140_a760906e40ccaf2c.png",
+        "paper_title": "2024年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b53ac38fd5a6ef41adc3",
+        "question_number": 119,
+        "source_jsonl_line": 33172
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0140_a760906e40ccaf2c.png",
+        "paper_title": "2024年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fdd28d7970771d9d1ad9",
+        "question_number": 120,
+        "source_jsonl_line": 33173
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0165_a760906e40ccaf2c.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_8f2e5e95f37d8bd2642e",
+        "question_number": 111,
+        "source_jsonl_line": 43906
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0185_dcf149c2a2d003f8.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_4a8f285a89963eb1487d",
+        "question_number": 112,
+        "source_jsonl_line": 43907
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0185_dcf149c2a2d003f8.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_e3adcdeb214699e147f1",
+        "question_number": 113,
+        "source_jsonl_line": 43908
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0165_a760906e40ccaf2c.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_caf49be43603eff36307",
+        "question_number": 114,
+        "source_jsonl_line": 43909
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0165_a760906e40ccaf2c.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_43341494f31d4e1e42af",
+        "question_number": 115,
+        "source_jsonl_line": 43910
+      }
+    ],
+    "sha256": "f502fd720ba6817e0745348a78846886a53200a76eedeb343910f61aa829912c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "名称｜第1列",
+      "回收重量（万吨）｜第2列",
+      "回收重量（万吨）｜第3列",
+      "回收金额（亿元）｜第4列",
+      "回收金额（亿元）｜第5列"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "序号",
+    "rows": [
+      {
+        "display_label": "1",
+        "group": null,
+        "label": "1",
+        "unit": null,
+        "values": [
+          "废钢铁",
+          25021.0,
+          24081.0,
+          7523.6,
+          6911.2
+        ]
+      },
+      {
+        "display_label": "2",
+        "group": null,
+        "label": "2",
+        "unit": null,
+        "values": [
+          "废有色金属",
+          1348.0,
+          1375.0,
+          2878.5,
+          2959.7
+        ]
+      },
+      {
+        "display_label": "3",
+        "group": null,
+        "label": "3",
+        "unit": null,
+        "values": [
+          "废塑料",
+          1900.0,
+          1800.0,
+          1050.0,
+          1050.0
+        ]
+      },
+      {
+        "display_label": "4",
+        "group": null,
+        "label": "4",
+        "unit": null,
+        "values": [
+          "废纸",
+          6491.0,
+          6585.0,
+          1493.0,
+          1402.6
+        ]
+      },
+      {
+        "display_label": "5",
+        "group": null,
+        "label": "5",
+        "unit": null,
+        "values": [
+          "废轮胎",
+          640.0,
+          675.0,
+          76.8,
+          101.3
+        ]
+      },
+      {
+        "display_label": "6",
+        "group": null,
+        "label": "6",
+        "unit": null,
+        "values": [
+          "废弃电器电子产品",
+          463.0,
+          415.0,
+          222.4,
+          227.4
+        ]
+      },
+      {
+        "display_label": "7",
+        "group": null,
+        "label": "7",
+        "unit": null,
+        "values": [
+          "报废机动车",
+          678.5,
+          820.7,
+          276.9,
+          311.9
+        ]
+      },
+      {
+        "display_label": "8",
+        "group": null,
+        "label": "8",
+        "unit": null,
+        "values": [
+          "废旧纺织品",
+          475.0,
+          415.0,
+          26.1,
+          16.6
+        ]
+      },
+      {
+        "display_label": "9",
+        "group": null,
+        "label": "9",
+        "unit": null,
+        "values": [
+          "废玻璃",
+          1005.0,
+          850.0,
+          48.0,
+          38.3
+        ]
+      },
+      {
+        "display_label": "10",
+        "group": null,
+        "label": "10",
+        "unit": null,
+        "values": [
+          "废电池（铅酸电池除外）",
+          42.0,
+          51.0,
+          99.7,
+          121.6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.92,
+    "schema_valid": true
+  }
+}

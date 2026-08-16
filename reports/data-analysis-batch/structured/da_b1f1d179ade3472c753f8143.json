@@ -1,0 +1,307 @@
+{
+  "asset_id": "da_b1f1d179ade3472c753f8143",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2015年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0050_2ccc8c0284c2f43e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0050_2ccc8c0284c2f43e.png",
+        "paper_title": "2015年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_0b1cf5779113c548bb74",
+        "question_number": 46,
+        "source_jsonl_line": 22671
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0050_2ccc8c0284c2f43e.png",
+        "paper_title": "2015年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_a492a137be0166a5da95",
+        "question_number": 47,
+        "source_jsonl_line": 22672
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0050_2ccc8c0284c2f43e.png",
+        "paper_title": "2015年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_d01736fdbde32eb25868",
+        "question_number": 48,
+        "source_jsonl_line": 22673
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0050_2ccc8c0284c2f43e.png",
+        "paper_title": "2015年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_e752f7c7a379f4633d7a",
+        "question_number": 49,
+        "source_jsonl_line": 22674
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0073_5ea5ff623cfd8d9d.png",
+        "paper_title": "2015年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_7d982b0c0b37f553d938",
+        "question_number": 50,
+        "source_jsonl_line": 22675
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0052_5ea5ff623cfd8d9d.png",
+        "paper_title": "2015年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_d1a1f1a1239830732b98",
+        "question_number": 46,
+        "source_jsonl_line": 84979
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0052_5ea5ff623cfd8d9d.png",
+        "paper_title": "2015年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_585386145b7d77af67dc",
+        "question_number": 47,
+        "source_jsonl_line": 84980
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0069_2ccc8c0284c2f43e.png",
+        "paper_title": "2015年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_333d5362323e9efac909",
+        "question_number": 48,
+        "source_jsonl_line": 84981
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0052_5ea5ff623cfd8d9d.png",
+        "paper_title": "2015年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_88814c82a2596cf3b7e0",
+        "question_number": 49,
+        "source_jsonl_line": 84982
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0052_5ea5ff623cfd8d9d.png",
+        "paper_title": "2015年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_86861a2da5304f7f4d34",
+        "question_number": 50,
+        "source_jsonl_line": 84983
+      }
+    ],
+    "sha256": "b1f1d179ade3472c753f81436c94408002f0a1630f93f18df83a9d5026b66c8a"
+  },
+  "structured_visual": {
+    "axes": [
+      {
+        "label": "大化县100%",
+        "labelPosition": {
+          "x": 216,
+          "y": 25
+        }
+      },
+      {
+        "label": "共扎县100%",
+        "labelPosition": {
+          "x": 395,
+          "y": 172
+        }
+      },
+      {
+        "label": "南丹县100%",
+        "labelPosition": {
+          "x": 216,
+          "y": 323
+        }
+      },
+      {
+        "label": "太极县100%",
+        "labelPosition": {
+          "x": 45,
+          "y": 172
+        }
+      }
+    ],
+    "caption": null,
+    "complexity": {
+      "estimatedDrawCommandCount": 50,
+      "gridLineCount": 24,
+      "pointCount": 6,
+      "vertexCount": 4
+    },
+    "coordinateSpace": {
+      "height": 339,
+      "width": 442
+    },
+    "divisions": 4,
+    "evidence": {
+      "converterVersion": "semantic-simplex-grids-v1",
+      "geometryEngine": "human_verified_simplex_geometry",
+      "renderSha256": "8159b44108d1a92e7a4a4ed3343032f53a24ae048e7d640773eb0f484f5ac6b2",
+      "sourceAsset": "da_b1f1d179ade3472c753f8143",
+      "sourceSha256": "b1f1d179ade3472c753f81436c94408002f0a1630f93f18df83a9d5026b66c8a"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticSimplexGrid",
+    "layoutType": "single",
+    "points": [
+      {
+        "label": "A",
+        "labelOffset": {
+          "x": 0,
+          "y": -10
+        },
+        "position": {
+          "x": 251,
+          "y": 103
+        }
+      },
+      {
+        "label": "B",
+        "labelOffset": {
+          "x": 0,
+          "y": -10
+        },
+        "position": {
+          "x": 181,
+          "y": 137
+        }
+      },
+      {
+        "label": "C",
+        "labelOffset": {
+          "x": 0,
+          "y": 18
+        },
+        "position": {
+          "x": 147,
+          "y": 172
+        }
+      },
+      {
+        "label": "D",
+        "labelOffset": {
+          "x": 0,
+          "y": -10
+        },
+        "position": {
+          "x": 236,
+          "y": 189
+        }
+      },
+      {
+        "label": "E",
+        "labelOffset": {
+          "x": 10,
+          "y": 0
+        },
+        "position": {
+          "x": 322,
+          "y": 206
+        }
+      },
+      {
+        "label": "F",
+        "labelOffset": {
+          "x": 0,
+          "y": 18
+        },
+        "position": {
+          "x": 181,
+          "y": 240
+        }
+      }
+    ],
+    "schemaVersion": "semantic-simplex-grids-v1",
+    "shape": "diamond",
+    "styling": {
+      "axisFontSize": 10,
+      "captionFontSize": 10,
+      "gridLineWidth": 1,
+      "outerLineWidth": 1,
+      "pointFontSize": 10,
+      "pointRadius": 2
+    },
+    "vertices": [
+      {
+        "x": 216,
+        "y": 33
+      },
+      {
+        "x": 351,
+        "y": 172
+      },
+      {
+        "x": 216,
+        "y": 308
+      },
+      {
+        "x": 80,
+        "y": 172
+      }
+    ],
+    "visualGrammar": "quaternary_grid"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.281",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:图中未明确标注坐标轴单位",
+      "model_uncertainty:图中未明确标注数值单位",
+      "model_uncertainty:图中未明确标注数据点的具体数值",
+      "model_uncertainty:图中未明确标注数据点的坐标值",
+      "route_reason:该图为四象限坐标图，属于统计图表类资料",
+      "route_panel_count:1",
+      "foreground_iou:0.570111",
+      "mean_absolute_error:3.406779",
+      "trace_parameters:{\"epsilonRatio\": 0.01, \"minimumContourArea\": 5.0, \"paletteSize\": 4}",
+      "visual_grammar:quaternary_grid",
+      "converter:semantic-simplex-grids-v1",
+      "visual_grammar:quaternary_grid",
+      "comparison_artifact:previews/structured_visual/da_b1f1d179ade3472c753f8143-comparison.png",
+      "manual_qa:diamond_grid_vertices_points_and_thin_source_strokes_verified_against_source_pair"
+    ],
+    "ocr_engine": "human_verified_simplex_geometry",
+    "ocr_mean_confidence": 0.94,
+    "schema_valid": true
+  }
+}

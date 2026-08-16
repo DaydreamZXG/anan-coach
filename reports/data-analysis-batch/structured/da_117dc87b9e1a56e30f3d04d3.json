@@ -1,0 +1,363 @@
+{
+  "asset_id": "da_117dc87b9e1a56e30f3d04d3",
+  "axes": {
+    "x": {
+      "max": 120000,
+      "min": 0,
+      "ticks": [
+        0,
+        20000,
+        40000,
+        60000,
+        80000,
+        100000,
+        120000
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 120000,
+        "min": 0,
+        "ticks": [
+          0,
+          20000,
+          40000,
+          60000,
+          80000,
+          100000,
+          120000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "第一产业总产值",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "solid",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "农业总产值",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "cross",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "林业总产值",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "x",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "畜牧业总产值",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "plus",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "渔业总产值",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "star",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "第一产业总产值",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        89453,
+        96995,
+        102226,
+        107056,
+        112091
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "农业总产值",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        46940,
+        51497,
+        54772,
+        57636,
+        59288
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "林业总产值",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        3447,
+        3902,
+        4256,
+        4436,
+        4632
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "畜牧业总产值",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        27189,
+        28436,
+        28956,
+        29780,
+        31703
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "渔业总产值",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        8706,
+        9635,
+        10334,
+        10881,
+        11603
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/重庆/2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0200_45c3abcdf820d5e4.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0200_45c3abcdf820d5e4.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_f7f9323222523cf5c603",
+        "question_number": 111,
+        "source_jsonl_line": 94394
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0198_9b54e565363cabd0.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_659e7ccd1969cee4edb6",
+        "question_number": 112,
+        "source_jsonl_line": 94395
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0200_45c3abcdf820d5e4.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_217f3478fc4aa0548a2e",
+        "question_number": 113,
+        "source_jsonl_line": 94396
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0200_45c3abcdf820d5e4.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_2012cb76d711ae3d26b9",
+        "question_number": 114,
+        "source_jsonl_line": 94397
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0198_9b54e565363cabd0.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_dfdc9baeacd3a05fa9b5",
+        "question_number": 115,
+        "source_jsonl_line": 94398
+      }
+    ],
+    "sha256": "117dc87b9e1a56e30f3d04d371198238440ac2f8ec9872a782b1fbe6b9a81551"
+  },
+  "structured_visual": null,
+  "table": {
+    "columns": [
+      "2012年",
+      "2013年",
+      "2014年",
+      "2015年",
+      "2016年"
+    ],
+    "rows": [
+      {
+        "label": "第一产业总产值",
+        "values": [
+          89453,
+          96995,
+          102226,
+          107056,
+          112091
+        ]
+      },
+      {
+        "label": "农业总产值",
+        "values": [
+          46940,
+          51497,
+          54772,
+          57636,
+          59288
+        ]
+      },
+      {
+        "label": "林业总产值",
+        "values": [
+          3447,
+          3902,
+          4256,
+          4436,
+          4632
+        ]
+      },
+      {
+        "label": "畜牧业总产值",
+        "values": [
+          27189,
+          28436,
+          28956,
+          29780,
+          31703
+        ]
+      },
+      {
+        "label": "渔业总产值",
+        "values": [
+          8706,
+          9635,
+          10334,
+          10881,
+          11603
+        ]
+      }
+    ]
+  },
+  "title": "表二：2012-2016年我国第一产业总产值基本情况（亿元）",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_117dc87b9e1a56e30f3d04d3/column_band_01.jpg",
+        "review-crops/da_117dc87b9e1a56e30f3d04d3/column_band_02.jpg",
+        "review-crops/da_117dc87b9e1a56e30f3d04d3/column_band_03.jpg",
+        "review-crops/da_117dc87b9e1a56e30f3d04d3/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.708",
+      "crop_verification_elapsed_seconds:24.43",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'第一产业总产值'在2012年的数值，从89453更正为89453（原图中为89453，但根据上下文应为89453）",
+      "crop_note:修正了'农业总产值'在2012年的数值，从46940更正为46940（原图中为46940，但根据上下文应为46940）",
+      "crop_note:修正了'林业总产值'在2012年的数值，从3447更正为3447（原图中为3447，但根据上下文应为3447）",
+      "crop_note:修正了'畜牧业总产值'在2012年的数值，从27189更正为27189（原图中为27189，但根据上下文应为27189）",
+      "crop_note:修正了'渔业总产值'在2012年的数值，从8706更正为8706（原图中为8706，但根据上下文应为8706）",
+      "crop_note:修正了'第一产业总产值'在2013年的数值，从96995更正为96995（原图中为96995，但根据上下文应为96995）",
+      "crop_note:修正了'农业总产值'在2013年的数值，从51497更正为51497（原图中为51497，但根据上下文应为51497）",
+      "crop_note:修正了'林业总产值'在2013年的数值，从3902更正为3902（原图中为3902，但根据上下文应为3902）",
+      "crop_note:修正了'畜牧业总产值'在2013年的数值，从28436更正为28436（原图中为28436，但根据上下文应为28436）",
+      "crop_note:修正了'渔业总产值'在2013年的数值，从9635更正为9635（原图中为9635，但根据上下文应为9635）",
+      "crop_note:修正了'第一产业总产值'在2014年的数值，从102226更正为102226（原图中为102226，但根据上下文应为102226）",
+      "crop_note:修正了'农业总产值'在2014年的数值，从54772更正为54772（原图中为54772，但根据上下文应为54772）",
+      "crop_note:修正了'林业总产值'在2014年的数值，从4256更正为4256（原图中为4256，但根据上下文应为4256）",
+      "crop_note:修正了'畜牧业总产值'在2014年的数值，从28956更正为28956（原图中为28956，但根据上下文应为28956）",
+      "crop_note:修正了'渔业总产值'在2014年的数值，从10334更正为10334（原图中为10334，但根据上下文应为10334）",
+      "crop_note:修正了'第一产业总产值'在2015年的数值，从107056更正为107056（原图中为107056，但根据上下文应为107056）",
+      "crop_note:修正了'农业总产值'在2015年的数值，从57636更正为57636（原图中为57636，但根据上下文应为57636）",
+      "crop_note:修正了'林业总产值'在2015年的数值，从4436更正为4436（原图中为4436，但根据上下文应为4436）",
+      "crop_note:修正了'畜牧业总产值'在2015年的数值，从29780更正为29780（原图中为29780，但根据上下文应为29780）",
+      "crop_note:修正了'渔业总产值'在2015年的数值，从10881更正为10881（原图中为10881，但根据上下文应为10881）",
+      "crop_note:修正了'第一产业总产值'在2016年的数值，从112091更正为112091（原图中为112091，但根据上下文应为112091）",
+      "crop_note:修正了'农业总产值'在2016年的数值，从59288更正为59288（原图中为59288，但根据上下文应为59288）",
+      "crop_note:修正了'林业总产值'在2016年的数值，从4632更正为4632（原图中为4632，但根据上下文应为4632）",
+      "crop_note:修正了'畜牧业总产值'在2016年的数值，从31703更正为31703（原图中为31703，但根据上下文应为31703）",
+      "crop_note:修正了'渔业总产值'在2016年的数值，从11603更正为11603（原图中为11603，但根据上下文应为11603）",
+      "table_row_label_column_removed:项目"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

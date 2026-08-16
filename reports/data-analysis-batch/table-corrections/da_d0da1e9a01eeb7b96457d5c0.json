@@ -1,0 +1,110 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2010｜第一产业",
+          "2010｜第二产业",
+          "2010｜第三产业"
+        ],
+        "label": "2010年"
+      },
+      {
+        "columns": [
+          "2011｜第一产业",
+          "2011｜第二产业",
+          "2011｜第三产业"
+        ],
+        "label": "2011年"
+      }
+    ],
+    "columns": [
+      "2010｜第一产业",
+      "2010｜第二产业",
+      "2010｜第三产业",
+      "2011｜第一产业",
+      "2011｜第二产业",
+      "2011｜第三产业"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家",
+    "rows": [
+      {
+        "display_label": "巴西｜2010年",
+        "group": null,
+        "label": "巴西｜2010年",
+        "unit": null,
+        "values": [
+          5.3,
+          28.1,
+          66.6,
+          5.5,
+          27.5,
+          67.0
+        ]
+      },
+      {
+        "display_label": "俄罗斯｜2010年",
+        "group": null,
+        "label": "俄罗斯｜2010年",
+        "unit": null,
+        "values": [
+          4.0,
+          35.4,
+          60.6,
+          4.3,
+          37.2,
+          58.5
+        ]
+      },
+      {
+        "display_label": "印度｜2010年",
+        "group": null,
+        "label": "印度｜2010年",
+        "unit": null,
+        "values": [
+          21.6,
+          23.7,
+          54.7,
+          19.1,
+          26.3,
+          54.6
+        ]
+      },
+      {
+        "display_label": "中国｜2010年",
+        "group": null,
+        "label": "中国｜2010年",
+        "unit": null,
+        "values": [
+          10.1,
+          46.7,
+          43.2,
+          10.1,
+          46.8,
+          43.1
+        ]
+      },
+      {
+        "display_label": "南非｜2010年",
+        "group": null,
+        "label": "南非｜2010年",
+        "unit": null,
+        "values": [
+          11.8,
+          21.0,
+          67.2,
+          12.1,
+          20.8,
+          67.1
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

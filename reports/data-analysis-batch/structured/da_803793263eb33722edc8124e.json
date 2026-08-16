@@ -1,0 +1,271 @@
+{
+  "asset_id": "da_803793263eb33722edc8124e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0100_0533eb3516a35ec8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0100_0533eb3516a35ec8.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_8f2e32e058548627a68a",
+        "question_number": 96,
+        "source_jsonl_line": 71207
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0111_370f3f9877b0ce0a.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_1d8628ef7967580d6a73",
+        "question_number": 97,
+        "source_jsonl_line": 71208
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0111_370f3f9877b0ce0a.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_fcd0c8dcdc18f1d45d6e",
+        "question_number": 98,
+        "source_jsonl_line": 71209
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0111_370f3f9877b0ce0a.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_9639d51adabb295fc12d",
+        "question_number": 99,
+        "source_jsonl_line": 71210
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0111_370f3f9877b0ce0a.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_b5ce4fccffe8331e14c1",
+        "question_number": 100,
+        "source_jsonl_line": 71211
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0111_0533eb3516a35ec8.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_f76cec934068fc7efd73",
+        "question_number": 96,
+        "source_jsonl_line": 89736
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0104_370f3f9877b0ce0a.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_390b3e98fa75d4da578a",
+        "question_number": 97,
+        "source_jsonl_line": 89737
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0111_0533eb3516a35ec8.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_8611d600f497ac59d499",
+        "question_number": 98,
+        "source_jsonl_line": 89738
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0104_370f3f9877b0ce0a.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_17ec5b1f8ec721700993",
+        "question_number": 99,
+        "source_jsonl_line": 89739
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0104_370f3f9877b0ce0a.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_2dc4aa4157e9f1491bf3",
+        "question_number": 100,
+        "source_jsonl_line": 89740
+      }
+    ],
+    "sha256": "803793263eb33722edc8124eaefd95a236f8e97979f7c3fbb0cdb21e8692e758"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "营业收入（亿元）",
+      "占规上服务业比重（%）",
+      "同比增长（%）",
+      "拉动规上服务业增长（百分点）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "全国",
+        "group": "指标",
+        "label": "指标｜全国",
+        "unit": null,
+        "values": [
+          39271.6,
+          29,
+          25.7,
+          7.7
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": "指标",
+        "label": "指标｜上海",
+        "unit": null,
+        "values": [
+          4678.99,
+          23,
+          30.5,
+          7.2
+        ]
+      },
+      {
+        "display_label": "北京",
+        "group": "指标",
+        "label": "指标｜北京",
+        "unit": null,
+        "values": [
+          9751.1,
+          41,
+          34.1,
+          13.2
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": "指标",
+        "label": "指标｜浙江",
+        "unit": null,
+        "values": [
+          5586.62,
+          45.9,
+          28.8,
+          13.7
+        ]
+      },
+      {
+        "display_label": "广东",
+        "group": "指标",
+        "label": "指标｜广东",
+        "unit": null,
+        "values": [
+          6611.73,
+          34.5,
+          20.2,
+          7.3
+        ]
+      },
+      {
+        "display_label": "江苏",
+        "group": "指标",
+        "label": "指标｜江苏",
+        "unit": null,
+        "values": [
+          2202.2,
+          22.9,
+          25.1,
+          6.2
+        ]
+      },
+      {
+        "display_label": "湖北",
+        "group": "指标",
+        "label": "指标｜湖北",
+        "unit": null,
+        "values": [
+          744.27,
+          20.6,
+          19.7,
+          4.9
+        ]
+      },
+      {
+        "display_label": "河南",
+        "group": "指标",
+        "label": "指标｜河南",
+        "unit": null,
+        "values": [
+          639.54,
+          17.4,
+          18.4,
+          3.4
+        ]
+      },
+      {
+        "display_label": "安徽",
+        "group": "指标",
+        "label": "指标｜安徽",
+        "unit": null,
+        "values": [
+          555.5,
+          25.7,
+          15.8,
+          4.5
+        ]
+      },
+      {
+        "display_label": "江西",
+        "group": "指标",
+        "label": "指标｜江西",
+        "unit": null,
+        "values": [
+          378.19,
+          23,
+          13.7,
+          3.7
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

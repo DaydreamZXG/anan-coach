@@ -1,0 +1,142 @@
+{
+  "asset_id": "da_1d1a1b8bcdd1588d2e44d299",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/重庆/2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0194_7eef1bf978fda381.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0194_7eef1bf978fda381.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_f7f9323222523cf5c603",
+        "question_number": 111,
+        "source_jsonl_line": 94394
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0199_49265ffa85a6c70b.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_659e7ccd1969cee4edb6",
+        "question_number": 112,
+        "source_jsonl_line": 94395
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0194_7eef1bf978fda381.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_217f3478fc4aa0548a2e",
+        "question_number": 113,
+        "source_jsonl_line": 94396
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0194_7eef1bf978fda381.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_2012cb76d711ae3d26b9",
+        "question_number": 114,
+        "source_jsonl_line": 94397
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0199_49265ffa85a6c70b.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_dfdc9baeacd3a05fa9b5",
+        "question_number": 115,
+        "source_jsonl_line": 94398
+      }
+    ],
+    "sha256": "1d1a1b8bcdd1588d2e44d2990acc87fdcb3ac0cd0b828728322cdf25555cb0bd"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2012",
+      "2013",
+      "2014",
+      "2015",
+      "2016"
+    ],
+    "corner_header": {
+      "lower_label": "年份",
+      "style": "diagonal",
+      "upper_label": "项目"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "乡村人口（万人）",
+        "group": "年份",
+        "label": "年份｜乡村人口（万人）",
+        "unit": null,
+        "values": [
+          96809,
+          97262,
+          97378,
+          60346,
+          58973
+        ]
+      },
+      {
+        "display_label": "乡村从业人数（万人）",
+        "group": "年份",
+        "label": "年份｜乡村从业人数（万人）",
+        "unit": null,
+        "values": [
+          53858,
+          54013,
+          54026,
+          37041,
+          36175
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

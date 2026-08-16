@@ -1,0 +1,200 @@
+{
+  "asset_id": "da_e5267a2b2ecdf037d407b9b0",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖南/2009年湖南省公务员录用考试《行测》题_images/img_0129_fe28678164fa8ccf.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年湖南省公务员录用考试《行测》题_images/img_0129_fe28678164fa8ccf.jpg",
+        "paper_title": "2009年湖南省公务员录用考试《行测》题",
+        "question_id": "pq_9f76ca335eb4fd2350fa",
+        "question_number": 138,
+        "source_jsonl_line": 72294
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年湖南省公务员录用考试《行测》题_images/img_0129_fe28678164fa8ccf.jpg",
+        "paper_title": "2009年湖南省公务员录用考试《行测》题",
+        "question_id": "pq_aa75899f643218dd3469",
+        "question_number": 139,
+        "source_jsonl_line": 72295
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年湖南省公务员录用考试《行测》题_images/img_0129_fe28678164fa8ccf.jpg",
+        "paper_title": "2009年湖南省公务员录用考试《行测》题",
+        "question_id": "pq_43214591075894414aeb",
+        "question_number": 140,
+        "source_jsonl_line": 72296
+      }
+    ],
+    "sha256": "e5267a2b2ecdf037d407b9b00e4d10c921ee7170252fc8024d9d50babb9fc117"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2001",
+      "2002",
+      "2003",
+      "2004",
+      "2005"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "钨钢｜城市｜A类企业",
+        "group": "购买单位类别",
+        "label": "购买单位类别｜钨钢｜城市｜A类企业",
+        "unit": null,
+        "values": [
+          6,
+          8,
+          8,
+          10,
+          12
+        ]
+      },
+      {
+        "display_label": "钨钢｜城市｜B类企业",
+        "group": "购买单位类别",
+        "label": "购买单位类别｜钨钢｜城市｜B类企业",
+        "unit": null,
+        "values": [
+          4,
+          6,
+          6,
+          8,
+          10
+        ]
+      },
+      {
+        "display_label": "钨钢｜城市｜C类企业",
+        "group": "购买单位类别",
+        "label": "购买单位类别｜钨钢｜城市｜C类企业",
+        "unit": null,
+        "values": [
+          2,
+          4,
+          4,
+          4,
+          6
+        ]
+      },
+      {
+        "display_label": "钨钢｜农村｜C类企业",
+        "group": "购买单位类别",
+        "label": "购买单位类别｜钨钢｜农村｜C类企业",
+        "unit": null,
+        "values": [
+          2,
+          4,
+          4,
+          4,
+          6
+        ]
+      },
+      {
+        "display_label": "锰钢｜城市｜A类企业",
+        "group": "购买单位类别",
+        "label": "购买单位类别｜锰钢｜城市｜A类企业",
+        "unit": null,
+        "values": [
+          8,
+          10,
+          12,
+          14,
+          16
+        ]
+      },
+      {
+        "display_label": "锰钢｜城市｜B类企业",
+        "group": "购买单位类别",
+        "label": "购买单位类别｜锰钢｜城市｜B类企业",
+        "unit": null,
+        "values": [
+          4,
+          6,
+          6,
+          4,
+          6
+        ]
+      },
+      {
+        "display_label": "锰钢｜城市｜C类企业",
+        "group": "购买单位类别",
+        "label": "购买单位类别｜锰钢｜城市｜C类企业",
+        "unit": null,
+        "values": [
+          2,
+          4,
+          2,
+          4,
+          6
+        ]
+      },
+      {
+        "display_label": "锰钢｜农村｜C类企业",
+        "group": "购买单位类别",
+        "label": "购买单位类别｜锰钢｜农村｜C类企业",
+        "unit": null,
+        "values": [
+          2,
+          2,
+          2,
+          4,
+          6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

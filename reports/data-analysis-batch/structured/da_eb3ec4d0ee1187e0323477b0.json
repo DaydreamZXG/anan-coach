@@ -1,0 +1,332 @@
+{
+  "asset_id": "da_eb3ec4d0ee1187e0323477b0",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "金额",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年",
+    "2023年"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "进出口",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        10557,
+        12903,
+        16220,
+        19237,
+        20599,
+        23744
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "出口",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        6116,
+        7981,
+        10850,
+        13918,
+        15321,
+        18409
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "进口",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        4441,
+        4922,
+        5370,
+        5319,
+        5278,
+        5335
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0172_d48e8679815a36ed.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0172_d48e8679815a36ed.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_f4ca18d48d7c0d0673e4",
+        "question_number": 116,
+        "source_jsonl_line": 64073
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0181_36b819d4ea52d09a.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_9a0db558b36cce3e36e7",
+        "question_number": 117,
+        "source_jsonl_line": 64074
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0181_36b819d4ea52d09a.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_277bb5954649f0650509",
+        "question_number": 118,
+        "source_jsonl_line": 64075
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0181_36b819d4ea52d09a.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_15d88ddaa19ce8219540",
+        "question_number": 119,
+        "source_jsonl_line": 64076
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0172_d48e8679815a36ed.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_dc2731e3cecbbd902925",
+        "question_number": 120,
+        "source_jsonl_line": 64077
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0175_36b819d4ea52d09a.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_221c20ed245684ccba70",
+        "question_number": 111,
+        "source_jsonl_line": 64193
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0171_d48e8679815a36ed.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_d4d70353ab3a88950297",
+        "question_number": 112,
+        "source_jsonl_line": 64194
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0175_36b819d4ea52d09a.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_aeae9654fddfb4c6c742",
+        "question_number": 113,
+        "source_jsonl_line": 64195
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0175_36b819d4ea52d09a.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_6625aaaf07cf7081c171",
+        "question_number": 114,
+        "source_jsonl_line": 64196
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0175_36b819d4ea52d09a.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_df3ba49d0d59d2d4154f",
+        "question_number": 115,
+        "source_jsonl_line": 64197
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0165_d48e8679815a36ed.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_436c10cfdb2c20de6a09",
+        "question_number": 106,
+        "source_jsonl_line": 64308
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0165_d48e8679815a36ed.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_1c0a8db89ba3aaccfd0a",
+        "question_number": 107,
+        "source_jsonl_line": 64309
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0153_36b819d4ea52d09a.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_321187c2947120c0d51d",
+        "question_number": 108,
+        "source_jsonl_line": 64310
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0153_36b819d4ea52d09a.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_8879ed0fc14c62791c82",
+        "question_number": 109,
+        "source_jsonl_line": 64311
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0165_d48e8679815a36ed.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_6673dd57f690d20a8396",
+        "question_number": 110,
+        "source_jsonl_line": 64312
+      }
+    ],
+    "sha256": "eb3ec4d0ee1187e0323477b0776090c462a4b0672563d789012e539ecec35b12"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "进出口",
+      "出口",
+      "进口"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2018年",
+        "unit": null,
+        "values": [
+          "2018年",
+          10557,
+          6116,
+          4441
+        ]
+      },
+      {
+        "label": "2019年",
+        "unit": null,
+        "values": [
+          "2019年",
+          12903,
+          7981,
+          4922
+        ]
+      },
+      {
+        "label": "2020年",
+        "unit": null,
+        "values": [
+          "2020年",
+          16220,
+          10850,
+          5370
+        ]
+      },
+      {
+        "label": "2021年",
+        "unit": null,
+        "values": [
+          "2021年",
+          19237,
+          13918,
+          5319
+        ]
+      },
+      {
+        "label": "2022年",
+        "unit": null,
+        "values": [
+          "2022年",
+          20599,
+          15321,
+          5278
+        ]
+      },
+      {
+        "label": "2023年",
+        "unit": null,
+        "values": [
+          "2023年",
+          23744,
+          18409,
+          5335
+        ]
+      }
+    ]
+  },
+  "title": "2018-2023年跨境电商进出口总体情况表",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_eb3ec4d0ee1187e0323477b0/row_band_01.jpg",
+        "review-crops/da_eb3ec4d0ee1187e0323477b0/row_band_02.jpg",
+        "review-crops/da_eb3ec4d0ee1187e0323477b0/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.965",
+      "crop_verification_elapsed_seconds:4.602",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

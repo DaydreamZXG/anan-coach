@@ -1,0 +1,128 @@
+{
+  "acceptanceGate": "No subtype may enter final manifest until representative topology and visual review pass.",
+  "counts": {
+    "annotated_explanation": 204,
+    "circle_composition": 82,
+    "circle_curve_composition": 73,
+    "circle_polygon_composition": 1038,
+    "closed_polygon_composition": 315,
+    "complex_silhouette_candidate": 144,
+    "curve_line_composition": 1,
+    "dot_marker_composition": 68,
+    "excluded_by_user": 1,
+    "filled_region_composition": 186,
+    "folded_3d_candidate": 1,
+    "glyph_geometry_composition": 2,
+    "grid_partition": 330,
+    "irregular_curve_composition": 18,
+    "mixed_regular_composition": 17,
+    "semantic_symbol_candidate": 35,
+    "straight_line_network": 119,
+    "textured_sector_candidate": 1,
+    "tonal_life_or_raster_candidate": 29
+  },
+  "excludedAssets": 1,
+  "excludedBySubtypePolicy": {},
+  "failures": [],
+  "lifeSilhouetteRestoredAssets": 144,
+  "naturalPhotoScopeReviewAssets": 29,
+  "rendererCandidateSubtypes": [
+    "circle_composition",
+    "circle_polygon_composition",
+    "closed_polygon_composition",
+    "dot_marker_composition",
+    "filled_region_composition",
+    "grid_partition",
+    "straight_line_network"
+  ],
+  "representatives": {
+    "annotated_explanation": [
+      "gr_08a7ae8e6cc48d202f971241",
+      "gr_0dd3fd52d42a7becef879a8a",
+      "gr_132746ca630c8515e66e458e"
+    ],
+    "circle_composition": [
+      "gr_0751a8530a3a10bda058e654",
+      "gr_4b09c2732e34e6bbd356a867",
+      "gr_4bbf9ccaa5ea379099acaadd"
+    ],
+    "circle_curve_composition": [
+      "gr_48264947261853503adab067",
+      "gr_484067c74f50f04ee2659df6",
+      "gr_5005f91439d84e4b860e934c"
+    ],
+    "circle_polygon_composition": [
+      "gr_0da31bf3dc566f45b631ac2f",
+      "gr_13fb1d9b6087d8659bf27be7",
+      "gr_1456b0642fb04caa6e06545b"
+    ],
+    "closed_polygon_composition": [
+      "gr_04e035b524f3d4f31f2913cf",
+      "gr_09a239f1f5c89bec86ff315d",
+      "gr_17ff8208c39648d9f2feb8bb"
+    ],
+    "curve_line_composition": [
+      "gr_0d0ad718552cc42c7c9d9156"
+    ],
+    "dot_marker_composition": [
+      "gr_20f0ab65d8b63dede5d99475",
+      "gr_23eb66bafbc11ed2cbfcb64e",
+      "gr_2565e9eb974667aa3ab5d72f"
+    ],
+    "filled_region_composition": [
+      "gr_2d4f0c0ad9f53d5bd51ddb41",
+      "gr_4123d71d6daf86d207a5ad90",
+      "gr_41b50f0cf61b4c9dee854cb4"
+    ],
+    "folded_3d_candidate": [
+      "gr_2a136a39c7a647a95f818e3a"
+    ],
+    "glyph_geometry_composition": [
+      "gr_06d3e2e27b69a7ff3eecf277",
+      "gr_57e7a141aff441e4dc350d64"
+    ],
+    "grid_partition": [
+      "gr_814f04ca63ec75e0fd69a9fb",
+      "gr_cc3e6a37ca7f3020e52a8834",
+      "gr_d683b5c38defafcf6474cee2"
+    ],
+    "irregular_curve_composition": [
+      "gr_28514ad6413332884fd480c4",
+      "gr_3c67a321d6f60ea47cfa8497",
+      "gr_7e825cde97403c0bd6fb5160"
+    ],
+    "mixed_regular_composition": [
+      "gr_2128f79c2ff5312984dc4a3b",
+      "gr_533c14f8fbbe27e58884ee86",
+      "gr_8033777ed884d4f7e3a5a8e2"
+    ],
+    "semantic_symbol_candidate": [
+      "gr_13846c114f333fbfe8da9bb7",
+      "gr_f0320046f8c5d2422efb52cf",
+      "gr_12bed48ffc6328d15273d66f"
+    ],
+    "straight_line_network": [
+      "gr_048b858b959cf9ba2f67f676",
+      "gr_06e94661142e35ee6757e42d",
+      "gr_29c8c32c91d890e82ddc963c"
+    ],
+    "textured_sector_candidate": [
+      "gr_1647679e90a10f0e6871527e"
+    ]
+  },
+  "schemaVersion": "regular-geometry-subtypes-v1",
+  "scopePolicyVersion": "graphic-reasoning-exclusion-policy-v2",
+  "semanticOrRendererPendingSubtypes": [
+    "annotated_explanation",
+    "circle_curve_composition",
+    "curve_line_composition",
+    "folded_3d_candidate",
+    "glyph_geometry_composition",
+    "irregular_curve_composition",
+    "mixed_regular_composition",
+    "semantic_symbol_candidate",
+    "textured_sector_candidate"
+  ],
+  "status": "subtypes_routed_representative_review_pending",
+  "totalRegularGeometry": 2664
+}

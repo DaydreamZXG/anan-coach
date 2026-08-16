@@ -1,0 +1,260 @@
+{
+  "asset_id": "da_8b9655ed5f90677645391493",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 700,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600,
+          700
+        ],
+        "title": null,
+        "unit": "亿件"
+      }
+    ]
+  },
+  "categories": [
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "同城快递",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "异地快递",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "国际/港澳台快递",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "同城快递",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿件",
+      "values": [
+        74.1,
+        92.7,
+        114.1,
+        110.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "异地快递",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿件",
+      "values": [
+        232.5,
+        299.6,
+        381.9,
+        510.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "国际/港澳台快递",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿件",
+      "values": [
+        6.2,
+        8.3,
+        11.1,
+        14.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0109_1b60f1c47e8e4a6d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0109_1b60f1c47e8e4a6d.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f2216b67c4262d841aca",
+        "question_number": 96,
+        "source_jsonl_line": 16711
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0109_1b60f1c47e8e4a6d.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b7f7863d66694a7984c9",
+        "question_number": 97,
+        "source_jsonl_line": 16712
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0109_1b60f1c47e8e4a6d.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_faf0bb32f2014d38b9c1",
+        "question_number": 98,
+        "source_jsonl_line": 16713
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0107_6f48c8370fedd742.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e56f917ca93fde429488",
+        "question_number": 99,
+        "source_jsonl_line": 16714
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0109_1b60f1c47e8e4a6d.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_976d5efc981bdacbdf92",
+        "question_number": 100,
+        "source_jsonl_line": 16715
+      }
+    ],
+    "sha256": "8b9655ed5f90677645391493162a9db923e3b3043c707dbb427c9a7fb575d56a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2016年",
+      "2017年",
+      "2018年",
+      "2019年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "快递类型",
+    "rows": [
+      {
+        "display_label": "同城快递",
+        "group": null,
+        "label": "同城快递",
+        "unit": "亿件",
+        "values": [
+          74.1,
+          92.7,
+          114.1,
+          110.4
+        ]
+      },
+      {
+        "display_label": "异地快递",
+        "group": null,
+        "label": "异地快递",
+        "unit": "亿件",
+        "values": [
+          232.5,
+          299.6,
+          381.9,
+          510.4
+        ]
+      },
+      {
+        "display_label": "国际/港澳台快递",
+        "group": null,
+        "label": "国际/港澳台快递",
+        "unit": "亿件",
+        "values": [
+          6.2,
+          8.3,
+          11.1,
+          14.4
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": "2016-2019年全国不同类型的快递业务量",
+  "unit": "亿件",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8b9655ed5f90677645391493/column_band_01.jpg",
+        "review-crops/da_8b9655ed5f90677645391493/column_band_02.jpg",
+        "review-crops/da_8b9655ed5f90677645391493/column_band_03.jpg",
+        "review-crops/da_8b9655ed5f90677645391493/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.148",
+      "crop_verification_elapsed_seconds:3.23",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

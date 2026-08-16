@@ -1,0 +1,220 @@
+{
+  "asset_id": "da_35d5e65fadf40aa30619a232",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "俄罗斯",
+    "泰国",
+    "加拿大",
+    "美国",
+    "其他"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      175.0,
+      226.893,
+      249.637,
+      266.781,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 175.0,
+        "label": "俄罗斯",
+        "share": 0.48611111,
+        "start_angle": 0.0,
+        "sweep_angle": 175.0
+      },
+      {
+        "end_angle": 226.893,
+        "label": "泰国",
+        "share": 0.1441467,
+        "start_angle": 175.0,
+        "sweep_angle": 51.893
+      },
+      {
+        "end_angle": 249.637,
+        "label": "加拿大",
+        "share": 0.063177,
+        "start_angle": 226.893,
+        "sweep_angle": 22.744
+      },
+      {
+        "end_angle": 266.781,
+        "label": "美国",
+        "share": 0.04762488,
+        "start_angle": 249.637,
+        "sweep_angle": 17.145
+      },
+      {
+        "end_angle": 360.0,
+        "label": "其他",
+        "share": 0.25894031,
+        "start_angle": 266.781,
+        "sweep_angle": 93.219
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.48611111,
+        0.1441467,
+        0.063177,
+        0.04762488,
+        0.25894031
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0099_20e3746a4ef11898.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0099_20e3746a4ef11898.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_9d2b86d7c95f60b1e0f4",
+        "question_number": 121,
+        "source_jsonl_line": 20581
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0105_933f79e58a5ded24.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_fc09164e436eecb9713e",
+        "question_number": 122,
+        "source_jsonl_line": 20582
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0105_933f79e58a5ded24.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_3c74c018110b4176988f",
+        "question_number": 123,
+        "source_jsonl_line": 20583
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0099_20e3746a4ef11898.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_76f83f363ad10e6a2e36",
+        "question_number": 124,
+        "source_jsonl_line": 20584
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0099_20e3746a4ef11898.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_cc4dc5d33e1cdd3d4650",
+        "question_number": 125,
+        "source_jsonl_line": 20585
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0142_933f79e58a5ded24.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_8a0573dfcf4a8dedeb87",
+        "question_number": 121,
+        "source_jsonl_line": 20711
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0139_20e3746a4ef11898.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_a7cb90a15ba477522c9a",
+        "question_number": 122,
+        "source_jsonl_line": 20712
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0139_20e3746a4ef11898.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_8211b99b758c49551354",
+        "question_number": 123,
+        "source_jsonl_line": 20713
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0139_20e3746a4ef11898.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_358b469401666ecf77a4",
+        "question_number": 124,
+        "source_jsonl_line": 20714
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0142_933f79e58a5ded24.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_aff9b84a30ccc31ea318",
+        "question_number": 125,
+        "source_jsonl_line": 20715
+      }
+    ],
+    "sha256": "35d5e65fadf40aa30619a232b7271ed3da06b2dbf041cdc1b03bf34934a4f854"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2021年我国木材主要进口来源国进口量",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_35d5e65fadf40aa30619a232/quadrant_01.jpg",
+        "review-crops/da_35d5e65fadf40aa30619a232/quadrant_02.jpg",
+        "review-crops/da_35d5e65fadf40aa30619a232/quadrant_03.jpg",
+        "review-crops/da_35d5e65fadf40aa30619a232/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.77",
+      "crop_verification_elapsed_seconds:1.428",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_pie_label_crop_verification",
+      "circle_edge_coverage:1.0000",
+      "hough_circle_radius_ratio:0.3599",
+      "radial_line_candidates:20",
+      "detected_boundaries:5"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

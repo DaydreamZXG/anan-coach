@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "pie-chart-v1",
+  "sourceQuestionId": "cq_f7ddd1520e0b15b52896df42",
+  "sourceAsset": "img_0128_95e80f8bfb7fd6cf.png",
+  "chartType": "pie",
+  "rotationConvention": "top_clockwise",
+  "labelsClockwise": ["1", "2", "3", "4"],
+  "boundariesDegrees": [0, 29, 193, 275, 360],
+  "slices": [
+    {"label": "1", "startAngle": 0, "endAngle": 29, "sweepAngle": 29, "share": 0.0806},
+    {"label": "2", "startAngle": 29, "endAngle": 193, "sweepAngle": 164, "share": 0.4556},
+    {"label": "3", "startAngle": 193, "endAngle": 275, "sweepAngle": 82, "share": 0.2278},
+    {"label": "4", "startAngle": 275, "endAngle": 360, "sweepAngle": 85, "share": 0.2361}
+  ],
+  "extraction": {
+    "labelOwner": "qwen3-vl-30b-a3b",
+    "geometryOwner": "opencv_radial_boundary_scan",
+    "vlmElapsedSeconds": 2.698,
+    "vlmGeometryAccepted": false,
+    "geometryValidation": "four_closed_slices_sum_to_360"
+  }
+}

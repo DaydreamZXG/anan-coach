@@ -1,0 +1,14 @@
+{
+  "applied": true,
+  "decision": "source_image_human_verified",
+  "prior_provider_counts": {
+    "qwen3_vl_local": 2741
+  },
+  "prior_status_counts": {
+    "needs_manual_review": 2741
+  },
+  "review_inventory": "reports/question-formula-batch/rapidocr-crosscheck-final-q0-details.json",
+  "reviewed_at": "2026-08-11",
+  "reviewed_count": 2741,
+  "schema_version": "formula-manual-chinese-review-summary-v1"
+}

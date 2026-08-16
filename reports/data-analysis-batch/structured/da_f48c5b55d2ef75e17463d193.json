@@ -1,0 +1,196 @@
+{
+  "asset_id": "da_f48c5b55d2ef75e17463d193",
+  "axes": {
+    "x": {
+      "max": 2006,
+      "min": 2000,
+      "ticks": [
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 25,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2000",
+    "2001",
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "M1增长率（%）",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "M2增长率（%）",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "M1",
+      "label": "M1增长率（%）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        16,
+        12.7,
+        16.8,
+        18.7,
+        13.6,
+        11.8,
+        17.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "M2",
+      "label": "M2增长率（%）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        12.3,
+        17.6,
+        16.8,
+        19.6,
+        14.7,
+        17.6,
+        16.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2008年湖北省公务员录用考试《行测》题（B类）_images/img_0067_64abb0e802b75f5c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（B类）_images/img_0067_64abb0e802b75f5c.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_2ed98519449253134876",
+        "question_number": 111,
+        "source_jsonl_line": 68862
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（B类）_images/img_0067_64abb0e802b75f5c.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_8863272e5118d66f2878",
+        "question_number": 112,
+        "source_jsonl_line": 68863
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（B类）_images/img_0067_64abb0e802b75f5c.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_e4a8133767337a95a78d",
+        "question_number": 113,
+        "source_jsonl_line": 68864
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（B类）_images/img_0072_5e5ac1d2378622b2.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_586f3dda1773d8196efe",
+        "question_number": 114,
+        "source_jsonl_line": 68865
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（B类）_images/img_0072_5e5ac1d2378622b2.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_5a3d7de39c7b845345ae",
+        "question_number": 115,
+        "source_jsonl_line": 68866
+      }
+    ],
+    "sha256": "f48c5b55d2ef75e17463d193a180d269e177090c7d0a63f3e7f137982ff65576"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f48c5b55d2ef75e17463d193/column_band_01.jpg",
+        "review-crops/da_f48c5b55d2ef75e17463d193/column_band_02.jpg",
+        "review-crops/da_f48c5b55d2ef75e17463d193/column_band_03.jpg",
+        "review-crops/da_f48c5b55d2ef75e17463d193/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.077",
+      "crop_verification_elapsed_seconds:4.524",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

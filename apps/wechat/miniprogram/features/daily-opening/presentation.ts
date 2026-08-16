@@ -9,6 +9,7 @@ export interface DailyOpeningPresentation {
   weatherLocationRequired: boolean;
   weatherUnavailable: boolean;
   weatherHeadline: string;
+  weatherCompactLabel: string;
   weatherDetail: string;
   attributionUrl: string;
   attributionVisible: boolean;
@@ -65,6 +66,9 @@ export function presentDailyOpening(view: DailyOpeningView): DailyOpeningPresent
     weatherUnavailable: view.weather.state === "provider_unavailable",
     weatherHeadline: summary
       ? `${summary.locationLabel} · ${condition}\u00a0${rounded(summary.currentCelsius)}°`
+      : "",
+    weatherCompactLabel: summary
+      ? `${condition} · 降雨${String(Math.round(summary.precipitationChance * 100))}% · ${rounded(summary.currentCelsius)}°`
       : "",
     weatherDetail: summary
       ? `${rounded(summary.minimumCelsius)}°–${rounded(summary.maximumCelsius)}° · 降水\u00a0${String(Math.round(summary.precipitationChance * 100))}%`

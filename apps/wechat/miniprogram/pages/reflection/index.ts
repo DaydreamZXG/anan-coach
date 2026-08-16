@@ -4,6 +4,8 @@ import { XfyunApi } from "./features/api/xfyun";
 import {
   XingceLearningApi,
   type XingceRescue,
+  type XingceTeachBackSession,
+  type XingceTeachBackTransferReceipt,
   type XingceTaskSession,
 } from "./shared/api/xingce-learning";
 import { routes, type AppRoute } from "../../app/navigation/routes";
@@ -201,6 +203,17 @@ interface ReflectionPageData {
   rescueLoading: boolean;
   rescueError: boolean;
   rescueSimilarQuestionOpen: boolean;
+  teachBackOpen: boolean;
+  teachBackExplanation: string;
+  teachBackLoading: boolean;
+  teachBackSession: XingceTeachBackSession | null;
+  teachBackSelectedOptionIds: string[];
+  teachBackConfidence: "low" | "medium" | "high";
+  teachBackConfidenceOptions: Array<{
+    value: "low" | "medium" | "high";
+    label: string;
+  }>;
+  teachBackReceipt: XingceTeachBackTransferReceipt | null;
 }
 
 interface ReflectionPageCustom {
@@ -260,6 +273,12 @@ interface ReflectionPageCustom {
   toggleRescueSimilarQuestion(): void;
   startRescuePractice(): void;
   retryRescue(): Promise<void>;
+  openTeachBack(): void;
+  inputTeachBackExplanation(event: WechatMiniprogram.Input): void;
+  submitTeachBack(): Promise<void>;
+  selectTeachBackOption(event: WechatMiniprogram.BaseEvent): void;
+  selectTeachBackConfidence(event: WechatMiniprogram.BaseEvent): void;
+  submitTeachBackTransfer(): Promise<void>;
 }
 
 interface ReflectionRuntime {
@@ -362,6 +381,18 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     rescueLoading: false,
     rescueError: false,
     rescueSimilarQuestionOpen: false,
+    teachBackOpen: false,
+    teachBackExplanation: "",
+    teachBackLoading: false,
+    teachBackSession: null,
+    teachBackSelectedOptionIds: [],
+    teachBackConfidence: "medium",
+    teachBackConfidenceOptions: [
+      { value: "low", label: "不确定" },
+      { value: "medium", label: "有把握" },
+      { value: "high", label: "很确定" },
+    ],
+    teachBackReceipt: null,
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -505,7 +536,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     if (this.data.phase !== "completed") {
       const result = await wx.showModal({
         title: "本次复盘还没完成",
-        content: "别担心，退出后这项任务还会留在待复盘里，回头接着做就行。",
+        content: "退出后不会丢。它会留在「能力 → 刚做的错题与待复盘」，回头可从原题继续。",
         confirmText: "仍要退出",
       });
       if (!result.confirm) return;
@@ -1217,13 +1248,96 @@ Page<ReflectionPageData, ReflectionPageCustom>({
 
   // 「再练一道同类题」：跳到针对训练作答页（不打断现有完成态）。
   startRescuePractice() {
+    this.openTeachBack();
+  },
+
+  openTeachBack() {
+    const item = this.data.rescue?.items.at(0);
+    if (!item?.teachBackAvailable || this.data.teachBackLoading) return;
+    this.setData({ teachBackOpen: true });
+  },
+
+  inputTeachBackExplanation(event) {
+    if (!this.data.teachBackLoading) {
+      this.setData({ teachBackExplanation: event.detail.value });
+    }
+  },
+
+  async submitTeachBack() {
     const runtime = runtimes.get(this);
-    const rescue = this.data.rescue;
-    const similar = rescue?.items?.at(0)?.similarQuestion;
-    if (!runtime?.session || !rescue || !similar || this.data.rescueLoading) return;
-    // 同类题暂以内嵌预览展示（答案与解析在卡片内）；正式交互式再练
-    // 需要独立的单题作答会话，作为救场下一步。
-    this.toggleRescueSimilarQuestion();
+    const item = this.data.rescue?.items.at(0);
+    const explanation = this.data.teachBackExplanation.trim();
+    if (!runtime || !runtimeIsActive(this, runtime) || !item || this.data.teachBackLoading) return;
+    if (!explanation) {
+      void wx.showToast({ title: "先把方法讲给岸岸听", icon: "none" });
+      return;
+    }
+    this.setData({ teachBackLoading: true, teachBackSession: null, teachBackReceipt: null });
+    try {
+      const commandId = await createIdempotencyKey("xingce-teach-back");
+      const response = await runtime.api.startTeachBack(runtime.reviewId, {
+        commandId,
+        sourceQuestionId: item.questionId,
+        userExplanation: explanation,
+      });
+      if (!runtimeIsActive(this, runtime)) return;
+      this.setData({
+        teachBackSession: response.data,
+        teachBackSelectedOptionIds: [],
+      });
+    } catch (error) {
+      if (!runtimeIsActive(this, runtime)) return;
+      void wx.showToast({
+        title: error instanceof ApiClientError ? error.message : "岸岸暂时没复现出来",
+        icon: "none",
+      });
+    } finally {
+      if (runtimeIsActive(this, runtime)) this.setData({ teachBackLoading: false });
+    }
+  },
+
+  selectTeachBackOption(event) {
+    if (this.data.teachBackLoading || !this.data.teachBackSession?.transferQuestion) return;
+    const optionId = String(event.currentTarget.dataset.optionId ?? "").trim();
+    if (optionId) this.setData({ teachBackSelectedOptionIds: [optionId] });
+  },
+
+  selectTeachBackConfidence(event) {
+    const confidence = String(event.currentTarget.dataset.confidence ?? "");
+    if (confidence === "low" || confidence === "medium" || confidence === "high") {
+      this.setData({ teachBackConfidence: confidence });
+    }
+  },
+
+  async submitTeachBackTransfer() {
+    const runtime = runtimes.get(this);
+    const teachBack = this.data.teachBackSession;
+    if (!runtime || !runtimeIsActive(this, runtime) || !teachBack || this.data.teachBackLoading)
+      return;
+    if (!this.data.teachBackSelectedOptionIds.length) {
+      void wx.showToast({ title: "先选一个答案", icon: "none" });
+      return;
+    }
+    this.setData({ teachBackLoading: true });
+    try {
+      const commandId = await createIdempotencyKey("xingce-teach-back-transfer");
+      const response = await runtime.api.submitTeachBackTransfer(teachBack.sessionId, {
+        commandId,
+        revision: teachBack.revision,
+        selectedOptionIds: this.data.teachBackSelectedOptionIds,
+        confidence: this.data.teachBackConfidence,
+      });
+      if (!runtimeIsActive(this, runtime)) return;
+      this.setData({ teachBackReceipt: response.data });
+    } catch (error) {
+      if (!runtimeIsActive(this, runtime)) return;
+      void wx.showToast({
+        title: error instanceof ApiClientError ? error.message : "迁移结果暂时没保存好",
+        icon: "none",
+      });
+    } finally {
+      if (runtimeIsActive(this, runtime)) this.setData({ teachBackLoading: false });
+    }
   },
 
   async startImmediateVerification() {
@@ -2017,6 +2131,12 @@ function invalidateForAccountChange(
     rescueLoading: false,
     rescueError: false,
     rescueSimilarQuestionOpen: false,
+    teachBackOpen: false,
+    teachBackExplanation: "",
+    teachBackLoading: false,
+    teachBackSession: null,
+    teachBackSelectedOptionIds: [],
+    teachBackReceipt: null,
   });
 }
 

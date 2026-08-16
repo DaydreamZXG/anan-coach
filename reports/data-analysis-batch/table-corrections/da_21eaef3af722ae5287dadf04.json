@@ -1,0 +1,203 @@
+{
+  "confidence": 1.0,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "燃煤",
+          "水力",
+          "天然气",
+          "核能",
+          "石油",
+          "其他"
+        ],
+        "label": "不同类型能源发电量占世界发电量比重"
+      }
+    ],
+    "columns": [
+      "燃煤",
+      "水力",
+      "天然气",
+      "核能",
+      "石油",
+      "其他"
+    ],
+    "confidence": 1.0,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "display_label": "2000",
+        "group": null,
+        "label": "2000",
+        "unit": null,
+        "values": [
+          38.9,
+          16.9,
+          17.6,
+          16.8,
+          7.35,
+          2.45
+        ]
+      },
+      {
+        "display_label": "2001",
+        "group": null,
+        "label": "2001",
+        "unit": null,
+        "values": [
+          38.66,
+          16.39,
+          18.44,
+          16.99,
+          7.1,
+          2.42
+        ]
+      },
+      {
+        "display_label": "2002",
+        "group": null,
+        "label": "2002",
+        "unit": null,
+        "values": [
+          38.93,
+          16.2,
+          18.99,
+          16.5,
+          6.8,
+          2.58
+        ]
+      },
+      {
+        "display_label": "2003",
+        "group": null,
+        "label": "2003",
+        "unit": null,
+        "values": [
+          40.15,
+          15.71,
+          19.24,
+          15.77,
+          6.51,
+          2.62
+        ]
+      },
+      {
+        "display_label": "2004",
+        "group": null,
+        "label": "2004",
+        "unit": null,
+        "values": [
+          39.59,
+          15.97,
+          19.7,
+          15.64,
+          6.33,
+          2.77
+        ]
+      },
+      {
+        "display_label": "2005",
+        "group": null,
+        "label": "2005",
+        "unit": null,
+        "values": [
+          39.88,
+          15.93,
+          20.2,
+          15.12,
+          5.61,
+          3.26
+        ]
+      },
+      {
+        "display_label": "2006",
+        "group": null,
+        "label": "2006",
+        "unit": null,
+        "values": [
+          40.58,
+          15.9,
+          20.45,
+          14.68,
+          4.98,
+          3.41
+        ]
+      },
+      {
+        "display_label": "2007",
+        "group": null,
+        "label": "2007",
+        "unit": null,
+        "values": [
+          41.18,
+          15.42,
+          21.2,
+          13.7,
+          4.78,
+          3.72
+        ]
+      },
+      {
+        "display_label": "2008",
+        "group": null,
+        "label": "2008",
+        "unit": null,
+        "values": [
+          40.7,
+          15.74,
+          21.53,
+          13.49,
+          4.55,
+          3.99
+        ]
+      },
+      {
+        "display_label": "2009",
+        "group": null,
+        "label": "2009",
+        "unit": null,
+        "values": [
+          40.11,
+          16.06,
+          21.81,
+          13.35,
+          4.18,
+          4.49
+        ]
+      },
+      {
+        "display_label": "2010",
+        "group": null,
+        "label": "2010",
+        "unit": null,
+        "values": [
+          40.2,
+          15.9,
+          22.34,
+          12.82,
+          3.73,
+          5.01
+        ]
+      },
+      {
+        "display_label": "2011",
+        "group": null,
+        "label": "2011",
+        "unit": null,
+        "values": [
+          41.1,
+          15.69,
+          21.96,
+          11.63,
+          3.91,
+          5.71
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

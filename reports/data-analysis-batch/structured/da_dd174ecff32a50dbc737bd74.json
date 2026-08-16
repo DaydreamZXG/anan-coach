@@ -1,0 +1,835 @@
+{
+  "asset_id": "da_dd174ecff32a50dbc737bd74",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0128_50e5c7a0b1c38fa1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0128_50e5c7a0b1c38fa1.png",
+        "paper_title": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验",
+        "question_id": "pq_b32bbe3531e9fd9d0f91",
+        "question_number": 58,
+        "source_jsonl_line": 87555
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0144_f4441943d607d5db.png",
+        "paper_title": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验",
+        "question_id": "pq_41048c435ba4ae884a32",
+        "question_number": 59,
+        "source_jsonl_line": 87556
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0128_50e5c7a0b1c38fa1.png",
+        "paper_title": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验",
+        "question_id": "pq_dfa8081afc001ba5f9ff",
+        "question_number": 60,
+        "source_jsonl_line": 87557
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0128_50e5c7a0b1c38fa1.png",
+        "paper_title": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验",
+        "question_id": "pq_a7cf3976fa6dd962157d",
+        "question_number": 61,
+        "source_jsonl_line": 87558
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0144_f4441943d607d5db.png",
+        "paper_title": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验",
+        "question_id": "pq_098ef89fa0e0e4305628",
+        "question_number": 62,
+        "source_jsonl_line": 87559
+      }
+    ],
+    "sha256": "dd174ecff32a50dbc737bd74fa23c2f05601e59f6dc89a577789409b456c20ae"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "综合指数｜排名",
+          "综合指数｜数值"
+        ],
+        "label": "综合指数"
+      },
+      {
+        "columns": [
+          "PM2.5｜排名",
+          "PM2.5｜数值"
+        ],
+        "label": "PM2.5"
+      },
+      {
+        "columns": [
+          "PM10｜排名",
+          "PM10｜数值"
+        ],
+        "label": "PM10"
+      },
+      {
+        "columns": [
+          "SO₂｜排名",
+          "SO₂｜数值"
+        ],
+        "label": "SO₂"
+      },
+      {
+        "columns": [
+          "NO₂｜排名",
+          "NO₂｜数值"
+        ],
+        "label": "NO₂"
+      },
+      {
+        "columns": [
+          "CO-95per｜排名",
+          "CO-95per｜数值"
+        ],
+        "label": "CO-95per"
+      },
+      {
+        "columns": [
+          "O₃-8H-90per｜排名",
+          "O₃-8H-90per｜数值"
+        ],
+        "label": "O₃-8H-90per"
+      }
+    ],
+    "columns": [
+      "综合指数｜排名",
+      "综合指数｜数值",
+      "PM2.5｜排名",
+      "PM2.5｜数值",
+      "PM10｜排名",
+      "PM10｜数值",
+      "SO₂｜排名",
+      "SO₂｜数值",
+      "NO₂｜排名",
+      "NO₂｜数值",
+      "CO-95per｜排名",
+      "CO-95per｜数值",
+      "O₃-8H-90per｜排名",
+      "O₃-8H-90per｜数值"
+    ],
+    "corner_header": {
+      "lower_label": "数值",
+      "style": "diagonal",
+      "upper_label": "排名"
+    },
+    "missing_cells": [],
+    "row_header_label": "数值",
+    "rows": [
+      {
+        "display_label": "厦门",
+        "group": null,
+        "label": "厦门",
+        "unit": null,
+        "values": [
+          2,
+          3.42,
+          2,
+          28,
+          2,
+          48,
+          6,
+          11,
+          6,
+          38,
+          2,
+          0.9,
+          26,
+          93
+        ]
+      },
+      {
+        "display_label": "贵阳",
+        "group": null,
+        "label": "贵阳",
+        "unit": null,
+        "values": [
+          3,
+          3.83,
+          6,
+          39,
+          3,
+          59,
+          20,
+          23,
+          2,
+          29,
+          4,
+          1.2,
+          14,
+          76
+        ]
+      },
+      {
+        "display_label": "昆明",
+        "group": null,
+        "label": "昆明",
+        "unit": null,
+        "values": [
+          4,
+          3.88,
+          3,
+          33,
+          5,
+          62,
+          17,
+          16,
+          4,
+          37,
+          5,
+          1.3,
+          24,
+          86
+        ]
+      },
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          5,
+          3.92,
+          5,
+          34,
+          6,
+          64,
+          3,
+          8,
+          9,
+          42,
+          15,
+          1.7,
+          8,
+          71
+        ]
+      },
+      {
+        "display_label": "拉萨",
+        "group": null,
+        "label": "拉萨",
+        "unit": null,
+        "values": [
+          6,
+          4,
+          3,
+          33,
+          14,
+          83,
+          2,
+          7,
+          2,
+          29,
+          6,
+          1.4,
+          30,
+          109
+        ]
+      },
+      {
+        "display_label": "深圳",
+        "group": null,
+        "label": "深圳",
+        "unit": null,
+        "values": [
+          7,
+          4.12,
+          6,
+          39,
+          4,
+          61,
+          3,
+          8,
+          4,
+          37,
+          3,
+          1.1,
+          32,
+          129
+        ]
+      },
+      {
+        "display_label": "南昌",
+        "group": null,
+        "label": "南昌",
+        "unit": null,
+        "values": [
+          8,
+          4.72,
+          9,
+          48,
+          9,
+          73,
+          11,
+          13,
+          10,
+          46,
+          18,
+          1.8,
+          16,
+          79
+        ]
+      },
+      {
+        "display_label": "长春",
+        "group": null,
+        "label": "长春",
+        "unit": null,
+        "values": [
+          9,
+          5.07,
+          10,
+          50,
+          8,
+          72,
+          29,
+          48,
+          8,
+          41,
+          10,
+          1.6,
+          5,
+          63
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          10,
+          5.16,
+          15,
+          58,
+          6,
+          64,
+          12,
+          14,
+          22,
+          58,
+          15,
+          1.7,
+          16,
+          79
+        ]
+      },
+      {
+        "display_label": "重庆",
+        "group": null,
+        "label": "重庆",
+        "unit": null,
+        "values": [
+          11,
+          5.22,
+          16,
+          59,
+          17,
+          86,
+          9,
+          12,
+          19,
+          54,
+          10,
+          1.6,
+          2,
+          56
+        ]
+      },
+      {
+        "display_label": "南宁",
+        "group": null,
+        "label": "南宁",
+        "unit": null,
+        "values": [
+          12,
+          5.24,
+          12,
+          54,
+          12,
+          81,
+          12,
+          14,
+          15,
+          51,
+          15,
+          1.7,
+          28,
+          97
+        ]
+      },
+      {
+        "display_label": "天津",
+        "group": null,
+        "label": "天津",
+        "unit": null,
+        "values": [
+          14,
+          5.4,
+          11,
+          52,
+          13,
+          82,
+          19,
+          19,
+          20,
+          56,
+          24,
+          2.4,
+          7,
+          68
+        ]
+      },
+      {
+        "display_label": "长沙",
+        "group": null,
+        "label": "长沙",
+        "unit": null,
+        "values": [
+          15,
+          5.56,
+          22,
+          79,
+          10,
+          75,
+          9,
+          12,
+          10,
+          46,
+          7,
+          1.5,
+          19,
+          80
+        ]
+      },
+      {
+        "display_label": "沈阳",
+        "group": null,
+        "label": "沈阳",
+        "unit": null,
+        "values": [
+          16,
+          5.65,
+          13,
+          55,
+          15,
+          84,
+          28,
+          45,
+          14,
+          49,
+          21,
+          2,
+          6,
+          65
+        ]
+      },
+      {
+        "display_label": "杭州",
+        "group": null,
+        "label": "杭州",
+        "unit": null,
+        "values": [
+          17,
+          5.84,
+          18,
+          66,
+          20,
+          95,
+          12,
+          14,
+          24,
+          60,
+          7,
+          1.5,
+          14,
+          76
+        ]
+      },
+      {
+        "display_label": "广州",
+        "group": null,
+        "label": "广州",
+        "unit": null,
+        "values": [
+          18,
+          6.16,
+          17,
+          62,
+          11,
+          80,
+          12,
+          14,
+          31,
+          75,
+          10,
+          1.6,
+          31,
+          118
+        ]
+      },
+      {
+        "display_label": "武汉",
+        "group": null,
+        "label": "武汉",
+        "unit": null,
+        "values": [
+          19,
+          6.16,
+          24,
+          86,
+          18,
+          87,
+          6,
+          11,
+          17,
+          53,
+          18,
+          1.8,
+          21,
+          82
+        ]
+      },
+      {
+        "display_label": "合肥",
+        "group": null,
+        "label": "合肥",
+        "unit": null,
+        "values": [
+          20,
+          6.17,
+          27,
+          88,
+          16,
+          85,
+          5,
+          9,
+          17,
+          53,
+          10,
+          1.6,
+          26,
+          93
+        ]
+      },
+      {
+        "display_label": "银川",
+        "group": null,
+        "label": "银川",
+        "unit": null,
+        "values": [
+          21,
+          6.32,
+          14,
+          57,
+          22,
+          108,
+          31,
+          61,
+          7,
+          40,
+          24,
+          2.4,
+          23,
+          85
+        ]
+      },
+      {
+        "display_label": "哈尔滨",
+        "group": null,
+        "label": "哈尔滨",
+        "unit": null,
+        "values": [
+          22,
+          6.68,
+          23,
+          81,
+          21,
+          99,
+          30,
+          54,
+          15,
+          51,
+          10,
+          1.6,
+          4,
+          61
+        ]
+      },
+      {
+        "display_label": "西宁",
+        "group": null,
+        "label": "西宁",
+        "unit": null,
+        "values": [
+          23,
+          6.84,
+          19,
+          72,
+          25,
+          127,
+          23,
+          30,
+          12,
+          47,
+          28,
+          3,
+          25,
+          87
+        ]
+      },
+      {
+        "display_label": "成都",
+        "group": null,
+        "label": "成都",
+        "unit": null,
+        "values": [
+          24,
+          6.87,
+          24,
+          86,
+          24,
+          126,
+          6,
+          11,
+          26,
+          62,
+          7,
+          1.5,
+          19,
+          80
+        ]
+      },
+      {
+        "display_label": "南京",
+        "group": null,
+        "label": "南京",
+        "unit": null,
+        "values": [
+          25,
+          7.02,
+          28,
+          90,
+          23,
+          122,
+          12,
+          14,
+          25,
+          61,
+          18,
+          1.8,
+          21,
+          82
+        ]
+      },
+      {
+        "display_label": "太原",
+        "group": null,
+        "label": "太原",
+        "unit": null,
+        "values": [
+          26,
+          7.84,
+          21,
+          77,
+          26,
+          140,
+          32,
+          69,
+          20,
+          56,
+          24,
+          2.4,
+          16,
+          79
+        ]
+      },
+      {
+        "display_label": "兰州",
+        "group": null,
+        "label": "兰州",
+        "unit": null,
+        "values": [
+          27,
+          7.87,
+          20,
+          73,
+          27,
+          147,
+          26,
+          40,
+          30,
+          68,
+          30,
+          3.4,
+          11,
+          74
+        ]
+      },
+      {
+        "display_label": "济南",
+        "group": null,
+        "label": "济南",
+        "unit": null,
+        "values": [
+          28,
+          7.89,
+          26,
+          87,
+          29,
+          151,
+          25,
+          37,
+          27,
+          63,
+          22,
+          2.3,
+          11,
+          74
+        ]
+      },
+      {
+        "display_label": "郑州",
+        "group": null,
+        "label": "郑州",
+        "unit": null,
+        "values": [
+          29,
+          8.48,
+          30,
+          117,
+          27,
+          147,
+          21,
+          23,
+          23,
+          59,
+          27,
+          2.9,
+          10,
+          73
+        ]
+      },
+      {
+        "display_label": "石家庄",
+        "group": null,
+        "label": "石家庄",
+        "unit": null,
+        "values": [
+          30,
+          9.14,
+          29,
+          111,
+          31,
+          171,
+          27,
+          41,
+          28,
+          66,
+          30,
+          3.4,
+          2,
+          56
+        ]
+      },
+      {
+        "display_label": "乌鲁木齐",
+        "group": null,
+        "label": "乌鲁木齐",
+        "unit": null,
+        "values": [
+          31,
+          9.39,
+          31,
+          136,
+          30,
+          168,
+          18,
+          16,
+          28,
+          66,
+          32,
+          3.7,
+          1,
+          42
+        ]
+      },
+      {
+        "display_label": "西安",
+        "group": null,
+        "label": "西安",
+        "unit": null,
+        "values": [
+          32,
+          10.34,
+          32,
+          141,
+          32,
+          191,
+          22,
+          28,
+          32,
+          76,
+          28,
+          3,
+          11,
+          74
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

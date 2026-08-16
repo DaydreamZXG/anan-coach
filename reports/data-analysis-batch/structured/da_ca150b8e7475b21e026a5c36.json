@@ -1,0 +1,188 @@
+{
+  "asset_id": "da_ca150b8e7475b21e026a5c36",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 8000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000,
+          8000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "日本",
+    "中国",
+    "英国",
+    "德国",
+    "韩国",
+    "加拿大"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2004年8月",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "2005年8月",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2004_8",
+      "label": "2004年8月",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        7222,
+        1722,
+        1348,
+        481,
+        633,
+        331
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2005_8",
+      "label": "2005年8月",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        6845,
+        2480,
+        1742,
+        650,
+        501,
+        484
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河南/2008年河南省公务员录用考试《行测》题_images/img_0092_7c02035d54ec651e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河南省公务员录用考试《行测》题_images/img_0092_7c02035d54ec651e.png",
+        "paper_title": "2008年河南省公务员录用考试《行测》题",
+        "question_id": "pq_7bf142181e07ba57799a",
+        "question_number": 126,
+        "source_jsonl_line": 56988
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河南省公务员录用考试《行测》题_images/img_0092_7c02035d54ec651e.png",
+        "paper_title": "2008年河南省公务员录用考试《行测》题",
+        "question_id": "pq_91d84f2bf8c7d36e192e",
+        "question_number": 127,
+        "source_jsonl_line": 56989
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河南省公务员录用考试《行测》题_images/img_0095_0eefbfccc610e600.png",
+        "paper_title": "2008年河南省公务员录用考试《行测》题",
+        "question_id": "pq_c9a2ff78933e152e9955",
+        "question_number": 128,
+        "source_jsonl_line": 56990
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河南省公务员录用考试《行测》题_images/img_0095_0eefbfccc610e600.png",
+        "paper_title": "2008年河南省公务员录用考试《行测》题",
+        "question_id": "pq_13c55946b3af9e9635e3",
+        "question_number": 129,
+        "source_jsonl_line": 56991
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河南省公务员录用考试《行测》题_images/img_0092_7c02035d54ec651e.png",
+        "paper_title": "2008年河南省公务员录用考试《行测》题",
+        "question_id": "pq_0a3a9e75ac21307f0f5d",
+        "question_number": 130,
+        "source_jsonl_line": 56992
+      }
+    ],
+    "sha256": "ca150b8e7475b21e026a5c3668843a1cccc8114f16d68a0b9eba3a7c55b7a17c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ca150b8e7475b21e026a5c36/column_band_01.jpg",
+        "review-crops/da_ca150b8e7475b21e026a5c36/column_band_02.jpg",
+        "review-crops/da_ca150b8e7475b21e026a5c36/column_band_03.jpg",
+        "review-crops/da_ca150b8e7475b21e026a5c36/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.385",
+      "crop_verification_elapsed_seconds:3.138",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

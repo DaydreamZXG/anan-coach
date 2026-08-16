@@ -1,0 +1,242 @@
+{
+  "asset_id": "da_1f6db40b83a2cb23a4c6ab04",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2013年广东省公务员录用考试《行测》题（三）_images/img_0106_aeea67df679e93d5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（三）_images/img_0106_aeea67df679e93d5.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（三）",
+        "question_id": "pq_0f7be68cd0a2763ed7a4",
+        "question_number": 91,
+        "source_jsonl_line": 34223
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（三）_images/img_0106_aeea67df679e93d5.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（三）",
+        "question_id": "pq_75ff032b4f53c9b8e515",
+        "question_number": 92,
+        "source_jsonl_line": 34224
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（三）_images/img_0106_aeea67df679e93d5.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（三）",
+        "question_id": "pq_f13629fdc4cfec239986",
+        "question_number": 93,
+        "source_jsonl_line": 34225
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（三）_images/img_0106_aeea67df679e93d5.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（三）",
+        "question_id": "pq_dab545fc15c6b1ba920c",
+        "question_number": 94,
+        "source_jsonl_line": 34226
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（三）_images/img_0106_aeea67df679e93d5.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（三）",
+        "question_id": "pq_7ac5f310f629039593df",
+        "question_number": 95,
+        "source_jsonl_line": 34227
+      }
+    ],
+    "sha256": "1f6db40b83a2cb23a4c6ab04c25ff141ebfe0bbf5cdc9dec4ab76cefe168bb18"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "特大型城市",
+      "大城市",
+      "中等城市",
+      "小城市"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "前 50 名",
+        "group": "城市排名（档次）",
+        "label": "城市排名（档次）｜前 50 名｜2002",
+        "unit": null,
+        "values": [
+          2002,
+          37,
+          10,
+          3,
+          0
+        ]
+      },
+      {
+        "display_label": "前 50 名",
+        "group": "城市排名（档次）",
+        "label": "城市排名（档次）｜前 50 名｜2011",
+        "unit": null,
+        "values": [
+          2011,
+          37,
+          11,
+          1,
+          1
+        ]
+      },
+      {
+        "display_label": "第 51–100 名",
+        "group": "城市排名（档次）",
+        "label": "城市排名（档次）｜第 51–100 名｜2002",
+        "unit": null,
+        "values": [
+          2002,
+          13,
+          22,
+          14,
+          1
+        ]
+      },
+      {
+        "display_label": "第 51–100 名",
+        "group": "城市排名（档次）",
+        "label": "城市排名（档次）｜第 51–100 名｜2011",
+        "unit": null,
+        "values": [
+          2011,
+          14,
+          19,
+          17,
+          0
+        ]
+      },
+      {
+        "display_label": "第 101–150 名",
+        "group": "城市排名（档次）",
+        "label": "城市排名（档次）｜第 101–150 名｜2002",
+        "unit": null,
+        "values": [
+          2002,
+          6,
+          20,
+          21,
+          3
+        ]
+      },
+      {
+        "display_label": "第 101–150 名",
+        "group": "城市排名（档次）",
+        "label": "城市排名（档次）｜第 101–150 名｜2011",
+        "unit": null,
+        "values": [
+          2011,
+          6,
+          24,
+          17,
+          3
+        ]
+      },
+      {
+        "display_label": "第 151–200 名",
+        "group": "城市排名（档次）",
+        "label": "城市排名（档次）｜第 151–200 名｜2002",
+        "unit": null,
+        "values": [
+          2002,
+          3,
+          19,
+          24,
+          4
+        ]
+      },
+      {
+        "display_label": "第 151–200 名",
+        "group": "城市排名（档次）",
+        "label": "城市排名（档次）｜第 151–200 名｜2011",
+        "unit": null,
+        "values": [
+          2011,
+          2,
+          17,
+          25,
+          6
+        ]
+      },
+      {
+        "display_label": "前 200 名总计",
+        "group": "城市排名（档次）",
+        "label": "城市排名（档次）｜前 200 名总计｜2002",
+        "unit": null,
+        "values": [
+          2002,
+          59,
+          71,
+          60,
+          8
+        ]
+      },
+      {
+        "display_label": "前 200 名总计",
+        "group": "城市排名（档次）",
+        "label": "城市排名（档次）｜前 200 名总计｜2011",
+        "unit": null,
+        "values": [
+          2011,
+          59,
+          71,
+          60,
+          10
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

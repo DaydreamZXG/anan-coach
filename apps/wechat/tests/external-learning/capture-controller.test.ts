@@ -234,6 +234,178 @@ describe("capture import controller", () => {
     });
   });
 
+  it("opens the first unresolved book item and advances after confirming it", async () => {
+    const firstId = "1".repeat(64);
+    const secondId = "2".repeat(64);
+    const readyFirst = questionUnit({
+      questionUnitId: firstId,
+      ordinal: 1,
+      state: "ready",
+      match: contentMatch({
+        questionUnitId: firstId,
+        contentMatchVersionId: "match-ready",
+        state: "confirmed",
+        confirmedContentVersionId: "content-version-1",
+      }),
+    });
+    const pendingSecond = questionUnit({
+      questionUnitId: secondId,
+      ordinal: 2,
+      match: contentMatch({
+        questionUnitId: secondId,
+        contentMatchVersionId: "match-second",
+      }),
+    });
+    const confirmedSecond = questionUnit({
+      ...pendingSecond,
+      state: "ready",
+      match: contentMatch({
+        questionUnitId: secondId,
+        contentMatchVersionId: "match-second-confirmed",
+        state: "confirmed",
+        confirmedContentVersionId: "content-version-1",
+      }),
+    });
+    const confirmMatch = vi.fn(() =>
+      Promise.resolve(
+        importWorkspace({
+          state: "ready",
+          recognition: recognition({ state: "confirmed", confirmedAt: "2026-07-15T02:00:00Z" }),
+          questionUnits: [readyFirst, confirmedSecond],
+        }),
+      ),
+    );
+    const controller = new CaptureImportController({
+      gateway: gateway({
+        beginImport: () =>
+          Promise.resolve(
+            importWorkspace({
+              recognition: recognition({
+                state: "confirmed",
+                confirmedAt: "2026-07-15T02:00:00Z",
+              }),
+              questionUnits: [readyFirst, pendingSecond],
+            }),
+          ),
+        confirmMatch,
+      }),
+      onChange: vi.fn(),
+      createCommandKey: () => Promise.resolve("book-confirm"),
+    });
+
+    await controller.startImport(image());
+    expect(controller.snapshot().activeQuestionUnit?.questionUnitId).toBe(secondId);
+
+    await controller.confirm();
+
+    expect(confirmMatch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        contentMatchVersionId: "match-second",
+        confirmedContentVersionId: "content-version-1",
+      }),
+      "book-confirm:match",
+    );
+    expect(controller.snapshot()).toMatchObject({
+      status: "success",
+      activeQuestionUnit: { questionUnitId: secondId, state: "ready" },
+    });
+  });
+
+  it("keeps an explicitly selected unresolved book item across refresh", async () => {
+    const firstId = "1".repeat(64);
+    const secondId = "2".repeat(64);
+    const workspace = importWorkspace({
+      recognition: recognition({ state: "confirmed", confirmedAt: "2026-07-15T02:00:00Z" }),
+      questionUnits: [
+        questionUnit({
+          questionUnitId: firstId,
+          ordinal: 1,
+          match: contentMatch({ questionUnitId: firstId, contentMatchVersionId: "match-first" }),
+        }),
+        questionUnit({
+          questionUnitId: secondId,
+          ordinal: 2,
+          match: contentMatch({ questionUnitId: secondId, contentMatchVersionId: "match-second" }),
+        }),
+      ],
+    });
+    const controller = new CaptureImportController({
+      gateway: gateway({ getImport: () => Promise.resolve(workspace) }),
+      onChange: vi.fn(),
+    });
+
+    await controller.load("import-1");
+    controller.selectQuestionUnit(1);
+    await controller.refresh();
+
+    expect(controller.snapshot().activeQuestionUnit?.questionUnitId).toBe(secondId);
+  });
+
+  it("advances from a newly confirmed book item to the next unresolved item", async () => {
+    const firstId = "1".repeat(64);
+    const secondId = "2".repeat(64);
+    const pendingFirst = questionUnit({
+      questionUnitId: firstId,
+      ordinal: 1,
+      match: contentMatch({
+        questionUnitId: firstId,
+        contentMatchVersionId: "match-first",
+      }),
+    });
+    const pendingSecond = questionUnit({
+      questionUnitId: secondId,
+      ordinal: 2,
+      match: contentMatch({
+        questionUnitId: secondId,
+        contentMatchVersionId: "match-second",
+      }),
+    });
+    const readyFirst = questionUnit({
+      ...pendingFirst,
+      state: "ready",
+      match: contentMatch({
+        questionUnitId: firstId,
+        contentMatchVersionId: "match-first-confirmed",
+        state: "confirmed",
+        confirmedContentVersionId: "content-version-1",
+      }),
+    });
+    const confirmedRecognition = recognition({
+      state: "confirmed",
+      confirmedAt: "2026-07-15T02:00:00Z",
+    });
+    const controller = new CaptureImportController({
+      gateway: gateway({
+        beginImport: () =>
+          Promise.resolve(
+            importWorkspace({
+              recognition: confirmedRecognition,
+              questionUnits: [pendingFirst, pendingSecond],
+            }),
+          ),
+        confirmMatch: () =>
+          Promise.resolve(
+            importWorkspace({
+              recognition: confirmedRecognition,
+              questionUnits: [readyFirst, pendingSecond],
+            }),
+          ),
+      }),
+      onChange: vi.fn(),
+      createCommandKey: () => Promise.resolve("book-step-confirm"),
+    });
+
+    await controller.startImport(image());
+    expect(controller.snapshot().activeQuestionUnit?.questionUnitId).toBe(firstId);
+
+    await controller.confirm();
+
+    expect(controller.snapshot()).toMatchObject({
+      status: "review",
+      activeQuestionUnit: { questionUnitId: secondId, state: "match_review" },
+    });
+  });
+
   it("requests and confirms an unmatched AI answer without treating it as diagnostic evidence", async () => {
     const unmatched = questionUnit({
       state: "unmatched",

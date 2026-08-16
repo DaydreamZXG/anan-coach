@@ -1,0 +1,399 @@
+{
+  "asset_id": "da_06c7effa311445bc62c963d3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "功能区",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "第一产业增加值",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "第二产业增加值",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "都市功能核心区",
+    "都市功能拓展区",
+    "城市发展新区",
+    "渝东北生态涵养发展区",
+    "渝东南生态保发展区"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "第一产业增加值-绝对额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        null,
+        12.57,
+        56.8,
+        36.14,
+        11.54
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "第一产业增加值-同比 (±%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "±%",
+      "values": [
+        null,
+        0.5,
+        4.2,
+        4.9,
+        4.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "第二产业增加值-绝对额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        184.23,
+        534.87,
+        641.76,
+        244.43,
+        83.08
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "第二产业增加值-同比 (±%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "±%",
+      "values": [
+        3.2,
+        16.4,
+        13.8,
+        13.1,
+        10.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "第三产业增加值-绝对额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        406.52,
+        226.81,
+        311.09,
+        176.62,
+        56.25
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "第三产业增加值-同比 (±%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "±%",
+      "values": [
+        8.2,
+        6.5,
+        7.9,
+        7.3,
+        8.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0126_3cea04c98cb71dfb.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0126_3cea04c98cb71dfb.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_12a37abbf4c979f07a85",
+        "question_number": 91,
+        "source_jsonl_line": 85795
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0126_3cea04c98cb71dfb.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_642571c831fcba8d79b3",
+        "question_number": 92,
+        "source_jsonl_line": 85796
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0126_3cea04c98cb71dfb.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_00e27e6eb6f642798505",
+        "question_number": 93,
+        "source_jsonl_line": 85797
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0143_6ce1dd04e6ca5ab8.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_d71f0e777d5e0f08b1a2",
+        "question_number": 94,
+        "source_jsonl_line": 85798
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0126_3cea04c98cb71dfb.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_2be934c579c61b76f3ae",
+        "question_number": 95,
+        "source_jsonl_line": 85799
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调应届优秀大学毕业生到基层工作考试行政职业能力测验试卷（精选）_images/img_0127_3cea04c98cb71dfb.png",
+        "paper_title": "2015年重庆市选调应届优秀大学毕业生到基层工作考试行政职业能力测验试卷（精选）",
+        "question_id": "pq_b662b63bdffa50e81eb6",
+        "question_number": 84,
+        "source_jsonl_line": 85888
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调应届优秀大学毕业生到基层工作考试行政职业能力测验试卷（精选）_images/img_0127_3cea04c98cb71dfb.png",
+        "paper_title": "2015年重庆市选调应届优秀大学毕业生到基层工作考试行政职业能力测验试卷（精选）",
+        "question_id": "pq_12c1ca9eae11c44e35b8",
+        "question_number": 85,
+        "source_jsonl_line": 85889
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调应届优秀大学毕业生到基层工作考试行政职业能力测验试卷（精选）_images/img_0131_6ce1dd04e6ca5ab8.png",
+        "paper_title": "2015年重庆市选调应届优秀大学毕业生到基层工作考试行政职业能力测验试卷（精选）",
+        "question_id": "pq_b567a7e6ed1a3e6c1f1a",
+        "question_number": 86,
+        "source_jsonl_line": 85890
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调应届优秀大学毕业生到基层工作考试行政职业能力测验试卷（精选）_images/img_0131_6ce1dd04e6ca5ab8.png",
+        "paper_title": "2015年重庆市选调应届优秀大学毕业生到基层工作考试行政职业能力测验试卷（精选）",
+        "question_id": "pq_160b8d638e3c68870185",
+        "question_number": 87,
+        "source_jsonl_line": 85891
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0129_6ce1dd04e6ca5ab8.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_273fc92944bf2589a5cf",
+        "question_number": 91,
+        "source_jsonl_line": 93474
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0129_6ce1dd04e6ca5ab8.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_6574b9ab34a44245db46",
+        "question_number": 92,
+        "source_jsonl_line": 93475
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0129_6ce1dd04e6ca5ab8.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_e84fd2e73292b533421d",
+        "question_number": 93,
+        "source_jsonl_line": 93476
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0129_6ce1dd04e6ca5ab8.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_0f7fee2ba570d220c178",
+        "question_number": 94,
+        "source_jsonl_line": 93477
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0129_6ce1dd04e6ca5ab8.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_b42be9c4057f23e9d3aa",
+        "question_number": 95,
+        "source_jsonl_line": 93478
+      }
+    ],
+    "sha256": "06c7effa311445bc62c963d31f81f7548783ad0b2033ed099147d0a96ec6a546"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "功能区",
+      "第一产业增加值-绝对额 (亿元)",
+      "第一产业增加值-同比 (±%)",
+      "第二产业增加值-绝对额 (亿元)",
+      "第二产业增加值-同比 (±%)",
+      "第三产业增加值-绝对额 (亿元)",
+      "第三产业增加值-同比 (±%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "都市功能核心区",
+        "unit": null,
+        "values": [
+          "都市功能核心区",
+          "——",
+          "——",
+          184.23,
+          3.2,
+          406.52,
+          8.2
+        ]
+      },
+      {
+        "label": "都市功能拓展区",
+        "unit": null,
+        "values": [
+          "都市功能拓展区",
+          12.57,
+          0.5,
+          534.87,
+          16.4,
+          226.81,
+          6.5
+        ]
+      },
+      {
+        "label": "城市发展新区",
+        "unit": null,
+        "values": [
+          "城市发展新区",
+          56.8,
+          4.2,
+          641.76,
+          13.8,
+          311.09,
+          7.9
+        ]
+      },
+      {
+        "label": "渝东北生态涵养发展区",
+        "unit": null,
+        "values": [
+          "渝东北生态涵养发展区",
+          36.14,
+          4.9,
+          244.43,
+          13.1,
+          176.62,
+          7.3
+        ]
+      },
+      {
+        "label": "渝东南生态保发展区",
+        "unit": null,
+        "values": [
+          "渝东南生态保发展区",
+          11.54,
+          4.5,
+          83.08,
+          10.3,
+          56.25,
+          8.8
+        ]
+      }
+    ]
+  },
+  "title": "重庆五大功能区2014年1季度产业增加值情况统计表",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_06c7effa311445bc62c963d3/row_band_01.jpg",
+        "review-crops/da_06c7effa311445bc62c963d3/row_band_02.jpg",
+        "review-crops/da_06c7effa311445bc62c963d3/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.374",
+      "crop_verification_elapsed_seconds:11.65",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'渝东南生态保发展区'的第二产业增加值-同比 (±%) 为10.3，原图误写为10.3，但根据上下文应为10.3，确认无误。",
+      "crop_note:确认所有缺失值'——'保持为null，未补0。",
+      "crop_note:确认所有小数点后位数正确，无误。",
+      "crop_note:确认所有百分号和单位正确，无误。",
+      "crop_note:确认所有数字与原图一致，无误。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "asset_id": "da_972fbe085c3e56196776fb34",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "生产费用支出",
+    "生活消费现金支出",
+    "转移性支出"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "生活消费现金支出",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "税费支出和财产性支出",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "转移性支出",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "生产费用支出",
+      "style": {
+        "dash": null,
+        "fill": "#808080",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      218.956,
+      244.699,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 218.956,
+        "label": "生产费用支出",
+        "share": 0.60821087,
+        "start_angle": 0.0,
+        "sweep_angle": 218.956
+      },
+      {
+        "end_angle": 244.699,
+        "label": "生活消费现金支出",
+        "share": 0.07150754,
+        "start_angle": 218.956,
+        "sweep_angle": 25.743
+      },
+      {
+        "end_angle": 360.0,
+        "label": "转移性支出",
+        "share": 0.32028159,
+        "start_angle": 244.699,
+        "sweep_angle": 115.301
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.60821087,
+        0.07150754,
+        0.32028159
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/贵州/2009年贵州省公务员录用考试《行测》题_images/img_0082_69060cd7eece06bf.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年贵州省公务员录用考试《行测》题_images/img_0082_69060cd7eece06bf.png",
+        "paper_title": "2009年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_1e1070dd690347bddb56",
+        "question_number": 121,
+        "source_jsonl_line": 80142
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年贵州省公务员录用考试《行测》题_images/img_0082_69060cd7eece06bf.png",
+        "paper_title": "2009年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_b85a40432e608b2202e8",
+        "question_number": 122,
+        "source_jsonl_line": 80143
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年贵州省公务员录用考试《行测》题_images/img_0082_69060cd7eece06bf.png",
+        "paper_title": "2009年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_7a392a6ea0e5c94b8f5e",
+        "question_number": 123,
+        "source_jsonl_line": 80144
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年贵州省公务员录用考试《行测》题_images/img_0082_69060cd7eece06bf.png",
+        "paper_title": "2009年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_87bc7c29d2200abeda9a",
+        "question_number": 124,
+        "source_jsonl_line": 80145
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年贵州省公务员录用考试《行测》题_images/img_0082_69060cd7eece06bf.png",
+        "paper_title": "2009年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_ddb15c5e7db03709aba6",
+        "question_number": 125,
+        "source_jsonl_line": 80146
+      }
+    ],
+    "sha256": "972fbe085c3e56196776fb3440bb8f3b145b18e56127ab8c938938e0d6106c8c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "农村居民家庭现金支出",
+  "unit": "元/人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_972fbe085c3e56196776fb34/quadrant_01.jpg",
+        "review-crops/da_972fbe085c3e56196776fb34/quadrant_02.jpg",
+        "review-crops/da_972fbe085c3e56196776fb34/quadrant_03.jpg",
+        "review-crops/da_972fbe085c3e56196776fb34/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.516",
+      "crop_verification_elapsed_seconds:0.969",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "label_geometry_count_mismatch:4!=3",
+      "circle_edge_coverage:0.4681",
+      "hough_circle_radius_ratio:0.2651",
+      "radial_line_candidates:3",
+      "detected_boundaries:3"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

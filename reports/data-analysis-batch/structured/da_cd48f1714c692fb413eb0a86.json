@@ -1,0 +1,308 @@
+{
+  "asset_id": "da_cd48f1714c692fb413eb0a86",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "投资额(亿元)",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "增长(%)",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [
+    {
+      "label": "江苏 投资额(亿元)",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "江苏 增长(%)",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "全国 投资额(亿元)",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "全国 增长(%)",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "江苏 投资额(亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        10071,
+        12268,
+        15060,
+        18950,
+        23187
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "江苏 增长(%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        15.2,
+        21.8,
+        22.8,
+        25.8,
+        22.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "全国 投资额(亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        109998,
+        137324,
+        172828,
+        224599,
+        278140
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "全国 增长(%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        23.9,
+        24.8,
+        25.9,
+        30.0,
+        23.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2011年江苏省公务员录用考试《行测》题（A类）_images/img_0183_f0532f976612fa7a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（A类）_images/img_0183_f0532f976612fa7a.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_67c9db48ab2a981e2a2d",
+        "question_number": 86,
+        "source_jsonl_line": 45536
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（A类）_images/img_0193_47abaf6c0ece857a.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_79d854fb9a95b5ed1e33",
+        "question_number": 87,
+        "source_jsonl_line": 45537
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（A类）_images/img_0183_f0532f976612fa7a.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_63962c193b19accd23a2",
+        "question_number": 88,
+        "source_jsonl_line": 45538
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（A类）_images/img_0193_47abaf6c0ece857a.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_887daa48ae249b5bf71a",
+        "question_number": 89,
+        "source_jsonl_line": 45539
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（A类）_images/img_0183_f0532f976612fa7a.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_2d2312f1e7ca2e0a72f9",
+        "question_number": 90,
+        "source_jsonl_line": 45540
+      }
+    ],
+    "sha256": "cd48f1714c692fb413eb0a86bdc54a89984c8222256127147311228a2eff8d7d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "江苏 投资额(亿元)",
+      "江苏 增长(%)",
+      "全国 投资额(亿元)",
+      "全国 增长(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2006",
+        "unit": null,
+        "values": [
+          2006,
+          10071,
+          15.2,
+          109998,
+          23.9
+        ]
+      },
+      {
+        "label": "2007",
+        "unit": null,
+        "values": [
+          2007,
+          12268,
+          21.8,
+          137324,
+          24.8
+        ]
+      },
+      {
+        "label": "2008",
+        "unit": null,
+        "values": [
+          2008,
+          15060,
+          22.8,
+          172828,
+          25.9
+        ]
+      },
+      {
+        "label": "2009",
+        "unit": null,
+        "values": [
+          2009,
+          18950,
+          25.8,
+          224599,
+          30.0
+        ]
+      },
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          23187,
+          22.4,
+          278140,
+          23.8
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cd48f1714c692fb413eb0a86/row_band_01.jpg",
+        "review-crops/da_cd48f1714c692fb413eb0a86/row_band_02.jpg",
+        "review-crops/da_cd48f1714c692fb413eb0a86/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.536",
+      "crop_verification_elapsed_seconds:6.494",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

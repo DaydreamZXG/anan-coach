@@ -1,0 +1,254 @@
+{
+  "asset_id": "da_3caf42fa470159126dd063e5",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0249_8ffb28f4302a5550.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0249_8ffb28f4302a5550.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_e4df2791a2169c20c37a",
+        "question_number": 126,
+        "source_jsonl_line": 49636
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0249_8ffb28f4302a5550.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_708f1b6e13da0fc757a0",
+        "question_number": 127,
+        "source_jsonl_line": 49637
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0249_8ffb28f4302a5550.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_561d38a48a8c1bf3c9d5",
+        "question_number": 128,
+        "source_jsonl_line": 49638
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0249_8ffb28f4302a5550.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_25b3669fc8ea2b2173a8",
+        "question_number": 129,
+        "source_jsonl_line": 49639
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0249_8ffb28f4302a5550.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_2aba14d878a5613216bb",
+        "question_number": 130,
+        "source_jsonl_line": 49640
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0228_8ffb28f4302a5550.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_5e66660a0f628ab019ed",
+        "question_number": 121,
+        "source_jsonl_line": 49901
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0228_8ffb28f4302a5550.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_aded08f32571bc7ddbbb",
+        "question_number": 122,
+        "source_jsonl_line": 49902
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0241_40973ce750ba1b4d.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_78b56ac98266b19e563c",
+        "question_number": 123,
+        "source_jsonl_line": 49903
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0241_40973ce750ba1b4d.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_32fb220fd1f131202b2b",
+        "question_number": 124,
+        "source_jsonl_line": 49904
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0241_40973ce750ba1b4d.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_c0332cf5527111950029",
+        "question_number": 125,
+        "source_jsonl_line": 49905
+      }
+    ],
+    "sha256": "3caf42fa470159126dd063e55ffe8a6b77971c5d9d6a84e28c28b7d0219a361e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2015-2017年｜年份",
+          "2015-2017年｜实缴额",
+          "2015-2017年｜实缴余额"
+        ],
+        "label": "2015-2017年"
+      },
+      {
+        "columns": [
+          "2018-2020年｜年份",
+          "2018-2020年｜实缴额",
+          "2018-2020年｜实缴余额"
+        ],
+        "label": "2018-2020年"
+      }
+    ],
+    "columns": [
+      "2015-2017年｜年份",
+      "2015-2017年｜实缴额",
+      "2015-2017年｜实缴余额",
+      "2018-2020年｜年份",
+      "2018-2020年｜实缴额",
+      "2018-2020年｜实缴余额"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "display_label": "2015",
+        "group": null,
+        "label": "2015",
+        "unit": "万亿元",
+        "values": [
+          2015,
+          1.45,
+          4.07,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "display_label": "2016",
+        "group": null,
+        "label": "2016",
+        "unit": "万亿元",
+        "values": [
+          2016,
+          1.66,
+          4.56,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "display_label": "2017",
+        "group": null,
+        "label": "2017",
+        "unit": "万亿元",
+        "values": [
+          2017,
+          1.87,
+          5.16,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "display_label": "2018",
+        "group": null,
+        "label": "2018",
+        "unit": "万亿元",
+        "values": [
+          null,
+          null,
+          null,
+          2018,
+          2.11,
+          5.79
+        ]
+      },
+      {
+        "display_label": "2019",
+        "group": null,
+        "label": "2019",
+        "unit": "万亿元",
+        "values": [
+          null,
+          null,
+          null,
+          2019,
+          2.37,
+          6.54
+        ]
+      },
+      {
+        "display_label": "2020",
+        "group": null,
+        "label": "2020",
+        "unit": "万亿元",
+        "values": [
+          null,
+          null,
+          null,
+          2020,
+          2.62,
+          7.3
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

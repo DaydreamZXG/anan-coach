@@ -1,0 +1,51 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "1-12月｜绝对量（万美元）",
+          "1-12月｜增速（%）"
+        ],
+        "label": "1-12月"
+      }
+    ],
+    "columns": [
+      "1-12月｜绝对量（万美元）",
+      "1-12月｜增速（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "海关进出口总值",
+        "unit": null,
+        "values": [
+          1844246,
+          -2.3
+        ]
+      },
+      {
+        "label": "出口总值",
+        "unit": null,
+        "values": [
+          420568,
+          -8.8
+        ]
+      },
+      {
+        "label": "进口总值",
+        "unit": null,
+        "values": [
+          1423678,
+          -0.2
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

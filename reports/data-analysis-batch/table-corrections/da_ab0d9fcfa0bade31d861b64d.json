@@ -1,0 +1,150 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "5月发行",
+          "6月发行",
+          "1-6月累计发行"
+        ],
+        "label": "地方政府债券发行额合计"
+      }
+    ],
+    "columns": [
+      "5月发行",
+      "6月发行",
+      "1-6月累计发行"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "display_label": "地方政府债券发行额合计",
+        "group": null,
+        "label": "地方政府债券发行额合计",
+        "unit": null,
+        "values": [
+          7794.43,
+          11753.22,
+          54901.55
+        ]
+      },
+      {
+        "display_label": "一般债券",
+        "group": "地方政府债券发行额合计",
+        "label": "地方政府债券发行额合计｜一般债券",
+        "unit": null,
+        "values": [
+          2599.38,
+          3684.58,
+          11792.97
+        ]
+      },
+      {
+        "display_label": "专项债券",
+        "group": "地方政府债券发行额合计",
+        "label": "地方政府债券发行额合计｜专项债券",
+        "unit": null,
+        "values": [
+          5195.05,
+          8068.64,
+          43108.58
+        ]
+      },
+      {
+        "display_label": "一、新增债券发行额小计",
+        "group": null,
+        "label": "一、新增债券发行额小计",
+        "unit": null,
+        "values": [
+          4918.5,
+          6280.89,
+          26126.7
+        ]
+      },
+      {
+        "display_label": "一般债券",
+        "group": "一、新增债券发行额小计",
+        "label": "一、新增债券发行额小计｜一般债券",
+        "unit": null,
+        "values": [
+          486.76,
+          1009.95,
+          4520.17
+        ]
+      },
+      {
+        "display_label": "专项债券",
+        "group": "一、新增债券发行额小计",
+        "label": "一、新增债券发行额小计｜专项债券",
+        "unit": null,
+        "values": [
+          4431.74,
+          5270.94,
+          21606.53
+        ]
+      },
+      {
+        "display_label": "二、再融资债券发行额小计",
+        "group": null,
+        "label": "二、再融资债券发行额小计",
+        "unit": null,
+        "values": [
+          2875.93,
+          5472.33,
+          28774.85
+        ]
+      },
+      {
+        "display_label": "一般债券",
+        "group": "二、再融资债券发行额小计",
+        "label": "二、再融资债券发行额小计｜一般债券",
+        "unit": null,
+        "values": [
+          2112.62,
+          2674.63,
+          7272.8
+        ]
+      },
+      {
+        "display_label": "专项债券",
+        "group": "二、再融资债券发行额小计",
+        "label": "二、再融资债券发行额小计｜专项债券",
+        "unit": null,
+        "values": [
+          763.31,
+          2797.7,
+          21502.05
+        ]
+      },
+      {
+        "display_label": "各发行场所发行额合计",
+        "group": null,
+        "label": "各发行场所发行额合计",
+        "unit": null,
+        "values": [
+          7794.43,
+          11753.22,
+          54901.55
+        ]
+      },
+      {
+        "display_label": "其中：中央结算公司",
+        "group": null,
+        "label": "其中：中央结算公司",
+        "unit": null,
+        "values": [
+          3236.39,
+          6769.33,
+          32308.39
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

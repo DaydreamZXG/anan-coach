@@ -1,0 +1,274 @@
+{
+  "asset_id": "da_b315b5409a5e4a9a8372a8c3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 9500,
+        "min": -500,
+        "ticks": [
+          0,
+          1500,
+          3000,
+          4500,
+          6000,
+          7500,
+          9000
+        ],
+        "title": "进口量",
+        "unit": "万吨"
+      },
+      {
+        "max": 30,
+        "min": -30,
+        "ticks": [
+          -30,
+          -20,
+          -10,
+          0,
+          10,
+          20,
+          30
+        ],
+        "title": "同比增速",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2020年7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月",
+    "2021年1-2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "进口量（万吨）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "同比增速（%）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "进口量（万吨）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        5129,
+        4748,
+        4848,
+        4256,
+        4536,
+        3847,
+        8957,
+        4966,
+        4036,
+        4097,
+        4013
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增速（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        25,
+        12.6,
+        17.6,
+        -6.4,
+        -0.8,
+        -15.4,
+        4.1,
+        20.8,
+        -0.1,
+        -14.6,
+        -24.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0300_ee2761ec0761ddf6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0300_ee2761ec0761ddf6.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_6aa6b736d4ac157601e7",
+        "question_number": 131,
+        "source_jsonl_line": 49641
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0300_ee2761ec0761ddf6.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_637b59e198a3d25d4587",
+        "question_number": 132,
+        "source_jsonl_line": 49642
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0304_f8d7cac99c33c7de.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_77cc6be7c5460a7910bf",
+        "question_number": 133,
+        "source_jsonl_line": 49643
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0300_ee2761ec0761ddf6.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_3eb9d5eefbaecc86294a",
+        "question_number": 134,
+        "source_jsonl_line": 49644
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0300_ee2761ec0761ddf6.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_da6760575613da874afd",
+        "question_number": 135,
+        "source_jsonl_line": 49645
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0267_ee2761ec0761ddf6.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_a9d8e404c5d168c7e724",
+        "question_number": 131,
+        "source_jsonl_line": 49776
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0266_f8d7cac99c33c7de.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_45d0bf887b4fb5a0c040",
+        "question_number": 132,
+        "source_jsonl_line": 49777
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0267_ee2761ec0761ddf6.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_aa9c54f41b358072ef5d",
+        "question_number": 133,
+        "source_jsonl_line": 49778
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0267_ee2761ec0761ddf6.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_5ed3c7222f0293caa99c",
+        "question_number": 134,
+        "source_jsonl_line": 49779
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0267_ee2761ec0761ddf6.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_3f1bbd7c7507ef15e262",
+        "question_number": 135,
+        "source_jsonl_line": 49780
+      }
+    ],
+    "sha256": "b315b5409a5e4a9a8372a8c3db7bb4acb0e7ec869f593ff90ed6da57357cb8cc"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2020年7月-2021年6月我国原油进口量变动情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b315b5409a5e4a9a8372a8c3/column_band_01.jpg",
+        "review-crops/da_b315b5409a5e4a9a8372a8c3/column_band_02.jpg",
+        "review-crops/da_b315b5409a5e4a9a8372a8c3/column_band_03.jpg",
+        "review-crops/da_b315b5409a5e4a9a8372a8c3/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.419",
+      "crop_verification_elapsed_seconds:7.7",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_chart_point:2020年8月:进口量（万吨）",
+      "crop_note:ignored_unknown_chart_point:2020年9月:进口量（万吨）",
+      "crop_note:ignored_unknown_chart_point:2020年10月:进口量（万吨）",
+      "crop_note:ignored_unknown_chart_point:2020年11月:进口量（万吨）",
+      "crop_note:ignored_unknown_chart_point:2020年12月:进口量（万吨）",
+      "crop_note:ignored_unknown_chart_point:2021年3月:进口量（万吨）",
+      "crop_note:ignored_unknown_chart_point:2021年4月:进口量（万吨）",
+      "crop_note:ignored_unknown_chart_point:2021年5月:进口量（万吨）",
+      "crop_note:ignored_unknown_chart_point:2021年6月:进口量（万吨）",
+      "crop_note:ignored_unknown_chart_point:2020年8月:同比增速（%）",
+      "crop_note:ignored_unknown_chart_point:2020年9月:同比增速（%）",
+      "crop_note:ignored_unknown_chart_point:2020年10月:同比增速（%）",
+      "crop_note:ignored_unknown_chart_point:2020年11月:同比增速（%）",
+      "crop_note:ignored_unknown_chart_point:2020年12月:同比增速（%）",
+      "crop_note:ignored_unknown_chart_point:2021年3月:同比增速（%）",
+      "crop_note:ignored_unknown_chart_point:2021年4月:同比增速（%）",
+      "crop_note:ignored_unknown_chart_point:2021年5月:同比增速（%）",
+      "crop_note:ignored_unknown_chart_point:2021年6月:同比增速（%）"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

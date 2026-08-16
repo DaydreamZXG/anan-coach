@@ -1,0 +1,102 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "长三角｜占地区生产总值比重",
+          "长三角｜增长速度"
+        ],
+        "label": "长三角"
+      },
+      {
+        "columns": [
+          "珠三角｜占地区生产总值比重",
+          "珠三角｜增长速度"
+        ],
+        "label": "珠三角"
+      },
+      {
+        "columns": [
+          "京津冀｜占地区生产总值比重",
+          "京津冀｜增长速度"
+        ],
+        "label": "京津冀"
+      },
+      {
+        "columns": [
+          "全国｜占国内生产总值比重",
+          "全国｜增长速度"
+        ],
+        "label": "全国"
+      }
+    ],
+    "columns": [
+      "长三角｜占地区生产总值比重",
+      "长三角｜增长速度",
+      "珠三角｜占地区生产总值比重",
+      "珠三角｜增长速度",
+      "京津冀｜占地区生产总值比重",
+      "京津冀｜增长速度",
+      "全国｜占国内生产总值比重",
+      "全国｜增长速度"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "第一产业产值",
+        "group": null,
+        "label": "第一产业产值",
+        "unit": null,
+        "values": [
+          4.7,
+          3.6,
+          5.0,
+          4.4,
+          6.6,
+          3.3,
+          10.2,
+          4.3
+        ]
+      },
+      {
+        "display_label": "第二产业产值",
+        "group": null,
+        "label": "第二产业产值",
+        "unit": null,
+        "values": [
+          50.6,
+          13.4,
+          50.4,
+          14.5,
+          43.8,
+          15.2,
+          46.8,
+          12.2
+        ]
+      },
+      {
+        "display_label": "第三产业产值",
+        "group": null,
+        "label": "第三产业产值",
+        "unit": null,
+        "values": [
+          44.7,
+          10.7,
+          44.6,
+          10.1,
+          49.6,
+          11.4,
+          43.0,
+          9.5
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

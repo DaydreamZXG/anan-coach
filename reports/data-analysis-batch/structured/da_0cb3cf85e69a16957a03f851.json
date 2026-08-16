@@ -1,0 +1,286 @@
+{
+  "asset_id": "da_0cb3cf85e69a16957a03f851",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2009,
+        2010,
+        2011,
+        2012,
+        2013
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1000,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000
+        ],
+        "title": null,
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "普通本专科",
+      "style": {
+        "dash": null,
+        "fill": "#E0E0E0",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "中等职业教育",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "普通高中",
+      "style": {
+        "dash": null,
+        "fill": "#F5F5F5",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "普通本专科",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        640,
+        662,
+        682,
+        689,
+        700
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "中等职业教育",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        869,
+        870,
+        814,
+        754,
+        698
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "普通高中",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        830,
+        836,
+        851,
+        845,
+        823
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0149_b3a693649668e727.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0149_b3a693649668e727.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_ac4de3927d072a685a56",
+        "question_number": 96,
+        "source_jsonl_line": 85800
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0149_b3a693649668e727.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_2cf72952a891de0efaeb",
+        "question_number": 97,
+        "source_jsonl_line": 85801
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0163_8df1c3a70fe8d847.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_1f6127c7720434665308",
+        "question_number": 98,
+        "source_jsonl_line": 85802
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0149_b3a693649668e727.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_9ec6b9433ee81eff8189",
+        "question_number": 99,
+        "source_jsonl_line": 85803
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0149_b3a693649668e727.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_e1231d513c647b47ed0f",
+        "question_number": 100,
+        "source_jsonl_line": 85804
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调应届优秀大学毕业生到基层工作考试行政职业能力测验试卷（精选）_images/img_0142_8df1c3a70fe8d847.png",
+        "paper_title": "2015年重庆市选调应届优秀大学毕业生到基层工作考试行政职业能力测验试卷（精选）",
+        "question_id": "pq_b5e718026e738b403773",
+        "question_number": 88,
+        "source_jsonl_line": 85892
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调应届优秀大学毕业生到基层工作考试行政职业能力测验试卷（精选）_images/img_0150_b3a693649668e727.png",
+        "paper_title": "2015年重庆市选调应届优秀大学毕业生到基层工作考试行政职业能力测验试卷（精选）",
+        "question_id": "pq_737fc9eac29cca85f905",
+        "question_number": 89,
+        "source_jsonl_line": 85893
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调应届优秀大学毕业生到基层工作考试行政职业能力测验试卷（精选）_images/img_0142_8df1c3a70fe8d847.png",
+        "paper_title": "2015年重庆市选调应届优秀大学毕业生到基层工作考试行政职业能力测验试卷（精选）",
+        "question_id": "pq_5170199e96d9eacf3d8a",
+        "question_number": 90,
+        "source_jsonl_line": 85894
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0151_b3a693649668e727.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_511af96e5ee528abfdab",
+        "question_number": 96,
+        "source_jsonl_line": 93479
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0151_b3a693649668e727.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_f4f9b2e2ba30d8028587",
+        "question_number": 97,
+        "source_jsonl_line": 93480
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0151_b3a693649668e727.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_0859a65abda4b8fab279",
+        "question_number": 98,
+        "source_jsonl_line": 93481
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0164_8df1c3a70fe8d847.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_e12abb51ef7c4735ae7e",
+        "question_number": 99,
+        "source_jsonl_line": 93482
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0151_b3a693649668e727.png",
+        "paper_title": "2015年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_49f4e8bf51717bdf05cb",
+        "question_number": 100,
+        "source_jsonl_line": 93483
+      }
+    ],
+    "sha256": "0cb3cf85e69a16957a03f85173f0b189dceaf75c32ad70f228a2c48eca95cf08"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2009-2013年普通本专科、中等职业教育、普通高中招生人数",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0cb3cf85e69a16957a03f851/column_band_01.jpg",
+        "review-crops/da_0cb3cf85e69a16957a03f851/column_band_02.jpg",
+        "review-crops/da_0cb3cf85e69a16957a03f851/column_band_03.jpg",
+        "review-crops/da_0cb3cf85e69a16957a03f851/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.4",
+      "crop_verification_elapsed_seconds:9.149",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2010年普通本专科招生人数为662（原为662），中等职业教育为870（原为870），普通高中为836（原为836）。",
+      "crop_note:修正了2011年普通本专科招生人数为682（原为682），中等职业教育为814（原为814），普通高中为851（原为851）。",
+      "crop_note:修正了2012年普通本专科招生人数为689（原为689），中等职业教育为754（原为754），普通高中为845（原为845）。",
+      "crop_note:修正了2013年普通本专科招生人数为700（原为700），中等职业教育为698（原为698），普通高中为823（原为823）。",
+      "crop_note:确认所有数值均为整数，无小数、负号或百分号。",
+      "crop_note:确认所有缺失值保持为null，未补0。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

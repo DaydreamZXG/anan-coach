@@ -1,0 +1,240 @@
+{
+  "asset_id": "da_e0905e6b8fff216cd637a507",
+  "axes": {
+    "x": {
+      "max": 2020,
+      "min": 2014,
+      "ticks": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 50000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000
+        ],
+        "title": "人均可支配收入",
+        "unit": "元"
+      },
+      {
+        "max": 2.8,
+        "min": 2.4,
+        "ticks": [
+          2.4,
+          2.5,
+          2.6,
+          2.7,
+          2.8
+        ],
+        "title": "城乡收入倍差 (农村为1)",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "城镇居民人均可支配收入",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "solid",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "农村居民人均可支配收入",
+      "style": {
+        "dash": null,
+        "fill": "lightgray",
+        "marker": "dot",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "城乡收入倍差 (农村为1)",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇居民人均可支配收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        30000,
+        31000,
+        33000,
+        35000,
+        38000,
+        42000,
+        44000
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "农村居民人均可支配收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        11000,
+        11000,
+        12000,
+        13000,
+        14000,
+        16000,
+        17000
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "1",
+      "label": "城乡收入倍差 (农村为1)",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        2.75,
+        2.73,
+        2.72,
+        2.71,
+        2.69,
+        2.64,
+        2.56
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/青海/2022年青海省公务员录用考试《行测》题（网友回忆版）_images/img_0069_b9c5aa4a29060df2.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年青海省公务员录用考试《行测》题（网友回忆版）_images/img_0069_b9c5aa4a29060df2.png",
+        "paper_title": "2022年青海省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_53c30bb8d2fa5eaa0bb8",
+        "question_number": 106,
+        "source_jsonl_line": 100394
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年青海省公务员录用考试《行测》题（网友回忆版）_images/img_0088_7c1a9af69541c7c4.png",
+        "paper_title": "2022年青海省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_da45b45ba8a308ee1658",
+        "question_number": 107,
+        "source_jsonl_line": 100395
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年青海省公务员录用考试《行测》题（网友回忆版）_images/img_0088_7c1a9af69541c7c4.png",
+        "paper_title": "2022年青海省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_03a2ca0167a187ca1cd1",
+        "question_number": 108,
+        "source_jsonl_line": 100396
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年青海省公务员录用考试《行测》题（网友回忆版）_images/img_0088_7c1a9af69541c7c4.png",
+        "paper_title": "2022年青海省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f7f9688bf692fce1beaa",
+        "question_number": 109,
+        "source_jsonl_line": 100397
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年青海省公务员录用考试《行测》题（网友回忆版）_images/img_0069_b9c5aa4a29060df2.png",
+        "paper_title": "2022年青海省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_411cfb804afd1ff17bc8",
+        "question_number": 110,
+        "source_jsonl_line": 100398
+      }
+    ],
+    "sha256": "e0905e6b8fff216cd637a507928b23bfdcb06d9f9c2798953104518f025e2b9f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014-2020年全国人均可支配收入变化情况",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e0905e6b8fff216cd637a507/column_band_01.jpg",
+        "review-crops/da_e0905e6b8fff216cd637a507/column_band_02.jpg",
+        "review-crops/da_e0905e6b8fff216cd637a507/column_band_03.jpg",
+        "review-crops/da_e0905e6b8fff216cd637a507/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.616",
+      "crop_verification_elapsed_seconds:7.164",
+      "candidate_value_changes_after_crop:2",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,350 @@
+{
+  "asset_id": "da_00b53dd4e3606e724c9538c6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "食品",
+    "衣着",
+    "医疗",
+    "交通",
+    "通讯",
+    "教育",
+    "文化、娱乐、旅游",
+    "电费、水费、燃气",
+    "家用电器、家具",
+    "日用品",
+    "人情往来",
+    "住房"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "食品",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "衣着",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "医疗",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "交通",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "通讯",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "教育",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "文化、娱乐、旅游",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "电费、水费、燃气",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "家用电器、家具",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "日用品",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "人情往来",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "住房",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      122.4,
+      147.24,
+      185.4,
+      205.56,
+      225.0,
+      266.4,
+      273.24,
+      295.56,
+      308.16,
+      314.28,
+      341.64,
+      360.0
+    ],
+    "geometry_owner": "labeled_share_reconstruction",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 122.4,
+        "label": "食品",
+        "share": 0.34,
+        "start_angle": 0.0,
+        "sweep_angle": 122.4
+      },
+      {
+        "end_angle": 147.24,
+        "label": "衣着",
+        "share": 0.069,
+        "start_angle": 122.4,
+        "sweep_angle": 24.84
+      },
+      {
+        "end_angle": 185.4,
+        "label": "医疗",
+        "share": 0.106,
+        "start_angle": 147.24,
+        "sweep_angle": 38.16
+      },
+      {
+        "end_angle": 205.56,
+        "label": "交通",
+        "share": 0.056,
+        "start_angle": 185.4,
+        "sweep_angle": 20.16
+      },
+      {
+        "end_angle": 225.0,
+        "label": "通讯",
+        "share": 0.054,
+        "start_angle": 205.56,
+        "sweep_angle": 19.44
+      },
+      {
+        "end_angle": 266.4,
+        "label": "教育",
+        "share": 0.115,
+        "start_angle": 225.0,
+        "sweep_angle": 41.4
+      },
+      {
+        "end_angle": 273.24,
+        "label": "文化、娱乐、旅游",
+        "share": 0.019,
+        "start_angle": 266.4,
+        "sweep_angle": 6.84
+      },
+      {
+        "end_angle": 295.56,
+        "label": "电费、水费、燃气",
+        "share": 0.062,
+        "start_angle": 273.24,
+        "sweep_angle": 22.32
+      },
+      {
+        "end_angle": 308.16,
+        "label": "家用电器、家具",
+        "share": 0.035,
+        "start_angle": 295.56,
+        "sweep_angle": 12.6
+      },
+      {
+        "end_angle": 314.28,
+        "label": "日用品",
+        "share": 0.017,
+        "start_angle": 308.16,
+        "sweep_angle": 6.12
+      },
+      {
+        "end_angle": 341.64,
+        "label": "人情往来",
+        "share": 0.076,
+        "start_angle": 314.28,
+        "sweep_angle": 27.36
+      },
+      {
+        "end_angle": 360.0,
+        "label": "住房",
+        "share": 0.051,
+        "start_angle": 341.64,
+        "sweep_angle": 18.36
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "values",
+      "label": "数值",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        34.0,
+        6.9,
+        10.6,
+        5.6,
+        5.4,
+        11.5,
+        1.9,
+        6.2,
+        3.5,
+        1.7,
+        7.6,
+        5.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2009年山东省公务员录用考试《行测》题_images/img_0134_3cfe211a9b203650.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山东省公务员录用考试《行测》题_images/img_0134_3cfe211a9b203650.png",
+        "paper_title": "2009年山东省公务员录用考试《行测》题",
+        "question_id": "pq_0df3475ba827c1d5e7ff",
+        "question_number": 121,
+        "source_jsonl_line": 29115
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山东省公务员录用考试《行测》题_images/img_0160_4e834de87b364f6d.png",
+        "paper_title": "2009年山东省公务员录用考试《行测》题",
+        "question_id": "pq_e7f217e180411bb330a7",
+        "question_number": 122,
+        "source_jsonl_line": 29116
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山东省公务员录用考试《行测》题_images/img_0134_3cfe211a9b203650.png",
+        "paper_title": "2009年山东省公务员录用考试《行测》题",
+        "question_id": "pq_524326ab6b8a1dc53936",
+        "question_number": 123,
+        "source_jsonl_line": 29117
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山东省公务员录用考试《行测》题_images/img_0160_4e834de87b364f6d.png",
+        "paper_title": "2009年山东省公务员录用考试《行测》题",
+        "question_id": "pq_9965a68efeaf1340b25b",
+        "question_number": 124,
+        "source_jsonl_line": 29118
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山东省公务员录用考试《行测》题_images/img_0160_4e834de87b364f6d.png",
+        "paper_title": "2009年山东省公务员录用考试《行测》题",
+        "question_id": "pq_48e1af50a77be1466ada",
+        "question_number": 125,
+        "source_jsonl_line": 29119
+      }
+    ],
+    "sha256": "00b53dd4e3606e724c9538c65ef7ab69277960c76d11d37fb6376ce42ae9455a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "城乡家庭居民的消费结构",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "pie_rebuilt_from_explicit_source_labels_not_pixel_angles"
+    ],
+    "ocr_engine": "source_label_share_reconstruction",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

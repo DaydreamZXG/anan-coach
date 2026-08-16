@@ -1,0 +1,228 @@
+{
+  "asset_id": "da_4e8243f2877caef188b257b8",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0194_19ae1437f79abd1f.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0194_19ae1437f79abd1f.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_7c793fefe6c559653b5c",
+        "question_number": 116,
+        "source_jsonl_line": 18986
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0194_19ae1437f79abd1f.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_0d92c76e4922feb005ce",
+        "question_number": 117,
+        "source_jsonl_line": 18987
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0194_19ae1437f79abd1f.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_fb92fa2e044cb357451a",
+        "question_number": 118,
+        "source_jsonl_line": 18988
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0199_25fbb203b48bf678.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_e22a5bed8af9a9c8f985",
+        "question_number": 119,
+        "source_jsonl_line": 18989
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0199_25fbb203b48bf678.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_77c1b032a4dc7733f0e5",
+        "question_number": 120,
+        "source_jsonl_line": 18990
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0125_19ae1437f79abd1f.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_385f340d45e7924c757d",
+        "question_number": 111,
+        "source_jsonl_line": 19116
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0125_19ae1437f79abd1f.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_84f0135d1127f84bb676",
+        "question_number": 112,
+        "source_jsonl_line": 19117
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0125_19ae1437f79abd1f.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_849c3fafcba3daaf7c63",
+        "question_number": 113,
+        "source_jsonl_line": 19118
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0125_19ae1437f79abd1f.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_a7d7f5b2d27d0e6b47eb",
+        "question_number": 114,
+        "source_jsonl_line": 19119
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0125_19ae1437f79abd1f.jpg",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_20ea00394183a0099956",
+        "question_number": 115,
+        "source_jsonl_line": 19120
+      }
+    ],
+    "sha256": "4e8243f2877caef188b257b84824d4e86f5c9d7322fd13c773e5d969fa254436"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "国家/地区",
+      "人口（万人）",
+      "GDP（亿美元）",
+      "进口额（亿美元）",
+      "出口额（亿美元）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "蒙古",
+        "unit": null,
+        "values": [
+          "蒙古",
+          301.4,
+          116.5,
+          38.7,
+          45.0
+        ]
+      },
+      {
+        "label": "东南亚 11 国",
+        "unit": null,
+        "values": [
+          "东南亚 11 国",
+          63852.5,
+          25802.2,
+          11267.2,
+          11798.6
+        ]
+      },
+      {
+        "label": "南亚 8 国",
+        "unit": null,
+        "values": [
+          "南亚 8 国",
+          174499.0,
+          29146.6,
+          4724.1,
+          3308.5
+        ]
+      },
+      {
+        "label": "中亚 5 国",
+        "unit": null,
+        "values": [
+          "中亚 5 国",
+          6946.7,
+          2254.7,
+          422.7,
+          590.7
+        ]
+      },
+      {
+        "label": "西亚、北非 19 国",
+        "unit": null,
+        "values": [
+          "西亚、北非 19 国",
+          43504.6,
+          36467.5,
+          9675.5,
+          8850.7
+        ]
+      },
+      {
+        "label": "东欧 20 国",
+        "unit": null,
+        "values": [
+          "东欧 20 国",
+          32161.9,
+          26352.1,
+          9775.5,
+          11388.4
+        ]
+      }
+    ]
+  },
+  "title": "2016年“一带一路”沿线国家情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4e8243f2877caef188b257b8/row_band_01.jpg",
+        "review-crops/da_4e8243f2877caef188b257b8/row_band_02.jpg",
+        "review-crops/da_4e8243f2877caef188b257b8/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.412",
+      "crop_verification_elapsed_seconds:3.408",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

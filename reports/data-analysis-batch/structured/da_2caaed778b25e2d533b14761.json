@@ -1,0 +1,340 @@
+{
+  "asset_id": "da_2caaed778b25e2d533b14761",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "分类",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2006年",
+    "2007年",
+    "2008年",
+    "2009年"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        158.03,
+        198.96,
+        248.04,
+        292.32
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "西部地区",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        34.3,
+        42.7,
+        58.76,
+        70.15
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "中东部地区",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        123.73,
+        156.26,
+        189.28,
+        222.17
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "艺术表演团体",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        39.08,
+        49.74,
+        58.2,
+        63.62
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "图书馆",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        31.95,
+        39.54,
+        47.76,
+        55.08
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "群众文化机构",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        32.28,
+        43.23,
+        52.88,
+        68.12
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "其他",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        54.72,
+        66.45,
+        89.2,
+        105.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/青海/2014年青海省公务员录用考试《行测》题_images/img_0059_26f2b9027b036f45.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年青海省公务员录用考试《行测》题_images/img_0059_26f2b9027b036f45.png",
+        "paper_title": "2014年青海省公务员录用考试《行测》题",
+        "question_id": "pq_2df868c59655efd708b0",
+        "question_number": 106,
+        "source_jsonl_line": 99104
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年青海省公务员录用考试《行测》题_images/img_0059_26f2b9027b036f45.png",
+        "paper_title": "2014年青海省公务员录用考试《行测》题",
+        "question_id": "pq_74390b3c5f58ca23935b",
+        "question_number": 107,
+        "source_jsonl_line": 99105
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年青海省公务员录用考试《行测》题_images/img_0078_c66fcc640c98e4da.png",
+        "paper_title": "2014年青海省公务员录用考试《行测》题",
+        "question_id": "pq_17d4c0ea1e4dfd62a459",
+        "question_number": 108,
+        "source_jsonl_line": 99106
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年青海省公务员录用考试《行测》题_images/img_0078_c66fcc640c98e4da.png",
+        "paper_title": "2014年青海省公务员录用考试《行测》题",
+        "question_id": "pq_766c7d273c93d21af026",
+        "question_number": 109,
+        "source_jsonl_line": 99107
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年青海省公务员录用考试《行测》题_images/img_0078_c66fcc640c98e4da.png",
+        "paper_title": "2014年青海省公务员录用考试《行测》题",
+        "question_id": "pq_f8361e9c072f22836ae7",
+        "question_number": 110,
+        "source_jsonl_line": 99108
+      }
+    ],
+    "sha256": "2caaed778b25e2d533b14761f953a3509469169b25625043d45fe4ac53a17118"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2006年",
+      "2007年",
+      "2008年",
+      "2009年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "label": "全国",
+        "unit": "亿元",
+        "values": [
+          158.03,
+          198.96,
+          248.04,
+          292.32
+        ]
+      },
+      {
+        "label": "西部地区",
+        "unit": "亿元",
+        "values": [
+          34.3,
+          42.7,
+          58.76,
+          70.15
+        ]
+      },
+      {
+        "label": "中东部地区",
+        "unit": "亿元",
+        "values": [
+          123.73,
+          156.26,
+          189.28,
+          222.17
+        ]
+      },
+      {
+        "label": "艺术表演团体",
+        "unit": "亿元",
+        "values": [
+          39.08,
+          49.74,
+          58.2,
+          63.62
+        ]
+      },
+      {
+        "label": "图书馆",
+        "unit": "亿元",
+        "values": [
+          31.95,
+          39.54,
+          47.76,
+          55.08
+        ]
+      },
+      {
+        "label": "群众文化机构",
+        "unit": "亿元",
+        "values": [
+          32.28,
+          43.23,
+          52.88,
+          68.12
+        ]
+      },
+      {
+        "label": "其他",
+        "unit": "亿元",
+        "values": [
+          54.72,
+          66.45,
+          89.2,
+          105.5
+        ]
+      }
+    ]
+  },
+  "title": "我国文化事业费投入情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2caaed778b25e2d533b14761/row_band_01.jpg",
+        "review-crops/da_2caaed778b25e2d533b14761/row_band_02.jpg",
+        "review-crops/da_2caaed778b25e2d533b14761/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:13.145",
+      "crop_verification_elapsed_seconds:5.729",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:全国:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:西部地区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:西部地区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:中东部地区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:艺术表演团体:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:图书馆:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:图书馆:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:群众文化机构:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:其他:4!=5",
+      "table_row_label_column_removed:年份"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

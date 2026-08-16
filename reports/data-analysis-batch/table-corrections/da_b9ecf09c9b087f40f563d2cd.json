@@ -1,0 +1,108 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "外出农民工总量｜外出农民工｜跨省流动",
+          "外出农民工总量｜外出农民工｜省内流动",
+          "外出农民工总量｜100.00"
+        ],
+        "label": "外出农民工总量"
+      },
+      {
+        "columns": [
+          "构成｜外出农民工｜跨省流动",
+          "构成｜外出农民工｜省内流动"
+        ],
+        "label": "构成"
+      },
+      "rows:[{"
+    ],
+    "columns": [
+      "外出农民工总量｜外出农民工｜跨省流动",
+      "外出农民工总量｜外出农民工｜省内流动",
+      "外出农民工总量｜100.00",
+      "构成｜外出农民工｜跨省流动",
+      "构成｜外出农民工｜省内流动"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "外出农民工",
+      "style": "diagonal",
+      "upper_label": "外出农民工"
+    },
+    "missing_cells": [],
+    "row_header_label": "外出农民工",
+    "rows": [
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          17425,
+          7508,
+          100.0,
+          43.1,
+          56.9
+        ]
+      },
+      {
+        "display_label": "东部地区",
+        "group": null,
+        "label": "东部地区",
+        "unit": null,
+        "values": [
+          4792,
+          821,
+          3971,
+          17.1,
+          82.9
+        ]
+      },
+      {
+        "display_label": "中部地区",
+        "group": null,
+        "label": "中部地区",
+        "unit": null,
+        "values": [
+          6427,
+          3802,
+          2625,
+          59.2,
+          40.8
+        ]
+      },
+      {
+        "display_label": "西部地区",
+        "group": null,
+        "label": "西部地区",
+        "unit": null,
+        "values": [
+          5555,
+          2691,
+          2864,
+          48.4,
+          51.6
+        ]
+      },
+      {
+        "display_label": "东北地区",
+        "group": null,
+        "label": "东北地区",
+        "unit": null,
+        "values": [
+          651,
+          194,
+          457,
+          29.8,
+          70.2
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

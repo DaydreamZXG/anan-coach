@@ -1,0 +1,173 @@
+{
+  "asset_id": "da_85f4eab933db22b193a5a8cc",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2008年山东省公务员录用考试《行测》题_images/img_0123_cac14189f27969c3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山东省公务员录用考试《行测》题_images/img_0123_cac14189f27969c3.png",
+        "paper_title": "2008年山东省公务员录用考试《行测》题",
+        "question_id": "pq_319fe8e998c1ac4ef8d5",
+        "question_number": 134,
+        "source_jsonl_line": 28988
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山东省公务员录用考试《行测》题_images/img_0123_cac14189f27969c3.png",
+        "paper_title": "2008年山东省公务员录用考试《行测》题",
+        "question_id": "pq_7cd3be30f383fa9eaed5",
+        "question_number": 135,
+        "source_jsonl_line": 28989
+      }
+    ],
+    "sha256": "85f4eab933db22b193a5a8cc313c614903658d64db07b55d2695c43b33264aa0"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "零次",
+      "1～2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "男",
+        "group": "社会性别与公民参与政策制定的次数",
+        "label": "社会性别与公民参与政策制定的次数｜男",
+        "unit": null,
+        "values": [
+          559,
+          175,
+          49,
+          25,
+          7,
+          20
+        ]
+      },
+      {
+        "display_label": "%",
+        "group": "社会性别与公民参与政策制定的次数",
+        "label": "社会性别与公民参与政策制定的次数｜男｜%",
+        "unit": null,
+        "values": [
+          66.9,
+          21.0,
+          5.9,
+          3.0,
+          0.8,
+          2.4
+        ]
+      },
+      {
+        "display_label": "女",
+        "group": "社会性别与公民参与政策制定的次数",
+        "label": "社会性别与公民参与政策制定的次数｜女",
+        "unit": null,
+        "values": [
+          449,
+          69,
+          12,
+          15,
+          1,
+          2
+        ]
+      },
+      {
+        "display_label": "%",
+        "group": "社会性别与公民参与政策制定的次数",
+        "label": "社会性别与公民参与政策制定的次数｜女｜%",
+        "unit": null,
+        "values": [
+          81.9,
+          12.6,
+          2.2,
+          2.7,
+          0.2,
+          0.4
+        ]
+      },
+      {
+        "display_label": "总",
+        "group": "社会性别与公民参与政策制定的次数",
+        "label": "社会性别与公民参与政策制定的次数｜总",
+        "unit": null,
+        "values": [
+          1008,
+          244,
+          61,
+          40,
+          8,
+          22
+        ]
+      },
+      {
+        "display_label": "%",
+        "group": "社会性别与公民参与政策制定的次数",
+        "label": "社会性别与公民参与政策制定的次数｜总｜%",
+        "unit": null,
+        "values": [
+          72.9,
+          17.6,
+          4.4,
+          2.9,
+          0.6,
+          1.6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

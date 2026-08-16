@@ -1,0 +1,226 @@
+{
+  "asset_id": "da_8f2d23d09caa0a980ff5a9ce",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "亚洲 64.21%",
+    "欧洲 16.15%",
+    "美洲 11.05%",
+    "非洲 7.09%",
+    "大洋洲 1.50%"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "亚洲",
+      "style": {
+        "dash": null,
+        "fill": "#c0c0c0",
+        "marker": null,
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "欧洲",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "美洲",
+      "style": {
+        "dash": null,
+        "fill": "#f0f0f0",
+        "marker": null,
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "非洲",
+      "style": {
+        "dash": null,
+        "fill": "#808080",
+        "marker": null,
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "大洋洲",
+      "style": {
+        "dash": null,
+        "fill": "#a0a0a0",
+        "marker": null,
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      58.709,
+      97.308,
+      122.373,
+      128.503,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 58.709,
+        "label": "亚洲 64.21%",
+        "share": 0.16307955,
+        "start_angle": 0.0,
+        "sweep_angle": 58.709
+      },
+      {
+        "end_angle": 97.308,
+        "label": "欧洲 16.15%",
+        "share": 0.10722117,
+        "start_angle": 58.709,
+        "sweep_angle": 38.6
+      },
+      {
+        "end_angle": 122.373,
+        "label": "美洲 11.05%",
+        "share": 0.06962356,
+        "start_angle": 97.308,
+        "sweep_angle": 25.064
+      },
+      {
+        "end_angle": 128.503,
+        "label": "非洲 7.09%",
+        "share": 0.01702817,
+        "start_angle": 122.373,
+        "sweep_angle": 6.13
+      },
+      {
+        "end_angle": 360.0,
+        "label": "大洋洲 1.50%",
+        "share": 0.64304754,
+        "start_angle": 128.503,
+        "sweep_angle": 231.497
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.16307955,
+        0.10722117,
+        0.06962356,
+        0.01702817,
+        0.64304754
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/重庆/2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0086_44f6ab19a0ab0c21.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0086_44f6ab19a0ab0c21.png",
+        "paper_title": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_ac7e948e3bd6297ef55a",
+        "question_number": 101,
+        "source_jsonl_line": 93004
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0077_af70a87c324d7958.png",
+        "paper_title": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_d88c5604391511d7fac2",
+        "question_number": 102,
+        "source_jsonl_line": 93005
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0077_af70a87c324d7958.png",
+        "paper_title": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_7d3aacdd71a662428a66",
+        "question_number": 103,
+        "source_jsonl_line": 93006
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0086_44f6ab19a0ab0c21.png",
+        "paper_title": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_e624c8794dc6303655ef",
+        "question_number": 104,
+        "source_jsonl_line": 93007
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0086_44f6ab19a0ab0c21.png",
+        "paper_title": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_17b27e44fc0eafef2d06",
+        "question_number": 105,
+        "source_jsonl_line": 93008
+      }
+    ],
+    "sha256": "8f2d23d09caa0a980ff5a9ce0d1c3611c7d6fc21a45470a0225374f73adc156f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2011年来自各大洲的在华留学生人数占全年在华留学生比例",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8f2d23d09caa0a980ff5a9ce/quadrant_01.jpg",
+        "review-crops/da_8f2d23d09caa0a980ff5a9ce/quadrant_02.jpg",
+        "review-crops/da_8f2d23d09caa0a980ff5a9ce/quadrant_03.jpg",
+        "review-crops/da_8f2d23d09caa0a980ff5a9ce/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.246",
+      "crop_verification_elapsed_seconds:1.074",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.9944",
+      "hough_circle_radius_ratio:0.3591",
+      "radial_line_candidates:5",
+      "detected_boundaries:5"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

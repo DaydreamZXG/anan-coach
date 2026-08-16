@@ -1,0 +1,255 @@
+{
+  "asset_id": "da_d3751872066accbee770407d",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 120,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100,
+          120
+        ],
+        "title": null,
+        "unit": "万亩"
+      },
+      {
+        "max": 90,
+        "min": 20,
+        "ticks": [
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90
+        ],
+        "title": null,
+        "unit": "个"
+      }
+    ]
+  },
+  "categories": [
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "国际重要湿地面积",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "国际重要湿地数量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "triangle",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "国际重要湿地数量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "triangle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "国际重要湿地面积",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万亩",
+      "values": [
+        61.68,
+        61.68,
+        104.24,
+        104.24,
+        109.91
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "国际重要湿地数量",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        49,
+        49,
+        57,
+        57,
+        64
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0126_71e8e0f85fecfef6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0126_71e8e0f85fecfef6.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_884a3695a20eb039a9bc",
+        "question_number": 91,
+        "source_jsonl_line": 35723
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0149_2c8dbf5cd033c077.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_32b8654df52e58814b48",
+        "question_number": 92,
+        "source_jsonl_line": 35724
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0126_71e8e0f85fecfef6.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_d67677d31912a1a0a7ab",
+        "question_number": 93,
+        "source_jsonl_line": 35725
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0149_2c8dbf5cd033c077.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_a05a7d34dad8e2e9548a",
+        "question_number": 94,
+        "source_jsonl_line": 35726
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0126_71e8e0f85fecfef6.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_d079ef4ea9712a90c0bc",
+        "question_number": 95,
+        "source_jsonl_line": 35727
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0138_71e8e0f85fecfef6.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_472e10c8cb1f87997915",
+        "question_number": 91,
+        "source_jsonl_line": 35823
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0138_71e8e0f85fecfef6.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_1bb5f1539d97ef3632d3",
+        "question_number": 92,
+        "source_jsonl_line": 35824
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0138_71e8e0f85fecfef6.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_3c7eefe0ac88e90e152d",
+        "question_number": 93,
+        "source_jsonl_line": 35825
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0138_71e8e0f85fecfef6.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_b524e7b7dcd867e51326",
+        "question_number": 94,
+        "source_jsonl_line": 35826
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0138_71e8e0f85fecfef6.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_0693fd105232cda8c0e6",
+        "question_number": 95,
+        "source_jsonl_line": 35827
+      }
+    ],
+    "sha256": "d3751872066accbee770407dceb4e11cd043d57e5aa41ff21b0b2d9c183fd27d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图2 2016-2020年我国国际重要湿地面积变化",
+  "unit": "万亩",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d3751872066accbee770407d/column_band_01.jpg",
+        "review-crops/da_d3751872066accbee770407d/column_band_02.jpg",
+        "review-crops/da_d3751872066accbee770407d/column_band_03.jpg",
+        "review-crops/da_d3751872066accbee770407d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.946",
+      "crop_verification_elapsed_seconds:3.12",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

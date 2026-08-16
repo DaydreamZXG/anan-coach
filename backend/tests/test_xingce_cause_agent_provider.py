@@ -101,6 +101,58 @@ def test_provider_sends_idempotency_key_and_parses_structured_output() -> None:
     )
 
 
+def test_deepseek_v4_provider_uses_supported_json_object_mode() -> None:
+    captured: dict[str, object] = {}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        captured["body"] = json.loads(request.content)
+        return httpx.Response(
+            200,
+            headers={"X-Provider-Request-Id": "provider-request-deepseek"},
+            json={
+                "model": "deepseek-v4-pro",
+                "usage": {"prompt_tokens": 80, "completion_tokens": 24},
+                "choices": [
+                    {
+                        "message": {
+                            "content": json.dumps(
+                                {
+                                    "output": {
+                                        "kind": "candidate_ready",
+                                        "causeCode": "stem_misread",
+                                        "summary": "漏核了第二个判断",
+                                        "improvement": "逐项核对后再选答案",
+                                        "evidenceRefs": ["assessment:1"],
+                                        "limitations": [],
+                                    }
+                                },
+                                ensure_ascii=False,
+                            )
+                        }
+                    }
+                ],
+            },
+        )
+
+    provider = CauseAgentProvider(
+        _production_settings(
+            ai_xingce_cause_model="deepseek-v4-pro",
+            ai_xingce_cause_provider_release_id="tokenrhythm-deepseek-v4-pro",
+        ),
+        client_factory=lambda: httpx.Client(transport=httpx.MockTransport(handler)),
+    )
+
+    result = provider.generate(
+        evidence=_evidence(),
+        followup_answer=None,
+        idempotency_key="xingce-cause:deepseek:round:0",
+    )
+
+    assert result.output.kind == "candidate_ready"
+    assert captured["body"]["response_format"] == {"type": "json_object"}
+    assert captured["body"]["thinking"] == {"type": "disabled"}
+
+
 def _production_settings(**changes: object) -> Settings:
     values: dict[str, object] = {
         "environment": "production",

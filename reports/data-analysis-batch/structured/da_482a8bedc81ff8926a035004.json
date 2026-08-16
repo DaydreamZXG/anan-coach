@@ -1,0 +1,200 @@
+{
+  "asset_id": "da_482a8bedc81ff8926a035004",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "写信者与自己的相似性",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 80,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80
+        ],
+        "title": "钱包归还率",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "不相似",
+    "相似"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "负性语气",
+      "style": {
+        "dash": null,
+        "fill": "solid",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "中性语气",
+      "style": {
+        "dash": null,
+        "fill": "hatch",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "正性语气",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "负性语气",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        40,
+        10
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "中性语气",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        25,
+        60
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "正性语气",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        35,
+        70
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2010年黑龙江省公务员录用考试《行测》题_images/img_0178_39be22c2e27d1c6d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年黑龙江省公务员录用考试《行测》题_images/img_0178_39be22c2e27d1c6d.png",
+        "paper_title": "2010年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_d31020dde61c9ff067e0",
+        "question_number": 108,
+        "source_jsonl_line": 101271
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年黑龙江省公务员录用考试《行测》题_images/img_0192_718256ce620b570b.png",
+        "paper_title": "2010年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_d408435596e3c8a863a9",
+        "question_number": 109,
+        "source_jsonl_line": 101272
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年黑龙江省公务员录用考试《行测》题_images/img_0192_718256ce620b570b.png",
+        "paper_title": "2010年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_537a7b846c0437586abf",
+        "question_number": 110,
+        "source_jsonl_line": 101273
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年黑龙江省公务员录用考试《行测》题_images/img_0192_718256ce620b570b.png",
+        "paper_title": "2010年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_9e5e742c5b6ebd1bc85d",
+        "question_number": 111,
+        "source_jsonl_line": 101274
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年黑龙江省公务员录用考试《行测》题_images/img_0178_39be22c2e27d1c6d.png",
+        "paper_title": "2010年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_3eef2e8085e6454457a8",
+        "question_number": 112,
+        "source_jsonl_line": 101275
+      }
+    ],
+    "sha256": "482a8bedc81ff8926a035004bbdd221515a42cbf2c0ee49f7d9e6d9827e16944"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "各种实验条件下行人归还丢失钱包的人数百分比",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_482a8bedc81ff8926a035004/column_band_01.jpg",
+        "review-crops/da_482a8bedc81ff8926a035004/column_band_02.jpg",
+        "review-crops/da_482a8bedc81ff8926a035004/column_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.535",
+      "crop_verification_elapsed_seconds:5.836",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

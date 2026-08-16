@@ -1,0 +1,239 @@
+{
+  "asset_id": "da_af6c9aa9a5362bd71313526c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2014年浙江省公务员录用考试《行测》题（A类）_images/img_0140_bd774797727729e2.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0140_bd774797727729e2.jpg",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_35e52e1ae5df6e120303",
+        "question_number": 116,
+        "source_jsonl_line": 60798
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0155_8e3dbbf438246791.jpg",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_ec2d9708e2cb4f6c0bd7",
+        "question_number": 117,
+        "source_jsonl_line": 60799
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0155_8e3dbbf438246791.jpg",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_f0a81432585f86b37ac7",
+        "question_number": 118,
+        "source_jsonl_line": 60800
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0140_bd774797727729e2.jpg",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_fa1ffc3ee66242d76278",
+        "question_number": 119,
+        "source_jsonl_line": 60801
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0140_bd774797727729e2.jpg",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_823df9192b70b82fa5ea",
+        "question_number": 120,
+        "source_jsonl_line": 60802
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0122_bd774797727729e2.jpg",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_48ea537e8fc0a7be44d5",
+        "question_number": 106,
+        "source_jsonl_line": 60918
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0129_8e3dbbf438246791.jpg",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_7069e00c1920961e1d42",
+        "question_number": 107,
+        "source_jsonl_line": 60919
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0129_8e3dbbf438246791.jpg",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_acac52576621b899f06d",
+        "question_number": 108,
+        "source_jsonl_line": 60920
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0122_bd774797727729e2.jpg",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_fe66ca8a683f8db5dad4",
+        "question_number": 109,
+        "source_jsonl_line": 60921
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0122_bd774797727729e2.jpg",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_7e76e4ba14545b824c4c",
+        "question_number": 110,
+        "source_jsonl_line": 60922
+      }
+    ],
+    "sha256": "af6c9aa9a5362bd71313526cf1df6456e812c198f6da955cee0bf34d1a42747a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "社区卫生服务中心｜次均门诊费",
+      "社区卫生服务中心｜次均门诊费｜药费占比",
+      "社区卫生服务中心｜人均住院费",
+      "社区卫生服务中心｜人均住院费｜药费占比",
+      "乡镇卫生院｜次均门诊费",
+      "乡镇卫生院｜次均门诊费｜药费占比",
+      "乡镇卫生院｜人均住院费",
+      "乡镇卫生院｜人均住院费｜药费占比"
+    ],
+    "corner_header": {
+      "lower_label": "乡镇卫生院",
+      "style": "diagonal",
+      "upper_label": "社区卫生服务中心"
+    },
+    "missing_cells": [],
+    "row_header_label": "乡镇卫生院",
+    "rows": [
+      {
+        "display_label": "2008",
+        "group": null,
+        "label": "2008",
+        "unit": null,
+        "values": [
+          87.2,
+          72.2,
+          2514.2,
+          47.9,
+          42.5,
+          60.7,
+          790.8,
+          51.1
+        ]
+      },
+      {
+        "display_label": "2009",
+        "group": null,
+        "label": "2009",
+        "unit": null,
+        "values": [
+          84.0,
+          71.4,
+          2317.4,
+          49.0,
+          46.2,
+          62.3,
+          897.2,
+          53.5
+        ]
+      },
+      {
+        "display_label": "2010",
+        "group": null,
+        "label": "2010",
+        "unit": null,
+        "values": [
+          82.8,
+          70.9,
+          2357.6,
+          49.3,
+          47.5,
+          60.4,
+          1004.6,
+          52.3
+        ]
+      },
+      {
+        "display_label": "2011",
+        "group": null,
+        "label": "2011",
+        "unit": null,
+        "values": [
+          81.5,
+          67.4,
+          2315.1,
+          45.8,
+          47.5,
+          53.3,
+          1051.3,
+          40.8
+        ]
+      },
+      {
+        "display_label": "2012",
+        "group": null,
+        "label": "2012",
+        "unit": null,
+        "values": [
+          84.6,
+          69.1,
+          2417.9,
+          46.5,
+          49.2,
+          54.8,
+          1140.7,
+          46.0
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

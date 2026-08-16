@@ -1,0 +1,153 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "数量｜第1列",
+      "比上年增长%｜第2列",
+      "金额（亿美元）｜第3列",
+      "比上年增长%｜第4列"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "商品名称",
+    "rows": [
+      {
+        "display_label": "煤（包括褐煤）｜2013年",
+        "group": null,
+        "label": "煤（包括褐煤）｜2013年",
+        "unit": null,
+        "values": [
+          751,
+          -19.1,
+          11,
+          -33.1
+        ]
+      },
+      {
+        "display_label": "钢材｜2013年",
+        "group": null,
+        "label": "钢材｜2013年",
+        "unit": null,
+        "values": [
+          6234,
+          11.9,
+          532,
+          3.4
+        ]
+      },
+      {
+        "display_label": "纺织纱线、织物及制品｜2013年",
+        "group": null,
+        "label": "纺织纱线、织物及制品｜2013年",
+        "unit": null,
+        "values": [
+          1069,
+          11.7,
+          1069,
+          11.7
+        ]
+      },
+      {
+        "display_label": "服装及衣着附件｜2013年",
+        "group": null,
+        "label": "服装及衣着附件｜2013年",
+        "unit": null,
+        "values": [
+          1770,
+          11.3,
+          1770,
+          11.3
+        ]
+      },
+      {
+        "display_label": "鞋类｜2013年",
+        "group": null,
+        "label": "鞋类｜2013年",
+        "unit": null,
+        "values": [
+          508,
+          8.4,
+          508,
+          8.4
+        ]
+      },
+      {
+        "display_label": "家具及其零件｜2013年",
+        "group": null,
+        "label": "家具及其零件｜2013年",
+        "unit": null,
+        "values": [
+          518,
+          6.2,
+          518,
+          6.2
+        ]
+      },
+      {
+        "display_label": "自动数据处理设备及其附件｜2013年",
+        "group": null,
+        "label": "自动数据处理设备及其附件｜2013年",
+        "unit": null,
+        "values": [
+          187050,
+          2,
+          1822,
+          -1.7
+        ]
+      },
+      {
+        "display_label": "手持或车载无线电话｜2013年",
+        "group": null,
+        "label": "手持或车载无线电话｜2013年",
+        "unit": null,
+        "values": [
+          118582,
+          16.9,
+          951,
+          17.3
+        ]
+      },
+      {
+        "display_label": "集装箱｜2013年",
+        "group": null,
+        "label": "集装箱｜2013年",
+        "unit": null,
+        "values": [
+          270,
+          8.8,
+          79,
+          -6.4
+        ]
+      },
+      {
+        "display_label": "液晶显示板｜2013年",
+        "group": null,
+        "label": "液晶显示板｜2013年",
+        "unit": null,
+        "values": [
+          326577,
+          3.1,
+          359,
+          -1
+        ]
+      },
+      {
+        "display_label": "汽车（包括整套散件）｜2013年",
+        "group": null,
+        "label": "汽车（包括整套散件）｜2013年",
+        "unit": null,
+        "values": [
+          92,
+          -6.7,
+          120,
+          -5.3
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,182 @@
+{
+  "asset_id": "da_af07d820f479e661acfa5ca7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2009年江西省公务员录用考试《行测》题_images/img_0117_36f8cdd4da865bb9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江西省公务员录用考试《行测》题_images/img_0117_36f8cdd4da865bb9.png",
+        "paper_title": "2009年江西省公务员录用考试《行测》题",
+        "question_id": "pq_1b067f5cfac096457d9d",
+        "question_number": 111,
+        "source_jsonl_line": 51216
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江西省公务员录用考试《行测》题_images/img_0116_16ef9a56136075c2.png",
+        "paper_title": "2009年江西省公务员录用考试《行测》题",
+        "question_id": "pq_b51a1f4625f178b2ef23",
+        "question_number": 112,
+        "source_jsonl_line": 51217
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江西省公务员录用考试《行测》题_images/img_0116_16ef9a56136075c2.png",
+        "paper_title": "2009年江西省公务员录用考试《行测》题",
+        "question_id": "pq_70527af42ad830021349",
+        "question_number": 113,
+        "source_jsonl_line": 51218
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江西省公务员录用考试《行测》题_images/img_0117_36f8cdd4da865bb9.png",
+        "paper_title": "2009年江西省公务员录用考试《行测》题",
+        "question_id": "pq_077f0815617fac80c732",
+        "question_number": 114,
+        "source_jsonl_line": 51219
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江西省公务员录用考试《行测》题_images/img_0117_36f8cdd4da865bb9.png",
+        "paper_title": "2009年江西省公务员录用考试《行测》题",
+        "question_id": "pq_618919024aebe2ad6c93",
+        "question_number": 115,
+        "source_jsonl_line": 51220
+      }
+    ],
+    "sha256": "af07d820f479e661acfa5ca709e1fb4378a4a4e1b5bcbddc0f113da6ed0bcabb"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "",
+      "财政科技拨款额 (亿元)",
+      "比上年增长 (%)",
+      "占财政科技拨款总额的比重 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "合计",
+        "unit": null,
+        "values": [
+          "合计",
+          1095.3,
+          16.0,
+          null
+        ]
+      },
+      {
+        "label": "其中：科技三项费",
+        "unit": null,
+        "values": [
+          "其中：科技三项费",
+          484.0,
+          16.2,
+          44.2
+        ]
+      },
+      {
+        "label": "科学事业费",
+        "unit": null,
+        "values": [
+          "科学事业费",
+          335.9,
+          11.7,
+          null
+        ]
+      },
+      {
+        "label": "科研基建费",
+        "unit": null,
+        "values": [
+          "科研基建费",
+          null,
+          19.6,
+          8.7
+        ]
+      },
+      {
+        "label": "其中：中央",
+        "unit": null,
+        "values": [
+          "其中：中央",
+          692.4,
+          13.7,
+          63.2
+        ]
+      },
+      {
+        "label": "地方",
+        "unit": null,
+        "values": [
+          "地方",
+          402.9,
+          20.1,
+          36.8
+        ]
+      }
+    ]
+  },
+  "title": "2004年财政科技拨款情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_af07d820f479e661acfa5ca7/row_band_01.jpg",
+        "review-crops/da_af07d820f479e661acfa5ca7/row_band_02.jpg",
+        "review-crops/da_af07d820f479e661acfa5ca7/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.243",
+      "crop_verification_elapsed_seconds:3.84",
+      "candidate_value_changes_after_crop:3",
+      "model_uncertainty:表格中存在明确的缺失值（'---'），已正确识别为null",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

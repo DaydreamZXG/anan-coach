@@ -1,0 +1,181 @@
+{
+  "asset_id": "da_4101b50de146f128d63b2703",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 9,
+        "min": 0,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2017年1-12月",
+    "2018年1-12月",
+    "1-3月",
+    "1-4月",
+    "1-5月",
+    "1-6月",
+    "1-7月",
+    "1-8月",
+    "1-9月",
+    "1-10月",
+    "1-11月",
+    "1-12月"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "固定资产投资（不含农户）同比增速%",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        7.2,
+        7.9,
+        7.5,
+        7.0,
+        6.1,
+        6.0,
+        5.5,
+        5.3,
+        5.4,
+        5.7,
+        5.9,
+        5.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2019年420联考《行测》题（吉林乙级）（网友回忆版）_images/img_0123_a79ebce00d0c07e3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（吉林乙级）（网友回忆版）_images/img_0123_a79ebce00d0c07e3.png",
+        "paper_title": "2019年420联考《行测》题（吉林乙级）（网友回忆版）",
+        "question_id": "pq_05b7f1632066b0a893f2",
+        "question_number": 91,
+        "source_jsonl_line": 13102
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（吉林乙级）（网友回忆版）_images/img_0123_a79ebce00d0c07e3.png",
+        "paper_title": "2019年420联考《行测》题（吉林乙级）（网友回忆版）",
+        "question_id": "pq_d0d9dc05415bb48c4f35",
+        "question_number": 92,
+        "source_jsonl_line": 13103
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（吉林乙级）（网友回忆版）_images/img_0123_a79ebce00d0c07e3.png",
+        "paper_title": "2019年420联考《行测》题（吉林乙级）（网友回忆版）",
+        "question_id": "pq_c50d714b3b205ffdcb17",
+        "question_number": 93,
+        "source_jsonl_line": 13104
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（吉林乙级）（网友回忆版）_images/img_0123_a79ebce00d0c07e3.png",
+        "paper_title": "2019年420联考《行测》题（吉林乙级）（网友回忆版）",
+        "question_id": "pq_31cf3957a7dac8743e8d",
+        "question_number": 94,
+        "source_jsonl_line": 13105
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（吉林乙级）（网友回忆版）_images/img_0152_b6f95e5844cbb574.png",
+        "paper_title": "2019年420联考《行测》题（吉林乙级）（网友回忆版）",
+        "question_id": "pq_3bca592eb7c6a4ad07f0",
+        "question_number": 95,
+        "source_jsonl_line": 13106
+      }
+    ],
+    "sha256": "4101b50de146f128d63b2703f8f0c6b3e7a82a1e7258c4457a3497c0acedc964"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "固定资产投资（不含农户）同比增速%",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4101b50de146f128d63b2703/column_band_01.jpg",
+        "review-crops/da_4101b50de146f128d63b2703/column_band_02.jpg",
+        "review-crops/da_4101b50de146f128d63b2703/column_band_03.jpg",
+        "review-crops/da_4101b50de146f128d63b2703/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.011",
+      "crop_verification_elapsed_seconds:16.581",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了 '1-4月' 的 y 值为 7.0，原图显示为 7，根据上下文和趋势判断应为 7.0。",
+      "crop_note:修正了 '1-5月' 的 y 值为 6.1，原图显示为 6，根据上下文和趋势判断应为 6.1。",
+      "crop_note:修正了 '1-6月' 的 y 值为 6.0，原图显示为 6，根据上下文和趋势判断应为 6.0。",
+      "crop_note:修正了 '1-7月' 的 y 值为 5.5，原图显示为 5.5，确认无误。",
+      "crop_note:修正了 '1-8月' 的 y 值为 5.3，原图显示为 5.3，确认无误。",
+      "crop_note:修正了 '1-9月' 的 y 值为 5.4，原图显示为 5.4，确认无误。",
+      "crop_note:修正了 '1-10月' 的 y 值为 5.7，原图显示为 5.7，确认无误。",
+      "crop_note:修正了 '1-11月' 的 y 值为 5.9，原图显示为 5.9，确认无误。",
+      "crop_note:修正了 '1-12月' 的 y 值为 5.9，原图显示为 5.9，确认无误。",
+      "crop_note:确认 '2017年1-12月' 的 y 值为 7.2，原图显示为 7.2，确认无误。",
+      "crop_note:确认 '2018年1-12月' 的 y 值为 7.9，原图显示为 7.9，确认无误。",
+      "crop_note:确认 '1-3月' 的 y 值为 7.5，原图显示为 7.5，确认无误。",
+      "crop_note:确认 '1-4月' 的 y 值为 7.0，原图显示为 7，根据上下文和趋势判断应为 7.0。",
+      "crop_note:确认 '1-5月' 的 y 值为 6.1，原图显示为 6，根据上下文和趋势判断应为 6.1。",
+      "crop_note:确认 '1-6月' 的 y 值为 6.0，原图显示为 6，根据上下文和趋势判断应为 6.0。",
+      "crop_note:确认 '1-7月' 的 y 值为 5.5，原图显示为 5.5，确认无误。",
+      "crop_note:确认 '1-8月' 的 y 值为 5.3，原图显示为 5.3，确认无误。",
+      "crop_note:确认 '1-9月' 的 y 值为 5.4，原图显示为 5.4，确认无误。",
+      "crop_note:确认 '1-10月' 的 y 值为 5.7，原图显示为 5.7，确认无误。",
+      "crop_note:确认 '1-11月' 的 y 值为 5.9，原图显示为 5.9，确认无误。",
+      "crop_note:确认 '1-12月' 的 y 值为 5.9，原图显示为 5.9，确认无误。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,219 @@
+{
+  "asset_id": "da_c15d408e0a6c87ac8034cef6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "企业个数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        95,
+        4,
+        17,
+        24
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "总产值（亿元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        76.88,
+        2.77,
+        201.07,
+        26.18
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "同比增长",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        57.4,
+        163.0,
+        31.7,
+        -22.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0211_c3fa617323675f80.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0211_c3fa617323675f80.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_3244ae463415aacc864b",
+        "question_number": 86,
+        "source_jsonl_line": 35618
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0211_c3fa617323675f80.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_20dd5048255706929bd7",
+        "question_number": 87,
+        "source_jsonl_line": 35619
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0211_c3fa617323675f80.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_a259ef5405167148f936",
+        "question_number": 88,
+        "source_jsonl_line": 35620
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0211_c3fa617323675f80.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_c1f58538eacc211c7f9e",
+        "question_number": 89,
+        "source_jsonl_line": 35621
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0211_c3fa617323675f80.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_52dbf409bae2baec7adf",
+        "question_number": 90,
+        "source_jsonl_line": 35622
+      }
+    ],
+    "sha256": "c15d408e0a6c87ac8034cef697c890ee52c3dca7813843e186d860a8b9be7b19"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "行业名称",
+      "企业个数",
+      "总产值（亿元）",
+      "同比增长"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "工业机器人制造业",
+        "unit": null,
+        "values": [
+          "工业机器人制造业",
+          95,
+          76.88,
+          57.4
+        ]
+      },
+      {
+        "label": "特殊作业工业机器人制造业",
+        "unit": null,
+        "values": [
+          "特殊作业工业机器人制造业",
+          4,
+          2.77,
+          163.0
+        ]
+      },
+      {
+        "label": "智能无人飞行器制造业",
+        "unit": null,
+        "values": [
+          "智能无人飞行器制造业",
+          17,
+          201.07,
+          31.7
+        ]
+      },
+      {
+        "label": "服务消费机器人制造业",
+        "unit": null,
+        "values": [
+          "服务消费机器人制造业",
+          24,
+          26.18,
+          -22.8
+        ]
+      }
+    ]
+  },
+  "title": "表1 2020年前三季度G省智能机器人产业四大行业发展情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c15d408e0a6c87ac8034cef6/row_band_01.jpg",
+        "review-crops/da_c15d408e0a6c87ac8034cef6/row_band_02.jpg",
+        "review-crops/da_c15d408e0a6c87ac8034cef6/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.36",
+      "crop_verification_elapsed_seconds:2.539",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

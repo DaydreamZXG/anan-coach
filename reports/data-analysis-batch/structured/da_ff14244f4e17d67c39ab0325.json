@@ -1,0 +1,280 @@
+{
+  "asset_id": "da_ff14244f4e17d67c39ab0325",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0107_a640ce3559d4784d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0107_a640ce3559d4784d.png",
+        "paper_title": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_ae5cc358c7b8bda67f15",
+        "question_number": 51,
+        "source_jsonl_line": 62513
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0107_a640ce3559d4784d.png",
+        "paper_title": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_4dfbeea852cd06aec81d",
+        "question_number": 52,
+        "source_jsonl_line": 62514
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0107_a640ce3559d4784d.png",
+        "paper_title": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_7749adaa5e4da07aadaf",
+        "question_number": 53,
+        "source_jsonl_line": 62515
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0109_a5cc9bb727923175.png",
+        "paper_title": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_c2f85b77d48ee2354b0f",
+        "question_number": 54,
+        "source_jsonl_line": 62516
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0107_a640ce3559d4784d.png",
+        "paper_title": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_f826aad2e0fc0ccdd31f",
+        "question_number": 55,
+        "source_jsonl_line": 62517
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0110_a640ce3559d4784d.png",
+        "paper_title": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_aff682f9ee52debee7d2",
+        "question_number": 51,
+        "source_jsonl_line": 89436
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0117_a5cc9bb727923175.png",
+        "paper_title": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_5cb861951ead53695431",
+        "question_number": 52,
+        "source_jsonl_line": 89437
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0110_a640ce3559d4784d.png",
+        "paper_title": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_126ab81d7693eded458a",
+        "question_number": 53,
+        "source_jsonl_line": 89438
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0117_a5cc9bb727923175.png",
+        "paper_title": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_ae54822ecbc82c7415c1",
+        "question_number": 54,
+        "source_jsonl_line": 89439
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0110_a640ce3559d4784d.png",
+        "paper_title": "2021年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_cb51321c2e95a0b7ac88",
+        "question_number": 55,
+        "source_jsonl_line": 89440
+      }
+    ],
+    "sha256": "ff14244f4e17d67c39ab032580ea46a0484c5f0a89ce5c93094e54ed9ac6b3ec"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "常住人口(万人)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全市",
+        "unit": null,
+        "values": [
+          "全市",
+          946.8
+        ]
+      },
+      {
+        "label": "上城区",
+        "unit": null,
+        "values": [
+          "上城区",
+          34.8
+        ]
+      },
+      {
+        "label": "下城区",
+        "unit": null,
+        "values": [
+          "下城区",
+          53.1
+        ]
+      },
+      {
+        "label": "江干区",
+        "unit": null,
+        "values": [
+          "江干区",
+          77.2
+        ]
+      },
+      {
+        "label": "拱墅区",
+        "unit": null,
+        "values": [
+          "拱墅区",
+          56.2
+        ]
+      },
+      {
+        "label": "西湖区",
+        "unit": null,
+        "values": [
+          "西湖区",
+          83.1
+        ]
+      },
+      {
+        "label": "滨江区",
+        "unit": null,
+        "values": [
+          "滨江区",
+          35.1
+        ]
+      },
+      {
+        "label": "萧山区",
+        "unit": null,
+        "values": [
+          "萧山区",
+          145.4
+        ]
+      },
+      {
+        "label": "余杭区",
+        "unit": null,
+        "values": [
+          "余杭区",
+          147.6
+        ]
+      },
+      {
+        "label": "富阳区",
+        "unit": null,
+        "values": [
+          "富阳区",
+          73.9
+        ]
+      },
+      {
+        "label": "临安区",
+        "unit": null,
+        "values": [
+          "临安区",
+          59.1
+        ]
+      },
+      {
+        "label": "桐庐县",
+        "unit": null,
+        "values": [
+          "桐庐县",
+          42.9
+        ]
+      },
+      {
+        "label": "淳安县",
+        "unit": null,
+        "values": [
+          "淳安县",
+          35.3
+        ]
+      },
+      {
+        "label": "建德县",
+        "unit": null,
+        "values": [
+          "建德县",
+          44.5
+        ]
+      },
+      {
+        "label": "杭州经济技术开发区",
+        "unit": null,
+        "values": [
+          "杭州经济技术开发区",
+          35.6
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ff14244f4e17d67c39ab0325/row_band_01.jpg",
+        "review-crops/da_ff14244f4e17d67c39ab0325/row_band_02.jpg",
+        "review-crops/da_ff14244f4e17d67c39ab0325/row_band_03.jpg",
+        "review-crops/da_ff14244f4e17d67c39ab0325/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.531",
+      "crop_verification_elapsed_seconds:2.034",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

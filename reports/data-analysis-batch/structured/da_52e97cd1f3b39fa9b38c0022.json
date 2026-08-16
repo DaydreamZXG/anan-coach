@@ -1,0 +1,205 @@
+{
+  "asset_id": "da_52e97cd1f3b39fa9b38c0022",
+  "axes": {
+    "x": {
+      "max": 2023,
+      "min": 2019,
+      "ticks": [
+        2019,
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1500,
+        "min": 0,
+        "ticks": [
+          0,
+          300,
+          600,
+          900,
+          1200,
+          1500
+        ],
+        "title": null,
+        "unit": "亿件"
+      },
+      {
+        "max": 80,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "全国快递",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "省内快递",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国快递",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿件",
+      "values": [
+        635.2,
+        833.6,
+        1083,
+        1105.8,
+        1320.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "省内快递",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿件",
+      "values": [
+        28.9,
+        41.5,
+        56,
+        57.7,
+        70.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0053_e3d63ee6269c2c40.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0053_e3d63ee6269c2c40.png",
+        "paper_title": "2025年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_8c522c3063d003ea7df3",
+        "question_number": 101,
+        "source_jsonl_line": 30915
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0053_e3d63ee6269c2c40.png",
+        "paper_title": "2025年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_9b9e3dc64d06cec29725",
+        "question_number": 102,
+        "source_jsonl_line": 30916
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0053_e3d63ee6269c2c40.png",
+        "paper_title": "2025年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_6be51ad5311b502da4ca",
+        "question_number": 103,
+        "source_jsonl_line": 30917
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0068_8f348ab673e2f177.png",
+        "paper_title": "2025年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_dce080a0cb20d15305b6",
+        "question_number": 104,
+        "source_jsonl_line": 30918
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0068_8f348ab673e2f177.png",
+        "paper_title": "2025年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_6a622375f70281fd8eeb",
+        "question_number": 105,
+        "source_jsonl_line": 30919
+      }
+    ],
+    "sha256": "52e97cd1f3b39fa9b38c00221ab9ece0ebb55c640f2702f8af3e5253e625b7ba"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2019-2023年全国和山东省内快递业务量",
+  "unit": "亿件",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_52e97cd1f3b39fa9b38c0022/column_band_01.jpg",
+        "review-crops/da_52e97cd1f3b39fa9b38c0022/column_band_02.jpg",
+        "review-crops/da_52e97cd1f3b39fa9b38c0022/column_band_03.jpg",
+        "review-crops/da_52e97cd1f3b39fa9b38c0022/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.745",
+      "crop_verification_elapsed_seconds:2.625",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

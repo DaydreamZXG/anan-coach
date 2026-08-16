@@ -1,0 +1,408 @@
+{
+  "asset_id": "da_5e51cce94a809d9ebda5e131",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 30,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30
+        ],
+        "title": null,
+        "unit": "件"
+      }
+    ]
+  },
+  "categories": [
+    "延误",
+    "丢失损毁",
+    "投递服务",
+    "其他"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "企业1",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "企业2",
+      "style": {
+        "dash": "hatch",
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "企业3",
+      "style": {
+        "dash": "hatch",
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "企业4",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "1",
+      "label": "企业1",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "件",
+      "values": [
+        19.93,
+        23.79,
+        28.32,
+        3.09
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2",
+      "label": "企业2",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "件",
+      "values": [
+        11.12,
+        8.89,
+        11.37,
+        1.18
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "3",
+      "label": "企业3",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "件",
+      "values": [
+        11.13,
+        7.07,
+        12.57,
+        1.09
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "4",
+      "label": "企业4",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "件",
+      "values": [
+        3.29,
+        6.37,
+        7.24,
+        0.91
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2016年423联考《行测》题（四川卷）_images/img_0125_e37e4648bf79a610.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0125_e37e4648bf79a610.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_1ed2f2d348bfa61d7770",
+        "question_number": 96,
+        "source_jsonl_line": 15311
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0130_458f47502725820c.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_9adc0f1f89116090d5a2",
+        "question_number": 97,
+        "source_jsonl_line": 15312
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0130_458f47502725820c.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_0da07a85bc1435787802",
+        "question_number": 98,
+        "source_jsonl_line": 15313
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0125_e37e4648bf79a610.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_baa3b4142154f5837aef",
+        "question_number": 99,
+        "source_jsonl_line": 15314
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0125_e37e4648bf79a610.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_817aa8ab16f5a58dbda2",
+        "question_number": 100,
+        "source_jsonl_line": 15315
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0175_e37e4648bf79a610.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_f25a353187598bbc341f",
+        "question_number": 111,
+        "source_jsonl_line": 22876
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0180_458f47502725820c.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_f3be8caaa25f6db72db5",
+        "question_number": 112,
+        "source_jsonl_line": 22877
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0175_e37e4648bf79a610.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_f47095a319190d6d2d76",
+        "question_number": 113,
+        "source_jsonl_line": 22878
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0175_e37e4648bf79a610.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_af4339d8d9ed5bccf704",
+        "question_number": 114,
+        "source_jsonl_line": 22879
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0175_e37e4648bf79a610.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_77cb6f86e502bfafc12c",
+        "question_number": 115,
+        "source_jsonl_line": 22880
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（山西卷）_images/img_0106_e37e4648bf79a610.png",
+        "paper_title": "2016年423联考《行测》题（山西卷）",
+        "question_id": "pq_f161977861d76873dd5f",
+        "question_number": 106,
+        "source_jsonl_line": 32184
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（山西卷）_images/img_0121_458f47502725820c.png",
+        "paper_title": "2016年423联考《行测》题（山西卷）",
+        "question_id": "pq_f8f45db11058fd3e53ca",
+        "question_number": 107,
+        "source_jsonl_line": 32185
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（山西卷）_images/img_0121_458f47502725820c.png",
+        "paper_title": "2016年423联考《行测》题（山西卷）",
+        "question_id": "pq_19d08ece9c4daf31fb70",
+        "question_number": 108,
+        "source_jsonl_line": 32186
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（山西卷）_images/img_0106_e37e4648bf79a610.png",
+        "paper_title": "2016年423联考《行测》题（山西卷）",
+        "question_id": "pq_ca3acf9607fa73c1144f",
+        "question_number": 109,
+        "source_jsonl_line": 32187
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（山西卷）_images/img_0106_e37e4648bf79a610.png",
+        "paper_title": "2016年423联考《行测》题（山西卷）",
+        "question_id": "pq_5b79d926c0a7a70130c3",
+        "question_number": 110,
+        "source_jsonl_line": 32188
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（新疆兵团网友回忆版）_images/img_0184_e37e4648bf79a610.png",
+        "paper_title": "2016年423联考《行测》题（新疆兵团网友回忆版）",
+        "question_id": "pq_5f9334482efc0f0ef1b5",
+        "question_number": 111,
+        "source_jsonl_line": 42391
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（新疆兵团网友回忆版）_images/img_0190_458f47502725820c.png",
+        "paper_title": "2016年423联考《行测》题（新疆兵团网友回忆版）",
+        "question_id": "pq_42a55055e6f28e9d9b3b",
+        "question_number": 112,
+        "source_jsonl_line": 42392
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（新疆兵团网友回忆版）_images/img_0184_e37e4648bf79a610.png",
+        "paper_title": "2016年423联考《行测》题（新疆兵团网友回忆版）",
+        "question_id": "pq_51193fd7e556cafa1aeb",
+        "question_number": 113,
+        "source_jsonl_line": 42393
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（新疆兵团网友回忆版）_images/img_0184_e37e4648bf79a610.png",
+        "paper_title": "2016年423联考《行测》题（新疆兵团网友回忆版）",
+        "question_id": "pq_50e9b4da1f2c29f6f0d7",
+        "question_number": 114,
+        "source_jsonl_line": 42394
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（新疆兵团网友回忆版）_images/img_0184_e37e4648bf79a610.png",
+        "paper_title": "2016年423联考《行测》题（新疆兵团网友回忆版）",
+        "question_id": "pq_542d06e5d9f7fd8bcedc",
+        "question_number": 115,
+        "source_jsonl_line": 42395
+      }
+    ],
+    "sha256": "5e51cce94a809d9ebda5e131d5d49ad5a964ac7443734d00ca010a24e1f5fe8e"
+  },
+  "structured_visual": null,
+  "table": {
+    "columns": [
+      "",
+      "企业1",
+      "企业2",
+      "企业3",
+      "企业4"
+    ],
+    "rows": [
+      {
+        "label": "延误",
+        "values": [
+          19.93,
+          11.12,
+          11.13,
+          3.29
+        ]
+      },
+      {
+        "label": "丢失损毁",
+        "values": [
+          23.79,
+          8.89,
+          7.07,
+          6.37
+        ]
+      },
+      {
+        "label": "投递服务",
+        "values": [
+          28.32,
+          11.37,
+          12.57,
+          7.24
+        ]
+      },
+      {
+        "label": "其他",
+        "values": [
+          3.09,
+          1.18,
+          1.09,
+          0.91
+        ]
+      }
+    ]
+  },
+  "title": "2015年2月对四家企业的每百万件快递业务有效申诉量",
+  "unit": "件",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5e51cce94a809d9ebda5e131/column_band_01.jpg",
+        "review-crops/da_5e51cce94a809d9ebda5e131/column_band_02.jpg",
+        "review-crops/da_5e51cce94a809d9ebda5e131/column_band_03.jpg",
+        "review-crops/da_5e51cce94a809d9ebda5e131/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.654",
+      "crop_verification_elapsed_seconds:6.782",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'丢失损毁'类别下企业4的值为6.37，原图中为6.37，与表格一致。",
+      "crop_note:修正了'投递服务'类别下企业4的值为7.24，原图中为7.24，与表格一致。",
+      "crop_note:修正了'其他'类别下企业4的值为0.91，原图中为0.91，与表格一致。",
+      "crop_note:确认所有数值的小数点后位数与原图一致，无额外补零。",
+      "crop_note:确认所有数值均为正数，无负号。",
+      "crop_note:确认所有数值均无百分号。",
+      "crop_note:确认所有缺失值保持为null，未补0。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

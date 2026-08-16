@@ -1,0 +1,243 @@
+{
+  "asset_id": "da_4ef497dd71f9ee2e13d888cc",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "商品房销售面积绝对数（万平方米）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万平方米",
+      "values": [
+        87451,
+        42766,
+        23883,
+        20802
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "商品房销售面积同比增长率（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        25.5,
+        27.4,
+        31.7,
+        15.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "商品房销售额绝对数（亿元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        66623,
+        42668,
+        13249,
+        10706
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "商品房销售额同比增长率（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        38.7,
+        44.7,
+        41.7,
+        16.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2016年江西省法检系统招录考试《行测》题_images/img_0149_98df8d1965595046.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江西省法检系统招录考试《行测》题_images/img_0149_98df8d1965595046.png",
+        "paper_title": "2016年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_28cecd1e8b036eddddfa",
+        "question_number": 116,
+        "source_jsonl_line": 52525
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江西省法检系统招录考试《行测》题_images/img_0165_f17b545e8f27c1fb.png",
+        "paper_title": "2016年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_d5e23e83ee0389013b02",
+        "question_number": 117,
+        "source_jsonl_line": 52526
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江西省法检系统招录考试《行测》题_images/img_0149_98df8d1965595046.png",
+        "paper_title": "2016年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_c282c4f8b7f00176aa45",
+        "question_number": 118,
+        "source_jsonl_line": 52527
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江西省法检系统招录考试《行测》题_images/img_0149_98df8d1965595046.png",
+        "paper_title": "2016年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_67e64a1a631f5f673ad8",
+        "question_number": 119,
+        "source_jsonl_line": 52528
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江西省法检系统招录考试《行测》题_images/img_0149_98df8d1965595046.png",
+        "paper_title": "2016年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_bd5e33f6bd683cebdf92",
+        "question_number": 120,
+        "source_jsonl_line": 52529
+      }
+    ],
+    "sha256": "4ef497dd71f9ee2e13d888cc9dd497a653d5499f47889a799474821db23180c1"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "商品房销售面积绝对数（万平方米）",
+      "商品房销售面积同比增长率（%）",
+      "商品房销售额绝对数（亿元）",
+      "商品房销售额同比增长率（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全国总计",
+        "unit": null,
+        "values": [
+          "全国总计",
+          87451,
+          25.5,
+          66623,
+          38.7
+        ]
+      },
+      {
+        "label": "东部地区",
+        "unit": null,
+        "values": [
+          "东部地区",
+          42766,
+          27.4,
+          42668,
+          44.7
+        ]
+      },
+      {
+        "label": "中部地区",
+        "unit": null,
+        "values": [
+          "中部地区",
+          23883,
+          31.7,
+          13249,
+          41.7
+        ]
+      },
+      {
+        "label": "西部地区",
+        "unit": null,
+        "values": [
+          "西部地区",
+          20802,
+          15.7,
+          10706,
+          16.3
+        ]
+      }
+    ]
+  },
+  "title": "表2.2016年1-8月份东中西部地区房地产开发销售情况情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4ef497dd71f9ee2e13d888cc/row_band_01.jpg",
+        "review-crops/da_4ef497dd71f9ee2e13d888cc/row_band_02.jpg",
+        "review-crops/da_4ef497dd71f9ee2e13d888cc/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.951",
+      "crop_verification_elapsed_seconds:5.193",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

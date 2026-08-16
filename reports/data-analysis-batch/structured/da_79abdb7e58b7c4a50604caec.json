@@ -1,0 +1,253 @@
+{
+  "asset_id": "da_79abdb7e58b7c4a50604caec",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "已经开始自主营业",
+    "完全没有兴趣意愿",
+    "有一点兴趣意愿",
+    "有一定的兴趣意愿",
+    "兴趣意愿较大",
+    "兴趣意愿很强"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "已经开始自主营业",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "完全没有兴趣意愿",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "有一点兴趣意愿",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "有一定的兴趣意愿",
+      "style": {
+        "dash": "cross",
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "兴趣意愿较大",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "兴趣意愿很强",
+      "style": {
+        "dash": "cross",
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -86.5,
+      31.5,
+      45.5,
+      89.0,
+      124.0,
+      257.533,
+      273.5
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 31.5,
+        "label": "已经开始自主营业",
+        "share": 0.32777778,
+        "start_angle": -86.5,
+        "sweep_angle": 118.0
+      },
+      {
+        "end_angle": 45.5,
+        "label": "完全没有兴趣意愿",
+        "share": 0.03888889,
+        "start_angle": 31.5,
+        "sweep_angle": 14.0
+      },
+      {
+        "end_angle": 89.0,
+        "label": "有一点兴趣意愿",
+        "share": 0.12083333,
+        "start_angle": 45.5,
+        "sweep_angle": 43.5
+      },
+      {
+        "end_angle": 124.0,
+        "label": "有一定的兴趣意愿",
+        "share": 0.09722222,
+        "start_angle": 89.0,
+        "sweep_angle": 35.0
+      },
+      {
+        "end_angle": 257.533,
+        "label": "兴趣意愿较大",
+        "share": 0.37092531,
+        "start_angle": 124.0,
+        "sweep_angle": 133.533
+      },
+      {
+        "end_angle": 273.5,
+        "label": "兴趣意愿很强",
+        "share": 0.04435247,
+        "start_angle": 257.533,
+        "sweep_angle": 15.967
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.32777778,
+        0.03888889,
+        0.12083333,
+        0.09722222,
+        0.37092531,
+        0.04435247
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2016年四川省公务员录用考试《行测》题（下半年）_images/img_0186_b1033f11bb2499a7.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0186_b1033f11bb2499a7.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_81e1cf8f9db9dd947e04",
+        "question_number": 96,
+        "source_jsonl_line": 15411
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0186_b1033f11bb2499a7.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_6b8828e600a9f9a1d063",
+        "question_number": 97,
+        "source_jsonl_line": 15412
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0186_b1033f11bb2499a7.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_5afad8bbfa243dc56f07",
+        "question_number": 98,
+        "source_jsonl_line": 15413
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0186_b1033f11bb2499a7.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_cbab28cdfa3416913688",
+        "question_number": 99,
+        "source_jsonl_line": 15414
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0186_b1033f11bb2499a7.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_aa0349a3abdeba05bc6e",
+        "question_number": 100,
+        "source_jsonl_line": 15415
+      }
+    ],
+    "sha256": "79abdb7e58b7c4a50604caec2fdd6b785d5ff1e4eeee8967a9d677222ddd1e86"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "农民工在本市（区、县）自主创业意愿情况",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_79abdb7e58b7c4a50604caec/quadrant_01.jpg",
+        "review-crops/da_79abdb7e58b7c4a50604caec/quadrant_02.jpg",
+        "review-crops/da_79abdb7e58b7c4a50604caec/quadrant_03.jpg",
+        "review-crops/da_79abdb7e58b7c4a50604caec/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.108",
+      "crop_verification_elapsed_seconds:1.202",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.6044",
+      "hough_circle_radius_ratio:0.2034",
+      "radial_line_candidates:3",
+      "detected_boundaries:6"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

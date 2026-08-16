@@ -1,0 +1,248 @@
+{
+  "asset_id": "da_5ebe423c1e38d4604a097e28",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "专业",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "1998年",
+    "1999年",
+    "2000年",
+    "2001年"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "自动控制",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        140,
+        220,
+        270,
+        330
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "生物工程",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        120,
+        200,
+        290,
+        320
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "电子工程",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        200,
+        250,
+        300,
+        360
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "计算机科学工程",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        150,
+        240,
+        280,
+        340
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/贵州/2008年贵州省公务员录用考试《行测》题_images/img_0076_153d1a0fb3fea619.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年贵州省公务员录用考试《行测》题_images/img_0076_153d1a0fb3fea619.png",
+        "paper_title": "2008年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_fe8c51bbda6833178b97",
+        "question_number": 84,
+        "source_jsonl_line": 80017
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年贵州省公务员录用考试《行测》题_images/img_0076_153d1a0fb3fea619.png",
+        "paper_title": "2008年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_88a7a55107a9896406fe",
+        "question_number": 85,
+        "source_jsonl_line": 80018
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年贵州省公务员录用考试《行测》题_images/img_0076_153d1a0fb3fea619.png",
+        "paper_title": "2008年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_1079b53269628654e7c0",
+        "question_number": 86,
+        "source_jsonl_line": 80019
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年贵州省公务员录用考试《行测》题_images/img_0076_153d1a0fb3fea619.png",
+        "paper_title": "2008年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_c2836c4e78bf762b029f",
+        "question_number": 87,
+        "source_jsonl_line": 80020
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年贵州省公务员录用考试《行测》题_images/img_0076_153d1a0fb3fea619.png",
+        "paper_title": "2008年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_cc7663efae53253d3c22",
+        "question_number": 88,
+        "source_jsonl_line": 80021
+      }
+    ],
+    "sha256": "5ebe423c1e38d4604a097e289ec91be4e1fe0ad64e09f3efafe6816bbc87a0e2"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "专业",
+      "1998年",
+      "1999年",
+      "2000年",
+      "2001年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "自动控制",
+        "unit": "人",
+        "values": [
+          "自动控制",
+          140,
+          220,
+          270,
+          330
+        ]
+      },
+      {
+        "label": "生物工程",
+        "unit": "人",
+        "values": [
+          "生物工程",
+          120,
+          200,
+          290,
+          320
+        ]
+      },
+      {
+        "label": "电子工程",
+        "unit": "人",
+        "values": [
+          "电子工程",
+          200,
+          250,
+          300,
+          360
+        ]
+      },
+      {
+        "label": "计算机科学工程",
+        "unit": "人",
+        "values": [
+          "计算机科学工程",
+          150,
+          240,
+          280,
+          340
+        ]
+      }
+    ]
+  },
+  "title": "某重点高校几个热门专业近几年本科生招生情况统计表",
+  "unit": "人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5ebe423c1e38d4604a097e28/row_band_01.jpg",
+        "review-crops/da_5ebe423c1e38d4604a097e28/row_band_02.jpg",
+        "review-crops/da_5ebe423c1e38d4604a097e28/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.79",
+      "crop_verification_elapsed_seconds:3.574",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

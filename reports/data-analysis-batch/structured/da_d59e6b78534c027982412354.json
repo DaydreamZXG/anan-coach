@@ -1,0 +1,656 @@
+{
+  "asset_id": "da_d59e6b78534c027982412354",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "服务类别",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "金额",
+        "unit": "亿元人民币"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比 (%)",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "加工服务",
+    "维护和维修服务",
+    "运输",
+    "旅行",
+    "建筑",
+    "保险和养老金服务",
+    "金融服务",
+    "知识产权使用费",
+    "电信、计算机和信息服务",
+    "其他商业服务",
+    "个人、文化和其他娱乐服务",
+    "别处未提及的政府服务"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "进出口-金额",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "进出口-同比 (%)",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "出口-金额",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "出口-同比 (%)",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "进口-金额",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "进口-同比 (%)",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "进出口-金额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元人民币",
+      "values": [
+        1235.0,
+        554.0,
+        8784.0,
+        19826.0,
+        2197.0,
+        976.0,
+        359.0,
+        2252.0,
+        3171.0,
+        7051.0,
+        237.0,
+        348.0
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "-",
+      "label": "进出口-同比 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -1.0,
+        18.1,
+        15.6,
+        -2.2,
+        57.8,
+        -13.9,
+        3.0,
+        34.7,
+        22.1,
+        4.8,
+        23.9,
+        28.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "出口-金额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元人民币",
+      "values": [
+        1223.0,
+        401.0,
+        2506.0,
+        2615.0,
+        1618.0,
+        273.0,
+        250.0,
+        322.0,
+        1876.0,
+        4157.0,
+        51.0,
+        115.0
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "-",
+      "label": "出口-同比 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -1.0,
+        20.0,
+        12.0,
+        -11.0,
+        92.0,
+        -1.0,
+        17.0,
+        31.5,
+        6.0,
+        8.0,
+        4.0,
+        43.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "进口-金额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元人民币",
+      "values": [
+        12.0,
+        153.0,
+        6278.0,
+        17210.0,
+        579.0,
+        703.0,
+        109.0,
+        1930.0,
+        1295.0,
+        2895.0,
+        186.0,
+        233.0
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "-",
+      "label": "进口-同比 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        14.2,
+        14.3,
+        17.3,
+        -0.8,
+        5.4,
+        -18.0,
+        -19.1,
+        21.2,
+        55.0,
+        0.4,
+        30.8,
+        22.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0190_2c770985b0d34076.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0190_2c770985b0d34076.png",
+        "paper_title": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_9a731f5a40a7125c4500",
+        "question_number": 116,
+        "source_jsonl_line": 7669
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0193_81930ca8c767b3ae.png",
+        "paper_title": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_adf10d269560923ba14e",
+        "question_number": 117,
+        "source_jsonl_line": 7670
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0190_2c770985b0d34076.png",
+        "paper_title": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_1cc3b47d881c697f2152",
+        "question_number": 118,
+        "source_jsonl_line": 7671
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0193_81930ca8c767b3ae.png",
+        "paper_title": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_a0dbb61198c1042c183f",
+        "question_number": 119,
+        "source_jsonl_line": 7672
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0193_81930ca8c767b3ae.png",
+        "paper_title": "2019年420联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_6dda1dce206bebfa5d41",
+        "question_number": 120,
+        "source_jsonl_line": 7673
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0196_2c770985b0d34076.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_379aab54a04e81105c6b",
+        "question_number": 111,
+        "source_jsonl_line": 23683
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0196_2c770985b0d34076.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_72c71166889014665b02",
+        "question_number": 112,
+        "source_jsonl_line": 23684
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0196_2c770985b0d34076.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_14c1aedd75a92f39819e",
+        "question_number": 113,
+        "source_jsonl_line": 23685
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0196_2c770985b0d34076.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_8535067b845c9b3db1be",
+        "question_number": 114,
+        "source_jsonl_line": 23686
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0196_2c770985b0d34076.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_84ceba005cb9821b1766",
+        "question_number": 115,
+        "source_jsonl_line": 23687
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（安徽卷）（网友回忆版）_images/img_0197_2c770985b0d34076.png",
+        "paper_title": "2019年420联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_56af76dbf4b135bb8bf9",
+        "question_number": 101,
+        "source_jsonl_line": 27965
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（安徽卷）（网友回忆版）_images/img_0197_2c770985b0d34076.png",
+        "paper_title": "2019年420联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_476f250620c31eca8fb3",
+        "question_number": 102,
+        "source_jsonl_line": 27966
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（安徽卷）（网友回忆版）_images/img_0197_2c770985b0d34076.png",
+        "paper_title": "2019年420联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_84aef2bf95cc7d608109",
+        "question_number": 103,
+        "source_jsonl_line": 27967
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（安徽卷）（网友回忆版）_images/img_0232_81930ca8c767b3ae.png",
+        "paper_title": "2019年420联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_e5b9015c7a75975e0bf2",
+        "question_number": 104,
+        "source_jsonl_line": 27968
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（安徽卷）（网友回忆版）_images/img_0197_2c770985b0d34076.png",
+        "paper_title": "2019年420联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_f4be9f458ef8d3ec6651",
+        "question_number": 105,
+        "source_jsonl_line": 27969
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（江西乡镇）（网友回忆版）_images/img_0247_81930ca8c767b3ae.png",
+        "paper_title": "2019年420联考《行测》题（江西乡镇）（网友回忆版）",
+        "question_id": "pq_27a353206bf3411e8b91",
+        "question_number": 111,
+        "source_jsonl_line": 52910
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（江西乡镇）（网友回忆版）_images/img_0231_2c770985b0d34076.png",
+        "paper_title": "2019年420联考《行测》题（江西乡镇）（网友回忆版）",
+        "question_id": "pq_ee6a2abe75b106f27bc9",
+        "question_number": 112,
+        "source_jsonl_line": 52911
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（江西乡镇）（网友回忆版）_images/img_0231_2c770985b0d34076.png",
+        "paper_title": "2019年420联考《行测》题（江西乡镇）（网友回忆版）",
+        "question_id": "pq_3169b66c86a3ebe3891b",
+        "question_number": 113,
+        "source_jsonl_line": 52912
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（江西乡镇）（网友回忆版）_images/img_0231_2c770985b0d34076.png",
+        "paper_title": "2019年420联考《行测》题（江西乡镇）（网友回忆版）",
+        "question_id": "pq_191470cd26afef9ec141",
+        "question_number": 114,
+        "source_jsonl_line": 52913
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（江西乡镇）（网友回忆版）_images/img_0231_2c770985b0d34076.png",
+        "paper_title": "2019年420联考《行测》题（江西乡镇）（网友回忆版）",
+        "question_id": "pq_aad3d0512d8af669d87b",
+        "question_number": 115,
+        "source_jsonl_line": 52914
+      }
+    ],
+    "sha256": "d59e6b78534c027982412354ad2d8c2afc5885930374485e2d16241104b675e1"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "服务类别",
+      "进出口-金额",
+      "进出口-同比 (%)",
+      "出口-金额",
+      "出口-同比 (%)",
+      "进口-金额",
+      "进口-同比 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "加工服务",
+        "unit": null,
+        "values": [
+          "加工服务",
+          1235.0,
+          -1.0,
+          1223.0,
+          -1.0,
+          12.0,
+          14.2
+        ]
+      },
+      {
+        "label": "维护和维修服务",
+        "unit": null,
+        "values": [
+          "维护和维修服务",
+          554.0,
+          18.1,
+          401.0,
+          20.0,
+          153.0,
+          14.3
+        ]
+      },
+      {
+        "label": "运输",
+        "unit": null,
+        "values": [
+          "运输",
+          8784.0,
+          15.6,
+          2506.0,
+          12.0,
+          6278.0,
+          17.3
+        ]
+      },
+      {
+        "label": "旅行",
+        "unit": null,
+        "values": [
+          "旅行",
+          19826.0,
+          -2.2,
+          2615.0,
+          -11.0,
+          17210.0,
+          -0.8
+        ]
+      },
+      {
+        "label": "建筑",
+        "unit": null,
+        "values": [
+          "建筑",
+          2197.0,
+          57.8,
+          1618.0,
+          92.0,
+          579.0,
+          5.4
+        ]
+      },
+      {
+        "label": "保险和养老金服务",
+        "unit": null,
+        "values": [
+          "保险和养老金服务",
+          976.0,
+          -13.9,
+          273.0,
+          -1.0,
+          703.0,
+          -18.0
+        ]
+      },
+      {
+        "label": "金融服务",
+        "unit": null,
+        "values": [
+          "金融服务",
+          359.0,
+          3.0,
+          250.0,
+          17.0,
+          109.0,
+          -19.1
+        ]
+      },
+      {
+        "label": "知识产权使用费",
+        "unit": null,
+        "values": [
+          "知识产权使用费",
+          2252.0,
+          34.7,
+          322.0,
+          31.5,
+          1930.0,
+          21.2
+        ]
+      },
+      {
+        "label": "电信、计算机和信息服务",
+        "unit": null,
+        "values": [
+          "电信、计算机和信息服务",
+          3171.0,
+          22.1,
+          1876.0,
+          6.0,
+          1295.0,
+          55.0
+        ]
+      },
+      {
+        "label": "其他商业服务",
+        "unit": null,
+        "values": [
+          "其他商业服务",
+          7051.0,
+          4.8,
+          4157.0,
+          8.0,
+          2895.0,
+          0.4
+        ]
+      },
+      {
+        "label": "个人、文化和其他娱乐服务",
+        "unit": null,
+        "values": [
+          "个人、文化和其他娱乐服务",
+          237.0,
+          23.9,
+          51.0,
+          4.0,
+          186.0,
+          30.8
+        ]
+      },
+      {
+        "label": "别处未提及的政府服务",
+        "unit": null,
+        "values": [
+          "别处未提及的政府服务",
+          348.0,
+          28.5,
+          115.0,
+          43.0,
+          233.0,
+          22.3
+        ]
+      }
+    ]
+  },
+  "title": "2017年我国服务分类进出口统计（金额单位：亿元人民币）",
+  "unit": "亿元人民币",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d59e6b78534c027982412354/row_band_01.jpg",
+        "review-crops/da_d59e6b78534c027982412354/row_band_02.jpg",
+        "review-crops/da_d59e6b78534c027982412354/row_band_03.jpg",
+        "review-crops/da_d59e6b78534c027982412354/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:24.002",
+      "crop_verification_elapsed_seconds:11.863",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:加工服务:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:维护和维修服务:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:加工服务:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:维护和维修服务:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:运输:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:旅行:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:建筑:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:保险和养老金服务:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:金融服务:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:保险和养老金服务:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:知识产权使用费:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:电信、计算机和信息服务:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:其他商业服务:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:别处未提及的政府服务:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:其他商业服务:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:个人、文化和其他娱乐服务:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:别处未提及的政府服务:6!=7"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

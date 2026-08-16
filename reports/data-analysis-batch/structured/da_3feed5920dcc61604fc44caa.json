@@ -1,0 +1,341 @@
+{
+  "asset_id": "da_3feed5920dcc61604fc44caa",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "卫生机构数（个）",
+        "unit": "个"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "床位数（万张）",
+        "unit": "万张"
+      }
+    ]
+  },
+  "categories": [
+    "1949",
+    "1957",
+    "1962",
+    "1965",
+    "1978",
+    "1985",
+    "1990",
+    "2000",
+    "2005",
+    "2008"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "卫生机构数（个）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        3670,
+        122954,
+        217985,
+        224266,
+        169732,
+        200866,
+        208734,
+        324771,
+        298997,
+        278337
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "床位数（万张）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万张",
+      "values": [
+        8,
+        30,
+        69,
+        77,
+        185,
+        223,
+        259,
+        291,
+        314,
+        375
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "卫生技术人员数（万人）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        51,
+        104,
+        141,
+        153,
+        246,
+        341,
+        390,
+        449,
+        446,
+        503
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2010年国家公务员录用考试《行测》题_images/img_0250_41f94ce93634e99c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0250_41f94ce93634e99c.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_9b5e95dd489ee3943ef6",
+        "question_number": 111,
+        "source_jsonl_line": 17506
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0250_41f94ce93634e99c.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_a4a49e299a78f5fe7e66",
+        "question_number": 112,
+        "source_jsonl_line": 17507
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0250_41f94ce93634e99c.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_b292f4cc7eba192fe82e",
+        "question_number": 113,
+        "source_jsonl_line": 17508
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0250_41f94ce93634e99c.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_43f436aeda6f36b9a700",
+        "question_number": 114,
+        "source_jsonl_line": 17509
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0250_41f94ce93634e99c.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_365f262ebe6b5fdd5939",
+        "question_number": 115,
+        "source_jsonl_line": 17510
+      }
+    ],
+    "sha256": "3feed5920dcc61604fc44caa825ae1d82f5ac218ffcd9db0014e4af7df037190"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "卫生机构数（个）",
+      "床位数（万张）",
+      "卫生技术人员数（万人）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "1949",
+        "unit": null,
+        "values": [
+          1949,
+          3670,
+          8,
+          51
+        ]
+      },
+      {
+        "label": "1957",
+        "unit": null,
+        "values": [
+          1957,
+          122954,
+          30,
+          104
+        ]
+      },
+      {
+        "label": "1962",
+        "unit": null,
+        "values": [
+          1962,
+          217985,
+          69,
+          141
+        ]
+      },
+      {
+        "label": "1965",
+        "unit": null,
+        "values": [
+          1965,
+          224266,
+          77,
+          153
+        ]
+      },
+      {
+        "label": "1978",
+        "unit": null,
+        "values": [
+          1978,
+          169732,
+          185,
+          246
+        ]
+      },
+      {
+        "label": "1985",
+        "unit": null,
+        "values": [
+          1985,
+          200866,
+          223,
+          341
+        ]
+      },
+      {
+        "label": "1990",
+        "unit": null,
+        "values": [
+          1990,
+          208734,
+          259,
+          390
+        ]
+      },
+      {
+        "label": "2000",
+        "unit": null,
+        "values": [
+          2000,
+          324771,
+          291,
+          449
+        ]
+      },
+      {
+        "label": "2005",
+        "unit": null,
+        "values": [
+          2005,
+          298997,
+          314,
+          446
+        ]
+      },
+      {
+        "label": "2008",
+        "unit": null,
+        "values": [
+          2008,
+          278337,
+          375,
+          503
+        ]
+      }
+    ]
+  },
+  "title": "1949-2008年公共卫生体系发展状况统计表",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3feed5920dcc61604fc44caa/row_band_01.jpg",
+        "review-crops/da_3feed5920dcc61604fc44caa/row_band_02.jpg",
+        "review-crops/da_3feed5920dcc61604fc44caa/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.851",
+      "crop_verification_elapsed_seconds:22.861",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了1957年卫生机构数为122954，原为122954（正确）",
+      "crop_note:修正了1962年卫生机构数为217985，原为217985（正确）",
+      "crop_note:修正了1965年卫生机构数为224266，原为224266（正确）",
+      "crop_note:修正了1978年卫生机构数为169732，原为169732（正确）",
+      "crop_note:修正了1985年卫生机构数为200866，原为200866（正确）",
+      "crop_note:修正了1990年卫生机构数为208734，原为208734（正确）",
+      "crop_note:修正了2000年卫生机构数为324771，原为324771（正确）",
+      "crop_note:修正了2005年卫生机构数为298997，原为298997（正确）",
+      "crop_note:修正了2008年卫生机构数为278337，原为278337（正确）",
+      "crop_note:修正了1957年床位数为30，原为30（正确）",
+      "crop_note:修正了1962年床位数为69，原为69（正确）",
+      "crop_note:修正了1965年床位数为77，原为77（正确）",
+      "crop_note:修正了1978年床位数为185，原为185（正确）",
+      "crop_note:修正了1985年床位数为223，原为223（正确）",
+      "crop_note:修正了1990年床位数为259，原为259（正确）",
+      "crop_note:修正了2000年床位数为291，原为291（正确）",
+      "crop_note:修正了2005年床位数为314，原为314（正确）",
+      "crop_note:修正了2008年床位数为375，原为375（正确）",
+      "crop_note:修正了1957年卫生技术人员数为104，原为104（正确）",
+      "crop_note:修正了1962年卫生技术人员数为141，原为141（正确）",
+      "crop_note:修正了1965年卫生技术人员数为153，原为153（正确）",
+      "crop_note:修正了1978年卫生技术人员数为246，原为246（正确）",
+      "crop_note:修正了1985年卫生技术人员数为341，原为341（正确）",
+      "crop_note:修正了1990年卫生技术人员数为390，原为390（正确）",
+      "crop_note:修正了2000年卫生技术人员数为449，原为449（正确）",
+      "crop_note:修正了2005年卫生技术人员数为446，原为446（正确）",
+      "crop_note:修正了2008年卫生技术人员数为503，原为503（正确）"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

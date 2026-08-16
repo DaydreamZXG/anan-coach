@@ -1,0 +1,377 @@
+{
+  "asset_id": "da_0902ec4ce70a16e6cec02cdf",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2023年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0128_a6303525cc91629d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0128_a6303525cc91629d.png",
+        "paper_title": "2023年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_eed1e2c9e688aebf7b9f",
+        "question_number": 111,
+        "source_jsonl_line": 63298
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0128_a6303525cc91629d.png",
+        "paper_title": "2023年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_4847205e5672f2139843",
+        "question_number": 112,
+        "source_jsonl_line": 63299
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0133_de17a0d70c21e447.png",
+        "paper_title": "2023年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_2e80e3cc3b7632ec318a",
+        "question_number": 113,
+        "source_jsonl_line": 63300
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0133_de17a0d70c21e447.png",
+        "paper_title": "2023年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_4fcfc4e0d1813a5880bc",
+        "question_number": 114,
+        "source_jsonl_line": 63301
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0128_a6303525cc91629d.png",
+        "paper_title": "2023年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_0981da2e987d2ac5b632",
+        "question_number": 115,
+        "source_jsonl_line": 63302
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0122_a6303525cc91629d.png",
+        "paper_title": "2023年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_72218e2c36737208d8ae",
+        "question_number": 86,
+        "source_jsonl_line": 63398
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0119_de17a0d70c21e447.png",
+        "paper_title": "2023年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_cde4bac25e6b54c8026a",
+        "question_number": 87,
+        "source_jsonl_line": 63399
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0122_a6303525cc91629d.png",
+        "paper_title": "2023年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_da8a41908bcc0ed220c7",
+        "question_number": 88,
+        "source_jsonl_line": 63400
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0122_a6303525cc91629d.png",
+        "paper_title": "2023年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_31579b5f59a6dbab1e70",
+        "question_number": 89,
+        "source_jsonl_line": 63401
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0122_a6303525cc91629d.png",
+        "paper_title": "2023年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_011e06f9fce3b0f924f2",
+        "question_number": 90,
+        "source_jsonl_line": 63402
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0007_a6303525cc91629d.png",
+        "paper_title": "2023年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_1d287733281e9897cdec",
+        "question_number": 1,
+        "source_jsonl_line": 63433
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0007_a6303525cc91629d.png",
+        "paper_title": "2023年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_978ecf127fc9f850e136",
+        "question_number": 2,
+        "source_jsonl_line": 63434
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0007_a6303525cc91629d.png",
+        "paper_title": "2023年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_a3b239ab160cac059549",
+        "question_number": 3,
+        "source_jsonl_line": 63435
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0007_a6303525cc91629d.png",
+        "paper_title": "2023年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_a35e2d6fb9dba746d15c",
+        "question_number": 4,
+        "source_jsonl_line": 63436
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0041_de17a0d70c21e447.png",
+        "paper_title": "2023年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_9fe0880df9332bdca212",
+        "question_number": 5,
+        "source_jsonl_line": 63437
+      }
+    ],
+    "sha256": "0902ec4ce70a16e6cec02cdf4ad65119f15b945b4160a22ed9a5b732d01cf036"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2018年",
+      "2019年",
+      "2020年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "总计",
+        "unit": null,
+        "values": [
+          89257,
+          86624,
+          98514
+        ]
+      },
+      {
+        "label": "新闻信息服务",
+        "unit": null,
+        "values": [
+          8099,
+          6800,
+          9382
+        ]
+      },
+      {
+        "label": "内容创作生产",
+        "unit": null,
+        "values": [
+          18239,
+          18585,
+          23275
+        ]
+      },
+      {
+        "label": "创意设计服务",
+        "unit": null,
+        "values": [
+          11069,
+          12276,
+          15645
+        ]
+      },
+      {
+        "label": "文化传播渠道",
+        "unit": null,
+        "values": [
+          10193,
+          11005,
+          10428
+        ]
+      },
+      {
+        "label": "文化投资运营",
+        "unit": null,
+        "values": [
+          412,
+          221,
+          451
+        ]
+      },
+      {
+        "label": "文化娱乐休闲服务",
+        "unit": null,
+        "values": [
+          1489,
+          1583,
+          1115
+        ]
+      },
+      {
+        "label": "文化辅助生产中介服务",
+        "unit": null,
+        "values": [
+          15094,
+          13899,
+          13519
+        ]
+      },
+      {
+        "label": "文化装备生产",
+        "unit": null,
+        "values": [
+          8378,
+          5722,
+          5893
+        ]
+      },
+      {
+        "label": "文化消费终端生产",
+        "unit": null,
+        "values": [
+          16284,
+          16532,
+          18808
+        ]
+      },
+      {
+        "label": "文化制造业",
+        "unit": null,
+        "values": [
+          38074,
+          36739,
+          37378
+        ]
+      },
+      {
+        "label": "文化批发和零售业",
+        "unit": null,
+        "values": [
+          16728,
+          14726,
+          15173
+        ]
+      },
+      {
+        "label": "文化服务业",
+        "unit": null,
+        "values": [
+          34454,
+          35159,
+          45964
+        ]
+      },
+      {
+        "label": "东部地区",
+        "unit": null,
+        "values": [
+          68688,
+          63702,
+          73943
+        ]
+      },
+      {
+        "label": "中部地区",
+        "unit": null,
+        "values": [
+          12008,
+          13620,
+          14656
+        ]
+      },
+      {
+        "label": "西部地区",
+        "unit": null,
+        "values": [
+          7618,
+          8393,
+          9044
+        ]
+      },
+      {
+        "label": "东北地区",
+        "unit": null,
+        "values": [
+          943,
+          909,
+          872
+        ]
+      }
+    ]
+  },
+  "title": "2018~2020年我国规模以上文化及相关产业企业营业收入",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0902ec4ce70a16e6cec02cdf/row_band_01.jpg",
+        "review-crops/da_0902ec4ce70a16e6cec02cdf/row_band_02.jpg",
+        "review-crops/da_0902ec4ce70a16e6cec02cdf/row_band_03.jpg",
+        "review-crops/da_0902ec4ce70a16e6cec02cdf/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.228",
+      "crop_verification_elapsed_seconds:7.662",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:总计:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:新闻信息服务:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:内容创作生产:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:新闻信息服务:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:内容创作生产:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:创意设计服务:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:文化传播渠道:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:文化投资运营:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:文化娱乐休闲服务:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:文化辅助生产中介服务:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:文化装备生产:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:文化辅助生产中介服务:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:文化装备生产:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:文化消费终端生产:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:文化制造业:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:文化批发和零售业:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:文化服务业:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:文化服务业:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:东部地区:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:中部地区:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:西部地区:3!=4",
+      "crop_note:ignored_table_row_length_mismatch:东北地区:3!=4",
+      "table_row_label_column_removed:<blank>"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

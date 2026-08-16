@@ -1,0 +1,476 @@
+{
+  "asset_id": "da_8ad72aba3b42939d31f6abf7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "指标",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "绝对量",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比增长",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "商品零售",
+    "其中：限额以上单位商品零售",
+    "家用电器和音像器材",
+    "家具",
+    "通讯器材",
+    "石油及制品",
+    "汽车",
+    "建筑及装潢材料"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "6月绝对量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "6月同比增长",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "1-6月绝对量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "1-6月同比增长",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "6",
+      "label": "6月绝对量",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        23951,
+        12262,
+        841,
+        248,
+        356,
+        1653,
+        3309,
+        296
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "6",
+      "label": "6月同比增长",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.6,
+        8.2,
+        12.3,
+        13.4,
+        12.1,
+        -0.5,
+        9.5,
+        14.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "1-6",
+      "label": "1-6月绝对量",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        139455,
+        66857,
+        4076,
+        1249,
+        1829,
+        8815,
+        18270,
+        1445
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "1-6",
+      "label": "1-6月同比增长",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.2,
+        7.6,
+        7.3,
+        15.6,
+        14.9,
+        -1.3,
+        7.7,
+        15.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2017年422联考《行测》题（内蒙古卷）_images/img_0155_bd3a89604de68f0d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（内蒙古卷）_images/img_0155_bd3a89604de68f0d.png",
+        "paper_title": "2017年422联考《行测》题（内蒙古卷）",
+        "question_id": "pq_332d22145b88ed559fa8",
+        "question_number": 106,
+        "source_jsonl_line": 7419
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（内蒙古卷）_images/img_0172_65000df3669823c6.png",
+        "paper_title": "2017年422联考《行测》题（内蒙古卷）",
+        "question_id": "pq_24ae28f4eadd9d6263f6",
+        "question_number": 107,
+        "source_jsonl_line": 7420
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（内蒙古卷）_images/img_0172_65000df3669823c6.png",
+        "paper_title": "2017年422联考《行测》题（内蒙古卷）",
+        "question_id": "pq_3dbea3236ba2c6c7da11",
+        "question_number": 108,
+        "source_jsonl_line": 7421
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（内蒙古卷）_images/img_0155_bd3a89604de68f0d.png",
+        "paper_title": "2017年422联考《行测》题（内蒙古卷）",
+        "question_id": "pq_59e587af6cf5e75e1e13",
+        "question_number": 109,
+        "source_jsonl_line": 7422
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（内蒙古卷）_images/img_0155_bd3a89604de68f0d.png",
+        "paper_title": "2017年422联考《行测》题（内蒙古卷）",
+        "question_id": "pq_bc522f4a6038423a4713",
+        "question_number": 110,
+        "source_jsonl_line": 7423
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山西卷）_images/img_0169_bd3a89604de68f0d.png",
+        "paper_title": "2017年422联考《行测》题（山西卷）",
+        "question_id": "pq_374ed8690bfeb3b0594c",
+        "question_number": 111,
+        "source_jsonl_line": 32309
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山西卷）_images/img_0177_65000df3669823c6.png",
+        "paper_title": "2017年422联考《行测》题（山西卷）",
+        "question_id": "pq_ff5276cd39990a3dbef0",
+        "question_number": 112,
+        "source_jsonl_line": 32310
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山西卷）_images/img_0169_bd3a89604de68f0d.png",
+        "paper_title": "2017年422联考《行测》题（山西卷）",
+        "question_id": "pq_62660d27bab188b5356d",
+        "question_number": 113,
+        "source_jsonl_line": 32311
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山西卷）_images/img_0169_bd3a89604de68f0d.png",
+        "paper_title": "2017年422联考《行测》题（山西卷）",
+        "question_id": "pq_cf9bc839fe68b4dd490b",
+        "question_number": 114,
+        "source_jsonl_line": 32312
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山西卷）_images/img_0169_bd3a89604de68f0d.png",
+        "paper_title": "2017年422联考《行测》题（山西卷）",
+        "question_id": "pq_c2bad4ec7fd149ea211e",
+        "question_number": 115,
+        "source_jsonl_line": 32313
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（河北卷）_images/img_0254_bd3a89604de68f0d.png",
+        "paper_title": "2017年422联考《行测》题（河北卷）",
+        "question_id": "pq_74ac95fbdb02f68551a3",
+        "question_number": 96,
+        "source_jsonl_line": 55593
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（河北卷）_images/img_0254_bd3a89604de68f0d.png",
+        "paper_title": "2017年422联考《行测》题（河北卷）",
+        "question_id": "pq_3f14e775c2b8142bd4b1",
+        "question_number": 97,
+        "source_jsonl_line": 55594
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（河北卷）_images/img_0254_bd3a89604de68f0d.png",
+        "paper_title": "2017年422联考《行测》题（河北卷）",
+        "question_id": "pq_d866ae76b25c5712f3b8",
+        "question_number": 98,
+        "source_jsonl_line": 55595
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（河北卷）_images/img_0274_65000df3669823c6.png",
+        "paper_title": "2017年422联考《行测》题（河北卷）",
+        "question_id": "pq_53fd761a51a521f0c9c5",
+        "question_number": 99,
+        "source_jsonl_line": 55596
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（河北卷）_images/img_0254_bd3a89604de68f0d.png",
+        "paper_title": "2017年422联考《行测》题（河北卷）",
+        "question_id": "pq_9ad8ef176f6ea9e4252d",
+        "question_number": 100,
+        "source_jsonl_line": 55597
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（浙江A卷）_images/img_0274_65000df3669823c6.png",
+        "paper_title": "2017年422联考《行测》题（浙江A卷）",
+        "question_id": "pq_b27ddc73ea0595b755d0",
+        "question_number": 116,
+        "source_jsonl_line": 61538
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（浙江A卷）_images/img_0257_bd3a89604de68f0d.png",
+        "paper_title": "2017年422联考《行测》题（浙江A卷）",
+        "question_id": "pq_ab1e208d96025eb84e33",
+        "question_number": 117,
+        "source_jsonl_line": 61539
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（浙江A卷）_images/img_0257_bd3a89604de68f0d.png",
+        "paper_title": "2017年422联考《行测》题（浙江A卷）",
+        "question_id": "pq_c336802cbd50b37e8a7d",
+        "question_number": 118,
+        "source_jsonl_line": 61540
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（浙江A卷）_images/img_0257_bd3a89604de68f0d.png",
+        "paper_title": "2017年422联考《行测》题（浙江A卷）",
+        "question_id": "pq_0d212d06ac8ef179dcc7",
+        "question_number": 119,
+        "source_jsonl_line": 61541
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（浙江A卷）_images/img_0257_bd3a89604de68f0d.png",
+        "paper_title": "2017年422联考《行测》题（浙江A卷）",
+        "question_id": "pq_ed918cab7094909135bd",
+        "question_number": 120,
+        "source_jsonl_line": 61542
+      }
+    ],
+    "sha256": "8ad72aba3b42939d31f6abf7b8b63a633cf71eaf63fc86401d5aeaca7a6d5481"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "6月绝对量(亿元)",
+      "6月同比增长(%)",
+      "1-6月绝对量(亿元)",
+      "1-6月同比增长(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "商品零售",
+        "unit": null,
+        "values": [
+          "商品零售",
+          23951,
+          10.6,
+          139455,
+          10.2
+        ]
+      },
+      {
+        "label": "其中：限额以上单位商品零售",
+        "unit": null,
+        "values": [
+          "其中：限额以上单位商品零售",
+          12262,
+          8.2,
+          66857,
+          7.6
+        ]
+      },
+      {
+        "label": "家用电器和音像器材",
+        "unit": null,
+        "values": [
+          "家用电器和音像器材",
+          841,
+          12.3,
+          4076,
+          7.3
+        ]
+      },
+      {
+        "label": "家具",
+        "unit": null,
+        "values": [
+          "家具",
+          248,
+          13.4,
+          1249,
+          15.6
+        ]
+      },
+      {
+        "label": "通讯器材",
+        "unit": null,
+        "values": [
+          "通讯器材",
+          356,
+          12.1,
+          1829,
+          14.9
+        ]
+      },
+      {
+        "label": "石油及制品",
+        "unit": null,
+        "values": [
+          "石油及制品",
+          1653,
+          -0.5,
+          8815,
+          -1.3
+        ]
+      },
+      {
+        "label": "汽车",
+        "unit": null,
+        "values": [
+          "汽车",
+          3309,
+          9.5,
+          18270,
+          7.7
+        ]
+      },
+      {
+        "label": "建筑及装潢材料",
+        "unit": null,
+        "values": [
+          "建筑及装潢材料",
+          296,
+          14.2,
+          1445,
+          15.6
+        ]
+      }
+    ]
+  },
+  "title": "2016年6月份商品零售总额部分数据",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8ad72aba3b42939d31f6abf7/row_band_01.jpg",
+        "review-crops/da_8ad72aba3b42939d31f6abf7/row_band_02.jpg",
+        "review-crops/da_8ad72aba3b42939d31f6abf7/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:14.055",
+      "crop_verification_elapsed_seconds:10.193",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "场次（万场次）｜2012年",
+          "场次（万场次）｜2013年"
+        ],
+        "label": "场次（万场次）"
+      },
+      {
+        "columns": [
+          "观众人次（百万人次）｜2012年",
+          "观众人次（百万人次）｜2013年"
+        ],
+        "label": "观众人次（百万人次）"
+      },
+      {
+        "columns": [
+          "票房收入（亿元）｜2012年",
+          "票房收入（亿元）｜2013年"
+        ],
+        "label": "票房收入（亿元）"
+      }
+    ],
+    "columns": [
+      "场次（万场次）｜2012年",
+      "场次（万场次）｜2013年",
+      "观众人次（百万人次）｜2012年",
+      "观众人次（百万人次）｜2013年",
+      "票房收入（亿元）｜2012年",
+      "票房收入（亿元）｜2013年"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "月份",
+    "rows": [
+      {
+        "display_label": "1月",
+        "group": null,
+        "label": "1月",
+        "unit": null,
+        "values": [
+          9.77,
+          10.91,
+          3.19,
+          3.5,
+          1.28,
+          1.47
+        ]
+      },
+      {
+        "display_label": "2月",
+        "group": null,
+        "label": "2月",
+        "unit": null,
+        "values": [
+          9.02,
+          9.79,
+          2.89,
+          3.36,
+          1.19,
+          1.54
+        ]
+      },
+      {
+        "display_label": "3月",
+        "group": null,
+        "label": "3月",
+        "unit": null,
+        "values": [
+          9.47,
+          11.07,
+          2.18,
+          3.17,
+          0.88,
+          1.34
+        ]
+      },
+      {
+        "display_label": "4月",
+        "group": null,
+        "label": "4月",
+        "unit": null,
+        "values": [
+          8.87,
+          11.13,
+          3.08,
+          3.72,
+          1.41,
+          1.56
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

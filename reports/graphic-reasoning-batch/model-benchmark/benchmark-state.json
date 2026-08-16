@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "graphic-vector-model-benchmark-state-v1",
+  "status": "cpu_preparation_complete_waiting_for_explicit_gpu_ready",
+  "finalAcceptedAssets": 0,
+  "phase1": {
+    "assetCount": 5,
+    "panelCount": 46,
+    "modelInputPanelCount": 45,
+    "missingMarkerPanelCount": 1,
+    "sourceHashFailures": 0,
+    "panelCountFailures": 0,
+    "optionCountFailures": 0
+  },
+  "tests": {
+    "candidatePixelGateRefinementTopologyAcceptanceAndQueue": {"passed": 22, "failed": 0},
+    "pipelineScopeAndDualContract": {"passed": 31, "failed": 0}
+  },
+  "queue": {
+    "totalJobs": 46,
+    "blockedWaitingGpuReady": 45,
+    "skippedMissingMarker": 1,
+    "completedJobs": 0
+  },
+  "inventoryAssets": 4857,
+  "gpuModelCallsThisStage": 0,
+  "qualityRule": "candidate and verified_refinement_seed are non-final; repair_pending remains until deterministic refinement, topology, redraw comparison, and frontend contract gates all pass"
+}

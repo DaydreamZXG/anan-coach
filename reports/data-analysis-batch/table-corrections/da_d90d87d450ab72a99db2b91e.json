@@ -1,0 +1,103 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "国内电视",
+          "国内广播",
+          "国内报纸",
+          "国内杂志",
+          "互联网",
+          "会议文件",
+          "街谈巷议",
+          "外媒"
+        ],
+        "label": "社会性别与公民了解公共政策信息的第一渠道"
+      }
+    ],
+    "columns": [
+      "国内电视",
+      "国内广播",
+      "国内报纸",
+      "国内杂志",
+      "互联网",
+      "会议文件",
+      "街谈巷议",
+      "外媒"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "性别",
+    "rows": [
+      {
+        "display_label": "男",
+        "group": null,
+        "label": "男",
+        "unit": null,
+        "values": [
+          536,
+          23,
+          159,
+          5,
+          66,
+          24,
+          22,
+          1
+        ]
+      },
+      {
+        "display_label": "%",
+        "group": "男",
+        "label": "男｜%",
+        "unit": null,
+        "values": [
+          64.1,
+          2.8,
+          19.0,
+          0.6,
+          7.9,
+          2.9,
+          2.6,
+          0.1
+        ]
+      },
+      {
+        "display_label": "女",
+        "group": null,
+        "label": "女",
+        "unit": null,
+        "values": [
+          363,
+          13,
+          80,
+          12,
+          55,
+          7,
+          14,
+          4
+        ]
+      },
+      {
+        "display_label": "%",
+        "group": "女",
+        "label": "女｜%",
+        "unit": null,
+        "values": [
+          66.2,
+          2.4,
+          14.6,
+          2.2,
+          10,
+          1.3,
+          2.6,
+          0.7
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

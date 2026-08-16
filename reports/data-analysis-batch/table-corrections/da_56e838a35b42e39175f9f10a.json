@@ -1,0 +1,100 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "出口额｜第1列",
+      "同比增长（%）｜第2列",
+      "地区｜第3列",
+      "出口额｜第4列",
+      "同比增长（%）｜第5列"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "秦皇岛",
+        "group": null,
+        "label": "秦皇岛",
+        "unit": null,
+        "values": [
+          "4.2 亿美元",
+          10.6,
+          "沧州",
+          "4870 万美元",
+          36.4
+        ]
+      },
+      {
+        "display_label": "石家庄",
+        "group": null,
+        "label": "石家庄",
+        "unit": null,
+        "values": [
+          "3.3 亿美元",
+          22.5,
+          "张家口",
+          "2570 万美元",
+          22.2
+        ]
+      },
+      {
+        "display_label": "保定",
+        "group": null,
+        "label": "保定",
+        "unit": null,
+        "values": [
+          "2.5 亿美元",
+          37.8,
+          "承德",
+          "2416 万美元",
+          14.7
+        ]
+      },
+      {
+        "display_label": "唐山",
+        "group": null,
+        "label": "唐山",
+        "unit": null,
+        "values": [
+          "1.7 亿美元",
+          16.4,
+          "衡水",
+          "2151 万美元",
+          4.0
+        ]
+      },
+      {
+        "display_label": "邯郸",
+        "group": null,
+        "label": "邯郸",
+        "unit": null,
+        "values": [
+          "1.2 亿美元",
+          57.3,
+          "邢台",
+          "1481 万美元",
+          8.7
+        ]
+      },
+      {
+        "display_label": "廊坊",
+        "group": null,
+        "label": "廊坊",
+        "unit": null,
+        "values": [
+          "7512 万美元",
+          24.1,
+          "全省",
+          "15.0 亿美元",
+          22.4
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

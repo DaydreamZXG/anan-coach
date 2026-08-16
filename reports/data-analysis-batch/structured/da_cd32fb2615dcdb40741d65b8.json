@@ -1,0 +1,233 @@
+{
+  "asset_id": "da_cd32fb2615dcdb40741d65b8",
+  "axes": {
+    "x": {
+      "max": 2018,
+      "min": 2007,
+      "ticks": [
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 600,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600
+        ],
+        "title": "面积",
+        "unit": "万公顷"
+      },
+      {
+        "max": 280,
+        "min": 0,
+        "ticks": [
+          0,
+          40,
+          80,
+          120,
+          160,
+          200,
+          240,
+          280
+        ],
+        "title": "产量",
+        "unit": "万吨"
+      }
+    ]
+  },
+  "categories": [
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "茶园面积",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "茶叶产量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "茶园面积",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万公顷",
+      "values": [
+        143.0,
+        171.6,
+        183.0,
+        193.2,
+        205.6,
+        220.1,
+        236.7,
+        252.6,
+        264.1,
+        272.3,
+        284.9,
+        293.1
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "茶叶产量",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        101.0,
+        125.5,
+        135.1,
+        146.3,
+        160.8,
+        176.2,
+        188.7,
+        204.9,
+        227.7,
+        231.3,
+        246.0,
+        261.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0315_10bac60f28e7f84e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0315_10bac60f28e7f84e.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_e2186b6f88b626dad93e",
+        "question_number": 121,
+        "source_jsonl_line": 19521
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0328_52de5a60cd1abead.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_2fa050f8bb97cec7aaeb",
+        "question_number": 122,
+        "source_jsonl_line": 19522
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0328_52de5a60cd1abead.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_6634c91705b31988b561",
+        "question_number": 123,
+        "source_jsonl_line": 19523
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0328_52de5a60cd1abead.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_89225242a133dcb6687f",
+        "question_number": 124,
+        "source_jsonl_line": 19524
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0328_52de5a60cd1abead.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_cbc4b7c177e71a7975e2",
+        "question_number": 125,
+        "source_jsonl_line": 19525
+      }
+    ],
+    "sha256": "cd32fb2615dcdb40741d65b82aede820eff7c994398490c7f9dbdb37e656e35b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2007-2018年全国茶园面积及茶叶产量",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cd32fb2615dcdb40741d65b8/column_band_01.jpg",
+        "review-crops/da_cd32fb2615dcdb40741d65b8/column_band_02.jpg",
+        "review-crops/da_cd32fb2615dcdb40741d65b8/column_band_03.jpg",
+        "review-crops/da_cd32fb2615dcdb40741d65b8/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.123",
+      "crop_verification_elapsed_seconds:6.369",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

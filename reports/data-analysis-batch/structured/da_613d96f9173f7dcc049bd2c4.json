@@ -1,0 +1,186 @@
+{
+  "asset_id": "da_613d96f9173f7dcc049bd2c4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0097_52621c5479cffd8b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0097_52621c5479cffd8b.png",
+        "paper_title": "2025年四川省考/选调公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_296f3dbec011ef5962b8",
+        "question_number": 91,
+        "source_jsonl_line": 17006
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0101_7a48a7b5b473f4bf.png",
+        "paper_title": "2025年四川省考/选调公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_9c3dd0ecdf4fa4574844",
+        "question_number": 92,
+        "source_jsonl_line": 17007
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0097_52621c5479cffd8b.png",
+        "paper_title": "2025年四川省考/选调公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_9feb44419c882a3dba3f",
+        "question_number": 93,
+        "source_jsonl_line": 17008
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0097_52621c5479cffd8b.png",
+        "paper_title": "2025年四川省考/选调公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_86578445a600d84cef8a",
+        "question_number": 94,
+        "source_jsonl_line": 17009
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0101_7a48a7b5b473f4bf.png",
+        "paper_title": "2025年四川省考/选调公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_148e48d16acf30714080",
+        "question_number": 95,
+        "source_jsonl_line": 17010
+      }
+    ],
+    "sha256": "613d96f9173f7dcc049bd2c42e04be618057f8a0238b2f1c6f9da8ded4f05721"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "活动次数｜数量（万次）",
+          "活动次数｜增速（%）"
+        ],
+        "label": "活动次数"
+      },
+      {
+        "columns": [
+          "服务次数｜数量（万人次）",
+          "服务次数｜增速（%）"
+        ],
+        "label": "服务次数"
+      }
+    ],
+    "columns": [
+      "活动次数｜数量（万次）",
+      "活动次数｜增速（%）",
+      "服务次数｜数量（万人次）",
+      "服务次数｜增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "各项活动总计",
+        "group": null,
+        "label": "各项活动总计",
+        "unit": null,
+        "values": [
+          245.11,
+          11.7,
+          78716,
+          11.6
+        ]
+      },
+      {
+        "display_label": "其中：展览",
+        "group": null,
+        "label": "其中：展览",
+        "unit": null,
+        "values": [
+          16.4,
+          3.3,
+          12465,
+          12.9
+        ]
+      },
+      {
+        "display_label": "文艺活动",
+        "group": null,
+        "label": "文艺活动",
+        "unit": null,
+        "values": [
+          135.95,
+          10.4,
+          60137,
+          11.5
+        ]
+      },
+      {
+        "display_label": "公益性讲座",
+        "group": null,
+        "label": "公益性讲座",
+        "unit": null,
+        "values": [
+          3.84,
+          7.3,
+          710,
+          14.9
+        ]
+      },
+      {
+        "display_label": "训练班",
+        "group": null,
+        "label": "训练班",
+        "unit": null,
+        "values": [
+          88.92,
+          15.6,
+          5404,
+          8.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

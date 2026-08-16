@@ -1,0 +1,322 @@
+{
+  "asset_id": "da_17e0e76b6ac6e4894a09af27",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "进出口总额 (亿美元)",
+        "unit": "亿美元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "占世界货物进出口总额的比重 (%)",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "进出口总额 (亿美元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        14221,
+        17607,
+        21738,
+        25616,
+        22073,
+        29728,
+        36421,
+        38668
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "占世界货物进出口总额的比重 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        13.4,
+        14.4,
+        15.4,
+        15.8,
+        17.5,
+        19.5,
+        19.9,
+        null
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "货物出口美国占中国货物出口额的比重 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        21.4,
+        21.0,
+        19.1,
+        17.7,
+        18.4,
+        18.0,
+        17.1,
+        17.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "从日本货物进口占中国货物进口额的比重 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        15.2,
+        14.6,
+        14.0,
+        13.3,
+        13.0,
+        12.7,
+        11.2,
+        9.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2014年江苏省公务员录用考试《行测》题（B类）_images/img_0170_b727d4fa0699239d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（B类）_images/img_0170_b727d4fa0699239d.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_c45992f87b9757bfee41",
+        "question_number": 91,
+        "source_jsonl_line": 46701
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（B类）_images/img_0164_45a24245336c6a2d.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_185d5baab5c9ac492626",
+        "question_number": 92,
+        "source_jsonl_line": 46702
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（B类）_images/img_0164_45a24245336c6a2d.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_9171bc84f866d542c12e",
+        "question_number": 93,
+        "source_jsonl_line": 46703
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（B类）_images/img_0164_45a24245336c6a2d.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_08343a1225ceeb2d4f8c",
+        "question_number": 94,
+        "source_jsonl_line": 46704
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（B类）_images/img_0170_b727d4fa0699239d.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_57fe4a91d4507fd551df",
+        "question_number": 95,
+        "source_jsonl_line": 46705
+      }
+    ],
+    "sha256": "17e0e76b6ac6e4894a09af279c4441aab8f2a2d027c3f28c7dd191626fdd755b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "进出口总额 (亿美元)",
+      "占世界货物进出口总额的比重 (%)",
+      "货物出口美国占中国货物出口额的比重 (%)",
+      "从日本货物进口占中国货物进口额的比重 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2005",
+        "unit": null,
+        "values": [
+          2005,
+          14221,
+          13.4,
+          21.4,
+          15.2
+        ]
+      },
+      {
+        "label": "2006",
+        "unit": null,
+        "values": [
+          2006,
+          17607,
+          14.4,
+          21.0,
+          14.6
+        ]
+      },
+      {
+        "label": "2007",
+        "unit": null,
+        "values": [
+          2007,
+          21738,
+          15.4,
+          19.1,
+          14.0
+        ]
+      },
+      {
+        "label": "2008",
+        "unit": null,
+        "values": [
+          2008,
+          25616,
+          15.8,
+          17.7,
+          13.3
+        ]
+      },
+      {
+        "label": "2009",
+        "unit": null,
+        "values": [
+          2009,
+          22073,
+          17.5,
+          18.4,
+          13.0
+        ]
+      },
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          29728,
+          19.5,
+          18.0,
+          12.7
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          36421,
+          19.9,
+          17.1,
+          11.2
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          38668,
+          null,
+          17.2,
+          9.8
+        ]
+      }
+    ]
+  },
+  "title": "2005-2012年中国货物进出口情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_17e0e76b6ac6e4894a09af27/row_band_01.jpg",
+        "review-crops/da_17e0e76b6ac6e4894a09af27/row_band_02.jpg",
+        "review-crops/da_17e0e76b6ac6e4894a09af27/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:14.784",
+      "crop_verification_elapsed_seconds:15.725",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:'—' 在2012年占世界货物进出口总额的比重中表示缺失值，需确认是否为数据缺失或特殊标记",
+      "crop_note:修正了2012年占世界货物进出口总额的比重的值为null，原数据中'—'表示缺失值，保持为null。",
+      "crop_note:确认所有数值的格式正确，包括小数点、百分号和缺失值表示。",
+      "crop_note:确认表格行列拓扑一致，无错位。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

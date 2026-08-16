@@ -1,0 +1,254 @@
+{
+  "asset_id": "da_3014276662422f1d6e3e2288",
+  "axes": {
+    "x": {
+      "max": 2024,
+      "min": 2017,
+      "ticks": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 2000,
+        "min": 0,
+        "ticks": [
+          0,
+          400,
+          800,
+          1200,
+          1600,
+          2000
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90,
+          100
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "在运行“洗衣龙”数量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "增量",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "国产化率",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "在运行“洗衣龙”数量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        315,
+        465,
+        735,
+        934,
+        1149,
+        1315,
+        1610,
+        1987
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "增量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        90,
+        150,
+        270,
+        199,
+        215,
+        166,
+        295,
+        377
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "国产化率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        72.0,
+        80.0,
+        82.3,
+        84.2,
+        83.9,
+        84.0,
+        86.1,
+        86.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/上海/2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0143_b78b8f5ca8615e5e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0143_b78b8f5ca8615e5e.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_adac861b9e0afa70a0db",
+        "question_number": 116,
+        "source_jsonl_line": 4056
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0143_b78b8f5ca8615e5e.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e49caa0b533df674693a",
+        "question_number": 117,
+        "source_jsonl_line": 4057
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0143_b78b8f5ca8615e5e.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c98c4070907383b19764",
+        "question_number": 118,
+        "source_jsonl_line": 4058
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0143_b78b8f5ca8615e5e.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_58ff832c1397ec7182d2",
+        "question_number": 119,
+        "source_jsonl_line": 4059
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0158_72482f7a4eeddbfd.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_412b895c6f37a4aec741",
+        "question_number": 120,
+        "source_jsonl_line": 4060
+      }
+    ],
+    "sha256": "3014276662422f1d6e3e228810a06809bd2a22f159d85201b700e80de95d66a0"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2017-2024年我国在运行“洗衣龙”数量的趋势变化图",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3014276662422f1d6e3e2288/column_band_01.jpg",
+        "review-crops/da_3014276662422f1d6e3e2288/column_band_02.jpg",
+        "review-crops/da_3014276662422f1d6e3e2288/column_band_03.jpg",
+        "review-crops/da_3014276662422f1d6e3e2288/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.672",
+      "crop_verification_elapsed_seconds:13.182",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'在运行“洗衣龙”数量'系列中2017年的值为315，2018年为465，2019年为735，2020年为934，2021年为1149，2022年为1315，2023年为1610，2024年为1987。",
+      "crop_note:修正了'增量'系列中2017年的值为90，2018年为150，2019年为270，2020年为199，2021年为215，2022年为166，2023年为295，2024年为377。",
+      "crop_note:修正了'国产化率'系列中2017年的值为72.0，2018年为80.0，2019年为82.3，2020年为84.2，2021年为83.9，2022年为84.0，2023年为86.1，2024年为86.6。",
+      "crop_note:确认所有百分号、小数点、负号和缺失值均正确，无补0操作。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

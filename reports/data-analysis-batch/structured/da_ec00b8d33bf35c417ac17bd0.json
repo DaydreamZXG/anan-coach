@@ -1,0 +1,404 @@
+{
+  "asset_id": "da_ec00b8d33bf35c417ac17bd0",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/海南/2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0127_309c553cc5588dd0.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0127_309c553cc5588dd0.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_2040af5c35787745788e",
+        "question_number": 101,
+        "source_jsonl_line": 64763
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0121_73dea2ab0d96c797.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_8c4f20b4418af3f9caed",
+        "question_number": 102,
+        "source_jsonl_line": 64764
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0121_73dea2ab0d96c797.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_0c10051a55feb3b45e1a",
+        "question_number": 103,
+        "source_jsonl_line": 64765
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0127_309c553cc5588dd0.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_55d51fdc0029e02e6e91",
+        "question_number": 104,
+        "source_jsonl_line": 64766
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0127_309c553cc5588dd0.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_b4553c5d28fdad8ae2d2",
+        "question_number": 105,
+        "source_jsonl_line": 64767
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0134_73dea2ab0d96c797.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_00454cad9ba5225cccaa",
+        "question_number": 101,
+        "source_jsonl_line": 76406
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0120_309c553cc5588dd0.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_7e25e15d05656c4c30d2",
+        "question_number": 102,
+        "source_jsonl_line": 76407
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0134_73dea2ab0d96c797.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_224ae4579f319dca540e",
+        "question_number": 103,
+        "source_jsonl_line": 76408
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0120_309c553cc5588dd0.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_c26451f44fc3983435a6",
+        "question_number": 104,
+        "source_jsonl_line": 76409
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0120_309c553cc5588dd0.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_5486d5798e27d957caa5",
+        "question_number": 105,
+        "source_jsonl_line": 76410
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0126_73dea2ab0d96c797.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_3a3e711bb126af78e345",
+        "question_number": 101,
+        "source_jsonl_line": 82286
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0126_73dea2ab0d96c797.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_d615da3adb75fb001b67",
+        "question_number": 102,
+        "source_jsonl_line": 82287
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0126_73dea2ab0d96c797.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_f5378e4d0b1bcf40d398",
+        "question_number": 103,
+        "source_jsonl_line": 82288
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0126_73dea2ab0d96c797.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_b6f6a64e8231e8a1760e",
+        "question_number": 104,
+        "source_jsonl_line": 82289
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0155_309c553cc5588dd0.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_8375b9c2be8765a7d9ef",
+        "question_number": 105,
+        "source_jsonl_line": 82290
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0121_73dea2ab0d96c797.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_6cd3806e47447db8c989",
+        "question_number": 101,
+        "source_jsonl_line": 92010
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0124_309c553cc5588dd0.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_672ba92f5466cd2aa0bd",
+        "question_number": 102,
+        "source_jsonl_line": 92011
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0124_309c553cc5588dd0.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_2f42ee7a90ee7f67eace",
+        "question_number": 103,
+        "source_jsonl_line": 92012
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0124_309c553cc5588dd0.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_e6b08b244dfa6d2a0a49",
+        "question_number": 104,
+        "source_jsonl_line": 92013
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0121_73dea2ab0d96c797.png",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_08e8577abc97061423cc",
+        "question_number": 105,
+        "source_jsonl_line": 92014
+      }
+    ],
+    "sha256": "ec00b8d33bf35c417ac17bd09273b4739779eb8d6a6b3100fce9766dd69f9ba9"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "国外游客到达人数｜2000年",
+          "国外游客到达人数｜2004年",
+          "国外游客到达人数｜2005年"
+        ],
+        "label": "国外游客到达人数"
+      },
+      {
+        "columns": [
+          "出国旅游人数｜2000年",
+          "出国旅游人数｜2004年",
+          "出国旅游人数｜2005年"
+        ],
+        "label": "出国旅游人数"
+      }
+    ],
+    "columns": [
+      "国外游客到达人数｜2000年",
+      "国外游客到达人数｜2004年",
+      "国外游客到达人数｜2005年",
+      "出国旅游人数｜2000年",
+      "出国旅游人数｜2004年",
+      "出国旅游人数｜2005年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家",
+    "rows": [
+      {
+        "display_label": "中国",
+        "group": null,
+        "label": "中国",
+        "unit": null,
+        "values": [
+          3123,
+          4176,
+          4681,
+          1047,
+          2885,
+          3103
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": null,
+        "values": [
+          476,
+          614,
+          673,
+          1782,
+          1683,
+          1740
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          532,
+          582,
+          602,
+          551,
+          883,
+          1008
+        ]
+      },
+      {
+        "display_label": "加拿大",
+        "group": null,
+        "label": "加拿大",
+        "unit": null,
+        "values": [
+          1963,
+          1910,
+          1877,
+          1918,
+          1955,
+          2110
+        ]
+      },
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": null,
+        "values": [
+          5124,
+          4608,
+          4921,
+          6133,
+          6181,
+          6350
+        ]
+      },
+      {
+        "display_label": "巴西",
+        "group": null,
+        "label": "巴西",
+        "unit": null,
+        "values": [
+          531,
+          479,
+          536,
+          323,
+          374,
+          470
+        ]
+      },
+      {
+        "display_label": "法国",
+        "group": null,
+        "label": "法国",
+        "unit": null,
+        "values": [
+          7719,
+          7512,
+          7600,
+          1989,
+          2113,
+          2227
+        ]
+      },
+      {
+        "display_label": "德国",
+        "group": null,
+        "label": "德国",
+        "unit": null,
+        "values": [
+          1898,
+          2014,
+          2150,
+          7440,
+          7230,
+          7740
+        ]
+      },
+      {
+        "display_label": "俄罗斯联邦",
+        "group": null,
+        "label": "俄罗斯联邦",
+        "unit": null,
+        "values": [
+          2117,
+          2206,
+          2220,
+          1837,
+          2415,
+          2842
+        ]
+      },
+      {
+        "display_label": "英国",
+        "group": null,
+        "label": "英国",
+        "unit": null,
+        "values": [
+          2521,
+          2776,
+          2997,
+          5684,
+          6419,
+          6649
+        ]
+      },
+      {
+        "display_label": "澳大利亚",
+        "group": null,
+        "label": "澳大利亚",
+        "unit": null,
+        "values": [
+          493,
+          522,
+          550,
+          350,
+          437,
+          475
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

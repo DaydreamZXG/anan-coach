@@ -1,0 +1,279 @@
+{
+  "asset_id": "da_c82148b46e414a1c015e1ce8",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2011年安徽省公务员录用考试《行测》题_images/img_0095_7133ac8f3d256215.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年安徽省公务员录用考试《行测》题_images/img_0095_7133ac8f3d256215.png",
+        "paper_title": "2011年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_b4dfb6dd194666373db5",
+        "question_number": 121,
+        "source_jsonl_line": 27021
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年安徽省公务员录用考试《行测》题_images/img_0092_6f43fe62dfb01420.png",
+        "paper_title": "2011年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_67dba464a510d9e30953",
+        "question_number": 122,
+        "source_jsonl_line": 27022
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年安徽省公务员录用考试《行测》题_images/img_0092_6f43fe62dfb01420.png",
+        "paper_title": "2011年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_c9bdb891d30c4b1e9990",
+        "question_number": 123,
+        "source_jsonl_line": 27023
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年安徽省公务员录用考试《行测》题_images/img_0092_6f43fe62dfb01420.png",
+        "paper_title": "2011年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_f15ce8b7ecaaad999053",
+        "question_number": 124,
+        "source_jsonl_line": 27024
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年安徽省公务员录用考试《行测》题_images/img_0095_7133ac8f3d256215.png",
+        "paper_title": "2011年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_5cf945d3fe32d50d7b32",
+        "question_number": 125,
+        "source_jsonl_line": 27025
+      }
+    ],
+    "sha256": "c82148b46e414a1c015e1ce80d94832ea70a94741ef31a34e2d6acd2d92907b1"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "绝对数",
+      "比上年增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "投资完成额",
+        "group": null,
+        "label": "投资完成额",
+        "unit": "亿元",
+        "values": [
+          48267,
+          33.2
+        ]
+      },
+      {
+        "display_label": "其中：商品住宅",
+        "group": "投资完成额",
+        "label": "投资完成额｜其中：商品住宅",
+        "unit": "亿元",
+        "values": [
+          34038,
+          32.9
+        ]
+      },
+      {
+        "display_label": "其中：90平方米以下住宅",
+        "group": null,
+        "label": "其中：90平方米以下住宅",
+        "unit": "亿元",
+        "values": [
+          10665,
+          27.4
+        ]
+      },
+      {
+        "display_label": "房屋施工面积",
+        "group": null,
+        "label": "房屋施工面积",
+        "unit": "万平方米",
+        "values": [
+          405539,
+          26.6
+        ]
+      },
+      {
+        "display_label": "其中：商品住宅",
+        "group": "房屋施工面积",
+        "label": "房屋施工面积｜其中：商品住宅",
+        "unit": "万平方米",
+        "values": [
+          314943,
+          25.3
+        ]
+      },
+      {
+        "display_label": "房屋新开工面积",
+        "group": null,
+        "label": "房屋新开工面积",
+        "unit": "万平方米",
+        "values": [
+          163777,
+          40.7
+        ]
+      },
+      {
+        "display_label": "其中：商品住宅",
+        "group": "房屋新开工面积",
+        "label": "房屋新开工面积｜其中：商品住宅",
+        "unit": "万平方米",
+        "values": [
+          129468,
+          38.8
+        ]
+      },
+      {
+        "display_label": "房屋竣工面积",
+        "group": null,
+        "label": "房屋竣工面积",
+        "unit": "万平方米",
+        "values": [
+          75961,
+          4.5
+        ]
+      },
+      {
+        "display_label": "其中：商品住宅",
+        "group": "房屋竣工面积",
+        "label": "房屋竣工面积｜其中：商品住宅",
+        "unit": "万平方米",
+        "values": [
+          61216,
+          2.7
+        ]
+      },
+      {
+        "display_label": "商品房销售面积",
+        "group": null,
+        "label": "商品房销售面积",
+        "unit": "万平方米",
+        "values": [
+          104349,
+          10.1
+        ]
+      },
+      {
+        "display_label": "其中：商品住宅",
+        "group": "商品房销售面积",
+        "label": "商品房销售面积｜其中：商品住宅",
+        "unit": "万平方米",
+        "values": [
+          93052,
+          8.0
+        ]
+      },
+      {
+        "display_label": "本年资金来源",
+        "group": null,
+        "label": "本年资金来源",
+        "unit": "亿元",
+        "values": [
+          72494,
+          25.4
+        ]
+      },
+      {
+        "display_label": "其中：国内贷款",
+        "group": null,
+        "label": "其中：国内贷款",
+        "unit": "亿元",
+        "values": [
+          12540,
+          10.3
+        ]
+      },
+      {
+        "display_label": "其中：个人按揭贷款",
+        "group": null,
+        "label": "其中：个人按揭贷款",
+        "unit": "亿元",
+        "values": [
+          9211,
+          7.6
+        ]
+      },
+      {
+        "display_label": "本年购置土地面积",
+        "group": null,
+        "label": "本年购置土地面积",
+        "unit": "万平方米",
+        "values": [
+          40970,
+          28.4
+        ]
+      },
+      {
+        "display_label": "完成开发土地面积",
+        "group": null,
+        "label": "完成开发土地面积",
+        "unit": "万平方米",
+        "values": [
+          21254,
+          -7.7
+        ]
+      },
+      {
+        "display_label": "土地购置费",
+        "group": null,
+        "label": "土地购置费",
+        "unit": "亿元",
+        "values": [
+          9992,
+          65.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

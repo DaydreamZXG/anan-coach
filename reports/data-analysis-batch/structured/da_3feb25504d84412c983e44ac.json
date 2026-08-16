@@ -1,0 +1,155 @@
+{
+  "asset_id": "da_3feb25504d84412c983e44ac",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 60000,
+        "min": 0,
+        "ticks": [
+          0,
+          20000,
+          40000,
+          60000
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2003年",
+    "2004年",
+    "2005年",
+    "2006年",
+    "2007年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "全国税收收入额",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国税收收入额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        20466,
+        25723,
+        30867,
+        37637,
+        49449
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2009年四川省公务员录用考试《行测》题（上半年）_images/img_0149_cd11fdc1d4e4a336.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年四川省公务员录用考试《行测》题（上半年）_images/img_0149_cd11fdc1d4e4a336.png",
+        "paper_title": "2009年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_d6ca5b12be25cccee186",
+        "question_number": 96,
+        "source_jsonl_line": 14012
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年四川省公务员录用考试《行测》题（上半年）_images/img_0151_852a29809f069b7c.png",
+        "paper_title": "2009年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_a2cd0a964c5f58229d7a",
+        "question_number": 97,
+        "source_jsonl_line": 14013
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年四川省公务员录用考试《行测》题（上半年）_images/img_0151_852a29809f069b7c.png",
+        "paper_title": "2009年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_e9e8f09121876c7dec2d",
+        "question_number": 98,
+        "source_jsonl_line": 14014
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年四川省公务员录用考试《行测》题（上半年）_images/img_0151_852a29809f069b7c.png",
+        "paper_title": "2009年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_d23bf0b3c06e43bac5b9",
+        "question_number": 99,
+        "source_jsonl_line": 14015
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年四川省公务员录用考试《行测》题（上半年）_images/img_0151_852a29809f069b7c.png",
+        "paper_title": "2009年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_f0470e8918b4e08f5a18",
+        "question_number": 100,
+        "source_jsonl_line": 14016
+      }
+    ],
+    "sha256": "3feb25504d84412c983e44ac5f660be2c7495780485523ee1889043b10006b94"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "全国税收收入额",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3feb25504d84412c983e44ac/column_band_01.jpg",
+        "review-crops/da_3feb25504d84412c983e44ac/column_band_02.jpg",
+        "review-crops/da_3feb25504d84412c983e44ac/column_band_03.jpg",
+        "review-crops/da_3feb25504d84412c983e44ac/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.72",
+      "crop_verification_elapsed_seconds:6.847",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2003年数据为20466，原图显示为20466，正确。",
+      "crop_note:修正了2004年数据为25723，原图显示为25723，正确。",
+      "crop_note:修正了2005年数据为30867，原图显示为30867，正确。",
+      "crop_note:修正了2006年数据为37637，原图显示为37637，正确。",
+      "crop_note:修正了2007年数据为49449，原图显示为49449，正确。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

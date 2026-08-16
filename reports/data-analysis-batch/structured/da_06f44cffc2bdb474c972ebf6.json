@@ -1,0 +1,368 @@
+{
+  "asset_id": "da_06f44cffc2bdb474c972ebf6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "旅游业务总收入",
+        "unit": "万亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "在线旅游收入",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "旅游业务总收入",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "交通预订",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "住宿预订",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "度假旅游预订",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "旅游业务总收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万亿元",
+      "values": [
+        2.95,
+        3.38,
+        4.13,
+        4.69,
+        5.4,
+        5.97
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "交通预订",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1519.67,
+        2271.57,
+        3325.15,
+        5385.42,
+        6389.65,
+        6820.95
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "住宿预订",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        412.1,
+        547.45,
+        862.57,
+        1251.42,
+        1586.19,
+        1881.49
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "度假旅游预订",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        244.2,
+        347.58,
+        549.97,
+        757.4,
+        947.47,
+        1051.81
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0220_6a26f4ed4eb80295.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0220_6a26f4ed4eb80295.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_df4e303fc6986e7d5ec3",
+        "question_number": 116,
+        "source_jsonl_line": 19516
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0220_6a26f4ed4eb80295.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_db346dfa4798ab330498",
+        "question_number": 117,
+        "source_jsonl_line": 19517
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0220_6a26f4ed4eb80295.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_ba52652201006764783c",
+        "question_number": 118,
+        "source_jsonl_line": 19518
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0298_67fbd0b8ec57d864.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_3a03af2b742333ab4982",
+        "question_number": 119,
+        "source_jsonl_line": 19519
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0220_6a26f4ed4eb80295.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_1d88b68396e071494c16",
+        "question_number": 120,
+        "source_jsonl_line": 19520
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0257_67fbd0b8ec57d864.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_5f3a25283fc4ddeef2a4",
+        "question_number": 121,
+        "source_jsonl_line": 19656
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0273_6a26f4ed4eb80295.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_fe6e0f4a1334cb46c478",
+        "question_number": 122,
+        "source_jsonl_line": 19657
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0273_6a26f4ed4eb80295.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_ec24adf222b93c578906",
+        "question_number": 123,
+        "source_jsonl_line": 19658
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0273_6a26f4ed4eb80295.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_17066f5136d6bd1803b1",
+        "question_number": 124,
+        "source_jsonl_line": 19659
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0273_6a26f4ed4eb80295.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_11e2998f6c916daa1012",
+        "question_number": 125,
+        "source_jsonl_line": 19660
+      }
+    ],
+    "sha256": "06f44cffc2bdb474c972ebf6413c7725c4175b8aee98a5ddc25945ed0cbaf724"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "旅游业务总收入(万亿元)",
+      "交通预订(亿元)",
+      "住宿预订(亿元)",
+      "度假旅游预订(亿元)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2013年",
+        "unit": null,
+        "values": [
+          "2013年",
+          2.95,
+          1519.67,
+          412.1,
+          244.2
+        ]
+      },
+      {
+        "label": "2014年",
+        "unit": null,
+        "values": [
+          "2014年",
+          3.38,
+          2271.57,
+          547.45,
+          347.58
+        ]
+      },
+      {
+        "label": "2015年",
+        "unit": null,
+        "values": [
+          "2015年",
+          4.13,
+          3325.15,
+          862.57,
+          549.97
+        ]
+      },
+      {
+        "label": "2016年",
+        "unit": null,
+        "values": [
+          "2016年",
+          4.69,
+          5385.42,
+          1251.42,
+          757.4
+        ]
+      },
+      {
+        "label": "2017年",
+        "unit": null,
+        "values": [
+          "2017年",
+          5.4,
+          6389.65,
+          1586.19,
+          947.47
+        ]
+      },
+      {
+        "label": "2018年",
+        "unit": null,
+        "values": [
+          "2018年",
+          5.97,
+          6820.95,
+          1881.49,
+          1051.81
+        ]
+      }
+    ]
+  },
+  "title": "2013~2018年中国在线旅游收入状况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_06f44cffc2bdb474c972ebf6/row_band_01.jpg",
+        "review-crops/da_06f44cffc2bdb474c972ebf6/row_band_02.jpg",
+        "review-crops/da_06f44cffc2bdb474c972ebf6/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.788",
+      "crop_verification_elapsed_seconds:11.974",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'旅游业务总收入'的单位为'万亿元'，与数据一致。",
+      "crop_note:修正了'交通预订'、'住宿预订'、'度假旅游预订'的单位为'亿元'，与数据一致。",
+      "crop_note:确认所有数值均正确，无负号、百分号或缺失值。",
+      "crop_note:确认所有年份和数值的对齐关系正确。",
+      "crop_note:确认表格行列拓扑结构完整，无遗漏。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

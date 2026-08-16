@@ -1,0 +1,289 @@
+{
+  "asset_id": "da_dfe1de82af44d1a1d575843e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2011年江苏省公务员录用考试《行测》题（B类）_images/img_0265_68fbc0ceb65f917b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（B类）_images/img_0265_68fbc0ceb65f917b.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_ddf018b009e7edf713ab",
+        "question_number": 141,
+        "source_jsonl_line": 45696
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（B类）_images/img_0265_68fbc0ceb65f917b.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_86440400f5303f48783a",
+        "question_number": 142,
+        "source_jsonl_line": 45697
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（B类）_images/img_0265_68fbc0ceb65f917b.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_a12c03e3e28748150d75",
+        "question_number": 143,
+        "source_jsonl_line": 45698
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（B类）_images/img_0265_68fbc0ceb65f917b.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_d37494db7a7cace152d0",
+        "question_number": 144,
+        "source_jsonl_line": 45699
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（B类）_images/img_0259_6f651cebd2c0d9d2.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_6578577e0344281313cb",
+        "question_number": 145,
+        "source_jsonl_line": 45700
+      }
+    ],
+    "sha256": "dfe1de82af44d1a1d575843e8e1ec08f4d24a12712f941bca94bd118eb1a2435"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "商品房销售面积 (万平方米)",
+      "销售面积增速 (%)",
+      "商品房销售额 (亿元)",
+      "销售额增速 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "东部地区",
+        "unit": null,
+        "values": [
+          "东部地区",
+          50822.01,
+          4.1,
+          33203.34,
+          10.1
+        ]
+      },
+      {
+        "label": "北京",
+        "unit": null,
+        "values": [
+          "北京",
+          1639.53,
+          -30.6,
+          2915.36,
+          -10.6
+        ]
+      },
+      {
+        "label": "天津",
+        "unit": null,
+        "values": [
+          "天津",
+          1564.52,
+          -1.6,
+          1282.43,
+          17.1
+        ]
+      },
+      {
+        "label": "河北",
+        "unit": null,
+        "values": [
+          "河北",
+          4532.98,
+          52.8,
+          1605.82,
+          65.9
+        ]
+      },
+      {
+        "label": "辽宁",
+        "unit": null,
+        "values": [
+          "辽宁",
+          6798.15,
+          26.5,
+          3059.88,
+          41.1
+        ]
+      },
+      {
+        "label": "上海",
+        "unit": null,
+        "values": [
+          "上海",
+          2055.53,
+          -39.0,
+          2959.94,
+          -31.6
+        ]
+      },
+      {
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          "江苏",
+          9377.74,
+          -8.5,
+          5430.71,
+          6.4
+        ]
+      },
+      {
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          "浙江",
+          4809.96,
+          -13.1,
+          4448.7,
+          2.6
+        ]
+      },
+      {
+        "label": "福建",
+        "unit": null,
+        "values": [
+          "福建",
+          2575.65,
+          -5.4,
+          1610.99,
+          9.0
+        ]
+      },
+      {
+        "label": "山东",
+        "unit": null,
+        "values": [
+          "山东",
+          9291.21,
+          32.4,
+          3666.42,
+          49.1
+        ]
+      },
+      {
+        "label": "广东",
+        "unit": null,
+        "values": [
+          "广东",
+          7322.01,
+          3.7,
+          5476.48,
+          19.1
+        ]
+      },
+      {
+        "label": "海南",
+        "unit": null,
+        "values": [
+          "海南",
+          854.73,
+          52.3,
+          746.61,
+          112.4
+        ]
+      },
+      {
+        "label": "中部地区",
+        "unit": null,
+        "values": [
+          "中部地区",
+          27303.66,
+          19.9,
+          9138.84,
+          39.7
+        ]
+      },
+      {
+        "label": "西部地区",
+        "unit": null,
+        "values": [
+          "西部地区",
+          27303.66,
+          13.5,
+          10136.54,
+          32.2
+        ]
+      },
+      {
+        "label": "全国总计",
+        "unit": null,
+        "values": [
+          "全国总计",
+          104349.11,
+          10.1,
+          52478.72,
+          18.3
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_dfe1de82af44d1a1d575843e/row_band_01.jpg",
+        "review-crops/da_dfe1de82af44d1a1d575843e/row_band_02.jpg",
+        "review-crops/da_dfe1de82af44d1a1d575843e/row_band_03.jpg",
+        "review-crops/da_dfe1de82af44d1a1d575843e/row_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.986",
+      "crop_verification_elapsed_seconds:16.211",
+      "candidate_value_changes_after_crop:1",
+      "model_uncertainty:'1' 在 '中部地区' 行 '商品房销售面积' 列中，未明确是否为数值或占位符，存在不确定性",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

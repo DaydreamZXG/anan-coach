@@ -1,0 +1,325 @@
+{
+  "asset_id": "da_ccb7d82da096a0a19caf2abe",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "项目",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "金额（亿美元）",
+        "unit": "亿美元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比增速（%）",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "总值",
+    "一般贸易",
+    "加工贸易",
+    "其他方式贸易",
+    "国有企业",
+    "外商投资企业",
+    "其他企业"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "出口-金额（亿美元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        15779.3,
+        7207.3,
+        7403.4,
+        1168.6,
+        2343.6,
+        8623.1,
+        4812.7
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "-",
+      "label": "出口-同比增速（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        31.3,
+        36.0,
+        26.1,
+        37.7,
+        22.7,
+        28.3,
+        42.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "进口-金额（亿美元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        13948.3,
+        7679.8,
+        4174.3,
+        2094.2,
+        3875.5,
+        7380.0,
+        2692.8
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "-",
+      "label": "进口-同比增速（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        38.7,
+        43.7,
+        29.5,
+        40.2,
+        34.3,
+        35.3,
+        56.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2012年国家公务员录用考试《行测》题_images/img_0158_ee4e3a2829a47769.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0158_ee4e3a2829a47769.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_c22eb09e7c67f4c42f6a",
+        "question_number": 131,
+        "source_jsonl_line": 17801
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0158_ee4e3a2829a47769.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_565b93c42b6ec4195f24",
+        "question_number": 132,
+        "source_jsonl_line": 17802
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0158_ee4e3a2829a47769.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_87c1d2ff4386078baea8",
+        "question_number": 133,
+        "source_jsonl_line": 17803
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0158_ee4e3a2829a47769.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_2ee09f771dd42e192582",
+        "question_number": 134,
+        "source_jsonl_line": 17804
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0183_960bf889e3049a97.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_7c719f004ce2d84a27fb",
+        "question_number": 135,
+        "source_jsonl_line": 17805
+      }
+    ],
+    "sha256": "ccb7d82da096a0a19caf2abe19cc6499d3622c2e252befcea29a27249b632554"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "项目",
+      "出口-金额（亿美元）",
+      "出口-同比增速（%）",
+      "进口-金额（亿美元）",
+      "进口-同比增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "总值",
+        "unit": null,
+        "values": [
+          "总值",
+          15779.3,
+          31.3,
+          13948.3,
+          38.7
+        ]
+      },
+      {
+        "label": "贸易方式",
+        "unit": null,
+        "values": [
+          "贸易方式",
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "一般贸易",
+        "unit": null,
+        "values": [
+          "一般贸易",
+          7207.3,
+          36.0,
+          7679.8,
+          43.7
+        ]
+      },
+      {
+        "label": "加工贸易",
+        "unit": null,
+        "values": [
+          "加工贸易",
+          7403.4,
+          26.1,
+          4174.3,
+          29.5
+        ]
+      },
+      {
+        "label": "其他方式贸易",
+        "unit": null,
+        "values": [
+          "其他方式贸易",
+          1168.6,
+          37.7,
+          2094.2,
+          40.2
+        ]
+      },
+      {
+        "label": "企业性质",
+        "unit": null,
+        "values": [
+          "企业性质",
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "国有企业",
+        "unit": null,
+        "values": [
+          "国有企业",
+          2343.6,
+          22.7,
+          3875.5,
+          34.3
+        ]
+      },
+      {
+        "label": "外商投资企业",
+        "unit": null,
+        "values": [
+          "外商投资企业",
+          8623.1,
+          28.3,
+          7380.0,
+          35.3
+        ]
+      },
+      {
+        "label": "其他企业",
+        "unit": null,
+        "values": [
+          "其他企业",
+          4812.7,
+          42.2,
+          2692.8,
+          56.7
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ccb7d82da096a0a19caf2abe/row_band_01.jpg",
+        "review-crops/da_ccb7d82da096a0a19caf2abe/row_band_02.jpg",
+        "review-crops/da_ccb7d82da096a0a19caf2abe/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.336",
+      "crop_verification_elapsed_seconds:4.71",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

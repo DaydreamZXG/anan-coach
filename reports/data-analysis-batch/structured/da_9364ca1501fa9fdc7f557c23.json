@@ -1,0 +1,614 @@
+{
+  "asset_id": "da_9364ca1501fa9fdc7f557c23",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "苏南",
+    "苏中",
+    "苏北"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "一般公共预算收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        4913,
+        1246,
+        1508
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "一般公共预算支出",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        5051,
+        1793,
+        2843
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "乡村从业人员",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        626,
+        689,
+        1274
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "农林牧渔业总产值",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1686,
+        1680,
+        4071
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "高速公路",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "公里",
+      "values": [
+        1870,
+        948,
+        1870
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "私人汽车拥有量",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万辆",
+      "values": [
+        806.5,
+        261.2,
+        340.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "社会消费品零售总额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        18316,
+        5622,
+        7800
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_8",
+      "label": "出口",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        3010.2,
+        410.2,
+        212.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_9",
+      "label": "进口",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        1993.0,
+        175.5,
+        109.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_10",
+      "label": "旅游外汇收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        37.62,
+        2.42,
+        1.91
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_11",
+      "label": "城镇常住居民人均可支配收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        54169,
+        40920,
+        31007
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_12",
+      "label": "城镇常住居民人均生活消费支出",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        32034,
+        24549,
+        18035
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_13",
+      "label": "农村常住居民人均可支配收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        26759,
+        20000,
+        16501
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_14",
+      "label": "农村常住居民人均生活消费支出",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        18872,
+        14644,
+        11763
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0376_f26fa917f08f0dc5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0376_f26fa917f08f0dc5.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_289625b285002aa753fa",
+        "question_number": 121,
+        "source_jsonl_line": 48431
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0376_f26fa917f08f0dc5.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_f5d61d9a13d95d07c5bf",
+        "question_number": 122,
+        "source_jsonl_line": 48432
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0395_7bdd60324659a165.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_63bd23a5193bffc82694",
+        "question_number": 123,
+        "source_jsonl_line": 48433
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0376_f26fa917f08f0dc5.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_7bd08e872ca48d772f90",
+        "question_number": 124,
+        "source_jsonl_line": 48434
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0395_7bdd60324659a165.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_2df3ee6b427a224c763e",
+        "question_number": 125,
+        "source_jsonl_line": 48435
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0348_f26fa917f08f0dc5.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_1a490297632c3cba7a52",
+        "question_number": 121,
+        "source_jsonl_line": 48566
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0369_7bdd60324659a165.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_87e022facf4c86a258e5",
+        "question_number": 122,
+        "source_jsonl_line": 48567
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0369_7bdd60324659a165.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_efe18fb89b098161939f",
+        "question_number": 123,
+        "source_jsonl_line": 48568
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0348_f26fa917f08f0dc5.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_c1a80e7fdcb62544f99b",
+        "question_number": 124,
+        "source_jsonl_line": 48569
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0348_f26fa917f08f0dc5.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_3f9383ccb836e842da51",
+        "question_number": 125,
+        "source_jsonl_line": 48570
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0382_f26fa917f08f0dc5.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_5422f1bdbebd4faef950",
+        "question_number": 126,
+        "source_jsonl_line": 48706
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0382_f26fa917f08f0dc5.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_3be7b6f60f3b646d7f02",
+        "question_number": 127,
+        "source_jsonl_line": 48707
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0382_f26fa917f08f0dc5.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_b65ee0d619c1dc23233c",
+        "question_number": 128,
+        "source_jsonl_line": 48708
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0382_f26fa917f08f0dc5.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_5728f0d75fab0bfccd9a",
+        "question_number": 129,
+        "source_jsonl_line": 48709
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0417_7bdd60324659a165.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_e7fd557b7826ca22c0aa",
+        "question_number": 130,
+        "source_jsonl_line": 48710
+      }
+    ],
+    "sha256": "9364ca1501fa9fdc7f557c23c153d091f711105b6c378190c44c9b61770fcf02"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "单位",
+      "苏南",
+      "苏中",
+      "苏北"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "一般公共预算收入",
+        "unit": "亿元",
+        "values": [
+          "一般公共预算收入",
+          "亿元",
+          4913,
+          1246,
+          1508
+        ]
+      },
+      {
+        "label": "一般公共预算支出",
+        "unit": "亿元",
+        "values": [
+          "一般公共预算支出",
+          "亿元",
+          5051,
+          1793,
+          2843
+        ]
+      },
+      {
+        "label": "乡村从业人员",
+        "unit": "万人",
+        "values": [
+          "乡村从业人员",
+          "万人",
+          626,
+          689,
+          1274
+        ]
+      },
+      {
+        "label": "农林牧渔业总产值",
+        "unit": "亿元",
+        "values": [
+          "农林牧渔业总产值",
+          "亿元",
+          1686,
+          1680,
+          4071
+        ]
+      },
+      {
+        "label": "高速公路",
+        "unit": "公里",
+        "values": [
+          "高速公路",
+          "公里",
+          1870,
+          948,
+          1870
+        ]
+      },
+      {
+        "label": "私人汽车拥有量",
+        "unit": "万辆",
+        "values": [
+          "私人汽车拥有量",
+          "万辆",
+          806.5,
+          261.2,
+          340.5
+        ]
+      },
+      {
+        "label": "社会消费品零售总额",
+        "unit": null,
+        "values": [
+          "社会消费品零售总额",
+          null,
+          18316,
+          5622,
+          7800
+        ]
+      },
+      {
+        "label": "出口",
+        "unit": "亿美元",
+        "values": [
+          "出口",
+          "亿美元",
+          3010.2,
+          410.2,
+          212.6
+        ]
+      },
+      {
+        "label": "进口",
+        "unit": "亿美元",
+        "values": [
+          "进口",
+          "亿美元",
+          1993.0,
+          175.5,
+          109.9
+        ]
+      },
+      {
+        "label": "旅游外汇收入",
+        "unit": "亿美元",
+        "values": [
+          "旅游外汇收入",
+          "亿美元",
+          37.62,
+          2.42,
+          1.91
+        ]
+      },
+      {
+        "label": "城镇常住居民人均可支配收入",
+        "unit": "元",
+        "values": [
+          "城镇常住居民人均可支配收入",
+          "元",
+          54169,
+          40920,
+          31007
+        ]
+      },
+      {
+        "label": "城镇常住居民人均生活消费支出",
+        "unit": "元",
+        "values": [
+          "城镇常住居民人均生活消费支出",
+          "元",
+          32034,
+          24549,
+          18035
+        ]
+      },
+      {
+        "label": "农村常住居民人均可支配收入",
+        "unit": "元",
+        "values": [
+          "农村常住居民人均可支配收入",
+          "元",
+          26759,
+          20000,
+          16501
+        ]
+      },
+      {
+        "label": "农村常住居民人均生活消费支出",
+        "unit": "元",
+        "values": [
+          "农村常住居民人均生活消费支出",
+          "元",
+          18872,
+          14644,
+          11763
+        ]
+      }
+    ]
+  },
+  "title": "表2017年江苏三大区域部分社会经济发展指标数据",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9364ca1501fa9fdc7f557c23/row_band_01.jpg",
+        "review-crops/da_9364ca1501fa9fdc7f557c23/row_band_02.jpg",
+        "review-crops/da_9364ca1501fa9fdc7f557c23/row_band_03.jpg",
+        "review-crops/da_9364ca1501fa9fdc7f557c23/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:19.95",
+      "crop_verification_elapsed_seconds:11.69",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

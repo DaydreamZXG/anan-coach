@@ -516,7 +516,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     try {
       const workspace = (await api.getWorkspace(activeTaskVersionId)).data;
       if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
-      const pendingReview = reviewRecovery(runtime.pendingDraftingSubmission);
+      let pendingDrafting = runtime.pendingDraftingSubmission;
+      let pendingReview = reviewRecovery(pendingDrafting);
       runtime.activeReviewIntent = workspace.progression.reviewIntent ?? null;
       runtime.activeReviewJobId =
         runtime.activeReviewIntent?.jobId ??
@@ -539,7 +540,6 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         runtime.pendingCompletion.stage === activeStage
           ? runtime.pendingCompletion.drafts
           : initialEssayFormDrafts(workspace);
-      const pendingDrafting = runtime.pendingDraftingSubmission;
       const storedDrafting =
         draftingStage && !pendingDrafting && !workspace.progression.answerVersionId
           ? loadEssayDraftingDraft(runtime.activeUserId, {
@@ -549,6 +549,12 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           : null;
       if (draftingStage && workspace.progression.answerVersionId) {
         clearEssayDraftingDraft(runtime.activeUserId, runtime.activePlanTaskId);
+        if (pendingDrafting) {
+          clearStoredDraftingSubmission(runtime.activeUserId, pendingDrafting.planTaskId);
+          runtime.pendingDraftingSubmission = null;
+          pendingDrafting = null;
+          pendingReview = null;
+        }
       }
       const drafting =
         draftingStage &&
@@ -573,13 +579,16 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
             runtime.pendingDraftingSubmission !== null) &&
           !(
             draftingStage &&
-            pendingDrafting?.phase !== "completion_pending" &&
-            (pendingReview !== null || runtime.activeReviewIntent !== null)
+            (Boolean(workspace.progression.answerVersionId) ||
+              (pendingDrafting?.phase !== "completion_pending" &&
+                (pendingReview !== null || runtime.activeReviewIntent !== null)))
           ),
         draftLocked:
           runtime.pendingCompletion !== null ||
           runtime.pendingDraftingSubmission !== null ||
-          (draftingStage && runtime.activeReviewIntent !== null),
+          (draftingStage &&
+            (Boolean(workspace.progression.answerVersionId) ||
+              runtime.activeReviewIntent !== null)),
         showLoginAction: false,
         hasSavedEvidence: capability.artifactType
           ? workspace.currentArtifacts[capability.artifactType] !== undefined
@@ -588,11 +597,19 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
               pendingReview !== null ||
               runtime.activeReviewIntent !== null),
         submissionStatus:
-          runtime.pendingCompletion || runtime.pendingDraftingSubmission ? "error" : "idle",
+          runtime.pendingCompletion || runtime.pendingDraftingSubmission
+            ? "error"
+            : draftingStage && workspace.progression.answerVersionId
+              ? "saved"
+              : "idle",
         submissionMessage:
           runtime.pendingCompletion || runtime.pendingDraftingSubmission
             ? "哎，上次的保存结果还没确认好，别急，会接着帮你确认。"
-            : "",
+            : draftingStage && workspace.progression.answerVersionId
+              ? workspace.progression.reviewVersionId
+                ? "这次作答和评阅已经保存。"
+                : "这次作答已经保存，岸岸会继续确认评阅。"
+              : "",
         drafting,
         reflectionCauseOptions: reflectionCauseOptions(drafting.reflectionCauseCodes),
         workbenchLinks: essayWorkbenchLinks(workspace, runtime.activePlanTaskId),
@@ -2140,6 +2157,40 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     } catch (error) {
       if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;
       if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
+      if (
+        error instanceof ApiClientError &&
+        error.statusCode === 409 &&
+        runtime.pendingDraftingSubmission.phase === "completion_pending"
+      ) {
+        const pending = runtime.pendingDraftingSubmission;
+        try {
+          storeEssayDraftingDraft(
+            runtime.activeUserId,
+            {
+              taskVersionId: pending.taskVersionId,
+              planTaskId: pending.planTaskId,
+            },
+            pending.draft,
+          );
+        } catch {
+          // The in-memory draft remains authoritative for this visible page.
+        }
+        clearStoredDraftingSubmission(runtime.activeUserId, pending.planTaskId);
+        runtime.pendingDraftingSubmission = null;
+        await this.loadWorkspace();
+        if (!pageRuntimes.owns(this, runtime)) return;
+        if (this.data.status === "ready" && !this.data.workspace?.progression.answerVersionId) {
+          this.setData({
+            drafting: pending.draft,
+            draftLocked: false,
+            draftAvailable: true,
+            canSubmit: false,
+            submissionStatus: "error",
+            submissionMessage: "任务状态刚刚变了；你填的内容已保留，回今日打开当前任务即可。",
+          });
+        }
+        return;
+      }
       handleDraftingRequestError(this, runtime, error);
     } finally {
       pageRuntimes.finishEffect(this, runtime, effect);
@@ -3049,13 +3100,7 @@ function handleDraftingRequestError(
   const conflict = apiError?.statusCode === 409;
   const taskExpired = apiError?.payload?.code === "plan_task_expired";
   const completionPending = runtime.pendingDraftingSubmission?.phase === "completion_pending";
-  if (conflict && runtime.pendingDraftingSubmission) {
-    clearStoredDraftingSubmission(
-      runtime.activeUserId,
-      runtime.pendingDraftingSubmission.planTaskId,
-    );
-    runtime.pendingDraftingSubmission = null;
-  }
+  const apiMessage = apiError?.message.replace(/[\s。；，,]+$/u, "") ?? "";
   const message =
     error instanceof EssayDraftingError
       ? error.message
@@ -3064,13 +3109,13 @@ function handleDraftingRequestError(
           ? "任务已经过期，这次没有写入不完整记录。回今日页重新进一次就好。"
           : "作答和计划都存好了，但任务已经过期。回今日页重新进一次就好。"
         : apiError
-          ? `${apiError.message}。${completionPending ? "刚才的提交内容还留着" : "评阅任务已经存进你的账户"}，直接再试就行。`
+          ? `${apiMessage}。${completionPending ? "刚才的提交内容还留着" : "评阅任务已经存进你的账户"}，直接再试就行。`
           : `请求没拿到完整响应。${completionPending ? "刚才的提交内容还留着" : "评阅任务已经存进你的账户"}，直接再试就行。`;
   page.setData({
     submissionStatus: "error",
     submissionMessage: message,
     draftLocked: runtime.pendingDraftingSubmission !== null,
-    canSubmit: !taskExpired,
+    canSubmit: !taskExpired && !conflict,
     hasSavedEvidence:
       page.data.hasSavedEvidence ||
       runtime.pendingDraftingSubmission?.phase === "review_pending" ||

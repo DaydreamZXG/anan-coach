@@ -1,0 +1,362 @@
+{
+  "asset_id": "da_3f7c166fc99d0948adf14840",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0057_1a16e2a11f787a80.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0057_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_64b4f377ed241028469b",
+        "question_number": 102,
+        "source_jsonl_line": 4552
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0057_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_4d3f745d750ecb8a5c91",
+        "question_number": 103,
+        "source_jsonl_line": 4553
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0076_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_8aa938bff12531548e8b",
+        "question_number": 104,
+        "source_jsonl_line": 14301
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0069_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_a97cba0ba2aaecff90d0",
+        "question_number": 101,
+        "source_jsonl_line": 22246
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0069_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_561bd84b2cf268b3dea2",
+        "question_number": 105,
+        "source_jsonl_line": 22250
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0056_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_dbf428c6f1f031653fe7",
+        "question_number": 103,
+        "source_jsonl_line": 29357
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0057_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_ce179902247fb80e63a5",
+        "question_number": 103,
+        "source_jsonl_line": 31547
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0057_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_90243dd433144c1dc2be",
+        "question_number": 104,
+        "source_jsonl_line": 31548
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0057_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_0f68c7bf0215d405d795",
+        "question_number": 105,
+        "source_jsonl_line": 31549
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0057_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_89298de7fd375adc8123",
+        "question_number": 102,
+        "source_jsonl_line": 38154
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0057_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_fb5d6e2d4e21d5f930c2",
+        "question_number": 103,
+        "source_jsonl_line": 38155
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0057_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_f67009334856cb53e218",
+        "question_number": 104,
+        "source_jsonl_line": 38156
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0067_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_41448ab2af93e3d17db6",
+        "question_number": 103,
+        "source_jsonl_line": 40289
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0067_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_42210d11b2499f7baee6",
+        "question_number": 105,
+        "source_jsonl_line": 40291
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0089_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_6d1faf9ef30afb24652c",
+        "question_number": 103,
+        "source_jsonl_line": 51468
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0089_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_3bcde42004baf2db4cf6",
+        "question_number": 104,
+        "source_jsonl_line": 51469
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0072_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_ae89c6f919b16748984b",
+        "question_number": 101,
+        "source_jsonl_line": 65123
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0072_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_fa636e02d156e72a3c0f",
+        "question_number": 103,
+        "source_jsonl_line": 65125
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0072_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_199aa829801ff74811d5",
+        "question_number": 105,
+        "source_jsonl_line": 65127
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0060_1a16e2a11f787a80.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_ce0d1a18fa18b9501e5b",
+        "question_number": 101,
+        "source_jsonl_line": 72517
+      }
+    ],
+    "sha256": "3f7c166fc99d0948adf1484063b96c5419e5402ad2aa01a02f04290f7da69179"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "A00级型车（微型）",
+      "A0级型车（小型）",
+      "A级型车（紧凑型）",
+      "B级型车（中大型）",
+      "C级型车（大型）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "2001",
+        "group": "各级别轿车",
+        "label": "各级别轿车｜2001",
+        "unit": null,
+        "values": [
+          5.1,
+          28.6,
+          41.5,
+          21.1,
+          3.7
+        ]
+      },
+      {
+        "display_label": "2002",
+        "group": "各级别轿车",
+        "label": "各级别轿车｜2002",
+        "unit": null,
+        "values": [
+          7.5,
+          29.8,
+          39.9,
+          19.8,
+          3.0
+        ]
+      },
+      {
+        "display_label": "2003",
+        "group": "各级别轿车",
+        "label": "各级别轿车｜2003",
+        "unit": null,
+        "values": [
+          8.5,
+          29.4,
+          34.9,
+          24.5,
+          2.7
+        ]
+      },
+      {
+        "display_label": "2004",
+        "group": "各级别轿车",
+        "label": "各级别轿车｜2004",
+        "unit": null,
+        "values": [
+          8.6,
+          30.6,
+          39.2,
+          19.4,
+          2.2
+        ]
+      },
+      {
+        "display_label": "2005",
+        "group": "各级别轿车",
+        "label": "各级别轿车｜2005",
+        "unit": null,
+        "values": [
+          10.7,
+          27.3,
+          39.9,
+          19.6,
+          2.5
+        ]
+      },
+      {
+        "display_label": "2006",
+        "group": "各级别轿车",
+        "label": "各级别轿车｜2006",
+        "unit": null,
+        "values": [
+          8.8,
+          24.7,
+          42.9,
+          20.2,
+          3.4
+        ]
+      },
+      {
+        "display_label": "2007",
+        "group": "各级别轿车",
+        "label": "各级别轿车｜2007",
+        "unit": null,
+        "values": [
+          6.9,
+          21.9,
+          47.1,
+          20.4,
+          3.7
+        ]
+      },
+      {
+        "display_label": "2008",
+        "group": "各级别轿车",
+        "label": "各级别轿车｜2008",
+        "unit": null,
+        "values": [
+          7.1,
+          20.3,
+          48.9,
+          20.2,
+          3.5
+        ]
+      },
+      {
+        "display_label": "2009",
+        "group": "各级别轿车",
+        "label": "各级别轿车｜2009",
+        "unit": null,
+        "values": [
+          7.3,
+          20.4,
+          52.4,
+          17.4,
+          2.5
+        ]
+      },
+      {
+        "display_label": "2010",
+        "group": "各级别轿车",
+        "label": "各级别轿车｜2010",
+        "unit": null,
+        "values": [
+          7.3,
+          19.8,
+          53.6,
+          16.7,
+          2.6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

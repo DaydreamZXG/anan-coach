@@ -1,0 +1,197 @@
+{
+  "asset_id": "da_949d3f5d96f8dfb00916050c",
+  "axes": {
+    "x": {
+      "max": 9,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 700,
+        "min": 0,
+        "ticks": [],
+        "title": "总观众人次",
+        "unit": "万人次"
+      },
+      {
+        "max": 12,
+        "min": 0,
+        "ticks": [],
+        "title": "上座率",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "北京",
+    "上海",
+    "深圳",
+    "广州",
+    "成都",
+    "武汉",
+    "杭州",
+    "重庆",
+    "西安",
+    "南京"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "总观众人次",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "上座率",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "总观众人次",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        410.74,
+        398.05,
+        287.82,
+        294.0,
+        308.76,
+        250.78,
+        218.95,
+        238.83,
+        199.58,
+        181.65
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "上座率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.75,
+        9.22,
+        8.72,
+        8.07,
+        8.0,
+        9.07,
+        8.42,
+        6.35,
+        8.97,
+        9.35
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0112_dfa2d4f62001cd0c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0112_dfa2d4f62001cd0c.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_399fe9204ddc32f3d258",
+        "question_number": 121,
+        "source_jsonl_line": 21371
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0112_dfa2d4f62001cd0c.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_a5c8fd37df6abd7bb576",
+        "question_number": 122,
+        "source_jsonl_line": 21372
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0112_dfa2d4f62001cd0c.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_be53e887b0bc208ea7dc",
+        "question_number": 123,
+        "source_jsonl_line": 21373
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0112_dfa2d4f62001cd0c.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_76248ff7db1c89024cfc",
+        "question_number": 124,
+        "source_jsonl_line": 21374
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0112_dfa2d4f62001cd0c.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_6660bf5f8451d3159373",
+        "question_number": 125,
+        "source_jsonl_line": 21375
+      }
+    ],
+    "sha256": "949d3f5d96f8dfb00916050ce48cdd9b93f659bd2a49dc97cd8b4a4e3e249afc"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2023年12月全国电影票房前10城市总观众人次及上座率",
+  "unit": "万人次",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_949d3f5d96f8dfb00916050c/column_band_01.jpg",
+        "review-crops/da_949d3f5d96f8dfb00916050c/column_band_02.jpg",
+        "review-crops/da_949d3f5d96f8dfb00916050c/column_band_03.jpg",
+        "review-crops/da_949d3f5d96f8dfb00916050c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.394",
+      "crop_verification_elapsed_seconds:4.861",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

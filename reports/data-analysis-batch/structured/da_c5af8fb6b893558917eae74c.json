@@ -1,0 +1,383 @@
+{
+  "asset_id": "da_c5af8fb6b893558917eae74c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "污染治理总投资",
+        "unit": "万元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "治理废水",
+        "unit": "万元"
+      }
+    ]
+  },
+  "categories": [
+    "2008年",
+    "2009年",
+    "2010年",
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "污染治理总投资",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        5426404,
+        4426207,
+        3969768,
+        4443610,
+        5004573,
+        8496647,
+        9976511,
+        7736822
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "治理废水",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        1945977,
+        1494606,
+        1295519,
+        1577471,
+        1403448,
+        1248822,
+        1152473,
+        1184138
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "治理废气",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        2656987,
+        2324616,
+        1881883,
+        2116811,
+        2577139,
+        6409109,
+        7893935,
+        5218073
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "治理固体废物",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        196851,
+        218536,
+        142692,
+        313875,
+        247499,
+        140480,
+        150504,
+        161468
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "治理噪声",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        28383,
+        14100,
+        29653,
+        21623,
+        11627,
+        17628,
+        10950,
+        27892
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "治理其他",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        598206,
+        374349,
+        620021,
+        413830,
+        764860,
+        680608,
+        768649,
+        1145251
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2017年深圳市公务员录用考试《行测》题_images/img_0185_8e1f8c52dde7fb6f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年深圳市公务员录用考试《行测》题_images/img_0185_8e1f8c52dde7fb6f.png",
+        "paper_title": "2017年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_e597aee5913a7f80f24f",
+        "question_number": 96,
+        "source_jsonl_line": 67752
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年深圳市公务员录用考试《行测》题_images/img_0185_8e1f8c52dde7fb6f.png",
+        "paper_title": "2017年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_f00b15d579ecc957cf85",
+        "question_number": 97,
+        "source_jsonl_line": 67753
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年深圳市公务员录用考试《行测》题_images/img_0185_8e1f8c52dde7fb6f.png",
+        "paper_title": "2017年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_9ccb72a62d46630066b5",
+        "question_number": 98,
+        "source_jsonl_line": 67754
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年深圳市公务员录用考试《行测》题_images/img_0185_8e1f8c52dde7fb6f.png",
+        "paper_title": "2017年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_9079636feeb858eda87f",
+        "question_number": 99,
+        "source_jsonl_line": 67755
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年深圳市公务员录用考试《行测》题_images/img_0239_2a7b562ba43fe3bc.png",
+        "paper_title": "2017年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_8bd4c952a4dd32ca2bfa",
+        "question_number": 100,
+        "source_jsonl_line": 67756
+      }
+    ],
+    "sha256": "c5af8fb6b893558917eae74ce0f5a11a8f6ebd6cca4f07d369113edfa23a09f7"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "污染治理总投资",
+      "治理废水",
+      "治理废气",
+      "治理固体废物",
+      "治理噪声",
+      "治理其他"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2008年",
+        "unit": null,
+        "values": [
+          "2008年",
+          5426404,
+          1945977,
+          2656987,
+          196851,
+          28383,
+          598206
+        ]
+      },
+      {
+        "label": "2009年",
+        "unit": null,
+        "values": [
+          "2009年",
+          4426207,
+          1494606,
+          2324616,
+          218536,
+          14100,
+          374349
+        ]
+      },
+      {
+        "label": "2010年",
+        "unit": null,
+        "values": [
+          "2010年",
+          3969768,
+          1295519,
+          1881883,
+          142692,
+          29653,
+          620021
+        ]
+      },
+      {
+        "label": "2011年",
+        "unit": null,
+        "values": [
+          "2011年",
+          4443610,
+          1577471,
+          2116811,
+          313875,
+          21623,
+          413830
+        ]
+      },
+      {
+        "label": "2012年",
+        "unit": null,
+        "values": [
+          "2012年",
+          5004573,
+          1403448,
+          2577139,
+          247499,
+          11627,
+          764860
+        ]
+      },
+      {
+        "label": "2013年",
+        "unit": null,
+        "values": [
+          "2013年",
+          8496647,
+          1248822,
+          6409109,
+          140480,
+          17628,
+          680608
+        ]
+      },
+      {
+        "label": "2014年",
+        "unit": null,
+        "values": [
+          "2014年",
+          9976511,
+          1152473,
+          7893935,
+          150504,
+          10950,
+          768649
+        ]
+      },
+      {
+        "label": "2015年",
+        "unit": null,
+        "values": [
+          "2015年",
+          7736822,
+          1184138,
+          5218073,
+          161468,
+          27892,
+          1145251
+        ]
+      }
+    ]
+  },
+  "title": "2008-2015年工业污染治理投资情况表",
+  "unit": "万元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c5af8fb6b893558917eae74c/row_band_01.jpg",
+        "review-crops/da_c5af8fb6b893558917eae74c/row_band_02.jpg",
+        "review-crops/da_c5af8fb6b893558917eae74c/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:20.379",
+      "crop_verification_elapsed_seconds:14.543",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -153,6 +153,10 @@ create table product.question_occurrences (
   question_id text not null,
   source_question_id text,
   source_dataset_id text,
+  source_paper_row_id text,
+  source_paper_key text,
+  source_occurrence_question_key text,
+  source_occurrence_paper_key text,
   province text,
   year integer,
   number integer,
@@ -160,8 +164,23 @@ create table product.question_occurrences (
   paper_title text,
   occurrence_paper_title text,
   source_path text,
+  cls text,
+  occurrence_answer text,
+  occurrence_correct_ratio double precision,
+  occurrence_total_count integer,
+  occurrence_easy_wrong text,
+  occurrence_most_wrong_answer jsonb,
+  occurrence_sample_size integer,
   canonical_occurrence_rank integer
 );
+
+create index question_occurrences_source_question_identity_idx
+  on product.question_occurrences(source_dataset_id, source_occurrence_question_key)
+  where source_occurrence_question_key is not null;
+
+create index question_occurrences_source_paper_identity_idx
+  on product.question_occurrences(source_dataset_id, source_paper_key)
+  where source_paper_key is not null;
 
 create table product.question_tags (
   question_tag_id text primary key,

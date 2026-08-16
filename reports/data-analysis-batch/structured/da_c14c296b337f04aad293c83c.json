@@ -1,0 +1,182 @@
+{
+  "asset_id": "da_c14c296b337f04aad293c83c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0240_a6a6fe3913a9baae.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0240_a6a6fe3913a9baae.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_30a73bdc5e80249b27d6",
+        "question_number": 116,
+        "source_jsonl_line": 19781
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0232_6167484508396355.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_833848193e1e05832b03",
+        "question_number": 117,
+        "source_jsonl_line": 19782
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0232_6167484508396355.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_f945ffda1375faa16ba6",
+        "question_number": 118,
+        "source_jsonl_line": 19783
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0240_a6a6fe3913a9baae.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_506169dfcc9df558fa8a",
+        "question_number": 119,
+        "source_jsonl_line": 19784
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0232_6167484508396355.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_6ef63342fcc1d7a68474",
+        "question_number": 120,
+        "source_jsonl_line": 19785
+      }
+    ],
+    "sha256": "c14c296b337f04aad293c83c7b26fb5d6aca5c4ff68dc7ca28dc71c1af1a27c4"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "海区",
+      "排口数（个）",
+      "污水量（万吨）",
+      "化学需氧量（吨）",
+      "石油类（吨）",
+      "总氮（吨）",
+      "总磷（吨）",
+      "氨氮（吨）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "渤海",
+        "unit": null,
+        "values": [
+          "渤海",
+          62,
+          58781,
+          7858,
+          48.4,
+          2531,
+          428,
+          null
+        ]
+      },
+      {
+        "label": "黄海",
+        "unit": null,
+        "values": [
+          "黄海",
+          83,
+          107240,
+          30206,
+          92.0,
+          9302,
+          973,
+          198
+        ]
+      },
+      {
+        "label": "东海",
+        "unit": null,
+        "values": [
+          "东海",
+          153,
+          460570,
+          81108,
+          388.7,
+          27338,
+          2013,
+          425
+        ]
+      },
+      {
+        "label": "南海",
+        "unit": null,
+        "values": [
+          "南海",
+          150,
+          174499,
+          42319,
+          167.7,
+          11892,
+          2011,
+          506
+        ]
+      }
+    ]
+  },
+  "title": "表1 2019年四大海区直排海污染源污水及部分污染物受纳总量",
+  "unit": "吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c14c296b337f04aad293c83c/row_band_01.jpg",
+        "review-crops/da_c14c296b337f04aad293c83c/row_band_02.jpg",
+        "review-crops/da_c14c296b337f04aad293c83c/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.288",
+      "crop_verification_elapsed_seconds:7.489",
+      "candidate_value_changes_after_crop:1",
+      "model_uncertainty:表1中总磷（吨）的渤海数据为（?），表示缺失值",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

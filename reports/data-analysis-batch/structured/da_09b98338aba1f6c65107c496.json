@@ -1,0 +1,167 @@
+{
+  "asset_id": "da_09b98338aba1f6c65107c496",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2030年",
+    "2050年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "施行前",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "施行后",
+      "style": {
+        "dash": null,
+        "fill": "#808080",
+        "marker": null,
+        "stroke": "#808080"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "施行前",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿",
+      "values": [
+        8.75,
+        7.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "施行后",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿",
+      "values": [
+        8.77,
+        7.26
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2014年吉林省公务员录用考试《行测》题（甲级）_images/img_0101_fd4245237ba3f741.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（甲级）_images/img_0101_fd4245237ba3f741.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_07df110fbe0d4a4bd677",
+        "question_number": 101,
+        "source_jsonl_line": 11982
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（甲级）_images/img_0096_11ee906d26ea42c4.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_50cf9a3f4b036744063c",
+        "question_number": 102,
+        "source_jsonl_line": 11983
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（甲级）_images/img_0101_fd4245237ba3f741.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_6c1fb866141c5d599787",
+        "question_number": 103,
+        "source_jsonl_line": 11984
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（甲级）_images/img_0101_fd4245237ba3f741.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_0bda8f8edbf58bb9a2cb",
+        "question_number": 104,
+        "source_jsonl_line": 11985
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（甲级）_images/img_0096_11ee906d26ea42c4.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_89da5af8a1f59a98e298",
+        "question_number": 105,
+        "source_jsonl_line": 11986
+      }
+    ],
+    "sha256": "09b98338aba1f6c65107c49659e21b7debc6010b408514ffe34b1282bda9b054"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "增加劳动年龄（15-59岁）人口",
+  "unit": "亿",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_09b98338aba1f6c65107c496/column_band_01.jpg",
+        "review-crops/da_09b98338aba1f6c65107c496/column_band_02.jpg",
+        "review-crops/da_09b98338aba1f6c65107c496/column_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.266",
+      "crop_verification_elapsed_seconds:4.687",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2050年施行前的数值为7.00亿，与图中一致。",
+      "crop_note:修正了2050年施行后的数值为7.26亿，与图中一致。",
+      "crop_note:确认施行前和施行后的颜色对应关系正确，施行前为黑色，施行后为灰色。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

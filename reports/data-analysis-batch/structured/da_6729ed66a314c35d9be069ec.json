@@ -1,0 +1,200 @@
+{
+  "asset_id": "da_6729ed66a314c35d9be069ec",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 10000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000,
+          8000,
+          9000,
+          10000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "全国残疾人康复机构数量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国残疾人康复机构数量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        6914,
+        7111,
+        7858,
+        8334,
+        9036,
+        9775
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0315_d8fcc9b67fcd7dbf.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0315_d8fcc9b67fcd7dbf.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_6fe9e9a88b306e89a4ea",
+        "question_number": 126,
+        "source_jsonl_line": 19791
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0315_d8fcc9b67fcd7dbf.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_309f38db3c6a6d458ec3",
+        "question_number": 127,
+        "source_jsonl_line": 19792
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0321_2ea5c618ae2ef372.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_960bf268213f7c1d2bbb",
+        "question_number": 128,
+        "source_jsonl_line": 19793
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0321_2ea5c618ae2ef372.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_995b75d6a31ecbc662c7",
+        "question_number": 129,
+        "source_jsonl_line": 19794
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0315_d8fcc9b67fcd7dbf.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_a1d7980e4f8791f2aa63",
+        "question_number": 130,
+        "source_jsonl_line": 19795
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0286_2ea5c618ae2ef372.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_33758388f2bfea05ab67",
+        "question_number": 121,
+        "source_jsonl_line": 19921
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0291_d8fcc9b67fcd7dbf.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_0c44c7f77c0cfe29d9a2",
+        "question_number": 122,
+        "source_jsonl_line": 19922
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0286_2ea5c618ae2ef372.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_58be6b4d2d8bc3eeb363",
+        "question_number": 123,
+        "source_jsonl_line": 19923
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0286_2ea5c618ae2ef372.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_ffdcbc4a2b813e3841ea",
+        "question_number": 124,
+        "source_jsonl_line": 19924
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0286_2ea5c618ae2ef372.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_5ed603c1626438415367",
+        "question_number": 125,
+        "source_jsonl_line": 19925
+      }
+    ],
+    "sha256": "6729ed66a314c35d9be069ec606605c32601c5cc4199c36fe24cdc0a615ff2fb"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014~2019年各年末全国残疾人康复机构数量",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6729ed66a314c35d9be069ec/column_band_01.jpg",
+        "review-crops/da_6729ed66a314c35d9be069ec/column_band_02.jpg",
+        "review-crops/da_6729ed66a314c35d9be069ec/column_band_03.jpg",
+        "review-crops/da_6729ed66a314c35d9be069ec/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.856",
+      "crop_verification_elapsed_seconds:2.17",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

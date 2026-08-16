@@ -1,0 +1,176 @@
+{
+  "asset_id": "da_1f9cb8e05f7c62d86f9a12c1",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2012年广东省公务员录用考试《行测》题_images/img_0113_bf0ce8879c053751.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广东省公务员录用考试《行测》题_images/img_0113_bf0ce8879c053751.png",
+        "paper_title": "2012年广东省公务员录用考试《行测》题",
+        "question_id": "pq_78b101ee54da03806d39",
+        "question_number": 96,
+        "source_jsonl_line": 34028
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广东省公务员录用考试《行测》题_images/img_0113_bf0ce8879c053751.png",
+        "paper_title": "2012年广东省公务员录用考试《行测》题",
+        "question_id": "pq_2a6cdfa831b86c68ec8d",
+        "question_number": 97,
+        "source_jsonl_line": 34029
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广东省公务员录用考试《行测》题_images/img_0113_bf0ce8879c053751.png",
+        "paper_title": "2012年广东省公务员录用考试《行测》题",
+        "question_id": "pq_3be470915721476d5a65",
+        "question_number": 98,
+        "source_jsonl_line": 34030
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广东省公务员录用考试《行测》题_images/img_0113_bf0ce8879c053751.png",
+        "paper_title": "2012年广东省公务员录用考试《行测》题",
+        "question_id": "pq_02a874db1c62005f68d2",
+        "question_number": 99,
+        "source_jsonl_line": 34031
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广东省公务员录用考试《行测》题_images/img_0113_bf0ce8879c053751.png",
+        "paper_title": "2012年广东省公务员录用考试《行测》题",
+        "question_id": "pq_23df5a0f2d2e1a402766",
+        "question_number": 100,
+        "source_jsonl_line": 34032
+      }
+    ],
+    "sha256": "1f9cb8e05f7c62d86f9a12c1768dae12f85e68fb739bd6b199e7b91bf6e0baa8"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "机构数量（个）",
+      "演出场次（万）",
+      "观众人次（万）",
+      "演出收入（万元）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全国",
+        "unit": null,
+        "values": [
+          "全国",
+          6864,
+          137.1,
+          88456,
+          342696
+        ]
+      },
+      {
+        "label": "中央",
+        "unit": null,
+        "values": [
+          "中央",
+          16,
+          0.4,
+          677,
+          27388
+        ]
+      },
+      {
+        "label": "东部地区",
+        "unit": null,
+        "values": [
+          "东部地区",
+          2226,
+          41.2,
+          29357,
+          187593
+        ]
+      },
+      {
+        "label": "中部地区",
+        "unit": null,
+        "values": [
+          "中部地区",
+          2980,
+          71.8,
+          39933,
+          78890
+        ]
+      },
+      {
+        "label": "西部地区",
+        "unit": null,
+        "values": [
+          "西部地区",
+          1642,
+          23.7,
+          18489,
+          48825
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1f9cb8e05f7c62d86f9a12c1/row_band_01.jpg",
+        "review-crops/da_1f9cb8e05f7c62d86f9a12c1/row_band_02.jpg",
+        "review-crops/da_1f9cb8e05f7c62d86f9a12c1/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.957",
+      "crop_verification_elapsed_seconds:4.761",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

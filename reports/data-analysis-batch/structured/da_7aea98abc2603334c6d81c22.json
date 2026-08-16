@@ -1,0 +1,242 @@
+{
+  "asset_id": "da_7aea98abc2603334c6d81c22",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2016年黑龙江省公务员录用考试《行测》题（县乡卷）_images/img_0178_d61e1ac95af7b85a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）_images/img_0178_d61e1ac95af7b85a.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）",
+        "question_id": "pq_915bfd5ec2aa1568a050",
+        "question_number": 106,
+        "source_jsonl_line": 102543
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）_images/img_0178_d61e1ac95af7b85a.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）",
+        "question_id": "pq_8649fa1d20bbb7fe4ba7",
+        "question_number": 107,
+        "source_jsonl_line": 102544
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）_images/img_0178_d61e1ac95af7b85a.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）",
+        "question_id": "pq_fbf65aaa05ce5cae0454",
+        "question_number": 108,
+        "source_jsonl_line": 102545
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）_images/img_0182_83e9374036d6d0a8.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）",
+        "question_id": "pq_bd1634a93c0eb25107b9",
+        "question_number": 109,
+        "source_jsonl_line": 102546
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）_images/img_0178_d61e1ac95af7b85a.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）",
+        "question_id": "pq_116d33814742371a6f9a",
+        "question_number": 110,
+        "source_jsonl_line": 102547
+      }
+    ],
+    "sha256": "7aea98abc2603334c6d81c22d9e034b7d25d2cd92e1ebd296c5af602c02b8970"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "播种面积（千公顷）",
+      "单产（公斤/公顷）",
+      "总产量（万吨）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "全国总计",
+        "group": "早稻产量指标",
+        "label": "早稻产量指标｜全国总计",
+        "unit": null,
+        "values": [
+          null,
+          5868.9,
+          3401.0
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": "早稻产量指标",
+        "label": "早稻产量指标｜浙江",
+        "unit": null,
+        "values": [
+          116.4,
+          6143.7,
+          71.5
+        ]
+      },
+      {
+        "display_label": "安徽",
+        "group": "早稻产量指标",
+        "label": "早稻产量指标｜安徽",
+        "unit": null,
+        "values": [
+          225.3,
+          5692.5,
+          128.3
+        ]
+      },
+      {
+        "display_label": "福建",
+        "group": "早稻产量指标",
+        "label": "早稻产量指标｜福建",
+        "unit": null,
+        "values": [
+          189.2,
+          6020.4,
+          113.9
+        ]
+      },
+      {
+        "display_label": "江西",
+        "group": "早稻产量指标",
+        "label": "早稻产量指标｜江西",
+        "unit": null,
+        "values": [
+          1394.6,
+          5880.2,
+          820.1
+        ]
+      },
+      {
+        "display_label": "湖北",
+        "group": "早稻产量指标",
+        "label": "早稻产量指标｜湖北",
+        "unit": null,
+        "values": [
+          412.4,
+          5787.3,
+          238.7
+        ]
+      },
+      {
+        "display_label": "湖南",
+        "group": "早稻产量指标",
+        "label": "早稻产量指标｜湖南",
+        "unit": null,
+        "values": [
+          1453.3,
+          5881.5,
+          854.8
+        ]
+      },
+      {
+        "display_label": "广东",
+        "group": "早稻产量指标",
+        "label": "早稻产量指标｜广东",
+        "unit": null,
+        "values": [
+          893.2,
+          5857.5,
+          523.2
+        ]
+      },
+      {
+        "display_label": "广西",
+        "group": "早稻产量指标",
+        "label": "早稻产量指标｜广西",
+        "unit": null,
+        "values": [
+          917.6,
+          5920.9,
+          543.3
+        ]
+      },
+      {
+        "display_label": "海南",
+        "group": "早稻产量指标",
+        "label": "早稻产量指标｜海南",
+        "unit": null,
+        "values": [
+          143.3,
+          5645.5,
+          80.9
+        ]
+      },
+      {
+        "display_label": "四川",
+        "group": "早稻产量指标",
+        "label": "早稻产量指标｜四川",
+        "unit": null,
+        "values": [
+          0.8,
+          5000.0,
+          null
+        ]
+      },
+      {
+        "display_label": "云南",
+        "group": "早稻产量指标",
+        "label": "早稻产量指标｜云南",
+        "unit": null,
+        "values": [
+          48.9,
+          5329.2,
+          26.1
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

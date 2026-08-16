@@ -45,7 +45,7 @@ Page<PositionComparePageData, PositionComparePageCustom>({
   data: { state: null },
 
   onLoad(options: Record<string, string | undefined>) {
-    const positionIds = (options.ids ?? "").split(",").map((item) => item.trim());
+    const positionIds = decodeComparisonIds(options.ids);
     const session = currentAuthSession();
     if (!session) {
       void wx.reLaunch({ url: comparisonLoginUrl(positionIds) });
@@ -130,4 +130,15 @@ function comparisonLoginUrl(positionIds: string[]): string {
   } catch {
     return routes.login;
   }
+}
+
+function decodeComparisonIds(value: string | undefined): string[] {
+  if (!value) return [];
+  let decoded: string;
+  try {
+    decoded = decodeURIComponent(value);
+  } catch {
+    return [];
+  }
+  return decoded.split(",").map((item) => item.trim());
 }

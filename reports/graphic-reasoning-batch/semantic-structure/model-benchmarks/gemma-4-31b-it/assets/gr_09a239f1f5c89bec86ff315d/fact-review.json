@@ -1,0 +1,172 @@
+{
+  "answerUsed": false,
+  "assetId": "gr_09a239f1f5c89bec86ff315d",
+  "checks": [
+    {
+      "evidence": "gr_09a239f1f5c89bec86ff315d",
+      "name": "asset_identity",
+      "status": "pass"
+    },
+    {
+      "evidence": "09a239f1f5c89bec86ff315d718a08ccc7580faa9a7de791af3deed86b00b084",
+      "name": "source_sha256",
+      "status": "pass"
+    },
+    {
+      "evidence": {
+        "imageAuthority": "source_sha256",
+        "mode": "original_image",
+        "vectorRequired": false
+      },
+      "name": "original_image_presentation",
+      "status": "pass"
+    },
+    {
+      "evidence": true,
+      "name": "answer_isolation",
+      "status": "pass"
+    },
+    {
+      "evidence": {
+        "layoutType": "sequence",
+        "optionCount": 4,
+        "panelCount": 9,
+        "panelRoles": [
+          "stem",
+          "stem",
+          "stem",
+          "stem",
+          "missing",
+          "option",
+          "option",
+          "option",
+          "option"
+        ],
+        "source": "phase1_benchmark_cv"
+      },
+      "name": "layout",
+      "status": "pass"
+    },
+    {
+      "evidence": 8,
+      "name": "visible_panel_count",
+      "status": "pass"
+    },
+    {
+      "evidence": [
+        {
+          "instances": 4,
+          "p": 1,
+          "pass": true,
+          "regions": [
+            "bottom_left",
+            "bottom_right",
+            "top_left",
+            "top_right"
+          ]
+        },
+        {
+          "instances": 4,
+          "p": 2,
+          "pass": true,
+          "regions": [
+            "bottom_left",
+            "bottom_right",
+            "top_left",
+            "top_right"
+          ]
+        },
+        {
+          "instances": 4,
+          "p": 3,
+          "pass": true,
+          "regions": [
+            "bottom_left",
+            "bottom_right",
+            "top_left",
+            "top_right"
+          ]
+        },
+        {
+          "instances": 4,
+          "p": 4,
+          "pass": true,
+          "regions": [
+            "bottom_left",
+            "bottom_right",
+            "top_left",
+            "top_right"
+          ]
+        },
+        {
+          "instances": 4,
+          "p": 6,
+          "pass": true,
+          "regions": [
+            "bottom_left",
+            "bottom_right",
+            "top_left",
+            "top_right"
+          ]
+        },
+        {
+          "instances": 4,
+          "p": 7,
+          "pass": true,
+          "regions": [
+            "bottom_left",
+            "bottom_right",
+            "top_left",
+            "top_right"
+          ]
+        },
+        {
+          "instances": 4,
+          "p": 8,
+          "pass": true,
+          "regions": [
+            "bottom_left",
+            "bottom_right",
+            "top_left",
+            "top_right"
+          ]
+        },
+        {
+          "instances": 4,
+          "p": 9,
+          "pass": true,
+          "regions": [
+            "bottom_left",
+            "bottom_right",
+            "top_left",
+            "top_right"
+          ]
+        }
+      ],
+      "name": "four_hollow_right_triangles_per_panel",
+      "status": "pass"
+    },
+    {
+      "evidence": {
+        "count": 32,
+        "maxErrorDegrees": 1.564
+      },
+      "name": "right_angle_fit",
+      "status": "pass"
+    },
+    {
+      "evidence": {
+        "evaluationPresent": true,
+        "originalImageCorrect": true,
+        "semanticJsonCorrect": true
+      },
+      "name": "semantic_answer_preservation",
+      "status": "pass"
+    }
+  ],
+  "method": "manual_source_fixture_plus_deterministic_assertions",
+  "reviewedAt": "2026-08-11T12:45:30.683324+00:00",
+  "schemaVersion": "graphic-reasoning-representative-visible-fact-review-v1",
+  "status": "semantic_solver_validated",
+  "visibleFactsStatus": "pass"
+}

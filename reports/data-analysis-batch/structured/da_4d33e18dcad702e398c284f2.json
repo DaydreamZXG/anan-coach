@@ -1,0 +1,339 @@
+{
+  "asset_id": "da_4d33e18dcad702e398c284f2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2020年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0107_d5a586bea7f8d877.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0107_d5a586bea7f8d877.png",
+        "paper_title": "2020年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_64bf49a065089ef4484c",
+        "question_number": 96,
+        "source_jsonl_line": 89381
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0107_d5a586bea7f8d877.png",
+        "paper_title": "2020年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_3d5c4863e267561bb8ce",
+        "question_number": 97,
+        "source_jsonl_line": 89382
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0107_d5a586bea7f8d877.png",
+        "paper_title": "2020年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_39b7a5d984a0bdb061ee",
+        "question_number": 98,
+        "source_jsonl_line": 89383
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0127_033cb08d366a4625.png",
+        "paper_title": "2020年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_56c2eaac220fcaaf5b9b",
+        "question_number": 99,
+        "source_jsonl_line": 89384
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0107_d5a586bea7f8d877.png",
+        "paper_title": "2020年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_b7c0966e7aaf898db8e9",
+        "question_number": 100,
+        "source_jsonl_line": 89385
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0110_d5a586bea7f8d877.png",
+        "paper_title": "2020年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_868e058977b46900223d",
+        "question_number": 96,
+        "source_jsonl_line": 95059
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0110_d5a586bea7f8d877.png",
+        "paper_title": "2020年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_c1a186255327ad327688",
+        "question_number": 97,
+        "source_jsonl_line": 95060
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0110_d5a586bea7f8d877.png",
+        "paper_title": "2020年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_7861de645e14753dc309",
+        "question_number": 98,
+        "source_jsonl_line": 95061
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0124_033cb08d366a4625.png",
+        "paper_title": "2020年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_4b062f4c1810704ffaf0",
+        "question_number": 99,
+        "source_jsonl_line": 95062
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0110_d5a586bea7f8d877.png",
+        "paper_title": "2020年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_b1c0a202bb9a477fa36b",
+        "question_number": 100,
+        "source_jsonl_line": 95063
+      }
+    ],
+    "sha256": "4d33e18dcad702e398c284f2d1da36340edcf3e37fe3ccbca3bf6a9c9b29da9e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "本月（亿元）",
+      "比年初增减（亿元）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "金融机构人民币存款余额",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜金融机构人民币存款余额",
+        "unit": null,
+        "values": [
+          119919.39,
+          12046.4
+        ]
+      },
+      {
+        "display_label": "境内存款",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜境内存款",
+        "unit": null,
+        "values": [
+          119629.8,
+          12021.0
+        ]
+      },
+      {
+        "display_label": "住户存款",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜住户存款",
+        "unit": null,
+        "values": [
+          43313.71,
+          2750.7
+        ]
+      },
+      {
+        "display_label": "非金融企业存款",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜非金融企业存款",
+        "unit": null,
+        "values": [
+          45047.05,
+          6113.7
+        ]
+      },
+      {
+        "display_label": "广义政府存款",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜广义政府存款",
+        "unit": null,
+        "values": [
+          23861.36,
+          3118.0
+        ]
+      },
+      {
+        "display_label": "非银行业金融机构存款",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜非银行业金融机构存款",
+        "unit": null,
+        "values": [
+          7407.67,
+          38.6
+        ]
+      },
+      {
+        "display_label": "境外存款",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜境外存款",
+        "unit": null,
+        "values": [
+          289.6,
+          25.3
+        ]
+      },
+      {
+        "display_label": "金融机构人民币贷款余额",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜金融机构人民币贷款余额",
+        "unit": null,
+        "values": [
+          87478.2,
+          8608.8
+        ]
+      },
+      {
+        "display_label": "境内贷款",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜境内贷款",
+        "unit": null,
+        "values": [
+          87414.56,
+          8634.0
+        ]
+      },
+      {
+        "display_label": "住户贷款",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜住户贷款",
+        "unit": null,
+        "values": [
+          24279.75,
+          4079.6
+        ]
+      },
+      {
+        "display_label": "短期贷款",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜住户贷款｜短期贷款",
+        "unit": null,
+        "values": [
+          4877.97,
+          70.3
+        ]
+      },
+      {
+        "display_label": "中长期贷款",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜住户贷款｜中长期贷款",
+        "unit": null,
+        "values": [
+          19401.78,
+          4009.3
+        ]
+      },
+      {
+        "display_label": "非金融业及机关团体贷款",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜非金融业及机关团体贷款",
+        "unit": null,
+        "values": [
+          63131.64,
+          4554.1
+        ]
+      },
+      {
+        "display_label": "短期贷款",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜非金融业及机关团体贷款｜短期贷款",
+        "unit": null,
+        "values": [
+          25706.37,
+          -207.1
+        ]
+      },
+      {
+        "display_label": "中长期贷款",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜非金融业及机关团体贷款｜中长期贷款",
+        "unit": null,
+        "values": [
+          31120.97,
+          3809.0
+        ]
+      },
+      {
+        "display_label": "票据融资",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜票据融资",
+        "unit": null,
+        "values": [
+          5537.55,
+          762.0
+        ]
+      },
+      {
+        "display_label": "各项垫款",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜各项垫款",
+        "unit": null,
+        "values": [
+          140.89,
+          8.1
+        ]
+      },
+      {
+        "display_label": "非银行金融机构贷款",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜非银行金融机构贷款",
+        "unit": null,
+        "values": [
+          3.17,
+          0.3
+        ]
+      },
+      {
+        "display_label": "境外贷款",
+        "group": "A 省本月金融机构存款贷款",
+        "label": "A 省本月金融机构存款贷款｜境外贷款",
+        "unit": null,
+        "values": [
+          63.64,
+          -25.2
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

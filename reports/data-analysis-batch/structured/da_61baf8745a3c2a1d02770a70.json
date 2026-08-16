@@ -1,0 +1,301 @@
+{
+  "asset_id": "da_61baf8745a3c2a1d02770a70",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国发电量",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿千瓦时",
+      "values": [
+        37146,
+        42071,
+        47130,
+        49875,
+        54316,
+        56495,
+        56184
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "其中：火力发电量",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿千瓦时",
+      "values": [
+        29827,
+        33319,
+        38337,
+        38928,
+        42470,
+        42337,
+        42102
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "全国发电量增速（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        7.0,
+        13.26,
+        12.02,
+        5.82,
+        8.9,
+        4.01,
+        -0.55
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "全社会用电量",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿千瓦时",
+      "values": [
+        36340,
+        41923,
+        46928,
+        49591,
+        53223,
+        55233,
+        55500
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河南/2016年河南省公务员录用考试《行测》题_images/img_0150_70f75116d299a572.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年河南省公务员录用考试《行测》题_images/img_0150_70f75116d299a572.jpg",
+        "paper_title": "2016年河南省公务员录用考试《行测》题",
+        "question_id": "pq_998323aff926411651fa",
+        "question_number": 106,
+        "source_jsonl_line": 58203
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年河南省公务员录用考试《行测》题_images/img_0150_70f75116d299a572.jpg",
+        "paper_title": "2016年河南省公务员录用考试《行测》题",
+        "question_id": "pq_7dcd86391ca28ab06ad8",
+        "question_number": 107,
+        "source_jsonl_line": 58204
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年河南省公务员录用考试《行测》题_images/img_0150_70f75116d299a572.jpg",
+        "paper_title": "2016年河南省公务员录用考试《行测》题",
+        "question_id": "pq_8063cbaebde00873a51b",
+        "question_number": 108,
+        "source_jsonl_line": 58205
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年河南省公务员录用考试《行测》题_images/img_0150_70f75116d299a572.jpg",
+        "paper_title": "2016年河南省公务员录用考试《行测》题",
+        "question_id": "pq_7cc5fe727f50cde00b64",
+        "question_number": 109,
+        "source_jsonl_line": 58206
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年河南省公务员录用考试《行测》题_images/img_0150_70f75116d299a572.jpg",
+        "paper_title": "2016年河南省公务员录用考试《行测》题",
+        "question_id": "pq_c4f56afde48934241361",
+        "question_number": 110,
+        "source_jsonl_line": 58207
+      }
+    ],
+    "sha256": "61baf8745a3c2a1d02770a707c4c416624b467c18aace683b98d0bba644d4573"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2009",
+      "2010",
+      "2011",
+      "2012",
+      "2013",
+      "2014",
+      "2015"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全国发电量",
+        "unit": "亿千瓦时",
+        "values": [
+          37146,
+          42071,
+          47130,
+          49875,
+          54316,
+          56495,
+          56184
+        ]
+      },
+      {
+        "label": "其中：火力发电量",
+        "unit": "亿千瓦时",
+        "values": [
+          29827,
+          33319,
+          38337,
+          38928,
+          42470,
+          42337,
+          42102
+        ]
+      },
+      {
+        "label": "全国发电量增速（%）",
+        "unit": "%",
+        "values": [
+          7.0,
+          13.26,
+          12.02,
+          5.82,
+          8.9,
+          4.01,
+          -0.55
+        ]
+      },
+      {
+        "label": "全社会用电量",
+        "unit": "亿千瓦时",
+        "values": [
+          36340,
+          41923,
+          46928,
+          49591,
+          53223,
+          55233,
+          55500
+        ]
+      }
+    ]
+  },
+  "title": "2009~2015年全国发电、用电量统计",
+  "unit": "亿千瓦时",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_61baf8745a3c2a1d02770a70/row_band_01.jpg",
+        "review-crops/da_61baf8745a3c2a1d02770a70/row_band_02.jpg",
+        "review-crops/da_61baf8745a3c2a1d02770a70/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.279",
+      "crop_verification_elapsed_seconds:9.877",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_table_cell:全国发电量:2010年",
+      "crop_note:ignored_unknown_table_cell:全国发电量:2011年",
+      "crop_note:ignored_unknown_table_cell:全国发电量:2012年",
+      "crop_note:ignored_unknown_table_cell:全国发电量:2013年",
+      "crop_note:ignored_unknown_table_cell:全国发电量:2014年",
+      "crop_note:ignored_unknown_table_cell:全国发电量:2015年",
+      "crop_note:ignored_unknown_table_cell:其中：火力发电量:2009年",
+      "crop_note:ignored_unknown_table_cell:其中：火力发电量:2010年",
+      "crop_note:ignored_unknown_table_cell:其中：火力发电量:2011年",
+      "crop_note:ignored_unknown_table_cell:其中：火力发电量:2012年",
+      "crop_note:ignored_unknown_table_cell:其中：火力发电量:2013年",
+      "crop_note:ignored_unknown_table_cell:其中：火力发电量:2014年",
+      "crop_note:ignored_unknown_table_cell:其中：火力发电量:2015年",
+      "crop_note:ignored_unknown_table_cell:全国发电量增速（%）:2009年",
+      "crop_note:ignored_unknown_table_cell:全国发电量增速（%）:2010年",
+      "crop_note:ignored_unknown_table_cell:全国发电量增速（%）:2011年",
+      "crop_note:ignored_unknown_table_cell:全国发电量增速（%）:2012年",
+      "crop_note:ignored_unknown_table_cell:全国发电量增速（%）:2013年",
+      "crop_note:ignored_unknown_table_cell:全国发电量增速（%）:2014年",
+      "crop_note:ignored_unknown_table_cell:全国发电量增速（%）:2015年",
+      "crop_note:ignored_unknown_table_cell:全社会用电量:2009年",
+      "crop_note:ignored_unknown_table_cell:全社会用电量:2010年",
+      "crop_note:ignored_unknown_table_cell:全社会用电量:2011年",
+      "crop_note:ignored_unknown_table_cell:全社会用电量:2012年",
+      "crop_note:ignored_unknown_table_cell:全社会用电量:2013年",
+      "crop_note:ignored_unknown_table_cell:全社会用电量:2014年",
+      "crop_note:ignored_unknown_table_cell:全社会用电量:2015年",
+      "table_row_label_column_removed:<blank>"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

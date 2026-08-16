@@ -1,0 +1,203 @@
+{
+  "asset_id": "da_73d1f517895c4e2c1995f45c",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 45000,
+        "min": 0,
+        "ticks": [
+          0,
+          9000,
+          18000,
+          27000,
+          36000,
+          45000
+        ],
+        "title": "全国居民人均可支配收入",
+        "unit": "元"
+      },
+      {
+        "max": 25,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25
+        ],
+        "title": "同比实际增速",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "全国居民人均可支配收入",
+      "style": {
+        "dash": null,
+        "fill": "lightgray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "同比实际增速",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国居民人均可支配收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        28228,
+        30733,
+        32189,
+        35128,
+        36883
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比实际增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.5,
+        5.8,
+        2.1,
+        8.1,
+        2.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2024年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0098_0f2c4d38033a6050.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0098_0f2c4d38033a6050.png",
+        "paper_title": "2024年深圳市考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_29ca820cb20c89179738",
+        "question_number": 91,
+        "source_jsonl_line": 68507
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0098_0f2c4d38033a6050.png",
+        "paper_title": "2024年深圳市考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_0359b3518fad87ee5b64",
+        "question_number": 92,
+        "source_jsonl_line": 68508
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0098_0f2c4d38033a6050.png",
+        "paper_title": "2024年深圳市考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_ebf0754be16981ae8233",
+        "question_number": 93,
+        "source_jsonl_line": 68509
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0098_0f2c4d38033a6050.png",
+        "paper_title": "2024年深圳市考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_100f02c1b3c2c65316df",
+        "question_number": 94,
+        "source_jsonl_line": 68510
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0098_0f2c4d38033a6050.png",
+        "paper_title": "2024年深圳市考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_074ea7dbfe1233f084dc",
+        "question_number": 95,
+        "source_jsonl_line": 68511
+      }
+    ],
+    "sha256": "73d1f517895c4e2c1995f45c64a537d2b8b73db5dd644c5d17be9e8de071682c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2018-2022年全国居民人均可支配收入及同比实际增速",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_73d1f517895c4e2c1995f45c/column_band_01.jpg",
+        "review-crops/da_73d1f517895c4e2c1995f45c/column_band_02.jpg",
+        "review-crops/da_73d1f517895c4e2c1995f45c/column_band_03.jpg",
+        "review-crops/da_73d1f517895c4e2c1995f45c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.392",
+      "crop_verification_elapsed_seconds:2.805",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

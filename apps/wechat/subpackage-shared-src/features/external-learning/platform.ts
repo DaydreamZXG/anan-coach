@@ -25,23 +25,28 @@ export async function editQuestionImage(file: LocalImportFile): Promise<LocalImp
   if (file.mimeType === "application/pdf") return null;
   try {
     const editedPath = await new Promise<string>((resolve, reject) => {
-      const onSuccess = (result: WechatMiniprogram.CropImageSuccessCallbackResult) => {
-        resolve(result.tempFilePath);
-      };
-      if (typeof wx.cropImage === "function") {
-        wx.cropImage({
+      if (typeof wx.editImage === "function") {
+        wx.editImage({
           src: file.localPath,
-          cropScale: "9:16",
-          success: onSuccess,
+          success: (result) => {
+            resolve(result.tempFilePath);
+          },
           fail: reject,
         });
         return;
       }
-      wx.editImage({
-        src: file.localPath,
-        success: onSuccess,
-        fail: reject,
-      });
+      if (typeof wx.cropImage === "function") {
+        wx.cropImage({
+          src: file.localPath,
+          cropScale: "9:16",
+          success: (result) => {
+            resolve(result.tempFilePath);
+          },
+          fail: reject,
+        });
+        return;
+      }
+      reject(new Error("当前微信版本不支持图片编辑，可以直接使用原图。"));
     });
     const byteSize = await localFileSize(editedPath);
     return {
@@ -61,12 +66,18 @@ export async function editQuestionImage(file: LocalImportFile): Promise<LocalImp
 
 export async function chooseQuestionPdf(): Promise<LocalImportFile | null> {
   try {
-    const result = await wx.chooseMessageFile({ count: 1, type: "file", extension: ["pdf"] });
+    const result = await wx.chooseMessageFile({ count: 1, type: "all" });
     const file = result.tempFiles.at(0);
     if (!file) return null;
+    const displayName = file.name || fileName(file.path, "导入题目.pdf");
+    const normalizedName = displayName.toLowerCase().split("?", 1)[0] ?? "";
+    const normalizedPath = file.path.toLowerCase().split("?", 1)[0] ?? "";
+    if (!normalizedName.endsWith(".pdf") && !normalizedPath.endsWith(".pdf")) {
+      throw new Error("请选择 PDF 文件。");
+    }
     return {
       localPath: file.path,
-      displayName: file.name || fileName(file.path, "导入题目.pdf"),
+      displayName,
       sourceKind: "pdf_upload",
       mimeType: "application/pdf",
       byteSize: file.size,

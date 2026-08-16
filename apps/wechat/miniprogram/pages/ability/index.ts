@@ -1,6 +1,5 @@
 import type { LearningBrainProfileVersion, ModuleAbility } from "../../api/generated/types.gen";
 import { LearningBrainApi } from "../../api/learning-brain";
-import { OnboardingApi } from "../../api/onboarding";
 import { PlanningApi } from "../../api/planning";
 import { routes } from "../../app/navigation/routes";
 import { PageEffectOwner } from "../../app/runtime/page-effect-owner";
@@ -120,16 +119,6 @@ Page({
       this.setData({ status: "loading", errorMessage: "", requestId: "" });
     }
     try {
-      const progressRequest = (async (): Promise<
-        { kind: "ready"; studyPreferenceReady: boolean } | { kind: "failed"; error: unknown }
-      > => {
-        try {
-          const { data: progress } = await new OnboardingApi(client).getProgress();
-          return { kind: "ready", studyPreferenceReady: progress.studyPreferenceReady };
-        } catch (error) {
-          return { kind: "failed", error };
-        }
-      })();
       const { data: profile } = await new LearningBrainApi(client).getProfile();
       if (!requestOwner.owns(request, currentAuthSession())) return;
       const estimate = profile.ability.estimate;
@@ -193,25 +182,7 @@ Page({
               goalBoundaryLabel: "能力档案已加载，正在核对目标岗位。",
             }),
       });
-      const progressContext = await progressRequest;
-      if (!requestOwner.owns(request, currentAuthSession())) return;
-      if (progressContext.kind === "failed") {
-        if (isAuthenticationFailure(progressContext.error)) {
-          void wx.reLaunch({ url: routes.login });
-          return;
-        }
-        const view = errorView(progressContext.error, "岗位对照暂时没加载出来。");
-        this.setData({
-          errorMessage: view.message,
-          requestId: view.requestId,
-          ...goalView(
-            { kind: "failed", message: view.message, requestId: view.requestId },
-            estimate?.total?.recommended ?? null,
-          ),
-        });
-        return;
-      }
-      const goalResult = await loadAbilityGoal(progressContext.studyPreferenceReady, async () => {
+      const goalResult = await loadAbilityGoal(async () => {
         const { data } = await new PlanningApi(client).getToday();
         return data;
       });
@@ -260,6 +231,12 @@ Page({
         url: `${routes.errorPattern}?patternId=${encodeURIComponent(patternId)}`,
       });
     }
+  },
+
+  openPendingReflection() {
+    void wx.navigateTo({
+      url: `${routes.xingceMastery}?bucket=pending_reflection`,
+    });
   },
 
   toggleGoalEvidence() {

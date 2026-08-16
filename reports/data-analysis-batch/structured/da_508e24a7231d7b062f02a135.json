@@ -1,0 +1,165 @@
+{
+  "asset_id": "da_508e24a7231d7b062f02a135",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 90,
+        "min": 0,
+        "ticks": [
+          0.0,
+          10.0,
+          20.0,
+          30.0,
+          40.0,
+          50.0,
+          60.0,
+          70.0,
+          80.0,
+          90.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "服饰类",
+    "家用类",
+    "保健类",
+    "化妆品类",
+    "数码充值类",
+    "电子产品类",
+    "图书音像类",
+    "旅游服务类",
+    "汽车用品"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "受访者占比",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "受访者占比",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        78.5,
+        59.3,
+        50.1,
+        39.7,
+        36.8,
+        24.7,
+        18.4,
+        17.4,
+        12.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2016年吉林省公务员录用考试《行测》题（乙级）_images/img_0081_20c4368f625cb619.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年吉林省公务员录用考试《行测》题（乙级）_images/img_0081_20c4368f625cb619.png",
+        "paper_title": "2016年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_8d316dec9b3ded06deda",
+        "question_number": 91,
+        "source_jsonl_line": 12487
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年吉林省公务员录用考试《行测》题（乙级）_images/img_0084_4db649b8bd3abe70.png",
+        "paper_title": "2016年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_a13d3afd81c9f6578a0d",
+        "question_number": 92,
+        "source_jsonl_line": 12488
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年吉林省公务员录用考试《行测》题（乙级）_images/img_0084_4db649b8bd3abe70.png",
+        "paper_title": "2016年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_07cdf30bc3e0e3bba0a6",
+        "question_number": 93,
+        "source_jsonl_line": 12489
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年吉林省公务员录用考试《行测》题（乙级）_images/img_0081_20c4368f625cb619.png",
+        "paper_title": "2016年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_cc11a59d57a6b563fcf0",
+        "question_number": 94,
+        "source_jsonl_line": 12490
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年吉林省公务员录用考试《行测》题（乙级）_images/img_0081_20c4368f625cb619.png",
+        "paper_title": "2016年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_e8b51511690f0a0ebb68",
+        "question_number": 95,
+        "source_jsonl_line": 12491
+      }
+    ],
+    "sha256": "508e24a7231d7b062f02a13534b17f8779ad2dba9aefda03479765fe3dc7ed85"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2015年A市网购9类主要商品和服务的受访者占比（%）",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_508e24a7231d7b062f02a135/column_band_01.jpg",
+        "review-crops/da_508e24a7231d7b062f02a135/column_band_02.jpg",
+        "review-crops/da_508e24a7231d7b062f02a135/column_band_03.jpg",
+        "review-crops/da_508e24a7231d7b062f02a135/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.219",
+      "crop_verification_elapsed_seconds:2.396",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

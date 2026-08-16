@@ -1,0 +1,112 @@
+{
+  "schema_version": "hand-annotated-semantic-overrides-v1",
+  "review_rule": "Coordinates and visible markers are transcribed from the source image; control vertices are not treated as data markers.",
+  "assets": {
+    "da_15bd2f59b683082602442ff6": {
+      "visual_grammar": "signed_bar",
+      "panels": [
+        {
+          "id": "da_15bd2f59b683082602442ff6-0",
+          "label": null,
+          "position": 0,
+          "bounds": {"x": 0, "y": 0, "width": 600, "height": 319},
+          "chart": {
+            "type": "signedBar",
+            "baseline": 0.56289,
+            "baselineStart": 0.02003,
+            "baselineEnd": 0.97663,
+            "verticalAxisX": 0.02003,
+            "bars": [
+              {"x": 0.07846, "width": 0.14524, "value": 0.15079},
+              {"x": 0.31052, "width": 0.14691, "value": -0.65079},
+              {"x": 0.54424, "width": 0.15025, "value": 1.0},
+              {"x": 0.77963, "width": 0.14524, "value": 0.62698}
+            ]
+          }
+        }
+      ]
+    },
+    "da_34206afc5640b71a3e34c306": {
+      "visual_grammar": "line_options",
+      "panels": [
+        {
+          "id": "da_34206afc5640b71a3e34c306-0", "label": "A", "position": 0,
+          "bounds": {"x": 4, "y": 23, "width": 67, "height": 18},
+          "chart": {"type": "polyline", "points": [{"x": 0.06061, "y": 0.23529}, {"x": 0.35606, "y": 0.64706}, {"x": 0.65909, "y": 0.47059}, {"x": 0.95455, "y": 0.76471}], "interpolation": "linear", "strokeStyle": "solid", "strokeWidth": 2, "markers": [{"x": 0.06061, "y": 0.23529, "shape": "circle"}, {"x": 0.35606, "y": 0.64706, "shape": "circle"}, {"x": 0.65909, "y": 0.47059, "shape": "circle"}, {"x": 0.95455, "y": 0.76471, "shape": "circle"}], "axis": null}
+        },
+        {
+          "id": "da_34206afc5640b71a3e34c306-1", "label": "B", "position": 1,
+          "bounds": {"x": 115, "y": 18, "width": 66, "height": 24},
+          "chart": {"type": "polyline", "points": [{"x": 0.06154, "y": 0.17391}, {"x": 0.35385, "y": 0.58696}, {"x": 0.65641, "y": 0.84058}, {"x": 0.93846, "y": 0.69565}], "interpolation": "linear", "strokeStyle": "solid", "strokeWidth": 2, "markers": [{"x": 0.06154, "y": 0.17391, "shape": "circle"}, {"x": 0.35385, "y": 0.58696, "shape": "circle"}, {"x": 0.65641, "y": 0.84058, "shape": "circle"}, {"x": 0.93846, "y": 0.69565, "shape": "circle"}], "axis": null}
+        },
+        {
+          "id": "da_34206afc5640b71a3e34c306-2", "label": "C", "position": 2,
+          "bounds": {"x": 227, "y": 18, "width": 68, "height": 21},
+          "chart": {"type": "polyline", "points": [{"x": 0.05224, "y": 0.2}, {"x": 0.35821, "y": 0.85}, {"x": 0.64925, "y": 0.7}, {"x": 0.9403, "y": 0.3}], "interpolation": "linear", "strokeStyle": "solid", "strokeWidth": 2, "markers": [{"x": 0.05224, "y": 0.2, "shape": "circle"}, {"x": 0.35821, "y": 0.85, "shape": "circle"}, {"x": 0.64925, "y": 0.7, "shape": "circle"}, {"x": 0.9403, "y": 0.3, "shape": "circle"}], "axis": null}
+        },
+        {
+          "id": "da_34206afc5640b71a3e34c306-3", "label": "D", "position": 3,
+          "bounds": {"x": 342, "y": 13, "width": 75, "height": 29},
+          "chart": {"type": "polyline", "points": [{"x": 0.05405, "y": 0.14286}, {"x": 0.35586, "y": 0.86905}, {"x": 0.64865, "y": 0.67857}, {"x": 0.94595, "y": 0.46429}], "interpolation": "linear", "strokeStyle": "solid", "strokeWidth": 2, "markers": [{"x": 0.05405, "y": 0.14286, "shape": "circle"}, {"x": 0.35586, "y": 0.86905, "shape": "circle"}, {"x": 0.64865, "y": 0.67857, "shape": "circle"}, {"x": 0.94595, "y": 0.46429, "shape": "circle"}], "axis": null}
+        }
+      ]
+    },
+    "da_6fafe200231467d204c50ae2": {
+      "visual_grammar": "line_sequence",
+      "panels": [
+        {
+          "id": "da_6fafe200231467d204c50ae2-0", "label": null, "position": 0,
+          "bounds": {"x": 23, "y": 25, "width": 350, "height": 109},
+          "chart": {
+            "type": "polyline",
+            "points": [{"x": 0.03152, "y": 0.10185}, {"x": 0.18911, "y": 0.27778}, {"x": 0.34384, "y": 0.72222}, {"x": 0.50143, "y": 0.7963}, {"x": 0.65616, "y": 0.84259}, {"x": 0.81375, "y": 0.87037}, {"x": 0.96848, "y": 0.89815}],
+            "interpolation": "linear", "strokeStyle": "solid", "strokeWidth": 3,
+            "markers": [{"x": 0.03152, "y": 0.10185, "shape": "diamond"}, {"x": 0.18911, "y": 0.27778, "shape": "diamond"}, {"x": 0.34384, "y": 0.72222, "shape": "diamond"}, {"x": 0.50143, "y": 0.7963, "shape": "diamond"}, {"x": 0.65616, "y": 0.84259, "shape": "diamond"}, {"x": 0.81375, "y": 0.87037, "shape": "diamond"}, {"x": 0.96848, "y": 0.89815, "shape": "diamond"}],
+            "axis": null
+          }
+        }
+      ]
+    },
+    "da_9e873e33dd9c716f43c09f33": {
+      "visual_grammar": "curve_chart",
+      "panels": [
+        {
+          "id": "da_9e873e33dd9c716f43c09f33-0", "label": null, "position": 0,
+          "bounds": {"x": 29, "y": 16, "width": 191, "height": 114},
+          "chart": {"type": "polyline", "points": [{"x": 0.18421, "y": 0.60177}, {"x": 0.62105, "y": 0.23894}, {"x": 0.71053, "y": 0.20354}, {"x": 0.87895, "y": 0.23894}], "interpolation": "smooth", "strokeStyle": "solid", "strokeWidth": 2, "markers": [], "axis": {"showX": true, "showY": true, "originX": 0.05789, "originY": 0.81416}}
+        }
+      ]
+    },
+    "da_5cc59dd32f2d3dcef3a0442b": {
+      "visual_grammar": "signed_bar",
+      "panels": [
+        {
+          "id": "da_5cc59dd32f2d3dcef3a0442b-0", "label": null, "position": 0,
+          "bounds": {"x": 0, "y": 0, "width": 374, "height": 153},
+          "chart": {
+            "type": "signedBar", "baseline": 0.92763, "baselineStart": 0.01609, "baselineEnd": 0.9866, "verticalAxisX": 0.01609,
+            "bars": [{"x": 0.08311, "width": 0.10992, "value": 0.22321}, {"x": 0.3244, "width": 0.1126, "value": 0.54464}, {"x": 0.56836, "width": 0.10992, "value": 1.0}, {"x": 0.81233, "width": 0.10992, "value": 0.26786}]
+          }
+        }
+      ]
+    },
+    "da_e79bf630af3f7f38f98a8a95": {
+      "visual_grammar": "curve_options_with_axis",
+      "panels": [
+        {"id": "da_e79bf630af3f7f38f98a8a95-0", "label": "A", "position": 0, "bounds": {"x": 16, "y": 11, "width": 144, "height": 104}, "chart": {"type": "polyline", "points": [{"x": 0.0979, "y": 0.4612}, {"x": 0.2587, "y": 0.5922}, {"x": 0.4965, "y": 0.6214}, {"x": 0.7902, "y": 0.5437}, {"x": 0.9231, "y": 0.4223}], "interpolation": "smooth", "strokeStyle": "solid", "strokeWidth": 2, "markers": [], "axis": {"showX": true, "showY": true, "originX": 0.02797, "originY": 0.96117}}},
+        {"id": "da_e79bf630af3f7f38f98a8a95-1", "label": "B", "position": 1, "bounds": {"x": 196, "y": 11, "width": 144, "height": 104}, "chart": {"type": "polyline", "points": [{"x": 0.08392, "y": 0.57282}, {"x": 0.30769, "y": 0.40777}, {"x": 0.68881, "y": 0.54854}, {"x": 0.82867, "y": 0.53398}, {"x": 0.93706, "y": 0.43204}], "interpolation": "smooth", "strokeStyle": "solid", "strokeWidth": 2, "markers": [], "axis": {"showX": true, "showY": true, "originX": 0.02797, "originY": 0.96117}}},
+        {"id": "da_e79bf630af3f7f38f98a8a95-2", "label": "C", "position": 2, "bounds": {"x": 16, "y": 171, "width": 144, "height": 104}, "chart": {"type": "polyline", "points": [{"x": 0.06993, "y": 0.63006}, {"x": 0.25874, "y": 0.49191}, {"x": 0.51748, "y": 0.63006}, {"x": 0.83217, "y": 0.5065}, {"x": 0.99301, "y": 0.6699}], "interpolation": "smooth", "strokeStyle": "solid", "strokeWidth": 2, "markers": [], "axis": {"showX": true, "showY": true, "originX": 0.02797, "originY": 0.96117}}},
+        {"id": "da_e79bf630af3f7f38f98a8a95-3", "label": "D", "position": 3, "bounds": {"x": 196, "y": 171, "width": 144, "height": 104}, "chart": {"type": "polyline", "points": [{"x": 0.0979, "y": 0.66019}, {"x": 0.27972, "y": 0.61553}, {"x": 0.33566, "y": 0.68447}, {"x": 0.44056, "y": 0.63592}, {"x": 0.72028, "y": 0.67476}, {"x": 0.79021, "y": 0.28641}, {"x": 1.0, "y": 0.21359}], "interpolation": "smooth", "strokeStyle": "solid", "strokeWidth": 2, "markers": [], "axis": {"showX": true, "showY": true, "originX": 0.02797, "originY": 0.96117}}}
+      ]
+    },
+    "da_c8a70d19eefbb7fae668fcac": {
+      "visual_grammar": "curve_options",
+      "panels": [
+        {"id": "da_c8a70d19eefbb7fae668fcac-0", "label": "A", "position": 0, "bounds": {"x": 18, "y": 34, "width": 128, "height": 37}, "chart": {"type": "polyline", "points": [{"x": 0.0, "y": 0.98611}, {"x": 0.08661, "y": 0.91667}, {"x": 0.16535, "y": 0.84722}, {"x": 0.25197, "y": 0.84722}, {"x": 0.33071, "y": 0.81944}, {"x": 0.41732, "y": 0.65278}, {"x": 0.50394, "y": 0.52778}, {"x": 0.58268, "y": 0.38889}, {"x": 0.66929, "y": 0.15278}, {"x": 0.74803, "y": 0.05556}, {"x": 0.83465, "y": 0.08333}, {"x": 0.91339, "y": 0.09722}, {"x": 1.0, "y": 0.0}], "interpolation": "smooth", "strokeStyle": "solid", "strokeWidth": 2, "markers": [], "axis": null}},
+        {"id": "da_c8a70d19eefbb7fae668fcac-1", "label": "B", "position": 1, "bounds": {"x": 188, "y": 22, "width": 114, "height": 60}, "chart": {"type": "polyline", "points": [{"x": 0.0, "y": 0.97458}, {"x": 0.07965, "y": 0.99153}, {"x": 0.16814, "y": 0.92373}, {"x": 0.24779, "y": 0.81356}, {"x": 0.33628, "y": 0.77119}, {"x": 0.41593, "y": 0.63559}, {"x": 0.49558, "y": 0.55085}, {"x": 0.58407, "y": 0.4322}, {"x": 0.66372, "y": 0.24576}, {"x": 0.75221, "y": 0.08475}, {"x": 0.83186, "y": 0.01695}, {"x": 0.92035, "y": 0.02542}, {"x": 1.0, "y": 0.19492}], "interpolation": "smooth", "strokeStyle": "solid", "strokeWidth": 2, "markers": [], "axis": null}},
+        {"id": "da_c8a70d19eefbb7fae668fcac-2", "label": "C", "position": 2, "bounds": {"x": 350, "y": 41, "width": 117, "height": 23}, "chart": {"type": "polyline", "points": [{"x": 0.0, "y": 0.97727}, {"x": 0.08621, "y": 0.81818}, {"x": 0.16379, "y": 0.72727}, {"x": 0.25, "y": 0.68182}, {"x": 0.33621, "y": 0.68182}, {"x": 0.41379, "y": 0.65909}, {"x": 0.5, "y": 0.38636}, {"x": 0.58621, "y": 0.09091}, {"x": 0.66379, "y": 0.0}, {"x": 0.75, "y": 0.06818}, {"x": 0.83621, "y": 0.15909}, {"x": 0.91379, "y": 0.09091}, {"x": 1.0, "y": 0.86364}], "interpolation": "smooth", "strokeStyle": "solid", "strokeWidth": 2, "markers": [], "axis": null}},
+        {"id": "da_c8a70d19eefbb7fae668fcac-3", "label": "D", "position": 3, "bounds": {"x": 515, "y": 24, "width": 107, "height": 54}, "chart": {"type": "polyline", "points": [{"x": 0.0, "y": 0.99057}, {"x": 0.08491, "y": 0.87736}, {"x": 0.16981, "y": 0.75472}, {"x": 0.25472, "y": 0.66038}, {"x": 0.33019, "y": 0.66981}, {"x": 0.41509, "y": 0.59434}, {"x": 0.5, "y": 0.46226}, {"x": 0.58491, "y": 0.33019}, {"x": 0.66981, "y": 0.16038}, {"x": 0.74528, "y": 0.04717}, {"x": 0.83019, "y": 0.0283}, {"x": 0.91509, "y": 0.16038}, {"x": 1.0, "y": 0.48113}], "interpolation": "smooth", "strokeStyle": "solid", "strokeWidth": 2, "markers": [], "axis": null}}
+      ]
+    }
+  }
+}

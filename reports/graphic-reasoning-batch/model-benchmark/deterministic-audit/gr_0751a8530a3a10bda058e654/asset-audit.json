@@ -1,0 +1,95 @@
+{
+  "assetId": "gr_0751a8530a3a10bda058e654",
+  "evaluatedPanelCount": 9,
+  "failedGates": [
+    "pixelFit",
+    "solidFillOnly",
+    "topology"
+  ],
+  "finalAccepted": false,
+  "gates": {
+    "answerPreservation": {
+      "status": "pending"
+    },
+    "direction": {
+      "status": "pending"
+    },
+    "duplicateSuppression": {
+      "failedPanels": [],
+      "status": "pass"
+    },
+    "exactAngles": {
+      "status": "pending"
+    },
+    "firstPanelSemanticFamilies": {
+      "status": "pass"
+    },
+    "frontendContract": {
+      "status": "pending"
+    },
+    "optionCount": {
+      "status": "pass"
+    },
+    "panelCount": {
+      "status": "pass"
+    },
+    "pixelFit": {
+      "failedPanels": [
+        "panel-1",
+        "panel-2",
+        "panel-3",
+        "panel-4",
+        "panel-5",
+        "panel-6",
+        "panel-7",
+        "panel-8",
+        "panel-9"
+      ],
+      "status": "fail"
+    },
+    "remainingPanelSemantics": {
+      "status": "pending"
+    },
+    "solidFillOnly": {
+      "failedPanels": [
+        "panel-1",
+        "panel-2",
+        "panel-3",
+        "panel-4",
+        "panel-5",
+        "panel-6",
+        "panel-7",
+        "panel-8",
+        "panel-9"
+      ],
+      "status": "fail"
+    },
+    "sourceHash": {
+      "status": "pass"
+    },
+    "text": {
+      "status": "pending"
+    },
+    "topology": {
+      "failedPanels": [
+        "panel-1",
+        "panel-2",
+        "panel-3",
+        "panel-4",
+        "panel-5",
+        "panel-6",
+        "panel-7",
+        "panel-8",
+        "panel-9"
+      ],
+      "status": "fail"
+    }
+  },
+  "panelCount": 9,
+  "reason": "failed gates require repair; pending semantic/answer/frontend gates prohibit final acceptance even when geometry passes",
+  "regularSubtype": "circle_composition",
+  "schemaVersion": "graphic-deterministic-representative-audit-v1",
+  "skippedMissingMarkerCount": 0,
+  "sourceSha256": "0751a8530a3a10bda058e654de4edf5d9c707de62310eef4ec47d27c1f638d75",
+  "status": "repair_pending"
+}

@@ -1,0 +1,125 @@
+{
+  "schemaVersion": "graphic-reasoning-semantic-scene-v2",
+  "assetId": "gr_000000000000000000000000",
+  "source": {
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "imagePath": "input/images/gr_000000000000000000000000.png"
+  },
+  "presentation": {
+    "mode": "original_image",
+    "vectorRequired": false
+  },
+  "layout": {
+    "layoutType": "other",
+    "panelCount": 1,
+    "optionCount": 0,
+    "layoutIssues": [
+      "这是仅用于展示字段结构的合成示例，不对应题库资产。"
+    ]
+  },
+  "visualGrammar": {
+    "primary": "mixed",
+    "secondary": [
+      "synthetic_example"
+    ]
+  },
+  "panels": [
+    {
+      "id": "p1",
+      "position": 1,
+      "role": "sample",
+      "optionLabel": null,
+      "frame": {
+        "kind": "square",
+        "rows": null,
+        "columns": null
+      },
+      "visualFacts": {
+        "elements": [
+          {
+            "id": "p1_e1",
+            "kind": "line",
+            "label": "horizontal_line",
+            "textContent": null,
+            "count": 1,
+            "instances": [
+              {
+                "relativeRegion": "center",
+                "orientation": "horizontal",
+                "lineCharacter": "straight",
+                "fillState": "none",
+                "texture": "none"
+              }
+            ],
+            "parts": [],
+            "attributes": {
+              "angleClass": "0_degrees"
+            },
+            "confidence": 0.99
+          },
+          {
+            "id": "p1_e2",
+            "kind": "arc",
+            "label": "upper_arc",
+            "textContent": null,
+            "count": 1,
+            "instances": [
+              {
+                "relativeRegion": "top",
+                "orientation": "none",
+                "lineCharacter": "curved",
+                "fillState": "none",
+                "texture": "none"
+              }
+            ],
+            "parts": [],
+            "attributes": {
+              "opening": "down"
+            },
+            "confidence": 0.96
+          }
+        ],
+        "relations": [
+          {
+            "type": "disjoint",
+            "subjects": [
+              "p1_e1",
+              "p1_e2"
+            ],
+            "description": "弧位于直线上方，两者不接触。",
+            "confidence": 0.95
+          }
+        ],
+        "topology": {
+          "componentCount": 2,
+          "endpointCount": 4,
+          "junctionCount": 0,
+          "loopCount": 0,
+          "notes": []
+        },
+        "counts": {
+          "straightSegmentCount": 1,
+          "curveCount": 1,
+          "circleCount": 0,
+          "closedShapeCount": 0,
+          "dotCount": 0,
+          "filledRegionCount": 0,
+          "symbolCount": 0,
+          "textCount": 0
+        },
+        "observations": [
+          "直线保持笔直，弧线保持平滑。"
+        ]
+      },
+      "uncertainties": []
+    }
+  ],
+  "reasoningCandidates": [],
+  "globalUncertainties": [],
+  "extraction": {
+    "method": "model_visual_inspection",
+    "sourceInspected": true,
+    "qualityStatus": "structured_candidate",
+    "repairReasons": []
+  }
+}

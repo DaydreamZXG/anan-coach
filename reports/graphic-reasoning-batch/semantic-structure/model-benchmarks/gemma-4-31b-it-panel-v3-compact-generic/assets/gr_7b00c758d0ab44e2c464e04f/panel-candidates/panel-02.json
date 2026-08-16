@@ -1,0 +1,74 @@
+{
+  "count": {
+    "circle": 0,
+    "closed": 3,
+    "curve": 1,
+    "dot": 0,
+    "filled": 0,
+    "seg": 5,
+    "symbol": 0,
+    "text": 0
+  },
+  "facts": [
+    "面板内包含三个矩形区域",
+    "左上区域包含一条直线和一段圆弧"
+  ],
+  "frame": {
+    "grid": null,
+    "k": "square"
+  },
+  "obj": [
+    {
+      "feat": [
+        "right-angle"
+      ],
+      "fill": "hollow",
+      "k": "rect",
+      "lc": "straight",
+      "n": 3,
+      "parts": [],
+      "reg": [
+        "bottom-left",
+        "bottom-right",
+        "right"
+      ],
+      "txt": null
+    },
+    {
+      "feat": [],
+      "fill": "none",
+      "k": "line",
+      "lc": "straight",
+      "n": 2,
+      "parts": [],
+      "reg": [
+        "top-left",
+        "center"
+      ],
+      "txt": null
+    },
+    {
+      "feat": [],
+      "fill": "none",
+      "k": "arc",
+      "lc": "curved",
+      "n": 1,
+      "parts": [],
+      "reg": [
+        "top-left"
+      ],
+      "txt": null
+    }
+  ],
+  "opt": null,
+  "p": 2,
+  "role": "stem",
+  "schema": "graphic-reasoning-panel-semantics-v3",
+  "topo": [
+    null,
+    null,
+    null,
+    null
+  ],
+  "uncertain": []
+}

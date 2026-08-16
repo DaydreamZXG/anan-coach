@@ -1,0 +1,203 @@
+{
+  "asset_id": "da_d51b2f09886b480a7ced31a0",
+  "axes": {
+    "x": {
+      "max": 8,
+      "min": 0,
+      "ticks": [
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 80,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "门票收入",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "口非门票收入",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "门票收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        22.3,
+        25.2,
+        26.68,
+        27.64,
+        32.85,
+        35.86,
+        38.02,
+        42.09,
+        50.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "口非门票收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        8.2,
+        9.46,
+        10.32,
+        10.86,
+        13.05,
+        14.58,
+        15.61,
+        17.45,
+        21.18
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0142_a7889a0dde4ebf47.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0142_a7889a0dde4ebf47.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_e26033f8dcd9f1d3e914",
+        "question_number": 111,
+        "source_jsonl_line": 19646
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0142_a7889a0dde4ebf47.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_de5973a07f1919bfcc18",
+        "question_number": 112,
+        "source_jsonl_line": 19647
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0175_9606c6edb35bcee8.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_dae71f1cf724c6def855",
+        "question_number": 113,
+        "source_jsonl_line": 19648
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0175_9606c6edb35bcee8.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_131bc49761ae3cfb017a",
+        "question_number": 114,
+        "source_jsonl_line": 19649
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0142_a7889a0dde4ebf47.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_d8adc357c919a308397e",
+        "question_number": 115,
+        "source_jsonl_line": 19650
+      }
+    ],
+    "sha256": "d51b2f09886b480a7ced31a098c9af7a0cf0fb67f01c1b4b2d5e6a4bc3c65c89"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2010-2018年我国海洋主题公园收入构成",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d51b2f09886b480a7ced31a0/column_band_01.jpg",
+        "review-crops/da_d51b2f09886b480a7ced31a0/column_band_02.jpg",
+        "review-crops/da_d51b2f09886b480a7ced31a0/column_band_03.jpg",
+        "review-crops/da_d51b2f09886b480a7ced31a0/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.324",
+      "crop_verification_elapsed_seconds:5.293",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,228 @@
+{
+  "asset_id": "da_6723ab5fdaee0cd81251f5b5",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2008年江西省公务员录用考试《行测》题_images/img_0227_4cb23047d64d7f9f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江西省公务员录用考试《行测》题_images/img_0227_4cb23047d64d7f9f.png",
+        "paper_title": "2008年江西省公务员录用考试《行测》题",
+        "question_id": "pq_2db053d11a421a27c4e1",
+        "question_number": 116,
+        "source_jsonl_line": 51096
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江西省公务员录用考试《行测》题_images/img_0227_4cb23047d64d7f9f.png",
+        "paper_title": "2008年江西省公务员录用考试《行测》题",
+        "question_id": "pq_8dbdd01cd3d72b800312",
+        "question_number": 117,
+        "source_jsonl_line": 51097
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江西省公务员录用考试《行测》题_images/img_0227_4cb23047d64d7f9f.png",
+        "paper_title": "2008年江西省公务员录用考试《行测》题",
+        "question_id": "pq_d10132faf6ef056d9e7b",
+        "question_number": 118,
+        "source_jsonl_line": 51098
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江西省公务员录用考试《行测》题_images/img_0227_4cb23047d64d7f9f.png",
+        "paper_title": "2008年江西省公务员录用考试《行测》题",
+        "question_id": "pq_45eaedadb045fb2c21d8",
+        "question_number": 119,
+        "source_jsonl_line": 51099
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江西省公务员录用考试《行测》题_images/img_0227_4cb23047d64d7f9f.png",
+        "paper_title": "2008年江西省公务员录用考试《行测》题",
+        "question_id": "pq_642592144e7cd09c6797",
+        "question_number": 120,
+        "source_jsonl_line": 51100
+      }
+    ],
+    "sha256": "6723ab5fdaee0cd81251f5b5d09a11d51647a647b74be55b09c0d42806c8fbb2"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "",
+      "人均公共绿地面积（平方米）",
+      "建成区园林绿地率（%）",
+      "建成区绿化覆盖率（%）",
+      "公园个数（个）",
+      "公园面积（公顷）",
+      "游人量（万人）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全国",
+        "unit": null,
+        "values": [
+          null,
+          7.9,
+          28.54,
+          32.58,
+          7077,
+          157815.9,
+          179367.4
+        ]
+      },
+      {
+        "label": "上海",
+        "unit": null,
+        "values": [
+          null,
+          6.7,
+          26.0,
+          27.8,
+          142,
+          1516.6,
+          13654.3
+        ]
+      },
+      {
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          null,
+          10.3,
+          25.9,
+          39.85,
+          539,
+          9924.0,
+          10044.6
+        ]
+      },
+      {
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          null,
+          9.3,
+          29.98,
+          33.78,
+          748,
+          6045.6,
+          12691.3
+        ]
+      },
+      {
+        "label": "安徽",
+        "unit": null,
+        "values": [
+          null,
+          6.6,
+          22.9,
+          27.52,
+          140,
+          3970.1,
+          4901.3
+        ]
+      },
+      {
+        "label": "福建",
+        "unit": null,
+        "values": [
+          null,
+          9.2,
+          33.08,
+          36.11,
+          314,
+          4445.6,
+          5226.3
+        ]
+      },
+      {
+        "label": "江西",
+        "unit": null,
+        "values": [
+          null,
+          7.8,
+          29.39,
+          32.62,
+          125,
+          2258.9,
+          1777.9
+        ]
+      },
+      {
+        "label": "山东",
+        "unit": null,
+        "values": [
+          null,
+          8.1,
+          31.95,
+          36.97,
+          456,
+          11380.5,
+          11219.9
+        ]
+      }
+    ]
+  },
+  "title": "2005年华东地区城市园林绿化情况统计表",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6723ab5fdaee0cd81251f5b5/row_band_01.jpg",
+        "review-crops/da_6723ab5fdaee0cd81251f5b5/row_band_02.jpg",
+        "review-crops/da_6723ab5fdaee0cd81251f5b5/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.298",
+      "crop_verification_elapsed_seconds:13.653",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

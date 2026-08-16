@@ -1,0 +1,187 @@
+{
+  "asset_id": "da_76dd4253031396800abf6c22",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2013年国家公务员录用考试《行测》题_images/img_0157_29bdee05a77c1766.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年国家公务员录用考试《行测》题_images/img_0157_29bdee05a77c1766.png",
+        "paper_title": "2013年国家公务员录用考试《行测》题",
+        "question_id": "pq_6617276dbba398f471c6",
+        "question_number": 131,
+        "source_jsonl_line": 17936
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年国家公务员录用考试《行测》题_images/img_0164_18e3aab0c0b67392.png",
+        "paper_title": "2013年国家公务员录用考试《行测》题",
+        "question_id": "pq_0446eb0576d96fc31241",
+        "question_number": 132,
+        "source_jsonl_line": 17937
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年国家公务员录用考试《行测》题_images/img_0164_18e3aab0c0b67392.png",
+        "paper_title": "2013年国家公务员录用考试《行测》题",
+        "question_id": "pq_31f41b110d714b5f03b6",
+        "question_number": 133,
+        "source_jsonl_line": 17938
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年国家公务员录用考试《行测》题_images/img_0164_18e3aab0c0b67392.png",
+        "paper_title": "2013年国家公务员录用考试《行测》题",
+        "question_id": "pq_05684171b082052a6fa9",
+        "question_number": 134,
+        "source_jsonl_line": 17939
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年国家公务员录用考试《行测》题_images/img_0164_18e3aab0c0b67392.png",
+        "paper_title": "2013年国家公务员录用考试《行测》题",
+        "question_id": "pq_3dde55f74cd13b61414f",
+        "question_number": 135,
+        "source_jsonl_line": 17940
+      }
+    ],
+    "sha256": "76dd4253031396800abf6c2245e34c6e45e2a55ec19cab5b728fdf5e1642e46e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2008年",
+      "2009年",
+      "2010年",
+      "2011年"
+    ],
+    "corner_header": {
+      "lower_label": "/",
+      "style": "diagonal",
+      "upper_label": "/"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "制造业",
+        "group": "年份",
+        "label": "年份｜制造业",
+        "unit": null,
+        "values": [
+          37.2,
+          36.1,
+          36.7,
+          36.0
+        ]
+      },
+      {
+        "display_label": "建筑业",
+        "group": "年份",
+        "label": "年份｜建筑业",
+        "unit": null,
+        "values": [
+          13.8,
+          15.2,
+          16.1,
+          17.7
+        ]
+      },
+      {
+        "display_label": "交通运输、仓储和邮政业",
+        "group": "年份",
+        "label": "年份｜交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          6.4,
+          6.8,
+          6.9,
+          6.6
+        ]
+      },
+      {
+        "display_label": "批发零售业",
+        "group": "年份",
+        "label": "年份｜批发零售业",
+        "unit": null,
+        "values": [
+          9.0,
+          10.0,
+          10.0,
+          10.1
+        ]
+      },
+      {
+        "display_label": "住宿餐饮业",
+        "group": "年份",
+        "label": "年份｜住宿餐饮业",
+        "unit": null,
+        "values": [
+          5.5,
+          6.0,
+          6.0,
+          5.3
+        ]
+      },
+      {
+        "display_label": "居民服务和其他服务业",
+        "group": "年份",
+        "label": "年份｜居民服务和其他服务业",
+        "unit": null,
+        "values": [
+          12.2,
+          12.7,
+          12.7,
+          12.2
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "asset_id": "da_13a98d08b9c0566214913d4b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2011年江苏省公务员录用考试《行测》题（C类）_images/img_0179_874aae14a682f38b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（C类）_images/img_0179_874aae14a682f38b.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_1dfae82ecf68ab4e9e60",
+        "question_number": 86,
+        "source_jsonl_line": 45796
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（C类）_images/img_0179_874aae14a682f38b.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_d49b0bb4f992b913e79b",
+        "question_number": 87,
+        "source_jsonl_line": 45797
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（C类）_images/img_0179_874aae14a682f38b.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_3d4d95bed3e93a1560be",
+        "question_number": 88,
+        "source_jsonl_line": 45798
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（C类）_images/img_0179_874aae14a682f38b.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_12a97f028896c88fe030",
+        "question_number": 89,
+        "source_jsonl_line": 45799
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（C类）_images/img_0179_874aae14a682f38b.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_4d4bca3c792b32d8010e",
+        "question_number": 90,
+        "source_jsonl_line": 45800
+      }
+    ],
+    "sha256": "13a98d08b9c0566214913d4b373141b96c04ef275568d94d615510ec0fadc453"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "2006",
+      "2007",
+      "2008",
+      "2009",
+      "2010"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "专业技术人员(万人)",
+    "rows": [
+      {
+        "display_label": "专业技术人员(万人)",
+        "group": null,
+        "label": "专业技术人员(万人)",
+        "unit": null,
+        "values": [
+          null,
+          565.5,
+          555.1,
+          531.6,
+          528.9,
+          499.3
+        ]
+      },
+      {
+        "display_label": "财政科技拨款(亿元)",
+        "group": null,
+        "label": "财政科技拨款(亿元)",
+        "unit": null,
+        "values": [
+          null,
+          272.8,
+          277.2,
+          359.5,
+          398.6,
+          416.6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,271 @@
+{
+  "asset_id": "da_9637254aa363e75eec030b08",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "法律援助案件",
+        "unit": "(万件)"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "刑事案件",
+        "unit": "(万件)"
+      }
+    ]
+  },
+  "categories": [
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "法律援助案件",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(万件)",
+      "values": [
+        14.25,
+        24.05,
+        24.56,
+        23.67,
+        19.58
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "刑事案件",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(万件)",
+      "values": [
+        8.18,
+        17.34,
+        18.41,
+        17.66,
+        13.35
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "民事案件",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(万件)",
+      "values": [
+        6.0,
+        6.63,
+        6.08,
+        5.96,
+        6.18
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "行政案件",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(件)",
+      "values": [
+        666,
+        831,
+        618,
+        514,
+        516
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0090_ea13c41c358eb3c7.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0090_ea13c41c358eb3c7.png",
+        "paper_title": "2024年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_216dc6dd1f23f2f5736b",
+        "question_number": 81,
+        "source_jsonl_line": 36113
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0090_ea13c41c358eb3c7.png",
+        "paper_title": "2024年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8fbb6ff022dc7336f1b4",
+        "question_number": 82,
+        "source_jsonl_line": 36114
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0093_20b2ff19dd7c2d61.png",
+        "paper_title": "2024年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_af8fdc79431212483968",
+        "question_number": 83,
+        "source_jsonl_line": 36115
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0093_20b2ff19dd7c2d61.png",
+        "paper_title": "2024年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ff8ac975e23543b87660",
+        "question_number": 84,
+        "source_jsonl_line": 36116
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0093_20b2ff19dd7c2d61.png",
+        "paper_title": "2024年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_905bc048c44dc8e23dc1",
+        "question_number": 85,
+        "source_jsonl_line": 36117
+      }
+    ],
+    "sha256": "9637254aa363e75eec030b08d434e77aef8439d9ef46b8d3b55162badea651e6"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "法律援助案件 (万件)",
+      "刑事案件 (万件)",
+      "民事案件 (万件)",
+      "行政案件 (件)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2018",
+        "unit": null,
+        "values": [
+          2018,
+          14.25,
+          8.18,
+          6.0,
+          666
+        ]
+      },
+      {
+        "label": "2019",
+        "unit": null,
+        "values": [
+          2019,
+          24.05,
+          17.34,
+          6.63,
+          831
+        ]
+      },
+      {
+        "label": "2020",
+        "unit": null,
+        "values": [
+          2020,
+          24.56,
+          18.41,
+          6.08,
+          618
+        ]
+      },
+      {
+        "label": "2021",
+        "unit": null,
+        "values": [
+          2021,
+          23.67,
+          17.66,
+          5.96,
+          514
+        ]
+      },
+      {
+        "label": "2022",
+        "unit": null,
+        "values": [
+          2022,
+          19.58,
+          13.35,
+          6.18,
+          516
+        ]
+      }
+    ]
+  },
+  "title": "2018-2022年G省法律援助案件数量",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9637254aa363e75eec030b08/row_band_01.jpg",
+        "review-crops/da_9637254aa363e75eec030b08/row_band_02.jpg",
+        "review-crops/da_9637254aa363e75eec030b08/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.089",
+      "crop_verification_elapsed_seconds:5.894",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

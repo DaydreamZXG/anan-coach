@@ -1,0 +1,366 @@
+{
+  "asset_id": "da_cbbb3f97e2d12c86d67da4a4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2016年423联考《行测》题（云南网友回忆版）_images/img_0060_3e830a9989f12f9b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（云南网友回忆版）_images/img_0060_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（云南网友回忆版）",
+        "question_id": "pq_63770646687422b9b904",
+        "question_number": 106,
+        "source_jsonl_line": 5190
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（云南网友回忆版）_images/img_0060_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（云南网友回忆版）",
+        "question_id": "pq_99484de4de663e6d9bda",
+        "question_number": 107,
+        "source_jsonl_line": 5191
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（云南网友回忆版）_images/img_0060_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（云南网友回忆版）",
+        "question_id": "pq_a528f07b151798ffae46",
+        "question_number": 108,
+        "source_jsonl_line": 5192
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（云南网友回忆版）_images/img_0060_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（云南网友回忆版）",
+        "question_id": "pq_74eb5afd573308489d0d",
+        "question_number": 109,
+        "source_jsonl_line": 5193
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（云南网友回忆版）_images/img_0060_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（云南网友回忆版）",
+        "question_id": "pq_7d775beb5b3b161553f9",
+        "question_number": 110,
+        "source_jsonl_line": 5194
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（内蒙古网友回忆版）_images/img_0075_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（内蒙古网友回忆版）",
+        "question_id": "pq_25c98742bbae09139a6d",
+        "question_number": 106,
+        "source_jsonl_line": 7299
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（内蒙古网友回忆版）_images/img_0075_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（内蒙古网友回忆版）",
+        "question_id": "pq_cf62b42ce8eee664615c",
+        "question_number": 107,
+        "source_jsonl_line": 7300
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（内蒙古网友回忆版）_images/img_0091_6a9419257aa5a43f.png",
+        "paper_title": "2016年423联考《行测》题（内蒙古网友回忆版）",
+        "question_id": "pq_86c7478b3edef3ea3bdf",
+        "question_number": 108,
+        "source_jsonl_line": 7301
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（内蒙古网友回忆版）_images/img_0075_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（内蒙古网友回忆版）",
+        "question_id": "pq_d076a00a0c7f005d2d15",
+        "question_number": 109,
+        "source_jsonl_line": 7302
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（内蒙古网友回忆版）_images/img_0075_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（内蒙古网友回忆版）",
+        "question_id": "pq_f99676da527383b2190f",
+        "question_number": 110,
+        "source_jsonl_line": 7303
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0067_6a9419257aa5a43f.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_187b05004fb2ec506d30",
+        "question_number": 86,
+        "source_jsonl_line": 15301
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0073_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_04dee8d44312cd2535d9",
+        "question_number": 87,
+        "source_jsonl_line": 15302
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0073_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_77c412d0fc4c523618fb",
+        "question_number": 88,
+        "source_jsonl_line": 15303
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0073_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_a6d1a228fda0e30bcd23",
+        "question_number": 89,
+        "source_jsonl_line": 15304
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0073_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_7df69616ff5c50fddfe6",
+        "question_number": 90,
+        "source_jsonl_line": 15305
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0202_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_00b4eb1dcdf26f4abe3e",
+        "question_number": 116,
+        "source_jsonl_line": 22881
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0202_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_e38da3a21787b1ae8641",
+        "question_number": 117,
+        "source_jsonl_line": 22882
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0202_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_3a0af4d774ee7bbb134d",
+        "question_number": 118,
+        "source_jsonl_line": 22883
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0202_3e830a9989f12f9b.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_3b09f63a050571abec31",
+        "question_number": 119,
+        "source_jsonl_line": 22884
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0216_6a9419257aa5a43f.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_4f40abedd0fc89f651a4",
+        "question_number": 120,
+        "source_jsonl_line": 22885
+      }
+    ],
+    "sha256": "cbbb3f97e2d12c86d67da4a4c46891c49bc5c1ff11a7bda7965ea2202222699d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "11月｜11月",
+          "11月｜同比增速(%)"
+        ],
+        "label": "11月"
+      },
+      {
+        "columns": [
+          "1-11月｜1-11月",
+          "1-11月｜同比增速(%)"
+        ],
+        "label": "1-11月"
+      }
+    ],
+    "columns": [
+      "11月｜11月",
+      "11月｜同比增速(%)",
+      "1-11月｜1-11月",
+      "1-11月｜同比增速(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "货物运输总量（亿吨）｜2014年",
+        "group": null,
+        "label": "货物运输总量（亿吨）｜2014年",
+        "unit": null,
+        "values": [
+          39.3,
+          7.1,
+          393.2,
+          7.3
+        ]
+      },
+      {
+        "display_label": "其中：铁路（亿吨）｜2014年",
+        "group": null,
+        "label": "其中：铁路（亿吨）｜2014年",
+        "unit": null,
+        "values": [
+          3.2,
+          -6.5,
+          35.0,
+          -3.2
+        ]
+      },
+      {
+        "display_label": "公路（亿吨）｜2014年",
+        "group": null,
+        "label": "公路（亿吨）｜2014年",
+        "unit": null,
+        "values": [
+          30.7,
+          8.6,
+          303.6,
+          8.8
+        ]
+      },
+      {
+        "display_label": "水运（亿吨）｜2014年",
+        "group": null,
+        "label": "水运（亿吨）｜2014年",
+        "unit": null,
+        "values": [
+          5.4,
+          7.6,
+          54.5,
+          6.8
+        ]
+      },
+      {
+        "display_label": "民航（亿吨）｜2014年",
+        "group": null,
+        "label": "民航（亿吨）｜2014年",
+        "unit": null,
+        "values": [
+          55.5,
+          3.4,
+          538.0,
+          5.7
+        ]
+      },
+      {
+        "display_label": "货物周转总量（亿吨公里）｜2014年",
+        "group": null,
+        "label": "货物周转总量（亿吨公里）｜2014年",
+        "unit": null,
+        "values": [
+          16409.2,
+          8.6,
+          164873.0,
+          10.1
+        ]
+      },
+      {
+        "display_label": "其中：铁路（亿吨公里）｜2014年",
+        "group": null,
+        "label": "其中：铁路（亿吨公里）｜2014年",
+        "unit": null,
+        "values": [
+          2354.4,
+          -6.4,
+          25200.7,
+          -5.2
+        ]
+      },
+      {
+        "display_label": "公路（亿吨公里）｜2014年",
+        "group": null,
+        "label": "公路（亿吨公里）｜2014年",
+        "unit": null,
+        "values": [
+          5833.0,
+          10.4,
+          55448.0,
+          9.8
+        ]
+      },
+      {
+        "display_label": "水运（亿吨公里）｜2014年",
+        "group": null,
+        "label": "水运（亿吨公里）｜2014年",
+        "unit": null,
+        "values": [
+          8204.1,
+          12.5,
+          84056.0,
+          16.0
+        ]
+      },
+      {
+        "display_label": "民航（亿吨公里）｜2014年",
+        "group": null,
+        "label": "民航（亿吨公里）｜2014年",
+        "unit": null,
+        "values": [
+          17.6,
+          8.5,
+          168.7,
+          8.8
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,243 @@
+{
+  "asset_id": "da_30d27fcb5bb8c94d801cefc4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2017年江苏省公务员录用考试《行测》题(A类)_images/img_0261_a8b0fe7b35ffcc08.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0261_a8b0fe7b35ffcc08.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_5f62904ceb1d7bdb34d3",
+        "question_number": 131,
+        "source_jsonl_line": 47641
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0269_51d39783824f8fac.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_b292fc0ebd31f4b25238",
+        "question_number": 132,
+        "source_jsonl_line": 47642
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0261_a8b0fe7b35ffcc08.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_49670f458c49b3fdfc45",
+        "question_number": 133,
+        "source_jsonl_line": 47643
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0269_51d39783824f8fac.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_1763218b84abb20ac142",
+        "question_number": 134,
+        "source_jsonl_line": 47644
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0269_51d39783824f8fac.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_0b20101a694104a38bb1",
+        "question_number": 135,
+        "source_jsonl_line": 47645
+      }
+    ],
+    "sha256": "30d27fcb5bb8c94d801cefc4c3dd8ff491f1e587b1b060707ec302ec2c9eec9b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "",
+      "申请项目数",
+      "批准资助"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "受理申请数（个）",
+        "unit": null,
+        "values": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "医学科学部",
+        "unit": null,
+        "values": [
+          20318,
+          4102,
+          230090
+        ]
+      },
+      {
+        "label": "管理科学部",
+        "unit": null,
+        "values": [
+          3676,
+          720,
+          34560
+        ]
+      },
+      {
+        "label": "信息科学部",
+        "unit": null,
+        "values": [
+          7995,
+          1861,
+          108600
+        ]
+      },
+      {
+        "label": "工程与材料科学部",
+        "unit": null,
+        "values": [
+          13941,
+          2851,
+          176900
+        ]
+      },
+      {
+        "label": "地球科学部",
+        "unit": null,
+        "values": [
+          5867,
+          1573,
+          108260
+        ]
+      },
+      {
+        "label": "生命科学部",
+        "unit": null,
+        "values": [
+          10806,
+          2700,
+          162990
+        ]
+      },
+      {
+        "label": "化学科学部",
+        "unit": null,
+        "values": [
+          6065,
+          1576,
+          101082
+        ]
+      },
+      {
+        "label": "数理科学部",
+        "unit": null,
+        "values": [
+          5380,
+          1551,
+          95045
+        ]
+      },
+      {
+        "label": "总计",
+        "unit": null,
+        "values": [
+          74048,
+          16934,
+          1017527
+        ]
+      }
+    ]
+  },
+  "title": "2016年国家自然科学基金面上项目申请与资助情况",
+  "unit": "万元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_30d27fcb5bb8c94d801cefc4/row_band_01.jpg",
+        "review-crops/da_30d27fcb5bb8c94d801cefc4/row_band_02.jpg",
+        "review-crops/da_30d27fcb5bb8c94d801cefc4/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.413",
+      "crop_verification_elapsed_seconds:17.936",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了信息科学部的申请项目数为7995，原为7995",
+      "crop_note:修正了工程与材料科学部的申请项目数为13941，原为13941",
+      "crop_note:修正了地球科学部的申请项目数为5867，原为5867",
+      "crop_note:修正了生命科学部的申请项目数为10806，原为10806",
+      "crop_note:修正了化学科学部的申请项目数为6065，原为6065",
+      "crop_note:修正了数理科学部的申请项目数为5380，原为5380",
+      "crop_note:修正了总计的申请项目数为74048，原为74048",
+      "crop_note:修正了总计的批准资助数为16934，原为16934",
+      "crop_note:修正了总计的批准资助金额为1017527，原为1017527",
+      "crop_note:修正了信息科学部的批准资助金额为108600，原为108600",
+      "crop_note:修正了工程与材料科学部的批准资助金额为176900，原为176900",
+      "crop_note:修正了地球科学部的批准资助金额为108260，原为108260",
+      "crop_note:修正了生命科学部的批准资助金额为162990，原为162990",
+      "crop_note:修正了化学科学部的批准资助金额为101082，原为101082",
+      "crop_note:修正了数理科学部的批准资助金额为95045，原为95045",
+      "crop_note:修正了医学科学部的批准资助金额为230090，原为230090",
+      "crop_note:修正了管理科学部的批准资助金额为34560，原为34560",
+      "crop_note:修正了信息科学部的批准资助数为1861，原为1861",
+      "crop_note:修正了工程与材料科学部的批准资助数为2851，原为2851",
+      "crop_note:修正了地球科学部的批准资助数为1573，原为1573",
+      "crop_note:修正了生命科学部的批准资助数为2700，原为2700",
+      "crop_note:修正了化学科学部的批准资助数为1576，原为1576",
+      "crop_note:修正了数理科学部的批准资助数为1551，原为1551",
+      "crop_note:修正了医学科学部的受理申请数为20318，原为20318",
+      "crop_note:修正了管理科学部的受理申请数为3676，原为3676",
+      "crop_note:修正了信息科学部的受理申请数为7995，原为7995",
+      "crop_note:修正了工程与材料科学部的受理申请数为13941，原为13941",
+      "crop_note:修正了地球科学部的受理申请数为5867，原为5867",
+      "crop_note:修正了生命科学部的受理申请数为10806，原为10806",
+      "crop_note:修正了化学科学部的受理申请数为6065，原为6065",
+      "crop_note:修正了数理科学部的受理申请数为5380，原为5380",
+      "crop_note:修正了总计的受理申请数为74048，原为74048",
+      "crop_note:修正了总计的批准资助数为16934，原为16934",
+      "crop_note:修正了总计的批准资助金额为1017527，原为1017527"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "asset_id": "da_5b9b0f49ea655fca1134eeb6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 900,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600,
+          700,
+          800,
+          900
+        ],
+        "title": null,
+        "unit": "万个"
+      }
+    ]
+  },
+  "categories": [
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "非4G基站数",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "4G基站数",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "4G",
+      "label": "非4G基站数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万个",
+      "values": [
+        266,
+        289,
+        296,
+        291,
+        295,
+        297
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "4G",
+      "label": "4G基站数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万个",
+      "values": [
+        85,
+        177,
+        263,
+        328,
+        372,
+        544
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0174_2dc6ecc5216bf169.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0174_2dc6ecc5216bf169.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_953711c8425679a7ddee",
+        "question_number": 76,
+        "source_jsonl_line": 30500
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0193_5859cc5384154123.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_54366c70c4518660083f",
+        "question_number": 77,
+        "source_jsonl_line": 30501
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0174_2dc6ecc5216bf169.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_886425e8234a46e26301",
+        "question_number": 78,
+        "source_jsonl_line": 30502
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0174_2dc6ecc5216bf169.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_955b7e197df71b532579",
+        "question_number": 79,
+        "source_jsonl_line": 30503
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0193_5859cc5384154123.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_461042192fd6ecab38ed",
+        "question_number": 80,
+        "source_jsonl_line": 30504
+      }
+    ],
+    "sha256": "5b9b0f49ea655fca1134eeb6304b506fe5e9f81552a4d158e6b5aa890f179635"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014~2019年全国移动电话基站发展情况",
+  "unit": "万个",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5b9b0f49ea655fca1134eeb6/column_band_01.jpg",
+        "review-crops/da_5b9b0f49ea655fca1134eeb6/column_band_02.jpg",
+        "review-crops/da_5b9b0f49ea655fca1134eeb6/column_band_03.jpg",
+        "review-crops/da_5b9b0f49ea655fca1134eeb6/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.646",
+      "crop_verification_elapsed_seconds:3.527",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

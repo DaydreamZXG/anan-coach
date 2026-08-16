@@ -1,0 +1,310 @@
+{
+  "asset_id": "da_9e641a795653234f44b27126",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2017年422联考《行测》题（四川卷）_images/img_0174_95ad713983296495.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（四川卷）_images/img_0174_95ad713983296495.png",
+        "paper_title": "2017年422联考《行测》题（四川卷）",
+        "question_id": "pq_315982266013f58e4295",
+        "question_number": 96,
+        "source_jsonl_line": 15511
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（四川卷）_images/img_0174_95ad713983296495.png",
+        "paper_title": "2017年422联考《行测》题（四川卷）",
+        "question_id": "pq_61c1e493c02321abd87d",
+        "question_number": 97,
+        "source_jsonl_line": 15512
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（四川卷）_images/img_0185_674a9303354f1b80.png",
+        "paper_title": "2017年422联考《行测》题（四川卷）",
+        "question_id": "pq_70a6d325af17ff435b6d",
+        "question_number": 98,
+        "source_jsonl_line": 15513
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（四川卷）_images/img_0174_95ad713983296495.png",
+        "paper_title": "2017年422联考《行测》题（四川卷）",
+        "question_id": "pq_0c1b14ab052dabbc72dd",
+        "question_number": 99,
+        "source_jsonl_line": 15514
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（四川卷）_images/img_0185_674a9303354f1b80.png",
+        "paper_title": "2017年422联考《行测》题（四川卷）",
+        "question_id": "pq_a0c1dc0eddfe9b7c075c",
+        "question_number": 100,
+        "source_jsonl_line": 15515
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0218_95ad713983296495.png",
+        "paper_title": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_5bf1adfa9c33b04ca0c9",
+        "question_number": 111,
+        "source_jsonl_line": 102798
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0218_95ad713983296495.png",
+        "paper_title": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_ecde39be8db43d7b9c3c",
+        "question_number": 112,
+        "source_jsonl_line": 102799
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0218_95ad713983296495.png",
+        "paper_title": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_3594a7dc4136a9c8378c",
+        "question_number": 113,
+        "source_jsonl_line": 102800
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0218_95ad713983296495.png",
+        "paper_title": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_1ae949fb56b8cd037a28",
+        "question_number": 114,
+        "source_jsonl_line": 102801
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0218_95ad713983296495.png",
+        "paper_title": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_ebe0eaee07612cce29b9",
+        "question_number": 115,
+        "source_jsonl_line": 102802
+      }
+    ],
+    "sha256": "9e641a795653234f44b27126e68faab9e03b7d94c3c09969e292059a221c487e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "数量与增长｜数量（万吨）",
+          "数量与增长｜比上年增长%"
+        ],
+        "label": "数量与增长"
+      },
+      {
+        "columns": [
+          "金额与增长｜金额（亿美元）",
+          "金额与增长｜比上年增长%"
+        ],
+        "label": "金额与增长"
+      }
+    ],
+    "columns": [
+      "数量与增长｜数量（万吨）",
+      "数量与增长｜比上年增长%",
+      "金额与增长｜金额（亿美元）",
+      "金额与增长｜比上年增长%"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "商品名称",
+    "rows": [
+      {
+        "display_label": "谷物及谷物粉",
+        "group": null,
+        "label": "谷物及谷物粉",
+        "unit": null,
+        "values": [
+          1398,
+          156.7,
+          48,
+          134.4
+        ]
+      },
+      {
+        "display_label": "大豆",
+        "group": null,
+        "label": "大豆",
+        "unit": null,
+        "values": [
+          5838,
+          11.2,
+          350,
+          17.6
+        ]
+      },
+      {
+        "display_label": "食用植物油",
+        "group": null,
+        "label": "食用植物油",
+        "unit": null,
+        "values": [
+          845,
+          28.7,
+          97,
+          25.6
+        ]
+      },
+      {
+        "display_label": "铁矿砂及其精矿",
+        "group": null,
+        "label": "铁矿砂及其精矿",
+        "unit": null,
+        "values": [
+          74355,
+          8.4,
+          956,
+          -15.0
+        ]
+      },
+      {
+        "display_label": "氧化铝",
+        "group": null,
+        "label": "氧化铝",
+        "unit": null,
+        "values": [
+          502,
+          165.1,
+          18,
+          133.3
+        ]
+      },
+      {
+        "display_label": "煤（包括褐煤）",
+        "group": null,
+        "label": "煤（包括褐煤）",
+        "unit": null,
+        "values": [
+          28851,
+          29.8,
+          287,
+          20.2
+        ]
+      },
+      {
+        "display_label": "原油",
+        "group": null,
+        "label": "原油",
+        "unit": null,
+        "values": [
+          27102,
+          6.8,
+          2207,
+          12.1
+        ]
+      },
+      {
+        "display_label": "成品油",
+        "group": null,
+        "label": "成品油",
+        "unit": null,
+        "values": [
+          3982,
+          -1.9,
+          330,
+          0.6
+        ]
+      },
+      {
+        "display_label": "初级形状的塑料",
+        "group": null,
+        "label": "初级形状的塑料",
+        "unit": null,
+        "values": [
+          2370,
+          2.9,
+          462,
+          -2.2
+        ]
+      },
+      {
+        "display_label": "纸浆",
+        "group": null,
+        "label": "纸浆",
+        "unit": null,
+        "values": [
+          1646,
+          14.0,
+          110,
+          -7.5
+        ]
+      },
+      {
+        "display_label": "钢材",
+        "group": null,
+        "label": "钢材",
+        "unit": null,
+        "values": [
+          1366,
+          -12.3,
+          178,
+          -17.5
+        ]
+      },
+      {
+        "display_label": "未锻造的铜及铜材",
+        "group": null,
+        "label": "未锻造的铜及铜材",
+        "unit": null,
+        "values": [
+          465,
+          14.1,
+          386,
+          4.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

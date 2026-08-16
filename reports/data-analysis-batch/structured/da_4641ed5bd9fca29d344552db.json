@@ -1,0 +1,179 @@
+{
+  "asset_id": "da_4641ed5bd9fca29d344552db",
+  "axes": {
+    "x": {
+      "max": 10,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 7.0,
+        "min": -5.0,
+        "ticks": [
+          -5.0,
+          -3.0,
+          -1.0,
+          1.0,
+          3.0,
+          5.0,
+          7.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2023年5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月",
+    "2024年1-2月",
+    "3月",
+    "4月",
+    "5月"
+  ],
+  "chart_type": "line",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "规模以上工业原煤产量增速",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "规模以上工业原煤产量增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        4.2,
+        2.5,
+        0.1,
+        2.0,
+        0.4,
+        3.8,
+        4.6,
+        1.9,
+        -4.2,
+        -4.2,
+        -2.9,
+        -0.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0116_0641ba5e3c242336.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0116_0641ba5e3c242336.png",
+        "paper_title": "2025年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_b0585285a60f772dfbe6",
+        "question_number": 111,
+        "source_jsonl_line": 30925
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0116_0641ba5e3c242336.png",
+        "paper_title": "2025年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_93223eeba93d12d6f18b",
+        "question_number": 112,
+        "source_jsonl_line": 30926
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0126_eae64e4664e62805.png",
+        "paper_title": "2025年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_ca6d48168914921d6645",
+        "question_number": 113,
+        "source_jsonl_line": 30927
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0116_0641ba5e3c242336.png",
+        "paper_title": "2025年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_416102c5c65d0e4cc56b",
+        "question_number": 114,
+        "source_jsonl_line": 30928
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0116_0641ba5e3c242336.png",
+        "paper_title": "2025年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_968dc2fe82d3fa205f34",
+        "question_number": 115,
+        "source_jsonl_line": 30929
+      }
+    ],
+    "sha256": "4641ed5bd9fca29d344552dbdbc1ef715b54226984ce48eea87ad8a64c828c21"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "规模以上工业原煤产量增速月度走势",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4641ed5bd9fca29d344552db/column_band_01.jpg",
+        "review-crops/da_4641ed5bd9fca29d344552db/column_band_02.jpg",
+        "review-crops/da_4641ed5bd9fca29d344552db/column_band_03.jpg",
+        "review-crops/da_4641ed5bd9fca29d344552db/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.068",
+      "crop_verification_elapsed_seconds:10.658",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'2023年5月'的数值为4.2，与图1一致。",
+      "crop_note:修正了'6月'的数值为2.5，与图2一致。",
+      "crop_note:修正了'7月'的数值为0.1，与图2一致。",
+      "crop_note:修正了'8月'的数值为2.0，与图2一致。",
+      "crop_note:修正了'9月'的数值为0.4，与图2一致。",
+      "crop_note:修正了'10月'的数值为3.8，与图3一致。",
+      "crop_note:修正了'11月'的数值为4.6，与图3一致。",
+      "crop_note:修正了'12月'的数值为1.9，与图3一致。",
+      "crop_note:修正了'2024年1-2月'的数值为-4.2，与图3一致。",
+      "crop_note:修正了'3月'的数值为-4.2，与图3一致。",
+      "crop_note:修正了'4月'的数值为-2.9，与图4一致。",
+      "crop_note:修正了'5月'的数值为-0.8，与图4一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

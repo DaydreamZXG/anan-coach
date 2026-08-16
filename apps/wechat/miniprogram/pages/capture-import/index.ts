@@ -5,14 +5,26 @@ import {
   answerIngestionUrl,
   captureImportUrl,
   learningPacketsUrl,
+  questionBookImportUrl,
   routes,
 } from "../../app/navigation/routes";
+import { ApiClient } from "../../api/client";
+import { PlanningApi } from "../../api/planning";
+import { environment } from "../../config/environment";
 import { storeCompanionLaunchContext } from "../../features/companion/context-store";
 import {
   CaptureImportController,
   type CaptureImportState,
 } from "./features/external-learning/capture-controller";
-import { requireExternalLearningGateway } from "../../features/external-learning/contracts";
+import {
+  requireExternalLearningGateway,
+  requirePrivateQuestionBookGateway,
+} from "../../features/external-learning/contracts";
+import {
+  preferredQuestionBookPlanTaskId,
+  QuestionBookFlow,
+  type QuestionBookFlowState,
+} from "./question-book-flow";
 import { externalLearningError } from "./shared/features/external-learning/error";
 import {
   presentMatchCandidates,
@@ -44,11 +56,24 @@ interface CaptureImportPageData {
   channelSheetOpen: boolean;
   matchCandidates: MatchCandidateView[];
   catalogOptions: CatalogOptionView[];
+  batchProgress: BatchProgressView;
+  bookMode: boolean;
+  bookId: string;
+  questionBookState: QuestionBookFlowState | null;
+  questionBookPlanTaskId: string;
+  questionBookPlanStatus: "idle" | "loading" | "ready" | "unavailable" | "error";
+  questionBookPlanMessage: string;
 }
 
 interface CatalogOptionView {
   label: string;
   text: string;
+}
+
+interface BatchProgressView {
+  visible: boolean;
+  title: string;
+  detail: string;
 }
 
 interface CaptureImportPageCustom {
@@ -82,6 +107,10 @@ interface CaptureImportPageCustom {
   openRecordSheet(): void;
   closeRecordSheet(): void;
   finishViewing(): void;
+  startQuestionBookPractice(): Promise<void>;
+  retryQuestionBookSave(): void;
+  openQuestionBookAdjustment(): void;
+  openQuestionBookLibrary(): void;
   openChannelSheet(): void;
   closeChannelSheet(): void;
   goBack(): void;
@@ -98,6 +127,7 @@ const runtimes = new ExternalLearningPageRuntimeRegistry<
   CaptureImportController
 >();
 const captureEffects = new WeakMap<CaptureImportPage, PageEffectOwner>();
+const questionBookFlows = new WeakMap<CaptureImportPage, QuestionBookFlow>();
 
 interface CaptureEffect {
   owner: PageEffectOwner;
@@ -122,12 +152,28 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     channelSheetOpen: false,
     matchCandidates: [],
     catalogOptions: [],
+    batchProgress: emptyBatchProgress(),
+    bookMode: false,
+    bookId: "",
+    questionBookState: null,
+    questionBookPlanTaskId: "",
+    questionBookPlanStatus: "idle",
+    questionBookPlanMessage: "",
   },
 
   onLoad(options: Record<string, string | undefined>) {
+    const bookMode = options.mode === "book";
+    const bookId = options.bookId?.trim() ?? "";
+    this.setData({ bookMode, bookId, mode: bookMode ? "import" : "search" });
     const session = currentAuthSession();
     if (!session) {
-      void wx.reLaunch({ url: loginUrlForReturn(captureImportUrl(options.importId)) });
+      void wx.reLaunch({
+        url: loginUrlForReturn(
+          bookMode
+            ? questionBookImportUrl({ importId: options.importId, bookId: options.bookId })
+            : captureImportUrl(options.importId),
+        ),
+      });
       return;
     }
     activateCaptureEffects(this, session);
@@ -136,16 +182,32 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     }
     try {
       const gateway = requireExternalLearningGateway(session);
+      const questionBookGateway = requirePrivateQuestionBookGateway(gateway);
+      const questionBookFlow = new QuestionBookFlow({
+        gateway: questionBookGateway,
+        onChange: (state) => {
+          if (questionBookFlows.get(this) !== questionBookFlow) return;
+          this.setData({
+            questionBookState: state,
+            bookId: state.book?.bookId ?? this.data.bookId,
+          });
+          if (state.book && this.data.questionBookPlanStatus === "idle") {
+            void loadQuestionBookPlan(this, session.accessToken);
+          }
+        },
+      });
+      questionBookFlows.set(this, questionBookFlow);
       const controller = new CaptureImportController({
         gateway,
+        bookMode,
         onChange: (state) => {
           if (runtimes.owns(this, controller)) {
             const previous = this.data.state;
+            const activeQuestionChanged =
+              previous?.activeQuestionUnit?.questionUnitId !==
+              state.activeQuestionUnit?.questionUnitId;
             const resetSolutionScroll =
-              state.status === "success" &&
-              (previous?.status !== "success" ||
-                previous.activeQuestionUnit?.questionUnitId !==
-                  state.activeQuestionUnit?.questionUnitId);
+              activeQuestionChanged && (state.status === "review" || state.status === "success");
             this.setData(
               {
                 state,
@@ -155,6 +217,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
                 catalogOptions: presentCatalogOptions(
                   state.activeQuestionUnit?.matchedContent?.optionTexts ?? [],
                 ),
+                batchProgress: presentBatchProgress(state),
               },
               () => {
                 if (resetSolutionScroll) {
@@ -164,6 +227,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
                 }
               },
             );
+            if (bookMode) void syncQuestionBookFromCapture(this, state);
           }
         },
       });
@@ -176,9 +240,16 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
         catalogOptions: presentCatalogOptions(
           state.activeQuestionUnit?.matchedContent?.optionTexts ?? [],
         ),
+        batchProgress: presentBatchProgress(state),
       });
       const importId = options.importId?.trim();
-      if (importId) void controller.load(importId);
+      if (importId) {
+        void controller.load(importId);
+      } else if (bookId) {
+        void questionBookFlow.loadBook(bookId).then((book) => {
+          if (book && runtimes.owns(this, controller)) void controller.load(book.importId);
+        });
+      }
     } catch (error) {
       this.setData({ configurationError: externalLearningError(error).message });
     }
@@ -189,7 +260,16 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     if (!session) {
       captureEffects.get(this)?.unload();
       captureEffects.delete(this);
-      void wx.reLaunch({ url: loginUrlForReturn(captureImportUrl()) });
+      void wx.reLaunch({
+        url: loginUrlForReturn(
+          this.data.bookMode
+            ? questionBookImportUrl({
+                importId: this.data.state?.workspace?.importId,
+                bookId: this.data.bookId || undefined,
+              })
+            : captureImportUrl(this.data.state?.workspace?.importId),
+        ),
+      });
       return;
     }
     activateCaptureEffects(this, session);
@@ -205,6 +285,8 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     captureEffects.get(this)?.unload();
     captureEffects.delete(this);
     this.imageEditorOpening = false;
+    questionBookFlows.get(this)?.dispose();
+    questionBookFlows.delete(this);
     runtimes.detach(this);
   },
 
@@ -302,10 +384,14 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
       if (!captureEffectIsCurrent(this, effect)) return;
       const controller = runtimes.get(this);
       if (file && controller) await controller.startImport(file);
-    } catch {
+    } catch (error) {
       if (!captureEffectIsCurrent(this, effect)) return;
+      const message =
+        error instanceof Error && error.message === "请选择 PDF 文件。"
+          ? error.message
+          : "PDF 先发到文件传输助手再选";
       void wx.showToast({
-        title: "裁剪没打开，直接用原图也行",
+        title: message,
         icon: "none",
       });
     }
@@ -371,6 +457,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
   },
 
   chooseMode(event) {
+    if (this.data.bookMode) return;
     const mode = String(event.currentTarget.dataset.mode ?? "");
     if (mode === "search" || mode === "import") this.setData({ mode });
   },
@@ -450,7 +537,14 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     const session = currentAuthSession();
     if (!session) {
       void wx.reLaunch({
-        url: loginUrlForReturn(captureImportUrl(this.data.state?.workspace?.importId)),
+        url: loginUrlForReturn(
+          this.data.bookMode
+            ? questionBookImportUrl({
+                importId: this.data.state?.workspace?.importId,
+                bookId: this.data.bookId || undefined,
+              })
+            : captureImportUrl(this.data.state?.workspace?.importId),
+        ),
       });
       return;
     }
@@ -500,6 +594,34 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     this.setData({ recordSheetOpen: false, receiptVisible: true });
   },
 
+  async startQuestionBookPractice() {
+    const flow = questionBookFlows.get(this);
+    const planTaskId = this.data.questionBookPlanTaskId;
+    if (!flow || !planTaskId) {
+      this.openQuestionBookAdjustment();
+      return;
+    }
+    const target = await flow.startPractice(planTaskId);
+    if (!target) return;
+    if (target.mode === "switchTab") void wx.switchTab({ url: target.url });
+    else void wx.navigateTo({ url: target.url });
+  },
+
+  retryQuestionBookSave() {
+    const state = this.data.state;
+    const flow = questionBookFlows.get(this);
+    if (!state?.workspace || !flow) return;
+    void flow.retrySave(state.workspace, questionBookTitle(this));
+  },
+
+  openQuestionBookAdjustment() {
+    void wx.navigateTo({ url: routes.dayAdjustment });
+  },
+
+  openQuestionBookLibrary() {
+    void wx.navigateTo({ url: routes.privateKnowledge });
+  },
+
   openChannelSheet() {
     this.setData({ channelSheetOpen: true });
   },
@@ -530,6 +652,54 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
 
   noop() {},
 });
+
+async function syncQuestionBookFromCapture(
+  page: CaptureImportPage,
+  state: CaptureImportState,
+): Promise<void> {
+  const flow = questionBookFlows.get(page);
+  const workspace = state.workspace;
+  if (!flow || !workspace || workspace.recognition?.state !== "confirmed") return;
+  await flow.syncWorkspace(workspace, questionBookTitle(page));
+}
+
+async function loadQuestionBookPlan(page: CaptureImportPage, accessToken: string): Promise<void> {
+  if (page.data.questionBookPlanStatus !== "idle") return;
+  page.setData({
+    questionBookPlanStatus: "loading",
+    questionBookPlanTaskId: "",
+    questionBookPlanMessage: "正在接入你今天的训练安排…",
+  });
+  try {
+    const response = await new PlanningApi(
+      new ApiClient(environment.apiBaseUrl, accessToken),
+    ).getToday();
+    if (!questionBookFlows.has(page)) return;
+    const planTaskId = preferredQuestionBookPlanTaskId(response.data);
+    page.setData({
+      questionBookPlanStatus: planTaskId ? "ready" : "unavailable",
+      questionBookPlanTaskId: planTaskId ?? "",
+      questionBookPlanMessage: planTaskId
+        ? "沿用今天的行测训练，做完继续进入原有错因和岸岸反馈闭环。"
+        : "今天还没有可接入的行测练习，先调整今天，题本已经替你保存好了。",
+    });
+  } catch {
+    if (!questionBookFlows.has(page)) return;
+    page.setData({
+      questionBookPlanStatus: "error",
+      questionBookPlanTaskId: "",
+      questionBookPlanMessage: "今天的训练安排暂时没读到，题本已经保存，可以稍后再练。",
+    });
+  }
+}
+
+function questionBookTitle(page: CaptureImportPage): string {
+  return (
+    page.data.state?.selectedFile?.displayName ??
+    page.data.questionBookState?.book?.title ??
+    "我的名师题本"
+  );
+}
 
 async function chooseForReview(
   page: CaptureImportPage,
@@ -602,4 +772,25 @@ function presentCatalogOptions(optionTexts: readonly string[]): CatalogOptionVie
       text: (match?.[2] ?? raw).trim(),
     };
   });
+}
+
+function emptyBatchProgress(): BatchProgressView {
+  return { visible: false, title: "", detail: "" };
+}
+
+function presentBatchProgress(state: CaptureImportState): BatchProgressView {
+  const units = state.workspace?.questionUnits ?? [];
+  if (units.length <= 1) return emptyBatchProgress();
+  const ready = units.filter((unit) => unit.state === "ready").length;
+  const ambiguous = units.filter((unit) => unit.state === "match_review").length;
+  const unmatched = units.filter((unit) => unit.state === "unmatched").length;
+  const details = [
+    ambiguous > 0 ? `只需核对 ${String(ambiguous)} 题` : "",
+    unmatched > 0 ? `${String(unmatched)} 题未命中` : "",
+  ].filter(Boolean);
+  return {
+    visible: true,
+    title: `已自动整理 ${String(ready)} / ${String(units.length)} 题`,
+    detail: details.join("·") || "全部已匹配，可以直接查看",
+  };
 }

@@ -1,0 +1,486 @@
+{
+  "asset_id": "da_e88150d6412ab7e491537cdb",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "旅客吞吐量",
+        "unit": "万人次"
+      }
+    ]
+  },
+  "categories": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "南京禄口",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        1400,
+        1501,
+        1628,
+        1916,
+        2236,
+        2582,
+        2858
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "无锡硕放",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        324,
+        359,
+        418,
+        461,
+        556,
+        668,
+        721
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "常州奔牛",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        108,
+        153,
+        186,
+        181,
+        196,
+        251,
+        333
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "南通兴东",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        39,
+        68,
+        93,
+        116,
+        154,
+        201,
+        277
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "徐州观音",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        97,
+        111,
+        127,
+        132,
+        149,
+        192,
+        252
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "扬州泰州",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        25,
+        61,
+        71,
+        87,
+        143,
+        184,
+        238
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "盐城南洋",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        32,
+        35,
+        53,
+        85,
+        121,
+        130,
+        182
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_8",
+      "label": "淮安涟水",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        35,
+        40,
+        52,
+        50,
+        86,
+        129,
+        152
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_9",
+      "label": "连云港白塔埠",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        48,
+        56,
+        57,
+        71,
+        85,
+        109,
+        152
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0305_48d5756eca9a2a36.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0305_48d5756eca9a2a36.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_e8d4e8f5d75c5287c3a7",
+        "question_number": 121,
+        "source_jsonl_line": 48831
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0306_82c9faa200e65aa9.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_ade7fb54274383de2e85",
+        "question_number": 122,
+        "source_jsonl_line": 48832
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0305_48d5756eca9a2a36.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_75538e4578462d226d32",
+        "question_number": 123,
+        "source_jsonl_line": 48833
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0306_82c9faa200e65aa9.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_e9ea8ab1f1508b397ad4",
+        "question_number": 124,
+        "source_jsonl_line": 48834
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0305_48d5756eca9a2a36.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_4d0a4e75a63cdb005e80",
+        "question_number": 125,
+        "source_jsonl_line": 48835
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0312_48d5756eca9a2a36.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_05d3f51b0f10c3bbde57",
+        "question_number": 121,
+        "source_jsonl_line": 48966
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0312_48d5756eca9a2a36.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_78109794b2b58c1e9e94",
+        "question_number": 122,
+        "source_jsonl_line": 48967
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0312_48d5756eca9a2a36.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_e12ae4fb44b75b1c0260",
+        "question_number": 123,
+        "source_jsonl_line": 48968
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0312_48d5756eca9a2a36.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_5875e143a374dd29a411",
+        "question_number": 124,
+        "source_jsonl_line": 48969
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0312_48d5756eca9a2a36.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_2ec2a7c18c71493ecc67",
+        "question_number": 125,
+        "source_jsonl_line": 48970
+      }
+    ],
+    "sha256": "e88150d6412ab7e491537cdba39fd960e9f3bd20f7aca2cd7d40fe8c0c495577"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "南京禄口",
+      "无锡硕放",
+      "常州奔牛",
+      "南通兴东",
+      "徐州观音",
+      "扬州泰州",
+      "盐城南洋",
+      "淮安涟水",
+      "连云港白塔埠"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          1400,
+          324,
+          108,
+          39,
+          97,
+          25,
+          32,
+          35,
+          48
+        ]
+      },
+      {
+        "label": "2013",
+        "unit": null,
+        "values": [
+          2013,
+          1501,
+          359,
+          153,
+          68,
+          111,
+          61,
+          35,
+          40,
+          56
+        ]
+      },
+      {
+        "label": "2014",
+        "unit": null,
+        "values": [
+          2014,
+          1628,
+          418,
+          186,
+          93,
+          127,
+          71,
+          53,
+          52,
+          57
+        ]
+      },
+      {
+        "label": "2015",
+        "unit": null,
+        "values": [
+          2015,
+          1916,
+          461,
+          181,
+          116,
+          132,
+          87,
+          85,
+          50,
+          71
+        ]
+      },
+      {
+        "label": "2016",
+        "unit": null,
+        "values": [
+          2016,
+          2236,
+          556,
+          196,
+          154,
+          149,
+          143,
+          121,
+          86,
+          85
+        ]
+      },
+      {
+        "label": "2017",
+        "unit": null,
+        "values": [
+          2017,
+          2582,
+          668,
+          251,
+          201,
+          192,
+          184,
+          130,
+          129,
+          109
+        ]
+      },
+      {
+        "label": "2018",
+        "unit": null,
+        "values": [
+          2018,
+          2858,
+          721,
+          333,
+          277,
+          252,
+          238,
+          182,
+          152,
+          152
+        ]
+      }
+    ]
+  },
+  "title": "表 2012-2018 年江苏民航机场旅客吞吐量情况",
+  "unit": "万人次",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e88150d6412ab7e491537cdb/row_band_01.jpg",
+        "review-crops/da_e88150d6412ab7e491537cdb/row_band_02.jpg",
+        "review-crops/da_e88150d6412ab7e491537cdb/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:16.857",
+      "crop_verification_elapsed_seconds:16.283",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

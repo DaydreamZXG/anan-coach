@@ -1,0 +1,170 @@
+{
+  "asset_id": "da_47fea9a78a26a16c26214f18",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2023年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0100_7ddd516693dc0573.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2023年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0100_7ddd516693dc0573.png",
+        "paper_title": "2023年四川省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_ee94a7824add8c82d53d",
+        "question_number": 90,
+        "source_jsonl_line": 16805
+      }
+    ],
+    "sha256": "47fea9a78a26a16c26214f182f204b6e6845225c731b9311e21f9bcd236465aa"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 0,
+      "estimatedDrawCommandCount": 4,
+      "panelCount": 1,
+      "pointCount": 4
+    },
+    "coordinateSpace": {
+      "height": 141,
+      "width": 367
+    },
+    "evidence": {
+      "converterVersion": "semantic-microcharts-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "e890023c786d76ea2b1a6ff732f91a7bab468a76141d86c25f6e762a54b77fcd",
+      "sourceAsset": "da_47fea9a78a26a16c26214f18",
+      "sourceSha256": "47fea9a78a26a16c26214f182f204b6e6845225c731b9311e21f9bcd236465aa"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 123,
+          "width": 357,
+          "x": 3,
+          "y": 11
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [
+            {
+              "shape": "diamond",
+              "x": 0.01685,
+              "y": 0.95082
+            },
+            {
+              "shape": "diamond",
+              "x": 0.33989,
+              "y": 0.67213
+            },
+            {
+              "shape": "diamond",
+              "x": 0.66292,
+              "y": 0.68033
+            },
+            {
+              "shape": "diamond",
+              "x": 0.98315,
+              "y": 0.04918
+            }
+          ],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.95082
+            },
+            {
+              "x": 0.32865,
+              "y": 0.66803
+            },
+            {
+              "x": 0.66854,
+              "y": 0.68443
+            },
+            {
+              "x": 1.0,
+              "y": 0.04508
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_47fea9a78a26a16c26214f18-0",
+        "label": null,
+        "position": 0
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "line_sequence"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_47fea9a78a26a16c26214f18/column_band_01.jpg",
+        "review-crops/da_47fea9a78a26a16c26214f18/column_band_02.jpg",
+        "review-crops/da_47fea9a78a26a16c26214f18/column_band_03.jpg",
+        "review-crops/da_47fea9a78a26a16c26214f18/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.579",
+      "crop_verification_elapsed_seconds:3.21",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:x轴和y轴的标签、单位、刻度和范围均未在图中明确标出，仅能推断存在两个坐标轴",
+      "non_data_option_sparkline",
+      "foreground_iou:0.790973",
+      "mean_absolute_error:2.222351",
+      "trace_parameters:{\"epsilonRatio\": 0.0007, \"minimumContourArea\": 0.2, \"paletteSize\": 2}",
+      "visual_grammar:line_sequence",
+      "visual_grammar:line_sequence",
+      "converter:semantic-microcharts-v1",
+      "visual_grammar:line_sequence",
+      "comparison_artifact:previews/structured_visual/da_47fea9a78a26a16c26214f18-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

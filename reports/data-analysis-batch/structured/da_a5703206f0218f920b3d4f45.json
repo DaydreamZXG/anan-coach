@@ -1,0 +1,113 @@
+{
+  "asset_id": "da_a5703206f0218f920b3d4f45",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2013年江苏省公务员录用考试《行测》题（A类）_images/img_0134_fece054851b7474b.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（A类）_images/img_0134_fece054851b7474b.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_17647fa0f1451a33cf75",
+        "question_number": 90,
+        "source_jsonl_line": 46235
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（B类）_images/img_0226_fece054851b7474b.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_e5d9aa61b6ebfe2b7a50",
+        "question_number": 150,
+        "source_jsonl_line": 46400
+      }
+    ],
+    "sha256": "a5703206f0218f920b3d4f450c1f644fdad85cb928707a9a066e4d3edef2c59b"
+  },
+  "structured_visual": {
+    "complexity": {
+      "estimatedDrawCommandCount": 3,
+      "expressionLength": 3
+    },
+    "coordinateSpace": {
+      "height": 18,
+      "width": 17
+    },
+    "display": false,
+    "evidence": {
+      "converterVersion": "semantic-formula-v1",
+      "provider": "manual_verified",
+      "renderSha256": "2fd884aa2e2187769015487cf0aa77b8357a94cb7cf4afbddf46d88bbd19b797",
+      "sourceAsset": "da_a5703206f0218f920b3d4f45",
+      "sourceSha256": "a5703206f0218f920b3d4f450c1f644fdad85cb928707a9a066e4d3edef2c59b"
+    },
+    "expression": "V_G",
+    "fallbackText": "Vɢ",
+    "fidelityTier": "semantic_vector",
+    "format": "latex",
+    "kind": "semanticFormula",
+    "layoutType": "single",
+    "schemaVersion": "semantic-formula-v1",
+    "visualGrammar": "formula_expression"
+  },
+  "table": null,
+  "title": "VG",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:1.84",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:图像内容不完整，仅显示部分字符 'VG'，无法识别图表类型和数据结构。",
+      "route_reason:图像显示为数学公式或符号表达式",
+      "route_panel_count:1",
+      "foreground_iou:0.710145",
+      "mean_absolute_error:9.846405",
+      "trace_parameters:{\"epsilonRatio\": 0.006, \"minimumContourArea\": 3.0, \"paletteSize\": 3}",
+      "converter:semantic-formula-v1",
+      "manual_formula_result_reused:no_xfyun_api_call",
+      "comparison_artifact:previews/structured_visual/da_a5703206f0218f920b3d4f45-comparison.png"
+    ],
+    "ocr_engine": "manual_verified_formula",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

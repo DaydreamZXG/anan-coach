@@ -65,7 +65,6 @@ from app.domains.companion.context import (
     _selected_citations,
 )
 from app.domains.companion.model_reply import CompanionModelReply
-from app.domains.companion.memory import CompanionMemoryStore
 from app.domains.companion.provider_context import CompanionProviderContextAssembler
 from app.domains.companion.repository import (
     CompanionRepository,
@@ -244,14 +243,6 @@ class CompanionService:
                     retrieval=retrieval,
                 )
             provider_context = dict(context_bundle.provider_payload)
-            user_memory = CompanionMemoryStore(self._session).active_provider_items(
-                user_id=user_id,
-            )
-            if user_memory:
-                provider_context["userMemory"] = {
-                    "source": "explicit_user",
-                    "items": list(user_memory),
-                }
             provider_request = CompanionProviderContextAssembler(self._ai_provider).prepare(
                 decision=decision,
                 question_text=request.question_text,

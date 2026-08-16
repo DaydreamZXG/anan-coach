@@ -108,7 +108,7 @@ describe("WeChat runtime button layout contracts", () => {
       [reflectionStyles, "button.tag-chip"],
       [positionsStyles, "button.comparison-dock__action"],
       [onboardingStyles, "button.eligibility-primary"],
-      [onboardingEntryStyles, "button.entry-action"],
+      [onboardingEntryStyles, "button.entry-option"],
       [onboardingPreparationStyles, "button.status-card"],
       [onboardingPositionStyles, "button.region-chip"],
       [onboardingStudyStyles, "button.time-step"],

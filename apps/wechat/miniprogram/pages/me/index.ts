@@ -6,6 +6,7 @@ import type {
   AccountSessionView,
   QualificationFact,
   QualificationProfile,
+  TodayDashboard,
   WeeklyStudyPreference,
 } from "../../api/generated/types.gen";
 import { OnboardingApi } from "../../api/onboarding";
@@ -133,6 +134,7 @@ Page({
     weekdayHoursLabel: "待设置",
     weekendHoursLabel: "待设置",
     studyRhythmLabel: "待设置",
+    studyPreferenceHint: "",
     targetPositionLabel: "尚未确认主目标岗位",
     targetPositionDepartmentLabel: "确认岗位后显示招录机关",
     targetPositionStatusLabel: "待确认",
@@ -268,12 +270,13 @@ Page({
     });
     const client = new ApiClient(undefined, token);
     const onboarding = new OnboardingApi(client);
-    const [qualification, progress] = await Promise.allSettled([
+    const [qualification, progress, dashboard] = await Promise.allSettled([
       new QualificationApi(client).getProfile(),
       onboarding.getProgress(),
+      new PlanningApi(client).getToday(),
     ]);
     if (!requestIsCurrent(this, request)) return;
-    const unauthorized = [qualification, progress].some(
+    const unauthorized = [qualification, progress, dashboard].some(
       (result) =>
         result.status === "rejected" &&
         result.reason instanceof ApiClientError &&
@@ -299,53 +302,45 @@ Page({
       });
     }
 
+    if (dashboard.status === "fulfilled") {
+      Object.assign(changes, targetPlanView(dashboard.value.data));
+    } else {
+      const failure = profileContextFailure(dashboard.reason, "目标岗位没同步好，再试一次。");
+      Object.assign(changes, {
+        targetContextStatus: "error",
+        targetContextError: failure.message,
+        targetContextRequestId: failure.requestId,
+      });
+    }
+
     if (progress.status === "rejected") {
-      const failure = profileContextFailure(progress.reason, "建档进度没同步好，再试一次。");
+      const failure = profileContextFailure(progress.reason, "学习偏好状态没同步好，再试一次。");
       Object.assign(changes, {
         studyContextStatus: "error",
         studyContextError: failure.message,
         studyContextRequestId: failure.requestId,
-        targetContextStatus: "error",
-        targetContextError: failure.message,
-        targetContextRequestId: failure.requestId,
       });
       this.setData(changes);
       return;
     }
 
     if (!progress.value.data.studyPreferenceReady) {
-      Object.assign(changes, {
-        studyPreferenceReady: false,
-        studyModeLabel: "待设置",
-        weekdayHoursLabel: "待设置",
-        weekendHoursLabel: "待设置",
-        studyRhythmLabel: "待设置",
-        studyContextStatus: "ready",
-        studyContextError: "",
-        studyContextRequestId: "",
-        targetPositionLabel: "完成学习时间设置后生成目标计划",
-        targetPositionDepartmentLabel: "当前建档尚未完成",
-        targetPositionStatusLabel: "待设置",
-        targetContextStatus: "ready",
-        targetContextError: "",
-        targetContextRequestId: "",
-      });
+      Object.assign(
+        changes,
+        unconfirmedStudyPreferenceView(
+          dashboard.status === "fulfilled" ? dashboard.value.data : null,
+        ),
+      );
       this.setData(changes);
       return;
     }
 
-    const [preference, dashboard] = await Promise.allSettled([
-      onboarding.getStudyPreference(),
-      new PlanningApi(client).getToday(),
-    ]);
+    const [preference] = await Promise.allSettled([onboarding.getStudyPreference()]);
     if (!requestIsCurrent(this, request)) return;
     if (
-      [preference, dashboard].some(
-        (result) =>
-          result.status === "rejected" &&
-          result.reason instanceof ApiClientError &&
-          result.reason.statusCode === 401,
-      )
+      preference.status === "rejected" &&
+      preference.reason instanceof ApiClientError &&
+      preference.reason.statusCode === 401
     ) {
       this.finishLogout();
       return;
@@ -362,26 +357,6 @@ Page({
         studyContextStatus: "error",
         studyContextError: failure.message,
         studyContextRequestId: failure.requestId,
-      });
-    }
-    if (dashboard.status === "fulfilled") {
-      const positionName = dashboard.value.data.goalGap.positionName?.trim();
-      const departmentName = dashboard.value.data.goalGap.departmentName?.trim();
-      Object.assign(changes, {
-        targetPositionLabel: positionName || "尚未确认主目标岗位",
-        targetPositionDepartmentLabel:
-          departmentName || (positionName ? "招录机关待补充" : "确认岗位后显示招录机关"),
-        targetPositionStatusLabel: positionName ? "目标已确认" : "待确认",
-        targetContextStatus: "ready",
-        targetContextError: "",
-        targetContextRequestId: "",
-      });
-    } else {
-      const failure = profileContextFailure(dashboard.reason, "目标岗位没同步好，再试一次。");
-      Object.assign(changes, {
-        targetContextStatus: "error",
-        targetContextError: failure.message,
-        targetContextRequestId: failure.requestId,
       });
     }
     this.setData(changes);
@@ -747,6 +722,7 @@ function resetForSessionChange(page: { setData(patch: Record<string, unknown>): 
     weekdayHoursLabel: "待设置",
     weekendHoursLabel: "待设置",
     studyRhythmLabel: "待设置",
+    studyPreferenceHint: "",
     targetPositionLabel: "尚未确认主目标岗位",
     targetPositionDepartmentLabel: "确认岗位后显示招录机关",
     targetPositionStatusLabel: "待确认",
@@ -792,6 +768,40 @@ function studyPreferenceView(preference: WeeklyStudyPreference) {
     weekdayHoursLabel: hoursLabel(preference.weekdayMinutes),
     weekendHoursLabel: hoursLabel(preference.weekendMinutes),
     studyRhythmLabel: `长块 ${hoursLabel(preference.longBlockMinutes)}`,
+    studyPreferenceHint: "",
+  };
+}
+
+function unconfirmedStudyPreferenceView(dashboard: TodayDashboard | null) {
+  const availableMinutes = dashboard?.capacity.availableMinutes ?? null;
+  return {
+    studyPreferenceReady: false,
+    studyModeLabel: "岸岸暂排",
+    weekdayHoursLabel: "未确认",
+    weekendHoursLabel: "未确认",
+    studyRhythmLabel:
+      availableMinutes === null ? "可随时调整" : `今天 ${minutesLabel(availableMinutes)}`,
+    studyPreferenceHint:
+      availableMinutes === null
+        ? "常用学习时间还没确认；这不会阻止你开始学习。"
+        : `岸岸已先按今天 ${minutesLabel(availableMinutes)}排好任务；确认常用时间后，后续安排会更贴合。`,
+    studyContextStatus: "ready",
+    studyContextError: "",
+    studyContextRequestId: "",
+  };
+}
+
+function targetPlanView(dashboard: TodayDashboard) {
+  const positionName = dashboard.goalGap.positionName?.trim();
+  const departmentName = dashboard.goalGap.departmentName?.trim();
+  return {
+    targetPositionLabel: positionName || "尚未确认主目标岗位",
+    targetPositionDepartmentLabel:
+      departmentName || (positionName ? "招录机关待补充" : "确认岗位后显示招录机关"),
+    targetPositionStatusLabel: positionName ? "目标已确认" : "今日计划已生成 · 岗位待确认",
+    targetContextStatus: "ready",
+    targetContextError: "",
+    targetContextRequestId: "",
   };
 }
 
@@ -817,6 +827,11 @@ function factBoolean(profile: QualificationProfile, key: QualificationKey): bool
 function hoursLabel(minutes: number): string {
   const hours = minutes / 60;
   return `${Number.isInteger(hours) ? String(hours) : hours.toFixed(1)} h`;
+}
+
+function minutesLabel(minutes: number): string {
+  if (minutes < 60) return `${String(minutes)} 分钟`;
+  return hoursLabel(minutes).replace(" h", " 小时");
 }
 
 function studyDayLabel(value: string): string {

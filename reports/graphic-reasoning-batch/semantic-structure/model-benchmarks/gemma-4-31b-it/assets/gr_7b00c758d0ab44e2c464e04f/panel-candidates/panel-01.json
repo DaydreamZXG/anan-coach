@@ -1,0 +1,44 @@
+{
+  "curves": [
+    {
+      "connects": "grid(2,1) to grid(2,2)",
+      "feat": [],
+      "k": "arc",
+      "reg": "bottom_left"
+    }
+  ],
+  "dots": [],
+  "facts": [
+    "A 2x3 grid frame is present",
+    "A diagonal line connects the bottom-middle and bottom-right grid intersections",
+    "An arc connects the bottom-left and bottom-middle grid intersections"
+  ],
+  "frame": {
+    "grid": [
+      2,
+      3
+    ],
+    "k": "grid"
+  },
+  "lines": [
+    {
+      "connects": "grid(2,2) to grid(2,3)",
+      "feat": [],
+      "ori": "diagonal_down",
+      "reg": "center"
+    }
+  ],
+  "opt": null,
+  "p": 1,
+  "role": "stem",
+  "schema": "graphic-reasoning-regular-panel-v1",
+  "shapes": [],
+  "symbols": [],
+  "topo": [
+    2,
+    4,
+    2,
+    0
+  ],
+  "uncertain": []
+}

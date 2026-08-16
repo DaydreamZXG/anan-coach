@@ -1,0 +1,249 @@
+{
+  "asset_id": "da_58d0e5e9850ef0f41831b7d0",
+  "axes": {
+    "x": {
+      "max": 2018,
+      "min": 2013,
+      "ticks": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 60,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60
+        ],
+        "title": "收入规模",
+        "unit": "亿元"
+      },
+      {
+        "max": 120,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100,
+          120
+        ],
+        "title": "增速",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "收入规模（亿元）",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "增速（%）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "收入规模（亿元）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        4.3,
+        8.8,
+        18.8,
+        36.4,
+        47.7,
+        null
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "增速（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        105,
+        114,
+        null,
+        94,
+        31,
+        60
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/甘肃/2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0205_250b909b776bb31f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0205_250b909b776bb31f.png",
+        "paper_title": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_516352b7c14a61d8cf9d",
+        "question_number": 111,
+        "source_jsonl_line": 75326
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0205_250b909b776bb31f.png",
+        "paper_title": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_aabbd71289883c9e4d63",
+        "question_number": 112,
+        "source_jsonl_line": 75327
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0205_250b909b776bb31f.png",
+        "paper_title": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f259b2648acce1c0e2a3",
+        "question_number": 113,
+        "source_jsonl_line": 75328
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0228_62f4bbc24a291033.png",
+        "paper_title": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_05de562d56010296a99f",
+        "question_number": 114,
+        "source_jsonl_line": 75329
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0205_250b909b776bb31f.png",
+        "paper_title": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9ab6d42168d81be1602f",
+        "question_number": 115,
+        "source_jsonl_line": 75330
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0228_62f4bbc24a291033.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_90d0ace47ca69916e17a",
+        "question_number": 106,
+        "source_jsonl_line": 94729
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0237_250b909b776bb31f.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_8e2ccd57293066d55851",
+        "question_number": 107,
+        "source_jsonl_line": 94730
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0237_250b909b776bb31f.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_29baaf7877382ac8f562",
+        "question_number": 108,
+        "source_jsonl_line": 94731
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0228_62f4bbc24a291033.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_65fd6163e3408567ff0f",
+        "question_number": 109,
+        "source_jsonl_line": 94732
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0228_62f4bbc24a291033.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_81fd48cede276ee3b700",
+        "question_number": 110,
+        "source_jsonl_line": 94733
+      }
+    ],
+    "sha256": "58d0e5e9850ef0f41831b7d054872091a0a6ab1ac1a976e2dba8ee6e01427070"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013～2018年中国数字音乐市场收入规模及增速",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_58d0e5e9850ef0f41831b7d0/column_band_01.jpg",
+        "review-crops/da_58d0e5e9850ef0f41831b7d0/column_band_02.jpg",
+        "review-crops/da_58d0e5e9850ef0f41831b7d0/column_band_03.jpg",
+        "review-crops/da_58d0e5e9850ef0f41831b7d0/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.328",
+      "crop_verification_elapsed_seconds:3.402",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:2015年增速数据缺失，无法确定",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

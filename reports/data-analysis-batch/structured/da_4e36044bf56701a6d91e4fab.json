@@ -1,0 +1,393 @@
+{
+  "asset_id": "da_4e36044bf56701a6d91e4fab",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2008年江苏省公务员录用考试《行测》题（C类）_images/img_0145_b544d002089968f8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（C类）_images/img_0145_b544d002089968f8.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_ef976bd063127d5a5070",
+        "question_number": 86,
+        "source_jsonl_line": 44716
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（C类）_images/img_0142_40e49a23da77da8d.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_6b064b5e8f3a77d8caa0",
+        "question_number": 87,
+        "source_jsonl_line": 44717
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（C类）_images/img_0142_40e49a23da77da8d.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_cfa0dc5153f755c07152",
+        "question_number": 88,
+        "source_jsonl_line": 44718
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（C类）_images/img_0142_40e49a23da77da8d.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_fd5b72267198699984ed",
+        "question_number": 89,
+        "source_jsonl_line": 44719
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（C类）_images/img_0145_b544d002089968f8.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_26dcee2ee6a8b8651b3b",
+        "question_number": 90,
+        "source_jsonl_line": 44720
+      }
+    ],
+    "sha256": "4e36044bf56701a6d91e4fabe00e24319623e9bf7827d18e557ff8b196e88fb8"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "诊疗人次（亿次）｜合计",
+          "诊疗人次（亿次）｜医院",
+          "诊疗人次（亿次）｜卫生院"
+        ],
+        "label": "诊疗人次（亿次）"
+      },
+      {
+        "columns": [
+          "入院人数（万人）｜合计",
+          "入院人数（万人）｜医院",
+          "入院人数（万人）｜卫生院"
+        ],
+        "label": "入院人数（万人）"
+      }
+    ],
+    "columns": [
+      "诊疗人次（亿次）｜合计",
+      "诊疗人次（亿次）｜医院",
+      "诊疗人次（亿次）｜卫生院",
+      "入院人数（万人）｜合计",
+      "入院人数（万人）｜医院",
+      "入院人数（万人）｜卫生院"
+    ],
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "诊疗人次（亿次）｜卫生院",
+        "display": "...",
+        "row": "1980"
+      },
+      {
+        "column": "入院人数（万人）｜卫生院",
+        "display": "...",
+        "row": "1980"
+      }
+    ],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "display_label": "1980",
+        "group": null,
+        "label": "1980",
+        "unit": null,
+        "values": [
+          25.53,
+          10.53,
+          null,
+          2247,
+          2247,
+          null
+        ]
+      },
+      {
+        "display_label": "1985",
+        "group": null,
+        "label": "1985",
+        "unit": null,
+        "values": [
+          24.11,
+          13.11,
+          11.0,
+          4331,
+          2560,
+          1771
+        ]
+      },
+      {
+        "display_label": "1990",
+        "group": null,
+        "label": "1990",
+        "unit": null,
+        "values": [
+          25.59,
+          14.94,
+          10.65,
+          5140,
+          3182,
+          1958
+        ]
+      },
+      {
+        "display_label": "1991",
+        "group": null,
+        "label": "1991",
+        "unit": null,
+        "values": [
+          26.14,
+          15.32,
+          10.82,
+          5292,
+          3276,
+          2016
+        ]
+      },
+      {
+        "display_label": "1992",
+        "group": null,
+        "label": "1992",
+        "unit": null,
+        "values": [
+          25.69,
+          15.35,
+          10.34,
+          5222,
+          3262,
+          1960
+        ]
+      },
+      {
+        "display_label": "1993",
+        "group": null,
+        "label": "1993",
+        "unit": null,
+        "values": [
+          22.05,
+          13.07,
+          8.98,
+          4921,
+          3066,
+          1855
+        ]
+      },
+      {
+        "display_label": "1994",
+        "group": null,
+        "label": "1994",
+        "unit": null,
+        "values": [
+          22.42,
+          12.69,
+          9.73,
+          4992,
+          3079,
+          1913
+        ]
+      },
+      {
+        "display_label": "1995",
+        "group": null,
+        "label": "1995",
+        "unit": null,
+        "values": [
+          21.9,
+          12.52,
+          9.38,
+          5033,
+          3073,
+          1960
+        ]
+      },
+      {
+        "display_label": "1996",
+        "group": null,
+        "label": "1996",
+        "unit": null,
+        "values": [
+          22.39,
+          12.81,
+          9.58,
+          5023,
+          3100,
+          1923
+        ]
+      },
+      {
+        "display_label": "1997",
+        "group": null,
+        "label": "1997",
+        "unit": null,
+        "values": [
+          21.57,
+          12.27,
+          9.3,
+          5044,
+          3121,
+          1923
+        ]
+      },
+      {
+        "display_label": "1998",
+        "group": null,
+        "label": "1998",
+        "unit": null,
+        "values": [
+          21.25,
+          12.39,
+          8.86,
+          4995,
+          3238,
+          1759
+        ]
+      },
+      {
+        "display_label": "1999",
+        "group": null,
+        "label": "1999",
+        "unit": null,
+        "values": [
+          20.82,
+          12.31,
+          8.51,
+          5073,
+          3379,
+          1694
+        ]
+      },
+      {
+        "display_label": "2000",
+        "group": null,
+        "label": "2000",
+        "unit": null,
+        "values": [
+          21.23,
+          12.86,
+          8.37,
+          5297,
+          3584,
+          1713
+        ]
+      },
+      {
+        "display_label": "2001",
+        "group": null,
+        "label": "2001",
+        "unit": null,
+        "values": [
+          20.87,
+          12.5,
+          8.37,
+          5464,
+          3759,
+          1705
+        ]
+      },
+      {
+        "display_label": "2002",
+        "group": null,
+        "label": "2002",
+        "unit": null,
+        "values": [
+          21.45,
+          12.43,
+          7.3,
+          5991,
+          3997,
+          1654
+        ]
+      },
+      {
+        "display_label": "2003",
+        "group": null,
+        "label": "2003",
+        "unit": null,
+        "values": [
+          20.96,
+          12.13,
+          7.1,
+          6092,
+          4159,
+          1626
+        ]
+      },
+      {
+        "display_label": "2004",
+        "group": null,
+        "label": "2004",
+        "unit": null,
+        "values": [
+          22.03,
+          13.05,
+          7.03,
+          6876,
+          4673,
+          1621
+        ]
+      },
+      {
+        "display_label": "2005",
+        "group": null,
+        "label": "2005",
+        "unit": null,
+        "values": [
+          23.05,
+          13.87,
+          6.99,
+          7184,
+          5108,
+          1641
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

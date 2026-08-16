@@ -1,0 +1,378 @@
+{
+  "asset_id": "da_f2cf58221fedfd5fa29b1ec6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 19,
+        "min": -3,
+        "ticks": [],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1-2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "line",
+  "confidence": 0.97,
+  "legend": [
+    {
+      "label": "工业增加值",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": "circle",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "大型企业",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": "circle",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "中型企业",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": "circle",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "小微型企业",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": "circle",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "工业增加值",
+      "render_as": "line",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": "circle",
+        "stroke": "#000000"
+      },
+      "unit": "%",
+      "values": [
+        2.9,
+        7.7,
+        5.6,
+        4.1,
+        6.3,
+        7.1,
+        6.8,
+        7.1,
+        10.2,
+        10.8,
+        10.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "大型企业",
+      "render_as": "line",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": "circle",
+        "stroke": "#000000"
+      },
+      "unit": "%",
+      "values": [
+        5.7,
+        4.8,
+        -1.0,
+        2.8,
+        6.3,
+        8.2,
+        8.9,
+        9.7,
+        16.4,
+        16.9,
+        14.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "中型企业",
+      "render_as": "line",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": "circle",
+        "stroke": "#000000"
+      },
+      "unit": "%",
+      "values": [
+        2.1,
+        10.6,
+        10.3,
+        5.5,
+        6.6,
+        5.6,
+        6.2,
+        6.3,
+        8.9,
+        7.8,
+        9.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "小微型企业",
+      "render_as": "line",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": "circle",
+        "stroke": "#000000"
+      },
+      "unit": "%",
+      "values": [
+        1.4,
+        7.7,
+        7.3,
+        3.8,
+        6.1,
+        7.5,
+        5.8,
+        6.0,
+        7.4,
+        9.2,
+        8.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2014年412联考《行测》题（安徽卷）_images/img_0148_2b092e5d1900eeea.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（安徽卷）_images/img_0148_2b092e5d1900eeea.png",
+        "paper_title": "2014年412联考《行测》题（安徽卷）",
+        "question_id": "pq_7fd0518235b96df4104f",
+        "question_number": 101,
+        "source_jsonl_line": 27415
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（安徽卷）_images/img_0096_aae429f85df9aace.png",
+        "paper_title": "2014年412联考《行测》题（安徽卷）",
+        "question_id": "pq_f2ca2cc3c52a1d0da994",
+        "question_number": 102,
+        "source_jsonl_line": 27416
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（安徽卷）_images/img_0096_aae429f85df9aace.png",
+        "paper_title": "2014年412联考《行测》题（安徽卷）",
+        "question_id": "pq_2d7bdb42af1b7d9ae6ed",
+        "question_number": 103,
+        "source_jsonl_line": 27417
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（安徽卷）_images/img_0148_2b092e5d1900eeea.png",
+        "paper_title": "2014年412联考《行测》题（安徽卷）",
+        "question_id": "pq_c73989c2206250103934",
+        "question_number": 104,
+        "source_jsonl_line": 27418
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（安徽卷）_images/img_0096_aae429f85df9aace.png",
+        "paper_title": "2014年412联考《行测》题（安徽卷）",
+        "question_id": "pq_450565169bb8b489f361",
+        "question_number": 105,
+        "source_jsonl_line": 27419
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（广西卷）_images/img_0072_2b092e5d1900eeea.png",
+        "paper_title": "2014年412联考《行测》题（广西卷）",
+        "question_id": "pq_0216e32d310fb1414e2f",
+        "question_number": 106,
+        "source_jsonl_line": 38552
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（广西卷）_images/img_0072_2b092e5d1900eeea.png",
+        "paper_title": "2014年412联考《行测》题（广西卷）",
+        "question_id": "pq_60aa332562c99050e08e",
+        "question_number": 107,
+        "source_jsonl_line": 38553
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（广西卷）_images/img_0080_aae429f85df9aace.png",
+        "paper_title": "2014年412联考《行测》题（广西卷）",
+        "question_id": "pq_6555022815591258e5b9",
+        "question_number": 108,
+        "source_jsonl_line": 38554
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（广西卷）_images/img_0080_aae429f85df9aace.png",
+        "paper_title": "2014年412联考《行测》题（广西卷）",
+        "question_id": "pq_810610e73195c040450b",
+        "question_number": 109,
+        "source_jsonl_line": 38555
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（广西卷）_images/img_0072_2b092e5d1900eeea.png",
+        "paper_title": "2014年412联考《行测》题（广西卷）",
+        "question_id": "pq_8f11c23b4ce636d4cfa1",
+        "question_number": 110,
+        "source_jsonl_line": 38556
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（江西卷）_images/img_0127_aae429f85df9aace.png",
+        "paper_title": "2014年412联考《行测》题（江西卷）",
+        "question_id": "pq_14f0a739aa006a16d2e2",
+        "question_number": 96,
+        "source_jsonl_line": 51870
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（江西卷）_images/img_0127_aae429f85df9aace.png",
+        "paper_title": "2014年412联考《行测》题（江西卷）",
+        "question_id": "pq_7a997017d3fa20573d38",
+        "question_number": 97,
+        "source_jsonl_line": 51871
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（江西卷）_images/img_0127_aae429f85df9aace.png",
+        "paper_title": "2014年412联考《行测》题（江西卷）",
+        "question_id": "pq_55f6f0e7b0416e611dee",
+        "question_number": 98,
+        "source_jsonl_line": 51872
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（江西卷）_images/img_0127_aae429f85df9aace.png",
+        "paper_title": "2014年412联考《行测》题（江西卷）",
+        "question_id": "pq_2b4f7e469881fc3cbbd6",
+        "question_number": 99,
+        "source_jsonl_line": 51873
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年412联考《行测》题（江西卷）_images/img_0127_aae429f85df9aace.png",
+        "paper_title": "2014年412联考《行测》题（江西卷）",
+        "question_id": "pq_5b242a76b2490d9c8e6d",
+        "question_number": 100,
+        "source_jsonl_line": 51874
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省选调生选拔考试 《行政职业能力测验》试卷（精选）_images/img_0099_aae429f85df9aace.png",
+        "paper_title": "2014年河南省选调生选拔考试 《行政职业能力测验》试卷（精选）",
+        "question_id": "pq_648c8b508ce9992f957c",
+        "question_number": 106,
+        "source_jsonl_line": 57843
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省选调生选拔考试 《行政职业能力测验》试卷（精选）_images/img_0100_2b092e5d1900eeea.png",
+        "paper_title": "2014年河南省选调生选拔考试 《行政职业能力测验》试卷（精选）",
+        "question_id": "pq_33ef3b89092a4b867b32",
+        "question_number": 107,
+        "source_jsonl_line": 57844
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省选调生选拔考试 《行政职业能力测验》试卷（精选）_images/img_0100_2b092e5d1900eeea.png",
+        "paper_title": "2014年河南省选调生选拔考试 《行政职业能力测验》试卷（精选）",
+        "question_id": "pq_908a0fa796ac31002682",
+        "question_number": 108,
+        "source_jsonl_line": 57845
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省选调生选拔考试 《行政职业能力测验》试卷（精选）_images/img_0099_aae429f85df9aace.png",
+        "paper_title": "2014年河南省选调生选拔考试 《行政职业能力测验》试卷（精选）",
+        "question_id": "pq_75e172ef33638cfa18ca",
+        "question_number": 109,
+        "source_jsonl_line": 57846
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省选调生选拔考试 《行政职业能力测验》试卷（精选）_images/img_0099_aae429f85df9aace.png",
+        "paper_title": "2014年河南省选调生选拔考试 《行政职业能力测验》试卷（精选）",
+        "question_id": "pq_095a369ff80d96c64949",
+        "question_number": 110,
+        "source_jsonl_line": 57847
+      }
+    ],
+    "sha256": "f2cf58221fedfd5fa29b1ec66f36cb80c71e4d9c77cdf9321420585829e31054"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2012年某省规模以上工业增加值同比增速情况",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.21",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "compact_series_extraction_after_full_schema_truncation"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b_compact_line_values",
+    "ocr_mean_confidence": 0.97,
+    "schema_valid": true
+  }
+}

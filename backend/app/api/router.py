@@ -60,6 +60,7 @@ from app.domains.retake.router import router as retake_router
 from app.domains.taskstream.router import router as taskstream_router
 from app.domains.task_help.router import router as task_help_router
 from app.domains.task_editing.router import router as task_editing_router
+from app.domains.teach_back_runtime.router import router as teach_back_runtime_router
 from app.domains.xingce_learning.briefing.router import router as xingce_briefing_router
 from app.domains.xfyun.router import router as xfyun_router
 from app.internal_services.router import router as internal_services_router
@@ -100,6 +101,7 @@ router.include_router(positions_router)
 router.include_router(taskstream_router)
 router.include_router(task_help_router)
 router.include_router(task_editing_router)
+router.include_router(teach_back_runtime_router)
 router.include_router(xingce_briefing_router)
 router.include_router(xfyun_router)
 router.include_router(practice_router)

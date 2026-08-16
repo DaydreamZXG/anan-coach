@@ -19,6 +19,7 @@ from app.domains.task_content.service import (
     validate_learner_question,
 )
 from app.domains.task_runtime.xingce_attempt.contracts import (
+    XINGCE_DATA_ANALYSIS_GROUP_SIZE,
     XINGCE_SELECTION_RESULT_V1,
     selection_intent_fingerprint,
     validate_selection_intent,
@@ -30,7 +31,6 @@ _MAX_QUESTION_CANDIDATE_BATCH_SIZE = 96
 _QUESTION_SELECTION_SALT = "xingce-question-selection@v1"
 _QUESTION_SELECTION_LOCK_NAMESPACE = "xingce-question-selection"
 _DATA_ANALYSIS_MODULE = "资料分析"
-_DATA_ANALYSIS_GROUP_SIZE = 5
 
 
 @dataclass(frozen=True)
@@ -610,9 +610,9 @@ class XingceQuestionRepository:
         data_analysis_only = canonical_modules == (_DATA_ANALYSIS_MODULE,)
         effective_limit = (
             max(
-                _DATA_ANALYSIS_GROUP_SIZE,
-                ((limit + _DATA_ANALYSIS_GROUP_SIZE - 1) // _DATA_ANALYSIS_GROUP_SIZE)
-                * _DATA_ANALYSIS_GROUP_SIZE,
+                XINGCE_DATA_ANALYSIS_GROUP_SIZE,
+                ((limit + XINGCE_DATA_ANALYSIS_GROUP_SIZE - 1) // XINGCE_DATA_ANALYSIS_GROUP_SIZE)
+                * XINGCE_DATA_ANALYSIS_GROUP_SIZE,
             )
             if data_analysis_only
             else limit
@@ -840,7 +840,7 @@ class XingceQuestionRepository:
         """
 
         seed_ids = [str(item["question_id"]) for item in seed_questions]
-        if not seed_ids or limit < _DATA_ANALYSIS_GROUP_SIZE:
+        if not seed_ids or limit < XINGCE_DATA_ANALYSIS_GROUP_SIZE:
             return []
         rows = session.execute(
             text(
@@ -1028,9 +1028,9 @@ class XingceQuestionRepository:
         selected: list[dict[str, Any]] = []
         for key in group_order:
             group = groups[key]
-            if len(group) != _DATA_ANALYSIS_GROUP_SIZE:
+            if len(group) != XINGCE_DATA_ANALYSIS_GROUP_SIZE:
                 continue
-            if len(selected) + _DATA_ANALYSIS_GROUP_SIZE > limit:
+            if len(selected) + XINGCE_DATA_ANALYSIS_GROUP_SIZE > limit:
                 break
             selected.extend(group)
             if len(selected) == limit:

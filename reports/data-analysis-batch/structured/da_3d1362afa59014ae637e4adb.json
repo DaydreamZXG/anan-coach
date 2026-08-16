@@ -1,0 +1,332 @@
+{
+  "asset_id": "da_3d1362afa59014ae637e4adb",
+  "axes": {
+    "x": {
+      "max": 10,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1800,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000,
+          1200,
+          1400,
+          1600,
+          1800
+        ],
+        "title": null,
+        "unit": "万吨"
+      },
+      {
+        "max": 1000,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2016年一季度",
+    "2016年二季度",
+    "2016年三季度",
+    "2016年四季度",
+    "2017年一季度",
+    "2017年二季度",
+    "2017年三季度",
+    "2017年四季度",
+    "2018年一季度",
+    "2018年二季度",
+    "2018年三季度",
+    "2018年四季度"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "硫酸",
+      "style": {
+        "dash": "solid",
+        "fill": "#000000",
+        "marker": "circle",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "烧碱",
+      "style": {
+        "dash": "solid",
+        "fill": "#000000",
+        "marker": "circle",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "纯碱",
+      "style": {
+        "dash": "solid",
+        "fill": "#000000",
+        "marker": "circle",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "乙烯",
+      "style": {
+        "dash": "dotted",
+        "fill": "#000000",
+        "marker": "circle",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "硫酸",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        1439,
+        1438,
+        1420,
+        1553,
+        1437,
+        1480,
+        1470,
+        1229,
+        1284,
+        1357,
+        1289,
+        1566
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "烧碱",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        677,
+        736,
+        678,
+        727,
+        785,
+        776,
+        783,
+        699,
+        761,
+        774,
+        747,
+        877
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "纯碱",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        595,
+        646,
+        640,
+        680,
+        594,
+        715,
+        660,
+        603,
+        653,
+        627,
+        671,
+        700
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "乙烯",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        36,
+        42,
+        41,
+        41,
+        36,
+        40,
+        44,
+        24,
+        32,
+        34,
+        36,
+        27
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0475_1da818c01f5f542d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0475_1da818c01f5f542d.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_3423a07d9a8e23465256",
+        "question_number": 131,
+        "source_jsonl_line": 48441
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0474_114c81e0e5dafc85.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_3bfe5017efe00f521fcf",
+        "question_number": 132,
+        "source_jsonl_line": 48442
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0474_114c81e0e5dafc85.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_8762260e767d451c8826",
+        "question_number": 133,
+        "source_jsonl_line": 48443
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0475_1da818c01f5f542d.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_393f2235c49ed0ee149d",
+        "question_number": 134,
+        "source_jsonl_line": 48444
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0474_114c81e0e5dafc85.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_c4841975a4c32c10a7f1",
+        "question_number": 135,
+        "source_jsonl_line": 48445
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0230_1da818c01f5f542d.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_fbfdc3ae2acd1d002a69",
+        "question_number": 111,
+        "source_jsonl_line": 48691
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0230_1da818c01f5f542d.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_9775e5c2ecbea3a17b29",
+        "question_number": 112,
+        "source_jsonl_line": 48692
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0233_114c81e0e5dafc85.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_df1c857fdf57db86889e",
+        "question_number": 113,
+        "source_jsonl_line": 48693
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0233_114c81e0e5dafc85.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_dc9a50e2f4027e277442",
+        "question_number": 114,
+        "source_jsonl_line": 48694
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0230_1da818c01f5f542d.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_90dfad03060e93bc1e24",
+        "question_number": 115,
+        "source_jsonl_line": 48695
+      }
+    ],
+    "sha256": "3d1362afa59014ae637e4adb458c52c8cfabe74a7fb9b2d452cbb0172b98e0a2"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2016年一季度至2018年四季度我国硫酸、烧碱、纯碱和乙烯产量情况",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3d1362afa59014ae637e4adb/column_band_01.jpg",
+        "review-crops/da_3d1362afa59014ae637e4adb/column_band_02.jpg",
+        "review-crops/da_3d1362afa59014ae637e4adb/column_band_03.jpg",
+        "review-crops/da_3d1362afa59014ae637e4adb/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.707",
+      "crop_verification_elapsed_seconds:7.897",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,263 @@
+{
+  "asset_id": "da_9279d92d7cad2dbefd1b3233",
+  "axes": {
+    "x": {
+      "max": 2018,
+      "min": 2010,
+      "ticks": [
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 180000,
+        "min": 0,
+        "ticks": [
+          0,
+          20000,
+          40000,
+          60000,
+          80000,
+          100000,
+          120000,
+          140000,
+          160000,
+          180000
+        ],
+        "title": null,
+        "unit": "（人）"
+      },
+      {
+        "max": 12000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000,
+          12000
+        ],
+        "title": null,
+        "unit": "（个）"
+      }
+    ]
+  },
+  "categories": [
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "从业人员数",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "机构数",
+      "style": {
+        "dash": "dot",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "从业人员数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "（人）",
+      "values": [
+        102471,
+        111338,
+        125155,
+        137173,
+        148095,
+        146098,
+        151430,
+        161500,
+        162600
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "机构数",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "（个）",
+      "values": [
+        5207,
+        5728,
+        6124,
+        7737,
+        8421,
+        8676,
+        8954,
+        9931,
+        10160
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0394_dcc8d25bd35a8e8a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0394_dcc8d25bd35a8e8a.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_9f72576426fe00308695",
+        "question_number": 131,
+        "source_jsonl_line": 48976
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0400_1a30770739e2cfbc.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_08b6eecaf47d00a23359",
+        "question_number": 132,
+        "source_jsonl_line": 48977
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0400_1a30770739e2cfbc.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_8264cf69a2cae7c1a203",
+        "question_number": 133,
+        "source_jsonl_line": 48978
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0400_1a30770739e2cfbc.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_81a5e1020957ebe5196a",
+        "question_number": 134,
+        "source_jsonl_line": 48979
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0400_1a30770739e2cfbc.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_692e0b796427fd30465a",
+        "question_number": 135,
+        "source_jsonl_line": 48980
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0382_1a30770739e2cfbc.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_3653cf4efb4fb96fa390",
+        "question_number": 126,
+        "source_jsonl_line": 49106
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0382_1a30770739e2cfbc.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_f97a1918013a8171c795",
+        "question_number": 127,
+        "source_jsonl_line": 49107
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0382_1a30770739e2cfbc.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_d6976a0dd1d265ad4f37",
+        "question_number": 128,
+        "source_jsonl_line": 49108
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0382_1a30770739e2cfbc.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_2d70997177d38b9f7456",
+        "question_number": 129,
+        "source_jsonl_line": 49109
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0406_dcc8d25bd35a8e8a.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_1c94cb79a9c9a3b3f423",
+        "question_number": 130,
+        "source_jsonl_line": 49110
+      }
+    ],
+    "sha256": "9279d92d7cad2dbefd1b3233e344970c90da632eaa6e9f9a79611df62af1fa3c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9279d92d7cad2dbefd1b3233/column_band_01.jpg",
+        "review-crops/da_9279d92d7cad2dbefd1b3233/column_band_02.jpg",
+        "review-crops/da_9279d92d7cad2dbefd1b3233/column_band_03.jpg",
+        "review-crops/da_9279d92d7cad2dbefd1b3233/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.84",
+      "crop_verification_elapsed_seconds:5.205",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

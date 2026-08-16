@@ -1,0 +1,210 @@
+{
+  "asset_id": "da_1cdaa88588e606880162aa06",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0106_834ec42fc0ca12e1.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0106_834ec42fc0ca12e1.png",
+        "paper_title": "2025年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_668f2ce5a0dbe2d84d04",
+        "question_number": 100,
+        "source_jsonl_line": 6184
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0177_5141a2cf0b27f31b.png",
+        "paper_title": "2025年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b42ba9cf57c5dbdf5704",
+        "question_number": 119,
+        "source_jsonl_line": 26489
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0143_834ec42fc0ca12e1.png",
+        "paper_title": "2025年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_007fb5e66278d297ccf3",
+        "question_number": 105,
+        "source_jsonl_line": 39901
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0136_834ec42fc0ca12e1.png",
+        "paper_title": "2025年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_51c89c0208c645955162",
+        "question_number": 110,
+        "source_jsonl_line": 59407
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0128_834ec42fc0ca12e1.png",
+        "paper_title": "2025年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b9f60b7de7e3e9e6015e",
+        "question_number": 100,
+        "source_jsonl_line": 66746
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0111_834ec42fc0ca12e1.png",
+        "paper_title": "2025年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bee4654f7c7f7b940c80",
+        "question_number": 110,
+        "source_jsonl_line": 76045
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年福建省公务员录用考试《行测》题（网友回忆版）_images/img_0140_834ec42fc0ca12e1.png",
+        "paper_title": "2025年福建省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_465dc5e46e55b8c6b0a0",
+        "question_number": 110,
+        "source_jsonl_line": 79189
+      }
+    ],
+    "sha256": "1cdaa88588e606880162aa068276310cdedada29466737070375dbb680f810bd"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 0,
+      "estimatedDrawCommandCount": 3,
+      "panelCount": 1,
+      "pointCount": 3
+    },
+    "coordinateSpace": {
+      "height": 140,
+      "width": 240
+    },
+    "evidence": {
+      "converterVersion": "semantic-microcharts-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "6b112500148a7cf64e0def26e55d2ec63bbe3c810f0d168b73215257c84a337f",
+      "sourceAsset": "da_1cdaa88588e606880162aa06",
+      "sourceSha256": "1cdaa88588e606880162aa068276310cdedada29466737070375dbb680f810bd"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 121,
+          "width": 219,
+          "x": 10,
+          "y": 11
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [
+            {
+              "shape": "diamond",
+              "x": 0.01835,
+              "y": 0.61667
+            },
+            {
+              "shape": "circle",
+              "x": 0.5,
+              "y": 0.95833
+            },
+            {
+              "shape": "circle",
+              "x": 0.98165,
+              "y": 0.04167
+            }
+          ],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.61667
+            },
+            {
+              "x": 0.50917,
+              "y": 0.95833
+            },
+            {
+              "x": 1.0,
+              "y": 0.0375
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_1cdaa88588e606880162aa06-0",
+        "label": null,
+        "position": 0
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "line_sequence"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1cdaa88588e606880162aa06/column_band_01.jpg",
+        "review-crops/da_1cdaa88588e606880162aa06/column_band_02.jpg",
+        "review-crops/da_1cdaa88588e606880162aa06/column_band_03.jpg",
+        "review-crops/da_1cdaa88588e606880162aa06/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.79",
+      "crop_verification_elapsed_seconds:3.737",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:X轴和Y轴的标签、单位、刻度和范围均未在图中明确标出，无法确定",
+      "model_uncertainty:数据点的具体数值无法从图中读取，仅能推断其相对趋势",
+      "non_data_option_sparkline",
+      "foreground_iou:0.827068",
+      "mean_absolute_error:1.823036",
+      "trace_parameters:{\"epsilonRatio\": 0.0007, \"minimumContourArea\": 0.2, \"paletteSize\": 2}",
+      "visual_grammar:line_sequence",
+      "visual_grammar:line_sequence",
+      "converter:semantic-microcharts-v1",
+      "visual_grammar:line_sequence",
+      "comparison_artifact:previews/structured_visual/da_1cdaa88588e606880162aa06-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

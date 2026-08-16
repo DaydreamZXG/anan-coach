@@ -1,0 +1,132 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "进口额(亿美元)",
+          "同比增长"
+        ],
+        "label": "进口"
+      },
+      {
+        "columns": [
+          "出口额(亿美元)",
+          "同比增长"
+        ],
+        "label": "出口"
+      }
+    ],
+    "columns": [
+      "进口额(亿美元)",
+      "同比增长",
+      "出口额(亿美元)",
+      "同比增长"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别",
+    "rows": [
+      {
+        "display_label": "谷物",
+        "group": null,
+        "label": "谷物",
+        "unit": null,
+        "values": [
+          33.9,
+          25.2,
+          5.5,
+          -7.0
+        ]
+      },
+      {
+        "display_label": "食用蔬菜",
+        "group": null,
+        "label": "食用蔬菜",
+        "unit": null,
+        "values": [
+          9.6,
+          4.0,
+          44.9,
+          -4.8
+        ]
+      },
+      {
+        "display_label": "禽类产品",
+        "group": null,
+        "label": "禽类产品",
+        "unit": null,
+        "values": [
+          17.0,
+          66.0,
+          11.7,
+          -24.5
+        ]
+      },
+      {
+        "display_label": "畜类产品",
+        "group": null,
+        "label": "畜类产品",
+        "unit": null,
+        "values": [
+          222.0,
+          43.2,
+          12.4,
+          -16.6
+        ]
+      },
+      {
+        "display_label": "水、海产品",
+        "group": null,
+        "label": "水、海产品",
+        "unit": null,
+        "values": [
+          65.8,
+          -6.4,
+          48.7,
+          -19.6
+        ]
+      },
+      {
+        "display_label": "饮料、酒及醋",
+        "group": null,
+        "label": "饮料、酒及醋",
+        "unit": null,
+        "values": [
+          21.3,
+          -23.9,
+          10.1,
+          3.3
+        ]
+      },
+      {
+        "display_label": "食用水果及坚果",
+        "group": null,
+        "label": "食用水果及坚果",
+        "unit": null,
+        "values": [
+          68.0,
+          10.2,
+          22.9,
+          24.4
+        ]
+      },
+      {
+        "display_label": "咖啡、茶、马黛茶及调味香料",
+        "group": null,
+        "label": "咖啡、茶、马黛茶及调味香料",
+        "unit": null,
+        "values": [
+          5.3,
+          20.1,
+          20.4,
+          15.5
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

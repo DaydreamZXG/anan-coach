@@ -1,0 +1,157 @@
+{
+  "asset_id": "da_15bd2f59b683082602442ff6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2026年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0112_83bb9d5dd2e7989e.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0112_83bb9d5dd2e7989e.png",
+        "paper_title": "2026年四川省考/选调公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_e4bbc264d2d19307dd95",
+        "question_number": 95,
+        "source_jsonl_line": 17110
+      }
+    ],
+    "sha256": "15bd2f59b683082602442ff6d3221cac1837ca7bf38db98a478fe9e6fe205e74"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 4,
+      "estimatedDrawCommandCount": 8,
+      "panelCount": 1,
+      "pointCount": 0
+    },
+    "coordinateSpace": {
+      "height": 319,
+      "width": 600
+    },
+    "evidence": {
+      "converterVersion": "hand-annotated-semantic-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "6145213a38df185e65020907672d363254bcb91696bf954b9b3acf0d63b4d879",
+      "sourceAsset": "da_15bd2f59b683082602442ff6",
+      "sourceSha256": "15bd2f59b683082602442ff6d3221cac1837ca7bf38db98a478fe9e6fe205e74"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 319,
+          "width": 600,
+          "x": 0,
+          "y": 0
+        },
+        "chart": {
+          "bars": [
+            {
+              "value": 0.15079,
+              "width": 0.14524,
+              "x": 0.07846
+            },
+            {
+              "value": -0.65079,
+              "width": 0.14691,
+              "x": 0.31052
+            },
+            {
+              "value": 1.0,
+              "width": 0.15025,
+              "x": 0.54424
+            },
+            {
+              "value": 0.62698,
+              "width": 0.14524,
+              "x": 0.77963
+            }
+          ],
+          "baseline": 0.56289,
+          "baselineEnd": 0.97663,
+          "baselineStart": 0.02003,
+          "type": "signedBar",
+          "verticalAxisX": 0.02003
+        },
+        "id": "da_15bd2f59b683082602442ff6-0",
+        "label": null,
+        "position": 0
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "signed_bar"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_15bd2f59b683082602442ff6/column_band_01.jpg",
+        "review-crops/da_15bd2f59b683082602442ff6/column_band_02.jpg",
+        "review-crops/da_15bd2f59b683082602442ff6/column_band_03.jpg",
+        "review-crops/da_15bd2f59b683082602442ff6/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:1.903",
+      "crop_verification_elapsed_seconds:2.568",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:无法从图像中提取明确的坐标轴标签和刻度",
+      "model_uncertainty:无法确定分类和系列的标签",
+      "model_uncertainty:无法确定数值的具体值",
+      "non_data_option_sparkline",
+      "foreground_iou:0.844279",
+      "mean_absolute_error:2.717069",
+      "trace_parameters:{\"epsilonRatio\": 0.0007, \"minimumContourArea\": 0.2, \"paletteSize\": 6}",
+      "visual_grammar:signed_bar",
+      "visual_grammar:signed_bar",
+      "visual_grammar:signed_bar",
+      "visual_grammar:signed_bar",
+      "visual_grammar:signed_bar",
+      "converter:hand-annotated-semantic-v1",
+      "visual_grammar:signed_bar",
+      "comparison_artifact:previews/structured_visual/da_15bd2f59b683082602442ff6-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "asset_id": "da_d76473d86c10d3e6238a7baa",
+  "axes": {
+    "x": {
+      "max": 6,
+      "min": 0,
+      "ticks": [
+        2013.12,
+        2014.12,
+        2015.12,
+        2016.12,
+        2017.12,
+        2018.12,
+        2020.3
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 80,
+        "min": 0,
+        "ticks": [],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2013.12",
+    "2014.12",
+    "2015.12",
+    "2016.12",
+    "2017.12",
+    "2018.12",
+    "2020.3"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "城镇地区互联网普及率",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "农村地区互联网普及率",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "triangle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇地区互联网普及率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        60.3,
+        62.8,
+        65.8,
+        69.1,
+        71.0,
+        74.6,
+        76.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "农村地区互联网普及率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        28.1,
+        29.9,
+        31.6,
+        33.1,
+        35.4,
+        38.4,
+        46.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0187_46ea4229c04000bc.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0187_46ea4229c04000bc.png",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_efdcec40612bb4cba739",
+        "question_number": 86,
+        "source_jsonl_line": 35318
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0194_c1a5b24d294e776a.png",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_8211c76458322a264793",
+        "question_number": 87,
+        "source_jsonl_line": 35319
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0187_46ea4229c04000bc.png",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_474fcef2895614014c04",
+        "question_number": 88,
+        "source_jsonl_line": 35320
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0187_46ea4229c04000bc.png",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_5a16fa43df3790e639f9",
+        "question_number": 89,
+        "source_jsonl_line": 35321
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0187_46ea4229c04000bc.png",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_eac0e612a9ce2b5b8c81",
+        "question_number": 90,
+        "source_jsonl_line": 35322
+      }
+    ],
+    "sha256": "d76473d86c10d3e6238a7baa9ead036b0ff9b06b0e278e8913c9c7f6ba4cf964"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013-2020年城乡地区互联网普及率",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d76473d86c10d3e6238a7baa/column_band_01.jpg",
+        "review-crops/da_d76473d86c10d3e6238a7baa/column_band_02.jpg",
+        "review-crops/da_d76473d86c10d3e6238a7baa/column_band_03.jpg",
+        "review-crops/da_d76473d86c10d3e6238a7baa/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.501",
+      "crop_verification_elapsed_seconds:3.407",
+      "candidate_value_changes_after_crop:1",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "asset_id": "da_59b6ddbf56e92c9c201279fd",
+  "axes": {
+    "x": {
+      "max": 6.0,
+      "min": 0.0,
+      "ticks": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        6.0
+      ],
+      "title": null,
+      "unit": "亿人"
+    },
+    "y": [
+      {
+        "max": 8,
+        "min": 0,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "网民总数",
+    "农村网民数",
+    "手机网民数",
+    "微博用户数",
+    "手机微博用户数",
+    "网购用户数",
+    "网上支付用户数",
+    "网银用户数"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2012年我国互联网发展状况",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2012",
+      "label": "2012年我国互联网发展状况",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿人",
+      "values": [
+        5.64,
+        1.58,
+        4.29,
+        3.08,
+        2.08,
+        2.42,
+        2.21,
+        2.21
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河北/2013年河北省公务员录用考试《行测》题_images/img_0101_a96024120775cf01.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年河北省公务员录用考试《行测》题_images/img_0101_a96024120775cf01.png",
+        "paper_title": "2013年河北省公务员录用考试《行测》题",
+        "question_id": "pq_784fbf83afbba16a1ba9",
+        "question_number": 91,
+        "source_jsonl_line": 54970
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年河北省公务员录用考试《行测》题_images/img_0101_a96024120775cf01.png",
+        "paper_title": "2013年河北省公务员录用考试《行测》题",
+        "question_id": "pq_b94d77487037bc59170d",
+        "question_number": 92,
+        "source_jsonl_line": 54971
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年河北省公务员录用考试《行测》题_images/img_0101_a96024120775cf01.png",
+        "paper_title": "2013年河北省公务员录用考试《行测》题",
+        "question_id": "pq_e22471f3ba545d0b59fa",
+        "question_number": 93,
+        "source_jsonl_line": 54972
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年河北省公务员录用考试《行测》题_images/img_0105_3d93fac0f325b335.png",
+        "paper_title": "2013年河北省公务员录用考试《行测》题",
+        "question_id": "pq_80c7e1e9e50802573e22",
+        "question_number": 94,
+        "source_jsonl_line": 54973
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年河北省公务员录用考试《行测》题_images/img_0101_a96024120775cf01.png",
+        "paper_title": "2013年河北省公务员录用考试《行测》题",
+        "question_id": "pq_af1ba4ef5b5890b6eed4",
+        "question_number": 95,
+        "source_jsonl_line": 54974
+      }
+    ],
+    "sha256": "59b6ddbf56e92c9c201279fd56305becedc8f1ce720c22542c8d71c566a7f8c0"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2012年我国互联网发展状况",
+  "unit": "亿人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_59b6ddbf56e92c9c201279fd/column_band_01.jpg",
+        "review-crops/da_59b6ddbf56e92c9c201279fd/column_band_02.jpg",
+        "review-crops/da_59b6ddbf56e92c9c201279fd/column_band_03.jpg",
+        "review-crops/da_59b6ddbf56e92c9c201279fd/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.109",
+      "crop_verification_elapsed_seconds:3.202",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

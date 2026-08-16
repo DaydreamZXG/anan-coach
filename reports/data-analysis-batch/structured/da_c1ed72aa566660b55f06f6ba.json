@@ -1,0 +1,255 @@
+{
+  "asset_id": "da_c1ed72aa566660b55f06f6ba",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0107_1dea9ed8dae00f43.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0107_1dea9ed8dae00f43.jpg",
+        "paper_title": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_e1e8c2cf3a3b274c2fac",
+        "question_number": 71,
+        "source_jsonl_line": 84711
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0107_1dea9ed8dae00f43.jpg",
+        "paper_title": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_f78c2572b6b3be4754fd",
+        "question_number": 72,
+        "source_jsonl_line": 84712
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0107_1dea9ed8dae00f43.jpg",
+        "paper_title": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_8d8be58773227e9d3fb9",
+        "question_number": 73,
+        "source_jsonl_line": 84713
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0107_1dea9ed8dae00f43.jpg",
+        "paper_title": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_8d5e320e7ea3d5655f93",
+        "question_number": 74,
+        "source_jsonl_line": 84714
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0107_1dea9ed8dae00f43.jpg",
+        "paper_title": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_a415b14a759c5e816c25",
+        "question_number": 75,
+        "source_jsonl_line": 84715
+      }
+    ],
+    "sha256": "c1ed72aa566660b55f06f6bab7395f26ccf8fe3e0094fa7a03070aac0dd88515"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "废水排放量",
+      "二氧化硫排放量",
+      "烟尘排放量",
+      "工业固体废物产生量",
+      "工业固体废物综合利用量"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "2002年",
+        "group": "主要污染物排放及处理情况（万吨）",
+        "label": "主要污染物排放及处理情况（万吨）｜2002年",
+        "unit": null,
+        "values": [
+          230709,
+          169,
+          62,
+          6559,
+          5704
+        ]
+      },
+      {
+        "display_label": "2003年",
+        "group": "主要污染物排放及处理情况（万吨）",
+        "label": "主要污染物排放及处理情况（万吨）｜2003年",
+        "unit": null,
+        "values": [
+          245782,
+          184,
+          62,
+          6786,
+          6054
+        ]
+      },
+      {
+        "display_label": "2004年",
+        "group": "主要污染物排放及处理情况（万吨）",
+        "label": "主要污染物排放及处理情况（万吨）｜2004年",
+        "unit": null,
+        "values": [
+          264014,
+          182,
+          52,
+          7922,
+          7191
+        ]
+      },
+      {
+        "display_label": "2005年",
+        "group": "主要污染物排放及处理情况（万吨）",
+        "label": "主要污染物排放及处理情况（万吨）｜2005年",
+        "unit": null,
+        "values": [
+          280377,
+          200,
+          62,
+          9175,
+          8683
+        ]
+      },
+      {
+        "display_label": "2006年",
+        "group": "主要污染物排放及处理情况（万吨）",
+        "label": "主要污染物排放及处理情况（万吨）｜2006年",
+        "unit": null,
+        "values": [
+          302637,
+          196,
+          58,
+          11011,
+          10397
+        ]
+      },
+      {
+        "display_label": "2007年",
+        "group": "主要污染物排放及处理情况（万吨）",
+        "label": "主要污染物排放及处理情况（万吨）｜2007年",
+        "unit": null,
+        "values": [
+          334255,
+          182,
+          46,
+          11935,
+          11615
+        ]
+      },
+      {
+        "display_label": "2008年",
+        "group": "主要污染物排放及处理情况（万吨）",
+        "label": "主要污染物排放及处理情况（万吨）｜2008年",
+        "unit": null,
+        "values": [
+          358910,
+          169,
+          44,
+          12988,
+          12173
+        ]
+      },
+      {
+        "display_label": "2009年",
+        "group": "主要污染物排放及处理情况（万吨）",
+        "label": "主要污染物排放及处理情况（万吨）｜2009年",
+        "unit": null,
+        "values": [
+          386731,
+          159,
+          42,
+          14138,
+          13826
+        ]
+      },
+      {
+        "display_label": "2010年",
+        "group": "主要污染物排放及处理情况（万吨）",
+        "label": "主要污染物排放及处理情况（万吨）｜2010年",
+        "unit": null,
+        "values": [
+          436371,
+          154,
+          39,
+          16038,
+          15297
+        ]
+      },
+      {
+        "display_label": "2011年",
+        "group": "主要污染物排放及处理情况（万吨）",
+        "label": "主要污染物排放及处理情况（万吨）｜2011年",
+        "unit": null,
+        "values": [
+          443331,
+          183,
+          78,
+          19533,
+          18298
+        ]
+      },
+      {
+        "display_label": "2012年",
+        "group": "主要污染物排放及处理情况（万吨）",
+        "label": "主要污染物排放及处理情况（万吨）｜2012年",
+        "unit": null,
+        "values": [
+          479100,
+          75,
+          70,
+          18343,
+          17073
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,300 @@
+{
+  "asset_id": "da_fe5d12954240dda361115d7b",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 550,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300,
+          350,
+          400,
+          450,
+          500,
+          550
+        ],
+        "title": null,
+        "unit": "万吨"
+      }
+    ]
+  },
+  "categories": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "羊肉产量",
+      "style": {
+        "dash": null,
+        "fill": "#5A5A5A",
+        "marker": null,
+        "stroke": "#5A5A5A"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "羊肉产量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        404.5,
+        409.9,
+        427.6,
+        439.9,
+        460.3,
+        471.1,
+        475.1,
+        487.5,
+        492.3,
+        514.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0116_f96888f08d6f4ae7.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0116_f96888f08d6f4ae7.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_da6f1db088503ebe05bb",
+        "question_number": 116,
+        "source_jsonl_line": 24138
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0116_f96888f08d6f4ae7.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_049d7684ac1723673a2d",
+        "question_number": 117,
+        "source_jsonl_line": 24139
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0116_f96888f08d6f4ae7.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_bad4ef0b6f496f84ee14",
+        "question_number": 118,
+        "source_jsonl_line": 24140
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0116_f96888f08d6f4ae7.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_cf2031b47322b34c189c",
+        "question_number": 119,
+        "source_jsonl_line": 24141
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0150_db9aeba96960855a.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_ea92071f1a47f3116b41",
+        "question_number": 120,
+        "source_jsonl_line": 24142
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0101_f96888f08d6f4ae7.png",
+        "paper_title": "2023年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4643cb6cb97eea7b0b1d",
+        "question_number": 106,
+        "source_jsonl_line": 28410
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0101_f96888f08d6f4ae7.png",
+        "paper_title": "2023年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f699f39111a13f69ebb1",
+        "question_number": 107,
+        "source_jsonl_line": 28411
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0101_f96888f08d6f4ae7.png",
+        "paper_title": "2023年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_50a035a610e9bf2d590c",
+        "question_number": 108,
+        "source_jsonl_line": 28412
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0101_f96888f08d6f4ae7.png",
+        "paper_title": "2023年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e806029d9a146919c176",
+        "question_number": 109,
+        "source_jsonl_line": 28413
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0125_db9aeba96960855a.png",
+        "paper_title": "2023年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6885693718040b900589",
+        "question_number": 110,
+        "source_jsonl_line": 28414
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0073_f96888f08d6f4ae7.png",
+        "paper_title": "2023年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_f132c971453eb4adb002",
+        "question_number": 106,
+        "source_jsonl_line": 43786
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0073_f96888f08d6f4ae7.png",
+        "paper_title": "2023年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_0f6b35d80587d7f0a4f9",
+        "question_number": 107,
+        "source_jsonl_line": 43787
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0073_f96888f08d6f4ae7.png",
+        "paper_title": "2023年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_7275d2a5a62872732b33",
+        "question_number": 108,
+        "source_jsonl_line": 43788
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0073_f96888f08d6f4ae7.png",
+        "paper_title": "2023年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_b5090a56afd7706c3263",
+        "question_number": 109,
+        "source_jsonl_line": 43789
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0073_f96888f08d6f4ae7.png",
+        "paper_title": "2023年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_56975cdfe624903b4d10",
+        "question_number": 110,
+        "source_jsonl_line": 43790
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0058_f96888f08d6f4ae7.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a11e5b16385142fcf8e1",
+        "question_number": 116,
+        "source_jsonl_line": 53945
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0058_f96888f08d6f4ae7.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4a8158f0b755f71486b5",
+        "question_number": 117,
+        "source_jsonl_line": 53946
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0058_f96888f08d6f4ae7.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7e20cc18ea06ebdb5b9d",
+        "question_number": 118,
+        "source_jsonl_line": 53947
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0058_f96888f08d6f4ae7.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cd84d5a76beb1aa52376",
+        "question_number": 119,
+        "source_jsonl_line": 53948
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0084_db9aeba96960855a.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c3800d83c1f2fb6e3572",
+        "question_number": 120,
+        "source_jsonl_line": 53949
+      }
+    ],
+    "sha256": "fe5d12954240dda361115d7ba161aa742c74004d2c65c8e0cd06e28049c8fd89"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2012~2021年全国羊肉产量年度变化情况",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_fe5d12954240dda361115d7b/column_band_01.jpg",
+        "review-crops/da_fe5d12954240dda361115d7b/column_band_02.jpg",
+        "review-crops/da_fe5d12954240dda361115d7b/column_band_03.jpg",
+        "review-crops/da_fe5d12954240dda361115d7b/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.906",
+      "crop_verification_elapsed_seconds:3.008",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

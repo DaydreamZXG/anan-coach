@@ -1,0 +1,215 @@
+{
+  "asset_id": "da_ed58cec6c8f3670bd5454ab8",
+  "axes": {
+    "x": {
+      "max": 80,
+      "min": 0,
+      "ticks": [
+        0,
+        20,
+        40,
+        60,
+        80
+      ],
+      "title": null,
+      "unit": "%"
+    },
+    "y": [
+      {
+        "max": 68.8,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "减少广告、营销",
+    "简化操作步骤",
+    "放大字体",
+    "增设人工客服",
+    "乘坐地铁时可以使用养老服务补贴",
+    "放大图标",
+    "软件更新后，常用界面不发生变动",
+    "简化页面布局",
+    "增大音量",
+    "增加中文翻译功能",
+    "增加文字/图片说明书",
+    "增设语音控制",
+    "增设更多教学课程和活动",
+    "其他"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2022年受访者对智能手机老化的改进需求",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2022",
+      "label": "2022年受访者对智能手机老化的改进需求",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        68.8,
+        63.3,
+        55.6,
+        51.0,
+        44.5,
+        33.9,
+        32.2,
+        31.5,
+        31.3,
+        27.1,
+        24.0,
+        16.8,
+        12.2,
+        2.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2023年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0176_ad8186bb847dd83e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0176_ad8186bb847dd83e.png",
+        "paper_title": "2023年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_3fff17f47e4806d125b2",
+        "question_number": 126,
+        "source_jsonl_line": 50036
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0175_ddd665b60d81f83c.png",
+        "paper_title": "2023年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_da86a618c49e49cf3d2e",
+        "question_number": 127,
+        "source_jsonl_line": 50037
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0176_ad8186bb847dd83e.png",
+        "paper_title": "2023年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_6e7de9b71ee46272223e",
+        "question_number": 128,
+        "source_jsonl_line": 50038
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0176_ad8186bb847dd83e.png",
+        "paper_title": "2023年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_9061eb612358c56e652b",
+        "question_number": 129,
+        "source_jsonl_line": 50039
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0176_ad8186bb847dd83e.png",
+        "paper_title": "2023年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_0d478cae2e465b5b11f1",
+        "question_number": 130,
+        "source_jsonl_line": 50040
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0196_ad8186bb847dd83e.png",
+        "paper_title": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_c4bf541c3f7a1705cb30",
+        "question_number": 126,
+        "source_jsonl_line": 50171
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0196_ad8186bb847dd83e.png",
+        "paper_title": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_925c0e66d6fe9712806c",
+        "question_number": 127,
+        "source_jsonl_line": 50172
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0196_ad8186bb847dd83e.png",
+        "paper_title": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_d547c2e1d9830fdbb61c",
+        "question_number": 128,
+        "source_jsonl_line": 50173
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0220_ddd665b60d81f83c.png",
+        "paper_title": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_a2fa1e1cf379c5c0de43",
+        "question_number": 129,
+        "source_jsonl_line": 50174
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0196_ad8186bb847dd83e.png",
+        "paper_title": "2023年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_c73b88401cc809268be3",
+        "question_number": 130,
+        "source_jsonl_line": 50175
+      }
+    ],
+    "sha256": "ed58cec6c8f3670bd5454ab81103823a4a211b6bcd0c96f7a2dab6c3a249793f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2022年受访者对智能手机老化的改进需求（多选）",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ed58cec6c8f3670bd5454ab8/column_band_01.jpg",
+        "review-crops/da_ed58cec6c8f3670bd5454ab8/column_band_02.jpg",
+        "review-crops/da_ed58cec6c8f3670bd5454ab8/column_band_03.jpg",
+        "review-crops/da_ed58cec6c8f3670bd5454ab8/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.359",
+      "crop_verification_elapsed_seconds:5.932",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

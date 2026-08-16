@@ -1,0 +1,205 @@
+{
+  "asset_id": "da_217f05c977e89b3a4fa5185a",
+  "axes": {
+    "x": {
+      "max": 2011,
+      "min": 2005,
+      "ticks": [
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011
+      ],
+      "title": null,
+      "unit": "年"
+    },
+    "y": [
+      {
+        "max": 65,
+        "min": 56,
+        "ticks": [
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2005年",
+    "2006年",
+    "2007年",
+    "2008年",
+    "2009年",
+    "2010年",
+    "2011年"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": null,
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        58.91,
+        59.12,
+        59.84,
+        60.27,
+        61.55,
+        63.2,
+        64.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2013年921联考《行测》题（河南卷）_images/img_0180_39920b86335a19b9.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0180_39920b86335a19b9.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_b2f93b732b8fe5d1d13f",
+        "question_number": 116,
+        "source_jsonl_line": 40936
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0184_c0b68834504a1a7c.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_eb6d44c22e59ce7ea171",
+        "question_number": 117,
+        "source_jsonl_line": 40937
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0184_c0b68834504a1a7c.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_665357f5eff5499d54d7",
+        "question_number": 118,
+        "source_jsonl_line": 40938
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0184_c0b68834504a1a7c.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_61106a164c95a2dea99c",
+        "question_number": 119,
+        "source_jsonl_line": 40939
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0184_c0b68834504a1a7c.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_a9c19f13b32faffcc6cf",
+        "question_number": 120,
+        "source_jsonl_line": 40940
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0175_c0b68834504a1a7c.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_87bffec10fe10689b70b",
+        "question_number": 116,
+        "source_jsonl_line": 57613
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0175_c0b68834504a1a7c.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_8469caea1a7100626afd",
+        "question_number": 117,
+        "source_jsonl_line": 57614
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0175_c0b68834504a1a7c.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_dd9bc178b971917390d4",
+        "question_number": 118,
+        "source_jsonl_line": 57615
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0195_39920b86335a19b9.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_956c0257d77e10503044",
+        "question_number": 119,
+        "source_jsonl_line": 57616
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0175_c0b68834504a1a7c.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_7a12afe6db79fcf94101",
+        "question_number": 120,
+        "source_jsonl_line": 57617
+      }
+    ],
+    "sha256": "217f05c977e89b3a4fa5185af78390acbdf621b2eabace797e1e5e0e6d09703e"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_217f05c977e89b3a4fa5185a/column_band_01.jpg",
+        "review-crops/da_217f05c977e89b3a4fa5185a/column_band_02.jpg",
+        "review-crops/da_217f05c977e89b3a4fa5185a/column_band_03.jpg",
+        "review-crops/da_217f05c977e89b3a4fa5185a/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.622",
+      "crop_verification_elapsed_seconds:7.815",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2005年和2006年的数值标签，确保与图表一致：2005年为58.91%，2006年为59.12%。",
+      "crop_note:修正了2007年的数值标签，确保与图表一致：2007年为59.84%。",
+      "crop_note:修正了2008年的数值标签，确保与图表一致：2008年为60.27%。",
+      "crop_note:修正了2009年的数值标签，确保与图表一致：2009年为61.55%。",
+      "crop_note:修正了2010年的数值标签，确保与图表一致：2010年为63.2%。",
+      "crop_note:修正了2011年的数值标签，确保与图表一致：2011年为64.1%。",
+      "crop_note:确认所有百分号、小数点和负号使用正确，无缺失值。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

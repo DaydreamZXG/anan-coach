@@ -1,0 +1,20 @@
+{
+  "answerIsolation": true,
+  "assetId": "gr_814f04ca63ec75e0fd69a9fb",
+  "model": "gemma-4-31b-it",
+  "officialAnswer": "B",
+  "originalImageCorrect": false,
+  "originalImagePrediction": {
+    "answer": "D",
+    "reason": "每组图中包含三个图形，其位置规律为：第一个图形在左上 $\rightarrow$ 右下 $\rightarrow$ 左下；第二个图形在左下 $\rightarrow$ 右上 $\rightarrow$ 左上；第三个图形在左中 $\rightarrow$ 右下 $\rightarrow$ 左中。第二行第三图应为：五边形在左上，箭头在右下，五边形在左下（此处规律为图形循环位移），对比选项，D符合位置分布。"
+  },
+  "originalImageRaw": "{\"answer\":\"D\",\"reason\":\"每组图中包含三个图形，其位置规律为：第一个图形在左上 $\\rightarrow$ 右下 $\\rightarrow$ 左下；第二个图形在左下 $\\rightarrow$ 右上 $\\rightarrow$ 左上；第三个图形在左中 $\\rightarrow$ 右下 $\\rightarrow$ 左中。第二行第三图应为：五边形在左上，箭头在右下，五边形在左下（此处规律为图形循环位移），对比选项，D符合位置分布。\"}",
+  "schemaVersion": "graphic-reasoning-semantic-solver-evaluation-v1",
+  "semanticJsonCorrect": true,
+  "semanticJsonPrediction": {
+    "answer": "B",
+    "information_sufficient": true,
+    "reason": "规律分析：第一组(P1-P3)中，star从(1,1)->(4,4)->(4,1)，triangle从(3,2)->(2,3)->(2,2)且在P2旋转180°。第二组(P4-P6)类比第一组：pentagon从(1,3)->(4,2)->(x,y)，arrow从(3,1)->(2,4)->(z,w)且在P5旋转180°。根据类比，pentagon的位移(1,3)->(4,2)对应star的(1,1)->(4,4)，则下一步应对应star的(4,4)->(4,1)，即(4,2)向左移至(4,3)（或保持列不变行减1，此处需对应相对位移）。arrow的位移(3,1)->(2,4)对应triangle的(3,2)->(2,3)，则下一步应对应triangle的(2,3)->(2,2)，即(2,4)向左移至(2,1)且方向由right转回left。选项B符合pentagon在(4,3)且arrow在(2,1)且方向为left。"
+  },
+  "semanticJsonRaw": "{\"answer\":\"B\",\"reason\":\"规律分析：第一组(P1-P3)中，star从(1,1)->(4,4)->(4,1)，triangle从(3,2)->(2,3)->(2,2)且在P2旋转180°。第二组(P4-P6)类比第一组：pentagon从(1,3)->(4,2)->(x,y)，arrow从(3,1)->(2,4)->(z,w)且在P5旋转180°。根据类比，pentagon的位移(1,3)->(4,2)对应star的(1,1)->(4,4)，则下一步应对应star的(4,4)->(4,1)，即(4,2)向左移至(4,3)（或保持列不变行减1，此处需对应相对位移）。arrow的位移(3,1)->(2,4)对应triangle的(3,2)->(2,3)，则下一步应对应triangle的(2,3)->(2,2)，即(2,4)向左移至(2,1)且方向由right转回left。选项B符合pentagon在(4,3)且arrow在(2,1)且方向为left。\",\"information_sufficient\":true}"
+}

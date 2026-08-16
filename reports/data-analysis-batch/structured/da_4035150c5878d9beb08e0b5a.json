@@ -1,0 +1,346 @@
+{
+  "asset_id": "da_4035150c5878d9beb08e0b5a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "限额以上批发和零售业企业",
+    "限额以下批发和零售业企业",
+    "限额以上住宿和餐饮业企业",
+    "限额以下住宿和餐饮业企业"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "限额以上批发和零售业企业",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "限额以下批发和零售业企业",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "限额以上住宿和餐饮业企业",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "限额以下住宿和餐饮业企业",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -4.359,
+      143.825,
+      323.0,
+      342.049,
+      355.641
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 143.825,
+        "label": "限额以上批发和零售业企业",
+        "share": 0.41162208,
+        "start_angle": -4.359,
+        "sweep_angle": 148.184
+      },
+      {
+        "end_angle": 323.0,
+        "label": "限额以下批发和零售业企业",
+        "share": 0.49770789,
+        "start_angle": 143.825,
+        "sweep_angle": 179.175
+      },
+      {
+        "end_angle": 342.049,
+        "label": "限额以上住宿和餐饮业企业",
+        "share": 0.05291382,
+        "start_angle": 323.0,
+        "sweep_angle": 19.049
+      },
+      {
+        "end_angle": 355.641,
+        "label": "限额以下住宿和餐饮业企业",
+        "share": 0.03775621,
+        "start_angle": 342.049,
+        "sweep_angle": 13.592
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.41162208,
+        0.49770789,
+        0.05291382,
+        0.03775621
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0145_239703cd22e18902.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0145_239703cd22e18902.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_acb2216191fee3fb0bd0",
+        "question_number": 116,
+        "source_jsonl_line": 4566
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0153_d5d6a88c57d216b1.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_205565b4521e80370976",
+        "question_number": 117,
+        "source_jsonl_line": 4567
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0153_d5d6a88c57d216b1.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_f2b2f4cc0a32d79e1080",
+        "question_number": 118,
+        "source_jsonl_line": 4568
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0153_d5d6a88c57d216b1.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_03b71dd7b81c01c96794",
+        "question_number": 119,
+        "source_jsonl_line": 4569
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0153_d5d6a88c57d216b1.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_1aa83847d8d3d8f7241c",
+        "question_number": 120,
+        "source_jsonl_line": 4570
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0142_239703cd22e18902.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_c872635a2e7dfe050a85",
+        "question_number": 116,
+        "source_jsonl_line": 14313
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0142_239703cd22e18902.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_24bf73aa9ce6547c1646",
+        "question_number": 117,
+        "source_jsonl_line": 14314
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0152_d5d6a88c57d216b1.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_2f8b9630bffbf2fbf6db",
+        "question_number": 118,
+        "source_jsonl_line": 14315
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0152_d5d6a88c57d216b1.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_37e15228370ea682c4d7",
+        "question_number": 119,
+        "source_jsonl_line": 14316
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0142_239703cd22e18902.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_75be407955705755f556",
+        "question_number": 120,
+        "source_jsonl_line": 14317
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0147_239703cd22e18902.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_f395857bcc04f3877e25",
+        "question_number": 116,
+        "source_jsonl_line": 22261
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0156_d5d6a88c57d216b1.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_5c90336de7af28670b99",
+        "question_number": 117,
+        "source_jsonl_line": 22262
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0156_d5d6a88c57d216b1.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_be0183cfe39c375a67b2",
+        "question_number": 118,
+        "source_jsonl_line": 22263
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0147_239703cd22e18902.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_696329f9e609b6847cb2",
+        "question_number": 119,
+        "source_jsonl_line": 22264
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0156_d5d6a88c57d216b1.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_c8f80a433fa9ae9e30a6",
+        "question_number": 120,
+        "source_jsonl_line": 22265
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0158_d5d6a88c57d216b1.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_77531720849eae2cf6e7",
+        "question_number": 116,
+        "source_jsonl_line": 29370
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0158_d5d6a88c57d216b1.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_e72b27511208ecab2ce4",
+        "question_number": 117,
+        "source_jsonl_line": 29371
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0157_239703cd22e18902.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_235eb53c6a68af46ceb1",
+        "question_number": 118,
+        "source_jsonl_line": 29372
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0158_d5d6a88c57d216b1.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_f80d7556d767e725b0ba",
+        "question_number": 119,
+        "source_jsonl_line": 29373
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0158_d5d6a88c57d216b1.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_10692bab321b0f7a2cac",
+        "question_number": 120,
+        "source_jsonl_line": 29374
+      }
+    ],
+    "sha256": "4035150c5878d9beb08e0b5ad7a83a98ecb9b6e8dfe73526a18c777d33ad3636"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2010年该省分行业零售额",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4035150c5878d9beb08e0b5a/quadrant_01.jpg",
+        "review-crops/da_4035150c5878d9beb08e0b5a/quadrant_02.jpg",
+        "review-crops/da_4035150c5878d9beb08e0b5a/quadrant_03.jpg",
+        "review-crops/da_4035150c5878d9beb08e0b5a/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.956",
+      "crop_verification_elapsed_seconds:6.654",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了 '限额以下批发和零售业企业' 的数值为 6790.6，原图中为 6790.6，正确。",
+      "crop_note:修正了 '限额以上批发和零售业企业' 的数值为 5416.6，原图中为 5416.6，正确。",
+      "crop_note:修正了 '限额以上住宿和餐饮业企业' 的数值为 857.9，原图中为 857.9，正确。",
+      "crop_note:修正了 '限额以下住宿和餐饮业企业' 的数值为 417.3，原图中为 417.3，正确。",
+      "crop_note:确认 '限额以上批发和零售业企业' 的标签与数值 5416.6 匹配，正确。",
+      "crop_note:确认 '限额以下批发和零售业企业' 的标签与数值 6790.6 匹配，正确。",
+      "crop_note:确认 '限额以上住宿和餐饮业企业' 的标签与数值 857.9 匹配，正确。",
+      "crop_note:确认 '限额以下住宿和餐饮业企业' 的标签与数值 417.3 匹配，正确。",
+      "crop_note:确认 'labels_clockwise' 顺序与图中顺时针分布一致，正确。",
+      "crop_note:确认 'title' 为 '2010年该省分行业零售额'，正确。",
+      "crop_note:确认 'unit' 为 '亿元'，正确。",
+      "crop_note:确认 'legend' 样式与图例一致，正确。",
+      "circle_edge_coverage:0.9847",
+      "hough_circle_radius_ratio:0.2336",
+      "radial_line_candidates:12",
+      "detected_boundaries:4"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

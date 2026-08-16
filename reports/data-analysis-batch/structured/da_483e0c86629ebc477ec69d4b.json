@@ -1,0 +1,307 @@
+{
+  "asset_id": "da_483e0c86629ebc477ec69d4b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "工矿仓储用地",
+        "unit": "万公顷"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "商服用地",
+        "unit": "万公顷"
+      }
+    ]
+  },
+  "categories": [
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [
+    {
+      "label": "工矿仓储用地",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "商服用地",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "住宅用地",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "基础设施及其他用地",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "工矿仓储用地",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万公顷",
+      "values": [
+        13.3,
+        14.7,
+        16.7,
+        17.5,
+        19.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "商服用地",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万公顷",
+      "values": [
+        3.5,
+        3.7,
+        4.1,
+        3.6,
+        3.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "住宅用地",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万公顷",
+      "values": [
+        10.9,
+        10.5,
+        11.5,
+        10.1,
+        7.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "基础设施及其他用地",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万公顷",
+      "values": [
+        37.1,
+        33.5,
+        33.7,
+        37.9,
+        45.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0100_25697e3d9d52ab2e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0100_25697e3d9d52ab2e.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_1beef96d47b2dd6c3e9f",
+        "question_number": 106,
+        "source_jsonl_line": 30800
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0100_25697e3d9d52ab2e.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_a7a1f9eb036b021274f2",
+        "question_number": 107,
+        "source_jsonl_line": 30801
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0100_25697e3d9d52ab2e.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_96676d8ae7996703d13c",
+        "question_number": 108,
+        "source_jsonl_line": 30802
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0100_25697e3d9d52ab2e.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_b50c534182a263917b1c",
+        "question_number": 109,
+        "source_jsonl_line": 30803
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0100_25697e3d9d52ab2e.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_fc69818efbb0f2ce2773",
+        "question_number": 110,
+        "source_jsonl_line": 30804
+      }
+    ],
+    "sha256": "483e0c86629ebc477ec69d4babbe59ff3150dccb466a0e95e626dcb81d7f019a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "工矿仓储用地（万公顷）",
+      "商服用地（万公顷）",
+      "住宅用地（万公顷）",
+      "基础设施及其他用地（万公顷）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2018",
+        "unit": null,
+        "values": [
+          2018,
+          13.3,
+          3.5,
+          10.9,
+          37.1
+        ]
+      },
+      {
+        "label": "2019",
+        "unit": null,
+        "values": [
+          2019,
+          14.7,
+          3.7,
+          10.5,
+          33.5
+        ]
+      },
+      {
+        "label": "2020",
+        "unit": null,
+        "values": [
+          2020,
+          16.7,
+          4.1,
+          11.5,
+          33.7
+        ]
+      },
+      {
+        "label": "2021",
+        "unit": null,
+        "values": [
+          2021,
+          17.5,
+          3.6,
+          10.1,
+          37.9
+        ]
+      },
+      {
+        "label": "2022",
+        "unit": null,
+        "values": [
+          2022,
+          19.8,
+          3.1,
+          7.9,
+          45.8
+        ]
+      }
+    ]
+  },
+  "title": "2018-2022年国有建设用地供应情况",
+  "unit": "万公顷",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_483e0c86629ebc477ec69d4b/row_band_01.jpg",
+        "review-crops/da_483e0c86629ebc477ec69d4b/row_band_02.jpg",
+        "review-crops/da_483e0c86629ebc477ec69d4b/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.958",
+      "crop_verification_elapsed_seconds:12.54",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

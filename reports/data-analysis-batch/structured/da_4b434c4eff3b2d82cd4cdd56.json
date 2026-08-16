@@ -1,0 +1,181 @@
+{
+  "asset_id": "da_4b434c4eff3b2d82cd4cdd56",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2008年浙江省公务员录用考试《行测》题_images/img_0324_63732273d8ec475f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年浙江省公务员录用考试《行测》题_images/img_0324_63732273d8ec475f.png",
+        "paper_title": "2008年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_c30a98dd40d215f5a34a",
+        "question_number": 121,
+        "source_jsonl_line": 59903
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年浙江省公务员录用考试《行测》题_images/img_0312_bc4f0a8b94b33a19.png",
+        "paper_title": "2008年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_fdd0a2b8d2d1d196db86",
+        "question_number": 122,
+        "source_jsonl_line": 59904
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年浙江省公务员录用考试《行测》题_images/img_0312_bc4f0a8b94b33a19.png",
+        "paper_title": "2008年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_92c8b8168777e051ab55",
+        "question_number": 123,
+        "source_jsonl_line": 59905
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年浙江省公务员录用考试《行测》题_images/img_0312_bc4f0a8b94b33a19.png",
+        "paper_title": "2008年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_33bc986e578d41bfa574",
+        "question_number": 124,
+        "source_jsonl_line": 59906
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年浙江省公务员录用考试《行测》题_images/img_0324_63732273d8ec475f.png",
+        "paper_title": "2008年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_19951a467c8b5436d57a",
+        "question_number": 125,
+        "source_jsonl_line": 59907
+      }
+    ],
+    "sha256": "4b434c4eff3b2d82cd4cdd563d3844512ae33365fed4da236d64291418016fe3"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "浙江",
+      "上海",
+      "广东",
+      "北京",
+      "山东"
+    ],
+    "corner_header": {
+      "lower_label": "单位",
+      "style": "diagonal",
+      "upper_label": "项目"
+    },
+    "missing_cells": [],
+    "row_header_label": "单位",
+    "rows": [
+      {
+        "display_label": "浙江",
+        "group": null,
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          4604,
+          6740.9,
+          2561.3,
+          1979.7,
+          3500.4
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          9833,
+          15809.9,
+          6315.7,
+          4304.5,
+          6193.2
+        ]
+      },
+      {
+        "display_label": "广东",
+        "group": null,
+        "label": "广东",
+        "unit": null,
+        "values": [
+          8565,
+          11961.2,
+          4564.0,
+          3543.9,
+          5423.9
+        ]
+      },
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          5029,
+          8725.7,
+          3096.5,
+          2371.0,
+          3302.2
+        ]
+      },
+      {
+        "display_label": "山东",
+        "group": null,
+        "label": "山东",
+        "unit": null,
+        "values": [
+          5851,
+          7925.1,
+          2525.1,
+          1747.2,
+          4364.7
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

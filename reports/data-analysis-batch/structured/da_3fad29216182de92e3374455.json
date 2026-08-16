@@ -1,0 +1,209 @@
+{
+  "asset_id": "da_3fad29216182de92e3374455",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 90,
+        "min": 0,
+        "ticks": [
+          0.0,
+          10.0,
+          20.0,
+          30.0,
+          40.0,
+          50.0,
+          60.0,
+          70.0,
+          80.0,
+          90.0
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 8,
+        "min": 0,
+        "ticks": [
+          3.0,
+          3.5,
+          4.0,
+          4.5,
+          5.0,
+          5.5,
+          6.0,
+          6.5,
+          7.0,
+          7.5,
+          8.0
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2007年",
+    "2008年",
+    "2009年",
+    "2010年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "演出场次（单位：万场次）",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "观众人次（单位：亿人次）",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "演出场次（单位：万场次）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万场次",
+      "values": [
+        51.1,
+        47.22,
+        74.06,
+        84.67
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "观众人次（单位：亿人次）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿人次",
+      "values": [
+        5.28,
+        4.17,
+        5.16,
+        5.64
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2012年广东省公务员录用考试《行测》题_images/img_0110_2db6e751196bf3fe.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广东省公务员录用考试《行测》题_images/img_0110_2db6e751196bf3fe.png",
+        "paper_title": "2012年广东省公务员录用考试《行测》题",
+        "question_id": "pq_78b101ee54da03806d39",
+        "question_number": 96,
+        "source_jsonl_line": 34028
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广东省公务员录用考试《行测》题_images/img_0110_2db6e751196bf3fe.png",
+        "paper_title": "2012年广东省公务员录用考试《行测》题",
+        "question_id": "pq_2a6cdfa831b86c68ec8d",
+        "question_number": 97,
+        "source_jsonl_line": 34029
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广东省公务员录用考试《行测》题_images/img_0110_2db6e751196bf3fe.png",
+        "paper_title": "2012年广东省公务员录用考试《行测》题",
+        "question_id": "pq_3be470915721476d5a65",
+        "question_number": 98,
+        "source_jsonl_line": 34030
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广东省公务员录用考试《行测》题_images/img_0110_2db6e751196bf3fe.png",
+        "paper_title": "2012年广东省公务员录用考试《行测》题",
+        "question_id": "pq_02a874db1c62005f68d2",
+        "question_number": 99,
+        "source_jsonl_line": 34031
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广东省公务员录用考试《行测》题_images/img_0110_2db6e751196bf3fe.png",
+        "paper_title": "2012年广东省公务员录用考试《行测》题",
+        "question_id": "pq_23df5a0f2d2e1a402766",
+        "question_number": 100,
+        "source_jsonl_line": 34032
+      }
+    ],
+    "sha256": "3fad29216182de92e3374455865a10edf81c58bccac2393968362457833aed76"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3fad29216182de92e3374455/column_band_01.jpg",
+        "review-crops/da_3fad29216182de92e3374455/column_band_02.jpg",
+        "review-crops/da_3fad29216182de92e3374455/column_band_03.jpg",
+        "review-crops/da_3fad29216182de92e3374455/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.419",
+      "crop_verification_elapsed_seconds:11.529",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2007年演出场次的数值为51.10，原为51.1。",
+      "crop_note:修正了2007年观众人次的数值为5.28，原为5.28。",
+      "crop_note:修正了2008年演出场次的数值为47.22，原为47.22。",
+      "crop_note:修正了2008年观众人次的数值为4.17，原为4.17。",
+      "crop_note:修正了2009年演出场次的数值为74.06，原为74.06。",
+      "crop_note:修正了2009年观众人次的数值为5.16，原为5.16。",
+      "crop_note:修正了2010年演出场次的数值为84.67，原为84.67。",
+      "crop_note:修正了2010年观众人次的数值为5.64，原为5.64。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

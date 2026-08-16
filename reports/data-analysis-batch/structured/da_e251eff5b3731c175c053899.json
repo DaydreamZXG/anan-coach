@@ -1,0 +1,294 @@
+{
+  "asset_id": "da_e251eff5b3731c175c053899",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2019年420联考《行测》题（云南卷）（网友回忆版）_images/img_0158_1415331c75ec5d6e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（云南卷）（网友回忆版）_images/img_0158_1415331c75ec5d6e.png",
+        "paper_title": "2019年420联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_4cd97202546e238b3e16",
+        "question_number": 111,
+        "source_jsonl_line": 5555
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（云南卷）（网友回忆版）_images/img_0158_1415331c75ec5d6e.png",
+        "paper_title": "2019年420联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_613fc880d9074973b581",
+        "question_number": 112,
+        "source_jsonl_line": 5556
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（云南卷）（网友回忆版）_images/img_0158_1415331c75ec5d6e.png",
+        "paper_title": "2019年420联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_963f9b577b77d1cb692d",
+        "question_number": 113,
+        "source_jsonl_line": 5557
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（云南卷）（网友回忆版）_images/img_0158_1415331c75ec5d6e.png",
+        "paper_title": "2019年420联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_323b56c3feb903855f1e",
+        "question_number": 114,
+        "source_jsonl_line": 5558
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（云南卷）（网友回忆版）_images/img_0181_aaa08fa5ad3ed263.png",
+        "paper_title": "2019年420联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_345a236c0217c9bf454b",
+        "question_number": 115,
+        "source_jsonl_line": 5559
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（宁夏卷）（网友回忆版）_images/img_0150_1415331c75ec5d6e.png",
+        "paper_title": "2019年420联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_1cebadf7777a30ecb7b2",
+        "question_number": 106,
+        "source_jsonl_line": 25876
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（宁夏卷）（网友回忆版）_images/img_0150_1415331c75ec5d6e.png",
+        "paper_title": "2019年420联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_eec54fa10a2ec211d39a",
+        "question_number": 107,
+        "source_jsonl_line": 25877
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（宁夏卷）（网友回忆版）_images/img_0150_1415331c75ec5d6e.png",
+        "paper_title": "2019年420联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_2b00fa79fd4e46b54b4c",
+        "question_number": 108,
+        "source_jsonl_line": 25878
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（宁夏卷）（网友回忆版）_images/img_0150_1415331c75ec5d6e.png",
+        "paper_title": "2019年420联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_391df88652ab4d377be7",
+        "question_number": 109,
+        "source_jsonl_line": 25879
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（宁夏卷）（网友回忆版）_images/img_0176_aaa08fa5ad3ed263.png",
+        "paper_title": "2019年420联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_c1d88b0d052d585c29cf",
+        "question_number": 110,
+        "source_jsonl_line": 25880
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（海南卷精选）（网友回忆版）_images/img_0098_1415331c75ec5d6e.png",
+        "paper_title": "2019年420联考《行测》题（海南卷精选）（网友回忆版）",
+        "question_id": "pq_499e76f49a191f5831a1",
+        "question_number": 96,
+        "source_jsonl_line": 66082
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（海南卷精选）（网友回忆版）_images/img_0098_1415331c75ec5d6e.png",
+        "paper_title": "2019年420联考《行测》题（海南卷精选）（网友回忆版）",
+        "question_id": "pq_dec6ae61d053966e192b",
+        "question_number": 97,
+        "source_jsonl_line": 66083
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（海南卷精选）（网友回忆版）_images/img_0098_1415331c75ec5d6e.png",
+        "paper_title": "2019年420联考《行测》题（海南卷精选）（网友回忆版）",
+        "question_id": "pq_a158c12acc16abd005d4",
+        "question_number": 98,
+        "source_jsonl_line": 66084
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（海南卷精选）（网友回忆版）_images/img_0098_1415331c75ec5d6e.png",
+        "paper_title": "2019年420联考《行测》题（海南卷精选）（网友回忆版）",
+        "question_id": "pq_6b5dc57037936b8188f7",
+        "question_number": 99,
+        "source_jsonl_line": 66085
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（海南卷精选）（网友回忆版）_images/img_0098_1415331c75ec5d6e.png",
+        "paper_title": "2019年420联考《行测》题（海南卷精选）（网友回忆版）",
+        "question_id": "pq_5102281730804f825dde",
+        "question_number": 100,
+        "source_jsonl_line": 66086
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（贵州卷）（网友回忆版）_images/img_0112_1415331c75ec5d6e.png",
+        "paper_title": "2019年420联考《行测》题（贵州卷）（网友回忆版）",
+        "question_id": "pq_e09613c3c33b11a8a854",
+        "question_number": 96,
+        "source_jsonl_line": 81251
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（贵州卷）（网友回忆版）_images/img_0119_aaa08fa5ad3ed263.png",
+        "paper_title": "2019年420联考《行测》题（贵州卷）（网友回忆版）",
+        "question_id": "pq_a46fd2bfd100db217a1b",
+        "question_number": 97,
+        "source_jsonl_line": 81252
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（贵州卷）（网友回忆版）_images/img_0119_aaa08fa5ad3ed263.png",
+        "paper_title": "2019年420联考《行测》题（贵州卷）（网友回忆版）",
+        "question_id": "pq_4957d88282c9d7f2086f",
+        "question_number": 98,
+        "source_jsonl_line": 81253
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（贵州卷）（网友回忆版）_images/img_0112_1415331c75ec5d6e.png",
+        "paper_title": "2019年420联考《行测》题（贵州卷）（网友回忆版）",
+        "question_id": "pq_973726639bb636e331e3",
+        "question_number": 99,
+        "source_jsonl_line": 81254
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（贵州卷）（网友回忆版）_images/img_0112_1415331c75ec5d6e.png",
+        "paper_title": "2019年420联考《行测》题（贵州卷）（网友回忆版）",
+        "question_id": "pq_0d89dd890d6427a21696",
+        "question_number": 100,
+        "source_jsonl_line": 81255
+      }
+    ],
+    "sha256": "e251eff5b3731c175c053899e5e0d968ec6af29fc774970bee963373216954b6"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "销售额（万元）｜第一季度",
+          "销售额（万元）｜第二季度"
+        ],
+        "label": "销售额（万元）"
+      },
+      {
+        "columns": [
+          "销售量（公斤）｜第一季度",
+          "销售量（公斤）｜第二季度"
+        ],
+        "label": "销售量（公斤）"
+      }
+    ],
+    "columns": [
+      "销售额（万元）｜第一季度",
+      "销售额（万元）｜第二季度",
+      "销售量（公斤）｜第一季度",
+      "销售量（公斤）｜第二季度"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "产品",
+    "rows": [
+      {
+        "display_label": "甲",
+        "group": null,
+        "label": "甲",
+        "unit": null,
+        "values": [
+          200,
+          235,
+          100000,
+          80000
+        ]
+      },
+      {
+        "display_label": "乙",
+        "group": null,
+        "label": "乙",
+        "unit": null,
+        "values": [
+          50,
+          60,
+          40000,
+          60000
+        ]
+      },
+      {
+        "display_label": "丙",
+        "group": null,
+        "label": "丙",
+        "unit": null,
+        "values": [
+          60,
+          70,
+          40000,
+          35000
+        ]
+      },
+      {
+        "display_label": "丁",
+        "group": null,
+        "label": "丁",
+        "unit": null,
+        "values": [
+          160,
+          120,
+          50000,
+          48000
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

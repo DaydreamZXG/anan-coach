@@ -1,0 +1,251 @@
+{
+  "asset_id": "da_2029bd4aaee69cc55cc8a35a",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 4000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000
+        ],
+        "title": null,
+        "unit": "亿元"
+      },
+      {
+        "max": 14,
+        "min": 0,
+        "ticks": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "IC封装市场规模",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "IC先进封装市场规模占比",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "IC",
+      "label": "IC封装市场规模",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        975.7,
+        1035.7,
+        1098.9,
+        1255.9,
+        1384.0,
+        1564.3,
+        1889.7,
+        2193.9,
+        2349.7,
+        2478.9
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "IC",
+      "label": "IC先进封装市场规模占比",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        4.12,
+        5.65,
+        6.5,
+        7.37,
+        9.91,
+        10.88,
+        11.26,
+        11.8,
+        12.58,
+        13.26
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0117_321d75a2d3693b48.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0117_321d75a2d3693b48.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_1bf171b8f3ae2d42cc2d",
+        "question_number": 116,
+        "source_jsonl_line": 20181
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0120_17b95878d3f1d4f6.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_821103207bdccc4bc39f",
+        "question_number": 117,
+        "source_jsonl_line": 20182
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0120_17b95878d3f1d4f6.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_eb02806ac04d161bf6c7",
+        "question_number": 118,
+        "source_jsonl_line": 20183
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0120_17b95878d3f1d4f6.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_b4fa68ed699b02b56557",
+        "question_number": 119,
+        "source_jsonl_line": 20184
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0120_17b95878d3f1d4f6.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_26e20287849f779fa9a9",
+        "question_number": 120,
+        "source_jsonl_line": 20185
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0202_17b95878d3f1d4f6.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_531fc4a7c95f59fd3f2c",
+        "question_number": 121,
+        "source_jsonl_line": 20316
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0205_321d75a2d3693b48.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_e3bae8c27b0b0e662b07",
+        "question_number": 122,
+        "source_jsonl_line": 20317
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0202_17b95878d3f1d4f6.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_b71c3c38911108a90c8c",
+        "question_number": 123,
+        "source_jsonl_line": 20318
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0202_17b95878d3f1d4f6.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_fdf899899dfba8058730",
+        "question_number": 124,
+        "source_jsonl_line": 20319
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0202_17b95878d3f1d4f6.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_010320b397c2deb842f1",
+        "question_number": 125,
+        "source_jsonl_line": 20320
+      }
+    ],
+    "sha256": "2029bd4aaee69cc55cc8a35a66aaae81a2e386aa9896bf43620962321945469e"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2011~2020年中国IC封装市场规模及其中IC先进封装市场规模占比",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2029bd4aaee69cc55cc8a35a/column_band_01.jpg",
+        "review-crops/da_2029bd4aaee69cc55cc8a35a/column_band_02.jpg",
+        "review-crops/da_2029bd4aaee69cc55cc8a35a/column_band_03.jpg",
+        "review-crops/da_2029bd4aaee69cc55cc8a35a/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.837",
+      "crop_verification_elapsed_seconds:8.935",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

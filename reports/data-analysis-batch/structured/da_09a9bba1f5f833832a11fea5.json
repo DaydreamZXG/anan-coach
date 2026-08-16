@@ -1,0 +1,326 @@
+{
+  "asset_id": "da_09a9bba1f5f833832a11fea5",
+  "axes": {
+    "x": {
+      "max": 2021.5,
+      "min": 2017.5,
+      "ticks": [
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 18,
+        "min": 16.2,
+        "ticks": [
+          16.2,
+          16.4,
+          16.6,
+          16.8,
+          17,
+          17.2,
+          17.4,
+          17.6,
+          17.8,
+          18
+        ],
+        "title": "0-14岁人口",
+        "unit": "万人"
+      },
+      {
+        "max": 25500,
+        "min": 22500,
+        "ticks": [
+          22500,
+          23000,
+          23500,
+          24000,
+          24500,
+          25000,
+          25500
+        ],
+        "title": "0-14岁占总人口比重",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2018",
+    "2019",
+    "2020",
+    "2021"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "0-14岁人口",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "0-14岁占总人口比重",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "0-14",
+      "label": "0-14岁人口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        23751,
+        23689,
+        25277,
+        24721
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "0-14",
+      "label": "0-14岁占总人口比重",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        16.9,
+        16.8,
+        17.9,
+        17.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0088_ba1f20db904a1c3d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0088_ba1f20db904a1c3d.png",
+        "paper_title": "2023年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_717b26774d64e497292f",
+        "question_number": 96,
+        "source_jsonl_line": 5980
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0092_552590940a2fb933.png",
+        "paper_title": "2023年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b297176a4c137ca46b2a",
+        "question_number": 97,
+        "source_jsonl_line": 5981
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0092_552590940a2fb933.png",
+        "paper_title": "2023年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d0c3df15b6d6dd3f13db",
+        "question_number": 98,
+        "source_jsonl_line": 5982
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0088_ba1f20db904a1c3d.png",
+        "paper_title": "2023年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_000ead2199a23b4fa03c",
+        "question_number": 99,
+        "source_jsonl_line": 5983
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0088_ba1f20db904a1c3d.png",
+        "paper_title": "2023年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_704fa056224c571098a7",
+        "question_number": 100,
+        "source_jsonl_line": 5984
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0105_ba1f20db904a1c3d.png",
+        "paper_title": "2023年四川省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_a6f0f50f50a1b44bf372",
+        "question_number": 91,
+        "source_jsonl_line": 16806
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0105_ba1f20db904a1c3d.png",
+        "paper_title": "2023年四川省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_2c4d69319ac37d49d85d",
+        "question_number": 92,
+        "source_jsonl_line": 16807
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0105_ba1f20db904a1c3d.png",
+        "paper_title": "2023年四川省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_e17110c3c442b66f093e",
+        "question_number": 93,
+        "source_jsonl_line": 16808
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0105_ba1f20db904a1c3d.png",
+        "paper_title": "2023年四川省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_4b1bf0aed5add547d0d6",
+        "question_number": 94,
+        "source_jsonl_line": 16809
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0105_ba1f20db904a1c3d.png",
+        "paper_title": "2023年四川省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_01fea5984652d3cb1730",
+        "question_number": 95,
+        "source_jsonl_line": 16810
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0088_552590940a2fb933.png",
+        "paper_title": "2023年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_97e2248bd2d50b873656",
+        "question_number": 111,
+        "source_jsonl_line": 26241
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0088_552590940a2fb933.png",
+        "paper_title": "2023年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_778140cbb5a9335ec739",
+        "question_number": 112,
+        "source_jsonl_line": 26242
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0104_ba1f20db904a1c3d.png",
+        "paper_title": "2023年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7efb8c3e131ba7a64913",
+        "question_number": 113,
+        "source_jsonl_line": 26243
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0104_ba1f20db904a1c3d.png",
+        "paper_title": "2023年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ed440063981d9a3a3f34",
+        "question_number": 114,
+        "source_jsonl_line": 26244
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0088_552590940a2fb933.png",
+        "paper_title": "2023年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7cd273d8f114cf9cd223",
+        "question_number": 115,
+        "source_jsonl_line": 26245
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0076_552590940a2fb933.png",
+        "paper_title": "2023年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e33a007e9d88b37dca1a",
+        "question_number": 101,
+        "source_jsonl_line": 39677
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0085_ba1f20db904a1c3d.png",
+        "paper_title": "2023年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_93876ae380ddd805f815",
+        "question_number": 102,
+        "source_jsonl_line": 39678
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0085_ba1f20db904a1c3d.png",
+        "paper_title": "2023年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_70dd16cd482f91feacc1",
+        "question_number": 103,
+        "source_jsonl_line": 39679
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0085_ba1f20db904a1c3d.png",
+        "paper_title": "2023年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2bdfd7a9213af1960f9c",
+        "question_number": 104,
+        "source_jsonl_line": 39680
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0085_ba1f20db904a1c3d.png",
+        "paper_title": "2023年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_051c06870819dc70b4b1",
+        "question_number": 105,
+        "source_jsonl_line": 39681
+      }
+    ],
+    "sha256": "09a9bba1f5f833832a11fea5f77099f6e4af68890f3bc720e3c512b0aacc10fa"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "0-14岁人口数及占总人口的比重",
+  "unit": "万人, %",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_09a9bba1f5f833832a11fea5/column_band_01.jpg",
+        "review-crops/da_09a9bba1f5f833832a11fea5/column_band_02.jpg",
+        "review-crops/da_09a9bba1f5f833832a11fea5/column_band_03.jpg",
+        "review-crops/da_09a9bba1f5f833832a11fea5/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.852",
+      "crop_verification_elapsed_seconds:9.011",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了0-14岁人口的数值，根据图中数据，2018年为23751，2019年为23689，2020年为25277，2021年为24721。",
+      "crop_note:修正了0-14岁占总人口比重的数值，根据图中数据，2018年为16.9，2019年为16.8，2020年为17.9，2021年为17.5。",
+      "crop_note:确认了y轴右侧的单位为%，数值范围为22500到25500，与图中数据一致。",
+      "crop_note:确认了x轴的类别为2018, 2019, 2020, 2021，与图中数据一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

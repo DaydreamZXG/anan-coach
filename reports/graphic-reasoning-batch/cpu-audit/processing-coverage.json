@@ -1,0 +1,26 @@
+{
+  "acceptanceCompletionCounts": {
+    "deterministic_vector_generated": 644,
+    "deterministic_vector_generated_repair_pending": 482
+  },
+  "acceptanceRepairStatusCounts": {
+    "clear": 644,
+    "repair_pending": 482
+  },
+  "assetsWithoutOutputDirectory": 3731,
+  "classificationCoverage": 1.0,
+  "classifiedAssets": 4857,
+  "completeArtifactSets": 1126,
+  "finalAcceptedAssetIds": [],
+  "finalAcceptedAssets": 0,
+  "generatedButNotFinalAssets": 1126,
+  "inventoryAssets": 4857,
+  "manifestEntries": 12,
+  "manifestStatusCounts": {
+    "repair_pending": 12
+  },
+  "outputDirectories": 1126,
+  "outputDirectoriesNotInInventory": [],
+  "schemaVersion": "graphic-reasoning-processing-coverage-v1",
+  "statusRule": "Only manifest status=valid plus acceptance repairStatus=clear is final. File generation alone is not processed success."
+}

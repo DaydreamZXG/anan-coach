@@ -1,0 +1,67 @@
+{
+  "confidence": 1,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2018年",
+          "2017年"
+        ],
+        "label": null
+      }
+    ],
+    "columns": [
+      "2018年",
+      "2017年"
+    ],
+    "confidence": 1,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别",
+    "rows": [
+      {
+        "display_label": "人均工资性收入",
+        "group": null,
+        "label": "人均工资性收入",
+        "unit": null,
+        "values": [
+          3627,
+          3210
+        ]
+      },
+      {
+        "display_label": "人均转移净收入",
+        "group": null,
+        "label": "人均转移净收入",
+        "unit": null,
+        "values": [
+          2719,
+          2325
+        ]
+      },
+      {
+        "display_label": "人均经营净收入",
+        "group": null,
+        "label": "人均经营净收入",
+        "unit": null,
+        "values": [
+          3888,
+          3723
+        ]
+      },
+      {
+        "display_label": "人均财产净收入",
+        "group": null,
+        "label": "人均财产净收入",
+        "unit": null,
+        "values": [
+          137,
+          119
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

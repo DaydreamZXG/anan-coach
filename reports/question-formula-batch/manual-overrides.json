@@ -1,0 +1,21 @@
+{
+  "schema_version": "formula-manual-overrides-v1",
+  "assets": {
+    "86833a053957b4cc90a002b33c0cfa7c6116fe61a101598f1fc2d733b9d22de8": {
+      "display": true,
+      "latex": "\\text{贡献率}=\\frac{\\text{报告期分类指数值}-\\text{上年分类指数值}}{\\text{报告期总指数值}-\\text{上年总指数值}}\\times 100\\%",
+      "note": "资料分析视觉尾单人工核对"
+    },
+    "880c89b11b550c716325080fa8b8df42763f3ff8acd10ece1984099b67b080fe": {
+      "display": false,
+      "latex": "V_S",
+      "note": "资料分析视觉尾单人工核对"
+    },
+    "a5703206f0218f920b3d4f450c1f644fdad85cb928707a9a066e4d3edef2c59b": {
+      "display": false,
+      "latex": "V_G",
+      "note": "资料分析视觉尾单人工核对"
+    }
+  }
+}
+

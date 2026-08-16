@@ -1,0 +1,275 @@
+{
+  "asset_id": "da_9103afa6dcccfc543fd84976",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2012年江苏省公务员录用考试《行测》题（A类）_images/img_0191_a191c52cca87c3d9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（A类）_images/img_0191_a191c52cca87c3d9.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_8f5ea65bf7c91eb6ca7a",
+        "question_number": 91,
+        "source_jsonl_line": 45901
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（A类）_images/img_0191_a191c52cca87c3d9.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_5ea2ebaab3fb3be7b2fb",
+        "question_number": 92,
+        "source_jsonl_line": 45902
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（A类）_images/img_0191_a191c52cca87c3d9.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_42d1f97a19fc62cb77a0",
+        "question_number": 93,
+        "source_jsonl_line": 45903
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（A类）_images/img_0207_0ddf058e5e18e570.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_9da753fab92af4a28acf",
+        "question_number": 94,
+        "source_jsonl_line": 45904
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（A类）_images/img_0191_a191c52cca87c3d9.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_1049ab45d62ddd77c5c7",
+        "question_number": 95,
+        "source_jsonl_line": 45905
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（B类）_images/img_0223_c4f6bc444016e369.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_5f4c21e97652d79f1bc4",
+        "question_number": 141,
+        "source_jsonl_line": 46046
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（B类）_images/img_0223_c4f6bc444016e369.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_72956fe3e8224eb585c6",
+        "question_number": 142,
+        "source_jsonl_line": 46047
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（B类）_images/img_0232_ddc376dd65d25a00.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_169322281e6cfe16d962",
+        "question_number": 143,
+        "source_jsonl_line": 46048
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（B类）_images/img_0232_ddc376dd65d25a00.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_468ac6ba8c4a6fdc0c21",
+        "question_number": 144,
+        "source_jsonl_line": 46049
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（B类）_images/img_0232_ddc376dd65d25a00.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_5cf3510ccccf5daf6f36",
+        "question_number": 145,
+        "source_jsonl_line": 46050
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（C类）_images/img_0168_c4f6bc444016e369.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_3bdb9de69786b7dff2b1",
+        "question_number": 81,
+        "source_jsonl_line": 46141
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（C类）_images/img_0168_c4f6bc444016e369.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_775db4360490c8e214a5",
+        "question_number": 82,
+        "source_jsonl_line": 46142
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（C类）_images/img_0168_c4f6bc444016e369.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_f0db004105e42c7a9257",
+        "question_number": 83,
+        "source_jsonl_line": 46143
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（C类）_images/img_0168_c4f6bc444016e369.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_cc8581df8b38a06edbdb",
+        "question_number": 84,
+        "source_jsonl_line": 46144
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（C类）_images/img_0168_c4f6bc444016e369.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_bc68628be147c467286f",
+        "question_number": 85,
+        "source_jsonl_line": 46145
+      }
+    ],
+    "sha256": "9103afa6dcccfc543fd849762fba29802900007be7a107ba314f3eeab03436cf"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "合计",
+      "建筑工程",
+      "安装工程",
+      "其他"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "上海市",
+        "group": "建筑产值",
+        "label": "建筑产值｜上海市",
+        "unit": null,
+        "values": [
+          739.2,
+          610.4,
+          104.5,
+          24.3
+        ]
+      },
+      {
+        "display_label": "江苏省",
+        "group": "建筑产值",
+        "label": "建筑产值｜江苏省",
+        "unit": null,
+        "values": [
+          1773.2,
+          1621.2,
+          139.4,
+          12.6
+        ]
+      },
+      {
+        "display_label": "浙江省",
+        "group": "建筑产值",
+        "label": "建筑产值｜浙江省",
+        "unit": null,
+        "values": [
+          2381.2,
+          2134.1,
+          171.8,
+          75.3
+        ]
+      },
+      {
+        "display_label": "安徽省",
+        "group": "建筑产值",
+        "label": "建筑产值｜安徽省",
+        "unit": null,
+        "values": [
+          625.7,
+          544.9,
+          53.1,
+          27.7
+        ]
+      },
+      {
+        "display_label": "福建省",
+        "group": "建筑产值",
+        "label": "建筑产值｜福建省",
+        "unit": null,
+        "values": [
+          583.9,
+          534.3,
+          42.7,
+          6.9
+        ]
+      },
+      {
+        "display_label": "江西省",
+        "group": "建筑产值",
+        "label": "建筑产值｜江西省",
+        "unit": null,
+        "values": [
+          334.2,
+          301.9,
+          19.3,
+          12.4
+        ]
+      },
+      {
+        "display_label": "山东省",
+        "group": "建筑产值",
+        "label": "建筑产值｜山东省",
+        "unit": null,
+        "values": [
+          838.5,
+          682.7,
+          129.1,
+          26.7
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

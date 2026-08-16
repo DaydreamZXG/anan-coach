@@ -1,0 +1,207 @@
+{
+  "asset_id": "da_afe9a037642ec3673257eb03",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "家庭",
+    "工资",
+    "转移",
+    "财产"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "家庭",
+      "style": {
+        "dash": null,
+        "fill": "hatch",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "工资",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "转移",
+      "style": {
+        "dash": null,
+        "fill": "hatch",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "财产",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      176.12,
+      321.128,
+      348.885,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 176.12,
+        "label": "家庭",
+        "share": 0.48922211,
+        "start_angle": 0.0,
+        "sweep_angle": 176.12
+      },
+      {
+        "end_angle": 321.128,
+        "label": "工资",
+        "share": 0.40280034,
+        "start_angle": 176.12,
+        "sweep_angle": 145.008
+      },
+      {
+        "end_angle": 348.885,
+        "label": "转移",
+        "share": 0.07710355,
+        "start_angle": 321.128,
+        "sweep_angle": 27.757
+      },
+      {
+        "end_angle": 360.0,
+        "label": "财产",
+        "share": 0.03087399,
+        "start_angle": 348.885,
+        "sweep_angle": 11.115
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.48922211,
+        0.40280034,
+        0.07710355,
+        0.03087399
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2010年湖北省公务员录用考试《行测》题_images/img_0221_397cf1393c5e569d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年湖北省公务员录用考试《行测》题_images/img_0221_397cf1393c5e569d.png",
+        "paper_title": "2010年湖北省公务员录用考试《行测》题",
+        "question_id": "pq_d0992314e8fd748143db",
+        "question_number": 106,
+        "source_jsonl_line": 69102
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年湖北省公务员录用考试《行测》题_images/img_0221_397cf1393c5e569d.png",
+        "paper_title": "2010年湖北省公务员录用考试《行测》题",
+        "question_id": "pq_9308727e871b58cda453",
+        "question_number": 107,
+        "source_jsonl_line": 69103
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年湖北省公务员录用考试《行测》题_images/img_0221_397cf1393c5e569d.png",
+        "paper_title": "2010年湖北省公务员录用考试《行测》题",
+        "question_id": "pq_a86b1b58181b2292f382",
+        "question_number": 108,
+        "source_jsonl_line": 69104
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年湖北省公务员录用考试《行测》题_images/img_0233_a10986af1782d394.png",
+        "paper_title": "2010年湖北省公务员录用考试《行测》题",
+        "question_id": "pq_a9f3e515291b012461b7",
+        "question_number": 109,
+        "source_jsonl_line": 69105
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年湖北省公务员录用考试《行测》题_images/img_0233_a10986af1782d394.png",
+        "paper_title": "2010年湖北省公务员录用考试《行测》题",
+        "question_id": "pq_ab4422551f0afa97a497",
+        "question_number": 110,
+        "source_jsonl_line": 69106
+      }
+    ],
+    "sha256": "afe9a037642ec3673257eb033b0688273443ed8fdeaeea2bb9c4a0b2605693fb"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_afe9a037642ec3673257eb03/quadrant_01.jpg",
+        "review-crops/da_afe9a037642ec3673257eb03/quadrant_02.jpg",
+        "review-crops/da_afe9a037642ec3673257eb03/quadrant_03.jpg",
+        "review-crops/da_afe9a037642ec3673257eb03/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.62",
+      "crop_verification_elapsed_seconds:0.812",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.9486",
+      "hough_circle_radius_ratio:0.2972",
+      "radial_line_candidates:6",
+      "detected_boundaries:4"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

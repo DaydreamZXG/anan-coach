@@ -1,0 +1,61 @@
+{
+  "public": {
+    "schemaVersion": "graphic-reasoning-public-scope-v1",
+    "candidateAssetCount": 4857,
+    "publicEligibleAssetCount": 3601,
+    "analysisOrSolutionOnlyExcludedCount": 1255,
+    "userExcludedCount": 1,
+    "deduplication": "sha256_content_hash",
+    "publicAnswerFieldsPresent": false,
+    "imageBytes": 151563922,
+    "visualGrammarCounts": {
+      "curve_circle_arc": 3,
+      "folded_3d": 468,
+      "glyph_life_object": 210,
+      "rare_vector": 364,
+      "regular_geometry": 2459,
+      "textured_geometry": 92,
+      "textured_pie": 5
+    }
+  },
+  "private": {
+    "schemaVersion": "graphic-reasoning-private-evaluation-scope-v1",
+    "publicEligibleAssetCount": 3601,
+    "questionKeyCount": 6268,
+    "manualReviewCount": 210,
+    "deepseekBlindQuestionCount": 400,
+    "excludedAssetCount": 1256,
+    "manualGrammarCounts": {
+      "curve_circle_arc": 3,
+      "folded_3d": 43,
+      "glyph_life_object": 27,
+      "rare_vector": 33,
+      "regular_geometry": 79,
+      "textured_geometry": 20,
+      "textured_pie": 5
+    },
+    "deepseekGrammarCounts": {
+      "curve_circle_arc": 2,
+      "folded_3d": 45,
+      "glyph_life_object": 20,
+      "rare_vector": 35,
+      "regular_geometry": 280,
+      "textured_geometry": 15,
+      "textured_pie": 3
+    }
+  },
+  "archives": [
+    {
+      "file": "graphic-reasoning-semantic-public-v1.zip",
+      "exposure": "upload_to_crowdtest",
+      "bytes": 153024551,
+      "sha256": "f94f30f19efc10baef3cf2b18541e17ebbd9466f84e70b7250ef645dcc7c9480"
+    },
+    {
+      "file": "graphic-reasoning-semantic-private-evaluation-v1.zip",
+      "exposure": "keep_private",
+      "bytes": 546742,
+      "sha256": "5b4e94b8ccb923a9cb365677e306a42c844abd8583d7481e97e179250d03d725"
+    }
+  ]
+}

@@ -1,10 +1,13 @@
 # 微信小程序实施与商业交付方案
 
+> 历史工程方案：产品范围与状态已经变化，不再作为当前实施权威。当前说明见
+> [岸岸 AI 备考教练｜正式产品与系统说明](../product/anan-product-system-spec.md)。
+>
 > 状态：可执行工程基线  
 > 日期：2026-07-12  
 > 目标：以小程序打通完整商业闭环，后续 App 作为同一平台的新客户端
 
-关联文档：[产品需求文档](../product/2026-07-12-ai-guokao-coach-prd.md) · [多 Agent 与共享学习大脑架构](../architecture/2026-07-12-agent-learning-brain-architecture.md)
+历史关联：[原产品需求文档](../product/_archive/2026-07-12-ai-guokao-coach-prd.md) · [多 Agent 与共享学习大脑架构](../architecture/2026-07-12-agent-learning-brain-architecture.md)
 
 ## 1. 实施原则
 

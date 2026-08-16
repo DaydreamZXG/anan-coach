@@ -1,0 +1,229 @@
+{
+  "asset_id": "da_82555f05bdf687fd3832bf62",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0082_e2d97e6816a4a33b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0082_e2d97e6816a4a33b.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_91a9befbe105e910ac5d",
+        "question_number": 96,
+        "source_jsonl_line": 89836
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0082_e2d97e6816a4a33b.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_c51e4fb7129f04e4ec53",
+        "question_number": 97,
+        "source_jsonl_line": 89837
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0082_e2d97e6816a4a33b.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_9cc2000d85d86982c90d",
+        "question_number": 98,
+        "source_jsonl_line": 89838
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0082_e2d97e6816a4a33b.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_00d3156b981616049bab",
+        "question_number": 99,
+        "source_jsonl_line": 89839
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0098_d43a3435480dadb7.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_fdd94409bc193cff0183",
+        "question_number": 100,
+        "source_jsonl_line": 89840
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0082_e2d97e6816a4a33b.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_f0b711e5e4240ce87544",
+        "question_number": 96,
+        "source_jsonl_line": 95499
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0092_d43a3435480dadb7.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_e05402ad3334ceb655aa",
+        "question_number": 97,
+        "source_jsonl_line": 95500
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0082_e2d97e6816a4a33b.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_311b4bb8d12330e4ddfb",
+        "question_number": 98,
+        "source_jsonl_line": 95501
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0082_e2d97e6816a4a33b.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_2bf0d6968e8fc069682b",
+        "question_number": 99,
+        "source_jsonl_line": 95502
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0082_e2d97e6816a4a33b.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_ed878215b62cdbbacf7d",
+        "question_number": 100,
+        "source_jsonl_line": 95503
+      }
+    ],
+    "sha256": "82555f05bdf687fd3832bf62ddacbebfdb42c2f50b3f0d824de8402344e040aa"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "出口额（万美元）",
+      "出口量（亿个）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "广东",
+        "group": "出口情况",
+        "label": "出口情况｜广东",
+        "unit": null,
+        "values": [
+          35167,
+          140.3
+        ]
+      },
+      {
+        "display_label": "江苏",
+        "group": "出口情况",
+        "label": "出口情况｜江苏",
+        "unit": null,
+        "values": [
+          33044,
+          67.9
+        ]
+      },
+      {
+        "display_label": "山东",
+        "group": "出口情况",
+        "label": "出口情况｜山东",
+        "unit": null,
+        "values": [
+          5942,
+          34.3
+        ]
+      },
+      {
+        "display_label": "湖南",
+        "group": "出口情况",
+        "label": "出口情况｜湖南",
+        "unit": null,
+        "values": [
+          5370,
+          20.9
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": "出口情况",
+        "label": "出口情况｜上海",
+        "unit": null,
+        "values": [
+          3899,
+          4.4
+        ]
+      },
+      {
+        "display_label": "天津",
+        "group": "出口情况",
+        "label": "出口情况｜天津",
+        "unit": null,
+        "values": [
+          3177,
+          12.6
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": "出口情况",
+        "label": "出口情况｜浙江",
+        "unit": null,
+        "values": [
+          1434,
+          10.0
+        ]
+      },
+      {
+        "display_label": "其他",
+        "group": "出口情况",
+        "label": "出口情况｜其他",
+        "unit": null,
+        "values": [
+          3443,
+          9.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

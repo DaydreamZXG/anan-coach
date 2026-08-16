@@ -1,0 +1,402 @@
+{
+  "asset_id": "da_bf7fb1552698753f4c437399",
+  "axes": {
+    "x": {
+      "max": 2021,
+      "min": 2014,
+      "ticks": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 7,
+        "min": 0,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 7,
+        "min": 0,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "进口量（万吨）",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "出口量（万吨）",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "进口额（亿美元）",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "出口额（亿美元）",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "进口量（万吨）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        6.29,
+        6.85,
+        4.99,
+        7.45,
+        7.27,
+        6.6,
+        7.27,
+        6.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "出口量（万吨）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        2.61,
+        2.43,
+        2.13,
+        2,
+        2.19,
+        2.11,
+        2.28,
+        2.47
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "进口额（亿美元）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        3.24,
+        3.62,
+        2.87,
+        4.17,
+        4.75,
+        4.35,
+        5.7,
+        6.6
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "出口额（亿美元）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        2.86,
+        2.86,
+        2.87,
+        2.33,
+        2.86,
+        2.56,
+        2.9,
+        3.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0092_19fbeea944517be6.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0092_19fbeea944517be6.jpg",
+        "paper_title": "2022年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_41308e7dc566793d54fd",
+        "question_number": 86,
+        "source_jsonl_line": 5870
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0092_19fbeea944517be6.jpg",
+        "paper_title": "2022年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8671ca57a97cb52b4629",
+        "question_number": 87,
+        "source_jsonl_line": 5871
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0092_19fbeea944517be6.jpg",
+        "paper_title": "2022年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_01ccf88140f2b99c4766",
+        "question_number": 88,
+        "source_jsonl_line": 5872
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0092_19fbeea944517be6.jpg",
+        "paper_title": "2022年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_dfd442c2e6639ea7e309",
+        "question_number": 89,
+        "source_jsonl_line": 5873
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0092_19fbeea944517be6.jpg",
+        "paper_title": "2022年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_14e72488910a5a0f65d8",
+        "question_number": 90,
+        "source_jsonl_line": 5874
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0120_19fbeea944517be6.jpg",
+        "paper_title": "2022年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_efda5accc2e07a8e56e7",
+        "question_number": 116,
+        "source_jsonl_line": 59053
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0120_19fbeea944517be6.jpg",
+        "paper_title": "2022年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_41c52dc8e673bf9a7f23",
+        "question_number": 117,
+        "source_jsonl_line": 59054
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0120_19fbeea944517be6.jpg",
+        "paper_title": "2022年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_02f475ed5ed8e138587b",
+        "question_number": 118,
+        "source_jsonl_line": 59055
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0120_19fbeea944517be6.jpg",
+        "paper_title": "2022年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_40a9e33cda74e9907220",
+        "question_number": 119,
+        "source_jsonl_line": 59056
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0127_eb715df7fdcea345.jpg",
+        "paper_title": "2022年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a7e2a968c147e582e18c",
+        "question_number": 120,
+        "source_jsonl_line": 59057
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0134_19fbeea944517be6.jpg",
+        "paper_title": "2022年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8b03958e29e2f0c5a573",
+        "question_number": 106,
+        "source_jsonl_line": 66422
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0134_19fbeea944517be6.jpg",
+        "paper_title": "2022年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_15dfe9ffe35e627e1468",
+        "question_number": 107,
+        "source_jsonl_line": 66423
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0134_19fbeea944517be6.jpg",
+        "paper_title": "2022年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b1eb333c78e566d8154a",
+        "question_number": 108,
+        "source_jsonl_line": 66424
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0134_19fbeea944517be6.jpg",
+        "paper_title": "2022年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_91857fdc5bc37b5f88a5",
+        "question_number": 109,
+        "source_jsonl_line": 66425
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0134_19fbeea944517be6.jpg",
+        "paper_title": "2022年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_69e97a70cd0792a372ba",
+        "question_number": 110,
+        "source_jsonl_line": 66426
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0155_19fbeea944517be6.jpg",
+        "paper_title": "2022年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_063a488b9fd663fb99b2",
+        "question_number": 116,
+        "source_jsonl_line": 75691
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0155_19fbeea944517be6.jpg",
+        "paper_title": "2022年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1216b35896af31cc0644",
+        "question_number": 117,
+        "source_jsonl_line": 75692
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0155_19fbeea944517be6.jpg",
+        "paper_title": "2022年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e4b8224b58836e018f88",
+        "question_number": 118,
+        "source_jsonl_line": 75693
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0155_19fbeea944517be6.jpg",
+        "paper_title": "2022年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1ba77387cf9a365a330b",
+        "question_number": 119,
+        "source_jsonl_line": 75694
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0160_eb715df7fdcea345.jpg",
+        "paper_title": "2022年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_96397820112c1ab1aa2e",
+        "question_number": 120,
+        "source_jsonl_line": 75695
+      }
+    ],
+    "sha256": "bf7fb1552698753f4c437399e53b8ca821453eff937522524110f3c08aa6819a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014-2021年中国农作物种子进出口贸易数据",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_bf7fb1552698753f4c437399/column_band_01.jpg",
+        "review-crops/da_bf7fb1552698753f4c437399/column_band_02.jpg",
+        "review-crops/da_bf7fb1552698753f4c437399/column_band_03.jpg",
+        "review-crops/da_bf7fb1552698753f4c437399/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.0",
+      "crop_verification_elapsed_seconds:9.753",
+      "candidate_value_changes_after_crop:2",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

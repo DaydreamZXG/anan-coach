@@ -1,0 +1,199 @@
+{
+  "asset_id": "da_3b80f5641128f0787098549b",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1200,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000,
+          1200
+        ],
+        "title": null,
+        "unit": "万户"
+      },
+      {
+        "max": 12,
+        "min": 0,
+        "ticks": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "东部",
+    "中部",
+    "西部",
+    "东北"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "拥有商品房户数",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "拥有商品房农户占所有农户比重",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "拥有商品房户数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万户",
+      "values": [
+        767,
+        557,
+        577,
+        96
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "拥有商品房农户占所有农户比重",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.1,
+        8.1,
+        8.0,
+        7.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0145_21640abfa2ccccf5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0145_21640abfa2ccccf5.png",
+        "paper_title": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_b2160c554e442c12400a",
+        "question_number": 91,
+        "source_jsonl_line": 16106
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0145_21640abfa2ccccf5.png",
+        "paper_title": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_bd60aaf8acd7368c39aa",
+        "question_number": 92,
+        "source_jsonl_line": 16107
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0158_41b5eca4a4eab6bb.png",
+        "paper_title": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_5f863b758d1973e7f145",
+        "question_number": 93,
+        "source_jsonl_line": 16108
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0145_21640abfa2ccccf5.png",
+        "paper_title": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_a0faaf678e9abe0345eb",
+        "question_number": 94,
+        "source_jsonl_line": 16109
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0145_21640abfa2ccccf5.png",
+        "paper_title": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_2dcb06d7cc444092bb45",
+        "question_number": 95,
+        "source_jsonl_line": 16110
+      }
+    ],
+    "sha256": "3b80f5641128f0787098549b6558ab78d06d6563532bbb80d42fbaaad955b168"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2016年末不同地区拥有商品房的农户状况",
+  "unit": "万户",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3b80f5641128f0787098549b/column_band_01.jpg",
+        "review-crops/da_3b80f5641128f0787098549b/column_band_02.jpg",
+        "review-crops/da_3b80f5641128f0787098549b/column_band_03.jpg",
+        "review-crops/da_3b80f5641128f0787098549b/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.479",
+      "crop_verification_elapsed_seconds:9.516",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'拥有商品房农户占所有农户比重'系列的值，确认为10.1, 8.1, 8.0, 7.4，与图中数据一致。",
+      "crop_note:确认'拥有商品房户数'系列的值为767, 557, 577, 96，与图中数据一致。",
+      "crop_note:确认'东部'、'中部'、'西部'、'东北'的分类顺序与图中一致。",
+      "crop_note:确认'拥有商品房户数'的单位为'万户'，'拥有商品房农户占所有农户比重'的单位为'%'，与图中一致。",
+      "crop_note:确认图中所有数值均正确，无缺失值，未补0。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

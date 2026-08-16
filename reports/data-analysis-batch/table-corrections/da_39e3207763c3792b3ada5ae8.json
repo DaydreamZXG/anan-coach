@@ -1,0 +1,102 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2008",
+          "2009",
+          "2010",
+          "2011",
+          "2012"
+        ],
+        "label": "上网电量"
+      }
+    ],
+    "columns": [
+      "2008",
+      "2009",
+      "2010",
+      "2011",
+      "2012"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "/",
+      "style": "diagonal",
+      "upper_label": "/"
+    },
+    "missing_cells": [],
+    "row_header_label": "/",
+    "rows": [
+      {
+        "display_label": "总上网电量",
+        "group": null,
+        "label": "总上网电量",
+        "unit": null,
+        "values": [
+          22800,
+          24300,
+          28800,
+          32400,
+          33900
+        ]
+      },
+      {
+        "display_label": "其中：清洁能源机组上网电量",
+        "group": null,
+        "label": "其中：清洁能源机组上网电量",
+        "unit": null,
+        "values": [
+          4161,
+          4321,
+          4903,
+          5943,
+          7177
+        ]
+      },
+      {
+        "display_label": "其中：水电上网电量",
+        "group": null,
+        "label": "其中：水电上网电量",
+        "unit": null,
+        "values": [
+          3662,
+          3692,
+          4103,
+          4373,
+          5518
+        ]
+      },
+      {
+        "display_label": "核电上网电量",
+        "group": null,
+        "label": "核电上网电量",
+        "unit": null,
+        "values": [
+          353,
+          355,
+          308,
+          416,
+          475
+        ]
+      },
+      {
+        "display_label": "新能源发电机组上网电量",
+        "group": null,
+        "label": "新能源发电机组上网电量",
+        "unit": null,
+        "values": [
+          146,
+          274,
+          492,
+          1154,
+          1184
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,214 @@
+{
+  "asset_id": "da_e63a256c5eed8c030dde273b",
+  "axes": {
+    "x": {
+      "max": 6,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100,
+        "min": 60,
+        "ticks": [
+          60,
+          70,
+          80,
+          90,
+          100
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "天坊",
+    "云仙",
+    "和风",
+    "景秀",
+    "东河",
+    "南田"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "服务态度",
+      "style": {
+        "dash": "dash",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "办事效率",
+      "style": {
+        "dash": "dot",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "政务公开",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "服务态度",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        84,
+        85,
+        70,
+        85,
+        85,
+        80
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "办事效率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        93,
+        88,
+        85,
+        70,
+        75,
+        95
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "政务公开",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        70,
+        85,
+        80,
+        96,
+        96,
+        79
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广州市考/2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）_images/img_0080_47a276cc9d2541c2.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）_images/img_0080_47a276cc9d2541c2.png",
+        "paper_title": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）",
+        "question_id": "pq_c6cb8184ce97f6e38a62",
+        "question_number": 86,
+        "source_jsonl_line": 37648
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）_images/img_0080_47a276cc9d2541c2.png",
+        "paper_title": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）",
+        "question_id": "pq_6faae868c537c7c0aaf0",
+        "question_number": 87,
+        "source_jsonl_line": 37649
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）_images/img_0089_fc2753b31e3f227f.png",
+        "paper_title": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）",
+        "question_id": "pq_a4a23058107281bcdcbb",
+        "question_number": 88,
+        "source_jsonl_line": 37650
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）_images/img_0089_fc2753b31e3f227f.png",
+        "paper_title": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）",
+        "question_id": "pq_213fff6f34653de32543",
+        "question_number": 89,
+        "source_jsonl_line": 37651
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）_images/img_0089_fc2753b31e3f227f.png",
+        "paper_title": "2018年广州市公务员录用考试 《行测》题（3月25日网友回忆版）",
+        "question_id": "pq_bfa0d6fc88e36057de04",
+        "question_number": 90,
+        "source_jsonl_line": 37652
+      }
+    ],
+    "sha256": "e63a256c5eed8c030dde273b45f717d8a3573b639bcb784bdcc908f8b03d8c3b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "效能水平评价",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e63a256c5eed8c030dde273b/column_band_01.jpg",
+        "review-crops/da_e63a256c5eed8c030dde273b/column_band_02.jpg",
+        "review-crops/da_e63a256c5eed8c030dde273b/column_band_03.jpg",
+        "review-crops/da_e63a256c5eed8c030dde273b/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.817",
+      "crop_verification_elapsed_seconds:3.943",
+      "candidate_value_changes_after_crop:1",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

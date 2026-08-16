@@ -1,0 +1,113 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "进口｜数量（亿块）",
+          "进口｜金额（亿美元）"
+        ],
+        "label": "进口"
+      },
+      {
+        "columns": [
+          "出口｜数量（亿块）",
+          "出口｜金额（亿美元）"
+        ],
+        "label": "出口"
+      },
+      "rows:[{"
+    ],
+    "columns": [
+      "进口｜数量（亿块）",
+      "进口｜金额（亿美元）",
+      "出口｜数量（亿块）",
+      "出口｜金额（亿美元）"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "出口",
+      "style": "diagonal",
+      "upper_label": "进口"
+    },
+    "missing_cells": [],
+    "row_header_label": "出口",
+    "rows": [
+      {
+        "display_label": "2013年",
+        "group": null,
+        "label": "2013年",
+        "unit": null,
+        "values": [
+          2663.1,
+          2313.4,
+          1426.7,
+          877.0
+        ]
+      },
+      {
+        "display_label": "2014年",
+        "group": null,
+        "label": "2014年",
+        "unit": null,
+        "values": [
+          2856.5,
+          2176.2,
+          1535.2,
+          608.6
+        ]
+      },
+      {
+        "display_label": "2015年",
+        "group": null,
+        "label": "2015年",
+        "unit": null,
+        "values": [
+          3140.0,
+          2300.0,
+          1827.7,
+          693.2
+        ]
+      },
+      {
+        "display_label": "2016年",
+        "group": null,
+        "label": "2016年",
+        "unit": null,
+        "values": [
+          3425.5,
+          2270.7,
+          1810.1,
+          613.8
+        ]
+      },
+      {
+        "display_label": "2017年",
+        "group": null,
+        "label": "2017年",
+        "unit": null,
+        "values": [
+          3770.1,
+          2601.4,
+          2043.5,
+          668.8
+        ]
+      },
+      {
+        "display_label": "2018年",
+        "group": null,
+        "label": "2018年",
+        "unit": null,
+        "values": [
+          4175.7,
+          3120.6,
+          2171.0,
+          846.4
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

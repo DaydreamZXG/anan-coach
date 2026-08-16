@@ -1,0 +1,163 @@
+{
+  "asset_id": "da_de3fbf573df24fca4c73802a",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 10000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "总产值",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "总产值",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        4550.3,
+        4802.0,
+        5053.7,
+        5303.6,
+        5817.6,
+        5969.9,
+        6318.1,
+        7175.9,
+        7901.9,
+        8305.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0108_b0d11c342a529ad5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0108_b0d11c342a529ad5.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_c18bb65a3938e19d14e8",
+        "question_number": 86,
+        "source_jsonl_line": 35918
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0108_b0d11c342a529ad5.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_3e9f06cd8d7a9fa9f170",
+        "question_number": 87,
+        "source_jsonl_line": 35919
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0108_b0d11c342a529ad5.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_740415dcbdb1b03768db",
+        "question_number": 88,
+        "source_jsonl_line": 35920
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0108_b0d11c342a529ad5.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_942ec0a2cfa302a628b4",
+        "question_number": 89,
+        "source_jsonl_line": 35921
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0108_b0d11c342a529ad5.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_e531660219c267e5a798",
+        "question_number": 90,
+        "source_jsonl_line": 35922
+      }
+    ],
+    "sha256": "de3fbf573df24fca4c73802a61e8d4a83c3d0293438ad74e9bc0f14387d69661"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2012-2021年广东农林牧渔业总产值",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_de3fbf573df24fca4c73802a/column_band_01.jpg",
+        "review-crops/da_de3fbf573df24fca4c73802a/column_band_02.jpg",
+        "review-crops/da_de3fbf573df24fca4c73802a/column_band_03.jpg",
+        "review-crops/da_de3fbf573df24fca4c73802a/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.229",
+      "crop_verification_elapsed_seconds:3.083",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

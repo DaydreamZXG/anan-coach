@@ -1,0 +1,471 @@
+{
+  "asset_id": "da_ef8f975b4e4d8aa89fb52685",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2012年江苏省公务员录用考试《行测》题（A类）_images/img_0165_557db9d30e906365.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（A类）_images/img_0165_557db9d30e906365.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_53b5a847165f969ca43d",
+        "question_number": 86,
+        "source_jsonl_line": 45896
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（A类）_images/img_0165_557db9d30e906365.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_37bd6b8de1fbe21651d0",
+        "question_number": 87,
+        "source_jsonl_line": 45897
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（A类）_images/img_0165_557db9d30e906365.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_d3f2428f45fafa026f4d",
+        "question_number": 88,
+        "source_jsonl_line": 45898
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（A类）_images/img_0165_557db9d30e906365.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_8ab7c88cb79c48bbb752",
+        "question_number": 89,
+        "source_jsonl_line": 45899
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（A类）_images/img_0165_557db9d30e906365.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_f33eb3be5529f797961a",
+        "question_number": 90,
+        "source_jsonl_line": 45900
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（B类）_images/img_0262_059ad60a778da778.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_99ebecb3fc17304ee36e",
+        "question_number": 146,
+        "source_jsonl_line": 46051
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（B类）_images/img_0262_059ad60a778da778.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_1ff629dbecf83c0f6188",
+        "question_number": 147,
+        "source_jsonl_line": 46052
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（B类）_images/img_0262_059ad60a778da778.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_73ac9cfd9bc97a1cb764",
+        "question_number": 148,
+        "source_jsonl_line": 46053
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（B类）_images/img_0274_557db9d30e906365.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_2c7b0604f00ecd47f875",
+        "question_number": 149,
+        "source_jsonl_line": 46054
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（B类）_images/img_0262_059ad60a778da778.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_f309cbb76587792b1613",
+        "question_number": 150,
+        "source_jsonl_line": 46055
+      }
+    ],
+    "sha256": "ef8f975b4e4d8aa89fb52685c88e03859dda703d1b5beffe61be4174d31826a1"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "绝对量（亿千瓦时）｜2010年12月",
+          "绝对量（亿千瓦时）｜2011年5月",
+          "绝对量（亿千瓦时）｜2011年1-5月累计"
+        ],
+        "label": "绝对量（亿千瓦时）"
+      },
+      {
+        "columns": [
+          "比去年同期增减（%）｜2011年5月",
+          "比去年同期增减（%）｜2011年1-5月累计"
+        ],
+        "label": "比去年同期增减（%）"
+      }
+    ],
+    "columns": [
+      "绝对量（亿千瓦时）｜2010年12月",
+      "绝对量（亿千瓦时）｜2011年5月",
+      "绝对量（亿千瓦时）｜2011年1-5月累计",
+      "比去年同期增减（%）｜2011年5月",
+      "比去年同期增减（%）｜2011年1-5月累计"
+    ],
+    "corner_header": {
+      "lower_label": "比去年同期增减（%）",
+      "style": "diagonal",
+      "upper_label": "绝对量（亿千瓦小时）"
+    },
+    "missing_cells": [],
+    "row_header_label": "比去年同期增减（%）",
+    "rows": [
+      {
+        "display_label": "全社会用电量",
+        "group": null,
+        "label": "全社会用电量",
+        "unit": null,
+        "values": [
+          394.3,
+          359.26,
+          1697.23,
+          14.4,
+          14.0
+        ]
+      },
+      {
+        "display_label": "工业用电量",
+        "group": null,
+        "label": "工业用电量",
+        "unit": null,
+        "values": [
+          290.32,
+          297.43,
+          1335.05,
+          14.3,
+          13.5
+        ]
+      },
+      {
+        "display_label": "轻工业",
+        "group": null,
+        "label": "轻工业",
+        "unit": null,
+        "values": [
+          69.07,
+          70.1,
+          305.38,
+          15.5,
+          12.3
+        ]
+      },
+      {
+        "display_label": "重工业",
+        "group": null,
+        "label": "重工业",
+        "unit": null,
+        "values": [
+          221.25,
+          227.33,
+          1029.67,
+          13.9,
+          13.8
+        ]
+      },
+      {
+        "display_label": "城乡居民用电",
+        "group": null,
+        "label": "城乡居民用电",
+        "unit": null,
+        "values": [
+          24.9,
+          28.56,
+          174.48,
+          6.7,
+          12.6
+        ]
+      },
+      {
+        "display_label": "城市",
+        "group": null,
+        "label": "城市",
+        "unit": null,
+        "values": [
+          11.83,
+          14.05,
+          90.55,
+          4.4,
+          11.9
+        ]
+      },
+      {
+        "display_label": "乡村",
+        "group": null,
+        "label": "乡村",
+        "unit": null,
+        "values": [
+          13.07,
+          14.51,
+          83.93,
+          9.0,
+          13.3
+        ]
+      },
+      {
+        "display_label": "苏南",
+        "group": null,
+        "label": "苏南",
+        "unit": null,
+        "values": [
+          179.11,
+          184.42,
+          825.26,
+          11.9,
+          11.5
+        ]
+      },
+      {
+        "display_label": "苏中",
+        "group": null,
+        "label": "苏中",
+        "unit": null,
+        "values": [
+          42.18,
+          42.75,
+          193.28,
+          13.5,
+          13.7
+        ]
+      },
+      {
+        "display_label": "苏北",
+        "group": null,
+        "label": "苏北",
+        "unit": null,
+        "values": [
+          50.21,
+          51.2,
+          227.24,
+          24.8,
+          22.1
+        ]
+      },
+      {
+        "display_label": "南京市",
+        "group": null,
+        "label": "南京市",
+        "unit": null,
+        "values": [
+          24.78,
+          23.02,
+          103.84,
+          11.7,
+          8.3
+        ]
+      },
+      {
+        "display_label": "无锡市",
+        "group": null,
+        "label": "无锡市",
+        "unit": null,
+        "values": [
+          41.75,
+          42.52,
+          190.23,
+          6.8,
+          7.8
+        ]
+      },
+      {
+        "display_label": "徐州市",
+        "group": null,
+        "label": "徐州市",
+        "unit": null,
+        "values": [
+          19.42,
+          19.56,
+          88.45,
+          19.7,
+          18.7
+        ]
+      },
+      {
+        "display_label": "常州市",
+        "group": null,
+        "label": "常州市",
+        "unit": null,
+        "values": [
+          20.98,
+          24.42,
+          106.62,
+          17.7,
+          18.7
+        ]
+      },
+      {
+        "display_label": "苏州市",
+        "group": null,
+        "label": "苏州市",
+        "unit": null,
+        "values": [
+          79.1,
+          81.01,
+          364.85,
+          11.7,
+          11.9
+        ]
+      },
+      {
+        "display_label": "南通市",
+        "group": null,
+        "label": "南通市",
+        "unit": null,
+        "values": [
+          18.36,
+          17.87,
+          81.68,
+          10.8,
+          11.9
+        ]
+      },
+      {
+        "display_label": "连云港市",
+        "group": null,
+        "label": "连云港市",
+        "unit": null,
+        "values": [
+          6.13,
+          6.11,
+          27.5,
+          38.1,
+          35.4
+        ]
+      },
+      {
+        "display_label": "淮安市",
+        "group": null,
+        "label": "淮安市",
+        "unit": null,
+        "values": [
+          8.09,
+          8.14,
+          36.29,
+          18.0,
+          15.9
+        ]
+      },
+      {
+        "display_label": "盐城市",
+        "group": null,
+        "label": "盐城市",
+        "unit": null,
+        "values": [
+          11.28,
+          11.48,
+          50.24,
+          22.0,
+          18.9
+        ]
+      },
+      {
+        "display_label": "扬州市",
+        "group": null,
+        "label": "扬州市",
+        "unit": null,
+        "values": [
+          10.97,
+          10.95,
+          49.3,
+          20.7,
+          18.8
+        ]
+      },
+      {
+        "display_label": "镇江市",
+        "group": null,
+        "label": "镇江市",
+        "unit": null,
+        "values": [
+          12.51,
+          13.45,
+          59.71,
+          21.3,
+          15.3
+        ]
+      },
+      {
+        "display_label": "泰州市",
+        "group": null,
+        "label": "泰州市",
+        "unit": null,
+        "values": [
+          12.85,
+          13.93,
+          62.31,
+          12.0,
+          12.1
+        ]
+      },
+      {
+        "display_label": "宿迁市",
+        "group": null,
+        "label": "宿迁市",
+        "unit": null,
+        "values": [
+          5.29,
+          5.91,
+          24.76,
+          49.4,
+          40.0
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

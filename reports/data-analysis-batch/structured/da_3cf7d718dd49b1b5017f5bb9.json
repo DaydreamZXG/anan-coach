@@ -1,0 +1,222 @@
+{
+  "asset_id": "da_3cf7d718dd49b1b5017f5bb9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河南/2008年河南省公务员录用考试《行测》题_images/img_0108_56cb7fa268ba9b68.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河南省公务员录用考试《行测》题_images/img_0108_56cb7fa268ba9b68.png",
+        "paper_title": "2008年河南省公务员录用考试《行测》题",
+        "question_id": "pq_ed04555c9aff1da78b77",
+        "question_number": 136,
+        "source_jsonl_line": 56998
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河南省公务员录用考试《行测》题_images/img_0104_d58c1bede5713127.png",
+        "paper_title": "2008年河南省公务员录用考试《行测》题",
+        "question_id": "pq_6f2920c81e013825a922",
+        "question_number": 137,
+        "source_jsonl_line": 56999
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河南省公务员录用考试《行测》题_images/img_0104_d58c1bede5713127.png",
+        "paper_title": "2008年河南省公务员录用考试《行测》题",
+        "question_id": "pq_7045c38bb04b3fcd66ca",
+        "question_number": 138,
+        "source_jsonl_line": 57000
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河南省公务员录用考试《行测》题_images/img_0108_56cb7fa268ba9b68.png",
+        "paper_title": "2008年河南省公务员录用考试《行测》题",
+        "question_id": "pq_a73dd765d517144837fd",
+        "question_number": 139,
+        "source_jsonl_line": 57001
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河南省公务员录用考试《行测》题_images/img_0108_56cb7fa268ba9b68.png",
+        "paper_title": "2008年河南省公务员录用考试《行测》题",
+        "question_id": "pq_63d3240ad84a791e19d5",
+        "question_number": 140,
+        "source_jsonl_line": 57002
+      }
+    ],
+    "sha256": "3cf7d718dd49b1b5017f5bb96f8c22e998a48f99e57b65dd96ae26af53bdfa74"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口｜出口额",
+          "出口｜比上年增长%"
+        ],
+        "label": "出口"
+      },
+      {
+        "columns": [
+          "进口｜进口额",
+          "进口｜比上年增长%"
+        ],
+        "label": "进口"
+      }
+    ],
+    "columns": [
+      "出口｜出口额",
+      "出口｜比上年增长%",
+      "进口｜进口额",
+      "进口｜比上年增长%"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家和地区",
+    "rows": [
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": "亿美元",
+        "values": [
+          1629,
+          30.4,
+          487,
+          9.1
+        ]
+      },
+      {
+        "display_label": "欧盟",
+        "group": null,
+        "label": "欧盟",
+        "unit": "亿美元",
+        "values": [
+          1437,
+          34.1,
+          736,
+          5
+        ]
+      },
+      {
+        "display_label": "中国香港",
+        "group": null,
+        "label": "中国香港",
+        "unit": "亿美元",
+        "values": [
+          1245,
+          23.4,
+          122,
+          3.6
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": "亿美元",
+        "values": [
+          840,
+          14.3,
+          1005,
+          6.5
+        ]
+      },
+      {
+        "display_label": "东盟",
+        "group": null,
+        "label": "东盟",
+        "unit": "亿美元",
+        "values": [
+          554,
+          29.1,
+          750,
+          19.1
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": "亿美元",
+        "values": [
+          351,
+          26.2,
+          768,
+          23.4
+        ]
+      },
+      {
+        "display_label": "中国台湾",
+        "group": null,
+        "label": "中国台湾",
+        "unit": "亿美元",
+        "values": [
+          165,
+          22.2,
+          747,
+          15.3
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": null,
+        "label": "俄罗斯",
+        "unit": "亿美元",
+        "values": [
+          132,
+          45.2,
+          159,
+          31
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

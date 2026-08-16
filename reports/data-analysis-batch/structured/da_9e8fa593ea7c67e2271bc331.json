@@ -1,0 +1,349 @@
+{
+  "asset_id": "da_9e8fa593ea7c67e2271bc331",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0160_20a03901750f5e08.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0160_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_ce5b8af78f30614af3bc",
+        "question_number": 115,
+        "source_jsonl_line": 4565
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0132_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_102f5c02f62a09ad4a04",
+        "question_number": 113,
+        "source_jsonl_line": 14310
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0135_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_80e29567e43adccfcec9",
+        "question_number": 115,
+        "source_jsonl_line": 22260
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0116_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_d4b91ae65f396809f4a6",
+        "question_number": 111,
+        "source_jsonl_line": 29365
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0116_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_b4572452a12e40ab72c6",
+        "question_number": 112,
+        "source_jsonl_line": 29366
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0145_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_d1f5a657ad047cba78ec",
+        "question_number": 112,
+        "source_jsonl_line": 31556
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0145_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_92605b7dc973d9661ee6",
+        "question_number": 115,
+        "source_jsonl_line": 31559
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0122_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_57e1ffe88e3b4d5210a5",
+        "question_number": 111,
+        "source_jsonl_line": 38163
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0122_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_5b52d0ac81cf73360f6b",
+        "question_number": 112,
+        "source_jsonl_line": 38164
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0141_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_afd83c2422f2b0f26943",
+        "question_number": 115,
+        "source_jsonl_line": 40301
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0134_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_0a93cb50825438f9df0c",
+        "question_number": 112,
+        "source_jsonl_line": 51477
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0134_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_6a7e1dca731aef5ecfce",
+        "question_number": 113,
+        "source_jsonl_line": 51478
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0134_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_3dfe193978c5944f664f",
+        "question_number": 115,
+        "source_jsonl_line": 51480
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0133_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_822ba42d5a3a352b2da7",
+        "question_number": 113,
+        "source_jsonl_line": 65135
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0123_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_31167edb4bee24b8be85",
+        "question_number": 112,
+        "source_jsonl_line": 76907
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0142_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_901d29320da0dee912a5",
+        "question_number": 115,
+        "source_jsonl_line": 80401
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0118_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_2ea07cd69f185aed2adb",
+        "question_number": 112,
+        "source_jsonl_line": 82657
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0162_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_78f8706b4dcfd9e65b8d",
+        "question_number": 112,
+        "source_jsonl_line": 92381
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0162_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_792d174bd0fa644598a8",
+        "question_number": 113,
+        "source_jsonl_line": 92382
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年424联考《行测》题（贵州_四川_福建_黑龙江_湖北_山西_重庆_辽宁_海南_江西_天津_陕西_云南_广西_山东_湖南_images/img_0130_20a03901750f5e08.png",
+        "paper_title": "2011年424联考《行测》题（贵州/四川/福建/黑龙江/湖北/山西/重庆/辽宁/海南/江西/天津/陕西/云南/广西/山东/湖南）",
+        "question_id": "pq_db0d0660314aba5cd3be",
+        "question_number": 112,
+        "source_jsonl_line": 96895
+      }
+    ],
+    "sha256": "9e8fa593ea7c67e2271bc331e870615649a4ed1d35cf046099c69aff6cea92b9"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "产品类别",
+      "产量（万吨）",
+      "同比增长率（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "粮食",
+        "unit": null,
+        "values": [
+          "粮食",
+          1314.5,
+          5.7
+        ]
+      },
+      {
+        "label": "糖蔗",
+        "unit": null,
+        "values": [
+          "糖蔗",
+          1116.11,
+          3.4
+        ]
+      },
+      {
+        "label": "油料",
+        "unit": null,
+        "values": [
+          "油料",
+          84.64,
+          3.8
+        ]
+      },
+      {
+        "label": "蔬菜",
+        "unit": null,
+        "values": [
+          "蔬菜",
+          2567.17,
+          5.6
+        ]
+      },
+      {
+        "label": "水果",
+        "unit": null,
+        "values": [
+          "水果",
+          1061.89,
+          8.0
+        ]
+      },
+      {
+        "label": "茶叶",
+        "unit": null,
+        "values": [
+          "茶叶",
+          5.14,
+          6.2
+        ]
+      },
+      {
+        "label": "肉类",
+        "unit": null,
+        "values": [
+          "肉类",
+          426.99,
+          3.6
+        ]
+      },
+      {
+        "label": "水产品",
+        "unit": null,
+        "values": [
+          "水产品",
+          702.81,
+          3.3
+        ]
+      },
+      {
+        "label": "其中：海洋捕捞",
+        "unit": null,
+        "values": [
+          "其中：海洋捕捞",
+          152.75,
+          -0.7
+        ]
+      },
+      {
+        "label": "海水养殖",
+        "unit": null,
+        "values": [
+          "海水养殖",
+          234.62,
+          5.2
+        ]
+      },
+      {
+        "label": "淡水捕捞",
+        "unit": null,
+        "values": [
+          "淡水捕捞",
+          12.65,
+          1.3
+        ]
+      },
+      {
+        "label": "淡水养殖",
+        "unit": null,
+        "values": [
+          "淡水养殖",
+          302.79,
+          4.0
+        ]
+      }
+    ]
+  },
+  "title": "2009年某省各类产品产量情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9e8fa593ea7c67e2271bc331/row_band_01.jpg",
+        "review-crops/da_9e8fa593ea7c67e2271bc331/row_band_02.jpg",
+        "review-crops/da_9e8fa593ea7c67e2271bc331/row_band_03.jpg",
+        "review-crops/da_9e8fa593ea7c67e2271bc331/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.534",
+      "crop_verification_elapsed_seconds:4.318",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

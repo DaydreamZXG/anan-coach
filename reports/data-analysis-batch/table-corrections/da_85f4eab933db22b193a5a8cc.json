@@ -1,0 +1,119 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "零次",
+          "1～2",
+          "3",
+          "4",
+          "5",
+          "6"
+        ],
+        "label": "社会性别与公民参与政策制定的次数"
+      }
+    ],
+    "columns": [
+      "零次",
+      "1～2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "性别",
+    "rows": [
+      {
+        "display_label": "男",
+        "group": null,
+        "label": "男",
+        "unit": null,
+        "values": [
+          559,
+          175,
+          49,
+          25,
+          7,
+          20
+        ]
+      },
+      {
+        "display_label": "%",
+        "group": "男",
+        "label": "男｜%",
+        "unit": null,
+        "values": [
+          66.9,
+          21.0,
+          5.9,
+          3.0,
+          0.8,
+          2.4
+        ]
+      },
+      {
+        "display_label": "女",
+        "group": null,
+        "label": "女",
+        "unit": null,
+        "values": [
+          449,
+          69,
+          12,
+          15,
+          1,
+          2
+        ]
+      },
+      {
+        "display_label": "%",
+        "group": "女",
+        "label": "女｜%",
+        "unit": null,
+        "values": [
+          81.9,
+          12.6,
+          2.2,
+          2.7,
+          0.2,
+          0.4
+        ]
+      },
+      {
+        "display_label": "总",
+        "group": null,
+        "label": "总",
+        "unit": null,
+        "values": [
+          1008,
+          244,
+          61,
+          40,
+          8,
+          22
+        ]
+      },
+      {
+        "display_label": "%",
+        "group": "总",
+        "label": "总｜%",
+        "unit": null,
+        "values": [
+          72.9,
+          17.6,
+          4.4,
+          2.9,
+          0.6,
+          1.6
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

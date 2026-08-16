@@ -1,0 +1,225 @@
+{
+  "asset_id": "da_0792b916213ef1aeea46d6bc",
+  "axes": {
+    "x": {
+      "max": 8,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 500,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500
+        ],
+        "title": null,
+        "unit": "万吨"
+      },
+      {
+        "max": 15,
+        "min": -20,
+        "ticks": [
+          -20,
+          -15,
+          -10,
+          -5,
+          0,
+          5,
+          10,
+          15
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "粮食",
+    "棉花",
+    "肉类",
+    "蔬菜",
+    "禽蛋",
+    "牛奶",
+    "水产品",
+    "水果"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "产量（万吨）",
+      "style": {
+        "dash": null,
+        "fill": "#808080",
+        "marker": "none",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "增速",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "产量（万吨）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        174.71,
+        4.85,
+        46.48,
+        455.06,
+        18.89,
+        68.24,
+        39.86,
+        54.17
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        8,
+        -15.8,
+        1.5,
+        1.6,
+        1.2,
+        0.5,
+        9.2,
+        -6.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/重庆/2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0125_cd6f4b4b6b3c4b96.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0125_cd6f4b4b6b3c4b96.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_8ab2a102cc454d501650",
+        "question_number": 111,
+        "source_jsonl_line": 93374
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0125_cd6f4b4b6b3c4b96.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_4560b1974230093e4b2f",
+        "question_number": 112,
+        "source_jsonl_line": 93375
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0125_cd6f4b4b6b3c4b96.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_ed5ea52a79459d79e87d",
+        "question_number": 113,
+        "source_jsonl_line": 93376
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0125_cd6f4b4b6b3c4b96.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_ea3f398127db57a93bc7",
+        "question_number": 114,
+        "source_jsonl_line": 93377
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0125_cd6f4b4b6b3c4b96.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_95cf31ab6f0e9405a24b",
+        "question_number": 115,
+        "source_jsonl_line": 93378
+      }
+    ],
+    "sha256": "0792b916213ef1aeea46d6bcf5d2f3678e5e4f06361639774749b8d3f1c28fec"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013年该市主要农副产品产量",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0792b916213ef1aeea46d6bc/column_band_01.jpg",
+        "review-crops/da_0792b916213ef1aeea46d6bc/column_band_02.jpg",
+        "review-crops/da_0792b916213ef1aeea46d6bc/column_band_03.jpg",
+        "review-crops/da_0792b916213ef1aeea46d6bc/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.241",
+      "crop_verification_elapsed_seconds:8.641",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'蔬菜'的产量值为455.06，与图中柱状图高度一致。",
+      "crop_note:修正了'水果'的产量值为54.17，与图中柱状图高度一致。",
+      "crop_note:修正了'肉类'的增速值为1.5，与图中折线点一致。",
+      "crop_note:修正了'禽蛋'的增速值为1.2，与图中折线点一致。",
+      "crop_note:修正了'牛奶'的增速值为0.5，与图中折线点一致。",
+      "crop_note:修正了'水产品'的增速值为9.2，与图中折线点一致。",
+      "crop_note:修正了'水果'的增速值为-6.9，与图中折线点一致。",
+      "crop_note:确认'棉花'的产量值为4.85，增速值为-15.8，与图中数据一致。",
+      "crop_note:确认'粮食'的产量值为174.71，增速值为8，与图中数据一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

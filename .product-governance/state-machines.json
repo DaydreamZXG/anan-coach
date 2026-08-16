@@ -1,4 +1,127 @@
 {
   "schemaVersion": 1,
-  "machines": []
+  "machines": [
+    {
+      "id": "SM-question-bank-source-identity-release",
+      "owner": "question_bank_runtime_alignment",
+      "resource": "question-bank-source-identity-release",
+      "initialState": "prepared",
+      "states": ["prepared", "applied"],
+      "terminalStates": ["applied"],
+      "transitions": [
+        {
+          "id": "apply-source-identity-release",
+          "from": "prepared",
+          "to": "applied",
+          "command": "apply-question-bank-source-identity-release@v1",
+          "guards": ["runtime fingerprint unchanged", "source and dry-run fingerprints unchanged", "verified backup exists", "unmapped source questions equals zero", "cross-exam conflicts equals zero"],
+          "emits": [],
+          "writesResources": ["question-bank-source-identity-release"],
+          "idempotency": "the same batch and fingerprints return the committed result or unchanged without additional rows",
+          "concurrency": "serialize by the two source_dataset_id values and reject a changed precondition snapshot"
+        }
+      ]
+    },
+    {
+      "id": "SM-question-bank-delivery-quarantine-release",
+      "owner": "question_bank_runtime_alignment",
+      "resource": "question-bank-delivery-quarantine-release",
+      "initialState": "prepared",
+      "states": ["prepared", "applied"],
+      "terminalStates": ["applied"],
+      "transitions": [
+        {
+          "id": "apply-question-delivery-quarantine",
+          "from": "prepared",
+          "to": "applied",
+          "command": "apply-question-delivery-quarantine@v1",
+          "guards": ["runtime and dry-run fingerprints unchanged", "verified status snapshot exists", "question set is exactly 273", "missing-head set is exactly 153", "missing-answer set is exactly 120", "user evidence references equal zero", "active delivery-eligible bindings equal zero"],
+          "emits": [],
+          "writesResources": ["question-bank-delivery-quarantine-release"],
+          "idempotency": "the same exact question plan updates active rows once and later returns unchanged",
+          "concurrency": "lock every planned product.questions row in stable question_id order and reject any changed reason, status, binding or reference precondition"
+        }
+      ]
+    },
+    {
+      "id": "SM-coach-judgment-recheck",
+      "owner": "companion_memory",
+      "resource": "coach-judgment-recheck-request",
+      "initialState": "not_requested",
+      "states": ["not_requested", "pending_reverification"],
+      "terminalStates": ["pending_reverification"],
+      "transitions": [
+        {
+          "id": "request-reverification",
+          "from": "not_requested",
+          "to": "pending_reverification",
+          "command": "request-coach-judgment-recheck@v1",
+          "guards": ["same authenticated user", "referenced profile is current", "pattern exists in referenced profile", "command identity is fresh or an exact replay"],
+          "emits": [],
+          "writesResources": ["coach-judgment-recheck-request"],
+          "idempotency": "the same command and payload return the existing request; a reused command with another payload is rejected",
+          "concurrency": "lock the same user and pattern; a stale profile version is rejected without editing the learning fact"
+        }
+      ]
+    },
+    {
+      "id": "SM-grounded-teach-back-session",
+      "owner": "teach_back_runtime",
+      "resource": "grounded-teach-back-session-version",
+      "initialState": "not_started",
+      "states": ["not_started", "evaluated", "completed"],
+      "terminalStates": ["completed"],
+      "transitions": [
+        {
+          "id": "evaluate-teach-back",
+          "from": "not_started",
+          "to": "evaluated",
+          "command": "start-grounded-teach-back@v1",
+          "guards": ["same authenticated user", "current review and confirmed cause", "complete grounded teaching package or explicit closed unavailable reason", "provider outcome is stored as ready_for_transfer blocked or provider_failed"],
+          "emits": [],
+          "writesResources": ["grounded-teach-back-session-version"],
+          "idempotency": "the same command and payload return the stored session without another provider call",
+          "concurrency": "serialize by user and command; one initial version is created for the session"
+        },
+        {
+          "id": "submit-transfer-answer",
+          "from": "evaluated",
+          "to": "completed",
+          "command": "submit-grounded-teach-back-transfer@v1",
+          "guards": ["same authenticated user", "exact current revision", "transfer question differs from A and source and was unseen", "mastery source is still current immediate verification"],
+          "emits": [],
+          "writesResources": ["grounded-teach-back-session-version"],
+          "idempotency": "the same command and answer return the completed version; reuse with another answer is rejected",
+          "concurrency": "compare-and-append the exact session revision; xingce mastery performs its own current-version compare-and-append in the same transaction"
+        }
+      ]
+    },
+    {
+      "id": "SM-knowledge-map-release-manifest-integrity",
+      "owner": "question_bank_runtime_alignment",
+      "resource": "knowledge-map-release-manifest-integrity",
+      "initialState": "evidenced_gap",
+      "states": ["evidenced_gap", "verified"],
+      "terminalStates": ["verified"],
+      "transitions": [
+        {
+          "id": "repair-and-verify-knowledge-map-release-manifest",
+          "from": "evidenced_gap",
+          "to": "verified",
+          "command": "repair-knowledge-map-release-manifest@v1",
+          "guards": [
+            "legacy node identity count fingerprint scope track and timestamps exactly match frozen backup evidence",
+            "legacy manifest is either wholly absent in the one evidenced shape or already exact",
+            "first successor identity is exact and its supersedes link is either the evidenced null gap or already exact",
+            "active v5 release node and question-binding facts remain exact",
+            "no knowledge node remains without its release-scope parent after repair"
+          ],
+          "emits": [],
+          "writesResources": ["knowledge-map-release-manifest-integrity"],
+          "idempotency": "the exact gap inserts one parent and restores one link once; exact replay returns unchanged; partial or conflicting facts fail closed",
+          "concurrency": "lock release and node tables for the transaction before precondition reads, then recreate and validate the release-scope foreign key before commit"
+        }
+      ]
+    }
+  ]
 }

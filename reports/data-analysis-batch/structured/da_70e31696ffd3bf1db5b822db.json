@@ -1,0 +1,226 @@
+{
+  "asset_id": "da_70e31696ffd3bf1db5b822db",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "小学,145",
+    "初中,253",
+    "高中,164",
+    "大专,50",
+    "大学,20"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "小学,145",
+      "style": {
+        "dash": "solid",
+        "fill": "checkerboard",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "初中,253",
+      "style": {
+        "dash": "solid",
+        "fill": "solid",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "高中,164",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "大专,50",
+      "style": {
+        "dash": "solid",
+        "fill": "hatch",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "大学,20",
+      "style": {
+        "dash": "solid",
+        "fill": "crosshatch",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -7.0,
+      6.0,
+      79.961,
+      231.0,
+      319.5,
+      353.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 6.0,
+        "label": "小学,145",
+        "share": 0.03611111,
+        "start_angle": -7.0,
+        "sweep_angle": 13.0
+      },
+      {
+        "end_angle": 79.961,
+        "label": "初中,253",
+        "share": 0.20544646,
+        "start_angle": 6.0,
+        "sweep_angle": 73.961
+      },
+      {
+        "end_angle": 231.0,
+        "label": "高中,164",
+        "share": 0.41955354,
+        "start_angle": 79.961,
+        "sweep_angle": 151.039
+      },
+      {
+        "end_angle": 319.5,
+        "label": "大专,50",
+        "share": 0.24583333,
+        "start_angle": 231.0,
+        "sweep_angle": 88.5
+      },
+      {
+        "end_angle": 353.0,
+        "label": "大学,20",
+        "share": 0.09305556,
+        "start_angle": 319.5,
+        "sweep_angle": 33.5
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.03611111,
+        0.20544646,
+        0.41955354,
+        0.24583333,
+        0.09305556
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2008年深圳市公务员录用考试《行测》题（下半年）_images/img_0095_aabad95a44312f9a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（下半年）_images/img_0095_aabad95a44312f9a.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_31c3564a260f525363b4",
+        "question_number": 66,
+        "source_jsonl_line": 67032
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（下半年）_images/img_0089_2c8c8824a4b50ac8.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_c5c59e3627986b880590",
+        "question_number": 67,
+        "source_jsonl_line": 67033
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（下半年）_images/img_0089_2c8c8824a4b50ac8.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_957cf745f54d1650dbda",
+        "question_number": 68,
+        "source_jsonl_line": 67034
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（下半年）_images/img_0089_2c8c8824a4b50ac8.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_381cd55f0b6120aaf5fe",
+        "question_number": 69,
+        "source_jsonl_line": 67035
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（下半年）_images/img_0095_aabad95a44312f9a.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_ae554bcea4b5bf9b4968",
+        "question_number": 70,
+        "source_jsonl_line": 67036
+      }
+    ],
+    "sha256": "70e31696ffd3bf1db5b822dbed31fe20882feba19f5e7bf8e8ee4009e19eedf9"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "某企业员工文化程度统计（人）",
+  "unit": "人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_70e31696ffd3bf1db5b822db/quadrant_01.jpg",
+        "review-crops/da_70e31696ffd3bf1db5b822db/quadrant_02.jpg",
+        "review-crops/da_70e31696ffd3bf1db5b822db/quadrant_03.jpg",
+        "review-crops/da_70e31696ffd3bf1db5b822db/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.241",
+      "crop_verification_elapsed_seconds:1.125",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.9667",
+      "hough_circle_radius_ratio:0.3744",
+      "radial_line_candidates:34",
+      "detected_boundaries:5"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

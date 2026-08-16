@@ -1,0 +1,23 @@
+{
+  "assets": 315,
+  "candidateForManualReview": 264,
+  "finalAcceptedAssets": 0,
+  "gate": "Machine-simple candidates still require source/redraw visual review; repair rows must be rerouted before acceptance.",
+  "missingPanels": 176,
+  "primitiveTypes": {
+    "face": 13,
+    "line": 9362,
+    "polygon": 3010
+  },
+  "reasonCounts": {
+    "dense_primitive_output": 33,
+    "empty_non_missing_panel": 4,
+    "hough_line_dominance": 37,
+    "unexpected_fill_in_closed_polygon": 11
+  },
+  "repairPending": 51,
+  "schemaVersion": "graphic-reasoning-subtype-first-pass-review-v1",
+  "status": "first_pass_reviewed_not_final",
+  "subtype": "closed_polygon_composition",
+  "totalPanels": 2830
+}

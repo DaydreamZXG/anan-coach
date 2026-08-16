@@ -1,0 +1,59 @@
+{
+  "answerLabels": {
+    "A": 1536,
+    "AB": 1,
+    "B": 1560,
+    "C": 1608,
+    "D": 1597
+  },
+  "assetRoot": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets",
+  "assetsReferencedByMultiplePhysicalPaths": 1545,
+  "dedupeKey": "content_sha256",
+  "deduplicatedExtraPhysicalPaths": 4078,
+  "formulaReferenceOccurrencesExcluded": 3030,
+  "graphicReasoningQuestions": 6302,
+  "missingAssets": 0,
+  "missingReferenceOccurrences": 0,
+  "mode": "cpu_only_no_model_or_endpoint_access",
+  "physicalReferencedPaths": 8935,
+  "questionAssetCardinality": {
+    "maximumAssetsPerQuestion": 9,
+    "multipleAssets": 1600,
+    "oneAsset": 4670
+  },
+  "questionsWithGraphicImage": 6270,
+  "questionsWithoutGraphicImage": 32,
+  "recoveredMisflaggedGlyphTexOccurrences": 24,
+  "referenceOccurrences": 11470,
+  "referencesByField": {
+    "options[0].html": 50,
+    "options[1].html": 50,
+    "options[2].html": 50,
+    "options[3].html": 49,
+    "original_analysis_html": 2484,
+    "original_solution_html": 2484,
+    "stem_html": 6303
+  },
+  "referencesByRole": {
+    "analysis": 2484,
+    "material": 0,
+    "option": 199,
+    "solution": 2484,
+    "stem": 6303
+  },
+  "resolvedImageAssets": 4857,
+  "ruleEvidenceByQuestion": {
+    "add_remove": 407,
+    "count_change": 2277,
+    "folding_spatial": 940,
+    "overlay_boolean": 407,
+    "reflection": 76,
+    "rotation": 228,
+    "symmetry": 440,
+    "translation": 432
+  },
+  "schemaVersion": "graphic-reasoning-cpu-rescan-v1",
+  "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613/paper_questions.jsonl",
+  "totalQuestionsScanned": 104762,
+  "uniqueContentSha256Assets": 4857
+}

@@ -1,0 +1,494 @@
+{
+  "asset_id": "da_4ec18dd402020a055b2729f5",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2008年江苏省公务员录用考试《行测》题（B类）_images/img_0264_705e70fd15d9c327.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（B类）_images/img_0264_705e70fd15d9c327.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_63480aff113df095814a",
+        "question_number": 146,
+        "source_jsonl_line": 44621
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（B类）_images/img_0267_ef96f7169447d7b2.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_5bfc4ab452f00764a541",
+        "question_number": 147,
+        "source_jsonl_line": 44622
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（B类）_images/img_0264_705e70fd15d9c327.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_b46a59634cd0f1452bbc",
+        "question_number": 148,
+        "source_jsonl_line": 44623
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（B类）_images/img_0267_ef96f7169447d7b2.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_21252b8e0b7cc689443b",
+        "question_number": 149,
+        "source_jsonl_line": 44624
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（B类）_images/img_0267_ef96f7169447d7b2.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_8b932168e848371d230b",
+        "question_number": 150,
+        "source_jsonl_line": 44625
+      }
+    ],
+    "sha256": "4ec18dd402020a055b2729f548f5448f0ee7a1d2efb77e7a8cafe66c7a3e6604"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "客运量（万人）｜自年初累计",
+          "客运量（万人）｜当月完成",
+          "客运量（万人）｜累计为去年周期（%）"
+        ],
+        "label": "客运量（万人）"
+      },
+      {
+        "columns": [
+          "旅客周转量（万人公里）｜自年初累计",
+          "旅客周转量（万人公里）｜当月完成",
+          "旅客周转量（万人公里）｜累计为去年周期（%）"
+        ],
+        "label": "旅客周转量（万人公里）"
+      }
+    ],
+    "columns": [
+      "客运量（万人）｜自年初累计",
+      "客运量（万人）｜当月完成",
+      "客运量（万人）｜累计为去年周期（%）",
+      "旅客周转量（万人公里）｜自年初累计",
+      "旅客周转量（万人公里）｜当月完成",
+      "旅客周转量（万人公里）｜累计为去年周期（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "全国统计",
+        "group": null,
+        "label": "全国统计",
+        "unit": null,
+        "values": [
+          1883153,
+          167561,
+          111.2,
+          104877913,
+          9452360,
+          113.0
+        ]
+      },
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          8551,
+          749,
+          371.5,
+          1373889,
+          111974,
+          188.3
+        ]
+      },
+      {
+        "display_label": "天津",
+        "group": null,
+        "label": "天津",
+        "unit": null,
+        "values": [
+          4784,
+          450,
+          136.9,
+          412812,
+          29725,
+          124.8
+        ]
+      },
+      {
+        "display_label": "河北",
+        "group": null,
+        "label": "河北",
+        "unit": null,
+        "values": [
+          75572,
+          6852,
+          106.0,
+          5223673,
+          481549,
+          110.5
+        ]
+      },
+      {
+        "display_label": "山西",
+        "group": null,
+        "label": "山西",
+        "unit": null,
+        "values": [
+          36683,
+          3168,
+          105.1,
+          1937398,
+          153311,
+          111.4
+        ]
+      },
+      {
+        "display_label": "内蒙古",
+        "group": null,
+        "label": "内蒙古",
+        "unit": null,
+        "values": [
+          32490,
+          2531,
+          110.4,
+          2028945,
+          161123,
+          110.6
+        ]
+      },
+      {
+        "display_label": "辽宁",
+        "group": null,
+        "label": "辽宁",
+        "unit": null,
+        "values": [
+          54666,
+          5174,
+          113.5,
+          2427855,
+          230751,
+          110.5
+        ]
+      },
+      {
+        "display_label": "吉林",
+        "group": null,
+        "label": "吉林",
+        "unit": null,
+        "values": [
+          24067,
+          2457,
+          109.6,
+          1022027,
+          105741,
+          112.5
+        ]
+      },
+      {
+        "display_label": "黑龙江",
+        "group": null,
+        "label": "黑龙江",
+        "unit": null,
+        "values": [
+          50014,
+          4530,
+          107.0,
+          2878412,
+          259877,
+          111.6
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          2680,
+          221,
+          102.9,
+          871364,
+          67811,
+          107.1
+        ]
+      },
+      {
+        "display_label": "江苏",
+        "group": null,
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          155959,
+          13670,
+          112.0,
+          10838985,
+          939116,
+          113.1
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": null,
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          160782,
+          14915,
+          107.1,
+          6806481,
+          616460,
+          110.5
+        ]
+      },
+      {
+        "display_label": "安徽",
+        "group": null,
+        "label": "安徽",
+        "unit": null,
+        "values": [
+          75026,
+          6729,
+          110.8,
+          5555870,
+          489665,
+          113.3
+        ]
+      },
+      {
+        "display_label": "福建",
+        "group": null,
+        "label": "福建",
+        "unit": null,
+        "values": [
+          68618,
+          4948,
+          135.0,
+          3535840,
+          304215,
+          115.7
+        ]
+      },
+      {
+        "display_label": "江西",
+        "group": null,
+        "label": "江西",
+        "unit": null,
+        "values": [
+          35521,
+          3066,
+          101.3,
+          2025057,
+          170792,
+          103.1
+        ]
+      },
+      {
+        "display_label": "山东",
+        "group": null,
+        "label": "山东",
+        "unit": null,
+        "values": [
+          106350,
+          10614,
+          114.4,
+          6498703,
+          645296,
+          119.6
+        ]
+      },
+      {
+        "display_label": "河南",
+        "group": null,
+        "label": "河南",
+        "unit": null,
+        "values": [
+          104840,
+          9529,
+          113.7,
+          5416750,
+          472605,
+          120.5
+        ]
+      },
+      {
+        "display_label": "湖北",
+        "group": null,
+        "label": "湖北",
+        "unit": null,
+        "values": [
+          70041,
+          6457,
+          110.6,
+          3839659,
+          346192,
+          112.1
+        ]
+      },
+      {
+        "display_label": "湖南",
+        "group": null,
+        "label": "湖南",
+        "unit": null,
+        "values": [
+          107012,
+          9430,
+          103.2,
+          5019472,
+          442771,
+          105.9
+        ]
+      },
+      {
+        "display_label": "广东",
+        "group": null,
+        "label": "广东",
+        "unit": null,
+        "values": [
+          169865,
+          15928,
+          113.0,
+          12616641,
+          1192191,
+          114.3
+        ]
+      },
+      {
+        "display_label": "广西",
+        "group": null,
+        "label": "广西",
+        "unit": null,
+        "values": [
+          52408,
+          4283,
+          109.5,
+          4948471,
+          432726,
+          109.9
+        ]
+      },
+      {
+        "display_label": "海南",
+        "group": null,
+        "label": "海南",
+        "unit": null,
+        "values": [
+          34662,
+          3010,
+          109.8,
+          1166283,
+          109333,
+          118.3
+        ]
+      },
+      {
+        "display_label": "重庆",
+        "group": null,
+        "label": "重庆",
+        "unit": null,
+        "values": [
+          67082,
+          6235,
+          129.0,
+          2407048,
+          223664,
+          125.8
+        ]
+      },
+      {
+        "display_label": "四川",
+        "group": null,
+        "label": "四川",
+        "unit": null,
+        "values": [
+          180443,
+          16180,
+          114.7,
+          5328618,
+          458600,
+          110.8
+        ]
+      },
+      {
+        "display_label": "贵州",
+        "group": null,
+        "label": "贵州",
+        "unit": null,
+        "values": [
+          55735,
+          5171,
+          92.2,
+          1765653,
+          195682,
+          103.8
+        ]
+      },
+      {
+        "display_label": "云南",
+        "group": null,
+        "label": "云南",
+        "unit": null,
+        "values": [
+          40820,
+          3048,
+          108.3,
+          2469966,
+          183246,
+          109.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

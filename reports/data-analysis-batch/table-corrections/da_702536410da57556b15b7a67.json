@@ -1,0 +1,286 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "水果产量｜产量(万吨)",
+          "水果产量｜增长率%"
+        ],
+        "label": "水果产量"
+      },
+      {
+        "columns": [
+          "生产投入｜生产投入(元/亩)",
+          "生产投入｜增长率%"
+        ],
+        "label": "生产投入"
+      },
+      {
+        "columns": [
+          "经济纯收益｜纯收益(元/亩)",
+          "经济纯收益｜增长率%"
+        ],
+        "label": "经济纯收益"
+      }
+    ],
+    "columns": [
+      "水果产量｜产量(万吨)",
+      "水果产量｜增长率%",
+      "生产投入｜生产投入(元/亩)",
+      "生产投入｜增长率%",
+      "经济纯收益｜纯收益(元/亩)",
+      "经济纯收益｜增长率%"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "生产投入｜生产投入(元/亩)",
+        "display": "-",
+        "row": "葡萄"
+      },
+      {
+        "column": "生产投入｜增长率%",
+        "display": "-",
+        "row": "葡萄"
+      },
+      {
+        "column": "经济纯收益｜纯收益(元/亩)",
+        "display": "-",
+        "row": "葡萄"
+      },
+      {
+        "column": "经济纯收益｜增长率%",
+        "display": "-",
+        "row": "葡萄"
+      },
+      {
+        "column": "生产投入｜生产投入(元/亩)",
+        "display": "-",
+        "row": "柿子"
+      },
+      {
+        "column": "生产投入｜增长率%",
+        "display": "-",
+        "row": "柿子"
+      },
+      {
+        "column": "经济纯收益｜纯收益(元/亩)",
+        "display": "-",
+        "row": "柿子"
+      },
+      {
+        "column": "经济纯收益｜增长率%",
+        "display": "-",
+        "row": "柿子"
+      },
+      {
+        "column": "生产投入｜生产投入(元/亩)",
+        "display": "-",
+        "row": "杏"
+      },
+      {
+        "column": "生产投入｜增长率%",
+        "display": "-",
+        "row": "杏"
+      },
+      {
+        "column": "经济纯收益｜纯收益(元/亩)",
+        "display": "-",
+        "row": "杏"
+      },
+      {
+        "column": "经济纯收益｜增长率%",
+        "display": "-",
+        "row": "杏"
+      },
+      {
+        "column": "生产投入｜生产投入(元/亩)",
+        "display": "-",
+        "row": "石榴"
+      },
+      {
+        "column": "生产投入｜增长率%",
+        "display": "-",
+        "row": "石榴"
+      },
+      {
+        "column": "经济纯收益｜纯收益(元/亩)",
+        "display": "-",
+        "row": "石榴"
+      },
+      {
+        "column": "经济纯收益｜增长率%",
+        "display": "-",
+        "row": "石榴"
+      },
+      {
+        "column": "生产投入｜生产投入(元/亩)",
+        "display": "-",
+        "row": "樱桃"
+      },
+      {
+        "column": "生产投入｜增长率%",
+        "display": "-",
+        "row": "樱桃"
+      },
+      {
+        "column": "经济纯收益｜纯收益(元/亩)",
+        "display": "-",
+        "row": "樱桃"
+      },
+      {
+        "column": "经济纯收益｜增长率%",
+        "display": "-",
+        "row": "樱桃"
+      }
+    ],
+    "row_header_label": "名称",
+    "rows": [
+      {
+        "display_label": "苹果",
+        "group": null,
+        "label": "苹果",
+        "unit": null,
+        "values": [
+          942.82,
+          -2.3,
+          1691.29,
+          12.5,
+          3452.97,
+          2.6
+        ]
+      },
+      {
+        "display_label": "梨",
+        "group": null,
+        "label": "梨",
+        "unit": null,
+        "values": [
+          97.26,
+          8.4,
+          1792.43,
+          9.8,
+          1436.62,
+          18.3
+        ]
+      },
+      {
+        "display_label": "柑橘",
+        "group": null,
+        "label": "柑橘",
+        "unit": null,
+        "values": [
+          47.69,
+          29.6,
+          589.83,
+          16.6,
+          3737.25,
+          13.5
+        ]
+      },
+      {
+        "display_label": "猕猴桃",
+        "group": null,
+        "label": "猕猴桃",
+        "unit": null,
+        "values": [
+          103.38,
+          25.6,
+          1517.56,
+          -6.9,
+          6644.84,
+          8.3
+        ]
+      },
+      {
+        "display_label": "红枣",
+        "group": null,
+        "label": "红枣",
+        "unit": null,
+        "values": [
+          67.6,
+          -0.4,
+          189.12,
+          8.9,
+          1514.4,
+          3.5
+        ]
+      },
+      {
+        "display_label": "葡萄",
+        "group": null,
+        "label": "葡萄",
+        "unit": null,
+        "values": [
+          60.66,
+          30.5,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "display_label": "柿子",
+        "group": null,
+        "label": "柿子",
+        "unit": null,
+        "values": [
+          39.64,
+          19.1,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "display_label": "杏",
+        "group": null,
+        "label": "杏",
+        "unit": null,
+        "values": [
+          20.36,
+          -0.2,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "display_label": "石榴",
+        "group": null,
+        "label": "石榴",
+        "unit": null,
+        "values": [
+          9.82,
+          14.0,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "display_label": "樱桃",
+        "group": null,
+        "label": "樱桃",
+        "unit": null,
+        "values": [
+          11.23,
+          17.6,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

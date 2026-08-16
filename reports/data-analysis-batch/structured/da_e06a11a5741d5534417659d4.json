@@ -1,0 +1,283 @@
+{
+  "asset_id": "da_e06a11a5741d5534417659d4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0252_9e4712ee5807d20f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0252_9e4712ee5807d20f.png",
+        "paper_title": "2019年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c198fa25c78788a801cf",
+        "question_number": 126,
+        "source_jsonl_line": 10134
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0226_7d51f1d439808e5a.png",
+        "paper_title": "2019年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f34cca5183b8153ba6aa",
+        "question_number": 127,
+        "source_jsonl_line": 10135
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0226_7d51f1d439808e5a.png",
+        "paper_title": "2019年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a2f612f95d5251f1d9ee",
+        "question_number": 128,
+        "source_jsonl_line": 10136
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0226_7d51f1d439808e5a.png",
+        "paper_title": "2019年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b84caa4fca9df4727fa3",
+        "question_number": 129,
+        "source_jsonl_line": 10137
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0226_7d51f1d439808e5a.png",
+        "paper_title": "2019年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e0d2788f688112ec5cc1",
+        "question_number": 130,
+        "source_jsonl_line": 10138
+      }
+    ],
+    "sha256": "e06a11a5741d5534417659d49c08c186bcb1c1fbd09c9f483cd5399396c21fb6"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "单位数（家）",
+      "2014年收入（亿元）",
+      "2014年收入同比增速（%）",
+      "2014年上半年收入同比增速（%）"
+    ],
+    "corner_header": {
+      "lower_label": "2014年收入（亿元）",
+      "style": "diagonal",
+      "upper_label": "单位数（家）"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "合计",
+        "group": "2014年限额以上第三产业单位按门类划分收入构成情况",
+        "label": "2014年限额以上第三产业单位按门类划分收入构成情况｜合计",
+        "unit": null,
+        "values": [
+          674,
+          1059.1,
+          4.5,
+          11.4
+        ]
+      },
+      {
+        "display_label": "批发和零售业",
+        "group": "2014年限额以上第三产业单位按门类划分收入构成情况",
+        "label": "2014年限额以上第三产业单位按门类划分收入构成情况｜批发和零售业",
+        "unit": null,
+        "values": [
+          291,
+          893.4,
+          8.8,
+          16.1
+        ]
+      },
+      {
+        "display_label": "交通运输、仓储和邮政业",
+        "group": "2014年限额以上第三产业单位按门类划分收入构成情况",
+        "label": "2014年限额以上第三产业单位按门类划分收入构成情况｜交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          38,
+          13.5,
+          -3.6,
+          -3.3
+        ]
+      },
+      {
+        "display_label": "住宿和餐饮业",
+        "group": "2014年限额以上第三产业单位按门类划分收入构成情况",
+        "label": "2014年限额以上第三产业单位按门类划分收入构成情况｜住宿和餐饮业",
+        "unit": null,
+        "values": [
+          50,
+          4.9,
+          -16.8,
+          -18.4
+        ]
+      },
+      {
+        "display_label": "信息传输、软件和信息技术服务业",
+        "group": "2014年限额以上第三产业单位按门类划分收入构成情况",
+        "label": "2014年限额以上第三产业单位按门类划分收入构成情况｜信息传输、软件和信息技术服务业",
+        "unit": null,
+        "values": [
+          7,
+          4.7,
+          -7.2,
+          1.9
+        ]
+      },
+      {
+        "display_label": "金融业",
+        "group": "2014年限额以上第三产业单位按门类划分收入构成情况",
+        "label": "2014年限额以上第三产业单位按门类划分收入构成情况｜金融业",
+        "unit": null,
+        "values": [
+          22,
+          5.2,
+          44.2,
+          30.7
+        ]
+      },
+      {
+        "display_label": "房地产业",
+        "group": "2014年限额以上第三产业单位按门类划分收入构成情况",
+        "label": "2014年限额以上第三产业单位按门类划分收入构成情况｜房地产业",
+        "unit": null,
+        "values": [
+          35,
+          31.6,
+          -51.1,
+          -41.4
+        ]
+      },
+      {
+        "display_label": "租赁和商务服务业",
+        "group": "2014年限额以上第三产业单位按门类划分收入构成情况",
+        "label": "2014年限额以上第三产业单位按门类划分收入构成情况｜租赁和商务服务业",
+        "unit": null,
+        "values": [
+          63,
+          21.1,
+          -7.7,
+          -10.2
+        ]
+      },
+      {
+        "display_label": "科学研究和技术服务业",
+        "group": "2014年限额以上第三产业单位按门类划分收入构成情况",
+        "label": "2014年限额以上第三产业单位按门类划分收入构成情况｜科学研究和技术服务业",
+        "unit": null,
+        "values": [
+          26,
+          8.1,
+          3.0,
+          17.8
+        ]
+      },
+      {
+        "display_label": "水利、环境和公共设施管理业",
+        "group": "2014年限额以上第三产业单位按门类划分收入构成情况",
+        "label": "2014年限额以上第三产业单位按门类划分收入构成情况｜水利、环境和公共设施管理业",
+        "unit": null,
+        "values": [
+          23,
+          8.6,
+          0.4,
+          -9.0
+        ]
+      },
+      {
+        "display_label": "居民服务、修理和其他服务业",
+        "group": "2014年限额以上第三产业单位按门类划分收入构成情况",
+        "label": "2014年限额以上第三产业单位按门类划分收入构成情况｜居民服务、修理和其他服务业",
+        "unit": null,
+        "values": [
+          7,
+          1.9,
+          3.6,
+          -10.1
+        ]
+      },
+      {
+        "display_label": "教育",
+        "group": "2014年限额以上第三产业单位按门类划分收入构成情况",
+        "label": "2014年限额以上第三产业单位按门类划分收入构成情况｜教育",
+        "unit": null,
+        "values": [
+          69,
+          23.3,
+          16.5,
+          2.3
+        ]
+      },
+      {
+        "display_label": "卫生和社会工作",
+        "group": "2014年限额以上第三产业单位按门类划分收入构成情况",
+        "label": "2014年限额以上第三产业单位按门类划分收入构成情况｜卫生和社会工作",
+        "unit": null,
+        "values": [
+          26,
+          38.6,
+          14.9,
+          14.6
+        ]
+      },
+      {
+        "display_label": "文化、体育和娱乐业",
+        "group": "2014年限额以上第三产业单位按门类划分收入构成情况",
+        "label": "2014年限额以上第三产业单位按门类划分收入构成情况｜文化、体育和娱乐业",
+        "unit": null,
+        "values": [
+          17,
+          4.2,
+          8.1,
+          -2.8
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

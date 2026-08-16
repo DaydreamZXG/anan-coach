@@ -2,11 +2,10 @@ import { CompanionApi } from "../../api/companion";
 import type {
   CompanionAskRequest,
   CompanionAskResponse,
-  LearningBrainProfileVersion,
+  LearnerCoachContext,
   TodayDashboard,
 } from "../../api/generated/types.gen";
 import { LearningBrainApi } from "../../api/learning-brain";
-import { OnboardingApi } from "../../api/onboarding";
 import { PlanningApi } from "../../api/planning";
 import { routes } from "../../app/navigation/routes";
 import { PageEffectOwner } from "../../app/runtime/page-effect-owner";
@@ -46,7 +45,7 @@ const companionPendingMessage = "哎,刚才的回答还没到,别急,再发一�
 
 interface CompanionContextRuntime {
   ownerSession: ActiveAuthSession | undefined;
-  profileSource: CompanionContextSourceState<LearningBrainProfileVersion>;
+  profileSource: CompanionContextSourceState<LearnerCoachContext>;
   todaySource: CompanionContextSourceState<TodayDashboard>;
   profileGeneration: number;
   todayGeneration: number;
@@ -77,7 +76,7 @@ function loadingContextSource<T>(): CompanionContextSourceState<T> {
 function createContextRuntime(ownerSession?: ActiveAuthSession): CompanionContextRuntime {
   return {
     ownerSession,
-    profileSource: loadingContextSource<LearningBrainProfileVersion>(),
+    profileSource: loadingContextSource<LearnerCoachContext>(),
     todaySource: loadingContextSource<TodayDashboard>(),
     profileGeneration: 0,
     todayGeneration: 0,
@@ -322,8 +321,8 @@ Page({
       requestId: "",
     });
     const [profileResult, todayResult] = await Promise.allSettled([
-      new LearningBrainApi(client).getProfile().then(({ data }) => data),
-      loadTodayDashboardIfReady(client),
+      new LearningBrainApi(client).getCoachContext().then(({ data }) => data),
+      loadTodayDashboard(client),
     ]);
     if (!sameSessionOwner(currentAuthSession(), auth)) {
       this.recoverExpiredSession();
@@ -369,7 +368,7 @@ Page({
     const profileGeneration = ++runtime.profileGeneration;
     this.setData({ profileRefreshing: true });
     const [profileResult] = await Promise.allSettled([
-      new LearningBrainApi(client).getProfile().then(({ data }) => data),
+      new LearningBrainApi(client).getCoachContext().then(({ data }) => data),
     ]);
     runtime.profileRetryInFlight = false;
     if (!sameSessionOwner(currentAuthSession(), auth)) {
@@ -398,7 +397,7 @@ Page({
     const previousToday = runtime.todaySource;
     const todayGeneration = ++runtime.todayGeneration;
     this.setData({ todayRefreshing: true });
-    const [todayResult] = await Promise.allSettled([loadTodayDashboardIfReady(client)]);
+    const [todayResult] = await Promise.allSettled([loadTodayDashboard(client)]);
     runtime.todayRetryInFlight = false;
     if (!sameSessionOwner(currentAuthSession(), auth)) {
       this.recoverExpiredSession();
@@ -743,26 +742,18 @@ function settledContextSource<T>(
   };
 }
 
-async function loadTodayDashboardIfReady(client: ApiClient): Promise<TodayDashboard | null> {
-  const { data: progress } = await new OnboardingApi(client).getProgress();
-  if (!progress.studyPreferenceReady) return null;
+async function loadTodayDashboard(client: ApiClient): Promise<TodayDashboard> {
   const { data } = await new PlanningApi(client).getToday();
   return data;
 }
 
 function settledTodayContextSource(
-  result: PromiseSettledResult<TodayDashboard | null>,
+  result: PromiseSettledResult<TodayDashboard>,
   previous: CompanionContextSourceState<TodayDashboard>,
   fallback: string,
 ): CompanionContextSourceState<TodayDashboard> {
   if (result.status === "fulfilled") {
-    return result.value
-      ? { status: "ready", value: result.value }
-      : {
-          status: "unavailable",
-          message: "先把每天的学习时间定下来,岸岸就能帮你安排今天的计划啦。",
-          requestId: "",
-        };
+    return { status: "ready", value: result.value };
   }
   return settledContextSource(result, previous, fallback);
 }

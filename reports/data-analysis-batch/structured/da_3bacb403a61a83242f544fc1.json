@@ -1,0 +1,405 @@
+{
+  "asset_id": "da_3bacb403a61a83242f544fc1",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "月份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "手机当期产量（万部）",
+        "unit": "万部"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比增速（%）",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "手机当期产量（万部）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万部",
+      "values": [
+        13679,
+        10916,
+        11368,
+        13411,
+        12074,
+        12501,
+        15029,
+        14273,
+        14235
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "同比增速（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -2.3,
+        -13.3,
+        -10.5,
+        0.9,
+        -5.9,
+        -8.4,
+        -11.8,
+        -7.5,
+        -13.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "增速较上一年度同期减少（百分点）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百分点",
+      "values": [
+        0.8,
+        19.8,
+        12.9,
+        4.6,
+        11.9,
+        15.4,
+        18.7,
+        10.4,
+        16.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2026年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0123_42f075951d191edc.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0123_42f075951d191edc.png",
+        "paper_title": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_775a9dad54dd7e05b164",
+        "question_number": 121,
+        "source_jsonl_line": 8519
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0116_1f8cc18e02d04baf.png",
+        "paper_title": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c98cb8710a49853081c7",
+        "question_number": 122,
+        "source_jsonl_line": 8520
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0123_42f075951d191edc.png",
+        "paper_title": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_246fb05b3dfaafaf80e7",
+        "question_number": 123,
+        "source_jsonl_line": 8521
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0116_1f8cc18e02d04baf.png",
+        "paper_title": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_43fe0b56dbb32809f9f5",
+        "question_number": 124,
+        "source_jsonl_line": 8522
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0123_42f075951d191edc.png",
+        "paper_title": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_10aaad68eb9daef61d5f",
+        "question_number": 125,
+        "source_jsonl_line": 8523
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0148_42f075951d191edc.png",
+        "paper_title": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_469f912ef8b24896786a",
+        "question_number": 116,
+        "source_jsonl_line": 84587
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0148_42f075951d191edc.png",
+        "paper_title": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f301da3258cd0eaaed56",
+        "question_number": 117,
+        "source_jsonl_line": 84588
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0148_42f075951d191edc.png",
+        "paper_title": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_70120bee44e52fb86b42",
+        "question_number": 118,
+        "source_jsonl_line": 84589
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0171_1f8cc18e02d04baf.png",
+        "paper_title": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0f4d8652f781131d4911",
+        "question_number": 119,
+        "source_jsonl_line": 84590
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0171_1f8cc18e02d04baf.png",
+        "paper_title": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b3b491d13fd8a614bb09",
+        "question_number": 120,
+        "source_jsonl_line": 84591
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0052_1f8cc18e02d04baf.png",
+        "paper_title": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f3e380e9d6e3c9104437",
+        "question_number": 106,
+        "source_jsonl_line": 104748
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0052_1f8cc18e02d04baf.png",
+        "paper_title": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_00b35233b982b3fe098d",
+        "question_number": 107,
+        "source_jsonl_line": 104749
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0069_42f075951d191edc.png",
+        "paper_title": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_21cfe7a8ebafd7bfda0a",
+        "question_number": 108,
+        "source_jsonl_line": 104750
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0069_42f075951d191edc.png",
+        "paper_title": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ace9cc338cc620e725d5",
+        "question_number": 109,
+        "source_jsonl_line": 104751
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0069_42f075951d191edc.png",
+        "paper_title": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b1472a52e6c69fdc0a27",
+        "question_number": 110,
+        "source_jsonl_line": 104752
+      }
+    ],
+    "sha256": "3bacb403a61a83242f544fc13546741d27ecbb7fef49fcdea552b6b1953ce7d0"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "月份",
+      "手机当期产量（万部）",
+      "同比增速（%）",
+      "增速较上一年度同期减少（百分点）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "3月",
+        "unit": null,
+        "values": [
+          "3月",
+          13679,
+          -2.3,
+          0.8
+        ]
+      },
+      {
+        "label": "4月",
+        "unit": null,
+        "values": [
+          "4月",
+          10916,
+          -13.3,
+          19.8
+        ]
+      },
+      {
+        "label": "5月",
+        "unit": null,
+        "values": [
+          "5月",
+          11368,
+          -10.5,
+          12.9
+        ]
+      },
+      {
+        "label": "6月",
+        "unit": null,
+        "values": [
+          "6月",
+          13411,
+          0.9,
+          4.6
+        ]
+      },
+      {
+        "label": "7月",
+        "unit": null,
+        "values": [
+          "7月",
+          12074,
+          -5.9,
+          11.9
+        ]
+      },
+      {
+        "label": "8月",
+        "unit": null,
+        "values": [
+          "8月",
+          12501,
+          -8.4,
+          15.4
+        ]
+      },
+      {
+        "label": "9月",
+        "unit": null,
+        "values": [
+          "9月",
+          15029,
+          -11.8,
+          18.7
+        ]
+      },
+      {
+        "label": "10月",
+        "unit": null,
+        "values": [
+          "10月",
+          14273,
+          -7.5,
+          10.4
+        ]
+      },
+      {
+        "label": "11月",
+        "unit": null,
+        "values": [
+          "11月",
+          14235,
+          -13.8,
+          16.3
+        ]
+      }
+    ]
+  },
+  "title": "2025年3-11月全国手机当期产量情况",
+  "unit": "万部",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3bacb403a61a83242f544fc1/row_band_01.jpg",
+        "review-crops/da_3bacb403a61a83242f544fc1/row_band_02.jpg",
+        "review-crops/da_3bacb403a61a83242f544fc1/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.004",
+      "crop_verification_elapsed_seconds:21.118",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了4月手机当期产量为10916（原为10916，一致）",
+      "crop_note:修正了5月手机当期产量为11368（原为11368，一致）",
+      "crop_note:修正了6月手机当期产量为13411（原为13411，一致）",
+      "crop_note:修正了7月手机当期产量为12074（原为12074，一致）",
+      "crop_note:修正了8月手机当期产量为12501（原为12501，一致）",
+      "crop_note:修正了9月手机当期产量为15029（原为15029，一致）",
+      "crop_note:修正了10月手机当期产量为14273（原为14273，一致）",
+      "crop_note:修正了11月手机当期产量为14235（原为14235，一致）",
+      "crop_note:修正了4月同比增速为-13.3（原为-13.3，一致）",
+      "crop_note:修正了5月同比增速为-10.5（原为-10.5，一致）",
+      "crop_note:修正了6月同比增速为0.9（原为0.9，一致）",
+      "crop_note:修正了7月同比增速为-5.9（原为-5.9，一致）",
+      "crop_note:修正了8月同比增速为-8.4（原为-8.4，一致）",
+      "crop_note:修正了9月同比增速为-11.8（原为-11.8，一致）",
+      "crop_note:修正了10月同比增速为-7.5（原为-7.5，一致）",
+      "crop_note:修正了11月同比增速为-13.8（原为-13.8，一致）",
+      "crop_note:修正了3月增速较上一年度同期减少为0.8（原为0.8，一致）",
+      "crop_note:修正了4月增速较上一年度同期减少为19.8（原为19.8，一致）",
+      "crop_note:修正了5月增速较上一年度同期减少为12.9（原为12.9，一致）",
+      "crop_note:修正了6月增速较上一年度同期减少为4.6（原为4.6，一致）",
+      "crop_note:修正了7月增速较上一年度同期减少为11.9（原为11.9，一致）",
+      "crop_note:修正了8月增速较上一年度同期减少为15.4（原为15.4，一致）",
+      "crop_note:修正了9月增速较上一年度同期减少为18.7（原为18.7，一致）",
+      "crop_note:修正了10月增速较上一年度同期减少为10.4（原为10.4，一致）",
+      "crop_note:修正了11月增速较上一年度同期减少为16.3（原为16.3，一致）"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

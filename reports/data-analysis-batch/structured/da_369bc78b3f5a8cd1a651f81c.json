@@ -1,0 +1,165 @@
+{
+  "asset_id": "da_369bc78b3f5a8cd1a651f81c",
+  "axes": {
+    "x": {
+      "max": 70,
+      "min": 0,
+      "ticks": [
+        0,
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70
+      ],
+      "title": null,
+      "unit": "%"
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "有实际购物需求",
+    "优惠力度大",
+    "宣传力度大",
+    "商品质量好",
+    "周围人都在“双11”购物",
+    "交易过程安全可靠",
+    "能缓解压力",
+    "其他"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "网购原因",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "网购原因",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        66.1,
+        64.5,
+        19.3,
+        12.4,
+        11.4,
+        10.6,
+        7.5,
+        0.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0289_f8bffd40b47a7ef7.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0289_f8bffd40b47a7ef7.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_262377fa32696c24dcbe",
+        "question_number": 116,
+        "source_jsonl_line": 48696
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0289_f8bffd40b47a7ef7.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_cd26e90d69edd7152f26",
+        "question_number": 117,
+        "source_jsonl_line": 48697
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0297_e16a676d58e2adc2.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_87928220d3ef05840987",
+        "question_number": 118,
+        "source_jsonl_line": 48698
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0297_e16a676d58e2adc2.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_bb7f8e56618b1ae8ad50",
+        "question_number": 119,
+        "source_jsonl_line": 48699
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0297_e16a676d58e2adc2.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_2a7e7f5b423ceb31cbe0",
+        "question_number": 120,
+        "source_jsonl_line": 48700
+      }
+    ],
+    "sha256": "369bc78b3f5a8cd1a651f81ce2bb93f7c3c68b8014c7395ff0b3b6e4aaeebc35"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "某市参与2018年“双11”网购的受访者网购原因（限选3项）",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_369bc78b3f5a8cd1a651f81c/column_band_01.jpg",
+        "review-crops/da_369bc78b3f5a8cd1a651f81c/column_band_02.jpg",
+        "review-crops/da_369bc78b3f5a8cd1a651f81c/column_band_03.jpg",
+        "review-crops/da_369bc78b3f5a8cd1a651f81c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.599",
+      "crop_verification_elapsed_seconds:8.557",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了 y 轴标签的顺序，使其与 x 轴数据对齐，从上到下依次为：其他、能缓解压力、交易过程安全可靠、周围人都在“双11”购物、商品质量好、宣传力度大、优惠力度大、有实际购物需求。",
+      "crop_note:确认了所有数值的准确性，包括小数点后一位的数字，如 66.1, 64.5, 19.3, 12.4, 11.4, 10.6, 7.5, 0.6。",
+      "crop_note:确认了百分号（%）的正确位置和单位。",
+      "crop_note:确认了 x 轴的刻度范围（0-70）和标签（0, 10, 20, 30, 40, 50, 60, 70）的正确性。",
+      "crop_note:确认了标题和单位的正确性，标题为“某市参与2018年“双11”网购的受访者网购原因（限选3项）”，单位为“%”。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

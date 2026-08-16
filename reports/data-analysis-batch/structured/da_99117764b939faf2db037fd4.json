@@ -1,0 +1,276 @@
+{
+  "asset_id": "da_99117764b939faf2db037fd4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0201_900e4ded3bbcce53.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0201_900e4ded3bbcce53.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_6e041c394da3a44fd279",
+        "question_number": 121,
+        "source_jsonl_line": 10264
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0199_f9ac4b62d84f9c46.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_9811dbd30ff48694a776",
+        "question_number": 122,
+        "source_jsonl_line": 10265
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0201_900e4ded3bbcce53.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_9ec8fdb6b8f4278cceb3",
+        "question_number": 123,
+        "source_jsonl_line": 10266
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0201_900e4ded3bbcce53.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_2ff465c4c71d3570591a",
+        "question_number": 124,
+        "source_jsonl_line": 10267
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0201_900e4ded3bbcce53.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_2e9283fb42336e24d5a5",
+        "question_number": 125,
+        "source_jsonl_line": 10268
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0265_f9ac4b62d84f9c46.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_4f990a95a645e4bfe1d5",
+        "question_number": 126,
+        "source_jsonl_line": 10399
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0265_f9ac4b62d84f9c46.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_1c35bf36e0a275337c0e",
+        "question_number": 127,
+        "source_jsonl_line": 10400
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0254_900e4ded3bbcce53.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_21508cc293d706e5314c",
+        "question_number": 128,
+        "source_jsonl_line": 10401
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0265_f9ac4b62d84f9c46.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_25e262655c7b1ba2b0e1",
+        "question_number": 129,
+        "source_jsonl_line": 10402
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0265_f9ac4b62d84f9c46.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_1806b7234e1ac2939e33",
+        "question_number": 130,
+        "source_jsonl_line": 10403
+      }
+    ],
+    "sha256": "99117764b939faf2db037fd44b8aa6c78d8450e8a23678beeb38f93b7a4f1699"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年末企业总数数量(户)",
+      "年末企业总数增速(%)",
+      "全年新设企业数量(户)",
+      "全年新设企业增速(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "行业",
+    "rows": [
+      {
+        "label": "文化艺术服务",
+        "unit": null,
+        "values": [
+          95928,
+          22.87,
+          18586,
+          14.5
+        ]
+      },
+      {
+        "label": "文化休闲娱乐服务",
+        "unit": null,
+        "values": [
+          2456,
+          9.84,
+          244,
+          -10.95
+        ]
+      },
+      {
+        "label": "文化信息传输服务",
+        "unit": null,
+        "values": [
+          2013,
+          12.52,
+          197,
+          337.78
+        ]
+      },
+      {
+        "label": "文化创意和设计服务",
+        "unit": null,
+        "values": [
+          39139,
+          11.3,
+          4850,
+          -14.05
+        ]
+      },
+      {
+        "label": "文化专用设备的生产",
+        "unit": null,
+        "values": [
+          13100,
+          1.12,
+          512,
+          -17.95
+        ]
+      },
+      {
+        "label": "文化用品的生产",
+        "unit": null,
+        "values": [
+          12773,
+          12.16,
+          1522,
+          -32.65
+        ]
+      },
+      {
+        "label": "工艺美术品的生产",
+        "unit": null,
+        "values": [
+          9916,
+          20.38,
+          1651,
+          -9.29
+        ]
+      },
+      {
+        "label": "新闻出版发行服务",
+        "unit": null,
+        "values": [
+          5604,
+          4.96,
+          253,
+          22.22
+        ]
+      },
+      {
+        "label": "文化产品生产的辅助生产",
+        "unit": null,
+        "values": [
+          16042,
+          9.97,
+          1710,
+          -11.54
+        ]
+      },
+      {
+        "label": "广播电视电影服务",
+        "unit": null,
+        "values": [
+          1977,
+          94.4,
+          798,
+          454.17
+        ]
+      }
+    ]
+  },
+  "title": "2015年北京市文化及相关产业各行业企业数量及同比增速",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_99117764b939faf2db037fd4/row_band_01.jpg",
+        "review-crops/da_99117764b939faf2db037fd4/row_band_02.jpg",
+        "review-crops/da_99117764b939faf2db037fd4/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.846",
+      "crop_verification_elapsed_seconds:7.795",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:文化艺术服务:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:文化休闲娱乐服务:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:文化艺术服务:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:文化休闲娱乐服务:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:文化信息传输服务:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:文化创意和设计服务:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:文化专用设备的生产:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:文化用品的生产:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:工艺美术品的生产:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:文化用品的生产:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:工艺美术品的生产:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:新闻出版发行服务:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:文化产品生产的辅助生产:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:广播电视电影服务:4!=5",
+      "table_row_label_column_removed:行业"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

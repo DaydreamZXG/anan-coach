@@ -1,0 +1,184 @@
+{
+  "asset_id": "da_920f6772ade83964cd7bd7a9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "销售额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        4.8,
+        13.0,
+        22.4,
+        27.8,
+        39.5,
+        54.8,
+        88.2,
+        75.9,
+        61.8,
+        74.9,
+        73.0,
+        111.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2010年湖北省公务员录用考试《行测》题_images/img_0218_09c19ebb69f7945c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年湖北省公务员录用考试《行测》题_images/img_0218_09c19ebb69f7945c.png",
+        "paper_title": "2010年湖北省公务员录用考试《行测》题",
+        "question_id": "pq_5357bc5ca94f833d1e35",
+        "question_number": 96,
+        "source_jsonl_line": 69092
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年湖北省公务员录用考试《行测》题_images/img_0218_09c19ebb69f7945c.png",
+        "paper_title": "2010年湖北省公务员录用考试《行测》题",
+        "question_id": "pq_9789b36d860e81d825f4",
+        "question_number": 97,
+        "source_jsonl_line": 69093
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年湖北省公务员录用考试《行测》题_images/img_0218_09c19ebb69f7945c.png",
+        "paper_title": "2010年湖北省公务员录用考试《行测》题",
+        "question_id": "pq_89ffef652b4768a3deb7",
+        "question_number": 98,
+        "source_jsonl_line": 69094
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年湖北省公务员录用考试《行测》题_images/img_0184_1f365a35e26b4dee.png",
+        "paper_title": "2010年湖北省公务员录用考试《行测》题",
+        "question_id": "pq_5ade9634f2e2e7344970",
+        "question_number": 99,
+        "source_jsonl_line": 69095
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年湖北省公务员录用考试《行测》题_images/img_0218_09c19ebb69f7945c.png",
+        "paper_title": "2010年湖北省公务员录用考试《行测》题",
+        "question_id": "pq_3faafbf0d5a5dee1a644",
+        "question_number": 100,
+        "source_jsonl_line": 69096
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年湖北省公务员录用考试《行测》题_images/img_0184_1f365a35e26b4dee.png",
+        "paper_title": "2010年湖北省公务员录用考试《行测》题",
+        "question_id": "pq_af413c2545da8d69ba51",
+        "question_number": 101,
+        "source_jsonl_line": 69097
+      }
+    ],
+    "sha256": "920f6772ade83964cd7bd7a9bf5ef171880005e2a6f853da604b761ef80be39f"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1月",
+      "2月",
+      "3月",
+      "4月",
+      "5月",
+      "6月",
+      "7月",
+      "8月",
+      "9月",
+      "10月",
+      "11月",
+      "12月"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "销售额",
+        "unit": "亿元",
+        "values": [
+          4.8,
+          13.0,
+          22.4,
+          27.8,
+          39.5,
+          54.8,
+          88.2,
+          75.9,
+          61.8,
+          74.9,
+          73.0,
+          111.7
+        ]
+      }
+    ]
+  },
+  "title": "2009年“家电下乡”产品销售额（1-12月）",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_920f6772ade83964cd7bd7a9/row_band_01.jpg",
+        "review-crops/da_920f6772ade83964cd7bd7a9/row_band_02.jpg",
+        "review-crops/da_920f6772ade83964cd7bd7a9/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.227",
+      "crop_verification_elapsed_seconds:2.929",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:表格中未明确标注单位，仅在标题中说明单位为亿元，可能存在歧义。",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

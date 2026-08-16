@@ -1,0 +1,238 @@
+{
+  "asset_id": "da_995b9f4b9626d00ffb3cd498",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 18000,
+        "min": 0,
+        "ticks": [
+          0,
+          3000,
+          6000,
+          9000,
+          12000,
+          15000,
+          18000
+        ],
+        "title": null,
+        "unit": "亿美元"
+      },
+      {
+        "max": 30,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2008年",
+    "2009年",
+    "2010年",
+    "2011年",
+    "2012年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "矿产品进出口总额",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "矿产品进出口总额占全国商品进出口总额的比重",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "矿产品进出口总额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        6588,
+        4987,
+        7125,
+        9571,
+        9919
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "矿产品进出口总额占全国商品进出口总额的比重",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        25.7,
+        22.6,
+        24.0,
+        26.3,
+        25.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2014年四川省公务员录用考试《行测》题_images/img_0208_28b3ffaf06eeca8b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题_images/img_0208_28b3ffaf06eeca8b.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题",
+        "question_id": "pq_a949c0cf345bc4d98483",
+        "question_number": 116,
+        "source_jsonl_line": 14827
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题_images/img_0208_28b3ffaf06eeca8b.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题",
+        "question_id": "pq_402f9431020b4d700d87",
+        "question_number": 117,
+        "source_jsonl_line": 14828
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题_images/img_0208_28b3ffaf06eeca8b.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题",
+        "question_id": "pq_a388cde6301a8edf08b3",
+        "question_number": 118,
+        "source_jsonl_line": 14829
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题_images/img_0208_28b3ffaf06eeca8b.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题",
+        "question_id": "pq_2fba005bff3b5db349b9",
+        "question_number": 119,
+        "source_jsonl_line": 14830
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题_images/img_0208_28b3ffaf06eeca8b.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题",
+        "question_id": "pq_9bada98fba9dda965966",
+        "question_number": 120,
+        "source_jsonl_line": 14831
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山西省公务员录用考试《行测》题_images/img_0220_28b3ffaf06eeca8b.png",
+        "paper_title": "2014年山西省公务员录用考试《行测》题",
+        "question_id": "pq_c91c343e1347bf2c1053",
+        "question_number": 116,
+        "source_jsonl_line": 31954
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山西省公务员录用考试《行测》题_images/img_0221_8c454fa096626d6b.png",
+        "paper_title": "2014年山西省公务员录用考试《行测》题",
+        "question_id": "pq_563e35ae661ef745a257",
+        "question_number": 117,
+        "source_jsonl_line": 31955
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山西省公务员录用考试《行测》题_images/img_0221_8c454fa096626d6b.png",
+        "paper_title": "2014年山西省公务员录用考试《行测》题",
+        "question_id": "pq_95e0c40a12798c02a9ad",
+        "question_number": 118,
+        "source_jsonl_line": 31956
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山西省公务员录用考试《行测》题_images/img_0220_28b3ffaf06eeca8b.png",
+        "paper_title": "2014年山西省公务员录用考试《行测》题",
+        "question_id": "pq_83bacc00d5e371d735f0",
+        "question_number": 119,
+        "source_jsonl_line": 31957
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山西省公务员录用考试《行测》题_images/img_0220_28b3ffaf06eeca8b.png",
+        "paper_title": "2014年山西省公务员录用考试《行测》题",
+        "question_id": "pq_0d78b5e1a8d7837d4d20",
+        "question_number": 120,
+        "source_jsonl_line": 31958
+      }
+    ],
+    "sha256": "995b9f4b9626d00ffb3cd498366397761a5e57f79ce52e377159cf23c8c66871"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2008年～2012年我国矿产品进出口贸易额变化情况",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_995b9f4b9626d00ffb3cd498/column_band_01.jpg",
+        "review-crops/da_995b9f4b9626d00ffb3cd498/column_band_02.jpg",
+        "review-crops/da_995b9f4b9626d00ffb3cd498/column_band_03.jpg",
+        "review-crops/da_995b9f4b9626d00ffb3cd498/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.227",
+      "crop_verification_elapsed_seconds:3.936",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

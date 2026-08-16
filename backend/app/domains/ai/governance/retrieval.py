@@ -1516,6 +1516,8 @@ def context_candidate(
     trust_scope: str,
     source_weight: float,
     display_summary: str | None = None,
+    untrusted_input: bool = False,
+    retrieval_score: float = 0.0,
 ) -> _Candidate:
     return _Candidate(
         reference=EvidenceReference(
@@ -1528,8 +1530,9 @@ def context_candidate(
         text=text_value,
         trust_scope=trust_scope,
         source_weight=source_weight,
-        untrusted_input=False,
+        untrusted_input=untrusted_input,
         display_summary=display_summary,
+        retrieval_score=retrieval_score,
     )
 
 

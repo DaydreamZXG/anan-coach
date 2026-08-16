@@ -1,0 +1,116 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "年末数｜2004",
+          "年末数｜2005"
+        ],
+        "label": "年末数"
+      },
+      {
+        "columns": [
+          "比重｜2004",
+          "比重｜2005"
+        ],
+        "label": "比重"
+      }
+    ],
+    "columns": [
+      "年末数｜2004",
+      "年末数｜2005",
+      "比重｜2004",
+      "比重｜2005"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "全国总人口",
+        "unit": null,
+        "values": [
+          129988,
+          130756,
+          100,
+          100
+        ]
+      },
+      {
+        "label": "其中：城镇",
+        "unit": null,
+        "values": [
+          54283,
+          56212,
+          41.8,
+          43
+        ]
+      },
+      {
+        "label": "乡村",
+        "unit": null,
+        "values": [
+          75705,
+          74544,
+          58.2,
+          57
+        ]
+      },
+      {
+        "label": "其中：男性",
+        "unit": null,
+        "values": [
+          66796,
+          67375,
+          51.5,
+          51.5
+        ]
+      },
+      {
+        "label": "女性",
+        "unit": null,
+        "values": [
+          63012,
+          63381,
+          48.5,
+          48.5
+        ]
+      },
+      {
+        "label": "其中：0-14岁",
+        "unit": null,
+        "values": [
+          27947,
+          26504,
+          21.5,
+          20.3
+        ]
+      },
+      {
+        "label": "15-64岁",
+        "unit": null,
+        "values": [
+          92184,
+          94197,
+          70.9,
+          72
+        ]
+      },
+      {
+        "label": "65岁及以上",
+        "unit": null,
+        "values": [
+          9857,
+          10055,
+          7.6,
+          7.7
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

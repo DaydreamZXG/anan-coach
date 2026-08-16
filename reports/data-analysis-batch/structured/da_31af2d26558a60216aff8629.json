@@ -1,0 +1,533 @@
+{
+  "asset_id": "da_31af2d26558a60216aff8629",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2013年吉林省公务员录用考试《行测》题（甲级）_images/img_0109_97cc74dff4525319.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（甲级）_images/img_0109_97cc74dff4525319.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_4adbed4f58f5029622d6",
+        "question_number": 96,
+        "source_jsonl_line": 11772
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（甲级）_images/img_0109_97cc74dff4525319.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_b9b42d5e61f493e4d16f",
+        "question_number": 97,
+        "source_jsonl_line": 11773
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（甲级）_images/img_0105_cabef55dd9fa7f46.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_978abc119c8ab9f8c409",
+        "question_number": 98,
+        "source_jsonl_line": 11774
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（甲级）_images/img_0105_cabef55dd9fa7f46.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_0e437315877d8b448ab2",
+        "question_number": 99,
+        "source_jsonl_line": 11775
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（甲级）_images/img_0109_97cc74dff4525319.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_77e9a3fb0d519e93be59",
+        "question_number": 100,
+        "source_jsonl_line": 11776
+      }
+    ],
+    "sha256": "31af2d26558a60216aff8629c2e7235da424d329aef1cca54d0909be670d05b4"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "序号",
+      "水系",
+      "点位名称",
+      "pH值",
+      "溶解氧DO(mg/l)",
+      "耗氧量CODMn(mg/l)",
+      "氨氮含量NH3-N(mg/l)",
+      "11周水质",
+      "10周水质",
+      "主要污染指标"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "1",
+        "unit": null,
+        "values": [
+          1,
+          "松花江流域",
+          "吉林溪渡口",
+          7.16,
+          11.4,
+          3.2,
+          0.13,
+          "Ⅱ",
+          "Ⅱ",
+          null
+        ]
+      },
+      {
+        "label": "2",
+        "unit": null,
+        "values": [
+          2,
+          "松花江流域",
+          "吉林长春松花江村",
+          7.3,
+          9.24,
+          4.0,
+          0.17,
+          "Ⅱ",
+          "Ⅱ",
+          null
+        ]
+      },
+      {
+        "label": "3",
+        "unit": null,
+        "values": [
+          3,
+          "松花江流域",
+          "吉林松原松林",
+          7.82,
+          8.05,
+          5.4,
+          0.93,
+          "Ⅲ",
+          "Ⅲ",
+          null
+        ]
+      },
+      {
+        "label": "4",
+        "unit": null,
+        "values": [
+          4,
+          "松花江流域",
+          "黑龙江肇源",
+          7.1,
+          9.06,
+          5.8,
+          1.03,
+          "Ⅳ",
+          "Ⅲ",
+          null
+        ]
+      },
+      {
+        "label": "5",
+        "unit": null,
+        "values": [
+          5,
+          "松花江流域",
+          "黑龙江同江",
+          7.58,
+          6.71,
+          4.7,
+          0.72,
+          "Ⅲ",
+          "Ⅲ",
+          null
+        ]
+      },
+      {
+        "label": "6",
+        "unit": null,
+        "values": [
+          6,
+          "松花江流域",
+          "吉林白城白岔滩",
+          7.11,
+          9.16,
+          3.6,
+          0.58,
+          "Ⅲ",
+          "Ⅲ",
+          null
+        ]
+      },
+      {
+        "label": "7",
+        "unit": null,
+        "values": [
+          7,
+          "松花江流域",
+          "吉林敦化新甸",
+          7.12,
+          10.4,
+          4.0,
+          0.21,
+          "Ⅱ",
+          "Ⅱ",
+          null
+        ]
+      },
+      {
+        "label": "8",
+        "unit": null,
+        "values": [
+          8,
+          "松花江流域",
+          "内蒙古呼伦贝尔黑山头",
+          7.9,
+          1.37,
+          2.3,
+          1.36,
+          "劣Ⅴ",
+          "劣Ⅴ",
+          "溶解氧, 氨氮"
+        ]
+      },
+      {
+        "label": "9",
+        "unit": null,
+        "values": [
+          9,
+          "松花江流域",
+          "黑龙江大庆兴隆呼玛",
+          7.08,
+          6.31,
+          2.5,
+          0.35,
+          "Ⅱ",
+          "Ⅲ",
+          null
+        ]
+      },
+      {
+        "label": "10",
+        "unit": null,
+        "values": [
+          10,
+          "松花江流域",
+          "黑龙江黑河",
+          7.43,
+          5.48,
+          4.8,
+          0.34,
+          "Ⅲ",
+          "Ⅳ",
+          null
+        ]
+      },
+      {
+        "label": "11",
+        "unit": null,
+        "values": [
+          11,
+          "松花江流域",
+          "黑龙江伊春嘉荫",
+          6.34,
+          9.02,
+          1.8,
+          0.2,
+          "Ⅱ",
+          "Ⅱ",
+          null
+        ]
+      },
+      {
+        "label": "12",
+        "unit": null,
+        "values": [
+          12,
+          "松花江流域",
+          "内蒙古呼伦贝尔大额桥",
+          7.28,
+          6.23,
+          2.4,
+          0.24,
+          "Ⅱ",
+          "Ⅱ",
+          null
+        ]
+      },
+      {
+        "label": "13",
+        "unit": null,
+        "values": [
+          13,
+          "松花江流域",
+          "内蒙古呼伦贝尔嫩岗",
+          7.65,
+          0.79,
+          3.4,
+          1.13,
+          "劣Ⅴ",
+          "劣Ⅴ",
+          null
+        ]
+      },
+      {
+        "label": "14",
+        "unit": null,
+        "values": [
+          14,
+          "松花江流域",
+          "黑龙江口龙林虎头",
+          7.17,
+          9.03,
+          5.6,
+          0.14,
+          "Ⅲ",
+          "Ⅳ",
+          null
+        ]
+      },
+      {
+        "label": "15",
+        "unit": null,
+        "values": [
+          15,
+          "松花江流域",
+          "黑龙江口远乌镇",
+          6.75,
+          10.6,
+          4.6,
+          0.27,
+          "Ⅲ",
+          "Ⅲ",
+          null
+        ]
+      },
+      {
+        "label": "16",
+        "unit": null,
+        "values": [
+          16,
+          "辽河流域",
+          "吉林延边额河",
+          7.07,
+          9.99,
+          6.7,
+          0.9,
+          "Ⅳ",
+          "Ⅲ",
+          null
+        ]
+      },
+      {
+        "label": "17",
+        "unit": null,
+        "values": [
+          17,
+          "辽河流域",
+          "辽宁铁岭朱尔山",
+          6.86,
+          12.5,
+          2.7,
+          0.82,
+          "Ⅲ",
+          "Ⅲ",
+          null
+        ]
+      },
+      {
+        "label": "18",
+        "unit": null,
+        "values": [
+          18,
+          "辽河流域",
+          "辽宁盘锦兴安",
+          6.85,
+          5.74,
+          5.8,
+          0.82,
+          "Ⅲ",
+          "Ⅲ",
+          null
+        ]
+      },
+      {
+        "label": "19",
+        "unit": null,
+        "values": [
+          19,
+          "辽河流域",
+          "辽宁营口辽河公园",
+          null,
+          null,
+          null,
+          null,
+          "★",
+          "★",
+          null
+        ]
+      },
+      {
+        "label": "20",
+        "unit": null,
+        "values": [
+          20,
+          "辽河流域",
+          "辽宁抚顺大伙房水库",
+          7.43,
+          12.2,
+          4.0,
+          0.07,
+          "Ⅱ",
+          "Ⅱ",
+          null
+        ]
+      },
+      {
+        "label": "21",
+        "unit": null,
+        "values": [
+          21,
+          "辽河流域",
+          "辽宁辽阳辽河水库",
+          7.34,
+          7.4,
+          1.7,
+          0.03,
+          "Ⅱ",
+          "Ⅱ",
+          null
+        ]
+      },
+      {
+        "label": "22",
+        "unit": null,
+        "values": [
+          22,
+          "辽河流域",
+          "吉林白山白陵工村",
+          7.16,
+          7.67,
+          0.9,
+          0.05,
+          "Ⅰ",
+          "Ⅱ",
+          null
+        ]
+      },
+      {
+        "label": "23",
+        "unit": null,
+        "values": [
+          23,
+          "辽河流域",
+          "吉林临江浑江河",
+          7.45,
+          8.01,
+          2.2,
+          0.12,
+          "Ⅱ",
+          "Ⅱ",
+          null
+        ]
+      },
+      {
+        "label": "24",
+        "unit": null,
+        "values": [
+          24,
+          "辽河流域",
+          "吉林安上活龙",
+          8.16,
+          9.38,
+          5.4,
+          0.25,
+          "Ⅲ",
+          "Ⅲ",
+          null
+        ]
+      },
+      {
+        "label": "25",
+        "unit": null,
+        "values": [
+          25,
+          "辽河流域",
+          "辽宁丹东辽江",
+          7.93,
+          11.8,
+          2.1,
+          0.18,
+          "Ⅱ",
+          "Ⅱ",
+          null
+        ]
+      }
+    ]
+  },
+  "title": "部分流域重点断面2013年第11周水质状况表",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_31af2d26558a60216aff8629/row_band_01.jpg",
+        "review-crops/da_31af2d26558a60216aff8629/row_band_02.jpg",
+        "review-crops/da_31af2d26558a60216aff8629/row_band_03.jpg",
+        "review-crops/da_31af2d26558a60216aff8629/row_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:24.71",
+      "crop_verification_elapsed_seconds:28.614",
+      "candidate_value_changes_after_crop:4",
+      "model_uncertainty:表中部分数据以'−'表示缺失，未明确说明是否为0",
+      "model_uncertainty:主要污染指标列中存在文本描述，未明确分类或编码",
+      "crop_note:修正了第19行的pH值、溶解氧、耗氧量、氨氮含量为null，因为原图中显示为'−'，表示缺失。",
+      "crop_note:确认了所有数值的格式正确，包括小数点和负号。",
+      "crop_note:确认了所有水质等级和主要污染指标的文本正确无误。",
+      "crop_note:确认了所有行和列的拓扑结构保持一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

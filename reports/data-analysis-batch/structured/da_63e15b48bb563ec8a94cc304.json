@@ -1,0 +1,278 @@
+{
+  "asset_id": "da_63e15b48bb563ec8a94cc304",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "行业",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "主营业务收入 (亿元)",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比 (%)",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "主营业务收入 (亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2602.06,
+        4080.48,
+        1047.88,
+        3339.72,
+        1620.02,
+        1124.88,
+        82.71,
+        1416.65
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "同比 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        13.68,
+        9.47,
+        21.33,
+        10.95,
+        14.52,
+        14.44,
+        6.05,
+        12.37
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2016",
+      "label": "2016年同期增速 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        9.55,
+        11.07,
+        13.03,
+        8.16,
+        9.32,
+        10.62,
+        6.46,
+        12.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/新疆/2017年新疆兵团公务员录用考试《行测》题（网友回忆版）_images/img_0119_a4bc74ec2241384d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年新疆兵团公务员录用考试《行测》题（网友回忆版）_images/img_0119_a4bc74ec2241384d.png",
+        "paper_title": "2017年新疆兵团公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1dc1844df352262278b3",
+        "question_number": 106,
+        "source_jsonl_line": 42746
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年新疆兵团公务员录用考试《行测》题（网友回忆版）_images/img_0121_14365bf251e05e38.png",
+        "paper_title": "2017年新疆兵团公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fcfac2d13f5aaf391231",
+        "question_number": 107,
+        "source_jsonl_line": 42747
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年新疆兵团公务员录用考试《行测》题（网友回忆版）_images/img_0121_14365bf251e05e38.png",
+        "paper_title": "2017年新疆兵团公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2a392a03ac980fca294e",
+        "question_number": 108,
+        "source_jsonl_line": 42748
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年新疆兵团公务员录用考试《行测》题（网友回忆版）_images/img_0119_a4bc74ec2241384d.png",
+        "paper_title": "2017年新疆兵团公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_16246b0476c4da765538",
+        "question_number": 109,
+        "source_jsonl_line": 42749
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年新疆兵团公务员录用考试《行测》题（网友回忆版）_images/img_0119_a4bc74ec2241384d.png",
+        "paper_title": "2017年新疆兵团公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9c5c2642b09db2f9d436",
+        "question_number": 110,
+        "source_jsonl_line": 42750
+      }
+    ],
+    "sha256": "63e15b48bb563ec8a94cc30483577396a80b49fb2aa57278bcdceb20522d9220"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "行业",
+      "主营业务收入 (亿元)",
+      "同比 (%)",
+      "2016年同期增速 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "化学药品原料药制造",
+        "unit": null,
+        "values": [
+          "化学药品原料药制造",
+          2602.06,
+          13.68,
+          9.55
+        ]
+      },
+      {
+        "label": "化学药品制剂制造",
+        "unit": null,
+        "values": [
+          "化学药品制剂制造",
+          4080.48,
+          9.47,
+          11.07
+        ]
+      },
+      {
+        "label": "中药饮片加工",
+        "unit": null,
+        "values": [
+          "中药饮片加工",
+          1047.88,
+          21.33,
+          13.03
+        ]
+      },
+      {
+        "label": "中成药制造",
+        "unit": null,
+        "values": [
+          "中成药制造",
+          3339.72,
+          10.95,
+          8.16
+        ]
+      },
+      {
+        "label": "生物药品制造",
+        "unit": null,
+        "values": [
+          "生物药品制造",
+          1620.02,
+          14.52,
+          9.32
+        ]
+      },
+      {
+        "label": "卫生材料及医药用品制造",
+        "unit": null,
+        "values": [
+          "卫生材料及医药用品制造",
+          1124.88,
+          14.44,
+          10.62
+        ]
+      },
+      {
+        "label": "制药专用设备制造",
+        "unit": null,
+        "values": [
+          "制药专用设备制造",
+          82.71,
+          6.05,
+          6.46
+        ]
+      },
+      {
+        "label": "医疗仪器设备及器械制造",
+        "unit": null,
+        "values": [
+          "医疗仪器设备及器械制造",
+          1416.65,
+          12.37,
+          12.6
+        ]
+      }
+    ]
+  },
+  "title": "2017年上半年医药工业主营业务收入",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_63e15b48bb563ec8a94cc304/row_band_01.jpg",
+        "review-crops/da_63e15b48bb563ec8a94cc304/row_band_02.jpg",
+        "review-crops/da_63e15b48bb563ec8a94cc304/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.387",
+      "crop_verification_elapsed_seconds:6.592",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

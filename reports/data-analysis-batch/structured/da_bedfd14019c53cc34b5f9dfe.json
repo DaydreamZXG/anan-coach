@@ -1,0 +1,234 @@
+{
+  "asset_id": "da_bedfd14019c53cc34b5f9dfe",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2014年江苏省公务员录用考试《行测》题（A类）_images/img_0202_d68b69159792af7f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（A类）_images/img_0202_d68b69159792af7f.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_da3eb17680bc86325830",
+        "question_number": 96,
+        "source_jsonl_line": 46601
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（A类）_images/img_0202_d68b69159792af7f.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_8a66a4ee12553f73fa0f",
+        "question_number": 97,
+        "source_jsonl_line": 46602
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（A类）_images/img_0202_d68b69159792af7f.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_dad32338e4c59799e65f",
+        "question_number": 98,
+        "source_jsonl_line": 46603
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（A类）_images/img_0202_d68b69159792af7f.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_796225dc65bbfcb08d8f",
+        "question_number": 99,
+        "source_jsonl_line": 46604
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（A类）_images/img_0220_88dd39dc53cf6045.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_1eaa9a3032103cf66277",
+        "question_number": 100,
+        "source_jsonl_line": 46605
+      }
+    ],
+    "sha256": "bedfd14019c53cc34b5f9dfe9535ef8569db9151f63c68c1513bf69dceacb48f"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "诊疗人次（亿人次）｜2011年｜诊疗人次（亿人次）",
+          "诊疗人次（亿人次）｜2012年｜诊疗人次（亿人次）"
+        ],
+        "label": "诊疗人次（亿人次）"
+      },
+      {
+        "columns": [
+          "入院人数（万人）｜2011年｜入院人数（万人）",
+          "入院人数（万人）｜2012年｜入院人数（万人）"
+        ],
+        "label": "入院人数（万人）"
+      }
+    ],
+    "columns": [
+      "诊疗人次（亿人次）｜2011年｜诊疗人次（亿人次）",
+      "诊疗人次（亿人次）｜2012年｜诊疗人次（亿人次）",
+      "入院人数（万人）｜2011年｜入院人数（万人）",
+      "入院人数（万人）｜2012年｜入院人数（万人）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "医疗卫生机构",
+    "rows": [
+      {
+        "display_label": "医疗卫生机构合计",
+        "group": null,
+        "label": "医疗卫生机构合计",
+        "unit": null,
+        "values": [
+          62.7,
+          68.9,
+          15298,
+          17812
+        ]
+      },
+      {
+        "display_label": "医院",
+        "group": null,
+        "label": "医院",
+        "unit": null,
+        "values": [
+          22.6,
+          25.4,
+          10755,
+          12727
+        ]
+      },
+      {
+        "display_label": "三级医院",
+        "group": null,
+        "label": "三级医院",
+        "unit": null,
+        "values": [
+          9.0,
+          10.9,
+          3717,
+          4726
+        ]
+      },
+      {
+        "display_label": "二级医院",
+        "group": null,
+        "label": "二级医院",
+        "unit": null,
+        "values": [
+          9.9,
+          10.5,
+          5567,
+          6242
+        ]
+      },
+      {
+        "display_label": "一级医院",
+        "group": null,
+        "label": "一级医院",
+        "unit": null,
+        "values": [
+          1.5,
+          1.7,
+          536,
+          649
+        ]
+      },
+      {
+        "display_label": "公立医院",
+        "group": null,
+        "label": "公立医院",
+        "unit": null,
+        "values": [
+          20.5,
+          22.9,
+          9708,
+          11331
+        ]
+      },
+      {
+        "display_label": "民营医院",
+        "group": null,
+        "label": "民营医院",
+        "unit": null,
+        "values": [
+          2.1,
+          2.5,
+          1047,
+          1396
+        ]
+      },
+      {
+        "display_label": "基层医疗卫生机构",
+        "group": null,
+        "label": "基层医疗卫生机构",
+        "unit": null,
+        "values": [
+          38.1,
+          41.1,
+          3775,
+          4209
+        ]
+      },
+      {
+        "display_label": "其他机构",
+        "group": null,
+        "label": "其他机构",
+        "unit": null,
+        "values": [
+          2.0,
+          2.4,
+          768,
+          876
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

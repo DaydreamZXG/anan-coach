@@ -1,0 +1,207 @@
+{
+  "asset_id": "da_7d0312ef27adef3367ad4fa2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 12,
+        "min": 7,
+        "ticks": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2017年12月",
+    "2018年1-2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "line",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "社会消费品零售总额分月同比增长速度",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "社会消费品零售总额分月同比增长速度",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        9.4,
+        9.7,
+        10.1,
+        9.4,
+        8.5,
+        9.0,
+        8.8,
+        9.0,
+        9.2,
+        8.6,
+        8.1,
+        8.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0283_2f7f79bde7e85515.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0283_2f7f79bde7e85515.png",
+        "paper_title": "2019年420联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_f57a2b49887114b079c7",
+        "question_number": 111,
+        "source_jsonl_line": 30325
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0283_2f7f79bde7e85515.png",
+        "paper_title": "2019年420联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_af0af6d25eea9df060e1",
+        "question_number": 112,
+        "source_jsonl_line": 30326
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0302_6aca00f4febf0b07.png",
+        "paper_title": "2019年420联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_aac7761484fec26f9b4e",
+        "question_number": 113,
+        "source_jsonl_line": 30327
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0302_6aca00f4febf0b07.png",
+        "paper_title": "2019年420联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_dd24e80aad681ee74f11",
+        "question_number": 114,
+        "source_jsonl_line": 30328
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0283_2f7f79bde7e85515.png",
+        "paper_title": "2019年420联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_d05ce9b7b411f7b297b0",
+        "question_number": 115,
+        "source_jsonl_line": 30329
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）_images/img_0306_2f7f79bde7e85515.png",
+        "paper_title": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_4ef84a0db2f525193c4c",
+        "question_number": 111,
+        "source_jsonl_line": 88566
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）_images/img_0303_6aca00f4febf0b07.png",
+        "paper_title": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_97ae8ea3602c75435693",
+        "question_number": 112,
+        "source_jsonl_line": 88567
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）_images/img_0303_6aca00f4febf0b07.png",
+        "paper_title": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_cac8ec47bc571b4fe0e0",
+        "question_number": 113,
+        "source_jsonl_line": 88568
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）_images/img_0303_6aca00f4febf0b07.png",
+        "paper_title": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_45599a7555bc70022d65",
+        "question_number": 114,
+        "source_jsonl_line": 88569
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）_images/img_0303_6aca00f4febf0b07.png",
+        "paper_title": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_0a953448c0d23982428f",
+        "question_number": 115,
+        "source_jsonl_line": 88570
+      }
+    ],
+    "sha256": "7d0312ef27adef3367ad4fa2035840e432da58be9c2f013a76e55e9b35678bfe"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "社会消费品零售总额分月同比增长速度",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_7d0312ef27adef3367ad4fa2/column_band_01.jpg",
+        "review-crops/da_7d0312ef27adef3367ad4fa2/column_band_02.jpg",
+        "review-crops/da_7d0312ef27adef3367ad4fa2/column_band_03.jpg",
+        "review-crops/da_7d0312ef27adef3367ad4fa2/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.093",
+      "crop_verification_elapsed_seconds:3.218",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

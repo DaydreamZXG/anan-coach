@@ -13,6 +13,10 @@ Sha256 = Annotated[str, StringConstraints(pattern=r"^[0-9a-f]{64}$")]
 BrainTrack = Literal["xingce", "essay"]
 BrainReadiness = Literal["unavailable", "partial", "ready", "stale", "conflicted"]
 EvidenceConfidence = Literal["unknown", "low", "medium", "high"]
+CoachRecognitionLevel = Literal[
+    "just_met", "initial_hypothesis", "verifying", "understands"
+]
+CoachContextFreshness = Literal["current", "stale", "conflicted", "unavailable"]
 
 
 class LearningBrainModel(BaseModel):
@@ -168,6 +172,26 @@ class LearningBrainProfileVersion(LearningBrainModel):
     valid_until: datetime = Field(alias="validUntil")
 
 
+class CoachRecognition(LearningBrainModel):
+    level: CoachRecognitionLevel
+    label: str = Field(min_length=1, max_length=80)
+    observation: str = Field(min_length=1, max_length=500)
+    evidence_count: int = Field(alias="evidenceCount", ge=0)
+    stable_mastery_count: int = Field(alias="stableMasteryCount", ge=0)
+
+    @model_validator(mode="after")
+    def validate_level_evidence(self) -> "CoachRecognition":
+        if self.level == "just_met" and self.evidence_count != 0:
+            raise ValueError("just_met recognition cannot carry evidence")
+        if self.level != "just_met" and self.evidence_count == 0:
+            raise ValueError("mature recognition requires evidence")
+        if self.level == "understands" and self.stable_mastery_count == 0:
+            raise ValueError("understands recognition requires stable mastery")
+        if self.level != "understands" and self.stable_mastery_count != 0:
+            raise ValueError("stable mastery must project understands recognition")
+        return self
+
+
 class ErrorPatternDetail(LearningBrainModel):
     profile_version_id: UUID = Field(alias="profileVersionId")
     pattern: ErrorPatternSummary
@@ -226,9 +250,7 @@ class InferenceCandidateVersion(LearningBrainModel):
     confirmation_status: Literal["not_required", "pending", "confirmed", "rejected"] = Field(
         alias="confirmationStatus"
     )
-    validation_status: Literal["pending", "valid", "invalid"] = Field(
-        alias="validationStatus"
-    )
+    validation_status: Literal["pending", "valid", "invalid"] = Field(alias="validationStatus")
     policy_version: str = Field(alias="policyVersion")
     valid_from: datetime = Field(alias="validFrom")
     expires_at: datetime = Field(alias="expiresAt")
@@ -272,6 +294,29 @@ class StrategyCandidateResult(LearningBrainModel):
     candidate: InferenceCandidateVersion
 
 
+class DailyStrategySuggestionCommand(LearningBrainModel):
+    """Empty body for the authenticated, per-user daily suggestion trigger."""
+
+
+class DailyStrategySuggestionResult(LearningBrainModel):
+    status: Literal["suggested", "unavailable"]
+    trigger_kind: Literal["daily_first_entry"] = Field(
+        default="daily_first_entry",
+        alias="triggerKind",
+    )
+    suggestion_id: str | None = Field(default=None, alias="suggestionId")
+    skipped_reason: str | None = Field(default=None, alias="skippedReason")
+    candidate: InferenceCandidateVersion | None = None
+
+    @model_validator(mode="after")
+    def validate_availability(self) -> "DailyStrategySuggestionResult":
+        if self.status == "suggested" and self.candidate is None:
+            raise ValueError("suggested result requires a candidate")
+        if self.status == "unavailable" and self.candidate is not None:
+            raise ValueError("unavailable result cannot expose a candidate")
+        return self
+
+
 class StrategyDecisionResult(LearningBrainModel):
     candidate: InferenceCandidateVersion
     decision: StrategyDecisionVersion
@@ -303,3 +348,31 @@ class StrategyDirective(LearningBrainModel):
 
     active: StrategyDirectiveEntry | None = None
     pending: StrategyDirectiveEntry | None = None
+
+
+class LearnerCoachContext(LearningBrainModel):
+    """岸岸对用户的唯一只读认识投影。
+
+    不持有新事实，只把当前 profile 和策略编译成所有岸岸消费端
+    共用的合约。
+    """
+
+    contract_version: Literal["learner-coach-context@v1"] = Field(
+        default="learner-coach-context@v1",
+        alias="contractVersion",
+    )
+    profile_version_id: UUID = Field(alias="profileVersionId")
+    profile: LearningBrainProfileVersion
+    recognition: CoachRecognition
+    freshness: CoachContextFreshness
+    strategy_directive: StrategyDirective = Field(alias="strategyDirective")
+    generated_at: datetime = Field(alias="generatedAt")
+    valid_until: datetime = Field(alias="validUntil")
+
+    @model_validator(mode="after")
+    def validate_profile_identity(self) -> "LearnerCoachContext":
+        if self.profile_version_id != self.profile.profile_version_id:
+            raise ValueError("coach context/profile version mismatch")
+        if self.valid_until != self.profile.valid_until:
+            raise ValueError("coach context must inherit profile validUntil")
+        return self

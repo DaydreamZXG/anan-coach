@@ -47,7 +47,7 @@ const capabilities: Record<EssayTaskStage, EssayStageCapability> = {
   essay_material_reading: {
     stage: "essay_material_reading",
     title: "梳理材料",
-    modeLabel: "申论 · 阅读材料",
+    modeLabel: "岸岸 · 阅读材料",
     artifactType: "material_annotation",
     writable: true,
     unavailableReason: "",
@@ -56,7 +56,7 @@ const capabilities: Record<EssayTaskStage, EssayStageCapability> = {
   essay_point_extraction: {
     stage: "essay_point_extraction",
     title: "申论要点提炼",
-    modeLabel: "申论 Agent · 找点归纳",
+    modeLabel: "岸岸 · 找点归纳",
     artifactType: "point_extraction",
     writable: true,
     unavailableReason: "",
@@ -65,7 +65,7 @@ const capabilities: Record<EssayTaskStage, EssayStageCapability> = {
   essay_outlining: {
     stage: "essay_outlining",
     title: "申论结构提纲",
-    modeLabel: "申论 Agent · 结构搭建",
+    modeLabel: "岸岸 · 结构搭建",
     artifactType: "outline",
     writable: true,
     unavailableReason: "",
@@ -74,7 +74,7 @@ const capabilities: Record<EssayTaskStage, EssayStageCapability> = {
   essay_review: {
     stage: "essay_review",
     title: "申论评阅确认",
-    modeLabel: "申论 Agent · 原文核对评阅",
+    modeLabel: "岸岸 · 原文核对评阅",
     artifactType: "review_acknowledgement",
     writable: true,
     unavailableReason: "",
@@ -83,7 +83,7 @@ const capabilities: Record<EssayTaskStage, EssayStageCapability> = {
   essay_drafting: {
     stage: "essay_drafting",
     title: "申论答案成稿",
-    modeLabel: "申论 Agent · 基线作答",
+    modeLabel: "岸岸 · 基线作答",
     artifactType: null,
     writable: true,
     unavailableReason: "",
@@ -92,7 +92,7 @@ const capabilities: Record<EssayTaskStage, EssayStageCapability> = {
   essay_rewrite: {
     stage: "essay_rewrite",
     title: "申论二次改写",
-    modeLabel: "申论 Agent · 评阅后改写",
+    modeLabel: "岸岸 · 评阅后改写",
     artifactType: null,
     writable: false,
     unavailableReason: "还缺原作答、完整评阅或已确认问题，暂时不能开始改写。",
@@ -101,7 +101,7 @@ const capabilities: Record<EssayTaskStage, EssayStageCapability> = {
   essay_transfer: {
     stage: "essay_transfer",
     title: "申论迁移验证",
-    modeLabel: "申论 Agent · 新材料验证",
+    modeLabel: "岸岸 · 新材料验证",
     artifactType: null,
     writable: false,
     unavailableReason: "还缺新题、新材料、已完成改写或已确认问题，暂时不能开始迁移练习。",

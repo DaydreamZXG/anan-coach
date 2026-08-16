@@ -1,0 +1,454 @@
+{
+  "asset_id": "da_50d875b37b37c40cfd404ed8",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "指标",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "3月份",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "1-3月份",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "绝对量(亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        31726,
+        11953,
+        null,
+        27192,
+        4534,
+        3393,
+        726,
+        28333,
+        11227,
+        1081,
+        287,
+        218,
+        471,
+        502,
+        249,
+        365
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "同比增长(%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        8.7,
+        5.1,
+        null,
+        8.5,
+        9.4,
+        9.5,
+        7.5,
+        8.6,
+        5.0,
+        11.8,
+        9.5,
+        -1.2,
+        16.6,
+        11.8,
+        -4.0,
+        13.8
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "绝对量(亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        97790,
+        35078,
+        17772,
+        83402,
+        14388,
+        10644,
+        2226,
+        87146,
+        32852,
+        3628,
+        1061,
+        725,
+        1410,
+        1440,
+        692,
+        1093
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "同比增长(%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        8.3,
+        4.1,
+        21.0,
+        8.2,
+        9.2,
+        9.6,
+        7.9,
+        8.2,
+        3.8,
+        10.6,
+        5.9,
+        2.6,
+        16.1,
+        10.8,
+        3.8,
+        10.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河北/2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0252_920e98252a964dfe.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0252_920e98252a964dfe.png",
+        "paper_title": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）",
+        "question_id": "pq_8071a55d63534337a99e",
+        "question_number": 121,
+        "source_jsonl_line": 55878
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0252_920e98252a964dfe.png",
+        "paper_title": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）",
+        "question_id": "pq_e906dac6a6088275ca83",
+        "question_number": 122,
+        "source_jsonl_line": 55879
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0249_21e6d6a66cddce32.png",
+        "paper_title": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）",
+        "question_id": "pq_249fd3f58fe1f8238225",
+        "question_number": 123,
+        "source_jsonl_line": 55880
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0252_920e98252a964dfe.png",
+        "paper_title": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）",
+        "question_id": "pq_337faf30eeaf1eede2a8",
+        "question_number": 124,
+        "source_jsonl_line": 55881
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0252_920e98252a964dfe.png",
+        "paper_title": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）",
+        "question_id": "pq_414c7fd32fdb0f161866",
+        "question_number": 125,
+        "source_jsonl_line": 55882
+      }
+    ],
+    "sha256": "50d875b37b37c40cfd404ed80cde65cf1c24cb97860ea0c7f63f251da465e907"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "3月份绝对量(亿元)",
+      "3月份同比增长(%)",
+      "1-3月份绝对量(亿元)",
+      "1-3月份同比增长(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "社会消费品零售总额",
+        "unit": null,
+        "values": [
+          "社会消费品零售总额",
+          31726,
+          8.7,
+          97790,
+          8.3
+        ]
+      },
+      {
+        "label": "其中：限额以上单位消费品零售额",
+        "unit": null,
+        "values": [
+          "其中：限额以上单位消费品零售额",
+          11953,
+          5.1,
+          35078,
+          4.1
+        ]
+      },
+      {
+        "label": "其中：实物商品网上零售额",
+        "unit": null,
+        "values": [
+          "其中：实物商品网上零售额",
+          null,
+          null,
+          17772,
+          21.0
+        ]
+      },
+      {
+        "label": "按经营地分",
+        "unit": null,
+        "values": [
+          "按经营地分",
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "城镇",
+        "unit": null,
+        "values": [
+          "城镇",
+          27192,
+          8.5,
+          83402,
+          8.2
+        ]
+      },
+      {
+        "label": "乡村",
+        "unit": null,
+        "values": [
+          "乡村",
+          4534,
+          9.4,
+          14388,
+          9.2
+        ]
+      },
+      {
+        "label": "按消费类型分",
+        "unit": null,
+        "values": [
+          "按消费类型分",
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "餐饮收入",
+        "unit": null,
+        "values": [
+          "餐饮收入",
+          3393,
+          9.5,
+          10644,
+          9.6
+        ]
+      },
+      {
+        "label": "其中：限额以上单位餐饮收入",
+        "unit": null,
+        "values": [
+          "其中：限额以上单位餐饮收入",
+          726,
+          7.5,
+          2226,
+          7.9
+        ]
+      },
+      {
+        "label": "商品零售",
+        "unit": null,
+        "values": [
+          "商品零售",
+          28333,
+          8.6,
+          87146,
+          8.2
+        ]
+      },
+      {
+        "label": "其中：限额以上单位商品零售额",
+        "unit": null,
+        "values": [
+          "其中：限额以上单位商品零售额",
+          11227,
+          5.0,
+          32852,
+          3.8
+        ]
+      },
+      {
+        "label": "粮油、食品类",
+        "unit": null,
+        "values": [
+          "粮油、食品类",
+          1081,
+          11.8,
+          3628,
+          10.6
+        ]
+      },
+      {
+        "label": "烟酒类",
+        "unit": null,
+        "values": [
+          "烟酒类",
+          287,
+          9.5,
+          1061,
+          5.9
+        ]
+      },
+      {
+        "label": "金银珠宝类",
+        "unit": null,
+        "values": [
+          "金银珠宝类",
+          218,
+          -1.2,
+          725,
+          2.6
+        ]
+      },
+      {
+        "label": "日用品类",
+        "unit": null,
+        "values": [
+          "日用品类",
+          471,
+          16.6,
+          1410,
+          16.1
+        ]
+      },
+      {
+        "label": "中西药品类",
+        "unit": null,
+        "values": [
+          "中西药品类",
+          502,
+          11.8,
+          1440,
+          10.8
+        ]
+      },
+      {
+        "label": "文化办公用品类",
+        "unit": null,
+        "values": [
+          "文化办公用品类",
+          249,
+          -4.0,
+          692,
+          3.8
+        ]
+      },
+      {
+        "label": "通讯器材类",
+        "unit": null,
+        "values": [
+          "通讯器材类",
+          365,
+          13.8,
+          1093,
+          10.0
+        ]
+      }
+    ]
+  },
+  "title": "2019年一季度社会消费品零售总额主要数据",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_50d875b37b37c40cfd404ed8/row_band_01.jpg",
+        "review-crops/da_50d875b37b37c40cfd404ed8/row_band_02.jpg",
+        "review-crops/da_50d875b37b37c40cfd404ed8/row_band_03.jpg",
+        "review-crops/da_50d875b37b37c40cfd404ed8/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:19.073",
+      "crop_verification_elapsed_seconds:19.173",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:表中'-'表示数据未公布或不适用，需确认是否为明确缺失值",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

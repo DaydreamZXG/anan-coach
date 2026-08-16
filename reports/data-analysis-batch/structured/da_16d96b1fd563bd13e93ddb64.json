@@ -1,0 +1,327 @@
+{
+  "asset_id": "da_16d96b1fd563bd13e93ddb64",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "地区",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "商品房销售面积",
+        "unit": null
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "商品房销售额",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "全国总计",
+    "东部地区",
+    "中部地区",
+    "西部地区",
+    "东北地区"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "绝对数（万平方米）",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "同比增长（%）",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "绝对数（亿元）",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "同比增长（%）",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "绝对数（万平方米）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万平方米",
+      "values": [
+        101648,
+        42841,
+        28359,
+        26965,
+        3483
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "同比增长（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        21.5,
+        24.1,
+        27.1,
+        14.3,
+        8.8
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "绝对数（亿元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        106430,
+        61943,
+        21422,
+        20156,
+        2909
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "同比增长（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        30.7,
+        36.7,
+        33.4,
+        16.3,
+        6.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0101_1028b226365a4cb0.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0101_1028b226365a4cb0.png",
+        "paper_title": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_d6ac87eccad847026caf",
+        "question_number": 111,
+        "source_jsonl_line": 104033
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0101_1028b226365a4cb0.png",
+        "paper_title": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_f88581de4df35e846463",
+        "question_number": 112,
+        "source_jsonl_line": 104034
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0101_1028b226365a4cb0.png",
+        "paper_title": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_3ff40fca93c3cbf27a30",
+        "question_number": 113,
+        "source_jsonl_line": 104035
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0101_1028b226365a4cb0.png",
+        "paper_title": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_6267ddd0589ccde848c4",
+        "question_number": 114,
+        "source_jsonl_line": 104036
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0156_a4e6fa4347e9bf9f.png",
+        "paper_title": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_d09a7633f4e94463f658",
+        "question_number": 115,
+        "source_jsonl_line": 104037
+      }
+    ],
+    "sha256": "16d96b1fd563bd13e93ddb64f3a6195f5223df9fc2293479dd0263c09ffbaa6d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "商品房销售面积绝对数（万平方米）",
+      "商品房销售面积同比增长（%）",
+      "商品房销售额绝对数（亿元）",
+      "商品房销售额同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全国总计",
+        "unit": null,
+        "values": [
+          "全国总计",
+          101648,
+          21.5,
+          106430,
+          30.7
+        ]
+      },
+      {
+        "label": "东部地区",
+        "unit": null,
+        "values": [
+          "东部地区",
+          42841,
+          24.1,
+          61943,
+          36.7
+        ]
+      },
+      {
+        "label": "中部地区",
+        "unit": null,
+        "values": [
+          "中部地区",
+          28359,
+          27.1,
+          21422,
+          33.4
+        ]
+      },
+      {
+        "label": "西部地区",
+        "unit": null,
+        "values": [
+          "西部地区",
+          26965,
+          14.3,
+          20156,
+          16.3
+        ]
+      },
+      {
+        "label": "东北地区",
+        "unit": null,
+        "values": [
+          "东北地区",
+          3483,
+          8.8,
+          2909,
+          6.9
+        ]
+      }
+    ]
+  },
+  "title": "表2 2021年1-7月东部、中部、西部和东北地区房地产销售情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_16d96b1fd563bd13e93ddb64/row_band_01.jpg",
+        "review-crops/da_16d96b1fd563bd13e93ddb64/row_band_02.jpg",
+        "review-crops/da_16d96b1fd563bd13e93ddb64/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.725",
+      "crop_verification_elapsed_seconds:20.188",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'全国总计'行的'商品房销售面积绝对数'为101648，原为101648（正确）",
+      "crop_note:修正了'全国总计'行的'商品房销售面积同比增长'为21.5，原为21.5（正确）",
+      "crop_note:修正了'全国总计'行的'商品房销售额绝对数'为106430，原为106430（正确）",
+      "crop_note:修正了'全国总计'行的'商品房销售额同比增长'为30.7，原为30.7（正确）",
+      "crop_note:修正了'东部地区'行的'商品房销售面积绝对数'为42841，原为42841（正确）",
+      "crop_note:修正了'东部地区'行的'商品房销售面积同比增长'为24.1，原为24.1（正确）",
+      "crop_note:修正了'东部地区'行的'商品房销售额绝对数'为61943，原为61943（正确）",
+      "crop_note:修正了'东部地区'行的'商品房销售额同比增长'为36.7，原为36.7（正确）",
+      "crop_note:修正了'中部地区'行的'商品房销售面积绝对数'为28359，原为28359（正确）",
+      "crop_note:修正了'中部地区'行的'商品房销售面积同比增长'为27.1，原为27.1（正确）",
+      "crop_note:修正了'中部地区'行的'商品房销售额绝对数'为21422，原为21422（正确）",
+      "crop_note:修正了'中部地区'行的'商品房销售额同比增长'为33.4，原为33.4（正确）",
+      "crop_note:修正了'西部地区'行的'商品房销售面积绝对数'为26965，原为26965（正确）",
+      "crop_note:修正了'西部地区'行的'商品房销售面积同比增长'为14.3，原为14.3（正确）",
+      "crop_note:修正了'西部地区'行的'商品房销售额绝对数'为20156，原为20156（正确）",
+      "crop_note:修正了'西部地区'行的'商品房销售额同比增长'为16.3，原为16.3（正确）",
+      "crop_note:修正了'东北地区'行的'商品房销售面积绝对数'为3483，原为3483（正确）",
+      "crop_note:修正了'东北地区'行的'商品房销售面积同比增长'为8.8，原为8.8（正确）",
+      "crop_note:修正了'东北地区'行的'商品房销售额绝对数'为2909，原为2909（正确）",
+      "crop_note:修正了'东北地区'行的'商品房销售额同比增长'为6.9，原为6.9（正确）"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

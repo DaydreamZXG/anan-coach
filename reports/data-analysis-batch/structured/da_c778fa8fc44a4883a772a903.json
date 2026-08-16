@@ -1,0 +1,583 @@
+{
+  "asset_id": "da_c778fa8fc44a4883a772a903",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河北/2009年河北省公务员录用考试《行测》题_images/img_0138_4a510d4d7912bc63.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年河北省公务员录用考试《行测》题_images/img_0138_4a510d4d7912bc63.png",
+        "paper_title": "2009年河北省公务员录用考试《行测》题",
+        "question_id": "pq_7cc456e0f0365a52e7c6",
+        "question_number": 126,
+        "source_jsonl_line": 54740
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年河北省公务员录用考试《行测》题_images/img_0162_94b9ada54fe545c1.png",
+        "paper_title": "2009年河北省公务员录用考试《行测》题",
+        "question_id": "pq_733472c705ba564794ca",
+        "question_number": 127,
+        "source_jsonl_line": 54741
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年河北省公务员录用考试《行测》题_images/img_0138_4a510d4d7912bc63.png",
+        "paper_title": "2009年河北省公务员录用考试《行测》题",
+        "question_id": "pq_da40dabef02d5dfd70f2",
+        "question_number": 128,
+        "source_jsonl_line": 54742
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年河北省公务员录用考试《行测》题_images/img_0138_4a510d4d7912bc63.png",
+        "paper_title": "2009年河北省公务员录用考试《行测》题",
+        "question_id": "pq_2c7b0978a9449c016c25",
+        "question_number": 129,
+        "source_jsonl_line": 54743
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年河北省公务员录用考试《行测》题_images/img_0162_94b9ada54fe545c1.png",
+        "paper_title": "2009年河北省公务员录用考试《行测》题",
+        "question_id": "pq_aba66da3066bc054385b",
+        "question_number": 130,
+        "source_jsonl_line": 54744
+      }
+    ],
+    "sha256": "c778fa8fc44a4883a772a9033f9e3e76038811e8dcc9e8d0ad951f27720dcb65"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "新建住宅价格指数｜同比",
+          "新建住宅价格指数｜环比"
+        ],
+        "label": "新建住宅价格指数"
+      },
+      {
+        "columns": [
+          "新建商品住宅价格指数｜同比",
+          "新建商品住宅价格指数｜环比"
+        ],
+        "label": "新建商品住宅价格指数"
+      },
+      {
+        "columns": [
+          "新建普通住宅价格指数｜同比",
+          "新建普通住宅价格指数｜环比"
+        ],
+        "label": "新建普通住宅价格指数"
+      }
+    ],
+    "columns": [
+      "新建住宅价格指数｜同比",
+      "新建住宅价格指数｜环比",
+      "新建商品住宅价格指数｜同比",
+      "新建商品住宅价格指数｜环比",
+      "新建普通住宅价格指数｜同比",
+      "新建普通住宅价格指数｜环比"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "全国",
+        "group": null,
+        "label": "全国",
+        "unit": null,
+        "values": [
+          99.8,
+          100.6,
+          99.8,
+          100.8,
+          98.9,
+          100.8
+        ]
+      },
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          100.1,
+          100.2,
+          100.1,
+          100.2,
+          100.2,
+          100.2
+        ]
+      },
+      {
+        "display_label": "天津",
+        "group": null,
+        "label": "天津",
+        "unit": null,
+        "values": [
+          101.2,
+          101.0,
+          101.3,
+          101.5,
+          101.4,
+          101.5
+        ]
+      },
+      {
+        "display_label": "石家庄",
+        "group": null,
+        "label": "石家庄",
+        "unit": null,
+        "values": [
+          99.7,
+          102.3,
+          99.7,
+          102.3,
+          99.6,
+          102.3
+        ]
+      },
+      {
+        "display_label": "太原",
+        "group": null,
+        "label": "太原",
+        "unit": null,
+        "values": [
+          98.1,
+          99.8,
+          98.0,
+          99.8,
+          97.8,
+          99.7
+        ]
+      },
+      {
+        "display_label": "呼和浩特",
+        "group": null,
+        "label": "呼和浩特",
+        "unit": null,
+        "values": [
+          100.2,
+          100.2,
+          100.3,
+          100.3,
+          100.3,
+          100.3
+        ]
+      },
+      {
+        "display_label": "沈阳",
+        "group": null,
+        "label": "沈阳",
+        "unit": null,
+        "values": [
+          102.5,
+          100.1,
+          102.5,
+          100.1,
+          102.6,
+          100.1
+        ]
+      },
+      {
+        "display_label": "长春",
+        "group": null,
+        "label": "长春",
+        "unit": null,
+        "values": [
+          103.0,
+          102.4,
+          103.2,
+          102.4,
+          104.4,
+          102.4
+        ]
+      },
+      {
+        "display_label": "哈尔滨",
+        "group": null,
+        "label": "哈尔滨",
+        "unit": null,
+        "values": [
+          101.4,
+          100.3,
+          101.2,
+          100.3,
+          100.7,
+          99.9
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          98.4,
+          100.8,
+          98.3,
+          100.8,
+          97.7,
+          100.8
+        ]
+      },
+      {
+        "display_label": "南京",
+        "group": null,
+        "label": "南京",
+        "unit": null,
+        "values": [
+          91.3,
+          100.3,
+          88.7,
+          100.6,
+          88.7,
+          100.6
+        ]
+      },
+      {
+        "display_label": "杭州",
+        "group": null,
+        "label": "杭州",
+        "unit": null,
+        "values": [
+          96.2,
+          100.7,
+          95.6,
+          100.7,
+          97.1,
+          100.7
+        ]
+      },
+      {
+        "display_label": "合肥",
+        "group": null,
+        "label": "合肥",
+        "unit": null,
+        "values": [
+          96.6,
+          100.1,
+          96.6,
+          100.1,
+          96.6,
+          100.1
+        ]
+      },
+      {
+        "display_label": "福州",
+        "group": null,
+        "label": "福州",
+        "unit": null,
+        "values": [
+          100.3,
+          100.4,
+          100.4,
+          100.8,
+          101.2,
+          101.2
+        ]
+      },
+      {
+        "display_label": "厦门",
+        "group": null,
+        "label": "厦门",
+        "unit": null,
+        "values": [
+          96.8,
+          102.4,
+          95.8,
+          102.4,
+          97.3,
+          102.3
+        ]
+      },
+      {
+        "display_label": "南昌",
+        "group": null,
+        "label": "南昌",
+        "unit": null,
+        "values": [
+          96.8,
+          100.3,
+          96.2,
+          100.7,
+          96.8,
+          100.5
+        ]
+      },
+      {
+        "display_label": "济南",
+        "group": null,
+        "label": "济南",
+        "unit": null,
+        "values": [
+          98.2,
+          100.0,
+          98.0,
+          100.0,
+          97.7,
+          100.1
+        ]
+      },
+      {
+        "display_label": "郑州",
+        "group": null,
+        "label": "郑州",
+        "unit": null,
+        "values": [
+          100.7,
+          100.3,
+          100.7,
+          100.4,
+          100.6,
+          100.4
+        ]
+      },
+      {
+        "display_label": "武汉",
+        "group": null,
+        "label": "武汉",
+        "unit": null,
+        "values": [
+          98.8,
+          100.1,
+          98.6,
+          100.1,
+          97.8,
+          100.2
+        ]
+      },
+      {
+        "display_label": "长沙",
+        "group": null,
+        "label": "长沙",
+        "unit": null,
+        "values": [
+          99.3,
+          100.6,
+          99.3,
+          100.7,
+          99.5,
+          100.7
+        ]
+      },
+      {
+        "display_label": "广州",
+        "group": null,
+        "label": "广州",
+        "unit": null,
+        "values": [
+          97.6,
+          101.4,
+          97.5,
+          101.7,
+          97.3,
+          101.6
+        ]
+      },
+      {
+        "display_label": "南宁",
+        "group": null,
+        "label": "南宁",
+        "unit": null,
+        "values": [
+          96.2,
+          100.1,
+          94.6,
+          100.1,
+          95.2,
+          100.2
+        ]
+      },
+      {
+        "display_label": "海口",
+        "group": null,
+        "label": "海口",
+        "unit": null,
+        "values": [
+          96.3,
+          99.8,
+          96.3,
+          99.8,
+          101.2,
+          100.0
+        ]
+      },
+      {
+        "display_label": "重庆",
+        "group": null,
+        "label": "重庆",
+        "unit": null,
+        "values": [
+          100.6,
+          100.2,
+          100.6,
+          100.2,
+          97.1,
+          100.1
+        ]
+      },
+      {
+        "display_label": "成都",
+        "group": null,
+        "label": "成都",
+        "unit": null,
+        "values": [
+          97.9,
+          101.2,
+          97.9,
+          101.2,
+          97.9,
+          101.2
+        ]
+      },
+      {
+        "display_label": "贵阳",
+        "group": null,
+        "label": "贵阳",
+        "unit": null,
+        "values": [
+          101.6,
+          101.6,
+          103.5,
+          103.1,
+          103.5,
+          103.1
+        ]
+      },
+      {
+        "display_label": "昆明",
+        "group": null,
+        "label": "昆明",
+        "unit": null,
+        "values": [
+          97.3,
+          101.1,
+          97.1,
+          101.1,
+          98.0,
+          101.2
+        ]
+      },
+      {
+        "display_label": "西安",
+        "group": null,
+        "label": "西安",
+        "unit": null,
+        "values": [
+          101.2,
+          99.4,
+          101.3,
+          99.3,
+          101.1,
+          99.3
+        ]
+      },
+      {
+        "display_label": "兰州",
+        "group": null,
+        "label": "兰州",
+        "unit": null,
+        "values": [
+          104.7,
+          100.0,
+          104.7,
+          100.0,
+          104.7,
+          100.0
+        ]
+      },
+      {
+        "display_label": "西宁",
+        "group": null,
+        "label": "西宁",
+        "unit": null,
+        "values": [
+          101.1,
+          100.0,
+          101.3,
+          100.0,
+          101.3,
+          100.0
+        ]
+      },
+      {
+        "display_label": "银川",
+        "group": null,
+        "label": "银川",
+        "unit": null,
+        "values": [
+          106.4,
+          100.3,
+          106.6,
+          100.3,
+          106.7,
+          100.3
+        ]
+      },
+      {
+        "display_label": "乌鲁木齐",
+        "group": null,
+        "label": "乌鲁木齐",
+        "unit": null,
+        "values": [
+          101.6,
+          100.8,
+          101.7,
+          101.0,
+          101.8,
+          101.0
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

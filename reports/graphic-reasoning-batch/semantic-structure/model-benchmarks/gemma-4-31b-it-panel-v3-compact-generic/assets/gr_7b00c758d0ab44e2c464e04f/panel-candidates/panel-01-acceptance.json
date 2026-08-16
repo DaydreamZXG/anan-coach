@@ -1,0 +1,13 @@
+{
+  "assetId": "gr_7b00c758d0ab44e2c464e04f",
+  "attempts": 1,
+  "checkpointKey": "277dbe14fbe56f198a5a73117311d606282d22d257d3067bbfc10cc0231e7ffe",
+  "model": "gemma-4-31b-it",
+  "position": 1,
+  "qualityStatus": "unreviewed",
+  "runtimeError": null,
+  "schemaStatus": "validated",
+  "schemaVersion": "graphic-reasoning-panel-acceptance-v3",
+  "status": "repair_pending",
+  "validationErrors": []
+}

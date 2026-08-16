@@ -1,0 +1,190 @@
+{
+  "asset_id": "da_6570802b8a15ad23b9cf18f2",
+  "axes": {
+    "x": {
+      "max": 120,
+      "min": 0,
+      "ticks": [
+        0,
+        20,
+        40,
+        60,
+        80,
+        100,
+        120
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "8小时以上",
+    "8小时以内",
+    "5小时以内",
+    "3小时以内",
+    "2小时以内",
+    "永远优先选择飞机"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "8小时以上",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "8小时以内",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "8",
+      "label": "8小时以上",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.5,
+        19.6,
+        62.4,
+        83.6,
+        97.7,
+        2.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "8",
+      "label": "8小时以内",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.5,
+        19.6,
+        62.4,
+        83.6,
+        97.7,
+        2.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2017年北京市公务员录用考试《行测》题_images/img_0258_8680c3266cfed6dd.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年北京市公务员录用考试《行测》题_images/img_0258_8680c3266cfed6dd.png",
+        "paper_title": "2017年北京市公务员录用考试《行测》题",
+        "question_id": "pq_4a5c5a2114e3207cf896",
+        "question_number": 131,
+        "source_jsonl_line": 9869
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年北京市公务员录用考试《行测》题_images/img_0258_8680c3266cfed6dd.png",
+        "paper_title": "2017年北京市公务员录用考试《行测》题",
+        "question_id": "pq_e90cedcbe6846e95b261",
+        "question_number": 132,
+        "source_jsonl_line": 9870
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年北京市公务员录用考试《行测》题_images/img_0258_8680c3266cfed6dd.png",
+        "paper_title": "2017年北京市公务员录用考试《行测》题",
+        "question_id": "pq_eba55bb686a076c41849",
+        "question_number": 133,
+        "source_jsonl_line": 9871
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年北京市公务员录用考试《行测》题_images/img_0258_8680c3266cfed6dd.png",
+        "paper_title": "2017年北京市公务员录用考试《行测》题",
+        "question_id": "pq_6fe038d45a9afa224bfe",
+        "question_number": 134,
+        "source_jsonl_line": 9872
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年北京市公务员录用考试《行测》题_images/img_0258_8680c3266cfed6dd.png",
+        "paper_title": "2017年北京市公务员录用考试《行测》题",
+        "question_id": "pq_47cd00c155abc1c8bd1d",
+        "question_number": 135,
+        "source_jsonl_line": 9873
+      }
+    ],
+    "sha256": "6570802b8a15ad23b9cf18f2edad9ae2968cfb26d9c615e4afb99d55a8f856c9"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "不同时间的高铁行程中优先选择高铁而不是飞机的人数占比",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6570802b8a15ad23b9cf18f2/column_band_01.jpg",
+        "review-crops/da_6570802b8a15ad23b9cf18f2/column_band_02.jpg",
+        "review-crops/da_6570802b8a15ad23b9cf18f2/column_band_03.jpg",
+        "review-crops/da_6570802b8a15ad23b9cf18f2/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.398",
+      "crop_verification_elapsed_seconds:1.862",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_chart_point:5小时以内:5小时以内",
+      "crop_note:ignored_unknown_chart_point:3小时以内:3小时以内",
+      "crop_note:ignored_unknown_chart_point:2小时以内:2小时以内",
+      "crop_note:ignored_unknown_chart_point:永远优先选择飞机:永远优先选择飞机"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

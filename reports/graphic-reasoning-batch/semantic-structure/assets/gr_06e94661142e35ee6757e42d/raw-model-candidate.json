@@ -1,0 +1,1143 @@
+{
+  "cross_panel_patterns": [
+    {
+      "confidence": 0.8,
+      "description": "The entire figure translates to the right across panels 1 to 4, with the main polyline, branch polyline, fan polyline, and center dot moving rightward.",
+      "from_panels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "subjects": [
+        "main polyline",
+        "branch polyline",
+        "fan polyline",
+        "center dot"
+      ],
+      "to_panels": [
+        5
+      ],
+      "type": "translation"
+    },
+    {
+      "confidence": 0.7,
+      "description": "The main polyline, branch polyline, and fan polyline rotate clockwise as they move rightward across panels 1 to 4.",
+      "from_panels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "subjects": [
+        "main polyline",
+        "branch polyline",
+        "fan polyline"
+      ],
+      "to_panels": [
+        5
+      ],
+      "type": "rotation"
+    },
+    {
+      "confidence": 0.9,
+      "description": "The straight segment count remains constant at 7 across panels 1 to 4, indicating no change in the number of line segments.",
+      "from_panels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "subjects": [
+        "straight_segment_count"
+      ],
+      "to_panels": [
+        5
+      ],
+      "type": "count_delta"
+    }
+  ],
+  "option_count": 4,
+  "panel_count": 9,
+  "panels": [
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 0,
+        "dot_count": 1,
+        "filled_region_count": 0,
+        "straight_segment_count": 7,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p1e1",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "main polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p1e2",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "branch polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_up",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p1e3",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_right"
+            }
+          ],
+          "kind": "polyline",
+          "label": "fan polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "top_right",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p1e4",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "dot",
+          "label": "center dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 1,
+      "relations": [
+        {
+          "description": "main polyline connects to branch polyline at top left",
+          "subjects": [
+            "p1e1",
+            "p1e2"
+          ],
+          "type": "connected"
+        },
+        {
+          "description": "main polyline connects to fan polyline at top right",
+          "subjects": [
+            "p1e1",
+            "p1e3"
+          ],
+          "type": "connected"
+        },
+        {
+          "description": "main polyline touches center dot",
+          "subjects": [
+            "p1e1",
+            "p1e4"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 6,
+        "junction_count": 2,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 0,
+        "dot_count": 1,
+        "filled_region_count": 0,
+        "straight_segment_count": 7,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p2e1",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "main polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p2e2",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "branch polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_up",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p2e3",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_right"
+            }
+          ],
+          "kind": "polyline",
+          "label": "fan polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "top_right",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p2e4",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "dot",
+          "label": "center dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 2,
+      "relations": [
+        {
+          "description": "main polyline connects to branch polyline at top left",
+          "subjects": [
+            "p2e1",
+            "p2e2"
+          ],
+          "type": "connected"
+        },
+        {
+          "description": "main polyline connects to fan polyline at top right",
+          "subjects": [
+            "p2e1",
+            "p2e3"
+          ],
+          "type": "connected"
+        },
+        {
+          "description": "main polyline touches center dot",
+          "subjects": [
+            "p2e1",
+            "p2e4"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 6,
+        "junction_count": 2,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 0,
+        "dot_count": 1,
+        "filled_region_count": 0,
+        "straight_segment_count": 7,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p3e1",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "main polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p3e2",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "branch polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_up",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p3e3",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_right"
+            }
+          ],
+          "kind": "polyline",
+          "label": "fan polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "top_right",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p3e4",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "dot",
+          "label": "center dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 3,
+      "relations": [
+        {
+          "description": "main polyline connects to branch polyline at top left",
+          "subjects": [
+            "p3e1",
+            "p3e2"
+          ],
+          "type": "connected"
+        },
+        {
+          "description": "main polyline connects to fan polyline at top right",
+          "subjects": [
+            "p3e1",
+            "p3e3"
+          ],
+          "type": "connected"
+        },
+        {
+          "description": "main polyline touches center dot",
+          "subjects": [
+            "p3e1",
+            "p3e4"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 6,
+        "junction_count": 2,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 0,
+        "dot_count": 1,
+        "filled_region_count": 0,
+        "straight_segment_count": 7,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p4e1",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "main polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p4e2",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "branch polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_up",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p4e3",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_right"
+            }
+          ],
+          "kind": "polyline",
+          "label": "fan polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "top_right",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p4e4",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "dot",
+          "label": "center dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 4,
+      "relations": [
+        {
+          "description": "main polyline connects to branch polyline at top left",
+          "subjects": [
+            "p4e1",
+            "p4e2"
+          ],
+          "type": "connected"
+        },
+        {
+          "description": "main polyline connects to fan polyline at top right",
+          "subjects": [
+            "p4e1",
+            "p4e3"
+          ],
+          "type": "connected"
+        },
+        {
+          "description": "main polyline touches center dot",
+          "subjects": [
+            "p4e1",
+            "p4e4"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 6,
+        "junction_count": 2,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 0,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [],
+      "observations": [],
+      "option_label": null,
+      "position": 5,
+      "relations": [],
+      "role": "missing",
+      "topology": {
+        "component_count": 0,
+        "endpoint_count": 0,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 0,
+        "dot_count": 1,
+        "filled_region_count": 0,
+        "straight_segment_count": 7,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p6e1",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "main polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p6e2",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "branch polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_up",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p6e3",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_right"
+            }
+          ],
+          "kind": "polyline",
+          "label": "fan polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "top_right",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p6e4",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "dot",
+          "label": "center dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "A",
+      "position": 6,
+      "relations": [
+        {
+          "description": "main polyline connects to branch polyline at top left",
+          "subjects": [
+            "p6e1",
+            "p6e2"
+          ],
+          "type": "connected"
+        },
+        {
+          "description": "main polyline connects to fan polyline at top right",
+          "subjects": [
+            "p6e1",
+            "p6e3"
+          ],
+          "type": "connected"
+        },
+        {
+          "description": "main polyline touches center dot",
+          "subjects": [
+            "p6e1",
+            "p6e4"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 6,
+        "junction_count": 2,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 0,
+        "dot_count": 1,
+        "filled_region_count": 0,
+        "straight_segment_count": 7,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p7e1",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "main polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p7e2",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "branch polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_up",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p7e3",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_right"
+            }
+          ],
+          "kind": "polyline",
+          "label": "fan polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "top_right",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p7e4",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "dot",
+          "label": "center dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "B",
+      "position": 7,
+      "relations": [
+        {
+          "description": "main polyline connects to branch polyline at top left",
+          "subjects": [
+            "p7e1",
+            "p7e2"
+          ],
+          "type": "connected"
+        },
+        {
+          "description": "main polyline connects to fan polyline at top right",
+          "subjects": [
+            "p7e1",
+            "p7e3"
+          ],
+          "type": "connected"
+        },
+        {
+          "description": "main polyline touches center dot",
+          "subjects": [
+            "p7e1",
+            "p7e4"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 6,
+        "junction_count": 2,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 0,
+        "dot_count": 1,
+        "filled_region_count": 0,
+        "straight_segment_count": 7,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p8e1",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "main polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p8e2",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "branch polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_up",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p8e3",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_right"
+            }
+          ],
+          "kind": "polyline",
+          "label": "fan polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "top_right",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p8e4",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "dot",
+          "label": "center dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "C",
+      "position": 8,
+      "relations": [
+        {
+          "description": "main polyline connects to branch polyline at top left",
+          "subjects": [
+            "p8e1",
+            "p8e2"
+          ],
+          "type": "connected"
+        },
+        {
+          "description": "main polyline connects to fan polyline at top right",
+          "subjects": [
+            "p8e1",
+            "p8e3"
+          ],
+          "type": "connected"
+        },
+        {
+          "description": "main polyline touches center dot",
+          "subjects": [
+            "p8e1",
+            "p8e4"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 6,
+        "junction_count": 2,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 0,
+        "dot_count": 1,
+        "filled_region_count": 0,
+        "straight_segment_count": 7,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p9e1",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polyline",
+          "label": "main polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p9e2",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "branch polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_up",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p9e3",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_right"
+            }
+          ],
+          "kind": "polyline",
+          "label": "fan polyline",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "top_right",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p9e4",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "dot",
+          "label": "center dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "D",
+      "position": 9,
+      "relations": [
+        {
+          "description": "main polyline connects to branch polyline at top left",
+          "subjects": [
+            "p9e1",
+            "p9e2"
+          ],
+          "type": "connected"
+        },
+        {
+          "description": "main polyline connects to fan polyline at top right",
+          "subjects": [
+            "p9e1",
+            "p9e3"
+          ],
+          "type": "connected"
+        },
+        {
+          "description": "main polyline touches center dot",
+          "subjects": [
+            "p9e1",
+            "p9e4"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": 6,
+        "junction_count": 2,
+        "loop_count": 0,
+        "notes": []
+      }
+    }
+  ],
+  "schema_version": "graphic-reasoning-model-semantics-v1",
+  "uncertainties": [
+    "The exact nature of the translation and rotation patterns is uncertain due to the lack of clear reference points for measuring movement and orientation changes.",
+    "The fan polyline's orientation and position relative to the main polyline may be subject to interpretation, affecting the perceived rotation pattern."
+  ],
+  "visual_grammar": "straight_line_network"
+}

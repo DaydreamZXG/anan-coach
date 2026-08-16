@@ -84,6 +84,11 @@ export interface RegisteredNavigationTarget {
   url: string;
 }
 
+export interface QuestionBookImportRouteOptions {
+  importId?: string | undefined;
+  bookId?: string | undefined;
+}
+
 export interface PositionSearchRouteFilters {
   query?: string;
   examYear?: string;
@@ -279,6 +284,14 @@ export function positionBriefingUrl(positionId: string): string {
 export function captureImportUrl(importId?: string): string {
   return withQuery(routes.captureImport, {
     importId: importId === undefined ? undefined : requiredIdentifier(importId),
+  });
+}
+
+export function questionBookImportUrl(options: QuestionBookImportRouteOptions = {}): string {
+  return withQuery(routes.captureImport, {
+    mode: "book",
+    importId: options.importId === undefined ? undefined : requiredIdentifier(options.importId),
+    bookId: options.bookId === undefined ? undefined : requiredIdentifier(options.bookId),
   });
 }
 

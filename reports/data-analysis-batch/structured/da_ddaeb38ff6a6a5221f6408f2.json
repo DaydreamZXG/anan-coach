@@ -1,0 +1,198 @@
+{
+  "asset_id": "da_ddaeb38ff6a6a5221f6408f2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/重庆/2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0074_47075a551e30ae24.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0074_47075a551e30ae24.png",
+        "paper_title": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_ac7e948e3bd6297ef55a",
+        "question_number": 101,
+        "source_jsonl_line": 93004
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0076_e84b547ddf9115d4.png",
+        "paper_title": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_d88c5604391511d7fac2",
+        "question_number": 102,
+        "source_jsonl_line": 93005
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0076_e84b547ddf9115d4.png",
+        "paper_title": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_7d3aacdd71a662428a66",
+        "question_number": 103,
+        "source_jsonl_line": 93006
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0074_47075a551e30ae24.png",
+        "paper_title": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_e624c8794dc6303655ef",
+        "question_number": 104,
+        "source_jsonl_line": 93007
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0074_47075a551e30ae24.png",
+        "paper_title": "2013年重庆市公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_17b27e44fc0eafef2d06",
+        "question_number": 105,
+        "source_jsonl_line": 93008
+      }
+    ],
+    "sha256": "ddaeb38ff6a6a5221f6408f224e8912efabdef71718e5178a59280ed1a7fc895"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "人数｜第1列",
+      "国家｜第2列",
+      "人数｜第3列"
+    ],
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "国家｜第2列",
+        "display": "—",
+        "row": "印度"
+      },
+      {
+        "column": "人数｜第3列",
+        "display": "—",
+        "row": "印度"
+      }
+    ],
+    "row_header_label": "国家",
+    "rows": [
+      {
+        "display_label": "蒙古",
+        "group": null,
+        "label": "蒙古",
+        "unit": null,
+        "values": [
+          7112,
+          "巴基斯坦",
+          8516
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          62442,
+          "哈萨克斯坦",
+          8287
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": null,
+        "values": [
+          17961,
+          "俄罗斯",
+          13340
+        ]
+      },
+      {
+        "display_label": "越南",
+        "group": null,
+        "label": "越南",
+        "unit": null,
+        "values": [
+          13549,
+          "法国",
+          7592
+        ]
+      },
+      {
+        "display_label": "泰国",
+        "group": null,
+        "label": "泰国",
+        "unit": null,
+        "values": [
+          14145,
+          "德国",
+          5451
+        ]
+      },
+      {
+        "display_label": "印度尼西亚",
+        "group": null,
+        "label": "印度尼西亚",
+        "unit": null,
+        "values": [
+          10957,
+          "美国",
+          23292
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": null,
+        "label": "印度",
+        "unit": null,
+        "values": [
+          9370,
+          null,
+          null
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,237 @@
+{
+  "asset_id": "da_44c215f85fad008a25e24eec",
+  "axes": {
+    "x": {
+      "max": 25000,
+      "min": 0,
+      "ticks": [
+        0,
+        5000,
+        10000,
+        15000,
+        20000,
+        25000
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 25000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "福田区",
+    "罗湖区",
+    "南山区",
+    "盐田区",
+    "宝安区",
+    "龙岗区",
+    "龙华区",
+    "坪山区",
+    "光明区",
+    "大鹏新区"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "耕地",
+      "style": {
+        "dash": null,
+        "fill": "#FFD700",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "湿地",
+      "style": {
+        "dash": null,
+        "fill": "#F0E68C",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "林地",
+      "style": {
+        "dash": null,
+        "fill": "#A9A9A9",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "耕地",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(公顷)",
+      "values": [
+        613,
+        3,
+        1026,
+        96,
+        466,
+        442,
+        121,
+        453,
+        974,
+        285
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "湿地",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(公顷)",
+      "values": [
+        989,
+        29,
+        3232,
+        1906,
+        1191,
+        156,
+        12,
+        54,
+        13,
+        889
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "林地",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(公顷)",
+      "values": [
+        5,
+        3,
+        8,
+        4520,
+        6540,
+        11075,
+        3750,
+        6972,
+        2893,
+        22446
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2025年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0068_247e8b16e16d0b1e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0068_247e8b16e16d0b1e.png",
+        "paper_title": "2025年深圳市考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_d74d78376584ce2c049a",
+        "question_number": 91,
+        "source_jsonl_line": 68607
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0068_247e8b16e16d0b1e.png",
+        "paper_title": "2025年深圳市考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_16bb93ff310276860462",
+        "question_number": 92,
+        "source_jsonl_line": 68608
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0068_247e8b16e16d0b1e.png",
+        "paper_title": "2025年深圳市考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_fd208e3132fe1678039a",
+        "question_number": 93,
+        "source_jsonl_line": 68609
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0068_247e8b16e16d0b1e.png",
+        "paper_title": "2025年深圳市考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_f6d2191405d4d0903666",
+        "question_number": 94,
+        "source_jsonl_line": 68610
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0106_228fdab54cd4ac32.png",
+        "paper_title": "2025年深圳市考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_4995cb9da59a1f4e836c",
+        "question_number": 95,
+        "source_jsonl_line": 68611
+      }
+    ],
+    "sha256": "44c215f85fad008a25e24eec4883ad970a50898ead7cb67891dbc165d174ac52"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图1 各区（新区）耕地、湿地、林地面积统计图",
+  "unit": "(公顷)",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_44c215f85fad008a25e24eec/column_band_01.jpg",
+        "review-crops/da_44c215f85fad008a25e24eec/column_band_02.jpg",
+        "review-crops/da_44c215f85fad008a25e24eec/column_band_03.jpg",
+        "review-crops/da_44c215f85fad008a25e24eec/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.431",
+      "crop_verification_elapsed_seconds:8.764",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -14,27 +14,35 @@ function normalizeRpxCalc(source: unknown): string {
 
 const styles = normalizeRpxCalc(stylesRaw);
 
-describe("stage 9 login composition", () => {
-  it("renders the approved quiet AI coach identity and a single clear login action", () => {
-    expect(template).toContain("如果你暂时看不清方向");
-    expect(template).toContain("那就先把方向盘交给我");
+describe("岸岸静默身份入口构成", () => {
+  it("自动进入岸岸，不展示登录、游客或协议门槛", () => {
+    expect(template).toContain("正在进入岸岸");
+    expect(template).toContain("正在同步你的学习档案");
+    expect(template).toContain("暂时没能进入岸岸");
     expect(template).toContain('class="brain-logo"');
     expect(template).toContain('src="/assets/icons/anan/brain-outline-ink.svg"');
     expect(template).toContain('src="/assets/icons/anan/arrow-right-white.svg"');
     expect(template).not.toContain("brain-lobe");
     expect(template).not.toContain("brain-stem");
-    expect(template).toContain('class="wechat-button {{submitting || restoring || !legalAccepted');
+    expect(template).toContain('class="entry-progress');
+    expect(template).toContain('class="wechat-button {{submitting || restoring');
     expect(template).toContain("wechat-button--disabled");
-    expect(template).toContain('disabled="{{submitting || restoring || !legalAccepted}}"');
+    expect(template).toContain('disabled="{{submitting || restoring}}"');
+    expect(template).toContain('bindtap="retry"');
+    expect(template).toContain("重新进入岸岸");
     expect(template).not.toContain("<ui-button");
-    expect(template).toContain('bindchange="toggleLegalConsent"');
-    expect(template).toContain('bindtap="openTerms">用户协议</button>');
-    expect(template).toContain('bindtap="openPrivacy">隐私保护指引</button>');
-    expect(source).toContain("wx.openPrivacyContract");
-    expect(source).toContain("routes.terms");
+    expect(template).not.toContain("微信一键登录");
+    expect(template).not.toContain("游客");
+    expect(template).not.toContain("legalAccepted");
+    expect(template).not.toContain("用户协议");
+    expect(template).not.toContain("隐私保护指引");
+    expect(source).toContain("bootstrapSilentWechatSession");
+    expect(source).toContain("SILENT_WECHAT_LEGAL_ACCEPTED");
+    expect(source).not.toContain("wx.openPrivacyContract");
+    expect(source).not.toContain("toggleLegalConsent");
   });
 
-  it("uses the Design File asset and keeps a clear login action hierarchy", () => {
+  it("保留品牌外壳、失败恢复按钮和 600px 响应式布局", () => {
     expect(styles).toContain(".login-orb");
     expect(styles).toContain("var(--figma-gradient-login-halo-top)");
     expect(styles).toContain("var(--figma-gradient-login-halo-bottom)");
@@ -45,11 +53,13 @@ describe("stage 9 login composition", () => {
     expect(styles).not.toContain(".brain-mark");
     expect(styles).not.toContain(".brain-lobe");
     expect(styles).not.toContain(".brain-stem");
+    expect(styles).toContain(".entry-progress");
+    expect(styles).toContain("@keyframes entry-pulse");
     expect(styles).toContain(".wechat-button");
-    expect(styles).toContain("button.legal-link");
-    expect(styles).toContain("min-height: 44px");
+    expect(styles).not.toContain("button.legal-link");
     expect(styles).toContain("width: 100% !important");
     expect(styles).toContain("background: var(--figma-color-ink)");
+    expect(styles).toContain("@media (min-width: 600px)");
     expect(styles).not.toContain("rgba(240, 195, 140");
   });
 });

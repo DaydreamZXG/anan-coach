@@ -1,0 +1,144 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口额",
+          "比上年增长(%)"
+        ],
+        "label": "出口额及其增长速度"
+      },
+      {
+        "columns": [
+          "进口额",
+          "比上年增长(%)"
+        ],
+        "label": "进口额及其增长速度"
+      }
+    ],
+    "columns": [
+      "出口额",
+      "比上年增长(%)",
+      "进口额",
+      "比上年增长(%)"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家和地区",
+    "rows": [
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": null,
+        "values": [
+          3518,
+          8.4,
+          1329,
+          8.8
+        ]
+      },
+      {
+        "display_label": "欧盟",
+        "group": null,
+        "label": "欧盟",
+        "unit": null,
+        "values": [
+          3340,
+          -6.2,
+          2121,
+          0.4
+        ]
+      },
+      {
+        "display_label": "中国香港",
+        "group": null,
+        "label": "中国香港",
+        "unit": null,
+        "values": [
+          3235,
+          20.7,
+          180,
+          15.9
+        ]
+      },
+      {
+        "display_label": "东盟",
+        "group": null,
+        "label": "东盟",
+        "unit": null,
+        "values": [
+          2043,
+          20.1,
+          1958,
+          1.5
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": null,
+        "values": [
+          1516,
+          2.3,
+          1778,
+          -8.6
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          877,
+          5.7,
+          1686,
+          3.7
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": null,
+        "label": "印度",
+        "unit": null,
+        "values": [
+          477,
+          -5.7,
+          188,
+          -19.6
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": null,
+        "label": "俄罗斯",
+        "unit": null,
+        "values": [
+          441,
+          13.2,
+          441,
+          9.2
+        ]
+      },
+      {
+        "display_label": "中国台湾",
+        "group": null,
+        "label": "中国台湾",
+        "unit": null,
+        "values": [
+          368,
+          4.8,
+          1322,
+          5.8
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

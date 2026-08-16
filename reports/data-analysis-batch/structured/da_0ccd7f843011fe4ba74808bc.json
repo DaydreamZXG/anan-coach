@@ -1,0 +1,203 @@
+{
+  "asset_id": "da_0ccd7f843011fe4ba74808bc",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2026年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0088_1865d9d8d63301b0.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0088_1865d9d8d63301b0.png",
+        "paper_title": "2026年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ced835650b1089cfc376",
+        "question_number": 81,
+        "source_jsonl_line": 36293
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0095_aca22b6879f5d5ad.png",
+        "paper_title": "2026年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_44ca71390fb1c29702f0",
+        "question_number": 82,
+        "source_jsonl_line": 36294
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0095_aca22b6879f5d5ad.png",
+        "paper_title": "2026年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_183d1ea94ecb8d070d06",
+        "question_number": 83,
+        "source_jsonl_line": 36295
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0095_aca22b6879f5d5ad.png",
+        "paper_title": "2026年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bbe789ed79546d7ebcb5",
+        "question_number": 84,
+        "source_jsonl_line": 36296
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0095_aca22b6879f5d5ad.png",
+        "paper_title": "2026年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c8fbb56ee35e10bb2747",
+        "question_number": 85,
+        "source_jsonl_line": 36297
+      }
+    ],
+    "sha256": "0ccd7f843011fe4ba74808bc5a12f65eecc3d2d1dcba6e7082653947db6b5219"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "数量（万个）",
+      "面积（万平方米）"
+    ],
+    "corner_header": {
+      "lower_label": "数量（万个）",
+      "style": "diagonal",
+      "upper_label": "类型"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "田径场地",
+        "group": "2024年末广东省各类体育场地数量及面积（部分）",
+        "label": "2024年末广东省各类体育场地数量及面积（部分）｜田径场地",
+        "unit": null,
+        "values": [
+          1.64,
+          8603.93
+        ]
+      },
+      {
+        "display_label": "游泳场地",
+        "group": "2024年末广东省各类体育场地数量及面积（部分）",
+        "label": "2024年末广东省各类体育场地数量及面积（部分）｜游泳场地",
+        "unit": null,
+        "values": [
+          0.78,
+          849.25
+        ]
+      },
+      {
+        "display_label": "球类运动场地",
+        "group": "2024年末广东省各类体育场地数量及面积（部分）",
+        "label": "2024年末广东省各类体育场地数量及面积（部分）｜球类运动场地",
+        "unit": null,
+        "values": [
+          24.78,
+          19350.29
+        ]
+      },
+      {
+        "display_label": "乒乓球、羽毛球场地",
+        "group": "2024年末广东省各类体育场地数量及面积（部分）",
+        "label": "2024年末广东省各类体育场地数量及面积（部分）｜乒乓球、羽毛球场地",
+        "unit": null,
+        "values": [
+          10.33,
+          1126.57
+        ]
+      },
+      {
+        "display_label": "其他球类运动场地",
+        "group": "2024年末广东省各类体育场地数量及面积（部分）",
+        "label": "2024年末广东省各类体育场地数量及面积（部分）｜其他球类运动场地",
+        "unit": null,
+        "values": [
+          1.15,
+          7268.73
+        ]
+      },
+      {
+        "display_label": "冰雪运动场地",
+        "group": "2024年末广东省各类体育场地数量及面积（部分）",
+        "label": "2024年末广东省各类体育场地数量及面积（部分）｜冰雪运动场地",
+        "unit": null,
+        "values": [
+          "33（个）",
+          13.16
+        ]
+      },
+      {
+        "display_label": "全民健身路径",
+        "group": "2024年末广东省各类体育场地数量及面积（部分）",
+        "label": "2024年末广东省各类体育场地数量及面积（部分）｜全民健身路径",
+        "unit": null,
+        "values": [
+          5.14,
+          228.72
+        ]
+      },
+      {
+        "display_label": "健身房",
+        "group": "2024年末广东省各类体育场地数量及面积（部分）",
+        "label": "2024年末广东省各类体育场地数量及面积（部分）｜健身房",
+        "unit": null,
+        "values": [
+          0.97,
+          505.67
+        ]
+      },
+      {
+        "display_label": "健身步道",
+        "group": "2024年末广东省各类体育场地数量及面积（部分）",
+        "label": "2024年末广东省各类体育场地数量及面积（部分）｜健身步道",
+        "unit": null,
+        "values": [
+          0.98,
+          8568.87
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

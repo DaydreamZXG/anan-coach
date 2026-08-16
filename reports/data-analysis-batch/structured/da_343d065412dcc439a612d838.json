@@ -1,0 +1,187 @@
+{
+  "asset_id": "da_343d065412dcc439a612d838",
+  "axes": {
+    "x": {
+      "max": 6,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 8000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000,
+          8000
+        ],
+        "title": null,
+        "unit": "亿股"
+      }
+    ]
+  },
+  "categories": [
+    "2012年第一季度",
+    "2012年第二季度",
+    "2012年第三季度",
+    "2012年第四季度",
+    "2013年第一季度",
+    "2013年第二季度"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "上海证券交易所成交量",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "深圳证券交易所成交量",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "gray"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "上海证券交易所成交量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿股",
+      "values": [
+        5105,
+        4922,
+        4146,
+        4721,
+        6830,
+        5330
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "深圳证券交易所成交量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿股",
+      "values": [
+        3593,
+        3502,
+        3361,
+        3392,
+        4840,
+        4635
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/重庆/2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0162_bb5d4d32e7b1ca9c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0162_bb5d4d32e7b1ca9c.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_3c1100b6ce350d077765",
+        "question_number": 116,
+        "source_jsonl_line": 93379
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0162_bb5d4d32e7b1ca9c.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_15ff1a257df052119e77",
+        "question_number": 117,
+        "source_jsonl_line": 93380
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0181_b090ed5ae361113f.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_7c216e29fa07da29444e",
+        "question_number": 118,
+        "source_jsonl_line": 93381
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0162_bb5d4d32e7b1ca9c.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_fc81827d7fc280302dfc",
+        "question_number": 119,
+        "source_jsonl_line": 93382
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0162_bb5d4d32e7b1ca9c.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_8050443293c490cac66f",
+        "question_number": 120,
+        "source_jsonl_line": 93383
+      }
+    ],
+    "sha256": "343d065412dcc439a612d8384042ec7a482da1cf58a1818a71ac98e0592a7c30"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2012年1季度-2013年2季度证券成交量",
+  "unit": "亿股",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_343d065412dcc439a612d838/column_band_01.jpg",
+        "review-crops/da_343d065412dcc439a612d838/column_band_02.jpg",
+        "review-crops/da_343d065412dcc439a612d838/column_band_03.jpg",
+        "review-crops/da_343d065412dcc439a612d838/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.751",
+      "crop_verification_elapsed_seconds:7.037",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

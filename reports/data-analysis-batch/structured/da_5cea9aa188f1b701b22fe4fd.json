@@ -1,0 +1,127 @@
+{
+  "asset_id": "da_5cea9aa188f1b701b22fe4fd",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河南/2016年河南省公务员录用考试《行测》题_images/img_0131_90a291626a507087.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年河南省公务员录用考试《行测》题_images/img_0131_90a291626a507087.png",
+        "paper_title": "2016年河南省公务员录用考试《行测》题",
+        "question_id": "pq_b62cbc2469555dc6c04a",
+        "question_number": 101,
+        "source_jsonl_line": 58198
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年河南省公务员录用考试《行测》题_images/img_0131_90a291626a507087.png",
+        "paper_title": "2016年河南省公务员录用考试《行测》题",
+        "question_id": "pq_e9195fbff4c46079f8a4",
+        "question_number": 102,
+        "source_jsonl_line": 58199
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年河南省公务员录用考试《行测》题_images/img_0131_90a291626a507087.png",
+        "paper_title": "2016年河南省公务员录用考试《行测》题",
+        "question_id": "pq_05b09b8255f903402f20",
+        "question_number": 103,
+        "source_jsonl_line": 58200
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年河南省公务员录用考试《行测》题_images/img_0131_90a291626a507087.png",
+        "paper_title": "2016年河南省公务员录用考试《行测》题",
+        "question_id": "pq_45c19fafddeb806eb15a",
+        "question_number": 104,
+        "source_jsonl_line": 58201
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年河南省公务员录用考试《行测》题_images/img_0131_90a291626a507087.png",
+        "paper_title": "2016年河南省公务员录用考试《行测》题",
+        "question_id": "pq_c2cda03f44139074ac99",
+        "question_number": 105,
+        "source_jsonl_line": 58202
+      }
+    ],
+    "sha256": "5cea9aa188f1b701b22fe4fd4f3a2b115ae2ade4c71e4e6c7c70f73d5efad72b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "高速",
+      "一级",
+      "二级",
+      "三级",
+      "四级",
+      "等级外"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "高速",
+        "group": "技术等级",
+        "label": "技术等级｜高速",
+        "unit": null,
+        "values": [
+          12.35,
+          9.1,
+          36.04,
+          41.82,
+          305.32,
+          53.1
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

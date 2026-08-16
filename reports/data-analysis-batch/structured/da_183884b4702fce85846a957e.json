@@ -1,0 +1,231 @@
+{
+  "asset_id": "da_183884b4702fce85846a957e",
+  "axes": {
+    "x": {
+      "max": 6,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 40.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          10.0,
+          20.0,
+          30.0,
+          40.0
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "独立超算服务商",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "互联网超算服务商",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "独立超算服务商",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        6.0,
+        7.1,
+        8.7,
+        11.7,
+        15.0,
+        18.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "互联网超算服务商",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1.2,
+        2.3,
+        4.2,
+        6.6,
+        9.5,
+        13.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0167_611b3b64e0a14966.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0167_611b3b64e0a14966.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_d13a8f674bfa9845fffa",
+        "question_number": 126,
+        "source_jsonl_line": 20451
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0167_611b3b64e0a14966.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_dc9faeec67cdd0dcd912",
+        "question_number": 127,
+        "source_jsonl_line": 20452
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0176_80d153bbb6d44eb4.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_77050d5ffb08adf33ddc",
+        "question_number": 128,
+        "source_jsonl_line": 20453
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0176_80d153bbb6d44eb4.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_75dff18b5806e1431bdb",
+        "question_number": 129,
+        "source_jsonl_line": 20454
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0176_80d153bbb6d44eb4.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_aa9d10d1cf2c87753ae4",
+        "question_number": 130,
+        "source_jsonl_line": 20455
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0109_611b3b64e0a14966.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_6dde9b246e5ebb545e41",
+        "question_number": 116,
+        "source_jsonl_line": 20576
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0109_611b3b64e0a14966.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_9826d04d9225d328b7e0",
+        "question_number": 117,
+        "source_jsonl_line": 20577
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0109_611b3b64e0a14966.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_b9b3b32a6dca6e5e14f7",
+        "question_number": 118,
+        "source_jsonl_line": 20578
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0082_80d153bbb6d44eb4.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_b438f931b37b6dfae629",
+        "question_number": 119,
+        "source_jsonl_line": 20579
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0109_611b3b64e0a14966.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_04c2213b912d28854af1",
+        "question_number": 120,
+        "source_jsonl_line": 20580
+      }
+    ],
+    "sha256": "183884b4702fce85846a957e55e461d29487a42c6cc85c2c56859697de2f74bf"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2016～2021年中国第三方超算服务市场规模",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_183884b4702fce85846a957e/column_band_01.jpg",
+        "review-crops/da_183884b4702fce85846a957e/column_band_02.jpg",
+        "review-crops/da_183884b4702fce85846a957e/column_band_03.jpg",
+        "review-crops/da_183884b4702fce85846a957e/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.984",
+      "crop_verification_elapsed_seconds:6.135",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

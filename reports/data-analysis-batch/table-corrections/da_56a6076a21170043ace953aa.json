@@ -1,0 +1,124 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2010",
+          "2011",
+          "2012",
+          "2013",
+          "2014"
+        ],
+        "label": "2010-2014年末全国劳动就业状况"
+      }
+    ],
+    "columns": [
+      "2010",
+      "2011",
+      "2012",
+      "2013",
+      "2014"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "display_label": "城镇新增就业人数（万人）",
+        "group": null,
+        "label": "城镇新增就业人数（万人）",
+        "unit": null,
+        "values": [
+          1168,
+          1221,
+          1266,
+          1310,
+          1322
+        ]
+      },
+      {
+        "display_label": "城镇失业人员再就业人数（万人）",
+        "group": null,
+        "label": "城镇失业人员再就业人数（万人）",
+        "unit": null,
+        "values": [
+          547,
+          553,
+          552,
+          566,
+          551
+        ]
+      },
+      {
+        "display_label": "城镇登记失业人数（万人）",
+        "group": null,
+        "label": "城镇登记失业人数（万人）",
+        "unit": null,
+        "values": [
+          908,
+          922,
+          917,
+          926,
+          952
+        ]
+      },
+      {
+        "display_label": "城镇登记失业率（%）",
+        "group": null,
+        "label": "城镇登记失业率（%）",
+        "unit": null,
+        "values": [
+          4.14,
+          4.09,
+          4.09,
+          4.05,
+          4.09
+        ]
+      },
+      {
+        "display_label": "第一产业就业人员占比（%）",
+        "group": null,
+        "label": "第一产业就业人员占比（%）",
+        "unit": null,
+        "values": [
+          36.7,
+          34.8,
+          33.6,
+          31.4,
+          29.5
+        ]
+      },
+      {
+        "display_label": "第二产业就业人员占比（%）",
+        "group": null,
+        "label": "第二产业就业人员占比（%）",
+        "unit": null,
+        "values": [
+          28.7,
+          29.5,
+          30.3,
+          30.1,
+          29.9
+        ]
+      },
+      {
+        "display_label": "第三产业就业人员占比（%）",
+        "group": null,
+        "label": "第三产业就业人员占比（%）",
+        "unit": null,
+        "values": [
+          34.6,
+          35.7,
+          36.1,
+          38.5,
+          40.6
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

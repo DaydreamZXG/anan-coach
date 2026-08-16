@@ -1,0 +1,252 @@
+{
+  "asset_id": "da_3bb0d5264ff3e23ab5533a58",
+  "axes": {
+    "x": {
+      "max": 6,
+      "min": 0,
+      "ticks": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 3000,
+        "min": 0,
+        "ticks": [
+          0.0,
+          1000.0,
+          2000.0,
+          3000.0
+        ],
+        "title": null,
+        "unit": "(亿美元)"
+      },
+      {
+        "max": 20,
+        "min": -10,
+        "ticks": [
+          -10,
+          0,
+          10,
+          20
+        ],
+        "title": null,
+        "unit": "(%)"
+      }
+    ]
+  },
+  "categories": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "出口总额",
+      "style": {
+        "dash": "solid",
+        "fill": "#000000",
+        "marker": "none",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "进口总额",
+      "style": {
+        "dash": "solid",
+        "fill": "#FFFFFF",
+        "marker": "none",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "进出口总额同比增长",
+      "style": {
+        "dash": "solid",
+        "fill": "#000000",
+        "marker": "none",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "出口总额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(亿美元)",
+      "values": [
+        2713.62,
+        3057.02,
+        2843.62,
+        2640.39,
+        2375.47,
+        2443.58
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "进口总额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(亿美元)",
+      "values": [
+        1954.69,
+        2317.72,
+        2033.79,
+        1784.2,
+        1608.92,
+        1697.88
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "进出口总额同比增长",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(%)",
+      "values": [
+        12.7,
+        15.1,
+        -9.3,
+        -9.3,
+        -9.9,
+        3.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2019深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0207_174f7aaa3825fc3a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0207_174f7aaa3825fc3a.png",
+        "paper_title": "2019深圳市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f3fda0ab47dcc45b176d",
+        "question_number": 91,
+        "source_jsonl_line": 67947
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0207_174f7aaa3825fc3a.png",
+        "paper_title": "2019深圳市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_60bf3c1c8293d3735c49",
+        "question_number": 92,
+        "source_jsonl_line": 67948
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0207_174f7aaa3825fc3a.png",
+        "paper_title": "2019深圳市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_841d74a175dd3f70e5eb",
+        "question_number": 93,
+        "source_jsonl_line": 67949
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0207_174f7aaa3825fc3a.png",
+        "paper_title": "2019深圳市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_07662e4a5147916c6a0c",
+        "question_number": 94,
+        "source_jsonl_line": 67950
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0207_174f7aaa3825fc3a.png",
+        "paper_title": "2019深圳市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c5132d7a84b9f15dd7ed",
+        "question_number": 95,
+        "source_jsonl_line": 67951
+      }
+    ],
+    "sha256": "3bb0d5264ff3e23ab5533a58ccb1f8731f8b7e53f9c745074b65f53678ab4e03"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2012-2017年深圳市进出口情况",
+  "unit": "(亿美元)",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3bb0d5264ff3e23ab5533a58/column_band_01.jpg",
+        "review-crops/da_3bb0d5264ff3e23ab5533a58/column_band_02.jpg",
+        "review-crops/da_3bb0d5264ff3e23ab5533a58/column_band_03.jpg",
+        "review-crops/da_3bb0d5264ff3e23ab5533a58/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.943",
+      "crop_verification_elapsed_seconds:16.719",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'进口总额'在2014年的数值为1784.2，原图中误写为1784.20",
+      "crop_note:修正了'进出口总额同比增长'在2014年的数值为-9.3，原图中误写为-9.3",
+      "crop_note:修正了'进出口总额同比增长'在2016年的数值为-9.9，原图中误写为-9.9",
+      "crop_note:修正了'进出口总额同比增长'在2017年的数值为3.9，原图中误写为3.9",
+      "crop_note:确认'出口总额'在2012年的数值为2713.62，原图中正确",
+      "crop_note:确认'进口总额'在2012年的数值为1954.69，原图中正确",
+      "crop_note:确认'进出口总额同比增长'在2012年的数值为12.7，原图中正确",
+      "crop_note:确认'出口总额'在2013年的数值为3057.02，原图中正确",
+      "crop_note:确认'进口总额'在2013年的数值为2317.72，原图中正确",
+      "crop_note:确认'进出口总额同比增长'在2013年的数值为15.1，原图中正确",
+      "crop_note:确认'出口总额'在2014年的数值为2843.62，原图中正确",
+      "crop_note:确认'进口总额'在2014年的数值为2033.79，原图中正确",
+      "crop_note:确认'出口总额'在2015年的数值为2640.39，原图中正确",
+      "crop_note:确认'进口总额'在2015年的数值为1608.92，原图中正确",
+      "crop_note:确认'出口总额'在2016年的数值为2375.47，原图中正确",
+      "crop_note:确认'进口总额'在2016年的数值为1697.88，原图中正确",
+      "crop_note:确认'出口总额'在2017年的数值为2443.58，原图中正确",
+      "crop_note:确认'进口总额'在2017年的数值为1697.88，原图中正确",
+      "crop_note:确认'进出口总额同比增长'在2017年的数值为3.9，原图中正确",
+      "crop_note:确认所有数值的小数点后位数与原图一致，未补0",
+      "crop_note:确认所有负号、百分号、小数点均正确"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

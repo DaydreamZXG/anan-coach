@@ -1,0 +1,219 @@
+{
+  "asset_id": "da_77067b341bce8b59f6b28133",
+  "axes": {
+    "x": {
+      "max": 104.1,
+      "min": 0,
+      "ticks": [
+        0,
+        20,
+        40,
+        60,
+        80,
+        100,
+        104.1
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 5,
+        "min": 0,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "食品",
+    "烟酒",
+    "服装",
+    "文化用品",
+    "日用品"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "全国",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "城市",
+      "style": {
+        "dash": null,
+        "fill": "#808080",
+        "marker": "square",
+        "stroke": "#808080"
+      }
+    },
+    {
+      "label": "农村",
+      "style": {
+        "dash": null,
+        "fill": "#C0C0C0",
+        "marker": "square",
+        "stroke": "#C0C0C0"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        100,
+        102.3,
+        97.5,
+        96.4,
+        104
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "城市",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        100.5,
+        102.4,
+        97.2,
+        95.4,
+        104.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "农村",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        98.5,
+        101.9,
+        98.1,
+        98.9,
+        103.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河北/2009年河北省公务员录用考试《行测》题_images/img_0154_924f056c67771d3e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年河北省公务员录用考试《行测》题_images/img_0154_924f056c67771d3e.png",
+        "paper_title": "2009年河北省公务员录用考试《行测》题",
+        "question_id": "pq_d06ad19c9ee797558ec6",
+        "question_number": 136,
+        "source_jsonl_line": 54750
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年河北省公务员录用考试《行测》题_images/img_0154_924f056c67771d3e.png",
+        "paper_title": "2009年河北省公务员录用考试《行测》题",
+        "question_id": "pq_73c35552e97f305fa544",
+        "question_number": 137,
+        "source_jsonl_line": 54751
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年河北省公务员录用考试《行测》题_images/img_0154_924f056c67771d3e.png",
+        "paper_title": "2009年河北省公务员录用考试《行测》题",
+        "question_id": "pq_c190456dc5076d97f65e",
+        "question_number": 138,
+        "source_jsonl_line": 54752
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年河北省公务员录用考试《行测》题_images/img_0154_924f056c67771d3e.png",
+        "paper_title": "2009年河北省公务员录用考试《行测》题",
+        "question_id": "pq_b28568bda16aec2b1140",
+        "question_number": 139,
+        "source_jsonl_line": 54753
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年河北省公务员录用考试《行测》题_images/img_0154_924f056c67771d3e.png",
+        "paper_title": "2009年河北省公务员录用考试《行测》题",
+        "question_id": "pq_707bae96e53a59eb6260",
+        "question_number": 140,
+        "source_jsonl_line": 54754
+      }
+    ],
+    "sha256": "77067b341bce8b59f6b281330b3cf2be4ff48536d6c7b4a089ffbc08c3d3d88a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2009年4月全国商品零售价格分类指数",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_77067b341bce8b59f6b28133/column_band_01.jpg",
+        "review-crops/da_77067b341bce8b59f6b28133/column_band_02.jpg",
+        "review-crops/da_77067b341bce8b59f6b28133/column_band_03.jpg",
+        "review-crops/da_77067b341bce8b59f6b28133/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.825",
+      "crop_verification_elapsed_seconds:3.474",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

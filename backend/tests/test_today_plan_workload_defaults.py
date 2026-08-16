@@ -58,7 +58,7 @@ def test_weekly_capacity_is_an_effective_default_without_confirmation(
     assert "等待你确认" not in plan.rationale
     assert "weekly_preference_pending_confirmation" not in plan.replan_reason_codes
     assert "daily_capacity_pending_confirmation" not in plan.replan_reason_codes
-    assert PLAN_ALGORITHM_VERSION.endswith("v7")
+    assert PLAN_ALGORITHM_VERSION.endswith("v8")
 
 
 def test_unconfirmed_weekly_capacity_still_drives_recovery_and_empty_copy() -> None:

@@ -1,0 +1,211 @@
+{
+  "asset_id": "da_bc6e488c0ab571cd71265127",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/贵州/2009年贵州省公务员录用考试《行测》题_images/img_0120_2b0821002c44a351.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年贵州省公务员录用考试《行测》题_images/img_0120_2b0821002c44a351.png",
+        "paper_title": "2009年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_15de55015fb31acf7565",
+        "question_number": 131,
+        "source_jsonl_line": 80152
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年贵州省公务员录用考试《行测》题_images/img_0120_2b0821002c44a351.png",
+        "paper_title": "2009年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_810241fed778318d054e",
+        "question_number": 132,
+        "source_jsonl_line": 80153
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年贵州省公务员录用考试《行测》题_images/img_0120_2b0821002c44a351.png",
+        "paper_title": "2009年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_ea0da9035d6fcfd5c5d2",
+        "question_number": 133,
+        "source_jsonl_line": 80154
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年贵州省公务员录用考试《行测》题_images/img_0101_f4ac8b006ac32933.png",
+        "paper_title": "2009年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_e3ab8b9834c507b46612",
+        "question_number": 134,
+        "source_jsonl_line": 80155
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年贵州省公务员录用考试《行测》题_images/img_0120_2b0821002c44a351.png",
+        "paper_title": "2009年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_d1fa1f817f21b4e4c168",
+        "question_number": 135,
+        "source_jsonl_line": 80156
+      }
+    ],
+    "sha256": "bc6e488c0ab571cd7126512750da5f715d78e008ee9e99b4d432026d71d17eda"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "贸易流向｜2002",
+      "贸易流向｜2003",
+      "贸易流向｜2004",
+      "贸易流向｜2005",
+      "贸易流向｜2006",
+      "贸易流向｜2007",
+      "贸易流向｜2008",
+      "贸易流向｜2009"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "发达国家｜出口",
+        "group": "贸易流向",
+        "label": "贸易流向｜发达国家｜出口",
+        "unit": null,
+        "values": [
+          2.2,
+          2.5,
+          8.9,
+          5.6,
+          7.5,
+          4.5,
+          3.1,
+          0.0
+        ]
+      },
+      {
+        "display_label": "发达国家｜进口",
+        "group": "贸易流向",
+        "label": "贸易流向｜发达国家｜进口",
+        "unit": null,
+        "values": [
+          2.5,
+          4.6,
+          9.5,
+          6.5,
+          7.0,
+          3.9,
+          1.1,
+          -1.1
+        ]
+      },
+      {
+        "display_label": "转型经济体｜出口",
+        "group": "贸易流向",
+        "label": "贸易流向｜转型经济体｜出口",
+        "unit": null,
+        "values": [
+          7.9,
+          13.2,
+          15.5,
+          0.8,
+          6.6,
+          8.9,
+          5.0,
+          4.5
+        ]
+      },
+      {
+        "display_label": "转型经济体｜进口",
+        "group": "贸易流向",
+        "label": "贸易流向｜转型经济体｜进口",
+        "unit": null,
+        "values": [
+          11.8,
+          16.2,
+          19.3,
+          8.8,
+          18.4,
+          25.0,
+          17.5,
+          15.5
+        ]
+      },
+      {
+        "display_label": "发展中国家｜出口",
+        "group": "贸易流向",
+        "label": "贸易流向｜发展中国家｜出口",
+        "unit": null,
+        "values": [
+          8.6,
+          10.8,
+          15.0,
+          12.5,
+          10.9,
+          8.8,
+          6.2,
+          4.8
+        ]
+      },
+      {
+        "display_label": "发展中国家｜进口",
+        "group": "贸易流向",
+        "label": "贸易流向｜发展中国家｜进口",
+        "unit": null,
+        "values": [
+          7.4,
+          10.3,
+          16.3,
+          11.2,
+          12.0,
+          8.9,
+          9.8,
+          6.3
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

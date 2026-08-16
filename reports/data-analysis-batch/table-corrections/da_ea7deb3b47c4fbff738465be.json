@@ -1,0 +1,229 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "入境人数（万人）｜第1列",
+      "同比增长（%）｜第2列",
+      "入境人数（万人）｜第3列",
+      "同比增长（%）｜第4列"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "同比增长（%）",
+      "style": "diagonal",
+      "upper_label": "入境人数（万人）"
+    },
+    "missing_cells": [],
+    "row_header_label": "同比增长（%）",
+    "rows": [
+      {
+        "display_label": "4月份",
+        "group": null,
+        "label": "4月份",
+        "unit": null,
+        "values": [
+          "入境人数（万人）",
+          "同比增长（%）",
+          "1～4月累计",
+          "同比增长（%）"
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          33.65,
+          27.33,
+          126.96,
+          24.12
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": null,
+        "values": [
+          30.75,
+          22.25,
+          119.71,
+          19.83
+        ]
+      },
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": null,
+        "values": [
+          17.62,
+          16.53,
+          60.67,
+          16.08
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": null,
+        "label": "俄罗斯",
+        "unit": null,
+        "values": [
+          16.03,
+          40.78,
+          60.57,
+          29.62
+        ]
+      },
+      {
+        "display_label": "马来西亚",
+        "group": null,
+        "label": "马来西亚",
+        "unit": null,
+        "values": [
+          11.72,
+          8.52,
+          37.96,
+          10.24
+        ]
+      },
+      {
+        "display_label": "新加坡",
+        "group": null,
+        "label": "新加坡",
+        "unit": null,
+        "values": [
+          8.47,
+          8.12,
+          29.47,
+          11.41
+        ]
+      },
+      {
+        "display_label": "菲律宾",
+        "group": null,
+        "label": "菲律宾",
+        "unit": null,
+        "values": [
+          7.43,
+          2.48,
+          26.51,
+          5.5
+        ]
+      },
+      {
+        "display_label": "泰国",
+        "group": null,
+        "label": "泰国",
+        "unit": null,
+        "values": [
+          7.89,
+          15.22,
+          22.58,
+          8.76
+        ]
+      },
+      {
+        "display_label": "加拿大",
+        "group": null,
+        "label": "加拿大",
+        "unit": null,
+        "values": [
+          5.67,
+          19.13,
+          20.63,
+          16.47
+        ]
+      },
+      {
+        "display_label": "澳大利亚",
+        "group": null,
+        "label": "澳大利亚",
+        "unit": null,
+        "values": [
+          5.73,
+          6.73,
+          20.61,
+          12.69
+        ]
+      },
+      {
+        "display_label": "蒙古",
+        "group": null,
+        "label": "蒙古",
+        "unit": null,
+        "values": [
+          5.74,
+          27.75,
+          19.54,
+          35.51
+        ]
+      },
+      {
+        "display_label": "德国",
+        "group": null,
+        "label": "德国",
+        "unit": null,
+        "values": [
+          4.93,
+          3.95,
+          18.8,
+          13.51
+        ]
+      },
+      {
+        "display_label": "英国",
+        "group": null,
+        "label": "英国",
+        "unit": null,
+        "values": [
+          5.03,
+          -2.37,
+          18.32,
+          5.61
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": null,
+        "label": "印度",
+        "unit": null,
+        "values": [
+          5.33,
+          36.37,
+          16.23,
+          23.55
+        ]
+      },
+      {
+        "display_label": "印尼",
+        "group": null,
+        "label": "印尼",
+        "unit": null,
+        "values": [
+          5.15,
+          33.79,
+          15.96,
+          25.61
+        ]
+      },
+      {
+        "display_label": "法国",
+        "group": null,
+        "label": "法国",
+        "unit": null,
+        "values": [
+          4.44,
+          6.8,
+          15.11,
+          15.4
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

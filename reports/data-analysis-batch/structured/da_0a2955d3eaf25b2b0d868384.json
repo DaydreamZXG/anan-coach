@@ -1,0 +1,244 @@
+{
+  "asset_id": "da_0a2955d3eaf25b2b0d868384",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.92,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2014年浙江省公务员录用考试《行测》题（A类）_images/img_0175_781deed60fdfa41f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0175_781deed60fdfa41f.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_5f18b74a59fd4338e3bf",
+        "question_number": 126,
+        "source_jsonl_line": 60808
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0175_781deed60fdfa41f.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_fe8c66e24c8cf4a3b9ae",
+        "question_number": 127,
+        "source_jsonl_line": 60809
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0175_781deed60fdfa41f.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_4bd82cfbc800d8cf557e",
+        "question_number": 128,
+        "source_jsonl_line": 60810
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0175_781deed60fdfa41f.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_03297b7c6a48154defe4",
+        "question_number": 129,
+        "source_jsonl_line": 60811
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（A类）_images/img_0175_781deed60fdfa41f.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_431eaa4b2452156726fe",
+        "question_number": 130,
+        "source_jsonl_line": 60812
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0150_ba5b2b566940346b.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_5f0ec19c8475928f0093",
+        "question_number": 116,
+        "source_jsonl_line": 60928
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0150_ba5b2b566940346b.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_96fdb05b771ce006f87d",
+        "question_number": 117,
+        "source_jsonl_line": 60929
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0160_781deed60fdfa41f.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_45bde178e09d39ea766a",
+        "question_number": 118,
+        "source_jsonl_line": 60930
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0160_781deed60fdfa41f.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_eea022459712ad1839a1",
+        "question_number": 119,
+        "source_jsonl_line": 60931
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年浙江省公务员录用考试《行测》题（B类）_images/img_0160_781deed60fdfa41f.png",
+        "paper_title": "2014年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_baf3a2ce2071d36491d9",
+        "question_number": 120,
+        "source_jsonl_line": 60932
+      }
+    ],
+    "sha256": "0a2955d3eaf25b2b0d868384b361132e6995bdefffda68c9130eb6058817008e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "按人均纯收入等级分组｜低收入户",
+          "按人均纯收入等级分组｜次低收入户",
+          "按人均纯收入等级分组｜中等收入户",
+          "按人均纯收入等级分组｜次高收入户",
+          "按人均纯收入等级分组｜高收入户"
+        ],
+        "label": "按人均纯收入等级分组"
+      },
+      {
+        "columns": [
+          "平均｜平均"
+        ],
+        "label": "平均"
+      }
+    ],
+    "columns": [
+      "按人均纯收入等级分组｜低收入户",
+      "按人均纯收入等级分组｜次低收入户",
+      "按人均纯收入等级分组｜中等收入户",
+      "按人均纯收入等级分组｜次高收入户",
+      "按人均纯收入等级分组｜高收入户",
+      "平均｜平均"
+    ],
+    "corner_header": {
+      "lower_label": "按人均纯收入等级分组",
+      "style": "diagonal",
+      "upper_label": "平均"
+    },
+    "missing_cells": [],
+    "row_header_label": "按人均纯收入等级分组",
+    "rows": [
+      {
+        "display_label": "人均纯收入",
+        "group": null,
+        "label": "人均纯收入",
+        "unit": null,
+        "values": [
+          13071,
+          3687,
+          8111,
+          11582,
+          15814,
+          28404
+        ]
+      },
+      {
+        "display_label": "人均工资性收入",
+        "group": null,
+        "label": "人均工资性收入",
+        "unit": null,
+        "values": [
+          6878,
+          2309,
+          4557,
+          7089,
+          9754,
+          11439
+        ]
+      },
+      {
+        "display_label": "人均家庭经营收入",
+        "group": null,
+        "label": "人均家庭经营收入",
+        "unit": null,
+        "values": [
+          4872,
+          283,
+          2727,
+          3449,
+          4921,
+          14281
+        ]
+      },
+      {
+        "display_label": "人均财产性收入",
+        "group": null,
+        "label": "人均财产性收入",
+        "unit": null,
+        "values": [
+          553,
+          500,
+          152,
+          304,
+          438,
+          1510
+        ]
+      },
+      {
+        "display_label": "人均转移性收入",
+        "group": null,
+        "label": "人均转移性收入",
+        "unit": null,
+        "values": [
+          767,
+          595,
+          676,
+          740,
+          701,
+          1174
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.92,
+    "schema_valid": true
+  }
+}

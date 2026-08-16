@@ -1,0 +1,256 @@
+{
+  "asset_id": "da_3980c842fb51595c3ee79c9c",
+  "axes": {
+    "x": {
+      "max": 8,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 35,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35
+        ],
+        "title": null,
+        "unit": "天"
+      }
+    ]
+  },
+  "categories": [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "一级",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "二级",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "三级",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "四级及以上",
+      "style": {
+        "dash": "solid",
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "一级",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "天",
+      "values": [
+        7,
+        3,
+        2,
+        3,
+        13,
+        24,
+        3,
+        14
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "二级",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "天",
+      "values": [
+        15,
+        23,
+        17,
+        16,
+        14,
+        6,
+        23,
+        16
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "三级",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "天",
+      "values": [
+        9,
+        3,
+        9,
+        11,
+        4,
+        6,
+        5,
+        3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "四级及以上",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "天",
+      "values": [
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2009年国家公务员录用考试《行测》题_images/img_0139_cc3ac52bea0cb6ce.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年国家公务员录用考试《行测》题_images/img_0139_cc3ac52bea0cb6ce.jpg",
+        "paper_title": "2009年国家公务员录用考试《行测》题",
+        "question_id": "pq_5e056507e6a7e78fcbe3",
+        "question_number": 121,
+        "source_jsonl_line": 17376
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年国家公务员录用考试《行测》题_images/img_0148_fbaf62f35d2a47c4.jpg",
+        "paper_title": "2009年国家公务员录用考试《行测》题",
+        "question_id": "pq_fb679477061fdc29d447",
+        "question_number": 122,
+        "source_jsonl_line": 17377
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年国家公务员录用考试《行测》题_images/img_0148_fbaf62f35d2a47c4.jpg",
+        "paper_title": "2009年国家公务员录用考试《行测》题",
+        "question_id": "pq_bebd31daf3e7b5abf357",
+        "question_number": 123,
+        "source_jsonl_line": 17378
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年国家公务员录用考试《行测》题_images/img_0139_cc3ac52bea0cb6ce.jpg",
+        "paper_title": "2009年国家公务员录用考试《行测》题",
+        "question_id": "pq_41bbd8f5abf351b9b860",
+        "question_number": 124,
+        "source_jsonl_line": 17379
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年国家公务员录用考试《行测》题_images/img_0148_fbaf62f35d2a47c4.jpg",
+        "paper_title": "2009年国家公务员录用考试《行测》题",
+        "question_id": "pq_89c909fdb9d77619d3e2",
+        "question_number": 125,
+        "source_jsonl_line": 17380
+      }
+    ],
+    "sha256": "3980c842fb51595c3ee79c9c545033656260bb3128c25321c759c683897058f8"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2008年1-8月北京市天气质量检测情况",
+  "unit": "天",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3980c842fb51595c3ee79c9c/column_band_01.jpg",
+        "review-crops/da_3980c842fb51595c3ee79c9c/column_band_02.jpg",
+        "review-crops/da_3980c842fb51595c3ee79c9c/column_band_03.jpg",
+        "review-crops/da_3980c842fb51595c3ee79c9c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.461",
+      "crop_verification_elapsed_seconds:8.487",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,201 @@
+{
+  "asset_id": "da_9d52fa5e41f0c9ccc48b958b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 35.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          5.0,
+          10.0,
+          15.0,
+          20.0,
+          25.0,
+          30.0,
+          35.0
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 8.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0,
+          6.0,
+          7.0,
+          8.0
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "出让面积（万公顷）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "出让成交价款（万亿元）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "出让面积（万公顷）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万公顷",
+      "values": [
+        26.0,
+        27.9,
+        31.5,
+        30.7,
+        30.7
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "出让成交价款（万亿元）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万亿元",
+      "values": [
+        5.89,
+        6.6,
+        6.04,
+        7.72,
+        6.03
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0104_5d396cbb69e6c865.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0104_5d396cbb69e6c865.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_1beef96d47b2dd6c3e9f",
+        "question_number": 106,
+        "source_jsonl_line": 30800
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0104_5d396cbb69e6c865.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_a7a1f9eb036b021274f2",
+        "question_number": 107,
+        "source_jsonl_line": 30801
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0104_5d396cbb69e6c865.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_96676d8ae7996703d13c",
+        "question_number": 108,
+        "source_jsonl_line": 30802
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0104_5d396cbb69e6c865.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_b50c534182a263917b1c",
+        "question_number": 109,
+        "source_jsonl_line": 30803
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0104_5d396cbb69e6c865.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_fc69818efbb0f2ce2773",
+        "question_number": 110,
+        "source_jsonl_line": 30804
+      }
+    ],
+    "sha256": "9d52fa5e41f0c9ccc48b958bf41a4ad71e95328fbceefae092ad8a0ee13fb463"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2018-2022年国有建设用地出让情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9d52fa5e41f0c9ccc48b958b/column_band_01.jpg",
+        "review-crops/da_9d52fa5e41f0c9ccc48b958b/column_band_02.jpg",
+        "review-crops/da_9d52fa5e41f0c9ccc48b958b/column_band_03.jpg",
+        "review-crops/da_9d52fa5e41f0c9ccc48b958b/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.285",
+      "crop_verification_elapsed_seconds:3.734",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

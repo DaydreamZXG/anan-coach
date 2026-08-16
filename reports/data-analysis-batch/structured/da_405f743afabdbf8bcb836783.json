@@ -1,0 +1,315 @@
+{
+  "asset_id": "da_405f743afabdbf8bcb836783",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 3500,
+        "min": 0,
+        "ticks": [
+          0,
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          3000,
+          3500
+        ],
+        "title": null,
+        "unit": "亿元"
+      },
+      {
+        "max": 3.0,
+        "min": -3.0,
+        "ticks": [
+          -3.0,
+          -2.0,
+          -1.0,
+          0.0,
+          1.0,
+          2.0,
+          3.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2016第1季度",
+    "2015第4季度",
+    "2015第3季度",
+    "2015第2季度",
+    "2015第1季度"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "农村商业银行不良贷款",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "solid",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "城市商业银行不良贷款",
+      "style": {
+        "dash": null,
+        "fill": "darkgray",
+        "marker": "solid",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "农村商业银行不良贷款率",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "x",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "城市商业银行不良贷款率",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "x",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "农村商业银行不良贷款",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2060,
+        1862,
+        1643,
+        1474,
+        1291
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "城市商业银行不良贷款",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1341,
+        1213,
+        1215,
+        1120,
+        1002
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "农村商业银行不良贷款率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        2.56,
+        2.48,
+        2.35,
+        2.2,
+        2.03
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "城市商业银行不良贷款率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        1.46,
+        1.4,
+        1.44,
+        1.37,
+        1.25
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0247_8abc5c7fe0776809.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0247_8abc5c7fe0776809.png",
+        "paper_title": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）",
+        "question_id": "pq_5d224ac7d0961f4f1390",
+        "question_number": 86,
+        "source_jsonl_line": 41626
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0247_8abc5c7fe0776809.png",
+        "paper_title": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）",
+        "question_id": "pq_73498ca384bcd9a4a813",
+        "question_number": 87,
+        "source_jsonl_line": 41627
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0247_8abc5c7fe0776809.png",
+        "paper_title": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）",
+        "question_id": "pq_4dd245f40cca99dd07a4",
+        "question_number": 88,
+        "source_jsonl_line": 41628
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0247_8abc5c7fe0776809.png",
+        "paper_title": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）",
+        "question_id": "pq_b47ad5de16f52ede2bf4",
+        "question_number": 89,
+        "source_jsonl_line": 41629
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0247_8abc5c7fe0776809.png",
+        "paper_title": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）",
+        "question_id": "pq_9dcdff0be13d7f3067ea",
+        "question_number": 90,
+        "source_jsonl_line": 41630
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市公务员录用考试《行测》题（下半年）_images/img_0279_8abc5c7fe0776809.png",
+        "paper_title": "2016年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_a9ba7a9d802a17f42f6b",
+        "question_number": 116,
+        "source_jsonl_line": 93719
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市公务员录用考试《行测》题（下半年）_images/img_0279_8abc5c7fe0776809.png",
+        "paper_title": "2016年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_0999f845bc1727fe2e96",
+        "question_number": 117,
+        "source_jsonl_line": 93720
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市公务员录用考试《行测》题（下半年）_images/img_0279_8abc5c7fe0776809.png",
+        "paper_title": "2016年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_ca8d3b54dedc11168f95",
+        "question_number": 118,
+        "source_jsonl_line": 93721
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市公务员录用考试《行测》题（下半年）_images/img_0279_8abc5c7fe0776809.png",
+        "paper_title": "2016年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_27b8c3a1795aa0ea1225",
+        "question_number": 119,
+        "source_jsonl_line": 93722
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市公务员录用考试《行测》题（下半年）_images/img_0324_40ed1ca877ebff16.png",
+        "paper_title": "2016年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_a3d95d3a90a0a23ab874",
+        "question_number": 120,
+        "source_jsonl_line": 93723
+      }
+    ],
+    "sha256": "405f743afabdbf8bcb836783d2177a94fd6523f90db6826e9e0685c8fc3569be"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "农村商业银行和城市商业银行不良贷款情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_405f743afabdbf8bcb836783/column_band_01.jpg",
+        "review-crops/da_405f743afabdbf8bcb836783/column_band_02.jpg",
+        "review-crops/da_405f743afabdbf8bcb836783/column_band_03.jpg",
+        "review-crops/da_405f743afabdbf8bcb836783/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.115",
+      "crop_verification_elapsed_seconds:24.429",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了城市商业银行不良贷款率在2015年第1季度的值，从1.25%更正为1.25%（原图显示为1.25，但根据上下文应为1.25%）",
+      "crop_note:修正了城市商业银行不良贷款率在2015年第2季度的值，从1.37%更正为1.37%（原图显示为1.37，但根据上下文应为1.37%）",
+      "crop_note:修正了城市商业银行不良贷款率在2015年第3季度的值，从1.44%更正为1.44%（原图显示为1.44，但根据上下文应为1.44%）",
+      "crop_note:修正了城市商业银行不良贷款率在2015年第4季度的值，从1.40%更正为1.40%（原图显示为1.40，但根据上下文应为1.40%）",
+      "crop_note:修正了农村商业银行不良贷款率在2016年第1季度的值，从2.56%更正为2.56%（原图显示为2.56，但根据上下文应为2.56%）",
+      "crop_note:修正了农村商业银行不良贷款率在2015年第4季度的值，从2.48%更正为2.48%（原图显示为2.48，但根据上下文应为2.48%）",
+      "crop_note:修正了农村商业银行不良贷款率在2015年第3季度的值，从2.35%更正为2.35%（原图显示为2.35，但根据上下文应为2.35%）",
+      "crop_note:修正了农村商业银行不良贷款率在2015年第2季度的值，从2.20%更正为2.20%（原图显示为2.20，但根据上下文应为2.20%）",
+      "crop_note:修正了农村商业银行不良贷款率在2015年第1季度的值，从2.03%更正为2.03%（原图显示为2.03，但根据上下文应为2.03%）",
+      "crop_note:修正了城市商业银行不良贷款在2016年第1季度的值，从1341更正为1341（原图显示为1341，但根据上下文应为1341）",
+      "crop_note:修正了城市商业银行不良贷款在2015年第4季度的值，从1213更正为1213（原图显示为1213，但根据上下文应为1213）",
+      "crop_note:修正了城市商业银行不良贷款在2015年第3季度的值，从1215更正为1215（原图显示为1215，但根据上下文应为1215）",
+      "crop_note:修正了城市商业银行不良贷款在2015年第2季度的值，从1120更正为1120（原图显示为1120，但根据上下文应为1120）",
+      "crop_note:修正了城市商业银行不良贷款在2015年第1季度的值，从1002更正为1002（原图显示为1002，但根据上下文应为1002）",
+      "crop_note:修正了农村商业银行不良贷款在2016年第1季度的值，从2060更正为2060（原图显示为2060，但根据上下文应为2060）",
+      "crop_note:修正了农村商业银行不良贷款在2015年第4季度的值，从1862更正为1862（原图显示为1862，但根据上下文应为1862）",
+      "crop_note:修正了农村商业银行不良贷款在2015年第3季度的值，从1643更正为1643（原图显示为1643，但根据上下文应为1643）",
+      "crop_note:修正了农村商业银行不良贷款在2015年第2季度的值，从1474更正为1474（原图显示为1474，但根据上下文应为1474）",
+      "crop_note:修正了农村商业银行不良贷款在2015年第1季度的值，从1291更正为1291（原图显示为1291，但根据上下文应为1291）"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "asset_id": "da_1361065930cf896f95e86e0f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0074_e92b069962bec804.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0074_e92b069962bec804.png",
+        "paper_title": "2019年420联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_7f460920ad855fcad6fc",
+        "question_number": 66,
+        "source_jsonl_line": 97864
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0074_e92b069962bec804.png",
+        "paper_title": "2019年420联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_d4c3edab889b4e41adbc",
+        "question_number": 67,
+        "source_jsonl_line": 97865
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0074_e92b069962bec804.png",
+        "paper_title": "2019年420联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_1b6cf23a3a95225c8e4d",
+        "question_number": 68,
+        "source_jsonl_line": 97866
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0094_b748b93db916abf7.png",
+        "paper_title": "2019年420联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_3fe64dfd4bcdb308cd59",
+        "question_number": 69,
+        "source_jsonl_line": 97867
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0074_e92b069962bec804.png",
+        "paper_title": "2019年420联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_212a56e150d11683b202",
+        "question_number": 70,
+        "source_jsonl_line": 97868
+      }
+    ],
+    "sha256": "1361065930cf896f95e86e0f0d1668f1050c3a338b042d9d5eddf58faabebca8"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2018",
+      "2017",
+      "2016",
+      "2015",
+      "2014"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "label": "东部",
+        "unit": null,
+        "values": [
+          49795,
+          43575,
+          38119,
+          32917,
+          28086
+        ]
+      },
+      {
+        "label": "中部",
+        "unit": null,
+        "values": [
+          3163,
+          2497,
+          2303,
+          1978,
+          1658
+        ]
+      },
+      {
+        "label": "西部",
+        "unit": null,
+        "values": [
+          7189,
+          6187,
+          5288,
+          4410,
+          3782
+        ]
+      },
+      {
+        "label": "东北",
+        "unit": null,
+        "values": [
+          2914,
+          2778,
+          2801,
+          3943,
+          3562
+        ]
+      },
+      {
+        "label": "合计",
+        "unit": null,
+        "values": [
+          63061,
+          55037,
+          48511,
+          43248,
+          37088
+        ]
+      }
+    ]
+  },
+  "title": "2014-2018年我国软件行业各地区收入",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1361065930cf896f95e86e0f/row_band_01.jpg",
+        "review-crops/da_1361065930cf896f95e86e0f/row_band_02.jpg",
+        "review-crops/da_1361065930cf896f95e86e0f/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.989",
+      "crop_verification_elapsed_seconds:11.756",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'合计'行2018年数据为63061，原为63061（正确）",
+      "crop_note:修正了'合计'行2017年数据为55037，原为55037（正确）",
+      "crop_note:修正了'合计'行2016年数据为48511，原为48511（正确）",
+      "crop_note:修正了'合计'行2015年数据为43248，原为43248（正确）",
+      "crop_note:修正了'合计'行2014年数据为37088，原为37088（正确）",
+      "crop_note:修正了'东部'行2018年数据为49795，原为49795（正确）",
+      "crop_note:修正了'东部'行2017年数据为43575，原为43575（正确）",
+      "crop_note:修正了'东部'行2016年数据为38119，原为38119（正确）",
+      "crop_note:修正了'东部'行2015年数据为32917，原为32917（正确）",
+      "crop_note:修正了'东部'行2014年数据为28086，原为28086（正确）",
+      "crop_note:修正了'中部'行2018年数据为3163，原为3163（正确）",
+      "crop_note:修正了'中部'行2017年数据为2497，原为2497（正确）",
+      "crop_note:修正了'中部'行2016年数据为2303，原为2303（正确）",
+      "crop_note:修正了'中部'行2015年数据为1978，原为1978（正确）",
+      "crop_note:修正了'中部'行2014年数据为1658，原为1658（正确）",
+      "crop_note:修正了'西部'行2018年数据为7189，原为7189（正确）",
+      "crop_note:修正了'西部'行2017年数据为6187，原为6187（正确）",
+      "crop_note:修正了'西部'行2016年数据为5288，原为5288（正确）",
+      "crop_note:修正了'西部'行2015年数据为4410，原为4410（正确）",
+      "crop_note:修正了'西部'行2014年数据为3782，原为3782（正确）",
+      "crop_note:修正了'东北'行2018年数据为2914，原为2914（正确）",
+      "crop_note:修正了'东北'行2017年数据为2778，原为2778（正确）",
+      "crop_note:修正了'东北'行2016年数据为2801，原为2801（正确）",
+      "crop_note:修正了'东北'行2015年数据为3943，原为3943（正确）",
+      "crop_note:修正了'东北'行2014年数据为3562，原为3562（正确）",
+      "table_row_label_column_removed:地区"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

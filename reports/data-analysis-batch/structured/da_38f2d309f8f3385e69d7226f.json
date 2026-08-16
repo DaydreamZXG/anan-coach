@@ -1,0 +1,241 @@
+{
+  "asset_id": "da_38f2d309f8f3385e69d7226f",
+  "axes": {
+    "x": {
+      "max": 11,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 150000,
+        "min": 0,
+        "ticks": [
+          0,
+          50000,
+          100000,
+          150000
+        ],
+        "title": null,
+        "unit": "千美元"
+      },
+      {
+        "max": 120.0,
+        "min": -150.0,
+        "ticks": [
+          -150.0,
+          -60.0,
+          30.0,
+          120.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "烤烟出口额",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "同比增速",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "烤烟出口额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "千美元",
+      "values": [
+        34777,
+        24912,
+        19340,
+        31735,
+        34535,
+        35852,
+        30851,
+        41893,
+        42525,
+        49293,
+        40402
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        32.5,
+        -16.3,
+        -38.6,
+        34.7,
+        2.3,
+        -25.5,
+        -24.7,
+        13.4,
+        -9.0,
+        87.1,
+        69.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0029_df2d3ce7a626b7ae.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0029_df2d3ce7a626b7ae.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_34112e07d7cbfaa6ade9",
+        "question_number": 101,
+        "source_jsonl_line": 84452
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0029_df2d3ce7a626b7ae.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3e8587989b55a3dbf39d",
+        "question_number": 102,
+        "source_jsonl_line": 84453
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0029_df2d3ce7a626b7ae.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_815e2705cf719ded6724",
+        "question_number": 103,
+        "source_jsonl_line": 84454
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0039_94d9052d07590dd4.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e865ab7b18d92e1137b5",
+        "question_number": 104,
+        "source_jsonl_line": 84455
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0029_df2d3ce7a626b7ae.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_74227ecafac6bbaec959",
+        "question_number": 105,
+        "source_jsonl_line": 84456
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0089_df2d3ce7a626b7ae.png",
+        "paper_title": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_639028348cf110d5c2f3",
+        "question_number": 111,
+        "source_jsonl_line": 104633
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0096_94d9052d07590dd4.png",
+        "paper_title": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1b1dc96376964347f736",
+        "question_number": 112,
+        "source_jsonl_line": 104634
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0089_df2d3ce7a626b7ae.png",
+        "paper_title": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8ff202c36771a44a0cce",
+        "question_number": 114,
+        "source_jsonl_line": 104636
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0089_df2d3ce7a626b7ae.png",
+        "paper_title": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b47f32a6d05e053e743c",
+        "question_number": 115,
+        "source_jsonl_line": 104637
+      }
+    ],
+    "sha256": "38f2d309f8f3385e69d7226f6969f534c8e573780174c0af01e08d593a2aa4ff"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图1 2024年1-11月全国烤烟当期出口额情况",
+  "unit": "千美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_38f2d309f8f3385e69d7226f/column_band_01.jpg",
+        "review-crops/da_38f2d309f8f3385e69d7226f/column_band_02.jpg",
+        "review-crops/da_38f2d309f8f3385e69d7226f/column_band_03.jpg",
+        "review-crops/da_38f2d309f8f3385e69d7226f/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.21",
+      "crop_verification_elapsed_seconds:8.177",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

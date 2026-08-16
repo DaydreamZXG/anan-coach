@@ -1,0 +1,272 @@
+{
+  "asset_id": "da_d7c073310354237138fcd3eb",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2017年江苏省公务员录用考试《行测》题(A类)_images/img_0168_aa81cb857e0afeba.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0168_aa81cb857e0afeba.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_ec7a644ecfd44496bfc1",
+        "question_number": 116,
+        "source_jsonl_line": 47626
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0168_aa81cb857e0afeba.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_81548819069fb3564bdc",
+        "question_number": 117,
+        "source_jsonl_line": 47627
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0177_1486d20c4385cadb.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_360e78d3e091b7602819",
+        "question_number": 118,
+        "source_jsonl_line": 47628
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0177_1486d20c4385cadb.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_f8e06851c2488017988e",
+        "question_number": 119,
+        "source_jsonl_line": 47629
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0177_1486d20c4385cadb.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_03e84168b0aa831b5e94",
+        "question_number": 120,
+        "source_jsonl_line": 47630
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题（C类）_images/img_0208_1486d20c4385cadb.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_25465031926c5329838c",
+        "question_number": 121,
+        "source_jsonl_line": 47901
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题（C类）_images/img_0208_1486d20c4385cadb.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_7d0aced997478023dad0",
+        "question_number": 122,
+        "source_jsonl_line": 47902
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题（C类）_images/img_0222_aa81cb857e0afeba.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_0b4ecaf520d23a4abc85",
+        "question_number": 123,
+        "source_jsonl_line": 47903
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题（C类）_images/img_0208_1486d20c4385cadb.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_c00fe9d04a81d4fbbf3a",
+        "question_number": 124,
+        "source_jsonl_line": 47904
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题（C类）_images/img_0222_aa81cb857e0afeba.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_9c820a8a879509a67119",
+        "question_number": 125,
+        "source_jsonl_line": 47905
+      }
+    ],
+    "sha256": "d7c073310354237138fcd3eb32dcc5fd8e896a6bcb883ac0b02a5f4ef3f4b6da"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "原煤",
+      "原油",
+      "天然气",
+      "水风核电"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2006",
+        "unit": null,
+        "values": [
+          2006,
+          189.7,
+          26.4,
+          7.8,
+          20.8
+        ]
+      },
+      {
+        "label": "2007",
+        "unit": null,
+        "values": [
+          2007,
+          205.5,
+          26.7,
+          9.2,
+          22.7
+        ]
+      },
+      {
+        "label": "2008",
+        "unit": null,
+        "values": [
+          2008,
+          213.1,
+          27.2,
+          10.8,
+          26.4
+        ]
+      },
+      {
+        "label": "2009",
+        "unit": null,
+        "values": [
+          2009,
+          219.7,
+          26.9,
+          11.4,
+          28.0
+        ]
+      },
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          237.8,
+          29.0,
+          12.8,
+          32.5
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          264.7,
+          28.9,
+          13.9,
+          32.7
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          267.5,
+          29.8,
+          14.4,
+          39.3
+        ]
+      },
+      {
+        "label": "2013",
+        "unit": null,
+        "values": [
+          2013,
+          270.5,
+          30.1,
+          15.8,
+          42.3
+        ]
+      },
+      {
+        "label": "2014",
+        "unit": null,
+        "values": [
+          2014,
+          266.3,
+          30.4,
+          17.0,
+          48.1
+        ]
+      },
+      {
+        "label": "2015",
+        "unit": null,
+        "values": [
+          2015,
+          261.0,
+          30.8,
+          17.7,
+          52.5
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d7c073310354237138fcd3eb/row_band_01.jpg",
+        "review-crops/da_d7c073310354237138fcd3eb/row_band_02.jpg",
+        "review-crops/da_d7c073310354237138fcd3eb/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.822",
+      "crop_verification_elapsed_seconds:9.715",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

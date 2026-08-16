@@ -1,0 +1,200 @@
+{
+  "asset_id": "da_29f789b8f23277450dd3d91e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2008年深圳市公务员录用考试《行测》题（上半年）_images/img_0165_9d66d570b340327c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（上半年）_images/img_0165_9d66d570b340327c.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_38c57030a7bef1fd5683",
+        "question_number": 81,
+        "source_jsonl_line": 66947
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（上半年）_images/img_0169_1976fb82e82d0755.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_d0a37861fff9979edc36",
+        "question_number": 82,
+        "source_jsonl_line": 66948
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（上半年）_images/img_0165_9d66d570b340327c.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_e74ca184247666a4c0df",
+        "question_number": 83,
+        "source_jsonl_line": 66949
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（上半年）_images/img_0169_1976fb82e82d0755.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_e68f108e1b651a4e0487",
+        "question_number": 84,
+        "source_jsonl_line": 66950
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（上半年）_images/img_0169_1976fb82e82d0755.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_2e8b26886554c70aad75",
+        "question_number": 85,
+        "source_jsonl_line": 66951
+      }
+    ],
+    "sha256": "29f789b8f23277450dd3d91eaae2ee1c7b945197212d6651baa8e848c57ca138"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "国家（地区）",
+      "展位数",
+      "政府代表团人数",
+      "专业观众人数",
+      "商品贸易成交额（万美元）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "文莱",
+        "unit": null,
+        "values": [
+          "文莱",
+          14,
+          15,
+          15,
+          411
+        ]
+      },
+      {
+        "label": "泰国",
+        "unit": null,
+        "values": [
+          "泰国",
+          178,
+          64,
+          268,
+          27288
+        ]
+      },
+      {
+        "label": "印度尼西亚",
+        "unit": null,
+        "values": [
+          "印度尼西亚",
+          43,
+          20,
+          182,
+          6141
+        ]
+      },
+      {
+        "label": "菲律宾",
+        "unit": null,
+        "values": [
+          "菲律宾",
+          26,
+          6,
+          167,
+          6761
+        ]
+      },
+      {
+        "label": "中国香港",
+        "unit": null,
+        "values": [
+          "中国香港",
+          61,
+          30,
+          270,
+          149
+        ]
+      },
+      {
+        "label": "老挝",
+        "unit": null,
+        "values": [
+          "老挝",
+          23,
+          22,
+          9,
+          42
+        ]
+      },
+      {
+        "label": "新加坡",
+        "unit": null,
+        "values": [
+          "新加坡",
+          58,
+          19,
+          153,
+          9179
+        ]
+      }
+    ]
+  },
+  "title": "首届东盟博览会部分国家（地区）的统计数据",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_29f789b8f23277450dd3d91e/row_band_01.jpg",
+        "review-crops/da_29f789b8f23277450dd3d91e/row_band_02.jpg",
+        "review-crops/da_29f789b8f23277450dd3d91e/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.511",
+      "crop_verification_elapsed_seconds:6.262",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'老挝'的'国家（地区）'列中的'老挝'为正确拼写，原图中误写为'老挝'。",
+      "crop_note:确认所有数值均正确，无负号、小数、百分号或缺失值需要修正。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

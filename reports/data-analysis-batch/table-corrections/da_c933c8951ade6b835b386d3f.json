@@ -1,0 +1,85 @@
+{
+  "confidence": 1,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2013 年",
+          "2014 年",
+          "2015 年",
+          "2016 年",
+          "2017 年"
+        ],
+        "label": "年份"
+      }
+    ],
+    "columns": [
+      "2013 年",
+      "2014 年",
+      "2015 年",
+      "2016 年",
+      "2017 年"
+    ],
+    "confidence": 1,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "出版物类型",
+    "rows": [
+      {
+        "display_label": "纸质图书（本）",
+        "group": null,
+        "label": "纸质图书（本）",
+        "unit": null,
+        "values": [
+          4.77,
+          4.56,
+          4.58,
+          4.65,
+          4.66
+        ]
+      },
+      {
+        "display_label": "电子图书（本）",
+        "group": null,
+        "label": "电子图书（本）",
+        "unit": null,
+        "values": [
+          2.48,
+          3.22,
+          3.26,
+          3.21,
+          3.12
+        ]
+      },
+      {
+        "display_label": "报纸（份）",
+        "group": null,
+        "label": "报纸（份）",
+        "unit": null,
+        "values": [
+          70.85,
+          65.03,
+          54.76,
+          44.66,
+          33.62
+        ]
+      },
+      {
+        "display_label": "期刊（份）",
+        "group": null,
+        "label": "期刊（份）",
+        "unit": null,
+        "values": [
+          5.51,
+          6.07,
+          4.91,
+          3.44,
+          3.81
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,189 @@
+{
+  "asset_id": "da_a1f5b46d6aa75720e6cd2fae",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2026年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0141_e895b9e84726a80d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0141_e895b9e84726a80d.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_95fc7aebcf29369ee9ce",
+        "question_number": 116,
+        "source_jsonl_line": 21891
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0115_0da96ee858fd3643.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_cf6b2758ee8ff476db77",
+        "question_number": 117,
+        "source_jsonl_line": 21892
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0141_e895b9e84726a80d.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_0e9ee8b626775b11cbbb",
+        "question_number": 118,
+        "source_jsonl_line": 21893
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0141_e895b9e84726a80d.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_48c137d3c9da4e1bf734",
+        "question_number": 119,
+        "source_jsonl_line": 21894
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0141_e895b9e84726a80d.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_49d23046bdfe3a8369e7",
+        "question_number": 120,
+        "source_jsonl_line": 21895
+      }
+    ],
+    "sha256": "a1f5b46d6aa75720e6cd2fae36ed91c99802be5b5a1634baef9c2de5ee56f876"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "发明专利",
+      "其中：大型企业",
+      "其中：中型企业",
+      "其中：小型企业",
+      "其中：微型企业",
+      "实用新型专利",
+      "外观设计专利"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "2020年",
+        "group": null,
+        "label": "2020年",
+        "unit": null,
+        "values": [
+          44.9,
+          45.9,
+          46.8,
+          46.1,
+          32.4,
+          42.0,
+          51.6
+        ]
+      },
+      {
+        "display_label": "2021年",
+        "group": null,
+        "label": "2021年",
+        "unit": null,
+        "values": [
+          46.8,
+          47.1,
+          54.6,
+          47.7,
+          26.6,
+          46.2,
+          52.3
+        ]
+      },
+      {
+        "display_label": "2022年",
+        "group": null,
+        "label": "2022年",
+        "unit": null,
+        "values": [
+          48.1,
+          50.9,
+          55.4,
+          45.3,
+          22.0,
+          44.9,
+          58.7
+        ]
+      },
+      {
+        "display_label": "2023年",
+        "group": null,
+        "label": "2023年",
+        "unit": null,
+        "values": [
+          51.3,
+          51.0,
+          57.9,
+          53.9,
+          33.8,
+          57.1,
+          66.0
+        ]
+      },
+      {
+        "display_label": "2024年",
+        "group": null,
+        "label": "2024年",
+        "unit": null,
+        "values": [
+          53.3,
+          49.5,
+          61.4,
+          57.8,
+          36.7,
+          54.9,
+          63.5
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

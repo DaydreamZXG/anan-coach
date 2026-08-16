@@ -1,0 +1,242 @@
+{
+  "asset_id": "da_7a8700ebfc10a8fda5a5b266",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0353_5c2ac9d5432d6fd2.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0353_5c2ac9d5432d6fd2.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_5013afeb430281a0c83c",
+        "question_number": 126,
+        "source_jsonl_line": 19526
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0353_5c2ac9d5432d6fd2.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_1f1f6f7201d4b3351df7",
+        "question_number": 127,
+        "source_jsonl_line": 19527
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0353_5c2ac9d5432d6fd2.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_a35e110f1ed6647abbb7",
+        "question_number": 128,
+        "source_jsonl_line": 19528
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0388_b1793cb71d5cd344.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_b13b71db3d63a4afb3d0",
+        "question_number": 129,
+        "source_jsonl_line": 19529
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0353_5c2ac9d5432d6fd2.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_35bec821ea486e95e3a9",
+        "question_number": 130,
+        "source_jsonl_line": 19530
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0200_5c2ac9d5432d6fd2.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_bdba4fd690e1996c3a0c",
+        "question_number": 116,
+        "source_jsonl_line": 19651
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0229_b1793cb71d5cd344.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_602008b3a3a5ac55fd97",
+        "question_number": 117,
+        "source_jsonl_line": 19652
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0229_b1793cb71d5cd344.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_72b2f0fd616946db4183",
+        "question_number": 118,
+        "source_jsonl_line": 19653
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0229_b1793cb71d5cd344.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_bfb9e6d252085034874a",
+        "question_number": 119,
+        "source_jsonl_line": 19654
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0200_5c2ac9d5432d6fd2.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_509ebc9eff7921043f70",
+        "question_number": 120,
+        "source_jsonl_line": 19655
+      }
+    ],
+    "sha256": "7a8700ebfc10a8fda5a5b266d3272dd6bf208010dff82cb97eed0477dc09af8d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "进口｜数量（亿块）",
+          "进口｜金额（亿美元）"
+        ],
+        "label": "进口"
+      },
+      {
+        "columns": [
+          "出口｜数量（亿块）",
+          "出口｜金额（亿美元）"
+        ],
+        "label": "出口"
+      }
+    ],
+    "columns": [
+      "进口｜数量（亿块）",
+      "进口｜金额（亿美元）",
+      "出口｜数量（亿块）",
+      "出口｜金额（亿美元）"
+    ],
+    "corner_header": {
+      "lower_label": "出口",
+      "style": "diagonal",
+      "upper_label": "进口"
+    },
+    "missing_cells": [],
+    "row_header_label": "出口",
+    "rows": [
+      {
+        "display_label": "2013年",
+        "group": null,
+        "label": "2013年",
+        "unit": null,
+        "values": [
+          2663.1,
+          2313.4,
+          1426.7,
+          877.0
+        ]
+      },
+      {
+        "display_label": "2014年",
+        "group": null,
+        "label": "2014年",
+        "unit": null,
+        "values": [
+          2856.5,
+          2176.2,
+          1535.2,
+          608.6
+        ]
+      },
+      {
+        "display_label": "2015年",
+        "group": null,
+        "label": "2015年",
+        "unit": null,
+        "values": [
+          3140.0,
+          2300.0,
+          1827.7,
+          693.2
+        ]
+      },
+      {
+        "display_label": "2016年",
+        "group": null,
+        "label": "2016年",
+        "unit": null,
+        "values": [
+          3425.5,
+          2270.7,
+          1810.1,
+          613.8
+        ]
+      },
+      {
+        "display_label": "2017年",
+        "group": null,
+        "label": "2017年",
+        "unit": null,
+        "values": [
+          3770.1,
+          2601.4,
+          2043.5,
+          668.8
+        ]
+      },
+      {
+        "display_label": "2018年",
+        "group": null,
+        "label": "2018年",
+        "unit": null,
+        "values": [
+          4175.7,
+          3120.6,
+          2171.0,
+          846.4
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

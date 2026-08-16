@@ -1,0 +1,202 @@
+{
+  "asset_id": "da_ceab3672eba922a60110925a",
+  "axes": {
+    "x": {
+      "max": 35000,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 35000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000,
+          30000,
+          35000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "欧盟",
+    "美国",
+    "东盟",
+    "日本",
+    "中国香港",
+    "韩国",
+    "中国台湾",
+    "巴西",
+    "印度",
+    "俄罗斯",
+    "南非"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "出口额（亿元）",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "进口额（亿元）",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "出口额（亿元）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        25199,
+        29103,
+        18902,
+        11204,
+        18899,
+        6965,
+        2979,
+        3974,
+        4615,
+        2906,
+        1004
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "进口额（亿元）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        16543,
+        10430,
+        15942,
+        9301,
+        495,
+        12013,
+        10512,
+        1962,
+        1107,
+        2799,
+        1649
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0205_04a1e0d496e6b242.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0205_04a1e0d496e6b242.jpg",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_4cd8fe498b0f254004c9",
+        "question_number": 126,
+        "source_jsonl_line": 52790
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0205_04a1e0d496e6b242.jpg",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_a83aa6bb2e694e849fad",
+        "question_number": 127,
+        "source_jsonl_line": 52791
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0205_04a1e0d496e6b242.jpg",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_ff00f0fd04f632f2ea9c",
+        "question_number": 128,
+        "source_jsonl_line": 52792
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0205_04a1e0d496e6b242.jpg",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_b6f06bfbfcd7764c3ca4",
+        "question_number": 129,
+        "source_jsonl_line": 52793
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0206_83bb2f2bd6d37f9b.jpg",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_a0b29e3d3cc736db26c7",
+        "question_number": 130,
+        "source_jsonl_line": 52794
+      }
+    ],
+    "sha256": "ceab3672eba922a60110925ac567ea52a7118a9b644313971b6f7b19f0c32eb2"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ceab3672eba922a60110925a/column_band_01.jpg",
+        "review-crops/da_ceab3672eba922a60110925a/column_band_02.jpg",
+        "review-crops/da_ceab3672eba922a60110925a/column_band_03.jpg",
+        "review-crops/da_ceab3672eba922a60110925a/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.442",
+      "crop_verification_elapsed_seconds:5.443",
+      "candidate_value_changes_after_crop:2",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

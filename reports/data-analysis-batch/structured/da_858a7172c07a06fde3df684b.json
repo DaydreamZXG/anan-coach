@@ -1,0 +1,255 @@
+{
+  "asset_id": "da_858a7172c07a06fde3df684b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "4",
+    "1",
+    "2",
+    "3"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "1",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "2",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "3",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "4",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      29.875,
+      193.452,
+      275.067,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 29.875,
+        "label": "4",
+        "share": 0.08298561,
+        "start_angle": 0.0,
+        "sweep_angle": 29.875
+      },
+      {
+        "end_angle": 193.452,
+        "label": "1",
+        "share": 0.45438181,
+        "start_angle": 29.875,
+        "sweep_angle": 163.577
+      },
+      {
+        "end_angle": 275.067,
+        "label": "2",
+        "share": 0.22670841,
+        "start_angle": 193.452,
+        "sweep_angle": 81.615
+      },
+      {
+        "end_angle": 360.0,
+        "label": "3",
+        "share": 0.23592417,
+        "start_angle": 275.067,
+        "sweep_angle": 84.933
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.08298561,
+        0.45438181,
+        0.22670841,
+        0.23592417
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2026年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0128_95e80f8bfb7fd6cf.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0128_95e80f8bfb7fd6cf.png",
+        "paper_title": "2026年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bef626c0ebcd4b612087",
+        "question_number": 99,
+        "source_jsonl_line": 13815
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0212_95e80f8bfb7fd6cf.png",
+        "paper_title": "2026年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c1b60b7b3c748abcc741",
+        "question_number": 124,
+        "source_jsonl_line": 28773
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0105_95e80f8bfb7fd6cf.png",
+        "paper_title": "2026年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ac6618d0021fde061705",
+        "question_number": 109,
+        "source_jsonl_line": 33532
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）_images/img_0171_95e80f8bfb7fd6cf.png",
+        "paper_title": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_6d33fcbd958e91901688",
+        "question_number": 113,
+        "source_jsonl_line": 44368
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0090_95e80f8bfb7fd6cf.png",
+        "paper_title": "2026年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_256c75bd1c143555ca8d",
+        "question_number": 115,
+        "source_jsonl_line": 54349
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0199_95e80f8bfb7fd6cf.png",
+        "paper_title": "2026年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e3d567be31289a97c512",
+        "question_number": 127,
+        "source_jsonl_line": 56794
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年湖北省公务员录用考试《行测》题（网友回忆版）_images/img_0147_95e80f8bfb7fd6cf.png",
+        "paper_title": "2026年湖北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_659aa2ce94f752de75f8",
+        "question_number": 109,
+        "source_jsonl_line": 72020
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0101_95e80f8bfb7fd6cf.png",
+        "paper_title": "2026年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c010b8e0f141cf55edd8",
+        "question_number": 105,
+        "source_jsonl_line": 74380
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年重庆市公务员录用考试《行测》题（网友回忆版）_images/img_0138_95e80f8bfb7fd6cf.png",
+        "paper_title": "2026年重庆市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fca4763f80c0354c4026",
+        "question_number": 105,
+        "source_jsonl_line": 96268
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年陕西省公务员录用考试《行测》题（网友回忆版）_images/img_0115_95e80f8bfb7fd6cf.png",
+        "paper_title": "2026年陕西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f6076c35c8ab17f5a058",
+        "question_number": 104,
+        "source_jsonl_line": 98742
+      }
+    ],
+    "sha256": "858a7172c07a06fde3df684b389d9144e5702ba350b4642103dc3dd4f4560798"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_858a7172c07a06fde3df684b/quadrant_01.jpg",
+        "review-crops/da_858a7172c07a06fde3df684b/quadrant_02.jpg",
+        "review-crops/da_858a7172c07a06fde3df684b/quadrant_03.jpg",
+        "review-crops/da_858a7172c07a06fde3df684b/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.697",
+      "crop_verification_elapsed_seconds:0.768",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:1.0000",
+      "hough_circle_radius_ratio:0.4732",
+      "radial_line_candidates:10",
+      "detected_boundaries:4"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

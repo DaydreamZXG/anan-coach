@@ -1,0 +1,192 @@
+{
+  "asset_id": "da_e37d6a6ae29ffaa7a4bcf144",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0084_d3054f9dbe72a7e3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0084_d3054f9dbe72a7e3.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_99cc600fc7e4543c7411",
+        "question_number": 101,
+        "source_jsonl_line": 30795
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0084_d3054f9dbe72a7e3.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_6bf411adb0ab7a2e9c48",
+        "question_number": 102,
+        "source_jsonl_line": 30796
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0084_d3054f9dbe72a7e3.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_98502a84dea906641b6b",
+        "question_number": 103,
+        "source_jsonl_line": 30797
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0084_d3054f9dbe72a7e3.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_67e76e85c11fbdc7eb80",
+        "question_number": 104,
+        "source_jsonl_line": 30798
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0084_d3054f9dbe72a7e3.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_9bb045e9ab393f529c06",
+        "question_number": 105,
+        "source_jsonl_line": 30799
+      }
+    ],
+    "sha256": "e37d6a6ae29ffaa7a4bcf144d10b5f0d6a1e2d796643858d4b8fa2bdbd3cb64a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "产量（万吨）",
+      "比上年增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "粮食",
+        "unit": null,
+        "values": [
+          "粮食",
+          5543.8,
+          0.8
+        ]
+      },
+      {
+        "label": "夏粮",
+        "unit": null,
+        "values": [
+          "夏粮",
+          2641.6,
+          0.2
+        ]
+      },
+      {
+        "label": "秋粮",
+        "unit": null,
+        "values": [
+          "秋粮",
+          2902.2,
+          1.3
+        ]
+      },
+      {
+        "label": "棉花",
+        "unit": null,
+        "values": [
+          "棉花",
+          14.5,
+          3.3
+        ]
+      },
+      {
+        "label": "油料",
+        "unit": null,
+        "values": [
+          "油料",
+          274.0,
+          -4.2
+        ]
+      },
+      {
+        "label": "蔬菜及食用菌",
+        "unit": null,
+        "values": [
+          "蔬菜及食用菌",
+          9045.8,
+          2.8
+        ]
+      },
+      {
+        "label": "水果",
+        "unit": null,
+        "values": [
+          "水果",
+          3095.6,
+          2.1
+        ]
+      },
+      {
+        "label": "园林水果",
+        "unit": null,
+        "values": [
+          "园林水果",
+          1966.1,
+          2.7
+        ]
+      }
+    ]
+  },
+  "title": "表2 2022年主要农产品产量及增长速度",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e37d6a6ae29ffaa7a4bcf144/row_band_01.jpg",
+        "review-crops/da_e37d6a6ae29ffaa7a4bcf144/row_band_02.jpg",
+        "review-crops/da_e37d6a6ae29ffaa7a4bcf144/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.929",
+      "crop_verification_elapsed_seconds:3.531",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

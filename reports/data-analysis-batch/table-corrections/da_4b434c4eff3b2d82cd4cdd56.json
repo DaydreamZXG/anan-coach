@@ -1,0 +1,102 @@
+{
+  "confidence": 1.0,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "浙江",
+          "上海",
+          "广东",
+          "北京",
+          "山东"
+        ],
+        "label": null
+      }
+    ],
+    "columns": [
+      "浙江",
+      "上海",
+      "广东",
+      "北京",
+      "山东"
+    ],
+    "confidence": 1.0,
+    "corner_header": {
+      "lower_label": "单位",
+      "style": "diagonal",
+      "upper_label": "项目"
+    },
+    "missing_cells": [],
+    "row_header_label": "单位",
+    "rows": [
+      {
+        "display_label": "浙江",
+        "group": null,
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          4604,
+          6740.9,
+          2561.3,
+          1979.7,
+          3500.4
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          9833,
+          15809.9,
+          6315.7,
+          4304.5,
+          6193.2
+        ]
+      },
+      {
+        "display_label": "广东",
+        "group": null,
+        "label": "广东",
+        "unit": null,
+        "values": [
+          8565,
+          11961.2,
+          4564.0,
+          3543.9,
+          5423.9
+        ]
+      },
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          5029,
+          8725.7,
+          3096.5,
+          2371.0,
+          3302.2
+        ]
+      },
+      {
+        "display_label": "山东",
+        "group": null,
+        "label": "山东",
+        "unit": null,
+        "values": [
+          5851,
+          7925.1,
+          2525.1,
+          1747.2,
+          4364.7
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

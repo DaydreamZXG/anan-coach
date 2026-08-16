@@ -1,0 +1,211 @@
+{
+  "asset_id": "da_5b7e55a27e34886f652c00bc",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1000,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000
+        ],
+        "title": null,
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "2009年",
+    "2010年",
+    "2011年",
+    "2012年",
+    "2013年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "普通本专科",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "中等职业教育",
+      "style": {
+        "dash": null,
+        "fill": "#A9A9A9",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "普通高中",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "普通本专科",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        640,
+        662,
+        682,
+        689,
+        700
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "中等职业教育",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        869,
+        870,
+        814,
+        754,
+        698
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "普通高中",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        830,
+        836,
+        861,
+        845,
+        823
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2014年广东省公务员录用考试《行测》题（县级以上）_images/img_0087_7cfb3288abf211b9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（县级以上）_images/img_0087_7cfb3288abf211b9.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_09f13f8c609f4ba3ad00",
+        "question_number": 91,
+        "source_jsonl_line": 34423
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（县级以上）_images/img_0091_b75629f85228c98f.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_4f7073a8035c60812666",
+        "question_number": 92,
+        "source_jsonl_line": 34424
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（县级以上）_images/img_0091_b75629f85228c98f.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_30db5ba7a50e3e45559d",
+        "question_number": 93,
+        "source_jsonl_line": 34425
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（县级以上）_images/img_0087_7cfb3288abf211b9.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_ceab5bb9f8a67f033f74",
+        "question_number": 94,
+        "source_jsonl_line": 34426
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（县级以上）_images/img_0091_b75629f85228c98f.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_45baeaaa98a492a7d121",
+        "question_number": 95,
+        "source_jsonl_line": 34427
+      }
+    ],
+    "sha256": "5b7e55a27e34886f652c00bc94565a5475bef672022b41a4a6c139e8e554bc05"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2009—2013年普通本专科、中等职业教育、普通高中的招生人数",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5b7e55a27e34886f652c00bc/column_band_01.jpg",
+        "review-crops/da_5b7e55a27e34886f652c00bc/column_band_02.jpg",
+        "review-crops/da_5b7e55a27e34886f652c00bc/column_band_03.jpg",
+        "review-crops/da_5b7e55a27e34886f652c00bc/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.494",
+      "crop_verification_elapsed_seconds:2.623",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,210 @@
+{
+  "asset_id": "da_b3b39b7098776b394ff6a0c9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2010年国家公务员录用考试《行测》题_images/img_0220_7700b7d5645f344d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0220_7700b7d5645f344d.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_66b6f0ad4421ed88cf93",
+        "question_number": 101,
+        "source_jsonl_line": 17496
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0220_7700b7d5645f344d.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_e45e9f4652e36d78a1a5",
+        "question_number": 102,
+        "source_jsonl_line": 17497
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0220_7700b7d5645f344d.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_e85301d94fd79ed6c5da",
+        "question_number": 103,
+        "source_jsonl_line": 17498
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0220_7700b7d5645f344d.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_d40df3fa4a9a14e038cb",
+        "question_number": 104,
+        "source_jsonl_line": 17499
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0220_7700b7d5645f344d.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_6bcbd6428d64234ca544",
+        "question_number": 105,
+        "source_jsonl_line": 17500
+      }
+    ],
+    "sha256": "b3b39b7098776b394ff6a0c99c45ad9e5d1e44d13fa3eb5fdc74a6b4abe44a93"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "国家（内地）",
+      "人均国民生产总值（美元）",
+      "国民生产总值（亿美元）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "中国内地",
+        "unit": null,
+        "values": [
+          "中国内地",
+          2360,
+          32801
+        ]
+      },
+      {
+        "label": "中国香港",
+        "unit": null,
+        "values": [
+          "中国香港",
+          31610,
+          2067
+        ]
+      },
+      {
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          "韩国",
+          19690,
+          9698
+        ]
+      },
+      {
+        "label": "哥斯达黎加",
+        "unit": null,
+        "values": [
+          "哥斯达黎加",
+          5560,
+          252
+        ]
+      },
+      {
+        "label": "美国",
+        "unit": null,
+        "values": [
+          "美国",
+          46040,
+          138112
+        ]
+      },
+      {
+        "label": "新加坡",
+        "unit": null,
+        "values": [
+          "新加坡",
+          32470,
+          1613
+        ]
+      },
+      {
+        "label": "多米尼加",
+        "unit": null,
+        "values": [
+          "多米尼加",
+          3550,
+          367
+        ]
+      },
+      {
+        "label": "俄罗斯",
+        "unit": null,
+        "values": [
+          "俄罗斯",
+          7560,
+          12910
+        ]
+      },
+      {
+        "label": "日本",
+        "unit": null,
+        "values": [
+          "日本",
+          37670,
+          43767
+        ]
+      },
+      {
+        "label": "越南",
+        "unit": null,
+        "values": [
+          "越南",
+          790,
+          712
+        ]
+      }
+    ]
+  },
+  "title": "2007年部分国家地区国民生产总值",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b3b39b7098776b394ff6a0c9/row_band_01.jpg",
+        "review-crops/da_b3b39b7098776b394ff6a0c9/row_band_02.jpg",
+        "review-crops/da_b3b39b7098776b394ff6a0c9/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.892",
+      "crop_verification_elapsed_seconds:5.493",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "asset_id": "da_8ef4625204a8936a84513caf",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "人数",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0273_5b5c859b9ba2d5e7.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0273_5b5c859b9ba2d5e7.png",
+        "paper_title": "2018年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_196fd0d4cc94372f8093",
+        "question_number": 131,
+        "source_jsonl_line": 10004
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0273_5b5c859b9ba2d5e7.png",
+        "paper_title": "2018年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b1d8489c948387465ffd",
+        "question_number": 132,
+        "source_jsonl_line": 10005
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0273_5b5c859b9ba2d5e7.png",
+        "paper_title": "2018年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b02350de06ac4c33c0c2",
+        "question_number": 133,
+        "source_jsonl_line": 10006
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0273_5b5c859b9ba2d5e7.png",
+        "paper_title": "2018年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3fe6ee10b14269688e46",
+        "question_number": 134,
+        "source_jsonl_line": 10007
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0273_5b5c859b9ba2d5e7.png",
+        "paper_title": "2018年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_61862baaec1b8a6b86ba",
+        "question_number": 135,
+        "source_jsonl_line": 10008
+      }
+    ],
+    "sha256": "8ef4625204a8936a84513caf5e28dcac3876c9ea51d6397060c1fced072b6b74"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "农村低保人数",
+      "农村五保人数",
+      "城市低保人数",
+      "城市低保户数"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2007",
+        "unit": null,
+        "values": [
+          2007,
+          77818,
+          4541,
+          147576,
+          72679
+        ]
+      },
+      {
+        "label": "2008",
+        "unit": null,
+        "values": [
+          2008,
+          78789,
+          4288,
+          145075,
+          72839
+        ]
+      },
+      {
+        "label": "2009",
+        "unit": null,
+        "values": [
+          2009,
+          79821,
+          4914,
+          147142,
+          74609
+        ]
+      },
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          76955,
+          4610,
+          137024,
+          71454
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          70146,
+          4135,
+          117291,
+          63960
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          62979,
+          4103,
+          109743,
+          60954
+        ]
+      },
+      {
+        "label": "2013",
+        "unit": null,
+        "values": [
+          2013,
+          59575,
+          4076,
+          103682,
+          58457
+        ]
+      },
+      {
+        "label": "2014",
+        "unit": null,
+        "values": [
+          2014,
+          51324,
+          4194,
+          89135,
+          52109
+        ]
+      },
+      {
+        "label": "2015",
+        "unit": null,
+        "values": [
+          2015,
+          48850,
+          4451,
+          84860,
+          50130
+        ]
+      },
+      {
+        "label": "2016",
+        "unit": null,
+        "values": [
+          2016,
+          46779,
+          4474,
+          81882,
+          48802
+        ]
+      }
+    ]
+  },
+  "title": "2007~2016年B市低保人员、农村五保人员及城市低保户情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8ef4625204a8936a84513caf/row_band_01.jpg",
+        "review-crops/da_8ef4625204a8936a84513caf/row_band_02.jpg",
+        "review-crops/da_8ef4625204a8936a84513caf/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.598",
+      "crop_verification_elapsed_seconds:11.138",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

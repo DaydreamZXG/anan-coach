@@ -1,0 +1,328 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "5月｜绝对值（亿元）",
+          "5月｜同比增长（%）"
+        ],
+        "label": "5月"
+      },
+      {
+        "columns": [
+          "1~5月｜绝对值（亿元）",
+          "1~5月｜同比增长（%）"
+        ],
+        "label": "1~5月"
+      }
+    ],
+    "columns": [
+      "5月｜绝对值（亿元）",
+      "5月｜同比增长（%）",
+      "1~5月｜绝对值（亿元）",
+      "1~5月｜同比增长（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "同比增速（%）",
+      "style": "diagonal",
+      "upper_label": "绝对值（亿元）"
+    },
+    "missing_cells": [],
+    "row_header_label": "同比增速（%）",
+    "rows": [
+      {
+        "display_label": "社会消费品零售总额",
+        "group": null,
+        "label": "社会消费品零售总额",
+        "unit": null,
+        "values": [
+          30359,
+          8.5,
+          149176,
+          9.5
+        ]
+      },
+      {
+        "display_label": "其中：限额以上单位消费品零售额",
+        "group": null,
+        "label": "其中：限额以上单位消费品零售额",
+        "unit": null,
+        "values": [
+          11477,
+          5.5,
+          57618,
+          7.8
+        ]
+      },
+      {
+        "display_label": "其中：实物商品网上零售额",
+        "group": null,
+        "label": "其中：实物商品网上零售额",
+        "unit": null,
+        "values": [
+          "--",
+          "--",
+          24819,
+          30.0
+        ]
+      },
+      {
+        "display_label": "城镇",
+        "group": null,
+        "label": "城镇",
+        "unit": null,
+        "values": [
+          26092,
+          8.3,
+          127716,
+          9.3
+        ]
+      },
+      {
+        "display_label": "乡村",
+        "group": null,
+        "label": "乡村",
+        "unit": null,
+        "values": [
+          4267,
+          9.6,
+          21460,
+          10.5
+        ]
+      },
+      {
+        "display_label": "餐饮收入",
+        "group": null,
+        "label": "餐饮收入",
+        "unit": null,
+        "values": [
+          3321,
+          8.8,
+          16057,
+          9.8
+        ]
+      },
+      {
+        "display_label": "其中：限额以上单位餐饮收入",
+        "group": null,
+        "label": "其中：限额以上单位餐饮收入",
+        "unit": null,
+        "values": [
+          741,
+          4.5,
+          3630,
+          7.1
+        ]
+      },
+      {
+        "display_label": "商品零售额",
+        "group": null,
+        "label": "商品零售额",
+        "unit": null,
+        "values": [
+          27038,
+          8.4,
+          133120,
+          9.4
+        ]
+      },
+      {
+        "display_label": "其中：限额以上单位商品零售",
+        "group": null,
+        "label": "其中：限额以上单位商品零售",
+        "unit": null,
+        "values": [
+          10736,
+          5.6,
+          53888,
+          7.8
+        ]
+      },
+      {
+        "display_label": "粮油、食品类",
+        "group": null,
+        "label": "粮油、食品类",
+        "unit": null,
+        "values": [
+          1038,
+          7.3,
+          5505,
+          9.2
+        ]
+      },
+      {
+        "display_label": "饮料类",
+        "group": null,
+        "label": "饮料类",
+        "unit": null,
+        "values": [
+          161,
+          7.1,
+          795,
+          8.9
+        ]
+      },
+      {
+        "display_label": "烟酒类",
+        "group": null,
+        "label": "烟酒类",
+        "unit": null,
+        "values": [
+          278,
+          4.8,
+          1630,
+          8.5
+        ]
+      },
+      {
+        "display_label": "服装鞋帽、针纺织品类",
+        "group": null,
+        "label": "服装鞋帽、针纺织品类",
+        "unit": null,
+        "values": [
+          1053,
+          6.6,
+          5564,
+          9.1
+        ]
+      },
+      {
+        "display_label": "化妆品类",
+        "group": null,
+        "label": "化妆品类",
+        "unit": null,
+        "values": [
+          201,
+          10.3,
+          1057,
+          14.8
+        ]
+      },
+      {
+        "display_label": "金银珠宝类",
+        "group": null,
+        "label": "金银珠宝类",
+        "unit": null,
+        "values": [
+          227,
+          6.7,
+          1166,
+          7.3
+        ]
+      },
+      {
+        "display_label": "日用品类",
+        "group": null,
+        "label": "日用品类",
+        "unit": null,
+        "values": [
+          408,
+          10.3,
+          2066,
+          11.8
+        ]
+      },
+      {
+        "display_label": "家用电器和音像器材类",
+        "group": null,
+        "label": "家用电器和音像器材类",
+        "unit": null,
+        "values": [
+          713,
+          7.6,
+          3367,
+          9.6
+        ]
+      },
+      {
+        "display_label": "中西药品类",
+        "group": null,
+        "label": "中西药品类",
+        "unit": null,
+        "values": [
+          463,
+          8.0,
+          2255,
+          9.4
+        ]
+      },
+      {
+        "display_label": "文化办公用品类",
+        "group": null,
+        "label": "文化办公用品类",
+        "unit": null,
+        "values": [
+          227,
+          8.1,
+          1142,
+          7.5
+        ]
+      },
+      {
+        "display_label": "家具类",
+        "group": null,
+        "label": "家具类",
+        "unit": null,
+        "values": [
+          184,
+          8.6,
+          838,
+          8.9
+        ]
+      },
+      {
+        "display_label": "通讯器材类",
+        "group": null,
+        "label": "通讯器材类",
+        "unit": null,
+        "values": [
+          303,
+          12.2,
+          1601,
+          9.1
+        ]
+      },
+      {
+        "display_label": "石油及制品类",
+        "group": null,
+        "label": "石油及制品类",
+        "unit": null,
+        "values": [
+          1627,
+          14.0,
+          7788,
+          11.0
+        ]
+      },
+      {
+        "display_label": "汽车类",
+        "group": null,
+        "label": "汽车类",
+        "unit": null,
+        "values": [
+          3109,
+          -1.0,
+          15588,
+          4.8
+        ]
+      },
+      {
+        "display_label": "建筑及装潢材料类",
+        "group": null,
+        "label": "建筑及装潢材料类",
+        "unit": null,
+        "values": [
+          211,
+          6.5,
+          933,
+          8.3
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

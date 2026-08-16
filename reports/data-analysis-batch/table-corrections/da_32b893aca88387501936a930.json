@@ -1,0 +1,770 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2021年｜物种数（种）",
+          "2021年｜密度（个/m²）",
+          "2021年｜多样性指数"
+        ],
+        "label": "2021年"
+      },
+      {
+        "columns": [
+          "2020年｜物种数（种）",
+          "2020年｜密度（个/m²）",
+          "2020年｜多样性指数"
+        ],
+        "label": "2020年"
+      },
+      {
+        "columns": [
+          "2019年｜物种数（种）",
+          "2019年｜密度（个/m²）",
+          "2019年｜多样性指数"
+        ],
+        "label": "2019年"
+      },
+      "rows:[{"
+    ],
+    "columns": [
+      "2021年｜物种数（种）",
+      "2021年｜密度（个/m²）",
+      "2021年｜多样性指数",
+      "2020年｜物种数（种）",
+      "2020年｜密度（个/m²）",
+      "2020年｜多样性指数",
+      "2019年｜物种数（种）",
+      "2019年｜密度（个/m²）",
+      "2019年｜多样性指数"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "/",
+      "style": "diagonal",
+      "upper_label": "/"
+    },
+    "missing_cells": [],
+    "row_header_label": "/",
+    "rows": [
+      {
+        "display_label": "鸭绿江口｜2021年",
+        "group": null,
+        "label": "鸭绿江口｜2021年",
+        "unit": null,
+        "values": [
+          83,
+          515,
+          2.22,
+          64,
+          217.4,
+          1.97,
+          31,
+          153.9,
+          1.11
+        ]
+      },
+      {
+        "display_label": "双台子河口｜2021年",
+        "group": null,
+        "label": "双台子河口｜2021年",
+        "unit": null,
+        "values": [
+          48,
+          95.6,
+          1.76,
+          31,
+          48.9,
+          1.21,
+          15,
+          74.2,
+          0.95
+        ]
+      },
+      {
+        "display_label": "滦河口—北戴河｜2021年",
+        "group": null,
+        "label": "滦河口—北戴河｜2021年",
+        "unit": null,
+        "values": [
+          55,
+          122.6,
+          2.24,
+          26,
+          70.5,
+          0.85,
+          67,
+          167.1,
+          2.62
+        ]
+      },
+      {
+        "display_label": "黄河口｜2021年",
+        "group": null,
+        "label": "黄河口｜2021年",
+        "unit": null,
+        "values": [
+          86,
+          654.3,
+          3.38,
+          88,
+          849.4,
+          3.01,
+          68,
+          679.4,
+          3.14
+        ]
+      },
+      {
+        "display_label": "长江口｜2021年",
+        "group": null,
+        "label": "长江口｜2021年",
+        "unit": null,
+        "values": [
+          54,
+          82.4,
+          1.58,
+          30,
+          80.7,
+          1.41,
+          21,
+          43.9,
+          1.86
+        ]
+      },
+      {
+        "display_label": "闽江口｜2021年",
+        "group": null,
+        "label": "闽江口｜2021年",
+        "unit": null,
+        "values": [
+          42,
+          82.5,
+          2.24,
+          41,
+          140,
+          1.72,
+          44,
+          53.2,
+          2.37
+        ]
+      },
+      {
+        "display_label": "珠江口｜2021年",
+        "group": null,
+        "label": "珠江口｜2021年",
+        "unit": null,
+        "values": [
+          92,
+          82.9,
+          2.18,
+          45,
+          51.7,
+          1.39,
+          37,
+          92.7,
+          1.61
+        ]
+      },
+      {
+        "display_label": "渤海湾｜2021年",
+        "group": null,
+        "label": "渤海湾｜2021年",
+        "unit": null,
+        "values": [
+          37,
+          122.5,
+          2.33,
+          23,
+          54.4,
+          0.72,
+          52,
+          118.6,
+          2.01
+        ]
+      },
+      {
+        "display_label": "胶州湾｜2021年",
+        "group": null,
+        "label": "胶州湾｜2021年",
+        "unit": null,
+        "values": [
+          90,
+          669.2,
+          3.68,
+          95,
+          1468.3,
+          3.37,
+          88,
+          517.5,
+          3.4
+        ]
+      },
+      {
+        "display_label": "杭州湾｜2021年",
+        "group": null,
+        "label": "杭州湾｜2021年",
+        "unit": null,
+        "values": [
+          10,
+          6.2,
+          0.25,
+          9,
+          6.4,
+          0.47,
+          6,
+          4.4,
+          0.2
+        ]
+      },
+      {
+        "display_label": "闽东沿岸｜2021年",
+        "group": null,
+        "label": "闽东沿岸｜2021年",
+        "unit": null,
+        "values": [
+          88,
+          90.7,
+          2.63,
+          68,
+          90.3,
+          2.33,
+          67,
+          83.6,
+          2.48
+        ]
+      },
+      {
+        "display_label": "大亚湾｜2021年",
+        "group": null,
+        "label": "大亚湾｜2021年",
+        "unit": null,
+        "values": [
+          50,
+          45.3,
+          1.84,
+          59,
+          59.2,
+          2.12,
+          82,
+          175,
+          2.51
+        ]
+      },
+      {
+        "display_label": "北部湾｜2021年",
+        "group": null,
+        "label": "北部湾｜2021年",
+        "unit": null,
+        "values": [
+          124,
+          55.3,
+          2.04,
+          146,
+          87.3,
+          2.6,
+          176,
+          115.8,
+          2.78
+        ]
+      },
+      {
+        "display_label": "苏北浅滩｜2021年",
+        "group": null,
+        "label": "苏北浅滩｜2021年",
+        "unit": null,
+        "values": [
+          17,
+          7.2,
+          0.28,
+          14,
+          4.3,
+          1.36,
+          21,
+          20.5,
+          0.81
+        ]
+      },
+      {
+        "display_label": "鸭绿江口｜2020年",
+        "group": null,
+        "label": "鸭绿江口｜2020年",
+        "unit": null,
+        "values": [
+          64,
+          217.4,
+          1.97,
+          null,
+          1.97,
+          null,
+          1.97,
+          null,
+          1.97
+        ]
+      },
+      {
+        "display_label": "双台子河口｜2020年",
+        "group": null,
+        "label": "双台子河口｜2020年",
+        "unit": null,
+        "values": [
+          31,
+          48.9,
+          1.21,
+          null,
+          1.21,
+          null,
+          1.21,
+          null,
+          1.21
+        ]
+      },
+      {
+        "display_label": "滦河口—北戴河｜2020年",
+        "group": null,
+        "label": "滦河口—北戴河｜2020年",
+        "unit": null,
+        "values": [
+          26,
+          70.5,
+          0.85,
+          null,
+          0.85,
+          null,
+          0.85,
+          null,
+          0.85
+        ]
+      },
+      {
+        "display_label": "黄河口｜2020年",
+        "group": null,
+        "label": "黄河口｜2020年",
+        "unit": null,
+        "values": [
+          88,
+          849.4,
+          3.01,
+          null,
+          3.01,
+          null,
+          3.01,
+          null,
+          3.01
+        ]
+      },
+      {
+        "display_label": "长江口｜2020年",
+        "group": null,
+        "label": "长江口｜2020年",
+        "unit": null,
+        "values": [
+          30,
+          80.7,
+          1.41,
+          null,
+          1.41,
+          null,
+          1.41,
+          null,
+          1.41
+        ]
+      },
+      {
+        "display_label": "闽江口｜2020年",
+        "group": null,
+        "label": "闽江口｜2020年",
+        "unit": null,
+        "values": [
+          41,
+          140,
+          1.72,
+          null,
+          1.72,
+          null,
+          1.72,
+          null,
+          1.72
+        ]
+      },
+      {
+        "display_label": "珠江口｜2020年",
+        "group": null,
+        "label": "珠江口｜2020年",
+        "unit": null,
+        "values": [
+          45,
+          51.7,
+          1.39,
+          null,
+          1.39,
+          null,
+          1.39,
+          null,
+          1.39
+        ]
+      },
+      {
+        "display_label": "渤海湾｜2020年",
+        "group": null,
+        "label": "渤海湾｜2020年",
+        "unit": null,
+        "values": [
+          23,
+          54.4,
+          0.72,
+          null,
+          0.72,
+          null,
+          0.72,
+          null,
+          0.72
+        ]
+      },
+      {
+        "display_label": "胶州湾｜2020年",
+        "group": null,
+        "label": "胶州湾｜2020年",
+        "unit": null,
+        "values": [
+          95,
+          1468.3,
+          3.37,
+          null,
+          3.37,
+          null,
+          3.37,
+          null,
+          3.37
+        ]
+      },
+      {
+        "display_label": "杭州湾｜2020年",
+        "group": null,
+        "label": "杭州湾｜2020年",
+        "unit": null,
+        "values": [
+          9,
+          6.4,
+          0.47,
+          null,
+          0.47,
+          null,
+          0.47,
+          null,
+          0.47
+        ]
+      },
+      {
+        "display_label": "闽东沿岸｜2020年",
+        "group": null,
+        "label": "闽东沿岸｜2020年",
+        "unit": null,
+        "values": [
+          68,
+          90.3,
+          2.33,
+          null,
+          2.33,
+          null,
+          2.33,
+          null,
+          2.33
+        ]
+      },
+      {
+        "display_label": "大亚湾｜2020年",
+        "group": null,
+        "label": "大亚湾｜2020年",
+        "unit": null,
+        "values": [
+          59,
+          59.2,
+          2.12,
+          null,
+          2.12,
+          null,
+          2.12,
+          null,
+          2.12
+        ]
+      },
+      {
+        "display_label": "北部湾｜2020年",
+        "group": null,
+        "label": "北部湾｜2020年",
+        "unit": null,
+        "values": [
+          146,
+          87.3,
+          2.6,
+          null,
+          2.6,
+          null,
+          2.6,
+          null,
+          2.6
+        ]
+      },
+      {
+        "display_label": "苏北浅滩｜2020年",
+        "group": null,
+        "label": "苏北浅滩｜2020年",
+        "unit": null,
+        "values": [
+          14,
+          4.3,
+          1.36,
+          null,
+          1.36,
+          null,
+          1.36,
+          null,
+          1.36
+        ]
+      },
+      {
+        "display_label": "鸭绿江口｜2019年",
+        "group": null,
+        "label": "鸭绿江口｜2019年",
+        "unit": null,
+        "values": [
+          31,
+          153.9,
+          1.11,
+          null,
+          1.11,
+          null,
+          1.11,
+          null,
+          1.11
+        ]
+      },
+      {
+        "display_label": "双台子河口｜2019年",
+        "group": null,
+        "label": "双台子河口｜2019年",
+        "unit": null,
+        "values": [
+          15,
+          74.2,
+          0.95,
+          null,
+          0.95,
+          null,
+          0.95,
+          null,
+          0.95
+        ]
+      },
+      {
+        "display_label": "滦河口—北戴河｜2019年",
+        "group": null,
+        "label": "滦河口—北戴河｜2019年",
+        "unit": null,
+        "values": [
+          67,
+          167.1,
+          2.62,
+          null,
+          2.62,
+          null,
+          2.62,
+          null,
+          2.62
+        ]
+      },
+      {
+        "display_label": "黄河口｜2019年",
+        "group": null,
+        "label": "黄河口｜2019年",
+        "unit": null,
+        "values": [
+          68,
+          679.4,
+          3.14,
+          null,
+          3.14,
+          null,
+          3.14,
+          null,
+          3.14
+        ]
+      },
+      {
+        "display_label": "长江口｜2019年",
+        "group": null,
+        "label": "长江口｜2019年",
+        "unit": null,
+        "values": [
+          21,
+          43.9,
+          1.86,
+          null,
+          1.86,
+          null,
+          1.86,
+          null,
+          1.86
+        ]
+      },
+      {
+        "display_label": "闽江口｜2019年",
+        "group": null,
+        "label": "闽江口｜2019年",
+        "unit": null,
+        "values": [
+          44,
+          53.2,
+          2.37,
+          null,
+          2.37,
+          null,
+          2.37,
+          null,
+          2.37
+        ]
+      },
+      {
+        "display_label": "珠江口｜2019年",
+        "group": null,
+        "label": "珠江口｜2019年",
+        "unit": null,
+        "values": [
+          37,
+          92.7,
+          1.61,
+          null,
+          1.61,
+          null,
+          1.61,
+          null,
+          1.61
+        ]
+      },
+      {
+        "display_label": "渤海湾｜2019年",
+        "group": null,
+        "label": "渤海湾｜2019年",
+        "unit": null,
+        "values": [
+          52,
+          118.6,
+          2.01,
+          null,
+          2.01,
+          null,
+          2.01,
+          null,
+          2.01
+        ]
+      },
+      {
+        "display_label": "胶州湾｜2019年",
+        "group": null,
+        "label": "胶州湾｜2019年",
+        "unit": null,
+        "values": [
+          88,
+          517.5,
+          3.4,
+          null,
+          3.4,
+          null,
+          3.4,
+          null,
+          3.4
+        ]
+      },
+      {
+        "display_label": "杭州湾｜2019年",
+        "group": null,
+        "label": "杭州湾｜2019年",
+        "unit": null,
+        "values": [
+          6,
+          4.4,
+          0.2,
+          null,
+          0.2,
+          null,
+          0.2,
+          null,
+          0.2
+        ]
+      },
+      {
+        "display_label": "闽东沿岸｜2019年",
+        "group": null,
+        "label": "闽东沿岸｜2019年",
+        "unit": null,
+        "values": [
+          67,
+          83.6,
+          2.48,
+          null,
+          2.48,
+          null,
+          2.48,
+          null,
+          2.48
+        ]
+      },
+      {
+        "display_label": "大亚湾｜2019年",
+        "group": null,
+        "label": "大亚湾｜2019年",
+        "unit": null,
+        "values": [
+          82,
+          175,
+          2.51,
+          null,
+          2.51,
+          null,
+          2.51,
+          null,
+          2.51
+        ]
+      },
+      {
+        "display_label": "北部湾｜2019年",
+        "group": null,
+        "label": "北部湾｜2019年",
+        "unit": null,
+        "values": [
+          176,
+          115.8,
+          2.78,
+          null,
+          2.78,
+          null,
+          2.78,
+          null,
+          2.78
+        ]
+      },
+      {
+        "display_label": "苏北浅滩｜2019年",
+        "group": null,
+        "label": "苏北浅滩｜2019年",
+        "unit": null,
+        "values": [
+          21,
+          20.5,
+          0.81,
+          null,
+          0.81,
+          null,
+          0.81,
+          null,
+          0.81
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,401 @@
+{
+  "asset_id": "da_281ed1271ed7c3a7ce10f8da",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2026年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0119_827be88c76993fbb.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0119_827be88c76993fbb.png",
+        "paper_title": "2026年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_15ca9718c314aa6ed741",
+        "question_number": 101,
+        "source_jsonl_line": 6295
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0100_2f3b3380558ae9a9.png",
+        "paper_title": "2026年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8cbd8eada2357ae1239f",
+        "question_number": 102,
+        "source_jsonl_line": 6296
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0119_827be88c76993fbb.png",
+        "paper_title": "2026年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_69ab03dec25463dcd38f",
+        "question_number": 103,
+        "source_jsonl_line": 6297
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0100_2f3b3380558ae9a9.png",
+        "paper_title": "2026年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f00ca72259e359cb6980",
+        "question_number": 104,
+        "source_jsonl_line": 6298
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0119_827be88c76993fbb.png",
+        "paper_title": "2026年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6065efd3efddcc190783",
+        "question_number": 105,
+        "source_jsonl_line": 6299
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0151_827be88c76993fbb.png",
+        "paper_title": "2026年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c683be4786a7cf77f4e0",
+        "question_number": 111,
+        "source_jsonl_line": 59528
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0174_2f3b3380558ae9a9.png",
+        "paper_title": "2026年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7c94269afaa89f44c21c",
+        "question_number": 112,
+        "source_jsonl_line": 59529
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0174_2f3b3380558ae9a9.png",
+        "paper_title": "2026年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6d9080c2fd7667322032",
+        "question_number": 113,
+        "source_jsonl_line": 59530
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0174_2f3b3380558ae9a9.png",
+        "paper_title": "2026年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3ac905021bc92b78b2ec",
+        "question_number": 114,
+        "source_jsonl_line": 59531
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0151_827be88c76993fbb.png",
+        "paper_title": "2026年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cc1c0ace0d5cc7b55b9a",
+        "question_number": 115,
+        "source_jsonl_line": 59532
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0128_2f3b3380558ae9a9.png",
+        "paper_title": "2026年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bde5e0458ca096676243",
+        "question_number": 101,
+        "source_jsonl_line": 66857
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0128_2f3b3380558ae9a9.png",
+        "paper_title": "2026年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b8c91611d1ee9668f815",
+        "question_number": 102,
+        "source_jsonl_line": 66858
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0123_827be88c76993fbb.png",
+        "paper_title": "2026年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_68942aa736b69cd7a4c5",
+        "question_number": 103,
+        "source_jsonl_line": 66859
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0128_2f3b3380558ae9a9.png",
+        "paper_title": "2026年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_78691edcf9a432e8fb5d",
+        "question_number": 104,
+        "source_jsonl_line": 66860
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0128_2f3b3380558ae9a9.png",
+        "paper_title": "2026年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ed86e53e4ddf13972dc3",
+        "question_number": 105,
+        "source_jsonl_line": 66861
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0141_2f3b3380558ae9a9.png",
+        "paper_title": "2026年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a45dbde079c9b169afd2",
+        "question_number": 106,
+        "source_jsonl_line": 76161
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0137_827be88c76993fbb.png",
+        "paper_title": "2026年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a1b4f3eac062ddc9f91f",
+        "question_number": 107,
+        "source_jsonl_line": 76162
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0137_827be88c76993fbb.png",
+        "paper_title": "2026年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_52fda79c83bc55694bb6",
+        "question_number": 108,
+        "source_jsonl_line": 76163
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0141_2f3b3380558ae9a9.png",
+        "paper_title": "2026年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ee34d3b51ae573e510ef",
+        "question_number": 109,
+        "source_jsonl_line": 76164
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0137_827be88c76993fbb.png",
+        "paper_title": "2026年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f0e9186e20486d6d93e7",
+        "question_number": 110,
+        "source_jsonl_line": 76165
+      }
+    ],
+    "sha256": "281ed1271ed7c3a7ce10f8da53ad6c73a354747235be8ec255219e41dbc9f579"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "服装｜整体",
+        "group": "整体",
+        "label": "整体｜服装｜整体",
+        "unit": null,
+        "values": [
+          19600.7,
+          21938.2,
+          19950.5,
+          21619.5,
+          21698.2,
+          22049.5
+        ]
+      },
+      {
+        "display_label": "服装｜其中：非运动",
+        "group": "整体",
+        "label": "整体｜服装｜其中：非运动",
+        "unit": null,
+        "values": [
+          18276.8,
+          20418.0,
+          18520.8,
+          19946.3,
+          19867.1,
+          20066.7
+        ]
+      },
+      {
+        "display_label": "服装｜运动",
+        "group": "整体",
+        "label": "整体｜服装｜运动",
+        "unit": null,
+        "values": [
+          1323.9,
+          1520.2,
+          1429.7,
+          1673.2,
+          1831.1,
+          1982.8
+        ]
+      },
+      {
+        "display_label": "服装｜其中：功能",
+        "group": "整体",
+        "label": "整体｜服装｜其中：功能",
+        "unit": null,
+        "values": [
+          465.9,
+          526.0,
+          495.9,
+          580.6,
+          612.5,
+          643.1
+        ]
+      },
+      {
+        "display_label": "服装｜户外",
+        "group": "整体",
+        "label": "整体｜服装｜户外",
+        "unit": null,
+        "values": [
+          182.4,
+          221.9,
+          260.7,
+          339.2,
+          452.9,
+          563.9
+        ]
+      },
+      {
+        "display_label": "服装｜时尚",
+        "group": "整体",
+        "label": "整体｜服装｜时尚",
+        "unit": null,
+        "values": [
+          675.6,
+          771.9,
+          673.1,
+          753.4,
+          765.7,
+          775.8
+        ]
+      },
+      {
+        "display_label": "鞋类｜整体",
+        "group": "整体",
+        "label": "整体｜鞋类｜整体",
+        "unit": null,
+        "values": [
+          4162.6,
+          4670.5,
+          4234.4,
+          4642.2,
+          4706.9,
+          4787.7
+        ]
+      },
+      {
+        "display_label": "鞋类｜其中：非运动",
+        "group": "整体",
+        "label": "整体｜鞋类｜其中：非运动",
+        "unit": null,
+        "values": [
+          2363.6,
+          2641.2,
+          2286.9,
+          2455.9,
+          2414.3,
+          2394.0
+        ]
+      },
+      {
+        "display_label": "鞋类｜运动",
+        "group": "整体",
+        "label": "整体｜鞋类｜运动",
+        "unit": null,
+        "values": [
+          1799.0,
+          2029.3,
+          1947.5,
+          2186.3,
+          2292.6,
+          2393.7
+        ]
+      },
+      {
+        "display_label": "鞋类｜其中：功能",
+        "group": "整体",
+        "label": "整体｜鞋类｜其中：功能",
+        "unit": null,
+        "values": [
+          642.2,
+          749.1,
+          735.6,
+          857.0,
+          915.2,
+          973.6
+        ]
+      },
+      {
+        "display_label": "鞋类｜户外",
+        "group": "整体",
+        "label": "整体｜鞋类｜户外",
+        "unit": null,
+        "values": [
+          86.9,
+          103.5,
+          117.6,
+          143.6,
+          173.6,
+          201.9
+        ]
+      },
+      {
+        "display_label": "鞋类｜时尚",
+        "group": "整体",
+        "label": "整体｜鞋类｜时尚",
+        "unit": null,
+        "values": [
+          1069.9,
+          1176.7,
+          1094.3,
+          1185.7,
+          1203.8,
+          1218.2
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

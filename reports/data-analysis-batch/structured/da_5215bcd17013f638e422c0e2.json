@@ -1,0 +1,242 @@
+{
+  "asset_id": "da_5215bcd17013f638e422c0e2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0129_5b9b61b32c0ba5fa.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0129_5b9b61b32c0ba5fa.png",
+        "paper_title": "2025年四川省考/选调公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_e54902b9dc791e739332",
+        "question_number": 96,
+        "source_jsonl_line": 17011
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0128_203083ea7e9a174e.png",
+        "paper_title": "2025年四川省考/选调公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_a84110acedb72d0ca47a",
+        "question_number": 97,
+        "source_jsonl_line": 17012
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0128_203083ea7e9a174e.png",
+        "paper_title": "2025年四川省考/选调公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_37b43b4b9d7c19d8ee43",
+        "question_number": 98,
+        "source_jsonl_line": 17013
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0129_5b9b61b32c0ba5fa.png",
+        "paper_title": "2025年四川省考/选调公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_ea84d8e45faa58f729fc",
+        "question_number": 99,
+        "source_jsonl_line": 17014
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0128_203083ea7e9a174e.png",
+        "paper_title": "2025年四川省考/选调公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_b6ead17d6e5b668e7d6e",
+        "question_number": 100,
+        "source_jsonl_line": 17015
+      }
+    ],
+    "sha256": "5215bcd17013f638e422c0e2a68e0284e17d4871bccbdb595ffe31feea668824"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "总收入",
+      "软件产品",
+      "信息技术服务",
+      "信息安全",
+      "嵌入式系统软件"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "全国｜一季度",
+        "group": null,
+        "label": "全国｜一季度",
+        "unit": null,
+        "values": [
+          20059,
+          5097,
+          13102,
+          338,
+          1522
+        ]
+      },
+      {
+        "display_label": "全国｜上半年",
+        "group": null,
+        "label": "全国｜上半年",
+        "unit": null,
+        "values": [
+          46266,
+          11427,
+          30296,
+          755,
+          3788
+        ]
+      },
+      {
+        "display_label": "东部地区｜一季度",
+        "group": null,
+        "label": "东部地区｜一季度",
+        "unit": null,
+        "values": [
+          16564,
+          4062,
+          10893,
+          256,
+          1353
+        ]
+      },
+      {
+        "display_label": "东部地区｜上半年",
+        "group": null,
+        "label": "东部地区｜上半年",
+        "unit": null,
+        "values": [
+          38022,
+          9032,
+          25040,
+          597,
+          3353
+        ]
+      },
+      {
+        "display_label": "中部地区｜一季度",
+        "group": null,
+        "label": "中部地区｜一季度",
+        "unit": null,
+        "values": [
+          666,
+          262,
+          349,
+          5,
+          50
+        ]
+      },
+      {
+        "display_label": "中部地区｜上半年",
+        "group": null,
+        "label": "中部地区｜上半年",
+        "unit": null,
+        "values": [
+          2174,
+          751,
+          1257,
+          19,
+          147
+        ]
+      },
+      {
+        "display_label": "西部地区｜一季度",
+        "group": null,
+        "label": "西部地区｜一季度",
+        "unit": null,
+        "values": [
+          2472,
+          627,
+          1686,
+          46,
+          113
+        ]
+      },
+      {
+        "display_label": "西部地区｜上半年",
+        "group": null,
+        "label": "西部地区｜上半年",
+        "unit": null,
+        "values": [
+          5096,
+          1234,
+          3523,
+          89,
+          250
+        ]
+      },
+      {
+        "display_label": "东北地区｜一季度",
+        "group": null,
+        "label": "东北地区｜一季度",
+        "unit": null,
+        "values": [
+          356,
+          145,
+          174,
+          32,
+          5
+        ]
+      },
+      {
+        "display_label": "东北地区｜上半年",
+        "group": null,
+        "label": "东北地区｜上半年",
+        "unit": null,
+        "values": [
+          974,
+          410,
+          477,
+          50,
+          37
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

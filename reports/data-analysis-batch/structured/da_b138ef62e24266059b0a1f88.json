@@ -1,0 +1,189 @@
+{
+  "asset_id": "da_b138ef62e24266059b0a1f88",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/福建/2008年福建省公务员录用考试《行测》题_images/img_0111_3e5e5ce797440bf8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年福建省公务员录用考试《行测》题_images/img_0111_3e5e5ce797440bf8.png",
+        "paper_title": "2008年福建省公务员录用考试《行测》题",
+        "question_id": "pq_8924548866d1ba4a88c3",
+        "question_number": 121,
+        "source_jsonl_line": 76296
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年福建省公务员录用考试《行测》题_images/img_0111_3e5e5ce797440bf8.png",
+        "paper_title": "2008年福建省公务员录用考试《行测》题",
+        "question_id": "pq_9c221c9982d0730b6a9e",
+        "question_number": 122,
+        "source_jsonl_line": 76297
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年福建省公务员录用考试《行测》题_images/img_0121_ede36bbf6c26eb2b.png",
+        "paper_title": "2008年福建省公务员录用考试《行测》题",
+        "question_id": "pq_0b9c996923a77409d574",
+        "question_number": 123,
+        "source_jsonl_line": 76298
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年福建省公务员录用考试《行测》题_images/img_0111_3e5e5ce797440bf8.png",
+        "paper_title": "2008年福建省公务员录用考试《行测》题",
+        "question_id": "pq_66574bffcf1f4d03723b",
+        "question_number": 124,
+        "source_jsonl_line": 76299
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年福建省公务员录用考试《行测》题_images/img_0111_3e5e5ce797440bf8.png",
+        "paper_title": "2008年福建省公务员录用考试《行测》题",
+        "question_id": "pq_b51af17b5a3aa3e11257",
+        "question_number": 125,
+        "source_jsonl_line": 76300
+      }
+    ],
+    "sha256": "b138ef62e24266059b0a1f8851a32f84385984600dafeeed86a70264c5de1f9e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "出口额(亿美元)｜比上年增长(%)",
+      "进口额(亿美元)｜比上年增长(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家和地区",
+    "rows": [
+      {
+        "display_label": "中国香港特别行政区",
+        "group": null,
+        "label": "中国香港特别行政区",
+        "unit": null,
+        "values": [
+          "35.95｜17.4",
+          "1.38｜-7.3"
+        ]
+      },
+      {
+        "display_label": "中国台湾地区",
+        "group": null,
+        "label": "中国台湾地区",
+        "unit": null,
+        "values": [
+          "10.79｜13.6",
+          "58.22｜25.0"
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": null,
+        "values": [
+          "62.20｜3.0",
+          "28.72｜14.6"
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          "13.25｜30.0",
+          "24.65｜7.8"
+        ]
+      },
+      {
+        "display_label": "东盟",
+        "group": null,
+        "label": "东盟",
+        "unit": null,
+        "values": [
+          "41.28｜38.6",
+          "29.46｜21.1"
+        ]
+      },
+      {
+        "display_label": "欧盟",
+        "group": null,
+        "label": "欧盟",
+        "unit": null,
+        "values": [
+          "105.02｜25.8",
+          "22.11｜11.9"
+        ]
+      },
+      {
+        "display_label": "俄罗斯联邦",
+        "group": null,
+        "label": "俄罗斯联邦",
+        "unit": null,
+        "values": [
+          "7.03｜41.1",
+          "1.87｜-2.4"
+        ]
+      },
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": null,
+        "values": [
+          "108.67｜7.8",
+          "26.74｜21.2"
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

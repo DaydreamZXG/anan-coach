@@ -1,0 +1,376 @@
+{
+  "asset_id": "da_046fb574159fe002ad935e1c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "国家和地区",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "出口额",
+        "unit": "亿美元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "进口额",
+        "unit": "亿美元"
+      }
+    ]
+  },
+  "categories": [
+    "美国",
+    "欧盟",
+    "中国香港",
+    "东盟",
+    "日本",
+    "韩国",
+    "印度",
+    "俄罗斯",
+    "中国台湾"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "出口额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        3518,
+        3340,
+        3235,
+        2043,
+        1516,
+        877,
+        477,
+        441,
+        368
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "进口额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        1329,
+        2121,
+        180,
+        1958,
+        1778,
+        1686,
+        188,
+        441,
+        1322
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "比上年增长(%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        8.4,
+        -6.2,
+        20.7,
+        20.1,
+        2.3,
+        5.7,
+        -5.7,
+        13.2,
+        4.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "比上年增长(%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        8.8,
+        0.4,
+        15.9,
+        1.5,
+        -8.6,
+        3.7,
+        -19.6,
+        9.2,
+        5.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2013年四川公务员录用考试《行测》题（下半年）_images/img_0100_1da9f68de9de3ceb.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年四川公务员录用考试《行测》题（下半年）_images/img_0100_1da9f68de9de3ceb.png",
+        "paper_title": "2013年四川公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_6aef1678d58539c53a8d",
+        "question_number": 111,
+        "source_jsonl_line": 14702
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年四川公务员录用考试《行测》题（下半年）_images/img_0098_e83768e86647cffd.png",
+        "paper_title": "2013年四川公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_5e435a4bd4e35cfb83c3",
+        "question_number": 112,
+        "source_jsonl_line": 14703
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年四川公务员录用考试《行测》题（下半年）_images/img_0100_1da9f68de9de3ceb.png",
+        "paper_title": "2013年四川公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_2f489edf7e6c53a51434",
+        "question_number": 113,
+        "source_jsonl_line": 14704
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年四川公务员录用考试《行测》题（下半年）_images/img_0100_1da9f68de9de3ceb.png",
+        "paper_title": "2013年四川公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_29b9ee1c2511e0c98d45",
+        "question_number": 114,
+        "source_jsonl_line": 14705
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年四川公务员录用考试《行测》题（下半年）_images/img_0100_1da9f68de9de3ceb.png",
+        "paper_title": "2013年四川公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_f50c5e88b11ca9834d65",
+        "question_number": 115,
+        "source_jsonl_line": 14706
+      }
+    ],
+    "sha256": "046fb574159fe002ad935e1c46fb034f5cadce063edd9fa75a0477ef928a62d5"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口｜出口额",
+          "出口｜比上年增长(%)"
+        ],
+        "label": "出口"
+      },
+      {
+        "columns": [
+          "进口｜进口额",
+          "进口｜比上年增长(%)"
+        ],
+        "label": "进口"
+      }
+    ],
+    "columns": [
+      "出口｜出口额",
+      "出口｜比上年增长(%)",
+      "进口｜进口额",
+      "进口｜比上年增长(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家和地区",
+    "rows": [
+      {
+        "label": "美国",
+        "unit": "亿美元",
+        "values": [
+          3518,
+          8.4,
+          1329,
+          8.8
+        ]
+      },
+      {
+        "label": "欧盟",
+        "unit": "亿美元",
+        "values": [
+          3340,
+          -6.2,
+          2121,
+          0.4
+        ]
+      },
+      {
+        "label": "中国香港",
+        "unit": "亿美元",
+        "values": [
+          3235,
+          20.7,
+          180,
+          15.9
+        ]
+      },
+      {
+        "label": "东盟",
+        "unit": "亿美元",
+        "values": [
+          2043,
+          20.1,
+          1958,
+          1.5
+        ]
+      },
+      {
+        "label": "日本",
+        "unit": "亿美元",
+        "values": [
+          1516,
+          2.3,
+          1778,
+          -8.6
+        ]
+      },
+      {
+        "label": "韩国",
+        "unit": "亿美元",
+        "values": [
+          877,
+          5.7,
+          1686,
+          3.7
+        ]
+      },
+      {
+        "label": "印度",
+        "unit": "亿美元",
+        "values": [
+          477,
+          -5.7,
+          188,
+          -19.6
+        ]
+      },
+      {
+        "label": "俄罗斯",
+        "unit": "亿美元",
+        "values": [
+          441,
+          13.2,
+          441,
+          9.2
+        ]
+      },
+      {
+        "label": "中国台湾",
+        "unit": "亿美元",
+        "values": [
+          368,
+          4.8,
+          1322,
+          5.8
+        ]
+      }
+    ]
+  },
+  "title": "2012年中国对主要国家和地区货物进出口额及其增长速度",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_046fb574159fe002ad935e1c/row_band_01.jpg",
+        "review-crops/da_046fb574159fe002ad935e1c/row_band_02.jpg",
+        "review-crops/da_046fb574159fe002ad935e1c/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.239",
+      "crop_verification_elapsed_seconds:18.252",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'欧盟'的'比上年增长(%)'为-6.2，原图显示为-6.3",
+      "crop_note:修正了'日本'的'比上年增长(%)'为-8.6，原图显示为-8.6",
+      "crop_note:修正了'韩国'的'比上年增长(%)'为3.7，原图显示为3.7",
+      "crop_note:修正了'印度'的'比上年增长(%)'为-19.6，原图显示为-19.6",
+      "crop_note:修正了'俄罗斯'的'比上年增长(%)'为9.2，原图显示为9.2",
+      "crop_note:修正了'中国台湾'的'比上年增长(%)'为5.8，原图显示为5.8",
+      "crop_note:确认'中国香港'的'比上年增长(%)'为20.7，原图显示为20.7",
+      "crop_note:确认'东盟'的'比上年增长(%)'为20.1，原图显示为20.1",
+      "crop_note:确认'美国'的'比上年增长(%)'为8.4，原图显示为8.4",
+      "crop_note:确认'美国'的'比上年增长(%)'为8.8，原图显示为8.8",
+      "crop_note:确认'欧盟'的'比上年增长(%)'为0.4，原图显示为0.4",
+      "crop_note:确认'中国香港'的'比上年增长(%)'为15.9，原图显示为15.9",
+      "crop_note:确认'东盟'的'比上年增长(%)'为1.5，原图显示为1.5",
+      "crop_note:确认'日本'的'比上年增长(%)'为2.3，原图显示为2.3",
+      "crop_note:确认'韩国'的'比上年增长(%)'为5.7，原图显示为5.7",
+      "crop_note:确认'印度'的'比上年增长(%)'为-5.7，原图显示为-5.7",
+      "crop_note:确认'俄罗斯'的'比上年增长(%)'为13.2，原图显示为13.2",
+      "crop_note:确认'中国台湾'的'比上年增长(%)'为4.8，原图显示为4.8",
+      "crop_note:确认'美国'的'出口额'为3518，原图显示为3518",
+      "crop_note:确认'欧盟'的'出口额'为3340，原图显示为3340",
+      "crop_note:确认'中国香港'的'出口额'为3235，原图显示为3235",
+      "crop_note:确认'东盟'的'出口额'为2043，原图显示为2043",
+      "crop_note:确认'日本'的'出口额'为1516，原图显示为1516",
+      "crop_note:确认'韩国'的'出口额'为877，原图显示为877",
+      "crop_note:确认'印度'的'出口额'为477，原图显示为477",
+      "crop_note:确认'俄罗斯'的'出口额'为441，原图显示为441",
+      "crop_note:确认'中国台湾'的'出口额'为368，原图显示为368",
+      "crop_note:确认'美国'的'进口额'为1329，原图显示为1329",
+      "crop_note:确认'欧盟'的'进口额'为2121，原图显示为2121",
+      "crop_note:确认'中国香港'的'进口额'为180，原图显示为180",
+      "crop_note:确认'东盟'的'进口额'为1958，原图显示为1958",
+      "crop_note:确认'日本'的'进口额'为1778，原图显示为1778",
+      "crop_note:确认'韩国'的'进口额'为1686，原图显示为1686",
+      "crop_note:确认'印度'的'进口额'为188，原图显示为188",
+      "crop_note:确认'俄罗斯'的'进口额'为441，原图显示为441",
+      "crop_note:确认'中国台湾'的'进口额'为1322，原图显示为1322",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

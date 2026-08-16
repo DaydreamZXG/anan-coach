@@ -2,6 +2,7 @@ import { LearningBrainApi } from "../../api/learning-brain";
 import type { BrainEvidenceRef, ErrorPatternDetail } from "../../api/generated/types.gen";
 import { routes } from "../../app/navigation/routes";
 import { currentAuthSession } from "../../auth/session";
+import { createIdempotencyKey } from "../../platform/command-id";
 import { storeCompanionLaunchContext } from "../../features/companion/context-store";
 import {
   dateTimeLabel,
@@ -20,6 +21,8 @@ Page({
     supportingEvidence: [] as Array<{ label: string; meta: string }>,
     patternId: "",
     retryAllowed: false,
+    recheckBusy: false,
+    recheckPending: false,
   },
   onLoad(options: Record<string, string | undefined>) {
     this.setData({ patternId: options.patternId?.trim() ?? "" });
@@ -66,7 +69,33 @@ Page({
     if (this.data.retryAllowed) void this.loadPattern();
   },
   goPractice() {
-    void wx.switchTab({ url: routes.today });
+    void wx.navigateTo({
+      url: "/xingce/xingce-mastery/index?bucket=due_verification",
+    });
+  },
+  async markInaccurate() {
+    const detail = this.data.detail;
+    const client = requireAuthenticatedClient();
+    if (!detail || !client || this.data.recheckBusy) return;
+    this.setData({ recheckBusy: true });
+    try {
+      const commandId = await createIdempotencyKey("coach-recheck");
+      await new LearningBrainApi(client).requestCoachRecheck({
+        commandId,
+        profileVersionId: detail.profileVersionId,
+        patternId: detail.pattern.patternId,
+        note: "我认为这条判断不准确，请用新的作答证据重新验证。",
+      });
+      this.setData({ recheckBusy: false, recheckPending: true });
+      void wx.showToast({ title: "岸岸会用复测重新判断", icon: "none" });
+    } catch (error) {
+      const view = errorView(error, "这次复核请求没有保存，请刷新后再试。");
+      this.setData({
+        recheckBusy: false,
+        errorMessage: view.message,
+        requestId: view.requestId,
+      });
+    }
   },
   askAnan() {
     const auth = currentAuthSession();

@@ -1,0 +1,335 @@
+{
+  "asset_id": "da_8d5bda94be89c37b30fb7245",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "特区名称/指标",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "出口",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "进口",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "厦门经济特区",
+    "深圳经济特区",
+    "珠海经济特区",
+    "汕头经济特区",
+    "海南经济特区"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2",
+      "label": "出口 2月",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        233.6,
+        1182.9,
+        122.6,
+        23.0,
+        10.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "1_2",
+      "label": "出口 1~2月",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        534.3,
+        2464.1,
+        298.2,
+        59.1,
+        22.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2",
+      "label": "进口 2月",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        181.2,
+        931.1,
+        67.5,
+        6.5,
+        23.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "1_2",
+      "label": "进口 1~2月",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        424.0,
+        2064.7,
+        186.3,
+        23.8,
+        53.1
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "2",
+      "label": "出口同比 2月",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        20.3,
+        20.6,
+        34.9,
+        11.6,
+        -53.4
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "1_2",
+      "label": "出口同比 1~2月",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.8,
+        58.9,
+        21.5,
+        11.0,
+        -5.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2018年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0099_fda3e31e3495b1dd.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0099_fda3e31e3495b1dd.png",
+        "paper_title": "2018年四川省公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_c09867fb8a868572a1da",
+        "question_number": 91,
+        "source_jsonl_line": 15906
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0114_6797b534163f01a4.png",
+        "paper_title": "2018年四川省公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_be43458ac069897c5cae",
+        "question_number": 92,
+        "source_jsonl_line": 15907
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0114_6797b534163f01a4.png",
+        "paper_title": "2018年四川省公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_1487afe5002b2138fcbd",
+        "question_number": 93,
+        "source_jsonl_line": 15908
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0114_6797b534163f01a4.png",
+        "paper_title": "2018年四川省公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_6ff9eedf84aa1ad7dd19",
+        "question_number": 94,
+        "source_jsonl_line": 15909
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0114_6797b534163f01a4.png",
+        "paper_title": "2018年四川省公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_1eba93356042f99c5b6b",
+        "question_number": 95,
+        "source_jsonl_line": 15910
+      }
+    ],
+    "sha256": "8d5bda94be89c37b30fb7245cbe895a2668ce87bf4d289e9135e954814337d52"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "特区名称/指标",
+      "出口 2月",
+      "出口 1~2月",
+      "进口 2月",
+      "进口 1~2月",
+      "出口同比 2月",
+      "出口同比 1~2月",
+      "进口同比 2月",
+      "进口同比 1~2月"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "厦门经济特区",
+        "unit": null,
+        "values": [
+          "厦门经济特区",
+          233.6,
+          534.3,
+          181.2,
+          424.0,
+          20.3,
+          5.8,
+          null,
+          5.8
+        ]
+      },
+      {
+        "label": "深圳经济特区",
+        "unit": null,
+        "values": [
+          "深圳经济特区",
+          1182.9,
+          2464.1,
+          931.1,
+          2064.7,
+          20.6,
+          58.9,
+          null,
+          58.9
+        ]
+      },
+      {
+        "label": "珠海经济特区",
+        "unit": null,
+        "values": [
+          "珠海经济特区",
+          122.6,
+          298.2,
+          67.5,
+          186.3,
+          34.9,
+          21.5,
+          null,
+          21.5
+        ]
+      },
+      {
+        "label": "汕头经济特区",
+        "unit": null,
+        "values": [
+          "汕头经济特区",
+          23.0,
+          59.1,
+          6.5,
+          23.8,
+          11.6,
+          11.0,
+          null,
+          11.0
+        ]
+      },
+      {
+        "label": "海南经济特区",
+        "unit": null,
+        "values": [
+          "海南经济特区",
+          10.1,
+          22.0,
+          23.7,
+          53.1,
+          -53.4,
+          53.1,
+          null,
+          -5.3
+        ]
+      }
+    ]
+  },
+  "title": "2018年我国5大经济特区1~2月进出口额",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8d5bda94be89c37b30fb7245/row_band_01.jpg",
+        "review-crops/da_8d5bda94be89c37b30fb7245/row_band_02.jpg",
+        "review-crops/da_8d5bda94be89c37b30fb7245/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:13.843",
+      "crop_verification_elapsed_seconds:4.593",
+      "candidate_value_changes_after_crop:6",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

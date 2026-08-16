@@ -1,0 +1,97 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "货运营量｜完成（万吨）",
+          "货运营量｜比上年增长（%）"
+        ],
+        "label": "货运营量"
+      },
+      {
+        "columns": [
+          "货物周转量｜完成（亿吨公里）",
+          "货物周转量｜比上年增长（%）"
+        ],
+        "label": "货物周转量"
+      },
+      "rows:[{"
+    ],
+    "columns": [
+      "货运营量｜完成（万吨）",
+      "货运营量｜比上年增长（%）",
+      "货物周转量｜完成（亿吨公里）",
+      "货物周转量｜比上年增长（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "运输业类型",
+    "rows": [
+      {
+        "display_label": "铁路",
+        "group": null,
+        "label": "铁路",
+        "unit": null,
+        "values": [
+          12048,
+          0.4,
+          301.59,
+          -1.5
+        ]
+      },
+      {
+        "display_label": "公路",
+        "group": null,
+        "label": "公路",
+        "unit": null,
+        "values": [
+          217643,
+          15.1,
+          2872.31,
+          18
+        ]
+      },
+      {
+        "display_label": "水路",
+        "group": null,
+        "label": "水路",
+        "unit": null,
+        "values": [
+          68340,
+          18.4,
+          9019.14,
+          32.2
+        ]
+      },
+      {
+        "display_label": "航空",
+        "group": null,
+        "label": "航空",
+        "unit": null,
+        "values": [
+          131,
+          2.7,
+          44.14,
+          4.1
+        ]
+      },
+      {
+        "display_label": "管道",
+        "group": null,
+        "label": "管道",
+        "unit": null,
+        "values": [
+          7668,
+          2.8,
+          169.91,
+          -3.9
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

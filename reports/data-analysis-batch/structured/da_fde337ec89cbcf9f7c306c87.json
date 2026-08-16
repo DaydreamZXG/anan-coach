@@ -1,0 +1,175 @@
+{
+  "asset_id": "da_fde337ec89cbcf9f7c306c87",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0104_87d02f1157cfa9a6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0104_87d02f1157cfa9a6.png",
+        "paper_title": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_d6ac87eccad847026caf",
+        "question_number": 111,
+        "source_jsonl_line": 104033
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0104_87d02f1157cfa9a6.png",
+        "paper_title": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_f88581de4df35e846463",
+        "question_number": 112,
+        "source_jsonl_line": 104034
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0104_87d02f1157cfa9a6.png",
+        "paper_title": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_3ff40fca93c3cbf27a30",
+        "question_number": 113,
+        "source_jsonl_line": 104035
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0104_87d02f1157cfa9a6.png",
+        "paper_title": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_6267ddd0589ccde848c4",
+        "question_number": 114,
+        "source_jsonl_line": 104036
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0158_d52bfaddb70ad053.png",
+        "paper_title": "2021年黑龙江公检法司系统及边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_d09a7633f4e94463f658",
+        "question_number": 115,
+        "source_jsonl_line": 104037
+      }
+    ],
+    "sha256": "fde337ec89cbcf9f7c306c87f7f1a1c551d6d50b91ed793333eb5b93e6906783"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "投资总额",
+      "住宅投资",
+      "同比增长率",
+      "住宅同比增长率"
+    ],
+    "corner_header": {
+      "lower_label": "住宅",
+      "style": "diagonal",
+      "upper_label": "同比增长（%）"
+    },
+    "missing_cells": [],
+    "row_header_label": "住宅",
+    "rows": [
+      {
+        "display_label": "全国总计",
+        "group": null,
+        "label": "全国总计",
+        "unit": null,
+        "values": [
+          84895,
+          63980,
+          12.7,
+          14.9
+        ]
+      },
+      {
+        "display_label": "东部地区",
+        "group": null,
+        "label": "东部地区",
+        "unit": null,
+        "values": [
+          45306,
+          33231,
+          11.5,
+          13.3
+        ]
+      },
+      {
+        "display_label": "中部地区",
+        "group": null,
+        "label": "中部地区",
+        "unit": null,
+        "values": [
+          17720,
+          14330,
+          20.0,
+          23.7
+        ]
+      },
+      {
+        "display_label": "西部地区",
+        "group": null,
+        "label": "西部地区",
+        "unit": null,
+        "values": [
+          18717,
+          14002,
+          10.0,
+          11.8
+        ]
+      },
+      {
+        "display_label": "东北地区",
+        "group": null,
+        "label": "东北地区",
+        "unit": null,
+        "values": [
+          3152,
+          2417,
+          8.1,
+          7.6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

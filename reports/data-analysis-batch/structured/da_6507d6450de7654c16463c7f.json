@@ -1,0 +1,205 @@
+{
+  "asset_id": "da_6507d6450de7654c16463c7f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0130_9ddb1f1af5d46343.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0130_9ddb1f1af5d46343.png",
+        "paper_title": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_b5b4287b2f0e73f5cbdb",
+        "question_number": 71,
+        "source_jsonl_line": 86189
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0130_9ddb1f1af5d46343.png",
+        "paper_title": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_5698dbf4e9d61ef7b618",
+        "question_number": 72,
+        "source_jsonl_line": 86190
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0130_9ddb1f1af5d46343.png",
+        "paper_title": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_b64c89a8afa1ad5ab01b",
+        "question_number": 73,
+        "source_jsonl_line": 86191
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0144_44368ae0aca6a135.png",
+        "paper_title": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_e9fa43225607a1cc5fa7",
+        "question_number": 74,
+        "source_jsonl_line": 86192
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0130_9ddb1f1af5d46343.png",
+        "paper_title": "2016年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_6f7b63e1b8a9163f3c4d",
+        "question_number": 75,
+        "source_jsonl_line": 86193
+      }
+    ],
+    "sha256": "6507d6450de7654c16463c7fea1f56fe57b2d0d1669c0e646ca01eb83daeb9a3"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "粮食｜总产量",
+          "粮食｜单产"
+        ],
+        "label": "粮食"
+      },
+      {
+        "columns": [
+          "棉花｜总产量",
+          "棉花｜单产"
+        ],
+        "label": "棉花"
+      },
+      {
+        "columns": [
+          "油料｜总产量",
+          "油料｜单产"
+        ],
+        "label": "油料"
+      }
+    ],
+    "columns": [
+      "粮食｜总产量",
+      "粮食｜单产",
+      "棉花｜总产量",
+      "棉花｜单产",
+      "油料｜总产量",
+      "油料｜单产"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "display_label": "2010",
+        "group": null,
+        "label": "2010",
+        "unit": null,
+        "values": [
+          4335.7,
+          6120,
+          72.4,
+          945,
+          342.2,
+          4193
+        ]
+      },
+      {
+        "display_label": "2011",
+        "group": null,
+        "label": "2011",
+        "unit": null,
+        "values": [
+          4426.3,
+          6194,
+          78.5,
+          1043,
+          341.0,
+          4227
+        ]
+      },
+      {
+        "display_label": "2012",
+        "group": null,
+        "label": "2012",
+        "unit": null,
+        "values": [
+          4511.4,
+          6264,
+          69.8,
+          1012,
+          351.0,
+          4409
+        ]
+      },
+      {
+        "display_label": "2013",
+        "group": null,
+        "label": "2013",
+        "unit": null,
+        "values": [
+          4528.2,
+          6208,
+          62.1,
+          923,
+          349.6,
+          4398
+        ]
+      },
+      {
+        "display_label": "2014",
+        "group": null,
+        "label": "2014",
+        "unit": null,
+        "values": [
+          4596.6,
+          6178,
+          66.5,
+          1122,
+          335.9,
+          4344
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "asset_id": "da_8b58a4f241cd2cdd76742d13",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 5000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000
+        ],
+        "title": null,
+        "unit": "万平方米"
+      }
+    ]
+  },
+  "categories": [
+    "2010年",
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "新开工面积",
+      "style": {
+        "dash": null,
+        "fill": "#ffffff",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "竣工面积",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "新开工面积",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万平方米",
+      "values": [
+        2782,
+        2849,
+        4166,
+        3673,
+        3888,
+        3701,
+        3855,
+        3306
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "竣工面积",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万平方米",
+      "values": [
+        1204,
+        2110,
+        1733,
+        2285,
+        2182,
+        2114,
+        2684,
+        1970
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2020年北京市定向选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0023_0526e1a55722539c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市定向选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0023_0526e1a55722539c.png",
+        "paper_title": "2020年北京市定向选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_f04de83a782f74d0ad8c",
+        "question_number": 61,
+        "source_jsonl_line": 89206
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市定向选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0030_c8f1ea1f4d6ebcfd.png",
+        "paper_title": "2020年北京市定向选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_94b1a2c1ec50814facc4",
+        "question_number": 62,
+        "source_jsonl_line": 89207
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市定向选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0023_0526e1a55722539c.png",
+        "paper_title": "2020年北京市定向选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_8dbe57eb565f4c8944c2",
+        "question_number": 63,
+        "source_jsonl_line": 89208
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市定向选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0023_0526e1a55722539c.png",
+        "paper_title": "2020年北京市定向选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_c04d290a0305caa67db7",
+        "question_number": 64,
+        "source_jsonl_line": 89209
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市定向选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0023_0526e1a55722539c.png",
+        "paper_title": "2020年北京市定向选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_f115be68ff551604a010",
+        "question_number": 65,
+        "source_jsonl_line": 89210
+      }
+    ],
+    "sha256": "8b58a4f241cd2cdd76742d133040798e189fa3be6172fe0ab6e9139b27cf4d9b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2010-2017年新开工面积与竣工面积对比",
+  "unit": "万平方米",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8b58a4f241cd2cdd76742d13/column_band_01.jpg",
+        "review-crops/da_8b58a4f241cd2cdd76742d13/column_band_02.jpg",
+        "review-crops/da_8b58a4f241cd2cdd76742d13/column_band_03.jpg",
+        "review-crops/da_8b58a4f241cd2cdd76742d13/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.043",
+      "crop_verification_elapsed_seconds:4.483",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

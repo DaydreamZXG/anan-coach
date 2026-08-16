@@ -1,0 +1,161 @@
+{
+  "asset_id": "da_2ab87fc91c6fcf8d85521fa0",
+  "axes": {
+    "x": {
+      "max": 70,
+      "min": 0,
+      "ticks": [
+        0,
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70
+      ],
+      "title": null,
+      "unit": "%"
+    },
+    "y": [
+      {
+        "max": 1,
+        "min": 0,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "行程总耗时",
+    "准点率",
+    "天气情况",
+    "价格及优惠幅度",
+    "积分奖励活动",
+    "其他"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "出行方式",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "出行方式",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        57.6,
+        42.0,
+        34.2,
+        30.3,
+        7.1,
+        2.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2017年北京市公务员录用考试《行测》题_images/img_0256_595a079719f938a5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年北京市公务员录用考试《行测》题_images/img_0256_595a079719f938a5.png",
+        "paper_title": "2017年北京市公务员录用考试《行测》题",
+        "question_id": "pq_4a5c5a2114e3207cf896",
+        "question_number": 131,
+        "source_jsonl_line": 9869
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年北京市公务员录用考试《行测》题_images/img_0256_595a079719f938a5.png",
+        "paper_title": "2017年北京市公务员录用考试《行测》题",
+        "question_id": "pq_e90cedcbe6846e95b261",
+        "question_number": 132,
+        "source_jsonl_line": 9870
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年北京市公务员录用考试《行测》题_images/img_0256_595a079719f938a5.png",
+        "paper_title": "2017年北京市公务员录用考试《行测》题",
+        "question_id": "pq_eba55bb686a076c41849",
+        "question_number": 133,
+        "source_jsonl_line": 9871
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年北京市公务员录用考试《行测》题_images/img_0256_595a079719f938a5.png",
+        "paper_title": "2017年北京市公务员录用考试《行测》题",
+        "question_id": "pq_6fe038d45a9afa224bfe",
+        "question_number": 134,
+        "source_jsonl_line": 9872
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年北京市公务员录用考试《行测》题_images/img_0256_595a079719f938a5.png",
+        "paper_title": "2017年北京市公务员录用考试《行测》题",
+        "question_id": "pq_47cd00c155abc1c8bd1d",
+        "question_number": 135,
+        "source_jsonl_line": 9873
+      }
+    ],
+    "sha256": "2ab87fc91c6fcf8d85521fa0c01b2486f7175a272a57b4bc1af5ff8cd0800731"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "选择不同出行方式的考虑因素",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2ab87fc91c6fcf8d85521fa0/column_band_01.jpg",
+        "review-crops/da_2ab87fc91c6fcf8d85521fa0/column_band_02.jpg",
+        "review-crops/da_2ab87fc91c6fcf8d85521fa0/column_band_03.jpg",
+        "review-crops/da_2ab87fc91c6fcf8d85521fa0/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.052",
+      "crop_verification_elapsed_seconds:7.534",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了 '价格及优惠幅度' 的数值为 30.3% (原图显示为 30.3)，与整图首轮候选一致。",
+      "crop_note:修正了 '积分奖励活动' 的数值为 7.1% (原图显示为 7.1)，与整图首轮候选一致。",
+      "crop_note:修正了 '其他' 的数值为 2.2% (原图显示为 2.2)，与整图首轮候选一致。",
+      "crop_note:确认 '行程总耗时' 为 57.6%，'准点率' 为 42.0%，'天气情况' 为 34.2%，与整图首轮候选一致。",
+      "crop_note:确认所有百分号、小数点、负号和缺失值均正确，无缺失值需补0。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

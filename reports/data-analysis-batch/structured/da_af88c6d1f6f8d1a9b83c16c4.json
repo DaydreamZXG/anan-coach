@@ -1,0 +1,215 @@
+{
+  "asset_id": "da_af88c6d1f6f8d1a9b83c16c4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 140000,
+        "min": 40000,
+        "ticks": [],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "第一产业",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "第二产业",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "第三产业",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "第一产业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        50000,
+        60000,
+        70000,
+        80000,
+        90000,
+        100000,
+        110000,
+        120000,
+        130000
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "第二产业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        60000,
+        70000,
+        80000,
+        90000,
+        100000,
+        110000,
+        120000,
+        130000,
+        140000
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "第三产业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        40000,
+        50000,
+        60000,
+        70000,
+        80000,
+        90000,
+        100000,
+        110000,
+        120000
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2013年陕西省公务员录用考试《行测》题_images/img_0170_03249522aada37e7.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0170_03249522aada37e7.jpg",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_db396fde5895c8c2330c",
+        "question_number": 131,
+        "source_jsonl_line": 97154
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0170_03249522aada37e7.jpg",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_c79d9fd307e3c808bfb8",
+        "question_number": 132,
+        "source_jsonl_line": 97155
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0170_03249522aada37e7.jpg",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_2f4be9d19d83ee41216a",
+        "question_number": 133,
+        "source_jsonl_line": 97156
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0170_03249522aada37e7.jpg",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_a07f99d4d350b9d28c5a",
+        "question_number": 134,
+        "source_jsonl_line": 97157
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0170_03249522aada37e7.jpg",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_ad9ed7bf08fc917179a7",
+        "question_number": 135,
+        "source_jsonl_line": 97158
+      }
+    ],
+    "sha256": "af88c6d1f6f8d1a9b83c16c49c6508c5e4c35ebe99ac49a524dffea4e6fe1828"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图1 2003年至2011年三次产业",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.269",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "independent_compact_chart_adjudication"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b_compact_chart",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "byTrack": {
+    "judgment_non_graphic": {
+      "formula_tex_explanation": 1008,
+      "formula_tex_question": 362,
+      "image_explanation": 459,
+      "image_question": 280
+    },
+    "knowledge_science": {
+      "formula_tex_explanation": 763,
+      "formula_tex_question": 180,
+      "image_explanation": 93,
+      "image_question": 304
+    },
+    "other": {
+      "formula_tex_explanation": 34,
+      "formula_tex_question": 3,
+      "image_question": 1
+    },
+    "perceptual_speed": {
+      "formula_tex_explanation": 19,
+      "image_explanation": 103,
+      "image_question": 233
+    },
+    "quantity": {
+      "formula_tex_explanation": 24897,
+      "formula_tex_question": 2997,
+      "image_explanation": 841,
+      "image_question": 619,
+      "missing_explanation": 1
+    },
+    "verbal": {
+      "formula_tex_explanation": 67,
+      "formula_tex_question": 213,
+      "image_explanation": 1,
+      "image_question": 17
+    }
+  },
+  "missingAssets": [
+    {
+      "assetId": "qi_c32aaf8fb831a69900b594da",
+      "localPath": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山西/https:/fb.qbankke.cn/api/planet/accessories/formulas?latex=ChN0X1S4pb2JiVrKdFY_DaWFs6KZh3nHb3uNxzUtSfY",
+      "occurrences": [
+        {
+          "field": "original_analysis_html",
+          "image_ref": "https://fb.qbankke.cn/api/planet/accessories/formulas?latex=ChN0X1S4pb2JiVrKdFY_DaWFs6KZh3nHb3uNxzUtSfY",
+          "knowledge_point": "统筹规划问题",
+          "question_id": "pq_e6962271798ece329eda",
+          "role": "analysis",
+          "section": "数量关系",
+          "source_jsonl_line": 32602,
+          "track": "quantity"
+        },
+        {
+          "field": "original_solution_html",
+          "image_ref": "https://fb.qbankke.cn/api/planet/accessories/formulas?latex=ChN0X1S4pb2JiVrKdFY_DaWFs6KZh3nHb3uNxzUtSfY",
+          "knowledge_point": "统筹规划问题",
+          "question_id": "pq_e6962271798ece329eda",
+          "role": "solution",
+          "section": "数量关系",
+          "source_jsonl_line": 32602,
+          "track": "quantity"
+        }
+      ]
+    }
+  ],
+  "nextWaveRealImages": 1449,
+  "nextWaveTracks": [
+    "judgment_non_graphic",
+    "knowledge_science",
+    "other",
+    "perceptual_speed",
+    "quantity",
+    "verbal"
+  ],
+  "routingPolicy": {
+    "chart_or_table": "semantic data extraction; deterministic chart renderer",
+    "formula_tex": "xfyun_formula_to_latex; preserve source until verified",
+    "geometry_logic_science_symbol": "CV segmentation plus graphic-primitives-v2",
+    "photo_artwork_complex_map": "preserve source plus OCR/regions/semantic metadata",
+    "uncertain_or_answer_sensitive": "needs_review; never approximate"
+  },
+  "scope": "question-critical assets outside data-analysis and graphic-reasoning",
+  "uniqueCounts": {
+    "formula_tex_explanation": 26486,
+    "formula_tex_question": 3554,
+    "image_explanation": 1497,
+    "image_question": 1449,
+    "missing_explanation": 1
+  }
+}

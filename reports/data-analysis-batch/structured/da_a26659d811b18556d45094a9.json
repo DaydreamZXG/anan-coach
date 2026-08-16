@@ -1,0 +1,234 @@
+{
+  "asset_id": "da_a26659d811b18556d45094a9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "光机电一体化领域增加值",
+    "新材料领域增加值",
+    "航空航天领域等其他领域增加值",
+    "生物医药和医疗器械领域增加值",
+    "电子信息领域增加值"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "光机电一体化领域增加值",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "新材料领域增加值",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "航空航天领域等其他领域增加值",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "生物医药和医疗器械领域增加值",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "电子信息领域增加值",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      127.35,
+      189.852,
+      239.694,
+      284.257,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 127.35,
+        "label": "光机电一体化领域增加值",
+        "share": 0.35375098,
+        "start_angle": 0.0,
+        "sweep_angle": 127.35
+      },
+      {
+        "end_angle": 189.852,
+        "label": "新材料领域增加值",
+        "share": 0.17361644,
+        "start_angle": 127.35,
+        "sweep_angle": 62.502
+      },
+      {
+        "end_angle": 239.694,
+        "label": "航空航天领域等其他领域增加值",
+        "share": 0.13844878,
+        "start_angle": 189.852,
+        "sweep_angle": 49.842
+      },
+      {
+        "end_angle": 284.257,
+        "label": "生物医药和医疗器械领域增加值",
+        "share": 0.12378674,
+        "start_angle": 239.694,
+        "sweep_angle": 44.563
+      },
+      {
+        "end_angle": 360.0,
+        "label": "电子信息领域增加值",
+        "share": 0.21039707,
+        "start_angle": 284.257,
+        "sweep_angle": 75.743
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.35375098,
+        0.17361644,
+        0.13844878,
+        0.12378674,
+        0.21039707
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2013年国家公务员录用考试《行测》题_images/img_0077_164a5babe9e600f1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年国家公务员录用考试《行测》题_images/img_0077_164a5babe9e600f1.png",
+        "paper_title": "2013年国家公务员录用考试《行测》题",
+        "question_id": "pq_d508f5d75b01d82bd98c",
+        "question_number": 116,
+        "source_jsonl_line": 17921
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年国家公务员录用考试《行测》题_images/img_0086_c39a2356a52b7789.png",
+        "paper_title": "2013年国家公务员录用考试《行测》题",
+        "question_id": "pq_907b6b97c31a3e6b4173",
+        "question_number": 117,
+        "source_jsonl_line": 17922
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年国家公务员录用考试《行测》题_images/img_0086_c39a2356a52b7789.png",
+        "paper_title": "2013年国家公务员录用考试《行测》题",
+        "question_id": "pq_14095411051a59f46da2",
+        "question_number": 118,
+        "source_jsonl_line": 17923
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年国家公务员录用考试《行测》题_images/img_0077_164a5babe9e600f1.png",
+        "paper_title": "2013年国家公务员录用考试《行测》题",
+        "question_id": "pq_b577b2b156eadecb36b5",
+        "question_number": 119,
+        "source_jsonl_line": 17924
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年国家公务员录用考试《行测》题_images/img_0077_164a5babe9e600f1.png",
+        "paper_title": "2013年国家公务员录用考试《行测》题",
+        "question_id": "pq_e96c58e69741099f5324",
+        "question_number": 120,
+        "source_jsonl_line": 17925
+      }
+    ],
+    "sha256": "a26659d811b18556d45094a90084108b999d68dc66553e212b4d2b6fc87e4012"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "各领域增加值占比",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a26659d811b18556d45094a9/quadrant_01.jpg",
+        "review-crops/da_a26659d811b18556d45094a9/quadrant_02.jpg",
+        "review-crops/da_a26659d811b18556d45094a9/quadrant_03.jpg",
+        "review-crops/da_a26659d811b18556d45094a9/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.552",
+      "crop_verification_elapsed_seconds:1.185",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.9931",
+      "hough_circle_radius_ratio:0.3371",
+      "radial_line_candidates:10",
+      "detected_boundaries:5"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

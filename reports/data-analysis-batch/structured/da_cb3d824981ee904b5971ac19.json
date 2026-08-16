@@ -1,0 +1,268 @@
+{
+  "asset_id": "da_cb3d824981ee904b5971ac19",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0206_6e9e4d02965b0448.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0206_6e9e4d02965b0448.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_7b771077951f69aed433",
+        "question_number": 96,
+        "source_jsonl_line": 35828
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0231_cd1ed01340adf340.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_dd377446d5b11359d704",
+        "question_number": 97,
+        "source_jsonl_line": 35829
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0206_6e9e4d02965b0448.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_95163506c8e52719136d",
+        "question_number": 98,
+        "source_jsonl_line": 35830
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0206_6e9e4d02965b0448.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_39a62552e7ef76e09397",
+        "question_number": 99,
+        "source_jsonl_line": 35831
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0206_6e9e4d02965b0448.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_5a19019d41067f5e1f1e",
+        "question_number": 100,
+        "source_jsonl_line": 35832
+      }
+    ],
+    "sha256": "cb3d824981ee904b5971ac19ac78fa97941a00661b36352cc1b66f7e24c3d271"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2016年",
+      "2017年",
+      "2018年",
+      "2019年",
+      "2020年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "航线条数（条）｜2016年",
+        "group": null,
+        "label": "航线条数（条）｜2016年",
+        "unit": null,
+        "values": [
+          3794,
+          4418,
+          4945,
+          5521,
+          5581
+        ]
+      },
+      {
+        "display_label": "国内航线｜2016年",
+        "group": "国内航线｜2016年",
+        "label": "航线条数（条）｜2016年｜国内航线｜2016年",
+        "unit": null,
+        "values": [
+          3055,
+          3615,
+          4096,
+          4568,
+          4686
+        ]
+      },
+      {
+        "display_label": "其中：港澳台航线｜2016年",
+        "group": "其中：港澳台航线｜2016年",
+        "label": "航线条数（条）｜2016年｜其中：港澳台航线｜2016年",
+        "unit": null,
+        "values": [
+          109,
+          96,
+          100,
+          111,
+          94
+        ]
+      },
+      {
+        "display_label": "国际航线｜2016年",
+        "group": "国际航线｜2016年",
+        "label": "航线条数（条）｜2016年｜国际航线｜2016年",
+        "unit": null,
+        "values": [
+          739,
+          803,
+          849,
+          953,
+          895
+        ]
+      },
+      {
+        "display_label": "按重复距离计算的总航线里程（万公里）｜2016年",
+        "group": null,
+        "label": "按重复距离计算的总航线里程（万公里）｜2016年",
+        "unit": null,
+        "values": [
+          919.3,
+          1082.9,
+          1219.1,
+          1363.0,
+          1357.7
+        ]
+      },
+      {
+        "display_label": "国内航线｜2016年",
+        "group": "国内航线｜2016年",
+        "label": "按重复距离计算的总航线里程（万公里）｜2016年｜国内航线｜2016年",
+        "unit": null,
+        "values": [
+          580.1,
+          706.6,
+          806.5,
+          917.7,
+          925.9
+        ]
+      },
+      {
+        "display_label": "其中：港澳台航线｜2016年",
+        "group": "其中：港澳台航线｜2016年",
+        "label": "按重复距离计算的总航线里程（万公里）｜2016年｜其中：港澳台航线｜2016年",
+        "unit": null,
+        "values": [
+          17.3,
+          15.3,
+          15.6,
+          16.7,
+          13.7
+        ]
+      },
+      {
+        "display_label": "国际航线｜2016年",
+        "group": "国际航线｜2016年",
+        "label": "按重复距离计算的总航线里程（万公里）｜2016年｜国际航线｜2016年",
+        "unit": null,
+        "values": [
+          339.1,
+          376.3,
+          412.5,
+          445.3,
+          431.8
+        ]
+      },
+      {
+        "display_label": "按不重复距离计算的总航线里程（万公里）｜2016年",
+        "group": null,
+        "label": "按不重复距离计算的总航线里程（万公里）｜2016年",
+        "unit": null,
+        "values": [
+          634.8,
+          748.3,
+          838.0,
+          948.2,
+          942.6
+        ]
+      },
+      {
+        "display_label": "国内航线｜2016年",
+        "group": "国内航线｜2016年",
+        "label": "按不重复距离计算的总航线里程（万公里）｜2016年｜国内航线｜2016年",
+        "unit": null,
+        "values": [
+          352.0,
+          423.7,
+          478.1,
+          546.8,
+          559.8
+        ]
+      },
+      {
+        "display_label": "其中：港澳台航线｜2016年",
+        "group": "其中：港澳台航线｜2016年",
+        "label": "按不重复距离计算的总航线里程（万公里）｜2016年｜其中：港澳台航线｜2016年",
+        "unit": null,
+        "values": [
+          16.7,
+          14.8,
+          15.3,
+          16.7,
+          13.7
+        ]
+      },
+      {
+        "display_label": "国际航线｜2016年",
+        "group": "国际航线｜2016年",
+        "label": "按不重复距离计算的总航线里程（万公里）｜2016年｜国际航线｜2016年",
+        "unit": null,
+        "values": [
+          282.8,
+          324.6,
+          359.9,
+          401.5,
+          382.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

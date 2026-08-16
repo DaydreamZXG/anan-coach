@@ -1,0 +1,281 @@
+{
+  "asset_id": "da_21eaef3af722ae5287dadf04",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0146_1f0b185a0a1c97eb.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0146_1f0b185a0a1c97eb.png",
+        "paper_title": "2018年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fe90340898c2a300cbda",
+        "question_number": 116,
+        "source_jsonl_line": 9989
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0157_9bee3017f01ad8b2.png",
+        "paper_title": "2018年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0a98d77dc3016483f990",
+        "question_number": 117,
+        "source_jsonl_line": 9990
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0157_9bee3017f01ad8b2.png",
+        "paper_title": "2018年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_59e8ef3d2b4bbd14eaf0",
+        "question_number": 118,
+        "source_jsonl_line": 9991
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0146_1f0b185a0a1c97eb.png",
+        "paper_title": "2018年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8d23b0c2899bd678043c",
+        "question_number": 119,
+        "source_jsonl_line": 9992
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0157_9bee3017f01ad8b2.png",
+        "paper_title": "2018年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3a0757c9428066e07460",
+        "question_number": 120,
+        "source_jsonl_line": 9993
+      }
+    ],
+    "sha256": "21eaef3af722ae5287dadf04ef49c4a2bd840f95a4b173c28a6f3f2ffadbb118"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "燃煤",
+      "水力",
+      "天然气",
+      "核能",
+      "石油",
+      "其他"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "2000",
+        "group": "不同类型能源发电量占世界发电量比重",
+        "label": "不同类型能源发电量占世界发电量比重｜2000",
+        "unit": null,
+        "values": [
+          38.9,
+          16.9,
+          17.6,
+          16.8,
+          7.35,
+          2.45
+        ]
+      },
+      {
+        "display_label": "2001",
+        "group": "不同类型能源发电量占世界发电量比重",
+        "label": "不同类型能源发电量占世界发电量比重｜2001",
+        "unit": null,
+        "values": [
+          38.66,
+          16.39,
+          18.44,
+          16.99,
+          7.1,
+          2.42
+        ]
+      },
+      {
+        "display_label": "2002",
+        "group": "不同类型能源发电量占世界发电量比重",
+        "label": "不同类型能源发电量占世界发电量比重｜2002",
+        "unit": null,
+        "values": [
+          38.93,
+          16.2,
+          18.99,
+          16.5,
+          6.8,
+          2.58
+        ]
+      },
+      {
+        "display_label": "2003",
+        "group": "不同类型能源发电量占世界发电量比重",
+        "label": "不同类型能源发电量占世界发电量比重｜2003",
+        "unit": null,
+        "values": [
+          40.15,
+          15.71,
+          19.24,
+          15.77,
+          6.51,
+          2.62
+        ]
+      },
+      {
+        "display_label": "2004",
+        "group": "不同类型能源发电量占世界发电量比重",
+        "label": "不同类型能源发电量占世界发电量比重｜2004",
+        "unit": null,
+        "values": [
+          39.59,
+          15.97,
+          19.7,
+          15.64,
+          6.33,
+          2.77
+        ]
+      },
+      {
+        "display_label": "2005",
+        "group": "不同类型能源发电量占世界发电量比重",
+        "label": "不同类型能源发电量占世界发电量比重｜2005",
+        "unit": null,
+        "values": [
+          39.88,
+          15.93,
+          20.2,
+          15.12,
+          5.61,
+          3.26
+        ]
+      },
+      {
+        "display_label": "2006",
+        "group": "不同类型能源发电量占世界发电量比重",
+        "label": "不同类型能源发电量占世界发电量比重｜2006",
+        "unit": null,
+        "values": [
+          40.58,
+          15.9,
+          20.45,
+          14.68,
+          4.98,
+          3.41
+        ]
+      },
+      {
+        "display_label": "2007",
+        "group": "不同类型能源发电量占世界发电量比重",
+        "label": "不同类型能源发电量占世界发电量比重｜2007",
+        "unit": null,
+        "values": [
+          41.18,
+          15.42,
+          21.2,
+          13.7,
+          4.78,
+          3.72
+        ]
+      },
+      {
+        "display_label": "2008",
+        "group": "不同类型能源发电量占世界发电量比重",
+        "label": "不同类型能源发电量占世界发电量比重｜2008",
+        "unit": null,
+        "values": [
+          40.7,
+          15.74,
+          21.53,
+          13.49,
+          4.55,
+          3.99
+        ]
+      },
+      {
+        "display_label": "2009",
+        "group": "不同类型能源发电量占世界发电量比重",
+        "label": "不同类型能源发电量占世界发电量比重｜2009",
+        "unit": null,
+        "values": [
+          40.11,
+          16.06,
+          21.81,
+          13.35,
+          4.18,
+          4.49
+        ]
+      },
+      {
+        "display_label": "2010",
+        "group": "不同类型能源发电量占世界发电量比重",
+        "label": "不同类型能源发电量占世界发电量比重｜2010",
+        "unit": null,
+        "values": [
+          40.2,
+          15.9,
+          22.34,
+          12.82,
+          3.73,
+          5.01
+        ]
+      },
+      {
+        "display_label": "2011",
+        "group": "不同类型能源发电量占世界发电量比重",
+        "label": "不同类型能源发电量占世界发电量比重｜2011",
+        "unit": null,
+        "values": [
+          41.1,
+          15.69,
+          21.96,
+          11.63,
+          3.91,
+          5.71
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

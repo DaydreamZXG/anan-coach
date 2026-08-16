@@ -1,0 +1,156 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "5月｜金额（亿元）",
+          "5月｜占比（%）"
+        ],
+        "label": "5月"
+      },
+      {
+        "columns": [
+          "6月｜金额（亿元）",
+          "6月｜占比（%）"
+        ],
+        "label": "6月"
+      }
+    ],
+    "columns": [
+      "5月｜金额（亿元）",
+      "5月｜占比（%）",
+      "6月｜金额（亿元）",
+      "6月｜占比（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "持有机构",
+    "rows": [
+      {
+        "display_label": "商业银行",
+        "group": null,
+        "label": "商业银行",
+        "unit": null,
+        "values": [
+          366807.08,
+          71.92,
+          371255.62,
+          71.87
+        ]
+      },
+      {
+        "display_label": "信用社",
+        "group": null,
+        "label": "信用社",
+        "unit": null,
+        "values": [
+          2662.62,
+          0.52,
+          2630.15,
+          0.51
+        ]
+      },
+      {
+        "display_label": "保险机构",
+        "group": null,
+        "label": "保险机构",
+        "unit": null,
+        "values": [
+          23560.8,
+          4.62,
+          23895.21,
+          4.63
+        ]
+      },
+      {
+        "display_label": "证券公司",
+        "group": null,
+        "label": "证券公司",
+        "unit": null,
+        "values": [
+          4554.05,
+          0.89,
+          4914.22,
+          0.95
+        ]
+      },
+      {
+        "display_label": "非法人产品",
+        "group": null,
+        "label": "非法人产品",
+        "unit": null,
+        "values": [
+          44273.84,
+          8.68,
+          45476.05,
+          8.8
+        ]
+      },
+      {
+        "display_label": "境外机构",
+        "group": null,
+        "label": "境外机构",
+        "unit": null,
+        "values": [
+          89.35,
+          0.02,
+          95.15,
+          0.02
+        ]
+      },
+      {
+        "display_label": "其他",
+        "group": null,
+        "label": "其他",
+        "unit": null,
+        "values": [
+          46382.4,
+          9.09,
+          46228.54,
+          8.95
+        ]
+      },
+      {
+        "display_label": "柜台市场",
+        "group": null,
+        "label": "柜台市场",
+        "unit": null,
+        "values": [
+          256.4,
+          0.05,
+          287.17,
+          0.06
+        ]
+      },
+      {
+        "display_label": "其他市场",
+        "group": null,
+        "label": "其他市场",
+        "unit": null,
+        "values": [
+          21449.95,
+          4.21,
+          21768.36,
+          4.21
+        ]
+      },
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          510036.49,
+          100,
+          516550.47,
+          100
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,223 @@
+{
+  "asset_id": "da_19d84a907ce29dd6634e9d94",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 50,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45,
+          50
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "医疗卫生机构",
+      "style": {
+        "dash": null,
+        "fill": "#333333",
+        "marker": "square",
+        "stroke": "#333333"
+      }
+    },
+    {
+      "label": "医院",
+      "style": {
+        "dash": null,
+        "fill": "#E0E0E0",
+        "marker": "square",
+        "stroke": "#E0E0E0"
+      }
+    },
+    {
+      "label": "卫生院",
+      "style": {
+        "dash": null,
+        "fill": "#F0F0F0",
+        "marker": "square",
+        "stroke": "#F0F0F0"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "医疗卫生机构",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万张",
+      "values": [
+        35.5,
+        37.8,
+        40.6,
+        43.6,
+        46.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "医院",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万张",
+      "values": [
+        27.3,
+        29.4,
+        32,
+        34.5,
+        37.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "卫生院",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万张",
+      "values": [
+        5.2,
+        5.2,
+        5.3,
+        5.5,
+        5.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2018年广东省公务员录用考试《行测》题（县级、乡镇统一卷）（网友回忆版）_images/img_0227_588995f8942684a2.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广东省公务员录用考试《行测》题（县级、乡镇统一卷）（网友回忆版）_images/img_0227_588995f8942684a2.png",
+        "paper_title": "2018年广东省公务员录用考试《行测》题（县级、乡镇统一卷）（网友回忆版）",
+        "question_id": "pq_cbea4a91b8dd2b0d1114",
+        "question_number": 96,
+        "source_jsonl_line": 35028
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广东省公务员录用考试《行测》题（县级、乡镇统一卷）（网友回忆版）_images/img_0227_588995f8942684a2.png",
+        "paper_title": "2018年广东省公务员录用考试《行测》题（县级、乡镇统一卷）（网友回忆版）",
+        "question_id": "pq_8ef9800ec9ca109a69b7",
+        "question_number": 97,
+        "source_jsonl_line": 35029
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广东省公务员录用考试《行测》题（县级、乡镇统一卷）（网友回忆版）_images/img_0227_588995f8942684a2.png",
+        "paper_title": "2018年广东省公务员录用考试《行测》题（县级、乡镇统一卷）（网友回忆版）",
+        "question_id": "pq_4ba19c96e11c18b36a70",
+        "question_number": 98,
+        "source_jsonl_line": 35030
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广东省公务员录用考试《行测》题（县级、乡镇统一卷）（网友回忆版）_images/img_0227_588995f8942684a2.png",
+        "paper_title": "2018年广东省公务员录用考试《行测》题（县级、乡镇统一卷）（网友回忆版）",
+        "question_id": "pq_67844eba740ef2b09bf8",
+        "question_number": 99,
+        "source_jsonl_line": 35031
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广东省公务员录用考试《行测》题（县级、乡镇统一卷）（网友回忆版）_images/img_0270_e54843382d118567.png",
+        "paper_title": "2018年广东省公务员录用考试《行测》题（县级、乡镇统一卷）（网友回忆版）",
+        "question_id": "pq_772d15db1d210b2d822a",
+        "question_number": 100,
+        "source_jsonl_line": 35032
+      }
+    ],
+    "sha256": "19d84a907ce29dd6634e9d943b38092b0596892c4798d582b7785c1a9e82794f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2012-2016年全省医疗卫生机构床位数",
+  "unit": "万张",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_19d84a907ce29dd6634e9d94/column_band_01.jpg",
+        "review-crops/da_19d84a907ce29dd6634e9d94/column_band_02.jpg",
+        "review-crops/da_19d84a907ce29dd6634e9d94/column_band_03.jpg",
+        "review-crops/da_19d84a907ce29dd6634e9d94/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.981",
+      "crop_verification_elapsed_seconds:3.73",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

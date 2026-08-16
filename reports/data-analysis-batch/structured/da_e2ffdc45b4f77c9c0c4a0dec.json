@@ -1,0 +1,217 @@
+{
+  "asset_id": "da_e2ffdc45b4f77c9c0c4a0dec",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2015年江苏省公务员录用考试《行测》题（A类）_images/img_0106_28a571d14f4b1288.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0106_28a571d14f4b1288.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_d9c4857f393614f9aa12",
+        "question_number": 91,
+        "source_jsonl_line": 46906
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0106_28a571d14f4b1288.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_e74eed4a369d34678590",
+        "question_number": 92,
+        "source_jsonl_line": 46907
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0106_28a571d14f4b1288.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_6e3f85ebf39588179c4b",
+        "question_number": 93,
+        "source_jsonl_line": 46908
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0106_28a571d14f4b1288.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_4f6d8ffb5f3c1736d8cf",
+        "question_number": 94,
+        "source_jsonl_line": 46909
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0106_28a571d14f4b1288.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_7018686256ea2b51cda9",
+        "question_number": 95,
+        "source_jsonl_line": 46910
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（C类）_images/img_0084_28a571d14f4b1288.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_87183f03f28abd2ef5af",
+        "question_number": 81,
+        "source_jsonl_line": 47096
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（C类）_images/img_0087_06880e001d848d44.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_d10edb2bd12670166e31",
+        "question_number": 82,
+        "source_jsonl_line": 47097
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（C类）_images/img_0084_28a571d14f4b1288.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_8206f5ce43ca8d128d4a",
+        "question_number": 83,
+        "source_jsonl_line": 47098
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（C类）_images/img_0084_28a571d14f4b1288.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_c13c66247bd3a006210d",
+        "question_number": 84,
+        "source_jsonl_line": 47099
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（C类）_images/img_0084_28a571d14f4b1288.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_b8a3a2bfa38faba6e6e0",
+        "question_number": 85,
+        "source_jsonl_line": 47100
+      }
+    ],
+    "sha256": "e2ffdc45b4f77c9c0c4a0decbdb70e0a46e330c2c397248f1cae72ce7720e258"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "会议（商务）",
+      "观光休闲",
+      "探亲访友",
+      "服务员工",
+      "其他"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "亚洲",
+        "group": "入境目的",
+        "label": "入境目的｜亚洲",
+        "unit": null,
+        "values": [
+          219,
+          388,
+          12,
+          176,
+          389
+        ]
+      },
+      {
+        "display_label": "美洲",
+        "group": "入境目的",
+        "label": "入境目的｜美洲",
+        "unit": null,
+        "values": [
+          41,
+          84,
+          19,
+          14,
+          71
+        ]
+      },
+      {
+        "display_label": "欧洲",
+        "group": "入境目的",
+        "label": "入境目的｜欧洲",
+        "unit": null,
+        "values": [
+          109,
+          147,
+          7,
+          46,
+          99
+        ]
+      },
+      {
+        "display_label": "大洋洲",
+        "group": "入境目的",
+        "label": "入境目的｜大洋洲",
+        "unit": null,
+        "values": [
+          10,
+          20,
+          6,
+          3,
+          19
+        ]
+      },
+      {
+        "display_label": "非洲",
+        "group": "入境目的",
+        "label": "入境目的｜非洲",
+        "unit": null,
+        "values": [
+          15,
+          12,
+          0,
+          4,
+          12
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

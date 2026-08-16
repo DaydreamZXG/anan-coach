@@ -1,0 +1,503 @@
+{
+  "asset_id": "da_4e54bf1ae468f22290fe8f45",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "地区",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "数值",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比增长",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "全国",
+    "上海",
+    "江苏",
+    "浙江",
+    "安徽",
+    "福建",
+    "江西",
+    "山东"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "一般公共预算收入-数值",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        152217,
+        5519.5,
+        8028.6,
+        4809.5,
+        2454.2,
+        2544.1,
+        2165.5,
+        5529.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "一般公共预算收入-同比增长",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        8.4,
+        20.4,
+        11,
+        16.7,
+        10.6,
+        7.7,
+        15.1,
+        10
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "税收收入-数值",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        124892,
+        4858.2,
+        6610.1,
+        4167.7,
+        1799.8,
+        1938.6,
+        1516.9,
+        4203.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "税收收入-同比增长",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        4.8,
+        15.1,
+        10.1,
+        8.1,
+        6.3,
+        2.4,
+        9.8,
+        6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "GDP-",
+      "label": "GDP-数值",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        676708,
+        24965,
+        70116.4,
+        42886,
+        22005.6,
+        25979.8,
+        16723.8,
+        63002.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "GDP-",
+      "label": "GDP-同比增长",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.9,
+        6.9,
+        8.5,
+        8,
+        8.7,
+        9,
+        9.1,
+        8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2017年422联考《行测》题（内蒙古卷）_images/img_0184_7f4e75e1bfba2464.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（内蒙古卷）_images/img_0184_7f4e75e1bfba2464.png",
+        "paper_title": "2017年422联考《行测》题（内蒙古卷）",
+        "question_id": "pq_707acd5bad31166ec024",
+        "question_number": 111,
+        "source_jsonl_line": 7424
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（内蒙古卷）_images/img_0192_1429ae9292203d9f.png",
+        "paper_title": "2017年422联考《行测》题（内蒙古卷）",
+        "question_id": "pq_7934fabf479057b82af4",
+        "question_number": 112,
+        "source_jsonl_line": 7425
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（内蒙古卷）_images/img_0192_1429ae9292203d9f.png",
+        "paper_title": "2017年422联考《行测》题（内蒙古卷）",
+        "question_id": "pq_6f80337642d41562bff9",
+        "question_number": 113,
+        "source_jsonl_line": 7426
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（内蒙古卷）_images/img_0192_1429ae9292203d9f.png",
+        "paper_title": "2017年422联考《行测》题（内蒙古卷）",
+        "question_id": "pq_a3aa81a4b55cde13e21b",
+        "question_number": 114,
+        "source_jsonl_line": 7427
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（内蒙古卷）_images/img_0192_1429ae9292203d9f.png",
+        "paper_title": "2017年422联考《行测》题（内蒙古卷）",
+        "question_id": "pq_60f5f325b67e31eace5a",
+        "question_number": 115,
+        "source_jsonl_line": 7428
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（天津卷）_images/img_0119_1429ae9292203d9f.png",
+        "paper_title": "2017年422联考《行测》题（天津卷）",
+        "question_id": "pq_00bbbd337fe88cec3f8d",
+        "question_number": 101,
+        "source_jsonl_line": 23119
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（天津卷）_images/img_0119_1429ae9292203d9f.png",
+        "paper_title": "2017年422联考《行测》题（天津卷）",
+        "question_id": "pq_3d9b2e8c196ce0f2749c",
+        "question_number": 102,
+        "source_jsonl_line": 23120
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（天津卷）_images/img_0127_7f4e75e1bfba2464.png",
+        "paper_title": "2017年422联考《行测》题（天津卷）",
+        "question_id": "pq_c5c56e6ddd00ad818581",
+        "question_number": 103,
+        "source_jsonl_line": 23121
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（天津卷）_images/img_0119_1429ae9292203d9f.png",
+        "paper_title": "2017年422联考《行测》题（天津卷）",
+        "question_id": "pq_9451f1cf2bf6c0a17f29",
+        "question_number": 104,
+        "source_jsonl_line": 23122
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（天津卷）_images/img_0127_7f4e75e1bfba2464.png",
+        "paper_title": "2017年422联考《行测》题（天津卷）",
+        "question_id": "pq_be84a7af908014f7e2f2",
+        "question_number": 105,
+        "source_jsonl_line": 23123
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（安徽卷）_images/img_0141_7f4e75e1bfba2464.png",
+        "paper_title": "2017年422联考《行测》题（安徽卷）",
+        "question_id": "pq_a42ffa09c496394abd8f",
+        "question_number": 96,
+        "source_jsonl_line": 27740
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（安徽卷）_images/img_0141_7f4e75e1bfba2464.png",
+        "paper_title": "2017年422联考《行测》题（安徽卷）",
+        "question_id": "pq_40695d47e17668c35879",
+        "question_number": 97,
+        "source_jsonl_line": 27741
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（安徽卷）_images/img_0168_1429ae9292203d9f.png",
+        "paper_title": "2017年422联考《行测》题（安徽卷）",
+        "question_id": "pq_697221ca30ce72fb29a7",
+        "question_number": 98,
+        "source_jsonl_line": 27742
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（安徽卷）_images/img_0168_1429ae9292203d9f.png",
+        "paper_title": "2017年422联考《行测》题（安徽卷）",
+        "question_id": "pq_227324e47824e8622a95",
+        "question_number": 99,
+        "source_jsonl_line": 27743
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（安徽卷）_images/img_0168_1429ae9292203d9f.png",
+        "paper_title": "2017年422联考《行测》题（安徽卷）",
+        "question_id": "pq_cea8dfb64761df4d61cb",
+        "question_number": 100,
+        "source_jsonl_line": 27744
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山西卷）_images/img_0112_1429ae9292203d9f.png",
+        "paper_title": "2017年422联考《行测》题（山西卷）",
+        "question_id": "pq_7ed56c1fe72866f1cc53",
+        "question_number": 106,
+        "source_jsonl_line": 32304
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山西卷）_images/img_0112_1429ae9292203d9f.png",
+        "paper_title": "2017年422联考《行测》题（山西卷）",
+        "question_id": "pq_5bc85dd9c59278b0cb98",
+        "question_number": 107,
+        "source_jsonl_line": 32305
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山西卷）_images/img_0112_1429ae9292203d9f.png",
+        "paper_title": "2017年422联考《行测》题（山西卷）",
+        "question_id": "pq_327405f45a8839104f8b",
+        "question_number": 108,
+        "source_jsonl_line": 32306
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山西卷）_images/img_0112_1429ae9292203d9f.png",
+        "paper_title": "2017年422联考《行测》题（山西卷）",
+        "question_id": "pq_6b1a54b52f5402147b83",
+        "question_number": 109,
+        "source_jsonl_line": 32307
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山西卷）_images/img_0112_1429ae9292203d9f.png",
+        "paper_title": "2017年422联考《行测》题（山西卷）",
+        "question_id": "pq_c8aa65d6e563e17991be",
+        "question_number": 110,
+        "source_jsonl_line": 32308
+      }
+    ],
+    "sha256": "4e54bf1ae468f22290fe8f4595cfc0463086cb969a2f1c17791a839c7cc199ff"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "一般公共预算收入-数值(亿元)",
+      "一般公共预算收入-同比增长(%)",
+      "税收收入-数值(亿元)",
+      "税收收入-同比增长(%)",
+      "GDP-数值(亿元)",
+      "GDP-同比增长(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全国",
+        "unit": null,
+        "values": [
+          "全国",
+          152217,
+          8.4,
+          124892,
+          4.8,
+          676708,
+          6.9
+        ]
+      },
+      {
+        "label": "上海",
+        "unit": null,
+        "values": [
+          "上海",
+          5519.5,
+          20.4,
+          4858.2,
+          15.1,
+          24965,
+          6.9
+        ]
+      },
+      {
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          "江苏",
+          8028.6,
+          11,
+          6610.1,
+          10.1,
+          70116.4,
+          8.5
+        ]
+      },
+      {
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          "浙江",
+          4809.5,
+          16.7,
+          4167.7,
+          8.1,
+          42886,
+          8
+        ]
+      },
+      {
+        "label": "安徽",
+        "unit": null,
+        "values": [
+          "安徽",
+          2454.2,
+          10.6,
+          1799.8,
+          6.3,
+          22005.6,
+          8.7
+        ]
+      },
+      {
+        "label": "福建",
+        "unit": null,
+        "values": [
+          "福建",
+          2544.1,
+          7.7,
+          1938.6,
+          2.4,
+          25979.8,
+          9
+        ]
+      },
+      {
+        "label": "江西",
+        "unit": null,
+        "values": [
+          "江西",
+          2165.5,
+          15.1,
+          1516.9,
+          9.8,
+          16723.8,
+          9.1
+        ]
+      },
+      {
+        "label": "山东",
+        "unit": null,
+        "values": [
+          "山东",
+          5529.3,
+          10,
+          4203.1,
+          6,
+          63002.3,
+          8
+        ]
+      }
+    ]
+  },
+  "title": "2015年全国及部分省（市）一般公共预算收入与GDP相关关系",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4e54bf1ae468f22290fe8f45/row_band_01.jpg",
+        "review-crops/da_4e54bf1ae468f22290fe8f45/row_band_02.jpg",
+        "review-crops/da_4e54bf1ae468f22290fe8f45/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:16.542",
+      "crop_verification_elapsed_seconds:14.577",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

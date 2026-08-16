@@ -1,0 +1,226 @@
+{
+  "method": "deterministic_polygon_vertices_v1",
+  "panels": [
+    {
+      "instances": [
+        {
+          "primitiveIndex": 0,
+          "rightAngleErrorDegrees": 1.05,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 1,
+          "rightAngleErrorDegrees": 1.05,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 2,
+          "rightAngleErrorDegrees": 1.031,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 3,
+          "rightAngleErrorDegrees": 0.408,
+          "vertices": 3
+        }
+      ],
+      "p": 1,
+      "polygonCount": 4,
+      "role": "stem"
+    },
+    {
+      "instances": [
+        {
+          "primitiveIndex": 0,
+          "rightAngleErrorDegrees": 0.0,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 1,
+          "rightAngleErrorDegrees": 0.0,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 2,
+          "rightAngleErrorDegrees": 0.0,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 3,
+          "rightAngleErrorDegrees": 1.446,
+          "vertices": 3
+        }
+      ],
+      "p": 2,
+      "polygonCount": 4,
+      "role": "stem"
+    },
+    {
+      "instances": [
+        {
+          "primitiveIndex": 0,
+          "rightAngleErrorDegrees": 1.457,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 1,
+          "rightAngleErrorDegrees": 0.371,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 2,
+          "rightAngleErrorDegrees": 1.031,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 3,
+          "rightAngleErrorDegrees": 1.458,
+          "vertices": 3
+        }
+      ],
+      "p": 3,
+      "polygonCount": 4,
+      "role": "stem"
+    },
+    {
+      "instances": [
+        {
+          "primitiveIndex": 0,
+          "rightAngleErrorDegrees": 0.504,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 1,
+          "rightAngleErrorDegrees": 0.0,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 2,
+          "rightAngleErrorDegrees": 1.564,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 3,
+          "rightAngleErrorDegrees": 0.0,
+          "vertices": 3
+        }
+      ],
+      "p": 4,
+      "polygonCount": 4,
+      "role": "stem"
+    },
+    {
+      "p": 5,
+      "polygonCount": 0,
+      "role": "missing"
+    },
+    {
+      "instances": [
+        {
+          "primitiveIndex": 0,
+          "rightAngleErrorDegrees": 0.0,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 1,
+          "rightAngleErrorDegrees": 1.023,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 2,
+          "rightAngleErrorDegrees": 0.0,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 3,
+          "rightAngleErrorDegrees": 0.371,
+          "vertices": 3
+        }
+      ],
+      "p": 6,
+      "polygonCount": 4,
+      "role": "option"
+    },
+    {
+      "instances": [
+        {
+          "primitiveIndex": 0,
+          "rightAngleErrorDegrees": 0.391,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 1,
+          "rightAngleErrorDegrees": 1.023,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 2,
+          "rightAngleErrorDegrees": 1.042,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 3,
+          "rightAngleErrorDegrees": 1.042,
+          "vertices": 3
+        }
+      ],
+      "p": 7,
+      "polygonCount": 4,
+      "role": "option"
+    },
+    {
+      "instances": [
+        {
+          "primitiveIndex": 0,
+          "rightAngleErrorDegrees": 1.469,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 1,
+          "rightAngleErrorDegrees": 0.0,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 2,
+          "rightAngleErrorDegrees": 1.469,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 3,
+          "rightAngleErrorDegrees": 1.469,
+          "vertices": 3
+        }
+      ],
+      "p": 8,
+      "polygonCount": 4,
+      "role": "option"
+    },
+    {
+      "instances": [
+        {
+          "primitiveIndex": 0,
+          "rightAngleErrorDegrees": 0.39,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 1,
+          "rightAngleErrorDegrees": 0.0,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 2,
+          "rightAngleErrorDegrees": 0.0,
+          "vertices": 3
+        },
+        {
+          "primitiveIndex": 3,
+          "rightAngleErrorDegrees": 0.39,
+          "vertices": 3
+        }
+      ],
+      "p": 9,
+      "polygonCount": 4,
+      "role": "option"
+    }
+  ]
+}

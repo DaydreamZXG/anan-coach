@@ -1,0 +1,314 @@
+{
+  "asset_id": "da_cd9e805b3848b26582bf7f42",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "中国新能源汽车产量(万辆)",
+        "unit": "万辆"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "全球锂电池出货量(GWh)",
+        "unit": "GWh"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "中国新能源汽车产量(万辆)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万辆",
+      "values": [
+        119,
+        146,
+        368,
+        722
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "GWh",
+      "label": "全球锂电池出货量(GWh)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "GWh",
+      "values": [
+        218,
+        294.5,
+        562.4,
+        957.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2024年云南公务员录用考试《行测》题（网友回忆版）_images/img_0060_6bd37b56fb1eb875.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年云南公务员录用考试《行测》题（网友回忆版）_images/img_0060_6bd37b56fb1eb875.png",
+        "paper_title": "2024年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3ce970c513ee949fcbb2",
+        "question_number": 86,
+        "source_jsonl_line": 6070
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年云南公务员录用考试《行测》题（网友回忆版）_images/img_0060_6bd37b56fb1eb875.png",
+        "paper_title": "2024年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_81745fd7f26bb215feab",
+        "question_number": 87,
+        "source_jsonl_line": 6071
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年云南公务员录用考试《行测》题（网友回忆版）_images/img_0060_6bd37b56fb1eb875.png",
+        "paper_title": "2024年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9c49ef5837b0553e6376",
+        "question_number": 88,
+        "source_jsonl_line": 6072
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年云南公务员录用考试《行测》题（网友回忆版）_images/img_0060_6bd37b56fb1eb875.png",
+        "paper_title": "2024年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_25829d14efe8b81482e3",
+        "question_number": 89,
+        "source_jsonl_line": 6073
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年云南公务员录用考试《行测》题（网友回忆版）_images/img_0081_1a3c043a761b0ec8.png",
+        "paper_title": "2024年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bec4e2d31b31d4004b38",
+        "question_number": 90,
+        "source_jsonl_line": 6074
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0102_6bd37b56fb1eb875.png",
+        "paper_title": "2024年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_65991a1b14bd62866268",
+        "question_number": 111,
+        "source_jsonl_line": 26361
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0102_6bd37b56fb1eb875.png",
+        "paper_title": "2024年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_702e7a51beca7916c722",
+        "question_number": 112,
+        "source_jsonl_line": 26362
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0102_6bd37b56fb1eb875.png",
+        "paper_title": "2024年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d2c2e03898b2d776eb46",
+        "question_number": 113,
+        "source_jsonl_line": 26363
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0102_6bd37b56fb1eb875.png",
+        "paper_title": "2024年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_47ef67ec008f15347928",
+        "question_number": 114,
+        "source_jsonl_line": 26364
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0102_6bd37b56fb1eb875.png",
+        "paper_title": "2024年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3beb03899f5100e5302c",
+        "question_number": 115,
+        "source_jsonl_line": 26365
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0088_6bd37b56fb1eb875.png",
+        "paper_title": "2024年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8c6b55918aecdb09ec7a",
+        "question_number": 101,
+        "source_jsonl_line": 39787
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0095_1a3c043a761b0ec8.png",
+        "paper_title": "2024年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1f11e0f961288e54e573",
+        "question_number": 102,
+        "source_jsonl_line": 39788
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0088_6bd37b56fb1eb875.png",
+        "paper_title": "2024年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5393843fcc3e15ed07bc",
+        "question_number": 103,
+        "source_jsonl_line": 39789
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0088_6bd37b56fb1eb875.png",
+        "paper_title": "2024年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b868cb2271d77ec4da99",
+        "question_number": 104,
+        "source_jsonl_line": 39790
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0095_1a3c043a761b0ec8.png",
+        "paper_title": "2024年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_adb7876206ed7e75dc29",
+        "question_number": 105,
+        "source_jsonl_line": 39791
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0071_1a3c043a761b0ec8.png",
+        "paper_title": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_5cca4cdb36c938ef9848",
+        "question_number": 101,
+        "source_jsonl_line": 44011
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0071_1a3c043a761b0ec8.png",
+        "paper_title": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_4b45285642e8ac1b5580",
+        "question_number": 102,
+        "source_jsonl_line": 44012
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0067_6bd37b56fb1eb875.png",
+        "paper_title": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_8f0e78766bb89b5f3c97",
+        "question_number": 103,
+        "source_jsonl_line": 44013
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0067_6bd37b56fb1eb875.png",
+        "paper_title": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_97bb4f0c5df21a542b55",
+        "question_number": 104,
+        "source_jsonl_line": 44014
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0071_1a3c043a761b0ec8.png",
+        "paper_title": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_13573257edd34767c676",
+        "question_number": 105,
+        "source_jsonl_line": 44015
+      }
+    ],
+    "sha256": "cd9e805b3848b26582bf7f4288f81b7d04c60c53cffd89041228f35f5d188e89"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2019",
+      "2020",
+      "2021",
+      "2022"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "label": "中国新能源汽车产量(万辆)",
+        "unit": "万辆",
+        "values": [
+          119,
+          146,
+          368,
+          722
+        ]
+      },
+      {
+        "label": "全球锂电池出货量(GWh)",
+        "unit": "GWh",
+        "values": [
+          218,
+          218,
+          294.5,
+          562.4
+        ]
+      }
+    ]
+  },
+  "title": "2019-2022年中国新能源汽车产量与全球锂电池出货量",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cd9e805b3848b26582bf7f42/row_band_01.jpg",
+        "review-crops/da_cd9e805b3848b26582bf7f42/row_band_02.jpg",
+        "review-crops/da_cd9e805b3848b26582bf7f42/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.723",
+      "crop_verification_elapsed_seconds:1.521",
+      "candidate_value_changes_after_crop:3",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_out_of_range_table_cell:全球锂电池出货量(GWh):2022",
+      "table_row_label_column_removed:年份"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

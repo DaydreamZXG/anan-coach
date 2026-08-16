@@ -1,0 +1,181 @@
+{
+  "asset_id": "da_641debacce0e833ca3d03dc6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "国道, 11096",
+    "省道, 6701",
+    "县道, 19961",
+    "乡道, 48896",
+    "村道, 54865"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      28.339,
+      38.6,
+      96.246,
+      219.024,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 28.339,
+        "label": "国道, 11096",
+        "share": 0.0787198,
+        "start_angle": 0.0,
+        "sweep_angle": 28.339
+      },
+      {
+        "end_angle": 38.6,
+        "label": "省道, 6701",
+        "share": 0.02850334,
+        "start_angle": 28.339,
+        "sweep_angle": 10.261
+      },
+      {
+        "end_angle": 96.246,
+        "label": "县道, 19961",
+        "share": 0.16012773,
+        "start_angle": 38.6,
+        "sweep_angle": 57.646
+      },
+      {
+        "end_angle": 219.024,
+        "label": "乡道, 48896",
+        "share": 0.3410499,
+        "start_angle": 96.246,
+        "sweep_angle": 122.778
+      },
+      {
+        "end_angle": 360.0,
+        "label": "村道, 54865",
+        "share": 0.39159923,
+        "start_angle": 219.024,
+        "sweep_angle": 140.976
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.0787198,
+        0.02850334,
+        0.16012773,
+        0.3410499,
+        0.39159923
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/新疆/2018年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0133_40a745954fcda8c9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0133_40a745954fcda8c9.png",
+        "paper_title": "2018年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_419b360145f157c2cb6f",
+        "question_number": 91,
+        "source_jsonl_line": 42961
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0137_e49816f9f8cdff72.png",
+        "paper_title": "2018年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_cc55dd39cabdaee5cc4b",
+        "question_number": 92,
+        "source_jsonl_line": 42962
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0133_40a745954fcda8c9.png",
+        "paper_title": "2018年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_36b1aef8260b30cba950",
+        "question_number": 93,
+        "source_jsonl_line": 42963
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0133_40a745954fcda8c9.png",
+        "paper_title": "2018年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_246244713ec3c3e0b346",
+        "question_number": 94,
+        "source_jsonl_line": 42964
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0137_e49816f9f8cdff72.png",
+        "paper_title": "2018年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_df8d86c5ae432bf00116",
+        "question_number": 95,
+        "source_jsonl_line": 42965
+      }
+    ],
+    "sha256": "641debacce0e833ca3d03dc66ba06865bcdcc2b25ee37ed868ffec66ded5a546"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2016年X省不同行政等级公路里程",
+  "unit": "公里",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_641debacce0e833ca3d03dc6/quadrant_01.jpg",
+        "review-crops/da_641debacce0e833ca3d03dc6/quadrant_02.jpg",
+        "review-crops/da_641debacce0e833ca3d03dc6/quadrant_03.jpg",
+        "review-crops/da_641debacce0e833ca3d03dc6/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.301",
+      "crop_verification_elapsed_seconds:1.543",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "label_geometry_count_mismatch:6!=5",
+      "circle_edge_coverage:0.9875",
+      "hough_circle_radius_ratio:0.3128",
+      "radial_line_candidates:9",
+      "detected_boundaries:5"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

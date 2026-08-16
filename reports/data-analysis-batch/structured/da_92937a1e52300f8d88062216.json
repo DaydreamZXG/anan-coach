@@ -1,0 +1,199 @@
+{
+  "asset_id": "da_92937a1e52300f8d88062216",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2010年浙江省公务员录用考试《行测》题（A类）_images/img_0213_7e455b9972384408.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年浙江省公务员录用考试《行测》题（A类）_images/img_0213_7e455b9972384408.jpg",
+        "paper_title": "2010年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_6abafb5c974c209a2949",
+        "question_number": 121,
+        "source_jsonl_line": 60163
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年浙江省公务员录用考试《行测》题（A类）_images/img_0215_a657f195a2508869.jpg",
+        "paper_title": "2010年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_8273cdaf933bf4c0d0e0",
+        "question_number": 122,
+        "source_jsonl_line": 60164
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年浙江省公务员录用考试《行测》题（A类）_images/img_0213_7e455b9972384408.jpg",
+        "paper_title": "2010年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_621f824eefe3e1a9971b",
+        "question_number": 123,
+        "source_jsonl_line": 60165
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年浙江省公务员录用考试《行测》题（A类）_images/img_0213_7e455b9972384408.jpg",
+        "paper_title": "2010年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_35a3bc557fc73ad3b432",
+        "question_number": 124,
+        "source_jsonl_line": 60166
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年浙江省公务员录用考试《行测》题（A类）_images/img_0215_a657f195a2508869.jpg",
+        "paper_title": "2010年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_7d45b463354d978bd223",
+        "question_number": 125,
+        "source_jsonl_line": 60167
+      }
+    ],
+    "sha256": "92937a1e52300f8d88062216deabacbc0938e13f00ebc568aabfce3e7ea51438"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "2007年度_财政收入(万元)",
+      "2007年度_房地产开发企业施工房屋面积(万平方米)",
+      "2008年度_财政收入(万元)",
+      "2008年度_房地产开发企业施工房屋面积(万平方米)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "上海",
+        "unit": null,
+        "values": [
+          "上海",
+          20744792,
+          10767,
+          23587464,
+          10784
+        ]
+      },
+      {
+        "label": "山东",
+        "unit": null,
+        "values": [
+          "山东",
+          16753980,
+          15165,
+          19570541,
+          20099
+        ]
+      },
+      {
+        "label": "湖南",
+        "unit": null,
+        "values": [
+          "湖南",
+          6065508,
+          8162,
+          7227122,
+          10716
+        ]
+      },
+      {
+        "label": "吉林",
+        "unit": null,
+        "values": [
+          "吉林",
+          3206892,
+          4370,
+          4227961,
+          4965
+        ]
+      },
+      {
+        "label": "新疆",
+        "unit": null,
+        "values": [
+          "新疆",
+          2856600,
+          2054,
+          3610616,
+          2639
+        ]
+      },
+      {
+        "label": "天津",
+        "unit": null,
+        "values": [
+          "天津",
+          5404390,
+          4837,
+          6756186,
+          5704
+        ]
+      },
+      {
+        "label": "云南",
+        "unit": null,
+        "values": [
+          "云南",
+          4867146,
+          4302,
+          6140518,
+          5368
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_92937a1e52300f8d88062216/row_band_01.jpg",
+        "review-crops/da_92937a1e52300f8d88062216/row_band_02.jpg",
+        "review-crops/da_92937a1e52300f8d88062216/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.864",
+      "crop_verification_elapsed_seconds:10.836",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "asset_id": "da_bbcb2920e20d59b946714c6b",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 40000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000,
+          30000,
+          35000,
+          40000
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2010年",
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国餐饮收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        17648,
+        20635,
+        23448,
+        25569,
+        27860,
+        32310,
+        35799
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0182_552cc9186023c97e.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0182_552cc9186023c97e.jpg",
+        "paper_title": "2019年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c6731fe6a069514ed24a",
+        "question_number": 121,
+        "source_jsonl_line": 10129
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0182_552cc9186023c97e.jpg",
+        "paper_title": "2019年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_86e6a8b1dcce67204da5",
+        "question_number": 122,
+        "source_jsonl_line": 10130
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0182_552cc9186023c97e.jpg",
+        "paper_title": "2019年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_09df9635b8d03427a0e3",
+        "question_number": 123,
+        "source_jsonl_line": 10131
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0182_552cc9186023c97e.jpg",
+        "paper_title": "2019年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_407e89b44426b3d17910",
+        "question_number": 124,
+        "source_jsonl_line": 10132
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0210_90159efa328e55d9.jpg",
+        "paper_title": "2019年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a67ad7a5ab3ad0478ce5",
+        "question_number": 125,
+        "source_jsonl_line": 10133
+      }
+    ],
+    "sha256": "bbcb2920e20d59b946714c6b2e0a9decacc26b39ae30590196938015951ef25d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2010～2016年全国餐饮收入",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_bbcb2920e20d59b946714c6b/column_band_01.jpg",
+        "review-crops/da_bbcb2920e20d59b946714c6b/column_band_02.jpg",
+        "review-crops/da_bbcb2920e20d59b946714c6b/column_band_03.jpg",
+        "review-crops/da_bbcb2920e20d59b946714c6b/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.355",
+      "crop_verification_elapsed_seconds:2.567",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "收案｜数量（件）",
+          "收案｜增长率（%）"
+        ],
+        "label": "收案"
+      },
+      {
+        "columns": [
+          "结案（件）｜合计",
+          "结案（件）｜调解",
+          "结案（件）｜判决",
+          "结案（件）｜其他"
+        ],
+        "label": "结案（件）"
+      },
+      "rows:[{"
+    ],
+    "columns": [
+      "收案｜数量（件）",
+      "收案｜增长率（%）",
+      "结案（件）｜合计",
+      "结案（件）｜调解",
+      "结案（件）｜判决",
+      "结案（件）｜其他"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          1423180,
+          3.15,
+          1428340,
+          698900,
+          387185,
+          342255
+        ]
+      },
+      {
+        "display_label": "婚姻家庭",
+        "group": null,
+        "label": "婚姻家庭",
+        "unit": null,
+        "values": [
+          1374136,
+          2.47,
+          1379463,
+          673749,
+          373883,
+          331831
+        ]
+      },
+      {
+        "display_label": "离婚",
+        "group": null,
+        "label": "离婚",
+        "unit": null,
+        "values": [
+          1164521,
+          1.92,
+          1168810,
+          567374,
+          321316,
+          280120
+        ]
+      },
+      {
+        "display_label": "赡养纠纷",
+        "group": null,
+        "label": "赡养纠纷",
+        "unit": null,
+        "values": [
+          26648,
+          -7.74,
+          26704,
+          11237,
+          6838,
+          8629
+        ]
+      },
+      {
+        "display_label": "抚养、扶养关系纠纷",
+        "group": null,
+        "label": "抚养、扶养关系纠纷",
+        "unit": null,
+        "values": [
+          50499,
+          2.65,
+          50547,
+          31082,
+          9584,
+          9881
+        ]
+      },
+      {
+        "display_label": "抚养费纠纷",
+        "group": null,
+        "label": "抚养费纠纷",
+        "unit": null,
+        "values": [
+          24020,
+          -6.27,
+          24269,
+          11502,
+          6902,
+          5865
+        ]
+      },
+      {
+        "display_label": "其他",
+        "group": "抚养费纠纷",
+        "label": "抚养费纠纷｜其他",
+        "unit": null,
+        "values": [
+          108448,
+          14.47,
+          109133,
+          52554,
+          29243,
+          27336
+        ]
+      },
+      {
+        "display_label": "继承",
+        "group": null,
+        "label": "继承",
+        "unit": null,
+        "values": [
+          49044,
+          26.85,
+          48877,
+          25151,
+          13302,
+          10424
+        ]
+      },
+      {
+        "display_label": "法定继承",
+        "group": null,
+        "label": "法定继承",
+        "unit": null,
+        "values": [
+          28439,
+          25.45,
+          28285,
+          15935,
+          6861,
+          5489
+        ]
+      },
+      {
+        "display_label": "遗嘱继承",
+        "group": null,
+        "label": "遗嘱继承",
+        "unit": null,
+        "values": [
+          4054,
+          21.38,
+          4076,
+          1790,
+          1439,
+          847
+        ]
+      },
+      {
+        "display_label": "其他",
+        "group": "遗嘱继承",
+        "label": "遗嘱继承｜其他",
+        "unit": null,
+        "values": [
+          16551,
+          30.81,
+          16516,
+          7426,
+          5002,
+          4088
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

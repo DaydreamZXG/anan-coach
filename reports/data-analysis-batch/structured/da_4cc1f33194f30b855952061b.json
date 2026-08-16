@@ -1,0 +1,280 @@
+{
+  "asset_id": "da_4cc1f33194f30b855952061b",
+  "axes": {
+    "x": {
+      "max": 3000,
+      "min": 0,
+      "ticks": [
+        0,
+        500,
+        1000,
+        1500,
+        2000,
+        2500,
+        3000
+      ],
+      "title": null,
+      "unit": "万名"
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "61岁及以上",
+    "56至60岁",
+    "51至55岁",
+    "46至50岁",
+    "41至45岁",
+    "36至40岁",
+    "31至35岁",
+    "30岁及以下"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "党员人数",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "党员人数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万名",
+      "values": [
+        2657.7,
+        745.1,
+        879.4,
+        936.2,
+        864.4,
+        882.7,
+        994.6,
+        1231.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0272_d97aadc49e8e0738.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0272_d97aadc49e8e0738.png",
+        "paper_title": "2021年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_86a730da4690a54f9da3",
+        "question_number": 96,
+        "source_jsonl_line": 5780
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0272_d97aadc49e8e0738.png",
+        "paper_title": "2021年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3401239096d2bb83b741",
+        "question_number": 97,
+        "source_jsonl_line": 5781
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0276_ab3f14e68984013d.png",
+        "paper_title": "2021年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c711ca5ff709250b4350",
+        "question_number": 98,
+        "source_jsonl_line": 5782
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0272_d97aadc49e8e0738.png",
+        "paper_title": "2021年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e43e2d6957d08b490b4e",
+        "question_number": 99,
+        "source_jsonl_line": 5783
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0272_d97aadc49e8e0738.png",
+        "paper_title": "2021年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_eb27d8d17b51ed8c6c1a",
+        "question_number": 100,
+        "source_jsonl_line": 5784
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0294_ab3f14e68984013d.png",
+        "paper_title": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_929cdfc07ea25d42c547",
+        "question_number": 116,
+        "source_jsonl_line": 8029
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0294_ab3f14e68984013d.png",
+        "paper_title": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6f15d53ecc7a8342ef3f",
+        "question_number": 117,
+        "source_jsonl_line": 8030
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0308_d97aadc49e8e0738.png",
+        "paper_title": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fb977219aefb1ddb2d70",
+        "question_number": 118,
+        "source_jsonl_line": 8031
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0294_ab3f14e68984013d.png",
+        "paper_title": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9ecf248ebf461544d759",
+        "question_number": 119,
+        "source_jsonl_line": 8032
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0294_ab3f14e68984013d.png",
+        "paper_title": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_278617a2a30e6868720d",
+        "question_number": 120,
+        "source_jsonl_line": 8033
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0208_ab3f14e68984013d.png",
+        "paper_title": "2021年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_30fd78a0e1c7fd46a8b3",
+        "question_number": 91,
+        "source_jsonl_line": 13407
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0209_d97aadc49e8e0738.png",
+        "paper_title": "2021年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5a1643752fc0491a92ab",
+        "question_number": 92,
+        "source_jsonl_line": 13408
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0208_ab3f14e68984013d.png",
+        "paper_title": "2021年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7bbd5edb267259b0745f",
+        "question_number": 93,
+        "source_jsonl_line": 13409
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0209_d97aadc49e8e0738.png",
+        "paper_title": "2021年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_feb299d1c280b905d70d",
+        "question_number": 94,
+        "source_jsonl_line": 13410
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0209_d97aadc49e8e0738.png",
+        "paper_title": "2021年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_faba7971f201ff2a1a6f",
+        "question_number": 95,
+        "source_jsonl_line": 13411
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年天津市公务员考试《行测》题（网友回忆版）_images/img_0338_d97aadc49e8e0738.png",
+        "paper_title": "2021年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_6689be6962b602452ddc",
+        "question_number": 116,
+        "source_jsonl_line": 23928
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年天津市公务员考试《行测》题（网友回忆版）_images/img_0338_d97aadc49e8e0738.png",
+        "paper_title": "2021年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_d470bc2e999f5841dc9b",
+        "question_number": 117,
+        "source_jsonl_line": 23929
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年天津市公务员考试《行测》题（网友回忆版）_images/img_0338_d97aadc49e8e0738.png",
+        "paper_title": "2021年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_26461b5d7ebcdb6e0ee6",
+        "question_number": 118,
+        "source_jsonl_line": 23930
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年天津市公务员考试《行测》题（网友回忆版）_images/img_0338_d97aadc49e8e0738.png",
+        "paper_title": "2021年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_3072aabe92a46a962073",
+        "question_number": 119,
+        "source_jsonl_line": 23931
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年天津市公务员考试《行测》题（网友回忆版）_images/img_0338_d97aadc49e8e0738.png",
+        "paper_title": "2021年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_6bfe2be2e1c7919f0419",
+        "question_number": 120,
+        "source_jsonl_line": 23932
+      }
+    ],
+    "sha256": "4cc1f33194f30b855952061b2d878e3aec4d3ecd8d2be2c8e4ec63095cda475c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "截至2019年12月31日中国共产党党员年龄构成",
+  "unit": "万名",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4cc1f33194f30b855952061b/column_band_01.jpg",
+        "review-crops/da_4cc1f33194f30b855952061b/column_band_02.jpg",
+        "review-crops/da_4cc1f33194f30b855952061b/column_band_03.jpg",
+        "review-crops/da_4cc1f33194f30b855952061b/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.892",
+      "crop_verification_elapsed_seconds:3.612",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

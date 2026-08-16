@@ -1,0 +1,243 @@
+{
+  "asset_id": "da_5844af8ce7dc77174bf6bc6e",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 10000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 12,
+        "min": 0,
+        "ticks": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "全国农村贫困人口（万人）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "全国农村贫困发生率（%）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国农村贫困人口（万人）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        9899,
+        8249,
+        7017,
+        5575,
+        4335,
+        3046,
+        1660
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "全国农村贫困发生率（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.2,
+        8.5,
+        7.2,
+        5.7,
+        4.5,
+        3.1,
+        1.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0136_d30795dd2cc0a48a.jpeg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0136_d30795dd2cc0a48a.jpeg",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_c1440a8714041364b4f4",
+        "question_number": 86,
+        "source_jsonl_line": 35118
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0145_d0154b9c4214149b.jpeg",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_aa182c7b5b225dd0f92d",
+        "question_number": 87,
+        "source_jsonl_line": 35119
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0136_d30795dd2cc0a48a.jpeg",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_8ff1087a052cdc62de70",
+        "question_number": 88,
+        "source_jsonl_line": 35120
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0145_d0154b9c4214149b.jpeg",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_0bf48717bdbaafdc4e80",
+        "question_number": 89,
+        "source_jsonl_line": 35121
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0136_d30795dd2cc0a48a.jpeg",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_147647b60add42c5a88a",
+        "question_number": 90,
+        "source_jsonl_line": 35122
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0165_d0154b9c4214149b.jpeg",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_d6ea794f9557bd838845",
+        "question_number": 91,
+        "source_jsonl_line": 35223
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0179_d30795dd2cc0a48a.jpeg",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_d69da8042e338fe31a03",
+        "question_number": 92,
+        "source_jsonl_line": 35224
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0165_d0154b9c4214149b.jpeg",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_756c720471b2dfacc583",
+        "question_number": 93,
+        "source_jsonl_line": 35225
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0165_d0154b9c4214149b.jpeg",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_62d196615a56beb04bed",
+        "question_number": 94,
+        "source_jsonl_line": 35226
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0179_d30795dd2cc0a48a.jpeg",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_f14a2c1ef7bea9937e55",
+        "question_number": 95,
+        "source_jsonl_line": 35227
+      }
+    ],
+    "sha256": "5844af8ce7dc77174bf6bc6e45583f998881614953d447abab6a792408ef70f1"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2012—2018年全国农村贫困人口和贫困发生率",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5844af8ce7dc77174bf6bc6e/column_band_01.jpg",
+        "review-crops/da_5844af8ce7dc77174bf6bc6e/column_band_02.jpg",
+        "review-crops/da_5844af8ce7dc77174bf6bc6e/column_band_03.jpg",
+        "review-crops/da_5844af8ce7dc77174bf6bc6e/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.729",
+      "crop_verification_elapsed_seconds:5.179",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

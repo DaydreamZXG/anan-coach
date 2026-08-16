@@ -1,0 +1,207 @@
+{
+  "asset_id": "da_20d84d4abb6c7043936160df",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2009年北京市公务员录用考试《行测》题（社招）_images/img_0250_667ca22430906f68.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0250_667ca22430906f68.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_07a62449e865962414eb",
+        "question_number": 126,
+        "source_jsonl_line": 8919
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0250_667ca22430906f68.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_02f3ff86d4a1b6cbdc0d",
+        "question_number": 127,
+        "source_jsonl_line": 8920
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0250_667ca22430906f68.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_0a8cab3f67d1983c6de5",
+        "question_number": 128,
+        "source_jsonl_line": 8921
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0250_667ca22430906f68.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_4e32f2c93971e7091472",
+        "question_number": 129,
+        "source_jsonl_line": 8922
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0250_667ca22430906f68.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_343a8d5ef3abaf8f5236",
+        "question_number": 130,
+        "source_jsonl_line": 8923
+      }
+    ],
+    "sha256": "20d84d4abb6c7043936160df48683ebedcd1365f4f7ebfb75ba4fa404cae144a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "9月",
+      "比上年同月增长%",
+      "1-9月",
+      "比上年同期增长%"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "铁路",
+        "group": "客运量",
+        "label": "客运量｜铁路",
+        "unit": "亿人",
+        "values": [
+          1.25,
+          12.8,
+          11.2,
+          11.8
+        ]
+      },
+      {
+        "display_label": "公路",
+        "group": "客运量",
+        "label": "客运量｜公路",
+        "unit": "亿人",
+        "values": [
+          18.47,
+          11.4,
+          163.06,
+          7.4
+        ]
+      },
+      {
+        "display_label": "水运",
+        "group": "客运量",
+        "label": "客运量｜水运",
+        "unit": "亿人",
+        "values": [
+          0.2,
+          -2.1,
+          1.73,
+          -2.7
+        ]
+      },
+      {
+        "display_label": "民航",
+        "group": "客运量",
+        "label": "客运量｜民航",
+        "unit": "亿人",
+        "values": [
+          0.16,
+          0.7,
+          1.41,
+          1.7
+        ]
+      },
+      {
+        "display_label": "铁路",
+        "group": "旅客周转量",
+        "label": "旅客周转量｜铁路",
+        "unit": "亿人公里",
+        "values": [
+          656.67,
+          9.3,
+          6073.82,
+          7.2
+        ]
+      },
+      {
+        "display_label": "公路",
+        "group": "旅客周转量",
+        "label": "旅客周转量｜公路",
+        "unit": "亿人公里",
+        "values": [
+          1067.85,
+          12.4,
+          9316.19,
+          9.4
+        ]
+      },
+      {
+        "display_label": "水运",
+        "group": "旅客周转量",
+        "label": "旅客周转量｜水运",
+        "unit": "亿人公里",
+        "values": [
+          6.46,
+          0.2,
+          52.79,
+          -6.4
+        ]
+      },
+      {
+        "display_label": "民航",
+        "group": "旅客周转量",
+        "label": "旅客周转量｜民航",
+        "unit": "亿人公里",
+        "values": [
+          240.96,
+          -2.5,
+          2113.91,
+          1.5
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

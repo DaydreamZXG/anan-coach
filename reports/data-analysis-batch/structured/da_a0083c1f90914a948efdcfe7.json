@@ -1,0 +1,313 @@
+{
+  "asset_id": "da_a0083c1f90914a948efdcfe7",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000,
+          60000,
+          70000,
+          80000,
+          90000,
+          100000
+        ],
+        "title": null,
+        "unit": "万户"
+      }
+    ]
+  },
+  "categories": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "固定互联网宽带接入用户",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "移动宽带用户",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "固定互联网宽带接入用户",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万户",
+      "values": [
+        17518,
+        18891,
+        20048,
+        25947,
+        29721
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "移动宽带用户",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万户",
+      "values": [
+        23280,
+        40161,
+        58254,
+        70611,
+        94075
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2018年421联考《行测》题（天津卷）（网友回忆版）_images/img_0262_a7114e95437f67a4.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（天津卷）（网友回忆版）_images/img_0262_a7114e95437f67a4.png",
+        "paper_title": "2018年421联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_963937fbee1c404c31e6",
+        "question_number": 116,
+        "source_jsonl_line": 23518
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（天津卷）（网友回忆版）_images/img_0262_a7114e95437f67a4.png",
+        "paper_title": "2018年421联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_1a6b7a55be57532353dc",
+        "question_number": 117,
+        "source_jsonl_line": 23519
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（天津卷）（网友回忆版）_images/img_0281_2bae8d7186a536e3.png",
+        "paper_title": "2018年421联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_f6f5851afdea2051eb6f",
+        "question_number": 118,
+        "source_jsonl_line": 23520
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（天津卷）（网友回忆版）_images/img_0281_2bae8d7186a536e3.png",
+        "paper_title": "2018年421联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_2b45d5194324e6703cf7",
+        "question_number": 119,
+        "source_jsonl_line": 23521
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（天津卷）（网友回忆版）_images/img_0262_a7114e95437f67a4.png",
+        "paper_title": "2018年421联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_214e3e2617d91f97ff1e",
+        "question_number": 120,
+        "source_jsonl_line": 23522
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（安徽卷）（网友回忆版）_images/img_0292_a7114e95437f67a4.png",
+        "paper_title": "2018年421联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_fcfbf71feba19ab803bb",
+        "question_number": 106,
+        "source_jsonl_line": 27860
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（安徽卷）（网友回忆版）_images/img_0265_2bae8d7186a536e3.png",
+        "paper_title": "2018年421联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_15fc1a19655a9add2d35",
+        "question_number": 107,
+        "source_jsonl_line": 27861
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（安徽卷）（网友回忆版）_images/img_0265_2bae8d7186a536e3.png",
+        "paper_title": "2018年421联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_b5b9282f6e5762144add",
+        "question_number": 108,
+        "source_jsonl_line": 27862
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（安徽卷）（网友回忆版）_images/img_0292_a7114e95437f67a4.png",
+        "paper_title": "2018年421联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_160b99cbd51774e62a23",
+        "question_number": 109,
+        "source_jsonl_line": 27863
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（安徽卷）（网友回忆版）_images/img_0265_2bae8d7186a536e3.png",
+        "paper_title": "2018年421联考《行测》题（安徽卷）（网友回忆版）",
+        "question_id": "pq_2368939ddb6c5ffc9ebd",
+        "question_number": 110,
+        "source_jsonl_line": 27864
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（山西卷）（网友回忆版）_images/img_0168_a7114e95437f67a4.png",
+        "paper_title": "2018年421联考《行测》题（山西卷）（网友回忆版）",
+        "question_id": "pq_a87c997bdf567d83537f",
+        "question_number": 111,
+        "source_jsonl_line": 32429
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（山西卷）（网友回忆版）_images/img_0184_2bae8d7186a536e3.png",
+        "paper_title": "2018年421联考《行测》题（山西卷）（网友回忆版）",
+        "question_id": "pq_6d8c2e93f64008434d7a",
+        "question_number": 112,
+        "source_jsonl_line": 32430
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（山西卷）（网友回忆版）_images/img_0184_2bae8d7186a536e3.png",
+        "paper_title": "2018年421联考《行测》题（山西卷）（网友回忆版）",
+        "question_id": "pq_bfdf0ce65220fcf452bf",
+        "question_number": 113,
+        "source_jsonl_line": 32431
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（山西卷）（网友回忆版）_images/img_0184_2bae8d7186a536e3.png",
+        "paper_title": "2018年421联考《行测》题（山西卷）（网友回忆版）",
+        "question_id": "pq_af69b998a3da01249cbe",
+        "question_number": 114,
+        "source_jsonl_line": 32432
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（山西卷）（网友回忆版）_images/img_0184_2bae8d7186a536e3.png",
+        "paper_title": "2018年421联考《行测》题（山西卷）（网友回忆版）",
+        "question_id": "pq_d1560086694be324e08d",
+        "question_number": 115,
+        "source_jsonl_line": 32433
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（新疆卷）（网友回忆版）_images/img_0264_2bae8d7186a536e3.png",
+        "paper_title": "2018年421联考《行测》题（新疆卷）（网友回忆版）",
+        "question_id": "pq_4ce7f3ab8d3349f0cbe2",
+        "question_number": 116,
+        "source_jsonl_line": 42866
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（新疆卷）（网友回忆版）_images/img_0264_2bae8d7186a536e3.png",
+        "paper_title": "2018年421联考《行测》题（新疆卷）（网友回忆版）",
+        "question_id": "pq_24d254aac10763a1cd8e",
+        "question_number": 117,
+        "source_jsonl_line": 42867
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（新疆卷）（网友回忆版）_images/img_0264_2bae8d7186a536e3.png",
+        "paper_title": "2018年421联考《行测》题（新疆卷）（网友回忆版）",
+        "question_id": "pq_23b76e90e113cbc3b7e7",
+        "question_number": 118,
+        "source_jsonl_line": 42868
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（新疆卷）（网友回忆版）_images/img_0264_2bae8d7186a536e3.png",
+        "paper_title": "2018年421联考《行测》题（新疆卷）（网友回忆版）",
+        "question_id": "pq_5e84bab93d4c78765440",
+        "question_number": 119,
+        "source_jsonl_line": 42869
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（新疆卷）（网友回忆版）_images/img_0264_2bae8d7186a536e3.png",
+        "paper_title": "2018年421联考《行测》题（新疆卷）（网友回忆版）",
+        "question_id": "pq_594e2681af8fb0bc47ff",
+        "question_number": 120,
+        "source_jsonl_line": 42870
+      }
+    ],
+    "sha256": "a0083c1f90914a948efdcfe7c838174e2661d823f6ab1d04011f1d58e6aa626c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2012-2016年年末固定互联网宽带接入用户和移动宽带用户数",
+  "unit": "万户",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a0083c1f90914a948efdcfe7/column_band_01.jpg",
+        "review-crops/da_a0083c1f90914a948efdcfe7/column_band_02.jpg",
+        "review-crops/da_a0083c1f90914a948efdcfe7/column_band_03.jpg",
+        "review-crops/da_a0083c1f90914a948efdcfe7/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.366",
+      "crop_verification_elapsed_seconds:3.315",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

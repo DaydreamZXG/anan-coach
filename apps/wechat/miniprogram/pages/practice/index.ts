@@ -23,6 +23,7 @@ import { createCoachRepository } from "../../data/coach-repository";
 import {
   checkpointCommand,
   mergePendingDraft,
+  reconcileConfirmedCheckpoint,
   resolveXingcePlanTaskId,
   runtimeFromXingceSession,
   runtimeWithPendingCheckpoint,
@@ -141,6 +142,8 @@ interface PracticePageData extends TaskInteractionProjection {
   questionTransition: "" | "prev" | "next";
   questionAnnotations: AnnotationStroke[];
   materialAnnotations: AnnotationStroke[];
+  annotationTool: "pan" | "pen" | "highlighter" | "eraser";
+  annotationCanvas: "question" | "material";
   /** 契约增量 v2：当前题干句段的视口矩形表，喂给批注层做锚定与滚动跟随。 */
   annotationSegments: AnchorSegmentRect[];
   /** 契约增量 v2：题干实时 scrollTop，驱动批注绘制换算（与受控 scroll-top 分离）。 */
@@ -206,6 +209,12 @@ interface PracticePageCustom {
   closeAnanContext(): void;
   openAnnotation(): void;
   openMaterialAnnotation(): void;
+  switchAnnotationSurface(
+    event: WechatMiniprogram.CustomEvent<{ surface: "question" | "material" }>,
+  ): void;
+  changeAnnotationTool(event: WechatMiniprogram.CustomEvent<{ tool: string }>): void;
+  focusQuestionAnnotation(): void;
+  focusMaterialAnnotation(): void;
   closeAnnotation(): void;
   changeAnnotations(
     event: WechatMiniprogram.CustomEvent<{
@@ -288,6 +297,10 @@ const initialPracticeInteractionProjection = projectTaskInteraction(
   initialPracticeInteractionState,
 );
 
+function normalizePageAnnotationTool(value: string): "pan" | "pen" | "highlighter" | "eraser" {
+  return value === "pen" || value === "highlighter" || value === "eraser" ? value : "pan";
+}
+
 Page<PracticePageData, PracticePageCustom>({
   data: {
     status: "loading",
@@ -334,6 +347,8 @@ Page<PracticePageData, PracticePageCustom>({
     questionTransition: "",
     questionAnnotations: [] as AnnotationStroke[],
     materialAnnotations: [] as AnnotationStroke[],
+    annotationTool: "pan" as const,
+    annotationCanvas: "question" as const,
     annotationSegments: [] as AnchorSegmentRect[],
     questionScrollPosition: 0,
     questionContentHeight: 0,
@@ -645,6 +660,8 @@ Page<PracticePageData, PracticePageCustom>({
       { type: "OVERLAY_OPENED", overlay: "tools" },
       {
         selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
+        annotationTool: "pan",
+        annotationCanvas: "question",
       },
     );
   },
@@ -672,11 +689,14 @@ Page<PracticePageData, PracticePageCustom>({
   openAnnotation() {
     const runtime = runtimes.get(this);
     if (!runtime?.session || runtime.session.state !== "answering") return;
+    const surface = this.data.view?.question.material ? "material" : "question";
     transitionPracticeInteraction(
       this,
-      { type: "ANNOTATION_OPENED", surface: "question" },
+      { type: "ANNOTATION_OPENED", surface },
       {
         selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
+        annotationTool: "pan",
+        annotationCanvas: surface,
       },
     );
     // 契约增量 v2：打开批注即触发句段重测，确保批注层拿到的 anchors 是最新位置。
@@ -697,6 +717,33 @@ Page<PracticePageData, PracticePageCustom>({
         selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
       },
     );
+  },
+
+  switchAnnotationSurface(event) {
+    const surface = event.detail.surface;
+    if (surface === "material" && !this.data.view?.question.material) return;
+    const runtime = runtimes.get(this);
+    if (!runtime?.session || runtime.session.state !== "answering") return;
+    transitionPracticeInteraction(this, { type: "ANNOTATION_OPENED", surface });
+    this.setData({ annotationCanvas: surface });
+    if (surface === "question") requestSegmentRects(this);
+  },
+
+  changeAnnotationTool(event) {
+    const tool = normalizePageAnnotationTool(event.detail.tool);
+    if (tool !== this.data.annotationTool) this.setData({ annotationTool: tool });
+  },
+
+  focusQuestionAnnotation() {
+    if (this.data.annotationOpen && this.data.annotationCanvas !== "question") {
+      this.setData({ annotationCanvas: "question" });
+    }
+  },
+
+  focusMaterialAnnotation() {
+    if (this.data.annotationOpen && this.data.annotationCanvas !== "material") {
+      this.setData({ annotationCanvas: "material" });
+    }
   },
 
   // 契约增量 v2：内容坐标系下滚动天然跟随 —— 只把 scrollTop 传给批注层做
@@ -2204,6 +2251,14 @@ async function performCheckpointSave(
       return;
     }
     page.setData({ hasPendingCheckpoint: false, pendingCheckpointMessage: "" });
+    const reconciled = reconcileConfirmedCheckpoint(saved.data, pending.command, runtime.task);
+    if (reconciled.requiresFollowup) {
+      runtime.session = saved.data;
+      runtime.task = reconciled.runtime;
+      runtime.saveInFlight = false;
+      await performCheckpointSave(page, runtime, conflictRetry);
+      return;
+    }
     applySavedCheckpoint(page, runtime, saved.data);
   } catch (error) {
     if (!runtimes.owns(page, runtime)) return;

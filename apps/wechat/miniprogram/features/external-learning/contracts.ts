@@ -7,6 +7,25 @@ import type {
   SourceArtifactVersion,
   SourceKind,
 } from "../../api/external-learning-contracts";
+import type {
+  CreatePrivateQuestionBookCommand,
+  PrivateQuestionBookDetail,
+  PrivateQuestionBookList,
+  PrivateQuestionBookPracticeLaunch,
+  PrivateQuestionBookSummary,
+  PrivateSourceDeletionView,
+  StartPrivateQuestionBookPracticeCommand,
+} from "../../api/generated/types.gen";
+
+export type {
+  CreatePrivateQuestionBookCommand,
+  PrivateQuestionBookDetail,
+  PrivateQuestionBookList,
+  PrivateQuestionBookPracticeLaunch,
+  PrivateQuestionBookSummary,
+  PrivateSourceDeletionView,
+  StartPrivateQuestionBookPracticeCommand,
+};
 
 export type ImportSourceKind = Extract<SourceKind, "camera_image" | "image_import" | "pdf_upload">;
 
@@ -282,7 +301,25 @@ export interface ExternalLearningGateway {
   confirmMatch(command: MatchConfirmationCommand, idempotencyKey: string): Promise<ImportWorkspace>;
   requestAIAnswer(command: AIAnswerRequestCommand, idempotencyKey: string): Promise<void>;
   confirmAIAnswer(command: AIAnswerConfirmationCommand, idempotencyKey: string): Promise<void>;
+}
 
+export interface PrivateQuestionBookGateway {
+  createQuestionBook(
+    command: CreatePrivateQuestionBookCommand,
+    idempotencyKey: string,
+  ): Promise<PrivateQuestionBookDetail>;
+  listQuestionBooks(): Promise<PrivateQuestionBookList>;
+  getQuestionBook(bookId: string): Promise<PrivateQuestionBookDetail>;
+  startQuestionBookPractice(
+    bookId: string,
+    command: StartPrivateQuestionBookPracticeCommand,
+    idempotencyKey: string,
+  ): Promise<PrivateQuestionBookPracticeLaunch>;
+  deleteQuestionBook(bookId: string, idempotencyKey: string): Promise<PrivateSourceDeletionView>;
+  getQuestionBookDeletion(deletionRequestId: string): Promise<PrivateSourceDeletionView>;
+}
+
+export interface ExternalLearningGateway {
   listPackets(): Promise<PacketListSnapshot>;
   createPacket(command: CreatePacketCommand, idempotencyKey: string): Promise<OfflinePacketVersion>;
   retryPacket(command: RetryPacketCommand, idempotencyKey: string): Promise<OfflinePacketVersion>;
@@ -334,6 +371,23 @@ export function requireExternalLearningGateway(
     throw new Error("External learning API gateway is not configured");
   }
   return gatewayFactory(context);
+}
+
+export function requirePrivateQuestionBookGateway(
+  gateway: ExternalLearningGateway,
+): PrivateQuestionBookGateway {
+  const candidate = gateway as ExternalLearningGateway & Partial<PrivateQuestionBookGateway>;
+  if (
+    typeof candidate.createQuestionBook !== "function" ||
+    typeof candidate.listQuestionBooks !== "function" ||
+    typeof candidate.getQuestionBook !== "function" ||
+    typeof candidate.startQuestionBookPractice !== "function" ||
+    typeof candidate.deleteQuestionBook !== "function" ||
+    typeof candidate.getQuestionBookDeletion !== "function"
+  ) {
+    throw new Error("Private question book API gateway is not configured");
+  }
+  return candidate as ExternalLearningGateway & PrivateQuestionBookGateway;
 }
 
 export function resetExternalLearningGatewayFactoryForTests(): void {

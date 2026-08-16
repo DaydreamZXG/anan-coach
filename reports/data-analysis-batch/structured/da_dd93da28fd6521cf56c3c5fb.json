@@ -1,0 +1,165 @@
+{
+  "asset_id": "da_dd93da28fd6521cf56c3c5fb",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "灰色",
+    "斜线",
+    "白色"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "灰色",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "斜线",
+      "style": {
+        "dash": null,
+        "fill": "hatch",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "白色",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -137.5,
+      3.5,
+      136.0,
+      222.5
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 3.5,
+        "label": "灰色",
+        "share": 0.39166667,
+        "start_angle": -137.5,
+        "sweep_angle": 141.0
+      },
+      {
+        "end_angle": 136.0,
+        "label": "斜线",
+        "share": 0.36805556,
+        "start_angle": 3.5,
+        "sweep_angle": 132.5
+      },
+      {
+        "end_angle": 222.5,
+        "label": "白色",
+        "share": 0.24027778,
+        "start_angle": 136.0,
+        "sweep_angle": 86.5
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.39166667,
+        0.36805556,
+        0.24027778
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0127_58a4968cba9be731.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0127_58a4968cba9be731.png",
+        "paper_title": "2025年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ae482d5e7a19fa661642",
+        "question_number": 110,
+        "source_jsonl_line": 24372
+      }
+    ],
+    "sha256": "dd93da28fd6521cf56c3c5fb0c4989a0b737faca94275dc11d4a25383cdc4ef6"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_dd93da28fd6521cf56c3c5fb/quadrant_01.jpg",
+        "review-crops/da_dd93da28fd6521cf56c3c5fb/quadrant_02.jpg",
+        "review-crops/da_dd93da28fd6521cf56c3c5fb/quadrant_03.jpg",
+        "review-crops/da_dd93da28fd6521cf56c3c5fb/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.495",
+      "crop_verification_elapsed_seconds:0.727",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:饼图未提供具体数值，仅能识别标签和填充样式",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:1.0000",
+      "hough_circle_radius_ratio:0.1845",
+      "radial_line_candidates:27",
+      "detected_boundaries:3"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

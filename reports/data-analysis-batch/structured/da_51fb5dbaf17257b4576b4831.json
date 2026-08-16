@@ -1,0 +1,264 @@
+{
+  "asset_id": "da_51fb5dbaf17257b4576b4831",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.92,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0121_70806b4b9786b765.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0121_70806b4b9786b765.png",
+        "paper_title": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_bcdb255e7ff35fa2ca49",
+        "question_number": 76,
+        "source_jsonl_line": 86703
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0121_70806b4b9786b765.png",
+        "paper_title": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_1a8fc93dcb08f7e8f066",
+        "question_number": 77,
+        "source_jsonl_line": 86704
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0121_70806b4b9786b765.png",
+        "paper_title": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_73ab33f135ecbb36c18e",
+        "question_number": 78,
+        "source_jsonl_line": 86705
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0144_5d034d89e3f1f3fb.png",
+        "paper_title": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_438956f406ff3bf1bfcc",
+        "question_number": 79,
+        "source_jsonl_line": 86706
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0144_5d034d89e3f1f3fb.png",
+        "paper_title": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_12ffff8efda76d26888d",
+        "question_number": 80,
+        "source_jsonl_line": 86707
+      }
+    ],
+    "sha256": "51fb5dbaf17257b4576b483117ad757dfbecca1bf1a74a3729836f9bcd08d272"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "32100",
+      "第2列",
+      "33104"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "display_label": "七、中草药材",
+        "group": null,
+        "label": "七、中草药材",
+        "unit": null,
+        "values": [
+          32100,
+          null,
+          33104
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "column_groups": [],
+        "columns": [
+          "32100",
+          "第2列",
+          "33104"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "七、中草药材",
+            "group": null,
+            "label": "七、中草药材",
+            "unit": null,
+            "values": [
+              32100,
+              null,
+              33104
+            ]
+          }
+        ],
+        "sections": [],
+        "title": "七、中草药材"
+      },
+      {
+        "column_groups": [],
+        "columns": [
+          "1862410",
+          "99736978",
+          "53553",
+          "1888555",
+          "102728735",
+          "54395"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "八、蔬菜及食用菌",
+            "group": null,
+            "label": "八、蔬菜及食用菌",
+            "unit": null,
+            "values": [
+              1862410,
+              99736978,
+              53553,
+              1888555,
+              102728735,
+              54395
+            ]
+          }
+        ],
+        "sections": [],
+        "title": "八、蔬菜及食用菌"
+      },
+      {
+        "column_groups": [],
+        "columns": [
+          "282005",
+          "14685661",
+          "52076",
+          "286759",
+          "15156109",
+          "52853"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "九、瓜果类",
+            "group": null,
+            "label": "九、瓜果类",
+            "unit": null,
+            "values": [
+              282005,
+              14685661,
+              52076,
+              286759,
+              15156109,
+              52853
+            ]
+          }
+        ],
+        "sections": [],
+        "title": "九、瓜果类"
+      },
+      {
+        "column_groups": [],
+        "columns": [
+          "27317",
+          "第2列",
+          "27891"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "十、其他农作物",
+            "group": null,
+            "label": "十、其他农作物",
+            "unit": null,
+            "values": [
+              27317,
+              null,
+              27891
+            ]
+          }
+        ],
+        "sections": [],
+        "title": "十、其他农作物"
+      },
+      {
+        "column_groups": [],
+        "columns": [
+          "3226",
+          "第2列",
+          "1941"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "#清饲料",
+            "group": null,
+            "label": "#清饲料",
+            "unit": null,
+            "values": [
+              3226,
+              null,
+              1941
+            ]
+          }
+        ],
+        "sections": [],
+        "title": "#清饲料"
+      }
+    ],
+    "title": "七、中草药材"
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.92,
+    "schema_valid": true
+  }
+}

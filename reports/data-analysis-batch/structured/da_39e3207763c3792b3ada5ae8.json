@@ -1,0 +1,181 @@
+{
+  "asset_id": "da_39e3207763c3792b3ada5ae8",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2014年国家公务员录用考试《行测》题_images/img_0153_c3d6d84cad8b79fe.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0153_c3d6d84cad8b79fe.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_8d991f44460e68bc1c1d",
+        "question_number": 131,
+        "source_jsonl_line": 18071
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0153_c3d6d84cad8b79fe.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_cf28c820d56c421e0ca1",
+        "question_number": 132,
+        "source_jsonl_line": 18072
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0153_c3d6d84cad8b79fe.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_ed579dec51f7c13f6377",
+        "question_number": 133,
+        "source_jsonl_line": 18073
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0153_c3d6d84cad8b79fe.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_2c285c5a54acc77c0948",
+        "question_number": 134,
+        "source_jsonl_line": 18074
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0153_c3d6d84cad8b79fe.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_eb5cd39d7a4fca9fd88b",
+        "question_number": 135,
+        "source_jsonl_line": 18075
+      }
+    ],
+    "sha256": "39e3207763c3792b3ada5ae807495ccd13d527ae4c5bc6662407963721a95ed9"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2008",
+      "2009",
+      "2010",
+      "2011",
+      "2012"
+    ],
+    "corner_header": {
+      "lower_label": "/",
+      "style": "diagonal",
+      "upper_label": "/"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "总上网电量",
+        "group": "上网电量",
+        "label": "上网电量｜总上网电量",
+        "unit": null,
+        "values": [
+          22800,
+          24300,
+          28800,
+          32400,
+          33900
+        ]
+      },
+      {
+        "display_label": "其中：清洁能源机组上网电量",
+        "group": "上网电量",
+        "label": "上网电量｜其中：清洁能源机组上网电量",
+        "unit": null,
+        "values": [
+          4161,
+          4321,
+          4903,
+          5943,
+          7177
+        ]
+      },
+      {
+        "display_label": "其中：水电上网电量",
+        "group": "上网电量",
+        "label": "上网电量｜其中：水电上网电量",
+        "unit": null,
+        "values": [
+          3662,
+          3692,
+          4103,
+          4373,
+          5518
+        ]
+      },
+      {
+        "display_label": "核电上网电量",
+        "group": "上网电量",
+        "label": "上网电量｜核电上网电量",
+        "unit": null,
+        "values": [
+          353,
+          355,
+          308,
+          416,
+          475
+        ]
+      },
+      {
+        "display_label": "新能源发电机组上网电量",
+        "group": "上网电量",
+        "label": "上网电量｜新能源发电机组上网电量",
+        "unit": null,
+        "values": [
+          146,
+          274,
+          492,
+          1154,
+          1184
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

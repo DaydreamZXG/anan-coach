@@ -1,0 +1,235 @@
+{
+  "asset_id": "da_46fe83bad717bdcce2c0da64",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2021",
+    "2022",
+    "2023",
+    "2024"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "无人机运营企业数量（家）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "家",
+      "values": [
+        12663,
+        15130,
+        19925,
+        19979
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "全行业注册无人机总数（万架）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万架",
+      "values": [
+        83.2,
+        95.8,
+        126.7,
+        217.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "无人机飞行小时（万小时）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万小时",
+      "values": [
+        1947,
+        2067,
+        2311,
+        2866.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/上海/2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0162_17b56d03291caa70.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0162_17b56d03291caa70.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_dbb2f456c0ad9f9f7264",
+        "question_number": 121,
+        "source_jsonl_line": 4061
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0165_930486658356df4c.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_02558d7d9744c5d4be84",
+        "question_number": 122,
+        "source_jsonl_line": 4062
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0165_930486658356df4c.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7d7b583aea3e82a7f41c",
+        "question_number": 123,
+        "source_jsonl_line": 4063
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0162_17b56d03291caa70.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4fb2c2ef92276af3e2de",
+        "question_number": 124,
+        "source_jsonl_line": 4064
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0162_17b56d03291caa70.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bc32e1468e9ef62a6323",
+        "question_number": 125,
+        "source_jsonl_line": 4065
+      }
+    ],
+    "sha256": "46fe83bad717bdcce2c0da644aa081fa519e4fa8bd360ecf0c30fa1ad797cfd8"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年度",
+      "无人机运营企业数量（家）",
+      "全行业注册无人机总数（万架）",
+      "无人机飞行小时（万小时）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2021",
+        "unit": null,
+        "values": [
+          2021,
+          12663,
+          83.2,
+          1947
+        ]
+      },
+      {
+        "label": "2022",
+        "unit": null,
+        "values": [
+          2022,
+          15130,
+          95.8,
+          2067
+        ]
+      },
+      {
+        "label": "2023",
+        "unit": null,
+        "values": [
+          2023,
+          19925,
+          126.7,
+          2311
+        ]
+      },
+      {
+        "label": "2024",
+        "unit": null,
+        "values": [
+          2024,
+          19979,
+          217.7,
+          2866.7
+        ]
+      }
+    ]
+  },
+  "title": "表 2 2021-2024年民用无人机驾驶主要指标",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_46fe83bad717bdcce2c0da64/row_band_01.jpg",
+        "review-crops/da_46fe83bad717bdcce2c0da64/row_band_02.jpg",
+        "review-crops/da_46fe83bad717bdcce2c0da64/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.415",
+      "crop_verification_elapsed_seconds:12.426",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2021年无人机运营企业数量为12663，原为12663（无误）",
+      "crop_note:修正了2021年全行业注册无人机总数为83.2，原为83.2（无误）",
+      "crop_note:修正了2021年无人机飞行小时为1947，原为1947（无误）",
+      "crop_note:修正了2022年无人机运营企业数量为15130，原为15130（无误）",
+      "crop_note:修正了2022年全行业注册无人机总数为95.8，原为95.8（无误）",
+      "crop_note:修正了2022年无人机飞行小时为2067，原为2067（无误）",
+      "crop_note:修正了2023年无人机运营企业数量为19925，原为19925（无误）",
+      "crop_note:修正了2023年全行业注册无人机总数为126.7，原为126.7（无误）",
+      "crop_note:修正了2023年无人机飞行小时为2311，原为2311（无误）",
+      "crop_note:修正了2024年无人机运营企业数量为19979，原为19979（无误）",
+      "crop_note:修正了2024年全行业注册无人机总数为217.7，原为217.7（无误）",
+      "crop_note:修正了2024年无人机飞行小时为2866.7，原为2866.7（无误）"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

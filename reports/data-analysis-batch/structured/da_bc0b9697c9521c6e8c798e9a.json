@@ -1,0 +1,176 @@
+{
+  "asset_id": "da_bc0b9697c9521c6e8c798e9a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "小家电品类",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 160,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100,
+          120,
+          140,
+          160
+        ],
+        "title": "零售额",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "榨汁机",
+    "电饭锅",
+    "台式烤箱",
+    "电蒸锅",
+    "豆浆机",
+    "养生壶",
+    "咖啡壶",
+    "煎烤机",
+    "搅拌机",
+    "电磁炉",
+    "电水壶",
+    "空气炸锅",
+    "电压力锅",
+    "破壁机",
+    "电饭煲"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "零售额",
+      "style": {
+        "dash": "solid",
+        "fill": "blue",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "零售额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        6.5,
+        12,
+        12.1,
+        18.2,
+        19.3,
+        22.4,
+        26.8,
+        27.7,
+        30.1,
+        35.8,
+        44.2,
+        44.5,
+        53.6,
+        62.7,
+        133.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0143_c96bca5856696c41.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0143_c96bca5856696c41.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_d8ac8e2f46bc89f288c4",
+        "question_number": 121,
+        "source_jsonl_line": 21236
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0156_23ed9a1548e0072a.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_e32e991d0d5f9d5eeab5",
+        "question_number": 122,
+        "source_jsonl_line": 21237
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0143_c96bca5856696c41.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_633be47bde9d8f75d84e",
+        "question_number": 123,
+        "source_jsonl_line": 21238
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0156_23ed9a1548e0072a.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_ca4ff8a4ea60bb2428d5",
+        "question_number": 124,
+        "source_jsonl_line": 21239
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0156_23ed9a1548e0072a.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_85cd29530a22ab10bfc9",
+        "question_number": 125,
+        "source_jsonl_line": 21240
+      }
+    ],
+    "sha256": "bc0b9697c9521c6e8c798e9a20e7537c52700fe6cec58567bffa9b6435599e7f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2023年我国厨房小家电分品类零售额情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_bc0b9697c9521c6e8c798e9a/column_band_01.jpg",
+        "review-crops/da_bc0b9697c9521c6e8c798e9a/column_band_02.jpg",
+        "review-crops/da_bc0b9697c9521c6e8c798e9a/column_band_03.jpg",
+        "review-crops/da_bc0b9697c9521c6e8c798e9a/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.787",
+      "crop_verification_elapsed_seconds:4.121",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

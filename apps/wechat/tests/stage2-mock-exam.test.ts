@@ -424,7 +424,12 @@ describe("stage 2 F02 mock exam", () => {
       "wx:if=\"{{annotationMode === 'annotate' || questionAnnotations.length}}\"",
     );
     expect(mockExamTemplate).toContain(
-      "mode=\"{{annotationMode === 'annotate' && annotationSurface === 'question' ? 'annotate' : 'static'}}\"",
+      "mode=\"{{annotationMode === 'annotate' ? 'annotate' : 'static'}}\"",
+    );
+    expect(mockExamTemplate).toContain("annotationOpen=\"{{annotationMode === 'annotate'}}\"");
+    expect(mockExamTemplate).toContain('surfaceSwitchAvailable="{{false}}"');
+    expect(mockExamTemplate).toContain(
+      "toolbarAvailable=\"{{annotationCanvas === 'question' && !materialOpen}}\"",
     );
 
     harness.page.openAnnotation.call(harness.page);

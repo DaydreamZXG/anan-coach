@@ -32,6 +32,7 @@ from app.domains.external_ingestion.recognition.models import (
     OMRLayout,
     ProcessorApproval,
     ProcessorRequest,
+    ProcessorResult,
     QuestionUnit,
     provider_replay_key,
 )
@@ -40,6 +41,9 @@ from app.domains.external_ingestion.recognition.operation_contracts import (
     RecognitionOperationSpec,
 )
 from app.domains.external_ingestion.recognition.processor import ProcessorRegistry
+from app.domains.external_ingestion.recognition.question_region_visual import (
+    derive_question_region_visual_evidence,
+)
 from app.domains.external_ingestion.recognition.repository import RecognitionRepositoryPort
 
 
@@ -152,22 +156,28 @@ class RecognitionService:
         try:
             result = processor.process(processor_request)
             provider_response_received = True
+            question_units = (
+                _question_units(
+                    input_sha256=artifact.content_sha256,
+                    segments=result.segments,
+                )
+                if recognition_kind == RecognitionKind.EXAM_SEGMENTATION
+                else ()
+            )
             payload = RecognitionCandidatePayload(
                 kind=recognition_kind,
                 textSpans=result.text_spans,
                 segments=result.segments,
-                questionUnits=(
-                    _question_units(
-                        input_sha256=artifact.content_sha256,
-                        segments=result.segments,
-                    )
-                    if recognition_kind == RecognitionKind.EXAM_SEGMENTATION
-                    else ()
-                ),
+                questionUnits=question_units,
                 omrMarks=result.omr_marks,
                 pageImageSha256=result.page_image_sha256,
                 visualFingerprints=result.visual_fingerprints,
                 visualFeatureHashes=result.visual_feature_hashes,
+                questionRegionVisualEvidence=_question_region_visual_evidence(
+                    processor=processor,
+                    result=result,
+                    question_units=question_units,
+                ),
                 processorRequestIdHash=sha256(
                     result.provider_request_id.encode("utf-8")
                 ).hexdigest(),
@@ -232,19 +242,11 @@ class RecognitionService:
             raise RecognitionTransitionError(
                 "expired recognition must be reprocessed before correction"
             )
-        secure_payload = RecognitionCandidatePayload(
-            kind=source.recognition_kind,
-            textSpans=corrected_payload.text_spans,
-            segments=corrected_payload.segments,
-            questionUnits=corrected_payload.question_units,
-            omrMarks=corrected_payload.omr_marks,
-            pageImageSha256=_payload(source).page_image_sha256,
-            visualFingerprints=_payload(source).visual_fingerprints,
-            processorRequestIdHash=_payload(source).processor_request_id_hash,
-            processorOutputContract=_payload(source).processor_output_contract,
-            requestHash="0" * 64,
-            predecessorRevisionId=source.recognition_revision_id,
-            correctionReason=reason.strip(),
+        secure_payload = _secure_correction_payload(
+            source_payload=_payload(source),
+            corrected_payload=corrected_payload,
+            predecessor_revision_id=source.recognition_revision_id,
+            reason=reason,
         )
         request_data = {
             "sourceRevisionId": str(source.recognition_revision_id),
@@ -369,22 +371,28 @@ class RecognitionService:
                 )
             )
             provider_response_received = True
+            question_units = (
+                _question_units(
+                    input_sha256=artifact.content_sha256,
+                    segments=result.segments,
+                )
+                if source.recognition_kind == RecognitionKind.EXAM_SEGMENTATION
+                else ()
+            )
             payload = RecognitionCandidatePayload(
                 kind=source.recognition_kind,
                 textSpans=result.text_spans,
                 segments=result.segments,
-                questionUnits=(
-                    _question_units(
-                        input_sha256=artifact.content_sha256,
-                        segments=result.segments,
-                    )
-                    if source.recognition_kind == RecognitionKind.EXAM_SEGMENTATION
-                    else ()
-                ),
+                questionUnits=question_units,
                 omrMarks=result.omr_marks,
                 pageImageSha256=result.page_image_sha256,
                 visualFingerprints=result.visual_fingerprints,
                 visualFeatureHashes=result.visual_feature_hashes,
+                questionRegionVisualEvidence=_question_region_visual_evidence(
+                    processor=processor,
+                    result=result,
+                    question_units=question_units,
+                ),
                 processorRequestIdHash=sha256(
                     result.provider_request_id.encode("utf-8")
                 ).hexdigest(),
@@ -738,6 +746,70 @@ class RecognitionService:
 
 def _payload(revision: RecognitionRevision) -> RecognitionCandidatePayload:
     return RecognitionCandidatePayload.model_validate(revision.candidate_payload)
+
+
+def _trusted_rendered_page_images(
+    *, processor: object, result: ProcessorResult
+) -> tuple[bytes, ...]:
+    """Accept transient page bytes only from an explicit local adapter capability."""
+
+    try:
+        trusted = getattr(processor, "supplies_trusted_rendered_pages", False) is True
+    except Exception:
+        return ()
+    if not trusted:
+        return ()
+    pages = result.trusted_rendered_page_images
+    if (
+        not pages
+        or len(pages) != len(result.page_image_sha256)
+        or any(not isinstance(page, bytes) or not page for page in pages)
+    ):
+        return ()
+    return tuple(pages)
+
+
+def _question_region_visual_evidence(
+    *,
+    processor: object,
+    result: ProcessorResult,
+    question_units: tuple[QuestionUnit, ...],
+) -> tuple:
+    pages = _trusted_rendered_page_images(processor=processor, result=result)
+    if not pages or not question_units:
+        return ()
+    return derive_question_region_visual_evidence(
+        question_units=question_units,
+        segments=result.segments,
+        rendered_page_images=pages,
+    )
+
+
+def _secure_correction_payload(
+    *,
+    source_payload: RecognitionCandidatePayload,
+    corrected_payload: RecognitionCandidatePayload,
+    predecessor_revision_id: UUID,
+    reason: str,
+) -> RecognitionCandidatePayload:
+    """Seal a text correction without accepting replacement visual evidence."""
+
+    return RecognitionCandidatePayload(
+        kind=source_payload.kind,
+        textSpans=corrected_payload.text_spans,
+        segments=corrected_payload.segments,
+        questionUnits=corrected_payload.question_units,
+        omrMarks=corrected_payload.omr_marks,
+        pageImageSha256=source_payload.page_image_sha256,
+        visualFingerprints=source_payload.visual_fingerprints,
+        visualFeatureHashes=source_payload.visual_feature_hashes,
+        questionRegionVisualEvidence=source_payload.question_region_visual_evidence,
+        processorRequestIdHash=source_payload.processor_request_id_hash,
+        processorOutputContract=source_payload.processor_output_contract,
+        requestHash="0" * 64,
+        predecessorRevisionId=predecessor_revision_id,
+        correctionReason=reason.strip(),
+    )
 
 
 def _hash(value: object) -> str:

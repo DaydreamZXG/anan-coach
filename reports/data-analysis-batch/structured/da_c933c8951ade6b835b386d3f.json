@@ -1,0 +1,284 @@
+{
+  "asset_id": "da_c933c8951ade6b835b386d3f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0258_0c635905d6da2c3a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0258_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_c27db430fa43e436dd19",
+        "question_number": 116,
+        "source_jsonl_line": 23688
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0258_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_ab0432b86a4fbde2d12c",
+        "question_number": 117,
+        "source_jsonl_line": 23689
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0258_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_67113d36c2c80136a158",
+        "question_number": 118,
+        "source_jsonl_line": 23690
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0258_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_a8cc8ed8365a9488e925",
+        "question_number": 119,
+        "source_jsonl_line": 23691
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（天津卷）（网友回忆版）_images/img_0258_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_0d2cfe95a8a3258adf7f",
+        "question_number": 120,
+        "source_jsonl_line": 23692
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）_images/img_0195_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）",
+        "question_id": "pq_ea4b54e4845fd093276c",
+        "question_number": 116,
+        "source_jsonl_line": 32554
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）_images/img_0195_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）",
+        "question_id": "pq_3647ef9ae881b140e425",
+        "question_number": 117,
+        "source_jsonl_line": 32555
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）_images/img_0195_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）",
+        "question_id": "pq_f1259233329e0f09c570",
+        "question_number": 118,
+        "source_jsonl_line": 32556
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）_images/img_0195_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）",
+        "question_id": "pq_641d3fd50662ee9aaa4f",
+        "question_number": 119,
+        "source_jsonl_line": 32557
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）_images/img_0195_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（山西县级+乡镇）（网友回忆版）",
+        "question_id": "pq_21140fbb5ca78732b4fd",
+        "question_number": 120,
+        "source_jsonl_line": 32558
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（新疆卷）（网友回忆版）_images/img_0244_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（新疆卷）（网友回忆版）",
+        "question_id": "pq_853af37a882d6c046331",
+        "question_number": 116,
+        "source_jsonl_line": 43096
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（新疆卷）（网友回忆版）_images/img_0252_45122b7e0e9d95cc.png",
+        "paper_title": "2019年420联考《行测》题（新疆卷）（网友回忆版）",
+        "question_id": "pq_78c930f2c73305ae6dcd",
+        "question_number": 117,
+        "source_jsonl_line": 43097
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（新疆卷）（网友回忆版）_images/img_0244_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（新疆卷）（网友回忆版）",
+        "question_id": "pq_11fb503f95a1cd0a4f2d",
+        "question_number": 118,
+        "source_jsonl_line": 43098
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（新疆卷）（网友回忆版）_images/img_0252_45122b7e0e9d95cc.png",
+        "paper_title": "2019年420联考《行测》题（新疆卷）（网友回忆版）",
+        "question_id": "pq_3e3304f2fe92e7c5957c",
+        "question_number": 119,
+        "source_jsonl_line": 43099
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（新疆卷）（网友回忆版）_images/img_0244_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（新疆卷）（网友回忆版）",
+        "question_id": "pq_bee2bcda80b3d02f28f0",
+        "question_number": 120,
+        "source_jsonl_line": 43100
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（江西乡镇）（网友回忆版）_images/img_0273_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（江西乡镇）（网友回忆版）",
+        "question_id": "pq_ce05f69c8d0ace8650ce",
+        "question_number": 116,
+        "source_jsonl_line": 52915
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（江西乡镇）（网友回忆版）_images/img_0273_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（江西乡镇）（网友回忆版）",
+        "question_id": "pq_9e645da09ab5a2a169d4",
+        "question_number": 117,
+        "source_jsonl_line": 52916
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（江西乡镇）（网友回忆版）_images/img_0273_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（江西乡镇）（网友回忆版）",
+        "question_id": "pq_d067bf859804f47f7266",
+        "question_number": 118,
+        "source_jsonl_line": 52917
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（江西乡镇）（网友回忆版）_images/img_0273_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（江西乡镇）（网友回忆版）",
+        "question_id": "pq_0ca2ecb0ae91efa9a05e",
+        "question_number": 119,
+        "source_jsonl_line": 52918
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（江西乡镇）（网友回忆版）_images/img_0273_0c635905d6da2c3a.png",
+        "paper_title": "2019年420联考《行测》题（江西乡镇）（网友回忆版）",
+        "question_id": "pq_61f8d573d6723431b7f4",
+        "question_number": 120,
+        "source_jsonl_line": 52919
+      }
+    ],
+    "sha256": "c933c8951ade6b835b386d3f1adb7b33801de86beabad6906f40637f74f6f0e9"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2013 年",
+      "2014 年",
+      "2015 年",
+      "2016 年",
+      "2017 年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "纸质图书（本）",
+        "group": "年份",
+        "label": "年份｜纸质图书（本）",
+        "unit": null,
+        "values": [
+          4.77,
+          4.56,
+          4.58,
+          4.65,
+          4.66
+        ]
+      },
+      {
+        "display_label": "电子图书（本）",
+        "group": "年份",
+        "label": "年份｜电子图书（本）",
+        "unit": null,
+        "values": [
+          2.48,
+          3.22,
+          3.26,
+          3.21,
+          3.12
+        ]
+      },
+      {
+        "display_label": "报纸（份）",
+        "group": "年份",
+        "label": "年份｜报纸（份）",
+        "unit": null,
+        "values": [
+          70.85,
+          65.03,
+          54.76,
+          44.66,
+          33.62
+        ]
+      },
+      {
+        "display_label": "期刊（份）",
+        "group": "年份",
+        "label": "年份｜期刊（份）",
+        "unit": null,
+        "values": [
+          5.51,
+          6.07,
+          4.91,
+          3.44,
+          3.81
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

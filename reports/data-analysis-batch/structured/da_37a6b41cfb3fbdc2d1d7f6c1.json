@@ -1,0 +1,211 @@
+{
+  "asset_id": "da_37a6b41cfb3fbdc2d1d7f6c1",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 70000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000,
+          60000,
+          70000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "我国软件和信息技术服务业完成业务收入",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "我国软件和信息技术服务业完成业务收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        30587,
+        37026,
+        42848,
+        48232,
+        55103,
+        63061
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0161_bcefb0049c518b68.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0161_bcefb0049c518b68.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_336482175f3934003542",
+        "question_number": 121,
+        "source_jsonl_line": 70632
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0162_dd630b697eec53db.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_347cea5c084ee3b28b0a",
+        "question_number": 122,
+        "source_jsonl_line": 70633
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0161_bcefb0049c518b68.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_c5937ad1f8bc7723a5b2",
+        "question_number": 123,
+        "source_jsonl_line": 70634
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0161_bcefb0049c518b68.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_635eb8489acc468cdc1d",
+        "question_number": 124,
+        "source_jsonl_line": 70635
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0161_bcefb0049c518b68.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_58febcd50e9d58ef4e38",
+        "question_number": 125,
+        "source_jsonl_line": 70636
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0160_bcefb0049c518b68.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_34980bdc8bf55efdaa3f",
+        "question_number": 121,
+        "source_jsonl_line": 88816
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0160_bcefb0049c518b68.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_8a0639271d1b1ad5c323",
+        "question_number": 122,
+        "source_jsonl_line": 88817
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0160_bcefb0049c518b68.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_040cd7764ef0e0a953cb",
+        "question_number": 123,
+        "source_jsonl_line": 88818
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0160_bcefb0049c518b68.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_28bd16a2e4086ef185b0",
+        "question_number": 124,
+        "source_jsonl_line": 88819
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题_images/img_0160_bcefb0049c518b68.png",
+        "paper_title": "2019年湖北省选调生招录考试《综合知识和行政职业能力测验》题",
+        "question_id": "pq_9fe01ea958fbd0353edf",
+        "question_number": 125,
+        "source_jsonl_line": 88820
+      }
+    ],
+    "sha256": "37a6b41cfb3fbdc2d1d7f6c1039af97e036db5ad188d4bbd6e2d24f1e081b08b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图1：2013-2018年我国软件和信息技术服务业完成业务收入（亿元）",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_37a6b41cfb3fbdc2d1d7f6c1/column_band_01.jpg",
+        "review-crops/da_37a6b41cfb3fbdc2d1d7f6c1/column_band_02.jpg",
+        "review-crops/da_37a6b41cfb3fbdc2d1d7f6c1/column_band_03.jpg",
+        "review-crops/da_37a6b41cfb3fbdc2d1d7f6c1/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.674",
+      "crop_verification_elapsed_seconds:8.587",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2013年数据为30587，原为30587（正确）",
+      "crop_note:修正了2014年数据为37026，原为37026（正确）",
+      "crop_note:修正了2015年数据为42848，原为42848（正确）",
+      "crop_note:修正了2016年数据为48232，原为48232（正确）",
+      "crop_note:修正了2017年数据为55103，原为55103（正确）",
+      "crop_note:修正了2018年数据为63061，原为63061（正确）",
+      "crop_note:确认所有数值无负号、小数、百分号，无缺失值",
+      "crop_note:确认标题和单位正确，未发现拼写或格式错误"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

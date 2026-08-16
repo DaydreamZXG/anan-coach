@@ -1,0 +1,152 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "企业法人单位（万个）",
+          "从业人员（万人）"
+        ],
+        "label": "企业法人单位和从业人员"
+      },
+      "rows:[{"
+    ],
+    "columns": [
+      "企业法人单位（万个）",
+      "从业人员（万人）"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "从业人员",
+      "style": "diagonal",
+      "upper_label": "企业法人单位"
+    },
+    "missing_cells": [],
+    "row_header_label": "从业人员",
+    "rows": [
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          241.0,
+          14025.8
+        ]
+      },
+      {
+        "display_label": "内资企业",
+        "group": null,
+        "label": "内资企业",
+        "unit": null,
+        "values": [
+          229.3,
+          11259.1
+        ]
+      },
+      {
+        "display_label": "国有企业",
+        "group": null,
+        "label": "国有企业",
+        "unit": null,
+        "values": [
+          2.0,
+          478.5
+        ]
+      },
+      {
+        "display_label": "集体企业",
+        "group": null,
+        "label": "集体企业",
+        "unit": null,
+        "values": [
+          4.0,
+          173.6
+        ]
+      },
+      {
+        "display_label": "股份合作企业",
+        "group": null,
+        "label": "股份合作企业",
+        "unit": null,
+        "values": [
+          2.4,
+          62.2
+        ]
+      },
+      {
+        "display_label": "联营企业",
+        "group": null,
+        "label": "联营企业",
+        "unit": null,
+        "values": [
+          0.5,
+          19.8
+        ]
+      },
+      {
+        "display_label": "有限责任公司",
+        "group": null,
+        "label": "有限责任公司",
+        "unit": null,
+        "values": [
+          32.1,
+          3194.8
+        ]
+      },
+      {
+        "display_label": "股份有限公司",
+        "group": null,
+        "label": "股份有限公司",
+        "unit": null,
+        "values": [
+          3.0,
+          847.6
+        ]
+      },
+      {
+        "display_label": "私营企业",
+        "group": null,
+        "label": "私营企业",
+        "unit": null,
+        "values": [
+          176.0,
+          6272.2
+        ]
+      },
+      {
+        "display_label": "其他企业",
+        "group": null,
+        "label": "其他企业",
+        "unit": null,
+        "values": [
+          9.3,
+          210.4
+        ]
+      },
+      {
+        "display_label": "港、澳、台商投资企业",
+        "group": null,
+        "label": "港、澳、台商投资企业",
+        "unit": null,
+        "values": [
+          5.7,
+          1343.1
+        ]
+      },
+      {
+        "display_label": "外商投资企业",
+        "group": null,
+        "label": "外商投资企业",
+        "unit": null,
+        "values": [
+          5.9,
+          1423.6
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

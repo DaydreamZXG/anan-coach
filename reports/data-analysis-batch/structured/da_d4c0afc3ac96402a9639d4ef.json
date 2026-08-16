@@ -1,0 +1,136 @@
+{
+  "asset_id": "da_d4c0afc3ac96402a9639d4ef",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2022年",
+    "2023年",
+    "2024年",
+    "2025年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": null,
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        null,
+        4,
+        2,
+        2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河南/2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0184_92fba87ac560d665.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0184_92fba87ac560d665.png",
+        "paper_title": "2026年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cc1c0ace0d5cc7b55b9a",
+        "question_number": 115,
+        "source_jsonl_line": 59532
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0129_92fba87ac560d665.png",
+        "paper_title": "2026年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_78691edcf9a432e8fb5d",
+        "question_number": 104,
+        "source_jsonl_line": 66860
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0148_92fba87ac560d665.png",
+        "paper_title": "2026年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ee34d3b51ae573e510ef",
+        "question_number": 109,
+        "source_jsonl_line": 76164
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年福建省公务员录用考试《行测》题（网友回忆版）_images/img_0114_92fba87ac560d665.png",
+        "paper_title": "2026年福建省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3ba02324677af6c749be",
+        "question_number": 114,
+        "source_jsonl_line": 79313
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0157_8ac2a709c51be910.png",
+        "paper_title": "2026年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c01ae5ef275b64517b2f",
+        "question_number": 99,
+        "source_jsonl_line": 82044
+      }
+    ],
+    "sha256": "d4c0afc3ac96402a9639d4efd5b9386a6e61ee6038f805ef829d8e194282cf74"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d4c0afc3ac96402a9639d4ef/column_band_01.jpg",
+        "review-crops/da_d4c0afc3ac96402a9639d4ef/column_band_02.jpg",
+        "review-crops/da_d4c0afc3ac96402a9639d4ef/column_band_03.jpg",
+        "review-crops/da_d4c0afc3ac96402a9639d4ef/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.452",
+      "crop_verification_elapsed_seconds:0.437",
+      "candidate_value_changes_after_crop:1",
+      "model_uncertainty:y轴刻度未明确标出，数值为估算",
+      "model_uncertainty:柱状图高度未提供精确比例，数值为近似值",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

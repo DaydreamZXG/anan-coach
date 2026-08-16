@@ -1,0 +1,215 @@
+{
+  "asset_id": "da_71a67517e58c5460573fa8e1",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2014年江苏省公务员录用考试《行测》题（B类）_images/img_0208_0d9c1400af44b131.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（B类）_images/img_0208_0d9c1400af44b131.jpg",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_c841ca3394c4e5209da9",
+        "question_number": 96,
+        "source_jsonl_line": 46706
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（B类）_images/img_0204_93b8453e59b3758c.jpg",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_b7a139c3727503c2e58e",
+        "question_number": 97,
+        "source_jsonl_line": 46707
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（B类）_images/img_0208_0d9c1400af44b131.jpg",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_3658d75f6f379490de9f",
+        "question_number": 98,
+        "source_jsonl_line": 46708
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（B类）_images/img_0204_93b8453e59b3758c.jpg",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_b4ee107aa4afafba1900",
+        "question_number": 99,
+        "source_jsonl_line": 46709
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（B类）_images/img_0208_0d9c1400af44b131.jpg",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_fb921626e1ee34b054d6",
+        "question_number": 100,
+        "source_jsonl_line": 46710
+      }
+    ],
+    "sha256": "71a67517e58c5460573fa8e14258dba666a07495c672000175633b22472a5e3b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "货物周转量｜绝对数（亿吨公里）",
+      "货物周转量｜绝对数（亿吨公里）｜比上年增长（%）",
+      "货物周转量｜绝对数（万吨）",
+      "货物周转量｜绝对数（万吨）｜比上年增长（%）",
+      "旅客周转量｜绝对数（亿人公里）",
+      "旅客周转量｜比上年增长（%）",
+      "客运量｜绝对数（万人次）",
+      "客运量｜比上年增长（%）"
+    ],
+    "corner_header": {
+      "lower_label": "旅客周转量",
+      "style": "diagonal",
+      "upper_label": "货物周转量"
+    },
+    "missing_cells": [],
+    "row_header_label": "旅客周转量",
+    "rows": [
+      {
+        "display_label": "铁路｜2013年",
+        "group": null,
+        "label": "铁路｜2013年",
+        "unit": null,
+        "values": [
+          373.2,
+          -4.7,
+          6806.2,
+          -5.8,
+          505.9,
+          13.3,
+          13434.9,
+          14.3
+        ]
+      },
+      {
+        "display_label": "公路｜2013年",
+        "group": null,
+        "label": "公路｜2013年",
+        "unit": null,
+        "values": [
+          1653.5,
+          13.8,
+          16861.3,
+          9.7,
+          1461.2,
+          3,
+          264416,
+          3.5
+        ]
+      },
+      {
+        "display_label": "水路｜2013年",
+        "group": null,
+        "label": "水路｜2013年",
+        "unit": null,
+        "values": [
+          6857.7,
+          13.3,
+          63648,
+          8.5,
+          0.8,
+          -39.5,
+          443.9,
+          -25.3
+        ]
+      },
+      {
+        "display_label": "民航｜2013年",
+        "group": null,
+        "label": "民航｜2013年",
+        "unit": null,
+        "values": [
+          1,
+          5.1,
+          6.7,
+          -0.3,
+          94,
+          12.5,
+          729.5,
+          9.8
+        ]
+      },
+      {
+        "display_label": "管道｜2013年",
+        "group": null,
+        "label": "管道｜2013年",
+        "unit": null,
+        "values": [
+          619.3,
+          7.4,
+          12617,
+          7.6,
+          2061.9,
+          5.7,
+          279024.3,
+          4
+        ]
+      },
+      {
+        "display_label": "总计｜2013年",
+        "group": null,
+        "label": "总计｜2013年",
+        "unit": null,
+        "values": [
+          9504.7,
+          12.2,
+          251690.9,
+          8.8,
+          4061.9,
+          5.7,
+          279024.3,
+          4
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

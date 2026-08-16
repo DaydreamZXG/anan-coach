@@ -1,0 +1,128 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "社区卫生服务中心｜次均门诊费",
+          "社区卫生服务中心｜药费占比",
+          "社区卫生服务中心｜人均住院费",
+          "社区卫生服务中心｜药费占比"
+        ],
+        "label": "社区卫生服务中心"
+      },
+      {
+        "columns": [
+          "乡镇卫生院｜次均门诊费",
+          "乡镇卫生院｜药费占比",
+          "乡镇卫生院｜人均住院费",
+          "乡镇卫生院｜药费占比"
+        ],
+        "label": "乡镇卫生院"
+      }
+    ],
+    "columns": [
+      "社区卫生服务中心｜次均门诊费",
+      "社区卫生服务中心｜药费占比",
+      "社区卫生服务中心｜人均住院费",
+      "社区卫生服务中心｜药费占比",
+      "乡镇卫生院｜次均门诊费",
+      "乡镇卫生院｜药费占比",
+      "乡镇卫生院｜人均住院费",
+      "乡镇卫生院｜药费占比"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "乡镇卫生院",
+      "style": "diagonal",
+      "upper_label": "社区卫生服务中心"
+    },
+    "missing_cells": [],
+    "row_header_label": "乡镇卫生院",
+    "rows": [
+      {
+        "display_label": "2008",
+        "group": null,
+        "label": "2008",
+        "unit": null,
+        "values": [
+          87.2,
+          72.2,
+          2514.2,
+          47.9,
+          42.5,
+          60.7,
+          790.8,
+          51.1
+        ]
+      },
+      {
+        "display_label": "2009",
+        "group": null,
+        "label": "2009",
+        "unit": null,
+        "values": [
+          84.0,
+          71.4,
+          2317.4,
+          49.0,
+          46.2,
+          62.3,
+          897.2,
+          53.5
+        ]
+      },
+      {
+        "display_label": "2010",
+        "group": null,
+        "label": "2010",
+        "unit": null,
+        "values": [
+          82.8,
+          70.9,
+          2357.6,
+          49.3,
+          47.5,
+          60.4,
+          1004.6,
+          52.3
+        ]
+      },
+      {
+        "display_label": "2011",
+        "group": null,
+        "label": "2011",
+        "unit": null,
+        "values": [
+          81.5,
+          67.4,
+          2315.1,
+          45.8,
+          47.5,
+          53.3,
+          1051.3,
+          40.8
+        ]
+      },
+      {
+        "display_label": "2012",
+        "group": null,
+        "label": "2012",
+        "unit": null,
+        "values": [
+          84.6,
+          69.1,
+          2417.9,
+          46.5,
+          49.2,
+          54.8,
+          1140.7,
+          46.0
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

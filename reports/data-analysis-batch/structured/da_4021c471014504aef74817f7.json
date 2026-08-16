@@ -1,0 +1,180 @@
+{
+  "asset_id": "da_4021c471014504aef74817f7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2003年",
+    "2004年",
+    "2005年",
+    "2006年",
+    "2007年",
+    "2008年",
+    "2009年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "城镇居民人均可支配收入",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "农民人均纯收入",
+      "style": {
+        "dash": null,
+        "fill": "#C0C0C0",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇居民人均可支配收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        7239.1,
+        7951.3,
+        9107.1,
+        10304.6,
+        11690.5,
+        13441.1,
+        14718.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "农民人均纯收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        2853.3,
+        3171.1,
+        3481.6,
+        3801.8,
+        4293.4,
+        4795.0,
+        5150.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2011年浙江省公务员录用考试《行测》题_images/img_0194_d5c802666f653fdb.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年浙江省公务员录用考试《行测》题_images/img_0194_d5c802666f653fdb.png",
+        "paper_title": "2011年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_f90dd588cec16618b42b",
+        "question_number": 121,
+        "source_jsonl_line": 60293
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年浙江省公务员录用考试《行测》题_images/img_0194_d5c802666f653fdb.png",
+        "paper_title": "2011年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_7b4494fdafe37aa3f4b4",
+        "question_number": 122,
+        "source_jsonl_line": 60294
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年浙江省公务员录用考试《行测》题_images/img_0194_d5c802666f653fdb.png",
+        "paper_title": "2011年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_fd75e0399c1363f89881",
+        "question_number": 123,
+        "source_jsonl_line": 60295
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年浙江省公务员录用考试《行测》题_images/img_0229_1aba9f0470815949.png",
+        "paper_title": "2011年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_97466ca0af0c007d7a40",
+        "question_number": 124,
+        "source_jsonl_line": 60296
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年浙江省公务员录用考试《行测》题_images/img_0194_d5c802666f653fdb.png",
+        "paper_title": "2011年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_745713c1537c8ebf3e46",
+        "question_number": 125,
+        "source_jsonl_line": 60297
+      }
+    ],
+    "sha256": "4021c471014504aef74817f74b2d796e77f6ca2ca78a0b97dd6516aeb7513da8"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4021c471014504aef74817f7/column_band_01.jpg",
+        "review-crops/da_4021c471014504aef74817f7/column_band_02.jpg",
+        "review-crops/da_4021c471014504aef74817f7/column_band_03.jpg",
+        "review-crops/da_4021c471014504aef74817f7/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.528",
+      "crop_verification_elapsed_seconds:6.774",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "graphic-reasoning-visible-fact-gates-v1",
+  "answerIsolated": true,
+  "assets": [
+    {
+      "assetId": "gr_7b00c758d0ab44e2c464e04f",
+      "panelCount": 10,
+      "optionCount": 4,
+      "requiredFacts": [
+        "positions 1-5 are stem panels, position 6 is the missing marker, and positions 7-10 are options A-D",
+        "every non-missing panel has one hollow square frame",
+        "the internal grammar mixes exact straight segments with smooth arcs or curves",
+        "all visible geometry is outline-only with no solid filled shape",
+        "the square frame and its internal partition lines are meaningful elements, not background"
+      ]
+    },
+    {
+      "assetId": "gr_06e94661142e35ee6757e42d",
+      "panelCount": 9,
+      "optionCount": 4,
+      "requiredFacts": [
+        "positions 1-4 are stem panels, position 5 is the missing marker, and positions 6-9 are options A-D",
+        "every non-missing figure is an open network made only of straight segments",
+        "there are no circles, curves, closed shapes, text glyphs, or filled regions",
+        "the stem visibly transfers rays from the left junction to the right junction: the left fan decreases while the right fan increases",
+        "the long bent backbone remains distinct from the short fan rays"
+      ]
+    },
+    {
+      "assetId": "gr_0751a8530a3a10bda058e654",
+      "panelCount": 9,
+      "optionCount": 4,
+      "requiredFacts": [
+        "positions 1-5 are stem panels and positions 6-9 are options A-D",
+        "every panel contains exactly one hollow outer circle",
+        "every panel contains exactly three solid black dots",
+        "every panel contains exactly two straight internal chords or rays",
+        "the outer circle is curved while the internal dividers are straight"
+      ]
+    },
+    {
+      "assetId": "gr_09a239f1f5c89bec86ff315d",
+      "panelCount": 9,
+      "optionCount": 4,
+      "requiredFacts": [
+        "positions 1-4 are stem panels, position 5 is the missing marker, and positions 6-9 are options A-D",
+        "every non-missing panel contains exactly four separate hollow right triangles",
+        "there are no curves, circles, text glyphs, or filled regions",
+        "triangle orientation and right-angle placement must be represented per triangle rather than collapsed into one mixed orientation",
+        "the four-triangle arrangement occupies a two-by-two relative layout"
+      ]
+    },
+    {
+      "assetId": "gr_814f04ca63ec75e0fd69a9fb",
+      "panelCount": 10,
+      "optionCount": 4,
+      "requiredFacts": [
+        "the task is a two-by-three matrix with the bottom-right cell missing, followed by options A-D",
+        "every visible panel contains an exact four-by-four grid",
+        "each visible panel contains exactly two hollow semantic symbols",
+        "the top matrix row uses a star and a triangle; the bottom matrix row and options use a pentagon and an arrow",
+        "arrow direction and each symbol's grid cell must be represented explicitly",
+        "option order is A at the left through D at the right"
+      ]
+    }
+  ]
+}

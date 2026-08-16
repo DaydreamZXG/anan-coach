@@ -1,0 +1,184 @@
+{
+  "asset_id": "da_063dab73ea45b4d09790af57",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 700,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600,
+          700
+        ],
+        "title": null,
+        "unit": "分钟/每天"
+      }
+    ]
+  },
+  "categories": [
+    "工作时间",
+    "个人生活必须时间",
+    "家务劳动时间",
+    "可以自由支配时间"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "工作时间",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "个人生活必须时间",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "工作时间",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "分钟/每天",
+      "values": [
+        435,
+        648,
+        104,
+        261
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "个人生活必须时间",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "分钟/每天",
+      "values": [
+        457,
+        652,
+        104,
+        227
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2011年江苏省公务员录用考试《行测》题（A类）_images/img_0243_d48fd42dd93a9f4b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（A类）_images/img_0243_d48fd42dd93a9f4b.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_61f3ee88b3a692e2cbcd",
+        "question_number": 101,
+        "source_jsonl_line": 45551
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（A类）_images/img_0240_ab79edb71f4cd9d0.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_16781d552ceb05d5a69f",
+        "question_number": 102,
+        "source_jsonl_line": 45552
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（A类）_images/img_0243_d48fd42dd93a9f4b.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_15b7ec62b897ff57cb19",
+        "question_number": 103,
+        "source_jsonl_line": 45553
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（A类）_images/img_0243_d48fd42dd93a9f4b.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_54f6b11d1f326fb2a745",
+        "question_number": 104,
+        "source_jsonl_line": 45554
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（A类）_images/img_0240_ab79edb71f4cd9d0.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_fb7fdfac09ac54c27793",
+        "question_number": 105,
+        "source_jsonl_line": 45555
+      }
+    ],
+    "sha256": "063dab73ea45b4d09790af57ad9c18ee52839e62431d14db9fa129a38b41cb00"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "某市城乡居民人均每日时间利用情况（分钟/每天）",
+  "unit": "分钟/每天",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_063dab73ea45b4d09790af57/column_band_01.jpg",
+        "review-crops/da_063dab73ea45b4d09790af57/column_band_02.jpg",
+        "review-crops/da_063dab73ea45b4d09790af57/column_band_03.jpg",
+        "review-crops/da_063dab73ea45b4d09790af57/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.624",
+      "crop_verification_elapsed_seconds:6.172",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了第二张图中'个人生活必须时间'的白色柱体数值，从648更正为648。",
+      "crop_note:修正了第三张图中'家务劳动时间'的白色柱体数值，从104更正为104。",
+      "crop_note:修正了第四张图中'可以自由支配时间'的白色柱体数值，从261更正为261。",
+      "crop_note:修正了第四张图中'可以自由支配时间'的黑色柱体数值，从227更正为227。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,236 @@
+{
+  "asset_id": "da_bd1e13dd0978a8543225a075",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2002,
+        2003,
+        2004,
+        2005,
+        2006
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 10000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000
+        ],
+        "title": null,
+        "unit": "亿美元"
+      },
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90,
+          100
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "出口额",
+      "style": {
+        "dash": null,
+        "fill": "darkgray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "进口额",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "进出口总额比上年增长",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "出口额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        3256,
+        4382,
+        5933,
+        7620,
+        9691
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "进口额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        2952,
+        4128,
+        5612,
+        6600,
+        7916
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "进出口总额比上年增长",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        21.8,
+        37.1,
+        35.7,
+        23.2,
+        23.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2008年北京市公务员录用考试《行测》题（应届）_images/img_0134_d99c90deaf91b41f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年北京市公务员录用考试《行测》题（应届）_images/img_0134_d99c90deaf91b41f.png",
+        "paper_title": "2008年北京市公务员录用考试《行测》题（应届）",
+        "question_id": "pq_09117843280dd0da00b0",
+        "question_number": 116,
+        "source_jsonl_line": 8639
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年北京市公务员录用考试《行测》题（应届）_images/img_0134_d99c90deaf91b41f.png",
+        "paper_title": "2008年北京市公务员录用考试《行测》题（应届）",
+        "question_id": "pq_51319d565d077258412c",
+        "question_number": 117,
+        "source_jsonl_line": 8640
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年北京市公务员录用考试《行测》题（应届）_images/img_0134_d99c90deaf91b41f.png",
+        "paper_title": "2008年北京市公务员录用考试《行测》题（应届）",
+        "question_id": "pq_9836d519f35fc1c501dc",
+        "question_number": 118,
+        "source_jsonl_line": 8641
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年北京市公务员录用考试《行测》题（应届）_images/img_0134_d99c90deaf91b41f.png",
+        "paper_title": "2008年北京市公务员录用考试《行测》题（应届）",
+        "question_id": "pq_1d6fd60bab162e053f8f",
+        "question_number": 119,
+        "source_jsonl_line": 8642
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年北京市公务员录用考试《行测》题（应届）_images/img_0206_0a01e6494518fdfa.png",
+        "paper_title": "2008年北京市公务员录用考试《行测》题（应届）",
+        "question_id": "pq_bf90b39cb180950f0d6b",
+        "question_number": 120,
+        "source_jsonl_line": 8643
+      }
+    ],
+    "sha256": "bd1e13dd0978a8543225a07568bc514fb44ff5cc9d883fd50dc3c3ebbdd7cfc1"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2002~2006年我国进出口总额及其增长速度",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_bd1e13dd0978a8543225a075/column_band_01.jpg",
+        "review-crops/da_bd1e13dd0978a8543225a075/column_band_02.jpg",
+        "review-crops/da_bd1e13dd0978a8543225a075/column_band_03.jpg",
+        "review-crops/da_bd1e13dd0978a8543225a075/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.54",
+      "crop_verification_elapsed_seconds:4.622",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

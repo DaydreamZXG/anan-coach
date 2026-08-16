@@ -1,0 +1,246 @@
+{
+  "asset_id": "da_b6a145e64f0fec210e63c563",
+  "axes": {
+    "x": {
+      "max": 4,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 200,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100,
+          120,
+          140,
+          160,
+          180,
+          200
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2004",
+    "2005",
+    "2006",
+    "2007"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "普通车",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "小型车",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "高级车",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "总量",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "普通车",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        32,
+        45,
+        60.1,
+        80.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "小型车",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        24.7,
+        20,
+        44,
+        59.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "高级车",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        13.3,
+        30,
+        27.9,
+        35.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "总量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        70,
+        95,
+        132,
+        175
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2008年江苏省公务员录用考试《行测》题（C类）_images/img_0179_f1b4856fdce96e2f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（C类）_images/img_0179_f1b4856fdce96e2f.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_e234167554d8106115aa",
+        "question_number": 96,
+        "source_jsonl_line": 44726
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（C类）_images/img_0178_7b66261ad9682591.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_15e9bd4b58f0f8ef3937",
+        "question_number": 97,
+        "source_jsonl_line": 44727
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（C类）_images/img_0178_7b66261ad9682591.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_eb68972d3980d06b3c48",
+        "question_number": 98,
+        "source_jsonl_line": 44728
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（C类）_images/img_0178_7b66261ad9682591.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_04b5cdef8df7b928f384",
+        "question_number": 99,
+        "source_jsonl_line": 44729
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（C类）_images/img_0178_7b66261ad9682591.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_e0fbf6c9570ad913f07b",
+        "question_number": 100,
+        "source_jsonl_line": 44730
+      }
+    ],
+    "sha256": "b6a145e64f0fec210e63c563399812dfb3eac1f7c50857f6de29eeafa50ab76b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "（一）某地2004年至2007年乘用车保有量结构变化图",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b6a145e64f0fec210e63c563/column_band_01.jpg",
+        "review-crops/da_b6a145e64f0fec210e63c563/column_band_02.jpg",
+        "review-crops/da_b6a145e64f0fec210e63c563/column_band_03.jpg",
+        "review-crops/da_b6a145e64f0fec210e63c563/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.521",
+      "crop_verification_elapsed_seconds:3.891",
+      "candidate_value_changes_after_crop:1",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

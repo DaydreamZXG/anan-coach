@@ -1,0 +1,457 @@
+{
+  "asset_id": "da_6e432da1a17c7401f67129c2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0172_427fa28660e824c0.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0172_427fa28660e824c0.png",
+        "paper_title": "2021年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f91604f0afcdcb38b032",
+        "question_number": 86,
+        "source_jsonl_line": 5770
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0172_427fa28660e824c0.png",
+        "paper_title": "2021年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c2b54190b58db90aab74",
+        "question_number": 87,
+        "source_jsonl_line": 5771
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0172_427fa28660e824c0.png",
+        "paper_title": "2021年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4e3d1e6675a34b29ec54",
+        "question_number": 88,
+        "source_jsonl_line": 5772
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0197_b01f57d8a7c207e1.png",
+        "paper_title": "2021年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_131b7debac5d60614e9a",
+        "question_number": 89,
+        "source_jsonl_line": 5773
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0172_427fa28660e824c0.png",
+        "paper_title": "2021年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_25867d59bbe41b60bb91",
+        "question_number": 90,
+        "source_jsonl_line": 5774
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0209_427fa28660e824c0.png",
+        "paper_title": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bea9f5325dea760c5885",
+        "question_number": 106,
+        "source_jsonl_line": 8019
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0216_b01f57d8a7c207e1.png",
+        "paper_title": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8f18e51a2003df508064",
+        "question_number": 107,
+        "source_jsonl_line": 8020
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0209_427fa28660e824c0.png",
+        "paper_title": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a45619abe33b46a270fc",
+        "question_number": 108,
+        "source_jsonl_line": 8021
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0209_427fa28660e824c0.png",
+        "paper_title": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_304da0e9360d5def5b77",
+        "question_number": 109,
+        "source_jsonl_line": 8022
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0209_427fa28660e824c0.png",
+        "paper_title": "2021年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5e83a77df915544b1097",
+        "question_number": 110,
+        "source_jsonl_line": 8023
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0241_427fa28660e824c0.png",
+        "paper_title": "2021年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2cd6020ef504dd8bbf66",
+        "question_number": 96,
+        "source_jsonl_line": 13412
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0241_427fa28660e824c0.png",
+        "paper_title": "2021年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2b428801ef45c4f0530b",
+        "question_number": 97,
+        "source_jsonl_line": 13413
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0241_427fa28660e824c0.png",
+        "paper_title": "2021年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_79883f19e16230e7d41d",
+        "question_number": 98,
+        "source_jsonl_line": 13414
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0241_427fa28660e824c0.png",
+        "paper_title": "2021年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_db40fb8657c54dbef753",
+        "question_number": 99,
+        "source_jsonl_line": 13415
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0241_427fa28660e824c0.png",
+        "paper_title": "2021年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5dc2674290b470c6968a",
+        "question_number": 100,
+        "source_jsonl_line": 13416
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年天津市公务员考试《行测》题（网友回忆版）_images/img_0178_427fa28660e824c0.png",
+        "paper_title": "2021年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_396b1e002622b52c5d9c",
+        "question_number": 101,
+        "source_jsonl_line": 23913
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年天津市公务员考试《行测》题（网友回忆版）_images/img_0185_b01f57d8a7c207e1.png",
+        "paper_title": "2021年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_c6e08116da541b35a416",
+        "question_number": 102,
+        "source_jsonl_line": 23914
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年天津市公务员考试《行测》题（网友回忆版）_images/img_0178_427fa28660e824c0.png",
+        "paper_title": "2021年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_2d4f21c5a23dd84aabda",
+        "question_number": 103,
+        "source_jsonl_line": 23915
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年天津市公务员考试《行测》题（网友回忆版）_images/img_0178_427fa28660e824c0.png",
+        "paper_title": "2021年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_7a6bc65b6a4b98f2f90b",
+        "question_number": 104,
+        "source_jsonl_line": 23916
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年天津市公务员考试《行测》题（网友回忆版）_images/img_0185_b01f57d8a7c207e1.png",
+        "paper_title": "2021年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_266cd7bb840dade8e00b",
+        "question_number": 105,
+        "source_jsonl_line": 23917
+      }
+    ],
+    "sha256": "6e432da1a17c7401f67129c2ffa0ddb0cfdb7e5e4699b0050162e7523316a2c7"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "价格变动情况｜本期价格（元/吨）",
+          "价格变动情况｜比上期价格涨跌（元/吨）"
+        ],
+        "label": "价格变动情况"
+      }
+    ],
+    "columns": [
+      "价格变动情况｜本期价格（元/吨）",
+      "价格变动情况｜比上期价格涨跌（元/吨）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "产品名称",
+    "rows": [
+      {
+        "display_label": "螺纹钢",
+        "group": "一、黑色金属",
+        "label": "一、黑色金属｜螺纹钢",
+        "unit": null,
+        "values": [
+          4061.8,
+          73.0
+        ]
+      },
+      {
+        "display_label": "线材",
+        "group": "一、黑色金属",
+        "label": "一、黑色金属｜线材",
+        "unit": null,
+        "values": [
+          4234.9,
+          62.5
+        ]
+      },
+      {
+        "display_label": "普通中板",
+        "group": "一、黑色金属",
+        "label": "一、黑色金属｜普通中板",
+        "unit": null,
+        "values": [
+          4018.8,
+          37.3
+        ]
+      },
+      {
+        "display_label": "热轧普通薄板",
+        "group": "一、黑色金属",
+        "label": "一、黑色金属｜热轧普通薄板",
+        "unit": null,
+        "values": [
+          3998.0,
+          47.2
+        ]
+      },
+      {
+        "display_label": "无缝钢管",
+        "group": "一、黑色金属",
+        "label": "一、黑色金属｜无缝钢管",
+        "unit": null,
+        "values": [
+          4673.3,
+          17.9
+        ]
+      },
+      {
+        "display_label": "角钢",
+        "group": "一、黑色金属",
+        "label": "一、黑色金属｜角钢",
+        "unit": null,
+        "values": [
+          4196.9,
+          35.0
+        ]
+      },
+      {
+        "display_label": "电解铜",
+        "group": "二、有色金属",
+        "label": "二、有色金属｜电解铜",
+        "unit": null,
+        "values": [
+          46491.1,
+          -538.7
+        ]
+      },
+      {
+        "display_label": "铝锭",
+        "group": "二、有色金属",
+        "label": "二、有色金属｜铝锭",
+        "unit": null,
+        "values": [
+          13737.9,
+          -159.4
+        ]
+      },
+      {
+        "display_label": "铅锭",
+        "group": "二、有色金属",
+        "label": "二、有色金属｜铅锭",
+        "unit": null,
+        "values": [
+          15985.3,
+          -99.3
+        ]
+      },
+      {
+        "display_label": "锌锭",
+        "group": "二、有色金属",
+        "label": "二、有色金属｜锌锭",
+        "unit": null,
+        "values": [
+          19716.8,
+          -375.9
+        ]
+      },
+      {
+        "display_label": "纸浆",
+        "group": "三、林产品",
+        "label": "三、林产品｜纸浆",
+        "unit": null,
+        "values": [
+          4355.3,
+          16.0
+        ]
+      },
+      {
+        "display_label": "瓦楞纸",
+        "group": "三、林产品",
+        "label": "三、林产品｜瓦楞纸",
+        "unit": null,
+        "values": [
+          3393.8,
+          -2.1
+        ]
+      },
+      {
+        "display_label": "硫酸",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜硫酸",
+        "unit": null,
+        "values": [
+          250.0,
+          -13.3
+        ]
+      },
+      {
+        "display_label": "烧碱",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜烧碱",
+        "unit": null,
+        "values": [
+          679.2,
+          2.2
+        ]
+      },
+      {
+        "display_label": "甲醇",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜甲醇",
+        "unit": null,
+        "values": [
+          2080.2,
+          -53.1
+        ]
+      },
+      {
+        "display_label": "纯苯",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜纯苯",
+        "unit": null,
+        "values": [
+          5211.9,
+          306.1
+        ]
+      },
+      {
+        "display_label": "苯乙烯",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜苯乙烯",
+        "unit": null,
+        "values": [
+          8994.1,
+          124.8
+        ]
+      },
+      {
+        "display_label": "聚乙烯",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜聚乙烯",
+        "unit": null,
+        "values": [
+          8081.7,
+          152.6
+        ]
+      },
+      {
+        "display_label": "聚丙烯",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜聚丙烯",
+        "unit": null,
+        "values": [
+          8993.9,
+          282.4
+        ]
+      },
+      {
+        "display_label": "聚氯乙烯",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜聚氯乙烯",
+        "unit": null,
+        "values": [
+          6862.3,
+          60.4
+        ]
+      },
+      {
+        "display_label": "顺丁胶",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜顺丁胶",
+        "unit": null,
+        "values": [
+          10505.0,
+          -393.3
+        ]
+      },
+      {
+        "display_label": "涤纶长丝",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜涤纶长丝",
+        "unit": null,
+        "values": [
+          8996.9,
+          446.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

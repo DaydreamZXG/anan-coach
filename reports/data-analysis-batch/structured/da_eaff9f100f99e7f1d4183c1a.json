@@ -1,0 +1,363 @@
+{
+  "asset_id": "da_eaff9f100f99e7f1d4183c1a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2022年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0110_637658af722ef7c4.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0110_637658af722ef7c4.png",
+        "paper_title": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ca7d2f65077d6c2e6f21",
+        "question_number": 111,
+        "source_jsonl_line": 8144
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0110_637658af722ef7c4.png",
+        "paper_title": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0f0b9c9623ff41167b95",
+        "question_number": 112,
+        "source_jsonl_line": 8145
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0110_637658af722ef7c4.png",
+        "paper_title": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_64524abc3d870ee5e118",
+        "question_number": 113,
+        "source_jsonl_line": 8146
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0110_637658af722ef7c4.png",
+        "paper_title": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d4ed9d5726e580f97e74",
+        "question_number": 114,
+        "source_jsonl_line": 8147
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0110_637658af722ef7c4.png",
+        "paper_title": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_347a57820388113dd3a2",
+        "question_number": 115,
+        "source_jsonl_line": 8148
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0134_c27f22f26cb9687e.png",
+        "paper_title": "2022年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a8d4dac5549108275cd2",
+        "question_number": 111,
+        "source_jsonl_line": 32914
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0104_637658af722ef7c4.png",
+        "paper_title": "2022年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_36da3ff387a50ceaa7f6",
+        "question_number": 112,
+        "source_jsonl_line": 32915
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0104_637658af722ef7c4.png",
+        "paper_title": "2022年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4ab32636c37a97caba45",
+        "question_number": 113,
+        "source_jsonl_line": 32916
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0134_c27f22f26cb9687e.png",
+        "paper_title": "2022年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7fb80a3057e707dd3014",
+        "question_number": 114,
+        "source_jsonl_line": 32917
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0104_637658af722ef7c4.png",
+        "paper_title": "2022年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cfcea754884fe0e1cea7",
+        "question_number": 115,
+        "source_jsonl_line": 32918
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0111_637658af722ef7c4.png",
+        "paper_title": "2022年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c133ac47c27c30850315",
+        "question_number": 121,
+        "source_jsonl_line": 53815
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0111_637658af722ef7c4.png",
+        "paper_title": "2022年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_32562514b3f64cc5a377",
+        "question_number": 122,
+        "source_jsonl_line": 53816
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0111_637658af722ef7c4.png",
+        "paper_title": "2022年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6dc1a107bd30ca43da90",
+        "question_number": 123,
+        "source_jsonl_line": 53817
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0111_637658af722ef7c4.png",
+        "paper_title": "2022年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c672940fd5603d43534c",
+        "question_number": 124,
+        "source_jsonl_line": 53818
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0160_c27f22f26cb9687e.png",
+        "paper_title": "2022年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bd43cfbb548084d72d73",
+        "question_number": 125,
+        "source_jsonl_line": 53819
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0090_637658af722ef7c4.png",
+        "paper_title": "2022年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c0af813693a90b01af72",
+        "question_number": 116,
+        "source_jsonl_line": 56263
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0097_c27f22f26cb9687e.png",
+        "paper_title": "2022年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6ffb4226767a8868523c",
+        "question_number": 117,
+        "source_jsonl_line": 56264
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0090_637658af722ef7c4.png",
+        "paper_title": "2022年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b78d14bdf3f3c1fbc5df",
+        "question_number": 118,
+        "source_jsonl_line": 56265
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0097_c27f22f26cb9687e.png",
+        "paper_title": "2022年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5de380fd4723e7724815",
+        "question_number": 119,
+        "source_jsonl_line": 56266
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0097_c27f22f26cb9687e.png",
+        "paper_title": "2022年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_92ca89c80af4fb9512e3",
+        "question_number": 120,
+        "source_jsonl_line": 56267
+      }
+    ],
+    "sha256": "eaff9f100f99e7f1d4183c1ab8b6ba61f22f1e8d6af573559152b2663c3ef7c0"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "团体数(个)",
+      "从业人员(万人)",
+      "演出场次(万场)",
+      "国内演出观众人次",
+      "演出收入(亿元)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          7055,
+          22.66,
+          154.72,
+          7.46,
+          52.67
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          7321,
+          24.2,
+          135.02,
+          8.28,
+          64.15
+        ]
+      },
+      {
+        "label": "2013",
+        "unit": null,
+        "values": [
+          2013,
+          8180,
+          26.09,
+          165.11,
+          9.01,
+          82.07
+        ]
+      },
+      {
+        "label": "2014",
+        "unit": null,
+        "values": [
+          2014,
+          8769,
+          26.29,
+          173.91,
+          9.1,
+          75.7
+        ]
+      },
+      {
+        "label": "2015",
+        "unit": null,
+        "values": [
+          2015,
+          10787,
+          30.18,
+          210.78,
+          9.58,
+          93.93
+        ]
+      },
+      {
+        "label": "2016",
+        "unit": null,
+        "values": [
+          2016,
+          12301,
+          33.29,
+          230.6,
+          11.81,
+          120.86
+        ]
+      },
+      {
+        "label": "2017",
+        "unit": null,
+        "values": [
+          2017,
+          15742,
+          40.3,
+          293.57,
+          12.47,
+          147.68
+        ]
+      },
+      {
+        "label": "2018",
+        "unit": null,
+        "values": [
+          2018,
+          17123,
+          41.64,
+          312.46,
+          11.76,
+          152.27
+        ]
+      },
+      {
+        "label": "2019",
+        "unit": null,
+        "values": [
+          2019,
+          17795,
+          41.25,
+          296.8,
+          12.3,
+          126.78
+        ]
+      },
+      {
+        "label": "2020",
+        "unit": null,
+        "values": [
+          2020,
+          17581,
+          43.69,
+          225.61,
+          8.93,
+          86.63
+        ]
+      }
+    ]
+  },
+  "title": "2011~2020年全国艺术表演团体基本情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_eaff9f100f99e7f1d4183c1a/row_band_01.jpg",
+        "review-crops/da_eaff9f100f99e7f1d4183c1a/row_band_02.jpg",
+        "review-crops/da_eaff9f100f99e7f1d4183c1a/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.94",
+      "crop_verification_elapsed_seconds:13.586",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

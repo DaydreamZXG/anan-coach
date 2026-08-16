@@ -58,7 +58,7 @@ describe("capture import native camera", () => {
     expect(chooseMedia).not.toHaveBeenCalled();
   });
 
-  it("keeps native cropping optional on the image confirmation screen", () => {
+  it("keeps free native image editing optional on the confirmation screen", () => {
     const cropStart = captureTemplate.indexOf("captureStage === 'crop'");
     const cropEnd = captureTemplate.indexOf(
       "<block wx:elif=\"{{state && state.status === 'idle'}}\">",
@@ -67,15 +67,17 @@ describe("capture import native camera", () => {
     const cropTemplate = captureTemplate.slice(cropStart, cropEnd);
 
     expect(captureLogic).not.toMatch(/await (?:this|page)\.editPendingImage\(\);/u);
-    expect(captureLogic).toContain("裁剪没打开，直接用原图也行");
+    expect(externalLearningPlatform).toContain('typeof wx.editImage === "function"');
+    expect(externalLearningPlatform).toContain("wx.editImage({");
     expect(externalLearningPlatform).toContain('typeof wx.cropImage === "function"');
     expect(externalLearningPlatform).toContain("wx.cropImage({");
     expect(externalLearningPlatform).toContain('cropScale: "9:16"');
-    expect(externalLearningPlatform.indexOf("wx.cropImage({")).toBeLessThan(
-      externalLearningPlatform.indexOf("wx.editImage({"),
+    expect(externalLearningPlatform.indexOf("wx.editImage({")).toBeLessThan(
+      externalLearningPlatform.indexOf("wx.cropImage({"),
     );
     expect(cropTemplate).toContain('bindtap="editPendingImage"');
-    expect(cropTemplate).toContain("点一下图片就能重新裁剪");
+    expect(cropTemplate).toContain("移动缩放后调整题目区域");
+    expect(cropTemplate).toContain("调整选区");
     expect(cropTemplate).not.toContain("crop-frame");
     expect(cropTemplate).not.toContain("crop-corner");
     expect(cropTemplate).not.toContain("touchmove");

@@ -1,0 +1,49 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "高速",
+          "一级",
+          "二级",
+          "三级",
+          "四级",
+          "等级外"
+        ],
+        "label": "技术等级"
+      }
+    ],
+    "columns": [
+      "高速",
+      "一级",
+      "二级",
+      "三级",
+      "四级",
+      "等级外"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "display_label": "高速",
+        "group": null,
+        "label": "高速",
+        "unit": null,
+        "values": [
+          12.35,
+          9.1,
+          36.04,
+          41.82,
+          305.32,
+          53.1
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

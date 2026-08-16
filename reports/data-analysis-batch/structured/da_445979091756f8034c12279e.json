@@ -1,0 +1,186 @@
+{
+  "asset_id": "da_445979091756f8034c12279e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0252_00ffb2efe0c09a05.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0252_00ffb2efe0c09a05.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_cdf3d96ea65809e05310",
+        "question_number": 81,
+        "source_jsonl_line": 30505
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0255_460c1beb4f124c69.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_8897180866f585007f68",
+        "question_number": 82,
+        "source_jsonl_line": 30506
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0252_00ffb2efe0c09a05.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_6b45ebe959e2b7e25cae",
+        "question_number": 83,
+        "source_jsonl_line": 30507
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0255_460c1beb4f124c69.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_24482ab1e17cddba935b",
+        "question_number": 84,
+        "source_jsonl_line": 30508
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0255_460c1beb4f124c69.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_62ec71a5c34983552776",
+        "question_number": 85,
+        "source_jsonl_line": 30509
+      }
+    ],
+    "sha256": "445979091756f8034c12279e84db9ae3b4464fe540b12c926cb762394658d012"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "种植面积（千公顷）",
+      "总产量（万吨）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "河北",
+        "unit": null,
+        "values": [
+          "河北",
+          203.9,
+          22.7
+        ]
+      },
+      {
+        "label": "安徽",
+        "unit": null,
+        "values": [
+          "安徽",
+          60.3,
+          5.6
+        ]
+      },
+      {
+        "label": "江西",
+        "unit": null,
+        "values": [
+          "江西",
+          42.6,
+          6.6
+        ]
+      },
+      {
+        "label": "山东",
+        "unit": null,
+        "values": [
+          "山东",
+          169.3,
+          19.6
+        ]
+      },
+      {
+        "label": "湖北",
+        "unit": null,
+        "values": [
+          "湖北",
+          162.8,
+          14.4
+        ]
+      },
+      {
+        "label": "湖南",
+        "unit": null,
+        "values": [
+          "湖南",
+          63.0,
+          8.2
+        ]
+      },
+      {
+        "label": "新疆",
+        "unit": null,
+        "values": [
+          "新疆",
+          2540.5,
+          500.2
+        ]
+      }
+    ]
+  },
+  "title": "2019年棉花种植面积排名前7省区棉花种植情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_445979091756f8034c12279e/row_band_01.jpg",
+        "review-crops/da_445979091756f8034c12279e/row_band_02.jpg",
+        "review-crops/da_445979091756f8034c12279e/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.797",
+      "crop_verification_elapsed_seconds:6.3",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了第三张图中‘湖南’的种植面积为63.0，与前两张图一致。",
+      "crop_note:修正了第三张图中‘新疆’的总产量为500.2，与前两张图一致。",
+      "crop_note:确认所有数字格式正确，小数点和单位一致，无负号或百分号错误。",
+      "crop_note:确认所有缺失值保持为null，未补0。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

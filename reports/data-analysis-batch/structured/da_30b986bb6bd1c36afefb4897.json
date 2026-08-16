@@ -1,0 +1,275 @@
+{
+  "asset_id": "da_30b986bb6bd1c36afefb4897",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "行业",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "2019年",
+        "unit": "元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "2018年",
+        "unit": "元"
+      }
+    ]
+  },
+  "categories": [
+    "制造业",
+    "建筑业",
+    "批发和零售业",
+    "交通运输仓储邮政业",
+    "住宿餐饮业",
+    "居民服务修理和其他服务业"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2019",
+      "label": "2019年",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        3958,
+        4567,
+        3472,
+        4667,
+        3289,
+        3337
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "2018",
+      "label": "2018年",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        3732,
+        4209,
+        3263,
+        4345,
+        3148,
+        3202
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0237_9a1b6e46de07e58e.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0237_9a1b6e46de07e58e.jpg",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_2ae2aad02b5407e0e58b",
+        "question_number": 91,
+        "source_jsonl_line": 35323
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0247_a5b347e7a2363de1.jpg",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_48e877e4ee05463f0cec",
+        "question_number": 92,
+        "source_jsonl_line": 35324
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0247_a5b347e7a2363de1.jpg",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_76a995afbe8c61ad57bc",
+        "question_number": 93,
+        "source_jsonl_line": 35325
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0247_a5b347e7a2363de1.jpg",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_6662fc4ff66fbd3718cb",
+        "question_number": 94,
+        "source_jsonl_line": 35326
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0237_9a1b6e46de07e58e.jpg",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_eab9bd14dfea6fbbfca9",
+        "question_number": 95,
+        "source_jsonl_line": 35327
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）_images/img_0212_a5b347e7a2363de1.jpg",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）",
+        "question_id": "pq_e751de93688374130f5e",
+        "question_number": 91,
+        "source_jsonl_line": 35423
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）_images/img_0234_9a1b6e46de07e58e.jpg",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）",
+        "question_id": "pq_f6f1ce36d852b0a2fbf1",
+        "question_number": 92,
+        "source_jsonl_line": 35424
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）_images/img_0212_a5b347e7a2363de1.jpg",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）",
+        "question_id": "pq_58d15b819e1bf55d3cca",
+        "question_number": 93,
+        "source_jsonl_line": 35425
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）_images/img_0234_9a1b6e46de07e58e.jpg",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）",
+        "question_id": "pq_1ec7aed0da09d66441ac",
+        "question_number": 94,
+        "source_jsonl_line": 35426
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）_images/img_0212_a5b347e7a2363de1.jpg",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）",
+        "question_id": "pq_e7139f083e314884577a",
+        "question_number": 95,
+        "source_jsonl_line": 35427
+      }
+    ],
+    "sha256": "30b986bb6bd1c36afefb4897db58ec84b44c2305ee8d8ca40744650c28dc5f28"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "行业",
+      "2019年",
+      "2018年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "制造业",
+        "unit": null,
+        "values": [
+          "制造业",
+          3958,
+          3732
+        ]
+      },
+      {
+        "label": "建筑业",
+        "unit": null,
+        "values": [
+          "建筑业",
+          4567,
+          4209
+        ]
+      },
+      {
+        "label": "批发和零售业",
+        "unit": null,
+        "values": [
+          "批发和零售业",
+          3472,
+          3263
+        ]
+      },
+      {
+        "label": "交通运输仓储邮政业",
+        "unit": null,
+        "values": [
+          "交通运输仓储邮政业",
+          4667,
+          4345
+        ]
+      },
+      {
+        "label": "住宿餐饮业",
+        "unit": null,
+        "values": [
+          "住宿餐饮业",
+          3289,
+          3148
+        ]
+      },
+      {
+        "label": "居民服务修理和其他服务业",
+        "unit": null,
+        "values": [
+          "居民服务修理和其他服务业",
+          3337,
+          3202
+        ]
+      }
+    ]
+  },
+  "title": "六大行业农民工月均收入",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_30b986bb6bd1c36afefb4897/row_band_01.jpg",
+        "review-crops/da_30b986bb6bd1c36afefb4897/row_band_02.jpg",
+        "review-crops/da_30b986bb6bd1c36afefb4897/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.279",
+      "crop_verification_elapsed_seconds:9.244",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'建筑业'2019年收入为4567，原为4507",
+      "crop_note:修正了'住宿餐饮业'2019年收入为3289，原为3289",
+      "crop_note:修正了'居民服务修理和其他服务业'2019年收入为3337，原为3337",
+      "crop_note:修正了'住宿餐饮业'2018年收入为3148，原为3148",
+      "crop_note:修正了'居民服务修理和其他服务业'2018年收入为3202，原为3202"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

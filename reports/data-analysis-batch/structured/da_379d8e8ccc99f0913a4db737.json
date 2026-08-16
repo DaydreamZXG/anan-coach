@@ -1,0 +1,170 @@
+{
+  "asset_id": "da_379d8e8ccc99f0913a4db737",
+  "axes": {
+    "x": {
+      "max": 70,
+      "min": 0,
+      "ticks": [
+        0,
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70
+      ],
+      "title": null,
+      "unit": "%"
+    },
+    "y": [
+      {
+        "max": 1,
+        "min": 0,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "缺乏启动资金",
+    "缺乏社会经验",
+    "缺乏创业方向",
+    "自身性格等不适合创业",
+    "缺乏合作伙伴",
+    "害怕风险",
+    "更愿意在体面的单位工作",
+    "家人反对"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "原因",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "原因",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        58.8,
+        55.6,
+        50.1,
+        33.3,
+        29.9,
+        25.3,
+        11.4,
+        9.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2016年江苏省公务员录用考试《行测》题（A类）_images/img_0233_b359ee6b4b3557ef.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0233_b359ee6b4b3557ef.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_89d1b195006c9f99fc39",
+        "question_number": 131,
+        "source_jsonl_line": 47241
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0236_3f5eda99045410e0.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_0fb02fc4ca50cfaecdb4",
+        "question_number": 132,
+        "source_jsonl_line": 47242
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0236_3f5eda99045410e0.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_0f4089e4af23327ae5d4",
+        "question_number": 133,
+        "source_jsonl_line": 47243
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0236_3f5eda99045410e0.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_1a20872131e2018c57af",
+        "question_number": 134,
+        "source_jsonl_line": 47244
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0236_3f5eda99045410e0.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_eecea6ac962b45f40dd3",
+        "question_number": 135,
+        "source_jsonl_line": 47245
+      }
+    ],
+    "sha256": "379d8e8ccc99f0913a4db7379a84953f1d1d865ae03ec70a5a8176d348b805b4"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "受访应届毕业生不打算创业的原因（多选）",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_379d8e8ccc99f0913a4db737/column_band_01.jpg",
+        "review-crops/da_379d8e8ccc99f0913a4db737/column_band_02.jpg",
+        "review-crops/da_379d8e8ccc99f0913a4db737/column_band_03.jpg",
+        "review-crops/da_379d8e8ccc99f0913a4db737/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.56",
+      "crop_verification_elapsed_seconds:8.988",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了 '更愿意在体面的单位工作' 的数值为 11.4，与图中一致。",
+      "crop_note:修正了 '害怕风险' 的数值为 25.3，与图中一致。",
+      "crop_note:修正了 '缺乏合作伙伴' 的数值为 29.9，与图中一致。",
+      "crop_note:修正了 '自身性格等不适合创业' 的数值为 33.3，与图中一致。",
+      "crop_note:修正了 '缺乏创业方向' 的数值为 50.1，与图中一致。",
+      "crop_note:修正了 '缺乏社会经验' 的数值为 55.6，与图中一致。",
+      "crop_note:修正了 '缺乏启动资金' 的数值为 58.8，与图中一致。",
+      "crop_note:修正了 '家人反对' 的数值为 9.8，与图中一致。",
+      "crop_note:确认所有百分号和小数点格式正确。",
+      "crop_note:确认所有类别顺序与图中一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

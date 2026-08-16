@@ -1,0 +1,793 @@
+{
+  "cross_panel_patterns": [
+    {
+      "confidence": 0.9,
+      "description": "Arc moves from bottom-left to top-left",
+      "from_panels": [
+        1
+      ],
+      "subjects": [
+        "p1e3",
+        "p2e3"
+      ],
+      "to_panels": [
+        2
+      ],
+      "type": "translation"
+    },
+    {
+      "confidence": 0.9,
+      "description": "Diagonal line changes orientation from down to up",
+      "from_panels": [
+        1
+      ],
+      "subjects": [
+        "p1e2",
+        "p2e2"
+      ],
+      "to_panels": [
+        2
+      ],
+      "type": "translation"
+    }
+  ],
+  "option_count": 4,
+  "panel_count": 10,
+  "panels": [
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 6,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [
+            "2x2 internal grid"
+          ],
+          "fill_state": "none",
+          "id": "p1e1",
+          "instances": [],
+          "kind": "grid",
+          "label": "outer_frame",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p1e2",
+          "instances": [],
+          "kind": "polyline",
+          "label": "diagonal_line",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "center",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p1e3",
+          "instances": [],
+          "kind": "arc",
+          "label": "bottom_left_arc",
+          "line_character": "curved",
+          "orientation": "clockwise",
+          "parts": [],
+          "relative_region": "bottom_left",
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 1,
+      "relations": [
+        {
+          "description": "diagonal line inside the grid",
+          "subjects": [
+            "p1e2",
+            "p1e1"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "arc inside the bottom-left cell",
+          "subjects": [
+            "p1e3",
+            "p1e1"
+          ],
+          "type": "inside"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": null,
+        "junction_count": null,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 6,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [
+            "2x2 internal grid"
+          ],
+          "fill_state": "none",
+          "id": "p2e1",
+          "instances": [],
+          "kind": "grid",
+          "label": "outer_frame",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p2e2",
+          "instances": [],
+          "kind": "polyline",
+          "label": "diagonal_line",
+          "line_character": "straight",
+          "orientation": "diagonal_up",
+          "parts": [],
+          "relative_region": "center",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p2e3",
+          "instances": [],
+          "kind": "arc",
+          "label": "top_left_arc",
+          "line_character": "curved",
+          "orientation": "clockwise",
+          "parts": [],
+          "relative_region": "top_left",
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 2,
+      "relations": [
+        {
+          "description": "diagonal line inside the grid",
+          "subjects": [
+            "p2e2",
+            "p2e1"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "arc inside the top-left cell",
+          "subjects": [
+            "p2e3",
+            "p2e1"
+          ],
+          "type": "inside"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": null,
+        "junction_count": null,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 8,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [
+            "2x2 internal grid"
+          ],
+          "fill_state": "none",
+          "id": "p3e1",
+          "instances": [],
+          "kind": "grid",
+          "label": "outer_frame",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [
+            "V-shaped structure"
+          ],
+          "fill_state": "none",
+          "id": "p3e2",
+          "instances": [],
+          "kind": "polyline",
+          "label": "v_shape_line",
+          "line_character": "straight",
+          "orientation": "mixed",
+          "parts": [],
+          "relative_region": "center",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p3e3",
+          "instances": [],
+          "kind": "arc",
+          "label": "bottom_arc",
+          "line_character": "curved",
+          "orientation": "clockwise",
+          "parts": [],
+          "relative_region": "bottom",
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 3,
+      "relations": [
+        {
+          "description": "V-shape inside the grid",
+          "subjects": [
+            "p3e2",
+            "p3e1"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "arc at the bottom",
+          "subjects": [
+            "p3e3",
+            "p3e1"
+          ],
+          "type": "inside"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": null,
+        "junction_count": null,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 7,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [
+            "2x2 internal grid"
+          ],
+          "fill_state": "none",
+          "id": "p4e1",
+          "instances": [],
+          "kind": "grid",
+          "label": "outer_frame",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p4e2",
+          "instances": [],
+          "kind": "polyline",
+          "label": "right_edge_line",
+          "line_character": "straight",
+          "orientation": "vertical",
+          "parts": [],
+          "relative_region": "right",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p4e3",
+          "instances": [],
+          "kind": "arc",
+          "label": "top_arc",
+          "line_character": "curved",
+          "orientation": "counterclockwise",
+          "parts": [],
+          "relative_region": "top",
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 4,
+      "relations": [
+        {
+          "description": "line on the right",
+          "subjects": [
+            "p4e2",
+            "p4e1"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "arc at the top",
+          "subjects": [
+            "p4e3",
+            "p4e1"
+          ],
+          "type": "inside"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": null,
+        "junction_count": null,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 8,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [
+            "2x2 internal grid"
+          ],
+          "fill_state": "none",
+          "id": "p5e1",
+          "instances": [],
+          "kind": "grid",
+          "label": "outer_frame",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [
+            "Triangle-like peak"
+          ],
+          "fill_state": "none",
+          "id": "p5e2",
+          "instances": [],
+          "kind": "polyline",
+          "label": "triangle_line",
+          "line_character": "straight",
+          "orientation": "mixed",
+          "parts": [],
+          "relative_region": "center",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p5e3",
+          "instances": [],
+          "kind": "arc",
+          "label": "left_arc",
+          "line_character": "curved",
+          "orientation": "clockwise",
+          "parts": [],
+          "relative_region": "left",
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 5,
+      "relations": [
+        {
+          "description": "triangle peak inside the grid",
+          "subjects": [
+            "p5e2",
+            "p5e1"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "arc on the left",
+          "subjects": [
+            "p5e3",
+            "p5e1"
+          ],
+          "type": "inside"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": null,
+        "junction_count": null,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 0,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [],
+      "observations": [],
+      "option_label": null,
+      "position": 6,
+      "relations": [],
+      "role": "missing",
+      "topology": {
+        "component_count": null,
+        "endpoint_count": null,
+        "junction_count": null,
+        "loop_count": null,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 6,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [
+            "3 vertical columns"
+          ],
+          "fill_state": "none",
+          "id": "p7e1",
+          "instances": [],
+          "kind": "grid",
+          "label": "outer_frame",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [
+            "Semicircle-like"
+          ],
+          "fill_state": "none",
+          "id": "p7e2",
+          "instances": [],
+          "kind": "arc",
+          "label": "central_arc",
+          "line_character": "curved",
+          "orientation": "clockwise",
+          "parts": [],
+          "relative_region": "center",
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "A",
+      "position": 7,
+      "relations": [],
+      "role": "option",
+      "topology": {
+        "component_count": 2,
+        "endpoint_count": null,
+        "junction_count": null,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 9,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [
+            "2x2 internal grid"
+          ],
+          "fill_state": "none",
+          "id": "p8e1",
+          "instances": [],
+          "kind": "grid",
+          "label": "outer_frame",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [
+            "V-shape"
+          ],
+          "fill_state": "none",
+          "id": "p8e2",
+          "instances": [],
+          "kind": "polyline",
+          "label": "v_shape_line",
+          "line_character": "straight",
+          "orientation": "mixed",
+          "parts": [],
+          "relative_region": "center",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p8e3",
+          "instances": [],
+          "kind": "arc",
+          "label": "top_arc",
+          "line_character": "curved",
+          "orientation": "counterclockwise",
+          "parts": [],
+          "relative_region": "top",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p8e4",
+          "instances": [],
+          "kind": "line",
+          "label": "vertical_line",
+          "line_character": "straight",
+          "orientation": "vertical",
+          "parts": [],
+          "relative_region": "center",
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "B",
+      "position": 8,
+      "relations": [],
+      "role": "option",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": null,
+        "junction_count": null,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 9,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [
+            "2x2 internal grid"
+          ],
+          "fill_state": "none",
+          "id": "p9e1",
+          "instances": [],
+          "kind": "grid",
+          "label": "outer_frame",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [
+            "V-shape"
+          ],
+          "fill_state": "none",
+          "id": "p9e2",
+          "instances": [],
+          "kind": "polyline",
+          "label": "v_shape_line",
+          "line_character": "straight",
+          "orientation": "mixed",
+          "parts": [],
+          "relative_region": "bottom",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p9e3",
+          "instances": [],
+          "kind": "arc",
+          "label": "bottom_arc",
+          "line_character": "curved",
+          "orientation": "clockwise",
+          "parts": [],
+          "relative_region": "bottom",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p9e4",
+          "instances": [],
+          "kind": "line",
+          "label": "vertical_line",
+          "line_character": "straight",
+          "orientation": "vertical",
+          "parts": [],
+          "relative_region": "center",
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "C",
+      "position": 9,
+      "relations": [],
+      "role": "option",
+      "topology": {
+        "component_count": 4,
+        "endpoint_count": null,
+        "junction_count": null,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 1,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 10,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [
+            "3x3 internal grid"
+          ],
+          "fill_state": "none",
+          "id": "p10e1",
+          "instances": [],
+          "kind": "grid",
+          "label": "outer_frame",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [
+            "Semicircle-like"
+          ],
+          "fill_state": "none",
+          "id": "p10e2",
+          "instances": [],
+          "kind": "arc",
+          "label": "central_arc",
+          "line_character": "curved",
+          "orientation": "clockwise",
+          "parts": [],
+          "relative_region": "center",
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "D",
+      "position": 10,
+      "relations": [],
+      "role": "option",
+      "topology": {
+        "component_count": 2,
+        "endpoint_count": null,
+        "junction_count": null,
+        "loop_count": 0,
+        "notes": []
+      }
+    }
+  ],
+  "schema_version": "graphic-reasoning-model-semantics-v1",
+  "uncertainties": [],
+  "visual_grammar": "regular_geometry"
+}

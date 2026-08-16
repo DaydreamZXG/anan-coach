@@ -1,0 +1,362 @@
+{
+  "asset_id": "da_0cdaf8624396debab6de342b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0136_b4f1797b3abc1079.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0136_b4f1797b3abc1079.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_9b37f059f990deb38dde",
+        "question_number": 96,
+        "source_jsonl_line": 4426
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0136_b4f1797b3abc1079.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_96b4f21eee59a3782692",
+        "question_number": 97,
+        "source_jsonl_line": 4427
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0139_16fab34b446b9212.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_bcf71b7cad9866448a22",
+        "question_number": 98,
+        "source_jsonl_line": 4428
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0136_b4f1797b3abc1079.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_4211669ab31c013629a9",
+        "question_number": 99,
+        "source_jsonl_line": 4429
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0136_b4f1797b3abc1079.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_7e927c880f947ea6a3b9",
+        "question_number": 100,
+        "source_jsonl_line": 4430
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0134_16fab34b446b9212.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_94add189956dc616af86",
+        "question_number": 96,
+        "source_jsonl_line": 6535
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0134_16fab34b446b9212.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_7c812c9a1f3fa3804db1",
+        "question_number": 97,
+        "source_jsonl_line": 6536
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0145_b4f1797b3abc1079.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_d3a513ee8e0f74bd7ab9",
+        "question_number": 98,
+        "source_jsonl_line": 6537
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0145_b4f1797b3abc1079.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_3fecfbc053d2bc109ea2",
+        "question_number": 99,
+        "source_jsonl_line": 6538
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0145_b4f1797b3abc1079.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_d6aee96a200725ec0a8d",
+        "question_number": 100,
+        "source_jsonl_line": 6539
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0133_16fab34b446b9212.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_3ee2d779ebf34a49a639",
+        "question_number": 96,
+        "source_jsonl_line": 22121
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0145_b4f1797b3abc1079.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_09cada9aa138af107092",
+        "question_number": 97,
+        "source_jsonl_line": 22122
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0145_b4f1797b3abc1079.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_9f12fcc28b53c3b5e1c8",
+        "question_number": 98,
+        "source_jsonl_line": 22123
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0145_b4f1797b3abc1079.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_d7c2536e372eb6435962",
+        "question_number": 99,
+        "source_jsonl_line": 22124
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0145_b4f1797b3abc1079.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_accb953e218ab2872751",
+        "question_number": 100,
+        "source_jsonl_line": 22125
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0139_b4f1797b3abc1079.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_678c77016d6011356251",
+        "question_number": 96,
+        "source_jsonl_line": 24742
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0139_b4f1797b3abc1079.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_ce99660d16b2ab76e174",
+        "question_number": 97,
+        "source_jsonl_line": 24743
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0139_b4f1797b3abc1079.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_14a9dfd4c372caf74229",
+        "question_number": 98,
+        "source_jsonl_line": 24744
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0149_16fab34b446b9212.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_864c67c725f8db949218",
+        "question_number": 99,
+        "source_jsonl_line": 24745
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0139_b4f1797b3abc1079.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_d332981e56bce7ae4e99",
+        "question_number": 100,
+        "source_jsonl_line": 24746
+      }
+    ],
+    "sha256": "0cdaf8624396debab6de342bafe71c214faf6ee2a636978a3436aa7d369e6b22"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2005年7月",
+      "2006年7月",
+      "2007年7月",
+      "2008年7月"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "1、沿海合计",
+        "unit": null,
+        "values": [
+          24245,
+          27660,
+          32631,
+          36516
+        ]
+      },
+      {
+        "label": "其中：大连港",
+        "unit": null,
+        "values": [
+          1357,
+          1626,
+          1804,
+          2000
+        ]
+      },
+      {
+        "label": "秦皇岛港",
+        "unit": null,
+        "values": [
+          1310,
+          1685,
+          2154,
+          2126
+        ]
+      },
+      {
+        "label": "天津港",
+        "unit": null,
+        "values": [
+          1995,
+          2243,
+          2759,
+          3080
+        ]
+      },
+      {
+        "label": "青岛港",
+        "unit": null,
+        "values": [
+          1585,
+          1857,
+          2190,
+          2503
+        ]
+      },
+      {
+        "label": "上海港",
+        "unit": null,
+        "values": [
+          3950,
+          3950,
+          4180,
+          4590
+        ]
+      },
+      {
+        "label": "深圳港",
+        "unit": null,
+        "values": [
+          1306,
+          1526,
+          1605,
+          1864
+        ]
+      },
+      {
+        "label": "2、内河合计",
+        "unit": null,
+        "values": [
+          8244,
+          9588,
+          11376,
+          13944
+        ]
+      },
+      {
+        "label": "其中：南京港",
+        "unit": null,
+        "values": [
+          910,
+          755,
+          915,
+          960
+        ]
+      },
+      {
+        "label": "苏州港",
+        "unit": null,
+        "values": [
+          937,
+          1237,
+          1448,
+          1706
+        ]
+      },
+      {
+        "label": "南通港",
+        "unit": null,
+        "values": [
+          650,
+          830,
+          1010,
+          1200
+        ]
+      },
+      {
+        "label": "镇江港",
+        "unit": null,
+        "values": [
+          375,
+          495,
+          675,
+          700
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0cdaf8624396debab6de342b/row_band_01.jpg",
+        "review-crops/da_0cdaf8624396debab6de342b/row_band_02.jpg",
+        "review-crops/da_0cdaf8624396debab6de342b/row_band_03.jpg",
+        "review-crops/da_0cdaf8624396debab6de342b/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.635",
+      "crop_verification_elapsed_seconds:5.85",
+      "candidate_value_changes_after_crop:0",
+      "table_row_label_column_removed:<blank>"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

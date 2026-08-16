@@ -1,0 +1,25 @@
+{
+  "assetId": "gr_09a239f1f5c89bec86ff315d",
+  "errors": [],
+  "factReview": "pass",
+  "geometryGate": "pass",
+  "qualityStatus": "representative_visible_facts_and_answer_preservation_pass",
+  "relationErrors": [],
+  "relationGate": "pass",
+  "repairReasons": [],
+  "schemaVersion": "graphic-reasoning-simple-regular-acceptance-v1",
+  "scopeLimit": "representative_only_original_image_presentation",
+  "semanticLabelGate": "pass",
+  "solverInputExcludesAnswer": true,
+  "sourceHash": "pass",
+  "sourceSha256": "09a239f1f5c89bec86ff315d718a08ccc7580faa9a7de791af3deed86b00b084",
+  "status": "semantic_solver_validated",
+  "subtype": "closed_polygon_composition",
+  "usage": [
+    {
+      "completion_tokens": 67,
+      "prompt_tokens": 2365,
+      "total_tokens": 2432
+    }
+  ]
+}

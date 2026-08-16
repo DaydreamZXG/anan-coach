@@ -1,0 +1,387 @@
+{
+  "asset_id": "da_68131193eac4c3cd638bf3bd",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0099_095efca97b0150f5.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0099_095efca97b0150f5.jpg",
+        "paper_title": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_e1e8c2cf3a3b274c2fac",
+        "question_number": 71,
+        "source_jsonl_line": 84711
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0099_095efca97b0150f5.jpg",
+        "paper_title": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_f78c2572b6b3be4754fd",
+        "question_number": 72,
+        "source_jsonl_line": 84712
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0099_095efca97b0150f5.jpg",
+        "paper_title": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_8d8be58773227e9d3fb9",
+        "question_number": 73,
+        "source_jsonl_line": 84713
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0099_095efca97b0150f5.jpg",
+        "paper_title": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_8d5e320e7ea3d5655f93",
+        "question_number": 74,
+        "source_jsonl_line": 84714
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0099_095efca97b0150f5.jpg",
+        "paper_title": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_a415b14a759c5e816c25",
+        "question_number": 75,
+        "source_jsonl_line": 84715
+      }
+    ],
+    "sha256": "68131193eac4c3cd638bf3bd4f7587968f810168c20d32127af819b4ffa7f5a0"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "废水排放量｜2011年（万吨）",
+          "废水排放量｜2012年（%）"
+        ],
+        "label": "废水排放量"
+      },
+      {
+        "columns": [
+          "化学需氧量排放量｜2011年（万吨）",
+          "化学需氧量排放量｜2012年（%）"
+        ],
+        "label": "化学需氧量排放量"
+      },
+      {
+        "columns": [
+          "氨、氮排放量｜2011年（万吨）",
+          "氨、氮排放量｜2012年（%）"
+        ],
+        "label": "氨、氮排放量"
+      }
+    ],
+    "columns": [
+      "废水排放量｜2011年（万吨）",
+      "废水排放量｜2012年（%）",
+      "化学需氧量排放量｜2011年（万吨）",
+      "化学需氧量排放量｜2012年（%）",
+      "氨、氮排放量｜2011年（万吨）",
+      "氨、氮排放量｜2012年（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "全省总计",
+        "group": null,
+        "label": "全省总计",
+        "unit": null,
+        "values": [
+          443331,
+          8.07,
+          1982497,
+          -3.09,
+          172945,
+          -2.52
+        ]
+      },
+      {
+        "display_label": "济南",
+        "group": null,
+        "label": "济南",
+        "unit": null,
+        "values": [
+          29794,
+          11.9,
+          120765,
+          -4.11,
+          10211,
+          -5.86
+        ]
+      },
+      {
+        "display_label": "青岛",
+        "group": null,
+        "label": "青岛",
+        "unit": null,
+        "values": [
+          41216,
+          24.49,
+          158339,
+          -5.63,
+          13231,
+          -4.97
+        ]
+      },
+      {
+        "display_label": "淄博",
+        "group": null,
+        "label": "淄博",
+        "unit": null,
+        "values": [
+          33371,
+          8.62,
+          68952,
+          -3.24,
+          6391,
+          -3.22
+        ]
+      },
+      {
+        "display_label": "枣庄",
+        "group": null,
+        "label": "枣庄",
+        "unit": null,
+        "values": [
+          19220,
+          6.1,
+          55878,
+          -0.5,
+          5926,
+          -0.39
+        ]
+      },
+      {
+        "display_label": "东营",
+        "group": null,
+        "label": "东营",
+        "unit": null,
+        "values": [
+          20005,
+          2.67,
+          70192,
+          -2.36,
+          4260,
+          -5.21
+        ]
+      },
+      {
+        "display_label": "烟台",
+        "group": null,
+        "label": "烟台",
+        "unit": null,
+        "values": [
+          30164,
+          6.32,
+          154521,
+          -3.7,
+          12917,
+          -0.77
+        ]
+      },
+      {
+        "display_label": "潍坊",
+        "group": null,
+        "label": "潍坊",
+        "unit": null,
+        "values": [
+          50913,
+          2.44,
+          184905,
+          -1.95,
+          18309,
+          -3.95
+        ]
+      },
+      {
+        "display_label": "济宁",
+        "group": null,
+        "label": "济宁",
+        "unit": null,
+        "values": [
+          35328,
+          20.09,
+          146945,
+          -2.68,
+          14454,
+          -0.07
+        ]
+      },
+      {
+        "display_label": "泰安",
+        "group": null,
+        "label": "泰安",
+        "unit": null,
+        "values": [
+          22506,
+          3.42,
+          124207,
+          -1.94,
+          10144,
+          -0.53
+        ]
+      },
+      {
+        "display_label": "威海",
+        "group": null,
+        "label": "威海",
+        "unit": null,
+        "values": [
+          10693,
+          2.51,
+          32805,
+          -3.41,
+          4557,
+          -1.29
+        ]
+      },
+      {
+        "display_label": "日照",
+        "group": null,
+        "label": "日照",
+        "unit": null,
+        "values": [
+          15415,
+          -1.06,
+          49223,
+          -0.73,
+          4973,
+          -0.04
+        ]
+      },
+      {
+        "display_label": "莱芜",
+        "group": null,
+        "label": "莱芜",
+        "unit": null,
+        "values": [
+          4877,
+          17.47,
+          19248,
+          -5.86,
+          2187,
+          -5.62
+        ]
+      },
+      {
+        "display_label": "临沂",
+        "group": null,
+        "label": "临沂",
+        "unit": null,
+        "values": [
+          34723,
+          4.4,
+          162670,
+          -2.1,
+          17941,
+          -0.59
+        ]
+      },
+      {
+        "display_label": "德州",
+        "group": null,
+        "label": "德州",
+        "unit": null,
+        "values": [
+          20869,
+          6.36,
+          171141,
+          -0.24,
+          13833,
+          -1.41
+        ]
+      },
+      {
+        "display_label": "聊城",
+        "group": null,
+        "label": "聊城",
+        "unit": null,
+        "values": [
+          22997,
+          -0.09,
+          160368,
+          6.06,
+          10459,
+          5.44
+        ]
+      },
+      {
+        "display_label": "滨州",
+        "group": null,
+        "label": "滨州",
+        "unit": null,
+        "values": [
+          23628,
+          17.86,
+          149864,
+          -2.44,
+          8923,
+          -4.68
+        ]
+      },
+      {
+        "display_label": "菏泽",
+        "group": null,
+        "label": "菏泽",
+        "unit": null,
+        "values": [
+          27614,
+          -5.38,
+          152475,
+          -5.08,
+          14228,
+          -2.13
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

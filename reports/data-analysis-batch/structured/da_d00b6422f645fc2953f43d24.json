@@ -1,0 +1,247 @@
+{
+  "asset_id": "da_d00b6422f645fc2953f43d24",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0117_6cb1ea01f2a38fd3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0117_6cb1ea01f2a38fd3.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_220b2c9825699659e084",
+        "question_number": 96,
+        "source_jsonl_line": 90446
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0117_6cb1ea01f2a38fd3.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_cd20538d0bb0e0a03b01",
+        "question_number": 97,
+        "source_jsonl_line": 90447
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0117_6cb1ea01f2a38fd3.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_c87c26e553d8b53810b6",
+        "question_number": 98,
+        "source_jsonl_line": 90448
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0144_d8addb0af86d57a7.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_9755ce1bf54a0d36e728",
+        "question_number": 99,
+        "source_jsonl_line": 90449
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0117_6cb1ea01f2a38fd3.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_c339ceac5ec8e04c5a08",
+        "question_number": 100,
+        "source_jsonl_line": 90450
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0115_6cb1ea01f2a38fd3.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_58bb312c3e5e6b37eadf",
+        "question_number": 96,
+        "source_jsonl_line": 95939
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0108_d8addb0af86d57a7.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_251f4303de56026bc89a",
+        "question_number": 97,
+        "source_jsonl_line": 95940
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0108_d8addb0af86d57a7.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_390ab6b32a70364fa73b",
+        "question_number": 98,
+        "source_jsonl_line": 95941
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0115_6cb1ea01f2a38fd3.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_52d21df948b1c26f2aa0",
+        "question_number": 99,
+        "source_jsonl_line": 95942
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0108_d8addb0af86d57a7.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_895ccce6b967268b7561",
+        "question_number": 100,
+        "source_jsonl_line": 95943
+      }
+    ],
+    "sha256": "d00b6422f645fc2953f43d2427b8e78d4568d9d3136e66bdb323c7e197e655d0"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "企业数（个）",
+      "互联网业务收入（亿元）",
+      "利润总额（亿元）",
+      "研发费用（亿元）",
+      "研发人员（人）"
+    ],
+    "corner_header": {
+      "lower_label": "互联网业务收入（亿元）",
+      "style": "diagonal",
+      "upper_label": "企业数（个）"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "货运量（单位：亿吨）｜2013年",
+        "group": "业务指标",
+        "label": "业务指标｜货运量（单位：亿吨）｜2013年",
+        "unit": null,
+        "values": [
+          78661,
+          20497.5,
+          2688.9,
+          2244.5,
+          649977
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2014年",
+        "group": "业务指标",
+        "label": "业务指标｜货运量（单位：亿吨）｜2014年",
+        "unit": null,
+        "values": [
+          524,
+          12.5,
+          -1.6,
+          1.7,
+          1906
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2015年",
+        "group": "业务指标",
+        "label": "业务指标｜货运量（单位：亿吨）｜2015年",
+        "unit": null,
+        "values": [
+          1335,
+          226.8,
+          9.9,
+          37.8,
+          16346
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2016年",
+        "group": "业务指标",
+        "label": "业务指标｜货运量（单位：亿吨）｜2016年",
+        "unit": null,
+        "values": [
+          813,
+          118.0,
+          8.1,
+          8.5,
+          3836
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2017年",
+        "group": "业务指标",
+        "label": "业务指标｜货运量（单位：亿吨）｜2017年",
+        "unit": null,
+        "values": [
+          6252,
+          155.7,
+          68.0,
+          19.6,
+          14758
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2018年",
+        "group": "业务指标",
+        "label": "业务指标｜货运量（单位：亿吨）｜2018年",
+        "unit": null,
+        "values": [
+          1745,
+          376.8,
+          18.7,
+          29.4,
+          14766
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2019年",
+        "group": "业务指标",
+        "label": "业务指标｜货运量（单位：亿吨）｜2019年",
+        "unit": null,
+        "values": [
+          1233,
+          213.6,
+          22.8,
+          19.5,
+          8920
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

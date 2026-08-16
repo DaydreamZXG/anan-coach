@@ -1,0 +1,343 @@
+{
+  "asset_id": "da_3f8121974ac1ef038f2b1899",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "指标名称",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "珠三角",
+        "unit": null
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "粤东",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "第一产业",
+    "第二产业",
+    "第三产业"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "完成投资",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        92.74,
+        4431.69,
+        11532.46
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "比去年增长%",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.4,
+        6.5,
+        18.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "完成投资",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        63.03,
+        1132.53,
+        1134.22
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "比去年增长%",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        34.6,
+        22.3,
+        23.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "完成投资",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        105.9,
+        867.03,
+        981.84
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "比去年增长%",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        41,
+        37.9,
+        38.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "完成投资",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        92.47,
+        914.81,
+        1409.81
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_8",
+      "label": "比去年增长%",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        36.1,
+        20.2,
+        24.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2014年广东省公务员录用考试《行测》题（县级以上）_images/img_0105_d8d584e1135814f8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（县级以上）_images/img_0105_d8d584e1135814f8.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_99077ecad57c4341d780",
+        "question_number": 96,
+        "source_jsonl_line": 34428
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（县级以上）_images/img_0109_dadb846c51017630.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_4980bb9667011c7772c8",
+        "question_number": 97,
+        "source_jsonl_line": 34429
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（县级以上）_images/img_0105_d8d584e1135814f8.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_4db1780b56051e983e4c",
+        "question_number": 98,
+        "source_jsonl_line": 34430
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（县级以上）_images/img_0105_d8d584e1135814f8.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_26d893381df774a5488c",
+        "question_number": 99,
+        "source_jsonl_line": 34431
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（县级以上）_images/img_0105_d8d584e1135814f8.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_99390baad1b78c3329c5",
+        "question_number": 100,
+        "source_jsonl_line": 34432
+      }
+    ],
+    "sha256": "3f8121974ac1ef038f2b1899a068f5901ef18302cd76ee8d736885fe7332d9e2"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标名称",
+      "珠三角完成投资",
+      "珠三角比去年增长%",
+      "粤东完成投资",
+      "粤东比去年增长%",
+      "粤西完成投资",
+      "粤西比去年增长%",
+      "粤北完成投资",
+      "粤北比去年增长%"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "第一产业",
+        "unit": null,
+        "values": [
+          "第一产业",
+          92.74,
+          10.4,
+          63.03,
+          34.6,
+          105.9,
+          41,
+          92.47,
+          36.1
+        ]
+      },
+      {
+        "label": "第二产业",
+        "unit": null,
+        "values": [
+          "第二产业",
+          4431.69,
+          6.5,
+          1132.53,
+          22.3,
+          867.03,
+          37.9,
+          914.81,
+          20.2
+        ]
+      },
+      {
+        "label": "第三产业",
+        "unit": null,
+        "values": [
+          "第三产业",
+          11532.46,
+          18.5,
+          1134.22,
+          23.5,
+          981.84,
+          38.9,
+          1409.81,
+          24.8
+        ]
+      }
+    ]
+  },
+  "title": "广东2013年分地区分产业固定资产投资结构情况表",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3f8121974ac1ef038f2b1899/row_band_01.jpg",
+        "review-crops/da_3f8121974ac1ef038f2b1899/row_band_02.jpg",
+        "review-crops/da_3f8121974ac1ef038f2b1899/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.536",
+      "crop_verification_elapsed_seconds:21.26",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了第二产业第一列的完成投资数值，从4431.69更正为4431.69（原值正确，但需确认是否为整数），实际应为4431.69，无误。",
+      "crop_note:修正了第二产业第二列的比去年增长%数值，从6.5更正为6.5，无误。",
+      "crop_note:修正了第二产业第三列的完成投资数值，从1132.53更正为1132.53，无误。",
+      "crop_note:修正了第二产业第四列的比去年增长%数值，从22.3更正为22.3，无误。",
+      "crop_note:修正了第二产业第五列的完成投资数值，从867.03更正为867.03，无误。",
+      "crop_note:修正了第二产业第六列的比去年增长%数值，从37.9更正为37.9，无误。",
+      "crop_note:修正了第二产业第七列的完成投资数值，从914.81更正为914.81，无误。",
+      "crop_note:修正了第二产业第八列的比去年增长%数值，从20.2更正为20.2，无误。",
+      "crop_note:修正了第三产业第一列的完成投资数值，从11532.46更正为11532.46，无误。",
+      "crop_note:修正了第三产业第二列的比去年增长%数值，从18.5更正为18.5，无误。",
+      "crop_note:修正了第三产业第三列的完成投资数值，从1134.22更正为1134.22，无误。",
+      "crop_note:修正了第三产业第四列的比去年增长%数值，从23.5更正为23.5，无误。",
+      "crop_note:修正了第三产业第五列的完成投资数值，从981.84更正为981.84，无误。",
+      "crop_note:修正了第三产业第六列的比去年增长%数值，从38.9更正为38.9，无误。",
+      "crop_note:修正了第三产业第七列的完成投资数值，从1409.81更正为1409.81，无误。",
+      "crop_note:修正了第三产业第八列的比去年增长%数值，从24.8更正为24.8，无误。",
+      "crop_note:确认所有数值均正确，无缺失值，无负号错误，无小数点错误，无百分号错误。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

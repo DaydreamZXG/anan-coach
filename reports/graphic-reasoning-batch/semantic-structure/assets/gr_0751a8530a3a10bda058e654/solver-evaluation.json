@@ -1,0 +1,20 @@
+{
+  "answerIsolation": true,
+  "assetId": "gr_0751a8530a3a10bda058e654",
+  "model": "qwen3-vl-30b-a3b",
+  "officialAnswer": "B",
+  "originalImageCorrect": false,
+  "originalImagePrediction": {
+    "answer": "A",
+    "reason": "观察题干图形，发现每个图形中都有一个大圆，内部有两条相交的直线和若干黑点。黑点数量为3个，且位置在不同图形中变化。进一步分析，黑点的位置与直线的交点和相对位置有关。观察发现，黑点的分布规律是：在每幅图中，黑点分别位于两条直线分割出的三个区域中，且每个区域恰好有一个黑点。同时，直线的倾斜方向和交点位置在变化，但黑点始终分布在三个不同的区域。对比选项，A选项中黑点分布于三个不同区域，且直线分割方式与题干一致，符合规律。B选项中黑点分布不符合三个区域各一个的规律，C和D选项中黑点位置或直线分割方式与题干不一致。因此，正确答案为A。"
+  },
+  "originalImageRaw": "{\"answer\":\"A\",\"reason\":\"观察题干图形，发现每个图形中都有一个大圆，内部有两条相交的直线和若干黑点。黑点数量为3个，且位置在不同图形中变化。进一步分析，黑点的位置与直线的交点和相对位置有关。观察发现，黑点的分布规律是：在每幅图中，黑点分别位于两条直线分割出的三个区域中，且每个区域恰好有一个黑点。同时，直线的倾斜方向和交点位置在变化，但黑点始终分布在三个不同的区域。对比选项，A选项中黑点分布于三个不同区域，且直线分割方式与题干一致，符合规律。B选项中黑点分布不符合三个区域各一个的规律，C和D选项中黑点位置或直线分割方式与题干不一致。因此，正确答案为A。\"}",
+  "schemaVersion": "graphic-reasoning-semantic-solver-evaluation-v1",
+  "semanticJsonCorrect": false,
+  "semanticJsonPrediction": {
+    "answer": "D",
+    "information_sufficient": true,
+    "reason": "跨面板模式显示 internal_line 从 diagonal_down 旋转至 diagonal_up，且 black_dot 位置在面板 1-5 中逐步向右移动。面板 6 为缺失，选项中 D 的 internal_line 为 diagonal_up（延续旋转趋势），且 black_dot 位于 top_right（与面板 5 一致，符合向右平移趋势），而其他选项要么 internal_line 方向错误（A 为 vertical，B 为 horizontal，C 为 diagonal_down），要么 black_dot 位置不匹配。因此 D 最符合规律。"
+  },
+  "semanticJsonRaw": "{\"answer\":\"D\",\"reason\":\"跨面板模式显示 internal_line 从 diagonal_down 旋转至 diagonal_up，且 black_dot 位置在面板 1-5 中逐步向右移动。面板 6 为缺失，选项中 D 的 internal_line 为 diagonal_up（延续旋转趋势），且 black_dot 位于 top_right（与面板 5 一致，符合向右平移趋势），而其他选项要么 internal_line 方向错误（A 为 vertical，B 为 horizontal，C 为 diagonal_down），要么 black_dot 位置不匹配。因此 D 最符合规律。\",\"information_sufficient\":true}"
+}

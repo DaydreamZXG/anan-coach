@@ -1,0 +1,470 @@
+{
+  "asset_id": "da_f199264dcbf4ea6f1c6a96a8",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0118_0431582463b6fb71.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0118_0431582463b6fb71.png",
+        "paper_title": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_bcdb255e7ff35fa2ca49",
+        "question_number": 76,
+        "source_jsonl_line": 86703
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0118_0431582463b6fb71.png",
+        "paper_title": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_1a8fc93dcb08f7e8f066",
+        "question_number": 77,
+        "source_jsonl_line": 86704
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0118_0431582463b6fb71.png",
+        "paper_title": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_73ab33f135ecbb36c18e",
+        "question_number": 78,
+        "source_jsonl_line": 86705
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0149_92681e249ff4c372.png",
+        "paper_title": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_438956f406ff3bf1bfcc",
+        "question_number": 79,
+        "source_jsonl_line": 86706
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0149_92681e249ff4c372.png",
+        "paper_title": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_12ffff8efda76d26888d",
+        "question_number": 80,
+        "source_jsonl_line": 86707
+      }
+    ],
+    "sha256": "f199264dcbf4ea6f1c6a96a854e9a253bb2f6a3d4475ae3f6993df749719856e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2014年｜播种面积（公顷）",
+          "2014年｜总产量（吨）",
+          "2014年｜单产（千克/公顷）"
+        ],
+        "label": "2014年"
+      },
+      {
+        "columns": [
+          "2015年｜播种面积（公顷）",
+          "2015年｜总产量（吨）",
+          "2015年｜单产（千克/公顷）"
+        ],
+        "label": "2015年"
+      }
+    ],
+    "columns": [
+      "2014年｜播种面积（公顷）",
+      "2014年｜总产量（吨）",
+      "2014年｜单产（千克/公顷）",
+      "2015年｜播种面积（公顷）",
+      "2015年｜总产量（吨）",
+      "2015年｜单产（千克/公顷）"
+    ],
+    "corner_header": {
+      "lower_label": "总产量（吨）",
+      "style": "diagonal",
+      "upper_label": "播种面积（公顷）"
+    },
+    "missing_cells": [],
+    "row_header_label": "总产量（吨）",
+    "rows": [
+      {
+        "display_label": "（一）粮食作物合计",
+        "group": null,
+        "label": "（一）粮食作物合计",
+        "unit": null,
+        "values": [
+          7440033,
+          45966000,
+          6178,
+          7492100,
+          47127000,
+          6290
+        ]
+      },
+      {
+        "display_label": "（一）夏收粮食",
+        "group": null,
+        "label": "（一）夏收粮食",
+        "unit": null,
+        "values": [
+          3741400,
+          22645000,
+          6053,
+          3801300,
+          22473000,
+          6175
+        ]
+      },
+      {
+        "display_label": "1.谷物",
+        "group": "（一）夏收粮食",
+        "label": "（一）夏收粮食｜1.谷物",
+        "unit": null,
+        "values": [
+          3740833,
+          22641711,
+          6053,
+          3800520,
+          22469500,
+          6175
+        ]
+      },
+      {
+        "display_label": "#小麦",
+        "group": null,
+        "label": "#小麦",
+        "unit": null,
+        "values": [
+          3740227,
+          22638400,
+          6053,
+          3799833,
+          22466000,
+          6176
+        ]
+      },
+      {
+        "display_label": "2.豆类",
+        "group": null,
+        "label": "2.豆类",
+        "unit": null,
+        "values": [
+          567,
+          3290,
+          5805,
+          780,
+          3500,
+          4487
+        ]
+      },
+      {
+        "display_label": "（二）秋收粮食",
+        "group": null,
+        "label": "（二）秋收粮食",
+        "unit": null,
+        "values": [
+          3698633,
+          23321000,
+          6305,
+          3690800,
+          23654000,
+          6409
+        ]
+      },
+      {
+        "display_label": "1.谷物",
+        "group": "（二）秋收粮食",
+        "label": "（二）秋收粮食｜1.谷物",
+        "unit": null,
+        "values": [
+          3273607,
+          20973100,
+          6407,
+          3312160,
+          21531400,
+          6501
+        ]
+      },
+      {
+        "display_label": "（1）稻谷",
+        "group": null,
+        "label": "（1）稻谷",
+        "unit": null,
+        "values": [
+          122400,
+          1010200,
+          8253,
+          116280,
+          951000,
+          8179
+        ]
+      },
+      {
+        "display_label": "（2）玉米",
+        "group": null,
+        "label": "（2）玉米",
+        "unit": null,
+        "values": [
+          3126473,
+          19883400,
+          6360,
+          3173797,
+          20509000,
+          6462
+        ]
+      },
+      {
+        "display_label": "（3）谷子",
+        "group": null,
+        "label": "（3）谷子",
+        "unit": null,
+        "values": [
+          1880,
+          59674,
+          3174,
+          16870,
+          53400,
+          3165
+        ]
+      },
+      {
+        "display_label": "（4）高粱",
+        "group": null,
+        "label": "（4）高粱",
+        "unit": null,
+        "values": [
+          4733,
+          15697,
+          3316,
+          4333,
+          15000,
+          3462
+        ]
+      },
+      {
+        "display_label": "（5）其他",
+        "group": null,
+        "label": "（5）其他",
+        "unit": null,
+        "values": [
+          1200,
+          4129,
+          3441,
+          880,
+          3000,
+          3409
+        ]
+      },
+      {
+        "display_label": "2.豆类合计",
+        "group": null,
+        "label": "2.豆类合计",
+        "unit": null,
+        "values": [
+          168120,
+          414000,
+          2463,
+          151640,
+          384000,
+          2532
+        ]
+      },
+      {
+        "display_label": "#大豆",
+        "group": null,
+        "label": "#大豆",
+        "unit": null,
+        "values": [
+          149467,
+          367164,
+          2456,
+          137150,
+          348300,
+          2540
+        ]
+      },
+      {
+        "display_label": "3.薯类（按折粮计算）",
+        "group": null,
+        "label": "3.薯类（按折粮计算）",
+        "unit": null,
+        "values": [
+          256907,
+          1933900,
+          7528,
+          227000,
+          1738600,
+          7659
+        ]
+      },
+      {
+        "display_label": "二、油料作物合计",
+        "group": null,
+        "label": "二、油料作物合计",
+        "unit": null,
+        "values": [
+          773182,
+          3358878,
+          4344,
+          758260,
+          3241016,
+          4274
+        ]
+      },
+      {
+        "display_label": "#花生果",
+        "group": null,
+        "label": "#花生果",
+        "unit": null,
+        "values": [
+          755302,
+          3312957,
+          4386,
+          740440,
+          3194038,
+          4314
+        ]
+      },
+      {
+        "display_label": "油菜籽",
+        "group": null,
+        "label": "油菜籽",
+        "unit": null,
+        "values": [
+          9641,
+          24494,
+          2541,
+          9413,
+          24432,
+          2595
+        ]
+      },
+      {
+        "display_label": "芝麻",
+        "group": null,
+        "label": "芝麻",
+        "unit": null,
+        "values": [
+          530,
+          938,
+          1769,
+          631,
+          1110,
+          1758
+        ]
+      },
+      {
+        "display_label": "三、棉花",
+        "group": null,
+        "label": "三、棉花",
+        "unit": null,
+        "values": [
+          592900,
+          665000,
+          1122,
+          515500,
+          537000,
+          1042
+        ]
+      },
+      {
+        "display_label": "四、生麻",
+        "group": null,
+        "label": "四、生麻",
+        "unit": null,
+        "values": [
+          48,
+          97,
+          2036,
+          43,
+          78,
+          1837
+        ]
+      },
+      {
+        "display_label": "生大麻",
+        "group": null,
+        "label": "生大麻",
+        "unit": null,
+        "values": [
+          40,
+          74,
+          1851,
+          43,
+          78,
+          1837
+        ]
+      },
+      {
+        "display_label": "六、烟叶",
+        "group": null,
+        "label": "六、烟叶",
+        "unit": null,
+        "values": [
+          27926,
+          70938,
+          2540,
+          24359,
+          62773,
+          2577
+        ]
+      },
+      {
+        "display_label": "烤烟",
+        "group": null,
+        "label": "烤烟",
+        "unit": null,
+        "values": [
+          27911,
+          70824,
+          2538,
+          24359,
+          62773,
+          2577
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

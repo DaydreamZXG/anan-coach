@@ -1,0 +1,168 @@
+{
+  "asset_id": "da_c650f85b614fa1ad9b66d877",
+  "axes": {
+    "x": {
+      "max": 11,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 12,
+        "min": 0,
+        "ticks": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2016年1-2月",
+    "1-3月",
+    "1-4月",
+    "1-5月",
+    "1-6月",
+    "1-7月",
+    "1-8月",
+    "1-9月",
+    "1-10月",
+    "1-11月",
+    "1-12月",
+    "2017年1-2月"
+  ],
+  "chart_type": "line",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "全国房地产开发投资增速",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "#1F77B4"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国房地产开发投资增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        3.0,
+        6.2,
+        7.2,
+        7.0,
+        6.1,
+        5.3,
+        5.4,
+        5.8,
+        6.6,
+        6.5,
+        6.9,
+        8.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0058_0c1f94ba52376927.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0058_0c1f94ba52376927.png",
+        "paper_title": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_de2a6d6da97661e72c15",
+        "question_number": 71,
+        "source_jsonl_line": 86698
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0102_172ba1544a88106a.png",
+        "paper_title": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_3ad452f6ce9c1fdd19d1",
+        "question_number": 72,
+        "source_jsonl_line": 86699
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0058_0c1f94ba52376927.png",
+        "paper_title": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_969ee9bcbcf6d435e2a1",
+        "question_number": 73,
+        "source_jsonl_line": 86700
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0058_0c1f94ba52376927.png",
+        "paper_title": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_342f0b9e48cb66f5b7bf",
+        "question_number": 74,
+        "source_jsonl_line": 86701
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0058_0c1f94ba52376927.png",
+        "paper_title": "2017年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_fc6b4eebdb816d4de164",
+        "question_number": 75,
+        "source_jsonl_line": 86702
+      }
+    ],
+    "sha256": "c650f85b614fa1ad9b66d877d97ddfb97a3069eb044d8f5c2eea2890e1226a25"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "全国房地产开发投资增速",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c650f85b614fa1ad9b66d877/column_band_01.jpg",
+        "review-crops/da_c650f85b614fa1ad9b66d877/column_band_02.jpg",
+        "review-crops/da_c650f85b614fa1ad9b66d877/column_band_03.jpg",
+        "review-crops/da_c650f85b614fa1ad9b66d877/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.238",
+      "crop_verification_elapsed_seconds:3.847",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

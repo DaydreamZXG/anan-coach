@@ -1,0 +1,282 @@
+{
+  "asset_id": "da_3bc5d9258efde60195be2911",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "省份",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "series_1",
+      "label": "广东",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        24464.93,
+        27061.04,
+        30503.44,
+        33223.28,
+        36853.47,
+        41816.37
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_2",
+      "label": "江苏",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        20842.21,
+        23517.98,
+        27197.43,
+        30599.49,
+        34085.88,
+        38458.45
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_3",
+      "label": "山东",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        17370.89,
+        19995.81,
+        23221.51,
+        25840.12,
+        28537.35,
+        31669.03
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_4",
+      "label": "浙江",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        14449.07,
+        16071.16,
+        17948.72,
+        19220.79,
+        21341.91,
+        24091.57
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2021年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0050_1bcafad3f0f356d8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0050_1bcafad3f0f356d8.png",
+        "paper_title": "2021年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_08a52fe20abb210eb000",
+        "question_number": 86,
+        "source_jsonl_line": 16401
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0068_8230d1d1245c7af9.png",
+        "paper_title": "2021年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_a28f3f07ae7973f02763",
+        "question_number": 87,
+        "source_jsonl_line": 16402
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0050_1bcafad3f0f356d8.png",
+        "paper_title": "2021年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_572a2e3501ee4ba9e001",
+        "question_number": 88,
+        "source_jsonl_line": 16403
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0050_1bcafad3f0f356d8.png",
+        "paper_title": "2021年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_83e0f6accd80afcc383c",
+        "question_number": 89,
+        "source_jsonl_line": 16404
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0050_1bcafad3f0f356d8.png",
+        "paper_title": "2021年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_1358a90915e4c1fe69c0",
+        "question_number": 90,
+        "source_jsonl_line": 16405
+      }
+    ],
+    "sha256": "3bc5d9258efde60195be2911657265cc46820e4aad4997f0ac385b1cdb20682f"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "广东",
+      "江苏",
+      "山东",
+      "浙江"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2011年",
+        "unit": null,
+        "values": [
+          "2011年",
+          24464.93,
+          20842.21,
+          17370.89,
+          14449.07
+        ]
+      },
+      {
+        "label": "2012年",
+        "unit": null,
+        "values": [
+          "2012年",
+          27061.04,
+          23517.98,
+          19995.81,
+          16071.16
+        ]
+      },
+      {
+        "label": "2013年",
+        "unit": null,
+        "values": [
+          "2013年",
+          30503.44,
+          27197.43,
+          23221.51,
+          17948.72
+        ]
+      },
+      {
+        "label": "2014年",
+        "unit": null,
+        "values": [
+          "2014年",
+          33223.28,
+          30599.49,
+          25840.12,
+          19220.79
+        ]
+      },
+      {
+        "label": "2015年",
+        "unit": null,
+        "values": [
+          "2015年",
+          36853.47,
+          34085.88,
+          28537.35,
+          21341.91
+        ]
+      },
+      {
+        "label": "2016年",
+        "unit": null,
+        "values": [
+          "2016年",
+          41816.37,
+          38458.45,
+          31669.03,
+          24091.57
+        ]
+      }
+    ]
+  },
+  "title": "2011年－2016年部分省份服务业增加值情况表",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3bc5d9258efde60195be2911/row_band_01.jpg",
+        "review-crops/da_3bc5d9258efde60195be2911/row_band_02.jpg",
+        "review-crops/da_3bc5d9258efde60195be2911/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.939",
+      "crop_verification_elapsed_seconds:14.26",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了标题中的年份范围，将'2011年－2016年'更正为'2011年－2016年'，并确认单位为'亿元'。",
+      "crop_note:核对了所有数值，确认无负号、百分号错误，小数点正确，无缺失值。",
+      "crop_note:确认表格行列拓扑正确，数据与原图一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

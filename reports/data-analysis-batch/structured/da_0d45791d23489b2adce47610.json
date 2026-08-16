@@ -1,0 +1,498 @@
+{
+  "asset_id": "da_0d45791d23489b2adce47610",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "入境方式",
+      "unit": "人"
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "地区",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "地区",
+    "入境旅游人数",
+    "月同比增长(%)",
+    "入境方式(人)"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "入境旅游人数",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "月同比增长(%)",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "船舶",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "飞机",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "火车",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "汽车",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "徒步",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "入境旅游人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        10666830,
+        6218007,
+        1881769,
+        392425,
+        2174629,
+        1351623,
+        239906,
+        496024,
+        57018,
+        29825,
+        233
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "月同比增长(%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.47,
+        6.81,
+        -6.45,
+        8.26,
+        19.29,
+        22.03,
+        9.26,
+        17.11,
+        15.42,
+        31.49,
+        13.11
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "船舶",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        476486,
+        162239,
+        5279,
+        71053,
+        237915,
+        133804,
+        13116,
+        86173,
+        3990,
+        819,
+        13
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "飞机",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        1564539,
+        134333,
+        4215,
+        183012,
+        1242979,
+        823937,
+        171606,
+        196045,
+        32744,
+        18589,
+        58
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "火车",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        129764,
+        60698,
+        173,
+        2426,
+        66197,
+        23904,
+        6473,
+        31560,
+        1948,
+        2304,
+        8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "汽车",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        2857742,
+        2420066,
+        97080,
+        51034,
+        289562,
+        111025,
+        19936,
+        151333,
+        5051,
+        2161,
+        56
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "徒步",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        5638299,
+        3440401,
+        1775022,
+        84900,
+        337976,
+        258953,
+        28775,
+        30913,
+        13285,
+        5952,
+        98
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2008年北京市公务员录用考试《行测》题（应届）_images/img_0181_d311f08599849123.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年北京市公务员录用考试《行测》题（应届）_images/img_0181_d311f08599849123.png",
+        "paper_title": "2008年北京市公务员录用考试《行测》题（应届）",
+        "question_id": "pq_e15d04d032cd0c82d7e2",
+        "question_number": 126,
+        "source_jsonl_line": 8649
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年北京市公务员录用考试《行测》题（应届）_images/img_0181_d311f08599849123.png",
+        "paper_title": "2008年北京市公务员录用考试《行测》题（应届）",
+        "question_id": "pq_6df793e5585b88c200d5",
+        "question_number": 127,
+        "source_jsonl_line": 8650
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年北京市公务员录用考试《行测》题（应届）_images/img_0181_d311f08599849123.png",
+        "paper_title": "2008年北京市公务员录用考试《行测》题（应届）",
+        "question_id": "pq_96c4528fd6a9e3c98287",
+        "question_number": 128,
+        "source_jsonl_line": 8651
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年北京市公务员录用考试《行测》题（应届）_images/img_0210_cbadb95a49a600b4.png",
+        "paper_title": "2008年北京市公务员录用考试《行测》题（应届）",
+        "question_id": "pq_673e09a6b99de067b21d",
+        "question_number": 129,
+        "source_jsonl_line": 8652
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年北京市公务员录用考试《行测》题（应届）_images/img_0181_d311f08599849123.png",
+        "paper_title": "2008年北京市公务员录用考试《行测》题（应届）",
+        "question_id": "pq_480a457952510d1e3bba",
+        "question_number": 130,
+        "source_jsonl_line": 8653
+      }
+    ],
+    "sha256": "0d45791d23489b2adce47610fd755c2135ee7addea3ff9ef9a554dfd7dce6ad1"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "入境旅游人数",
+      "月同比增长(%)",
+      "入境方式(人)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "合计",
+        "unit": null,
+        "values": [
+          "合计",
+          10666830,
+          6.47,
+          "船舶:476486,飞机:1564539,火车:129764,汽车:2857742,徒步:5638299"
+        ]
+      },
+      {
+        "label": "香港同胞",
+        "unit": null,
+        "values": [
+          "香港同胞",
+          6218007,
+          6.81,
+          "船舶:162239,飞机:134333,火车:60698,汽车:2420066,徒步:3440401"
+        ]
+      },
+      {
+        "label": "澳门同胞",
+        "unit": null,
+        "values": [
+          "澳门同胞",
+          1881769,
+          -6.45,
+          "船舶:5279,飞机:4215,火车:173,汽车:97080,徒步:1775022"
+        ]
+      },
+      {
+        "label": "台湾同胞",
+        "unit": null,
+        "values": [
+          "台湾同胞",
+          392425,
+          8.26,
+          "船舶:71053,飞机:183012,火车:2426,汽车:51034,徒步:84900"
+        ]
+      },
+      {
+        "label": "外国旅客",
+        "unit": null,
+        "values": [
+          "外国旅客",
+          2174629,
+          19.29,
+          "船舶:237915,飞机:1242979,火车:66197,汽车:289562,徒步:337976"
+        ]
+      },
+      {
+        "label": "亚洲",
+        "unit": null,
+        "values": [
+          "亚洲",
+          1351623,
+          22.03,
+          "船舶:133804,飞机:823937,火车:23904,汽车:111025,徒步:258953"
+        ]
+      },
+      {
+        "label": "美洲",
+        "unit": null,
+        "values": [
+          "美洲",
+          239906,
+          9.26,
+          "船舶:13116,飞机:171606,火车:6473,汽车:19936,徒步:28775"
+        ]
+      },
+      {
+        "label": "欧洲",
+        "unit": null,
+        "values": [
+          "欧洲",
+          496024,
+          17.11,
+          "船舶:86173,飞机:196045,火车:31560,汽车:151333,徒步:30913"
+        ]
+      },
+      {
+        "label": "大洋洲",
+        "unit": null,
+        "values": [
+          "大洋洲",
+          57018,
+          15.42,
+          "船舶:3990,飞机:32744,火车:1948,汽车:5051,徒步:13285"
+        ]
+      },
+      {
+        "label": "非洲",
+        "unit": null,
+        "values": [
+          "非洲",
+          29825,
+          31.49,
+          "船舶:819,飞机:18589,火车:2304,汽车:2161,徒步:5952"
+        ]
+      },
+      {
+        "label": "其他国家",
+        "unit": null,
+        "values": [
+          "其他国家",
+          233,
+          13.11,
+          "船舶:13,飞机:58,火车:8,汽车:56,徒步:98"
+        ]
+      }
+    ]
+  },
+  "title": "2007年6月我国国内入境旅游人数统计表",
+  "unit": "人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0d45791d23489b2adce47610/row_band_01.jpg",
+        "review-crops/da_0d45791d23489b2adce47610/row_band_02.jpg",
+        "review-crops/da_0d45791d23489b2adce47610/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:19.68",
+      "crop_verification_elapsed_seconds:9.561",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:合计:7!=4",
+      "crop_note:ignored_table_row_length_mismatch:香港同胞:7!=4",
+      "crop_note:ignored_table_row_length_mismatch:合计:7!=4",
+      "crop_note:ignored_table_row_length_mismatch:香港同胞:7!=4",
+      "crop_note:ignored_table_row_length_mismatch:澳门同胞:7!=4",
+      "crop_note:ignored_table_row_length_mismatch:台湾同胞:7!=4",
+      "crop_note:ignored_table_row_length_mismatch:外国旅客:7!=4",
+      "crop_note:ignored_table_row_length_mismatch:亚洲:7!=4",
+      "crop_note:ignored_table_row_length_mismatch:美洲:7!=4",
+      "crop_note:ignored_table_row_length_mismatch:亚洲:7!=4",
+      "crop_note:ignored_table_row_length_mismatch:美洲:7!=4",
+      "crop_note:ignored_table_row_length_mismatch:欧洲:7!=4",
+      "crop_note:ignored_table_row_length_mismatch:大洋洲:7!=4",
+      "crop_note:ignored_table_row_length_mismatch:非洲:7!=4",
+      "crop_note:ignored_table_row_length_mismatch:其他国家:7!=4"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

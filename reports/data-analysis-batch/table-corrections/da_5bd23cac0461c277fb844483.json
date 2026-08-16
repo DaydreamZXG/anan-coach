@@ -1,0 +1,165 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2015年",
+      "2017年",
+      "2020年",
+      "2030年"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "实物量",
+    "rows": [
+      {
+        "display_label": "实物量｜原煤",
+        "group": null,
+        "label": "实物量｜原煤",
+        "unit": "万吨",
+        "values": [
+          32010,
+          32000,
+          32000,
+          34000
+        ]
+      },
+      {
+        "display_label": "实物量｜原油",
+        "group": null,
+        "label": "实物量｜原油",
+        "unit": "万吨",
+        "values": [
+          3600,
+          3800,
+          4200,
+          4200
+        ]
+      },
+      {
+        "display_label": "实物量｜天然气",
+        "group": null,
+        "label": "实物量｜天然气",
+        "unit": "亿立方米",
+        "values": [
+          270,
+          350,
+          450,
+          700
+        ]
+      },
+      {
+        "display_label": "实物量｜区外来电",
+        "group": null,
+        "label": "实物量｜区外来电",
+        "unit": "亿千瓦时",
+        "values": [
+          1125,
+          1500,
+          2250,
+          2500
+        ]
+      },
+      {
+        "display_label": "实物量｜核电",
+        "group": null,
+        "label": "实物量｜核电",
+        "unit": "亿千瓦时",
+        "values": [
+          280,
+          280,
+          700,
+          1000
+        ]
+      },
+      {
+        "display_label": "实物量｜可再生能源发电",
+        "group": null,
+        "label": "实物量｜可再生能源发电",
+        "unit": "亿千瓦时",
+        "values": [
+          195,
+          310,
+          360,
+          460
+        ]
+      },
+      {
+        "display_label": "比重｜原煤",
+        "group": null,
+        "label": "比重｜原煤",
+        "unit": "%",
+        "values": [
+          68.0,
+          63.2,
+          57.1,
+          52.8
+        ]
+      },
+      {
+        "display_label": "比重｜原油",
+        "group": null,
+        "label": "比重｜原油",
+        "unit": "%",
+        "values": [
+          15.3,
+          15.0,
+          15.0,
+          13.0
+        ]
+      },
+      {
+        "display_label": "比重｜天然气",
+        "group": null,
+        "label": "比重｜天然气",
+        "unit": "%",
+        "values": [
+          10.5,
+          13.8,
+          16.1,
+          21.8
+        ]
+      },
+      {
+        "display_label": "比重｜区外来电",
+        "group": null,
+        "label": "比重｜区外来电",
+        "unit": "%",
+        "values": [
+          4.1,
+          5.1,
+          6.8,
+          6.5
+        ]
+      },
+      {
+        "display_label": "比重｜核电",
+        "group": null,
+        "label": "比重｜核电",
+        "unit": "%",
+        "values": [
+          1.0,
+          0.9,
+          2.1,
+          2.6
+        ]
+      },
+      {
+        "display_label": "比重｜可再生能源发电",
+        "group": null,
+        "label": "比重｜可再生能源发电",
+        "unit": "%",
+        "values": [
+          0.7,
+          1.0,
+          1.1,
+          1.2
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

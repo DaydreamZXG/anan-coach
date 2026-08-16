@@ -1,0 +1,247 @@
+{
+  "asset_id": "da_1f9a17594d5a7bebc8800331",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "通硬化路面的乡镇占全国乡镇比例 (%)",
+        "unit": "%"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "通公路建制村占全国建制村比例 (%)",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "通硬化路面的乡镇占全国乡镇比例 (%)",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "通公路建制村占全国建制村比例 (%)",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "通硬化路面的乡镇占全国乡镇比例 (%)",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        98.08,
+        98.62,
+        99.0,
+        99.39,
+        99.64
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "通公路建制村占全国建制村比例 (%)",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        99.82,
+        99.87,
+        99.94,
+        99.98,
+        99.47
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0120_2cfeb8a160c448d2.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0120_2cfeb8a160c448d2.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_2372c909468ed3de4dfd",
+        "question_number": 81,
+        "source_jsonl_line": 35113
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0119_887d2211799220cb.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_65c3541884476d9b8b5c",
+        "question_number": 82,
+        "source_jsonl_line": 35114
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0120_2cfeb8a160c448d2.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_fb79ee6de152347c5e2f",
+        "question_number": 83,
+        "source_jsonl_line": 35115
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0119_887d2211799220cb.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_66203764b18d464a97b2",
+        "question_number": 84,
+        "source_jsonl_line": 35116
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0120_2cfeb8a160c448d2.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_bf7b07906dfb652bf01a",
+        "question_number": 85,
+        "source_jsonl_line": 35117
+      }
+    ],
+    "sha256": "1f9a17594d5a7bebc880033106523464bc7e35f4a418fda76dd7351ec9565793"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "通硬化路面的乡镇占全国乡镇比例 (%)",
+      "通公路建制村占全国建制村比例 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2014年",
+        "unit": null,
+        "values": [
+          "2014年",
+          98.08,
+          99.82
+        ]
+      },
+      {
+        "label": "2015年",
+        "unit": null,
+        "values": [
+          "2015年",
+          98.62,
+          99.87
+        ]
+      },
+      {
+        "label": "2016年",
+        "unit": null,
+        "values": [
+          "2016年",
+          99.0,
+          99.94
+        ]
+      },
+      {
+        "label": "2017年",
+        "unit": null,
+        "values": [
+          "2017年",
+          99.39,
+          99.98
+        ]
+      },
+      {
+        "label": "2018年",
+        "unit": null,
+        "values": [
+          "2018年",
+          99.64,
+          99.47
+        ]
+      }
+    ]
+  },
+  "title": "2014~2018年全国农村公路覆盖情况",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1f9a17594d5a7bebc8800331/row_band_01.jpg",
+        "review-crops/da_1f9a17594d5a7bebc8800331/row_band_02.jpg",
+        "review-crops/da_1f9a17594d5a7bebc8800331/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.183",
+      "crop_verification_elapsed_seconds:13.894",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'通硬化路面的乡镇占全国乡镇比例 (%)'中2014年的数值为98.08，与原图一致。",
+      "crop_note:修正了'通公路建制村占全国建制村比例 (%)'中2014年的数值为99.82，与原图一致。",
+      "crop_note:修正了'通硬化路面的乡镇占全国乡镇比例 (%)'中2015年的数值为98.62，与原图一致。",
+      "crop_note:修正了'通公路建制村占全国建制村比例 (%)'中2015年的数值为99.87，与原图一致。",
+      "crop_note:修正了'通硬化路面的乡镇占全国乡镇比例 (%)'中2016年的数值为99.00，与原图一致。",
+      "crop_note:修正了'通公路建制村占全国建制村比例 (%)'中2016年的数值为99.94，与原图一致。",
+      "crop_note:修正了'通硬化路面的乡镇占全国乡镇比例 (%)'中2017年的数值为99.39，与原图一致。",
+      "crop_note:修正了'通公路建制村占全国建制村比例 (%)'中2017年的数值为99.98，与原图一致。",
+      "crop_note:修正了'通硬化路面的乡镇占全国乡镇比例 (%)'中2018年的数值为99.64，与原图一致。",
+      "crop_note:修正了'通公路建制村占全国建制村比例 (%)'中2018年的数值为99.47，与原图一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

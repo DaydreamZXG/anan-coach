@@ -1,0 +1,343 @@
+{
+  "asset_id": "da_bb94190acbfacf9bf3553936",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "省份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "交通运输、仓储及邮电通信业",
+        "unit": "万人"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "信息传输、计算机服务和软件产业",
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "A省",
+    "B省",
+    "C省",
+    "D省",
+    "E省",
+    "F省"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "交通运输、仓储及邮电通信业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        126.7,
+        187.3,
+        133.8,
+        84.2,
+        28.1,
+        20.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "信息传输、计算机服务和软件产业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        28.5,
+        17.1,
+        16.0,
+        11.4,
+        4.3,
+        4.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "租赁和商业服务业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        14.7,
+        20.9,
+        11.9,
+        8.7,
+        11.6,
+        12.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "金融保险业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        22.4,
+        7.7,
+        16.7,
+        7.3,
+        5.8,
+        1.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "房地产业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        72.5,
+        14.0,
+        16.3,
+        8.2,
+        6.3,
+        4.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "科学技术服务业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        7.0,
+        11.1,
+        6.4,
+        5.5,
+        9.0,
+        5.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2009年安徽省公务员录用考试《行测》题_images/img_0124_d3d994d2598cfb5d.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年安徽省公务员录用考试《行测》题_images/img_0124_d3d994d2598cfb5d.jpg",
+        "paper_title": "2009年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_58a477140847ca32a60c",
+        "question_number": 126,
+        "source_jsonl_line": 26756
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年安徽省公务员录用考试《行测》题_images/img_0144_a43ffcfeaf382992.jpg",
+        "paper_title": "2009年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_e3c1a1e77b40006f64bf",
+        "question_number": 127,
+        "source_jsonl_line": 26757
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年安徽省公务员录用考试《行测》题_images/img_0124_d3d994d2598cfb5d.jpg",
+        "paper_title": "2009年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_982e9a60b7765a1167da",
+        "question_number": 128,
+        "source_jsonl_line": 26758
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年安徽省公务员录用考试《行测》题_images/img_0124_d3d994d2598cfb5d.jpg",
+        "paper_title": "2009年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_8f6a436e16e415c7bb71",
+        "question_number": 129,
+        "source_jsonl_line": 26759
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年安徽省公务员录用考试《行测》题_images/img_0124_d3d994d2598cfb5d.jpg",
+        "paper_title": "2009年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_00c88200b41c3e3b6de2",
+        "question_number": 130,
+        "source_jsonl_line": 26760
+      }
+    ],
+    "sha256": "bb94190acbfacf9bf355393698da89e75a462f74a691368c14f62a1a625d6d25"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "省份",
+      "交通运输、仓储及邮电通信业",
+      "信息传输、计算机服务和软件产业",
+      "租赁和商业服务业",
+      "金融保险业",
+      "房地产业",
+      "科学技术服务业"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "A省",
+        "unit": null,
+        "values": [
+          "A省",
+          126.7,
+          28.5,
+          14.7,
+          22.4,
+          72.5,
+          7.0
+        ]
+      },
+      {
+        "label": "B省",
+        "unit": null,
+        "values": [
+          "B省",
+          187.3,
+          17.1,
+          20.9,
+          7.7,
+          14.0,
+          11.1
+        ]
+      },
+      {
+        "label": "C省",
+        "unit": null,
+        "values": [
+          "C省",
+          133.8,
+          16.0,
+          11.9,
+          16.7,
+          16.3,
+          6.4
+        ]
+      },
+      {
+        "label": "D省",
+        "unit": null,
+        "values": [
+          "D省",
+          84.2,
+          11.4,
+          8.7,
+          7.3,
+          8.2,
+          5.5
+        ]
+      },
+      {
+        "label": "E省",
+        "unit": null,
+        "values": [
+          "E省",
+          28.1,
+          4.3,
+          11.6,
+          5.8,
+          6.3,
+          9.0
+        ]
+      },
+      {
+        "label": "F省",
+        "unit": null,
+        "values": [
+          "F省",
+          20.0,
+          4.1,
+          12.1,
+          1.3,
+          4.8,
+          5.9
+        ]
+      }
+    ]
+  },
+  "title": "相邻六省生产性服务业从业人员分析表（2005年）",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_bb94190acbfacf9bf3553936/row_band_01.jpg",
+        "review-crops/da_bb94190acbfacf9bf3553936/row_band_02.jpg",
+        "review-crops/da_bb94190acbfacf9bf3553936/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:14.63",
+      "crop_verification_elapsed_seconds:3.652",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

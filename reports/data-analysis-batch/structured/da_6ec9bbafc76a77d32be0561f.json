@@ -1,0 +1,257 @@
+{
+  "asset_id": "da_6ec9bbafc76a77d32be0561f",
+  "axes": {
+    "x": {
+      "max": 2014,
+      "min": 2006,
+      "ticks": [
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 8,
+        "min": 0,
+        "ticks": [
+          0,
+          2,
+          4,
+          6,
+          8
+        ],
+        "title": "亿人次",
+        "unit": "亿人次"
+      },
+      {
+        "max": 5,
+        "min": 0,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "title": "亿册次",
+        "unit": "亿册次"
+      }
+    ]
+  },
+  "categories": [
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "总流通人次",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "书刊文献外借册次",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "总流通人次",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿人次",
+      "values": [
+        2.52,
+        2.61,
+        2.81,
+        3.22,
+        3.28,
+        3.74,
+        4.34,
+        4.92,
+        5.3
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "书刊文献外借册次",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿册次",
+      "values": [
+        2.1,
+        2.13,
+        2.31,
+        2.59,
+        2.64,
+        2.85,
+        3.32,
+        4.09,
+        4.67
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2016年国家公务员录用考试《行测》题（副省级）_images/img_0161_63680d0acd4aa191.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年国家公务员录用考试《行测》题（副省级）_images/img_0161_63680d0acd4aa191.png",
+        "paper_title": "2016年国家公务员录用考试《行测》题（副省级）",
+        "question_id": "pq_82a3ae95e8b33f5a5716",
+        "question_number": 121,
+        "source_jsonl_line": 18461
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年国家公务员录用考试《行测》题（副省级）_images/img_0161_63680d0acd4aa191.png",
+        "paper_title": "2016年国家公务员录用考试《行测》题（副省级）",
+        "question_id": "pq_a27da5bc1a420b09710a",
+        "question_number": 122,
+        "source_jsonl_line": 18462
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年国家公务员录用考试《行测》题（副省级）_images/img_0181_b7608f0c02b90a30.png",
+        "paper_title": "2016年国家公务员录用考试《行测》题（副省级）",
+        "question_id": "pq_d03d4a50a5b48d8cb139",
+        "question_number": 123,
+        "source_jsonl_line": 18463
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年国家公务员录用考试《行测》题（副省级）_images/img_0161_63680d0acd4aa191.png",
+        "paper_title": "2016年国家公务员录用考试《行测》题（副省级）",
+        "question_id": "pq_b8c886217242d42484b5",
+        "question_number": 124,
+        "source_jsonl_line": 18464
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年国家公务员录用考试《行测》题（副省级）_images/img_0181_b7608f0c02b90a30.png",
+        "paper_title": "2016年国家公务员录用考试《行测》题（副省级）",
+        "question_id": "pq_d40ea19ba4c1cdab51b1",
+        "question_number": 125,
+        "source_jsonl_line": 18465
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年国家公务员录用考试《行测》题（地市级）_images/img_0105_63680d0acd4aa191.png",
+        "paper_title": "2016年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_5c082e7f96733dfe51bc",
+        "question_number": 116,
+        "source_jsonl_line": 18591
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年国家公务员录用考试《行测》题（地市级）_images/img_0105_63680d0acd4aa191.png",
+        "paper_title": "2016年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_697841a1b0a09bd0c971",
+        "question_number": 117,
+        "source_jsonl_line": 18592
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年国家公务员录用考试《行测》题（地市级）_images/img_0187_b7608f0c02b90a30.png",
+        "paper_title": "2016年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_7752be74c9f129ba52cd",
+        "question_number": 118,
+        "source_jsonl_line": 18593
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年国家公务员录用考试《行测》题（地市级）_images/img_0105_63680d0acd4aa191.png",
+        "paper_title": "2016年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_0cefbfc03a1606d48bc7",
+        "question_number": 119,
+        "source_jsonl_line": 18594
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年国家公务员录用考试《行测》题（地市级）_images/img_0187_b7608f0c02b90a30.png",
+        "paper_title": "2016年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_f136536da53a7ccf116f",
+        "question_number": 120,
+        "source_jsonl_line": 18595
+      }
+    ],
+    "sha256": "6ec9bbafc76a77d32be0561f1a6c9e82b88b39c5ebcc64c7e352d041d467df6b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2006~2014年全国公共图书馆总流通情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6ec9bbafc76a77d32be0561f/column_band_01.jpg",
+        "review-crops/da_6ec9bbafc76a77d32be0561f/column_band_02.jpg",
+        "review-crops/da_6ec9bbafc76a77d32be0561f/column_band_03.jpg",
+        "review-crops/da_6ec9bbafc76a77d32be0561f/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.882",
+      "crop_verification_elapsed_seconds:5.478",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

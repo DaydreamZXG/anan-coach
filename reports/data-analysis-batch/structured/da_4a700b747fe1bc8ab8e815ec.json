@@ -1,0 +1,249 @@
+{
+  "asset_id": "da_4a700b747fe1bc8ab8e815ec",
+  "axes": {
+    "x": {
+      "max": 2004,
+      "min": 1995,
+      "ticks": [
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004
+      ],
+      "title": "(年份)",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1000,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000
+        ],
+        "title": null,
+        "unit": "(亿港币)"
+      },
+      {
+        "max": 46,
+        "min": 32,
+        "ticks": [
+          32,
+          34,
+          36,
+          38,
+          40,
+          42,
+          44,
+          46
+        ],
+        "title": null,
+        "unit": "百分率"
+      }
+    ]
+  },
+  "categories": [
+    "1995",
+    "1996",
+    "1997",
+    "1998",
+    "1999",
+    "2000",
+    "2001",
+    "2002",
+    "2003",
+    "2004"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "香港从内地进口",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "香港输往内地的整体出口",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "香港从内地进口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(亿港币)",
+      "values": [
+        580,
+        600,
+        620,
+        600,
+        620,
+        700,
+        680,
+        720,
+        800,
+        900
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "香港输往内地的整体出口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(亿港币)",
+      "values": [
+        460,
+        500,
+        520,
+        480,
+        460,
+        550,
+        550,
+        620,
+        750,
+        900
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "香港输往内地的整体出口",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百分率",
+      "values": [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        44
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2008年湖北省公务员录用考试《行测》题（B类）_images/img_0071_a00007693e91ff3e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（B类）_images/img_0071_a00007693e91ff3e.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_01c2af25c090d5aff3e6",
+        "question_number": 116,
+        "source_jsonl_line": 68867
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（B类）_images/img_0071_a00007693e91ff3e.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_d4e933ce9f626f4d77c1",
+        "question_number": 117,
+        "source_jsonl_line": 68868
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（B类）_images/img_0084_e050524a633a8d94.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_7bc110c01afcacff233f",
+        "question_number": 118,
+        "source_jsonl_line": 68869
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（B类）_images/img_0071_a00007693e91ff3e.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_50a065ba1ad7dc22a7cf",
+        "question_number": 119,
+        "source_jsonl_line": 68870
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（B类）_images/img_0071_a00007693e91ff3e.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_813d6ac6ff813ac9a0b9",
+        "question_number": 120,
+        "source_jsonl_line": 68871
+      }
+    ],
+    "sha256": "4a700b747fe1bc8ab8e815ecf23a0eb5dd7f8e44e58006c144bc9a22e21b9fe9"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "(亿港币)",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4a700b747fe1bc8ab8e815ec/column_band_01.jpg",
+        "review-crops/da_4a700b747fe1bc8ab8e815ec/column_band_02.jpg",
+        "review-crops/da_4a700b747fe1bc8ab8e815ec/column_band_03.jpg",
+        "review-crops/da_4a700b747fe1bc8ab8e815ec/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.357",
+      "crop_verification_elapsed_seconds:8.732",
+      "candidate_value_changes_after_crop:2",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

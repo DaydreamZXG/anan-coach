@@ -1,0 +1,137 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2001",
+          "2002",
+          "2003",
+          "2004",
+          "2005"
+        ],
+        "label": "购买单位类别"
+      }
+    ],
+    "columns": [
+      "2001",
+      "2002",
+      "2003",
+      "2004",
+      "2005"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "名称",
+    "rows": [
+      {
+        "display_label": "钨钢｜城市｜A类企业",
+        "group": null,
+        "label": "钨钢｜城市｜A类企业",
+        "unit": null,
+        "values": [
+          6,
+          8,
+          8,
+          10,
+          12
+        ]
+      },
+      {
+        "display_label": "钨钢｜城市｜B类企业",
+        "group": null,
+        "label": "钨钢｜城市｜B类企业",
+        "unit": null,
+        "values": [
+          4,
+          6,
+          6,
+          8,
+          10
+        ]
+      },
+      {
+        "display_label": "钨钢｜城市｜C类企业",
+        "group": null,
+        "label": "钨钢｜城市｜C类企业",
+        "unit": null,
+        "values": [
+          2,
+          4,
+          4,
+          4,
+          6
+        ]
+      },
+      {
+        "display_label": "钨钢｜农村｜C类企业",
+        "group": null,
+        "label": "钨钢｜农村｜C类企业",
+        "unit": null,
+        "values": [
+          2,
+          4,
+          4,
+          4,
+          6
+        ]
+      },
+      {
+        "display_label": "锰钢｜城市｜A类企业",
+        "group": null,
+        "label": "锰钢｜城市｜A类企业",
+        "unit": null,
+        "values": [
+          8,
+          10,
+          12,
+          14,
+          16
+        ]
+      },
+      {
+        "display_label": "锰钢｜城市｜B类企业",
+        "group": null,
+        "label": "锰钢｜城市｜B类企业",
+        "unit": null,
+        "values": [
+          4,
+          6,
+          6,
+          4,
+          6
+        ]
+      },
+      {
+        "display_label": "锰钢｜城市｜C类企业",
+        "group": null,
+        "label": "锰钢｜城市｜C类企业",
+        "unit": null,
+        "values": [
+          2,
+          4,
+          2,
+          4,
+          6
+        ]
+      },
+      {
+        "display_label": "锰钢｜农村｜C类企业",
+        "group": null,
+        "label": "锰钢｜农村｜C类企业",
+        "unit": null,
+        "values": [
+          2,
+          2,
+          2,
+          4,
+          6
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

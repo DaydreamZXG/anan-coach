@@ -1,0 +1,543 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "国家",
+          "2005年",
+          "2009年",
+          "2010年",
+          "2011年"
+        ],
+        "label": "GDP（现价）"
+      },
+      {
+        "columns": [
+          "国家",
+          "2005年",
+          "2009年",
+          "2010年",
+          "2011年"
+        ],
+        "label": "人均GDP（现价）"
+      },
+      {
+        "columns": [
+          "国家",
+          "2005年",
+          "2009年",
+          "2010年",
+          "2011年"
+        ],
+        "label": "GDP增长率（不变价）"
+      },
+      {
+        "columns": [
+          "国家",
+          "2005年",
+          "2009年",
+          "2010年",
+          "2011年"
+        ],
+        "label": "公共教育支出占GDP比重（%）"
+      }
+    ],
+    "columns": [
+      "国家",
+      "2005年",
+      "2009年",
+      "2010年",
+      "2011年"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "2011年",
+        "display": "-",
+        "row": "印度"
+      },
+      {
+        "column": "2011年",
+        "display": "-",
+        "row": "中国"
+      },
+      {
+        "column": "2011年",
+        "display": "-",
+        "row": "南非"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "巴西"
+      },
+      {
+        "column": "2009年",
+        "display": "-",
+        "row": "巴西"
+      },
+      {
+        "column": "2010年",
+        "display": "-",
+        "row": "巴西"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "俄罗斯"
+      },
+      {
+        "column": "2009年",
+        "display": "-",
+        "row": "俄罗斯"
+      },
+      {
+        "column": "2010年",
+        "display": "-",
+        "row": "俄罗斯"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "印度"
+      },
+      {
+        "column": "2009年",
+        "display": "-",
+        "row": "印度"
+      },
+      {
+        "column": "2010年",
+        "display": "-",
+        "row": "印度"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "中国"
+      },
+      {
+        "column": "2009年",
+        "display": "-",
+        "row": "中国"
+      },
+      {
+        "column": "2010年",
+        "display": "-",
+        "row": "中国"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "南非"
+      },
+      {
+        "column": "2009年",
+        "display": "-",
+        "row": "南非"
+      },
+      {
+        "column": "2010年",
+        "display": "-",
+        "row": "南非"
+      },
+      {
+        "column": "2011年",
+        "display": "-",
+        "row": "巴西"
+      },
+      {
+        "column": "2011年",
+        "display": "-",
+        "row": "俄罗斯"
+      },
+      {
+        "column": "2011年",
+        "display": "-",
+        "row": "印度"
+      },
+      {
+        "column": "2011年",
+        "display": "-",
+        "row": "中国"
+      },
+      {
+        "column": "2011年",
+        "display": "-",
+        "row": "南非"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "巴西"
+      },
+      {
+        "column": "2009年",
+        "display": "-",
+        "row": "巴西"
+      },
+      {
+        "column": "2010年",
+        "display": "-",
+        "row": "巴西"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "俄罗斯"
+      },
+      {
+        "column": "2009年",
+        "display": "-",
+        "row": "俄罗斯"
+      },
+      {
+        "column": "2010年",
+        "display": "-",
+        "row": "俄罗斯"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "印度"
+      },
+      {
+        "column": "2009年",
+        "display": "-",
+        "row": "印度"
+      },
+      {
+        "column": "2010年",
+        "display": "-",
+        "row": "印度"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "中国"
+      },
+      {
+        "column": "2009年",
+        "display": "-",
+        "row": "中国"
+      },
+      {
+        "column": "2010年",
+        "display": "-",
+        "row": "中国"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "南非"
+      },
+      {
+        "column": "2009年",
+        "display": "-",
+        "row": "南非"
+      },
+      {
+        "column": "2010年",
+        "display": "-",
+        "row": "南非"
+      },
+      {
+        "column": "2011年",
+        "display": "-",
+        "row": "巴西"
+      },
+      {
+        "column": "2011年",
+        "display": "-",
+        "row": "俄罗斯"
+      },
+      {
+        "column": "2011年",
+        "display": "-",
+        "row": "印度"
+      },
+      {
+        "column": "2011年",
+        "display": "-",
+        "row": "中国"
+      },
+      {
+        "column": "2011年",
+        "display": "-",
+        "row": "南非"
+      }
+    ],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "GDP（现价）亿美元",
+        "unit": "亿美元",
+        "values": [
+          null,
+          8820,
+          16250,
+          21430,
+          24808
+        ]
+      },
+      {
+        "label": "巴西",
+        "unit": null,
+        "values": [
+          "巴西",
+          8820,
+          16250,
+          21430,
+          24808
+        ]
+      },
+      {
+        "label": "俄罗斯",
+        "unit": null,
+        "values": [
+          "俄罗斯",
+          7640,
+          12230,
+          14870,
+          18500
+        ]
+      },
+      {
+        "label": "印度",
+        "unit": null,
+        "values": [
+          "印度",
+          7669,
+          12930,
+          16030,
+          null
+        ]
+      },
+      {
+        "label": "中国",
+        "unit": null,
+        "values": [
+          "中国",
+          22580,
+          49910,
+          59310,
+          73010
+        ]
+      },
+      {
+        "label": "南非",
+        "unit": null,
+        "values": [
+          "南非",
+          2470,
+          2840,
+          3640,
+          3750
+        ]
+      },
+      {
+        "label": "人均GDP（现价）美元",
+        "unit": "美元",
+        "values": [
+          null,
+          4812,
+          5887,
+          10812,
+          12726
+        ]
+      },
+      {
+        "label": "巴西",
+        "unit": null,
+        "values": [
+          "巴西",
+          4812,
+          5887,
+          10812,
+          12726
+        ]
+      },
+      {
+        "label": "俄罗斯",
+        "unit": null,
+        "values": [
+          "俄罗斯",
+          5339,
+          8616,
+          10409,
+          12945
+        ]
+      },
+      {
+        "label": "印度",
+        "unit": null,
+        "values": [
+          "印度",
+          692,
+          1115,
+          1325,
+          null
+        ]
+      },
+      {
+        "label": "中国",
+        "unit": null,
+        "values": [
+          "中国",
+          1732,
+          3749,
+          4434,
+          5432
+        ]
+      },
+      {
+        "label": "南非",
+        "unit": null,
+        "values": [
+          "南非",
+          5215,
+          5727,
+          7250,
+          null
+        ]
+      },
+      {
+        "label": "GDP增长率（不变价）%",
+        "unit": "%",
+        "values": [
+          null,
+          3.2,
+          -0.3,
+          7.5,
+          2.7
+        ]
+      },
+      {
+        "label": "巴西",
+        "unit": null,
+        "values": [
+          "巴西",
+          3.2,
+          -0.3,
+          7.5,
+          2.7
+        ]
+      },
+      {
+        "label": "俄罗斯",
+        "unit": null,
+        "values": [
+          "俄罗斯",
+          6.4,
+          -7.8,
+          4.3,
+          4.3
+        ]
+      },
+      {
+        "label": "印度",
+        "unit": null,
+        "values": [
+          "印度",
+          15.8,
+          12.4,
+          23.9,
+          9.2
+        ]
+      },
+      {
+        "label": "中国",
+        "unit": null,
+        "values": [
+          "中国",
+          11.3,
+          9.2,
+          10.4,
+          9.2
+        ]
+      },
+      {
+        "label": "南非",
+        "unit": null,
+        "values": [
+          "南非",
+          5.3,
+          -1.5,
+          2.9,
+          3.1
+        ]
+      },
+      {
+        "label": "公共教育支出占GDP比重（%）",
+        "unit": "%",
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          4.1
+        ]
+      },
+      {
+        "label": "巴西",
+        "unit": null,
+        "values": [
+          "巴西",
+          null,
+          4.3,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "俄罗斯",
+        "unit": null,
+        "values": [
+          "俄罗斯",
+          null,
+          null,
+          null,
+          4.1
+        ]
+      },
+      {
+        "label": "印度",
+        "unit": null,
+        "values": [
+          "印度",
+          null,
+          3.9,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "中国",
+        "unit": null,
+        "values": [
+          "中国",
+          null,
+          null,
+          3.7,
+          null
+        ]
+      },
+      {
+        "label": "南非",
+        "unit": null,
+        "values": [
+          "南非",
+          null,
+          null,
+          10.1,
+          null
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

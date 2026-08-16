@@ -1,0 +1,342 @@
+{
+  "asset_id": "da_72c9a1762b27b9a8cb41db5d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2016年江苏省公务员录用考试《行测》题（C类）_images/img_0194_bd0d0ea32b2e92d6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（C类）_images/img_0194_bd0d0ea32b2e92d6.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_eb2ea19f59048b40f3f8",
+        "question_number": 116,
+        "source_jsonl_line": 47496
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（C类）_images/img_0194_bd0d0ea32b2e92d6.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_2e7324ead3983d1bf78d",
+        "question_number": 117,
+        "source_jsonl_line": 47497
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（C类）_images/img_0194_bd0d0ea32b2e92d6.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_144ecd3bab513f12c27f",
+        "question_number": 118,
+        "source_jsonl_line": 47498
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（C类）_images/img_0194_bd0d0ea32b2e92d6.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_af8f801f85a2bd29c116",
+        "question_number": 119,
+        "source_jsonl_line": 47499
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（C类）_images/img_0214_016febbacd369121.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_01fe75c534b49b2e2b5b",
+        "question_number": 120,
+        "source_jsonl_line": 47500
+      }
+    ],
+    "sha256": "72c9a1762b27b9a8cb41db5d32009dbd5c886776924866bf0052af764a85a515"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "工伤保险｜参保率",
+          "工伤保险｜比上年提高"
+        ],
+        "label": "工伤保险"
+      },
+      {
+        "columns": [
+          "医疗保险｜参保率",
+          "医疗保险｜比上年提高"
+        ],
+        "label": "医疗保险"
+      },
+      {
+        "columns": [
+          "养老保险｜参保率",
+          "养老保险｜比上年提高"
+        ],
+        "label": "养老保险"
+      },
+      {
+        "columns": [
+          "失业保险｜参保率",
+          "失业保险｜比上年提高"
+        ],
+        "label": "失业保险"
+      },
+      {
+        "columns": [
+          "生育保险｜参保率",
+          "生育保险｜比上年提高"
+        ],
+        "label": "生育保险"
+      },
+      {
+        "columns": [
+          "住房公积金｜参保率",
+          "住房公积金｜比上年提高"
+        ],
+        "label": "住房公积金"
+      }
+    ],
+    "columns": [
+      "工伤保险｜参保率",
+      "工伤保险｜比上年提高",
+      "医疗保险｜参保率",
+      "医疗保险｜比上年提高",
+      "养老保险｜参保率",
+      "养老保险｜比上年提高",
+      "失业保险｜参保率",
+      "失业保险｜比上年提高",
+      "生育保险｜参保率",
+      "生育保险｜比上年提高",
+      "住房公积金｜参保率",
+      "住房公积金｜比上年提高"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "地区｜东部",
+        "group": null,
+        "label": "地区｜东部",
+        "unit": null,
+        "values": [
+          29.8,
+          1.0,
+          20.4,
+          0.1,
+          20.0,
+          0.4,
+          12.4,
+          0.7,
+          9.1,
+          0.4,
+          6.0,
+          0.4
+        ]
+      },
+      {
+        "display_label": "地区｜中部",
+        "group": null,
+        "label": "地区｜中部",
+        "unit": null,
+        "values": [
+          17.8,
+          1.6,
+          11.8,
+          1.2,
+          10.7,
+          0.7,
+          6.9,
+          1.0,
+          4.9,
+          0.7,
+          4.7,
+          0.6
+        ]
+      },
+      {
+        "display_label": "地区｜西部",
+        "group": null,
+        "label": "地区｜西部",
+        "unit": null,
+        "values": [
+          21.9,
+          0.4,
+          13.6,
+          0.8,
+          11.4,
+          0.7,
+          7.7,
+          1.1,
+          5.8,
+          0.8,
+          4.4,
+          0.7
+        ]
+      },
+      {
+        "display_label": "行业｜制造业",
+        "group": null,
+        "label": "行业｜制造业",
+        "unit": null,
+        "values": [
+          34.2,
+          1.4,
+          22.1,
+          0.4,
+          21.4,
+          0.5,
+          13.1,
+          0.9,
+          9.3,
+          0.5,
+          5.3,
+          0.3
+        ]
+      },
+      {
+        "display_label": "行业｜建筑业",
+        "group": null,
+        "label": "行业｜建筑业",
+        "unit": null,
+        "values": [
+          14.9,
+          0.5,
+          5.4,
+          0.2,
+          3.9,
+          0.2,
+          2.1,
+          0.1,
+          1.3,
+          0.0,
+          0.9,
+          0.0
+        ]
+      },
+      {
+        "display_label": "行业｜批发和零售业",
+        "group": null,
+        "label": "行业｜批发和零售业",
+        "unit": null,
+        "values": [
+          19.2,
+          2.2,
+          15.0,
+          0.8,
+          14.4,
+          0.9,
+          9.9,
+          1.0,
+          7.8,
+          0.8,
+          3.5,
+          -0.1
+        ]
+      },
+      {
+        "display_label": "行业｜交通运输、仓储和邮政业",
+        "group": null,
+        "label": "行业｜交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          27.8,
+          2.3,
+          19.2,
+          1.8,
+          17.6,
+          2.0,
+          12.8,
+          2.3,
+          9.2,
+          1.6,
+          8.0,
+          1.8
+        ]
+      },
+      {
+        "display_label": "行业｜住宿和餐饮业",
+        "group": null,
+        "label": "行业｜住宿和餐饮业",
+        "unit": null,
+        "values": [
+          17.2,
+          0.1,
+          10.8,
+          -1.1,
+          10.0,
+          -0.6,
+          5.4,
+          -1.2,
+          4.0,
+          0.1,
+          2.6,
+          0.1
+        ]
+      },
+      {
+        "display_label": "行业｜居民服务、修理和其他服务业",
+        "group": null,
+        "label": "行业｜居民服务、修理和其他服务业",
+        "unit": null,
+        "values": [
+          16.3,
+          0.4,
+          12.1,
+          0.5,
+          11.8,
+          0.5,
+          6.6,
+          0.4,
+          5.2,
+          0.4,
+          3.1,
+          0.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

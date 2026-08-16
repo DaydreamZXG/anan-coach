@@ -1,0 +1,243 @@
+{
+  "asset_id": "da_289c32fdfa881cff7328d4cc",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "用电量 (亿千瓦时)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿千瓦时",
+      "values": [
+        412.34,
+        113.47,
+        93.21,
+        78.29,
+        50.4,
+        42.12,
+        19.18,
+        15.66
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "比上年增长 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.09,
+        12.26,
+        5.93,
+        2.4,
+        2.82,
+        2.09,
+        6.58,
+        5.46
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广州市考/2016年广州市公务员录用考试《行测》题_images/img_0214_8ac62f67481165e3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广州市公务员录用考试《行测》题_images/img_0214_8ac62f67481165e3.png",
+        "paper_title": "2016年广州市公务员录用考试《行测》题",
+        "question_id": "pq_eeaeb81cc6c9083c2555",
+        "question_number": 91,
+        "source_jsonl_line": 37353
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广州市公务员录用考试《行测》题_images/img_0196_b992fe847d2c2517.png",
+        "paper_title": "2016年广州市公务员录用考试《行测》题",
+        "question_id": "pq_dc081e070e9e93d7d61e",
+        "question_number": 92,
+        "source_jsonl_line": 37354
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广州市公务员录用考试《行测》题_images/img_0196_b992fe847d2c2517.png",
+        "paper_title": "2016年广州市公务员录用考试《行测》题",
+        "question_id": "pq_a86c512ffbcf666af477",
+        "question_number": 93,
+        "source_jsonl_line": 37355
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广州市公务员录用考试《行测》题_images/img_0196_b992fe847d2c2517.png",
+        "paper_title": "2016年广州市公务员录用考试《行测》题",
+        "question_id": "pq_53203d813b0099142d08",
+        "question_number": 94,
+        "source_jsonl_line": 37356
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广州市公务员录用考试《行测》题_images/img_0214_8ac62f67481165e3.png",
+        "paper_title": "2016年广州市公务员录用考试《行测》题",
+        "question_id": "pq_3bc71bf77dd1ff5fdc8f",
+        "question_number": 95,
+        "source_jsonl_line": 37357
+      }
+    ],
+    "sha256": "289c32fdfa881cff7328d4cc2bd39bac2355e7d49c6c5880165a8d556e069559"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "合计",
+      "用电量 (亿千瓦时)",
+      "比上年增长 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "1. 房地产业",
+        "unit": null,
+        "values": [
+          null,
+          113.47,
+          12.26
+        ]
+      },
+      {
+        "label": "2. 公共事业及管理组织",
+        "unit": null,
+        "values": [
+          null,
+          93.21,
+          5.93
+        ]
+      },
+      {
+        "label": "3. 商业、住宿和餐饮业",
+        "unit": null,
+        "values": [
+          null,
+          78.29,
+          2.4
+        ]
+      },
+      {
+        "label": "4. 商务及居民服务业",
+        "unit": null,
+        "values": [
+          null,
+          50.4,
+          2.82
+        ]
+      },
+      {
+        "label": "5. 交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          null,
+          42.12,
+          2.09
+        ]
+      },
+      {
+        "label": "6. 信息传输、计算机服务和软件业",
+        "unit": null,
+        "values": [
+          null,
+          19.18,
+          6.58
+        ]
+      },
+      {
+        "label": "7. 金融业",
+        "unit": null,
+        "values": [
+          null,
+          15.66,
+          5.46
+        ]
+      }
+    ]
+  },
+  "title": "2015年H市第三产业用电情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_289c32fdfa881cff7328d4cc/row_band_01.jpg",
+        "review-crops/da_289c32fdfa881cff7328d4cc/row_band_02.jpg",
+        "review-crops/da_289c32fdfa881cff7328d4cc/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.053",
+      "crop_verification_elapsed_seconds:12.792",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'公共事业及管理组织'的用电量为93.21，原识别为93.21，正确。",
+      "crop_note:修正了'商务及居民服务业'的用电量为50.4，原识别为50.4，正确。",
+      "crop_note:修正了'交通运输、仓储和邮政业'的用电量为42.12，原识别为42.12，正确。",
+      "crop_note:修正了'信息传输、计算机服务和软件业'的用电量为19.18，原识别为19.18，正确。",
+      "crop_note:修正了'金融业'的用电量为15.66，原识别为15.66，正确。",
+      "crop_note:修正了'公共事业及管理组织'的比上年增长为5.93，原识别为5.93，正确。",
+      "crop_note:修正了'商务及居民服务业'的比上年增长为2.82，原识别为2.82，正确。",
+      "crop_note:修正了'交通运输、仓储和邮政业'的比上年增长为2.09，原识别为2.09，正确。",
+      "crop_note:修正了'信息传输、计算机服务和软件业'的比上年增长为6.58，原识别为6.58，正确。",
+      "crop_note:修正了'金融业'的比上年增长为5.46，原识别为5.46，正确。",
+      "crop_note:确认'合计'的用电量为412.34，比上年增长为6.09，正确。",
+      "crop_note:确认所有数值的小数点后位数与原图一致，无补0或舍入错误。",
+      "crop_note:确认所有百分号和单位格式正确，无遗漏或错误。",
+      "crop_note:确认所有缺失值保持为null，无补0。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

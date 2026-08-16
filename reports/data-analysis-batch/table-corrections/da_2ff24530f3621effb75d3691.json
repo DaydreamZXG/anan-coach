@@ -1,0 +1,126 @@
+{
+  "confidence": 1,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口额（亿美元）",
+          "比上年增长（%）"
+        ],
+        "label": "出口"
+      },
+      {
+        "columns": [
+          "进口额（亿美元）",
+          "比上年增长（%）"
+        ],
+        "label": "进口"
+      }
+    ],
+    "columns": [
+      "出口额（亿美元）",
+      "比上年增长（%）",
+      "进口额（亿美元）",
+      "比上年增长（%）"
+    ],
+    "confidence": 1,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家和地区",
+    "rows": [
+      {
+        "label": "欧盟",
+        "unit": "亿美元",
+        "values": [
+          3560,
+          14.4,
+          2112,
+          25.4
+        ]
+      },
+      {
+        "label": "美国",
+        "unit": "亿美元",
+        "values": [
+          3245,
+          14.5,
+          1222,
+          19.6
+        ]
+      },
+      {
+        "label": "中国香港",
+        "unit": "亿美元",
+        "values": [
+          2680,
+          22.8,
+          155,
+          26.4
+        ]
+      },
+      {
+        "label": "东盟",
+        "unit": "亿美元",
+        "values": [
+          1701,
+          23.1,
+          1928,
+          24.6
+        ]
+      },
+      {
+        "label": "日本",
+        "unit": "亿美元",
+        "values": [
+          1483,
+          22.5,
+          1946,
+          10.1
+        ]
+      },
+      {
+        "label": "韩国",
+        "unit": "亿美元",
+        "values": [
+          829,
+          20.6,
+          1627,
+          17.6
+        ]
+      },
+      {
+        "label": "印度",
+        "unit": "亿美元",
+        "values": [
+          505,
+          23.5,
+          234,
+          12.1
+        ]
+      },
+      {
+        "label": "俄罗斯",
+        "unit": "亿美元",
+        "values": [
+          389,
+          31.4,
+          403,
+          55.6
+        ]
+      },
+      {
+        "label": "中国台湾",
+        "unit": "亿美元",
+        "values": [
+          351,
+          18.3,
+          1249,
+          7.9
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

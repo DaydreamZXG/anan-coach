@@ -1,0 +1,230 @@
+{
+  "asset_id": "da_526f223860a6a4b933a31b9d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "大洋洲, 12.7%",
+    "亚洲, 18.9%",
+    "非洲, 3.0%",
+    "欧洲, 18.8%",
+    "南美洲, 31.5%",
+    "北美洲, 14.9%"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      68.13,
+      79.744,
+      146.817,
+      259.647,
+      314.011,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 68.13,
+        "label": "大洋洲, 12.7%",
+        "share": 0.18924962,
+        "start_angle": 0.0,
+        "sweep_angle": 68.13
+      },
+      {
+        "end_angle": 79.744,
+        "label": "亚洲, 18.9%",
+        "share": 0.03226279,
+        "start_angle": 68.13,
+        "sweep_angle": 11.615
+      },
+      {
+        "end_angle": 146.817,
+        "label": "非洲, 3.0%",
+        "share": 0.18631147,
+        "start_angle": 79.744,
+        "sweep_angle": 67.072
+      },
+      {
+        "end_angle": 259.647,
+        "label": "欧洲, 18.8%",
+        "share": 0.31341691,
+        "start_angle": 146.817,
+        "sweep_angle": 112.83
+      },
+      {
+        "end_angle": 314.011,
+        "label": "南美洲, 31.5%",
+        "share": 0.15101264,
+        "start_angle": 259.647,
+        "sweep_angle": 54.365
+      },
+      {
+        "end_angle": 360.0,
+        "label": "北美洲, 14.9%",
+        "share": 0.12774657,
+        "start_angle": 314.011,
+        "sweep_angle": 45.989
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.18924962,
+        0.03226279,
+        0.18631147,
+        0.31341691,
+        0.15101264,
+        0.12774657
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0218_2c94a15a68a94210.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0218_2c94a15a68a94210.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_884ef9ed8982ac236fb8",
+        "question_number": 96,
+        "source_jsonl_line": 35528
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0239_d59a62c17ca1a0dc.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_d7e7d3a3646606428cfe",
+        "question_number": 97,
+        "source_jsonl_line": 35529
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0239_d59a62c17ca1a0dc.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_0c459229dbb238df1f30",
+        "question_number": 98,
+        "source_jsonl_line": 35530
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0239_d59a62c17ca1a0dc.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_4371b9263d2bb82790e4",
+        "question_number": 99,
+        "source_jsonl_line": 35531
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0239_d59a62c17ca1a0dc.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_6e42866838473560a564",
+        "question_number": 100,
+        "source_jsonl_line": 35532
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0270_d59a62c17ca1a0dc.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_8ddb91cf4c03e94002be",
+        "question_number": 91,
+        "source_jsonl_line": 35623
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0270_d59a62c17ca1a0dc.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_0484c012b6acc8c6dcf8",
+        "question_number": 92,
+        "source_jsonl_line": 35624
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0270_d59a62c17ca1a0dc.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_8226d502d2c90b913bec",
+        "question_number": 93,
+        "source_jsonl_line": 35625
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0270_d59a62c17ca1a0dc.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_0e4d640f939479654bc2",
+        "question_number": 94,
+        "source_jsonl_line": 35626
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0270_d59a62c17ca1a0dc.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_fd0baa244d3092d12d4c",
+        "question_number": 95,
+        "source_jsonl_line": 35627
+      }
+    ],
+    "sha256": "526f223860a6a4b933a31b9d6b9623cccfff65c5b283135877625214316b1a88"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2020年上半年六大洲进口额占比",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_526f223860a6a4b933a31b9d/quadrant_01.jpg",
+        "review-crops/da_526f223860a6a4b933a31b9d/quadrant_02.jpg",
+        "review-crops/da_526f223860a6a4b933a31b9d/quadrant_03.jpg",
+        "review-crops/da_526f223860a6a4b933a31b9d/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.028",
+      "crop_verification_elapsed_seconds:1.621",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.9875",
+      "hough_circle_radius_ratio:0.2723",
+      "radial_line_candidates:8",
+      "detected_boundaries:6"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

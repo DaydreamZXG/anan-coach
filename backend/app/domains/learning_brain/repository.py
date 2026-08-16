@@ -464,6 +464,38 @@ class LearningBrainRepository:
                           where revoked_by.supersedes_decision_version_id =
                                 cause.decision_version_id
                         )
+                    ), cause_mastery as (
+                      -- 一个确认错因只沿自身 review 创建的 mastery 链取当前头。
+                      -- 后续复测版本的 source_review_id 会变成复测 review，不能
+                      -- 直接拿当前 mastery.source_review_id 与原错因做等值连接。
+                      select
+                        cause.*,
+                        current_mastery.mastery_version_id as current_mastery_version_id,
+                        current_mastery.state as current_mastery_state,
+                        current_mastery.created_at as current_mastery_at
+                      from current_confirmed cause
+                      left join lateral (
+                        select initial_mastery.mastery_id
+                        from learning.xingce_mastery_state_versions initial_mastery
+                        where initial_mastery.user_id = cause.user_id
+                          and initial_mastery.source_review_id = cause.review_id
+                        order by initial_mastery.version_no, initial_mastery.created_at
+                        limit 1
+                      ) initial_mastery on true
+                      left join lateral (
+                        select mastery.*
+                        from learning.xingce_mastery_state_versions mastery
+                        where mastery.user_id = cause.user_id
+                          and mastery.mastery_id = initial_mastery.mastery_id
+                          and not exists (
+                            select 1
+                            from learning.xingce_mastery_state_versions successor
+                            where successor.supersedes_mastery_version_id =
+                                  mastery.mastery_version_id
+                          )
+                        order by mastery.version_no desc
+                        limit 1
+                      ) current_mastery on true
                     ), question_candidate_entries as (
                       -- 保留所有逐题状态，供回退分支区分“旧候选没有逐题合同”
                       -- 和“新候选明确声明非 candidate 的证据边界”。后者
@@ -471,10 +503,13 @@ class LearningBrainRepository:
                       select
                         cause.confirmed_cause_version_id,
                         cause.created_at,
+                        cause.current_mastery_version_id,
+                        cause.current_mastery_state,
+                        cause.current_mastery_at,
                         question_item.item->>'questionId' as question_id,
                         question_item.item->>'status' as status,
                         question_item.item->>'causeCode' as cause_code
-                      from current_confirmed cause
+                      from cause_mastery cause
                       join learning.xingce_cause_candidate_versions candidate
                         on candidate.candidate_version_id = cause.candidate_version_id
                       cross join lateral jsonb_array_elements(
@@ -498,12 +533,26 @@ class LearningBrainRepository:
                         question_candidate.cause_code,
                         null::text as display_name,
                         count(*)::int as occurrence_count,
-                        0::int as counterevidence_count,
+                        count(*) filter (
+                          where question_candidate.current_mastery_state =
+                                'stable_mastered'
+                        )::int as counterevidence_count,
                         max(question_candidate.created_at) as latest_observed_at,
                         (array_agg(
                           question_candidate.confirmed_cause_version_id::text
                           order by question_candidate.created_at desc
-                        ))[1] as latest_version_id
+                        ))[1] as latest_version_id,
+                        ((array_agg(
+                          question_candidate.current_mastery_version_id::text
+                          order by question_candidate.current_mastery_at desc
+                        ) filter (
+                          where question_candidate.current_mastery_state =
+                                'stable_mastered'
+                        )))[1] as latest_counterevidence_version_id,
+                        max(question_candidate.current_mastery_at) filter (
+                          where question_candidate.current_mastery_state =
+                                'stable_mastered'
+                        ) as latest_counterevidence_at
                       from question_candidates question_candidate
                       join product.questions question
                         on question.question_id = question_candidate.question_id
@@ -540,13 +589,24 @@ class LearningBrainRepository:
                         end as display_name,
                         count(distinct cause.confirmed_cause_version_id)::int
                           as occurrence_count,
-                        0::int as counterevidence_count,
+                        count(distinct cause.confirmed_cause_version_id) filter (
+                          where cause.current_mastery_state = 'stable_mastered'
+                        )::int as counterevidence_count,
                         max(cause.created_at) as latest_observed_at,
                         (array_agg(
                           cause.confirmed_cause_version_id::text
                           order by cause.created_at desc
-                        ))[1] as latest_version_id
-                      from current_confirmed cause
+                        ))[1] as latest_version_id,
+                        ((array_agg(
+                          cause.current_mastery_version_id::text
+                          order by cause.current_mastery_at desc
+                        ) filter (
+                          where cause.current_mastery_state = 'stable_mastered'
+                        )))[1] as latest_counterevidence_version_id,
+                        max(cause.current_mastery_at) filter (
+                          where cause.current_mastery_state = 'stable_mastered'
+                        ) as latest_counterevidence_at
+                      from cause_mastery cause
                       join learning.xingce_assessments assessment
                         on assessment.session_id = cause.session_id
                       join product.questions question
@@ -600,7 +660,13 @@ class LearningBrainRepository:
                         case when mastery.state = 'stable_mastered' then 1 else 0 end::int
                           as counterevidence_count,
                         mastery.created_at as latest_observed_at,
-                        mastery.mastery_version_id::text as latest_version_id
+                        mastery.mastery_version_id::text as latest_version_id,
+                        case when mastery.state = 'stable_mastered'
+                          then mastery.mastery_version_id::text else null end
+                          as latest_counterevidence_version_id,
+                        case when mastery.state = 'stable_mastered'
+                          then mastery.created_at else null end
+                          as latest_counterevidence_at
                       from current_essay mastery
                       join learning.essay_review_versions review
                         on review.review_version_id = mastery.source_review_version_id

@@ -1,0 +1,232 @@
+{
+  "asset_id": "da_8d6c93e1c4dbe143d2d74d07",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2014年国家公务员录用考试《行测》题_images/img_0107_8fd3814eac866a4a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0107_8fd3814eac866a4a.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_ecef9d87276786697941",
+        "question_number": 121,
+        "source_jsonl_line": 18061
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0114_e21cb5d22862f9c4.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_1e3d55a571ed719f857e",
+        "question_number": 122,
+        "source_jsonl_line": 18062
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0114_e21cb5d22862f9c4.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_d89db0119ae5cb45bbdf",
+        "question_number": 123,
+        "source_jsonl_line": 18063
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0114_e21cb5d22862f9c4.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_cbaed46d283671d520b2",
+        "question_number": 124,
+        "source_jsonl_line": 18064
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0114_e21cb5d22862f9c4.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_c23890ba2a20c5e207fb",
+        "question_number": 125,
+        "source_jsonl_line": 18065
+      }
+    ],
+    "sha256": "8d6c93e1c4dbe143d2d74d076b91a4155c55eb6814e16b1a3a50880de8c6dfbc"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "城市",
+      "岗位空缺与求职人数的比率",
+      "第二产业需求岗位占比（%）",
+      "第三产业需求岗位占比（%）",
+      "岗位空缺大于求职人数缺口最大前三个职业"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "天津",
+        "unit": null,
+        "values": [
+          "天津",
+          0.81,
+          24.4,
+          75.6,
+          "推销展销人员；电气电子设备装配人员；储运人员"
+        ]
+      },
+      {
+        "label": "上海",
+        "unit": null,
+        "values": [
+          "上海",
+          1.08,
+          10.5,
+          89.4,
+          "餐厅服务员、厨工；治安保卫人员；营业员、收银员"
+        ]
+      },
+      {
+        "label": "重庆",
+        "unit": null,
+        "values": [
+          "重庆",
+          1.02,
+          32.1,
+          67,
+          "机械冷加工人员；裁剪缝纫人员；推销展销人员"
+        ]
+      },
+      {
+        "label": "石家庄",
+        "unit": null,
+        "values": [
+          "石家庄",
+          1.02,
+          15.1,
+          84.9,
+          "推销展销人员；行政公务人员；清洁人员"
+        ]
+      },
+      {
+        "label": "福州",
+        "unit": null,
+        "values": [
+          "福州",
+          1.26,
+          63.7,
+          35.7,
+          "搬运、包装人员；电子元件、器件制造人员；餐厅服务员、厨工"
+        ]
+      },
+      {
+        "label": "郑州",
+        "unit": null,
+        "values": [
+          "郑州",
+          1.49,
+          7.7,
+          92.2,
+          "推销展销人员；部门经理；简单体力劳动者"
+        ]
+      },
+      {
+        "label": "武汉",
+        "unit": null,
+        "values": [
+          "武汉",
+          1.15,
+          26.3,
+          72.5,
+          "推销展销人员；机械冷加工人员；裁剪缝纫人员"
+        ]
+      },
+      {
+        "label": "长沙",
+        "unit": null,
+        "values": [
+          "长沙",
+          1.11,
+          33.4,
+          65.5,
+          "机械冷加工人员；治安保卫人员；清洁人员"
+        ]
+      },
+      {
+        "label": "西安",
+        "unit": null,
+        "values": [
+          "西安",
+          0.95,
+          33.5,
+          61.2,
+          "机械冷加工人员；治安保卫人员；清洁人员"
+        ]
+      },
+      {
+        "label": "成都",
+        "unit": null,
+        "values": [
+          "成都",
+          1.04,
+          36.8,
+          62.8,
+          "推销展销人员；餐厅服务员、厨工；采购人员"
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8d6c93e1c4dbe143d2d74d07/row_band_01.jpg",
+        "review-crops/da_8d6c93e1c4dbe143d2d74d07/row_band_02.jpg",
+        "review-crops/da_8d6c93e1c4dbe143d2d74d07/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.564",
+      "crop_verification_elapsed_seconds:13.387",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

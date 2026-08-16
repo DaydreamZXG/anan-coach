@@ -1,0 +1,275 @@
+{
+  "asset_id": "da_4467c4099431b40c0c82f53e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "地区",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "营业网点",
+        "unit": "%"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "从业人数占比",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "东部",
+    "中部",
+    "西部",
+    "东北",
+    "合计"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "营业网点",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        39.9,
+        23.6,
+        26.8,
+        9.7,
+        100.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "从业人数占比",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        44.2,
+        21.1,
+        23.9,
+        10.8,
+        100.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "资产总额占比",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        57.7,
+        15.6,
+        19.4,
+        7.3,
+        100.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "法人机构个数占比",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        34.8,
+        24.9,
+        31.1,
+        9.2,
+        100.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2017年422联考《行测》题（陕西卷）_images/img_0089_8af0bf187f8fe816.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0089_8af0bf187f8fe816.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_8efc8694e93210eb8d79",
+        "question_number": 66,
+        "source_jsonl_line": 97614
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0089_8af0bf187f8fe816.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_b3a13b44f60814f96a4b",
+        "question_number": 67,
+        "source_jsonl_line": 97615
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0035_530306db407be419.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_e9b64e36942c7f7a0358",
+        "question_number": 68,
+        "source_jsonl_line": 97616
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0035_530306db407be419.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_f974ad95f4c199393049",
+        "question_number": 69,
+        "source_jsonl_line": 97617
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0089_8af0bf187f8fe816.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_9307e7238cb3a49af181",
+        "question_number": 70,
+        "source_jsonl_line": 97618
+      }
+    ],
+    "sha256": "4467c4099431b40c0c82f53ec4a982a9ff51ee8104e82f8dd0c3c934cc027195"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "营业网点",
+      "从业人数占比",
+      "资产总额占比",
+      "法人机构个数占比"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "label": "东部",
+        "unit": null,
+        "values": [
+          39.9,
+          44.2,
+          57.7,
+          34.8
+        ]
+      },
+      {
+        "label": "中部",
+        "unit": null,
+        "values": [
+          23.6,
+          21.1,
+          15.6,
+          24.9
+        ]
+      },
+      {
+        "label": "西部",
+        "unit": null,
+        "values": [
+          26.8,
+          23.9,
+          19.4,
+          31.1
+        ]
+      },
+      {
+        "label": "东北",
+        "unit": null,
+        "values": [
+          9.7,
+          10.8,
+          7.3,
+          9.2
+        ]
+      },
+      {
+        "label": "合计",
+        "unit": null,
+        "values": [
+          100.0,
+          100.0,
+          100.0,
+          100.0
+        ]
+      }
+    ]
+  },
+  "title": "2015年末银行业金融机构地区分布",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4467c4099431b40c0c82f53e/row_band_01.jpg",
+        "review-crops/da_4467c4099431b40c0c82f53e/row_band_02.jpg",
+        "review-crops/da_4467c4099431b40c0c82f53e/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.436",
+      "crop_verification_elapsed_seconds:4.882",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:东部:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:东部:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:中部:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:西部:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:东北:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:合计:4!=5",
+      "crop_note:注：各地区金融机构营业网点不包括国家开发银行和政策性银行、大型商业银行、股份制商业银行等金融机构总部数据。",
+      "crop_note:ignored_table_row_length_mismatch:东部:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:中部:4!=5",
+      "table_row_label_column_removed:地区"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

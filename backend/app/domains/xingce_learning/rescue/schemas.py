@@ -35,8 +35,6 @@ class RescueSimilarQuestion(RescueModel):
     module_name: str = Field(alias="moduleName")
     stem: str
     options: list[RescueSimilarOption]
-    correct_option_ids: list[str] = Field(alias="correctOptionIds")
-    explanation: str | None = None
 
 
 class RescueNodeContext(RescueModel):
@@ -58,6 +56,8 @@ class XingceRescueItem(RescueModel):
         alias="similarQuestion",
         default=None,
     )
+    teach_back_available: bool = Field(alias="teachBackAvailable", default=False)
+    teach_back_reason: str | None = Field(alias="teachBackReason", default=None)
 
 
 class XingceRescue(RescueModel):

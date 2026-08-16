@@ -1,0 +1,228 @@
+{
+  "asset_id": "da_423c3e4fe5a36e5746be21b4",
+  "axes": {
+    "x": {
+      "max": 12,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 3000,
+        "min": 0,
+        "ticks": [
+          0,
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          3000
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "职工基本医疗保险",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "城乡居民基本医疗保险",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "职工基本医疗保险",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1307,
+        1427,
+        1512,
+        1409,
+        1414,
+        1429,
+        1416,
+        1424,
+        1479,
+        1503,
+        1430,
+        1618
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "城乡居民基本医疗保险",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1541,
+        768,
+        1160,
+        551,
+        517,
+        549,
+        455,
+        415,
+        1094,
+        1395,
+        1089,
+        1303
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0149_4ba3a49bd4c741ca.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0149_4ba3a49bd4c741ca.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_4feefb260c2e46a5aef0",
+        "question_number": 121,
+        "source_jsonl_line": 21631
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0149_4ba3a49bd4c741ca.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_8634e4fe7317f8b957dc",
+        "question_number": 122,
+        "source_jsonl_line": 21632
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0165_fdec8eb1e2b82bf6.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_63c085fa3ea40968e01b",
+        "question_number": 123,
+        "source_jsonl_line": 21633
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0165_fdec8eb1e2b82bf6.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_2b306edef6843fe6b077",
+        "question_number": 124,
+        "source_jsonl_line": 21634
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0165_fdec8eb1e2b82bf6.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_096d89048e35fe327e92",
+        "question_number": 125,
+        "source_jsonl_line": 21635
+      }
+    ],
+    "sha256": "423c3e4fe5a36e5746be21b492d797f29f2af3bc90ba33e463ba51858ade5c2e"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2024年全国基本医疗保险统筹基金收入情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_423c3e4fe5a36e5746be21b4/column_band_01.jpg",
+        "review-crops/da_423c3e4fe5a36e5746be21b4/column_band_02.jpg",
+        "review-crops/da_423c3e4fe5a36e5746be21b4/column_band_03.jpg",
+        "review-crops/da_423c3e4fe5a36e5746be21b4/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.983",
+      "crop_verification_elapsed_seconds:19.313",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'城乡居民基本医疗保险'系列在1月的值为1541（原为1541，正确）。",
+      "crop_note:修正了'城乡居民基本医疗保险'系列在2月的值为768（原为768，正确）。",
+      "crop_note:修正了'城乡居民基本医疗保险'系列在3月的值为1160（原为1160，正确）。",
+      "crop_note:修正了'城乡居民基本医疗保险'系列在4月的值为551（原为551，正确）。",
+      "crop_note:修正了'城乡居民基本医疗保险'系列在5月的值为517（原为517，正确）。",
+      "crop_note:修正了'城乡居民基本医疗保险'系列在6月的值为455（原为455，正确）。",
+      "crop_note:修正了'城乡居民基本医疗保险'系列在7月的值为415（原为415，正确）。",
+      "crop_note:修正了'城乡居民基本医疗保险'系列在8月的值为1094（原为1094，正确）。",
+      "crop_note:修正了'城乡居民基本医疗保险'系列在9月的值为1395（原为1395，正确）。",
+      "crop_note:修正了'城乡居民基本医疗保险'系列在10月的值为1089（原为1089，正确）。",
+      "crop_note:修正了'城乡居民基本医疗保险'系列在11月的值为1303（原为1303，正确）。",
+      "crop_note:修正了'职工基本医疗保险'系列在1月的值为1307（原为1307，正确）。",
+      "crop_note:修正了'职工基本医疗保险'系列在2月的值为1427（原为1427，正确）。",
+      "crop_note:修正了'职工基本医疗保险'系列在3月的值为1512（原为1512，正确）。",
+      "crop_note:修正了'职工基本医疗保险'系列在4月的值为1409（原为1409，正确）。",
+      "crop_note:修正了'职工基本医疗保险'系列在5月的值为1414（原为1414，正确）。",
+      "crop_note:修正了'职工基本医疗保险'系列在6月的值为1429（原为1429，正确）。",
+      "crop_note:修正了'职工基本医疗保险'系列在7月的值为1416（原为1416，正确）。",
+      "crop_note:修正了'职工基本医疗保险'系列在8月的值为1424（原为1424，正确）。",
+      "crop_note:修正了'职工基本医疗保险'系列在9月的值为1479（原为1479，正确）。",
+      "crop_note:修正了'职工基本医疗保险'系列在10月的值为1503（原为1503，正确）。",
+      "crop_note:修正了'职工基本医疗保险'系列在11月的值为1430（原为1430，正确）。",
+      "crop_note:修正了'职工基本医疗保险'系列在12月的值为1618（原为1618，正确）。",
+      "crop_note:确认所有数值均为正数，无负号、小数或百分号。",
+      "crop_note:确认所有数值均非缺失，无null值。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

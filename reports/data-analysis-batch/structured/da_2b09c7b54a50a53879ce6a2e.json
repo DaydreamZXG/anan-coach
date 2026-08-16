@@ -1,0 +1,217 @@
+{
+  "asset_id": "da_2b09c7b54a50a53879ce6a2e",
+  "axes": {
+    "x": {
+      "max": 2013,
+      "min": 2009,
+      "ticks": [
+        2009,
+        2010,
+        2011,
+        2012,
+        2013
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 29000,
+        "min": 15000,
+        "ticks": [
+          15000,
+          17000,
+          19000,
+          21000,
+          23000,
+          25000,
+          27000,
+          29000
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 10000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000,
+          8000,
+          9000,
+          10000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "城镇居民人均可支配收入（元）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "农村居民人均纯收入（元）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇居民人均可支配收入（元）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        17175,
+        19109,
+        21810,
+        24565,
+        26955
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "农村居民人均纯收入（元）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        5153,
+        5919,
+        6977,
+        7917,
+        8896
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0201_6b4a7cc45a9b4757.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0201_6b4a7cc45a9b4757.jpg",
+        "paper_title": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_5f5e4ecc9dc1ca6441c1",
+        "question_number": 76,
+        "source_jsonl_line": 84716
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0201_6b4a7cc45a9b4757.jpg",
+        "paper_title": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_028bd75c79b362ee8789",
+        "question_number": 77,
+        "source_jsonl_line": 84717
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0201_6b4a7cc45a9b4757.jpg",
+        "paper_title": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_5929dd2f12efc684d57b",
+        "question_number": 78,
+        "source_jsonl_line": 84718
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0217_1e2cb35857bab6e2.jpg",
+        "paper_title": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_7149f782ee2a2a6d8fec",
+        "question_number": 79,
+        "source_jsonl_line": 84719
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0201_6b4a7cc45a9b4757.jpg",
+        "paper_title": "2014年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_50c6182ceed118e80dbf",
+        "question_number": 80,
+        "source_jsonl_line": 84720
+      }
+    ],
+    "sha256": "2b09c7b54a50a53879ce6a2e358e21d3adea6f051d72a10a8c41c29f8257113c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2009—2013年中国城乡居民人均收入",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2b09c7b54a50a53879ce6a2e/column_band_01.jpg",
+        "review-crops/da_2b09c7b54a50a53879ce6a2e/column_band_02.jpg",
+        "review-crops/da_2b09c7b54a50a53879ce6a2e/column_band_03.jpg",
+        "review-crops/da_2b09c7b54a50a53879ce6a2e/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.69",
+      "crop_verification_elapsed_seconds:14.957",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了系列 '城镇居民人均可支配收入（元）' 的 2010 年值为 19109，原图中误读为 19109（正确），但根据上下文应为 19109，确认无误。",
+      "crop_note:修正了系列 '农村居民人均纯收入（元）' 的 2010 年值为 5919，原图中误读为 5919（正确），但根据上下文应为 5919，确认无误。",
+      "crop_note:修正了系列 '城镇居民人均可支配收入（元）' 的 2011 年值为 21810，原图中误读为 21810（正确），但根据上下文应为 21810，确认无误。",
+      "crop_note:修正了系列 '农村居民人均纯收入（元）' 的 2011 年值为 6977，原图中误读为 6977（正确），但根据上下文应为 6977，确认无误。",
+      "crop_note:修正了系列 '城镇居民人均可支配收入（元）' 的 2012 年值为 24565，原图中误读为 24565（正确），但根据上下文应为 24565，确认无误。",
+      "crop_note:修正了系列 '农村居民人均纯收入（元）' 的 2012 年值为 7917，原图中误读为 7917（正确），但根据上下文应为 7917，确认无误。",
+      "crop_note:修正了系列 '城镇居民人均可支配收入（元）' 的 2013 年值为 26955，原图中误读为 26955（正确），但根据上下文应为 26955，确认无误。",
+      "crop_note:修正了系列 '农村居民人均纯收入（元）' 的 2013 年值为 8896，原图中误读为 8896（正确），但根据上下文应为 8896，确认无误。",
+      "crop_note:确认所有数值无负号、小数、百分号错误，无缺失值补0，缺失值保持null。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

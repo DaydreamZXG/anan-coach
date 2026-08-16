@@ -1,0 +1,239 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "1990年",
+          "1995年",
+          "2000年",
+          "2005年",
+          "2010年"
+        ],
+        "label": "组织类型"
+      },
+      {
+        "columns": [
+          "1990年",
+          "1995年",
+          "2000年",
+          "2005年",
+          "2010年"
+        ],
+        "label": "产业结构"
+      },
+      {
+        "columns": [
+          "1990年",
+          "1995年",
+          "2000年",
+          "2005年",
+          "2010年"
+        ],
+        "label": "空间分布"
+      }
+    ],
+    "columns": [
+      "1990年",
+      "1995年",
+      "2000年",
+      "2005年",
+      "2010年"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "年份",
+      "style": "diagonal",
+      "upper_label": "项目"
+    },
+    "missing_cells": [
+      {
+        "column": "1990年",
+        "display": "—",
+        "row": "组织类型｜股份有限公司"
+      },
+      {
+        "column": "1995年",
+        "display": "—",
+        "row": "组织类型｜股份有限公司"
+      },
+      {
+        "column": "2000年",
+        "display": "—",
+        "row": "组织类型｜股份有限公司"
+      },
+      {
+        "column": "2005年",
+        "display": "—",
+        "row": "组织类型｜股份有限公司"
+      },
+      {
+        "column": "1990年",
+        "display": "—",
+        "row": "产业结构｜第一产业"
+      }
+    ],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "display_label": "组织类型｜独资企业",
+        "group": null,
+        "label": "组织类型｜独资企业",
+        "unit": null,
+        "values": [
+          54.5,
+          46.0,
+          28.4,
+          20.2,
+          15.1
+        ]
+      },
+      {
+        "display_label": "组织类型｜合伙企业",
+        "group": null,
+        "label": "组织类型｜合伙企业",
+        "unit": null,
+        "values": [
+          41.1,
+          18.1,
+          9.9,
+          3.0,
+          1.5
+        ]
+      },
+      {
+        "display_label": "组织类型｜有限责任公司",
+        "group": null,
+        "label": "组织类型｜有限责任公司",
+        "unit": null,
+        "values": [
+          4.4,
+          35.9,
+          61.7,
+          76.8,
+          83.2
+        ]
+      },
+      {
+        "display_label": "组织类型｜股份有限公司",
+        "group": null,
+        "label": "组织类型｜股份有限公司",
+        "unit": null,
+        "values": [
+          null,
+          null,
+          null,
+          null,
+          0.2
+        ]
+      },
+      {
+        "display_label": "产业结构｜第一产业",
+        "group": null,
+        "label": "产业结构｜第一产业",
+        "unit": null,
+        "values": [
+          null,
+          1.1,
+          2.25,
+          1.9,
+          2.3
+        ]
+      },
+      {
+        "display_label": "产业结构｜第二产业",
+        "group": null,
+        "label": "产业结构｜第二产业",
+        "unit": null,
+        "values": [
+          71.8,
+          50.4,
+          39.43,
+          33.3,
+          28.9
+        ]
+      },
+      {
+        "display_label": "产业结构｜第三产业",
+        "group": null,
+        "label": "产业结构｜第三产业",
+        "unit": null,
+        "values": [
+          28.2,
+          48.5,
+          58.32,
+          64.8,
+          68.8
+        ]
+      },
+      {
+        "display_label": "空间分布｜城市",
+        "group": null,
+        "label": "空间分布｜城市",
+        "unit": null,
+        "values": [
+          38.4,
+          56.8,
+          61.25,
+          65.1,
+          71.6
+        ]
+      },
+      {
+        "display_label": "空间分布｜农村",
+        "group": null,
+        "label": "空间分布｜农村",
+        "unit": null,
+        "values": [
+          61.6,
+          43.2,
+          38.75,
+          34.9,
+          28.4
+        ]
+      },
+      {
+        "display_label": "空间分布｜东部地区",
+        "group": null,
+        "label": "空间分布｜东部地区",
+        "unit": null,
+        "values": [
+          67.5,
+          67.54,
+          68.5,
+          68.5,
+          64.2
+        ]
+      },
+      {
+        "display_label": "空间分布｜中部地区",
+        "group": null,
+        "label": "空间分布｜中部地区",
+        "unit": null,
+        "values": [
+          20.1,
+          24.13,
+          18.1,
+          17.95,
+          18.9
+        ]
+      },
+      {
+        "display_label": "空间分布｜西部地区",
+        "group": null,
+        "label": "空间分布｜西部地区",
+        "unit": null,
+        "values": [
+          12.4,
+          8.33,
+          13.4,
+          13.55,
+          16.9
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

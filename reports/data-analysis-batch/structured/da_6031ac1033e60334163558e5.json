@@ -1,0 +1,364 @@
+{
+  "asset_id": "da_6031ac1033e60334163558e5",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2015年黑龙江省公务员录用考试《行测》题_images/img_0073_909c7b7f74cb4b7d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题_images/img_0073_909c7b7f74cb4b7d.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_63c95eccc409a70e51ca",
+        "question_number": 116,
+        "source_jsonl_line": 101933
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题_images/img_0083_6b83935066c6293b.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_dc36f44cde826d4da0e1",
+        "question_number": 117,
+        "source_jsonl_line": 101934
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题_images/img_0073_909c7b7f74cb4b7d.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_55a48cf02531b2c20664",
+        "question_number": 118,
+        "source_jsonl_line": 101935
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题_images/img_0073_909c7b7f74cb4b7d.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_0ac92123ea55b2e06224",
+        "question_number": 119,
+        "source_jsonl_line": 101936
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题_images/img_0073_909c7b7f74cb4b7d.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_9c1d50f0d7f87262b3a2",
+        "question_number": 120,
+        "source_jsonl_line": 101937
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0082_909c7b7f74cb4b7d.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_bb1d813f8a1581493421",
+        "question_number": 116,
+        "source_jsonl_line": 102063
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0082_909c7b7f74cb4b7d.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_34bb92577b4968191498",
+        "question_number": 117,
+        "source_jsonl_line": 102064
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0082_909c7b7f74cb4b7d.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_ee58cd751f2184c23738",
+        "question_number": 118,
+        "source_jsonl_line": 102065
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0082_909c7b7f74cb4b7d.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_282d78a3d832a576a96a",
+        "question_number": 119,
+        "source_jsonl_line": 102066
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0082_909c7b7f74cb4b7d.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_a269daf9724a4894cdba",
+        "question_number": 120,
+        "source_jsonl_line": 102067
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）_images/img_0083_909c7b7f74cb4b7d.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）",
+        "question_id": "pq_0d8f170df691d0fffd55",
+        "question_number": 106,
+        "source_jsonl_line": 102183
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）_images/img_0083_909c7b7f74cb4b7d.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）",
+        "question_id": "pq_4ac41249959f6219c7ae",
+        "question_number": 107,
+        "source_jsonl_line": 102184
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）_images/img_0096_6b83935066c6293b.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）",
+        "question_id": "pq_51eef3f812fa1d4b7b2a",
+        "question_number": 108,
+        "source_jsonl_line": 102185
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）_images/img_0083_909c7b7f74cb4b7d.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）",
+        "question_id": "pq_30dfca6dc76f3b844677",
+        "question_number": 109,
+        "source_jsonl_line": 102186
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）_images/img_0096_6b83935066c6293b.png",
+        "paper_title": "2015年黑龙江省公务员录用考试《行测》题（边远地区卷）",
+        "question_id": "pq_4c2b57e45644abdb36c9",
+        "question_number": 110,
+        "source_jsonl_line": 102187
+      }
+    ],
+    "sha256": "6031ac1033e60334163558e50585274e63b1eabcb2a43ae5ed6ef0e2ab8e645c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "收案｜数量（件）",
+          "收案｜增长率（%）"
+        ],
+        "label": "收案"
+      },
+      {
+        "columns": [
+          "结案（件）｜合计",
+          "结案（件）｜调解",
+          "结案（件）｜判决",
+          "结案（件）｜其他"
+        ],
+        "label": "结案（件）"
+      }
+    ],
+    "columns": [
+      "收案｜数量（件）",
+      "收案｜增长率（%）",
+      "结案（件）｜合计",
+      "结案（件）｜调解",
+      "结案（件）｜判决",
+      "结案（件）｜其他"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          1423180,
+          3.15,
+          1428340,
+          698900,
+          387185,
+          342255
+        ]
+      },
+      {
+        "display_label": "婚姻家庭",
+        "group": null,
+        "label": "婚姻家庭",
+        "unit": null,
+        "values": [
+          1374136,
+          2.47,
+          1379463,
+          673749,
+          373883,
+          331831
+        ]
+      },
+      {
+        "display_label": "离婚",
+        "group": null,
+        "label": "离婚",
+        "unit": null,
+        "values": [
+          1164521,
+          1.92,
+          1168810,
+          567374,
+          321316,
+          280120
+        ]
+      },
+      {
+        "display_label": "赡养纠纷",
+        "group": null,
+        "label": "赡养纠纷",
+        "unit": null,
+        "values": [
+          26648,
+          -7.74,
+          26704,
+          11237,
+          6838,
+          8629
+        ]
+      },
+      {
+        "display_label": "抚养、扶养关系纠纷",
+        "group": null,
+        "label": "抚养、扶养关系纠纷",
+        "unit": null,
+        "values": [
+          50499,
+          2.65,
+          50547,
+          31082,
+          9584,
+          9881
+        ]
+      },
+      {
+        "display_label": "抚养费纠纷",
+        "group": null,
+        "label": "抚养费纠纷",
+        "unit": null,
+        "values": [
+          24020,
+          -6.27,
+          24269,
+          11502,
+          6902,
+          5865
+        ]
+      },
+      {
+        "display_label": "其他",
+        "group": "抚养费纠纷",
+        "label": "抚养费纠纷｜其他",
+        "unit": null,
+        "values": [
+          108448,
+          14.47,
+          109133,
+          52554,
+          29243,
+          27336
+        ]
+      },
+      {
+        "display_label": "继承",
+        "group": null,
+        "label": "继承",
+        "unit": null,
+        "values": [
+          49044,
+          26.85,
+          48877,
+          25151,
+          13302,
+          10424
+        ]
+      },
+      {
+        "display_label": "法定继承",
+        "group": null,
+        "label": "法定继承",
+        "unit": null,
+        "values": [
+          28439,
+          25.45,
+          28285,
+          15935,
+          6861,
+          5489
+        ]
+      },
+      {
+        "display_label": "遗嘱继承",
+        "group": null,
+        "label": "遗嘱继承",
+        "unit": null,
+        "values": [
+          4054,
+          21.38,
+          4076,
+          1790,
+          1439,
+          847
+        ]
+      },
+      {
+        "display_label": "其他",
+        "group": "遗嘱继承",
+        "label": "遗嘱继承｜其他",
+        "unit": null,
+        "values": [
+          16551,
+          30.81,
+          16516,
+          7426,
+          5002,
+          4088
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

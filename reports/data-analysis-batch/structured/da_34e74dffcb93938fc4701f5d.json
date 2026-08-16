@@ -1,0 +1,179 @@
+{
+  "asset_id": "da_34e74dffcb93938fc4701f5d",
+  "axes": {
+    "x": {
+      "max": 2007,
+      "min": 1996,
+      "ticks": [
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007
+      ],
+      "title": "年",
+      "unit": "年"
+    },
+    "y": [
+      {
+        "max": 2500,
+        "min": 0,
+        "ticks": [
+          0,
+          500,
+          1000,
+          1500,
+          2000,
+          2500
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "1996",
+    "1997",
+    "1998",
+    "1999",
+    "2000",
+    "2001",
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "全国技术合同成交金额",
+      "style": {
+        "dash": "solid",
+        "fill": "pattern",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国技术合同成交金额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        300,
+        351,
+        436,
+        523,
+        651,
+        783,
+        884,
+        1085,
+        1334,
+        1551,
+        1818,
+        2226
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2009年国家公务员录用考试《行测》题_images/img_0222_4d4ef48a1a81e05b.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年国家公务员录用考试《行测》题_images/img_0222_4d4ef48a1a81e05b.jpg",
+        "paper_title": "2009年国家公务员录用考试《行测》题",
+        "question_id": "pq_92a51f69e92aaa93703e",
+        "question_number": 136,
+        "source_jsonl_line": 17391
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年国家公务员录用考试《行测》题_images/img_0216_52284bb8be76bac6.jpg",
+        "paper_title": "2009年国家公务员录用考试《行测》题",
+        "question_id": "pq_b8c016d0eb682f4c4322",
+        "question_number": 137,
+        "source_jsonl_line": 17392
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年国家公务员录用考试《行测》题_images/img_0216_52284bb8be76bac6.jpg",
+        "paper_title": "2009年国家公务员录用考试《行测》题",
+        "question_id": "pq_023cbb3b32de97ad2b0c",
+        "question_number": 138,
+        "source_jsonl_line": 17393
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年国家公务员录用考试《行测》题_images/img_0216_52284bb8be76bac6.jpg",
+        "paper_title": "2009年国家公务员录用考试《行测》题",
+        "question_id": "pq_956b3fd11966e9057e11",
+        "question_number": 139,
+        "source_jsonl_line": 17394
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年国家公务员录用考试《行测》题_images/img_0222_4d4ef48a1a81e05b.jpg",
+        "paper_title": "2009年国家公务员录用考试《行测》题",
+        "question_id": "pq_706083650f2927a4248a",
+        "question_number": 140,
+        "source_jsonl_line": 17395
+      }
+    ],
+    "sha256": "34e74dffcb93938fc4701f5dbf8963fb8a230bd65572e634fc67a63f445623aa"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "1996～2007年全国技术合同成交金额",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_34e74dffcb93938fc4701f5d/column_band_01.jpg",
+        "review-crops/da_34e74dffcb93938fc4701f5d/column_band_02.jpg",
+        "review-crops/da_34e74dffcb93938fc4701f5d/column_band_03.jpg",
+        "review-crops/da_34e74dffcb93938fc4701f5d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.227",
+      "crop_verification_elapsed_seconds:6.323",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

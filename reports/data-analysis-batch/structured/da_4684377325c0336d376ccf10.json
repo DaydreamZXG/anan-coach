@@ -1,0 +1,212 @@
+{
+  "asset_id": "da_4684377325c0336d376ccf10",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 6000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000
+        ],
+        "title": null,
+        "unit": "公里"
+      }
+    ]
+  },
+  "categories": [
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "全国地铁运营线路长度",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国地铁运营线路长度",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "公里",
+      "values": [
+        2073,
+        2361,
+        2658,
+        3169,
+        3884,
+        4354,
+        5181
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0273_b3ac05dce3127d04.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0273_b3ac05dce3127d04.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_faaf51bb4a55fb0472b3",
+        "question_number": 121,
+        "source_jsonl_line": 19786
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0280_161e1433415fb760.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_af9c5c9a47cf04476047",
+        "question_number": 122,
+        "source_jsonl_line": 19787
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0280_161e1433415fb760.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_f55982238c75008318cc",
+        "question_number": 123,
+        "source_jsonl_line": 19788
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0280_161e1433415fb760.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_536428a131fbb9523458",
+        "question_number": 124,
+        "source_jsonl_line": 19789
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0280_161e1433415fb760.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_1f7b3996462baf5b1c0c",
+        "question_number": 125,
+        "source_jsonl_line": 19790
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0248_161e1433415fb760.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_77082bf4873957973992",
+        "question_number": 116,
+        "source_jsonl_line": 19916
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0248_161e1433415fb760.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_9bee456d5b72a4557964",
+        "question_number": 117,
+        "source_jsonl_line": 19917
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0259_b3ac05dce3127d04.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_3ff26e05e8d9fe769c68",
+        "question_number": 118,
+        "source_jsonl_line": 19918
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0248_161e1433415fb760.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_7fd3caca8c143ed6c44e",
+        "question_number": 119,
+        "source_jsonl_line": 19919
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0248_161e1433415fb760.png",
+        "paper_title": "2021年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_ef64a48788ba1d699a01",
+        "question_number": 120,
+        "source_jsonl_line": 19920
+      }
+    ],
+    "sha256": "4684377325c0336d376ccf10b65875de14853d41dff2df179a123643b120a2f9"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013年-2019年全国地铁运营线路长度",
+  "unit": "公里",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4684377325c0336d376ccf10/column_band_01.jpg",
+        "review-crops/da_4684377325c0336d376ccf10/column_band_02.jpg",
+        "review-crops/da_4684377325c0336d376ccf10/column_band_03.jpg",
+        "review-crops/da_4684377325c0336d376ccf10/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.508",
+      "crop_verification_elapsed_seconds:8.174",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2015年数据为2658，原图显示为2658，确认无误。",
+      "crop_note:修正了2016年数据为3169，原图显示为3169，确认无误。",
+      "crop_note:修正了2017年数据为3884，原图显示为3884，确认无误。",
+      "crop_note:修正了2018年数据为4354，原图显示为4354，确认无误。",
+      "crop_note:修正了2019年数据为5181，原图显示为5181，确认无误。",
+      "crop_note:确认所有年份数据完整，无缺失值。",
+      "crop_note:确认所有数值无负号、小数或百分号，符合原始数据格式。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

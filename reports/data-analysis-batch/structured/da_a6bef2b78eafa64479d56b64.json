@@ -1,0 +1,181 @@
+{
+  "asset_id": "da_a6bef2b78eafa64479d56b64",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广州市考/2013年广州市公务员录用考试《行测》题_images/img_0079_a73fe2954f2a9ca5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广州市公务员录用考试《行测》题_images/img_0079_a73fe2954f2a9ca5.png",
+        "paper_title": "2013年广州市公务员录用考试《行测》题",
+        "question_id": "pq_17737830ae693bc39f33",
+        "question_number": 86,
+        "source_jsonl_line": 37048
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广州市公务员录用考试《行测》题_images/img_0097_02ef47d41a79f0f0.png",
+        "paper_title": "2013年广州市公务员录用考试《行测》题",
+        "question_id": "pq_e7a4b692a48c4d54fa3b",
+        "question_number": 87,
+        "source_jsonl_line": 37049
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广州市公务员录用考试《行测》题_images/img_0079_a73fe2954f2a9ca5.png",
+        "paper_title": "2013年广州市公务员录用考试《行测》题",
+        "question_id": "pq_a0dcd7fa39f60040d1e6",
+        "question_number": 88,
+        "source_jsonl_line": 37050
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广州市公务员录用考试《行测》题_images/img_0079_a73fe2954f2a9ca5.png",
+        "paper_title": "2013年广州市公务员录用考试《行测》题",
+        "question_id": "pq_51e62f1f2b11a73998ea",
+        "question_number": 89,
+        "source_jsonl_line": 37051
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广州市公务员录用考试《行测》题_images/img_0079_a73fe2954f2a9ca5.png",
+        "paper_title": "2013年广州市公务员录用考试《行测》题",
+        "question_id": "pq_e4a203a287b93f1ecfe0",
+        "question_number": 90,
+        "source_jsonl_line": 37052
+      }
+    ],
+    "sha256": "a6bef2b78eafa64479d56b64d32120828078b2c84974cc4f54e52100b253535c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "城市",
+      "面积 (km²)",
+      "人口 (万人)",
+      "GDP (亿元)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "上海",
+        "unit": null,
+        "values": [
+          "上海",
+          1514.52,
+          1921.32,
+          14875.8
+        ]
+      },
+      {
+        "label": "北京",
+        "unit": null,
+        "values": [
+          "北京",
+          2416.48,
+          1491.8,
+          11972
+        ]
+      },
+      {
+        "label": "深圳",
+        "unit": null,
+        "values": [
+          "深圳",
+          692.48,
+          891.23,
+          8201.32
+        ]
+      },
+      {
+        "label": "重庆",
+        "unit": null,
+        "values": [
+          "重庆",
+          263.39,
+          800.11,
+          4891.58
+        ]
+      },
+      {
+        "label": "广州",
+        "unit": null,
+        "values": [
+          "广州",
+          637.05,
+          654.68,
+          8409.75
+        ]
+      },
+      {
+        "label": "天津",
+        "unit": null,
+        "values": [
+          "天津",
+          779.6,
+          580.4,
+          7030.25
+        ]
+      }
+    ]
+  },
+  "title": "部分城市 2010 年面积、人口与 GDP 情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a6bef2b78eafa64479d56b64/row_band_01.jpg",
+        "review-crops/da_a6bef2b78eafa64479d56b64/row_band_02.jpg",
+        "review-crops/da_a6bef2b78eafa64479d56b64/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.542",
+      "crop_verification_elapsed_seconds:5.234",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

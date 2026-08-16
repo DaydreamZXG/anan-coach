@@ -1,0 +1,151 @@
+{
+  "asset_id": "da_c4dea8dc727d1acf5a1f78ed",
+  "axes": {
+    "x": {
+      "max": 2008,
+      "min": 2004,
+      "ticks": [
+        2004,
+        2005,
+        2006,
+        2007,
+        2008
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 7.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0,
+          6.0,
+          7.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008"
+  ],
+  "chart_type": "line",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "居民消费价格涨跌幅度",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        3.9,
+        1.8,
+        1.5,
+        4.8,
+        5.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2009年北京市公务员录用考试《行测》题（社招）_images/img_0226_161d3361d6553c9a.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0226_161d3361d6553c9a.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_bde2672ee84880b19609",
+        "question_number": 121,
+        "source_jsonl_line": 8914
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0226_161d3361d6553c9a.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_08d365a71b419e1df3f9",
+        "question_number": 122,
+        "source_jsonl_line": 8915
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0244_53a8b9f49aa19d2f.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_5d38d93c68ddd719fa34",
+        "question_number": 123,
+        "source_jsonl_line": 8916
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0226_161d3361d6553c9a.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_fda28c9851a7b3e109d3",
+        "question_number": 124,
+        "source_jsonl_line": 8917
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0226_161d3361d6553c9a.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_0db3d593b7858d2fcd07",
+        "question_number": 125,
+        "source_jsonl_line": 8918
+      }
+    ],
+    "sha256": "c4dea8dc727d1acf5a1f78edda1238e0de813c1e270aa361ee89856fae86cc2e"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2004-2008年居民消费价格涨跌幅度",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c4dea8dc727d1acf5a1f78ed/column_band_01.jpg",
+        "review-crops/da_c4dea8dc727d1acf5a1f78ed/column_band_02.jpg",
+        "review-crops/da_c4dea8dc727d1acf5a1f78ed/column_band_03.jpg",
+        "review-crops/da_c4dea8dc727d1acf5a1f78ed/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.822",
+      "crop_verification_elapsed_seconds:1.214",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

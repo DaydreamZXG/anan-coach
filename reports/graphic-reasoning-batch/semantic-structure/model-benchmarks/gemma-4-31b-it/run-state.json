@@ -1,0 +1,18 @@
+{
+  "model": "gemma-4-31b-it",
+  "observedAt": "2026-08-11T12:42:59.259547+00:00",
+  "qualityAccepted": 0,
+  "repairPending": 1,
+  "requested": 1,
+  "rows": [
+    {
+      "assetId": "gr_09a239f1f5c89bec86ff315d",
+      "errors": [],
+      "qualityStatus": "fact_review_pending",
+      "status": "repair_pending",
+      "subtype": "closed_polygon_composition"
+    }
+  ],
+  "schemaVersion": "graphic-reasoning-simple-regular-run-state-v1",
+  "supported": 1
+}

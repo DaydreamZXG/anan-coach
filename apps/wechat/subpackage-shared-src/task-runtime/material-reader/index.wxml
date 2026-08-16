@@ -56,6 +56,7 @@
     </scroll-view>
     <view class="material-reader__annotation-host">
       <annotation-layer
+        class="material-reader__annotation-layer"
         mode="{{annotationOpen ? 'annotate' : (annotationStrokes.length ? 'static' : 'hidden')}}"
         strokes="{{annotationStrokes}}"
         elapsedSeconds="{{annotationElapsedSeconds}}"
@@ -64,9 +65,16 @@
         content-height="{{annotationContentHeight}}"
         horizontal-regions="{{horizontalRegions}}"
         strokePrefix="material-stroke"
+        surfaceSwitchAvailable="{{annotationSurfaceSwitchAvailable}}"
+        activeSurface="{{annotationActiveSurface}}"
+        toolbarAvailable="{{annotationToolbarAvailable}}"
+        activeTool="{{annotationTool}}"
         bindstrokeschange="onAnnotationStrokesChange"
         binddone="finishAnnotation"
         bindmore="openAnnotationMore"
+        bindsurfacechange="switchAnnotationSurface"
+        bindtoolchange="changeAnnotationTool"
+        bindfocus="focusAnnotationCanvas"
       />
     </view>
   </view>
@@ -119,6 +127,7 @@
 
     <view class="material-reader__annotation-host material-reader__annotation-host--fullscreen">
       <annotation-layer
+        class="material-reader__annotation-layer"
         mode="{{annotationOpen ? 'annotate' : (annotationStrokes.length ? 'static' : 'hidden')}}"
         strokes="{{annotationStrokes}}"
         elapsedSeconds="{{annotationElapsedSeconds}}"
@@ -127,9 +136,16 @@
         content-height="{{annotationContentHeight}}"
         horizontal-regions="{{horizontalRegions}}"
         strokePrefix="material-stroke"
+        surfaceSwitchAvailable="{{annotationSurfaceSwitchAvailable}}"
+        activeSurface="{{annotationActiveSurface}}"
+        toolbarAvailable="{{annotationToolbarAvailable}}"
+        activeTool="{{annotationTool}}"
         bindstrokeschange="onAnnotationStrokesChange"
         binddone="finishAnnotation"
         bindmore="openAnnotationMore"
+        bindsurfacechange="switchAnnotationSurface"
+        bindtoolchange="changeAnnotationTool"
+        bindfocus="focusAnnotationCanvas"
       />
     </view>
 
@@ -162,7 +178,7 @@
         bindtap="requestAnnotate"
       >
         <view class="material-reader__dock-glyph">✎</view>
-        <view class="material-reader__dock-label">批注</view>
+        <view class="material-reader__dock-label">草稿</view>
       </button>
       <button hover-class="item--hover" class="material-reader__dock-return" bindtap="returnToQuestion">
         {{returnLabel || '回到题目'}}

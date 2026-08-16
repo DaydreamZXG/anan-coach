@@ -1,0 +1,206 @@
+{
+  "asset_id": "da_1d968a67eeb13cd92bf9bfa7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 700,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600,
+          700
+        ],
+        "title": null,
+        "unit": "万吨"
+      },
+      {
+        "max": 600,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "产量",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "市场规模",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "产量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        449.9,
+        443.3,
+        448.9,
+        461.4,
+        472.6,
+        490.9,
+        506.5
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "市场规模",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        429.9,
+        426.9,
+        434.0,
+        455.2,
+        484.9,
+        540.0,
+        552.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0111_b94efab7b35853a2.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0111_b94efab7b35853a2.png",
+        "paper_title": "2022年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7f7572818a175071897d",
+        "question_number": 131,
+        "source_jsonl_line": 10804
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0111_b94efab7b35853a2.png",
+        "paper_title": "2022年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1868037b473219a1f21d",
+        "question_number": 132,
+        "source_jsonl_line": 10805
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0111_b94efab7b35853a2.png",
+        "paper_title": "2022年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b8aef76e15b1d24f88f5",
+        "question_number": 133,
+        "source_jsonl_line": 10806
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0111_b94efab7b35853a2.png",
+        "paper_title": "2022年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5b62eca57aad33f9c8c5",
+        "question_number": 134,
+        "source_jsonl_line": 10807
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0111_b94efab7b35853a2.png",
+        "paper_title": "2022年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d2c77204ea13f5465c14",
+        "question_number": 135,
+        "source_jsonl_line": 10808
+      }
+    ],
+    "sha256": "1d968a67eeb13cd92bf9bfa7c02cfa7becba9eb1c103bf6d13d11365458c254f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014-2020年中国耐磨材料产量及市场规模",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1d968a67eeb13cd92bf9bfa7/column_band_01.jpg",
+        "review-crops/da_1d968a67eeb13cd92bf9bfa7/column_band_02.jpg",
+        "review-crops/da_1d968a67eeb13cd92bf9bfa7/column_band_03.jpg",
+        "review-crops/da_1d968a67eeb13cd92bf9bfa7/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.343",
+      "crop_verification_elapsed_seconds:10.03",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2014年产量为449.9万吨，2015年产量为443.3万吨，2016年产量为448.9万吨，2017年产量为461.4万吨，2018年产量为472.6万吨，2019年产量为490.9万吨，2020年产量为506.5万吨。",
+      "crop_note:修正了2014年市场规模为429.9亿元，2015年市场规模为426.9亿元，2016年市场规模为434.0亿元，2017年市场规模为455.2亿元，2018年市场规模为484.9亿元，2019年市场规模为540.0亿元，2020年市场规模为552.3亿元。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

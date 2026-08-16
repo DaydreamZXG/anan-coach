@@ -1,0 +1,331 @@
+{
+  "asset_id": "da_ca9a1360cfc5a24957dbd72f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "德国",
+    "英国",
+    "法国",
+    "意大利",
+    "西班牙",
+    "荷兰",
+    "欧盟其他国家",
+    "比利时",
+    "瑞典",
+    "奥地利",
+    "丹麦"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "德国",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "英国",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "法国",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "意大利",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "西班牙",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "荷兰",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "欧盟其他国家",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "比利时",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "瑞典",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "奥地利",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "丹麦",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      84.228196,
+      149.12533,
+      209.067865,
+      258.573251,
+      285.104727,
+      306.465956,
+      323.892339,
+      334.199531,
+      344.145281,
+      352.775219,
+      360.0
+    ],
+    "geometry_owner": "labeled_share_reconstruction",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 84.228196,
+        "label": "德国",
+        "share": 0.233967211,
+        "start_angle": 0.0,
+        "sweep_angle": 84.228196
+      },
+      {
+        "end_angle": 149.12533,
+        "label": "英国",
+        "share": 0.180269818,
+        "start_angle": 84.228196,
+        "sweep_angle": 64.897135
+      },
+      {
+        "end_angle": 209.067865,
+        "label": "法国",
+        "share": 0.166507041,
+        "start_angle": 149.12533,
+        "sweep_angle": 59.942535
+      },
+      {
+        "end_angle": 258.573251,
+        "label": "意大利",
+        "share": 0.137514961,
+        "start_angle": 209.067865,
+        "sweep_angle": 49.505386
+      },
+      {
+        "end_angle": 285.104727,
+        "label": "西班牙",
+        "share": 0.073698543,
+        "start_angle": 258.573251,
+        "sweep_angle": 26.531476
+      },
+      {
+        "end_angle": 306.465956,
+        "label": "荷兰",
+        "share": 0.059336747,
+        "start_angle": 285.104727,
+        "sweep_angle": 21.361229
+      },
+      {
+        "end_angle": 323.892339,
+        "label": "欧盟其他国家",
+        "share": 0.04840662,
+        "start_angle": 306.465956,
+        "sweep_angle": 17.426383
+      },
+      {
+        "end_angle": 334.199531,
+        "label": "比利时",
+        "share": 0.028631089,
+        "start_angle": 323.892339,
+        "sweep_angle": 10.307192
+      },
+      {
+        "end_angle": 344.145281,
+        "label": "瑞典",
+        "share": 0.027627083,
+        "start_angle": 334.199531,
+        "sweep_angle": 9.94575
+      },
+      {
+        "end_angle": 352.775219,
+        "label": "奥地利",
+        "share": 0.02397205,
+        "start_angle": 344.145281,
+        "sweep_angle": 8.629938
+      },
+      {
+        "end_angle": 360.0,
+        "label": "丹麦",
+        "share": 0.020068836,
+        "start_angle": 352.775219,
+        "sweep_angle": 7.224781
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "values",
+      "label": "数值",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿欧元",
+      "values": [
+        20740,
+        15980,
+        14760,
+        12190,
+        6533,
+        5259.9,
+        4291,
+        2538,
+        2449,
+        2125,
+        1779
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2008年湖北省公务员录用考试《行测》题（A类）_images/img_0133_0aea92a39ee3e6f3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（A类）_images/img_0133_0aea92a39ee3e6f3.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_4414ab714fe27bafee24",
+        "question_number": 131,
+        "source_jsonl_line": 68747
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（A类）_images/img_0133_0aea92a39ee3e6f3.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_132124781d2c69a53d65",
+        "question_number": 132,
+        "source_jsonl_line": 68748
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（A类）_images/img_0135_d38ac34819aa009a.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_228ba6e851950cbe3b37",
+        "question_number": 133,
+        "source_jsonl_line": 68749
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（A类）_images/img_0133_0aea92a39ee3e6f3.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_5a08e35d8823f4b14ab5",
+        "question_number": 134,
+        "source_jsonl_line": 68750
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（A类）_images/img_0133_0aea92a39ee3e6f3.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_5e59b64a8630082ced58",
+        "question_number": 135,
+        "source_jsonl_line": 68751
+      }
+    ],
+    "sha256": "ca9a1360cfc5a24957dbd72f31e9f25967e9a80827e9974f6b8a09bf82e37283"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2002年欧盟各国GDP值比例图",
+  "unit": "亿欧元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "pie_rebuilt_from_explicit_source_labels_not_pixel_angles"
+    ],
+    "ocr_engine": "source_label_share_reconstruction",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

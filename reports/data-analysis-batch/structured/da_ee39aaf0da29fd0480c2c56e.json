@@ -1,0 +1,276 @@
+{
+  "asset_id": "da_ee39aaf0da29fd0480c2c56e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "地区",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "六项主要污染物（微克/立方米，CO单位是毫克/立方米）",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "北京市",
+    "天津市",
+    "河北省"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "PM2_5",
+      "label": "PM2.5",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "微克/立方米",
+      "values": [
+        85.9,
+        95,
+        83
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "SO2",
+      "label": "SO2",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "微克/立方米",
+      "values": [
+        21.8,
+        55,
+        49
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "NO2",
+      "label": "NO2",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "微克/立方米",
+      "values": [
+        56.7,
+        48,
+        54
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "PM10",
+      "label": "PM10",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "微克/立方米",
+      "values": [
+        115.8,
+        165,
+        133
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "CO",
+      "label": "CO",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "毫克/立方米",
+      "values": [
+        3.2,
+        3.6,
+        2.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "O3",
+      "label": "O3",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "微克/立方米",
+      "values": [
+        197.2,
+        159,
+        157
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2015年吉林省公务员录用考试《行测》题（9月甲级）_images/img_0114_026d5c830f9e8164.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（9月甲级）_images/img_0114_026d5c830f9e8164.png",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（9月甲级）",
+        "question_id": "pq_d4cd03776f25e74946c0",
+        "question_number": 101,
+        "source_jsonl_line": 12392
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（9月甲级）_images/img_0114_026d5c830f9e8164.png",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（9月甲级）",
+        "question_id": "pq_1960f3d74124ff46718f",
+        "question_number": 102,
+        "source_jsonl_line": 12393
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（9月甲级）_images/img_0114_026d5c830f9e8164.png",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（9月甲级）",
+        "question_id": "pq_5b77f7aca0bebb842089",
+        "question_number": 103,
+        "source_jsonl_line": 12394
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（9月甲级）_images/img_0126_76b5431f046f308f.png",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（9月甲级）",
+        "question_id": "pq_f8627963f11566ba2b6f",
+        "question_number": 104,
+        "source_jsonl_line": 12395
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（9月甲级）_images/img_0114_026d5c830f9e8164.png",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（9月甲级）",
+        "question_id": "pq_9da5ce260e016bfa3703",
+        "question_number": 105,
+        "source_jsonl_line": 12396
+      }
+    ],
+    "sha256": "ee39aaf0da29fd0480c2c56e547ac58db6e0230a4431bc233659fc5e22445ccf"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "PM2.5",
+      "SO2",
+      "NO2",
+      "PM10",
+      "CO",
+      "O3"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "北京市",
+        "unit": null,
+        "values": [
+          "北京市",
+          85.9,
+          21.8,
+          56.7,
+          115.8,
+          3.2,
+          197.2
+        ]
+      },
+      {
+        "label": "天津市",
+        "unit": null,
+        "values": [
+          "天津市",
+          95,
+          55,
+          48,
+          165,
+          3.6,
+          159
+        ]
+      },
+      {
+        "label": "河北省",
+        "unit": null,
+        "values": [
+          "河北省",
+          83,
+          49,
+          54,
+          133,
+          2.9,
+          157
+        ]
+      }
+    ]
+  },
+  "title": "2014年京津冀六项主要污染物年平均浓度值",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ee39aaf0da29fd0480c2c56e/row_band_01.jpg",
+        "review-crops/da_ee39aaf0da29fd0480c2c56e/row_band_02.jpg",
+        "review-crops/da_ee39aaf0da29fd0480c2c56e/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.171",
+      "crop_verification_elapsed_seconds:0.938",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

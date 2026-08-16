@@ -1,0 +1,232 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "序号",
+          "地区",
+          "质量竞争力指数"
+        ],
+        "label": "左表"
+      },
+      {
+        "columns": [
+          "序号",
+          "地区",
+          "质量竞争力指数"
+        ],
+        "label": "右表"
+      }
+    ],
+    "columns": [
+      "序号",
+      "地区",
+      "质量竞争力指数",
+      "序号",
+      "地区",
+      "质量竞争力指数"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "序号",
+    "rows": [
+      {
+        "label": "1",
+        "unit": null,
+        "values": [
+          1,
+          "江苏",
+          84.94,
+          17,
+          "湖北",
+          79.02
+        ]
+      },
+      {
+        "label": "2",
+        "unit": null,
+        "values": [
+          2,
+          "福建",
+          84.39,
+          18,
+          "河北",
+          78.29
+        ]
+      },
+      {
+        "label": "3",
+        "unit": null,
+        "values": [
+          3,
+          "上海",
+          84.34,
+          19,
+          "江西",
+          78.26
+        ]
+      },
+      {
+        "label": "4",
+        "unit": null,
+        "values": [
+          4,
+          "广东",
+          83.82,
+          20,
+          "黑龙江",
+          77.54
+        ]
+      },
+      {
+        "label": "5",
+        "unit": null,
+        "values": [
+          5,
+          "北京",
+          83.8,
+          21,
+          "河南",
+          76.79
+        ]
+      },
+      {
+        "label": "6",
+        "unit": null,
+        "values": [
+          6,
+          "重庆",
+          83.79,
+          22,
+          "山西",
+          76.29
+        ]
+      },
+      {
+        "label": "7",
+        "unit": null,
+        "values": [
+          7,
+          "天津",
+          83.76,
+          23,
+          "甘肃",
+          75.57
+        ]
+      },
+      {
+        "label": "8",
+        "unit": null,
+        "values": [
+          8,
+          "浙江",
+          82.86,
+          24,
+          "广西",
+          74.82
+        ]
+      },
+      {
+        "label": "9",
+        "unit": null,
+        "values": [
+          9,
+          "辽宁",
+          82.8,
+          25,
+          "海南",
+          74.61
+        ]
+      },
+      {
+        "label": "10",
+        "unit": null,
+        "values": [
+          10,
+          "山东",
+          80.86,
+          26,
+          "内蒙古",
+          74.36
+        ]
+      },
+      {
+        "label": "11",
+        "unit": null,
+        "values": [
+          11,
+          "四川",
+          80.81,
+          27,
+          "青海",
+          73.46
+        ]
+      },
+      {
+        "label": "12",
+        "unit": null,
+        "values": [
+          12,
+          "吉林",
+          79.49,
+          28,
+          "宁夏",
+          72.71
+        ]
+      },
+      {
+        "label": "13",
+        "unit": null,
+        "values": [
+          13,
+          "贵州",
+          79.4,
+          29,
+          "云南",
+          72.33
+        ]
+      },
+      {
+        "label": "14",
+        "unit": null,
+        "values": [
+          14,
+          "湖南",
+          79.4,
+          30,
+          "新疆",
+          71.74
+        ]
+      },
+      {
+        "label": "15",
+        "unit": null,
+        "values": [
+          15,
+          "安徽",
+          79.28,
+          31,
+          "西藏",
+          68.3
+        ]
+      },
+      {
+        "label": "16",
+        "unit": null,
+        "values": [
+          16,
+          "陕西",
+          79.12,
+          null,
+          null,
+          null
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

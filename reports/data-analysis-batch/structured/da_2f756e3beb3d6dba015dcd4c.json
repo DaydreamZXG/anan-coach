@@ -1,0 +1,225 @@
+{
+  "asset_id": "da_2f756e3beb3d6dba015dcd4c",
+  "axes": {
+    "x": {
+      "max": 12,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 450,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300,
+          350,
+          400,
+          450
+        ],
+        "title": null,
+        "unit": "亿立方米"
+      }
+    ]
+  },
+  "categories": [
+    "1-2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "2022年",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "2023年",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2022",
+      "label": "2022年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿立方米",
+      "values": [
+        372,
+        196,
+        177,
+        177,
+        173,
+        171,
+        142,
+        164,
+        185,
+        189,
+        204
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2023",
+      "label": "2023年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿立方米",
+      "values": [
+        398,
+        205,
+        189,
+        190,
+        183,
+        184,
+        181,
+        179,
+        190,
+        199,
+        208
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0094_71d106a0768f1bcc.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0094_71d106a0768f1bcc.png",
+        "paper_title": "2025年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_191fba6da51f54855ca5",
+        "question_number": 101,
+        "source_jsonl_line": 24363
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0094_71d106a0768f1bcc.png",
+        "paper_title": "2025年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1e5052beeaab3169868a",
+        "question_number": 102,
+        "source_jsonl_line": 24364
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0094_71d106a0768f1bcc.png",
+        "paper_title": "2025年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ffe816ee4930e9273e07",
+        "question_number": 103,
+        "source_jsonl_line": 24365
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0094_71d106a0768f1bcc.png",
+        "paper_title": "2025年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8e101a3db7c5ea9f8ce5",
+        "question_number": 104,
+        "source_jsonl_line": 24366
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0116_e8aa007874b9a35b.png",
+        "paper_title": "2025年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a6045331ae88f1ad0712",
+        "question_number": 105,
+        "source_jsonl_line": 24367
+      }
+    ],
+    "sha256": "2f756e3beb3d6dba015dcd4c9265c3021954c3dfaa5b265d41f99d35c391c42b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2022-2023年我国天然气月度产量",
+  "unit": "亿立方米",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2f756e3beb3d6dba015dcd4c/column_band_01.jpg",
+        "review-crops/da_2f756e3beb3d6dba015dcd4c/column_band_02.jpg",
+        "review-crops/da_2f756e3beb3d6dba015dcd4c/column_band_03.jpg",
+        "review-crops/da_2f756e3beb3d6dba015dcd4c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.618",
+      "crop_verification_elapsed_seconds:16.781",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2022年1-2月产量为372亿立方米，原数据为372。",
+      "crop_note:修正了2023年1-2月产量为398亿立方米，原数据为398。",
+      "crop_note:修正了2022年3月产量为196亿立方米，原数据为196。",
+      "crop_note:修正了2023年3月产量为205亿立方米，原数据为205。",
+      "crop_note:修正了2022年4月产量为177亿立方米，原数据为177。",
+      "crop_note:修正了2023年4月产量为189亿立方米，原数据为189。",
+      "crop_note:修正了2022年5月产量为177亿立方米，原数据为177。",
+      "crop_note:修正了2023年5月产量为190亿立方米，原数据为190。",
+      "crop_note:修正了2022年6月产量为173亿立方米，原数据为173。",
+      "crop_note:修正了2023年6月产量为183亿立方米，原数据为183。",
+      "crop_note:修正了2022年7月产量为171亿立方米，原数据为171。",
+      "crop_note:修正了2023年7月产量为184亿立方米，原数据为184。",
+      "crop_note:修正了2022年8月产量为142亿立方米，原数据为142。",
+      "crop_note:修正了2023年8月产量为181亿立方米，原数据为181。",
+      "crop_note:修正了2022年9月产量为164亿立方米，原数据为164。",
+      "crop_note:修正了2023年9月产量为179亿立方米，原数据为179。",
+      "crop_note:修正了2022年10月产量为185亿立方米，原数据为185。",
+      "crop_note:修正了2023年10月产量为190亿立方米，原数据为190。",
+      "crop_note:修正了2022年11月产量为189亿立方米，原数据为189。",
+      "crop_note:修正了2023年11月产量为199亿立方米，原数据为199。",
+      "crop_note:修正了2022年12月产量为204亿立方米，原数据为204。",
+      "crop_note:修正了2023年12月产量为208亿立方米，原数据为208。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

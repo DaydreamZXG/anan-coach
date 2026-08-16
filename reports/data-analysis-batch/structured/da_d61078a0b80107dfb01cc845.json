@@ -1,0 +1,233 @@
+{
+  "asset_id": "da_d61078a0b80107dfb01cc845",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        20026,
+        200212,
+        20036,
+        200312,
+        20046,
+        200412,
+        20056,
+        200512,
+        20066,
+        200612,
+        20076
+      ],
+      "title": "年月",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 18000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000,
+          12000,
+          14000,
+          16000,
+          18000
+        ],
+        "title": "网民规模",
+        "unit": "万人"
+      },
+      {
+        "max": 80,
+        "min": 0,
+        "ticks": [
+          0.0,
+          10.0,
+          20.0,
+          30.0,
+          40.0,
+          50.0,
+          60.0,
+          70.0,
+          80.0
+        ],
+        "title": "年增长率",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2002,6",
+    "2002,12",
+    "2003,6",
+    "2003,12",
+    "2004,6",
+    "2004,12",
+    "2005,6",
+    "2005,12",
+    "2006,6",
+    "2006,12",
+    "2007,6"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "网民规模",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "年增长率",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "网民规模",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        4580,
+        5910,
+        6800,
+        7950,
+        8700,
+        9400,
+        10300,
+        11100,
+        12300,
+        13700,
+        16200
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "年增长率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        72.8,
+        75.4,
+        48.5,
+        34.5,
+        27.9,
+        18.2,
+        18.4,
+        18.1,
+        19.4,
+        23.4,
+        31.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2008年四川省公务员录用考试《行测》题_images/img_0088_4eaa0682130bdc67.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年四川省公务员录用考试《行测》题_images/img_0088_4eaa0682130bdc67.png",
+        "paper_title": "2008年四川省公务员录用考试《行测》题",
+        "question_id": "pq_c8c82801554df91bf8b9",
+        "question_number": 91,
+        "source_jsonl_line": 13907
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年四川省公务员录用考试《行测》题_images/img_0088_4eaa0682130bdc67.png",
+        "paper_title": "2008年四川省公务员录用考试《行测》题",
+        "question_id": "pq_c7bfd1a6d8b5e73c7bc4",
+        "question_number": 92,
+        "source_jsonl_line": 13908
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年四川省公务员录用考试《行测》题_images/img_0107_1ec860c6cca4033b.png",
+        "paper_title": "2008年四川省公务员录用考试《行测》题",
+        "question_id": "pq_51d4f3137105296b04e5",
+        "question_number": 93,
+        "source_jsonl_line": 13909
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年四川省公务员录用考试《行测》题_images/img_0088_4eaa0682130bdc67.png",
+        "paper_title": "2008年四川省公务员录用考试《行测》题",
+        "question_id": "pq_afac6ffdefd04dbf45e2",
+        "question_number": 94,
+        "source_jsonl_line": 13910
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年四川省公务员录用考试《行测》题_images/img_0107_1ec860c6cca4033b.png",
+        "paper_title": "2008年四川省公务员录用考试《行测》题",
+        "question_id": "pq_4290a243c021424c98dc",
+        "question_number": 95,
+        "source_jsonl_line": 13911
+      }
+    ],
+    "sha256": "d61078a0b80107dfb01cc845173c64bb19934e85f17fea52c7add6e54c6d2961"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d61078a0b80107dfb01cc845/column_band_01.jpg",
+        "review-crops/da_d61078a0b80107dfb01cc845/column_band_02.jpg",
+        "review-crops/da_d61078a0b80107dfb01cc845/column_band_03.jpg",
+        "review-crops/da_d61078a0b80107dfb01cc845/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.806",
+      "crop_verification_elapsed_seconds:6.899",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "3月｜量（万吨）",
+          "3月｜额（万元）"
+        ],
+        "label": "3月"
+      },
+      {
+        "columns": [
+          "1~3月｜量（万吨）",
+          "1~3月｜额（万元）"
+        ],
+        "label": "1~3月"
+      },
+      {
+        "columns": [
+          "2015年 1~3月｜量（万吨）",
+          "2015年 1~3月｜额（万元）"
+        ],
+        "label": "2015年 1~3月"
+      }
+    ],
+    "columns": [
+      "3月｜量（万吨）",
+      "3月｜额（万元）",
+      "1~3月｜量（万吨）",
+      "1~3月｜额（万元）",
+      "2015年 1~3月｜量（万吨）",
+      "2015年 1~3月｜额（万元）"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "1～3月",
+      "style": "diagonal",
+      "upper_label": "3月"
+    },
+    "missing_cells": [],
+    "row_header_label": "1～3月",
+    "rows": [
+      {
+        "display_label": "进口",
+        "group": null,
+        "label": "进口",
+        "unit": null,
+        "values": [
+          1969,
+          606065,
+          4846,
+          1499109,
+          4904,
+          1985165
+        ]
+      },
+      {
+        "display_label": "出口",
+        "group": null,
+        "label": "出口",
+        "unit": null,
+        "values": [
+          127,
+          60027,
+          279,
+          132989,
+          98,
+          67074
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

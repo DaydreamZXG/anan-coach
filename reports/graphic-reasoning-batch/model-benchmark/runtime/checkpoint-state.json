@@ -1,0 +1,42 @@
+{
+  "completedJobs": 0,
+  "failedJobs": 0,
+  "finalAcceptedAssets": 0,
+  "firstFiveJobs": [
+    {
+      "assetId": "gr_7b00c758d0ab44e2c464e04f",
+      "panelId": "panel-1",
+      "regularSubtype": "line_curve_composition"
+    },
+    {
+      "assetId": "gr_06e94661142e35ee6757e42d",
+      "panelId": "panel-1",
+      "regularSubtype": "straight_line_network"
+    },
+    {
+      "assetId": "gr_0751a8530a3a10bda058e654",
+      "panelId": "panel-1",
+      "regularSubtype": "circle_composition"
+    },
+    {
+      "assetId": "gr_09a239f1f5c89bec86ff315d",
+      "panelId": "panel-1",
+      "regularSubtype": "closed_polygon_composition"
+    },
+    {
+      "assetId": "gr_814f04ca63ec75e0fd69a9fb",
+      "panelId": "panel-1",
+      "regularSubtype": "grid_partition"
+    }
+  ],
+  "modelAccessAllowed": false,
+  "providerOrder": [
+    "OmniSVG1.1_4B",
+    "starvector-1b-im2svg"
+  ],
+  "schemaVersion": "graphic-vector-checkpoint-state-v1",
+  "skippedMissingMarkerJobs": 3,
+  "status": "blocked_waiting_gpu_ready",
+  "totalJobs": 46,
+  "waitingJobs": 43
+}

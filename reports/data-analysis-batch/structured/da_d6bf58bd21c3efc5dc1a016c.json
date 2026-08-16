@@ -1,0 +1,310 @@
+{
+  "asset_id": "da_d6bf58bd21c3efc5dc1a016c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "水电7.8%",
+    "天然气2.7%",
+    "石油23.4%",
+    "煤炭66.1%",
+    "水电3%",
+    "天然气23%",
+    "石油40%",
+    "核能7%",
+    "煤炭27%"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "水电7.8%",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "天然气2.7%",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "石油23.4%",
+      "style": {
+        "dash": "hatch",
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "煤炭66.1%",
+      "style": {
+        "dash": "hatch",
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "水电3%",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "天然气23%",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "石油40%",
+      "style": {
+        "dash": "hatch",
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "煤炭27%",
+      "style": {
+        "dash": "hatch",
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "核能7%",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -3.736,
+      8.867,
+      98.393,
+      105.39,
+      233.5,
+      241.5,
+      258.887,
+      275.082,
+      327.0,
+      356.264
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 8.867,
+        "label": "水电7.8%",
+        "share": 0.03500811,
+        "start_angle": -3.736,
+        "sweep_angle": 12.603
+      },
+      {
+        "end_angle": 98.393,
+        "label": "天然气2.7%",
+        "share": 0.24868282,
+        "start_angle": 8.867,
+        "sweep_angle": 89.526
+      },
+      {
+        "end_angle": 105.39,
+        "label": "石油23.4%",
+        "share": 0.01943521,
+        "start_angle": 98.393,
+        "sweep_angle": 6.997
+      },
+      {
+        "end_angle": 233.5,
+        "label": "煤炭66.1%",
+        "share": 0.35586194,
+        "start_angle": 105.39,
+        "sweep_angle": 128.11
+      },
+      {
+        "end_angle": 241.5,
+        "label": "水电3%",
+        "share": 0.02222222,
+        "start_angle": 233.5,
+        "sweep_angle": 8.0
+      },
+      {
+        "end_angle": 258.887,
+        "label": "天然气23%",
+        "share": 0.04829718,
+        "start_angle": 241.5,
+        "sweep_angle": 17.387
+      },
+      {
+        "end_angle": 275.082,
+        "label": "石油40%",
+        "share": 0.04498487,
+        "start_angle": 258.887,
+        "sweep_angle": 16.195
+      },
+      {
+        "end_angle": 327.0,
+        "label": "核能7%",
+        "share": 0.14421795,
+        "start_angle": 275.082,
+        "sweep_angle": 51.918
+      },
+      {
+        "end_angle": 356.264,
+        "label": "煤炭27%",
+        "share": 0.0812897,
+        "start_angle": 327.0,
+        "sweep_angle": 29.264
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.03500811,
+        0.24868282,
+        0.01943521,
+        0.35586194,
+        0.02222222,
+        0.04829718,
+        0.04498487,
+        0.14421795,
+        0.0812897
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2009年安徽省公务员录用考试《行测》题_images/img_0145_6409f2b88e46c2cf.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年安徽省公务员录用考试《行测》题_images/img_0145_6409f2b88e46c2cf.jpg",
+        "paper_title": "2009年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_9dd8d87c10625f21ed14",
+        "question_number": 136,
+        "source_jsonl_line": 26766
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年安徽省公务员录用考试《行测》题_images/img_0145_6409f2b88e46c2cf.jpg",
+        "paper_title": "2009年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_fbfdaa42c6140fdffeb2",
+        "question_number": 137,
+        "source_jsonl_line": 26767
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年安徽省公务员录用考试《行测》题_images/img_0139_0d465b6c0a3a22d9.jpg",
+        "paper_title": "2009年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_352308dc320c48663a70",
+        "question_number": 138,
+        "source_jsonl_line": 26768
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年安徽省公务员录用考试《行测》题_images/img_0139_0d465b6c0a3a22d9.jpg",
+        "paper_title": "2009年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_010a80535e191512c95a",
+        "question_number": 139,
+        "source_jsonl_line": 26769
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年安徽省公务员录用考试《行测》题_images/img_0145_6409f2b88e46c2cf.jpg",
+        "paper_title": "2009年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_e0c46290e7ab09084c28",
+        "question_number": 140,
+        "source_jsonl_line": 26770
+      }
+    ],
+    "sha256": "d6bf58bd21c3efc5dc1a016c591981de93f3e7b6080e8095bad1eb30098ef083"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2002年中国与世界能源消费结构图",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d6bf58bd21c3efc5dc1a016c/quadrant_01.jpg",
+        "review-crops/da_d6bf58bd21c3efc5dc1a016c/quadrant_02.jpg",
+        "review-crops/da_d6bf58bd21c3efc5dc1a016c/quadrant_03.jpg",
+        "review-crops/da_d6bf58bd21c3efc5dc1a016c/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.63",
+      "crop_verification_elapsed_seconds:1.823",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.9833",
+      "hough_circle_radius_ratio:0.1995",
+      "radial_line_candidates:12",
+      "detected_boundaries:9"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

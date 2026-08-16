@@ -1,0 +1,223 @@
+{
+  "asset_id": "da_c58293d27778d80d12dcb056",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 10,
+        "min": -40,
+        "ticks": [
+          0,
+          10
+        ],
+        "title": null,
+        "unit": "%"
+      },
+      {
+        "max": 150,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "固定通通信业务收入占比",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "移动通通信业务收入占比",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "电信业务收入增速",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "固定通通信业务收入占比",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        27.8,
+        29.6,
+        28.5,
+        28.1,
+        29.2,
+        31.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "移动通通信业务收入占比",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        72.2,
+        70.4,
+        71.5,
+        71.9,
+        70.8,
+        68.2
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "电信业务收入增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -1.6,
+        -2,
+        5.4,
+        6.6,
+        2.9,
+        0.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2021年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0146_3b3af4d80fe33cca.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0146_3b3af4d80fe33cca.png",
+        "paper_title": "2021年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d5ca3e2a18102c9d8aca",
+        "question_number": 86,
+        "source_jsonl_line": 16501
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0146_3b3af4d80fe33cca.png",
+        "paper_title": "2021年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_99fa22a8be2d61f99a28",
+        "question_number": 87,
+        "source_jsonl_line": 16502
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0146_3b3af4d80fe33cca.png",
+        "paper_title": "2021年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_35fc552f7c1410d20bb4",
+        "question_number": 88,
+        "source_jsonl_line": 16503
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0146_3b3af4d80fe33cca.png",
+        "paper_title": "2021年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_26be2857d0335d7158e1",
+        "question_number": 89,
+        "source_jsonl_line": 16504
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0146_3b3af4d80fe33cca.png",
+        "paper_title": "2021年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_00d4229db96dd5e9a783",
+        "question_number": 90,
+        "source_jsonl_line": 16505
+      }
+    ],
+    "sha256": "c58293d27778d80d12dcb05645b98a27f6018a55e4332b90b9f143e8e5233a3e"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c58293d27778d80d12dcb056/column_band_01.jpg",
+        "review-crops/da_c58293d27778d80d12dcb056/column_band_02.jpg",
+        "review-crops/da_c58293d27778d80d12dcb056/column_band_03.jpg",
+        "review-crops/da_c58293d27778d80d12dcb056/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.537",
+      "crop_verification_elapsed_seconds:5.87",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

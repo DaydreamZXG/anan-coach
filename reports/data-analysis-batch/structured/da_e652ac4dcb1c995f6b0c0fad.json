@@ -1,0 +1,221 @@
+{
+  "asset_id": "da_e652ac4dcb1c995f6b0c0fad",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0165_0c1e81c26053be01.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0165_0c1e81c26053be01.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_b4995d6718e97fb7a972",
+        "question_number": 126,
+        "source_jsonl_line": 21241
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0174_766a98df4a5fafa3.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_1a996d9597924de83c41",
+        "question_number": 127,
+        "source_jsonl_line": 21242
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0165_0c1e81c26053be01.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_1c8659f440cefa000927",
+        "question_number": 128,
+        "source_jsonl_line": 21243
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0174_766a98df4a5fafa3.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_45257b6d4f881a247ffa",
+        "question_number": 129,
+        "source_jsonl_line": 21244
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0165_0c1e81c26053be01.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_40f851550500fbb8327d",
+        "question_number": 130,
+        "source_jsonl_line": 21245
+      }
+    ],
+    "sha256": "e652ac4dcb1c995f6b0c0fadc9f7fe60a27fdc54b50b55c501f413431d1ac81b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "赛区",
+      "参赛学校数",
+      "参赛人数",
+      "决赛人数"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "重庆",
+        "unit": null,
+        "values": [
+          "重庆",
+          22,
+          12844,
+          46
+        ]
+      },
+      {
+        "label": "北京",
+        "unit": null,
+        "values": [
+          "北京",
+          53,
+          20150,
+          90
+        ]
+      },
+      {
+        "label": "广东",
+        "unit": null,
+        "values": [
+          "广东",
+          62,
+          12118,
+          48
+        ]
+      },
+      {
+        "label": "河北",
+        "unit": null,
+        "values": [
+          "河北",
+          40,
+          11970,
+          40
+        ]
+      },
+      {
+        "label": "河南",
+        "unit": null,
+        "values": [
+          "河南",
+          58,
+          18278,
+          59
+        ]
+      },
+      {
+        "label": "湖北",
+        "unit": null,
+        "values": [
+          "湖北",
+          60,
+          16637,
+          57
+        ]
+      },
+      {
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          "江苏",
+          63,
+          19889,
+          80
+        ]
+      },
+      {
+        "label": "山东",
+        "unit": null,
+        "values": [
+          "山东",
+          73,
+          23871,
+          86
+        ]
+      },
+      {
+        "label": "陕西",
+        "unit": null,
+        "values": [
+          "陕西",
+          55,
+          28549,
+          90
+        ]
+      },
+      {
+        "label": "四川",
+        "unit": null,
+        "values": [
+          "四川",
+          45,
+          11346,
+          46
+        ]
+      }
+    ]
+  },
+  "title": "第15届CMC部分赛区参赛情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e652ac4dcb1c995f6b0c0fad/row_band_01.jpg",
+        "review-crops/da_e652ac4dcb1c995f6b0c0fad/row_band_02.jpg",
+        "review-crops/da_e652ac4dcb1c995f6b0c0fad/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.971",
+      "crop_verification_elapsed_seconds:6.471",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "asset_id": "da_c55272c6621c832444a6e6e5",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河南/2017年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0328_cedeebda9f0560d3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0328_cedeebda9f0560d3.png",
+        "paper_title": "2017年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7be4fab017d25c9c7234",
+        "question_number": 116,
+        "source_jsonl_line": 58453
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0345_b5db71b3066bb46f.png",
+        "paper_title": "2017年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_07a6c6d50dcc5b1c1efd",
+        "question_number": 117,
+        "source_jsonl_line": 58454
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0328_cedeebda9f0560d3.png",
+        "paper_title": "2017年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c4e0f5d75e325888a21f",
+        "question_number": 118,
+        "source_jsonl_line": 58455
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0328_cedeebda9f0560d3.png",
+        "paper_title": "2017年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1a599a61ab6a59888101",
+        "question_number": 119,
+        "source_jsonl_line": 58456
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0328_cedeebda9f0560d3.png",
+        "paper_title": "2017年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_39f34303e9a6280c3186",
+        "question_number": 120,
+        "source_jsonl_line": 58457
+      }
+    ],
+    "sha256": "c55272c6621c832444a6e6e5f74d6a99a8a005b655307d1a2dc8ad89d6565004"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "数量（万吨）",
+      "数量（万吨）｜比上年增长（%）",
+      "金额（亿元）",
+      "金额（亿元）｜比上年增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "商品名称",
+    "rows": [
+      {
+        "display_label": "谷物及谷物粉",
+        "group": null,
+        "label": "谷物及谷物粉",
+        "unit": null,
+        "values": [
+          3270,
+          67.6,
+          582,
+          52.4
+        ]
+      },
+      {
+        "display_label": "大豆",
+        "group": null,
+        "label": "大豆",
+        "unit": null,
+        "values": [
+          8169,
+          14.4,
+          2157,
+          -12.8
+        ]
+      },
+      {
+        "display_label": "食用植物油",
+        "group": null,
+        "label": "食用植物油",
+        "unit": null,
+        "values": [
+          676,
+          4.1,
+          311,
+          -14.5
+        ]
+      },
+      {
+        "display_label": "铁矿砂及其精矿",
+        "group": null,
+        "label": "铁矿砂及其精矿",
+        "unit": null,
+        "values": [
+          95272,
+          2.2,
+          3574,
+          -37.7
+        ]
+      },
+      {
+        "display_label": "氧化铝",
+        "group": null,
+        "label": "氧化铝",
+        "unit": null,
+        "values": [
+          465,
+          -11.8,
+          101,
+          -14.2
+        ]
+      },
+      {
+        "display_label": "煤（包括褐煤）",
+        "group": null,
+        "label": "煤（包括褐煤）",
+        "unit": null,
+        "values": [
+          20406,
+          -29.9,
+          749,
+          -45.2
+        ]
+      },
+      {
+        "display_label": "原油",
+        "group": null,
+        "label": "原油",
+        "unit": null,
+        "values": [
+          33550,
+          8.8,
+          8333,
+          -40.5
+        ]
+      },
+      {
+        "display_label": "成品油",
+        "group": null,
+        "label": "成品油",
+        "unit": null,
+        "values": [
+          2990,
+          -0.3,
+          886,
+          -38.5
+        ]
+      },
+      {
+        "display_label": "初级形状的塑料",
+        "group": null,
+        "label": "初级形状的塑料",
+        "unit": null,
+        "values": [
+          2610,
+          2.9,
+          2793,
+          -11.8
+        ]
+      },
+      {
+        "display_label": "纸浆",
+        "group": null,
+        "label": "纸浆",
+        "unit": null,
+        "values": [
+          1984,
+          10.4,
+          792,
+          6.9
+        ]
+      },
+      {
+        "display_label": "钢材",
+        "group": null,
+        "label": "钢材",
+        "unit": null,
+        "values": [
+          1278,
+          -11.4,
+          889,
+          -19.2
+        ]
+      },
+      {
+        "display_label": "未锻轧铜及铜材",
+        "group": null,
+        "label": "未锻轧铜及铜材",
+        "unit": null,
+        "values": [
+          481,
+          -0.3,
+          1804,
+          -17.4
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

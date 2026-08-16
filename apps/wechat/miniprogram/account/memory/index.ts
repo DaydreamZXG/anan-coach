@@ -1,5 +1,6 @@
 import { ApiClient, ApiClientError } from "../../api/client";
 import { CompanionApi } from "../../api/companion";
+import { LearningBrainApi } from "../../api/learning-brain";
 import type {
   CompanionMemoryItem,
   CompanionMemoryState,
@@ -28,6 +29,10 @@ interface ItemEvent {
   currentTarget: { dataset: { id?: string } };
 }
 
+interface DiscoveryEvent {
+  currentTarget: { dataset: { patternId?: string } };
+}
+
 let loadGeneration = 0;
 let pendingCreate: { fingerprint: string; key: string } | undefined;
 
@@ -41,7 +46,14 @@ Page({
     items: [] as MemoryItemView[],
     shortTermTurnCount: 0,
     shortTermExpiresLabel: "暂无会话记忆",
-    maximumLongTermItems: 20,
+    discoveries: [] as Array<{
+      patternId: string;
+      title: string;
+      meta: string;
+    }>,
+    dueRetestCount: 0,
+    stableMasteryCount: 0,
+    retestActionUrl: "/xingce/xingce-mastery/index?bucket=due_verification",
     categories,
     categoryIndex: 0,
     currentCategoryLabel: defaultCategoryLabel,
@@ -73,11 +85,31 @@ Page({
     loadGeneration = generation;
     this.setData({ status: "loading", errorMessage: "", requestId: "" });
     try {
-      const response = await new CompanionApi(
-        new ApiClient(undefined, session.accessToken),
-      ).getMemories();
+      const client = new ApiClient(undefined, session.accessToken);
+      const [memoryResult, coachResult] = await Promise.allSettled([
+        new CompanionApi(client).getMemories(),
+        new LearningBrainApi(client).getCoachUnderstanding(),
+      ]);
       if (generation !== loadGeneration || !sameSessionOwner(currentAuthSession(), session)) return;
-      this.applyState(response.data);
+      if (memoryResult.status === "rejected") throw memoryResult.reason;
+      this.applyState(memoryResult.value.data);
+      if (coachResult.status === "fulfilled") {
+        const understanding = coachResult.value.data;
+        const coach = understanding.coachContext;
+        this.setData({
+          discoveries: coach.profile.errorPatterns.slice(0, 5).map((item) => ({
+            patternId: item.patternId,
+            title: item.displayName,
+            meta:
+              item.status === "counterevidence"
+                ? `已有 ${String(item.counterevidenceCount)} 条相反证据`
+                : `出现 ${String(item.occurrenceCount)} 次 · 仍在验证`,
+          })),
+          dueRetestCount: understanding.retest.dueNow,
+          stableMasteryCount: understanding.retest.stable,
+          retestActionUrl: understanding.retest.actionUrl,
+        });
+      }
     } catch (error) {
       if (generation !== loadGeneration || !sameSessionOwner(currentAuthSession(), session)) return;
       this.showLoadError(error);
@@ -93,8 +125,19 @@ Page({
       items: state.items.map(memoryView),
       shortTermTurnCount: state.shortTerm.turnCount,
       shortTermExpiresLabel: shortTermLabel(state.shortTerm.turnCount, state.shortTerm.expiresAt),
-      maximumLongTermItems: state.maximumLongTermItems ?? 20,
     });
+  },
+
+  openDiscovery(event: DiscoveryEvent) {
+    const patternId = event.currentTarget.dataset.patternId;
+    if (!patternId) return;
+    void wx.navigateTo({
+      url: `/reports/error-pattern/index?patternId=${encodeURIComponent(patternId)}`,
+    });
+  },
+
+  openRetest() {
+    void wx.navigateTo({ url: this.data.retestActionUrl });
   },
 
   showLoadError(error: unknown) {

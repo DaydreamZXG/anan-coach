@@ -1,0 +1,312 @@
+{
+  "asset_id": "da_0ff00e080b46bdf4f1bf7aa6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0158_e008c282cb14a1a9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0158_e008c282cb14a1a9.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_cbfa638de5c7544ed773",
+        "question_number": 111,
+        "source_jsonl_line": 64068
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0162_2006b0a62f73a430.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_eff6c1e50b9bb2d5cfc1",
+        "question_number": 112,
+        "source_jsonl_line": 64069
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0158_e008c282cb14a1a9.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_dbfe4e80752ff035e334",
+        "question_number": 113,
+        "source_jsonl_line": 64070
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0158_e008c282cb14a1a9.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_f7ad560ba564bf960bbd",
+        "question_number": 114,
+        "source_jsonl_line": 64071
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0158_e008c282cb14a1a9.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_1bd7b6be5f21c843a555",
+        "question_number": 115,
+        "source_jsonl_line": 64072
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0146_e008c282cb14a1a9.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_0e0e2ffb3de648438def",
+        "question_number": 106,
+        "source_jsonl_line": 64188
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0146_e008c282cb14a1a9.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_72931a7143732639d09f",
+        "question_number": 107,
+        "source_jsonl_line": 64189
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0146_e008c282cb14a1a9.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_ab9e9db4339ed2a20702",
+        "question_number": 108,
+        "source_jsonl_line": 64190
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0160_2006b0a62f73a430.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_530e67a24ed92dac7fe4",
+        "question_number": 109,
+        "source_jsonl_line": 64191
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0146_e008c282cb14a1a9.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_df03a087c206116caebb",
+        "question_number": 110,
+        "source_jsonl_line": 64192
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0120_e008c282cb14a1a9.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_cafac6eb0dfd3c2429e5",
+        "question_number": 101,
+        "source_jsonl_line": 64303
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0120_e008c282cb14a1a9.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_51611d011c3d5a640dd9",
+        "question_number": 102,
+        "source_jsonl_line": 64304
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0126_2006b0a62f73a430.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_3c11031f3b1725d85329",
+        "question_number": 103,
+        "source_jsonl_line": 64305
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0120_e008c282cb14a1a9.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_66e49cee21f2f7238080",
+        "question_number": 104,
+        "source_jsonl_line": 64306
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0120_e008c282cb14a1a9.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_33cbff390aa3f6c85d2e",
+        "question_number": 105,
+        "source_jsonl_line": 64307
+      }
+    ],
+    "sha256": "0ff00e080b46bdf4f1bf7aa63a296ac561865c1368f7e7118843a39feb6a202c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2022年｜12月",
+          "2022年｜1-12月"
+        ],
+        "label": "2022年"
+      },
+      {
+        "columns": [
+          "2023年｜1月",
+          "2023年｜2月",
+          "2023年｜3月"
+        ],
+        "label": "2023年"
+      }
+    ],
+    "columns": [
+      "2022年｜12月",
+      "2022年｜1-12月",
+      "2023年｜1月",
+      "2023年｜2月",
+      "2023年｜3月"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "旅客运输量（万人次）",
+        "group": null,
+        "label": "旅客运输量（万人次）",
+        "unit": null,
+        "values": [
+          1871.4,
+          25171.3,
+          3977.5,
+          4320.0,
+          4570.4
+        ]
+      },
+      {
+        "display_label": "其中：国内航线",
+        "group": "旅客运输量（万人次）",
+        "label": "旅客运输量（万人次）｜其中：国内航线",
+        "unit": null,
+        "values": [
+          1840.6,
+          24985.2,
+          3933.2,
+          4249.5,
+          4461.1
+        ]
+      },
+      {
+        "display_label": "其中：港澳台航线",
+        "group": "旅客运输量（万人次）",
+        "label": "旅客运输量（万人次）｜其中：港澳台航线",
+        "unit": null,
+        "values": [
+          9.2,
+          46.9,
+          20.1,
+          26.4,
+          41.0
+        ]
+      },
+      {
+        "display_label": "国际航线",
+        "group": "旅客运输量（万人次）",
+        "label": "旅客运输量（万人次）｜国际航线",
+        "unit": null,
+        "values": [
+          30.8,
+          186.1,
+          44.2,
+          70.6,
+          109.4
+        ]
+      },
+      {
+        "display_label": "货邮运输量（万吨）",
+        "group": null,
+        "label": "货邮运输量（万吨）",
+        "unit": null,
+        "values": [
+          47.9,
+          607.6,
+          49.0,
+          45.2,
+          55.3
+        ]
+      },
+      {
+        "display_label": "其中：国内航线",
+        "group": "货邮运输量（万吨）",
+        "label": "货邮运输量（万吨）｜其中：国内航线",
+        "unit": null,
+        "values": [
+          27.1,
+          343.8,
+          32.0,
+          27.3,
+          33.1
+        ]
+      },
+      {
+        "display_label": "其中：港澳台航线",
+        "group": "货邮运输量（万吨）",
+        "label": "货邮运输量（万吨）｜其中：港澳台航线",
+        "unit": null,
+        "values": [
+          1.3,
+          14.7,
+          0.8,
+          1.0,
+          1.3
+        ]
+      },
+      {
+        "display_label": "国际航线",
+        "group": "货邮运输量（万吨）",
+        "label": "货邮运输量（万吨）｜国际航线",
+        "unit": null,
+        "values": [
+          20.7,
+          263.8,
+          17.0,
+          17.8,
+          22.1
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

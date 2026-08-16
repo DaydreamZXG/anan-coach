@@ -1,0 +1,194 @@
+{
+  "assetId": "gr_0751a8530a3a10bda058e654",
+  "candidate": {
+    "authority": "semantic_candidate",
+    "elements": [
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e1",
+        "kind": "circle",
+        "label": null,
+        "line_character": "curved",
+        "observations": [],
+        "orientation_bucket": "circular",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      },
+      {
+        "count": 2,
+        "fill_state": "none",
+        "id": "e2",
+        "kind": "line",
+        "label": null,
+        "line_character": "straight",
+        "observations": [],
+        "orientation_bucket": "diagonal_up",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      },
+      {
+        "count": 3,
+        "fill_state": "solid",
+        "id": "e3",
+        "kind": "circle",
+        "label": null,
+        "line_character": "curved",
+        "observations": [],
+        "orientation_bucket": "mixed",
+        "parts": [],
+        "relative_region": "bottom_left",
+        "text_content": null
+      }
+    ],
+    "relations": [
+      {
+        "confidence": 0.95,
+        "subjects": [
+          "e3",
+          "e1"
+        ],
+        "type": "inside"
+      },
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e2",
+          "e1"
+        ],
+        "type": "touching"
+      },
+      {
+        "confidence": 0.85,
+        "subjects": [
+          "e2",
+          "e3"
+        ],
+        "type": "touching"
+      },
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e2",
+          "e2"
+        ],
+        "type": "connected"
+      }
+    ],
+    "schema_version": "graphic-semantic-candidate-v1",
+    "topology_candidates": {
+      "component_count": 4,
+      "endpoint_count": 4,
+      "junction_count": 1,
+      "loop_count": 1,
+      "notes": []
+    },
+    "uncertainties": [
+      "The exact nature of the connection between the two lines is uncertain."
+    ],
+    "visual_grammar": "regular_geometry"
+  },
+  "geometryAuthority": false,
+  "model": "qwen3-vl-30b-a3b",
+  "modelInputSha256": "70ed2c5f838ec58eab03d2f1ccdf51af9a0da44b46ee29dcddd3d6232ef9d8bb",
+  "normalizations": [],
+  "panelId": "panel-1",
+  "rawCandidate": {
+    "authority": "semantic_candidate",
+    "elements": [
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e1",
+        "kind": "circle",
+        "label": null,
+        "line_character": "curved",
+        "observations": [],
+        "orientation_bucket": "circular",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      },
+      {
+        "count": 2,
+        "fill_state": "none",
+        "id": "e2",
+        "kind": "line",
+        "label": null,
+        "line_character": "straight",
+        "observations": [],
+        "orientation_bucket": "diagonal_up",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      },
+      {
+        "count": 3,
+        "fill_state": "solid",
+        "id": "e3",
+        "kind": "circle",
+        "label": null,
+        "line_character": "curved",
+        "observations": [],
+        "orientation_bucket": "mixed",
+        "parts": [],
+        "relative_region": "bottom_left",
+        "text_content": null
+      }
+    ],
+    "relations": [
+      {
+        "confidence": 0.95,
+        "subjects": [
+          "e3",
+          "e1"
+        ],
+        "type": "inside"
+      },
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e2",
+          "e1"
+        ],
+        "type": "touching"
+      },
+      {
+        "confidence": 0.85,
+        "subjects": [
+          "e2",
+          "e3"
+        ],
+        "type": "touching"
+      },
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e2",
+          "e2"
+        ],
+        "type": "connected"
+      }
+    ],
+    "schema_version": "graphic-semantic-candidate-v1",
+    "topology_candidates": {
+      "component_count": 4,
+      "endpoint_count": 4,
+      "junction_count": 1,
+      "loop_count": 1,
+      "notes": []
+    },
+    "uncertainties": [
+      "The exact nature of the connection between the two lines is uncertain."
+    ],
+    "visual_grammar": "regular_geometry"
+  },
+  "regularSubtype": "circle_composition",
+  "role": "stem",
+  "schemaVersion": "graphic-semantic-observation-v1",
+  "sourceSha256": "0751a8530a3a10bda058e654de4edf5d9c707de62310eef4ec47d27c1f638d75",
+  "status": "valid_semantic_candidate",
+  "validationErrors": []
+}

@@ -1,0 +1,210 @@
+{
+  "asset_id": "da_6dbbfc5b95584d748460ddd3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2020年四川省公务员考试《行测》试题（网友回忆版）_images/img_0169_5dc0e9a89f517cfa.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年四川省公务员考试《行测》试题（网友回忆版）_images/img_0169_5dc0e9a89f517cfa.png",
+        "paper_title": "2020年四川省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_99072cfe5874a28f0568",
+        "question_number": 86,
+        "source_jsonl_line": 16301
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年四川省公务员考试《行测》试题（网友回忆版）_images/img_0202_92f5688334631b6a.png",
+        "paper_title": "2020年四川省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_a291460d010582eedbef",
+        "question_number": 87,
+        "source_jsonl_line": 16302
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年四川省公务员考试《行测》试题（网友回忆版）_images/img_0169_5dc0e9a89f517cfa.png",
+        "paper_title": "2020年四川省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_67c2bd7d830dbbf37a4e",
+        "question_number": 88,
+        "source_jsonl_line": 16303
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年四川省公务员考试《行测》试题（网友回忆版）_images/img_0169_5dc0e9a89f517cfa.png",
+        "paper_title": "2020年四川省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_4be631f85162beb33d5c",
+        "question_number": 89,
+        "source_jsonl_line": 16304
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年四川省公务员考试《行测》试题（网友回忆版）_images/img_0202_92f5688334631b6a.png",
+        "paper_title": "2020年四川省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_7f2dd4cb5abea82f91e4",
+        "question_number": 90,
+        "source_jsonl_line": 16305
+      }
+    ],
+    "sha256": "6dbbfc5b95584d748460ddd357435b2426f1b97672bcada1c9a8a072d2b8b321"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "大学",
+      "大学所在地点",
+      "大学专业类型"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "A 大学",
+        "unit": null,
+        "values": [
+          "A 大学",
+          "北京",
+          "工科"
+        ]
+      },
+      {
+        "label": "B 大学",
+        "unit": null,
+        "values": [
+          "B 大学",
+          "上海",
+          "财经"
+        ]
+      },
+      {
+        "label": "C 大学",
+        "unit": null,
+        "values": [
+          "C 大学",
+          "上海",
+          "综合"
+        ]
+      },
+      {
+        "label": "D 大学",
+        "unit": null,
+        "values": [
+          "D 大学",
+          "上海",
+          "综合"
+        ]
+      },
+      {
+        "label": "E 大学",
+        "unit": null,
+        "values": [
+          "E 大学",
+          "上海",
+          "语言"
+        ]
+      },
+      {
+        "label": "F 大学",
+        "unit": null,
+        "values": [
+          "F 大学",
+          "北京",
+          "综合"
+        ]
+      },
+      {
+        "label": "G 大学",
+        "unit": null,
+        "values": [
+          "G 大学",
+          "北京",
+          "语言"
+        ]
+      },
+      {
+        "label": "H 大学",
+        "unit": null,
+        "values": [
+          "H 大学",
+          "上海",
+          "工科"
+        ]
+      },
+      {
+        "label": "I 大学",
+        "unit": null,
+        "values": [
+          "I 大学",
+          "北京",
+          "财经"
+        ]
+      },
+      {
+        "label": "J 大学",
+        "unit": null,
+        "values": [
+          "J 大学",
+          "北京",
+          "财经"
+        ]
+      }
+    ]
+  },
+  "title": "2016年毕业生薪酬排名前十院校的基本情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6dbbfc5b95584d748460ddd3/row_band_01.jpg",
+        "review-crops/da_6dbbfc5b95584d748460ddd3/row_band_02.jpg",
+        "review-crops/da_6dbbfc5b95584d748460ddd3/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.844",
+      "crop_verification_elapsed_seconds:4.44",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

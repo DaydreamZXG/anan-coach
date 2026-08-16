@@ -1,0 +1,204 @@
+{
+  "asset_id": "da_eb70e651a3117a152ba1ed4e",
+  "axes": {
+    "x": {
+      "max": 2500,
+      "min": 0,
+      "ticks": [
+        0,
+        500,
+        1000,
+        1500,
+        2000,
+        2500
+      ],
+      "title": null,
+      "unit": "百万"
+    },
+    "y": [
+      {
+        "max": 2000,
+        "min": 0,
+        "ticks": [
+          0,
+          500,
+          1000,
+          1500,
+          2000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2013年4月",
+    "2012年4月"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "广告收入",
+      "style": {
+        "dash": "solid",
+        "fill": "striped",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "电影票房收入",
+      "style": {
+        "dash": "solid",
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "其他收入",
+      "style": {
+        "dash": "solid",
+        "fill": "diagonal",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "广告收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百万",
+      "values": [
+        989,
+        818
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "电影票房收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百万",
+      "values": [
+        156,
+        141
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "其他收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百万",
+      "values": [
+        860,
+        704
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2014年国家公务员录用考试《行测》题_images/img_0125_3a76b51c1d6c5ad8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0125_3a76b51c1d6c5ad8.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_589709d2cd084670f502",
+        "question_number": 126,
+        "source_jsonl_line": 18066
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0128_6604037ee52a767e.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_275d067571f70a3235b1",
+        "question_number": 127,
+        "source_jsonl_line": 18067
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0128_6604037ee52a767e.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_5488c9d9ee2ff8f66ccd",
+        "question_number": 128,
+        "source_jsonl_line": 18068
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0125_3a76b51c1d6c5ad8.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_4f3cac3aeeea712c8a1b",
+        "question_number": 129,
+        "source_jsonl_line": 18069
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0128_6604037ee52a767e.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_3093fc2a8b404b018e34",
+        "question_number": 130,
+        "source_jsonl_line": 18070
+      }
+    ],
+    "sha256": "eb70e651a3117a152ba1ed4e17f135e5f4157b6d2a606b630ddfbd6104238b97"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "百万",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_eb70e651a3117a152ba1ed4e/column_band_01.jpg",
+        "review-crops/da_eb70e651a3117a152ba1ed4e/column_band_02.jpg",
+        "review-crops/da_eb70e651a3117a152ba1ed4e/column_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.877",
+      "crop_verification_elapsed_seconds:1.345",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

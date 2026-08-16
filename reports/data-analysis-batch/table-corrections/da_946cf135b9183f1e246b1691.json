@@ -1,0 +1,254 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "增加值",
+          "劳动报酬",
+          "固定资产折旧",
+          "生产净额",
+          "营业盈余"
+        ],
+        "label": "某省地区生产总值"
+      }
+    ],
+    "columns": [
+      "增加值",
+      "劳动报酬",
+      "固定资产折旧",
+      "生产净额",
+      "营业盈余"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "行业",
+    "rows": [
+      {
+        "display_label": "第一产业",
+        "group": null,
+        "label": "第一产业",
+        "unit": null,
+        "values": [
+          8582.73,
+          4262.6,
+          1303.16,
+          1026.24,
+          1990.73
+        ]
+      },
+      {
+        "display_label": "第二产业合计",
+        "group": null,
+        "label": "第二产业合计",
+        "unit": null,
+        "values": [
+          1031.17,
+          898.18,
+          49.52,
+          24.25,
+          59.22
+        ]
+      },
+      {
+        "display_label": "工业",
+        "group": null,
+        "label": "工业",
+        "unit": null,
+        "values": [
+          4435.89,
+          1957.48,
+          580.95,
+          711.31,
+          1186.15
+        ]
+      },
+      {
+        "display_label": "建筑业",
+        "group": null,
+        "label": "建筑业",
+        "unit": null,
+        "values": [
+          3848.52,
+          1615.84,
+          536.8,
+          656.25,
+          1039.63
+        ]
+      },
+      {
+        "display_label": "第三产业合计",
+        "group": null,
+        "label": "第三产业合计",
+        "unit": null,
+        "values": [
+          3115.67,
+          1406.94,
+          672.69,
+          290.68,
+          745.36
+        ]
+      },
+      {
+        "display_label": "农林牧渔服务业",
+        "group": null,
+        "label": "农林牧渔服务业",
+        "unit": null,
+        "values": [
+          37.17,
+          24.94,
+          4.51,
+          1.55,
+          6.17
+        ]
+      },
+      {
+        "display_label": "地质勘探业、水利管理业",
+        "group": null,
+        "label": "地质勘探业、水利管理业",
+        "unit": null,
+        "values": [
+          22.9,
+          14.08,
+          5.06,
+          1.14,
+          2.62
+        ]
+      },
+      {
+        "display_label": "交通运输、仓储、邮政通讯业",
+        "group": null,
+        "label": "交通运输、仓储、邮政通讯业",
+        "unit": null,
+        "values": [
+          557.37,
+          265.24,
+          155.27,
+          46.78,
+          90.08
+        ]
+      },
+      {
+        "display_label": "批发和零售贸易、餐饮业",
+        "group": null,
+        "label": "批发和零售贸易、餐饮业",
+        "unit": null,
+        "values": [
+          857.57,
+          442.56,
+          82.19,
+          123.39,
+          209.43
+        ]
+      },
+      {
+        "display_label": "金融保险业",
+        "group": null,
+        "label": "金融保险业",
+        "unit": null,
+        "values": [
+          430.68,
+          67.75,
+          22.36,
+          47.04,
+          293.53
+        ]
+      },
+      {
+        "display_label": "房地产业",
+        "group": null,
+        "label": "房地产业",
+        "unit": null,
+        "values": [
+          351.92,
+          27.94,
+          271.76,
+          20.03,
+          32.19
+        ]
+      },
+      {
+        "display_label": "社会服务业",
+        "group": null,
+        "label": "社会服务业",
+        "unit": null,
+        "values": [
+          265.25,
+          135.98,
+          27.82,
+          35.69,
+          65.76
+        ]
+      },
+      {
+        "display_label": "卫生体育社会福利事业",
+        "group": null,
+        "label": "卫生体育社会福利事业",
+        "unit": null,
+        "values": [
+          92.16,
+          65.31,
+          14.22,
+          2.11,
+          10.52
+        ]
+      },
+      {
+        "display_label": "教育文艺广播电影电视业",
+        "group": null,
+        "label": "教育文艺广播电影电视业",
+        "unit": null,
+        "values": [
+          203.86,
+          149.23,
+          29.46,
+          4.81,
+          20.36
+        ]
+      },
+      {
+        "display_label": "科学研究和综合技术服务业",
+        "group": null,
+        "label": "科学研究和综合技术服务业",
+        "unit": null,
+        "values": [
+          30.42,
+          16.85,
+          4.07,
+          2.85,
+          6.65
+        ]
+      },
+      {
+        "display_label": "国家机关政党机关、社会团体",
+        "group": null,
+        "label": "国家机关政党机关、社会团体",
+        "unit": null,
+        "values": [
+          235.08,
+          176.81,
+          50.74,
+          4.5,
+          3.03
+        ]
+      },
+      {
+        "display_label": "其他",
+        "group": null,
+        "label": "其他",
+        "unit": null,
+        "values": [
+          31.29,
+          20.25,
+          5.23,
+          0.79,
+          5.02
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

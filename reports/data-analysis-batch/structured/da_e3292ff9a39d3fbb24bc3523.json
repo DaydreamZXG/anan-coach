@@ -1,0 +1,191 @@
+{
+  "asset_id": "da_e3292ff9a39d3fbb24bc3523",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2014年国家公务员录用考试《行测》题_images/img_0124_3046e8f8155373de.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0124_3046e8f8155373de.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_589709d2cd084670f502",
+        "question_number": 126,
+        "source_jsonl_line": 18066
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0127_cea0cf48ef7c4e92.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_275d067571f70a3235b1",
+        "question_number": 127,
+        "source_jsonl_line": 18067
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0127_cea0cf48ef7c4e92.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_5488c9d9ee2ff8f66ccd",
+        "question_number": 128,
+        "source_jsonl_line": 18068
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0124_3046e8f8155373de.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_4f3cac3aeeea712c8a1b",
+        "question_number": 129,
+        "source_jsonl_line": 18069
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0127_cea0cf48ef7c4e92.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_3093fc2a8b404b018e34",
+        "question_number": 130,
+        "source_jsonl_line": 18070
+      }
+    ],
+    "sha256": "e3292ff9a39d3fbb24bc3523bbcf4eab9c07f56f6e171a6bc3997e9f0900de60"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "场次（万场次）｜2012年",
+          "场次（万场次）｜2013年"
+        ],
+        "label": "场次（万场次）"
+      },
+      {
+        "columns": [
+          "观众人次（百万人次）｜2012年",
+          "观众人次（百万人次）｜2013年"
+        ],
+        "label": "观众人次（百万人次）"
+      },
+      {
+        "columns": [
+          "票房收入（亿元）｜2012年",
+          "票房收入（亿元）｜2013年"
+        ],
+        "label": "票房收入（亿元）"
+      }
+    ],
+    "columns": [
+      "场次（万场次）｜2012年",
+      "场次（万场次）｜2013年",
+      "观众人次（百万人次）｜2012年",
+      "观众人次（百万人次）｜2013年",
+      "票房收入（亿元）｜2012年",
+      "票房收入（亿元）｜2013年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "月份",
+    "rows": [
+      {
+        "display_label": "1月",
+        "group": null,
+        "label": "1月",
+        "unit": null,
+        "values": [
+          9.77,
+          10.91,
+          3.19,
+          3.5,
+          1.28,
+          1.47
+        ]
+      },
+      {
+        "display_label": "2月",
+        "group": null,
+        "label": "2月",
+        "unit": null,
+        "values": [
+          9.02,
+          9.79,
+          2.89,
+          3.36,
+          1.19,
+          1.54
+        ]
+      },
+      {
+        "display_label": "3月",
+        "group": null,
+        "label": "3月",
+        "unit": null,
+        "values": [
+          9.47,
+          11.07,
+          2.18,
+          3.17,
+          0.88,
+          1.34
+        ]
+      },
+      {
+        "display_label": "4月",
+        "group": null,
+        "label": "4月",
+        "unit": null,
+        "values": [
+          8.87,
+          11.13,
+          3.08,
+          3.72,
+          1.41,
+          1.56
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

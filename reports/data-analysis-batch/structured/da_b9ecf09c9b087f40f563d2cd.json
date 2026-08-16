@@ -1,0 +1,197 @@
+{
+  "asset_id": "da_b9ecf09c9b087f40f563d2cd",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/新疆/2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）_images/img_0201_676f4d4c0c846b19.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）_images/img_0201_676f4d4c0c846b19.png",
+        "paper_title": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_d49b385294d5d1530e97",
+        "question_number": 106,
+        "source_jsonl_line": 43556
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）_images/img_0227_78750a6ead1f8f45.png",
+        "paper_title": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_b7df5a75ad51ea9fa753",
+        "question_number": 107,
+        "source_jsonl_line": 43557
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）_images/img_0201_676f4d4c0c846b19.png",
+        "paper_title": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_1715a29e25cde550a3dc",
+        "question_number": 108,
+        "source_jsonl_line": 43558
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）_images/img_0201_676f4d4c0c846b19.png",
+        "paper_title": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_c26c628f1b092461d1d2",
+        "question_number": 109,
+        "source_jsonl_line": 43559
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）_images/img_0201_676f4d4c0c846b19.png",
+        "paper_title": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_78ac9c2c7874bd115ab5",
+        "question_number": 110,
+        "source_jsonl_line": 43560
+      }
+    ],
+    "sha256": "b9ecf09c9b087f40f563d2cd2159dd69d14bbd87aee7e3cefc1f992152cc94e6"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "外出农民工总量｜外出农民工｜跨省流动",
+          "外出农民工总量｜外出农民工｜省内流动",
+          "外出农民工总量｜100.00"
+        ],
+        "label": "外出农民工总量"
+      },
+      {
+        "columns": [
+          "构成｜外出农民工｜跨省流动",
+          "构成｜外出农民工｜省内流动"
+        ],
+        "label": "构成"
+      }
+    ],
+    "columns": [
+      "外出农民工总量｜外出农民工｜跨省流动",
+      "外出农民工总量｜外出农民工｜省内流动",
+      "外出农民工总量｜100.00",
+      "构成｜外出农民工｜跨省流动",
+      "构成｜外出农民工｜省内流动"
+    ],
+    "corner_header": {
+      "lower_label": "外出农民工",
+      "style": "diagonal",
+      "upper_label": "外出农民工"
+    },
+    "missing_cells": [],
+    "row_header_label": "外出农民工",
+    "rows": [
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          17425,
+          7508,
+          100.0,
+          43.1,
+          56.9
+        ]
+      },
+      {
+        "display_label": "东部地区",
+        "group": null,
+        "label": "东部地区",
+        "unit": null,
+        "values": [
+          4792,
+          821,
+          3971,
+          17.1,
+          82.9
+        ]
+      },
+      {
+        "display_label": "中部地区",
+        "group": null,
+        "label": "中部地区",
+        "unit": null,
+        "values": [
+          6427,
+          3802,
+          2625,
+          59.2,
+          40.8
+        ]
+      },
+      {
+        "display_label": "西部地区",
+        "group": null,
+        "label": "西部地区",
+        "unit": null,
+        "values": [
+          5555,
+          2691,
+          2864,
+          48.4,
+          51.6
+        ]
+      },
+      {
+        "display_label": "东北地区",
+        "group": null,
+        "label": "东北地区",
+        "unit": null,
+        "values": [
+          651,
+          194,
+          457,
+          29.8,
+          70.2
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

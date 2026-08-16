@@ -1,0 +1,176 @@
+{
+  "confidence": 1.0,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "废水排放量",
+          "二氧化硫排放量",
+          "烟尘排放量",
+          "工业固体废物产生量",
+          "工业固体废物综合利用量"
+        ],
+        "label": "主要污染物排放及处理情况（万吨）"
+      }
+    ],
+    "columns": [
+      "废水排放量",
+      "二氧化硫排放量",
+      "烟尘排放量",
+      "工业固体废物产生量",
+      "工业固体废物综合利用量"
+    ],
+    "confidence": 1.0,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "display_label": "2002年",
+        "group": null,
+        "label": "2002年",
+        "unit": null,
+        "values": [
+          230709,
+          169,
+          62,
+          6559,
+          5704
+        ]
+      },
+      {
+        "display_label": "2003年",
+        "group": null,
+        "label": "2003年",
+        "unit": null,
+        "values": [
+          245782,
+          184,
+          62,
+          6786,
+          6054
+        ]
+      },
+      {
+        "display_label": "2004年",
+        "group": null,
+        "label": "2004年",
+        "unit": null,
+        "values": [
+          264014,
+          182,
+          52,
+          7922,
+          7191
+        ]
+      },
+      {
+        "display_label": "2005年",
+        "group": null,
+        "label": "2005年",
+        "unit": null,
+        "values": [
+          280377,
+          200,
+          62,
+          9175,
+          8683
+        ]
+      },
+      {
+        "display_label": "2006年",
+        "group": null,
+        "label": "2006年",
+        "unit": null,
+        "values": [
+          302637,
+          196,
+          58,
+          11011,
+          10397
+        ]
+      },
+      {
+        "display_label": "2007年",
+        "group": null,
+        "label": "2007年",
+        "unit": null,
+        "values": [
+          334255,
+          182,
+          46,
+          11935,
+          11615
+        ]
+      },
+      {
+        "display_label": "2008年",
+        "group": null,
+        "label": "2008年",
+        "unit": null,
+        "values": [
+          358910,
+          169,
+          44,
+          12988,
+          12173
+        ]
+      },
+      {
+        "display_label": "2009年",
+        "group": null,
+        "label": "2009年",
+        "unit": null,
+        "values": [
+          386731,
+          159,
+          42,
+          14138,
+          13826
+        ]
+      },
+      {
+        "display_label": "2010年",
+        "group": null,
+        "label": "2010年",
+        "unit": null,
+        "values": [
+          436371,
+          154,
+          39,
+          16038,
+          15297
+        ]
+      },
+      {
+        "display_label": "2011年",
+        "group": null,
+        "label": "2011年",
+        "unit": null,
+        "values": [
+          443331,
+          183,
+          78,
+          19533,
+          18298
+        ]
+      },
+      {
+        "display_label": "2012年",
+        "group": null,
+        "label": "2012年",
+        "unit": null,
+        "values": [
+          479100,
+          75,
+          70,
+          18343,
+          17073
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,147 @@
+{
+  "asset_id": "da_0120c7cf44e67f7b4da13b4b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0162_b38a3b70a9b52e84.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0162_b38a3b70a9b52e84.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_64df1385b3cff4442b6b",
+        "question_number": 91,
+        "source_jsonl_line": 34923
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0162_b38a3b70a9b52e84.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_b80255269e2829957a39",
+        "question_number": 92,
+        "source_jsonl_line": 34924
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0195_ff9b2f0768284d45.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_75b63aaf1e7887c1bd6d",
+        "question_number": 93,
+        "source_jsonl_line": 34925
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0162_b38a3b70a9b52e84.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_de0cfa98941690cbcba0",
+        "question_number": 94,
+        "source_jsonl_line": 34926
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0162_b38a3b70a9b52e84.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_fd09dae03fb7953e7d59",
+        "question_number": 95,
+        "source_jsonl_line": 34927
+      }
+    ],
+    "sha256": "0120c7cf44e67f7b4da13b4b9f31ec45787345437f79a96771a3d60ce9be04f2"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "类型",
+      "增加值（亿元）",
+      "增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "第一产业",
+        "unit": null,
+        "values": [
+          "第一产业",
+          3631.01,
+          3.0
+        ]
+      },
+      {
+        "label": "第二产业",
+        "unit": null,
+        "values": [
+          "第二产业",
+          17306.17,
+          9.2
+        ]
+      },
+      {
+        "label": "第三产业",
+        "unit": null,
+        "values": [
+          "第三产业",
+          21641.58,
+          7.6
+        ]
+      }
+    ]
+  },
+  "title": "2016年广东民营经济各产业增加值",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0120c7cf44e67f7b4da13b4b/row_band_01.jpg",
+        "review-crops/da_0120c7cf44e67f7b4da13b4b/row_band_02.jpg",
+        "review-crops/da_0120c7cf44e67f7b4da13b4b/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.211",
+      "crop_verification_elapsed_seconds:3.42",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了第二产业增加值为17306.17，原候选中为17306.17，一致；修正了第三产业增加值为21641.58，原候选中为21641.58，一致；确认所有数值格式正确，包括小数点和百分号；确认缺失值未被填充，保持null。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

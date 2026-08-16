@@ -1,0 +1,351 @@
+{
+  "asset_id": "da_787aff87e6fc14b97ae6e2f9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "产业类别",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "单位数",
+        "unit": null
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "收入合计",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "合计",
+    "一、文化艺术",
+    "二、新闻出版",
+    "三、广播、电视、电影",
+    "四、软件、网络及计算机服务",
+    "五、广告会展",
+    "六、艺术品交易",
+    "七、设计服务",
+    "八、旅游、休闲娱乐",
+    "九、其他辅助服务"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "series_1",
+      "label": "单位数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        84,
+        4,
+        18,
+        3,
+        9,
+        16,
+        0,
+        1,
+        13,
+        20
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_2",
+      "label": "收入合计",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        46.2,
+        0.1,
+        7.9,
+        0.4,
+        2.2,
+        6.3,
+        0,
+        0.1,
+        4.1,
+        25.2
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_3",
+      "label": "比重 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        100,
+        0.2,
+        17,
+        0.9,
+        4.7,
+        13.7,
+        0,
+        0.1,
+        9,
+        54.4
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_4",
+      "label": "增速 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.8,
+        -27.9,
+        -2.7,
+        -27.1,
+        -23.5,
+        20,
+        0,
+        46.8,
+        82,
+        11.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2016年北京市公务员录用考试《行测》题_images/img_0159_0cc5ff50f93ee773.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年北京市公务员录用考试《行测》题_images/img_0159_0cc5ff50f93ee773.jpg",
+        "paper_title": "2016年北京市公务员录用考试《行测》题",
+        "question_id": "pq_fa5627c7f4681b38f5da",
+        "question_number": 126,
+        "source_jsonl_line": 9729
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年北京市公务员录用考试《行测》题_images/img_0159_0cc5ff50f93ee773.jpg",
+        "paper_title": "2016年北京市公务员录用考试《行测》题",
+        "question_id": "pq_bd8fe64bee9d061b0dbe",
+        "question_number": 127,
+        "source_jsonl_line": 9730
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年北京市公务员录用考试《行测》题_images/img_0159_0cc5ff50f93ee773.jpg",
+        "paper_title": "2016年北京市公务员录用考试《行测》题",
+        "question_id": "pq_05f475996bf81e6aff71",
+        "question_number": 128,
+        "source_jsonl_line": 9731
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年北京市公务员录用考试《行测》题_images/img_0159_0cc5ff50f93ee773.jpg",
+        "paper_title": "2016年北京市公务员录用考试《行测》题",
+        "question_id": "pq_56e4f3838ebb948b9464",
+        "question_number": 129,
+        "source_jsonl_line": 9732
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年北京市公务员录用考试《行测》题_images/img_0159_0cc5ff50f93ee773.jpg",
+        "paper_title": "2016年北京市公务员录用考试《行测》题",
+        "question_id": "pq_c8530510a2c8d1aed114",
+        "question_number": 130,
+        "source_jsonl_line": 9733
+      }
+    ],
+    "sha256": "787aff87e6fc14b97ae6e2f9ada67daefa6d8686a7b703dfae40fefc0593d6ba"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "产业类别",
+      "单位数",
+      "收入合计",
+      "比重 (%)",
+      "增速 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "合计",
+        "unit": null,
+        "values": [
+          "合计",
+          84,
+          46.2,
+          100,
+          10.8
+        ]
+      },
+      {
+        "label": "一、文化艺术",
+        "unit": null,
+        "values": [
+          "一、文化艺术",
+          4,
+          0.1,
+          0.2,
+          -27.9
+        ]
+      },
+      {
+        "label": "二、新闻出版",
+        "unit": null,
+        "values": [
+          "二、新闻出版",
+          18,
+          7.9,
+          17,
+          -2.7
+        ]
+      },
+      {
+        "label": "三、广播、电视、电影",
+        "unit": null,
+        "values": [
+          "三、广播、电视、电影",
+          3,
+          0.4,
+          0.9,
+          -27.1
+        ]
+      },
+      {
+        "label": "四、软件、网络及计算机服务",
+        "unit": null,
+        "values": [
+          "四、软件、网络及计算机服务",
+          9,
+          2.2,
+          4.7,
+          -23.5
+        ]
+      },
+      {
+        "label": "五、广告会展",
+        "unit": null,
+        "values": [
+          "五、广告会展",
+          16,
+          6.3,
+          13.7,
+          20
+        ]
+      },
+      {
+        "label": "六、艺术品交易",
+        "unit": null,
+        "values": [
+          "六、艺术品交易",
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "label": "七、设计服务",
+        "unit": null,
+        "values": [
+          "七、设计服务",
+          1,
+          0.1,
+          0.1,
+          46.8
+        ]
+      },
+      {
+        "label": "八、旅游、休闲娱乐",
+        "unit": null,
+        "values": [
+          "八、旅游、休闲娱乐",
+          13,
+          4.1,
+          9,
+          82
+        ]
+      },
+      {
+        "label": "九、其他辅助服务",
+        "unit": null,
+        "values": [
+          "九、其他辅助服务",
+          20,
+          25.2,
+          54.4,
+          11.9
+        ]
+      }
+    ]
+  },
+  "title": "B区2015年1-5月文化创意产业按门类划分收入构成情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_787aff87e6fc14b97ae6e2f9/row_band_01.jpg",
+        "review-crops/da_787aff87e6fc14b97ae6e2f9/row_band_02.jpg",
+        "review-crops/da_787aff87e6fc14b97ae6e2f9/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:13.307",
+      "crop_verification_elapsed_seconds:2.779",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

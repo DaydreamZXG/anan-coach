@@ -1,0 +1,274 @@
+{
+  "asset_id": "da_ab148edf2144fd0b6bef468b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2017年422联考《行测》题（四川卷）_images/img_0176_6405c4aef8f357dd.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（四川卷）_images/img_0176_6405c4aef8f357dd.png",
+        "paper_title": "2017年422联考《行测》题（四川卷）",
+        "question_id": "pq_315982266013f58e4295",
+        "question_number": 96,
+        "source_jsonl_line": 15511
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（四川卷）_images/img_0176_6405c4aef8f357dd.png",
+        "paper_title": "2017年422联考《行测》题（四川卷）",
+        "question_id": "pq_61c1e493c02321abd87d",
+        "question_number": 97,
+        "source_jsonl_line": 15512
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（四川卷）_images/img_0186_60aacf69a60df4be.png",
+        "paper_title": "2017年422联考《行测》题（四川卷）",
+        "question_id": "pq_70a6d325af17ff435b6d",
+        "question_number": 98,
+        "source_jsonl_line": 15513
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（四川卷）_images/img_0176_6405c4aef8f357dd.png",
+        "paper_title": "2017年422联考《行测》题（四川卷）",
+        "question_id": "pq_0c1b14ab052dabbc72dd",
+        "question_number": 99,
+        "source_jsonl_line": 15514
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（四川卷）_images/img_0186_60aacf69a60df4be.png",
+        "paper_title": "2017年422联考《行测》题（四川卷）",
+        "question_id": "pq_a0c1dc0eddfe9b7c075c",
+        "question_number": 100,
+        "source_jsonl_line": 15515
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0219_6405c4aef8f357dd.png",
+        "paper_title": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_5bf1adfa9c33b04ca0c9",
+        "question_number": 111,
+        "source_jsonl_line": 102798
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0219_6405c4aef8f357dd.png",
+        "paper_title": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_ecde39be8db43d7b9c3c",
+        "question_number": 112,
+        "source_jsonl_line": 102799
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0219_6405c4aef8f357dd.png",
+        "paper_title": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_3594a7dc4136a9c8378c",
+        "question_number": 113,
+        "source_jsonl_line": 102800
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0219_6405c4aef8f357dd.png",
+        "paper_title": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_1ae949fb56b8cd037a28",
+        "question_number": 114,
+        "source_jsonl_line": 102801
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0219_6405c4aef8f357dd.png",
+        "paper_title": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_ebe0eaee07612cce29b9",
+        "question_number": 115,
+        "source_jsonl_line": 102802
+      }
+    ],
+    "sha256": "ab148edf2144fd0b6bef468b2463dc4c14b8fa9320cad6be737fd45e1f3f052a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口额及其增长速度｜出口额",
+          "出口额及其增长速度｜比上年增长(%)"
+        ],
+        "label": "出口额及其增长速度"
+      },
+      {
+        "columns": [
+          "进口额及其增长速度｜进口额",
+          "进口额及其增长速度｜比上年增长(%)"
+        ],
+        "label": "进口额及其增长速度"
+      }
+    ],
+    "columns": [
+      "出口额及其增长速度｜出口额",
+      "出口额及其增长速度｜比上年增长(%)",
+      "进口额及其增长速度｜进口额",
+      "进口额及其增长速度｜比上年增长(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家和地区",
+    "rows": [
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": null,
+        "values": [
+          3518,
+          8.4,
+          1329,
+          8.8
+        ]
+      },
+      {
+        "display_label": "欧盟",
+        "group": null,
+        "label": "欧盟",
+        "unit": null,
+        "values": [
+          3340,
+          -6.2,
+          2121,
+          0.4
+        ]
+      },
+      {
+        "display_label": "中国香港",
+        "group": null,
+        "label": "中国香港",
+        "unit": null,
+        "values": [
+          3235,
+          20.7,
+          180,
+          15.9
+        ]
+      },
+      {
+        "display_label": "东盟",
+        "group": null,
+        "label": "东盟",
+        "unit": null,
+        "values": [
+          2043,
+          20.1,
+          1958,
+          1.5
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": null,
+        "values": [
+          1516,
+          2.3,
+          1778,
+          -8.6
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          877,
+          5.7,
+          1686,
+          3.7
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": null,
+        "label": "印度",
+        "unit": null,
+        "values": [
+          477,
+          -5.7,
+          188,
+          -19.6
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": null,
+        "label": "俄罗斯",
+        "unit": null,
+        "values": [
+          441,
+          13.2,
+          441,
+          9.2
+        ]
+      },
+      {
+        "display_label": "中国台湾",
+        "group": null,
+        "label": "中国台湾",
+        "unit": null,
+        "values": [
+          368,
+          4.8,
+          1322,
+          5.8
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

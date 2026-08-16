@@ -1,0 +1,191 @@
+{
+  "asset_id": "da_c2dec1104a3991821927a695",
+  "axes": {
+    "x": {
+      "max": 4,
+      "min": 0,
+      "ticks": [],
+      "title": "地区",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 20000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000
+        ],
+        "title": "收入（亿元）",
+        "unit": "亿元"
+      },
+      {
+        "max": 20,
+        "min": 0,
+        "ticks": [
+          0.0,
+          5.0,
+          10.0,
+          15.0,
+          20.0
+        ],
+        "title": "增速（%）",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "东部",
+    "中部",
+    "西部",
+    "东北部"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "累计完成收入",
+      "style": {
+        "dash": null,
+        "fill": "blue",
+        "marker": null,
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "累计增速",
+      "style": {
+        "dash": null,
+        "fill": "orange",
+        "marker": null,
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "累计完成收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        18747,
+        976,
+        2645,
+        960
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "累计增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        14.3,
+        19.4,
+        13.9,
+        8.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/重庆/2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0252_d367710d1a748e8d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0252_d367710d1a748e8d.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_7c1f77bb9edb968c92ae",
+        "question_number": 116,
+        "source_jsonl_line": 94399
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0252_d367710d1a748e8d.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_88fd1d6c839b4b152c7e",
+        "question_number": 117,
+        "source_jsonl_line": 94400
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0252_d367710d1a748e8d.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_88f4f24bdc3591e9efad",
+        "question_number": 118,
+        "source_jsonl_line": 94401
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0268_be19b6581fb2ace6.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_29102aeb60f3cd7b0924",
+        "question_number": 119,
+        "source_jsonl_line": 94402
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0252_d367710d1a748e8d.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_593089256804e6fc7258",
+        "question_number": 120,
+        "source_jsonl_line": 94403
+      }
+    ],
+    "sha256": "c2dec1104a3991821927a695459f9e306869e7ace6ae2076a0c873f4ba7c6db4"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2018年1—5月软件业务收入增长情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c2dec1104a3991821927a695/column_band_01.jpg",
+        "review-crops/da_c2dec1104a3991821927a695/column_band_02.jpg",
+        "review-crops/da_c2dec1104a3991821927a695/column_band_03.jpg",
+        "review-crops/da_c2dec1104a3991821927a695/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.095",
+      "crop_verification_elapsed_seconds:1.817",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

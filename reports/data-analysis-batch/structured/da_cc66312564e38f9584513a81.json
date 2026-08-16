@@ -1,0 +1,236 @@
+{
+  "asset_id": "da_cc66312564e38f9584513a81",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 500,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500
+        ],
+        "title": "亿元",
+        "unit": "亿元"
+      },
+      {
+        "max": 30,
+        "min": -20,
+        "ticks": [
+          -20,
+          -10,
+          0,
+          10,
+          20,
+          30
+        ],
+        "title": "%",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2010年",
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "零售总额",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "增速",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "dot",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "零售总额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        131.34,
+        157.61,
+        182.82,
+        230.9,
+        261.38
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        18.45,
+        20.0,
+        16.0,
+        26.3,
+        13.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2017年422联考《行测》题（四川卷）_images/img_0104_30d49be130529dd7.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（四川卷）_images/img_0104_30d49be130529dd7.png",
+        "paper_title": "2017年422联考《行测》题（四川卷）",
+        "question_id": "pq_285177e332781fbae045",
+        "question_number": 86,
+        "source_jsonl_line": 15501
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（四川卷）_images/img_0112_123d02737eaca905.png",
+        "paper_title": "2017年422联考《行测》题（四川卷）",
+        "question_id": "pq_1f7efcee5bba178ac227",
+        "question_number": 87,
+        "source_jsonl_line": 15502
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（四川卷）_images/img_0112_123d02737eaca905.png",
+        "paper_title": "2017年422联考《行测》题（四川卷）",
+        "question_id": "pq_65c80e491f15f3a83e28",
+        "question_number": 88,
+        "source_jsonl_line": 15503
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（四川卷）_images/img_0104_30d49be130529dd7.png",
+        "paper_title": "2017年422联考《行测》题（四川卷）",
+        "question_id": "pq_e77f08135bc84106e7fa",
+        "question_number": 89,
+        "source_jsonl_line": 15504
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（四川卷）_images/img_0104_30d49be130529dd7.png",
+        "paper_title": "2017年422联考《行测》题（四川卷）",
+        "question_id": "pq_134d0378772fab7beecc",
+        "question_number": 90,
+        "source_jsonl_line": 15505
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0118_123d02737eaca905.png",
+        "paper_title": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_62ede093387d1b7ba1d4",
+        "question_number": 101,
+        "source_jsonl_line": 102788
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0118_123d02737eaca905.png",
+        "paper_title": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_f53a3e61dfcd697e440d",
+        "question_number": 102,
+        "source_jsonl_line": 102789
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0118_123d02737eaca905.png",
+        "paper_title": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_421400681c97e8579f46",
+        "question_number": 103,
+        "source_jsonl_line": 102790
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0118_123d02737eaca905.png",
+        "paper_title": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_c1c858121184bc1f1ad7",
+        "question_number": 104,
+        "source_jsonl_line": 102791
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0118_123d02737eaca905.png",
+        "paper_title": "2017年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_6855058785d814f0b15a",
+        "question_number": 105,
+        "source_jsonl_line": 102792
+      }
+    ],
+    "sha256": "cc66312564e38f9584513a81028e696212fc8e8890464dc7c804c189f6fe04ac"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2010~2014年某市社会消费品零售总额及增速",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cc66312564e38f9584513a81/column_band_01.jpg",
+        "review-crops/da_cc66312564e38f9584513a81/column_band_02.jpg",
+        "review-crops/da_cc66312564e38f9584513a81/column_band_03.jpg",
+        "review-crops/da_cc66312564e38f9584513a81/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.809",
+      "crop_verification_elapsed_seconds:2.945",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

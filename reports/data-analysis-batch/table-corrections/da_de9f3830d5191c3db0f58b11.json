@@ -1,0 +1,154 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "东部地区｜2005年",
+          "中部地区｜2005年",
+          "西部地区｜2005年"
+        ],
+        "label": "2005年"
+      }
+    ],
+    "columns": [
+      "东部地区｜2005年",
+      "中部地区｜2005年",
+      "西部地区｜2005年"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "中部地区",
+      "style": "diagonal",
+      "upper_label": "东部地区"
+    },
+    "missing_cells": [],
+    "row_header_label": "中部地区",
+    "rows": [
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          32.86,
+          23.9,
+          25.24
+        ]
+      },
+      {
+        "display_label": "天津",
+        "group": null,
+        "label": "天津",
+        "unit": null,
+        "values": [
+          24.97,
+          24.79,
+          22.96
+        ]
+      },
+      {
+        "display_label": "河北",
+        "group": null,
+        "label": "河北",
+        "unit": null,
+        "values": [
+          26.04,
+          22.46,
+          25.23
+        ]
+      },
+      {
+        "display_label": "辽宁",
+        "group": null,
+        "label": "辽宁",
+        "unit": null,
+        "values": [
+          21.96,
+          22.03,
+          30.68
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          33.07,
+          22.56,
+          27.48
+        ]
+      },
+      {
+        "display_label": "江苏",
+        "group": null,
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          27.95,
+          25.58,
+          20.4
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": null,
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          34.8,
+          23.4,
+          28.59
+        ]
+      },
+      {
+        "display_label": "福建",
+        "group": null,
+        "label": "福建",
+        "unit": null,
+        "values": [
+          32.28,
+          24.99,
+          20.86
+        ]
+      },
+      {
+        "display_label": "山东",
+        "group": null,
+        "label": "山东",
+        "unit": null,
+        "values": [
+          26.47,
+          26,
+          23.4
+        ]
+      },
+      {
+        "display_label": "广东",
+        "group": null,
+        "label": "广东",
+        "unit": null,
+        "values": [
+          26.46,
+          null,
+          23.28
+        ]
+      },
+      {
+        "display_label": "海南",
+        "group": null,
+        "label": "海南",
+        "unit": null,
+        "values": [
+          24.18,
+          null,
+          22
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

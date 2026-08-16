@@ -1,0 +1,190 @@
+{
+  "asset_id": "da_9ad89ff6d3d9840d4c5a77a2",
+  "axes": {
+    "x": {
+      "max": 60.0,
+      "min": -10.0,
+      "ticks": [
+        -10.0,
+        0.0,
+        10.0,
+        20.0,
+        30.0,
+        40.0,
+        50.0,
+        60.0
+      ],
+      "title": null,
+      "unit": "%"
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "香港",
+    "台湾",
+    "日本",
+    "欧盟",
+    "美国",
+    "韩国",
+    "东盟"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "进口",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "出口",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "进口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -7.8,
+        -7.8,
+        13.6,
+        9.7,
+        11.9,
+        40.6,
+        22.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "出口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        29.5,
+        29.5,
+        9.2,
+        27.7,
+        36.0,
+        55.4,
+        29.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山西/2009年山西省公务员录用考试《行测》题_images/img_0194_9f24512f79d4885c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山西省公务员录用考试《行测》题_images/img_0194_9f24512f79d4885c.png",
+        "paper_title": "2009年山西省公务员录用考试《行测》题",
+        "question_id": "pq_c45454882dcd149a671f",
+        "question_number": 111,
+        "source_jsonl_line": 31305
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山西省公务员录用考试《行测》题_images/img_0210_370a34200f0cd1a0.png",
+        "paper_title": "2009年山西省公务员录用考试《行测》题",
+        "question_id": "pq_54c4a0d7108010d2cedb",
+        "question_number": 112,
+        "source_jsonl_line": 31306
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山西省公务员录用考试《行测》题_images/img_0210_370a34200f0cd1a0.png",
+        "paper_title": "2009年山西省公务员录用考试《行测》题",
+        "question_id": "pq_e8228cc8c0784f83c4af",
+        "question_number": 113,
+        "source_jsonl_line": 31307
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山西省公务员录用考试《行测》题_images/img_0210_370a34200f0cd1a0.png",
+        "paper_title": "2009年山西省公务员录用考试《行测》题",
+        "question_id": "pq_888ba5de64e769104a31",
+        "question_number": 114,
+        "source_jsonl_line": 31308
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山西省公务员录用考试《行测》题_images/img_0210_370a34200f0cd1a0.png",
+        "paper_title": "2009年山西省公务员录用考试《行测》题",
+        "question_id": "pq_9b105bea0c1ec1fec678",
+        "question_number": 115,
+        "source_jsonl_line": 31309
+      }
+    ],
+    "sha256": "9ad89ff6d3d9840d4c5a77a259599fd27254ab20c51e76362334e8750be7f354"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2006年某省对主要市场进出口增长率（%）",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9ad89ff6d3d9840d4c5a77a2/column_band_01.jpg",
+        "review-crops/da_9ad89ff6d3d9840d4c5a77a2/column_band_02.jpg",
+        "review-crops/da_9ad89ff6d3d9840d4c5a77a2/column_band_03.jpg",
+        "review-crops/da_9ad89ff6d3d9840d4c5a77a2/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.597",
+      "crop_verification_elapsed_seconds:2.69",
+      "candidate_value_changes_after_crop:1",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

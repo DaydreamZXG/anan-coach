@@ -1,0 +1,147 @@
+{
+  "asset_id": "da_4c28bbd82826f4aa5dff34e8",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0180_c3e40d0cad018d13.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0180_c3e40d0cad018d13.png",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_b0b6b43af58a94901f47",
+        "question_number": 121,
+        "source_jsonl_line": 52785
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0189_721b02716be015bc.png",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_d1ce41ef67f4893cac71",
+        "question_number": 122,
+        "source_jsonl_line": 52786
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0189_721b02716be015bc.png",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_fcb29be51b7660bac646",
+        "question_number": 123,
+        "source_jsonl_line": 52787
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0189_721b02716be015bc.png",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_5ced863c12625d6f0f07",
+        "question_number": 124,
+        "source_jsonl_line": 52788
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0189_721b02716be015bc.png",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_34a4a94956c6d73a6270",
+        "question_number": 125,
+        "source_jsonl_line": 52789
+      }
+    ],
+    "sha256": "4c28bbd82826f4aa5dff34e8ddae9c6e91ef0c00d0a0a722b629921602382209"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份｜2010",
+      "年份｜2011",
+      "年份｜2012",
+      "年份｜2013",
+      "年份｜2014",
+      "年份｜2015",
+      "年份｜2016",
+      "年份｜2017"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "男博士比率",
+        "group": "年份",
+        "label": "年份｜男博士比率",
+        "unit": null,
+        "values": [
+          8.0,
+          9.0,
+          8.8,
+          8.5,
+          9.0,
+          10.0,
+          11.5,
+          15.9
+        ]
+      },
+      {
+        "display_label": "女博士比率",
+        "group": "年份",
+        "label": "年份｜女博士比率",
+        "unit": null,
+        "values": [
+          6.9,
+          7.5,
+          7.0,
+          7.6,
+          7.6,
+          8.0,
+          8.3,
+          9.2
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

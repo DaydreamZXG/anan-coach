@@ -1,0 +1,143 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2017年｜指数值",
+          "2017年｜增速（%）"
+        ],
+        "label": "2017年"
+      },
+      {
+        "columns": [
+          "2018年｜指数值"
+        ],
+        "label": "2018年"
+      },
+      {
+        "columns": [
+          "2019年｜指数值"
+        ],
+        "label": "2019年"
+      },
+      {
+        "columns": [
+          "2020年｜指数值"
+        ],
+        "label": "2020年"
+      },
+      {
+        "columns": [
+          "2021年｜指数值"
+        ],
+        "label": "2021年"
+      }
+    ],
+    "columns": [
+      "2017年｜指数值",
+      "2017年｜增速（%）",
+      "2018年｜指数值",
+      "2019年｜指数值",
+      "2020年｜指数值",
+      "2021年｜指数值"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "增速（%）",
+      "style": "diagonal",
+      "upper_label": "指数值"
+    },
+    "missing_cells": [],
+    "row_header_label": "增速（%）",
+    "rows": [
+      {
+        "display_label": "经济发展新动能指数",
+        "group": null,
+        "label": "经济发展新动能指数",
+        "unit": null,
+        "values": [
+          191.1,
+          30.2,
+          258.1,
+          325.5,
+          442.4,
+          598.8
+        ]
+      },
+      {
+        "display_label": "经济活力指数",
+        "group": null,
+        "label": "经济活力指数",
+        "unit": null,
+        "values": [
+          198.9,
+          21.9,
+          234,
+          276,
+          330.9,
+          393.1
+        ]
+      },
+      {
+        "display_label": "创新驱动指数",
+        "group": null,
+        "label": "创新驱动指数",
+        "unit": null,
+        "values": [
+          143.8,
+          13.6,
+          174.8,
+          202.4,
+          243.6,
+          293.5
+        ]
+      },
+      {
+        "display_label": "网络经济指数",
+        "group": null,
+        "label": "网络经济指数",
+        "unit": null,
+        "values": [
+          362.3,
+          81.1,
+          601.6,
+          854.9,
+          1323.5,
+          1963.6
+        ]
+      },
+      {
+        "display_label": "转型升级指数",
+        "group": null,
+        "label": "转型升级指数",
+        "unit": null,
+        "values": [
+          122.1,
+          2.3,
+          144.1,
+          145.6,
+          150.4,
+          160.9
+        ]
+      },
+      {
+        "display_label": "知识能力指数",
+        "group": null,
+        "label": "知识能力指数",
+        "unit": null,
+        "values": [
+          128.5,
+          2.7,
+          135.9,
+          148.8,
+          163.7,
+          182.7
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

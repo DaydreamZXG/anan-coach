@@ -1,0 +1,493 @@
+{
+  "asset_id": "da_c8a70d19eefbb7fae668fcac",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2022年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0108_0a32801677397336.jpg",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0108_0a32801677397336.jpg",
+        "paper_title": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d4ed9d5726e580f97e74",
+        "question_number": 114,
+        "source_jsonl_line": 8147
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0106_0a32801677397336.jpg",
+        "paper_title": "2022年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7fb80a3057e707dd3014",
+        "question_number": 114,
+        "source_jsonl_line": 32917
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0112_0a32801677397336.jpg",
+        "paper_title": "2022年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c672940fd5603d43534c",
+        "question_number": 124,
+        "source_jsonl_line": 53818
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0100_0a32801677397336.jpg",
+        "paper_title": "2022年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5de380fd4723e7724815",
+        "question_number": 119,
+        "source_jsonl_line": 56266
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0128_2dfa2940a926f0bb.jpg",
+        "paper_title": "2022年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_12c51ac981ad265cef59",
+        "question_number": 114,
+        "source_jsonl_line": 63006
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0106_0a32801677397336.jpg",
+        "paper_title": "2022年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_3facf740292c8710133b",
+        "question_number": 69,
+        "source_jsonl_line": 63086
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年湖北省公务员录用考试《行测》题（网友回忆版）_images/img_0183_2dfa2940a926f0bb.jpg",
+        "paper_title": "2022年湖北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_87b1939a5a79b6e329a8",
+        "question_number": 124,
+        "source_jsonl_line": 71110
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0153_0a32801677397336.jpg",
+        "paper_title": "2022年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d32d70ac4ad9262f83db",
+        "question_number": 113,
+        "source_jsonl_line": 84104
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年重庆市公务员录用考试《行测》题（网友回忆版）_images/img_0090_2dfa2940a926f0bb.jpg",
+        "paper_title": "2022年重庆市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d85d2f7bc804ac10128e",
+        "question_number": 114,
+        "source_jsonl_line": 95397
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年陕西省公务员录用考试《行测》题（网友回忆版）_images/img_0101_2dfa2940a926f0bb.jpg",
+        "paper_title": "2022年陕西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2df945e0e2729b1a8a0f",
+        "question_number": 108,
+        "source_jsonl_line": 98266
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0146_2dfa2940a926f0bb.jpg",
+        "paper_title": "2022年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8289dfb8b64e12567bca",
+        "question_number": 114,
+        "source_jsonl_line": 104156
+      }
+    ],
+    "sha256": "c8a70d19eefbb7fae668fcac7827df5798166df64d82a54560d1c5604de936d7"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 0,
+      "estimatedDrawCommandCount": 52,
+      "panelCount": 4,
+      "pointCount": 52
+    },
+    "coordinateSpace": {
+      "height": 140,
+      "width": 656
+    },
+    "evidence": {
+      "converterVersion": "hand-annotated-semantic-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "0a9dc7a0108a6f411645f172d433dc085921bd31558cfb40794bc2d2a0b1544f",
+      "sourceAsset": "da_c8a70d19eefbb7fae668fcac",
+      "sourceSha256": "c8a70d19eefbb7fae668fcac7827df5798166df64d82a54560d1c5604de936d7"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 37,
+          "width": 128,
+          "x": 18,
+          "y": 34
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "smooth",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.98611
+            },
+            {
+              "x": 0.08661,
+              "y": 0.91667
+            },
+            {
+              "x": 0.16535,
+              "y": 0.84722
+            },
+            {
+              "x": 0.25197,
+              "y": 0.84722
+            },
+            {
+              "x": 0.33071,
+              "y": 0.81944
+            },
+            {
+              "x": 0.41732,
+              "y": 0.65278
+            },
+            {
+              "x": 0.50394,
+              "y": 0.52778
+            },
+            {
+              "x": 0.58268,
+              "y": 0.38889
+            },
+            {
+              "x": 0.66929,
+              "y": 0.15278
+            },
+            {
+              "x": 0.74803,
+              "y": 0.05556
+            },
+            {
+              "x": 0.83465,
+              "y": 0.08333
+            },
+            {
+              "x": 0.91339,
+              "y": 0.09722
+            },
+            {
+              "x": 1.0,
+              "y": 0.0
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_c8a70d19eefbb7fae668fcac-0",
+        "label": "A",
+        "position": 0
+      },
+      {
+        "bounds": {
+          "height": 60,
+          "width": 114,
+          "x": 188,
+          "y": 22
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "smooth",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.97458
+            },
+            {
+              "x": 0.07965,
+              "y": 0.99153
+            },
+            {
+              "x": 0.16814,
+              "y": 0.92373
+            },
+            {
+              "x": 0.24779,
+              "y": 0.81356
+            },
+            {
+              "x": 0.33628,
+              "y": 0.77119
+            },
+            {
+              "x": 0.41593,
+              "y": 0.63559
+            },
+            {
+              "x": 0.49558,
+              "y": 0.55085
+            },
+            {
+              "x": 0.58407,
+              "y": 0.4322
+            },
+            {
+              "x": 0.66372,
+              "y": 0.24576
+            },
+            {
+              "x": 0.75221,
+              "y": 0.08475
+            },
+            {
+              "x": 0.83186,
+              "y": 0.01695
+            },
+            {
+              "x": 0.92035,
+              "y": 0.02542
+            },
+            {
+              "x": 1.0,
+              "y": 0.19492
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_c8a70d19eefbb7fae668fcac-1",
+        "label": "B",
+        "position": 1
+      },
+      {
+        "bounds": {
+          "height": 23,
+          "width": 117,
+          "x": 350,
+          "y": 41
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "smooth",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.97727
+            },
+            {
+              "x": 0.08621,
+              "y": 0.81818
+            },
+            {
+              "x": 0.16379,
+              "y": 0.72727
+            },
+            {
+              "x": 0.25,
+              "y": 0.68182
+            },
+            {
+              "x": 0.33621,
+              "y": 0.68182
+            },
+            {
+              "x": 0.41379,
+              "y": 0.65909
+            },
+            {
+              "x": 0.5,
+              "y": 0.38636
+            },
+            {
+              "x": 0.58621,
+              "y": 0.09091
+            },
+            {
+              "x": 0.66379,
+              "y": 0.0
+            },
+            {
+              "x": 0.75,
+              "y": 0.06818
+            },
+            {
+              "x": 0.83621,
+              "y": 0.15909
+            },
+            {
+              "x": 0.91379,
+              "y": 0.09091
+            },
+            {
+              "x": 1.0,
+              "y": 0.86364
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_c8a70d19eefbb7fae668fcac-2",
+        "label": "C",
+        "position": 2
+      },
+      {
+        "bounds": {
+          "height": 54,
+          "width": 107,
+          "x": 515,
+          "y": 24
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "smooth",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.99057
+            },
+            {
+              "x": 0.08491,
+              "y": 0.87736
+            },
+            {
+              "x": 0.16981,
+              "y": 0.75472
+            },
+            {
+              "x": 0.25472,
+              "y": 0.66038
+            },
+            {
+              "x": 0.33019,
+              "y": 0.66981
+            },
+            {
+              "x": 0.41509,
+              "y": 0.59434
+            },
+            {
+              "x": 0.5,
+              "y": 0.46226
+            },
+            {
+              "x": 0.58491,
+              "y": 0.33019
+            },
+            {
+              "x": 0.66981,
+              "y": 0.16038
+            },
+            {
+              "x": 0.74528,
+              "y": 0.04717
+            },
+            {
+              "x": 0.83019,
+              "y": 0.0283
+            },
+            {
+              "x": 0.91509,
+              "y": 0.16038
+            },
+            {
+              "x": 1.0,
+              "y": 0.48113
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_c8a70d19eefbb7fae668fcac-3",
+        "label": "D",
+        "position": 3
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "curve_options"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c8a70d19eefbb7fae668fcac/column_band_01.jpg",
+        "review-crops/da_c8a70d19eefbb7fae668fcac/column_band_02.jpg",
+        "review-crops/da_c8a70d19eefbb7fae668fcac/column_band_03.jpg",
+        "review-crops/da_c8a70d19eefbb7fae668fcac/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.193",
+      "crop_verification_elapsed_seconds:0.782",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:图中无明确坐标轴标签、单位、刻度或数值，仅能识别为四条线形趋势图，无法提取具体数据点。",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_chart_point:候选分类:A",
+      "crop_note:ignored_unknown_chart_point:候选分类:B",
+      "crop_note:ignored_unknown_chart_point:候选分类:C",
+      "crop_note:ignored_unknown_chart_point:候选分类:D",
+      "non_data_option_sparkline",
+      "foreground_iou:0.770279",
+      "mean_absolute_error:1.916757",
+      "trace_parameters:{\"epsilonRatio\": 0.0012, \"minimumContourArea\": 0.6, \"paletteSize\": 2}",
+      "visual_grammar:curve_options",
+      "visual_grammar:curve_options",
+      "visual_grammar:curve_options",
+      "visual_grammar:curve_options",
+      "visual_grammar:curve_options",
+      "visual_grammar:curve_options",
+      "converter:hand-annotated-semantic-v1",
+      "visual_grammar:curve_options",
+      "comparison_artifact:previews/structured_visual/da_c8a70d19eefbb7fae668fcac-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

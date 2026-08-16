@@ -1,0 +1,239 @@
+{
+  "asset_id": "da_db8242b5ce3f0c88006aff37",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份/项目",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "城镇居民人均生活消费支出（元）",
+        "unit": "元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "农村居民人均生活消费支出（元）",
+        "unit": "元"
+      }
+    ]
+  },
+  "categories": [
+    "2004年",
+    "2006年",
+    "2007年"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇居民人均生活消费支出（元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        7182,
+        8697,
+        9997
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "农村居民人均生活消费支出（元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        2185,
+        2829,
+        3223
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "城镇居民恩格尔系数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        37.7,
+        35.8,
+        36.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "农村居民恩格尔系数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        null,
+        43.0,
+        43.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2009年山东省公务员录用考试《行测》题_images/img_0135_57ed8cd2befc45e1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山东省公务员录用考试《行测》题_images/img_0135_57ed8cd2befc45e1.png",
+        "paper_title": "2009年山东省公务员录用考试《行测》题",
+        "question_id": "pq_ab73cbf8424839263ac3",
+        "question_number": 126,
+        "source_jsonl_line": 29120
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山东省公务员录用考试《行测》题_images/img_0135_57ed8cd2befc45e1.png",
+        "paper_title": "2009年山东省公务员录用考试《行测》题",
+        "question_id": "pq_cdaa954a49918209491d",
+        "question_number": 127,
+        "source_jsonl_line": 29121
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山东省公务员录用考试《行测》题_images/img_0135_57ed8cd2befc45e1.png",
+        "paper_title": "2009年山东省公务员录用考试《行测》题",
+        "question_id": "pq_ee13c3024d772b82b5ae",
+        "question_number": 128,
+        "source_jsonl_line": 29122
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山东省公务员录用考试《行测》题_images/img_0143_96df1e3a73fab1d6.png",
+        "paper_title": "2009年山东省公务员录用考试《行测》题",
+        "question_id": "pq_99bb8b0daeec1090ae83",
+        "question_number": 129,
+        "source_jsonl_line": 29123
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山东省公务员录用考试《行测》题_images/img_0135_57ed8cd2befc45e1.png",
+        "paper_title": "2009年山东省公务员录用考试《行测》题",
+        "question_id": "pq_b89fb4ffaba25002dbb0",
+        "question_number": 130,
+        "source_jsonl_line": 29124
+      }
+    ],
+    "sha256": "db8242b5ce3f0c88006aff37110adba2756f0f05cd255a0440766429fbff7bf5"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份/项目",
+      "城镇居民人均生活消费支出（元）",
+      "农村居民人均生活消费支出（元）",
+      "城镇居民恩格尔系数",
+      "农村居民恩格尔系数"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2004年",
+        "unit": null,
+        "values": [
+          "2004年",
+          7182,
+          2185,
+          37.7,
+          "/"
+        ]
+      },
+      {
+        "label": "2006年",
+        "unit": null,
+        "values": [
+          "2006年",
+          8697,
+          2829,
+          35.8,
+          43.0
+        ]
+      },
+      {
+        "label": "2007年",
+        "unit": null,
+        "values": [
+          "2007年",
+          9997,
+          3223,
+          36.3,
+          43.1
+        ]
+      }
+    ]
+  },
+  "title": "表一：2004~2007年城乡居民消费状况表",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_db8242b5ce3f0c88006aff37/row_band_01.jpg",
+        "review-crops/da_db8242b5ce3f0c88006aff37/row_band_02.jpg",
+        "review-crops/da_db8242b5ce3f0c88006aff37/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.341",
+      "crop_verification_elapsed_seconds:3.642",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

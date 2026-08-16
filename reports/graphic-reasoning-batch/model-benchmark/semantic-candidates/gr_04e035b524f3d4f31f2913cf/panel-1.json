@@ -1,0 +1,189 @@
+{
+  "assetId": "gr_04e035b524f3d4f31f2913cf",
+  "candidate": {
+    "authority": "semantic_candidate",
+    "elements": [
+      {
+        "count": 1,
+        "fill_state": "hollow",
+        "id": "e1",
+        "kind": "arc",
+        "label": null,
+        "line_character": "curved",
+        "observations": [
+          "crescent-shaped arc"
+        ],
+        "orientation_bucket": "circular",
+        "parts": [],
+        "relative_region": "top_left",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "hollow",
+        "id": "e2",
+        "kind": "polygon",
+        "label": null,
+        "line_character": "straight",
+        "observations": [
+          "four-pointed star polygon"
+        ],
+        "orientation_bucket": "diagonal_up",
+        "parts": [],
+        "relative_region": "top_right",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "hollow",
+        "id": "e3",
+        "kind": "polygon",
+        "label": null,
+        "line_character": "straight",
+        "observations": [
+          "four-pointed star polygon"
+        ],
+        "orientation_bucket": "diagonal_up",
+        "parts": [],
+        "relative_region": "bottom_left",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "hollow",
+        "id": "e4",
+        "kind": "polygon",
+        "label": null,
+        "line_character": "straight",
+        "observations": [
+          "four-pointed star polygon"
+        ],
+        "orientation_bucket": "diagonal_up",
+        "parts": [],
+        "relative_region": "bottom_center",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "hollow",
+        "id": "e5",
+        "kind": "polygon",
+        "label": null,
+        "line_character": "straight",
+        "observations": [
+          "four-pointed star polygon"
+        ],
+        "orientation_bucket": "diagonal_up",
+        "parts": [],
+        "relative_region": "bottom_right",
+        "text_content": null
+      }
+    ],
+    "relations": [
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e1",
+          "e2"
+        ],
+        "type": "disjoint"
+      },
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e1",
+          "e3"
+        ],
+        "type": "disjoint"
+      },
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e1",
+          "e4"
+        ],
+        "type": "disjoint"
+      },
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e1",
+          "e5"
+        ],
+        "type": "disjoint"
+      },
+      {
+        "confidence": 0.8,
+        "subjects": [
+          "e2",
+          "e3"
+        ],
+        "type": "disjoint"
+      },
+      {
+        "confidence": 0.8,
+        "subjects": [
+          "e2",
+          "e4"
+        ],
+        "type": "disjoint"
+      },
+      {
+        "confidence": 0.8,
+        "subjects": [
+          "e2",
+          "e5"
+        ],
+        "type": "disjoint"
+      },
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e3",
+          "e4"
+        ],
+        "type": "disjoint"
+      },
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e3",
+          "e5"
+        ],
+        "type": "disjoint"
+      },
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e4",
+          "e5"
+        ],
+        "type": "disjoint"
+      }
+    ],
+    "schema_version": "graphic-semantic-candidate-v1",
+    "topology_candidates": {
+      "component_count": 5,
+      "endpoint_count": 0,
+      "junction_count": 0,
+      "loop_count": 0,
+      "notes": [
+        "All elements are closed and disjoint; no intersections or connections observed."
+      ]
+    },
+    "uncertainties": [
+      "The crescent arc may be interpreted as a partial circle or a curved polygon; visual ambiguity in curvature."
+    ],
+    "visual_grammar": "glyph_life_object"
+  },
+  "geometryAuthority": false,
+  "model": "qwen3-vl-30b-a3b",
+  "modelInputSha256": "a54076aaf9a5a435d99cd1f2139d7eeaab3bc9ed8bf1955f219c1dfb627c174f",
+  "panelId": "panel-1",
+  "regularSubtype": "closed_polygon_composition",
+  "role": "stem",
+  "schemaVersion": "graphic-semantic-observation-v1",
+  "sourceSha256": "04e035b524f3d4f31f2913cf1678db4905c6044fd102f9c06da5a2e636bbe96d",
+  "status": "valid_semantic_candidate",
+  "validationErrors": []
+}

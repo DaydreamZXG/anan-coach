@@ -1,0 +1,252 @@
+{
+  "asset_id": "da_880bc28c3112690e5eb1ea13",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2013年江苏省公务员录用考试《行测》题（C类）_images/img_0233_984010a5e108f9b4.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（C类）_images/img_0233_984010a5e108f9b4.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_1608b6c8a9e2e7609411",
+        "question_number": 86,
+        "source_jsonl_line": 46491
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（C类）_images/img_0241_709c51dc23a1db37.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_dfa15500189287b000d5",
+        "question_number": 87,
+        "source_jsonl_line": 46492
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（C类）_images/img_0241_709c51dc23a1db37.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_dc24688f067460140834",
+        "question_number": 88,
+        "source_jsonl_line": 46493
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（C类）_images/img_0241_709c51dc23a1db37.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_5b4da278f1834515c90b",
+        "question_number": 89,
+        "source_jsonl_line": 46494
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（C类）_images/img_0241_709c51dc23a1db37.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_17aa715fd425bb0cd4f2",
+        "question_number": 90,
+        "source_jsonl_line": 46495
+      }
+    ],
+    "sha256": "880bc28c3112690e5eb1ea130e5820c670bef4db905840c7bbc8a3862cd6089d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "市",
+      "人口（万人）",
+      "占全省人口比重（%）",
+      "人口密度（人/平方公里）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "南京",
+        "unit": null,
+        "values": [
+          "南京",
+          800.47,
+          10.18,
+          1215
+        ]
+      },
+      {
+        "label": "无锡",
+        "unit": null,
+        "values": [
+          "无锡",
+          637.26,
+          8.1,
+          1377
+        ]
+      },
+      {
+        "label": "徐州",
+        "unit": null,
+        "values": [
+          "徐州",
+          858.05,
+          10.91,
+          762
+        ]
+      },
+      {
+        "label": "常州",
+        "unit": null,
+        "values": [
+          "常州",
+          459.2,
+          5.84,
+          1050
+        ]
+      },
+      {
+        "label": "苏州",
+        "unit": null,
+        "values": [
+          "苏州",
+          1046.6,
+          13.3,
+          1233
+        ]
+      },
+      {
+        "label": "南通",
+        "unit": null,
+        "values": [
+          "南通",
+          728.28,
+          9.26,
+          910
+        ]
+      },
+      {
+        "label": "连云港",
+        "unit": null,
+        "values": [
+          "连云港",
+          439.39,
+          5.59,
+          586
+        ]
+      },
+      {
+        "label": "淮安",
+        "unit": null,
+        "values": [
+          "淮安",
+          479.99,
+          6.1,
+          477
+        ]
+      },
+      {
+        "label": "盐城",
+        "unit": null,
+        "values": [
+          "盐城",
+          726.02,
+          9.23,
+          428
+        ]
+      },
+      {
+        "label": "扬州",
+        "unit": null,
+        "values": [
+          "扬州",
+          445.98,
+          5.67,
+          677
+        ]
+      },
+      {
+        "label": "镇江",
+        "unit": null,
+        "values": [
+          "镇江",
+          311.34,
+          3.96,
+          809
+        ]
+      },
+      {
+        "label": "泰州",
+        "unit": null,
+        "values": [
+          "泰州",
+          461.86,
+          5.87,
+          798
+        ]
+      },
+      {
+        "label": "宿迁",
+        "unit": null,
+        "values": [
+          "宿迁",
+          471.56,
+          5.99,
+          552
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_880bc28c3112690e5eb1ea13/row_band_01.jpg",
+        "review-crops/da_880bc28c3112690e5eb1ea13/row_band_02.jpg",
+        "review-crops/da_880bc28c3112690e5eb1ea13/row_band_03.jpg",
+        "review-crops/da_880bc28c3112690e5eb1ea13/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.591",
+      "crop_verification_elapsed_seconds:20.13",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

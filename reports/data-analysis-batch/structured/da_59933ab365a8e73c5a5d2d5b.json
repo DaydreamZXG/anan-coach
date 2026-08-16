@@ -1,0 +1,320 @@
+{
+  "asset_id": "da_59933ab365a8e73c5a5d2d5b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0167_2d52ab9cf73e195f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0167_2d52ab9cf73e195f.png",
+        "paper_title": "2018年421联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_ce3ba5472af3f9a6bd8e",
+        "question_number": 76,
+        "source_jsonl_line": 97754
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0170_fee643414b27214d.png",
+        "paper_title": "2018年421联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_63bc3b02296b5b415488",
+        "question_number": 77,
+        "source_jsonl_line": 97755
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0167_2d52ab9cf73e195f.png",
+        "paper_title": "2018年421联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_5af0e73bf4d059fa4427",
+        "question_number": 78,
+        "source_jsonl_line": 97756
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0170_fee643414b27214d.png",
+        "paper_title": "2018年421联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_77f08de37c2f93192c8f",
+        "question_number": 79,
+        "source_jsonl_line": 97757
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0170_fee643414b27214d.png",
+        "paper_title": "2018年421联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_19373b2ab4a40bea9749",
+        "question_number": 80,
+        "source_jsonl_line": 97758
+      }
+    ],
+    "sha256": "59933ab365a8e73c5a5d2d5b0fe58d50ba9b236b0ac590fdae53b0702dda1dd6"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "1-12月｜绝对额(亿元)",
+          "1-12月｜比上年增长(%)"
+        ],
+        "label": "1-12月"
+      },
+      {
+        "columns": [
+          "1-9月｜绝对额(亿元)",
+          "1-9月｜比上年增长(%)"
+        ],
+        "label": "1-9月"
+      },
+      {
+        "columns": [
+          "1-6月｜绝对额(亿元)",
+          "1-6月｜比上年增长(%)"
+        ],
+        "label": "1-6月"
+      },
+      {
+        "columns": [
+          "1-3月｜绝对额(亿元)",
+          "1-3月｜比上年增长(%)"
+        ],
+        "label": "1-3月"
+      }
+    ],
+    "columns": [
+      "1-12月｜绝对额(亿元)",
+      "1-12月｜比上年增长(%)",
+      "1-9月｜绝对额(亿元)",
+      "1-9月｜比上年增长(%)",
+      "1-6月｜绝对额(亿元)",
+      "1-6月｜比上年增长(%)",
+      "1-3月｜绝对额(亿元)",
+      "1-3月｜比上年增长(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "企业类型",
+    "rows": [
+      {
+        "display_label": "新闻出版发行服务",
+        "group": null,
+        "label": "新闻出版发行服务",
+        "unit": null,
+        "values": [
+          3566,
+          7.2,
+          2301,
+          8.1,
+          1521,
+          5.9,
+          681,
+          4.8
+        ]
+      },
+      {
+        "display_label": "广播电视电影服务",
+        "group": null,
+        "label": "广播电视电影服务",
+        "unit": null,
+        "values": [
+          1749,
+          6.1,
+          1186,
+          1.1,
+          762,
+          0.3,
+          323,
+          -4.0
+        ]
+      },
+      {
+        "display_label": "文化艺术服务",
+        "group": null,
+        "label": "文化艺术服务",
+        "unit": null,
+        "values": [
+          434,
+          17.1,
+          283,
+          16.3,
+          169,
+          14.7,
+          76,
+          15.8
+        ]
+      },
+      {
+        "display_label": "文化信息传输服务",
+        "group": null,
+        "label": "文化信息传输服务",
+        "unit": null,
+        "values": [
+          7990,
+          34.6,
+          5503,
+          36.0,
+          3397,
+          32.7,
+          1506,
+          29.4
+        ]
+      },
+      {
+        "display_label": "文化创意和设计服务",
+        "group": null,
+        "label": "文化创意和设计服务",
+        "unit": null,
+        "values": [
+          11891,
+          8.6,
+          8046,
+          7.9,
+          5171,
+          6.3,
+          2287,
+          5.8
+        ]
+      },
+      {
+        "display_label": "文化休闲娱乐服务",
+        "group": null,
+        "label": "文化休闲娱乐服务",
+        "unit": null,
+        "values": [
+          1545,
+          14.7,
+          1070,
+          13.0,
+          640,
+          16.8,
+          276,
+          16.8
+        ]
+      },
+      {
+        "display_label": "工艺美术品的生产",
+        "group": null,
+        "label": "工艺美术品的生产",
+        "unit": null,
+        "values": [
+          16544,
+          7.5,
+          12756,
+          8.5,
+          8503,
+          10.5,
+          3976,
+          9.2
+        ]
+      },
+      {
+        "display_label": "文化产品生产的辅助生产",
+        "group": null,
+        "label": "文化产品生产的辅助生产",
+        "unit": null,
+        "values": [
+          9399,
+          6.4,
+          7084,
+          8.8,
+          4593,
+          10.5,
+          2039,
+          9.0
+        ]
+      },
+      {
+        "display_label": "文化用品的生产",
+        "group": null,
+        "label": "文化用品的生产",
+        "unit": null,
+        "values": [
+          33665,
+          11.4,
+          25556,
+          13.4,
+          16626,
+          13.2,
+          7733,
+          13.0
+        ]
+      },
+      {
+        "display_label": "文化专用设备的生产",
+        "group": null,
+        "label": "文化专用设备的生产",
+        "unit": null,
+        "values": [
+          5168,
+          3.7,
+          3834,
+          -2.2,
+          2492,
+          2.2,
+          1028,
+          5.7
+        ]
+      },
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          91950,
+          10.8,
+          67618,
+          11.4,
+          43874,
+          11.7,
+          19926,
+          11.0
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

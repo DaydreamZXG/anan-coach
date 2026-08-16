@@ -1,0 +1,17 @@
+{
+  "model": "gemma-4-31b-it",
+  "observedAt": "2026-08-11T12:04:25.106886+00:00",
+  "qualityAccepted": 0,
+  "repairPending": 1,
+  "requested": 1,
+  "rows": [
+    {
+      "assetId": "gr_7b00c758d0ab44e2c464e04f",
+      "attempts": 1,
+      "status": "repair_pending",
+      "validationErrors": []
+    }
+  ],
+  "schemaValidated": 1,
+  "schemaVersion": "graphic-reasoning-semantic-run-state-v1"
+}

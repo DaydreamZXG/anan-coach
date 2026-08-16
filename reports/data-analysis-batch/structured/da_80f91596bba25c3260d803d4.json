@@ -1,0 +1,211 @@
+{
+  "asset_id": "da_80f91596bba25c3260d803d4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0138_286779341d620c0d.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0138_286779341d620c0d.jpg",
+        "paper_title": "2019年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b8b90f7f19fe2b68147f",
+        "question_number": 116,
+        "source_jsonl_line": 10124
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0138_286779341d620c0d.jpg",
+        "paper_title": "2019年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_805e1cae65b88e30e465",
+        "question_number": 117,
+        "source_jsonl_line": 10125
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0154_3654ccdca643d8c2.jpg",
+        "paper_title": "2019年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2e599ccfbd3ef1d04ef0",
+        "question_number": 118,
+        "source_jsonl_line": 10126
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0138_286779341d620c0d.jpg",
+        "paper_title": "2019年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_657fc6fa6ee0e5f696e6",
+        "question_number": 119,
+        "source_jsonl_line": 10127
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0138_286779341d620c0d.jpg",
+        "paper_title": "2019年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_596f3fa21dd44c1bdb88",
+        "question_number": 120,
+        "source_jsonl_line": 10128
+      }
+    ],
+    "sha256": "80f91596bba25c3260d803d4668b15962df2b8e46f02bb516cf9bedbd8b3069c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "展会数量（场）",
+      "展会展出面积（万平方米）",
+      "会展业总产值（亿元）",
+      "出境参展项目数量（个）",
+      "出境参展净面积（万平方米）",
+      "出境参展企业数（家）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "2009",
+        "group": null,
+        "label": "2009",
+        "unit": null,
+        "values": [
+          4920,
+          4990,
+          1817,
+          1183,
+          42.64,
+          30185
+        ]
+      },
+      {
+        "display_label": "2010",
+        "group": null,
+        "label": "2010",
+        "unit": null,
+        "values": [
+          6200,
+          7440,
+          2482,
+          1316,
+          51.75,
+          36007
+        ]
+      },
+      {
+        "display_label": "2011",
+        "group": null,
+        "label": "2011",
+        "unit": null,
+        "values": [
+          6830,
+          8120,
+          3016,
+          1375,
+          60.5,
+          40190
+        ]
+      },
+      {
+        "display_label": "2012",
+        "group": null,
+        "label": "2012",
+        "unit": null,
+        "values": [
+          7189,
+          8990,
+          3500,
+          1528,
+          69.73,
+          47376
+        ]
+      },
+      {
+        "display_label": "2013",
+        "group": null,
+        "label": "2013",
+        "unit": null,
+        "values": [
+          7319,
+          9391,
+          3870,
+          1391,
+          61.8,
+          47494
+        ]
+      },
+      {
+        "display_label": "2014",
+        "group": null,
+        "label": "2014",
+        "unit": null,
+        "values": [
+          8009,
+          10276,
+          4184,
+          1447,
+          70.7,
+          47787
+        ]
+      },
+      {
+        "display_label": "2015",
+        "group": null,
+        "label": "2015",
+        "unit": null,
+        "values": [
+          9283,
+          11798,
+          4803,
+          1385,
+          63.9,
+          46000
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

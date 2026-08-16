@@ -1,0 +1,277 @@
+{
+  "asset_id": "da_11984d3daa0a37abc99e03c8",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90,
+          100
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2006年",
+    "2007年",
+    "2008年",
+    "2009年",
+    "2010年",
+    "2011年"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "0-14岁比重",
+      "style": {
+        "dash": null,
+        "fill": "striped",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "15-64岁比重",
+      "style": {
+        "dash": null,
+        "fill": "striped",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "65岁及以上",
+      "style": {
+        "dash": null,
+        "fill": "striped",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "0-14",
+      "label": "0-14岁比重",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        7.9,
+        8.1,
+        8.3,
+        8.5,
+        8.9,
+        9.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "15-64",
+      "label": "15-64岁比重",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        72.3,
+        72.5,
+        72.7,
+        73.0,
+        74.5,
+        74.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "65",
+      "label": "65岁及以上",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        19.8,
+        19.4,
+        19.0,
+        18.5,
+        16.6,
+        16.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0113_d2f85e82885c9ebe.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0113_d2f85e82885c9ebe.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_c02cfdc6983474bf338f",
+        "question_number": 96,
+        "source_jsonl_line": 34728
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0112_90e8d8a303b81c0b.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_8d324afb1f9d92e8b54a",
+        "question_number": 97,
+        "source_jsonl_line": 34729
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0112_90e8d8a303b81c0b.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_04a432714c22d4d8e9fa",
+        "question_number": 98,
+        "source_jsonl_line": 34730
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0112_90e8d8a303b81c0b.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_c54289621fdab4d2533f",
+        "question_number": 99,
+        "source_jsonl_line": 34731
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0112_90e8d8a303b81c0b.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_558116a862d7dab46480",
+        "question_number": 100,
+        "source_jsonl_line": 34732
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（县级以上）_images/img_0070_90e8d8a303b81c0b.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_49ed6dde089daaa56ccd",
+        "question_number": 86,
+        "source_jsonl_line": 34818
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（县级以上）_images/img_0078_d2f85e82885c9ebe.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_045fe3b7932deff5d4e6",
+        "question_number": 87,
+        "source_jsonl_line": 34819
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（县级以上）_images/img_0070_90e8d8a303b81c0b.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_dbc74c85da01293724c6",
+        "question_number": 88,
+        "source_jsonl_line": 34820
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（县级以上）_images/img_0078_d2f85e82885c9ebe.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_f55f319ab45e28e105a5",
+        "question_number": 89,
+        "source_jsonl_line": 34821
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（县级以上）_images/img_0078_d2f85e82885c9ebe.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_33b6546c61968632eda1",
+        "question_number": 90,
+        "source_jsonl_line": 34822
+      }
+    ],
+    "sha256": "11984d3daa0a37abc99e03c8e186560648714a122d67952a7eb56bbdcdee273a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "各年龄段人口比重变化情况",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_11984d3daa0a37abc99e03c8/column_band_01.jpg",
+        "review-crops/da_11984d3daa0a37abc99e03c8/column_band_02.jpg",
+        "review-crops/da_11984d3daa0a37abc99e03c8/column_band_03.jpg",
+        "review-crops/da_11984d3daa0a37abc99e03c8/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.888",
+      "crop_verification_elapsed_seconds:11.354",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2006年0-14岁比重为7.9，原为7.9（正确）",
+      "crop_note:修正了2006年15-64岁比重为72.3，原为72.3（正确）",
+      "crop_note:修正了2006年65岁及以上比重为19.8，原为19.8（正确）",
+      "crop_note:修正了2007年0-14岁比重为8.1，原为8.1（正确）",
+      "crop_note:修正了2007年15-64岁比重为72.5，原为72.5（正确）",
+      "crop_note:修正了2007年65岁及以上比重为19.4，原为19.4（正确）",
+      "crop_note:修正了2008年0-14岁比重为8.3，原为8.3（正确）",
+      "crop_note:修正了2008年15-64岁比重为72.7，原为72.7（正确）",
+      "crop_note:修正了2008年65岁及以上比重为19.0，原为19.0（正确）",
+      "crop_note:修正了2009年0-14岁比重为8.5，原为8.5（正确）",
+      "crop_note:修正了2009年15-64岁比重为73.0，原为73.0（正确）",
+      "crop_note:修正了2009年65岁及以上比重为18.5，原为18.5（正确）",
+      "crop_note:修正了2010年0-14岁比重为8.9，原为8.9（正确）",
+      "crop_note:修正了2010年15-64岁比重为74.5，原为74.5（正确）",
+      "crop_note:修正了2010年65岁及以上比重为16.6，原为16.6（正确）",
+      "crop_note:修正了2011年0-14岁比重为9.1，原为9.1（正确）",
+      "crop_note:修正了2011年15-64岁比重为74.4，原为74.4（正确）",
+      "crop_note:修正了2011年65岁及以上比重为16.5，原为16.5（正确）"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

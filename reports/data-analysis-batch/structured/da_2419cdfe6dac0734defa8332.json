@@ -1,0 +1,181 @@
+{
+  "asset_id": "da_2419cdfe6dac0734defa8332",
+  "axes": {
+    "x": {
+      "max": 9,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 45,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "职业技能培训",
+    "语言培训",
+    "公开课",
+    "学历教育",
+    "中小学辅导",
+    "公考培训",
+    "考研培训",
+    "出国留学",
+    "其他"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "参与情况",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "参与情况",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        38.6,
+        13.7,
+        13.0,
+        13.0,
+        7.8,
+        5.8,
+        4.8,
+        2.4,
+        0.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0192_429f772a7539692d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0192_429f772a7539692d.png",
+        "paper_title": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_7a7a665850ac1d00f1ee",
+        "question_number": 121,
+        "source_jsonl_line": 87976
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0192_429f772a7539692d.png",
+        "paper_title": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_c92929b64f2e800879de",
+        "question_number": 122,
+        "source_jsonl_line": 87977
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0203_74c2c4ccf507b039.png",
+        "paper_title": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_7a8d9a86bce1639c010f",
+        "question_number": 123,
+        "source_jsonl_line": 87978
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0203_74c2c4ccf507b039.png",
+        "paper_title": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_8f10dadc8b0b9d5674bf",
+        "question_number": 124,
+        "source_jsonl_line": 87979
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0192_429f772a7539692d.png",
+        "paper_title": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_7dfa71e4f9e079ea435e",
+        "question_number": 125,
+        "source_jsonl_line": 87980
+      }
+    ],
+    "sha256": "2419cdfe6dac0734defa83329f57b2dd2704f9e93660ffedabf2460c74aebc35"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2017年中国在线教育用户参与课程情况（%）",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2419cdfe6dac0734defa8332/column_band_01.jpg",
+        "review-crops/da_2419cdfe6dac0734defa8332/column_band_02.jpg",
+        "review-crops/da_2419cdfe6dac0734defa8332/column_band_03.jpg",
+        "review-crops/da_2419cdfe6dac0734defa8332/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.006",
+      "crop_verification_elapsed_seconds:6.784",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'中小学辅导'的数值为7.80%（原为7.8%），以保持小数点后两位的一致性。",
+      "crop_note:修正了'其他'的数值为0.90%（原为0.9%），以保持小数点后两位的一致性。",
+      "crop_note:确认所有百分号格式正确，无缺失。",
+      "crop_note:确认所有数值无负号错误。",
+      "crop_note:确认所有数值无小数点错误。",
+      "crop_note:确认所有数值无缺失值，未补0。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

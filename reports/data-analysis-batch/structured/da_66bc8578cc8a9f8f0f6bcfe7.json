@@ -1,0 +1,161 @@
+{
+  "asset_id": "da_66bc8578cc8a9f8f0f6bcfe7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "加工贸易",
+    "一般贸易",
+    "边境小额贸易"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      169.261,
+      352.672,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 169.261,
+        "label": "加工贸易",
+        "share": 0.47017002,
+        "start_angle": 0.0,
+        "sweep_angle": 169.261
+      },
+      {
+        "end_angle": 352.672,
+        "label": "一般贸易",
+        "share": 0.5094733,
+        "start_angle": 169.261,
+        "sweep_angle": 183.41
+      },
+      {
+        "end_angle": 360.0,
+        "label": "边境小额贸易",
+        "share": 0.02035668,
+        "start_angle": 352.672,
+        "sweep_angle": 7.328
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.47017002,
+        0.5094733,
+        0.02035668
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/新疆/2020年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0277_2240cf4e630291a9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0277_2240cf4e630291a9.png",
+        "paper_title": "2020年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_2c316c9f88ba0ae2ccb4",
+        "question_number": 116,
+        "source_jsonl_line": 43331
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0277_2240cf4e630291a9.png",
+        "paper_title": "2020年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_bf288829cf3d647d9e1f",
+        "question_number": 117,
+        "source_jsonl_line": 43332
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0277_2240cf4e630291a9.png",
+        "paper_title": "2020年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_74d32d8efba5f0bc52fe",
+        "question_number": 118,
+        "source_jsonl_line": 43333
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0300_18da7dd3103c49f0.png",
+        "paper_title": "2020年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_8efbe6c55902bcdcb400",
+        "question_number": 119,
+        "source_jsonl_line": 43334
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0300_18da7dd3103c49f0.png",
+        "paper_title": "2020年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_cd9e7d060e7b1db98051",
+        "question_number": 120,
+        "source_jsonl_line": 43335
+      }
+    ],
+    "sha256": "66bc8578cc8a9f8f0f6bcfe77e7c5ed84fd3eded3a3bc3dd4fa88205babf3c2f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2018年M省分类类型进口贸易占比",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_66bc8578cc8a9f8f0f6bcfe7/quadrant_01.jpg",
+        "review-crops/da_66bc8578cc8a9f8f0f6bcfe7/quadrant_02.jpg",
+        "review-crops/da_66bc8578cc8a9f8f0f6bcfe7/quadrant_03.jpg",
+        "review-crops/da_66bc8578cc8a9f8f0f6bcfe7/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.734",
+      "crop_verification_elapsed_seconds:0.731",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_invalid_pie_label_correction:3",
+      "circle_edge_coverage:0.9903",
+      "hough_circle_radius_ratio:0.4075",
+      "radial_line_candidates:7",
+      "detected_boundaries:3"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

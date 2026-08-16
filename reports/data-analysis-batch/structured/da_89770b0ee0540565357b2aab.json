@@ -1,0 +1,249 @@
+{
+  "asset_id": "da_89770b0ee0540565357b2aab",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2013年浙江省公务员录用考试《行测》题（A类）_images/img_0229_bcefd85cae7c4f53.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（A类）_images/img_0229_bcefd85cae7c4f53.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_14bb9918d5c3a868fc99",
+        "question_number": 126,
+        "source_jsonl_line": 60558
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（A类）_images/img_0230_e59b45f9c42de475.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_3ce958eec7ef9652e9e5",
+        "question_number": 127,
+        "source_jsonl_line": 60559
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（A类）_images/img_0230_e59b45f9c42de475.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_3471feb329f2a0ee13fe",
+        "question_number": 128,
+        "source_jsonl_line": 60560
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（A类）_images/img_0229_bcefd85cae7c4f53.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_24290d10275450076320",
+        "question_number": 129,
+        "source_jsonl_line": 60561
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（A类）_images/img_0229_bcefd85cae7c4f53.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_1e3f4064bcafae5296cd",
+        "question_number": 130,
+        "source_jsonl_line": 60562
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0232_bcefd85cae7c4f53.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_cd5a960d1c5a39466bb8",
+        "question_number": 116,
+        "source_jsonl_line": 60678
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0232_bcefd85cae7c4f53.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_4c8c51f165db55d71f13",
+        "question_number": 117,
+        "source_jsonl_line": 60679
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0232_bcefd85cae7c4f53.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_249ffc634281d2ec0260",
+        "question_number": 118,
+        "source_jsonl_line": 60680
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0250_e59b45f9c42de475.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_baefbac440f01018920d",
+        "question_number": 119,
+        "source_jsonl_line": 60681
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0232_bcefd85cae7c4f53.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_36b0930c109c82cce099",
+        "question_number": 120,
+        "source_jsonl_line": 60682
+      }
+    ],
+    "sha256": "89770b0ee0540565357b2aab0e4e926e2f55e121486b1a3b25c07a29de7a2929"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "绝对数（亿美元）",
+      "比上年增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "进出口总额",
+        "group": "2011年Z省进出口主要分类情况",
+        "label": "2011年Z省进出口主要分类情况｜进出口总额",
+        "unit": null,
+        "values": [
+          3094.0,
+          22.0
+        ]
+      },
+      {
+        "display_label": "出口额",
+        "group": "2011年Z省进出口主要分类情况",
+        "label": "2011年Z省进出口主要分类情况｜出口额",
+        "unit": null,
+        "values": [
+          2163.6,
+          19.9
+        ]
+      },
+      {
+        "display_label": "一般贸易",
+        "group": "2011年Z省进出口主要分类情况",
+        "label": "2011年Z省进出口主要分类情况｜出口额｜一般贸易",
+        "unit": null,
+        "values": [
+          1765.0,
+          21.7
+        ]
+      },
+      {
+        "display_label": "加工贸易",
+        "group": "2011年Z省进出口主要分类情况",
+        "label": "2011年Z省进出口主要分类情况｜出口额｜加工贸易",
+        "unit": null,
+        "values": [
+          360.4,
+          9.2
+        ]
+      },
+      {
+        "display_label": "机电产品",
+        "group": "2011年Z省进出口主要分类情况",
+        "label": "2011年Z省进出口主要分类情况｜出口额｜机电产品",
+        "unit": null,
+        "values": [
+          921.0,
+          16.4
+        ]
+      },
+      {
+        "display_label": "高新技术产品",
+        "group": "2011年Z省进出口主要分类情况",
+        "label": "2011年Z省进出口主要分类情况｜高新技术产品",
+        "unit": null,
+        "values": [
+          155.2,
+          5.4
+        ]
+      },
+      {
+        "display_label": "进口额",
+        "group": "2011年Z省进出口主要分类情况",
+        "label": "2011年Z省进出口主要分类情况｜进口额",
+        "unit": null,
+        "values": [
+          930.4,
+          27.3
+        ]
+      },
+      {
+        "display_label": "一般贸易",
+        "group": "2011年Z省进出口主要分类情况",
+        "label": "2011年Z省进出口主要分类情况｜进口额｜一般贸易",
+        "unit": null,
+        "values": [
+          653.5,
+          32.2
+        ]
+      },
+      {
+        "display_label": "加工贸易",
+        "group": "2011年Z省进出口主要分类情况",
+        "label": "2011年Z省进出口主要分类情况｜进口额｜加工贸易",
+        "unit": null,
+        "values": [
+          172.0,
+          9.2
+        ]
+      },
+      {
+        "display_label": "机电产品",
+        "group": "2011年Z省进出口主要分类情况",
+        "label": "2011年Z省进出口主要分类情况｜进口额｜机电产品",
+        "unit": null,
+        "values": [
+          180.5,
+          10.7
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

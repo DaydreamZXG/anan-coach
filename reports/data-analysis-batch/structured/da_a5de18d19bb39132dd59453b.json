@@ -1,0 +1,320 @@
+{
+  "asset_id": "da_a5de18d19bb39132dd59453b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "地区",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "诊疗人次 (万人次)",
+        "unit": "万人次"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "出院人数 (万人)",
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "总 计",
+    "北 京",
+    "天 津",
+    "河 北",
+    "山 西",
+    "内 蒙 古",
+    "辽 宁",
+    "吉 林"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "医院 诊疗人次 (万人次)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        289919.8,
+        13901.4,
+        6707.2,
+        10970.1,
+        4746.3,
+        4203.1,
+        8646.3,
+        4587.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "医院 出院人数 (万人)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        15392.5,
+        265.9,
+        137.5,
+        738.9,
+        323.6,
+        243.1,
+        549.8,
+        296.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "乡镇卫生院 诊疗人次 (万人次)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        92073.2,
+        null,
+        605.6,
+        3584.2,
+        1249.6,
+        999.6,
+        1475.4,
+        841.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "乡镇卫生院 出院人数 (万人)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        3280.0,
+        null,
+        6.8,
+        122.3,
+        36.5,
+        30.2,
+        47.2,
+        13.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2017年422联考《行测》题（陕西卷）_images/img_0090_895d3d1870c2a9a4.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0090_895d3d1870c2a9a4.jpg",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_eb6eed12b4087fae71b3",
+        "question_number": 76,
+        "source_jsonl_line": 97624
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0093_908b2e3bf1d8b03b.jpg",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_b6afc5253dc4474b773b",
+        "question_number": 77,
+        "source_jsonl_line": 97625
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0090_895d3d1870c2a9a4.jpg",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_af51d50df1e55f9e08b6",
+        "question_number": 78,
+        "source_jsonl_line": 97626
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0090_895d3d1870c2a9a4.jpg",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_e9b3a7f8fcfd6e9e67c0",
+        "question_number": 79,
+        "source_jsonl_line": 97627
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0093_908b2e3bf1d8b03b.jpg",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_53249b90226052250971",
+        "question_number": 80,
+        "source_jsonl_line": 97628
+      }
+    ],
+    "sha256": "a5de18d19bb39132dd59453b0429e09c62f37264466ba0f9c8afea79458207ec"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "医院 诊疗人次 (万人次)",
+      "医院 出院人数 (万人)",
+      "乡镇卫生院 诊疗人次 (万人次)",
+      "乡镇卫生院 出院人数 (万人)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "总 计",
+        "unit": null,
+        "values": [
+          "总 计",
+          289919.8,
+          15392.5,
+          92073.2,
+          3280.0
+        ]
+      },
+      {
+        "label": "北 京",
+        "unit": null,
+        "values": [
+          "北 京",
+          13901.4,
+          265.9,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "天 津",
+        "unit": null,
+        "values": [
+          "天 津",
+          6707.2,
+          137.5,
+          605.6,
+          6.8
+        ]
+      },
+      {
+        "label": "河 北",
+        "unit": null,
+        "values": [
+          "河 北",
+          10970.1,
+          738.9,
+          3584.2,
+          122.3
+        ]
+      },
+      {
+        "label": "山 西",
+        "unit": null,
+        "values": [
+          "山 西",
+          4746.3,
+          323.6,
+          1249.6,
+          36.5
+        ]
+      },
+      {
+        "label": "内 蒙 古",
+        "unit": null,
+        "values": [
+          "内 蒙 古",
+          4203.1,
+          243.1,
+          999.6,
+          30.2
+        ]
+      },
+      {
+        "label": "辽 宁",
+        "unit": null,
+        "values": [
+          "辽 宁",
+          8646.3,
+          549.8,
+          1475.4,
+          47.2
+        ]
+      },
+      {
+        "label": "吉 林",
+        "unit": null,
+        "values": [
+          "吉 林",
+          4587.2,
+          296.8,
+          841.2,
+          13.4
+        ]
+      }
+    ]
+  },
+  "title": "2016年1-11月各地区医院和乡镇卫生院医疗服务量",
+  "unit": "万人次, 万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a5de18d19bb39132dd59453b/row_band_01.jpg",
+        "review-crops/da_a5de18d19bb39132dd59453b/row_band_02.jpg",
+        "review-crops/da_a5de18d19bb39132dd59453b/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:14.817",
+      "crop_verification_elapsed_seconds:10.231",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:图中北京地区乡镇卫生院数据缺失，标记为null",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

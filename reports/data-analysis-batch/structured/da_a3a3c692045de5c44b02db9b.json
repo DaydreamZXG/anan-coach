@@ -1,0 +1,284 @@
+{
+  "asset_id": "da_a3a3c692045de5c44b02db9b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "省市",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "社会消费品零售总额（亿元）",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "社会消费品零售总额同比增长",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "上海",
+    "江苏",
+    "浙江",
+    "安徽"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "社会消费品零售总额（亿元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        8260,
+        23949,
+        18979,
+        12051
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "社会消费品零售总额同比增长",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        1.7,
+        5.0,
+        5.3,
+        5.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "固定资产投资同比增长",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.2,
+        -3.9,
+        1.4,
+        -2.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "居民人均可支配收入（元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        46805,
+        37813,
+        30706,
+        19961
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "居民人均可支配收入同比增长",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        4.6,
+        5.1,
+        5.2,
+        5.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/上海/2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0183_763513e63ec61f48.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0183_763513e63ec61f48.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9b04f86936c24cca7beb",
+        "question_number": 126,
+        "source_jsonl_line": 4066
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0183_763513e63ec61f48.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b9deddc01b86e0c6c286",
+        "question_number": 127,
+        "source_jsonl_line": 4067
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0183_763513e63ec61f48.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_69a7e5b8e8997b634103",
+        "question_number": 128,
+        "source_jsonl_line": 4068
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0183_763513e63ec61f48.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f08340382223c653911d",
+        "question_number": 129,
+        "source_jsonl_line": 4069
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0183_763513e63ec61f48.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_dd0603d89cc67b3a4019",
+        "question_number": 130,
+        "source_jsonl_line": 4070
+      }
+    ],
+    "sha256": "a3a3c692045de5c44b02db9bdc5cf0bc3b75e399cbbf606970e6a8489d6b1234"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "上海",
+      "江苏",
+      "浙江",
+      "安徽"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "省市",
+    "rows": [
+      {
+        "label": "社会消费品零售总额（亿元）",
+        "unit": "亿元",
+        "values": [
+          8260,
+          23949,
+          23949,
+          12051
+        ]
+      },
+      {
+        "label": "社会消费品零售总额同比增长",
+        "unit": "%",
+        "values": [
+          1.7,
+          5.0,
+          5.0,
+          5.5
+        ]
+      },
+      {
+        "label": "固定资产投资同比增长",
+        "unit": "%",
+        "values": [
+          6.2,
+          -3.9,
+          -3.9,
+          -2.8
+        ]
+      },
+      {
+        "label": "居民人均可支配收入（元）",
+        "unit": "元",
+        "values": [
+          46805,
+          46805,
+          37813,
+          30706
+        ]
+      },
+      {
+        "label": "居民人均可支配收入同比增长",
+        "unit": "%",
+        "values": [
+          4.6,
+          4.6,
+          5.1,
+          5.2
+        ]
+      }
+    ]
+  },
+  "title": "表2 2025年上半年长三角三省一市社会消费品零售总额、固定资产投资、居民人均可支配收入",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a3a3c692045de5c44b02db9b/row_band_01.jpg",
+        "review-crops/da_a3a3c692045de5c44b02db9b/row_band_02.jpg",
+        "review-crops/da_a3a3c692045de5c44b02db9b/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.686",
+      "crop_verification_elapsed_seconds:3.369",
+      "candidate_value_changes_after_crop:9",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_out_of_range_table_cell:社会消费品零售总额同比增长:安徽",
+      "crop_note:ignored_out_of_range_table_cell:固定资产投资同比增长:安徽",
+      "crop_note:ignored_out_of_range_table_cell:居民人均可支配收入（元）:安徽",
+      "crop_note:ignored_out_of_range_table_cell:居民人均可支配收入同比增长:安徽",
+      "table_row_label_column_removed:省市"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

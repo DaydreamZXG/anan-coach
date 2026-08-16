@@ -1,0 +1,253 @@
+{
+  "asset_id": "da_fc1709545fe2528d19569857",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2020年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0212_69fb22cf4520035a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0212_69fb22cf4520035a.png",
+        "paper_title": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_9378301acf3f7a96d385",
+        "question_number": 96,
+        "source_jsonl_line": 16211
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0232_52707b6db7dce936.png",
+        "paper_title": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_1146ccbefa965a8c9c42",
+        "question_number": 97,
+        "source_jsonl_line": 16212
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0212_69fb22cf4520035a.png",
+        "paper_title": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_2099717140d7d4b45dde",
+        "question_number": 98,
+        "source_jsonl_line": 16213
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0212_69fb22cf4520035a.png",
+        "paper_title": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_4a37f4408b680250af89",
+        "question_number": 99,
+        "source_jsonl_line": 16214
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0232_52707b6db7dce936.png",
+        "paper_title": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_e716e4ede6fb2983833e",
+        "question_number": 100,
+        "source_jsonl_line": 16215
+      }
+    ],
+    "sha256": "fc1709545fe2528d195698573a1bdd262a65f8b9df88311ebf079ceeebb031b6"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2015年｜总量",
+      "2015年｜增速(%)",
+      "2016年｜总量",
+      "2016年｜增速(%)",
+      "2017年｜总量",
+      "2017年｜增速(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "具体分类",
+    "rows": [
+      {
+        "display_label": "国内旅游人数",
+        "group": null,
+        "label": "国内旅游人数",
+        "unit": "亿人次",
+        "values": [
+          40,
+          10.8,
+          44.4,
+          11,
+          50.01,
+          12.6
+        ]
+      },
+      {
+        "display_label": "国内旅游收入",
+        "group": null,
+        "label": "国内旅游收入",
+        "unit": "万亿元",
+        "values": [
+          3.42,
+          12.9,
+          3.94,
+          15.2,
+          4.57,
+          16
+        ]
+      },
+      {
+        "display_label": "入境旅游人数",
+        "group": null,
+        "label": "入境旅游人数",
+        "unit": "亿人次",
+        "values": [
+          1.34,
+          4.7,
+          1.38,
+          3,
+          1.39,
+          0.7
+        ]
+      },
+      {
+        "display_label": "实现国际旅游收入",
+        "group": null,
+        "label": "实现国际旅游收入",
+        "unit": "亿美元",
+        "values": [
+          1136.5,
+          7.8,
+          1200,
+          5.6,
+          1234,
+          2.8
+        ]
+      },
+      {
+        "display_label": "出境旅游人数",
+        "group": null,
+        "label": "出境旅游人数",
+        "unit": "亿人次",
+        "values": [
+          1.17,
+          9.3,
+          1.22,
+          4.3,
+          1.31,
+          7.4
+        ]
+      },
+      {
+        "display_label": "出境旅游花费",
+        "group": null,
+        "label": "出境旅游花费",
+        "unit": "亿美元",
+        "values": [
+          1045,
+          16.6,
+          1098,
+          5.1,
+          1152.9,
+          5.0
+        ]
+      },
+      {
+        "display_label": "全年实现旅游业总收入",
+        "group": null,
+        "label": "全年实现旅游业总收入",
+        "unit": "万亿元",
+        "values": [
+          4.13,
+          10.7,
+          4.69,
+          13.6,
+          5.4,
+          15.1
+        ]
+      },
+      {
+        "display_label": "全国旅游业对GDP的综合贡献",
+        "group": null,
+        "label": "全国旅游业对GDP的综合贡献",
+        "unit": "万亿元",
+        "values": [
+          7.34,
+          11,
+          8.19,
+          11.6,
+          9.13,
+          11.5
+        ]
+      },
+      {
+        "display_label": "直接就业",
+        "group": null,
+        "label": "直接就业",
+        "unit": "万人",
+        "values": [
+          2798,
+          0.7,
+          2813,
+          0.5,
+          2825,
+          0.4
+        ]
+      },
+      {
+        "display_label": "直接和间接就业",
+        "group": null,
+        "label": "直接和间接就业",
+        "unit": "万人",
+        "values": [
+          7911,
+          0.5,
+          7962,
+          0.6,
+          7990,
+          0.4
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

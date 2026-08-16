@@ -1,0 +1,130 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "人均 GDP/元｜第1列",
+      "年份｜第2列",
+      "人均 GDP/元｜第3列"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "display_label": "1978",
+        "group": null,
+        "label": "1978",
+        "unit": null,
+        "values": [
+          385,
+          1978,
+          385
+        ]
+      },
+      {
+        "display_label": "1979",
+        "group": null,
+        "label": "1979",
+        "unit": null,
+        "values": [
+          423,
+          1979,
+          423
+        ]
+      },
+      {
+        "display_label": "1980",
+        "group": null,
+        "label": "1980",
+        "unit": null,
+        "values": [
+          468,
+          1980,
+          468
+        ]
+      },
+      {
+        "display_label": "1981",
+        "group": null,
+        "label": "1981",
+        "unit": null,
+        "values": [
+          497,
+          1981,
+          497
+        ]
+      },
+      {
+        "display_label": "1982",
+        "group": null,
+        "label": "1982",
+        "unit": null,
+        "values": [
+          533,
+          1982,
+          533
+        ]
+      },
+      {
+        "display_label": "2012",
+        "group": null,
+        "label": "2012",
+        "unit": null,
+        "values": [
+          40007,
+          2012,
+          40007
+        ]
+      },
+      {
+        "display_label": "2013",
+        "group": null,
+        "label": "2013",
+        "unit": null,
+        "values": [
+          43852,
+          2013,
+          43852
+        ]
+      },
+      {
+        "display_label": "2014",
+        "group": null,
+        "label": "2014",
+        "unit": null,
+        "values": [
+          47203,
+          2014,
+          47203
+        ]
+      },
+      {
+        "display_label": "2015",
+        "group": null,
+        "label": "2015",
+        "unit": null,
+        "values": [
+          50251,
+          2015,
+          50251
+        ]
+      },
+      {
+        "display_label": "2016",
+        "group": null,
+        "label": "2016",
+        "unit": null,
+        "values": [
+          53935,
+          2016,
+          53935
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

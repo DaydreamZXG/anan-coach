@@ -1,0 +1,152 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "总收入",
+      "软件产品",
+      "信息技术服务",
+      "信息安全",
+      "嵌入式系统软件"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "全国｜一季度",
+        "group": null,
+        "label": "全国｜一季度",
+        "unit": null,
+        "values": [
+          20059,
+          5097,
+          13102,
+          338,
+          1522
+        ]
+      },
+      {
+        "display_label": "全国｜上半年",
+        "group": null,
+        "label": "全国｜上半年",
+        "unit": null,
+        "values": [
+          46266,
+          11427,
+          30296,
+          755,
+          3788
+        ]
+      },
+      {
+        "display_label": "东部地区｜一季度",
+        "group": null,
+        "label": "东部地区｜一季度",
+        "unit": null,
+        "values": [
+          16564,
+          4062,
+          10893,
+          256,
+          1353
+        ]
+      },
+      {
+        "display_label": "东部地区｜上半年",
+        "group": null,
+        "label": "东部地区｜上半年",
+        "unit": null,
+        "values": [
+          38022,
+          9032,
+          25040,
+          597,
+          3353
+        ]
+      },
+      {
+        "display_label": "中部地区｜一季度",
+        "group": null,
+        "label": "中部地区｜一季度",
+        "unit": null,
+        "values": [
+          666,
+          262,
+          349,
+          5,
+          50
+        ]
+      },
+      {
+        "display_label": "中部地区｜上半年",
+        "group": null,
+        "label": "中部地区｜上半年",
+        "unit": null,
+        "values": [
+          2174,
+          751,
+          1257,
+          19,
+          147
+        ]
+      },
+      {
+        "display_label": "西部地区｜一季度",
+        "group": null,
+        "label": "西部地区｜一季度",
+        "unit": null,
+        "values": [
+          2472,
+          627,
+          1686,
+          46,
+          113
+        ]
+      },
+      {
+        "display_label": "西部地区｜上半年",
+        "group": null,
+        "label": "西部地区｜上半年",
+        "unit": null,
+        "values": [
+          5096,
+          1234,
+          3523,
+          89,
+          250
+        ]
+      },
+      {
+        "display_label": "东北地区｜一季度",
+        "group": null,
+        "label": "东北地区｜一季度",
+        "unit": null,
+        "values": [
+          356,
+          145,
+          174,
+          32,
+          5
+        ]
+      },
+      {
+        "display_label": "东北地区｜上半年",
+        "group": null,
+        "label": "东北地区｜上半年",
+        "unit": null,
+        "values": [
+          974,
+          410,
+          477,
+          50,
+          37
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

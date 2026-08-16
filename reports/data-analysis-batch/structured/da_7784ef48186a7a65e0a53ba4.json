@@ -1,0 +1,234 @@
+{
+  "asset_id": "da_7784ef48186a7a65e0a53ba4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2012年北京市公务员录用考试《行测》题_images/img_0091_106d2d66acd9dedf.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年北京市公务员录用考试《行测》题_images/img_0091_106d2d66acd9dedf.png",
+        "paper_title": "2012年北京市公务员录用考试《行测》题",
+        "question_id": "pq_e79778d8d5e7941baf2e",
+        "question_number": 121,
+        "source_jsonl_line": 9184
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年北京市公务员录用考试《行测》题_images/img_0097_026d9af0d0474a87.png",
+        "paper_title": "2012年北京市公务员录用考试《行测》题",
+        "question_id": "pq_5756884d7cae96ea881b",
+        "question_number": 122,
+        "source_jsonl_line": 9185
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年北京市公务员录用考试《行测》题_images/img_0097_026d9af0d0474a87.png",
+        "paper_title": "2012年北京市公务员录用考试《行测》题",
+        "question_id": "pq_72d5333a3f39cb32ef4f",
+        "question_number": 123,
+        "source_jsonl_line": 9186
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年北京市公务员录用考试《行测》题_images/img_0097_026d9af0d0474a87.png",
+        "paper_title": "2012年北京市公务员录用考试《行测》题",
+        "question_id": "pq_ad0fbe9e197978fbb363",
+        "question_number": 124,
+        "source_jsonl_line": 9187
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年北京市公务员录用考试《行测》题_images/img_0091_106d2d66acd9dedf.png",
+        "paper_title": "2012年北京市公务员录用考试《行测》题",
+        "question_id": "pq_2f6ad9b5215a0213e3c5",
+        "question_number": 125,
+        "source_jsonl_line": 9188
+      }
+    ],
+    "sha256": "7784ef48186a7a65e0a53ba4a3543703b595abcc1cbb9673e7cb32f116744322"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "城市",
+      "天数",
+      "上年同期天数",
+      "排名",
+      "上年同期排名"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "湛江",
+        "unit": null,
+        "values": [
+          "湛江",
+          330,
+          316,
+          1,
+          1
+        ]
+      },
+      {
+        "label": "拉萨",
+        "unit": null,
+        "values": [
+          "拉萨",
+          305,
+          238,
+          2,
+          4
+        ]
+      },
+      {
+        "label": "海口",
+        "unit": null,
+        "values": [
+          "海口",
+          245,
+          296,
+          3,
+          2
+        ]
+      },
+      {
+        "label": "三亚",
+        "unit": null,
+        "values": [
+          "三亚",
+          228,
+          null,
+          4,
+          null
+        ]
+      },
+      {
+        "label": "珠海",
+        "unit": null,
+        "values": [
+          "珠海",
+          183,
+          244,
+          5,
+          3
+        ]
+      },
+      {
+        "label": "牡丹江",
+        "unit": null,
+        "values": [
+          "牡丹江",
+          156,
+          141,
+          6,
+          16
+        ]
+      },
+      {
+        "label": "中山",
+        "unit": null,
+        "values": [
+          "中山",
+          155,
+          null,
+          7,
+          null
+        ]
+      },
+      {
+        "label": "北海",
+        "unit": null,
+        "values": [
+          "北海",
+          154,
+          226,
+          8,
+          5
+        ]
+      },
+      {
+        "label": "深圳",
+        "unit": null,
+        "values": [
+          "深圳",
+          153,
+          220,
+          9,
+          6
+        ]
+      },
+      {
+        "label": "汕头",
+        "unit": null,
+        "values": [
+          "汕头",
+          147,
+          189,
+          10,
+          8
+        ]
+      }
+    ]
+  },
+  "title": "当年空气质量一级日数排名前10位的城市",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_7784ef48186a7a65e0a53ba4/row_band_01.jpg",
+        "review-crops/da_7784ef48186a7a65e0a53ba4/row_band_02.jpg",
+        "review-crops/da_7784ef48186a7a65e0a53ba4/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.198",
+      "crop_verification_elapsed_seconds:8.892",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:排名和上年同期排名中的箭头符号未被解析为数值",
+      "model_uncertainty:部分单元格为空，表示数据缺失，但未明确说明缺失原因",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

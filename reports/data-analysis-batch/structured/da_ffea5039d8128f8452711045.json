@@ -1,0 +1,505 @@
+{
+  "asset_id": "da_ffea5039d8128f8452711045",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2008年陕西省公务员录用考试《行测》题_images/img_0108_9c8781bcbe2b60ed.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年陕西省公务员录用考试《行测》题_images/img_0108_9c8781bcbe2b60ed.jpg",
+        "paper_title": "2008年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_0264d02a9121ef8baa27",
+        "question_number": 121,
+        "source_jsonl_line": 96404
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年陕西省公务员录用考试《行测》题_images/img_0108_9c8781bcbe2b60ed.jpg",
+        "paper_title": "2008年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_9748ec698e86f26d420f",
+        "question_number": 122,
+        "source_jsonl_line": 96405
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年陕西省公务员录用考试《行测》题_images/img_0108_9c8781bcbe2b60ed.jpg",
+        "paper_title": "2008年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_9dae6503dc54d72209c6",
+        "question_number": 123,
+        "source_jsonl_line": 96406
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年陕西省公务员录用考试《行测》题_images/img_0108_9c8781bcbe2b60ed.jpg",
+        "paper_title": "2008年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_f91492124d3339af605e",
+        "question_number": 124,
+        "source_jsonl_line": 96407
+      }
+    ],
+    "sha256": "ffea5039d8128f845271104553417191053e4f98d596497df510acdcc3c359ad"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "年底总人口（万人）",
+      "出生率（‰）",
+      "死亡率（‰）",
+      "自然增长率（‰）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全国总计",
+        "unit": null,
+        "values": [
+          "全国总计",
+          131.448,
+          12.09,
+          6.81,
+          5.28
+        ]
+      },
+      {
+        "label": "北京",
+        "unit": null,
+        "values": [
+          "北京",
+          1581,
+          6.26,
+          4.97,
+          1.29
+        ]
+      },
+      {
+        "label": "天津",
+        "unit": null,
+        "values": [
+          "天津",
+          1075,
+          7.67,
+          6.07,
+          1.6
+        ]
+      },
+      {
+        "label": "河北",
+        "unit": null,
+        "values": [
+          "河北",
+          6898,
+          12.82,
+          6.59,
+          6.23
+        ]
+      },
+      {
+        "label": "山西",
+        "unit": null,
+        "values": [
+          "山西",
+          3375,
+          11.48,
+          5.73,
+          5.75
+        ]
+      },
+      {
+        "label": "内蒙古",
+        "unit": null,
+        "values": [
+          "内蒙古",
+          2397,
+          9.87,
+          5.91,
+          3.96
+        ]
+      },
+      {
+        "label": "辽宁",
+        "unit": null,
+        "values": [
+          "辽宁",
+          4271,
+          6.4,
+          5.3,
+          1.1
+        ]
+      },
+      {
+        "label": "吉林",
+        "unit": null,
+        "values": [
+          "吉林",
+          2723,
+          7.67,
+          5.0,
+          2.67
+        ]
+      },
+      {
+        "label": "黑龙江",
+        "unit": null,
+        "values": [
+          "黑龙江",
+          3823,
+          7.57,
+          5.18,
+          2.39
+        ]
+      },
+      {
+        "label": "上海",
+        "unit": null,
+        "values": [
+          "上海",
+          1815,
+          7.47,
+          5.89,
+          1.58
+        ]
+      },
+      {
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          "江苏",
+          7550,
+          9.36,
+          7.08,
+          2.28
+        ]
+      },
+      {
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          "浙江",
+          4980,
+          10.29,
+          5.42,
+          4.87
+        ]
+      },
+      {
+        "label": "安徽",
+        "unit": null,
+        "values": [
+          "安徽",
+          6110,
+          12.6,
+          6.3,
+          6.3
+        ]
+      },
+      {
+        "label": "福建",
+        "unit": null,
+        "values": [
+          "福建",
+          3558,
+          12.0,
+          5.75,
+          6.25
+        ]
+      },
+      {
+        "label": "江西",
+        "unit": null,
+        "values": [
+          "江西",
+          4339,
+          13.8,
+          6.01,
+          7.79
+        ]
+      },
+      {
+        "label": "山东",
+        "unit": null,
+        "values": [
+          "山东",
+          9309,
+          11.6,
+          6.1,
+          5.5
+        ]
+      },
+      {
+        "label": "河南",
+        "unit": null,
+        "values": [
+          "河南",
+          9392,
+          11.59,
+          6.27,
+          5.32
+        ]
+      },
+      {
+        "label": "湖北",
+        "unit": null,
+        "values": [
+          "湖北",
+          5693,
+          9.08,
+          5.95,
+          3.13
+        ]
+      },
+      {
+        "label": "湖南",
+        "unit": null,
+        "values": [
+          "湖南",
+          6342,
+          11.92,
+          6.73,
+          5.19
+        ]
+      },
+      {
+        "label": "广东",
+        "unit": null,
+        "values": [
+          "广东",
+          9304,
+          11.78,
+          6.49,
+          7.29
+        ]
+      },
+      {
+        "label": "广西",
+        "unit": null,
+        "values": [
+          "广西",
+          4719,
+          14.44,
+          6.1,
+          8.34
+        ]
+      },
+      {
+        "label": "海南",
+        "unit": null,
+        "values": [
+          "海南",
+          836,
+          14.59,
+          5.73,
+          8.86
+        ]
+      },
+      {
+        "label": "重庆",
+        "unit": null,
+        "values": [
+          "重庆",
+          2808,
+          9.9,
+          6.5,
+          3.4
+        ]
+      },
+      {
+        "label": "四川",
+        "unit": null,
+        "values": [
+          "四川",
+          8169,
+          9.14,
+          6.28,
+          2.86
+        ]
+      },
+      {
+        "label": "贵州",
+        "unit": null,
+        "values": [
+          "贵州",
+          3757,
+          13.97,
+          6.71,
+          7.26
+        ]
+      },
+      {
+        "label": "云南",
+        "unit": null,
+        "values": [
+          "云南",
+          4483,
+          13.2,
+          6.3,
+          6.9
+        ]
+      },
+      {
+        "label": "西藏",
+        "unit": null,
+        "values": [
+          "西藏",
+          281,
+          17.4,
+          5.7,
+          11.7
+        ]
+      },
+      {
+        "label": "陕西",
+        "unit": null,
+        "values": [
+          "陕西",
+          3735,
+          10.19,
+          6.15,
+          4.04
+        ]
+      },
+      {
+        "label": "甘肃",
+        "unit": null,
+        "values": [
+          "甘肃",
+          2606,
+          12.86,
+          6.62,
+          6.24
+        ]
+      },
+      {
+        "label": "青海",
+        "unit": null,
+        "values": [
+          "青海",
+          548,
+          15.24,
+          6.27,
+          8.97
+        ]
+      },
+      {
+        "label": "宁夏",
+        "unit": null,
+        "values": [
+          "宁夏",
+          604,
+          15.53,
+          4.84,
+          10.69
+        ]
+      },
+      {
+        "label": "新疆",
+        "unit": null,
+        "values": [
+          "新疆",
+          2050,
+          15.79,
+          5.03,
+          10.76
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ffea5039d8128f8452711045/row_band_01.jpg",
+        "review-crops/da_ffea5039d8128f8452711045/row_band_02.jpg",
+        "review-crops/da_ffea5039d8128f8452711045/row_band_03.jpg",
+        "review-crops/da_ffea5039d8128f8452711045/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.472",
+      "crop_verification_elapsed_seconds:10.381",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:全国总计:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:北京:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:天津:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:河北:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:山西:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:内蒙古:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:辽宁:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:吉林:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:黑龙江:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:辽宁:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:吉林:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:黑龙江:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:上海:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:江苏:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:浙江:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:安徽:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:福建:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:江西:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:山东:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:河南:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:湖北:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:湖南:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:广东:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:广西:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:海南:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:重庆:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:四川:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:贵州:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:重庆:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:四川:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:贵州:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:云南:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:西藏:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:陕西:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:甘肃:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:青海:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:宁夏:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:新疆:4!=5"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,210 @@
+{
+  "asset_id": "da_12a8cce288793ec833fe9190",
+  "axes": {
+    "x": {
+      "max": 35.0,
+      "min": 0.0,
+      "ticks": [
+        0.0,
+        5.0,
+        10.0,
+        15.0,
+        20.0,
+        25.0,
+        30.0,
+        35.0
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 30.0,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "磨料磨具",
+    "切削刀具",
+    "金属切削机床",
+    "木工机床",
+    "机床功能部件（含零件）",
+    "金属成形机床",
+    "数控装置",
+    "量具、量仪",
+    "铸造机"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2020年1-9月",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "2021年1-9月",
+      "style": {
+        "dash": null,
+        "fill": "#696969",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2020_1-9",
+      "label": "2020年1-9月",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        17.8,
+        20.3,
+        19.5,
+        12.7,
+        8.4,
+        8.5,
+        8.5,
+        1.1,
+        0.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2021_1-9",
+      "label": "2021年1-9月",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        29.3,
+        27.6,
+        26.2,
+        19.7,
+        12.1,
+        11.7,
+        8.2,
+        1.6,
+        1.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0041_07c6b44151e1426a.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0041_07c6b44151e1426a.jpg",
+        "paper_title": "2022年天津市公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_96b203052c4467cae311",
+        "question_number": 76,
+        "source_jsonl_line": 24008
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0052_12e02a03d870e0a8.jpg",
+        "paper_title": "2022年天津市公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_396238090346f60483b2",
+        "question_number": 77,
+        "source_jsonl_line": 24009
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0052_12e02a03d870e0a8.jpg",
+        "paper_title": "2022年天津市公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_275761b6df7a18e77e47",
+        "question_number": 78,
+        "source_jsonl_line": 24010
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0052_12e02a03d870e0a8.jpg",
+        "paper_title": "2022年天津市公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_e68bead5aaa9f37f5b00",
+        "question_number": 79,
+        "source_jsonl_line": 24011
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0052_12e02a03d870e0a8.jpg",
+        "paper_title": "2022年天津市公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_860bb3008086d1b09372",
+        "question_number": 80,
+        "source_jsonl_line": 24012
+      }
+    ],
+    "sha256": "12a8cce288793ec833fe91908da058c4100d6e0651ad19c12abe298834d8b894"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图2 我国机床工具产品累计出口情况（亿美元）",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_12a8cce288793ec833fe9190/column_band_01.jpg",
+        "review-crops/da_12a8cce288793ec833fe9190/column_band_02.jpg",
+        "review-crops/da_12a8cce288793ec833fe9190/column_band_03.jpg",
+        "review-crops/da_12a8cce288793ec833fe9190/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.68",
+      "crop_verification_elapsed_seconds:11.947",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了 '机床功能部件（含零件）' 的标签，确保其与图中一致。",
+      "crop_note:确认了 '磨料磨具'、'切削刀具'、'金属切削机床'、'木工机床'、'金属成形机床'、'数控装置'、'量具、量仪'、'铸造机' 的类别顺序与图中一致。",
+      "crop_note:确认了 '2020年1-9月' 和 '2021年1-9月' 的系列数据与图中数值一致，包括小数点后一位的精度。",
+      "crop_note:确认了 '2020年1-9月' 的 '磨料磨具' 值为 17.8，'切削刀具' 为 20.3，'金属切削机床' 为 19.5，'木工机床' 为 12.7，'机床功能部件（含零件）' 为 8.4，'金属成形机床' 为 8.5，'数控装置' 为 8.5，'量具、量仪' 为 1.1，'铸造机' 为 0.9。",
+      "crop_note:确认了 '2021年1-9月' 的 '磨料磨具' 值为 29.3，'切削刀具' 为 27.6，'金属切削机床' 为 26.2，'木工机床' 为 19.7，'机床功能部件（含零件）' 为 12.1，'金属成形机床' 为 11.7，'数控装置' 为 8.2，'量具、量仪' 为 1.6，'铸造机' 为 1.0。",
+      "crop_note:确认了 x 轴的刻度范围和标签与图中一致，从 0.0 到 35.0，间隔为 5.0。",
+      "crop_note:确认了 y 轴的刻度范围和标签与图中一致，从 0 到 30.0，间隔为 5.0。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

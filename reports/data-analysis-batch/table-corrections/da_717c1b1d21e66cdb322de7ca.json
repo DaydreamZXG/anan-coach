@@ -1,0 +1,101 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "用电量（亿千瓦时）",
+          "比上年增长（%）"
+        ],
+        "label": "工业用电情况"
+      }
+    ],
+    "columns": [
+      "用电量（亿千瓦时）",
+      "比上年增长（%）"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "比上年增长（%）",
+      "style": "diagonal",
+      "upper_label": "用电量（亿千瓦时）"
+    },
+    "missing_cells": [],
+    "row_header_label": "比上年增长（%）",
+    "rows": [
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          787.02,
+          0.18
+        ]
+      },
+      {
+        "display_label": "其中：规模以上工业小计",
+        "group": null,
+        "label": "其中：规模以上工业小计",
+        "unit": null,
+        "values": [
+          706.95,
+          -0.61
+        ]
+      },
+      {
+        "display_label": "其中：石油加工、炼焦及核燃料加工业",
+        "group": null,
+        "label": "其中：石油加工、炼焦及核燃料加工业",
+        "unit": null,
+        "values": [
+          44.18,
+          5.88
+        ]
+      },
+      {
+        "display_label": "化学原料及化学制品制造业",
+        "group": null,
+        "label": "化学原料及化学制品制造业",
+        "unit": null,
+        "values": [
+          99.8,
+          4.04
+        ]
+      },
+      {
+        "display_label": "非金属矿物制品业",
+        "group": null,
+        "label": "非金属矿物制品业",
+        "unit": null,
+        "values": [
+          16.23,
+          -9.34
+        ]
+      },
+      {
+        "display_label": "黑色金属冶炼及压延加工业",
+        "group": null,
+        "label": "黑色金属冶炼及压延加工业",
+        "unit": null,
+        "values": [
+          153.17,
+          -2.33
+        ]
+      },
+      {
+        "display_label": "电力、热力的生产和供应业",
+        "group": null,
+        "label": "电力、热力的生产和供应业",
+        "unit": null,
+        "values": [
+          110.15,
+          0.73
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

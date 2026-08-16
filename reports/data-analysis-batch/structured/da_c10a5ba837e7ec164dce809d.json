@@ -1,0 +1,395 @@
+{
+  "asset_id": "da_c10a5ba837e7ec164dce809d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "分组",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "营业收入",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "营业成本",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "总计",
+    "其中：采矿业",
+    "制造业",
+    "电力、热力、燃气及水生产和供应业",
+    "其中：国有控股企业",
+    "其中：股份制企业",
+    "外商及港澳台商投资企业",
+    "其中：私营企业"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "1-2",
+      "label": "1-2月 营业收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        147858.1,
+        6308.4,
+        129086.2,
+        12463.5,
+        42275.0,
+        105200.6,
+        33900.6,
+        43802.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "同比增长 营业收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        3.3,
+        3.8,
+        3.0,
+        5.9,
+        0.9,
+        4.9,
+        -1.2,
+        7.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "1-2",
+      "label": "1-2月 营业成本",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        124507.6,
+        4578.2,
+        108848.0,
+        11081.4,
+        34080.0,
+        88126.6,
+        28783.6,
+        38059.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "同比增长 营业成本",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        3.9,
+        7.0,
+        3.6,
+        5.7,
+        1.9,
+        5.6,
+        -0.6,
+        7.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "1-2",
+      "label": "1-2月 利润总额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        7080.1,
+        701.5,
+        5681.9,
+        696.7,
+        2223.7,
+        4936.9,
+        1773.7,
+        1889.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "同比增长 利润总额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -14.0,
+        -12.6,
+        -15.7,
+        0.9,
+        -24.2,
+        -13.5,
+        -14.5,
+        -5.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河北/2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0166_2c17ffa7a1bf858c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0166_2c17ffa7a1bf858c.png",
+        "paper_title": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）",
+        "question_id": "pq_126a7c65feb4d7fa2904",
+        "question_number": 116,
+        "source_jsonl_line": 55873
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0166_2c17ffa7a1bf858c.png",
+        "paper_title": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）",
+        "question_id": "pq_14bcc424d6e00c4804ea",
+        "question_number": 117,
+        "source_jsonl_line": 55874
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0166_2c17ffa7a1bf858c.png",
+        "paper_title": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）",
+        "question_id": "pq_5b7c0d42b01fe5ad8019",
+        "question_number": 118,
+        "source_jsonl_line": 55875
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0166_2c17ffa7a1bf858c.png",
+        "paper_title": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）",
+        "question_id": "pq_c21be431570617f7562f",
+        "question_number": 119,
+        "source_jsonl_line": 55876
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）_images/img_0166_2c17ffa7a1bf858c.png",
+        "paper_title": "2019年河北省公务员录用考试《行测》题（县级+乡镇）（网友回忆版）",
+        "question_id": "pq_260e13e2f348066ea52c",
+        "question_number": 120,
+        "source_jsonl_line": 55877
+      }
+    ],
+    "sha256": "c10a5ba837e7ec164dce809dbdfc6cf1ec785460c80541696713114dbda6fc9e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "分组",
+      "营业收入 1-2月 (亿元)",
+      "营业收入 同比增长 (%)",
+      "营业成本 1-2月 (亿元)",
+      "营业成本 同比增长 (%)",
+      "利润总额 1-2月 (亿元)",
+      "利润总额 同比增长 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "总计",
+        "unit": null,
+        "values": [
+          "总计",
+          147858.1,
+          3.3,
+          124507.6,
+          3.9,
+          7080.1,
+          -14.0
+        ]
+      },
+      {
+        "label": "其中：采矿业",
+        "unit": null,
+        "values": [
+          "其中：采矿业",
+          6308.4,
+          3.8,
+          4578.2,
+          7.0,
+          701.5,
+          -12.6
+        ]
+      },
+      {
+        "label": "制造业",
+        "unit": null,
+        "values": [
+          "制造业",
+          129086.2,
+          3.0,
+          108848.0,
+          3.6,
+          5681.9,
+          -15.7
+        ]
+      },
+      {
+        "label": "电力、热力、燃气及水生产和供应业",
+        "unit": null,
+        "values": [
+          "电力、热力、燃气及水生产和供应业",
+          12463.5,
+          5.9,
+          11081.4,
+          5.7,
+          696.7,
+          0.9
+        ]
+      },
+      {
+        "label": "其中：国有控股企业",
+        "unit": null,
+        "values": [
+          "其中：国有控股企业",
+          42275.0,
+          0.9,
+          34080.0,
+          1.9,
+          2223.7,
+          -24.2
+        ]
+      },
+      {
+        "label": "其中：股份制企业",
+        "unit": null,
+        "values": [
+          "其中：股份制企业",
+          105200.6,
+          4.9,
+          88126.6,
+          5.6,
+          4936.9,
+          -13.5
+        ]
+      },
+      {
+        "label": "外商及港澳台商投资企业",
+        "unit": null,
+        "values": [
+          "外商及港澳台商投资企业",
+          33900.6,
+          -1.2,
+          28783.6,
+          -0.6,
+          1773.7,
+          -14.5
+        ]
+      },
+      {
+        "label": "其中：私营企业",
+        "unit": null,
+        "values": [
+          "其中：私营企业",
+          43802.7,
+          7.1,
+          38059.4,
+          7.4,
+          1889.5,
+          -5.8
+        ]
+      }
+    ]
+  },
+  "title": "2019年1-2月份规模以上工业企业主要财务指标",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c10a5ba837e7ec164dce809d/row_band_01.jpg",
+        "review-crops/da_c10a5ba837e7ec164dce809d/row_band_02.jpg",
+        "review-crops/da_c10a5ba837e7ec164dce809d/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:18.147",
+      "crop_verification_elapsed_seconds:8.386",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:总计:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:总计:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:其中：采矿业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:制造业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:电力、热力、燃气及水生产和供应业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:其中：国有控股企业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:其中：股份制企业:6!=7",
+      "crop_note:注：经济类型分组之间存在交叉，故各经济类型企业数据之和大于总计。",
+      "crop_note:ignored_table_row_length_mismatch:其中：国有控股企业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:其中：股份制企业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:外商及港澳台商投资企业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:其中：私营企业:6!=7"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

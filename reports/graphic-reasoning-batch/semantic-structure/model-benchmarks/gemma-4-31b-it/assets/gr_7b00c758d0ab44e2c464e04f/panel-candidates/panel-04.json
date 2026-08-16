@@ -1,0 +1,71 @@
+{
+  "curves": [
+    {
+      "connects": "top_left to top_right",
+      "feat": [],
+      "k": "arc",
+      "reg": "center"
+    }
+  ],
+  "dots": [],
+  "facts": [
+    "A square frame contains a semi-circle at the top",
+    "Two horizontal lines divide the frame",
+    "A vertical line and a diagonal line are on the right side"
+  ],
+  "frame": {
+    "grid": null,
+    "k": "square"
+  },
+  "lines": [
+    {
+      "connects": "left_edge to circle_left",
+      "feat": [],
+      "ori": "horizontal",
+      "reg": "center"
+    },
+    {
+      "connects": "circle_right to right_edge",
+      "feat": [],
+      "ori": "horizontal",
+      "reg": "center"
+    },
+    {
+      "connects": "left_edge to right_edge",
+      "feat": [],
+      "ori": "horizontal",
+      "reg": "center"
+    },
+    {
+      "connects": "top_edge to mid_line",
+      "feat": [],
+      "ori": "vertical",
+      "reg": "center"
+    },
+    {
+      "connects": "mid_line to bottom_right_corner",
+      "feat": [],
+      "ori": "vertical",
+      "reg": "center"
+    },
+    {
+      "connects": "vertical_line to bottom_right_corner",
+      "feat": [],
+      "ori": "diagonal_down",
+      "reg": "center"
+    }
+  ],
+  "opt": null,
+  "p": 4,
+  "role": "stem",
+  "schema": "graphic-reasoning-regular-panel-v1",
+  "shapes": [],
+  "symbols": [],
+  "topo": [
+    6,
+    10,
+    4,
+    1
+  ],
+  "uncertain": []
+}

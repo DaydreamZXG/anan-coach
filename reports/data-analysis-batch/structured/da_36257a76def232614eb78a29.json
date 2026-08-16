@@ -1,0 +1,374 @@
+{
+  "asset_id": "da_36257a76def232614eb78a29",
+  "axes": {
+    "x": {
+      "max": 4,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 70000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000,
+          60000,
+          70000
+        ],
+        "title": null,
+        "unit": "人次"
+      }
+    ]
+  },
+  "categories": [
+    "一季度",
+    "二季度",
+    "三季度",
+    "四季度"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2022年",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "2023年",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": "square",
+        "stroke": "#D3D3D3"
+      }
+    },
+    {
+      "label": "2024年",
+      "style": {
+        "dash": "dashed",
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "2025年",
+      "style": {
+        "dash": "dashed",
+        "fill": "#F5F5F5",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2022",
+      "label": "2022年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人次",
+      "values": [
+        34658,
+        34027,
+        32610,
+        49702
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2023",
+      "label": "2023年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人次",
+      "values": [
+        47010,
+        49483,
+        49429,
+        39991
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2024",
+      "label": "2024年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人次",
+      "values": [
+        42504,
+        50055,
+        57725,
+        null
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2025",
+      "label": "2025年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人次",
+      "values": [
+        52802,
+        null,
+        null,
+        63193
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2026年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0088_831b8ba2312794b1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0088_831b8ba2312794b1.png",
+        "paper_title": "2026年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a424a31cfc6d66f876a5",
+        "question_number": 91,
+        "source_jsonl_line": 13807
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0093_caa1ee2bb8e57545.png",
+        "paper_title": "2026年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2c60549368ec02782198",
+        "question_number": 92,
+        "source_jsonl_line": 13808
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0093_caa1ee2bb8e57545.png",
+        "paper_title": "2026年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6af35b7194bdf0540b14",
+        "question_number": 93,
+        "source_jsonl_line": 13809
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0093_caa1ee2bb8e57545.png",
+        "paper_title": "2026年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_079e2dfc19ecb579cfff",
+        "question_number": 94,
+        "source_jsonl_line": 13810
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0093_caa1ee2bb8e57545.png",
+        "paper_title": "2026年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4b2f3717eea586019ed1",
+        "question_number": 95,
+        "source_jsonl_line": 13811
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0157_caa1ee2bb8e57545.png",
+        "paper_title": "2026年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4c3a823ff19e4729d415",
+        "question_number": 111,
+        "source_jsonl_line": 28760
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0157_caa1ee2bb8e57545.png",
+        "paper_title": "2026年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_acdbfda24f6df371931b",
+        "question_number": 112,
+        "source_jsonl_line": 28761
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0157_caa1ee2bb8e57545.png",
+        "paper_title": "2026年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f802579006ff33eb8a3a",
+        "question_number": 113,
+        "source_jsonl_line": 28762
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0157_caa1ee2bb8e57545.png",
+        "paper_title": "2026年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a41bd39d15f3a93032f9",
+        "question_number": 114,
+        "source_jsonl_line": 28763
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0169_831b8ba2312794b1.png",
+        "paper_title": "2026年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6edb4b704df239ca1f75",
+        "question_number": 115,
+        "source_jsonl_line": 28764
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0138_831b8ba2312794b1.png",
+        "paper_title": "2026年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0434cea76836917c534f",
+        "question_number": 116,
+        "source_jsonl_line": 33539
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0145_caa1ee2bb8e57545.png",
+        "paper_title": "2026年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1240fa5bbc44acd41e11",
+        "question_number": 117,
+        "source_jsonl_line": 33540
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0145_caa1ee2bb8e57545.png",
+        "paper_title": "2026年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6290f73a27be8db39a93",
+        "question_number": 118,
+        "source_jsonl_line": 33541
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0145_caa1ee2bb8e57545.png",
+        "paper_title": "2026年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fa192b79a47e6856a990",
+        "question_number": 119,
+        "source_jsonl_line": 33542
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0145_caa1ee2bb8e57545.png",
+        "paper_title": "2026年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5739bb4fd62137854c12",
+        "question_number": 120,
+        "source_jsonl_line": 33543
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）_images/img_0146_caa1ee2bb8e57545.png",
+        "paper_title": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_16b28038a5991630b388",
+        "question_number": 106,
+        "source_jsonl_line": 44361
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）_images/img_0146_caa1ee2bb8e57545.png",
+        "paper_title": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_8c670c142f62015c9fb8",
+        "question_number": 107,
+        "source_jsonl_line": 44362
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）_images/img_0146_caa1ee2bb8e57545.png",
+        "paper_title": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_f0488b814a8d4b1954e4",
+        "question_number": 108,
+        "source_jsonl_line": 44363
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）_images/img_0146_caa1ee2bb8e57545.png",
+        "paper_title": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_6f1321f6d45a9b49f9ec",
+        "question_number": 109,
+        "source_jsonl_line": 44364
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）_images/img_0146_caa1ee2bb8e57545.png",
+        "paper_title": "2026年新疆区考公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_c3e784f066986f3d5b48",
+        "question_number": 110,
+        "source_jsonl_line": 44365
+      }
+    ],
+    "sha256": "36257a76def232614eb78a296752939f3c0c9da115831b1cbb3e9a26074514ce"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2022-2025年Q市法律热线咨询量",
+  "unit": "人次",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_36257a76def232614eb78a29/column_band_01.jpg",
+        "review-crops/da_36257a76def232614eb78a29/column_band_02.jpg",
+        "review-crops/da_36257a76def232614eb78a29/column_band_03.jpg",
+        "review-crops/da_36257a76def232614eb78a29/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.498",
+      "crop_verification_elapsed_seconds:15.307",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:2024年和2025年在二季度和三季度的数据缺失，仅根据图表中可见的数值进行提取，未进行推断。",
+      "crop_note:修正了2022年一季度的数值为34658，原图中为34658。",
+      "crop_note:修正了2022年二季度的数值为34027，原图中为34027。",
+      "crop_note:修正了2022年三季度的数值为32610，原图中为32610。",
+      "crop_note:修正了2022年四季度的数值为49702，原图中为49702。",
+      "crop_note:修正了2023年一季度的数值为47010，原图中为47010。",
+      "crop_note:修正了2023年二季度的数值为49483，原图中为49483。",
+      "crop_note:修正了2023年三季度的数值为49429，原图中为49429。",
+      "crop_note:修正了2023年四季度的数值为39991，原图中为39991。",
+      "crop_note:修正了2024年一季度的数值为42504，原图中为42504。",
+      "crop_note:修正了2024年二季度的数值为50055，原图中为50055。",
+      "crop_note:修正了2024年三季度的数值为57725，原图中为57725。",
+      "crop_note:修正了2024年四季度的数值为null，原图中为null。",
+      "crop_note:修正了2025年一季度的数值为52802，原图中为52802。",
+      "crop_note:修正了2025年二季度的数值为null，原图中为null。",
+      "crop_note:修正了2025年三季度的数值为null，原图中为null。",
+      "crop_note:修正了2025年四季度的数值为63193，原图中为63193。",
+      "crop_note:确认所有缺失值保持为null，未补0。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

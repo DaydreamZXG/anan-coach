@@ -1,0 +1,202 @@
+{
+  "asset_id": "da_cc040100f0f4617b2e9f1e7f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2004,
+        2005,
+        2006,
+        2007,
+        2008
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 70000,
+        "min": 20000,
+        "ticks": [
+          20000,
+          30000,
+          40000,
+          50000,
+          60000,
+          70000
+        ],
+        "title": null,
+        "unit": "亿元"
+      },
+      {
+        "max": 30,
+        "min": 20,
+        "ticks": [
+          20,
+          22,
+          24,
+          26,
+          28,
+          30
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "投资完成额",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "增长率",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "投资完成额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        27000,
+        33000,
+        43000,
+        53000,
+        70000
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "增长率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        27,
+        25,
+        29,
+        25,
+        26
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/贵州/2010年贵州省公务员录用考试《行测》题_images/img_0198_d3465acf5e37affc.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0198_d3465acf5e37affc.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_918aec5878c3fa67e521",
+        "question_number": 121,
+        "source_jsonl_line": 80282
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0198_d3465acf5e37affc.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_47ec746205d5af138eb0",
+        "question_number": 122,
+        "source_jsonl_line": 80283
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0194_061695c9cba3447e.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_340eef47421e0c124b52",
+        "question_number": 123,
+        "source_jsonl_line": 80284
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0194_061695c9cba3447e.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_9d9fee47eea0f3f7deeb",
+        "question_number": 124,
+        "source_jsonl_line": 80285
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年贵州省公务员录用考试《行测》题_images/img_0194_061695c9cba3447e.png",
+        "paper_title": "2010年贵州省公务员录用考试《行测》题",
+        "question_id": "pq_07799398145d634c2142",
+        "question_number": 125,
+        "source_jsonl_line": 80286
+      }
+    ],
+    "sha256": "cc040100f0f4617b2e9f1e7f32e536028319facb0e4c024bf08c437a01cab744"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2004-2008年上半年全社会固定资产投资情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cc040100f0f4617b2e9f1e7f/column_band_01.jpg",
+        "review-crops/da_cc040100f0f4617b2e9f1e7f/column_band_02.jpg",
+        "review-crops/da_cc040100f0f4617b2e9f1e7f/column_band_03.jpg",
+        "review-crops/da_cc040100f0f4617b2e9f1e7f/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.864",
+      "crop_verification_elapsed_seconds:2.926",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

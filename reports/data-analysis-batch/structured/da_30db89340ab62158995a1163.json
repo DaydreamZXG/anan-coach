@@ -1,0 +1,298 @@
+{
+  "asset_id": "da_30db89340ab62158995a1163",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）_images/img_0079_ecee9feb431768a7.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）_images/img_0079_ecee9feb431768a7.jpg",
+        "paper_title": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）",
+        "question_id": "pq_563d3efe8d666759f4f6",
+        "question_number": 46,
+        "source_jsonl_line": 24548
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）_images/img_0079_ecee9feb431768a7.jpg",
+        "paper_title": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）",
+        "question_id": "pq_f61fcdce1cfe2a4672a9",
+        "question_number": 47,
+        "source_jsonl_line": 24549
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）_images/img_0079_ecee9feb431768a7.jpg",
+        "paper_title": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）",
+        "question_id": "pq_b4d465e02cf813b4e4c0",
+        "question_number": 48,
+        "source_jsonl_line": 24550
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）_images/img_0079_ecee9feb431768a7.jpg",
+        "paper_title": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）",
+        "question_id": "pq_8652a7c3f00d42eb5a8a",
+        "question_number": 49,
+        "source_jsonl_line": 24551
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）_images/img_0107_a264e290910b8103.jpg",
+        "paper_title": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）",
+        "question_id": "pq_fd3785edf0d7bdf614aa",
+        "question_number": 50,
+        "source_jsonl_line": 24552
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）_images/img_0080_ecee9feb431768a7.jpg",
+        "paper_title": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）",
+        "question_id": "pq_b06fdbded8b56094a729",
+        "question_number": 46,
+        "source_jsonl_line": 90831
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）_images/img_0078_a264e290910b8103.jpg",
+        "paper_title": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）",
+        "question_id": "pq_f5e6ca22f7005096fbb6",
+        "question_number": 47,
+        "source_jsonl_line": 90832
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）_images/img_0080_ecee9feb431768a7.jpg",
+        "paper_title": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）",
+        "question_id": "pq_d50b37e3b2f1f6aea583",
+        "question_number": 48,
+        "source_jsonl_line": 90833
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）_images/img_0080_ecee9feb431768a7.jpg",
+        "paper_title": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）",
+        "question_id": "pq_117b5babf9e07cf1e26a",
+        "question_number": 49,
+        "source_jsonl_line": 90834
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）_images/img_0080_ecee9feb431768a7.jpg",
+        "paper_title": "天津市选调2018年应届优秀大学毕业生到基层培养锻炼考试题（网友回忆版）",
+        "question_id": "pq_f38d020f39d2aecd2b5e",
+        "question_number": 50,
+        "source_jsonl_line": 90835
+      }
+    ],
+    "sha256": "30db89340ab62158995a11638596a0becbeb6a1640498cf99cfd1bb86de8c9b3"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2014年｜2014年年末数",
+          "2014年｜比重（%）"
+        ],
+        "label": "2014年"
+      },
+      {
+        "columns": [
+          "2015年｜2015年年末数",
+          "2015年｜比重（%）"
+        ],
+        "label": "2015年"
+      }
+    ],
+    "columns": [
+      "2014年｜2014年年末数",
+      "2014年｜比重（%）",
+      "2015年｜2015年年末数",
+      "2015年｜比重（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "地区总人口",
+        "group": null,
+        "label": "地区总人口",
+        "unit": "万人",
+        "values": [
+          4256,
+          100.0,
+          4306,
+          100.0
+        ]
+      },
+      {
+        "display_label": "其中：城镇",
+        "group": null,
+        "label": "其中：城镇",
+        "unit": "万人",
+        "values": [
+          1830,
+          43.0,
+          1908,
+          44.3
+        ]
+      },
+      {
+        "display_label": "乡村",
+        "group": null,
+        "label": "乡村",
+        "unit": "万人",
+        "values": [
+          2426,
+          57.0,
+          2398,
+          55.7
+        ]
+      },
+      {
+        "display_label": "其中：男性",
+        "group": null,
+        "label": "其中：男性",
+        "unit": "万人",
+        "values": [
+          2192,
+          51.5,
+          2243,
+          52.1
+        ]
+      },
+      {
+        "display_label": "女性",
+        "group": null,
+        "label": "女性",
+        "unit": "万人",
+        "values": [
+          2064,
+          48.5,
+          2063,
+          47.9
+        ]
+      },
+      {
+        "display_label": "其中：0-15岁",
+        "group": null,
+        "label": "其中：0-15岁",
+        "unit": "万人",
+        "values": [
+          864,
+          20.3,
+          784,
+          18.2
+        ]
+      },
+      {
+        "display_label": "16-25岁",
+        "group": null,
+        "label": "16-25岁",
+        "unit": "万人",
+        "values": [
+          919,
+          21.6,
+          835,
+          19.4
+        ]
+      },
+      {
+        "display_label": "26-35岁",
+        "group": null,
+        "label": "26-35岁",
+        "unit": "万人",
+        "values": [
+          856,
+          20.1,
+          887,
+          20.6
+        ]
+      },
+      {
+        "display_label": "36-50岁",
+        "group": null,
+        "label": "36-50岁",
+        "unit": "万人",
+        "values": [
+          821,
+          19.3,
+          891,
+          20.7
+        ]
+      },
+      {
+        "display_label": "51-65岁",
+        "group": null,
+        "label": "51-65岁",
+        "unit": "万人",
+        "values": [
+          468,
+          11.0,
+          556,
+          12.9
+        ]
+      },
+      {
+        "display_label": "66岁以上",
+        "group": null,
+        "label": "66岁以上",
+        "unit": "万人",
+        "values": [
+          328,
+          7.7,
+          353,
+          8.2
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

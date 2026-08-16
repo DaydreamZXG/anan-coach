@@ -1,0 +1,180 @@
+{
+  "asset_id": "da_03171c34c0d062dc65ade537",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "季度",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 5000,
+        "min": -1000,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000
+        ],
+        "title": "GDP增长",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "第一季度",
+    "第二季度",
+    "第三季度",
+    "第四季度"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.85,
+  "legend": [
+    {
+      "label": "实际GDP",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "名义GDP",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "GDP",
+      "label": "实际GDP",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1200,
+        2500,
+        1800,
+        4500
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "GDP",
+      "label": "名义GDP",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1000,
+        2300,
+        1600,
+        4300
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/宁夏/2025年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0133_ec4a2a1a489d6e8c.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0133_ec4a2a1a489d6e8c.png",
+        "paper_title": "2025年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ed7b0a799017a4f6e415",
+        "question_number": 110,
+        "source_jsonl_line": 26480
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0175_ec4a2a1a489d6e8c.png",
+        "paper_title": "2025年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_08c4c454bf6c02d7f088",
+        "question_number": 110,
+        "source_jsonl_line": 39906
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0189_ec4a2a1a489d6e8c.png",
+        "paper_title": "2025年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9d183a74e6d15d7d553d",
+        "question_number": 120,
+        "source_jsonl_line": 59417
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0159_ec4a2a1a489d6e8c.png",
+        "paper_title": "2025年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cc50542f117d0c8e0d3f",
+        "question_number": 120,
+        "source_jsonl_line": 76055
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0184_d8906b42b956addb.png",
+        "paper_title": "2025年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e347dfcf88fc5f10a68e",
+        "question_number": 110,
+        "source_jsonl_line": 81945
+      }
+    ],
+    "sha256": "03171c34c0d062dc65ade53756d4e5e228a59893468efe49482326b385f3894b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2023年各季度GDP增长情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_03171c34c0d062dc65ade537/column_band_01.jpg",
+        "review-crops/da_03171c34c0d062dc65ade537/column_band_02.jpg",
+        "review-crops/da_03171c34c0d062dc65ade537/column_band_03.jpg",
+        "review-crops/da_03171c34c0d062dc65ade537/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.315",
+      "crop_verification_elapsed_seconds:5.206",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:Y轴刻度值为估算，未明确标出",
+      "model_uncertainty:数据单位未在图中明确标注，仅根据上下文推断"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.85,
+    "schema_valid": true
+  }
+}

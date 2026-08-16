@@ -1,0 +1,246 @@
+{
+  "asset_id": "da_8e0369c10efbcad5d44e8b36",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0192_429737d2f8335733.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0192_429737d2f8335733.png",
+        "paper_title": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_be3e0ad131caf6b805e8",
+        "question_number": 96,
+        "source_jsonl_line": 16111
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0208_9f1e0d496868b950.png",
+        "paper_title": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_f8b0d509143670ec4e6c",
+        "question_number": 97,
+        "source_jsonl_line": 16112
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0192_429737d2f8335733.png",
+        "paper_title": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_1ff0a3ac0e6e94f9f294",
+        "question_number": 98,
+        "source_jsonl_line": 16113
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0192_429737d2f8335733.png",
+        "paper_title": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_eb6986f32a6ac55b7407",
+        "question_number": 99,
+        "source_jsonl_line": 16114
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）_images/img_0208_9f1e0d496868b950.png",
+        "paper_title": "2019年四川省公务员录用考试《行测》题（下半年）（网友回忆版）",
+        "question_id": "pq_d05033042879a15a59ad",
+        "question_number": 100,
+        "source_jsonl_line": 16115
+      }
+    ],
+    "sha256": "8e0369c10efbcad5d44e8b363487587b2e03d34a1e9591ef645518c061eaeffc"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2018年1~2月｜数量",
+          "2018年1~2月｜增速"
+        ],
+        "label": "2018年1~2月"
+      },
+      {
+        "columns": [
+          "2017年1季度｜数量",
+          "2017年1季度｜增速"
+        ],
+        "label": "2017年1季度"
+      }
+    ],
+    "columns": [
+      "2018年1~2月｜数量",
+      "2018年1~2月｜增速",
+      "2017年1季度｜数量",
+      "2017年1季度｜增速"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "乘用车",
+    "rows": [
+      {
+        "display_label": "乘用车｜产量",
+        "group": null,
+        "label": "乘用车｜产量",
+        "unit": null,
+        "values": [
+          377.0,
+          -3.8,
+          610.7,
+          7.2
+        ]
+      },
+      {
+        "display_label": "乘用车｜销量",
+        "group": null,
+        "label": "乘用车｜销量",
+        "unit": null,
+        "values": [
+          393.2,
+          2.1,
+          594.7,
+          5.1
+        ]
+      },
+      {
+        "display_label": "其中：轿车｜产量",
+        "group": null,
+        "label": "其中：轿车｜产量",
+        "unit": null,
+        "values": [
+          174.9,
+          -6.6,
+          291.3,
+          2.0
+        ]
+      },
+      {
+        "display_label": "其中：轿车｜销量",
+        "group": null,
+        "label": "其中：轿车｜销量",
+        "unit": null,
+        "values": [
+          183.6,
+          -0.7,
+          284.0,
+          0.8
+        ]
+      },
+      {
+        "display_label": "多功能乘用车（MPV）｜产量",
+        "group": null,
+        "label": "多功能乘用车（MPV）｜产量",
+        "unit": null,
+        "values": [
+          29.3,
+          -16.6,
+          55.5,
+          -15.9
+        ]
+      },
+      {
+        "display_label": "多功能乘用车（MPV）｜销量",
+        "group": null,
+        "label": "多功能乘用车（MPV）｜销量",
+        "unit": null,
+        "values": [
+          30.0,
+          -15.3,
+          55.3,
+          -17.4
+        ]
+      },
+      {
+        "display_label": "运动型多用途乘用车（SUV）｜产量",
+        "group": null,
+        "label": "运动型多用途乘用车（SUV）｜产量",
+        "unit": null,
+        "values": [
+          167.3,
+          4.5,
+          249.5,
+          27.5
+        ]
+      },
+      {
+        "display_label": "运动型多用途乘用车（SUV）｜销量",
+        "group": null,
+        "label": "运动型多用途乘用车（SUV）｜销量",
+        "unit": null,
+        "values": [
+          173.4,
+          11.6,
+          238.6,
+          22.0
+        ]
+      },
+      {
+        "display_label": "交叉型乘用车｜产量",
+        "group": null,
+        "label": "交叉型乘用车｜产量",
+        "unit": null,
+        "values": [
+          5.4,
+          -41.9,
+          14.5,
+          -35.1
+        ]
+      },
+      {
+        "display_label": "交叉型乘用车｜销量",
+        "group": null,
+        "label": "交叉型乘用车｜销量",
+        "unit": null,
+        "values": [
+          6.1,
+          -34.7,
+          16.9,
+          -22.8
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

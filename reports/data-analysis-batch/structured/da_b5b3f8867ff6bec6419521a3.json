@@ -1,0 +1,337 @@
+{
+  "asset_id": "da_b5b3f8867ff6bec6419521a3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0206_31eea7132eb5307c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0206_31eea7132eb5307c.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_88269e28a5e74e37fbac",
+        "question_number": 116,
+        "source_jsonl_line": 48296
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0212_92bd4b09f3714f43.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_540350d639973a85fa47",
+        "question_number": 117,
+        "source_jsonl_line": 48297
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0206_31eea7132eb5307c.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_3b9960510aed7ef403e9",
+        "question_number": 118,
+        "source_jsonl_line": 48298
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0206_31eea7132eb5307c.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_08bd1c89487991973f10",
+        "question_number": 119,
+        "source_jsonl_line": 48299
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0212_92bd4b09f3714f43.png",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_5b39036f390e817e1684",
+        "question_number": 120,
+        "source_jsonl_line": 48300
+      }
+    ],
+    "sha256": "b5b3f8867ff6bec6419521a333b644fc013a1714d6c8ef095ab02e9241875de0"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "全省｜第1列",
+      "全省｜第2列",
+      "苏南｜第3列",
+      "苏南｜第4列",
+      "苏北｜第5列",
+      "苏北｜第6列"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类比",
+    "rows": [
+      {
+        "display_label": "性别",
+        "group": null,
+        "label": "性别",
+        "unit": null,
+        "values": [
+          49.2,
+          50.8,
+          51.7,
+          48.3,
+          50.2,
+          49.8
+        ]
+      },
+      {
+        "display_label": "年龄｜35岁及以下",
+        "group": null,
+        "label": "年龄｜35岁及以下",
+        "unit": null,
+        "values": [
+          10.0,
+          10.1,
+          4.5,
+          4.0,
+          13.9,
+          13.9
+        ]
+      },
+      {
+        "display_label": "年龄｜36-54岁",
+        "group": null,
+        "label": "年龄｜36-54岁",
+        "unit": null,
+        "values": [
+          41.3,
+          48.7,
+          40.4,
+          36.3,
+          43.6,
+          42.5
+        ]
+      },
+      {
+        "display_label": "年龄｜55岁及以上",
+        "group": null,
+        "label": "年龄｜55岁及以上",
+        "unit": null,
+        "values": [
+          48.7,
+          48.7,
+          55.1,
+          59.7,
+          42.5,
+          42.5
+        ]
+      },
+      {
+        "display_label": "受教育程度｜未上学",
+        "group": null,
+        "label": "受教育程度｜未上学",
+        "unit": null,
+        "values": [
+          8.2,
+          6.0,
+          8.7,
+          8.7,
+          8.5,
+          8.5
+        ]
+      },
+      {
+        "display_label": "受教育程度｜小学",
+        "group": null,
+        "label": "受教育程度｜小学",
+        "unit": null,
+        "values": [
+          36.0,
+          36.0,
+          37.4,
+          41.3,
+          33.4,
+          33.4
+        ]
+      },
+      {
+        "display_label": "受教育程度｜初中",
+        "group": null,
+        "label": "受教育程度｜初中",
+        "unit": null,
+        "values": [
+          46.4,
+          46.4,
+          44.9,
+          41.6,
+          48.9,
+          48.9
+        ]
+      },
+      {
+        "display_label": "受教育程度｜高中或中专",
+        "group": null,
+        "label": "受教育程度｜高中或中专",
+        "unit": null,
+        "values": [
+          8.2,
+          8.2,
+          9.9,
+          7.4,
+          8.1,
+          8.1
+        ]
+      },
+      {
+        "display_label": "受教育程度｜大专及以上",
+        "group": null,
+        "label": "受教育程度｜大专及以上",
+        "unit": null,
+        "values": [
+          1.2,
+          1.2,
+          1.8,
+          1.0,
+          1.1,
+          1.1
+        ]
+      },
+      {
+        "display_label": "行业｜种植业",
+        "group": null,
+        "label": "行业｜种植业",
+        "unit": null,
+        "values": [
+          94.7,
+          94.7,
+          89.5,
+          94.2,
+          96.1,
+          96.1
+        ]
+      },
+      {
+        "display_label": "行业｜林业",
+        "group": null,
+        "label": "行业｜林业",
+        "unit": null,
+        "values": [
+          0.6,
+          0.6,
+          2.0,
+          0.6,
+          0.3,
+          0.3
+        ]
+      },
+      {
+        "display_label": "行业｜畜牧业",
+        "group": null,
+        "label": "行业｜畜牧业",
+        "unit": null,
+        "values": [
+          1.7,
+          1.7,
+          2.1,
+          1.9,
+          1.6,
+          1.6
+        ]
+      },
+      {
+        "display_label": "行业｜渔业",
+        "group": null,
+        "label": "行业｜渔业",
+        "unit": null,
+        "values": [
+          2.0,
+          2.0,
+          4.9,
+          2.3,
+          1.2,
+          1.2
+        ]
+      },
+      {
+        "display_label": "行业｜农林牧服务业主",
+        "group": null,
+        "label": "行业｜农林牧服务业主",
+        "unit": null,
+        "values": [
+          1.0,
+          1.0,
+          1.5,
+          1.0,
+          0.8,
+          0.8
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": "表2016年江苏农业生产经营人员构成情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b5b3f8867ff6bec6419521a3/row_band_01.jpg",
+        "review-crops/da_b5b3f8867ff6bec6419521a3/row_band_02.jpg",
+        "review-crops/da_b5b3f8867ff6bec6419521a3/row_band_03.jpg",
+        "review-crops/da_b5b3f8867ff6bec6419521a3/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.167",
+      "crop_verification_elapsed_seconds:3.475",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:表头中'全省'出现两次，可能为数据录入错误或格式问题，需确认是否应为'苏南'、'苏中'、'苏北'的对应列",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_table_cell:年龄:35岁及以下",
+      "crop_note:ignored_unknown_table_cell:年龄:36-54岁",
+      "crop_note:ignored_unknown_table_cell:年龄:55岁及以上",
+      "crop_note:ignored_unknown_table_cell:受教育程度:未上学",
+      "crop_note:ignored_unknown_table_cell:受教育程度:小学",
+      "crop_note:ignored_unknown_table_cell:受教育程度:初中",
+      "crop_note:ignored_unknown_table_cell:受教育程度:高中或中专",
+      "crop_note:ignored_unknown_table_cell:受教育程度:大专及以上",
+      "crop_note:ignored_unknown_table_cell:行业:种植业",
+      "crop_note:ignored_unknown_table_cell:行业:林业",
+      "crop_note:ignored_unknown_table_cell:行业:畜牧业",
+      "crop_note:ignored_unknown_table_cell:行业:渔业",
+      "crop_note:ignored_unknown_table_cell:行业:农林牧服务业",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

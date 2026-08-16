@@ -1,0 +1,108 @@
+{
+  "asset_id": "da_b2f306fd4873846d34237541",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2020年12月",
+    "2021年1月",
+    "2021年2月"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": null,
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        null,
+        null,
+        null
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0166_0ca09c3a0f593a36.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0166_0ca09c3a0f593a36.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_dac7a12c1739c29ed471",
+        "question_number": 135,
+        "source_jsonl_line": 20065
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0160_0ca09c3a0f593a36.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_e249c3dd4b0c2ef727de",
+        "question_number": 130,
+        "source_jsonl_line": 20195
+      }
+    ],
+    "sha256": "b2f306fd4873846d342375416056d6d6ced3a01558e921cf9484e385bf5f2fae"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b2f306fd4873846d34237541/column_band_01.jpg",
+        "review-crops/da_b2f306fd4873846d34237541/column_band_02.jpg",
+        "review-crops/da_b2f306fd4873846d34237541/column_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.11",
+      "crop_verification_elapsed_seconds:0.992",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:数值未明确标出，仅能从柱状图高度推断",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,318 @@
+{
+  "asset_id": "da_1ad87cec1ab81898463d6ae1",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "全球产业规模",
+        "unit": "(亿美元)"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "中国产业规模",
+        "unit": "(亿元)"
+      }
+    ]
+  },
+  "categories": [
+    "2022年",
+    "2023年",
+    "2024年"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "全球产业规模-数值",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(亿美元)",
+      "values": [
+        4179.0,
+        4316.9,
+        4550.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "全球产业规模-同比增长",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(%)",
+      "values": [
+        3.9,
+        3.3,
+        5.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "中国产业规模-数值",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(亿元)",
+      "values": [
+        9919.3,
+        10630.0,
+        11787.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "中国产业规模-同比增长",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(%)",
+      "values": [
+        7.1,
+        7.2,
+        10.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0121_a65a1b3d5ea00e09.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0121_a65a1b3d5ea00e09.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_3dff8cbc3c112287d46e",
+        "question_number": 106,
+        "source_jsonl_line": 64423
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0123_574d6481ec9e603d.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_c948c0570736045547ed",
+        "question_number": 107,
+        "source_jsonl_line": 64424
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0121_a65a1b3d5ea00e09.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_fa354d98e33507e43930",
+        "question_number": 108,
+        "source_jsonl_line": 64425
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0123_574d6481ec9e603d.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_825048c2ee6467fbf8fb",
+        "question_number": 109,
+        "source_jsonl_line": 64426
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0121_a65a1b3d5ea00e09.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_b1030d719b80f2d1f652",
+        "question_number": 110,
+        "source_jsonl_line": 64427
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0118_574d6481ec9e603d.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_6ea83e22e7cff852d026",
+        "question_number": 101,
+        "source_jsonl_line": 64538
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0125_a65a1b3d5ea00e09.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_f82813b203a613ddd071",
+        "question_number": 102,
+        "source_jsonl_line": 64539
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0118_574d6481ec9e603d.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_0e488373d9c57c8d03dd",
+        "question_number": 103,
+        "source_jsonl_line": 64540
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0118_574d6481ec9e603d.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_831bdd54b8237c7c08cf",
+        "question_number": 104,
+        "source_jsonl_line": 64541
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0118_574d6481ec9e603d.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_ee7949ffbfc5373ecd9b",
+        "question_number": 105,
+        "source_jsonl_line": 64542
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0092_a65a1b3d5ea00e09.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_a7912aa2bb0ef04b40db",
+        "question_number": 96,
+        "source_jsonl_line": 64648
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0101_574d6481ec9e603d.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_ac750f04cc64c2a70e3d",
+        "question_number": 97,
+        "source_jsonl_line": 64649
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0092_a65a1b3d5ea00e09.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_7f74fbc83523dccc2823",
+        "question_number": 98,
+        "source_jsonl_line": 64650
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0092_a65a1b3d5ea00e09.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_9d2248a9cdc09c1c3600",
+        "question_number": 99,
+        "source_jsonl_line": 64651
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0092_a65a1b3d5ea00e09.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_2b6ee8b0cb69707d8698",
+        "question_number": 100,
+        "source_jsonl_line": 64652
+      }
+    ],
+    "sha256": "1ad87cec1ab81898463d6ae187c99221d38e170a369a24d5ce4e27d89c8ad4de"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "全球产业规模-数值(亿美元)",
+      "全球产业规模-同比增长(%)",
+      "中国产业规模-数值(亿元)",
+      "中国产业规模-同比增长(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2022年",
+        "unit": null,
+        "values": [
+          "2022年",
+          4179.0,
+          3.9,
+          9919.3,
+          7.1
+        ]
+      },
+      {
+        "label": "2023年",
+        "unit": null,
+        "values": [
+          "2023年",
+          4316.9,
+          3.3,
+          10630.0,
+          7.2
+        ]
+      },
+      {
+        "label": "2024年",
+        "unit": null,
+        "values": [
+          "2024年",
+          4550.3,
+          5.4,
+          11787.7,
+          10.9
+        ]
+      }
+    ]
+  },
+  "title": "2022-2024年全球及中国化工新材料产业规模及同比增速",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1ad87cec1ab81898463d6ae1/row_band_01.jpg",
+        "review-crops/da_1ad87cec1ab81898463d6ae1/row_band_02.jpg",
+        "review-crops/da_1ad87cec1ab81898463d6ae1/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.59",
+      "crop_verification_elapsed_seconds:8.575",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

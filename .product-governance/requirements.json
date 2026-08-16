@@ -2,6 +2,24 @@
   "schemaVersion": 1,
   "requirements": [
     {
+      "id": "REQ-DATA-VISUAL-ZERO-UNSUPPORTED-001",
+      "statement": "资料分析图片全量批处理必须为每个资产生成可由小程序结构化视觉组件确定性渲染的版本化 payload，不得保留 unsupported、needs_review、failed 或以原始栅格图作为背景的隐式回退。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "data_analysis_visual_assets",
+      "evidenceRefs": [
+        "E-USER-DATA-VISUAL-ZERO-UNSUPPORTED-001",
+        "E-CODE-DATA-VISUAL-BASELINE-001"
+      ],
+      "acceptance": [
+        "inventory.json 显示 1486 success、0 unsupported、0 needs_manual_review、0 failed。",
+        "原 63 张 unsupported 资产均含有 graphic-primitives-v2 或已注册的统计图 payload，通过 JSON Schema 与小程序同级复杂度限制。",
+        "每张转换保留 source sha256、抽取方法、确定性渲染对比与可机械检查的前景差异证据。",
+        "不修改实际业务页、后端、数据库、路由、部署或上传状态。"
+      ]
+    },
+    {
       "id": "REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001",
       "statement": "reflection、me 与 private-knowledge 的异步页面状态只能由当前页面实例且 userId、accessToken、generation 全部匹配的可见 session owner 更新；更新的 onShow、onHide、onUnload 或账号切换必须使旧响应与资源失效。",
       "scope": "target",
@@ -52,6 +70,908 @@
         "长期记忆关闭后不出现在岸岸供应商请求中；重新开启后恢复。",
         "管理页明确区分 2 小时短期对话和长期偏好，在 loading、empty、error、conflict 和 recovery 状态给出可操作的下一步。",
         "隐私概览计数包含长期记忆与短期对话，导出载荷包含其完整记录。"
+      ]
+    },
+    {
+      "id": "REQ-ANAN-SILENT-ENTRY-001",
+      "statement": "小程序启动后必须自动恢复或建立微信身份，不展示登录按钮、游客身份或条款勾选门槛；新用户直接进入现有第一步信息收集，老用户直接进入今日，失败时只提供重新进入岸岸的恢复动作。",
+      "scope": "target",
+      "impact": "high",
+      "state": "retired",
+      "owner": "wechat_coach_orchestration",
+      "evidenceRefs": ["E-USER-ANAN-COACH-LOOP-001", "E-CODE-SILENT-WECHAT-ENTRY-001"],
+      "acceptance": [
+        "已有有效会话自动恢复并进入服务端指定下一步，workspace 用户的安全 returnTo 仍被保留。",
+        "无会话时自动调用微信登录且 legalAccepted=false，不生成虚假的条款接受事实。",
+        "preparation_experience 新用户直接进入现有信息收集页，不经过说明型 onboarding entry 页面。",
+        "恢复遇到瞬时错误时不重复创建登录；失效会话允许自动重新认证；失败页无游客和登录按钮。"
+      ]
+    },
+    {
+      "id": "REQ-ANAN-COACH-LOOP-001",
+      "statement": "今日的岸岸建议卡必须用已有仪表盘与活动任务事实呈现判断、原因、立即行动、完成标准和完成后反馈承诺，任务执行更新后重新投影下一轮，不新增平行后端状态。",
+      "scope": "target",
+      "impact": "high",
+      "state": "retired",
+      "owner": "wechat_coach_orchestration",
+      "evidenceRefs": ["E-USER-ANAN-COACH-LOOP-001", "E-CODE-TODAY-LOOP-DATA-001"],
+      "acceptance": [
+        "首个活动任务确定性映射循环阶段、状态标签、原因、行动、完成标准和反馈承诺。",
+        "practice、reflection、verification、essay 与 in_progress 均给出匹配的反馈文案。",
+        "缺失字段不被编造为零或伪事实，投影不改变输入仪表盘对象。",
+        "紫色渐变图标、极光背景和黑色主按钮保持不变。"
+      ]
+    },
+    {
+      "id": "REQ-ANAN-SINGLE-COACH-VOICE-001",
+      "statement": "所有面向用户的智能建议、问答和申论能力入口只使用岸岸这一教练身份；内部 position、tutor、planner 和 essay 路由身份不得作为产品角色暴露，但原始路由事实必须保留供系统使用。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "wechat_coach_orchestration",
+      "evidenceRefs": ["E-USER-ANAN-COACH-LOOP-001", "E-CODE-VISIBLE-AGENT-LABELS-001"],
+      "acceptance": [
+        "companion 响应无论由哪个内部角色处理，用户看到的 agentLabel 都是岸岸。",
+        "申论能力入口不再出现 Agent 字样并统一以岸岸命名。",
+        "respondingAgent 等内部路由字段仍原样保留，不改变后端编排。"
+      ]
+    },
+    {
+      "id": "REQ-ANAN-COACH-ENTRY-002",
+      "statement": "小程序静默恢复或建立微信身份后，已完成 onboarding 的用户直接进入今日；未完成用户先进入第一次教练会谈并选择成绩单、错题、约 20 分钟快速诊断或先选岗位，再复用现有证据和资料流程渐进补全信息。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "wechat_coach_orchestration",
+      "evidenceRefs": ["E-USER-ANAN-GOLDEN-LOOP-002", "E-CODE-ANAN-COLD-START-ROUTES-002", "E-CODE-SILENT-WECHAT-ENTRY-001"],
+      "acceptance": [
+        "静默身份入口不展示登录、游客或条款勾选门槛，legalAccepted=false 的事实边界不变。",
+        "preparation_experience 进入 onboarding entry，而不是跳过认识方式直接进入建档表单。",
+        "四种认识方式均指向已注册且可执行的现有流程；选择按 user_id 保存，不跨账号泄漏。",
+        "成绩或外部真实作答确认后可继续第一次教练会谈；参考答案本身不冒充用户能力证据。",
+        "界面明确快速诊断只用于决定先从哪里开始，不声称一次诊断覆盖完整能力。"
+      ]
+    },
+    {
+      "id": "REQ-ANAN-EVIDENCE-LEVEL-002",
+      "statement": "岸岸必须依据学习大脑的权威证据计数和稳定掌握事实，将对用户的认识确定性投影为刚认识、形成初步判断、正在验证或比较了解，不展示无来源的小数能力值，不把缺失证据当作零能力。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "wechat_coach_orchestration",
+      "evidenceRefs": ["E-USER-ANAN-GOLDEN-LOOP-002", "E-CODE-ANAN-BRAIN-EVIDENCE-002"],
+      "acceptance": [
+        "没有真实证据时显示刚认识并公开局限，不假装精准。",
+        "出现成绩、真实作答或外部作答后形成初步判断；任务执行或掌握证据出现后进入验证。",
+        "至少一个模块的 stableMasteryCount 大于零时才显示比较了解。",
+        "画像加载失败时退回明确的证据待同步状态，不编造认识等级或观察。"
+      ]
+    },
+    {
+      "id": "REQ-ANAN-VERIFIABLE-COACH-LOOP-002",
+      "statement": "今日现有岸岸建议必须在同一卡片内呈现观察、暂时判断、今日行动、完成标准、验证方式和判断不成立时的校正；任务返回后还必须用任务执行、画像证据和计划版本的真实差异展示岸岸学到了什么以及下一步如何变化。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "wechat_coach_orchestration",
+      "evidenceRefs": ["E-USER-ANAN-GOLDEN-LOOP-002", "E-CODE-TODAY-LOOP-DATA-001", "E-CODE-ANAN-POST-TASK-GAP-002"],
+      "acceptance": [
+        "不新增平行卡片或平行计划、能力、错因、任务状态；现有紫色渐变图标、极光背景和黑色主按钮保持。",
+        "任务前快照按 user_id 保存；账号切换、损坏或过期快照不得显示成当前反馈。",
+        "练后反馈只报告可验证的任务状态、证据计数、画像版本、计划版本和当前下一任务差异；没有变化时明确仍在等待证据。",
+        "practice、reflection、verification、mock_exam 与 essay 都有对应验证口径，判断不成立时明确会收回并重排。"
+      ]
+    },
+    {
+      "id": "REQ-ANAN-DAILY-BRAIN-SUGGESTION-002",
+      "statement": "今日首次进入必须以不阻断主页面的方式触发学习大脑按用户按日幂等的策略建议；建议保持待确认候选并在现有岸岸建议中让用户确认或拒绝，确认前不得改变计划，供应商或证据失败时今日仍可使用。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "learning_brain_coach_suggestion",
+      "evidenceRefs": ["E-USER-ANAN-GOLDEN-LOOP-002", "E-CODE-ANAN-DAILY-TRIGGER-GAP-002"],
+      "acceptance": [
+        "同一用户同一自然日的重放和并发触发不重复生成候选或调用推断。",
+        "响应只返回该用户的候选，候选保持 awaiting_confirmation；确认或拒绝继续使用现有 revision/候选版本约束。",
+        "AI 配置、供应商、证据或未预期错误被静默降级为 unavailable，不回滚或阻断今日主流程。",
+        "今日只在首屏先渲染后异步获取建议，加载和裁决失败给出可恢复文案。"
+      ]
+    },
+    {
+      "id": "REQ-TEACHING-PACKAGE-MULTI-EXAM-001",
+      "statement": "教学包编译必须以显式考试项目、地区、年度、类别和科目范围为边界，统一支持国考、省考和事业编；方法允许复用但必须存在目标范围的已审核绑定，缺少绑定、可靠答案解析、内容质量、权利或两道不同未曝光迁移题时必须返回不可教学，绝不得静默回退到国考或跨范围拼包。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "teaching_package_compilation",
+      "evidenceRefs": [
+        "E-USER-TEACHING-PACKAGE-MULTI-EXAM-001",
+        "E-CODE-TEACHING-PACKAGE-SCOPE-GAP-001"
+      ],
+      "acceptance": [
+        "同一编译契约接受 guokao、shengkao 和 sydw 目标范围，不包含考试项目专用分支接口。",
+        "国考方法绑定不能编译省考或事业编教学包；同一方法新增目标范围的已审核绑定后才可复用。",
+        "题目考试范围必须与目标精确一致，学生复现题、用户迁移题和原错题三者不同且均未曝光。",
+        "缺少发布状态、方法边界、答案解析、质量、权利、视觉可用性或证据引用时返回稳定失败原因且不产生部分教学包。",
+        "同一输入产生相同 canonical fingerprint；输入对象不被修改。",
+        "本单元只提供只读编译器，不迁移数据库、不调用模型、不改变掌握、计划、错因或前端。"
+      ]
+    },
+    {
+      "id": "REQ-TEACHING-PACKAGE-LIGHTWEIGHT-REUSE-002",
+      "statement": "国考、省考和事业单位客观题共用一套教学包编译器和现有方法卡；方法卡默认可跨考试复用，只在内容明确声明目标考试不适用时阻断。编译器仅对本轮题目的微技能、未曝光、题目去重、答案与解析完整性做轻量确定性检查，不要求每个地区、年份或考试项目重复审批方法。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "teaching_package_compilation",
+      "evidenceRefs": [
+        "E-USER-TEACHING-PACKAGE-REUSE-002",
+        "E-CODE-TEACHING-PACKAGE-SCOPE-GAP-001"
+      ],
+      "acceptance": [
+        "同一张现有方法卡在未列入明确排除考试时，可为 guokao、shengkao 和 sydw 编译教学包。",
+        "方法卡的 draft、tested_count、reviewer 和 reviewed_at 历史字段不是教学包编译阻断项。",
+        "一张方法卡可显式排除某考试项目；只有该显式例外能产生 METHOD_EXCLUDED_FOR_EXAM。",
+        "题 A、题 B 与原题三者不同，题 A/B 未曝光、微技能匹配且答案解析非空；不满足时无部分教学包。",
+        "题目的来源考试范围只用于追溯，不因来源为国考而阻断将同一微技能用于省考或事业单位。",
+        "编译仍是无数据库、无网络、无 AI 和无业务事实写入的确定性纯函数。"
+      ]
+    },
+    {
+      "id": "REQ-TEACH-BACK-SHADOW-001",
+      "statement": "学生岸岸必须使用与后台依据核验隔离的上下文：学生上下文只含用户讲解和题 A 安全题面，必须按用户讲出的步骤复述和尝试，缺步骤时停下并只问一个关键问题；不得接收方法卡、答案、解析、掌握或能力结论。后台核验才可读取教学包依据，输出仅是不写业务事实的影子候选。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "teach_back_shadow",
+      "evidenceRefs": ["E-USER-TEACH-BACK-STUDENT-001", "E-USER-TEACHING-PACKAGE-REUSE-002"],
+      "acceptance": [
+        "学生请求序列化结果中不出现 answerKey、explanation、methodSteps、pitfalls、mastery 或 ability。",
+        "系统提示词明确要求对本轮方法一无所知、禁止自有知识补齐，缺步骤时只问一个问题。",
+        "空白或过短讲解在调用模型前返回 needs_explanation，不生成伪复现。",
+        "学生输出只允许 reproduced 或 blocked；blocked 必须恰有一个追问，reproduced 必须有复述步骤。",
+        "后台核验中的每个结论只能引用本轮允许的方法步骤或题 A 答案依据；越界引用导致整份候选不可展示。",
+        "本单元不调用线上 provider、不持久化会话、不接前端、不写掌握或计划。"
+      ]
+    },
+    {
+      "id": "REQ-TEACH-BACK-PROVIDER-SHADOW-002",
+      "statement": "讲给岸岸的模型影子运行必须消费已冻结的双上下文请求，使用项目现有 OpenAI-compatible 传输、幂等、请求审计、token 和成本组件，以两次物理分离的调用获得学生复现与依据核验影子候选；本阶段只使用合成案例，不展示、不持久、不写入掌握、能力、计划或错因。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "teach_back_shadow",
+      "evidenceRefs": [
+        "E-USER-TEACH-BACK-STAGED-002",
+        "E-USER-TEACH-BACK-STUDENT-001",
+        "E-CODE-TEACH-BACK-PROVIDER-INFRA-002"
+      ],
+      "acceptance": [
+        "学生调用的完整外发 payload 只含系统提示、用户合成讲解与题 A 安全题面，不含方法步骤、误区、答案、解析、掌握或能力。",
+        "核验调用在学生输出之后单独构造，只能使用当前教学包方法步骤、题 A 答案解析和允许引用集；两次调用的请求体与幂等键不同。",
+        "供应商内容、usage、返回模型或 request-id 不符合契约时失败关闭，不生成部分影子结果；核验引用越界仍整份不可展示。",
+        "每次调用都返回与现有 model_call_ledger 可直接对齐的 operation、provider、model、prompt/schema 版本、输入/输出指纹、token、成本、延迟、幂等键和 request-id 审计字段。",
+        "同一合成案例重放使用稳定且分阶段的幂等键；未确认可重放能力的 provider 遇到超时、500 或 429 不自动再调用。",
+        "本单元不增加 Settings 或生产场景路由，不建表、不发布评测场景、不接前端或真实用户；正式场景注册、台账持久化与会话状态由下一发布单元承接。"
+      ]
+    },
+    {
+      "id": "REQ-ANAN-ZERO-GATE-CORE-003",
+      "statement": "小程序在安全建立微信身份后必须让新老用户直接进入今日并获得可执行的核心学习动作；档案完整度、四种认识方式、资格、偏好、结果确认、定位、媒体权限、AI/provider 就绪、配额和单个内容缺陷均不得成为进入今日或开始核心学习的用户可见硬门。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "retired",
+      "owner": "wechat_coach_orchestration",
+      "evidenceRefs": [
+        "E-USER-ANAN-ZERO-GATE-CORE-003",
+        "E-CODE-ANAN-COLD-START-ROUTES-002",
+        "E-CODE-SILENT-WECHAT-ENTRY-001"
+      ],
+      "acceptance": [
+        "静默身份成功后新老用户都进入今日；不再存在必须完成的独立 onboarding 页面链。",
+        "没有任何档案或外部证据的新用户也能从今日黑色主按钮开始一组默认短诊断；岸岸明确处于刚认识阶段，不伪装精准。",
+        "成绩单、错题、快速诊断和先选岗位作为今日内可选加速入口；未选择、跳过或中途退出不影响核心任务。",
+        "资格只在输出具体岗位资格结论前按需补充；学习偏好使用安全默认值并在真实学习中校准；结果页不再控制 workspace 访问。",
+        "定位不自动申请；相机、麦克风、文件和订阅消息拒绝后提供文字、相册、手动输入或无该附属能力的继续路径。",
+        "AI/provider、OCR、配额、题量、缺图或任务路由异常时，系统优先使用确定性建议、标准解析、安全替代题或其他可执行任务；不得让今日主操作变成灰按钮。",
+        "核心教练闭环不因 AI 次数配额中断；开放问答等非核心能力的商业边界另行决策。",
+        "只有身份无法安全建立、账户禁用或待删除可以阻止个人数据访问；支付、删除、公开发布和敏感数据外发只在该动作发生前确认。",
+        "下一实现发布单元必须显式 supersede RU-ANAN-GOLDEN-LOOP-003，不得在旧冻结单元上直接改写历史。"
+      ]
+    },
+    {
+      "id": "REQ-FUNCTIONAL-CLOSURE-004",
+      "statement": "每个面向用户展示的功能入口必须在交付前证明其原始产品价值和端到端链路真实可用，不得在用户点击后暴露接口、路由、schema、权限、AI 发布、内容版本或下游证据交接不兼容；稳定复现的集成错误必须修通原链路，不能用兜底或泛化报错冒充完成。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "wechat_coach_orchestration",
+      "evidenceRefs": ["E-USER-FUNCTIONAL-CLOSURE-004"],
+      "acceptance": [
+        "每个可见主按钮都有稳定功能 ID、明确用户价值、真实入口状态和完整生产者—消费者链路。",
+        "自动测试从页面真实点击开始，经过实际生成客户端和后端路由，断言成功响应、规范事实写入以及下一环可以读取并改变用户动作；只验证按钮、模板或单层 mock 不算通过。",
+        "前端生成 API 与当前 OpenAPI 一致；路由参数、enum、schema、权限白名单、AI 场景身份和 provider/release 配置在发布前联合验证。",
+        "测试账户逐入口执行时不得出现稳定复现的 403、404、409、422、500 或 503；出现即判定集成缺陷并阻止该功能交付。",
+        "功能结果必须至少改变一个被用户看见的后续动作、岸岸判断、任务、复测或报告；只生成孤立页面、候选或本地状态不算有用。",
+        "兜底只用于网络、超时和临时服务故障，并保留重试/恢复；不得用降级路径掩盖接口不兼容、缺少发布配置或证据交接未实现。",
+        "功能未达到上述标准时状态只能是未完成；不能因为页面存在、单元测试通过或接口单独可调用而宣称已交付。"
+      ]
+    },
+    {
+      "id": "REQ-QUICK-DIAGNOSTIC-CLOSURE-005",
+      "statement": "新用户完成当前计划中的一轮真实 objective_baseline 作答后，系统必须把该任务完成事实作为冷启动结束证据，立即重算为复盘、针对训练或验证动作；岸岸画像必须读取本轮真实作答与任务执行，且旧画像生成的同日策略候选不得覆盖当前判断。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "quick_diagnostic_loop",
+      "evidenceRefs": [
+        "E-USER-QUICK-DIAGNOSTIC-CLOSURE-005",
+        "E-CODE-QUICK-DIAGNOSTIC-GAP-005"
+      ],
+      "acceptance": [
+        "冷启动是否结束以当前用户已完成的真实 objective_baseline 计划任务为主，保留 30 条历史 assessment 兼容条件，但不得要求用户重复完成第二轮摸底。",
+        "基线提交继续在同一权威事务中写入不可变答案、逐题 assessment、任务执行完成事实和重排计划，不新增平行诊断状态或数据库表。",
+        "提交响应及随后读取的今日计划均不再包含新的 objective_baseline；有错题时先进入复盘，无待复盘时进入最弱模块针对训练。",
+        "学习大脑画像读取本轮 assessment 与 task execution 后产生新 profileVersionId，并继续明确这是初步判断或正在验证，不伪造正式双科能力估计。",
+        "今日只展示 basedOnProfileVersionId 与当前 profileVersionId 一致的待确认岸岸建议；旧候选留在审计历史中但不得继续影响用户判断。",
+        "同一启动、checkpoint、提交幂等键重放不得重复写 assessment、任务执行或画像版本，另一账户不得读取本次事实。"
+      ]
+    },
+    {
+      "id": "REQ-CAUSE-VERIFICATION-FEEDBACK-006",
+      "statement": "用户确认的行测错因必须沿同一掌握链经过独立新题的即时、首次和延时验证；达到稳定掌握时，学习大脑必须把对应旧错因投影为反向证据并停止把它当作当前弱项，今日岸岸建议必须用任务前后权威画像差异明确告诉用户确认、保留或收回了什么判断。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "learning_brain_evidence_projection",
+      "evidenceRefs": [
+        "E-USER-CAUSE-VERIFICATION-FEEDBACK-006",
+        "E-CODE-CAUSE-COUNTEREVIDENCE-GAP-006"
+      ],
+      "acceptance": [
+        "行测确认错因与其初始 mastery 通过 review_id 和不可变版本链绑定，后续验证只读取同一 mastery_id 的当前头，不按文案、模块名或相似度猜测归属。",
+        "即时或首次复测通过但尚未 stable_mastered 时，错因继续处于 confirmed，岸岸只说明判断仍在验证；一次答对不得提前撤销弱项。",
+        "延时验证达到 stable_mastered 后，同一错因的 counterevidenceCount 增加并在没有其他未修复同类实例时变为 counterevidence，证据引用精确指向当前 xingce mastery version。",
+        "同一模块与错因存在多个当前实例时，只有全部实例均形成稳定反证才收回聚合判断；部分反证降低把握但不得抹掉仍未修复的实例。",
+        "今日任务前快照按 user_id 保存最小错误模式摘要；返回后只根据当前 LearningBrainProfileVersion 与旧快照的确定性差异显示新增判断、部分反证或已收回判断，不让 AI 自行编造变化。",
+        "旧版不含错误模式摘要的任务前快照继续可读；投影和画像重放不得新增 mastery、错因、任务或画像版本，另一账户不得看到本次反馈。"
+      ]
+    },
+    {
+      "id": "REQ-SERVER-QUESTION-BANK-ALIGNMENT-007",
+      "statement": "后续题库发布必须把仓库内已确认的数据集、导入清单、对象资产和服务器实际运行数据库按不可变内容与发布身份做可重放对账，覆盖国考、省考和事业编范围；不得因服务名、staging 命名或本地导入成功就假定服务器已经对齐。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "question_bank_runtime_alignment",
+      "evidenceRefs": [
+        "E-USER-SERVER-QUESTION-BANK-ALIGNMENT-007",
+        "E-CODE-SERVER-QUESTION-BANK-BASELINE-007"
+      ],
+      "acceptance": [
+        "先只读确认生产 API 实际 DATABASE_URL、当前内容与知识图谱发布头、国考/省考/事业编数据集身份及对象存储可达性，不按数据库名称猜测运行库。",
+        "本地导入清单与服务器按 question、occurrence、content head、材料/题图资产、examCode、region、year、category 和 subject 输出缺失、额外、隔离及版本不一致清单。",
+        "对账和后续写入脚本支持 dry-run、幂等重放、批次指纹、写前快照与写后复验；任何生产写入、发布头切换或服务重启必须在独立发布单元中显式授权。",
+        "省考与国考可复用行测方法和模块，但题目范围与发布身份必须可追溯；事业编职测 A/B 与综应不得被国考标签或公务员申论静默替代。",
+        "服务器对齐完成的验收必须证明当前用户可见计划不会抽到服务器缺失、quarantined、withdrawn、缺答案解析或缺必需视觉资产的题。"
+      ]
+    },
+    {
+      "id": "REQ-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008",
+      "statement": "服务器中已经存在的国考、省考与事业编题目必须从已校验原始卷清单恢复稳定的卷属、题号、地区和年份身份，使选题、整卷与后续知识发布读取真实 occurrence 关系；恢复不得重复造题、跨考试猜测归类或让大体积源文件进入 Git。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "question_bank_runtime_alignment",
+      "evidenceRefs": [
+        "E-USER-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008",
+        "E-CODE-QUESTION-BANK-SOURCE-IDENTITY-GAP-008"
+      ],
+      "acceptance": [
+        "恢复工具只接受内容哈希已校验的 902 份国省考源和事业编公共基础 1630 份 papers/occurrences 清单，源中不存在稳定题源标识时停止而不是按文字相似度猜测。",
+        "dry-run 必须按数据集报告源题、源卷、期望出现、可映射出现、缺失题源、运行库多物理题映射和将要更新/插入的精确计数，并生成可重放指纹。",
+        "apply 前必须创建可验证数据库备份和目标出现记录快照；单事务仅更新或插入 qbank-import-20260801 与 sydw-public-import-20260801 的 occurrence 身份，不删除 questions、不改题目正文、不发布知识图谱、不重启服务。",
+        "同一源题已有多个物理 question_id 时保留现有出现记录的 question_id；只为源中缺少的出现选择具备内容头且状态可用的确定性代表，不合并或删除物理题。",
+        "写后国省考应有 104762 条可追溯卷面出现、事业编公共基础应有 123812 条可追溯卷面出现，所有非空卷键都能复现源卷，重复执行 mutationCount 为 0。",
+        "国考、省考、事业编范围从源卷标题与明确目录得到并保持隔离；银行招聘和三支一扶三个独立目录在完成内容映射前单列，不强塞进上述两批恢复。",
+        "多 GB 源包、数据库快照和恢复工作区位于仓库外或明确 ignore 的本地目录；Git 仅保留恢复脚本、测试和不含凭据/题文的小型报告。"
+      ]
+    },
+    {
+      "id": "REQ-QUESTION-BANK-CONTENT-HEAD-QUARANTINE-008B",
+      "statement": "缺少活动内容头但具备稳定源题和原始卷证据的历史题不得阻断其他题目的卷属恢复；系统应恢复其真实 occurrence 身份、保持其不可投放，并把内容头缺口单列为后继修复清单。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "question_bank_runtime_alignment",
+      "evidenceRefs": ["E-USER-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008", "E-CODE-QUESTION-BANK-CONTENT-HEAD-QUARANTINE-008B"],
+      "acceptance": [
+        "源题只要能稳定映射到已有 active question_id，就可以恢复其卷属；不得为补内容头而改题文或猜测合并其他题。",
+        "缺活动内容头的源题不得成为缺失 occurrence 的新增代表，除非该源题没有任何带内容头代表且新增 occurrence 仅用于恢复来源审计；此时必须计入 deliveryIneligibleSourceQuestions 并保持不进入活动知识发布。",
+        "事业编公共基础 deliveryIneligibleSourceQuestions 必须为 0；国省考的数值必须与写前 119 个源题基线一致或更低，任何新增缺口停止提交。",
+        "写后报告必须分别给出卷属完整度与用户投放资格，不能用卷属已恢复宣称缺内容头的题已经可练。"
+      ]
+    },
+    {
+      "id": "REQ-QUESTION-BANK-SURPLUS-OCCURRENCE-QUARANTINE-008C",
+      "statement": "运行库中超过已校验源卷出现次数的历史 occurrence 不得被强行分配到虚构卷面，也不得随修复静默删除；应从活动源数据集移入可追溯的重复隔离身份，使活动数据集精确等于源清单。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "question_bank_runtime_alignment",
+      "evidenceRefs": ["E-USER-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008", "E-CODE-QUESTION-BANK-SURPLUS-OCCURRENCE-008C"],
+      "acceptance": [
+        "仅允许隔离 dry-run 精确识别的 5 条 sydw-public surplus occurrence；国省考 surplus 必须为 0，任何新增 surplus 停止提交。",
+        "隔离只更新 occurrence.source_dataset_id 为 sydw-public-import-20260801-duplicate-quarantine，保留 occurrence_id、question_id、source_question_id 和其他原字段，不删除或改写题目。",
+        "活动 sydw-public-import-20260801 写后必须精确 123812 条且每个 source occurrence key 唯一；隔离数据集精确新增 5 条并可按原 occurrence_id 回滚。",
+        "重复隔离数据集不得进入内容或知识发布清单，报告不得把 5 条称为新增试题或真实卷面出现。"
+      ]
+    },
+    {
+      "id": "REQ-QUESTION-DELIVERY-QUARANTINE-009",
+      "statement": "已恢复真实卷属但缺少当前内容头或可靠题目答案的物理题必须作为可恢复的内容隔离项保存，不得被今日任务、诊断、常规/定向练习、模考、同类救援或通用题目搜索主动投放；隔离不得删除题文、选项、图片、卷属、内容版本或来源证据。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "question_bank_runtime_alignment",
+      "evidenceRefs": [
+        "E-USER-QUESTION-DELIVERY-QUARANTINE-009",
+        "E-CODE-QUESTION-DELIVERY-GAP-009"
+      ],
+      "acceptance": [
+        "dry-run 从 qbank-import-20260801 与 sydw-public-import-20260801 精确选择 status=active 且缺 current content head 或 question.answer 为空的唯一 question_id；基线必须为 273 个，其中缺头 153、缺答案 120且二者无重叠。",
+        "写前保存精确 question_id、原 status、缺失原因和源数据集集合的 CSV 快照并校验 SHA-256；若任一题已出现真实 assessment、exposure、favorite 引用或活动 release 的 delivery_eligible=true 绑定则停止。",
+        "apply 在单一 PostgreSQL 事务中只把这 273 个 product.questions.status 从 active 更新为 quarantined；不得删除或修改 questions 其他字段、occurrence、option、asset、content version/head、knowledge release/binding 或用户数据。",
+        "写后 273 个精确 question_id 均为 quarantined，活动知识发布可投放绑定为 0，活动题库搜索结果为 0；重复执行 updatedQuestions=0。",
+        "回滚只能按写前精确快照把这批题恢复为原状态；后续补齐内容或答案时必须重新验证完整投放条件，不得仅因补了一个字段批量解隔离。",
+        "报告必须区分物理 question_id、去重源题和 occurrence，不能把前序约数 300 当成精确唯一题数。"
+      ]
+    },
+    {
+      "id": "REQ-QUESTION-CATALOG-QUARANTINE-VISIBILITY-009C",
+      "statement": "公开题目详情必须与主动搜索和训练投放保持同一可见性边界：只有 active 或 canonical 题可以被精确 question_id 读取；quarantined、merged、needs_identity_review、withdrawn、invalidated 及未知状态必须在读取题文、答案、解释和资产前统一返回 not found，不得泄漏内容或触发响应建模 500。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "question_catalog_delivery",
+      "evidenceRefs": ["E-USER-QUESTION-DELIVERY-QUARANTINE-009", "E-CODE-QUARANTINED-QUESTION-DETAIL-GAP-009C"],
+      "acceptance": [
+        "KnowledgeRepository.get_question_row 只返回 status in ('active','canonical') 的题，过滤发生在任何选项、解释、occurrence、tag、chunk 或 asset 读取前。",
+        "KnowledgeService.get_question 对 quarantined、merged、needs_identity_review 和未知 question_id 均抛出同一 QuestionNotFoundError；公开路由稳定返回 404 Question not found，不返回 200 或 500。",
+        "active 与 canonical 题继续按现有响应合同读取，搜索和正式知识发布选择语义不变。",
+        "修复只改公开查询和自动测试；不改题目状态、内容、发布、用户数据，不热改生产 release。",
+        "生产生效必须随下一次正常不可变后端发布验证；在此之前只能宣称主动投放已关闭，不能宣称精确 ID 漏洞已在线修复。"
+      ]
+    },
+    {
+      "id": "REQ-DATA-ANALYSIS-TEACHING-BRIDGE-010",
+      "statement": "资料分析题只有在结构化图表证据已明确复核，且 question_ref、content_version_id 与图片 SHA-256 全部与当前教学题绑定时，才能进入教学包的答案无关安全题面，并由学生岸岸用于复现用户刚教的方法；候选、待复核或版本不一致时必须在编译前返回稳定不可用原因，不调用 AI、不生成半个教学包。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "teaching_package_compilation",
+      "evidenceRefs": [
+        "E-USER-DATA-ANALYSIS-TEACHING-BRIDGE-010",
+        "E-CODE-DATA-ANALYSIS-TEACHING-BRIDGE-GAP-010"
+      ],
+      "acceptance": [
+        "教学候选题显式声明 visualRequired、contentVersionId 和 sourceAssetSha256s；visualRequired=true 时没有证据返回 VISUAL_EVIDENCE_UNAVAILABLE。",
+        "只有 reviewState=verified 的结构化证据可编译；candidate 和 needs_review 返回 VISUAL_EVIDENCE_UNVERIFIED，不为了不堵页面而伪造可用结果。",
+        "证据的 questionRef、contentVersionId 或 sourceAssetSha256 与题目不一致时返回 VISUAL_EVIDENCE_VERSION_MISMATCH；指纹必须包含完整证据绑定。",
+        "学生岸岸仅收到标题、单位和原子图表事实，不收到答案、解析、方法步骤、掌握或能力结论；结构化事实只用于还原题面，不成为隐含解法。",
+        "后台核验只能引用当前教学包的方法步骤、正确答案和已绑定图表事实；任一越界引用使整个候选不可展示。",
+        "没有图片的既有国考、省考和事业编客观题保持 v2 的跨考试方法复用和失败语义；本单元不导入 1424 份候选、不改数据库、不发布上线。"
+      ]
+    },
+    {
+      "id": "REQ-DATA-ANALYSIS-EVIDENCE-PUBLICATION-011",
+      "statement": "资料分析结构化资产必须经可重放的确定性验收策略，再以当前 question_id、content_version_id、运行 asset_id 和 TOS 内容 SHA-256 建立不可变发布记录；同题多图必须完整保留并输出答案无关事实，身份、版本、图片或内部语义冲突时只隔离对应资产，不堵住其他已验证资产和无图题。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "teaching_package_compilation",
+      "evidenceRefs": ["E-USER-DATA-ANALYSIS-FULL-INGESTION-011", "E-CODE-DATA-ANALYSIS-RUNTIME-RECONCILIATION-011", "E-CODE-DATA-ANALYSIS-SEMANTIC-CONFLICTS-011"],
+      "acceptance": [
+        "dry-run 逐份校验批次 schema、审核策略、source SHA-256、source occurrence key、active/canonical 题、当前 content head、TOS 对象哈希和安全事实投影；每份输出唯一发布或隔离理由，不静默丢失。",
+        "candidate_auto 仅在发布策略的确定性检查全部成功后转换为发布层 verified；批次原文件不原位改名。series/table 值冲突时只能选择声明过的主权结构或进入隔离。",
+        "按 (evidence_ref, revision) 保存不可变 payload，按 (question_id, content_version_id, source_asset_sha256) 保存当前绑定；任意当前 content head 或 TOS 内容变更均使旧绑定不再可用。",
+        "导入必须先 dry-run，apply 在单一事务内完成并支持重放；同一输入重复执行不增加版本或绑定。回滚只撤销本批次的发布头/绑定，不改题文、答案、图片、卷属或用户数据。",
+        "查询一道当前题时返回 0 到 4 份已发布证据，顺序和指纹稳定；学生岸岸和后台核验消费全部图表事实，而不是默默只取第一张图。",
+        "占位题、不可解析图片、身份/版本/哈希错配和未解决内部矛盾都以稳定 reason code 隔离；这些隔离不得让已发布资产或无图题返回用户可见审核错误。"
+      ]
+    },
+    {
+      "id": "REQ-NON-GRAPHIC-MEDIA-EVIDENCE-PUBLICATION-012",
+      "statement": "除图形推理外，题干、材料、选项和解析中的普通实图与公式图必须复用结构化证据发布身份接入当前题目内容版本；学生岸岸只能读取题面侧证据，解析侧证据只能进入后台核验，低置信或身份不一致项保留原图并逐项隔离，不能阻断其余题目。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "teaching_package_compilation",
+      "evidenceRefs": ["E-USER-NON-GRAPHIC-MEDIA-INGESTION-012", "E-CODE-NON-GRAPHIC-MEDIA-OFFLINE-012"],
+      "acceptance": [
+        "非图推实图与公式结果先转换成统一、答案无关的 question-media 候选；原始离线文件不得被原位改名或覆盖。",
+        "每个候选必须校验源 schema、源 SHA-256、来源题键、active/canonical 题、当前 content head、运行 asset_id 和对象内容 SHA-256；失败只隔离精确资产并产生稳定 reason code。",
+        "1400 个 success 非图推资产可按发布策略进入 verified；49 个 needs_review 必须保持隔离且保留源图身份，不得把歧义 token、OCR 或拓扑候选伪装成事实。",
+        "公式只有在 source hash、非空 LaTeX、括号/质量门槛和最终批次状态全部通过时才可发布；verified_override 保留人工覆盖后的内容，candidate_auto 保留自动转录来源和策略版本，不声称人工逐图确认。",
+        "运行绑定必须按 question asset 的 part_kind 将 stem/material/option 证据标为 student，将 analysis/solution/explanation 证据标为 verifier；同一图片在题面真实出现时可作为 student 证据，解析侧证据不得进入学生请求。",
+        "教学侧车必须完整携带当前题的 student 与 verifier 两组证据；学生岸岸请求只序列化 student 组，后台核验白名单与 provider authority 包含两组且仍禁止答案、方法或用户事实越界。",
+        "dry-run、apply、verify、rollback 必须沿用内容寻址计划、单事务、幂等回放和精确批次撤回；生产执行前必须备份且不能修改题文、答案、图片、卷属、用户数据或服务发布头。"
+      ]
+    },
+    {
+      "id": "REQ-ANALYSIS-MEDIA-VERIFIER-EVIDENCE-013",
+      "statement": "解析与解法中的普通实图和公式结构必须以当前解析版本的独立身份接入统一证据链；它们只供岸岸后台核验和教学包 verifier 侧使用，不得伪造成 question_asset 或进入学生请求。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "teaching_package_compilation",
+      "evidenceRefs": ["E-USER-ANALYSIS-MEDIA-VERIFIER-013", "E-CODE-ANALYSIS-MEDIA-IDENTITY-GAP-013"],
+      "acceptance": [
+        "新增解析绑定表必须保持 evidence version/head 不可变模型，绑定当前 question_id、content_version_id、analysis_source、source_image_ref、source_asset_sha256 和可选 runtime_object_key；不得向 question_assets 注入伪资产。",
+        "dry-run 和 apply 必须只接受 active/canonical 题、当前 content head、与离线 occurrence 确定映射的解析图片，以及与当前 snapshot analysis_source 一致的解析来源；来源改变或内容头变化时以 PUBLICATION_STALE 失败关闭。",
+        "现有 question_asset 绑定与解析绑定在读取端合并并按 evidenceRef 稳定排序；解析绑定的运行受众恒为 verifier，即使离线候选自报其他受众也不得进入 student 侧。",
+        "公式 explanation 结果继续执行 source hash、非空 LaTeX、括号和最终状态门槛；needs_review、未解析占位表达式、缺题映射和非当前解析精确隔离，不阻断其他候选。",
+        "apply、verify、replay 和 rollback 必须同时覆盖 question_asset 与 analysis_asset 两种绑定并保持一个批次收据；回滚仅移除精确批次绑定/头，保留不可变证据版本。",
+        "生产执行前必须创建数据库备份并记录 SHA-256、dry-run 计划 SHA-256、发布计数和写后独立读取验证；不得修改题文、答案、解析正文、图片、卷属、用户数据或服务发布头。"
+      ]
+    },
+    {
+      "id": "REQ-LEARNER-COACH-CONTEXT-014",
+      "statement": "系统必须从当前 LearningBrainProfileVersion 和当前策略投影编译唯一 learner-coach-context@v1，使今日和岸岸对话共用同一份对用户的认识层级、新鲜度、证据引用、错误模式和策略，不在消费端重新推导一套结论。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "learner_coach_context",
+      "evidenceRefs": ["E-USER-LEARNER-COACH-CONTEXT-014", "E-CODE-LEARNER-COACH-CONTEXT-DIVERGENCE-014"],
+      "acceptance": [
+        "learner-coach-context@v1 必须携带精确 profileVersionId、完整 profile、recognition、freshness、strategyDirective、generatedAt 和 validUntil；profile 内的 owner/entity/version 证据引用不得丢失。",
+        "认识层级只能由服务端按确定性规则产生：无证据为 just_met，有证据为 initial_hypothesis，有任务执行或掌握证据为 verifying，有稳定掌握为 understands。",
+        "freshness 必须把 profile readiness 的 conflicted/stale/unavailable 和超过 validUntil 的情况显式投影，消费端不得把过期或冲突数据伪装成 current。",
+        "GET /api/v2/learning-brain/coach-context 只返回当前认证用户的上下文；不引入新的存储、不修改 profile 指纹或任何权威事实。",
+        "今日必须直接展示服务端 recognition，仅在 just_met 时可用同账号本地冷启动意图替换观察文案；策略确认和练后差异反馈继续使用 context.profile。",
+        "Companion provider payload 和 retrieval bundle 必须注入同一 coachContext，以 profileVersionId 作为 learnerStateVersion，并继续通过现有 retrieval audit 记录本次使用的版本。",
+        "新老用户、四级认识、过期/冲突、策略指令、今日展示和 Companion 检索必须有确定性回归测试。"
+      ]
+    },
+    {
+      "id": "REQ-EXPLICIT-COACH-MEMORY-015",
+      "statement": "岸岸必须把用户主动保存的偏好、约束和备忘作为可编辑删除的明示长期记忆，并把权威学习证据形成的发现作为只读认识投影统一呈现；每条实际注入模型的明示记忆都必须经过本次授权检索和逐条审计，不能由用户条数硬门禁或聊天推断替代真实学习事实。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "companion_memory",
+      "evidenceRefs": ["E-USER-LEARNER-COACH-COMPLETION-015", "E-CODE-EXPLICIT-MEMORY-INTEGRATION-GAP-015"],
+      "acceptance": [
+        "移除 20 条明示长期记忆的创建 409 和用户可见容量门禁；保留服务端按当前问题选择少量相关条目的内部上下文预算。",
+        "每条候选记忆携带 memoryId、revision、category、content 和 explicit_user_memory 信任范围，在授权检索前进入候选并以 untrusted_input=true 逐条记录；未命中项不得注入 provider。",
+        "explanation_preference 只调整讲解，personal_note 只作为上下文，study_constraint 必须显示待确认并转入既有学习偏好/容量设置，不能从自由文本直接改计划数字。",
+        "岸岸对我的了解页面同时展示可编辑明示记忆、只读错误模式和复测摘要；查看证据、标记判断不准确与去复测均落到真实权威入口。",
+        "标记判断不准确只能创建同账号复核请求并把统一上下文标为 conflicted/pending recheck，不得直接编辑错误模式、能力、掌握或画像。"
+      ]
+    },
+    {
+      "id": "REQ-COACH-CROSS-DAY-RETEST-015",
+      "statement": "岸岸统一上下文必须明确显示现有 xingce mastery 所有者产生的即刻、首次、延迟和稳定复测状态，并从今日、岸岸认识页和判断纠错动作进入同一个 due-verification 队列；任何消费端都不得另算到期日或另建复测状态。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "learner_coach_context",
+      "evidenceRefs": ["E-USER-LEARNER-COACH-COMPLETION-015", "E-CODE-CROSS-DAY-RETEST-REUSE-015"],
+      "acceptance": [
+        "learner-coach-context@v2 投影 dueNow、scheduled、stable 和统一 actionUrl，数值只来自 profile decisionSummary 与 module mastery 字段。",
+        "小程序 mastery 页接受 due_verification 深链并稳定选择该队列；页面恢复、重复进入和过期上下文不复制或重置服务端状态。",
+        "迁移题、普通训练和判断纠错最终都进入现有 mastery/planning 链，复用 1 至 3 天和 7 至 14 天复测安排。",
+        "没有到期项时给出正常空状态而非审核错误；过期、冲突和不可用仍保留显式新鲜度。"
+      ]
+    },
+    {
+      "id": "REQ-GROUNDED-FEYNMAN-RUNTIME-015",
+      "statement": "用户确认弱项后必须能在现有复盘救场卡里把方法讲给学生岸岸：学生只看用户讲解和安全题面 A，后台核验只看教学包与允许证据；学生复现不改变掌握，用户独立作答不同且未见过的迁移题 B 后才由 xingce mastery 所有者推进既有复测状态。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "teach_back_runtime",
+      "evidenceRefs": ["E-USER-LEARNER-COACH-COMPLETION-015", "E-CODE-GROUNDED-TEACHBACK-RUNTIME-GAP-015"],
+      "acceptance": [
+        "会话只从同账号当前 review、已确认错因、已发布方法卡、当前题目内容版本和至少两道不同未见迁移题编译；国考、省考和事业编共用方法契约，缺独立活动题库/知识发布时返回正常不可用而不伪造。",
+        "学生与核验调用物理分离；学生请求不含方法卡标准步骤、答案或解析，核验输出任一引用越界时整个候选不可展示。",
+        "会话和每次状态变更采用追加版本、幂等 commandId、同账号授权和旧 revision 冲突；恢复读取不重新调用模型。",
+        "迁移题 B 提交前客户端永远看不到 correctOptionIds 或 explanation；重复提交返回同一结果，错 revision、跨用户、重复题或已见题失败关闭。",
+        "学生 A 的 reproduced/blocked 结果只记录讲回状态；只有用户 B 的真实选项和把握度通过 xingce mastery 服务推进 immediate verification，随后复用既有首次和延迟复测。",
+        "provider 未配置、超时或失败时只让讲回动作可恢复重试，不影响复盘、方法卡或其他学习功能。"
+      ]
+    },
+    {
+      "id": "REQ-CORE-FLOW-DEBURDENING-016",
+      "statement": "小程序必须在安全建立微信身份后让新老用户进入今日并立即获得一个真实可执行的主任务；建档与四种认识方式只能渐进补充证据，今日必须用真实作答、错因、复测和计划变化给出强反馈，不得添加平行错因或简化掉现有错因决策链。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "wechat_coach_orchestration",
+      "evidenceRefs": ["E-USER-CORE-FLOW-DEBURDENING-016", "E-CODE-CORE-FLOW-FRICTION-016"],
+      "acceptance": [
+        "静默身份成功后，除了用户正在恢复的已注册安全返回目标，新老用户都进入今日；今日不再根据 onboarding completed 重定向。",
+        "完全未建档用户使用与现有最小日学习限制一致的 30 分钟、parttime 内部默认投影生成未确认周偏好与当日容量；该投影不写成用户声明，用户真实时间设置继续覆盖它。",
+        "黑色主按钮直接开始当前计划的真实 objective_baseline 或其他最高优先级任务，不先经过独立每日开场按钮。",
+        "成绩单、错题、快速诊断和选岗保留为刚认识用户时的可选加速入口；不选、中途退出或完成其中一条都可回今日继续。",
+        "今日练后反馈优先显示确定性错因新增、保留或收回以及下一个真实任务；作答数、画像版本和计划版本只用用户可理解的变化语言表达，不伪造提分。",
+        "现有错因候选、确认、驳回、替换、稍后、source_review_id 掌握链、即时/首次/延时复测和 stable_mastered 反证回写必须全部保留并通过回归。",
+        "本单元不修改图推、资料分析结构化资产、教学包、费曼讲回、题库发布或生产数据。"
+      ]
+    },
+    {
+      "id": "REQ-COACH-BRICK-ASSEMBLY-017",
+      "statement": "岸岸的错因救场与讲回启动必须消费同一个无写入教练积木装配结果：从用户当前备考目标派生国考、省考或事业编目标范围，复用既有方法卡与当前国考知识发布的同类题候选，并在页面显示按钮前完成与正式启动相同的编译和证据检查。图推结构化是可选增强，不是原题、官方答案、原解析或其他闭环的全局门禁。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "coach_brick_assembly",
+      "evidenceRefs": ["E-USER-COACH-BRICK-ASSEMBLY-017", "E-CODE-COACH-BRICK-ASSEMBLY-GAP-017"],
+      "acceptance": [
+        "教练积木装配器是错因救场可用性与讲回正式启动的唯一编译者；同一 review、sourceQuestionId 和时间快照必须给出相同的可用或不可用结果。",
+        "targetScopeKey 必须从同账号 learner profile 的 target_exam、target_region 和 position_group 确定性投影，年份使用请求时间快照；未知考试代码正常不可用，不得默认伪装为国考。",
+        "国考、省考、事业编目标可以复用当前 guokao/xingce 知识发布与方法卡，但必须通过 multi-exam 编译器的 excludedExamCodes 校验；事业编目标科目投影为 zhice。",
+        "只有教学包、两道不同未见题、当前内容头和所需可靠图片证据全部可用时才显示讲回按钮；否则在救场卡内显示人话原因，不让用户点击后才收到 409。",
+        "需要图片但缺可靠结构化证据的题只关闭当次 AI 讲回增强；原题、原图、官方答案、原解析、错因决策和普通练习必须继续正常。",
+        "不修改 teaching_packages 契约、错因事实、mastery 状态机、题库、图推资产、数据库 schema 或生产数据；现有错因、讲回、迁移与复测回归全部通过。"
+      ]
+    },
+    {
+      "id": "REQ-QUESTION-OCCURRENCE-SCHEMA-017A",
+      "statement": "题库 occurrence 的精确来源身份字段必须成为 Alembic、全新测试基线和运行读取器共用的正式 schema 权威，不能只存在于某台服务器的恢复脚本执行结果中。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "question_bank_runtime_alignment",
+      "evidenceRefs": ["E-CODE-QUESTION-OCCURRENCE-SCHEMA-GAP-017A", "E-USER-COACH-BRICK-ASSEMBLY-017"],
+      "acceptance": [
+        "新的前向 Alembic 迁移必须以 add column if not exists 声明恢复/导入和运行读取共用的 occurrence 来源字段，对服务器已存列幂等。",
+        "minimal_schema 必须与迁移头对齐，从空数据库跑到新头后 StructuredVisualEvidenceReader 可读空证据而不得 UndefinedColumn。",
+        "来源字段保持 nullable，不回填、不改写题目、答案、解析、图片、卷属或用户事实；本单元不执行生产迁移。",
+        "artifact database compatibility 必须只接受新迁移头，旧应用/新库和新应用/旧库不可混跑。",
+        "017 教练积木、救场、讲回、迁移和错因/mastery 回归必须在新测试 schema 上全部通过。"
+      ]
+    },
+    {
+      "id": "REQ-PRIVATE-QUESTION-BOOK-INGESTION-018",
+      "statement": "名师题本必须复用现有私有上传、整卷分题和权威题库匹配链；多题文件中的图像证据只能进入可确定归属的题目单元，高置信度命中自动通过，只让用户处理歧义项，不得用整本全局指纹伪装成逐题图像匹配。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "external_ingestion",
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-018", "E-CODE-PRIVATE-QUESTION-BOOK-GAP-018"],
+      "acceptance": [
+        "单页单题仍可使用已有页级视觉指纹与特征哈希辅助匹配。",
+        "同页多题或无法把视觉证据确定归属到单题时，必须只用该题文本匹配并把逐题视觉匹配留为后续区域级增强，不得复用全局图像证据。",
+        "多页且每页只有一题时，页级指纹必须按 pageNo 一对一投影，不能跨页混用。",
+        "整卷导入只在遇到多候选歧义时让用户确认；确认完当前题后自动前进到下一道未完成题，已完成题不反复打断。",
+        "该单元不把上传或匹配当成用户掌握证据，不改写题库、错因、mastery、计划或用户数据，不声称已完成题本练习闭环。"
+      ]
+    },
+    {
+      "id": "REQ-PRIVATE-QUESTION-BOOK-PERSISTENCE-019",
+      "statement": "已完成整卷识别的名师题本必须成为同账号可恢复、可导出、可删除的私有资料；题本题目状态只能由当前识别修订与匹配头派生，不得建第二套匹配真相。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "private_question_books",
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-PERSISTENCE-019", "E-CODE-PRIVATE-QUESTION-BOOK-LIFECYCLE-019"],
+      "acceptance": [
+        "只有认证用户本人的已解析上传、当前 confirmed exam_segmentation 识别修订才能创建题本；跨账号、过期修订与不可用原件必须拒绝。",
+        "题本按 source artifact 去重，同一幂等键精确重放返回同一结果，同键不同输入拒绝为冲突。",
+        "列表和详情返回总题数、已确认数、待处理数和下一道待处理 questionUnitId；单题状态由当前 content_match_versions 投影，不复制候选或确认事实。",
+        "题本导出与单份删除复用现有 private knowledge 生命周期；删除必须传播到原件、识别、匹配及私有检索副本，题本不出现在通用笔记列表。",
+        "该单元不新建 OCR、分题、匹配、练习、错因、mastery 或计划真相，不执行生产迁移、部署或服务重启。"
+      ]
+    },
+    {
+      "id": "REQ-PRIVATE-QUESTION-BOOK-PRACTICE-020",
+      "statement": "名师题本中已确认且仍是当前可投放内容头的行测题，必须在不伪造计划、不复制匹配状态和不新建练习引擎的前提下，作为当前真实 objective_practice 任务的精确选题来源进入既有作答、评分、错因、掌握与岸岸学习证据链。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "private_question_books",
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-PRACTICE-020", "E-CODE-PRIVATE-QUESTION-BOOK-PRACTICE-GAP-020"],
+      "acceptance": [
+        "启动命令只接受同账号当前题本和当前可用 objective_practice 计划任务；不得插入、改写或伪造 daily_plan_task。",
+        "只按识别顺序采用 confirmed match 指向的当前 content head，并要求该内容已属于任一当前 active、fresh、delivery_eligible 的行测知识发布；歧义、未命中、内容头变化和未发布项按原因跳过，不阻塞其余可用题。",
+        "至少一题可用即可启动，题量以上限取当前计划容量；超过容量的已确认题留待后续，不被标记为错误或已练。零题可用时返回可行动原因，不创建空会话。",
+        "安全题包、计分包、checkpoint、submit、assessment、错因复盘、mastery 和计划结算全部复用现有 XingceAttemptService；题本来源、source version、recognition、match、content 与 delivery release 身份冻结进私有计分上下文和 attempt lineage。",
+        "同幂等键精确重放、同一计划任务并发启动与恢复必须收敛到同一会话；该任务若已被普通选题或另一题本占用必须明确冲突，不能悄悄返回来源不符的会话。",
+        "本单元不修改识别/匹配真相、公共题库内容、计划生成、错因/mastery 状态机、前端视觉、数据库 schema、生产数据、部署或服务重启。"
+      ]
+    },
+    {
+      "id": "REQ-PRIVATE-QUESTION-BOOK-REGION-VISUAL-021",
+      "statement": "同页多题的名师题本必须从服务端已经向受审批识别器提供的页图中，按已封存的分题坐标派生 questionUnitId 级图片区域与现有同族视觉指纹；不可靠、重叠、跨页或非本地可验证页图必须保持无逐题视觉证据，继续使用 018 的文本安全退路。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "external_ingestion",
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-REGION-VISUAL-021", "E-CODE-PRIVATE-QUESTION-BOOK-REGION-VISUAL-GAP-021"],
+      "acceptance": [
+        "只有明确实现可信服务端渲染页图能力的本地识别适配器可交付裁剪源字节；通用 HTTP provider 即使伪造同名字段也不能成为区域证据。",
+        "逐题区域只在当前 question unit 所有已引用 segment 都位于同一页、prompt 垂直区间不与其他题重叠且后继题边界可确定时产生；其他情况不猜测。",
+        "裁剪只保存归一化区域、源页哈希、旧 questionUnitId 和现有 matching_feature_hashes/fingerprint_sha256 同族哈希；不持久化裁剪图字节、data URL 或新的公开图片。",
+        "_match_query 优先消费与当前 questionUnitId 精确绑定的区域指纹；旧识别修订和无区域证据修订继续使用 018 的单题或单页单题安全投影，同页多题仍为文本匹配。",
+        "同一页字节与同一组坐标多次派生必须逐字节相同；并发调用不共享可变页图状态，用户文本修订保留原区域证据，重处理则生成新不可变修订。",
+        "本单元不修改图推语义结构、公共题库图片/题目、匹配确认真相、题本练习、错因/mastery/计划、前端、数据库 schema、生产数据、部署或服务重启。"
+      ]
+    },
+    {
+      "id": "REQ-PRIVATE-QUESTION-BOOK-PRODUCT-LOOP-022",
+      "statement": "名师题本必须通过小程序现有今日、整页导入和私人资料入口形成低操作可恢复闭环：自动保存当前确认识别，未命中不阻塞已匹配题，只有真实多候选歧义需要确认；已匹配题使用当前真实 objective_practice 进入既有作答、错因、岸岸建议和复测链。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "private_question_books",
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-PRODUCT-LOOP-022", "E-CODE-PRIVATE-QUESTION-BOOK-PRODUCT-GAP-022"],
+      "acceptance": [
+        "今日常驻“我想加练”直接打开现有整页/题本导入态；不先要求用户进入调整页、资料表或新建计划表单。",
+        "题本模式中无待修正识别片段时自动确认识别；高置信已确认项自动通过，当前歧义确认后自动前进，未命中项不触发 AI 解题门禁且不阻塞其他已匹配题保存和开练。",
+        "确认识别后以稳定幂等身份自动创建或恢复同一题本；弱网未知结果、重复 workspace 通知和重复点击不得复制题本或练习会话。",
+        "题本作为“我的学习资料”中的独立资产区展示，不混入通用笔记列表；可继续处理、查看已匹配/待处理计数并复用题本删除生命周期。",
+        "开练只选择服务端今日返回的当前可用行测 objective_practice 任务；没有可用任务时题本仍保存并给出回到今日/调整今天的真实动作，不伪造任务、不打开空练习、不暴露接口错误。",
+        "成功启动后只导航到服务端返回且客户端注册的现有行测 startUrl；作答完成后的错因、mastery、岸岸建议与复测继续由现有闭环拥有，本单元不得复制这些状态。",
+        "保持现有紫色极光、渐变图标与石墨黑主按钮风格，保留微信工具栏安全区以及手机、>=600px 平板横竖屏布局；不重画全站。",
+        "本单元不修改题库内容、识别/匹配真相、计划生成、错因/mastery/岸岸状态、数据库 schema、生产数据、部署或服务重启。"
+      ]
+    },
+    {
+      "id": "REQ-ROADMAP-AFTER-PRIVATE-QUESTION-BOOK-022A",
+      "statement": "唯一开发路线图必须在 022 冻结验收后准确标记其受控实现范围，并把当前唯一焦点推进到阶段 C 的真实账号题本黄金旅程，同时保留未部署、未公测和图推未完成边界。",
+      "scope": "target",
+      "impact": "medium",
+      "state": "confirmed",
+      "owner": "private_question_books",
+      "evidenceRefs": ["E-EXEC-PRIVATE-QUESTION-BOOK-PRODUCT-LOOP-022", "E-USER-ROADMAP-AFTER-PRIVATE-QUESTION-BOOK-022A"],
+      "acceptance": [
+        "路线图记录 022 冻结哈希和机器报告，并只声称冻结范围内的受控实现通过。",
+        "阶段 B 将 022 标记为受控实现完成，阶段 C 成为当前阶段与唯一下一焦点。",
+        "下一步明确为真实账号上传、歧义确认、真实作答、错因、岸岸变化、恢复、隔离与删除传播验收。",
+        "路线图继续明确生产部署、公测、真实 provider、图推语义结构化与多考试内容身份尚未完成。",
+        "本单元不修改任何运行时代码、接口、数据、部署或已封存执行证据。"
+      ]
+    },
+    {
+      "id": "REQ-REAL-ACCOUNT-GOLDEN-CLOSURE-023",
+      "statement": "真实账号的默认诊断—错因—针对复测—今日强反馈必须在同一版本契约中闭合：全对复测直接以客观证据结算且不伪造用户复盘/错因，失败或不确定证据仍保留严谨链，并且小程序调用的学员教练上下文必须由同版本后端提供。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "wechat_coach_orchestration",
+      "evidenceRefs": ["E-USER-REAL-ACCOUNT-GOLDEN-CLOSURE-023", "E-OPS-REAL-ACCOUNT-GOLDEN-GAPS-023", "E-OPS-BACKEND-CLIENT-VERSION-SKEW-023"],
+      "acceptance": [
+        "静默身份后可直达今日，无用户学习时间档案仍产生真实快速诊断；同账号重放不重复创建基线任务。",
+        "混合模块诊断必须把掌握与复测绑定到真实错题模块；资料分析入口与运行时都明确为同一完整 5 题材料组。",
+        "verification 中每题客观答对时，一次提交原子写入作答、assessment、已结算计划证据、mastery 后继与已结算 session；不写用户 reflection、不创建错因候选/决策、不消耗错因模型额度。",
+        "猜对、错题、超时、未答、主动放弃、内容失效或掌握来源过期不得进入全对快路，并保留幂等、旧版本、并发与丢回执恢复。",
+        "复测结算前不得由同一 due mastery 重复生成可启动复测；结算后按 FSRS 证据强度安排下一次，信心未记录只能保守推进。",
+        "返回今日后，岸岸必须展示本次真实作答增量、判断是否保留/收回、计划变化和下一验证时机；即使学习画像请求失败，也不能把完成反馈整块丢失。",
+        "当前小程序所声明的 learner-coach-context@v2 路由必须在同一服务器制品中注册；发布前需执行 104→当前头的数据库迁移演练、备份与回滚检查，不得只修一个 404 兜底。",
+        "不宣称公测、生产就绪或所有证据路径已验收；本单元只负责真实默认诊断链和必要版本对齐。"
+      ]
+    },
+    {
+      "id": "REQ-KNOWLEDGE-MAP-RELEASE-MANIFEST-INTEGRITY-024",
+      "statement": "知识图谱节点的发布身份必须与可恢复的历史发布清单和后继链一致；对于已由迁移规则、当前节点指纹及两份独立备份共同证明的旧发布缺口，系统必须精确恢复原发布事实并重新真实验证外键，不得删除节点、伪造发布或继续信任错误的 convalidated 元数据。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "question_bank_runtime_alignment",
+      "evidenceRefs": [
+        "E-USER-KNOWLEDGE-MAP-MANIFEST-REPAIR-024",
+        "E-OPS-KNOWLEDGE-MAP-MANIFEST-FORENSICS-024"
+      ],
+      "acceptance": [
+        "迁移只在旧发布 ID、2,462 节点、scope/track、创建时间、节点指纹、父子完整性和首个后继发布身份与备份证据全部精确匹配时修复；任一不符必须整笔失败且不部分写入。",
+        "恢复后的旧发布每个字段与 2026-07-29 两份独立备份一致，首个正式发布 supersedes_release_id 恢复到该旧发布；活动 v5 发布及其 640 节点、158,366 题目绑定保持不变。",
+        "修复不修改任何知识节点、题目、题目绑定、用户作答、计划、错因、掌握、方法卡、前端或活动发布头。",
+        "迁移重建并执行 release scope 外键的真实 VALIDATE；数据库中不存在缺父发布的知识节点，外键和关联 trigger 均处于启用且已验证状态。",
+        "精确重放必须幂等；冲突父记录、过期/变更后的节点集合、错误后继身份、并发修复与中途失败均不得产生第二条发布或部分链路。",
+        "在真实 104 逻辑备份副本上完成 105→新 head 演练；修复后重新 pg_dump 并恢复到第二个空数据库时必须零错误，关键表行数、活动发布和 Alembic head 一致。",
+        "本需求不授权生产迁移、应用制品部署、服务重启或发布指针切换；生产执行需独立发布门禁。"
+      ]
+    },
+    {
+      "id": "REQ-PRODUCTION-104-TO-113-RELEASE-025",
+      "statement": "本次服务器升级必须从与 024 完整测试快照逐字节一致的发布面生成单一不可变候选，在全停写窗口内保存可验证的 104 恢复制品后执行 105～113，并在切换前后验证数据库身份、服务、正式路由和真实测试账号黄金链；不得发布当前脏工作区、跳过备份或把一次性操作声明为完整商业生产体系。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "question_bank_runtime_alignment",
+      "evidenceRefs": ["E-USER-PRODUCTION-104-TO-113-RELEASE-025", "E-OPS-PRODUCTION-104-TO-113-PREFLIGHT-025"],
+      "acceptance": [
+        "候选发布面必须与 024 成功测试快照在 backend、apps/wechat、ops、scripts、.github 和 canonical OpenAPI 范围内逐文件摘要一致，且由独立干净临时 Git 提交和 SHA-256 制品固定；主工作区中的 data、reports 和其他未选择内容不得被隐式打包。",
+        "生产迁移前必须记录当前 release、104 head 和关键数据指纹，停止 API、全部数据库 worker 与 OpenILink 写入，并生成服务器与本机两份 SHA-256 相同的 custom-format 104 dump。",
+        "数据库只允许从精确 104 前向迁移到精确 113；迁移后知识图谱孤儿为 0、历史父发布和后继链精确恢复、外键已验证、活动 v5 与题目/绑定/用户关键计数不得发生计划外变化。",
+        "切换前候选必须在独立端口通过 import、health、ready 和 023 所需正式路由；随后才可原子切换 current 并重启同一运行时服务集。",
+        "切换后必须验证所有服务 active、health/ready 200、Alembic 113、关键路由不再 404，并用专用测试账号复跑静默进入—今日—任务—反馈的最小黄金链。",
+        "任何摘要、数据库身份、关键计数、活动发布、候选旁路或真实账号验证不符必须停止；恢复流量前可在持续停写时恢复本次 104 dump，恢复流量后不得用旧 dump 覆盖新写入，只能前向修复。",
+        "本需求不声明微信上传/审核/正式发布、定时签名备份、跨故障域恢复或严格商业发布控制面已经完成。"
+      ]
+    },
+    {
+      "id": "REQ-PRODUCTION-BACKUP-TRANSFER-025A",
+      "statement": "当完整 104 服务器 dump 已在全停写状态通过可恢复性与摘要验证，而异地传输受实测出口带宽限制时，迁移可与本机副本下载并行；但发布闭环前本机必须重组出与服务器整库摘要完全相同的第二份，不得减少回滚断言或把上一日备份冒充本次恢复点。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "question_bank_runtime_alignment",
+      "evidenceRefs": ["E-OPS-PRODUCTION-BACKUP-TRANSFER-025A", "E-USER-PRODUCTION-104-TO-113-RELEASE-025"],
+      "acceptance": [
+        "迁移开始前必须保持全部应用写入者停止、数据库为精确 104、旧 current 指针未变，且服务器完整 custom dump 通过 pg_restore --list、大小与 SHA-256 固定。",
+        "本机副本下载必须在迁移前开始并持续进行；迁移、旁路验证和切换可与传输并行，但未得到整库同摘要第二份前不得宣告发布闭环完成。",
+        "本机副本未完成期间若迁移或候选失败，只能在全停写状态使用服务器本地完整 dump 恢复 104 和旧指针；不得使用上一日 rehearsal dump 冒充精确回滚点。",
+        "恢复入口流量后不得用任何旧 dump 覆盖新写入，只允许前向修复；本机副本随后只作为灾难恢复证据。",
+        "本调整不改变候选 commit、113 迁移、关键数据指纹、活动知识发布、服务和真实账号验收要求。"
+      ]
+    },
+    {
+      "id": "REQ-WORKSPACE-TRUTH-CONSISTENCY-026",
+      "statement": "安全认证后的微信工作区必须以真实计划、学习上下文和能力来源的实际响应作为可用性权威；学习偏好尚未确认只能触发可调整提示，不能让岸岸、能力、我的或周计划否认今日已经存在的真实任务与证据。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "wechat_coach_orchestration",
+      "evidenceRefs": ["E-USER-WORKSPACE-TRUTH-CONSISTENCY-026", "E-CODE-WORKSPACE-TRUTH-DIVERGENCE-026"],
+      "acceptance": [
+        "岸岸页不依赖 onboarding progress 决定是否读取今日计划；计划接口成功时必须展示与今日相同的真实任务与容量。",
+        "能力页不依赖 studyPreferenceReady 决定是否读取目标差；只有计划来源真实缺失或失败时才显示对应来源状态，已有学习证据继续展示。",
+        "我的页必须独立读取 onboarding、资格、学习偏好和真实计划；偏好未确认时仍展示真实目标与今日容量，并以‘岸岸暂排、可调整’表达而不是声称计划尚未生成。",
+        "周计划页必须直接读取周计划权威接口，不能因学习偏好未确认在客户端提前阻断；真实接口结果决定页面状态。",
+        "onboarding 与个人档案仍可如实显示学习偏好未确认，但该状态不得传播成工作区功能不可用。",
+        "某一来源失败只影响该来源；progress 失败不得遮蔽已经成功的计划或上下文，异步回放、过期请求、切换账号与恢复后重试不得提交旧用户结果。",
+        "不修改后端、API schema、生产用户数据、题库、错因、掌握、教学包或费曼链路，不上传或发布小程序。"
+      ]
+    },
+    {
+      "id": "REQ-WORKSPACE-UX-DECLUTTER-027",
+      "statement": "真实计划可用时，今日首屏必须以一个可立即开始的任务为唯一主动作，天气和资料完成度只能作为非阻塞上下文；我的页必须优先呈现用户已经拥有的目标、学习状态与学习资产，岸岸建议的观察—判断—行动—验证—修正链保持完整。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "wechat_coach_orchestration",
+      "evidenceRefs": ["E-USER-WORKSPACE-UX-DECLUTTER-027", "E-CODE-WORKSPACE-UX-CLUTTER-027"],
+      "acceptance": [
+        "今日页不再渲染独立今日节奏、天气、咖啡或每日开场失败卡；天气就绪时只在问候旁显示天气与当前温度，需定位时只显示一个轻量可选入口，天气加载失败不产生阻塞错误。",
+        "今日首个任务的标题、预计时长、完成标准和黑色开始按钮必须出现在岸岸长解释之前；岸岸建议仍保留我观察到、暂时判断、为什么先做、怎么验证、判断错了、候选确认与返回反馈。",
+        "今日标题区只保留调整今天的次要动作，加练移动到学习工具；空计划、完成和恢复状态仍提供对应真实主动作。",
+        "我的页按目标岗位、学习方式、学习资产、督学提醒、备考档案、方法卡社区和数据服务排序；资格未完成时不逐项渲染六个待补充，只显示不影响学习且需要核岗时再补的单一入口。",
+        "600px 及以上布局保持可用，1024px 横屏不为空的天气侧栏保留占位，也不让备考档案跨两行压过学习资产。",
+        "每日开场重放、天气失败、旧展开状态、并发加载和定位恢复都不得改变真实计划、生成第二个主动作或中断岸岸闭环。",
+        "不修改后端、API schema、数据库、生产账号、题库、错因、掌握、反思、教学包或费曼链路，不上传或发布小程序。"
+      ]
+    },
+    {
+      "id": "REQ-WEATHER-RAIN-GLANCE-027A",
+      "statement": "今日问候旁的紧凑天气在天气摘要可用时必须直接展示天气现象、已有降雨概率和当前温度；位置尚未提供时入口必须明确说明用于查看降雨，同时始终保持非阻塞。",
+      "scope": "target",
+      "impact": "medium",
+      "state": "confirmed",
+      "owner": "wechat_coach_orchestration",
+      "evidenceRefs": ["E-USER-WEATHER-RAIN-GLANCE-027A", "E-CODE-WEATHER-RAIN-GLANCE-027A"],
+      "acceptance": [
+        "天气摘要可用时紧凑文案严格使用现有 conditionCode、precipitationChance 和 currentCelsius，降雨概率按百分数四舍五入，不新增主观阈值结论。",
+        "位置尚未提供时轻量入口显示‘看降雨’，请求中仍显示‘获取中…’，不产生天气卡、错误卡或计划门禁。",
+        "天气摘要缺失时不伪造概率或温度；重复、过期、并发和恢复调用仅由各自输入确定输出，不保存共享展示状态。",
+        "不修改后端、API schema、天气权限、计划、任务、错因、掌握、我的页、数据库、上传或发布。"
+      ]
+    },
+    {
+      "id": "REQ-WECHAT-INTERNAL-BETA-QUALITY-028",
+      "statement": "微信体验版上传前必须让当前整包声明的静态规则、包边界和回归测试全部通过；修复应解决真实契约漂移和跨接口硬耦合，不得恢复已移除的天气卡、削弱题本/错因/掌握/讲回链路或用忽略规则掩盖错误。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "wechat_coach_orchestration",
+      "evidenceRefs": ["E-USER-WECHAT-INTERNAL-BETA-QUALITY-028", "E-CODE-WECHAT-INTERNAL-BETA-BLOCKERS-028"],
+      "acceptance": [
+        "明示记忆清单成功时，即使岸岸理解摘要暂时失败也必须保持记忆页可用；过期、冲突和不确定写入继续只重读规范记忆状态。",
+        "掌握队列 onLoad 在微信运行时或测试调用未提供 options 时使用默认 bucket，有合法 bucket 时保持深链选择，不产生空参数异常。",
+        "题本流程运行时代码必须位于实际消费它的 capture-import 分包，主包不得保留仅由分包可达的运行时文件；既有题本幂等、恢复和导航测试保持通过。",
+        "通用 UI 契约必须以 027/027A 当前决策为准：天气失败不恢复独立错误卡，学习工具文案保留加练，并继续验证任务优先、黑色主按钮和横屏布局。",
+        "历史路线图验收语义可追溯，但当前唯一开发焦点不得被旧阶段文案取代。",
+        "apps/wechat 的 format:check、typecheck、lint、全部 validators、api:check、test:node、Vitest 和 cloud runtime test 必须全部通过。",
+        "本单元不授权上传、部署、生产写入、后端/schema/数据库变更、题库修改或用户账号数据操作。"
+      ]
+    },
+    {
+      "id": "REQ-SUBPACKAGE-TEACH-BACK-SYNC-028A",
+      "statement": "grounded 费曼讲回的微信 API 扩展必须由唯一中立源生成到所有声明消费分包，任何同步都不得删除已验证的讲回类型或方法，所有生成副本必须与生成器期望逐字一致。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "wechat_coach_orchestration",
+      "evidenceRefs": ["E-CODE-SUBPACKAGE-TEACH-BACK-DRIFT-028A", "E-USER-WECHAT-INTERNAL-BETA-QUALITY-028"],
+      "acceptance": [
+        "中立源定义 teachBackAvailable、grounded-teach-back@v1 会话、transfer receipt、startTeachBack 和 submitTeachBackTransfer，语义与当前反思副本一致。",
+        "xingce、practice 与 reflection 三个生成目标必须由同一中立源确定性生成，生成器 check 为零 stale target。",
+        "反思页、掌握队列、讲回 runtime 和既有救援链的类型检查与回归测试保持通过。",
+        "重复生成、并行计算、旧目标漂移和恢复同步不得产生跨分包引用或手工副本分叉。",
+        "不修改后端、OpenAPI 生成类型、数据库、题库、用户数据、产品界面、上传或部署。"
+      ]
+    },
+    {
+      "id": "REQ-ROADMAP-BETA-MARKER-STABILITY-028B",
+      "statement": "正式路线图必须以不依赖 Markdown 表格空格的稳定文字锚点明确声明全产品公测仍未验证，同时保留 022A 的生产、图推和真实题本边界。",
+      "scope": "target",
+      "impact": "medium",
+      "state": "confirmed",
+      "owner": "wechat_coach_orchestration",
+      "evidenceRefs": ["E-CODE-ROADMAP-BETA-MARKER-DRIFT-028B", "E-USER-WECHAT-INTERNAL-BETA-QUALITY-028"],
+      "acceptance": [
+        "路线图正文包含稳定的‘全产品公测状态 | **未验证**’文字锚点，表格如何自动对齐都不改变该状态语义。",
+        "图推暂不作为全局阻断、生产部署未验收、真实题本黄金旅程及恢复边界继续明确。",
+        "路线图六类历史验收测试与全量格式检查同时通过。",
+        "不修改应用运行时代码、产品状态、后端、数据库、题库、上传或部署。"
+      ]
+    },
+    {
+      "id": "REQ-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+      "statement": "微信体验版必须把已完成申论任务稳定恢复到已保存/待评阅真实状态，并让 PDF 题本选择与题图自由编辑在微信原生能力边界内可理解、可操作；不得要求用户刷新解决服务端已经确定的事实。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "wechat_frontend_lifecycle",
+      "evidenceRefs": ["E-USER-INTERNAL-BETA-RUNTIME-BLOCKERS-029", "E-CODE-INTERNAL-BETA-RUNTIME-BLOCKERS-029"],
+      "acceptance": [
+        "申论 workspace 已有 answerVersionId 时不再允许重复完成；有 reviewIntent 时自动续接评阅，409 冲突必须重读 workspace 恢复服务端真相，不丢失本地草稿也不引导反复提交。",
+        "提交状态在申论页只显示一次，语音按钮文案不折行，滚动表单不穿过状态栏和小程序胶囊安全区。",
+        "题图编辑优先打开可自由调整的 editImage，仅在该能力不存在时回退到 cropImage，不再把 9:16 作为主流程硬约束。",
+        "PDF 选择必须使用微信会话文件选择能力，在页面直接告知需先发到文件传输助手或聊天，选中非 PDF 时就地给出明确提示，取消不作为错误。",
+        "成功、失败、重放、过期、竞态和恢复六类场景及 apps/wechat 整包检查通过。",
+        "不修改后端、API schema、数据库、题库、用户记录、上传、部署或发布。"
+      ]
+    },
+    {
+      "id": "REQ-BETA-FLOW-DISCOVERABILITY-030",
+      "statement": "体验版必须让题本导入、刚完成错题回看和资料分析草稿符合单一路径心智：PDF 是独立上传入口，刚提交的错题可从能力/错题入口直接回到待复盘，作答页只显示一个草稿入口且可切换在当前题目或其共享材料上书写。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "wechat_frontend_lifecycle",
+      "evidenceRefs": ["E-USER-BETA-FLOW-DISCOVERABILITY-030", "E-CODE-BETA-FLOW-DISCOVERABILITY-030"],
+      "acceptance": [
+        "整页/题本模式把拍摄/相册与‘上传 PDF 题本’分成两个视觉与操作分组；相机取景提示不再把 PDF 说成拍摄方式，底层继续使用微信 chooseMessageFile 并保留 PDF 类型校验。",
+        "能力页行测区域提供‘刚做的错题与待复盘’直达 pending_reflection 队列；退出未完成复盘时明确说明保存位置，刚提交的 review 不需等待长期错误模式生成即可找回。",
+        "练习与模考的普通题面只显示题目栏一个‘草稿’入口，不显示材料头/材料内联的第二入口；打开草稿后可在‘本题/共享材料’之间切换书写区域。",
+        "题目笔迹继续绑定当前 question attempt，共享材料笔迹继续按 materialId 同步给同材料题目；不合并两种坐标系、不丢现有草稿和动作证据。",
+        "成功、失败、重放、过期、竞态和恢复六类场景、分包共享同步检查及 apps/wechat 整包检查通过。",
+        "不修改后端、API schema、数据库、题库、真实用户作答事实、上传、部署或发布。"
+      ]
+    },
+    {
+      "id": "REQ-DIRECT-DRAFT-CANVAS-031",
+      "statement": "练习与模考必须把草稿表现为一个覆盖当前题目工作区的连续涂画模式：用户点一次草稿后即可直接在题干、选项和共享材料上书写，不出现内容面选择器，同时继续按既有 question/material 身份分别持久化笔迹。",
+      "scope": "target",
+      "impact": "high",
+      "state": "confirmed",
+      "owner": "wechat_frontend_lifecycle",
+      "evidenceRefs": ["E-USER-DIRECT-DRAFT-CANVAS-031", "E-CODE-DIRECT-DRAFT-CANVAS-031"],
+      "acceptance": [
+        "练习与模考普通题面仍只有一个草稿入口；打开后不显示‘本题/共享材料’选择器，当前可见的题面、选项与共享材料均可直接涂画。",
+        "整页只显示一套草稿工具栏；普通题面由题目工作区承载，材料沉浸阅读时由材料工作区承载，画笔、荧光笔、橡皮和滑动工具状态在两层同步。",
+        "题目笔迹继续走 ANNOTATIONS_CHANGED，共享材料继续走 SHARED_MATERIAL_ANNOTATIONS_CHANGED 并同步同 materialId 题目；不迁移、不合并、不覆盖已有笔迹。",
+        "PDF 独立上传入口保留用户能理解的微信文件来源与文件传输助手提示，既有错题待复盘入口不得回退。",
+        "成功、失败、重放、过期、竞态和恢复六类场景、分包同步、整包检查和微信开发者工具模板编译通过。",
+        "真实 PDF 上传与完整用户旅程由独立新任务在模拟器中执行并报告，不在本实现单元中伪造上传成功。"
+      ]
+    },
+    {
+      "id": "REQ-DIRECT-DRAFT-TEST-CONTRACT-032",
+      "statement": "历史练习与模考测试必须验证 031 的连续双画布、单工具栏和分离 reducer 规则，不得继续把显式 annotationSurface 单选门控作为正确行为。",
+      "scope": "target",
+      "impact": "medium",
+      "state": "confirmed",
+      "owner": "wechat_frontend_lifecycle",
+      "evidenceRefs": ["E-USER-DIRECT-DRAFT-CANVAS-031", "E-CODE-DIRECT-DRAFT-TEST-DRIFT-032"],
+      "acceptance": [
+        "三条历史测试改为断言题目与材料在 annotationMode=annotate 时同时可写、surface switch 对用户关闭且只显示一个动态工具栏 owner。",
+        "测试继续断言题目与材料笔迹走不同 reducer、生命周期关闭仍释放捕获层、旧笔迹仍可回放。",
+        "不通过注释、隐藏假节点或放宽断言绕过真实模板行为。",
+        "六类专项测试与 apps/wechat 整包检查全部通过。",
+        "不修改任何运行时代码、后端、数据、题库、上传或部署。"
       ]
     }
   ]

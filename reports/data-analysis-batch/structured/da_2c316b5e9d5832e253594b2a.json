@@ -1,0 +1,279 @@
+{
+  "asset_id": "da_2c316b5e9d5832e253594b2a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0148_112fba75d012cf98.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0148_112fba75d012cf98.png",
+        "paper_title": "2018年421联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_9dbe674a1415faae8d9b",
+        "question_number": 111,
+        "source_jsonl_line": 5435
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0155_dc8092abd3bfe3f6.png",
+        "paper_title": "2018年421联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_73f3d7c4bdd34edec45f",
+        "question_number": 112,
+        "source_jsonl_line": 5436
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0148_112fba75d012cf98.png",
+        "paper_title": "2018年421联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_8a682b7e9f84cb9dd846",
+        "question_number": 113,
+        "source_jsonl_line": 5437
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0148_112fba75d012cf98.png",
+        "paper_title": "2018年421联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_bcdcb61cf94ead67472e",
+        "question_number": 114,
+        "source_jsonl_line": 5438
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（云南卷）（网友回忆版）_images/img_0148_112fba75d012cf98.png",
+        "paper_title": "2018年421联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_a0975800c64fb67ec0ec",
+        "question_number": 115,
+        "source_jsonl_line": 5439
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0177_112fba75d012cf98.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_f9ad615bf2e2014db243",
+        "question_number": 111,
+        "source_jsonl_line": 25761
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0205_dc8092abd3bfe3f6.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_6acdcfd458de9099d5de",
+        "question_number": 112,
+        "source_jsonl_line": 25762
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0177_112fba75d012cf98.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_29db7ba7d1c1426e1d60",
+        "question_number": 113,
+        "source_jsonl_line": 25763
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0205_dc8092abd3bfe3f6.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_0465e058306ed2c065d5",
+        "question_number": 114,
+        "source_jsonl_line": 25764
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0177_112fba75d012cf98.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_e34d50a1c0b601fc849b",
+        "question_number": 115,
+        "source_jsonl_line": 25765
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0224_112fba75d012cf98.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_d141cce4b099a5beb5aa",
+        "question_number": 121,
+        "source_jsonl_line": 59778
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0224_112fba75d012cf98.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_37a26c99a932b236e8e1",
+        "question_number": 122,
+        "source_jsonl_line": 59779
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0224_112fba75d012cf98.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_fd65cf89134d0574d82e",
+        "question_number": 123,
+        "source_jsonl_line": 59780
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0224_112fba75d012cf98.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_cc9588b2a3a869313406",
+        "question_number": 124,
+        "source_jsonl_line": 59781
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0242_dc8092abd3bfe3f6.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_1019f04d002b9df68f07",
+        "question_number": 125,
+        "source_jsonl_line": 59782
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（海南卷）（网友回忆版）_images/img_0209_112fba75d012cf98.png",
+        "paper_title": "2018年421联考《行测》题（海南卷）（网友回忆版）",
+        "question_id": "pq_24930cbc20c01383aafc",
+        "question_number": 106,
+        "source_jsonl_line": 65982
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（海南卷）（网友回忆版）_images/img_0198_dc8092abd3bfe3f6.png",
+        "paper_title": "2018年421联考《行测》题（海南卷）（网友回忆版）",
+        "question_id": "pq_009cce65edafa3aec5ba",
+        "question_number": 107,
+        "source_jsonl_line": 65983
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（海南卷）（网友回忆版）_images/img_0198_dc8092abd3bfe3f6.png",
+        "paper_title": "2018年421联考《行测》题（海南卷）（网友回忆版）",
+        "question_id": "pq_809f832c6ec974b88c0a",
+        "question_number": 108,
+        "source_jsonl_line": 65984
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（海南卷）（网友回忆版）_images/img_0209_112fba75d012cf98.png",
+        "paper_title": "2018年421联考《行测》题（海南卷）（网友回忆版）",
+        "question_id": "pq_fd0a47459b3047315d76",
+        "question_number": 109,
+        "source_jsonl_line": 65985
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（海南卷）（网友回忆版）_images/img_0198_dc8092abd3bfe3f6.png",
+        "paper_title": "2018年421联考《行测》题（海南卷）（网友回忆版）",
+        "question_id": "pq_0c596f48ce96cd71b2f3",
+        "question_number": 110,
+        "source_jsonl_line": 65986
+      }
+    ],
+    "sha256": "2c316b5e9d5832e253594b2ab9eeacb21d9ba4b46dbbc7985c5e5092d46590b5"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "社区卫生服务站/卫生室｜职工医保",
+      "社区卫生服务站/卫生室｜居民医保",
+      "社区卫生服务中心/卫生院｜职工医保",
+      "社区卫生服务中心/卫生院｜居民医保",
+      "县/市/区级医院｜职工医保",
+      "县/市/区级医院｜居民医保",
+      "地市级医院｜职工医保",
+      "地市级医院｜居民医保",
+      "省级医院｜职工医保",
+      "省级医院｜居民医保",
+      "其他｜职工医保",
+      "其他｜居民医保"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "2008",
+        "group": "不同年份调查人口两周内就诊地点构成",
+        "label": "不同年份调查人口两周内就诊地点构成｜2008",
+        "unit": null,
+        "values": [
+          15.6,
+          32.6,
+          27.4,
+          18.3,
+          27.0,
+          27.0,
+          16.3,
+          10.5,
+          12.9,
+          9.6,
+          0.8,
+          2.0
+        ]
+      },
+      {
+        "display_label": "2013",
+        "group": "不同年份调查人口两周内就诊地点构成",
+        "label": "不同年份调查人口两周内就诊地点构成｜2013",
+        "unit": null,
+        "values": [
+          14.9,
+          47.1,
+          12.4,
+          18.6,
+          14.8,
+          19.1,
+          33.5,
+          7.7,
+          18.4,
+          5.5,
+          6.0,
+          2.0
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

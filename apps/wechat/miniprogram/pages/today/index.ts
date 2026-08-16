@@ -1,12 +1,19 @@
 import { ApiClient } from "../../api/client";
 import { DailyOpeningApi } from "../../api/daily-opening";
-import type { DailyOpeningView, TodayDashboard } from "../../api/generated/types.gen";
+import type {
+  DailyOpeningView,
+  InferenceCandidateVersion,
+  LearnerCoachContext,
+  TodayDashboard,
+} from "../../api/generated/types.gen";
+import { LearningBrainApi } from "../../api/learning-brain";
 import { OnboardingApi } from "../../api/onboarding";
 import { PlanningApi } from "../../api/planning";
 import { createCoachRepository } from "../../data/coach-repository";
 import { loginUrlForReturn } from "../../app/navigation/auth-return";
 import {
   onboardingNavigationTarget,
+  questionBookImportUrl,
   registeredNavigationTarget,
   routes,
 } from "../../app/navigation/routes";
@@ -14,8 +21,21 @@ import { PageControllerRegistry } from "../../app/runtime/controller-registry";
 import { clearAuthSession, currentAccessToken, currentAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
 import { consumeLatestTodayDashboard } from "../../features/planning/runtime-state";
+import {
+  clearCoachTaskBeforeSnapshot,
+  coachLocalDate,
+  readCoachTaskBeforeSnapshot,
+  storeCoachTaskBeforeSnapshot,
+  type CoachTaskBeforeSnapshot,
+} from "../../features/coach-loop/feedback-store";
+import {
+  clearCoachEntryIntent,
+  readCoachEntryIntent,
+  type CoachEntryIntent,
+} from "../../features/onboarding/coach-entry";
 import { suppressNativeTabBar } from "../../platform/tab-bar";
 import { appShareMessage, appTimelineShare, enableAppShareMenu } from "../../platform/share";
+import { createIdempotencyKey } from "../../platform/command-id";
 import {
   openWeatherLocationSetting,
   readWeatherLocation,
@@ -35,7 +55,13 @@ import {
   type TodayControllerState,
 } from "../../features/planning/today-controller";
 import { capacityScaleLabel, createCapacityIdempotencyKey } from "./capacity";
-import { presentTodayDashboard, type TodayView } from "./presentation";
+import {
+  coachEvidenceCounters,
+  coachReturnFeedbackConsumedAuthoritatively,
+  presentTodayDashboard,
+  type CoachLoopPresentationContext,
+  type TodayView,
+} from "./presentation";
 
 class TodayPageControllers {
   private initialShowPending = true;
@@ -59,6 +85,19 @@ class TodayPageControllers {
 
 const controllers = new PageControllerRegistry<object, TodayPageControllers>();
 
+interface TodayCoachRuntime {
+  dashboard: TodayDashboard | null;
+  profileStatus: CoachLoopPresentationContext["profileStatus"];
+  coachContext: LearnerCoachContext | null;
+  candidate: InferenceCandidateVersion | null;
+  beforeSnapshot: CoachTaskBeforeSnapshot | null;
+  entryIntent: CoachEntryIntent | null;
+  refreshVersion: number;
+  suggestionRequested: boolean;
+}
+
+const coachRuntimes = new WeakMap<object, TodayCoachRuntime>();
+
 interface TodayPageData {
   status: "loading" | "ready" | "error";
   errorMessage: string;
@@ -79,6 +118,8 @@ interface TodayPageData {
   insightExpanded: boolean;
   taskOpeningId: string;
   taskNavigationError: string;
+  coachDecisionSubmitting: boolean;
+  coachDecisionMessage: string;
   headerGreeting: string;
   headerContextLabel: string;
 }
@@ -94,10 +135,13 @@ interface TodayPageCustom {
   openWeeklyPlan(): void;
   openMockExam(): void;
   openCaptureImport(): void;
+  openRecognitionOptions(): void;
   openQualificationProfile(): void;
   openStudyPreference(): void;
   openDayAdjustment(): void;
+  openQuestionBookImport(): void;
   toggleInsight(): void;
+  decideCoachSuggestion(event: WechatMiniprogram.BaseEvent): Promise<void>;
   retry(): void;
   loadDailyOpening(): Promise<void>;
   requestWeatherLocation(): Promise<void>;
@@ -127,6 +171,8 @@ Page<TodayPageData, TodayPageCustom>({
     insightExpanded: false,
     taskOpeningId: "",
     taskNavigationError: "",
+    coachDecisionSubmitting: false,
+    coachDecisionMessage: "",
     headerGreeting: greetingLabel(),
     headerContextLabel: "正在读取今日安排",
   },
@@ -136,11 +182,13 @@ Page<TodayPageData, TodayPageCustom>({
     const opening = createDailyOpeningController(this);
     const today = createTodayController(this);
     runtime.controller = new TodayPageControllers(today, opening);
+    coachRuntimes.set(this, emptyTodayCoachRuntime());
     void today.load();
     this.setData({ headerGreeting: greetingLabel(currentAuthSession()?.displayName) });
   },
 
   onUnload() {
+    coachRuntimes.delete(this);
     controllers.detach(this);
   },
 
@@ -171,7 +219,12 @@ Page<TodayPageData, TodayPageCustom>({
   },
 
   replaceDashboard(dashboard, capacitySubmission) {
-    const view = presentTodayDashboard(dashboard);
+    const coachRuntime = requireTodayCoachRuntime(this);
+    coachRuntime.dashboard = dashboard;
+    const session = currentAuthSession();
+    coachRuntime.beforeSnapshot = session ? readCoachTaskBeforeSnapshot(session.userId) : null;
+    coachRuntime.entryIntent = session ? readCoachEntryIntent(session.userId) : null;
+    const view = presentTodayDashboard(dashboard, coachPresentationContext(coachRuntime));
     this.setData({
       status: "ready",
       errorMessage: "",
@@ -183,6 +236,7 @@ Page<TodayPageData, TodayPageCustom>({
       headerContextLabel:
         view.positionName === "目标分待生成" ? "国考学习计划" : `学习目标 · ${view.positionName}`,
     });
+    void refreshTodayCoachContext(this);
   },
 
   openTask(event: WechatMiniprogram.BaseEvent) {
@@ -228,6 +282,10 @@ Page<TodayPageData, TodayPageCustom>({
     void wx.navigateTo({ url: routes.captureImport });
   },
 
+  openRecognitionOptions() {
+    void wx.navigateTo({ url: routes.onboardingEntry });
+  },
+
   openQualificationProfile() {
     void wx.navigateTo({ url: routes.qualificationProfile });
   },
@@ -240,8 +298,53 @@ Page<TodayPageData, TodayPageCustom>({
     void wx.navigateTo({ url: routes.dayAdjustment });
   },
 
+  openQuestionBookImport() {
+    void wx.navigateTo({ url: questionBookImportUrl() });
+  },
+
   toggleInsight() {
     this.setData({ insightExpanded: !this.data.insightExpanded });
+  },
+
+  async decideCoachSuggestion(event) {
+    if (this.data.coachDecisionSubmitting) return;
+    const action = String(event.currentTarget.dataset.action);
+    if (action !== "confirm" && action !== "reject") return;
+    const session = currentAuthSession();
+    const runtime = coachRuntimes.get(this);
+    const candidate = runtime?.candidate;
+    if (!session || !runtime || !candidate || candidate.status !== "awaiting_confirmation") {
+      return;
+    }
+    this.setData({ coachDecisionSubmitting: true, coachDecisionMessage: "" });
+    try {
+      const { data } = await new LearningBrainApi(
+        new ApiClient(environment.apiBaseUrl, session.accessToken),
+      ).decideStrategyCandidate(
+        candidate.candidateId,
+        {
+          basedOnCandidateVersionId: candidate.candidateVersionId,
+          action,
+        },
+        await createIdempotencyKey("today-coach-strategy-decision"),
+      );
+      runtime.candidate = data.candidate;
+      this.setData({
+        coachDecisionSubmitting: false,
+        coachDecisionMessage:
+          action === "confirm"
+            ? "收到。这个方向现在才会进入后续计划，岸岸会继续复测。"
+            : "收到。岸岸不会采用这个判断，当前计划不受影响。",
+      });
+      renderTodayCoachView(this);
+      await controllers.get(this)?.controller?.today.load();
+    } catch (error) {
+      this.setData({
+        coachDecisionSubmitting: false,
+        coachDecisionMessage:
+          error instanceof Error ? error.message : "这个判断暂时没有提交成功，再试一次。",
+      });
+    }
   },
 
   retry() {
@@ -357,6 +460,7 @@ function openTodayTask(page: TodayPageInstance, taskId: string): void {
     });
     return;
   }
+  captureCoachTaskBeforeNavigation(page, task);
   page.setData({ taskOpeningId: task.id, taskNavigationError: "" });
   const fail = (result: WechatMiniprogram.GeneralCallbackResult) => {
     console.warn("task navigation failed", result.errMsg);
@@ -364,12 +468,147 @@ function openTodayTask(page: TodayPageInstance, taskId: string): void {
       taskOpeningId: "",
       taskNavigationError: "任务页面没打开，再试一次就好。",
     });
+    const session = currentAuthSession();
+    if (session) clearCoachTaskBeforeSnapshot(session.userId);
   };
   if (task.navigationMode === "switchTab") {
     wx.switchTab({ url: task.navigationUrl, fail });
     return;
   }
   wx.navigateTo({ url: task.navigationUrl, fail });
+}
+
+function emptyTodayCoachRuntime(): TodayCoachRuntime {
+  return {
+    dashboard: null,
+    profileStatus: "loading",
+    coachContext: null,
+    candidate: null,
+    beforeSnapshot: null,
+    entryIntent: null,
+    refreshVersion: 0,
+    suggestionRequested: false,
+  };
+}
+
+function requireTodayCoachRuntime(page: object): TodayCoachRuntime {
+  const current = coachRuntimes.get(page);
+  if (current) return current;
+  const created = emptyTodayCoachRuntime();
+  coachRuntimes.set(page, created);
+  return created;
+}
+
+function coachPresentationContext(runtime: TodayCoachRuntime): CoachLoopPresentationContext {
+  return {
+    profileStatus: runtime.profileStatus,
+    coachContext: runtime.coachContext,
+    candidate: runtime.candidate,
+    beforeSnapshot: runtime.beforeSnapshot,
+    entryIntent: runtime.entryIntent,
+  };
+}
+
+async function refreshTodayCoachContext(page: TodayPageInstance): Promise<void> {
+  const session = currentAuthSession();
+  const runtime = coachRuntimes.get(page);
+  if (!session || !runtime?.dashboard) return;
+  const refreshVersion = runtime.refreshVersion + 1;
+  runtime.refreshVersion = refreshVersion;
+  const api = new LearningBrainApi(new ApiClient(environment.apiBaseUrl, session.accessToken));
+  try {
+    const { data: coachContext } = await api.getCoachContext();
+    if (!coachRefreshIsCurrent(page, session.userId, refreshVersion)) return;
+    runtime.coachContext = coachContext;
+    runtime.profileStatus = "ready";
+    if (coachContext.recognition.evidenceCount > 0) {
+      clearCoachEntryIntent(session.userId);
+      runtime.entryIntent = null;
+    }
+    renderTodayCoachView(page);
+  } catch {
+    if (!coachRefreshIsCurrent(page, session.userId, refreshVersion)) return;
+    runtime.coachContext = null;
+    runtime.profileStatus = "unavailable";
+    renderTodayCoachView(page);
+  }
+  if (runtime.suggestionRequested) return;
+  runtime.suggestionRequested = true;
+  try {
+    const { data } = await api.suggestDailyStrategy();
+    if (!coachRefreshIsCurrent(page, session.userId, refreshVersion)) return;
+    runtime.candidate = data.status === "suggested" ? (data.candidate ?? null) : null;
+    renderTodayCoachView(page);
+  } catch {
+    if (!coachRefreshIsCurrent(page, session.userId, refreshVersion)) return;
+    runtime.candidate = null;
+    renderTodayCoachView(page);
+  }
+}
+
+function coachRefreshIsCurrent(
+  page: TodayPageInstance,
+  ownerUserId: string,
+  refreshVersion: number,
+): boolean {
+  return (
+    currentAuthSession()?.userId === ownerUserId &&
+    coachRuntimes.get(page)?.refreshVersion === refreshVersion
+  );
+}
+
+function renderTodayCoachView(page: TodayPageInstance): void {
+  const runtime = coachRuntimes.get(page);
+  if (!runtime?.dashboard) return;
+  const view = presentTodayDashboard(runtime.dashboard, coachPresentationContext(runtime));
+  page.setData({ view });
+  const session = currentAuthSession();
+  if (
+    session &&
+    runtime.profileStatus !== "loading" &&
+    view.loop?.feedback &&
+    coachReturnFeedbackConsumedAuthoritatively(
+      runtime.dashboard,
+      runtime.coachContext?.profile ?? null,
+      runtime.beforeSnapshot,
+    )
+  ) {
+    clearCoachTaskBeforeSnapshot(session.userId);
+  }
+}
+
+function captureCoachTaskBeforeNavigation(
+  page: TodayPageInstance,
+  task: TodayView["tasks"][number],
+) {
+  const session = currentAuthSession();
+  const runtime = coachRuntimes.get(page);
+  const profile = runtime?.coachContext?.profile;
+  if (!session || !runtime?.dashboard) return;
+  storeCoachTaskBeforeSnapshot({
+    version: 1,
+    ownerUserId: session.userId,
+    localDate: coachLocalDate(),
+    capturedAt: new Date().toISOString(),
+    taskId: task.id,
+    taskTitle: task.title,
+    taskKind: task.kind,
+    taskReason: task.reason,
+    completionRule: task.completionRule,
+    planVersionId: runtime.dashboard.planVersionId,
+    ...(profile
+      ? {
+          profileVersionId: profile.profileVersionId,
+          evidence: coachEvidenceCounters(profile),
+          errorPatterns: profile.errorPatterns.map((pattern) => ({
+            patternId: pattern.patternId,
+            displayName: pattern.displayName,
+            status: pattern.status,
+            counterevidenceCount: pattern.counterevidenceCount,
+          })),
+        }
+      : {}),
+  });
 }
 
 function createTodayController(page: TodayPageInstance): TodayController {
@@ -463,12 +702,6 @@ function publishOpeningState(page: TodayPageInstance, state: DailyOpeningState):
   });
   if (state.status === "ready" && state.view) {
     wx.nextTick(() => {
-      if (
-        state.view?.weather.state === "location_required" &&
-        page.data.weatherLocationStatus === "idle"
-      ) {
-        void page.syncWeatherLocation(false);
-      }
       void controllers.get(page)?.controller?.opening.recordDisplayed();
     });
   }

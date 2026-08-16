@@ -1,0 +1,188 @@
+{
+  "asset_id": "da_a0f50e0f22cf1c4751d77426",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1268,
+        "min": 761,
+        "ticks": [],
+        "title": null,
+        "unit": "万吨"
+      }
+    ]
+  },
+  "categories": [
+    "1-2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "2022年",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "2023年",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2022",
+      "label": "2022年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        1112,
+        798,
+        907,
+        1064,
+        872,
+        870,
+        885,
+        1015,
+        761,
+        1032,
+        1028
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2023",
+      "label": "2023年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        1268,
+        887,
+        809,
+        989,
+        1039,
+        1031,
+        1086,
+        1015,
+        879,
+        1095,
+        1265
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0107_bddf4122f678c160.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0107_bddf4122f678c160.png",
+        "paper_title": "2025年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_191fba6da51f54855ca5",
+        "question_number": 101,
+        "source_jsonl_line": 24363
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0107_bddf4122f678c160.png",
+        "paper_title": "2025年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1e5052beeaab3169868a",
+        "question_number": 102,
+        "source_jsonl_line": 24364
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0107_bddf4122f678c160.png",
+        "paper_title": "2025年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ffe816ee4930e9273e07",
+        "question_number": 103,
+        "source_jsonl_line": 24365
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0107_bddf4122f678c160.png",
+        "paper_title": "2025年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8e101a3db7c5ea9f8ce5",
+        "question_number": 104,
+        "source_jsonl_line": 24366
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0130_0cf13d727bb7ceb8.png",
+        "paper_title": "2025年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a6045331ae88f1ad0712",
+        "question_number": 105,
+        "source_jsonl_line": 24367
+      }
+    ],
+    "sha256": "a0f50e0f22cf1c4751d774260e8975cd2b916dd9243c364da95094624c63859a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2022-2023年我国天然气月度进口量",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.385",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "independent_compact_chart_adjudication"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b_compact_chart",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

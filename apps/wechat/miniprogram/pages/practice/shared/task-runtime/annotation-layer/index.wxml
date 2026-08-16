@@ -23,13 +23,34 @@
     catchtouchcancel="onTouchEnd"
   ></view>
 
-  <view wx:if="{{mode === 'annotate' && lassoSelectedCount > 0}}" class="annotation-layer__lasso-bar">
+  <view wx:if="{{mode === 'annotate' && toolbarAvailable && lassoSelectedCount > 0}}" class="annotation-layer__lasso-bar">
     <text>已圈选 {{lassoSelectedCount}} 笔</text>
     <button hover-class="item--hover" class="annotation-layer__lasso-delete" catchtap="deleteLassoSelection">删除所选</button>
   </view>
 
   <!-- 草稿工具栏只暴露必要动作；阅读时可收成一个不拦截滚动的小胶囊。 -->
-  <view wx:if="{{mode === 'annotate' && !toolbarCollapsed}}" class="annotation-layer__toolbar">
+  <view wx:if="{{mode === 'annotate' && toolbarAvailable && !toolbarCollapsed}}" class="annotation-layer__toolbar">
+    <view wx:if="{{surfaceSwitchAvailable}}" class="annotation-layer__surface-switch">
+      <text class="annotation-layer__surface-label">草稿写在</text>
+      <view class="annotation-layer__surface-options" role="tablist" aria-label="草稿书写区域">
+        <button
+          hover-class="item--hover"
+          class="control-center annotation-layer__surface-option {{activeSurface === 'question' ? 'annotation-layer__surface-option--active' : ''}}"
+          data-surface="question"
+          role="tab"
+          aria-selected="{{activeSurface === 'question'}}"
+          catchtap="switchSurface"
+        >本题</button>
+        <button
+          hover-class="item--hover"
+          class="control-center annotation-layer__surface-option {{activeSurface === 'material' ? 'annotation-layer__surface-option--active' : ''}}"
+          data-surface="material"
+          role="tab"
+          aria-selected="{{activeSurface === 'material'}}"
+          catchtap="switchSurface"
+        >共享材料</button>
+      </view>
+    </view>
     <view class="annotation-layer__tools">
       <button hover-class="item--hover"
         wx:for="{{tools}}"
@@ -52,7 +73,7 @@
   </view>
 
   <view
-    wx:if="{{mode === 'annotate' && toolbarCollapsed}}"
+    wx:if="{{mode === 'annotate' && toolbarAvailable && toolbarCollapsed}}"
     class="annotation-layer__dock"
     aria-label="草稿工具已收起"
   >

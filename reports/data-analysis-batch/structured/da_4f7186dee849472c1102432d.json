@@ -1,0 +1,354 @@
+{
+  "asset_id": "da_4f7186dee849472c1102432d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0097_e2129c344a95e384.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0097_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_5e42ebce61164405f900",
+        "question_number": 106,
+        "source_jsonl_line": 4676
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0097_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_8556c0897d40676c0ebb",
+        "question_number": 108,
+        "source_jsonl_line": 4678
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0097_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_99047d532140bf3673a0",
+        "question_number": 109,
+        "source_jsonl_line": 4679
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0107_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_ef009dcb887ba5476748",
+        "question_number": 106,
+        "source_jsonl_line": 14423
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0107_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_3784a74376947315e3a8",
+        "question_number": 107,
+        "source_jsonl_line": 14424
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0107_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_8e2b0cc3cbdee0d34df8",
+        "question_number": 108,
+        "source_jsonl_line": 14425
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0107_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_951b863bb93d2a63678d",
+        "question_number": 109,
+        "source_jsonl_line": 14426
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0106_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_3d8fdcb5400d42e1fc1f",
+        "question_number": 106,
+        "source_jsonl_line": 24992
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0106_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_71aa99fdf12c75985a5e",
+        "question_number": 107,
+        "source_jsonl_line": 24993
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0106_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_8c0a2572a3b7d0954263",
+        "question_number": 108,
+        "source_jsonl_line": 24994
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0106_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_10bc0fc628e43a157443",
+        "question_number": 109,
+        "source_jsonl_line": 24995
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0105_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_37002ae1e1faa85c958e",
+        "question_number": 106,
+        "source_jsonl_line": 31670
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0105_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_ed9effab5c30cf533cd4",
+        "question_number": 107,
+        "source_jsonl_line": 31671
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0105_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_60088971e94aa77c7cdd",
+        "question_number": 109,
+        "source_jsonl_line": 31673
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0105_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_1aca9314243b0d9df091",
+        "question_number": 110,
+        "source_jsonl_line": 31674
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0103_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_618b82a427eda6a22985",
+        "question_number": 106,
+        "source_jsonl_line": 38278
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0103_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_d1b6f08be9f514547529",
+        "question_number": 107,
+        "source_jsonl_line": 38279
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0103_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_f692524121f010f0139e",
+        "question_number": 109,
+        "source_jsonl_line": 38281
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0103_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_9faf44c00ff67e8a591b",
+        "question_number": 108,
+        "source_jsonl_line": 40534
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0103_e2129c344a95e384.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_d709b418bbb67df63cd8",
+        "question_number": 109,
+        "source_jsonl_line": 40535
+      }
+    ],
+    "sha256": "4f7186dee849472c1102432dd8508804df767e2439d0e8f17804ea4ce500e77a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "12月份｜12月份（万人次）",
+          "12月份｜同比增长（%）"
+        ],
+        "label": "12月份"
+      },
+      {
+        "columns": [
+          "全年｜全年（万人次）",
+          "全年｜同比增长（%）"
+        ],
+        "label": "全年"
+      }
+    ],
+    "columns": [
+      "12月份｜12月份（万人次）",
+      "12月份｜同比增长（%）",
+      "全年｜全年（万人次）",
+      "全年｜同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "display_label": "接待过夜旅游者总计",
+        "group": null,
+        "label": "接待过夜旅游者总计",
+        "unit": null,
+        "values": [
+          333.5,
+          24.3,
+          3001.34,
+          16.0
+        ]
+      },
+      {
+        "display_label": "（一）过夜境内旅游者",
+        "group": null,
+        "label": "（一）过夜境内旅游者",
+        "unit": null,
+        "values": [
+          322.96,
+          23.5,
+          2919.88,
+          15.8
+        ]
+      },
+      {
+        "display_label": "1. 旅游饭店接待过夜人次",
+        "group": null,
+        "label": "1. 旅游饭店接待过夜人次",
+        "unit": null,
+        "values": [
+          235.27,
+          18.32,
+          2123.51,
+          14.33
+        ]
+      },
+      {
+        "display_label": "2. 社会旅馆接待过夜人次",
+        "group": null,
+        "label": "2. 社会旅馆接待过夜人次",
+        "unit": null,
+        "values": [
+          87.69,
+          39.8,
+          796.37,
+          20.0
+        ]
+      },
+      {
+        "display_label": "（二）过夜入境旅游者",
+        "group": null,
+        "label": "（二）过夜入境旅游者",
+        "unit": null,
+        "values": [
+          10.54,
+          56.1,
+          81.46,
+          22.8
+        ]
+      },
+      {
+        "display_label": "1. 外国人",
+        "group": null,
+        "label": "1. 外国人",
+        "unit": null,
+        "values": [
+          7.0,
+          32.6,
+          56.17,
+          18.6
+        ]
+      },
+      {
+        "display_label": "2. 香港同胞",
+        "group": null,
+        "label": "2. 香港同胞",
+        "unit": null,
+        "values": [
+          1.4,
+          60.9,
+          13.62,
+          20.2
+        ]
+      },
+      {
+        "display_label": "3. 澳门同胞",
+        "group": null,
+        "label": "3. 澳门同胞",
+        "unit": null,
+        "values": [
+          0.13,
+          160.0,
+          1.13,
+          43.0
+        ]
+      },
+      {
+        "display_label": "4. 台湾同胞",
+        "group": null,
+        "label": "4. 台湾同胞",
+        "unit": null,
+        "values": [
+          2.01,
+          265.5,
+          10.54,
+          54.8
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

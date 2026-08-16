@@ -1,0 +1,273 @@
+{
+  "asset_id": "da_84c13c78ba36f75b82ef56aa",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0350_a822fbde3e768fe0.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0350_a822fbde3e768fe0.png",
+        "paper_title": "2019年420联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_136e948e9cfb6e76dbd3",
+        "question_number": 119,
+        "source_jsonl_line": 30333
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）_images/img_0353_a822fbde3e768fe0.png",
+        "paper_title": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_e2f4c4981a0ceaee5e8b",
+        "question_number": 119,
+        "source_jsonl_line": 88574
+      }
+    ],
+    "sha256": "84c13c78ba36f75b82ef56aaf392d4c67752c51dff207c24d80ee98205393c68"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 0,
+      "estimatedDrawCommandCount": 16,
+      "panelCount": 4,
+      "pointCount": 16
+    },
+    "coordinateSpace": {
+      "height": 278,
+      "width": 370
+    },
+    "evidence": {
+      "converterVersion": "semantic-microcharts-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "02bcdae12919e3511d615cea5da82b8e0f2027fa123239c197f6af231c8d926b",
+      "sourceAsset": "da_84c13c78ba36f75b82ef56aa",
+      "sourceSha256": "84c13c78ba36f75b82ef56aaf392d4c67752c51dff207c24d80ee98205393c68"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 54,
+          "width": 94,
+          "x": 28,
+          "y": 27
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.99057
+            },
+            {
+              "x": 0.35484,
+              "y": 0.86792
+            },
+            {
+              "x": 0.73118,
+              "y": 0.00943
+            },
+            {
+              "x": 1.0,
+              "y": 0.18868
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_84c13c78ba36f75b82ef56aa-0",
+        "label": "A",
+        "position": 0
+      },
+      {
+        "bounds": {
+          "height": 63,
+          "width": 102,
+          "x": 235,
+          "y": 27
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.00806
+            },
+            {
+              "x": 0.25743,
+              "y": 0.99194
+            },
+            {
+              "x": 0.66337,
+              "y": 0.23387
+            },
+            {
+              "x": 1.0,
+              "y": 0.06452
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_84c13c78ba36f75b82ef56aa-1",
+        "label": "B",
+        "position": 1
+      },
+      {
+        "bounds": {
+          "height": 60,
+          "width": 95,
+          "x": 28,
+          "y": 175
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.99153
+            },
+            {
+              "x": 0.35106,
+              "y": 0.13559
+            },
+            {
+              "x": 0.75532,
+              "y": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": 0.81356
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_84c13c78ba36f75b82ef56aa-2",
+        "label": "C",
+        "position": 2
+      },
+      {
+        "bounds": {
+          "height": 57,
+          "width": 91,
+          "x": 228,
+          "y": 168
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.11607
+            },
+            {
+              "x": 0.24444,
+              "y": 0.00893
+            },
+            {
+              "x": 0.6,
+              "y": 1.0
+            },
+            {
+              "x": 1.0,
+              "y": 1.0
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_84c13c78ba36f75b82ef56aa-3",
+        "label": "D",
+        "position": 3
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "line_options"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_84c13c78ba36f75b82ef56aa/column_band_01.jpg",
+        "review-crops/da_84c13c78ba36f75b82ef56aa/column_band_02.jpg",
+        "review-crops/da_84c13c78ba36f75b82ef56aa/column_band_03.jpg",
+        "review-crops/da_84c13c78ba36f75b82ef56aa/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.643",
+      "crop_verification_elapsed_seconds:0.869",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:图中未提供具体数值、坐标轴标签或单位，仅能识别为四条线形趋势图，无法恢复具体数据。",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_chart_point:A:A",
+      "crop_note:ignored_unknown_chart_point:C:C",
+      "crop_note:ignored_unknown_chart_point:B:B",
+      "crop_note:ignored_unknown_chart_point:D:D",
+      "non_data_option_sparkline",
+      "foreground_iou:0.732208",
+      "mean_absolute_error:0.898564",
+      "trace_parameters:{\"epsilonRatio\": 0.0035, \"minimumContourArea\": 2.0, \"paletteSize\": 4}",
+      "visual_grammar:line_options",
+      "visual_grammar:line_options",
+      "converter:semantic-microcharts-v1",
+      "visual_grammar:line_options",
+      "comparison_artifact:previews/structured_visual/da_84c13c78ba36f75b82ef56aa-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

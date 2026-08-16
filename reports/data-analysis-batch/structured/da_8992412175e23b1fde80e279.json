@@ -1,0 +1,217 @@
+{
+  "asset_id": "da_8992412175e23b1fde80e279",
+  "axes": {
+    "x": {
+      "max": 2014,
+      "min": 2010,
+      "ticks": [
+        2010,
+        2011,
+        2012,
+        2013,
+        2014
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 2500,
+        "min": 0,
+        "ticks": [
+          0,
+          500,
+          1000,
+          1500,
+          2000,
+          2500
+        ],
+        "title": null,
+        "unit": "亿立方米"
+      }
+    ]
+  },
+  "categories": [
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "国产气量",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "管输进口量",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "LNG进口量",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "国产气量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿立方米",
+      "values": [
+        989.7,
+        1088.3,
+        1142.8,
+        1248.7,
+        1344.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "管输进口量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿立方米",
+      "values": [
+        128.0,
+        166.0,
+        200.0,
+        245.0,
+        271.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "LNG",
+      "label": "LNG进口量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿立方米",
+      "values": [
+        35.5,
+        143.0,
+        214.0,
+        274.0,
+        313.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广州市考/2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0229_9e1f0e986c024eed.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0229_9e1f0e986c024eed.png",
+        "paper_title": "2017年广州市公务员录用考试《行测》题（单考区卷）",
+        "question_id": "pq_693f8de35f0e53f51ba9",
+        "question_number": 96,
+        "source_jsonl_line": 37458
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0229_9e1f0e986c024eed.png",
+        "paper_title": "2017年广州市公务员录用考试《行测》题（单考区卷）",
+        "question_id": "pq_29f09dd255b90fae6de1",
+        "question_number": 97,
+        "source_jsonl_line": 37459
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0247_d3aa9381cdffc695.png",
+        "paper_title": "2017年广州市公务员录用考试《行测》题（单考区卷）",
+        "question_id": "pq_2abf2306b35304ac6c31",
+        "question_number": 98,
+        "source_jsonl_line": 37460
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0247_d3aa9381cdffc695.png",
+        "paper_title": "2017年广州市公务员录用考试《行测》题（单考区卷）",
+        "question_id": "pq_ffc7c58f75acf78985ec",
+        "question_number": 99,
+        "source_jsonl_line": 37461
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0247_d3aa9381cdffc695.png",
+        "paper_title": "2017年广州市公务员录用考试《行测》题（单考区卷）",
+        "question_id": "pq_dd070b361704a8ccd65d",
+        "question_number": 100,
+        "source_jsonl_line": 37462
+      }
+    ],
+    "sha256": "8992412175e23b1fde80e27995d900a5af4950583b4139f45a10db55f9839175"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2010-2014年我国各类天然气供应量",
+  "unit": "亿立方米",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8992412175e23b1fde80e279/column_band_01.jpg",
+        "review-crops/da_8992412175e23b1fde80e279/column_band_02.jpg",
+        "review-crops/da_8992412175e23b1fde80e279/column_band_03.jpg",
+        "review-crops/da_8992412175e23b1fde80e279/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.753",
+      "crop_verification_elapsed_seconds:4.405",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

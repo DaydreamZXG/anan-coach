@@ -1,0 +1,333 @@
+{
+  "asset_id": "da_018398edf9abdf3ecc0097b9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2009年江苏省公务员录用考试《行测》题（A类）_images/img_0212_242bc0c84e891e04.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0212_242bc0c84e891e04.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_83bdc4730b700b8f3fb7",
+        "question_number": 91,
+        "source_jsonl_line": 44821
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0245_bcb9b148b85b5f7c.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_f884e1e83f0ebcd28ddd",
+        "question_number": 92,
+        "source_jsonl_line": 44822
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0212_242bc0c84e891e04.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_b9e6c8fc8dff9ff64750",
+        "question_number": 93,
+        "source_jsonl_line": 44823
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0212_242bc0c84e891e04.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_07d7b14bc46863ed5157",
+        "question_number": 94,
+        "source_jsonl_line": 44824
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0245_bcb9b148b85b5f7c.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_2f94395e35093e25be1a",
+        "question_number": 95,
+        "source_jsonl_line": 44825
+      }
+    ],
+    "sha256": "018398edf9abdf3ecc0097b9a0f1bbb32db44d1b18104d283bf588033cf2cce7"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "城市",
+      "可吸入颗粒物 (毫克/立方米)",
+      "二氧化硫 (毫克/立方米)",
+      "二氧化氮 (毫克/立方米)",
+      "空气质量达到及好于二级的天数 (天)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "北京",
+        "unit": null,
+        "values": [
+          "北京",
+          0.162,
+          0.052,
+          0.066,
+          241
+        ]
+      },
+      {
+        "label": "天津",
+        "unit": null,
+        "values": [
+          "天津",
+          0.114,
+          0.067,
+          0.048,
+          305
+        ]
+      },
+      {
+        "label": "太原",
+        "unit": null,
+        "values": [
+          "太原",
+          0.142,
+          0.08,
+          0.025,
+          261
+        ]
+      },
+      {
+        "label": "哈尔滨",
+        "unit": null,
+        "values": [
+          "哈尔滨",
+          0.104,
+          0.034,
+          0.049,
+          308
+        ]
+      },
+      {
+        "label": "上海",
+        "unit": null,
+        "values": [
+          "上海",
+          0.086,
+          0.051,
+          0.055,
+          324
+        ]
+      },
+      {
+        "label": "南京",
+        "unit": null,
+        "values": [
+          "南京",
+          0.109,
+          0.063,
+          0.052,
+          305
+        ]
+      },
+      {
+        "label": "杭州",
+        "unit": null,
+        "values": [
+          "杭州",
+          0.111,
+          0.056,
+          0.057,
+          299
+        ]
+      },
+      {
+        "label": "福州",
+        "unit": null,
+        "values": [
+          "福州",
+          0.072,
+          0.02,
+          0.049,
+          344
+        ]
+      },
+      {
+        "label": "济南",
+        "unit": null,
+        "values": [
+          "济南",
+          0.114,
+          0.04,
+          0.021,
+          307
+        ]
+      },
+      {
+        "label": "郑州",
+        "unit": null,
+        "values": [
+          "郑州",
+          0.111,
+          0.06,
+          0.044,
+          306
+        ]
+      },
+      {
+        "label": "武汉",
+        "unit": null,
+        "values": [
+          "武汉",
+          0.121,
+          0.057,
+          0.049,
+          273
+        ]
+      },
+      {
+        "label": "广州",
+        "unit": null,
+        "values": [
+          "广州",
+          0.076,
+          0.054,
+          0.067,
+          334
+        ]
+      },
+      {
+        "label": "海口",
+        "unit": null,
+        "values": [
+          "海口",
+          0.041,
+          0.01,
+          0.012,
+          365
+        ]
+      },
+      {
+        "label": "重庆",
+        "unit": null,
+        "values": [
+          "重庆",
+          0.111,
+          0.074,
+          0.047,
+          287
+        ]
+      },
+      {
+        "label": "昆明",
+        "unit": null,
+        "values": [
+          "昆明",
+          0.091,
+          0.062,
+          0.044,
+          363
+        ]
+      },
+      {
+        "label": "拉萨",
+        "unit": null,
+        "values": [
+          "拉萨",
+          0.062,
+          0.009,
+          0.026,
+          363
+        ]
+      },
+      {
+        "label": "乌鲁木齐",
+        "unit": null,
+        "values": [
+          "乌鲁木齐",
+          0.152,
+          0.113,
+          0.064,
+          246
+        ]
+      }
+    ]
+  },
+  "title": "2006年我国部分城市空气质量指标",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_018398edf9abdf3ecc0097b9/row_band_01.jpg",
+        "review-crops/da_018398edf9abdf3ecc0097b9/row_band_02.jpg",
+        "review-crops/da_018398edf9abdf3ecc0097b9/row_band_03.jpg",
+        "review-crops/da_018398edf9abdf3ecc0097b9/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.39",
+      "crop_verification_elapsed_seconds:8.466",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:北京:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:天津:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:太原:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:天津:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:太原:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:哈尔滨:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:上海:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:南京:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:杭州:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:福州:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:杭州:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:福州:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:济南:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:郑州:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:武汉:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:广州:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:海口:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:广州:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:海口:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:重庆:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:昆明:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:拉萨:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:乌鲁木齐:4!=5"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

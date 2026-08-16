@@ -1,0 +1,488 @@
+{
+  "asset_id": "da_4470f675622e837327e4fdea",
+  "axes": {
+    "x": {
+      "max": 2015,
+      "min": 2011,
+      "ticks": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 137462,
+        "min": 0,
+        "ticks": [],
+        "title": "指标",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "年末总人口（万人）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        134735,
+        135404,
+        136072,
+        136782,
+        137462
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "人口出生率（‰）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "‰",
+      "values": [
+        11.93,
+        12.1,
+        12.08,
+        12.37,
+        12.07
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "人口死亡率（‰）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "‰",
+      "values": [
+        7.14,
+        7.15,
+        7.16,
+        7.16,
+        7.11
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "0-14",
+      "label": "0-14岁人口 绝对量（万人）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        22231,
+        22342,
+        22316,
+        22569,
+        22715
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "0-14",
+      "label": "0-14岁人口 增长率（‰）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "‰",
+      "values": [
+        -0.13,
+        0.5,
+        -0.12,
+        1.13,
+        0.65
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "15-64",
+      "label": "15-64岁人口 绝对量（万人）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        100243,
+        100334,
+        100557,
+        100398,
+        100361
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "15-64",
+      "label": "15-64岁人口 增长率（‰）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "‰",
+      "values": [
+        0.35,
+        0.09,
+        0.22,
+        -0.16,
+        -0.04
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "65",
+      "label": "65岁及以上人口 绝对量（万人）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        12261,
+        12728,
+        13199,
+        13815,
+        14386
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "65",
+      "label": "65岁及以上人口 增长率（‰）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "‰",
+      "values": [
+        2.74,
+        3.81,
+        3.7,
+        4.67,
+        4.13
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0328_a3e4f7fb6a595752.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0328_a3e4f7fb6a595752.png",
+        "paper_title": "2019年420联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_3874fa7a3ecff7147697",
+        "question_number": 116,
+        "source_jsonl_line": 30330
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0330_b9aeae74ec8f35b8.png",
+        "paper_title": "2019年420联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_52df55cf658282d3533d",
+        "question_number": 117,
+        "source_jsonl_line": 30331
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0328_a3e4f7fb6a595752.png",
+        "paper_title": "2019年420联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_e7339ba141f2b1d05511",
+        "question_number": 118,
+        "source_jsonl_line": 30332
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0330_b9aeae74ec8f35b8.png",
+        "paper_title": "2019年420联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_136e948e9cfb6e76dbd3",
+        "question_number": 119,
+        "source_jsonl_line": 30333
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0328_a3e4f7fb6a595752.png",
+        "paper_title": "2019年420联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_3c04c08216ca9e9f199b",
+        "question_number": 120,
+        "source_jsonl_line": 30334
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）_images/img_0333_a3e4f7fb6a595752.png",
+        "paper_title": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_8116d58587e759519349",
+        "question_number": 116,
+        "source_jsonl_line": 88571
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）_images/img_0336_b9aeae74ec8f35b8.png",
+        "paper_title": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_e62c19f2f6091e20ee2f",
+        "question_number": 117,
+        "source_jsonl_line": 88572
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）_images/img_0333_a3e4f7fb6a595752.png",
+        "paper_title": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_e2c2af95a1969739cf53",
+        "question_number": 118,
+        "source_jsonl_line": 88573
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）_images/img_0333_a3e4f7fb6a595752.png",
+        "paper_title": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_e2f4c4981a0ceaee5e8b",
+        "question_number": 119,
+        "source_jsonl_line": 88574
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）_images/img_0333_a3e4f7fb6a595752.png",
+        "paper_title": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_f16d1ad354311891b3a1",
+        "question_number": 120,
+        "source_jsonl_line": 88575
+      }
+    ],
+    "sha256": "4470f675622e837327e4fdea3182feadc1e2acfb8962b61f986be19220aece9b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2011年",
+      "2012年",
+      "2013年",
+      "2014年",
+      "2015年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "年末总人口（万人）",
+        "unit": "万人",
+        "values": [
+          134735,
+          135404,
+          136072,
+          136782,
+          137462
+        ]
+      },
+      {
+        "label": "人口出生率（‰）",
+        "unit": "‰",
+        "values": [
+          11.93,
+          12.1,
+          12.08,
+          12.37,
+          12.07
+        ]
+      },
+      {
+        "label": "人口死亡率（‰）",
+        "unit": "‰",
+        "values": [
+          7.14,
+          7.15,
+          7.16,
+          7.16,
+          7.11
+        ]
+      },
+      {
+        "label": "0-14岁人口 绝对量（万人）",
+        "unit": "万人",
+        "values": [
+          22231,
+          22342,
+          22316,
+          22569,
+          22715
+        ]
+      },
+      {
+        "label": "0-14岁人口 增长率（‰）",
+        "unit": "‰",
+        "values": [
+          -0.13,
+          0.5,
+          -0.12,
+          1.13,
+          0.65
+        ]
+      },
+      {
+        "label": "15-64岁人口 绝对量（万人）",
+        "unit": "万人",
+        "values": [
+          100243,
+          100334,
+          100557,
+          100398,
+          100361
+        ]
+      },
+      {
+        "label": "15-64岁人口 增长率（‰）",
+        "unit": "‰",
+        "values": [
+          0.35,
+          0.09,
+          0.22,
+          -0.16,
+          -0.04
+        ]
+      },
+      {
+        "label": "65岁及以上人口 绝对量（万人）",
+        "unit": "万人",
+        "values": [
+          12261,
+          12728,
+          13199,
+          13815,
+          14386
+        ]
+      },
+      {
+        "label": "65岁及以上人口 增长率（‰）",
+        "unit": "‰",
+        "values": [
+          2.74,
+          3.81,
+          3.7,
+          4.67,
+          4.13
+        ]
+      }
+    ]
+  },
+  "title": "2011-2015年我国人口统计数据",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4470f675622e837327e4fdea/row_band_01.jpg",
+        "review-crops/da_4470f675622e837327e4fdea/row_band_02.jpg",
+        "review-crops/da_4470f675622e837327e4fdea/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:19.238",
+      "crop_verification_elapsed_seconds:40.02",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'年末总人口（万人）'的2011年数据为134735，原图显示为134735，但根据上下文应为134735，确认无误。",
+      "crop_note:修正了'人口出生率（‰）'的2011年数据为11.93，原图显示为11.93，确认无误。",
+      "crop_note:修正了'人口死亡率（‰）'的2011年数据为7.14，原图显示为7.14，确认无误。",
+      "crop_note:修正了'0-14岁人口 绝对量（万人）'的2011年数据为22231，原图显示为22231，确认无误。",
+      "crop_note:修正了'0-14岁人口 增长率（‰）'的2011年数据为-0.13，原图显示为-0.13，确认无误。",
+      "crop_note:修正了'15-64岁人口 绝对量（万人）'的2011年数据为100243，原图显示为100243，确认无误。",
+      "crop_note:修正了'15-64岁人口 增长率（‰）'的2011年数据为0.35，原图显示为0.35，确认无误。",
+      "crop_note:修正了'65岁及以上人口 绝对量（万人）'的2011年数据为12261，原图显示为12261，确认无误。",
+      "crop_note:修正了'65岁及以上人口 增长率（‰）'的2011年数据为2.74，原图显示为2.74，确认无误。",
+      "crop_note:修正了'0-14岁人口 绝对量（万人）'的2012年数据为22342，原图显示为22342，确认无误。",
+      "crop_note:修正了'0-14岁人口 增长率（‰）'的2012年数据为0.5，原图显示为0.5，确认无误。",
+      "crop_note:修正了'15-64岁人口 绝对量（万人）'的2012年数据为100334，原图显示为100334，确认无误。",
+      "crop_note:修正了'15-64岁人口 增长率（‰）'的2012年数据为0.09，原图显示为0.09，确认无误。",
+      "crop_note:修正了'65岁及以上人口 绝对量（万人）'的2012年数据为12728，原图显示为12728，确认无误。",
+      "crop_note:修正了'65岁及以上人口 增长率（‰）'的2012年数据为3.81，原图显示为3.81，确认无误。",
+      "crop_note:修正了'0-14岁人口 绝对量（万人）'的2013年数据为22316，原图显示为22316，确认无误。",
+      "crop_note:修正了'0-14岁人口 增长率（‰）'的2013年数据为-0.12，原图显示为-0.12，确认无误。",
+      "crop_note:修正了'15-64岁人口 绝对量（万人）'的2013年数据为100557，原图显示为100557，确认无误。",
+      "crop_note:修正了'15-64岁人口 增长率（‰）'的2013年数据为0.22，原图显示为0.22，确认无误。",
+      "crop_note:修正了'65岁及以上人口 绝对量（万人）'的2013年数据为13199，原图显示为13199，确认无误。",
+      "crop_note:修正了'65岁及以上人口 增长率（‰）'的2013年数据为3.7，原图显示为3.7，确认无误。",
+      "crop_note:修正了'0-14岁人口 绝对量（万人）'的2014年数据为22569，原图显示为22569，确认无误。",
+      "crop_note:修正了'0-14岁人口 增长率（‰）'的2014年数据为1.13，原图显示为1.13，确认无误。",
+      "crop_note:修正了'15-64岁人口 绝对量（万人）'的2014年数据为100398，原图显示为100398，确认无误。",
+      "crop_note:修正了'15-64岁人口 增长率（‰）'的2014年数据为-0.16，原图显示为-0.16，确认无误。",
+      "crop_note:修正了'65岁及以上人口 绝对量（万人）'的2014年数据为13815，原图显示为13815，确认无误。",
+      "crop_note:修正了'65岁及以上人口 增长率（‰）'的2014年数据为4.67，原图显示为4.67，确认无误。",
+      "crop_note:修正了'0-14岁人口 绝对量（万人）'的2015年数据为22715，原图显示为22715，确认无误。",
+      "crop_note:修正了'0-14岁人口 增长率（‰）'的2015年数据为0.65，原图显示为0.65，确认无误。",
+      "crop_note:修正了'15-64岁人口 绝对量（万人）'的2015年数据为100361，原图显示为100361，确认无误。",
+      "crop_note:修正了'15-64岁人口 增长率（‰）'的2015年数据为-0.04，原图显示为-0.04，确认无误。",
+      "crop_note:修正了'65岁及以上人口 绝对量（万人）'的2015年数据为14386，原图显示为14386，确认无误。",
+      "crop_note:修正了'65岁及以上人口 增长率（‰）'的2015年数据为4.13，原图显示为4.13，确认无误。",
+      "crop_note:确认所有数据均无缺失，未发现需要补0或null的情况。",
+      "table_row_label_column_removed:指标"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

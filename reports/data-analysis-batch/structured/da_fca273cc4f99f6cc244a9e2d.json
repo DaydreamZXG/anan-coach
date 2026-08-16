@@ -1,0 +1,163 @@
+{
+  "asset_id": "da_fca273cc4f99f6cc244a9e2d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山西/2009年山西省党群机关录用考试《行测》题_images/img_0132_6891814ca43afd2a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山西省党群机关录用考试《行测》题_images/img_0132_6891814ca43afd2a.png",
+        "paper_title": "2009年山西省党群机关录用考试《行测》题",
+        "question_id": "pq_9c70b40f5851c1a6beb2",
+        "question_number": 126,
+        "source_jsonl_line": 31185
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山西省党群机关录用考试《行测》题_images/img_0134_d006a66a85220b7c.png",
+        "paper_title": "2009年山西省党群机关录用考试《行测》题",
+        "question_id": "pq_23b98596261747c29334",
+        "question_number": 127,
+        "source_jsonl_line": 31186
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山西省党群机关录用考试《行测》题_images/img_0134_d006a66a85220b7c.png",
+        "paper_title": "2009年山西省党群机关录用考试《行测》题",
+        "question_id": "pq_798e95380ddc4677897f",
+        "question_number": 128,
+        "source_jsonl_line": 31187
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山西省党群机关录用考试《行测》题_images/img_0132_6891814ca43afd2a.png",
+        "paper_title": "2009年山西省党群机关录用考试《行测》题",
+        "question_id": "pq_2d66670b97114908bda9",
+        "question_number": 129,
+        "source_jsonl_line": 31188
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山西省党群机关录用考试《行测》题_images/img_0132_6891814ca43afd2a.png",
+        "paper_title": "2009年山西省党群机关录用考试《行测》题",
+        "question_id": "pq_31d2eb3bd86bec503055",
+        "question_number": 130,
+        "source_jsonl_line": 31189
+      }
+    ],
+    "sha256": "fca273cc4f99f6cc244a9e2dfeaf8eba1c1a5ad96d8081e11bea10bf75f0e64f"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "计算单位",
+      "东北铁合金厂",
+      "东南铁合金厂",
+      "西北铁合金厂",
+      "西南铁合金厂",
+      "中南铁合金厂"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "职工总数",
+        "unit": null,
+        "values": [
+          "职工总数",
+          "人",
+          6728,
+          3217,
+          3958,
+          8732,
+          4408
+        ]
+      },
+      {
+        "label": "工人数",
+        "unit": null,
+        "values": [
+          "工人数",
+          "人",
+          4495,
+          2294,
+          2625,
+          5309,
+          2910
+        ]
+      },
+      {
+        "label": "利润率",
+        "unit": null,
+        "values": [
+          "利润率",
+          "%",
+          4.07,
+          3.24,
+          10.38,
+          8.07,
+          13.33
+        ]
+      }
+    ]
+  },
+  "title": "五个铁合金厂职工人数及利润率统计表",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_fca273cc4f99f6cc244a9e2d/row_band_01.jpg",
+        "review-crops/da_fca273cc4f99f6cc244a9e2d/row_band_02.jpg",
+        "review-crops/da_fca273cc4f99f6cc244a9e2d/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.118",
+      "crop_verification_elapsed_seconds:1.208",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "W市｜绝对额（亿元）",
+          "Z省｜绝对额（亿元）"
+        ],
+        "label": "增加值"
+      }
+    ],
+    "columns": [
+      "W市｜绝对额（亿元）",
+      "Z省｜绝对额（亿元）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "文化产业类别",
+    "rows": [
+      {
+        "display_label": "文化及相关产业",
+        "group": null,
+        "label": "文化及相关产业",
+        "unit": null,
+        "values": [
+          77.75,
+          807.96
+        ]
+      },
+      {
+        "display_label": "文化产品制造业",
+        "group": null,
+        "label": "文化产品制造业",
+        "unit": null,
+        "values": [
+          42.91,
+          406.23
+        ]
+      },
+      {
+        "display_label": "文化产品贸易业",
+        "group": null,
+        "label": "文化产品贸易业",
+        "unit": null,
+        "values": [
+          9.13,
+          100.42
+        ]
+      },
+      {
+        "display_label": "文化服务业",
+        "group": null,
+        "label": "文化服务业",
+        "unit": null,
+        "values": [
+          25.71,
+          301.31
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

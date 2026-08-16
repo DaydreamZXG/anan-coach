@@ -1,0 +1,211 @@
+{
+  "asset_id": "da_e52db474e2cd81302c5eec5a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/重庆/2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0160_9ea367876cb5eaf3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0160_9ea367876cb5eaf3.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_3c1100b6ce350d077765",
+        "question_number": 116,
+        "source_jsonl_line": 93379
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0160_9ea367876cb5eaf3.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_15ff1a257df052119e77",
+        "question_number": 117,
+        "source_jsonl_line": 93380
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0180_ec39547cfb230cc5.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_7c216e29fa07da29444e",
+        "question_number": 118,
+        "source_jsonl_line": 93381
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0160_9ea367876cb5eaf3.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_fc81827d7fc280302dfc",
+        "question_number": 119,
+        "source_jsonl_line": 93382
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0160_9ea367876cb5eaf3.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_8050443293c490cac66f",
+        "question_number": 120,
+        "source_jsonl_line": 93383
+      }
+    ],
+    "sha256": "e52db474e2cd81302c5eec5a712989a28d9d215bb312fa3738e77d2521adc80d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "成交金额（亿元）｜上旬｜第1列",
+      "成交金额（亿元）｜同比增涨｜第2列",
+      "成交金额（亿元）｜深圳｜第3列",
+      "成交金额（亿元）｜同比增涨｜第4列",
+      "成交金额（亿元）｜上旬｜第5列",
+      "成交金额（亿元）｜同比增涨｜第6列",
+      "成交金额（亿元）｜深圳｜第7列",
+      "成交金额（亿元）｜同比增涨｜第8列"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "月份",
+    "rows": [
+      {
+        "display_label": "货运量（单位：亿吨）｜2013年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2013年",
+        "unit": null,
+        "values": [
+          22600,
+          149,
+          20300,
+          168.8,
+          2670,
+          154.5,
+          1930,
+          178.9
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2013年2月",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2013年2月",
+        "unit": null,
+        "values": [
+          16300,
+          91.8,
+          13800,
+          -13.3,
+          1830,
+          -6.4,
+          1250,
+          -11.8
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2013年3月",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2013年3月",
+        "unit": null,
+        "values": [
+          20400,
+          0.4,
+          18100,
+          -1.1,
+          2330,
+          10.9,
+          1660,
+          11.9
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2013年4月",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2013年4月",
+        "unit": null,
+        "values": [
+          12800,
+          87,
+          12700,
+          4.8,
+          1500,
+          -8.4,
+          1150,
+          2.8
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2013年5月",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2013年5月",
+        "unit": null,
+        "values": [
+          20800,
+          6.9,
+          23700,
+          51.1,
+          2280,
+          14,
+          2090,
+          54
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2013年6月",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2013年6月",
+        "unit": null,
+        "values": [
+          13300,
+          9.2,
+          15000,
+          26.6,
+          1550,
+          20.7,
+          1390,
+          35.5
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

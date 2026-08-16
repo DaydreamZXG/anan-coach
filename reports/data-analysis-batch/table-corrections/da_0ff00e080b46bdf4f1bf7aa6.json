@@ -1,0 +1,142 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2022年｜12月",
+          "2022年｜1-12月"
+        ],
+        "label": "2022年"
+      },
+      {
+        "columns": [
+          "2023年｜1月",
+          "2023年｜2月",
+          "2023年｜3月"
+        ],
+        "label": "2023年"
+      }
+    ],
+    "columns": [
+      "2022年｜12月",
+      "2022年｜1-12月",
+      "2023年｜1月",
+      "2023年｜2月",
+      "2023年｜3月"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "旅客运输量（万人次）",
+        "group": null,
+        "label": "旅客运输量（万人次）",
+        "unit": null,
+        "values": [
+          1871.4,
+          25171.3,
+          3977.5,
+          4320.0,
+          4570.4
+        ]
+      },
+      {
+        "display_label": "其中：国内航线",
+        "group": "旅客运输量（万人次）",
+        "label": "旅客运输量（万人次）｜其中：国内航线",
+        "unit": null,
+        "values": [
+          1840.6,
+          24985.2,
+          3933.2,
+          4249.5,
+          4461.1
+        ]
+      },
+      {
+        "display_label": "其中：港澳台航线",
+        "group": "旅客运输量（万人次）",
+        "label": "旅客运输量（万人次）｜其中：港澳台航线",
+        "unit": null,
+        "values": [
+          9.2,
+          46.9,
+          20.1,
+          26.4,
+          41.0
+        ]
+      },
+      {
+        "display_label": "国际航线",
+        "group": "旅客运输量（万人次）",
+        "label": "旅客运输量（万人次）｜国际航线",
+        "unit": null,
+        "values": [
+          30.8,
+          186.1,
+          44.2,
+          70.6,
+          109.4
+        ]
+      },
+      {
+        "display_label": "货邮运输量（万吨）",
+        "group": null,
+        "label": "货邮运输量（万吨）",
+        "unit": null,
+        "values": [
+          47.9,
+          607.6,
+          49.0,
+          45.2,
+          55.3
+        ]
+      },
+      {
+        "display_label": "其中：国内航线",
+        "group": "货邮运输量（万吨）",
+        "label": "货邮运输量（万吨）｜其中：国内航线",
+        "unit": null,
+        "values": [
+          27.1,
+          343.8,
+          32.0,
+          27.3,
+          33.1
+        ]
+      },
+      {
+        "display_label": "其中：港澳台航线",
+        "group": "货邮运输量（万吨）",
+        "label": "货邮运输量（万吨）｜其中：港澳台航线",
+        "unit": null,
+        "values": [
+          1.3,
+          14.7,
+          0.8,
+          1.0,
+          1.3
+        ]
+      },
+      {
+        "display_label": "国际航线",
+        "group": "货邮运输量（万吨）",
+        "label": "货邮运输量（万吨）｜国际航线",
+        "unit": null,
+        "values": [
+          20.7,
+          263.8,
+          17.0,
+          17.8,
+          22.1
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,251 @@
+{
+  "asset_id": "da_6fafe200231467d204c50ae2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2026年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0122_2af11909d52ca999.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0122_2af11909d52ca999.png",
+        "paper_title": "2026年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ee7356e5d9a993910e75",
+        "question_number": 126,
+        "source_jsonl_line": 54360
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0149_2af11909d52ca999.png",
+        "paper_title": "2026年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d6defc03fb8651336196",
+        "question_number": 118,
+        "source_jsonl_line": 56785
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年湖北省公务员录用考试《行测》题（网友回忆版）_images/img_0211_2af11909d52ca999.png",
+        "paper_title": "2026年湖北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_db66b84ba925e6663b35",
+        "question_number": 124,
+        "source_jsonl_line": 72035
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0125_2af11909d52ca999.png",
+        "paper_title": "2026年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_542bf19c7dd1999ebed2",
+        "question_number": 114,
+        "source_jsonl_line": 74389
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年重庆市公务员录用考试《行测》题（网友回忆版）_images/img_0198_2af11909d52ca999.png",
+        "paper_title": "2026年重庆市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b5e27648a386a39013da",
+        "question_number": 120,
+        "source_jsonl_line": 96283
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年陕西省公务员录用考试《行测》题（网友回忆版）_images/img_0123_2af11909d52ca999.png",
+        "paper_title": "2026年陕西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d74f2908c1fb16de65f5",
+        "question_number": 107,
+        "source_jsonl_line": 98745
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年青海省公务员录用考试《行测》题（网友回忆版）_images/img_0187_2af11909d52ca999.png",
+        "paper_title": "2026年青海省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7dd1d700b868c1dd2f36",
+        "question_number": 120,
+        "source_jsonl_line": 100888
+      }
+    ],
+    "sha256": "6fafe200231467d204c50ae2010992286337767bbc73a9485bb1b72b085037b9"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 0,
+      "estimatedDrawCommandCount": 7,
+      "panelCount": 1,
+      "pointCount": 7
+    },
+    "coordinateSpace": {
+      "height": 190,
+      "width": 400
+    },
+    "evidence": {
+      "converterVersion": "hand-annotated-semantic-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "b4fe7ca851cb44f3e719b80d2fc934e68a6c0522156104bf6ffdb7eb49ad94b5",
+      "sourceAsset": "da_6fafe200231467d204c50ae2",
+      "sourceSha256": "6fafe200231467d204c50ae2010992286337767bbc73a9485bb1b72b085037b9"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 109,
+          "width": 350,
+          "x": 23,
+          "y": 25
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [
+            {
+              "shape": "diamond",
+              "x": 0.03152,
+              "y": 0.10185
+            },
+            {
+              "shape": "diamond",
+              "x": 0.18911,
+              "y": 0.27778
+            },
+            {
+              "shape": "diamond",
+              "x": 0.34384,
+              "y": 0.72222
+            },
+            {
+              "shape": "diamond",
+              "x": 0.50143,
+              "y": 0.7963
+            },
+            {
+              "shape": "diamond",
+              "x": 0.65616,
+              "y": 0.84259
+            },
+            {
+              "shape": "diamond",
+              "x": 0.81375,
+              "y": 0.87037
+            },
+            {
+              "shape": "diamond",
+              "x": 0.96848,
+              "y": 0.89815
+            }
+          ],
+          "points": [
+            {
+              "x": 0.03152,
+              "y": 0.10185
+            },
+            {
+              "x": 0.18911,
+              "y": 0.27778
+            },
+            {
+              "x": 0.34384,
+              "y": 0.72222
+            },
+            {
+              "x": 0.50143,
+              "y": 0.7963
+            },
+            {
+              "x": 0.65616,
+              "y": 0.84259
+            },
+            {
+              "x": 0.81375,
+              "y": 0.87037
+            },
+            {
+              "x": 0.96848,
+              "y": 0.89815
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 3,
+          "type": "polyline"
+        },
+        "id": "da_6fafe200231467d204c50ae2-0",
+        "label": null,
+        "position": 0
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "line_sequence"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6fafe200231467d204c50ae2/column_band_01.jpg",
+        "review-crops/da_6fafe200231467d204c50ae2/column_band_02.jpg",
+        "review-crops/da_6fafe200231467d204c50ae2/column_band_03.jpg",
+        "review-crops/da_6fafe200231467d204c50ae2/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.315",
+      "crop_verification_elapsed_seconds:0.525",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:x轴刻度和标签缺失，无法确定具体数值和分类",
+      "model_uncertainty:y轴刻度和标签缺失，无法确定数值单位和范围",
+      "model_uncertainty:数据点数值未明确标注，仅能通过相对位置推断",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_chart_point:候选分类:候选系列名",
+      "non_data_option_sparkline",
+      "foreground_iou:0.839855",
+      "mean_absolute_error:1.950987",
+      "trace_parameters:{\"epsilonRatio\": 0.0007, \"minimumContourArea\": 0.2, \"paletteSize\": 2}",
+      "visual_grammar:line_sequence",
+      "visual_grammar:line_sequence",
+      "visual_grammar:line_sequence",
+      "visual_grammar:line_sequence",
+      "converter:hand-annotated-semantic-v1",
+      "visual_grammar:line_sequence",
+      "comparison_artifact:previews/structured_visual/da_6fafe200231467d204c50ae2-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

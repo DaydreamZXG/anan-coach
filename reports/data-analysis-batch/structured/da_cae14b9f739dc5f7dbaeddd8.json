@@ -1,0 +1,263 @@
+{
+  "asset_id": "da_cae14b9f739dc5f7dbaeddd8",
+  "axes": {
+    "x": {
+      "max": 2022,
+      "min": 2018,
+      "ticks": [
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 50,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50
+        ],
+        "title": null,
+        "unit": "%"
+      },
+      {
+        "max": 38,
+        "min": 30,
+        "ticks": [
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "企业发明专利产业化率",
+      "style": {
+        "dash": "solid",
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "科研单位发明专利产业化率",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "高校发明专利产业化率",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "发明专利产业化率",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "企业发明专利产业化率",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        45,
+        43.8,
+        44.9,
+        46.8,
+        48.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "科研单位发明专利产业化率",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        3.6,
+        4.5,
+        3.8,
+        3,
+        3.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "高校发明专利产业化率",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        9.1,
+        11.3,
+        15.6,
+        13.3,
+        13.3
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "发明专利产业化率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        32.3,
+        32.9,
+        34.7,
+        35.4,
+        36.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0043_0af8119c01676b7c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0043_0af8119c01676b7c.png",
+        "paper_title": "2023年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_dbfd14bcdbeffafb56ac",
+        "question_number": 76,
+        "source_jsonl_line": 30680
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0041_8a034ae55a7a9853.png",
+        "paper_title": "2023年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_525f94ffd811041533f0",
+        "question_number": 77,
+        "source_jsonl_line": 30681
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0043_0af8119c01676b7c.png",
+        "paper_title": "2023年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_379b9b26e262b91976ca",
+        "question_number": 78,
+        "source_jsonl_line": 30682
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0043_0af8119c01676b7c.png",
+        "paper_title": "2023年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_dea69968fce44c181821",
+        "question_number": 79,
+        "source_jsonl_line": 30683
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0043_0af8119c01676b7c.png",
+        "paper_title": "2023年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_09984bb0309ac8fee5e5",
+        "question_number": 80,
+        "source_jsonl_line": 30684
+      }
+    ],
+    "sha256": "cae14b9f739dc5f7dbaeddd87ed80d83dc6c81acc6fb7bb099b8e5311aa0fc0e"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2018-2022年不同专利权人发明专利产业化率",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cae14b9f739dc5f7dbaeddd8/column_band_01.jpg",
+        "review-crops/da_cae14b9f739dc5f7dbaeddd8/column_band_02.jpg",
+        "review-crops/da_cae14b9f739dc5f7dbaeddd8/column_band_03.jpg",
+        "review-crops/da_cae14b9f739dc5f7dbaeddd8/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.493",
+      "crop_verification_elapsed_seconds:6.112",
+      "candidate_value_changes_after_crop:3",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

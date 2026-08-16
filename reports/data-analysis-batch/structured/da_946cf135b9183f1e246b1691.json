@@ -1,0 +1,333 @@
+{
+  "asset_id": "da_946cf135b9183f1e246b1691",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2008年辽宁省公务员录用考试《行测》题_images/img_0129_5ac3fcab060bbb44.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年辽宁省公务员录用考试《行测》题_images/img_0129_5ac3fcab060bbb44.png",
+        "paper_title": "2008年辽宁省公务员录用考试《行测》题",
+        "question_id": "pq_f0920a1f532ee90c7133",
+        "question_number": 111,
+        "source_jsonl_line": 82166
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年辽宁省公务员录用考试《行测》题_images/img_0148_6c15a9b83a65a059.png",
+        "paper_title": "2008年辽宁省公务员录用考试《行测》题",
+        "question_id": "pq_6ce36e0eaf59844d022e",
+        "question_number": 112,
+        "source_jsonl_line": 82167
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年辽宁省公务员录用考试《行测》题_images/img_0129_5ac3fcab060bbb44.png",
+        "paper_title": "2008年辽宁省公务员录用考试《行测》题",
+        "question_id": "pq_b039d6de0f7a812d6d96",
+        "question_number": 113,
+        "source_jsonl_line": 82168
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年辽宁省公务员录用考试《行测》题_images/img_0129_5ac3fcab060bbb44.png",
+        "paper_title": "2008年辽宁省公务员录用考试《行测》题",
+        "question_id": "pq_729e5c68930782e657c3",
+        "question_number": 114,
+        "source_jsonl_line": 82169
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年辽宁省公务员录用考试《行测》题_images/img_0129_5ac3fcab060bbb44.png",
+        "paper_title": "2008年辽宁省公务员录用考试《行测》题",
+        "question_id": "pq_6fbc84108629a5e212a1",
+        "question_number": 115,
+        "source_jsonl_line": 82170
+      }
+    ],
+    "sha256": "946cf135b9183f1e246b1691d6ee769f3282b39918d868bfd2cda19de66cd2c1"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "增加值",
+      "劳动报酬",
+      "固定资产折旧",
+      "生产净额",
+      "营业盈余"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "第一产业",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜第一产业",
+        "unit": null,
+        "values": [
+          8582.73,
+          4262.6,
+          1303.16,
+          1026.24,
+          1990.73
+        ]
+      },
+      {
+        "display_label": "第二产业合计",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜第二产业合计",
+        "unit": null,
+        "values": [
+          1031.17,
+          898.18,
+          49.52,
+          24.25,
+          59.22
+        ]
+      },
+      {
+        "display_label": "工业",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜工业",
+        "unit": null,
+        "values": [
+          4435.89,
+          1957.48,
+          580.95,
+          711.31,
+          1186.15
+        ]
+      },
+      {
+        "display_label": "建筑业",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜建筑业",
+        "unit": null,
+        "values": [
+          3848.52,
+          1615.84,
+          536.8,
+          656.25,
+          1039.63
+        ]
+      },
+      {
+        "display_label": "第三产业合计",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜第三产业合计",
+        "unit": null,
+        "values": [
+          3115.67,
+          1406.94,
+          672.69,
+          290.68,
+          745.36
+        ]
+      },
+      {
+        "display_label": "农林牧渔服务业",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜农林牧渔服务业",
+        "unit": null,
+        "values": [
+          37.17,
+          24.94,
+          4.51,
+          1.55,
+          6.17
+        ]
+      },
+      {
+        "display_label": "地质勘探业、水利管理业",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜地质勘探业、水利管理业",
+        "unit": null,
+        "values": [
+          22.9,
+          14.08,
+          5.06,
+          1.14,
+          2.62
+        ]
+      },
+      {
+        "display_label": "交通运输、仓储、邮政通讯业",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜交通运输、仓储、邮政通讯业",
+        "unit": null,
+        "values": [
+          557.37,
+          265.24,
+          155.27,
+          46.78,
+          90.08
+        ]
+      },
+      {
+        "display_label": "批发和零售贸易、餐饮业",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜批发和零售贸易、餐饮业",
+        "unit": null,
+        "values": [
+          857.57,
+          442.56,
+          82.19,
+          123.39,
+          209.43
+        ]
+      },
+      {
+        "display_label": "金融保险业",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜金融保险业",
+        "unit": null,
+        "values": [
+          430.68,
+          67.75,
+          22.36,
+          47.04,
+          293.53
+        ]
+      },
+      {
+        "display_label": "房地产业",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜房地产业",
+        "unit": null,
+        "values": [
+          351.92,
+          27.94,
+          271.76,
+          20.03,
+          32.19
+        ]
+      },
+      {
+        "display_label": "社会服务业",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜社会服务业",
+        "unit": null,
+        "values": [
+          265.25,
+          135.98,
+          27.82,
+          35.69,
+          65.76
+        ]
+      },
+      {
+        "display_label": "卫生体育社会福利事业",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜卫生体育社会福利事业",
+        "unit": null,
+        "values": [
+          92.16,
+          65.31,
+          14.22,
+          2.11,
+          10.52
+        ]
+      },
+      {
+        "display_label": "教育文艺广播电影电视业",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜教育文艺广播电影电视业",
+        "unit": null,
+        "values": [
+          203.86,
+          149.23,
+          29.46,
+          4.81,
+          20.36
+        ]
+      },
+      {
+        "display_label": "科学研究和综合技术服务业",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜科学研究和综合技术服务业",
+        "unit": null,
+        "values": [
+          30.42,
+          16.85,
+          4.07,
+          2.85,
+          6.65
+        ]
+      },
+      {
+        "display_label": "国家机关政党机关、社会团体",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜国家机关政党机关、社会团体",
+        "unit": null,
+        "values": [
+          235.08,
+          176.81,
+          50.74,
+          4.5,
+          3.03
+        ]
+      },
+      {
+        "display_label": "其他",
+        "group": "某省地区生产总值",
+        "label": "某省地区生产总值｜其他",
+        "unit": null,
+        "values": [
+          31.29,
+          20.25,
+          5.23,
+          0.79,
+          5.02
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

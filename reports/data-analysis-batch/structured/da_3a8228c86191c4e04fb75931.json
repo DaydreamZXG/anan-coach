@@ -1,0 +1,127 @@
+{
+  "asset_id": "da_3a8228c86191c4e04fb75931",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2013年吉林省公务员录用考试《行测》题（乙级）_images/img_0113_5c8a4ec92d72c869.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（乙级）_images/img_0113_5c8a4ec92d72c869.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_70b45660789a740d719e",
+        "question_number": 96,
+        "source_jsonl_line": 11672
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（乙级）_images/img_0113_5c8a4ec92d72c869.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_ae4a17f8b20e70a904ba",
+        "question_number": 97,
+        "source_jsonl_line": 11673
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（乙级）_images/img_0123_acf1cee42832372a.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_0dc57b1f10389b2c26a6",
+        "question_number": 98,
+        "source_jsonl_line": 11674
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（乙级）_images/img_0113_5c8a4ec92d72c869.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_306784e617ba7b6164bc",
+        "question_number": 99,
+        "source_jsonl_line": 11675
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（乙级）_images/img_0113_5c8a4ec92d72c869.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_402b17d2c1a6f05d64fd",
+        "question_number": 100,
+        "source_jsonl_line": 11676
+      }
+    ],
+    "sha256": "3a8228c86191c4e04fb759318528f65193cd5915b33f9909d416195659d70586"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "高速",
+      "一级",
+      "二级",
+      "三级",
+      "四级",
+      "等外"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "公路里程",
+        "group": "2012年全国各技术等级公路里程",
+        "label": "2012年全国各技术等级公路里程｜公路里程",
+        "unit": "万公里",
+        "values": [
+          9.62,
+          7.43,
+          33.15,
+          40.19,
+          270.58,
+          62.79
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

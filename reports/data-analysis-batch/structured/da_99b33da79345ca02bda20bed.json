@@ -1,0 +1,225 @@
+{
+  "asset_id": "da_99b33da79345ca02bda20bed",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1786,
+        "min": -13,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "出生人口（万人）",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "出生率（‰）",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "出生人口（万人）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        1588,
+        1604,
+        1635,
+        1640,
+        1687,
+        1655,
+        1786,
+        1723,
+        1523,
+        1465
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "出生率（‰）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "‰",
+      "values": [
+        -11.9,
+        -11.93,
+        -12.1,
+        -12.08,
+        -12.37,
+        -12.07,
+        -12.95,
+        -12.43,
+        -10.94,
+        -10.48
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0408_45f5685c5ad44b67.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0408_45f5685c5ad44b67.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_a5e0f950b7cda9c3f3bf",
+        "question_number": 131,
+        "source_jsonl_line": 49376
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0406_5449878e5e7b616e.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_d2b49b831b40d82f1c2f",
+        "question_number": 132,
+        "source_jsonl_line": 49377
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0408_45f5685c5ad44b67.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_6a790b3ec897c4d9a983",
+        "question_number": 133,
+        "source_jsonl_line": 49378
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0406_5449878e5e7b616e.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_9569eadf7c800329132e",
+        "question_number": 134,
+        "source_jsonl_line": 49379
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0408_45f5685c5ad44b67.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_ae3f578920f9f288c496",
+        "question_number": 135,
+        "source_jsonl_line": 49380
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0212_5449878e5e7b616e.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_1c1cc7e12211f7a0afd4",
+        "question_number": 111,
+        "source_jsonl_line": 49491
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0216_45f5685c5ad44b67.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_7103378bc6157ffd14af",
+        "question_number": 112,
+        "source_jsonl_line": 49492
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0216_45f5685c5ad44b67.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_cec127e92edf181b0ada",
+        "question_number": 113,
+        "source_jsonl_line": 49493
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0212_5449878e5e7b616e.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_02927909cc49f70f0ad2",
+        "question_number": 114,
+        "source_jsonl_line": 49494
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0216_45f5685c5ad44b67.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_132f5322c6c668839c29",
+        "question_number": 115,
+        "source_jsonl_line": 49495
+      }
+    ],
+    "sha256": "99b33da79345ca02bda20bed7d44d52473b80ee1816a9abe53fc48ac996fc77b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2010-2019年我国出生人口及出生率",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.504",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "independent_compact_chart_adjudication"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b_compact_chart",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

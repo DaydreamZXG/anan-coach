@@ -1,0 +1,250 @@
+{
+  "asset_id": "da_b0b298865081f555ef1ae654",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0176_998953b3f8fe2124.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0176_998953b3f8fe2124.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_d7228dae71872389d097",
+        "question_number": 121,
+        "source_jsonl_line": 50436
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0176_998953b3f8fe2124.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_45204200e056c1fa17ca",
+        "question_number": 122,
+        "source_jsonl_line": 50437
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0211_993fecdd9c04e027.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_bf251270fb5009fa6091",
+        "question_number": 123,
+        "source_jsonl_line": 50438
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0211_993fecdd9c04e027.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_b92c716a5537cbedeea7",
+        "question_number": 124,
+        "source_jsonl_line": 50439
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0176_998953b3f8fe2124.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_d53d0651bf754f86e5f5",
+        "question_number": 125,
+        "source_jsonl_line": 50440
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0176_998953b3f8fe2124.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_66b1f2d5b35aefd9f8ca",
+        "question_number": 121,
+        "source_jsonl_line": 50571
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0176_998953b3f8fe2124.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_8cd29abda4466eb09e74",
+        "question_number": 122,
+        "source_jsonl_line": 50572
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0176_998953b3f8fe2124.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_87f057491e2096630c84",
+        "question_number": 123,
+        "source_jsonl_line": 50573
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0176_998953b3f8fe2124.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_1aa821fe5cced94883d5",
+        "question_number": 124,
+        "source_jsonl_line": 50574
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0176_998953b3f8fe2124.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_2aed9709687a0fe2c2fc",
+        "question_number": 125,
+        "source_jsonl_line": 50575
+      }
+    ],
+    "sha256": "b0b298865081f555ef1ae65495e585d3f94c9d840711a907c42b21b8d18e44f8"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "进口量 (万吨)",
+      "出口量 (万吨)",
+      "进口额 (万美元)",
+      "出口额 (万美元)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2015",
+        "unit": null,
+        "values": [
+          2015,
+          1.16,
+          11.74,
+          1758,
+          11320
+        ]
+      },
+      {
+        "label": "2016",
+        "unit": null,
+        "values": [
+          2016,
+          1.38,
+          12.74,
+          2109,
+          11940
+        ]
+      },
+      {
+        "label": "2017",
+        "unit": null,
+        "values": [
+          2017,
+          1.46,
+          13.37,
+          2328,
+          12219
+        ]
+      },
+      {
+        "label": "2018",
+        "unit": null,
+        "values": [
+          2018,
+          1.34,
+          15.37,
+          2087,
+          13820
+        ]
+      },
+      {
+        "label": "2019",
+        "unit": null,
+        "values": [
+          2019,
+          1.45,
+          15.87,
+          2289,
+          14837
+        ]
+      },
+      {
+        "label": "2020",
+        "unit": null,
+        "values": [
+          2020,
+          1.18,
+          15.78,
+          1992,
+          15095
+        ]
+      },
+      {
+        "label": "2021",
+        "unit": null,
+        "values": [
+          2021,
+          1.35,
+          18.34,
+          2342,
+          17691
+        ]
+      },
+      {
+        "label": "2022",
+        "unit": null,
+        "values": [
+          2022,
+          1.17,
+          18.61,
+          1905,
+          18385
+        ]
+      }
+    ]
+  },
+  "title": "2015-2022 年我国酱油进出口贸易情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b0b298865081f555ef1ae654/row_band_01.jpg",
+        "review-crops/da_b0b298865081f555ef1ae654/row_band_02.jpg",
+        "review-crops/da_b0b298865081f555ef1ae654/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.123",
+      "crop_verification_elapsed_seconds:9.622",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

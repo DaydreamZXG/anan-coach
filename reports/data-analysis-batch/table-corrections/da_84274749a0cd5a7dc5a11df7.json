@@ -1,0 +1,156 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "排名｜城市",
+          "排名｜快递业务量（万件）"
+        ],
+        "label": "快递业务量"
+      },
+      {
+        "columns": [
+          "排名｜城市",
+          "排名｜快递业务收入（万元）"
+        ],
+        "label": "快递业务收入"
+      }
+    ],
+    "columns": [
+      "排名｜城市",
+      "排名｜快递业务量（万件）",
+      "排名｜城市",
+      "排名｜快递业务收入（万元）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "排名",
+    "rows": [
+      {
+        "label": "1",
+        "unit": null,
+        "values": [
+          1,
+          "上海",
+          32982.9,
+          1,
+          "上海",
+          894272.6
+        ]
+      },
+      {
+        "label": "2",
+        "unit": null,
+        "values": [
+          2,
+          "北京",
+          31423.8,
+          2,
+          "深圳",
+          444581.9
+        ]
+      },
+      {
+        "label": "3",
+        "unit": null,
+        "values": [
+          3,
+          "广州",
+          26133.9,
+          3,
+          "北京",
+          367993.7
+        ]
+      },
+      {
+        "label": "4",
+        "unit": null,
+        "values": [
+          4,
+          "深圳",
+          20636.7,
+          4,
+          "广州",
+          357959.1
+        ]
+      },
+      {
+        "label": "5",
+        "unit": null,
+        "values": [
+          5,
+          "杭州",
+          14307.3,
+          5,
+          "杭州",
+          189332.0
+        ]
+      },
+      {
+        "label": "6",
+        "unit": null,
+        "values": [
+          6,
+          "金华（义乌）",
+          9874.6,
+          6,
+          "苏州",
+          183492.0
+        ]
+      },
+      {
+        "label": "7",
+        "unit": null,
+        "values": [
+          7,
+          "东莞",
+          9796.7,
+          7,
+          "东莞",
+          161296.5
+        ]
+      },
+      {
+        "label": "8",
+        "unit": null,
+        "values": [
+          8,
+          "苏州",
+          9607.6,
+          8,
+          "金华（义乌）",
+          104047.8
+        ]
+      },
+      {
+        "label": "9",
+        "unit": null,
+        "values": [
+          9,
+          "武汉",
+          6375.3,
+          9,
+          "宁波",
+          81322.2
+        ]
+      },
+      {
+        "label": "10",
+        "unit": null,
+        "values": [
+          10,
+          "南京",
+          5965.3,
+          10,
+          "南京",
+          78334.9
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

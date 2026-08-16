@@ -1,0 +1,136 @@
+{
+  "confidence": null,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "甲平台｜销售额（亿元）",
+          "甲平台｜增速（%）"
+        ],
+        "label": "甲平台"
+      },
+      {
+        "columns": [
+          "乙平台｜销售额（亿元）",
+          "乙平台｜增速（%）"
+        ],
+        "label": "乙平台"
+      }
+    ],
+    "columns": [
+      "甲平台｜销售额（亿元）",
+      "甲平台｜增速（%）",
+      "乙平台｜销售额（亿元）",
+      "乙平台｜增速（%）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "品牌",
+    "rows": [
+      {
+        "label": "A 品牌",
+        "unit": null,
+        "values": [
+          6.52,
+          -8.7,
+          3.85,
+          -0.7
+        ]
+      },
+      {
+        "label": "B 品牌",
+        "unit": null,
+        "values": [
+          4.7,
+          0.6,
+          3.7,
+          49.0
+        ]
+      },
+      {
+        "label": "C 品牌",
+        "unit": null,
+        "values": [
+          4.57,
+          13.7,
+          3.13,
+          25.0
+        ]
+      },
+      {
+        "label": "D 品牌",
+        "unit": null,
+        "values": [
+          2.33,
+          -19.5,
+          3.09,
+          46.2
+        ]
+      },
+      {
+        "label": "E 品牌",
+        "unit": null,
+        "values": [
+          2.17,
+          12.0,
+          2.97,
+          29.5
+        ]
+      },
+      {
+        "label": "F 品牌",
+        "unit": null,
+        "values": [
+          2.08,
+          -35.8,
+          2.77,
+          15.2
+        ]
+      },
+      {
+        "label": "G 品牌",
+        "unit": null,
+        "values": [
+          1.87,
+          -31.0,
+          2.77,
+          31.2
+        ]
+      },
+      {
+        "label": "H 品牌",
+        "unit": null,
+        "values": [
+          1.82,
+          -22.9,
+          2.75,
+          22.9
+        ]
+      },
+      {
+        "label": "I 品牌",
+        "unit": null,
+        "values": [
+          1.81,
+          -24.6,
+          2.71,
+          -18.7
+        ]
+      },
+      {
+        "label": "J 品牌",
+        "unit": null,
+        "values": [
+          1.72,
+          -20.2,
+          2.48,
+          -1.7
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,438 @@
+{
+  "asset_id": "da_7e36bad1d08c8245e8fc27df",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2020年云南公务员录用考试《行测》试题（网友回忆版）_images/img_0149_f2a98c47b5ecb112.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年云南公务员录用考试《行测》试题（网友回忆版）_images/img_0149_f2a98c47b5ecb112.png",
+        "paper_title": "2020年云南公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_3874100699bdae27f474",
+        "question_number": 106,
+        "source_jsonl_line": 5670
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年云南公务员录用考试《行测》试题（网友回忆版）_images/img_0161_21e3df586a016f87.png",
+        "paper_title": "2020年云南公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_bf9c2b757540d791758d",
+        "question_number": 107,
+        "source_jsonl_line": 5671
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年云南公务员录用考试《行测》试题（网友回忆版）_images/img_0149_f2a98c47b5ecb112.png",
+        "paper_title": "2020年云南公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_bd1804b8bfa28b6fb18e",
+        "question_number": 108,
+        "source_jsonl_line": 5672
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年云南公务员录用考试《行测》试题（网友回忆版）_images/img_0161_21e3df586a016f87.png",
+        "paper_title": "2020年云南公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_1e9b7698cf52c33d927e",
+        "question_number": 109,
+        "source_jsonl_line": 5673
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年云南公务员录用考试《行测》试题（网友回忆版）_images/img_0161_21e3df586a016f87.png",
+        "paper_title": "2020年云南公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_54a8d4d3623555f4db8c",
+        "question_number": 110,
+        "source_jsonl_line": 5674
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年内蒙古公务员录用考试《行测》试题（非公安）（网友回忆版）_images/img_0148_21e3df586a016f87.png",
+        "paper_title": "2020年内蒙古公务员录用考试《行测》试题（非公安）（网友回忆版）",
+        "question_id": "pq_090bc7e0d3eed145264d",
+        "question_number": 106,
+        "source_jsonl_line": 7779
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年内蒙古公务员录用考试《行测》试题（非公安）（网友回忆版）_images/img_0190_f2a98c47b5ecb112.png",
+        "paper_title": "2020年内蒙古公务员录用考试《行测》试题（非公安）（网友回忆版）",
+        "question_id": "pq_62040866683de2a453b2",
+        "question_number": 107,
+        "source_jsonl_line": 7780
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年内蒙古公务员录用考试《行测》试题（非公安）（网友回忆版）_images/img_0148_21e3df586a016f87.png",
+        "paper_title": "2020年内蒙古公务员录用考试《行测》试题（非公安）（网友回忆版）",
+        "question_id": "pq_d0cd66a5ec17f74bfa5e",
+        "question_number": 108,
+        "source_jsonl_line": 7781
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年内蒙古公务员录用考试《行测》试题（非公安）（网友回忆版）_images/img_0148_21e3df586a016f87.png",
+        "paper_title": "2020年内蒙古公务员录用考试《行测》试题（非公安）（网友回忆版）",
+        "question_id": "pq_51c224fe21824e0fb3e4",
+        "question_number": 109,
+        "source_jsonl_line": 7782
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年内蒙古公务员录用考试《行测》试题（非公安）（网友回忆版）_images/img_0190_f2a98c47b5ecb112.png",
+        "paper_title": "2020年内蒙古公务员录用考试《行测》试题（非公安）（网友回忆版）",
+        "question_id": "pq_5436c62af1b76072d084",
+        "question_number": 110,
+        "source_jsonl_line": 7783
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）_images/img_0212_21e3df586a016f87.png",
+        "paper_title": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_02cc2c22bc1fc1687297",
+        "question_number": 111,
+        "source_jsonl_line": 26001
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）_images/img_0212_21e3df586a016f87.png",
+        "paper_title": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_7d08ec80d2471fd2d39b",
+        "question_number": 112,
+        "source_jsonl_line": 26002
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）_images/img_0212_21e3df586a016f87.png",
+        "paper_title": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_e4e8def6d4e679ae1685",
+        "question_number": 113,
+        "source_jsonl_line": 26003
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）_images/img_0212_21e3df586a016f87.png",
+        "paper_title": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_5112a87fe3294643c107",
+        "question_number": 114,
+        "source_jsonl_line": 26004
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）_images/img_0212_21e3df586a016f87.png",
+        "paper_title": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_69a2591f2ac6206d3386",
+        "question_number": 115,
+        "source_jsonl_line": 26005
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年安徽省公务员录用考试《行测》试题（网友回忆版）_images/img_0222_21e3df586a016f87.png",
+        "paper_title": "2020年安徽省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_5cb1ff6b48782f3addf5",
+        "question_number": 101,
+        "source_jsonl_line": 28075
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年安徽省公务员录用考试《行测》试题（网友回忆版）_images/img_0241_f2a98c47b5ecb112.png",
+        "paper_title": "2020年安徽省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_80d7194002dfb53d2296",
+        "question_number": 102,
+        "source_jsonl_line": 28076
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年安徽省公务员录用考试《行测》试题（网友回忆版）_images/img_0222_21e3df586a016f87.png",
+        "paper_title": "2020年安徽省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_b2344eac7302695d6327",
+        "question_number": 103,
+        "source_jsonl_line": 28077
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年安徽省公务员录用考试《行测》试题（网友回忆版）_images/img_0222_21e3df586a016f87.png",
+        "paper_title": "2020年安徽省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_9b4222543716492f1110",
+        "question_number": 104,
+        "source_jsonl_line": 28078
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年安徽省公务员录用考试《行测》试题（网友回忆版）_images/img_0222_21e3df586a016f87.png",
+        "paper_title": "2020年安徽省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_5db79f2ec2105b1b8daa",
+        "question_number": 105,
+        "source_jsonl_line": 28079
+      }
+    ],
+    "sha256": "7e36bad1d08c8245e8fc27df8d77a83919358555fcee7be5ca480da4c1b50c70"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "年值｜2017年（亿元）",
+          "年值｜比上年增长（%）"
+        ],
+        "label": "年值"
+      },
+      {
+        "columns": [
+          "贴现值｜2017年（亿元）",
+          "贴现值｜比上年增长（%）"
+        ],
+        "label": "贴现值"
+      }
+    ],
+    "columns": [
+      "年值｜2017年（亿元）",
+      "年值｜比上年增长（%）",
+      "贴现值｜2017年（亿元）",
+      "贴现值｜比上年增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标名称",
+    "rows": [
+      {
+        "display_label": "现代农业生态服务价值",
+        "group": null,
+        "label": "现代农业生态服务价值",
+        "unit": null,
+        "values": [
+          3635.46,
+          3.0,
+          10769.36,
+          1.9
+        ]
+      },
+      {
+        "display_label": "一、直接经济价值",
+        "group": null,
+        "label": "一、直接经济价值",
+        "unit": null,
+        "values": [
+          372.6,
+          -6.0,
+          372.6,
+          -6.0
+        ]
+      },
+      {
+        "display_label": "1.农林牧渔业总产值",
+        "group": null,
+        "label": "1.农林牧渔业总产值",
+        "unit": null,
+        "values": [
+          308.32,
+          -8.8,
+          308.32,
+          -8.8
+        ]
+      },
+      {
+        "display_label": "2.供水价值",
+        "group": null,
+        "label": "2.供水价值",
+        "unit": null,
+        "values": [
+          64.28,
+          10.2,
+          64.28,
+          10.2
+        ]
+      },
+      {
+        "display_label": "二、间接经济价值",
+        "group": null,
+        "label": "二、间接经济价值",
+        "unit": null,
+        "values": [
+          1214.15,
+          5.6,
+          1214.15,
+          5.6
+        ]
+      },
+      {
+        "display_label": "1.旅游服务价值",
+        "group": null,
+        "label": "1.旅游服务价值",
+        "unit": null,
+        "values": [
+          804.78,
+          8.4,
+          804.78,
+          8.4
+        ]
+      },
+      {
+        "display_label": "2.水力发电价值",
+        "group": null,
+        "label": "2.水力发电价值",
+        "unit": null,
+        "values": [
+          8.68,
+          -10.1,
+          8.68,
+          -10.1
+        ]
+      },
+      {
+        "display_label": "3.景观增值价值",
+        "group": null,
+        "label": "3.景观增值价值",
+        "unit": null,
+        "values": [
+          400.7,
+          0.8,
+          400.7,
+          0.8
+        ]
+      },
+      {
+        "display_label": "三、生态与环境价值",
+        "group": null,
+        "label": "三、生态与环境价值",
+        "unit": null,
+        "values": [
+          2048.71,
+          3.2,
+          9182.61,
+          1.8
+        ]
+      },
+      {
+        "display_label": "其中：气候调节价值",
+        "group": null,
+        "label": "其中：气候调节价值",
+        "unit": null,
+        "values": [
+          732.34,
+          5.6,
+          2328.74,
+          2.7
+        ]
+      },
+      {
+        "display_label": "水源涵养价值",
+        "group": null,
+        "label": "水源涵养价值",
+        "unit": null,
+        "values": [
+          287.78,
+          10.2,
+          402.98,
+          7.5
+        ]
+      },
+      {
+        "display_label": "环境净化价值",
+        "group": null,
+        "label": "环境净化价值",
+        "unit": null,
+        "values": [
+          118.83,
+          -3.3,
+          984.83,
+          0.9
+        ]
+      },
+      {
+        "display_label": "生物多样性价值",
+        "group": null,
+        "label": "生物多样性价值",
+        "unit": null,
+        "values": [
+          670.07,
+          0.3,
+          2898.67,
+          1.2
+        ]
+      },
+      {
+        "display_label": "防护与减灾价值",
+        "group": null,
+        "label": "防护与减灾价值",
+        "unit": null,
+        "values": [
+          222.58,
+          0.3,
+          1540.38,
+          1.2
+        ]
+      },
+      {
+        "display_label": "土壤保持价值",
+        "group": null,
+        "label": "土壤保持价值",
+        "unit": null,
+        "values": [
+          3.37,
+          -12.6,
+          9.77,
+          -4.7
+        ]
+      },
+      {
+        "display_label": "土壤形成价值",
+        "group": null,
+        "label": "土壤形成价值",
+        "unit": null,
+        "values": [
+          13.74,
+          1.6,
+          288.54,
+          1.6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

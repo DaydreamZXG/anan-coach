@@ -1,0 +1,378 @@
+{
+  "asset_id": "da_a160ffcd6481e0ac31ab48ab",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0070_12e20bec9d11960b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0070_12e20bec9d11960b.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_3890f0e844586053ebff",
+        "question_number": 101,
+        "source_jsonl_line": 24123
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0070_12e20bec9d11960b.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_1175432178ad012097f8",
+        "question_number": 102,
+        "source_jsonl_line": 24124
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0070_12e20bec9d11960b.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_1be56ec842f34e7f7a4f",
+        "question_number": 103,
+        "source_jsonl_line": 24125
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0070_12e20bec9d11960b.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_ddcaa026e78d2c578322",
+        "question_number": 104,
+        "source_jsonl_line": 24126
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0070_12e20bec9d11960b.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_7ed02ce001cee7346825",
+        "question_number": 105,
+        "source_jsonl_line": 24127
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0090_12e20bec9d11960b.png",
+        "paper_title": "2023年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e78df7476ec9dafb57ff",
+        "question_number": 101,
+        "source_jsonl_line": 28405
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0088_6c543c2481aaa54e.png",
+        "paper_title": "2023年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_45d00cbf409a235536a2",
+        "question_number": 102,
+        "source_jsonl_line": 28406
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0088_6c543c2481aaa54e.png",
+        "paper_title": "2023年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_61898a9a2156b40560f3",
+        "question_number": 103,
+        "source_jsonl_line": 28407
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0090_12e20bec9d11960b.png",
+        "paper_title": "2023年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4d09419454b69bd56e4b",
+        "question_number": 104,
+        "source_jsonl_line": 28408
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0088_6c543c2481aaa54e.png",
+        "paper_title": "2023年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e896002036a2ef6f73df",
+        "question_number": 105,
+        "source_jsonl_line": 28409
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0095_6c543c2481aaa54e.png",
+        "paper_title": "2023年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c725e9b5ea6cab955aa4",
+        "question_number": 116,
+        "source_jsonl_line": 33044
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0101_12e20bec9d11960b.png",
+        "paper_title": "2023年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_adbe0e60bc9b24848f30",
+        "question_number": 117,
+        "source_jsonl_line": 33045
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0095_6c543c2481aaa54e.png",
+        "paper_title": "2023年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4e67816266e360442402",
+        "question_number": 118,
+        "source_jsonl_line": 33046
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0101_12e20bec9d11960b.png",
+        "paper_title": "2023年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_70361a22be4c1cdb3ca5",
+        "question_number": 119,
+        "source_jsonl_line": 33047
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0101_12e20bec9d11960b.png",
+        "paper_title": "2023年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0e76b809675e4c5bad7b",
+        "question_number": 120,
+        "source_jsonl_line": 33048
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0091_12e20bec9d11960b.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3628bb523273c5ba24a4",
+        "question_number": 121,
+        "source_jsonl_line": 53950
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0142_6c543c2481aaa54e.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0e461c9af556d0e55f72",
+        "question_number": 122,
+        "source_jsonl_line": 53951
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0142_6c543c2481aaa54e.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ba03ac9f73da07a84873",
+        "question_number": 123,
+        "source_jsonl_line": 53952
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0142_6c543c2481aaa54e.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_968a23dd02b4ea61eab8",
+        "question_number": 124,
+        "source_jsonl_line": 53953
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0091_12e20bec9d11960b.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ef852053592837a58d5e",
+        "question_number": 125,
+        "source_jsonl_line": 53954
+      }
+    ],
+    "sha256": "a160ffcd6481e0ac31ab48aba0e27ff66d8673192afe3eca823ebefdb0d88172"
+  },
+  "structured_visual": {
+    "complexity": {
+      "categoryCount": 25,
+      "estimatedDrawCommandCount": 75,
+      "panelCount": 2,
+      "seriesCount": 2,
+      "valueCount": 25
+    },
+    "coordinateSpace": {
+      "height": 676,
+      "width": 700
+    },
+    "evidence": {
+      "converterVersion": "semantic-statistical-panels-v1",
+      "geometryEngine": "human_verified_chart_transcription",
+      "renderSha256": "c41ce577f39dfe00a5dc410e064a3feac972d9fea70ea13635a061dfbff88505",
+      "sourceAsset": "da_a160ffcd6481e0ac31ab48ab",
+      "sourceSha256": "a160ffcd6481e0ac31ab48aba0e27ff66d8673192afe3eca823ebefdb0d88172"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticStatisticalPanels",
+    "layoutType": "vertical",
+    "panels": [
+      {
+        "categories": [
+          "2012",
+          "2013",
+          "2014",
+          "2015",
+          "2016",
+          "2017",
+          "2018",
+          "2019",
+          "2020",
+          "2021"
+        ],
+        "chartType": "bar",
+        "id": "da_a160ffcd6481e0ac31ab48ab-0",
+        "series": [
+          {
+            "axis": "left",
+            "id": "national_daily_water",
+            "label": "全国城市人均日生活用水量",
+            "render_as": "bar",
+            "style": {
+              "dash": null,
+              "fill": "#6b6b6b",
+              "marker": null,
+              "stroke": null
+            },
+            "unit": "升",
+            "values": [
+              171.79,
+              173.51,
+              173.73,
+              174.46,
+              176.86,
+              178.89,
+              179.74,
+              179.97,
+              179.4,
+              185.03
+            ]
+          }
+        ],
+        "title": "图1：2012—2021年全国城市人均日生活用水量（单位：升）",
+        "unit": "升",
+        "yAxis": {
+          "max": 190,
+          "min": 165,
+          "ticks": [
+            165,
+            170,
+            175,
+            180,
+            185,
+            190
+          ],
+          "title": null,
+          "unit": "升"
+        }
+      },
+      {
+        "categories": [
+          "北京",
+          "山西",
+          "辽宁",
+          "吉林",
+          "天津",
+          "浙江",
+          "安徽",
+          "福建",
+          "河南",
+          "广东",
+          "海南",
+          "贵州",
+          "西藏",
+          "陕西",
+          "宁夏"
+        ],
+        "chartType": "bar",
+        "id": "da_a160ffcd6481e0ac31ab48ab-1",
+        "series": [
+          {
+            "axis": "left",
+            "id": "province_daily_water",
+            "label": "2021年省级城市人均日生活用水量",
+            "render_as": "bar",
+            "style": {
+              "dash": null,
+              "fill": "#6b6b6b",
+              "marker": null,
+              "stroke": null
+            },
+            "unit": "升",
+            "values": [
+              163,
+              138,
+              155,
+              125,
+              123,
+              212,
+              190,
+              231,
+              141,
+              251,
+              315,
+              172,
+              256,
+              161,
+              168
+            ]
+          }
+        ],
+        "title": "图2：2021年全国部分省（区、市）城市人均日生活用水量（单位：升）",
+        "unit": "升",
+        "yAxis": {
+          "max": 350,
+          "min": 0,
+          "ticks": [
+            0,
+            50,
+            100,
+            150,
+            200,
+            250,
+            300,
+            350
+          ],
+          "title": null,
+          "unit": "升"
+        }
+      }
+    ],
+    "schemaVersion": "semantic-statistical-panels-v1",
+    "visualGrammar": "statistical_chart_panels"
+  },
+  "table": null,
+  "title": "城市人均日生活用水量（全国年度与省份横截面）",
+  "unit": "升",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "requires_two_independent_category_and_axis_panels",
+      "foreground_iou:0.539298",
+      "mean_absolute_error:16.030007",
+      "trace_parameters:{\"epsilonRatio\": 0.04, \"minimumContourArea\": 12.0, \"paletteSize\": 6}",
+      "converter:semantic-statistical-panels-v1",
+      "visual_grammar:statistical_chart_panels",
+      "comparison_artifact:previews/structured_visual/da_a160ffcd6481e0ac31ab48ab-comparison.png"
+    ],
+    "ocr_engine": "human_verified_chart_transcription",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

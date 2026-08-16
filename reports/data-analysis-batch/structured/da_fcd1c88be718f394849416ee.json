@@ -1,0 +1,332 @@
+{
+  "asset_id": "da_fcd1c88be718f394849416ee",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000,
+          60000,
+          70000,
+          80000,
+          90000,
+          100000
+        ],
+        "title": null,
+        "unit": "篇"
+      },
+      {
+        "max": 7.5,
+        "min": 4.0,
+        "ticks": [
+          4.0,
+          4.5,
+          5.0,
+          5.5,
+          6.0,
+          6.5,
+          7.0,
+          7.5
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2003年",
+    "2004年",
+    "2005年",
+    "2006年",
+    "2007年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "SCI收录中国科技论文数",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "占SCI收录论文总数的比重",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "SCI",
+      "label": "SCI收录中国科技论文数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "篇",
+      "values": [
+        49788,
+        57377,
+        68226,
+        71184,
+        89147
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "SCI",
+      "label": "占SCI收录论文总数的比重",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        4.48,
+        5.43,
+        5.25,
+        5.87,
+        7.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0132_7bec2aaa71811975.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0132_7bec2aaa71811975.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_d3fddf041acb0455b6ff",
+        "question_number": 81,
+        "source_jsonl_line": 6640
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0147_2df0699d71f18a83.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_0c607901d29d8e3668d6",
+        "question_number": 82,
+        "source_jsonl_line": 6641
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0147_2df0699d71f18a83.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_320e7a68bc88b112d330",
+        "question_number": 83,
+        "source_jsonl_line": 6642
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0147_2df0699d71f18a83.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_26eb42c543102468ed90",
+        "question_number": 84,
+        "source_jsonl_line": 6643
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0147_2df0699d71f18a83.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_25194d16325fd5217f04",
+        "question_number": 85,
+        "source_jsonl_line": 6644
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0134_7bec2aaa71811975.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_d87020cbae32554dbb47",
+        "question_number": 81,
+        "source_jsonl_line": 24847
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0134_7bec2aaa71811975.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_07b2c9c8973c08b0ddce",
+        "question_number": 82,
+        "source_jsonl_line": 24848
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0152_2df0699d71f18a83.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_f5e4e669625b7c76f76a",
+        "question_number": 83,
+        "source_jsonl_line": 24849
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0134_7bec2aaa71811975.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_e6d5fd335df7b3770b3d",
+        "question_number": 84,
+        "source_jsonl_line": 24850
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0152_2df0699d71f18a83.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_2e3c2e9cbbc701b4832b",
+        "question_number": 85,
+        "source_jsonl_line": 24851
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0129_2df0699d71f18a83.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_f768450e34da6608f3cb",
+        "question_number": 81,
+        "source_jsonl_line": 31405
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0129_2df0699d71f18a83.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_c4f7c934eb4165d70289",
+        "question_number": 82,
+        "source_jsonl_line": 31406
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0129_2df0699d71f18a83.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_458b833bb6b1f264b91f",
+        "question_number": 83,
+        "source_jsonl_line": 31407
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0129_2df0699d71f18a83.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_3c1fb733a7925e29e1c3",
+        "question_number": 84,
+        "source_jsonl_line": 31408
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0129_2df0699d71f18a83.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_a4dc48bcfa9c319b2237",
+        "question_number": 85,
+        "source_jsonl_line": 31409
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0137_2df0699d71f18a83.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_0a1417424364a07db859",
+        "question_number": 81,
+        "source_jsonl_line": 40147
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0170_7bec2aaa71811975.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_b28a49c162a74e2df324",
+        "question_number": 82,
+        "source_jsonl_line": 40148
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0137_2df0699d71f18a83.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_d48e6cb15004a3500f48",
+        "question_number": 83,
+        "source_jsonl_line": 40149
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0137_2df0699d71f18a83.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_7a28abd8e17dcb2fe8f0",
+        "question_number": 84,
+        "source_jsonl_line": 40150
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年918联考《行测》题（山西_河南_辽宁_福建_重庆_海南_青海_宁夏_内蒙古_陕西_西藏）_images/img_0137_2df0699d71f18a83.jpg",
+        "paper_title": "2010年918联考《行测》题（山西/河南/辽宁/福建/重庆/海南/青海/宁夏/内蒙古/陕西/西藏）",
+        "question_id": "pq_570e9137c8353e32fc68",
+        "question_number": 85,
+        "source_jsonl_line": 40151
+      }
+    ],
+    "sha256": "fcd1c88be718f394849416ee77f937cc0da751f46b39f236c2b09d306ac1e7f7"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2003-2007年SCI（科学引文索引）收录中国科技论文情况",
+  "unit": "篇",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_fcd1c88be718f394849416ee/column_band_01.jpg",
+        "review-crops/da_fcd1c88be718f394849416ee/column_band_02.jpg",
+        "review-crops/da_fcd1c88be718f394849416ee/column_band_03.jpg",
+        "review-crops/da_fcd1c88be718f394849416ee/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.454",
+      "crop_verification_elapsed_seconds:7.293",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2003年SCI收录中国科技论文数为49788，与图中数值一致。",
+      "crop_note:修正了2004年SCI收录中国科技论文数为57377，与图中数值一致。",
+      "crop_note:修正了2005年SCI收录中国科技论文数为68226，与图中数值一致。",
+      "crop_note:修正了2006年SCI收录中国科技论文数为71184，与图中数值一致。",
+      "crop_note:修正了2007年SCI收录中国科技论文数为89147，与图中数值一致。",
+      "crop_note:修正了2003年占SCI收录论文总数的比重为4.48%，与图中数值一致。",
+      "crop_note:修正了2004年占SCI收录论文总数的比重为5.43%，与图中数值一致。",
+      "crop_note:修正了2005年占SCI收录论文总数的比重为5.25%，与图中数值一致。",
+      "crop_note:修正了2006年占SCI收录论文总数的比重为5.87%，与图中数值一致。",
+      "crop_note:修正了2007年占SCI收录论文总数的比重为7.0%，与图中数值一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

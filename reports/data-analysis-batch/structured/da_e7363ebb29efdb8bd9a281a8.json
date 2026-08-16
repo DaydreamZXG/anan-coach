@@ -1,0 +1,229 @@
+{
+  "asset_id": "da_e7363ebb29efdb8bd9a281a8",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0312_025be9048e4d20b6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0312_025be9048e4d20b6.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_e2186b6f88b626dad93e",
+        "question_number": 121,
+        "source_jsonl_line": 19521
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0329_ff59b543c5167882.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_2fa050f8bb97cec7aaeb",
+        "question_number": 122,
+        "source_jsonl_line": 19522
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0329_ff59b543c5167882.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_6634c91705b31988b561",
+        "question_number": 123,
+        "source_jsonl_line": 19523
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0329_ff59b543c5167882.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_89225242a133dcb6687f",
+        "question_number": 124,
+        "source_jsonl_line": 19524
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0329_ff59b543c5167882.png",
+        "paper_title": "2020年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_cbc4b7c177e71a7975e2",
+        "question_number": 125,
+        "source_jsonl_line": 19525
+      }
+    ],
+    "sha256": "e7363ebb29efdb8bd9a281a8052a5b54c26004fbdbb4a854f852144e900e4faa"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "面积｜第1列",
+      "产量｜第2列",
+      "省份｜第3列",
+      "面积｜第4列",
+      "产量｜第5列"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "省份",
+    "rows": [
+      {
+        "display_label": "江苏",
+        "group": null,
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          3.37,
+          1.46,
+          "广东",
+          6.2,
+          9.65
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": null,
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          19.92,
+          18.6,
+          "广西",
+          7.71,
+          7.3
+        ]
+      },
+      {
+        "display_label": "安徽",
+        "group": null,
+        "label": "安徽",
+        "unit": null,
+        "values": [
+          16.97,
+          13.49,
+          "海南",
+          0.24,
+          0.06
+        ]
+      },
+      {
+        "display_label": "福建",
+        "group": null,
+        "label": "福建",
+        "unit": null,
+        "values": [
+          20.72,
+          40.16,
+          "重庆",
+          4.49,
+          3.96
+        ]
+      },
+      {
+        "display_label": "江西",
+        "group": null,
+        "label": "江西",
+        "unit": null,
+        "values": [
+          11.42,
+          7.09,
+          "四川",
+          36.34,
+          29.5
+        ]
+      },
+      {
+        "display_label": "山东",
+        "group": null,
+        "label": "山东",
+        "unit": null,
+        "values": [
+          2.2,
+          2.88,
+          "贵州",
+          45.62,
+          19.93
+        ]
+      },
+      {
+        "display_label": "河南",
+        "group": null,
+        "label": "河南",
+        "unit": null,
+        "values": [
+          11.63,
+          7.4,
+          "云南",
+          44.45,
+          39.81
+        ]
+      },
+      {
+        "display_label": "湖北",
+        "group": null,
+        "label": "湖北",
+        "unit": null,
+        "values": [
+          29.93,
+          31.45,
+          "陕西",
+          13.8,
+          7.35
+        ]
+      },
+      {
+        "display_label": "湖南",
+        "group": null,
+        "label": "湖南",
+        "unit": null,
+        "values": [
+          16.89,
+          21.36,
+          "甘肃",
+          1.15,
+          0.14
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

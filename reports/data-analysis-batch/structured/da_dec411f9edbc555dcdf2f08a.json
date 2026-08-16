@@ -1,0 +1,310 @@
+{
+  "asset_id": "da_dec411f9edbc555dcdf2f08a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "时间",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "证券累计成交金额（百亿元）",
+        "unit": "百亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比增速（%）",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "证券累计成交金额（百亿元）",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "同比增速（%）",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "证券累计成交金额（百亿元）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百亿元",
+      "values": [
+        32.1,
+        82.2,
+        139.7,
+        192.3,
+        240.6,
+        289.3,
+        335.5,
+        382.7,
+        420.1,
+        456.2,
+        507.9
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增速（%）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -34.6,
+        -7.7,
+        -6.4,
+        -0.5,
+        4.7,
+        2.1,
+        0.6,
+        -1.5,
+        -1.2,
+        0.1,
+        0.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0159_8077963184b45863.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0159_8077963184b45863.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_667f3f69ccc9984b83d5",
+        "question_number": 116,
+        "source_jsonl_line": 84347
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0164_c326c981f0c1381e.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8d659d75292bcd311194",
+        "question_number": 117,
+        "source_jsonl_line": 84348
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0164_c326c981f0c1381e.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_31aa3b62dfa3c67869be",
+        "question_number": 118,
+        "source_jsonl_line": 84349
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0164_c326c981f0c1381e.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_217562e82e7046694a33",
+        "question_number": 119,
+        "source_jsonl_line": 84350
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0164_c326c981f0c1381e.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fb2ec33ca1280d72d431",
+        "question_number": 120,
+        "source_jsonl_line": 84351
+      }
+    ],
+    "sha256": "dec411f9edbc555dcdf2f08a96e6fea38604053cade86b63af0840429d4d2c91"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "时间",
+      "证券累计成交金额（百亿元）",
+      "同比增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "1月",
+        "unit": null,
+        "values": [
+          "1月",
+          32.1,
+          -34.6
+        ]
+      },
+      {
+        "label": "2月",
+        "unit": null,
+        "values": [
+          "2月",
+          82.2,
+          -7.7
+        ]
+      },
+      {
+        "label": "3月",
+        "unit": null,
+        "values": [
+          "3月",
+          139.7,
+          -6.4
+        ]
+      },
+      {
+        "label": "4月",
+        "unit": null,
+        "values": [
+          "4月",
+          192.3,
+          -0.5
+        ]
+      },
+      {
+        "label": "5月",
+        "unit": null,
+        "values": [
+          "5月",
+          240.6,
+          4.7
+        ]
+      },
+      {
+        "label": "6月",
+        "unit": null,
+        "values": [
+          "6月",
+          289.3,
+          2.1
+        ]
+      },
+      {
+        "label": "7月",
+        "unit": null,
+        "values": [
+          "7月",
+          335.5,
+          0.6
+        ]
+      },
+      {
+        "label": "8月",
+        "unit": null,
+        "values": [
+          "8月",
+          382.7,
+          -1.5
+        ]
+      },
+      {
+        "label": "9月",
+        "unit": null,
+        "values": [
+          "9月",
+          420.1,
+          -1.2
+        ]
+      },
+      {
+        "label": "10月",
+        "unit": null,
+        "values": [
+          "10月",
+          456.2,
+          0.1
+        ]
+      },
+      {
+        "label": "11月",
+        "unit": null,
+        "values": [
+          "11月",
+          507.9,
+          0.4
+        ]
+      }
+    ]
+  },
+  "title": "2023年1-11月J省深圳证券交易所证券成交金额情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_dec411f9edbc555dcdf2f08a/row_band_01.jpg",
+        "review-crops/da_dec411f9edbc555dcdf2f08a/row_band_02.jpg",
+        "review-crops/da_dec411f9edbc555dcdf2f08a/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.273",
+      "crop_verification_elapsed_seconds:6.781",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

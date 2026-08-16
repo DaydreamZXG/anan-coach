@@ -1,0 +1,276 @@
+{
+  "asset_id": "da_7ff5c2982044f644a26e2365",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "项目",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "年份",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2018年",
+    "2017年",
+    "2016年",
+    "2015年"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "实有各类市场主体",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万户",
+      "values": [
+        1146.13,
+        1025.63,
+        896.63,
+        775.95
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "新登记市场主体",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万户",
+      "values": [
+        229.76,
+        195.0,
+        161.58,
+        178.76
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "新登记企业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万户",
+      "values": [
+        97.8,
+        90.41,
+        79.05,
+        61.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "新登记个体工商户",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万户",
+      "values": [
+        131.56,
+        104.1,
+        82.04,
+        77.11
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "新登记农民专业合作社",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万户",
+      "values": [
+        0.38,
+        0.49,
+        0.49,
+        0.55
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0167_b3db2f76a976118f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0167_b3db2f76a976118f.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_813e5266ec81c66df267",
+        "question_number": 91,
+        "source_jsonl_line": 35123
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0167_b3db2f76a976118f.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_d9dcfbbd8cae54cda744",
+        "question_number": 92,
+        "source_jsonl_line": 35124
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0167_b3db2f76a976118f.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_fa84c5ff5ed980b0b0ed",
+        "question_number": 93,
+        "source_jsonl_line": 35125
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0180_c7efafba05538f8c.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_a047a6fc89613fb7a3d5",
+        "question_number": 94,
+        "source_jsonl_line": 35126
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0167_b3db2f76a976118f.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_f9f98373a2f316729bdf",
+        "question_number": 95,
+        "source_jsonl_line": 35127
+      }
+    ],
+    "sha256": "7ff5c2982044f644a26e23655cee5e07d3831cbf05cca8b7d74b50b14b142557"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2018年",
+      "2017年",
+      "2016年",
+      "2015年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "label": "实有各类市场主体",
+        "unit": "万户",
+        "values": [
+          1146.13,
+          1025.63,
+          896.63,
+          775.95
+        ]
+      },
+      {
+        "label": "新登记市场主体",
+        "unit": "万户",
+        "values": [
+          229.76,
+          195.0,
+          195.0,
+          178.76
+        ]
+      },
+      {
+        "label": "新登记企业",
+        "unit": "万户",
+        "values": [
+          97.8,
+          90.41,
+          90.41,
+          61.1
+        ]
+      },
+      {
+        "label": "新登记个体工商户",
+        "unit": "万户",
+        "values": [
+          131.56,
+          104.1,
+          104.1,
+          77.11
+        ]
+      },
+      {
+        "label": "新登记农民专业合作社",
+        "unit": "万户",
+        "values": [
+          0.38,
+          0.49,
+          0.49,
+          0.49
+        ]
+      }
+    ]
+  },
+  "title": "2015-2018年B省市场主体发展情况（单位：万户）",
+  "unit": "万户",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_7ff5c2982044f644a26e2365/row_band_01.jpg",
+        "review-crops/da_7ff5c2982044f644a26e2365/row_band_02.jpg",
+        "review-crops/da_7ff5c2982044f644a26e2365/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.123",
+      "crop_verification_elapsed_seconds:2.06",
+      "candidate_value_changes_after_crop:4",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_out_of_range_table_cell:新登记企业:2015年",
+      "crop_note:ignored_out_of_range_table_cell:新登记个体工商户:2015年",
+      "crop_note:ignored_out_of_range_table_cell:新登记农民专业合作社:2015年",
+      "table_row_label_column_removed:项目"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

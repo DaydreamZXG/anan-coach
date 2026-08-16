@@ -1,0 +1,251 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "本期价格（元/吨）",
+          "比上期价格涨跌（元/吨）"
+        ],
+        "label": "价格变动情况"
+      },
+      {
+        "columns": [],
+        "label": "产品分类"
+      }
+    ],
+    "columns": [
+      "本期价格（元/吨）",
+      "比上期价格涨跌（元/吨）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "产品名称",
+    "rows": [
+      {
+        "display_label": "螺纹钢",
+        "group": "一、黑色金属",
+        "label": "一、黑色金属｜螺纹钢",
+        "unit": null,
+        "values": [
+          4061.8,
+          73.0
+        ]
+      },
+      {
+        "display_label": "线材",
+        "group": "一、黑色金属",
+        "label": "一、黑色金属｜线材",
+        "unit": null,
+        "values": [
+          4234.9,
+          62.5
+        ]
+      },
+      {
+        "display_label": "普通中板",
+        "group": "一、黑色金属",
+        "label": "一、黑色金属｜普通中板",
+        "unit": null,
+        "values": [
+          4018.8,
+          37.3
+        ]
+      },
+      {
+        "display_label": "热轧普通薄板",
+        "group": "一、黑色金属",
+        "label": "一、黑色金属｜热轧普通薄板",
+        "unit": null,
+        "values": [
+          3998.0,
+          47.2
+        ]
+      },
+      {
+        "display_label": "无缝钢管",
+        "group": "一、黑色金属",
+        "label": "一、黑色金属｜无缝钢管",
+        "unit": null,
+        "values": [
+          4673.3,
+          17.9
+        ]
+      },
+      {
+        "display_label": "角钢",
+        "group": "一、黑色金属",
+        "label": "一、黑色金属｜角钢",
+        "unit": null,
+        "values": [
+          4196.9,
+          35.0
+        ]
+      },
+      {
+        "display_label": "电解铜",
+        "group": "二、有色金属",
+        "label": "二、有色金属｜电解铜",
+        "unit": null,
+        "values": [
+          46491.1,
+          -538.7
+        ]
+      },
+      {
+        "display_label": "铝锭",
+        "group": "二、有色金属",
+        "label": "二、有色金属｜铝锭",
+        "unit": null,
+        "values": [
+          13737.9,
+          -159.4
+        ]
+      },
+      {
+        "display_label": "铅锭",
+        "group": "二、有色金属",
+        "label": "二、有色金属｜铅锭",
+        "unit": null,
+        "values": [
+          15985.3,
+          -99.3
+        ]
+      },
+      {
+        "display_label": "锌锭",
+        "group": "二、有色金属",
+        "label": "二、有色金属｜锌锭",
+        "unit": null,
+        "values": [
+          19716.8,
+          -375.9
+        ]
+      },
+      {
+        "display_label": "纸浆",
+        "group": "三、林产品",
+        "label": "三、林产品｜纸浆",
+        "unit": null,
+        "values": [
+          4355.3,
+          16.0
+        ]
+      },
+      {
+        "display_label": "瓦楞纸",
+        "group": "三、林产品",
+        "label": "三、林产品｜瓦楞纸",
+        "unit": null,
+        "values": [
+          3393.8,
+          -2.1
+        ]
+      },
+      {
+        "display_label": "硫酸",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜硫酸",
+        "unit": null,
+        "values": [
+          250.0,
+          -13.3
+        ]
+      },
+      {
+        "display_label": "烧碱",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜烧碱",
+        "unit": null,
+        "values": [
+          679.2,
+          2.2
+        ]
+      },
+      {
+        "display_label": "甲醇",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜甲醇",
+        "unit": null,
+        "values": [
+          2080.2,
+          -53.1
+        ]
+      },
+      {
+        "display_label": "纯苯",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜纯苯",
+        "unit": null,
+        "values": [
+          5211.9,
+          306.1
+        ]
+      },
+      {
+        "display_label": "苯乙烯",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜苯乙烯",
+        "unit": null,
+        "values": [
+          8994.1,
+          124.8
+        ]
+      },
+      {
+        "display_label": "聚乙烯",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜聚乙烯",
+        "unit": null,
+        "values": [
+          8081.7,
+          152.6
+        ]
+      },
+      {
+        "display_label": "聚丙烯",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜聚丙烯",
+        "unit": null,
+        "values": [
+          8993.9,
+          282.4
+        ]
+      },
+      {
+        "display_label": "聚氯乙烯",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜聚氯乙烯",
+        "unit": null,
+        "values": [
+          6862.3,
+          60.4
+        ]
+      },
+      {
+        "display_label": "顺丁胶",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜顺丁胶",
+        "unit": null,
+        "values": [
+          10505.0,
+          -393.3
+        ]
+      },
+      {
+        "display_label": "涤纶长丝",
+        "group": "四、化工产品",
+        "label": "四、化工产品｜涤纶长丝",
+        "unit": null,
+        "values": [
+          8996.9,
+          446.9
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,309 @@
+{
+  "asset_id": "da_52730686988a69b47805bbbe",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "国家和地区",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "2005年",
+        "unit": null
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "2006年",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "美国",
+    "欧盟",
+    "中国香港",
+    "日本",
+    "东盟",
+    "韩国",
+    "中国台湾",
+    "俄罗斯"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "出口额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        1629,
+        1437,
+        1245,
+        840,
+        554,
+        351,
+        165,
+        132
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "进口额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        487,
+        736,
+        122,
+        1005,
+        750,
+        768,
+        747,
+        159
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2010年四川省公务员录用考试《行测》题（下半年）_images/img_0201_ab3fe42a191cea0a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年四川省公务员录用考试《行测》题（下半年）_images/img_0201_ab3fe42a191cea0a.png",
+        "paper_title": "2010年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_42c14959e615c60d3d98",
+        "question_number": 96,
+        "source_jsonl_line": 14193
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年四川省公务员录用考试《行测》题（下半年）_images/img_0201_ab3fe42a191cea0a.png",
+        "paper_title": "2010年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_764b93c37f0c173d63bf",
+        "question_number": 97,
+        "source_jsonl_line": 14194
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年四川省公务员录用考试《行测》题（下半年）_images/img_0201_ab3fe42a191cea0a.png",
+        "paper_title": "2010年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_543d3a89e809a52222a2",
+        "question_number": 98,
+        "source_jsonl_line": 14195
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年四川省公务员录用考试《行测》题（下半年）_images/img_0221_b083b8cace0fb889.png",
+        "paper_title": "2010年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_7ec0530c7c056c369e5d",
+        "question_number": 99,
+        "source_jsonl_line": 14196
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年四川省公务员录用考试《行测》题（下半年）_images/img_0221_b083b8cace0fb889.png",
+        "paper_title": "2010年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_f8e3849e81e4e616fb46",
+        "question_number": 100,
+        "source_jsonl_line": 14197
+      }
+    ],
+    "sha256": "52730686988a69b47805bbbe8db9e789b4b0ecb142a680d7a2f8123382efe716"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "国家和地区",
+      "2005年出口额",
+      "2005年进口额",
+      "2006年出口额",
+      "2006年进口额",
+      "2007年出口额",
+      "2007年进口额",
+      "2008年出口额",
+      "2008年进口额"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "美国",
+        "unit": null,
+        "values": [
+          "美国",
+          1629,
+          487,
+          2035,
+          592.3,
+          2327,
+          694.6,
+          2929,
+          1327
+        ]
+      },
+      {
+        "label": "欧盟",
+        "unit": null,
+        "values": [
+          "欧盟",
+          1437,
+          736,
+          1820,
+          903.2,
+          2452,
+          1110.2,
+          2523,
+          814
+        ]
+      },
+      {
+        "label": "中国香港",
+        "unit": null,
+        "values": [
+          "中国香港",
+          1245,
+          122,
+          1554,
+          108.8,
+          1844,
+          128.8,
+          1907,
+          129
+        ]
+      },
+      {
+        "label": "日本",
+        "unit": null,
+        "values": [
+          "日本",
+          840,
+          1005,
+          916,
+          1157.1,
+          1021,
+          1340.1,
+          1161,
+          1507
+        ]
+      },
+      {
+        "label": "东盟",
+        "unit": null,
+        "values": [
+          "东盟",
+          554,
+          750,
+          713,
+          895.4,
+          942,
+          1084.3,
+          1141,
+          1170
+        ]
+      },
+      {
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          "韩国",
+          351,
+          768,
+          445,
+          898.6,
+          561,
+          1038.4,
+          740,
+          1122
+        ]
+      },
+      {
+        "label": "中国台湾",
+        "unit": null,
+        "values": [
+          "中国台湾",
+          165,
+          747,
+          207,
+          871.5,
+          235,
+          1010.5,
+          259,
+          1033
+        ]
+      },
+      {
+        "label": "俄罗斯",
+        "unit": null,
+        "values": [
+          "俄罗斯",
+          132,
+          159,
+          158,
+          176.7,
+          240,
+          146.7,
+          330,
+          238
+        ]
+      }
+    ]
+  },
+  "title": "2005-2008 年主要国家（地区）货物贸易进出口额（单位：亿美元）",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_52730686988a69b47805bbbe/row_band_01.jpg",
+        "review-crops/da_52730686988a69b47805bbbe/row_band_02.jpg",
+        "review-crops/da_52730686988a69b47805bbbe/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:13.082",
+      "crop_verification_elapsed_seconds:17.217",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

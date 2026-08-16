@@ -1,0 +1,223 @@
+{
+  "asset_id": "da_27f0d1ca03ee61f554ecc79b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0201_9f6f5b6d1aa45835.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0201_9f6f5b6d1aa45835.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_d5142654ddced684001c",
+        "question_number": 86,
+        "source_jsonl_line": 35518
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0195_79551819cb60253d.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_445c14a07a37084335c3",
+        "question_number": 87,
+        "source_jsonl_line": 35519
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0195_79551819cb60253d.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_256ac5d1c80f183a87c9",
+        "question_number": 88,
+        "source_jsonl_line": 35520
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0201_9f6f5b6d1aa45835.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_7f3b8678c00339de7bb8",
+        "question_number": 89,
+        "source_jsonl_line": 35521
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0201_9f6f5b6d1aa45835.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_05615d3201c84890ad60",
+        "question_number": 90,
+        "source_jsonl_line": 35522
+      }
+    ],
+    "sha256": "27f0d1ca03ee61f554ecc79baa9c7e6c06749adeea0e50e6b9fdcc5ce5c6e581"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2015年",
+      "2016年",
+      "2017年",
+      "2018年",
+      "2019年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "label": "机构数（个）",
+        "unit": null,
+        "values": [
+          76,
+          76,
+          76,
+          73,
+          68
+        ]
+      },
+      {
+        "label": "职工人数（人）",
+        "unit": null,
+        "values": [
+          4983,
+          4781,
+          4760,
+          4289,
+          4633
+        ]
+      },
+      {
+        "label": "从事科技活动人员（人）",
+        "unit": null,
+        "values": [
+          3502,
+          3611,
+          3651,
+          3432,
+          3995
+        ]
+      },
+      {
+        "label": "科技活动课题数（个）",
+        "unit": null,
+        "values": [
+          1688,
+          1813,
+          1918,
+          1631,
+          2286
+        ]
+      },
+      {
+        "label": "课题投入经费（万元）",
+        "unit": null,
+        "values": [
+          50350,
+          56237,
+          56224,
+          42623,
+          68810
+        ]
+      },
+      {
+        "label": "科学论文合计（篇）",
+        "unit": null,
+        "values": [
+          1519,
+          1680,
+          1891,
+          1383,
+          1862
+        ]
+      },
+      {
+        "label": "其中：国外发表（篇）",
+        "unit": null,
+        "values": [
+          339,
+          365,
+          393,
+          308,
+          605
+        ]
+      },
+      {
+        "label": "科技论著合计（种）",
+        "unit": null,
+        "values": [
+          41,
+          49,
+          44,
+          43,
+          32
+        ]
+      }
+    ]
+  },
+  "title": "G省农业科研和科技开发机构基本情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_27f0d1ca03ee61f554ecc79b/row_band_01.jpg",
+        "review-crops/da_27f0d1ca03ee61f554ecc79b/row_band_02.jpg",
+        "review-crops/da_27f0d1ca03ee61f554ecc79b/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.407",
+      "crop_verification_elapsed_seconds:6.656",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:机构数（个）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:职工人数（人）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:机构数（个）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:职工人数（人）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:从事科技活动人员（人）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:科技活动课题数（个）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:课题投入经费（万元）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:科学论文合计（篇）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:课题投入经费（万元）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:科学论文合计（篇）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:其中：国外发表（篇）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:科技论著合计（种）:5!=6",
+      "table_row_label_column_removed:项目"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "assetId": "gr_0751a8530a3a10bda058e654",
+  "questionAnswers": [
+    {
+      "answerLabel": "B",
+      "optionLabels": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "questionId": "pq_17b21c1d0b1af59efa4b"
+    }
+  ],
+  "schemaVersion": "graphic-reasoning-semantic-evaluation-v1",
+  "solverInputExcludesAnswer": true
+}

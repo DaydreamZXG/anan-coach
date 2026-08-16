@@ -1,0 +1,586 @@
+{
+  "asset_id": "da_438d49e151e69a160fc0a799",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2010年江苏省公务员录用考试《行测》题（C类）_images/img_0193_69f5ee0a5c0eda06.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（C类）_images/img_0193_69f5ee0a5c0eda06.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_c2610598034227e912fc",
+        "question_number": 81,
+        "source_jsonl_line": 45431
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（C类）_images/img_0192_0a7e379429e5e2b3.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_9b6fd66f9643c4b40a01",
+        "question_number": 82,
+        "source_jsonl_line": 45432
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（C类）_images/img_0192_0a7e379429e5e2b3.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_3650a5e2d59dce48ea52",
+        "question_number": 83,
+        "source_jsonl_line": 45433
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（C类）_images/img_0193_69f5ee0a5c0eda06.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_edf2ef422d9d8ef7771a",
+        "question_number": 84,
+        "source_jsonl_line": 45434
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（C类）_images/img_0193_69f5ee0a5c0eda06.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_d063fa3d57cda31b023c",
+        "question_number": 85,
+        "source_jsonl_line": 45435
+      }
+    ],
+    "sha256": "438d49e151e69a160fc0a799da067f5c564586529dc5a73c92ed844c6e881b22"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2007｜单位GDP能耗｜指标(吨标准煤/万元)",
+          "2007｜单位GDP能耗｜上升或下降(%)",
+          "2007｜单位GDP电耗｜指标(千瓦时/万元)",
+          "2007｜单位GDP电耗｜上升或下降(%)"
+        ],
+        "label": "2007"
+      },
+      {
+        "columns": [
+          "2008｜单位GDP能耗｜指标(吨标准煤/万元)",
+          "2008｜单位GDP能耗｜上升或下降(%)",
+          "2008｜单位GDP电耗｜指标(千瓦时/万元)",
+          "2008｜单位GDP电耗｜上升或下降(%)"
+        ],
+        "label": "2008"
+      }
+    ],
+    "columns": [
+      "2007｜单位GDP能耗｜指标(吨标准煤/万元)",
+      "2007｜单位GDP能耗｜上升或下降(%)",
+      "2007｜单位GDP电耗｜指标(千瓦时/万元)",
+      "2007｜单位GDP电耗｜上升或下降(%)",
+      "2008｜单位GDP能耗｜指标(吨标准煤/万元)",
+      "2008｜单位GDP能耗｜上升或下降(%)",
+      "2008｜单位GDP电耗｜指标(千瓦时/万元)",
+      "2008｜单位GDP电耗｜上升或下降(%)"
+    ],
+    "corner_header": {
+      "lower_label": "单位GDP电耗",
+      "style": "diagonal",
+      "upper_label": "单位GDP能耗"
+    },
+    "missing_cells": [],
+    "row_header_label": "单位GDP电耗",
+    "rows": [
+      {
+        "display_label": "南京市｜2007年",
+        "group": null,
+        "label": "南京市｜2007年",
+        "unit": null,
+        "values": [
+          1.253,
+          -4.42,
+          932.03,
+          -4.41,
+          1.178,
+          -5.99,
+          851.77,
+          -8.61
+        ]
+      },
+      {
+        "display_label": "无锡市｜2007年",
+        "group": null,
+        "label": "无锡市｜2007年",
+        "unit": null,
+        "values": [
+          0.848,
+          -4.28,
+          1237.23,
+          -0.22,
+          0.799,
+          -5.78,
+          1164.14,
+          -5.91
+        ]
+      },
+      {
+        "display_label": "徐州市｜2007年",
+        "group": null,
+        "label": "徐州市｜2007年",
+        "unit": null,
+        "values": [
+          1.304,
+          -4.67,
+          996.42,
+          -0.7,
+          1.227,
+          -5.9,
+          941.97,
+          -5.46
+        ]
+      },
+      {
+        "display_label": "常州市｜2007年",
+        "group": null,
+        "label": "常州市｜2007年",
+        "unit": null,
+        "values": [
+          0.992,
+          -4.28,
+          1328.03,
+          -6.21,
+          0.936,
+          -5.85,
+          1216.35,
+          -8.41
+        ]
+      },
+      {
+        "display_label": "苏州市｜2007年",
+        "group": null,
+        "label": "苏州市｜2007年",
+        "unit": null,
+        "values": [
+          0.963,
+          -4.28,
+          1497.11,
+          1.4,
+          0.906,
+          -5.92,
+          1397.99,
+          -6.62
+        ]
+      },
+      {
+        "display_label": "南通市｜2007年",
+        "group": null,
+        "label": "南通市｜2007年",
+        "unit": null,
+        "values": [
+          0.774,
+          -4.21,
+          956.76,
+          -0.43,
+          0.73,
+          -5.68,
+          896.45,
+          -6.3
+        ]
+      },
+      {
+        "display_label": "连云港市｜2007年",
+        "group": null,
+        "label": "连云港市｜2007年",
+        "unit": null,
+        "values": [
+          0.881,
+          -4.4,
+          892.79,
+          -6.85,
+          0.833,
+          -5.45,
+          866.57,
+          -2.94
+        ]
+      },
+      {
+        "display_label": "淮安市｜2007年",
+        "group": null,
+        "label": "淮安市｜2007年",
+        "unit": null,
+        "values": [
+          1.033,
+          -3.9,
+          1044.77,
+          3.0,
+          0.979,
+          -5.23,
+          1063.58,
+          1.8
+        ]
+      },
+      {
+        "display_label": "盐城市｜2007年",
+        "group": null,
+        "label": "盐城市｜2007年",
+        "unit": null,
+        "values": [
+          0.763,
+          -4.2,
+          799.49,
+          2.9,
+          0.724,
+          -5.11,
+          787.43,
+          -1.51
+        ]
+      },
+      {
+        "display_label": "扬州市｜2007年",
+        "group": null,
+        "label": "扬州市｜2007年",
+        "unit": null,
+        "values": [
+          0.794,
+          -4.01,
+          886.33,
+          -0.06,
+          0.739,
+          -6.93,
+          824.94,
+          -6.93
+        ]
+      },
+      {
+        "display_label": "镇江市｜2007年",
+        "group": null,
+        "label": "镇江市｜2007年",
+        "unit": null,
+        "values": [
+          0.946,
+          -4.29,
+          1092.59,
+          -0.68,
+          0.894,
+          -5.5,
+          1054.28,
+          -3.59
+        ]
+      },
+      {
+        "display_label": "泰州市｜2007年",
+        "group": null,
+        "label": "泰州市｜2007年",
+        "unit": null,
+        "values": [
+          1.16,
+          -5.5,
+          1221.86,
+          2.04,
+          1.054,
+          -9.14,
+          1168.83,
+          -4.34
+        ]
+      },
+      {
+        "display_label": "宿迁市｜2007年",
+        "group": null,
+        "label": "宿迁市｜2007年",
+        "unit": null,
+        "values": [
+          0.8,
+          -4.12,
+          778.43,
+          4.98,
+          0.761,
+          -4.88,
+          791.05,
+          1.62
+        ]
+      },
+      {
+        "display_label": "江苏省｜2007年",
+        "group": null,
+        "label": "江苏省｜2007年",
+        "unit": null,
+        "values": [
+          0.853,
+          -4.28,
+          1221.44,
+          0.02,
+          0.803,
+          -5.86,
+          1149.44,
+          -5.89
+        ]
+      },
+      {
+        "display_label": "南京市｜2008年",
+        "group": null,
+        "label": "南京市｜2008年",
+        "unit": null,
+        "values": [
+          1.178,
+          -5.99,
+          851.77,
+          -8.61,
+          1.178,
+          -5.99,
+          851.77,
+          -8.61
+        ]
+      },
+      {
+        "display_label": "无锡市｜2008年",
+        "group": null,
+        "label": "无锡市｜2008年",
+        "unit": null,
+        "values": [
+          0.799,
+          -5.78,
+          1164.14,
+          -5.91,
+          0.799,
+          -5.78,
+          1164.14,
+          -5.91
+        ]
+      },
+      {
+        "display_label": "徐州市｜2008年",
+        "group": null,
+        "label": "徐州市｜2008年",
+        "unit": null,
+        "values": [
+          1.227,
+          -5.9,
+          941.97,
+          -5.46,
+          1.227,
+          -5.9,
+          941.97,
+          -5.46
+        ]
+      },
+      {
+        "display_label": "常州市｜2008年",
+        "group": null,
+        "label": "常州市｜2008年",
+        "unit": null,
+        "values": [
+          0.936,
+          -5.85,
+          1216.35,
+          -8.41,
+          0.936,
+          -5.85,
+          1216.35,
+          -8.41
+        ]
+      },
+      {
+        "display_label": "苏州市｜2008年",
+        "group": null,
+        "label": "苏州市｜2008年",
+        "unit": null,
+        "values": [
+          0.906,
+          -5.92,
+          1397.99,
+          -6.62,
+          0.906,
+          -5.92,
+          1397.99,
+          -6.62
+        ]
+      },
+      {
+        "display_label": "南通市｜2008年",
+        "group": null,
+        "label": "南通市｜2008年",
+        "unit": null,
+        "values": [
+          0.73,
+          -5.68,
+          896.45,
+          -6.3,
+          0.73,
+          -5.68,
+          896.45,
+          -6.3
+        ]
+      },
+      {
+        "display_label": "连云港市｜2008年",
+        "group": null,
+        "label": "连云港市｜2008年",
+        "unit": null,
+        "values": [
+          0.833,
+          -5.45,
+          866.57,
+          -2.94,
+          0.833,
+          -5.45,
+          866.57,
+          -2.94
+        ]
+      },
+      {
+        "display_label": "淮安市｜2008年",
+        "group": null,
+        "label": "淮安市｜2008年",
+        "unit": null,
+        "values": [
+          0.979,
+          -5.23,
+          1063.58,
+          1.8,
+          0.979,
+          -5.23,
+          1063.58,
+          1.8
+        ]
+      },
+      {
+        "display_label": "盐城市｜2008年",
+        "group": null,
+        "label": "盐城市｜2008年",
+        "unit": null,
+        "values": [
+          0.724,
+          -5.11,
+          787.43,
+          -1.51,
+          0.724,
+          -5.11,
+          787.43,
+          -1.51
+        ]
+      },
+      {
+        "display_label": "扬州市｜2008年",
+        "group": null,
+        "label": "扬州市｜2008年",
+        "unit": null,
+        "values": [
+          0.739,
+          -6.93,
+          824.94,
+          -6.93,
+          0.739,
+          -6.93,
+          824.94,
+          -6.93
+        ]
+      },
+      {
+        "display_label": "镇江市｜2008年",
+        "group": null,
+        "label": "镇江市｜2008年",
+        "unit": null,
+        "values": [
+          0.894,
+          -5.5,
+          1054.28,
+          -3.59,
+          0.894,
+          -5.5,
+          1054.28,
+          -3.59
+        ]
+      },
+      {
+        "display_label": "泰州市｜2008年",
+        "group": null,
+        "label": "泰州市｜2008年",
+        "unit": null,
+        "values": [
+          1.054,
+          -9.14,
+          1168.83,
+          -4.34,
+          1.054,
+          -9.14,
+          1168.83,
+          -4.34
+        ]
+      },
+      {
+        "display_label": "宿迁市｜2008年",
+        "group": null,
+        "label": "宿迁市｜2008年",
+        "unit": null,
+        "values": [
+          0.761,
+          -4.88,
+          791.05,
+          1.62,
+          0.761,
+          -4.88,
+          791.05,
+          1.62
+        ]
+      },
+      {
+        "display_label": "江苏省｜2008年",
+        "group": null,
+        "label": "江苏省｜2008年",
+        "unit": null,
+        "values": [
+          0.803,
+          -5.86,
+          1149.44,
+          -5.89,
+          0.803,
+          -5.86,
+          1149.44,
+          -5.89
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

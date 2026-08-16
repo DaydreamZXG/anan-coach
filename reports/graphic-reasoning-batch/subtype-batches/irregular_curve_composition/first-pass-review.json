@@ -1,0 +1,23 @@
+{
+  "assets": 18,
+  "candidateForManualReview": 6,
+  "finalAcceptedAssets": 0,
+  "gate": "Machine-simple candidates still require source/redraw visual review; repair rows must be rerouted before acceptance.",
+  "missingPanels": 12,
+  "primitiveTypes": {
+    "cubicBezier": 1620,
+    "line": 706
+  },
+  "reasonCounts": {
+    "stroke_graph:filled_or_wide_region_requires_separate_face_layer": 3,
+    "stroke_graph:rendered_component_topology_mismatch": 2,
+    "stroke_graph:strict_raster_geometry_gate_failed": 11
+  },
+  "repairPending": 12,
+  "schemaVersion": "graphic-reasoning-subtype-first-pass-review-v1",
+  "status": "first_pass_reviewed_not_final",
+  "strokeGraphPanelsFailed": 69,
+  "strokeGraphPanelsPassed": 115,
+  "subtype": "irregular_curve_composition",
+  "totalPanels": 196
+}

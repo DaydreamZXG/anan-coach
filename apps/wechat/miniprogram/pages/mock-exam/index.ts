@@ -129,6 +129,8 @@ interface MockExamPageData extends TaskInteractionProjection {
   interactionState: TaskInteractionState;
   questionAnnotations: AnnotationStroke[];
   materialAnnotations: AnnotationStroke[];
+  annotationTool: "pan" | "pen" | "highlighter" | "eraser";
+  annotationCanvas: "question" | "material";
   annotationSegments: AnchorSegmentRect[];
   questionScrollPosition: number;
   questionContentHeight: number;
@@ -179,6 +181,12 @@ interface MockExamPageCustom {
   toggleDraft(): void;
   openAnnotation(): void;
   openMaterialAnnotation(): void;
+  switchAnnotationSurface(
+    event: WechatMiniprogram.CustomEvent<{ surface: "question" | "material" }>,
+  ): void;
+  changeAnnotationTool(event: WechatMiniprogram.CustomEvent<{ tool: string }>): void;
+  focusQuestionAnnotation(): void;
+  focusMaterialAnnotation(): void;
   closeAnnotation(): void;
   changeAnnotations(
     event: WechatMiniprogram.CustomEvent<{
@@ -267,6 +275,10 @@ const launchContexts = new WeakMap<MockExamPageInstance, MockExamLaunchContext>(
 const mockAnsweringPolicy = taskToolPolicy("mock", "answering");
 const initialMockInteractionState = createTaskInteractionState();
 const initialMockInteractionProjection = projectTaskInteraction(initialMockInteractionState);
+
+function normalizePageAnnotationTool(value: string): "pan" | "pen" | "highlighter" | "eraser" {
+  return value === "pen" || value === "highlighter" || value === "eraser" ? value : "pan";
+}
 const disputeCategories: MockExamPageData["disputeCategories"] = [
   { value: "stem_error", label: "题干错误" },
   { value: "option_error", label: "选项错误" },
@@ -296,6 +308,8 @@ Page<MockExamPageData, MockExamPageCustom>({
     ...initialMockInteractionProjection,
     questionAnnotations: [] as AnnotationStroke[],
     materialAnnotations: [] as AnnotationStroke[],
+    annotationTool: "pan" as const,
+    annotationCanvas: "question" as const,
     annotationSegments: [] as AnchorSegmentRect[],
     questionScrollPosition: 0,
     questionContentHeight: 0,
@@ -666,7 +680,11 @@ Page<MockExamPageData, MockExamPageCustom>({
   openAnnotation() {
     const runtime = runtimes.get(this);
     if (!runtime?.task || runtime.task.phase !== "answering" || this.data.interactionLocked) return;
-    transitionMockInteraction(this, { type: "ANNOTATION_OPENED", surface: "question" });
+    transitionMockInteraction(
+      this,
+      { type: "ANNOTATION_OPENED", surface: "question" },
+      { annotationTool: "pan", annotationCanvas: "question" },
+    );
     afterRenderTick(() => {
       if (runtimes.get(this) !== runtime) return;
       measureQuestionContent(this, runtime);
@@ -688,7 +706,44 @@ Page<MockExamPageData, MockExamPageCustom>({
     ) {
       return;
     }
-    transitionMockInteraction(this, { type: "ANNOTATION_OPENED", surface: "material" });
+    transitionMockInteraction(
+      this,
+      { type: "ANNOTATION_OPENED", surface: "material" },
+      { annotationTool: "pan", annotationCanvas: "material" },
+    );
+  },
+
+  switchAnnotationSurface(event) {
+    const surface = event.detail.surface;
+    if (surface === "material" && !this.data.question?.material) return;
+    const runtime = runtimes.get(this);
+    if (!runtime?.task || runtime.task.phase !== "answering" || this.data.interactionLocked) return;
+    transitionMockInteraction(this, { type: "ANNOTATION_OPENED", surface });
+    this.setData({ annotationCanvas: surface });
+    if (surface === "question") {
+      afterRenderTick(() => {
+        if (runtimes.get(this) !== runtime) return;
+        measureQuestionContent(this, runtime);
+        requestSegmentRects(this);
+      });
+    }
+  },
+
+  changeAnnotationTool(event) {
+    const tool = normalizePageAnnotationTool(event.detail.tool);
+    if (tool !== this.data.annotationTool) this.setData({ annotationTool: tool });
+  },
+
+  focusQuestionAnnotation() {
+    if (this.data.annotationOpen && this.data.annotationCanvas !== "question") {
+      this.setData({ annotationCanvas: "question" });
+    }
+  },
+
+  focusMaterialAnnotation() {
+    if (this.data.annotationOpen && this.data.annotationCanvas !== "material") {
+      this.setData({ annotationCanvas: "material" });
+    }
   },
 
   onQuestionScroll(event) {

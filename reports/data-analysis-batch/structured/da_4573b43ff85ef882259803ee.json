@@ -1,0 +1,191 @@
+{
+  "asset_id": "da_4573b43ff85ef882259803ee",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/新疆/2021年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0074_5c5b23bb7183b126.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0074_5c5b23bb7183b126.png",
+        "paper_title": "2021年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_e34a6ad1886b9ab299d6",
+        "question_number": 101,
+        "source_jsonl_line": 43436
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0074_5c5b23bb7183b126.png",
+        "paper_title": "2021年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_d3e2725bf4440b7d7ef4",
+        "question_number": 102,
+        "source_jsonl_line": 43437
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0074_5c5b23bb7183b126.png",
+        "paper_title": "2021年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_99b02aff8610cc67021d",
+        "question_number": 103,
+        "source_jsonl_line": 43438
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0074_5c5b23bb7183b126.png",
+        "paper_title": "2021年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_1cc97cbaf448b5f5296d",
+        "question_number": 104,
+        "source_jsonl_line": 43439
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0074_5c5b23bb7183b126.png",
+        "paper_title": "2021年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_3e0e5e46314f065b01b4",
+        "question_number": 105,
+        "source_jsonl_line": 43440
+      }
+    ],
+    "sha256": "4573b43ff85ef882259803eec43d81be53510e97789f0fa844f6fb50d89c0a28"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "星级",
+      "数量（家）",
+      "营业收入（亿元）",
+      "餐饮收入比重（%）",
+      "客房收入比重（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "合计",
+        "unit": null,
+        "values": [
+          "合计",
+          9586,
+          487.11,
+          42.75,
+          42.93
+        ]
+      },
+      {
+        "label": "一星级",
+        "unit": null,
+        "values": [
+          "一星级",
+          62,
+          0.19,
+          48.84,
+          46.62
+        ]
+      },
+      {
+        "label": "二星级",
+        "unit": null,
+        "values": [
+          "二星级",
+          1683,
+          20.16,
+          30.17,
+          37.35
+        ]
+      },
+      {
+        "label": "三星级",
+        "unit": null,
+        "values": [
+          "三星级",
+          4613,
+          105.76,
+          45.93,
+          41.58
+        ]
+      },
+      {
+        "label": "四星级",
+        "unit": null,
+        "values": [
+          "四星级",
+          2401,
+          166.54,
+          43.45,
+          41.23
+        ]
+      },
+      {
+        "label": "五星级",
+        "unit": null,
+        "values": [
+          "五星级",
+          827,
+          194.46,
+          41.73,
+          45.71
+        ]
+      }
+    ]
+  },
+  "title": "2018年第一季度全国星级饭店经营情况统计表",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4573b43ff85ef882259803ee/row_band_01.jpg",
+        "review-crops/da_4573b43ff85ef882259803ee/row_band_02.jpg",
+        "review-crops/da_4573b43ff85ef882259803ee/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.512",
+      "crop_verification_elapsed_seconds:7.868",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了三星级数量为4613，四星级数量为2401，五星级数量为827",
+      "crop_note:修正了三星级营业收入为105.76，四星级营业收入为166.54，五星级营业收入为194.46",
+      "crop_note:修正了三星级餐饮收入比重为45.93，四星级餐饮收入比重为43.45，五星级餐饮收入比重为41.73",
+      "crop_note:修正了三星级客房收入比重为41.58，四星级客房收入比重为41.23，五星级客房收入比重为45.71"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

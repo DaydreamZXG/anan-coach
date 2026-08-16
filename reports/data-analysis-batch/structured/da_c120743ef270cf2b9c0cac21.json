@@ -1,0 +1,171 @@
+{
+  "asset_id": "da_c120743ef270cf2b9c0cac21",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 30,
+        "min": 0,
+        "ticks": [],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "国际组织",
+    "公共管理与社会组织",
+    "文化、体育和娱乐业",
+    "卫生、社会保障和社会福利业",
+    "教育",
+    "居民服务和其他服务业",
+    "水利、环境和公共设施管理业",
+    "科学研究技术服务业和地质勘探业",
+    "租赁和商务服务业",
+    "房地产业",
+    "金融业",
+    "住宿和餐饮业",
+    "批发和零售业",
+    "信息传输、计算机服务和软件业",
+    "交通运输、仓储和邮政业",
+    "建筑业",
+    "电力、燃气及水的生产和供应业",
+    "制造业",
+    "采矿业",
+    "农、林、牧、渔业"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "劳动力需求",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "劳动力需求",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        0.1,
+        0.6,
+        1.4,
+        0.9,
+        0.8,
+        9.2,
+        0.6,
+        1.4,
+        8.6,
+        3.4,
+        1.9,
+        10.6,
+        16.2,
+        2.7,
+        2.6,
+        4.7,
+        1.4,
+        29.1,
+        1.1,
+        2.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2009年江苏省公务员录用考试《行测》题（A类）_images/img_0229_b41f453a7994d23a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0229_b41f453a7994d23a.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_9e0174be5f888c95ac3c",
+        "question_number": 101,
+        "source_jsonl_line": 44831
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0229_b41f453a7994d23a.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_50570ef16678f34b25e1",
+        "question_number": 102,
+        "source_jsonl_line": 44832
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0229_b41f453a7994d23a.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_63229be79efa66499a16",
+        "question_number": 103,
+        "source_jsonl_line": 44833
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0229_b41f453a7994d23a.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_1153a53e3a798139996b",
+        "question_number": 104,
+        "source_jsonl_line": 44834
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0229_b41f453a7994d23a.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_5ce38ca59de7cb66b39c",
+        "question_number": 105,
+        "source_jsonl_line": 44835
+      }
+    ],
+    "sha256": "c120743ef270cf2b9c0cac215bf64e40e8d89ac861ddd4a1307797a4e8d7082a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2007年我国劳动力需求的行业构成（%）",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.582",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "independent_compact_chart_adjudication"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b_compact_chart",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

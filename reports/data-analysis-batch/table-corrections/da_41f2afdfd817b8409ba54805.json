@@ -1,0 +1,116 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "1-3月｜销售额",
+          "1-3月｜同比增速"
+        ],
+        "label": "1-3月"
+      },
+      {
+        "columns": [
+          "1-4月｜销售额",
+          "1-4月｜同比增速"
+        ],
+        "label": "1-4月"
+      }
+    ],
+    "columns": [
+      "1-3月｜销售额",
+      "1-3月｜同比增速",
+      "1-4月｜销售额",
+      "1-4月｜同比增速"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "按业务类型分",
+    "rows": [
+      {
+        "label": "批发业",
+        "unit": "亿元",
+        "values": [
+          7913,
+          12,
+          10251,
+          11.8
+        ]
+      },
+      {
+        "label": "零售业",
+        "unit": "亿元",
+        "values": [
+          640,
+          -7.5,
+          856,
+          -8.1
+        ]
+      },
+      {
+        "label": "国有企业",
+        "unit": "亿元",
+        "values": [
+          3934,
+          2.3,
+          4964,
+          1.3
+        ]
+      },
+      {
+        "label": "民营企业",
+        "unit": "亿元",
+        "values": [
+          4005,
+          18.2,
+          5333,
+          17.8
+        ]
+      },
+      {
+        "label": "外商及港澳台商企业",
+        "unit": "亿元",
+        "values": [
+          614,
+          16.7,
+          810,
+          21.1
+        ]
+      },
+      {
+        "label": "大型企业",
+        "unit": "亿元",
+        "values": [
+          1381,
+          8.4,
+          1811,
+          12.3
+        ]
+      },
+      {
+        "label": "中型企业",
+        "unit": "亿元",
+        "values": [
+          3533,
+          6.1,
+          4498,
+          4.4
+        ]
+      },
+      {
+        "label": "小微型企业",
+        "unit": "亿元",
+        "values": [
+          3639,
+          15.3,
+          4798,
+          14.8
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

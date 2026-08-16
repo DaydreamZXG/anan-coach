@@ -1,0 +1,308 @@
+{
+  "asset_id": "da_428b820d58dc32f82964e74d",
+  "axes": {
+    "x": {
+      "max": 12,
+      "min": 1,
+      "ticks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 45000,
+        "min": -100,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000,
+          30000,
+          35000,
+          40000,
+          45000
+        ],
+        "title": null,
+        "unit": "万户"
+      },
+      {
+        "max": 700,
+        "min": -100,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600,
+          700
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "每月固定电话用户",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "solid",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "每月移动电话用户",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "solid",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "每月新增固定电话用户",
+      "style": {
+        "dash": "dash",
+        "fill": null,
+        "marker": "x",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "每月新增移动电话用户",
+      "style": {
+        "dash": "dash",
+        "fill": null,
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "每月固定电话用户",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万户",
+      "values": [
+        31000,
+        31500,
+        32000,
+        32500,
+        32000,
+        32500,
+        33000,
+        33500,
+        33000,
+        33500,
+        34000,
+        34500
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "每月移动电话用户",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万户",
+      "values": [
+        33000,
+        33500,
+        34000,
+        34500,
+        34000,
+        34500,
+        35000,
+        35500,
+        36000,
+        36500,
+        37000,
+        37500
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "每月新增固定电话用户",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        400,
+        500,
+        600,
+        400,
+        300,
+        200,
+        100,
+        150,
+        200,
+        150,
+        100,
+        50
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "每月新增移动电话用户",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        300,
+        350,
+        400,
+        350,
+        300,
+        250,
+        200,
+        250,
+        300,
+        250,
+        200,
+        150
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2008年辽宁省公务员录用考试《行测》题_images/img_0144_60b738ed7c6857d5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年辽宁省公务员录用考试《行测》题_images/img_0144_60b738ed7c6857d5.png",
+        "paper_title": "2008年辽宁省公务员录用考试《行测》题",
+        "question_id": "pq_bd5468d1f8234e1e4099",
+        "question_number": 121,
+        "source_jsonl_line": 82176
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年辽宁省公务员录用考试《行测》题_images/img_0146_ef5323d92e421a00.png",
+        "paper_title": "2008年辽宁省公务员录用考试《行测》题",
+        "question_id": "pq_7c7d6fd09c75517bcb37",
+        "question_number": 122,
+        "source_jsonl_line": 82177
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年辽宁省公务员录用考试《行测》题_images/img_0144_60b738ed7c6857d5.png",
+        "paper_title": "2008年辽宁省公务员录用考试《行测》题",
+        "question_id": "pq_4031328d64a8ca0e935d",
+        "question_number": 123,
+        "source_jsonl_line": 82178
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年辽宁省公务员录用考试《行测》题_images/img_0146_ef5323d92e421a00.png",
+        "paper_title": "2008年辽宁省公务员录用考试《行测》题",
+        "question_id": "pq_055bffdebde6ac6d7ccc",
+        "question_number": 124,
+        "source_jsonl_line": 82179
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年辽宁省公务员录用考试《行测》题_images/img_0146_ef5323d92e421a00.png",
+        "paper_title": "2008年辽宁省公务员录用考试《行测》题",
+        "question_id": "pq_565adc68f085260e90d6",
+        "question_number": 125,
+        "source_jsonl_line": 82180
+      }
+    ],
+    "sha256": "428b820d58dc32f82964e74dfc7be2de7a2159f8ddfa372cd44c4d4460801b36"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2007年1-12月我国固定电话及移动电话用户情况统计表",
+  "unit": "万户",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_428b820d58dc32f82964e74d/column_band_01.jpg",
+        "review-crops/da_428b820d58dc32f82964e74d/column_band_02.jpg",
+        "review-crops/da_428b820d58dc32f82964e74d/column_band_03.jpg",
+        "review-crops/da_428b820d58dc32f82964e74d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.728",
+      "crop_verification_elapsed_seconds:12.021",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "全国港口年未数",
+          "全国港口增量"
+        ],
+        "label": "全国港口"
+      },
+      {
+        "columns": [
+          "沿海港口年未数",
+          "沿海港口增量"
+        ],
+        "label": "沿海港口"
+      },
+      {
+        "columns": [
+          "内河港口年未数",
+          "内河港口增量"
+        ],
+        "label": "内河港口"
+      }
+    ],
+    "columns": [
+      "全国港口年未数",
+      "全国港口增量",
+      "沿海港口年未数",
+      "沿海港口增量",
+      "内河港口年未数",
+      "内河港口增量"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "泊位吨级",
+    "rows": [
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          2878,
+          127,
+          2409,
+          109,
+          469,
+          18
+        ]
+      },
+      {
+        "display_label": "3万吨级以下",
+        "group": null,
+        "label": "3万吨级以下",
+        "unit": null,
+        "values": [
+          932,
+          41,
+          744,
+          38,
+          188,
+          3
+        ]
+      },
+      {
+        "display_label": "3~5（不含）万吨级",
+        "group": null,
+        "label": "3~5（不含）万吨级",
+        "unit": null,
+        "values": [
+          467,
+          15,
+          338,
+          11,
+          129,
+          4
+        ]
+      },
+      {
+        "display_label": "5~10（不含）万吨级",
+        "group": null,
+        "label": "5~10（不含）万吨级",
+        "unit": null,
+        "values": [
+          966,
+          36,
+          824,
+          26,
+          142,
+          10
+        ]
+      },
+      {
+        "display_label": "10万吨级及以上",
+        "group": null,
+        "label": "10万吨级及以上",
+        "unit": null,
+        "values": [
+          513,
+          35,
+          503,
+          34,
+          10,
+          1
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

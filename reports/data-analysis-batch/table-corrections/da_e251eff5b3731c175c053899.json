@@ -1,0 +1,85 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "销售额（万元）｜第一季度",
+          "销售额（万元）｜第二季度"
+        ],
+        "label": "销售额（万元）"
+      },
+      {
+        "columns": [
+          "销售量（公斤）｜第一季度",
+          "销售量（公斤）｜第二季度"
+        ],
+        "label": "销售量（公斤）"
+      },
+      "rows:[{"
+    ],
+    "columns": [
+      "销售额（万元）｜第一季度",
+      "销售额（万元）｜第二季度",
+      "销售量（公斤）｜第一季度",
+      "销售量（公斤）｜第二季度"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "产品",
+    "rows": [
+      {
+        "display_label": "甲",
+        "group": null,
+        "label": "甲",
+        "unit": null,
+        "values": [
+          200,
+          235,
+          100000,
+          80000
+        ]
+      },
+      {
+        "display_label": "乙",
+        "group": null,
+        "label": "乙",
+        "unit": null,
+        "values": [
+          50,
+          60,
+          40000,
+          60000
+        ]
+      },
+      {
+        "display_label": "丙",
+        "group": null,
+        "label": "丙",
+        "unit": null,
+        "values": [
+          60,
+          70,
+          40000,
+          35000
+        ]
+      },
+      {
+        "display_label": "丁",
+        "group": null,
+        "label": "丁",
+        "unit": null,
+        "values": [
+          160,
+          120,
+          50000,
+          48000
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

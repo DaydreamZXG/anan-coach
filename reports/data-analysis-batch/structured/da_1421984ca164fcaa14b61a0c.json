@@ -1,0 +1,318 @@
+{
+  "asset_id": "da_1421984ca164fcaa14b61a0c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "专利数（万件）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万件",
+      "values": [
+        460.1,
+        445.1,
+        69.6,
+        57.8,
+        1542.1,
+        1429.5,
+        359.7,
+        270.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "同比增长（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        26.4,
+        27.0,
+        31.3,
+        33.2,
+        26.5,
+        28.6,
+        17.6,
+        22.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2023年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0071_a553226fd7e94f96.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0071_a553226fd7e94f96.png",
+        "paper_title": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d7a0470e52157c3597bb",
+        "question_number": 111,
+        "source_jsonl_line": 8264
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0071_a553226fd7e94f96.png",
+        "paper_title": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8a831350ec60625ca260",
+        "question_number": 112,
+        "source_jsonl_line": 8265
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0071_a553226fd7e94f96.png",
+        "paper_title": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e318788ca24d2fabca97",
+        "question_number": 113,
+        "source_jsonl_line": 8266
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0071_a553226fd7e94f96.png",
+        "paper_title": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9771eec7ef7f06225629",
+        "question_number": 114,
+        "source_jsonl_line": 8267
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0105_5127e38d11f3a596.png",
+        "paper_title": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_13e051ea2edbb160bb6f",
+        "question_number": 115,
+        "source_jsonl_line": 8268
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0057_5127e38d11f3a596.png",
+        "paper_title": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3afc3488cf649ee92f2a",
+        "question_number": 101,
+        "source_jsonl_line": 84212
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0057_5127e38d11f3a596.png",
+        "paper_title": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ef63b752ede70c33b69e",
+        "question_number": 102,
+        "source_jsonl_line": 84213
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0073_a553226fd7e94f96.png",
+        "paper_title": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_97ecb422683b41a16614",
+        "question_number": 103,
+        "source_jsonl_line": 84214
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0057_5127e38d11f3a596.png",
+        "paper_title": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d676ca96b0cab2f3e349",
+        "question_number": 104,
+        "source_jsonl_line": 84215
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0057_5127e38d11f3a596.png",
+        "paper_title": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ae1561233dc2d17ac42c",
+        "question_number": 105,
+        "source_jsonl_line": 84216
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0072_a553226fd7e94f96.png",
+        "paper_title": "2023年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_10b2d4b3083ee49b3a1c",
+        "question_number": 106,
+        "source_jsonl_line": 104268
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0072_a553226fd7e94f96.png",
+        "paper_title": "2023年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_53993227356d8e2ca2f2",
+        "question_number": 107,
+        "source_jsonl_line": 104269
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0072_a553226fd7e94f96.png",
+        "paper_title": "2023年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_10ccd0b916c9a641dd71",
+        "question_number": 108,
+        "source_jsonl_line": 104270
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0072_a553226fd7e94f96.png",
+        "paper_title": "2023年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9e2acefb6d4c7936a781",
+        "question_number": 109,
+        "source_jsonl_line": 104271
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0097_5127e38d11f3a596.png",
+        "paper_title": "2023年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_537785958bf3db0645ad",
+        "question_number": 110,
+        "source_jsonl_line": 104272
+      }
+    ],
+    "sha256": "1421984ca164fcaa14b61a0ccf23b25050f8971cb30a538e53f89ca45750fbe7"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "专利数（万件）",
+      "同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "专利授权数",
+        "unit": null,
+        "values": [
+          "专利授权数",
+          460.1,
+          26.4
+        ]
+      },
+      {
+        "label": "其中：境内专利授权",
+        "unit": null,
+        "values": [
+          "其中：境内专利授权",
+          445.1,
+          27.0
+        ]
+      },
+      {
+        "label": "其中：发明专利授权",
+        "unit": null,
+        "values": [
+          "其中：发明专利授权",
+          69.6,
+          31.3
+        ]
+      },
+      {
+        "label": "其中：境内发明专利",
+        "unit": null,
+        "values": [
+          "其中：境内发明专利",
+          57.8,
+          33.2
+        ]
+      },
+      {
+        "label": "年未有效专利数",
+        "unit": null,
+        "values": [
+          "年未有效专利数",
+          1542.1,
+          26.5
+        ]
+      },
+      {
+        "label": "其中：境内有效专利",
+        "unit": null,
+        "values": [
+          "其中：境内有效专利",
+          1429.5,
+          28.6
+        ]
+      },
+      {
+        "label": "其中：有效发明专利",
+        "unit": null,
+        "values": [
+          "其中：有效发明专利",
+          359.7,
+          17.6
+        ]
+      },
+      {
+        "label": "其中：境内有效发明专利",
+        "unit": null,
+        "values": [
+          "其中：境内有效发明专利",
+          270.4,
+          22.2
+        ]
+      }
+    ]
+  },
+  "title": "2021年专利授权和有效专利情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1421984ca164fcaa14b61a0c/row_band_01.jpg",
+        "review-crops/da_1421984ca164fcaa14b61a0c/row_band_02.jpg",
+        "review-crops/da_1421984ca164fcaa14b61a0c/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.285",
+      "crop_verification_elapsed_seconds:6.234",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "asset_id": "da_37b5047e8a65469680f79917",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2017年江苏省公务员录用考试《行测》题(B类)_images/img_0261_3e25ba0ea03b354a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(B类)_images/img_0261_3e25ba0ea03b354a.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(B类)",
+        "question_id": "pq_e29e864c8e6d11e85f79",
+        "question_number": 121,
+        "source_jsonl_line": 47766
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(B类)_images/img_0218_ce5f6a35253ffdd4.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(B类)",
+        "question_id": "pq_6fc044888141f5398002",
+        "question_number": 122,
+        "source_jsonl_line": 47767
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(B类)_images/img_0218_ce5f6a35253ffdd4.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(B类)",
+        "question_id": "pq_6bce2865646dff26cc14",
+        "question_number": 123,
+        "source_jsonl_line": 47768
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(B类)_images/img_0261_3e25ba0ea03b354a.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(B类)",
+        "question_id": "pq_e67e4e1fa06bfdd6e0d0",
+        "question_number": 124,
+        "source_jsonl_line": 47769
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(B类)_images/img_0261_3e25ba0ea03b354a.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(B类)",
+        "question_id": "pq_21a1771dd317d63a1407",
+        "question_number": 125,
+        "source_jsonl_line": 47770
+      }
+    ],
+    "sha256": "37b5047e8a65469680f799174841a3d043363b47284d822a4ccc539ef3fd9243"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "饭店数量｜饭店数量（家）"
+        ],
+        "label": "饭店数量"
+      },
+      {
+        "columns": [
+          "营业收入｜营业收入（亿元）"
+        ],
+        "label": "营业收入"
+      },
+      {
+        "columns": [
+          "餐饮收入占比｜餐饮收入占比（%）"
+        ],
+        "label": "餐饮收入占比"
+      },
+      {
+        "columns": [
+          "客房收入占比｜客房收入占比（%）"
+        ],
+        "label": "客房收入占比"
+      }
+    ],
+    "columns": [
+      "饭店数量｜饭店数量（家）",
+      "营业收入｜营业收入（亿元）",
+      "餐饮收入占比｜餐饮收入占比（%）",
+      "客房收入占比｜客房收入占比（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "星级",
+    "rows": [
+      {
+        "display_label": "一星级",
+        "group": null,
+        "label": "一星级",
+        "unit": null,
+        "values": [
+          87,
+          0.3,
+          44.4,
+          52.5
+        ]
+      },
+      {
+        "display_label": "二星级",
+        "group": null,
+        "label": "二星级",
+        "unit": null,
+        "values": [
+          2342,
+          27.2,
+          31.3,
+          36.7
+        ]
+      },
+      {
+        "display_label": "三星级",
+        "group": null,
+        "label": "三星级",
+        "unit": null,
+        "values": [
+          5354,
+          121.4,
+          45.1,
+          41.8
+        ]
+      },
+      {
+        "display_label": "四星级",
+        "group": null,
+        "label": "四星级",
+        "unit": null,
+        "values": [
+          2438,
+          162.9,
+          44.2,
+          41.7
+        ]
+      },
+      {
+        "display_label": "五星级",
+        "group": null,
+        "label": "五星级",
+        "unit": null,
+        "values": [
+          816,
+          184.7,
+          43.7,
+          45.2
+        ]
+      },
+      {
+        "display_label": "全国",
+        "group": null,
+        "label": "全国",
+        "unit": null,
+        "values": [
+          11037,
+          496.5,
+          43.5,
+          42.8
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

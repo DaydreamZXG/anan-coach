@@ -1,0 +1,210 @@
+{
+  "asset_id": "da_af4476ced543d2e5b085c24d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "经营净收入",
+    "财产净收入",
+    "转移净收入",
+    "工资净收入"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      203.505,
+      264.987,
+      293.232,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 203.505,
+        "label": "经营净收入",
+        "share": 0.56529229,
+        "start_angle": 0.0,
+        "sweep_angle": 203.505
+      },
+      {
+        "end_angle": 264.987,
+        "label": "财产净收入",
+        "share": 0.17078241,
+        "start_angle": 203.505,
+        "sweep_angle": 61.482
+      },
+      {
+        "end_angle": 293.232,
+        "label": "转移净收入",
+        "share": 0.07845742,
+        "start_angle": 264.987,
+        "sweep_angle": 28.245
+      },
+      {
+        "end_angle": 360.0,
+        "label": "工资净收入",
+        "share": 0.18546787,
+        "start_angle": 293.232,
+        "sweep_angle": 66.768
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.56529229,
+        0.17078241,
+        0.07845742,
+        0.18546787
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2015年江苏省公务员录用考试《行测》题（A类）_images/img_0101_ad38a5bd6b36e75e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0101_ad38a5bd6b36e75e.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_be81f93e8631ea440061",
+        "question_number": 86,
+        "source_jsonl_line": 46901
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0101_ad38a5bd6b36e75e.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_166b123ed89fb39a4756",
+        "question_number": 87,
+        "source_jsonl_line": 46902
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0101_ad38a5bd6b36e75e.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_0a69a65d1678ef6aa60f",
+        "question_number": 88,
+        "source_jsonl_line": 46903
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0101_ad38a5bd6b36e75e.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_c3282626392cf3ae5024",
+        "question_number": 89,
+        "source_jsonl_line": 46904
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0101_ad38a5bd6b36e75e.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_4fe1a25332e31a06eba2",
+        "question_number": 90,
+        "source_jsonl_line": 46905
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（B类）_images/img_0078_c441e3d878e5c62e.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_49472864d52327f9f7ec",
+        "question_number": 81,
+        "source_jsonl_line": 46996
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（B类）_images/img_0078_c441e3d878e5c62e.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_39c15b1593fe60cb84bd",
+        "question_number": 82,
+        "source_jsonl_line": 46997
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（B类）_images/img_0092_ad38a5bd6b36e75e.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_e36010a7d20ed9536270",
+        "question_number": 83,
+        "source_jsonl_line": 46998
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（B类）_images/img_0078_c441e3d878e5c62e.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_3db91a34f943ab0f4090",
+        "question_number": 84,
+        "source_jsonl_line": 46999
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（B类）_images/img_0078_c441e3d878e5c62e.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_8f695c4c4cc4ab1b784a",
+        "question_number": 85,
+        "source_jsonl_line": 47000
+      }
+    ],
+    "sha256": "af4476ced543d2e5b085c24d6b40749775faeeb38df7784d44b823de47763873"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014年全国居民人均可支配收入来源",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_af4476ced543d2e5b085c24d/quadrant_01.jpg",
+        "review-crops/da_af4476ced543d2e5b085c24d/quadrant_02.jpg",
+        "review-crops/da_af4476ced543d2e5b085c24d/quadrant_03.jpg",
+        "review-crops/da_af4476ced543d2e5b085c24d/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.007",
+      "crop_verification_elapsed_seconds:0.891",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.8139",
+      "hough_circle_radius_ratio:0.3336",
+      "radial_line_candidates:4",
+      "detected_boundaries:4"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

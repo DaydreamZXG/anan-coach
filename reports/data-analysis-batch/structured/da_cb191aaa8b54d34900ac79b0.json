@@ -1,0 +1,208 @@
+{
+  "asset_id": "da_cb191aaa8b54d34900ac79b0",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2012年江苏省公务员录用考试《行测》题（C类）_images/img_0154_dbb07d6bcec94933.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（C类）_images/img_0154_dbb07d6bcec94933.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_19ee7885c3dd64251784",
+        "question_number": 77,
+        "source_jsonl_line": 46137
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（C类）_images/img_0152_7e2c968d22d37ddb.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_786c9d446de0fbbd4213",
+        "question_number": 78,
+        "source_jsonl_line": 46138
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（C类）_images/img_0152_7e2c968d22d37ddb.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_e37a6c3671af1373c044",
+        "question_number": 79,
+        "source_jsonl_line": 46139
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江苏省公务员录用考试《行测》题（C类）_images/img_0154_dbb07d6bcec94933.png",
+        "paper_title": "2012年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_e7ed47ce3d6c754b038f",
+        "question_number": 80,
+        "source_jsonl_line": 46140
+      }
+    ],
+    "sha256": "cb191aaa8b54d34900ac79b0ee6d99a965881ec4f3039e97584a211b7e97d97b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "运输方式",
+      "货运周转量(绝对数(亿吨公里))",
+      "货运周转量(比上年增长(%))",
+      "货运量(绝对数(万吨))",
+      "货运量(比上年增长(%))",
+      "旅客周转量(绝对数(亿人公里))",
+      "旅客周转量(比上年增长(%))",
+      "客运量(绝对数(万人))",
+      "客运量(比上年增长(%))"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "铁路",
+        "unit": null,
+        "values": [
+          "铁路",
+          336.9,
+          4,
+          6374.2,
+          3.9,
+          351.3,
+          12.9,
+          9711.4,
+          5.9
+        ]
+      },
+      {
+        "label": "公路",
+        "unit": null,
+        "values": [
+          "公路",
+          1149.1,
+          18.3,
+          123500,
+          18.7,
+          1196.9,
+          13.1,
+          215850,
+          13
+        ]
+      },
+      {
+        "label": "水路",
+        "unit": null,
+        "values": [
+          "水路",
+          4095.7,
+          21.5,
+          48545,
+          15.5,
+          1.5,
+          17.5,
+          690,
+          0.6
+        ]
+      },
+      {
+        "label": "民航",
+        "unit": null,
+        "values": [
+          "民航",
+          0.8,
+          28.3,
+          5.5,
+          23,
+          60.9,
+          15.6,
+          475.9,
+          16.6
+        ]
+      },
+      {
+        "label": "管道",
+        "unit": null,
+        "values": [
+          "管道",
+          529.1,
+          8.7,
+          9977,
+          13.3,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "总计",
+        "unit": null,
+        "values": [
+          "总计",
+          6111.5,
+          18.6,
+          188401.6,
+          17,
+          1610.4,
+          13.1,
+          226727.3,
+          12.7
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cb191aaa8b54d34900ac79b0/row_band_01.jpg",
+        "review-crops/da_cb191aaa8b54d34900ac79b0/row_band_02.jpg",
+        "review-crops/da_cb191aaa8b54d34900ac79b0/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.989",
+      "crop_verification_elapsed_seconds:13.598",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "curves": [
+    {
+      "connects": "left_edge_to_bottom_center",
+      "feat": [],
+      "k": "arc",
+      "reg": "center"
+    }
+  ],
+  "dots": [],
+  "facts": [
+    "A square frame contains a vertical line and four diagonal lines meeting at a bottom center point and a middle point",
+    "An arc connects the left edge to the bottom center"
+  ],
+  "frame": {
+    "grid": null,
+    "k": "square"
+  },
+  "lines": [
+    {
+      "connects": "top_edge_to_mid_point",
+      "feat": [],
+      "ori": "vertical",
+      "reg": "center"
+    },
+    {
+      "connects": "left_edge_to_bottom_center",
+      "feat": [],
+      "ori": "diagonal_down",
+      "reg": "center"
+    },
+    {
+      "connects": "right_edge_to_bottom_center",
+      "feat": [],
+      "ori": "diagonal_up",
+      "reg": "center"
+    },
+    {
+      "connects": "left_edge_to_mid_point",
+      "feat": [],
+      "ori": "diagonal_down",
+      "reg": "center"
+    },
+    {
+      "connects": "right_edge_to_mid_point",
+      "feat": [],
+      "ori": "diagonal_up",
+      "reg": "center"
+    }
+  ],
+  "opt": null,
+  "p": 3,
+  "role": "stem",
+  "schema": "graphic-reasoning-regular-panel-v1",
+  "shapes": [],
+  "symbols": [],
+  "topo": [
+    6,
+    7,
+    2,
+    1
+  ],
+  "uncertain": []
+}

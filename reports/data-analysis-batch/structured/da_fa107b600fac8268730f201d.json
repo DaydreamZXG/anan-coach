@@ -1,0 +1,178 @@
+{
+  "asset_id": "da_fa107b600fac8268730f201d",
+  "axes": {
+    "x": {
+      "max": 100,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "数字产业化占比",
+      "style": {
+        "dash": null,
+        "fill": "#808080",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "产业数字化占比",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "数字产业化占比",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        25.7,
+        23.0,
+        22.6,
+        20.5,
+        19.8,
+        19.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "产业数字化占比",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        74.3,
+        77.0,
+        77.4,
+        79.5,
+        80.2,
+        80.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0073_e198becbab8ee222.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0073_e198becbab8ee222.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b0fa997996456eb657d7",
+        "question_number": 86,
+        "source_jsonl_line": 16701
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0073_e198becbab8ee222.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2ae8e449f1e3f5678149",
+        "question_number": 87,
+        "source_jsonl_line": 16702
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0073_e198becbab8ee222.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_726d3694a3217000a662",
+        "question_number": 88,
+        "source_jsonl_line": 16703
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0073_e198becbab8ee222.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8c3635572a88ffad0919",
+        "question_number": 89,
+        "source_jsonl_line": 16704
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0082_fb02d4f76ba9a9c4.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8c805d4b79bce25454fa",
+        "question_number": 90,
+        "source_jsonl_line": 16705
+      }
+    ],
+    "sha256": "fa107b600fac8268730f201d3b307097d7ef7f3ec344cf1f68ec905f81a84797"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "我国数字经济内部结构",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_fa107b600fac8268730f201d/column_band_01.jpg",
+        "review-crops/da_fa107b600fac8268730f201d/column_band_02.jpg",
+        "review-crops/da_fa107b600fac8268730f201d/column_band_03.jpg",
+        "review-crops/da_fa107b600fac8268730f201d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.697",
+      "crop_verification_elapsed_seconds:3.527",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "asset_id": "da_805cc09b64bb337ea1f61486",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 900,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600,
+          700,
+          800,
+          900
+        ],
+        "title": null,
+        "unit": "(亿元)"
+      }
+    ]
+  },
+  "categories": [
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "全市社会消费品零售总额",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全市社会消费品零售总额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(亿元)",
+      "values": [
+        388.23,
+        442.43,
+        564.8,
+        626.64,
+        705.54,
+        779.63,
+        833.82
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2022年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0067_52c89207f6b05273.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0067_52c89207f6b05273.png",
+        "paper_title": "2022年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_bc06365527ba5dc32cc3",
+        "question_number": 86,
+        "source_jsonl_line": 30600
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0067_52c89207f6b05273.png",
+        "paper_title": "2022年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_5381e2ac2b741de651c9",
+        "question_number": 87,
+        "source_jsonl_line": 30601
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0082_90fe976c88665409.png",
+        "paper_title": "2022年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_7d0a2e8d6c19155ace5f",
+        "question_number": 88,
+        "source_jsonl_line": 30602
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0067_52c89207f6b05273.png",
+        "paper_title": "2022年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_04a1dc352d0802a610ff",
+        "question_number": 89,
+        "source_jsonl_line": 30603
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0082_90fe976c88665409.png",
+        "paper_title": "2022年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_87c1a99ffc3693de34b9",
+        "question_number": 90,
+        "source_jsonl_line": 30604
+      }
+    ],
+    "sha256": "805cc09b64bb337ea1f61486abc4fff5cc98f09b280a97ff00b71c20a797d2a7"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014-2020年全市社会消费品零售总额情况",
+  "unit": "(亿元)",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_805cc09b64bb337ea1f61486/column_band_01.jpg",
+        "review-crops/da_805cc09b64bb337ea1f61486/column_band_02.jpg",
+        "review-crops/da_805cc09b64bb337ea1f61486/column_band_03.jpg",
+        "review-crops/da_805cc09b64bb337ea1f61486/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.041",
+      "crop_verification_elapsed_seconds:2.907",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

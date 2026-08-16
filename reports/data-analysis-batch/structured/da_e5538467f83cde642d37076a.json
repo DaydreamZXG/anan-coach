@@ -1,0 +1,215 @@
+{
+  "asset_id": "da_e5538467f83cde642d37076a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 180,
+        "min": 0,
+        "ticks": [
+          0,
+          30,
+          60,
+          90,
+          120,
+          150,
+          180
+        ],
+        "title": null,
+        "unit": "亿千瓦时"
+      },
+      {
+        "max": 8,
+        "min": -12,
+        "ticks": [
+          -12,
+          -8,
+          -4,
+          0,
+          4,
+          8
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1-2月",
+    "1-3月",
+    "1-4月",
+    "1-5月",
+    "1-6月",
+    "1-7月",
+    "1-8月",
+    "1-9月",
+    "1-10月",
+    "1-11月",
+    "1-12月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "风力发电量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "增速",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "风力发电量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿千瓦时",
+      "values": [
+        13.4,
+        24.2,
+        34.7,
+        43.6,
+        50.2,
+        54,
+        57.8,
+        64.8,
+        73.9,
+        88.1,
+        97.5
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -4.6,
+        3.4,
+        4.9,
+        -2.2,
+        -0.9,
+        -0.6,
+        0.6,
+        2.5,
+        -0.3,
+        6.4,
+        6.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0096_b6f5266cb30b2bc4.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0096_b6f5266cb30b2bc4.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_73594ca938c0c4377d2f",
+        "question_number": 116,
+        "source_jsonl_line": 20046
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0096_b6f5266cb30b2bc4.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_9e1dc069465c185d803a",
+        "question_number": 117,
+        "source_jsonl_line": 20047
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0104_6e52f31034dc0b6a.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_5c31d6eb19aacbc2aca2",
+        "question_number": 118,
+        "source_jsonl_line": 20048
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0104_6e52f31034dc0b6a.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_6d5fcba84114e1de3a07",
+        "question_number": 119,
+        "source_jsonl_line": 20049
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0104_6e52f31034dc0b6a.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_cd7f2466ae9bd56e3028",
+        "question_number": 120,
+        "source_jsonl_line": 20050
+      }
+    ],
+    "sha256": "e5538467f83cde642d37076a189d626864a2fbb2ecd9e2b126b025b484b30e63"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2020年2-12月J省累计风力发电量及同比增速",
+  "unit": "亿千瓦时",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e5538467f83cde642d37076a/column_band_01.jpg",
+        "review-crops/da_e5538467f83cde642d37076a/column_band_02.jpg",
+        "review-crops/da_e5538467f83cde642d37076a/column_band_03.jpg",
+        "review-crops/da_e5538467f83cde642d37076a/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.327",
+      "crop_verification_elapsed_seconds:6.051",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

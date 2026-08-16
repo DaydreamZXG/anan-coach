@@ -1,0 +1,262 @@
+{
+  "asset_id": "da_dba634efefa69d74238550ca",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.930208,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2014年国家公务员录用考试《行测》题_images/img_0159_166a677f6b216aae.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0159_166a677f6b216aae.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_2c285c5a54acc77c0948",
+        "question_number": 134,
+        "source_jsonl_line": 18074
+      }
+    ],
+    "sha256": "dba634efefa69d74238550ca51ed54c633bae93e3db9fb139e9c370e0a170a66"
+  },
+  "structured_visual": {
+    "complexity": {
+      "estimatedDrawCommandCount": 31,
+      "optionCount": 4,
+      "patternDefinitionCount": 3,
+      "sectorCount": 12
+    },
+    "coordinateSpace": {
+      "height": 235,
+      "width": 700
+    },
+    "evidence": {
+      "boundaryMeanConfidence": 0.930208,
+      "converterVersion": "patterned-pie-semantic-v1",
+      "geometryEngine": "opencv_hough_radial_scan",
+      "layoutEngine": "mineru_v4_image_block",
+      "optionCount": 4,
+      "patternVocabulary": [
+        "dots",
+        "diagonal",
+        "grid"
+      ],
+      "renderSha256": "9a396ba644d715a3a0d35af19b6851c173506b3f03ab408cbb7ac487a5cdc48c",
+      "sectorsPerOption": 3,
+      "semanticEngine": "qwen3-vl-30b-a3b",
+      "sourceAsset": "da_dba634efefa69d74238550ca",
+      "sourceSha256": "dba634efefa69d74238550ca51ed54c633bae93e3db9fb139e9c370e0a170a66"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "patternedPieOptions",
+    "layoutType": "sequence",
+    "options": [
+      {
+        "boundariesDegrees": [
+          0.0,
+          324.0,
+          338.5
+        ],
+        "center": {
+          "x": 87.0,
+          "y": 90.6
+        },
+        "id": "da_dba634efefa69d74238550ca-A",
+        "label": "A",
+        "position": 0,
+        "radius": 76.6,
+        "sectors": [
+          {
+            "endDegrees": 324.0,
+            "pattern": "dots",
+            "startDegrees": 0.0
+          },
+          {
+            "endDegrees": 338.5,
+            "pattern": "diagonal",
+            "startDegrees": 324.0
+          },
+          {
+            "endDegrees": 360.0,
+            "pattern": "grid",
+            "startDegrees": 338.5
+          }
+        ]
+      },
+      {
+        "boundariesDegrees": [
+          0.0,
+          297.0,
+          311.0
+        ],
+        "center": {
+          "x": 261.0,
+          "y": 88.2
+        },
+        "id": "da_dba634efefa69d74238550ca-B",
+        "label": "B",
+        "position": 1,
+        "radius": 76.8,
+        "sectors": [
+          {
+            "endDegrees": 297.0,
+            "pattern": "dots",
+            "startDegrees": 0.0
+          },
+          {
+            "endDegrees": 311.0,
+            "pattern": "diagonal",
+            "startDegrees": 297.0
+          },
+          {
+            "endDegrees": 360.0,
+            "pattern": "grid",
+            "startDegrees": 311.0
+          }
+        ]
+      },
+      {
+        "boundariesDegrees": [
+          0.0,
+          282.5,
+          297.0
+        ],
+        "center": {
+          "x": 439.8,
+          "y": 88.2
+        },
+        "id": "da_dba634efefa69d74238550ca-C",
+        "label": "C",
+        "position": 2,
+        "radius": 76.7,
+        "sectors": [
+          {
+            "endDegrees": 282.5,
+            "pattern": "dots",
+            "startDegrees": 0.0
+          },
+          {
+            "endDegrees": 297.0,
+            "pattern": "diagonal",
+            "startDegrees": 282.5
+          },
+          {
+            "endDegrees": 360.0,
+            "pattern": "grid",
+            "startDegrees": 297.0
+          }
+        ]
+      },
+      {
+        "boundariesDegrees": [
+          0.0,
+          247.0,
+          261.0
+        ],
+        "center": {
+          "x": 611.4,
+          "y": 88.2
+        },
+        "id": "da_dba634efefa69d74238550ca-D",
+        "label": "D",
+        "position": 3,
+        "radius": 76.6,
+        "sectors": [
+          {
+            "endDegrees": 247.0,
+            "pattern": "dots",
+            "startDegrees": 0.0
+          },
+          {
+            "endDegrees": 261.0,
+            "pattern": "diagonal",
+            "startDegrees": 247.0
+          },
+          {
+            "endDegrees": 360.0,
+            "pattern": "grid",
+            "startDegrees": 261.0
+          }
+        ]
+      }
+    ],
+    "schemaVersion": "patterned-pie-options-v1",
+    "textureVocabulary": {
+      "diagonal": {
+        "angleDegrees": 45.0,
+        "lineWidth": 1.0,
+        "spacing": 5.0
+      },
+      "dots": {
+        "radius": 0.45,
+        "spacing": 6.0
+      },
+      "grid": {
+        "lineWidth": 1.0,
+        "spacing": 7.0
+      }
+    },
+    "visualGrammar": "patterned_pie"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_dba634efefa69d74238550ca/quadrant_01.jpg",
+        "review-crops/da_dba634efefa69d74238550ca/quadrant_02.jpg",
+        "review-crops/da_dba634efefa69d74238550ca/quadrant_03.jpg",
+        "review-crops/da_dba634efefa69d74238550ca/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.561",
+      "crop_verification_elapsed_seconds:0.767",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:饼图未提供具体数值，仅能识别标签和填充样式",
+      "crop_note:compact_delta_verification",
+      "non_data_multiple_choice_pies",
+      "semantic_contract:four option pies; each option has dots, diagonal and grid sectors",
+      "semantic_contract:four option pies; each option has dots, diagonal and grid sectors",
+      "converter:patterned-pie-semantic-v1",
+      "semantic_contract:four option pies; each option has dots, diagonal and grid sectors",
+      "comparison_artifact:previews/structured_visual/da_dba634efefa69d74238550ca-comparison.png"
+    ],
+    "ocr_engine": "mineru_v4+qwen3_vl+deterministic_cv",
+    "ocr_mean_confidence": 0.930208,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,297 @@
+{
+  "asset_id": "da_0c385027ffcd3357d58b522a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2010年江苏省公务员录用考试《行测》题（A类）_images/img_0235_bbc5b83616cade44.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（A类）_images/img_0235_bbc5b83616cade44.jpg",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_479de39ec9ae55bd803c",
+        "question_number": 91,
+        "source_jsonl_line": 45181
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（A类）_images/img_0235_bbc5b83616cade44.jpg",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_b21798812ef57a8ef0b4",
+        "question_number": 92,
+        "source_jsonl_line": 45182
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（A类）_images/img_0243_edb91a451f67e1c2.jpg",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_8367b7037414bf294cef",
+        "question_number": 93,
+        "source_jsonl_line": 45183
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（A类）_images/img_0235_bbc5b83616cade44.jpg",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_5e3bd19d78f36dd56b9e",
+        "question_number": 94,
+        "source_jsonl_line": 45184
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（A类）_images/img_0235_bbc5b83616cade44.jpg",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_b7a731862dd29321ab88",
+        "question_number": 95,
+        "source_jsonl_line": 45185
+      }
+    ],
+    "sha256": "0c385027ffcd3357d58b522a2e3e0cb22c586ea24c9261a5ed6ada32adf48239"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "城市",
+      "土地面积 (平方公里)",
+      "年末总人口 (万人)",
+      "年末总人口 其中：女 (万人)",
+      "当年出生人口 (万人)",
+      "当年死亡人口 (万人)",
+      "人口密度 (人/平方公里)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "南京市",
+        "unit": null,
+        "values": [
+          "南京市",
+          4723,
+          541.24,
+          266.69,
+          4.31,
+          2.96,
+          1146
+        ]
+      },
+      {
+        "label": "无锡市",
+        "unit": null,
+        "values": [
+          "无锡市",
+          1623,
+          237.42,
+          119.13,
+          1.75,
+          1.63,
+          1463
+        ]
+      },
+      {
+        "label": "徐州市",
+        "unit": null,
+        "values": [
+          "徐州市",
+          1160,
+          184.4,
+          89.02,
+          1.3,
+          0.95,
+          1590
+        ]
+      },
+      {
+        "label": "常州市",
+        "unit": null,
+        "values": [
+          "常州市",
+          1872,
+          225.87,
+          113.1,
+          1.61,
+          1.49,
+          1207
+        ]
+      },
+      {
+        "label": "苏州市",
+        "unit": null,
+        "values": [
+          "苏州市",
+          1650,
+          238.21,
+          120.3,
+          2.13,
+          1.4,
+          1444
+        ]
+      },
+      {
+        "label": "南通市",
+        "unit": null,
+        "values": [
+          "南通市",
+          355,
+          87.52,
+          44.31,
+          0.6,
+          0.56,
+          2465
+        ]
+      },
+      {
+        "label": "连云港市",
+        "unit": null,
+        "values": [
+          "连云港市",
+          1156,
+          80.88,
+          39.64,
+          0.87,
+          0.34,
+          700
+        ]
+      },
+      {
+        "label": "淮安市",
+        "unit": null,
+        "values": [
+          "淮安市",
+          3171,
+          277.94,
+          135.11,
+          4.05,
+          1.78,
+          876
+        ]
+      },
+      {
+        "label": "盐城市",
+        "unit": null,
+        "values": [
+          "盐城市",
+          1862,
+          161.86,
+          78.57,
+          1.65,
+          1.06,
+          869
+        ]
+      },
+      {
+        "label": "扬州市",
+        "unit": null,
+        "values": [
+          "扬州市",
+          1024,
+          121.78,
+          60.99,
+          1.04,
+          0.79,
+          950
+        ]
+      },
+      {
+        "label": "镇江市",
+        "unit": null,
+        "values": [
+          "镇江市",
+          1082,
+          102.81,
+          50.81,
+          0.79,
+          0.6,
+          950
+        ]
+      },
+      {
+        "label": "泰州市",
+        "unit": null,
+        "values": [
+          "泰州市",
+          640,
+          80.65,
+          40.07,
+          0.64,
+          0.53,
+          1261
+        ]
+      },
+      {
+        "label": "宿迁市",
+        "unit": null,
+        "values": [
+          "宿迁市",
+          2108,
+          158.0,
+          76.54,
+          1.86,
+          1.0,
+          750
+        ]
+      }
+    ]
+  },
+  "title": "2008年江苏省城市土地面积、人口情况统计表",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0c385027ffcd3357d58b522a/row_band_01.jpg",
+        "review-crops/da_0c385027ffcd3357d58b522a/row_band_02.jpg",
+        "review-crops/da_0c385027ffcd3357d58b522a/row_band_03.jpg",
+        "review-crops/da_0c385027ffcd3357d58b522a/row_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.126",
+      "crop_verification_elapsed_seconds:9.872",
+      "candidate_value_changes_after_crop:1",
+      "model_uncertainty:扬州市的人口密度为①，可能为占位符或未明确数值",
+      "crop_note:修正扬州市的人口密度为950，与图中一致，原候选中为①，应为占位符。",
+      "crop_note:确认所有数值的小数点、负号、单位和缺失值均正确，无补0。",
+      "crop_note:确认表格行列拓扑与原图一致，未发生错位。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

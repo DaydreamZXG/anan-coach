@@ -1,0 +1,15 @@
+{
+  "schema_version": "formula-katex-validation-v1",
+  "asset_count": 55345,
+  "parsed_count": 55345,
+  "provider_counts": {
+    "manual_verified": 2833,
+    "qwen3_vl_local": 9714,
+    "texo_local": 42798
+  },
+  "texo_parsed_count": 55345,
+  "katex_invalid_count": 0,
+  "suspicious_repetition_count": 0,
+  "katex_invalid": [],
+  "suspicious_repetition": []
+}

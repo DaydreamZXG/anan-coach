@@ -4,7 +4,7 @@
   <safe-top mode="status" gap="{{0}}" />
 
   <view class="login-content">
-    <view class="login-lockup fade-slide-in" aria-label="岸岸备考">
+    <view class="login-lockup fade-slide-in" aria-label="正在进入岸岸">
       <view class="brain-logo-shell">
         <image
           class="brain-logo"
@@ -15,23 +15,30 @@
         <view class="brain-logo-tint" aria-hidden="true"></view>
       </view>
 
-      <view class="login-tagline">
-        <text>如果你暂时看不清方向</text>
-        <text>那就先把方向盘交给我</text>
+      <view class="login-tagline" aria-live="polite">
+        <text>{{errorMessage ? '暂时没能进入岸岸' : '正在进入岸岸'}}</text>
+        <text class="login-status-copy">
+          {{errorMessage || (restoring ? '正在同步你的学习档案…' : submitting ? '正在连接微信身份…' : '正在准备你的备考空间…')}}
+        </text>
       </view>
     </view>
 
-    <view class="login-actions fade-slide-in fade-slide-in--2">
-      <view wx:if="{{errorMessage}}" class="error-message">{{errorMessage}}</view>
+    <view wx:if="{{!errorMessage}}" class="entry-progress fade-slide-in fade-slide-in--2" aria-hidden="true">
+      <view class="entry-progress__dot"></view>
+      <view class="entry-progress__dot entry-progress__dot--2"></view>
+      <view class="entry-progress__dot entry-progress__dot--3"></view>
+    </view>
+
+    <view wx:else class="login-actions fade-slide-in fade-slide-in--2">
       <button
-        class="wechat-button {{submitting || restoring || !legalAccepted ? 'wechat-button--disabled' : ''}} tap-tactile"
+        class="wechat-button {{submitting || restoring ? 'wechat-button--disabled' : ''}} tap-tactile"
         hover-class="item--hover"
         loading="{{submitting || restoring}}"
-        disabled="{{submitting || restoring || !legalAccepted}}"
-        bindtap="login"
+        disabled="{{submitting || restoring}}"
+        bindtap="retry"
       >
         <view wx:if="{{!submitting && !restoring}}" class="wechat-button__content">
-          <text>微信一键登录</text>
+          <text>重新进入岸岸</text>
           <image
             class="arrow-icon"
             src="/assets/icons/anan/arrow-right-white.svg"
@@ -39,21 +46,8 @@
             aria-hidden="true"
           />
         </view>
-        <text wx:else>{{restoring ? '正在找回登录…' : '正在登录…'}}</text>
+        <text wx:else>正在重新连接…</text>
       </button>
-      <view class="legal">
-        <checkbox-group class="legal-consent" bindchange="toggleLegalConsent">
-          <label class="legal-checkbox-label" aria-label="同意用户协议与隐私保护指引">
-            <checkbox class="legal-checkbox" value="accepted" checked="{{legalAccepted}}" color="#101828" />
-          </label>
-        </checkbox-group>
-        <view class="legal-copy">
-          <text>我已阅读并同意</text>
-          <button hover-class="item--hover" class="legal-link" bindtap="openTerms">用户协议</button>
-          <text>和</text>
-          <button hover-class="item--hover" class="legal-link" bindtap="openPrivacy">隐私保护指引</button>
-        </view>
-      </view>
     </view>
   </view>
 </view>

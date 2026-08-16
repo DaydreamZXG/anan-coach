@@ -1,0 +1,163 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "A00级车型（微型）",
+          "A0级车型（小型）",
+          "A级车型（紧凑型）",
+          "B级车型（中大型）",
+          "C级车型（大型）"
+        ],
+        "label": "各级别轿车"
+      }
+    ],
+    "columns": [
+      "A00级车型（微型）",
+      "A0级车型（小型）",
+      "A级车型（紧凑型）",
+      "B级车型（中大型）",
+      "C级车型（大型）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "display_label": "2001",
+        "group": null,
+        "label": "2001",
+        "unit": null,
+        "values": [
+          5.1,
+          28.6,
+          41.5,
+          21.1,
+          3.7
+        ]
+      },
+      {
+        "display_label": "2002",
+        "group": null,
+        "label": "2002",
+        "unit": null,
+        "values": [
+          7.5,
+          29.8,
+          39.9,
+          19.8,
+          3.0
+        ]
+      },
+      {
+        "display_label": "2003",
+        "group": null,
+        "label": "2003",
+        "unit": null,
+        "values": [
+          8.5,
+          29.4,
+          34.9,
+          24.5,
+          2.7
+        ]
+      },
+      {
+        "display_label": "2004",
+        "group": null,
+        "label": "2004",
+        "unit": null,
+        "values": [
+          8.6,
+          30.6,
+          39.2,
+          19.4,
+          2.2
+        ]
+      },
+      {
+        "display_label": "2005",
+        "group": null,
+        "label": "2005",
+        "unit": null,
+        "values": [
+          10.7,
+          27.3,
+          39.9,
+          19.6,
+          2.5
+        ]
+      },
+      {
+        "display_label": "2006",
+        "group": null,
+        "label": "2006",
+        "unit": null,
+        "values": [
+          8.8,
+          24.7,
+          42.9,
+          20.2,
+          3.4
+        ]
+      },
+      {
+        "display_label": "2007",
+        "group": null,
+        "label": "2007",
+        "unit": null,
+        "values": [
+          6.9,
+          21.9,
+          47.1,
+          20.4,
+          3.7
+        ]
+      },
+      {
+        "display_label": "2008",
+        "group": null,
+        "label": "2008",
+        "unit": null,
+        "values": [
+          7.1,
+          20.3,
+          48.9,
+          20.2,
+          3.5
+        ]
+      },
+      {
+        "display_label": "2009",
+        "group": null,
+        "label": "2009",
+        "unit": null,
+        "values": [
+          7.3,
+          20.4,
+          52.4,
+          17.4,
+          2.5
+        ]
+      },
+      {
+        "display_label": "2010",
+        "group": null,
+        "label": "2010",
+        "unit": null,
+        "values": [
+          7.3,
+          19.8,
+          53.6,
+          16.7,
+          2.6
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

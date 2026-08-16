@@ -1,0 +1,167 @@
+{
+  "asset_id": "da_0581451cdca3464c75bf363f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2017年422联考《行测》题（山东卷）_images/img_0149_3b6a3e9c3aa1f11e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0149_3b6a3e9c3aa1f11e.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_afaa3e5e2d40e080afaf",
+        "question_number": 106,
+        "source_jsonl_line": 30080
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0173_3cc04021a493eec8.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_ad226e0597e7cb01e724",
+        "question_number": 107,
+        "source_jsonl_line": 30081
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0149_3b6a3e9c3aa1f11e.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_010f703c10a0bd032cd9",
+        "question_number": 108,
+        "source_jsonl_line": 30082
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0173_3cc04021a493eec8.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_a92b09f5eb585f087069",
+        "question_number": 109,
+        "source_jsonl_line": 30083
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0149_3b6a3e9c3aa1f11e.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_3780a5179f3b77e1e752",
+        "question_number": 110,
+        "source_jsonl_line": 30084
+      }
+    ],
+    "sha256": "0581451cdca3464c75bf363f340d8411a6a68ddb0a0dfbb5cdb18a911f2c2cd5"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "3月｜量（万吨）",
+          "3月｜额（万元）"
+        ],
+        "label": "3月"
+      },
+      {
+        "columns": [
+          "1~3月｜量（万吨）",
+          "1~3月｜额（万元）"
+        ],
+        "label": "1~3月"
+      },
+      {
+        "columns": [
+          "2015年 1~3月｜量（万吨）",
+          "2015年 1~3月｜额（万元）"
+        ],
+        "label": "2015年 1~3月"
+      }
+    ],
+    "columns": [
+      "3月｜量（万吨）",
+      "3月｜额（万元）",
+      "1~3月｜量（万吨）",
+      "1~3月｜额（万元）",
+      "2015年 1~3月｜量（万吨）",
+      "2015年 1~3月｜额（万元）"
+    ],
+    "corner_header": {
+      "lower_label": "1～3月",
+      "style": "diagonal",
+      "upper_label": "3月"
+    },
+    "missing_cells": [],
+    "row_header_label": "1～3月",
+    "rows": [
+      {
+        "display_label": "进口",
+        "group": null,
+        "label": "进口",
+        "unit": null,
+        "values": [
+          1969,
+          606065,
+          4846,
+          1499109,
+          4904,
+          1985165
+        ]
+      },
+      {
+        "display_label": "出口",
+        "group": null,
+        "label": "出口",
+        "unit": null,
+        "values": [
+          127,
+          60027,
+          279,
+          132989,
+          98,
+          67074
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

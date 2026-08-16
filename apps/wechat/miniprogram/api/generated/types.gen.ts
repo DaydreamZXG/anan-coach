@@ -1768,6 +1768,32 @@ export type CoachPreferenceView = {
 };
 
 /**
+ * CoachRecognition
+ */
+export type CoachRecognition = {
+    /**
+     * Evidencecount
+     */
+    evidenceCount: number;
+    /**
+     * Label
+     */
+    label: string;
+    /**
+     * Level
+     */
+    level: 'just_met' | 'initial_hypothesis' | 'verifying' | 'understands';
+    /**
+     * Observation
+     */
+    observation: string;
+    /**
+     * Stablemasterycount
+     */
+    stableMasteryCount: number;
+};
+
+/**
  * CoachTemplateView
  */
 export type CoachTemplateView = {
@@ -2197,6 +2223,165 @@ export type CompanionCitation = {
 };
 
 /**
+ * CompanionCoachPreference
+ */
+export type CompanionCoachPreference = {
+    /**
+     * Actionurl
+     */
+    actionUrl?: string | null;
+    /**
+     * Category
+     */
+    category: 'explanation_preference' | 'study_constraint' | 'personal_note';
+    /**
+     * Content
+     */
+    content: string;
+    /**
+     * Effect
+     */
+    effect: 'applied_to_answers' | 'needs_confirmation' | 'context_only';
+    /**
+     * Memoryid
+     */
+    memoryId: string;
+    /**
+     * Revision
+     */
+    revision: number;
+};
+
+/**
+ * CompanionCoachRecheck
+ */
+export type CompanionCoachRecheck = {
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Note
+     */
+    note?: string | null;
+    /**
+     * Patternid
+     */
+    patternId: string;
+    /**
+     * Profileversionid
+     */
+    profileVersionId: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+    /**
+     * Retesturl
+     */
+    retestUrl: string;
+    /**
+     * Revision
+     */
+    revision: number;
+    /**
+     * State
+     */
+    state: 'pending_reverification';
+};
+
+/**
+ * CompanionCoachRecheckCommand
+ */
+export type CompanionCoachRecheckCommand = {
+    /**
+     * Commandid
+     */
+    commandId: string;
+    /**
+     * Note
+     */
+    note?: string | null;
+    /**
+     * Patternid
+     */
+    patternId: string;
+    /**
+     * Profileversionid
+     */
+    profileVersionId: string;
+};
+
+/**
+ * CompanionCoachRecheckReceipt
+ */
+export type CompanionCoachRecheckReceipt = {
+    /**
+     * Requestid
+     */
+    requestId: string;
+    /**
+     * Retesturl
+     */
+    retestUrl: string;
+    /**
+     * Revision
+     */
+    revision: number;
+    /**
+     * State
+     */
+    state: 'pending_reverification';
+};
+
+/**
+ * CompanionCoachRetest
+ */
+export type CompanionCoachRetest = {
+    /**
+     * Actionurl
+     */
+    actionUrl: string;
+    /**
+     * Duenow
+     */
+    dueNow: number;
+    /**
+     * Scheduled
+     */
+    scheduled: number;
+    /**
+     * Stable
+     */
+    stable: number;
+};
+
+/**
+ * CompanionCoachUnderstanding
+ */
+export type CompanionCoachUnderstanding = {
+    /**
+     * Coachcontext
+     */
+    coachContext: {
+        [key: string]: unknown;
+    };
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'learner-coach-context@v2';
+    /**
+     * Explicitpreferences
+     */
+    explicitPreferences: Array<CompanionCoachPreference>;
+    /**
+     * Pendingrechecks
+     */
+    pendingRechecks: Array<CompanionCoachRecheck>;
+    retest: CompanionCoachRetest;
+};
+
+/**
  * CompanionHighImpactDecision
  */
 export type CompanionHighImpactDecision = {
@@ -2301,7 +2486,7 @@ export type CompanionMemoryState = {
     /**
      * Maximumlongtermitems
      */
-    maximumLongTermItems?: 20;
+    maximumLongTermItems?: null;
     shortTerm: CompanionMemorySummary;
 };
 
@@ -2749,6 +2934,24 @@ export type CreatePacketCommand = {
 };
 
 /**
+ * CreatePrivateQuestionBookCommand
+ */
+export type CreatePrivateQuestionBookCommand = {
+    /**
+     * Importid
+     */
+    importId: string;
+    /**
+     * Recognitionrevisionid
+     */
+    recognitionRevisionId: string;
+    /**
+     * Title
+     */
+    title: string;
+};
+
+/**
  * CreatePrivateSourceCommand
  */
 export type CreatePrivateSourceCommand = {
@@ -2942,6 +3145,38 @@ export type DailySettlementView = {
      * Tasks
      */
     tasks: Array<SettlementTask>;
+};
+
+/**
+ * DailyStrategySuggestionCommand
+ *
+ * Empty body for the authenticated, per-user daily suggestion trigger.
+ */
+export type DailyStrategySuggestionCommand = {
+    [key: string]: never;
+};
+
+/**
+ * DailyStrategySuggestionResult
+ */
+export type DailyStrategySuggestionResult = {
+    candidate?: InferenceCandidateVersion | null;
+    /**
+     * Skippedreason
+     */
+    skippedReason?: string | null;
+    /**
+     * Status
+     */
+    status: 'suggested' | 'unavailable';
+    /**
+     * Suggestionid
+     */
+    suggestionId?: string | null;
+    /**
+     * Triggerkind
+     */
+    triggerKind?: 'daily_first_entry';
 };
 
 /**
@@ -7081,6 +7316,40 @@ export type KnowledgePointWeakness = {
 };
 
 /**
+ * LearnerCoachContext
+ *
+ * 岸岸对用户的唯一只读认识投影。
+ *
+ * 不持有新事实，只把当前 profile 和策略编译成所有岸岸消费端
+ * 共用的合约。
+ */
+export type LearnerCoachContext = {
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'learner-coach-context@v1';
+    /**
+     * Freshness
+     */
+    freshness: 'current' | 'stale' | 'conflicted' | 'unavailable';
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    profile: LearningBrainProfileVersion;
+    /**
+     * Profileversionid
+     */
+    profileVersionId: string;
+    recognition: CoachRecognition;
+    strategyDirective: StrategyDirective;
+    /**
+     * Validuntil
+     */
+    validUntil: string;
+};
+
+/**
  * LearnerMemory
  */
 export type LearnerMemory = {
@@ -8740,6 +9009,30 @@ export type ModuleAbilityEstimate = {
      * Source
      */
     source: 'practice' | 'mock_exam';
+};
+
+/**
+ * NormalizedRegionBox
+ *
+ * Normalized page region without a duplicated page identity.
+ */
+export type NormalizedRegionBox = {
+    /**
+     * Height
+     */
+    height: number;
+    /**
+     * Width
+     */
+    width: number;
+    /**
+     * X
+     */
+    x: number;
+    /**
+     * Y
+     */
+    y: number;
 };
 
 /**
@@ -11391,6 +11684,202 @@ export type PrivateCitation = {
 };
 
 /**
+ * PrivateQuestionBookDetail
+ */
+export type PrivateQuestionBookDetail = {
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
+    /**
+     * Bookid
+     */
+    bookId: string;
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Importid
+     */
+    importId: string;
+    /**
+     * Nextunresolvedquestionunitid
+     */
+    nextUnresolvedQuestionUnitId?: string | null;
+    /**
+     * Questions
+     */
+    questions: Array<PrivateQuestionBookItem>;
+    /**
+     * Recognitionrevisionid
+     */
+    recognitionRevisionId: string;
+    /**
+     * Resolvedquestioncount
+     */
+    resolvedQuestionCount: number;
+    /**
+     * Sourceversionid
+     */
+    sourceVersionId: string;
+    /**
+     * State
+     */
+    state: 'ready' | 'needs_review';
+    /**
+     * Title
+     */
+    title: string;
+    /**
+     * Totalquestioncount
+     */
+    totalQuestionCount: number;
+    /**
+     * Unresolvedquestioncount
+     */
+    unresolvedQuestionCount: number;
+};
+
+/**
+ * PrivateQuestionBookItem
+ */
+export type PrivateQuestionBookItem = {
+    /**
+     * Candidatecount
+     */
+    candidateCount: number;
+    /**
+     * Confirmedcontentversionid
+     */
+    confirmedContentVersionId?: string | null;
+    /**
+     * Contentmatchversionid
+     */
+    contentMatchVersionId?: string | null;
+    /**
+     * Ordinal
+     */
+    ordinal: number;
+    /**
+     * Questionunitid
+     */
+    questionUnitId: string;
+    /**
+     * State
+     */
+    state: 'matched' | 'needs_confirmation' | 'unmatched';
+};
+
+/**
+ * PrivateQuestionBookList
+ */
+export type PrivateQuestionBookList = {
+    /**
+     * Books
+     */
+    books: Array<PrivateQuestionBookSummary>;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+};
+
+/**
+ * PrivateQuestionBookPracticeLaunch
+ */
+export type PrivateQuestionBookPracticeLaunch = {
+    /**
+     * Bookid
+     */
+    bookId: string;
+    /**
+     * Excludedcounts
+     */
+    excludedCounts: {
+        [key: string]: number;
+    };
+    /**
+     * Excludedquestioncount
+     */
+    excludedQuestionCount: number;
+    /**
+     * Plantaskid
+     */
+    planTaskId: string;
+    /**
+     * Selectedquestioncount
+     */
+    selectedQuestionCount: number;
+    /**
+     * Sessionid
+     */
+    sessionId: string;
+    /**
+     * Sourceversionid
+     */
+    sourceVersionId: string;
+    /**
+     * Starturl
+     */
+    startUrl: string;
+};
+
+/**
+ * PrivateQuestionBookSummary
+ */
+export type PrivateQuestionBookSummary = {
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
+    /**
+     * Bookid
+     */
+    bookId: string;
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Importid
+     */
+    importId: string;
+    /**
+     * Nextunresolvedquestionunitid
+     */
+    nextUnresolvedQuestionUnitId?: string | null;
+    /**
+     * Recognitionrevisionid
+     */
+    recognitionRevisionId: string;
+    /**
+     * Resolvedquestioncount
+     */
+    resolvedQuestionCount: number;
+    /**
+     * Sourceversionid
+     */
+    sourceVersionId: string;
+    /**
+     * State
+     */
+    state: 'ready' | 'needs_review';
+    /**
+     * Title
+     */
+    title: string;
+    /**
+     * Totalquestioncount
+     */
+    totalQuestionCount: number;
+    /**
+     * Unresolvedquestioncount
+     */
+    unresolvedQuestionCount: number;
+};
+
+/**
  * PrivateSearchResult
  */
 export type PrivateSearchResult = {
@@ -11930,6 +12419,36 @@ export type PublicApiEnvelopeCompanionAskResponse = {
 };
 
 /**
+ * PublicApiEnvelope[CompanionCoachRecheckReceipt]
+ */
+export type PublicApiEnvelopeCompanionCoachRecheckReceipt = {
+    data: CompanionCoachRecheckReceipt;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[CompanionCoachUnderstanding]
+ */
+export type PublicApiEnvelopeCompanionCoachUnderstanding = {
+    data: CompanionCoachUnderstanding;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[CompanionMemoryItem]
  */
 export type PublicApiEnvelopeCompanionMemoryItem = {
@@ -12084,6 +12603,21 @@ export type PublicApiEnvelopeDailyOpeningView = {
  */
 export type PublicApiEnvelopeDailySettlementView = {
     data: DailySettlementView;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[DailyStrategySuggestionResult]
+ */
+export type PublicApiEnvelopeDailyStrategySuggestionResult = {
+    data: DailyStrategySuggestionResult;
     /**
      * Generatedat
      */
@@ -12605,6 +13139,21 @@ export type PublicApiEnvelopeImpressionResult = {
 };
 
 /**
+ * PublicApiEnvelope[LearnerCoachContext]
+ */
+export type PublicApiEnvelopeLearnerCoachContext = {
+    data: LearnerCoachContext;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[LearnerTargetScoreProjection]
  */
 export type PublicApiEnvelopeLearnerTargetScoreProjection = {
@@ -13059,6 +13608,51 @@ export type PublicApiEnvelopePrimaryGoalPreview = {
  */
 export type PublicApiEnvelopePrivacyOverview = {
     data: PrivacyOverview;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[PrivateQuestionBookDetail]
+ */
+export type PublicApiEnvelopePrivateQuestionBookDetail = {
+    data: PrivateQuestionBookDetail;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[PrivateQuestionBookList]
+ */
+export type PublicApiEnvelopePrivateQuestionBookList = {
+    data: PrivateQuestionBookList;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[PrivateQuestionBookPracticeLaunch]
+ */
+export type PublicApiEnvelopePrivateQuestionBookPracticeLaunch = {
+    data: PrivateQuestionBookPracticeLaunch;
     /**
      * Generatedat
      */
@@ -13599,6 +14193,36 @@ export type PublicApiEnvelopeTaskHelpResponse = {
  */
 export type PublicApiEnvelopeTaskSessionProjection = {
     data: TaskSessionProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[TeachBackSessionProjection]
+ */
+export type PublicApiEnvelopeTeachBackSessionProjection = {
+    data: TeachBackSessionProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[TeachBackTransferReceipt]
+ */
+export type PublicApiEnvelopeTeachBackTransferReceipt = {
+    data: TeachBackTransferReceipt;
     /**
      * Generatedat
      */
@@ -14605,6 +15229,43 @@ export type QuestionOption = {
 };
 
 /**
+ * QuestionRegionVisualEvidence
+ *
+ * Immutable visual hashes owned by exactly one recognized question unit.
+ */
+export type QuestionRegionVisualEvidence = {
+    box: NormalizedRegionBox;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'question-region-visual-evidence@v1';
+    /**
+     * Derivation
+     */
+    derivation?: 'prompt-vertical-band@v1';
+    /**
+     * Pageno
+     */
+    pageNo: number;
+    /**
+     * Questionunitid
+     */
+    questionUnitId: string;
+    /**
+     * Sourcepageimagesha256
+     */
+    sourcePageImageSha256: string;
+    /**
+     * Visualfeaturehashes
+     */
+    visualFeatureHashes: Array<VisualFeatureHash>;
+    /**
+     * Visualfingerprints
+     */
+    visualFingerprints: Array<string>;
+};
+
+/**
  * QuestionSearchResponse
  */
 export type QuestionSearchResponse = {
@@ -14868,6 +15529,10 @@ export type RecognitionCandidatePayload = {
      * Processorrequestidhash
      */
     processorRequestIdHash: string;
+    /**
+     * Questionregionvisualevidence
+     */
+    questionRegionVisualEvidence?: Array<QuestionRegionVisualEvidence>;
     /**
      * Questionunits
      */
@@ -15641,14 +16306,6 @@ export type RescueSimilarQuestion = {
      */
     contentVersionId: string;
     /**
-     * Correctoptionids
-     */
-    correctOptionIds: Array<string>;
-    /**
-     * Explanation
-     */
-    explanation?: string | null;
-    /**
      * Modulename
      */
     moduleName: string;
@@ -16350,6 +17007,46 @@ export type SafeQuestionBundle = {
 };
 
 /**
+ * SafeStructuredVisualProjection
+ *
+ * Only this literal, answer-free shape may enter a student prompt.
+ */
+export type SafeStructuredVisualProjection = {
+    /**
+     * Audiences
+     */
+    audiences?: Array<StructuredVisualAudience>;
+    /**
+     * Charttype
+     */
+    chartType: string;
+    /**
+     * Evidencekind
+     */
+    evidenceKind?: string;
+    /**
+     * Evidenceref
+     */
+    evidenceRef: string;
+    /**
+     * Facts
+     */
+    facts: Array<StructuredVisualFact>;
+    /**
+     * Questionref
+     */
+    questionRef: string;
+    /**
+     * Title
+     */
+    title: string;
+    /**
+     * Unit
+     */
+    unit: string;
+};
+
+/**
  * SaveCheckpointCommand
  */
 export type SaveCheckpointCommand = {
@@ -16741,6 +17438,16 @@ export type StartLearningMediaUploadCommand = {
 };
 
 /**
+ * StartPrivateQuestionBookPracticeCommand
+ */
+export type StartPrivateQuestionBookPracticeCommand = {
+    /**
+     * Plantaskid
+     */
+    planTaskId: string;
+};
+
+/**
  * StartRecognitionCommand
  */
 export type StartRecognitionCommand = {
@@ -16767,6 +17474,24 @@ export type StartTaskSessionCommand = {
      * Plantaskid
      */
     planTaskId: string;
+};
+
+/**
+ * StartTeachBackCommand
+ */
+export type StartTeachBackCommand = {
+    /**
+     * Commandid
+     */
+    commandId: string;
+    /**
+     * Sourcequestionid
+     */
+    sourceQuestionId: string;
+    /**
+     * Userexplanation
+     */
+    userExplanation: string;
 };
 
 /**
@@ -16952,6 +17677,62 @@ export type StrategyDecisionVersion = {
 };
 
 /**
+ * StrategyDirective
+ *
+ * 岸岸可引用的当前策略投影：已生效策略 + 待确认候选。
+ *
+ * 由 learning_brain 的只读方法 ``current_strategy_directive`` 返回，
+ * 不落库、不进 profile fingerprint。
+ */
+export type StrategyDirective = {
+    active?: StrategyDirectiveEntry | null;
+    pending?: StrategyDirectiveEntry | null;
+};
+
+/**
+ * StrategyDirectiveEntry
+ *
+ * 一条策略指令快照：active 已生效 / awaiting_confirmation 待确认。
+ *
+ * 供岸岸引用 rationale 解释「为什么这样排」。字段只带用户可理解的
+ * 决策方向与理由，不暴露内部版本号。
+ */
+export type StrategyDirectiveEntry = {
+    /**
+     * Decisiontype
+     */
+    decisionType: 'exam_skip' | 'phase_deprioritize' | 'strategic_abandon' | 'baseline_guidance';
+    /**
+     * Effectiveuntil
+     */
+    effectiveUntil?: string | null;
+    /**
+     * Expiresat
+     */
+    expiresAt?: string | null;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Rationale
+     */
+    rationale: string;
+    /**
+     * Scopekey
+     */
+    scopeKey: string;
+    /**
+     * Scopetype
+     */
+    scopeType: 'track' | 'module' | 'question_type';
+    /**
+     * Status
+     */
+    status: 'active' | 'awaiting_confirmation';
+};
+
+/**
  * StreakRestartCard
  */
 export type StreakRestartCard = {
@@ -17026,6 +17807,41 @@ export type StructureCandidate = {
      */
     title: string;
 };
+
+/**
+ * StructuredVisualAudience
+ */
+export type StructuredVisualAudience = 'student' | 'verifier';
+
+/**
+ * StructuredVisualFact
+ *
+ * One answer-free literal transcribed from the current visual asset.
+ */
+export type StructuredVisualFact = {
+    /**
+     * Dimensions
+     */
+    dimensions?: Array<string>;
+    /**
+     * Factref
+     */
+    factRef: string;
+    kind: StructuredVisualFactKind;
+    /**
+     * Unit
+     */
+    unit?: string;
+    /**
+     * Value
+     */
+    value: string;
+};
+
+/**
+ * StructuredVisualFactKind
+ */
+export type StructuredVisualFactKind = 'title' | 'unit' | 'axis' | 'category' | 'legend' | 'series_value' | 'table_cell' | 'relationship' | 'entity' | 'label' | 'formula' | 'source_only';
 
 /**
  * StudyPreferenceResult
@@ -17739,6 +18555,198 @@ export type TaskSessionProjection = {
      */
     totalElapsedSeconds: number;
     verificationOutcome?: VerificationOutcomeProjection | null;
+};
+
+/**
+ * TeachBackGroundingClaim
+ */
+export type TeachBackGroundingClaim = {
+    /**
+     * Classification
+     */
+    classification: 'supported' | 'omitted' | 'conflict' | 'unknown';
+    /**
+     * Summary
+     */
+    summary: string;
+};
+
+/**
+ * TeachBackOption
+ */
+export type TeachBackOption = {
+    /**
+     * Label
+     */
+    label: string;
+    /**
+     * Optionid
+     */
+    optionId: string;
+    /**
+     * Text
+     */
+    text: string;
+};
+
+/**
+ * TeachBackQuestion
+ */
+export type TeachBackQuestion = {
+    /**
+     * Options
+     */
+    options: Array<TeachBackOption>;
+    /**
+     * Questionid
+     */
+    questionId: string;
+    /**
+     * Stem
+     */
+    stem: string;
+    /**
+     * Visualevidence
+     */
+    visualEvidence?: Array<SafeStructuredVisualProjection>;
+};
+
+/**
+ * TeachBackSessionProjection
+ */
+export type TeachBackSessionProjection = {
+    /**
+     * Coachmessage
+     */
+    coachMessage: string;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'grounded-teach-back@v1';
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Grounding
+     */
+    grounding?: Array<TeachBackGroundingClaim>;
+    /**
+     * Reviewid
+     */
+    reviewId: string;
+    /**
+     * Revision
+     */
+    revision: number;
+    /**
+     * Sessionid
+     */
+    sessionId: string;
+    /**
+     * Sourcequestionid
+     */
+    sourceQuestionId: string;
+    /**
+     * State
+     */
+    state: 'ready_for_transfer' | 'blocked' | 'provider_failed' | 'completed';
+    student?: TeachBackStudentResult | null;
+    transferQuestion?: TeachBackQuestion | null;
+};
+
+/**
+ * TeachBackStudentResult
+ */
+export type TeachBackStudentResult = {
+    /**
+     * Attemptedoptionid
+     */
+    attemptedOptionId?: string | null;
+    /**
+     * Blockedat
+     */
+    blockedAt?: string | null;
+    /**
+     * Clarificationquestion
+     */
+    clarificationQuestion?: string | null;
+    /**
+     * Reproducedsteps
+     */
+    reproducedSteps: Array<string>;
+    /**
+     * State
+     */
+    state: 'blocked' | 'reproduced';
+};
+
+/**
+ * TeachBackTransferCommand
+ */
+export type TeachBackTransferCommand = {
+    /**
+     * Commandid
+     */
+    commandId: string;
+    /**
+     * Confidence
+     */
+    confidence: 'low' | 'medium' | 'high';
+    /**
+     * Revision
+     */
+    revision: number;
+    /**
+     * Selectedoptionids
+     */
+    selectedOptionIds: Array<string>;
+};
+
+/**
+ * TeachBackTransferReceipt
+ */
+export type TeachBackTransferReceipt = {
+    /**
+     * Coachmessage
+     */
+    coachMessage: string;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'teach-back-transfer-receipt@v1';
+    /**
+     * Correct
+     */
+    correct: boolean;
+    /**
+     * Dueat
+     */
+    dueAt?: string | null;
+    /**
+     * Masterystate
+     */
+    masteryState: string;
+    /**
+     * Masteryversionid
+     */
+    masteryVersionId: string;
+    /**
+     * Revision
+     */
+    revision: number;
+    /**
+     * Sessionid
+     */
+    sessionId: string;
+    /**
+     * State
+     */
+    state?: 'completed';
+    /**
+     * Verificationstage
+     */
+    verificationStage: string;
 };
 
 /**
@@ -19452,6 +20460,14 @@ export type XingceRescueItem = {
      */
     questionId: string;
     similarQuestion?: RescueSimilarQuestion | null;
+    /**
+     * Teachbackavailable
+     */
+    teachBackAvailable?: boolean;
+    /**
+     * Teachbackreason
+     */
+    teachBackReason?: string | null;
 };
 
 /**
@@ -23439,6 +24455,120 @@ export type AskCompanionV2ApiV2CompanionAskPostResponses = {
 
 export type AskCompanionV2ApiV2CompanionAskPostResponse = AskCompanionV2ApiV2CompanionAskPostResponses[keyof AskCompanionV2ApiV2CompanionAskPostResponses];
 
+export type RequestCoachRecheckApiV2CompanionCoachRechecksPostData = {
+    body: CompanionCoachRecheckCommand;
+    path?: never;
+    query?: never;
+    url: '/api/v2/companion/coach-rechecks';
+};
+
+export type RequestCoachRecheckApiV2CompanionCoachRechecksPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RequestCoachRecheckApiV2CompanionCoachRechecksPostError = RequestCoachRecheckApiV2CompanionCoachRechecksPostErrors[keyof RequestCoachRecheckApiV2CompanionCoachRechecksPostErrors];
+
+export type RequestCoachRecheckApiV2CompanionCoachRechecksPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCompanionCoachRecheckReceipt;
+};
+
+export type RequestCoachRecheckApiV2CompanionCoachRechecksPostResponse = RequestCoachRecheckApiV2CompanionCoachRechecksPostResponses[keyof RequestCoachRecheckApiV2CompanionCoachRechecksPostResponses];
+
+export type GetCoachUnderstandingApiV2CompanionCoachUnderstandingGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v2/companion/coach-understanding';
+};
+
+export type GetCoachUnderstandingApiV2CompanionCoachUnderstandingGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetCoachUnderstandingApiV2CompanionCoachUnderstandingGetError = GetCoachUnderstandingApiV2CompanionCoachUnderstandingGetErrors[keyof GetCoachUnderstandingApiV2CompanionCoachUnderstandingGetErrors];
+
+export type GetCoachUnderstandingApiV2CompanionCoachUnderstandingGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCompanionCoachUnderstanding;
+};
+
+export type GetCoachUnderstandingApiV2CompanionCoachUnderstandingGetResponse = GetCoachUnderstandingApiV2CompanionCoachUnderstandingGetResponses[keyof GetCoachUnderstandingApiV2CompanionCoachUnderstandingGetResponses];
+
 export type ClearCompanionConversationMemoryApiV2CompanionConversationMemoryDeleteData = {
     body?: never;
     path?: never;
@@ -26842,6 +27972,448 @@ export type AccessPacketApiV2ExternalLearningPacketsPacketVersionIdAccessPostRes
 
 export type AccessPacketApiV2ExternalLearningPacketsPacketVersionIdAccessPostResponse = AccessPacketApiV2ExternalLearningPacketsPacketVersionIdAccessPostResponses[keyof AccessPacketApiV2ExternalLearningPacketsPacketVersionIdAccessPostResponses];
 
+export type ListQuestionBooksApiV2ExternalLearningQuestionBooksGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v2/external-learning/question-books';
+};
+
+export type ListQuestionBooksApiV2ExternalLearningQuestionBooksGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ListQuestionBooksApiV2ExternalLearningQuestionBooksGetError = ListQuestionBooksApiV2ExternalLearningQuestionBooksGetErrors[keyof ListQuestionBooksApiV2ExternalLearningQuestionBooksGetErrors];
+
+export type ListQuestionBooksApiV2ExternalLearningQuestionBooksGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePrivateQuestionBookList;
+};
+
+export type ListQuestionBooksApiV2ExternalLearningQuestionBooksGetResponse = ListQuestionBooksApiV2ExternalLearningQuestionBooksGetResponses[keyof ListQuestionBooksApiV2ExternalLearningQuestionBooksGetResponses];
+
+export type CreateQuestionBookApiV2ExternalLearningQuestionBooksPostData = {
+    body: CreatePrivateQuestionBookCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/external-learning/question-books';
+};
+
+export type CreateQuestionBookApiV2ExternalLearningQuestionBooksPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CreateQuestionBookApiV2ExternalLearningQuestionBooksPostError = CreateQuestionBookApiV2ExternalLearningQuestionBooksPostErrors[keyof CreateQuestionBookApiV2ExternalLearningQuestionBooksPostErrors];
+
+export type CreateQuestionBookApiV2ExternalLearningQuestionBooksPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePrivateQuestionBookDetail;
+};
+
+export type CreateQuestionBookApiV2ExternalLearningQuestionBooksPostResponse = CreateQuestionBookApiV2ExternalLearningQuestionBooksPostResponses[keyof CreateQuestionBookApiV2ExternalLearningQuestionBooksPostResponses];
+
+export type GetQuestionBookDeletionApiV2ExternalLearningQuestionBooksDeletionsDeletionIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Deletion Id
+         */
+        deletion_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/question-books/deletions/{deletion_id}';
+};
+
+export type GetQuestionBookDeletionApiV2ExternalLearningQuestionBooksDeletionsDeletionIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetQuestionBookDeletionApiV2ExternalLearningQuestionBooksDeletionsDeletionIdGetError = GetQuestionBookDeletionApiV2ExternalLearningQuestionBooksDeletionsDeletionIdGetErrors[keyof GetQuestionBookDeletionApiV2ExternalLearningQuestionBooksDeletionsDeletionIdGetErrors];
+
+export type GetQuestionBookDeletionApiV2ExternalLearningQuestionBooksDeletionsDeletionIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePrivateSourceDeletionView;
+};
+
+export type GetQuestionBookDeletionApiV2ExternalLearningQuestionBooksDeletionsDeletionIdGetResponse = GetQuestionBookDeletionApiV2ExternalLearningQuestionBooksDeletionsDeletionIdGetResponses[keyof GetQuestionBookDeletionApiV2ExternalLearningQuestionBooksDeletionsDeletionIdGetResponses];
+
+export type DeleteQuestionBookApiV2ExternalLearningQuestionBooksBookIdDeleteData = {
+    body?: never;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+    };
+    path: {
+        /**
+         * Book Id
+         */
+        book_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/question-books/{book_id}';
+};
+
+export type DeleteQuestionBookApiV2ExternalLearningQuestionBooksBookIdDeleteErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type DeleteQuestionBookApiV2ExternalLearningQuestionBooksBookIdDeleteError = DeleteQuestionBookApiV2ExternalLearningQuestionBooksBookIdDeleteErrors[keyof DeleteQuestionBookApiV2ExternalLearningQuestionBooksBookIdDeleteErrors];
+
+export type DeleteQuestionBookApiV2ExternalLearningQuestionBooksBookIdDeleteResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePrivateSourceDeletionView;
+};
+
+export type DeleteQuestionBookApiV2ExternalLearningQuestionBooksBookIdDeleteResponse = DeleteQuestionBookApiV2ExternalLearningQuestionBooksBookIdDeleteResponses[keyof DeleteQuestionBookApiV2ExternalLearningQuestionBooksBookIdDeleteResponses];
+
+export type GetQuestionBookApiV2ExternalLearningQuestionBooksBookIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Book Id
+         */
+        book_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/question-books/{book_id}';
+};
+
+export type GetQuestionBookApiV2ExternalLearningQuestionBooksBookIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetQuestionBookApiV2ExternalLearningQuestionBooksBookIdGetError = GetQuestionBookApiV2ExternalLearningQuestionBooksBookIdGetErrors[keyof GetQuestionBookApiV2ExternalLearningQuestionBooksBookIdGetErrors];
+
+export type GetQuestionBookApiV2ExternalLearningQuestionBooksBookIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePrivateQuestionBookDetail;
+};
+
+export type GetQuestionBookApiV2ExternalLearningQuestionBooksBookIdGetResponse = GetQuestionBookApiV2ExternalLearningQuestionBooksBookIdGetResponses[keyof GetQuestionBookApiV2ExternalLearningQuestionBooksBookIdGetResponses];
+
+export type ExportQuestionBookApiV2ExternalLearningQuestionBooksBookIdExportGetData = {
+    body?: never;
+    path: {
+        /**
+         * Book Id
+         */
+        book_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/question-books/{book_id}/export';
+};
+
+export type ExportQuestionBookApiV2ExternalLearningQuestionBooksBookIdExportGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ExportQuestionBookApiV2ExternalLearningQuestionBooksBookIdExportGetError = ExportQuestionBookApiV2ExternalLearningQuestionBooksBookIdExportGetErrors[keyof ExportQuestionBookApiV2ExternalLearningQuestionBooksBookIdExportGetErrors];
+
+export type ExportQuestionBookApiV2ExternalLearningQuestionBooksBookIdExportGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeMarkdownExport;
+};
+
+export type ExportQuestionBookApiV2ExternalLearningQuestionBooksBookIdExportGetResponse = ExportQuestionBookApiV2ExternalLearningQuestionBooksBookIdExportGetResponses[keyof ExportQuestionBookApiV2ExternalLearningQuestionBooksBookIdExportGetResponses];
+
+export type StartQuestionBookPracticeApiV2ExternalLearningQuestionBooksBookIdPracticeSessionsPostData = {
+    body: StartPrivateQuestionBookPracticeCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+    };
+    path: {
+        /**
+         * Book Id
+         */
+        book_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/question-books/{book_id}/practice-sessions';
+};
+
+export type StartQuestionBookPracticeApiV2ExternalLearningQuestionBooksBookIdPracticeSessionsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type StartQuestionBookPracticeApiV2ExternalLearningQuestionBooksBookIdPracticeSessionsPostError = StartQuestionBookPracticeApiV2ExternalLearningQuestionBooksBookIdPracticeSessionsPostErrors[keyof StartQuestionBookPracticeApiV2ExternalLearningQuestionBooksBookIdPracticeSessionsPostErrors];
+
+export type StartQuestionBookPracticeApiV2ExternalLearningQuestionBooksBookIdPracticeSessionsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePrivateQuestionBookPracticeLaunch;
+};
+
+export type StartQuestionBookPracticeApiV2ExternalLearningQuestionBooksBookIdPracticeSessionsPostResponse = StartQuestionBookPracticeApiV2ExternalLearningQuestionBooksBookIdPracticeSessionsPostResponses[keyof StartQuestionBookPracticeApiV2ExternalLearningQuestionBooksBookIdPracticeSessionsPostResponses];
+
 export type StartRecognitionApiV2ExternalLearningRecognitionsPostData = {
     body: StartRecognitionCommand;
     headers: {
@@ -28066,6 +29638,63 @@ export type LearnerTargetScoreApiV2LearnerTargetScoreGetResponses = {
 
 export type LearnerTargetScoreApiV2LearnerTargetScoreGetResponse = LearnerTargetScoreApiV2LearnerTargetScoreGetResponses[keyof LearnerTargetScoreApiV2LearnerTargetScoreGetResponses];
 
+export type GetLearnerCoachContextApiV2LearningBrainCoachContextGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v2/learning-brain/coach-context';
+};
+
+export type GetLearnerCoachContextApiV2LearningBrainCoachContextGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetLearnerCoachContextApiV2LearningBrainCoachContextGetError = GetLearnerCoachContextApiV2LearningBrainCoachContextGetErrors[keyof GetLearnerCoachContextApiV2LearningBrainCoachContextGetErrors];
+
+export type GetLearnerCoachContextApiV2LearningBrainCoachContextGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeLearnerCoachContext;
+};
+
+export type GetLearnerCoachContextApiV2LearningBrainCoachContextGetResponse = GetLearnerCoachContextApiV2LearningBrainCoachContextGetResponses[keyof GetLearnerCoachContextApiV2LearningBrainCoachContextGetResponses];
+
 export type GetLearningBrainErrorPatternApiV2LearningBrainErrorPatternsPatternIdGetData = {
     body?: never;
     path: {
@@ -28381,6 +30010,63 @@ export type DecideLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesC
 };
 
 export type DecideLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesCandidateIdDecisionPostResponse = DecideLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesCandidateIdDecisionPostResponses[keyof DecideLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesCandidateIdDecisionPostResponses];
+
+export type SuggestDailyLearningStrategyApiV2LearningBrainStrategySuggestionsDailyPostData = {
+    body: DailyStrategySuggestionCommand;
+    path?: never;
+    query?: never;
+    url: '/api/v2/learning-brain/strategy-suggestions/daily';
+};
+
+export type SuggestDailyLearningStrategyApiV2LearningBrainStrategySuggestionsDailyPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type SuggestDailyLearningStrategyApiV2LearningBrainStrategySuggestionsDailyPostError = SuggestDailyLearningStrategyApiV2LearningBrainStrategySuggestionsDailyPostErrors[keyof SuggestDailyLearningStrategyApiV2LearningBrainStrategySuggestionsDailyPostErrors];
+
+export type SuggestDailyLearningStrategyApiV2LearningBrainStrategySuggestionsDailyPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeDailyStrategySuggestionResult;
+};
+
+export type SuggestDailyLearningStrategyApiV2LearningBrainStrategySuggestionsDailyPostResponse = SuggestDailyLearningStrategyApiV2LearningBrainStrategySuggestionsDailyPostResponses[keyof SuggestDailyLearningStrategyApiV2LearningBrainStrategySuggestionsDailyPostResponses];
 
 export type StartLearningMediaUploadApiV2LearningMediaUploadsPostData = {
     body: StartLearningMediaUploadCommand;
@@ -33091,6 +34777,68 @@ export type GetAttemptRescueApiV2XingceAttemptReviewsReviewIdRescueGetResponses 
 
 export type GetAttemptRescueApiV2XingceAttemptReviewsReviewIdRescueGetResponse = GetAttemptRescueApiV2XingceAttemptReviewsReviewIdRescueGetResponses[keyof GetAttemptRescueApiV2XingceAttemptReviewsReviewIdRescueGetResponses];
 
+export type StartTeachBackApiV2XingceAttemptReviewsReviewIdTeachBackPostData = {
+    body: StartTeachBackCommand;
+    path: {
+        /**
+         * Review Id
+         */
+        review_id: string;
+    };
+    query?: never;
+    url: '/api/v2/xingce/attempt-reviews/{review_id}/teach-back';
+};
+
+export type StartTeachBackApiV2XingceAttemptReviewsReviewIdTeachBackPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type StartTeachBackApiV2XingceAttemptReviewsReviewIdTeachBackPostError = StartTeachBackApiV2XingceAttemptReviewsReviewIdTeachBackPostErrors[keyof StartTeachBackApiV2XingceAttemptReviewsReviewIdTeachBackPostErrors];
+
+export type StartTeachBackApiV2XingceAttemptReviewsReviewIdTeachBackPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeTeachBackSessionProjection;
+};
+
+export type StartTeachBackApiV2XingceAttemptReviewsReviewIdTeachBackPostResponse = StartTeachBackApiV2XingceAttemptReviewsReviewIdTeachBackPostResponses[keyof StartTeachBackApiV2XingceAttemptReviewsReviewIdTeachBackPostResponses];
+
 export type GetMasteryQueueApiV2XingceMasteryQueueGetData = {
     body?: never;
     path?: never;
@@ -33765,6 +35513,130 @@ export type SubmitTaskSessionApiV2XingceTaskSessionsSessionIdSubmitPostResponses
 };
 
 export type SubmitTaskSessionApiV2XingceTaskSessionsSessionIdSubmitPostResponse = SubmitTaskSessionApiV2XingceTaskSessionsSessionIdSubmitPostResponses[keyof SubmitTaskSessionApiV2XingceTaskSessionsSessionIdSubmitPostResponses];
+
+export type GetTeachBackApiV2XingceTeachBackSessionIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Session Id
+         */
+        session_id: string;
+    };
+    query?: never;
+    url: '/api/v2/xingce/teach-back/{session_id}';
+};
+
+export type GetTeachBackApiV2XingceTeachBackSessionIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetTeachBackApiV2XingceTeachBackSessionIdGetError = GetTeachBackApiV2XingceTeachBackSessionIdGetErrors[keyof GetTeachBackApiV2XingceTeachBackSessionIdGetErrors];
+
+export type GetTeachBackApiV2XingceTeachBackSessionIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeTeachBackSessionProjection;
+};
+
+export type GetTeachBackApiV2XingceTeachBackSessionIdGetResponse = GetTeachBackApiV2XingceTeachBackSessionIdGetResponses[keyof GetTeachBackApiV2XingceTeachBackSessionIdGetResponses];
+
+export type SubmitTeachBackTransferApiV2XingceTeachBackSessionIdTransferPostData = {
+    body: TeachBackTransferCommand;
+    path: {
+        /**
+         * Session Id
+         */
+        session_id: string;
+    };
+    query?: never;
+    url: '/api/v2/xingce/teach-back/{session_id}/transfer';
+};
+
+export type SubmitTeachBackTransferApiV2XingceTeachBackSessionIdTransferPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type SubmitTeachBackTransferApiV2XingceTeachBackSessionIdTransferPostError = SubmitTeachBackTransferApiV2XingceTeachBackSessionIdTransferPostErrors[keyof SubmitTeachBackTransferApiV2XingceTeachBackSessionIdTransferPostErrors];
+
+export type SubmitTeachBackTransferApiV2XingceTeachBackSessionIdTransferPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeTeachBackTransferReceipt;
+};
+
+export type SubmitTeachBackTransferApiV2XingceTeachBackSessionIdTransferPostResponse = SubmitTeachBackTransferApiV2XingceTeachBackSessionIdTransferPostResponses[keyof SubmitTeachBackTransferApiV2XingceTeachBackSessionIdTransferPostResponses];
 
 export type HealthHealthGetData = {
     body?: never;

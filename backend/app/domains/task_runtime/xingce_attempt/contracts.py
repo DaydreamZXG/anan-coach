@@ -9,6 +9,7 @@ from typing import Any
 
 
 XINGCE_QUICK_QUESTION_BUNDLE_SIZE = 3
+XINGCE_DATA_ANALYSIS_GROUP_SIZE = 5
 XINGCE_MAX_QUESTION_BUNDLE_SIZE = 30
 XINGCE_MINUTES_PER_QUESTION = 2
 
@@ -226,9 +227,16 @@ def _validate_difficulty_policy(value: object) -> None:
         raise XingceSelectionIntentError("known difficulty source is required")
 
 
-def xingce_question_count(*, mode: str, estimated_minutes: int) -> int:
+def xingce_question_count(
+    *,
+    mode: str,
+    estimated_minutes: int,
+    module_name: str | None = None,
+) -> int:
     """Derive the frozen bundle size from the immutable plan task."""
     if mode == "verification":
+        if module_name == "资料分析":
+            return XINGCE_DATA_ANALYSIS_GROUP_SIZE
         return XINGCE_QUICK_QUESTION_BUNDLE_SIZE
     return min(
         XINGCE_MAX_QUESTION_BUNDLE_SIZE,

@@ -1,0 +1,157 @@
+{
+  "asset_id": "da_4fef93e37c4e893b293a9cf7",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2007,
+        2008,
+        2009,
+        2010
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 30000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000,
+          30000
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2007",
+    "2008",
+    "2009",
+    "2010"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "生产总值",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "生产总值",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        18754,
+        21463,
+        22990,
+        27227
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2012年浙江省公务员录用考试《行测》题_images/img_0151_bc89ab8870b104f5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年浙江省公务员录用考试《行测》题_images/img_0151_bc89ab8870b104f5.png",
+        "paper_title": "2012年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_eddd2b663c79fc27a704",
+        "question_number": 121,
+        "source_jsonl_line": 60423
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年浙江省公务员录用考试《行测》题_images/img_0151_bc89ab8870b104f5.png",
+        "paper_title": "2012年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_736ab2458bfb51a3facd",
+        "question_number": 122,
+        "source_jsonl_line": 60424
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年浙江省公务员录用考试《行测》题_images/img_0151_bc89ab8870b104f5.png",
+        "paper_title": "2012年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_078c5e9f7451a8c85292",
+        "question_number": 123,
+        "source_jsonl_line": 60425
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年浙江省公务员录用考试《行测》题_images/img_0166_88d165cfacbccbf2.png",
+        "paper_title": "2012年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_dc30d7faf2b034a6d888",
+        "question_number": 124,
+        "source_jsonl_line": 60426
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年浙江省公务员录用考试《行测》题_images/img_0166_88d165cfacbccbf2.png",
+        "paper_title": "2012年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_7c86a04d4f39cc31dbdc",
+        "question_number": 125,
+        "source_jsonl_line": 60427
+      }
+    ],
+    "sha256": "4fef93e37c4e893b293a9cf7d74b6c4eeaa5bd24af8392df4347c181ac2a6d4a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2007-2010年浙江省生产总值增长统计图",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4fef93e37c4e893b293a9cf7/column_band_01.jpg",
+        "review-crops/da_4fef93e37c4e893b293a9cf7/column_band_02.jpg",
+        "review-crops/da_4fef93e37c4e893b293a9cf7/column_band_03.jpg",
+        "review-crops/da_4fef93e37c4e893b293a9cf7/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.487",
+      "crop_verification_elapsed_seconds:1.353",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

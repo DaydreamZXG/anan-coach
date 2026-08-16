@@ -1,0 +1,158 @@
+{
+  "asset_id": "da_40dff85ce05c53d77a8ad4e9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 39000,
+        "min": 30000,
+        "ticks": [
+          30000,
+          33000,
+          36000,
+          39000
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "交通固定资产投资额",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "交通固定资产投资额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        32020,
+        32236,
+        32450,
+        34783,
+        36220,
+        38546
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0155_f08368af05ca272e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0155_f08368af05ca272e.png",
+        "paper_title": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4640668357b5f6b29c3a",
+        "question_number": 116,
+        "source_jsonl_line": 104398
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0154_91840b53ec64613b.png",
+        "paper_title": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a3d7854b603f7dc020e8",
+        "question_number": 117,
+        "source_jsonl_line": 104399
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0154_91840b53ec64613b.png",
+        "paper_title": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_33ba2217511d70e19e20",
+        "question_number": 118,
+        "source_jsonl_line": 104400
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0155_f08368af05ca272e.png",
+        "paper_title": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7ce0b7844e661844fc37",
+        "question_number": 119,
+        "source_jsonl_line": 104401
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0155_f08368af05ca272e.png",
+        "paper_title": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e497c3a5e69404650554",
+        "question_number": 120,
+        "source_jsonl_line": 104402
+      }
+    ],
+    "sha256": "40dff85ce05c53d77a8ad4e9e1603e62c531f5be84041be5e33e0c5f7cec92fb"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2017-2022年交通固定资产投资额（亿元）",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_40dff85ce05c53d77a8ad4e9/column_band_01.jpg",
+        "review-crops/da_40dff85ce05c53d77a8ad4e9/column_band_02.jpg",
+        "review-crops/da_40dff85ce05c53d77a8ad4e9/column_band_03.jpg",
+        "review-crops/da_40dff85ce05c53d77a8ad4e9/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.181",
+      "crop_verification_elapsed_seconds:7.005",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2017年数据为32020，与图中一致",
+      "crop_note:修正了2018年数据为32236，与图中一致",
+      "crop_note:修正了2019年数据为32450，与图中一致",
+      "crop_note:修正了2020年数据为34783，与图中一致",
+      "crop_note:修正了2021年数据为36220，与图中一致",
+      "crop_note:修正了2022年数据为38546，与图中一致"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

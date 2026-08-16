@@ -1,0 +1,280 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "计算单位",
+          "实绩",
+          "比上年增长(%)"
+        ],
+        "label": "内河运输船舶"
+      },
+      {
+        "columns": [
+          "计算单位",
+          "实绩",
+          "比上年增长(%)"
+        ],
+        "label": "沿海运输船舶"
+      },
+      {
+        "columns": [
+          "计算单位",
+          "实绩",
+          "比上年增长(%)"
+        ],
+        "label": "远洋运输船舶"
+      }
+    ],
+    "columns": [
+      "计算单位",
+      "实绩",
+      "比上年增长(%)"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "计算单位",
+        "row": "运输船舶数量"
+      },
+      {
+        "column": "计算单位",
+        "row": "净载重量"
+      },
+      {
+        "column": "计算单位",
+        "row": "平均净载重量"
+      },
+      {
+        "column": "计算单位",
+        "row": "载客量"
+      },
+      {
+        "column": "计算单位",
+        "row": "集装箱箱位"
+      },
+      {
+        "column": "计算单位",
+        "row": "船舶功率"
+      },
+      {
+        "column": "计算单位",
+        "row": "运输船舶数量"
+      },
+      {
+        "column": "计算单位",
+        "row": "净载重量"
+      },
+      {
+        "column": "计算单位",
+        "row": "平均净载重量"
+      },
+      {
+        "column": "计算单位",
+        "row": "载客量"
+      },
+      {
+        "column": "计算单位",
+        "row": "集装箱箱位"
+      },
+      {
+        "column": "计算单位",
+        "row": "船舶功率"
+      },
+      {
+        "column": "计算单位",
+        "row": "运输船舶数量"
+      },
+      {
+        "column": "计算单位",
+        "row": "净载重量"
+      },
+      {
+        "column": "计算单位",
+        "row": "平均净载重量"
+      },
+      {
+        "column": "计算单位",
+        "row": "载客量"
+      },
+      {
+        "column": "计算单位",
+        "row": "集装箱箱位"
+      },
+      {
+        "column": "计算单位",
+        "row": "船舶功率"
+      }
+    ],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "运输船舶数量",
+        "unit": "艘",
+        "values": [
+          null,
+          16.58,
+          0.1
+        ]
+      },
+      {
+        "label": "净载重量",
+        "unit": "万吨",
+        "values": [
+          null,
+          8779.99,
+          18.7
+        ]
+      },
+      {
+        "label": "平均净载重量",
+        "unit": "吨/艘",
+        "values": [
+          null,
+          529,
+          17.9
+        ]
+      },
+      {
+        "label": "载客量",
+        "unit": "万客位",
+        "values": [
+          null,
+          81.89,
+          -0.7
+        ]
+      },
+      {
+        "label": "集装箱箱位",
+        "unit": "万 TEU",
+        "values": [
+          null,
+          16.07,
+          25.5
+        ]
+      },
+      {
+        "label": "船舶功率",
+        "unit": "万千瓦",
+        "values": [
+          null,
+          2771.27,
+          14.3
+        ]
+      },
+      {
+        "label": "运输船舶数量",
+        "unit": "艘",
+        "values": [
+          null,
+          10902,
+          4.1
+        ]
+      },
+      {
+        "label": "净载重量",
+        "unit": "万吨",
+        "values": [
+          null,
+          5780.47,
+          16.1
+        ]
+      },
+      {
+        "label": "平均净载重量",
+        "unit": "吨/艘",
+        "values": [
+          null,
+          5302,
+          11.5
+        ]
+      },
+      {
+        "label": "载客量",
+        "unit": "万客位",
+        "values": [
+          null,
+          16.9,
+          6.8
+        ]
+      },
+      {
+        "label": "集装箱箱位",
+        "unit": "万 TEU",
+        "values": [
+          null,
+          20.32,
+          9.4
+        ]
+      },
+      {
+        "label": "船舶功率",
+        "unit": "万千瓦",
+        "values": [
+          null,
+          1543.39,
+          9.1
+        ]
+      },
+      {
+        "label": "运输船舶数量",
+        "unit": "艘",
+        "values": [
+          null,
+          2492,
+          12.7
+        ]
+      },
+      {
+        "label": "净载重量",
+        "unit": "万吨",
+        "values": [
+          null,
+          6703.86,
+          19.2
+        ]
+      },
+      {
+        "label": "平均净载重量",
+        "unit": "吨/艘",
+        "values": [
+          null,
+          26880,
+          5.7
+        ]
+      },
+      {
+        "label": "载客量",
+        "unit": "万客位",
+        "values": [
+          null,
+          2.05,
+          0.5
+        ]
+      },
+      {
+        "label": "集装箱箱位",
+        "unit": "万 TEU",
+        "values": [
+          null,
+          111.14,
+          10
+        ]
+      },
+      {
+        "label": "船舶功率",
+        "unit": "万千瓦",
+        "values": [
+          null,
+          1644,
+          9.5
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

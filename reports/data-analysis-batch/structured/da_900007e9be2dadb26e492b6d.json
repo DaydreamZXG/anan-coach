@@ -1,0 +1,199 @@
+{
+  "asset_id": "da_900007e9be2dadb26e492b6d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 9,
+        "min": 0,
+        "ticks": [
+          0,
+          1.5,
+          2.5,
+          3,
+          4.5,
+          6,
+          7.5,
+          9
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "全国",
+    "城市",
+    "农村"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "A",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "B",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "C",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "D",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "A",
+      "label": "A",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        2.8,
+        3,
+        2.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "B",
+      "label": "B",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        14.3,
+        14.5,
+        14
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "C",
+      "label": "C",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.5,
+        4.3,
+        8.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "D",
+      "label": "D",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.9,
+        5.6,
+        6.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2010年吉林省公务员录用考试《行测》题_images/img_0061_ed8cb662f791549e.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2010年吉林省公务员录用考试《行测》题_images/img_0061_ed8cb662f791549e.png",
+        "paper_title": "2010年吉林省公务员录用考试《行测》题",
+        "question_id": "pq_34b2f18d2e5cf3b07a2b",
+        "question_number": 90,
+        "source_jsonl_line": 11348
+      }
+    ],
+    "sha256": "900007e9be2dadb26e492b6d8e3da8284a1b9604c343d84b057e05ca9456b6c9"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "食品价格涨幅%",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_900007e9be2dadb26e492b6d/column_band_01.jpg",
+        "review-crops/da_900007e9be2dadb26e492b6d/column_band_02.jpg",
+        "review-crops/da_900007e9be2dadb26e492b6d/column_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.595",
+      "crop_verification_elapsed_seconds:2.498",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

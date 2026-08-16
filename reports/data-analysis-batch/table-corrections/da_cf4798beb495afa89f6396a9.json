@@ -1,0 +1,116 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口"
+        ],
+        "label": "出口"
+      },
+      {
+        "columns": [
+          "同比增减"
+        ],
+        "label": "同比增减"
+      },
+      {
+        "columns": [
+          "进口"
+        ],
+        "label": "进口"
+      },
+      {
+        "columns": [
+          "同比增减"
+        ],
+        "label": "同比增减"
+      }
+    ],
+    "columns": [
+      "出口",
+      "同比增减",
+      "进口",
+      "同比增减"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "原木（万立方米）",
+        "unit": "万立方米",
+        "values": [
+          1.31,
+          263.89,
+          4515.94,
+          19.18
+        ]
+      },
+      {
+        "label": "锯材（万立方米）",
+        "unit": "万立方米",
+        "values": [
+          45.82,
+          -4.5,
+          2404.3,
+          16.32
+        ]
+      },
+      {
+        "label": "胶合板（万立方米）",
+        "unit": "万立方米",
+        "values": [
+          1026.34,
+          2.315,
+          15.47,
+          -13.48
+        ]
+      },
+      {
+        "label": "纤维板（万立方米）",
+        "unit": "万立方米",
+        "values": [
+          306.87,
+          -14.97,
+          22.62,
+          6.93
+        ]
+      },
+      {
+        "label": "刨花板（万立方米）",
+        "unit": "万立方米",
+        "values": [
+          27.13,
+          25.2,
+          58.68,
+          8.52
+        ]
+      },
+      {
+        "label": "木家具（亿美元）",
+        "unit": "亿美元",
+        "values": [
+          194.41,
+          6.06,
+          7.06,
+          18.97
+        ]
+      },
+      {
+        "label": "纸和纸制品（万吨）",
+        "unit": "万吨",
+        "values": [
+          762.23,
+          18.28,
+          297.12,
+          -8.7
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -19,10 +19,12 @@ from app.domains.learning_brain.schemas import (
     BrainDecisionSummary,
     BrainEvidenceRef,
     BrainEvidenceSummary,
+    CoachRecognition,
     ErrorPatternDetail,
     ErrorPatternSummary,
     InferenceCandidateVersion,
     KnowledgePointWeakness,
+    LearnerCoachContext,
     LearningBrainProfileVersion,
     ModuleAbility,
     StrategyCandidateCommand,
@@ -215,6 +217,63 @@ class LearningBrainService:
         if module is None:
             raise LearningBrainNotFoundError("module ability is not available")
         return module
+
+    def get_coach_context(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        now: datetime | None = None,
+    ) -> LearnerCoachContext:
+        """编译今日与岸岸对话共用的当前学员上下文。
+
+        profile 仍由学习大脑拥有；本方法不创造另一份学习事实，
+        strategy directive 也只是当前版本的只读投影。
+        """
+        generated_at = _as_utc(now or datetime.now(UTC))
+        profile = self.get_or_create_profile(
+            session,
+            user_id=user_id,
+            now=generated_at,
+        )
+        directive = self.current_strategy_directive(
+            session,
+            user_id=user_id,
+            now=generated_at,
+        )
+        return compile_learner_coach_context(
+            profile,
+            strategy_directive=directive,
+            now=generated_at,
+        )
+
+    def get_current_coach_context(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        now: datetime | None = None,
+    ) -> LearnerCoachContext:
+        """编译已存在的当前画像，不触发画像重建。
+
+        Companion 路由在进入 repository 前已建立当前画像；此方法避免一次问答
+        内重复计算或依赖发布状态再次改变。
+        """
+        generated_at = _as_utc(now or datetime.now(UTC))
+        current = LearningBrainRepository(session).current_profile(user_id=user_id)
+        if current is None:
+            raise LearningBrainNotFoundError("learning-brain profile is not available")
+        profile = _profile_from_row(current)
+        directive = self.current_strategy_directive(
+            session,
+            user_id=user_id,
+            now=generated_at,
+        )
+        return compile_learner_coach_context(
+            profile,
+            strategy_directive=directive,
+            now=generated_at,
+        )
 
     def get_error_pattern(
         self,
@@ -528,6 +587,101 @@ def _knowledge_point_weaknesses(
     ]
 
 
+def compile_learner_coach_context(
+    profile: LearningBrainProfileVersion,
+    *,
+    strategy_directive: StrategyDirective | None = None,
+    now: datetime | None = None,
+) -> LearnerCoachContext:
+    """从一个已版本化 profile 纯编译岸岸上下文。"""
+    generated_at = _as_utc(now or datetime.now(UTC))
+    stable_mastery_count = sum(item.stable_mastery_count for item in profile.modules)
+    recognition = _coach_recognition(
+        profile.evidence_summary,
+        stable_mastery_count=stable_mastery_count,
+    )
+    return LearnerCoachContext(
+        profileVersionId=profile.profile_version_id,
+        profile=profile,
+        recognition=recognition,
+        freshness=_coach_context_freshness(profile, now=generated_at),
+        strategyDirective=strategy_directive or StrategyDirective(),
+        generatedAt=generated_at,
+        validUntil=profile.valid_until,
+    )
+
+
+def _coach_recognition(
+    evidence: BrainEvidenceSummary,
+    *,
+    stable_mastery_count: int,
+) -> CoachRecognition:
+    evidence_count = evidence.total_count
+    if stable_mastery_count > 0:
+        return CoachRecognition(
+            level="understands",
+            label="比较了解你",
+            observation=(
+                f"已有 {stable_mastery_count} 个稳定掌握记录经过练习与复测确认。"
+            ),
+            evidenceCount=evidence_count,
+            stableMasteryCount=stable_mastery_count,
+        )
+    mastery_count = evidence.xingce_mastery_count + evidence.essay_mastery_count
+    if evidence.task_execution_count > 0 or mastery_count > 0:
+        return CoachRecognition(
+            level="verifying",
+            label="正在验证",
+            observation=(
+                f"岸岸已经收到 {evidence.task_execution_count} 条任务执行记录和 "
+                f"{mastery_count} 条掌握证据，当前判断还在复测。"
+            ),
+            evidenceCount=evidence_count,
+            stableMasteryCount=0,
+        )
+    if evidence_count > 0:
+        sources = [
+            f"{evidence.score_evidence_count} 份成绩"
+            if evidence.score_evidence_count > 0
+            else "",
+            f"{evidence.xingce_attempt_count} 次真实作答"
+            if evidence.xingce_attempt_count > 0
+            else "",
+            f"{evidence.external_answer_count} 条外部作答"
+            if evidence.external_answer_count > 0
+            else "",
+        ]
+        source_copy = "、".join(item for item in sources if item) or f"{evidence_count} 条学习证据"
+        return CoachRecognition(
+            level="initial_hypothesis",
+            label="形成初步判断",
+            observation=f"岸岸目前看过{source_copy}；这些只够形成假设，还不能当定论。",
+            evidenceCount=evidence_count,
+            stableMasteryCount=0,
+        )
+    return CoachRecognition(
+        level="just_met",
+        label="刚认识你",
+        observation="岸岸还没看过你的真实作答，现在只用目标和可用时间决定先从哪里开始。",
+        evidenceCount=0,
+        stableMasteryCount=0,
+    )
+
+
+def _coach_context_freshness(
+    profile: LearningBrainProfileVersion,
+    *,
+    now: datetime,
+) -> str:
+    if profile.readiness == "conflicted":
+        return "conflicted"
+    if profile.readiness == "unavailable":
+        return "unavailable"
+    if profile.readiness == "stale" or _as_utc(profile.valid_until) <= now:
+        return "stale"
+    return "current"
+
+
 def _xingce_module(row: RowMapping, now: datetime) -> ModuleAbility:
     attempt_count = int(row["attempt_count"])
     mastery_count = int(row["mastery_count"])
@@ -674,17 +828,37 @@ def _error_pattern(row: RowMapping) -> ErrorPatternSummary:
         or cause_code
     )
     counterevidence = int(row["counterevidence_count"])
+    occurrence_count = int(row["occurrence_count"])
+    fully_countered = counterevidence > 0 and counterevidence == occurrence_count
+    latest_version_id = (
+        str(row["latest_counterevidence_version_id"])
+        if fully_countered and row["latest_counterevidence_version_id"] is not None
+        else str(row["latest_version_id"])
+    )
+    latest_observed_at = (
+        row["latest_counterevidence_at"]
+        if fully_countered and row["latest_counterevidence_at"] is not None
+        else row["latest_observed_at"]
+    )
     ref = BrainEvidenceRef(
-        owner="xingce_learning" if row["track"] == "xingce" else "essay_mastery",
+        owner=(
+            "xingce_mastery"
+            if row["track"] == "xingce" and fully_countered
+            else "xingce_learning"
+            if row["track"] == "xingce"
+            else "essay_mastery"
+        ),
         entityType=(
-            "xingce_confirmed_cause_version"
+            "xingce_mastery_state_version"
+            if row["track"] == "xingce" and fully_countered
+            else "xingce_confirmed_cause_version"
             if row["track"] == "xingce"
             else "essay_mastery_state_version"
         ),
-        entityId=str(row["latest_version_id"]),
-        versionId=str(row["latest_version_id"]),
-        occurredAt=row["latest_observed_at"],
-        role="counterevidence" if counterevidence else "confirmed_pattern",
+        entityId=latest_version_id,
+        versionId=latest_version_id,
+        occurredAt=latest_observed_at,
+        role="counterevidence" if fully_countered else "confirmed_pattern",
     )
     return ErrorPatternSummary(
         patternId=pattern_id,
@@ -692,8 +866,8 @@ def _error_pattern(row: RowMapping) -> ErrorPatternSummary:
         moduleKey=str(row["module_key"]),
         causeCode=cause_code,
         displayName=str(display_name),
-        status="counterevidence" if counterevidence else "confirmed",
-        occurrenceCount=int(row["occurrence_count"]),
+        status="counterevidence" if fully_countered else "confirmed",
+        occurrenceCount=occurrence_count,
         counterevidenceCount=counterevidence,
         confidence="medium",
         latestObservedAt=row["latest_observed_at"],

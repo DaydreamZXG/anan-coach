@@ -1,0 +1,171 @@
+{
+  "asset_id": "da_2c06cc316a3bb4bd453aeeed",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/甘肃/2015年甘肃省公务员录用考试《行测》题_images/img_0188_23dcaec55236481b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年甘肃省公务员录用考试《行测》题_images/img_0188_23dcaec55236481b.png",
+        "paper_title": "2015年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_d89ac75050cd6e4af7bc",
+        "question_number": 111,
+        "source_jsonl_line": 74846
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年甘肃省公务员录用考试《行测》题_images/img_0188_23dcaec55236481b.png",
+        "paper_title": "2015年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_e075c8b3182e69ac99a5",
+        "question_number": 112,
+        "source_jsonl_line": 74847
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年甘肃省公务员录用考试《行测》题_images/img_0199_5f093ef1f113a5bf.png",
+        "paper_title": "2015年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_3914b26fca7e83d5fb3f",
+        "question_number": 113,
+        "source_jsonl_line": 74848
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年甘肃省公务员录用考试《行测》题_images/img_0188_23dcaec55236481b.png",
+        "paper_title": "2015年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_6ac7a995253fc8d969ca",
+        "question_number": 114,
+        "source_jsonl_line": 74849
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年甘肃省公务员录用考试《行测》题_images/img_0199_5f093ef1f113a5bf.png",
+        "paper_title": "2015年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_cc3261a2acdbbb669419",
+        "question_number": 115,
+        "source_jsonl_line": 74850
+      }
+    ],
+    "sha256": "2c06cc316a3bb4bd453aeeedc58d2841ecd39566cc352d5b59705b960da9a265"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "商品房销售面积绝对数（万平方数）",
+      "商品房销售面积同比增长（%）",
+      "商品房销售额绝对数（亿元）",
+      "商品房销售额同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "东部地区",
+        "unit": null,
+        "values": [
+          "东部地区",
+          5089,
+          -6.0,
+          4356,
+          -9.6
+        ]
+      },
+      {
+        "label": "中部地区",
+        "unit": null,
+        "values": [
+          "中部地区",
+          2800,
+          15.1,
+          1405,
+          14.3
+        ]
+      },
+      {
+        "label": "西部地区",
+        "unit": null,
+        "values": [
+          "西部地区",
+          2577,
+          -1.8,
+          1329,
+          1.3
+        ]
+      },
+      {
+        "label": "全国总计",
+        "unit": null,
+        "values": [
+          "全国总计",
+          10466,
+          -0.1,
+          7090,
+          -3.7
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2c06cc316a3bb4bd453aeeed/row_band_01.jpg",
+        "review-crops/da_2c06cc316a3bb4bd453aeeed/row_band_02.jpg",
+        "review-crops/da_2c06cc316a3bb4bd453aeeed/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.079",
+      "crop_verification_elapsed_seconds:2.52",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:东部地区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:中部地区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:中部地区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:西部地区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:全国总计:4!=5"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

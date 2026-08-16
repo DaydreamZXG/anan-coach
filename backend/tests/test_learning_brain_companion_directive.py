@@ -7,6 +7,8 @@ from uuid import uuid4
 
 from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy import bindparam
 
 from app.domains.companion.repository import CompanionRepository
 from app.domains.companion.service import (
@@ -41,8 +43,7 @@ def _seed_user(factory: sessionmaker[Session]) -> str:
 def _seed_profile(factory: sessionmaker[Session], *, user_id: str) -> str:
     profile_version_id = str(uuid4())
     with factory.begin() as session:
-        session.execute(
-            text(
+        statement = text(
                 """
                 insert into learning.learner_brain_profile_versions (
                   profile_version_id, user_id, version_no, readiness,
@@ -53,18 +54,53 @@ def _seed_profile(factory: sessionmaker[Session], *, user_id: str) -> str:
                   supersedes_profile_version_id, generated_at, valid_until
                 ) values (
                   cast(:profile_version_id as uuid), cast(:user_id as uuid),
-                  1, 'unavailable', null, '{}'::jsonb, '{}'::jsonb,
-                  '{}'::jsonb, '[]'::jsonb, '[]'::jsonb, '{}'::jsonb,
+                  1, 'unavailable', null, :ability_snapshot,
+                  :evidence_summary, :candidate_summary,
+                  '[]'::jsonb, '[]'::jsonb,
+                  :decision_summary,
                   '[]'::jsonb, '[]'::jsonb, '{}'::jsonb,
                   'learning-brain-profile@v1', :fingerprint, null,
                   :generated_at, :valid_until
                 )
                 """
-            ),
+            ).bindparams(
+                bindparam("ability_snapshot", type_=JSONB),
+                bindparam("evidence_summary", type_=JSONB),
+                bindparam("candidate_summary", type_=JSONB),
+                bindparam("decision_summary", type_=JSONB),
+            )
+        session.execute(
+            statement,
             {
                 "profile_version_id": profile_version_id,
                 "user_id": user_id,
                 "fingerprint": _hash(f"profile:{user_id}"),
+                "ability_snapshot": {
+                    "estimate": None,
+                    "readiness": "unavailable",
+                    "missingComponents": ["xingce", "shenlun"],
+                },
+                "evidence_summary": {
+                    "scoreEvidenceCount": 0,
+                    "xingceAttemptCount": 0,
+                    "xingceMasteryCount": 0,
+                    "essayMasteryCount": 0,
+                    "taskExecutionCount": 0,
+                    "externalAnswerCount": 0,
+                    "latestEvidenceAt": None,
+                },
+                "candidate_summary": {
+                    "awaitingConfirmation": 0,
+                    "accepted": 0,
+                    "rejected": 0,
+                    "expired": 0,
+                },
+                "decision_summary": {
+                    "activeStrategyCount": 0,
+                    "reviewDueCount": 0,
+                    "currentPlanVersionId": None,
+                    "currentWeeklyPlanVersionId": None,
+                },
                 "generated_at": NOW - timedelta(days=1),
                 "valid_until": NOW + timedelta(days=1),
             },

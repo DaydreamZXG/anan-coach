@@ -1,0 +1,286 @@
+{
+  "asset_id": "da_528e53ebabb1d10805299d1a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "指标",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "绝对值 (亿元)",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "比上年末增加 (亿元)",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "绝对值 (亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        152837.3,
+        57759.2,
+        55032.8,
+        133329.9,
+        42377.5,
+        82185.9,
+        39396.2,
+        33056.1
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比上年末增加 (亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        13089.6,
+        6967.3,
+        5167.0,
+        17346.8,
+        6484.1,
+        9076.1,
+        6117.2,
+        4531.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0277_9c6debf175fa162d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0277_9c6debf175fa162d.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_ff60e47b450b1ffed49c",
+        "question_number": 121,
+        "source_jsonl_line": 49231
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0287_bd90b3480109d595.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_8f197570f4cafcfe7ba7",
+        "question_number": 122,
+        "source_jsonl_line": 49232
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0287_bd90b3480109d595.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_96a6764edf33f33f53b5",
+        "question_number": 123,
+        "source_jsonl_line": 49233
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0277_9c6debf175fa162d.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_042e13843ebe5712c8ae",
+        "question_number": 124,
+        "source_jsonl_line": 49234
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0287_bd90b3480109d595.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_462a9871c2e2eb071d49",
+        "question_number": 125,
+        "source_jsonl_line": 49235
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0304_bd90b3480109d595.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_2d8dae336a7485c67074",
+        "question_number": 121,
+        "source_jsonl_line": 49366
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0315_9c6debf175fa162d.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_33f4f3df10562801b5f1",
+        "question_number": 122,
+        "source_jsonl_line": 49367
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0315_9c6debf175fa162d.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_a6abe89c7ae412b7eb25",
+        "question_number": 123,
+        "source_jsonl_line": 49368
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0304_bd90b3480109d595.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_84d124257bdf49222685",
+        "question_number": 124,
+        "source_jsonl_line": 49369
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0315_9c6debf175fa162d.png",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_66cb5612aca3619004f9",
+        "question_number": 125,
+        "source_jsonl_line": 49370
+      }
+    ],
+    "sha256": "528e53ebabb1d10805299d1a41cb417988f594c5ae0f02b2d064ed8fa171db23"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "绝对值 (亿元)",
+      "比上年末增加 (亿元)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "各项存款额度",
+        "unit": null,
+        "values": [
+          "各项存款额度",
+          152837.3,
+          13089.6
+        ]
+      },
+      {
+        "label": "#住户存款",
+        "unit": null,
+        "values": [
+          "#住户存款",
+          57759.2,
+          6967.3
+        ]
+      },
+      {
+        "label": "非金融企业存款",
+        "unit": null,
+        "values": [
+          "非金融企业存款",
+          55032.8,
+          5167.0
+        ]
+      },
+      {
+        "label": "各项余额贷款",
+        "unit": null,
+        "values": [
+          "各项余额贷款",
+          133329.9,
+          17346.8
+        ]
+      },
+      {
+        "label": "#短期贷款",
+        "unit": null,
+        "values": [
+          "#短期贷款",
+          42377.5,
+          6484.1
+        ]
+      },
+      {
+        "label": "#中长期贷款",
+        "unit": null,
+        "values": [
+          "#中长期贷款",
+          82185.9,
+          9076.1
+        ]
+      },
+      {
+        "label": "#消费贷款",
+        "unit": null,
+        "values": [
+          "#消费贷款",
+          39396.2,
+          6117.2
+        ]
+      },
+      {
+        "label": "#住房贷款",
+        "unit": null,
+        "values": [
+          "#住房贷款",
+          33056.1,
+          4531.0
+        ]
+      }
+    ]
+  },
+  "title": "表 江苏省 2019 年末金融机构人民币存贷款情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_528e53ebabb1d10805299d1a/row_band_01.jpg",
+        "review-crops/da_528e53ebabb1d10805299d1a/row_band_02.jpg",
+        "review-crops/da_528e53ebabb1d10805299d1a/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.141",
+      "crop_verification_elapsed_seconds:5.266",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

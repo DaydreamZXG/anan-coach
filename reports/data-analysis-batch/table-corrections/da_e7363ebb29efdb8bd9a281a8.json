@@ -1,0 +1,139 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "面积｜第1列",
+      "产量｜第2列",
+      "省份｜第3列",
+      "面积｜第4列",
+      "产量｜第5列"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "省份",
+    "rows": [
+      {
+        "display_label": "江苏",
+        "group": null,
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          3.37,
+          1.46,
+          "广东",
+          6.2,
+          9.65
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": null,
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          19.92,
+          18.6,
+          "广西",
+          7.71,
+          7.3
+        ]
+      },
+      {
+        "display_label": "安徽",
+        "group": null,
+        "label": "安徽",
+        "unit": null,
+        "values": [
+          16.97,
+          13.49,
+          "海南",
+          0.24,
+          0.06
+        ]
+      },
+      {
+        "display_label": "福建",
+        "group": null,
+        "label": "福建",
+        "unit": null,
+        "values": [
+          20.72,
+          40.16,
+          "重庆",
+          4.49,
+          3.96
+        ]
+      },
+      {
+        "display_label": "江西",
+        "group": null,
+        "label": "江西",
+        "unit": null,
+        "values": [
+          11.42,
+          7.09,
+          "四川",
+          36.34,
+          29.5
+        ]
+      },
+      {
+        "display_label": "山东",
+        "group": null,
+        "label": "山东",
+        "unit": null,
+        "values": [
+          2.2,
+          2.88,
+          "贵州",
+          45.62,
+          19.93
+        ]
+      },
+      {
+        "display_label": "河南",
+        "group": null,
+        "label": "河南",
+        "unit": null,
+        "values": [
+          11.63,
+          7.4,
+          "云南",
+          44.45,
+          39.81
+        ]
+      },
+      {
+        "display_label": "湖北",
+        "group": null,
+        "label": "湖北",
+        "unit": null,
+        "values": [
+          29.93,
+          31.45,
+          "陕西",
+          13.8,
+          7.35
+        ]
+      },
+      {
+        "display_label": "湖南",
+        "group": null,
+        "label": "湖南",
+        "unit": null,
+        "values": [
+          16.89,
+          21.36,
+          "甘肃",
+          1.15,
+          0.14
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

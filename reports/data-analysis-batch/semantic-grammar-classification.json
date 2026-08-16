@@ -1,0 +1,460 @@
+{
+  "schema_version": "data-analysis-semantic-grammar-classification-v1",
+  "review_method": "six source contact sheets visually inspected; no contour preview accepted as semantic evidence",
+  "asset_count": 62,
+  "counts": {
+    "patterned_pie_options": 3,
+    "signed_bar": 6,
+    "filled_pie_options": 4,
+    "line_sequence": 20,
+    "line_options": 11,
+    "pie_options": 1,
+    "ternary": 4,
+    "full_statistical_chart": 2,
+    "formula_text": 3,
+    "curve_chart": 1,
+    "unreadable_source": 1,
+    "title_only_crop": 1,
+    "line_with_axis": 1,
+    "curve_options": 1,
+    "line_options_with_axis": 1,
+    "curve_options_with_axis": 1,
+    "multislice_pie_options": 1
+  },
+  "assets": [
+    {
+      "asset_id": "da_0632e7ff0284d1d098f80502",
+      "visual_grammar": "patterned_pie_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0133_4dfe0250bed0caab.png",
+      "previous_iou": 0.535792,
+      "previous_mae": 19.0824
+    },
+    {
+      "asset_id": "da_15bd2f59b683082602442ff6",
+      "visual_grammar": "signed_bar",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2026年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0112_83bb9d5dd2e7989e.png",
+      "previous_iou": 0.844279,
+      "previous_mae": 2.717069
+    },
+    {
+      "asset_id": "da_16d1072e45d36013606c5351",
+      "visual_grammar": "filled_pie_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2008年江西省公务员录用考试《行测》题_images/img_0207_844d2b3b2a8391f5.png",
+      "previous_iou": 0.907575,
+      "previous_mae": 9.454181
+    },
+    {
+      "asset_id": "da_1762806a922d3a72995e09fd",
+      "visual_grammar": "signed_bar",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0149_cb3c5721f10aa95d.png",
+      "previous_iou": 0.496979,
+      "previous_mae": 1.624561
+    },
+    {
+      "asset_id": "da_191017a0b7140f905c63b990",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2024年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0160_46e1a9feaaf37e7c.png",
+      "previous_iou": 0.797856,
+      "previous_mae": 2.418016
+    },
+    {
+      "asset_id": "da_196b99c737f71d7757afd66d",
+      "visual_grammar": "line_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2017年国家公务员录用考试《行测》题（副省级）_images/img_0202_93c06ba4a15620d2.png",
+      "previous_iou": 0.788222,
+      "previous_mae": 2.269484
+    },
+    {
+      "asset_id": "da_1cdaa88588e606880162aa06",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0106_834ec42fc0ca12e1.png",
+      "previous_iou": 0.827068,
+      "previous_mae": 1.823036
+    },
+    {
+      "asset_id": "da_21e4130b1a332fb56a790e36",
+      "visual_grammar": "line_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0254_d3437ba47d3616ab.png",
+      "previous_iou": 0.779835,
+      "previous_mae": 1.790598
+    },
+    {
+      "asset_id": "da_287f23325243c30d342abce8",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广西/2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0145_c413c19bd04fe806.png",
+      "previous_iou": 0.753157,
+      "previous_mae": 1.888991
+    },
+    {
+      "asset_id": "da_2bda3c12778bd3977626300f",
+      "visual_grammar": "pie_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/青海/2019年青海省公务员录用考试《行测》题省市州级（A类）（网友回忆版）_images/img_0201_da3bd69861285516.png",
+      "previous_iou": 0.498473,
+      "previous_mae": 9.082229
+    },
+    {
+      "asset_id": "da_3289de128a1e80a19b99ae1c",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2023年深圳市考公务员录用考试《行测》试题（网友回忆版）_images/img_0099_26f7a6d4c513fe6e.png",
+      "previous_iou": 0.868666,
+      "previous_mae": 1.561609
+    },
+    {
+      "asset_id": "da_3293ef19598a7309247b816a",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2025年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0211_495ac8835f231923.png",
+      "previous_iou": 0.847628,
+      "previous_mae": 1.910074
+    },
+    {
+      "asset_id": "da_34206afc5640b71a3e34c306",
+      "visual_grammar": "line_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/新疆/2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0283_310c0c1284b73825.png",
+      "previous_iou": 0.780045,
+      "previous_mae": 3.711669
+    },
+    {
+      "asset_id": "da_383e97b8390d55e5a1128e02",
+      "visual_grammar": "ternary",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2011年深圳市公务员录用考试《行测》题_images/img_0129_3612ff56b7b700e9.png",
+      "previous_iou": 0.619732,
+      "previous_mae": 10.366419
+    },
+    {
+      "asset_id": "da_3b811035646e3a7666367bf1",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0114_550831cb58b90090.png",
+      "previous_iou": 0.825526,
+      "previous_mae": 1.523874
+    },
+    {
+      "asset_id": "da_3c1a00a2eb8eeaad3509a779",
+      "visual_grammar": "line_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2019年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0186_83dbb9369fa83dc9.png",
+      "previous_iou": 0.844785,
+      "previous_mae": 1.353889
+    },
+    {
+      "asset_id": "da_3deecd32ee7d3ae8a367d100",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2026年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0076_a95d424a3fb4ab40.png",
+      "previous_iou": 0.744703,
+      "previous_mae": 2.890007
+    },
+    {
+      "asset_id": "da_4645eb91c7226d54638e6cfa",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0168_c86e865525ca885f.png",
+      "previous_iou": 0.814516,
+      "previous_mae": 1.71126
+    },
+    {
+      "asset_id": "da_47fea9a78a26a16c26214f18",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2023年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0100_7ddd516693dc0573.png",
+      "previous_iou": 0.790973,
+      "previous_mae": 2.222351
+    },
+    {
+      "asset_id": "da_5af8531a1d7b9e461f3cacb7",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2020年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0291_e39269c51ab29961.png",
+      "previous_iou": 0.842265,
+      "previous_mae": 0.959644
+    },
+    {
+      "asset_id": "da_5cc59dd32f2d3dcef3a0442b",
+      "visual_grammar": "signed_bar",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0131_e95ebc8b37225a57.png",
+      "previous_iou": 0.517664,
+      "previous_mae": 2.999685
+    },
+    {
+      "asset_id": "da_5d92352fe8283b5fa4ed3477",
+      "visual_grammar": "full_statistical_chart",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2018年421联考《行测》题（山东卷）（网友回忆版）_images/img_0201_e5edb2fa7632788d.png",
+      "previous_iou": 0.396748,
+      "previous_mae": 11.756606
+    },
+    {
+      "asset_id": "da_6f81278f167df260b99e73a6",
+      "visual_grammar": "patterned_pie_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2021年云南公务员录用考试《行测》题（网友回忆版）_images/img_0258_4afdc37e6862bc6b.png",
+      "previous_iou": 0.585561,
+      "previous_mae": 17.581581
+    },
+    {
+      "asset_id": "da_6fafe200231467d204c50ae2",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2026年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0122_2af11909d52ca999.png",
+      "previous_iou": 0.839855,
+      "previous_mae": 1.950987
+    },
+    {
+      "asset_id": "da_6ffc51667fae1749f7fbbbff",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/甘肃/2015年甘肃省公务员录用考试《行测》题_images/img_0170_a3e8fa74a2831605.png",
+      "previous_iou": 0.814362,
+      "previous_mae": 0.659949
+    },
+    {
+      "asset_id": "da_7356dd9df19ad58d289fbd28",
+      "visual_grammar": "line_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0180_b2cea0346ae0c8c4.png",
+      "previous_iou": 0.820465,
+      "previous_mae": 2.205792
+    },
+    {
+      "asset_id": "da_84c13c78ba36f75b82ef56aa",
+      "visual_grammar": "line_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0350_a822fbde3e768fe0.png",
+      "previous_iou": 0.732208,
+      "previous_mae": 0.898564
+    },
+    {
+      "asset_id": "da_86833a053957b4cc90a002b3",
+      "visual_grammar": "formula_text",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0315_d983bd4faf5ec118.jpg",
+      "previous_iou": 0.737205,
+      "previous_mae": 14.575596
+    },
+    {
+      "asset_id": "da_878d9d415b662eadfde2f812",
+      "visual_grammar": "signed_bar",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2026年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0166_74ac0a2269a7a7b1.png",
+      "previous_iou": 0.837894,
+      "previous_mae": 2.161688
+    },
+    {
+      "asset_id": "da_880c89b11b550c716325080f",
+      "visual_grammar": "formula_text",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2013年江苏省公务员录用考试《行测》题（A类）_images/img_0132_2441728a52b431ac.png",
+      "previous_iou": 0.80303,
+      "previous_mae": 7.506944
+    },
+    {
+      "asset_id": "da_8e6d38947962747bcccad447",
+      "visual_grammar": "signed_bar",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0188_ef190b2c6684d143.png",
+      "previous_iou": 0.726468,
+      "previous_mae": 1.55183
+    },
+    {
+      "asset_id": "da_982bb6be1598821f67977585",
+      "visual_grammar": "filled_pie_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2013年浙江省公务员录用考试《行测》题（A类）_images/img_0222_91f8b21d4b365930.png",
+      "previous_iou": 0.767673,
+      "previous_mae": 16.121212
+    },
+    {
+      "asset_id": "da_99520dd7fb39de9a78bea16d",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0125_55be37d4609c90b0.png",
+      "previous_iou": 0.882617,
+      "previous_mae": 0.96278
+    },
+    {
+      "asset_id": "da_9bf4f28df395cdbca6e305ce",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0146_e5bb66ca19ccc721.png",
+      "previous_iou": 0.729655,
+      "previous_mae": 1.799978
+    },
+    {
+      "asset_id": "da_9e873e33dd9c716f43c09f33",
+      "visual_grammar": "curve_chart",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2008年国家公务员录用考试《行测》题_images/img_0171_c36e46dacf753772.png",
+      "previous_iou": 0.774264,
+      "previous_mae": 1.739606
+    },
+    {
+      "asset_id": "da_9f0441a051900e1d4930a12c",
+      "visual_grammar": "line_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2019年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0279_86741574df18f09a.png",
+      "previous_iou": 0.724099,
+      "previous_mae": 1.163949
+    },
+    {
+      "asset_id": "da_a0d71b8832ed18f2f725d74e",
+      "visual_grammar": "filled_pie_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2020年云南公务员录用考试《行测》试题（网友回忆版）_images/img_0167_f44fa75411c2aafa.png",
+      "previous_iou": 0.833287,
+      "previous_mae": 5.208221
+    },
+    {
+      "asset_id": "da_a160ffcd6481e0ac31ab48ab",
+      "visual_grammar": "full_statistical_chart",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0070_12e20bec9d11960b.png",
+      "previous_iou": 0.539298,
+      "previous_mae": 16.030007
+    },
+    {
+      "asset_id": "da_a17f9561c67155407e0c6d4f",
+      "visual_grammar": "ternary",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2017年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0053_ae058592fbc36bf6.png",
+      "previous_iou": 0.611736,
+      "previous_mae": 10.582519
+    },
+    {
+      "asset_id": "da_a40115e31f2823c9e3cbe47f",
+      "visual_grammar": "line_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2019年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0388_aad3339903761345.png",
+      "previous_iou": 0.715222,
+      "previous_mae": 1.29369
+    },
+    {
+      "asset_id": "da_a5703206f0218f920b3d4f45",
+      "visual_grammar": "formula_text",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2013年江苏省公务员录用考试《行测》题（A类）_images/img_0134_fece054851b7474b.png",
+      "previous_iou": 0.710145,
+      "previous_mae": 9.846405
+    },
+    {
+      "asset_id": "da_a62a7d51d4f3c440062fa613",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0107_f013178bb02d5404.png",
+      "previous_iou": 0.79602,
+      "previous_mae": 1.345956
+    },
+    {
+      "asset_id": "da_aa694092ba538f117a2e931f",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0116_263f0b1d0767bf64.png",
+      "previous_iou": 0.810093,
+      "previous_mae": 1.999043
+    },
+    {
+      "asset_id": "da_acaa3655370dba7e8fd06762",
+      "visual_grammar": "line_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2023年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0074_e75d98a6b17fae80.jpg",
+      "previous_iou": 0.762458,
+      "previous_mae": 1.985179
+    },
+    {
+      "asset_id": "da_ad887bc349eaeff737a7c45c",
+      "visual_grammar": "unreadable_source",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2018年421联考《行测》题（山东卷）（网友回忆版）_images/img_0202_d097a0074be9350b.png",
+      "previous_iou": 0.62745,
+      "previous_mae": 16.658169
+    },
+    {
+      "asset_id": "da_afa5d9811427ceb7d56adead",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2025年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0071_91e530ad697fa2c3.png",
+      "previous_iou": 0.812649,
+      "previous_mae": 4.920551
+    },
+    {
+      "asset_id": "da_b1f1d179ade3472c753f8143",
+      "visual_grammar": "ternary",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2015年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0050_2ccc8c0284c2f43e.png",
+      "previous_iou": 0.570111,
+      "previous_mae": 3.406779
+    },
+    {
+      "asset_id": "da_b7b2bd5597aa22c5cd970980",
+      "visual_grammar": "line_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2021年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0221_712d90edcb53a438.png",
+      "previous_iou": 0.776279,
+      "previous_mae": 1.304168
+    },
+    {
+      "asset_id": "da_bcd5d598f94c137a6e920ec1",
+      "visual_grammar": "title_only_crop",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/宁夏/2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0172_d3fdc2d11aec6be8.png",
+      "previous_iou": 0.713933,
+      "previous_mae": 0.714264
+    },
+    {
+      "asset_id": "da_c01ec01874768dbe30aa93f7",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0186_6deb4e06bda719d3.png",
+      "previous_iou": 0.794374,
+      "previous_mae": 1.468129
+    },
+    {
+      "asset_id": "da_c725f131e7da044ab0c585cf",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）_images/img_0276_c3a10367bce53efe.png",
+      "previous_iou": 0.748752,
+      "previous_mae": 2.759774
+    },
+    {
+      "asset_id": "da_c7694afc9f47b30bc43cb08e",
+      "visual_grammar": "ternary",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广西/2009年广西壮族自治区公务员录用考试《行测》题_images/img_0140_c7694c93123b0cd1.png",
+      "previous_iou": 0.568776,
+      "previous_mae": 7.000924
+    },
+    {
+      "asset_id": "da_c8a70d19eefbb7fae668fcac",
+      "visual_grammar": "curve_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2022年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0108_0a32801677397336.jpg",
+      "previous_iou": 0.770279,
+      "previous_mae": 1.916757
+    },
+    {
+      "asset_id": "da_c8e68fe51670b393608b5d0b",
+      "visual_grammar": "filled_pie_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2018年421联考《行测》题（四川卷）（网友回忆版）_images/img_0162_21dbb3e7e3e65b76.png",
+      "previous_iou": 0.871358,
+      "previous_mae": 3.991685
+    },
+    {
+      "asset_id": "da_c9eb41951469475c8a0e7e84",
+      "visual_grammar": "line_options_with_axis",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2008年安徽省公务员录用考试《行测》题_images/img_0103_d679b1b4538bce79.jpg",
+      "previous_iou": 0.79132,
+      "previous_mae": 5.345773
+    },
+    {
+      "asset_id": "da_cc187ac7d2b26ca080edfdf9",
+      "visual_grammar": "line_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2016年四川省公务员录用考试《行测》题（下半年）_images/img_0192_09f86d3efebc4a5f.png",
+      "previous_iou": 0.779261,
+      "previous_mae": 2.232052
+    },
+    {
+      "asset_id": "da_d93edcde06cb57d89aa5728d",
+      "visual_grammar": "patterned_pie_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2009年浙江省公务员录用考试《行测》题_images/img_0194_11223cf2b19cf59e.png",
+      "previous_iou": 0.580694,
+      "previous_mae": 11.314621
+    },
+    {
+      "asset_id": "da_e45a847c8c2e23683859511d",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2022年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0187_b72469cb59bfa48c.png",
+      "previous_iou": 0.763855,
+      "previous_mae": 1.481287
+    },
+    {
+      "asset_id": "da_e79bf630af3f7f38f98a8a95",
+      "visual_grammar": "curve_options_with_axis",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2013年江苏省公务员录用考试《行测》题（B类）_images/img_0207_fa534470c89f98ad.png",
+      "previous_iou": 0.76385,
+      "previous_mae": 1.527368
+    },
+    {
+      "asset_id": "da_f7602a3569504b81043e3b30",
+      "visual_grammar": "multislice_pie_options",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2017年国家公务员录用考试《行测》题（副省级）_images/img_0315_7fe107efc9fd4c45.png",
+      "previous_iou": 0.651769,
+      "previous_mae": 13.345678
+    },
+    {
+      "asset_id": "da_f9b3865eb7d68d46d806acb5",
+      "visual_grammar": "line_sequence",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0111_86b36ee033825698.png",
+      "previous_iou": 0.831169,
+      "previous_mae": 0.82981
+    },
+    {
+      "asset_id": "da_fca772bef3f397f1cb59f98a",
+      "visual_grammar": "signed_bar",
+      "source": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2025年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0117_af4190b7dec730fc.png",
+      "previous_iou": 0.82488,
+      "previous_mae": 1.879746
+    }
+  ]
+}

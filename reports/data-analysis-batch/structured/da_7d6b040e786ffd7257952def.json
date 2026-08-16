@@ -1,0 +1,195 @@
+{
+  "asset_id": "da_7d6b040e786ffd7257952def",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0131_fae0d0c465b5c1a9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0131_fae0d0c465b5c1a9.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_df54cfbdecd349c04d35",
+        "question_number": 86,
+        "source_jsonl_line": 35218
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0131_fae0d0c465b5c1a9.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_82098272405ad2415a13",
+        "question_number": 87,
+        "source_jsonl_line": 35219
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0131_fae0d0c465b5c1a9.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_47a3feb6f5a1a1bdb841",
+        "question_number": 88,
+        "source_jsonl_line": 35220
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0131_fae0d0c465b5c1a9.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_fa2091b431dd83b22ce0",
+        "question_number": 89,
+        "source_jsonl_line": 35221
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0131_fae0d0c465b5c1a9.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_d7fb5d35dcca6aadd78e",
+        "question_number": 90,
+        "source_jsonl_line": 35222
+      }
+    ],
+    "sha256": "7d6b040e786ffd7257952def4f3447a80e2ad011b57ac63b6b948c48d71643cf"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2018年",
+      "2017年",
+      "2016年",
+      "2015年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "新登记市场主体",
+        "group": "项目",
+        "label": "项目｜新登记市场主体",
+        "unit": null,
+        "values": [
+          229.74,
+          195.0,
+          161.58,
+          138.76
+        ]
+      },
+      {
+        "display_label": "一、新登记企业",
+        "group": "项目",
+        "label": "项目｜一、新登记企业",
+        "unit": null,
+        "values": [
+          97.8,
+          90.41,
+          79.05,
+          61.1
+        ]
+      },
+      {
+        "display_label": "1.第一产业新登记企业",
+        "group": "项目",
+        "label": "项目｜1.第一产业新登记企业",
+        "unit": null,
+        "values": [
+          0.59,
+          0.59,
+          0.57,
+          0.48
+        ]
+      },
+      {
+        "display_label": "2.第二产业新登记企业",
+        "group": "项目",
+        "label": "项目｜2.第二产业新登记企业",
+        "unit": null,
+        "values": [
+          14.42,
+          14.42,
+          11.4,
+          9.2
+        ]
+      },
+      {
+        "display_label": "3.第三产业新登记企业",
+        "group": "项目",
+        "label": "项目｜3.第三产业新登记企业",
+        "unit": null,
+        "values": [
+          82.78,
+          75.4,
+          67.08,
+          51.42
+        ]
+      },
+      {
+        "display_label": "二、新登记个体工商户",
+        "group": "项目",
+        "label": "项目｜二、新登记个体工商户",
+        "unit": null,
+        "values": [
+          131.56,
+          104.1,
+          82.04,
+          77.11
+        ]
+      },
+      {
+        "display_label": "三、新登记农民专业合作社",
+        "group": "项目",
+        "label": "项目｜三、新登记农民专业合作社",
+        "unit": null,
+        "values": [
+          0.38,
+          0.49,
+          0.49,
+          0.55
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

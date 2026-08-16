@@ -1,5 +1,4 @@
 import { PlanningApi } from "../../api/planning";
-import { OnboardingApi } from "../../api/onboarding";
 import type { WeeklyPlanVersion } from "../../api/generated/types.gen";
 import { errorView, requireAuthenticatedClient } from "../../features/learning-brain/presentation";
 import {
@@ -7,7 +6,7 @@ import {
   planningReasonLabel,
   weeklyRhythmLabel,
 } from "../shared/features/planning/presentation";
-import { onboardingNavigationTarget, routes } from "../../app/navigation/routes";
+import { routes } from "../../app/navigation/routes";
 import { navigateBackOr } from "../shared/app/navigation/safe-back";
 import { currentAuthSession } from "../../auth/session";
 import { storeCompanionLaunchContext } from "../../features/companion/context-store";
@@ -50,11 +49,6 @@ Page({
     const client = requireAuthenticatedClient();
     if (!client) return;
     try {
-      const { data: progress } = await new OnboardingApi(client).getProgress();
-      if (!progress.studyPreferenceReady) {
-        await wx.reLaunch({ url: onboardingNavigationTarget(progress.nextStep).url });
-        return;
-      }
       const { data } = await new PlanningApi(client).getWeek();
       const todayIndex = data.days.findIndex((day) => day.status === "today");
       const completedTaskCount = data.days.reduce(

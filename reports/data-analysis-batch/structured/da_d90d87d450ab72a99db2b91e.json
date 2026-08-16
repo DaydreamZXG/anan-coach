@@ -1,0 +1,171 @@
+{
+  "asset_id": "da_d90d87d450ab72a99db2b91e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2008年山东省公务员录用考试《行测》题_images/img_0115_dc9acdd7809dc0f9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山东省公务员录用考试《行测》题_images/img_0115_dc9acdd7809dc0f9.png",
+        "paper_title": "2008年山东省公务员录用考试《行测》题",
+        "question_id": "pq_982f5e847c7aed36b9aa",
+        "question_number": 126,
+        "source_jsonl_line": 28980
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山东省公务员录用考试《行测》题_images/img_0115_dc9acdd7809dc0f9.png",
+        "paper_title": "2008年山东省公务员录用考试《行测》题",
+        "question_id": "pq_0cc04c60036847007d14",
+        "question_number": 127,
+        "source_jsonl_line": 28981
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山东省公务员录用考试《行测》题_images/img_0115_dc9acdd7809dc0f9.png",
+        "paper_title": "2008年山东省公务员录用考试《行测》题",
+        "question_id": "pq_f2c8c3aef12cd0993529",
+        "question_number": 128,
+        "source_jsonl_line": 28982
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山东省公务员录用考试《行测》题_images/img_0115_dc9acdd7809dc0f9.png",
+        "paper_title": "2008年山东省公务员录用考试《行测》题",
+        "question_id": "pq_4756c1144fc852bc9501",
+        "question_number": 129,
+        "source_jsonl_line": 28983
+      }
+    ],
+    "sha256": "d90d87d450ab72a99db2b91e6241f392eaa941e28bf6798765dd5d73f0ca6b6f"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "国内电视",
+      "国内广播",
+      "国内报纸",
+      "国内杂志",
+      "互联网",
+      "会议文件",
+      "街谈巷议",
+      "外媒"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "男",
+        "group": "社会性别与公民了解公共政策信息的第一渠道",
+        "label": "社会性别与公民了解公共政策信息的第一渠道｜男",
+        "unit": null,
+        "values": [
+          536,
+          23,
+          159,
+          5,
+          66,
+          24,
+          22,
+          1
+        ]
+      },
+      {
+        "display_label": "%",
+        "group": "社会性别与公民了解公共政策信息的第一渠道",
+        "label": "社会性别与公民了解公共政策信息的第一渠道｜男｜%",
+        "unit": null,
+        "values": [
+          64.1,
+          2.8,
+          19.0,
+          0.6,
+          7.9,
+          2.9,
+          2.6,
+          0.1
+        ]
+      },
+      {
+        "display_label": "女",
+        "group": "社会性别与公民了解公共政策信息的第一渠道",
+        "label": "社会性别与公民了解公共政策信息的第一渠道｜女",
+        "unit": null,
+        "values": [
+          363,
+          13,
+          80,
+          12,
+          55,
+          7,
+          14,
+          4
+        ]
+      },
+      {
+        "display_label": "%",
+        "group": "社会性别与公民了解公共政策信息的第一渠道",
+        "label": "社会性别与公民了解公共政策信息的第一渠道｜女｜%",
+        "unit": null,
+        "values": [
+          66.2,
+          2.4,
+          14.6,
+          2.2,
+          10,
+          1.3,
+          2.6,
+          0.7
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

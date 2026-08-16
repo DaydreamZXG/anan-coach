@@ -1,0 +1,115 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "合计",
+          "建筑工程",
+          "安装工程",
+          "其他"
+        ],
+        "label": "建筑产值"
+      }
+    ],
+    "columns": [
+      "合计",
+      "建筑工程",
+      "安装工程",
+      "其他"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "省（市）",
+    "rows": [
+      {
+        "display_label": "上海市",
+        "group": null,
+        "label": "上海市",
+        "unit": null,
+        "values": [
+          739.2,
+          610.4,
+          104.5,
+          24.3
+        ]
+      },
+      {
+        "display_label": "江苏省",
+        "group": null,
+        "label": "江苏省",
+        "unit": null,
+        "values": [
+          1773.2,
+          1621.2,
+          139.4,
+          12.6
+        ]
+      },
+      {
+        "display_label": "浙江省",
+        "group": null,
+        "label": "浙江省",
+        "unit": null,
+        "values": [
+          2381.2,
+          2134.1,
+          171.8,
+          75.3
+        ]
+      },
+      {
+        "display_label": "安徽省",
+        "group": null,
+        "label": "安徽省",
+        "unit": null,
+        "values": [
+          625.7,
+          544.9,
+          53.1,
+          27.7
+        ]
+      },
+      {
+        "display_label": "福建省",
+        "group": null,
+        "label": "福建省",
+        "unit": null,
+        "values": [
+          583.9,
+          534.3,
+          42.7,
+          6.9
+        ]
+      },
+      {
+        "display_label": "江西省",
+        "group": null,
+        "label": "江西省",
+        "unit": null,
+        "values": [
+          334.2,
+          301.9,
+          19.3,
+          12.4
+        ]
+      },
+      {
+        "display_label": "山东省",
+        "group": null,
+        "label": "山东省",
+        "unit": null,
+        "values": [
+          838.5,
+          682.7,
+          129.1,
+          26.7
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

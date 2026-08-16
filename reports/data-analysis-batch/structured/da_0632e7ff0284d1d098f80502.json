@@ -1,0 +1,309 @@
+{
+  "asset_id": "da_0632e7ff0284d1d098f80502",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0133_4dfe0250bed0caab.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0133_4dfe0250bed0caab.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_069580aa589b8926abe8",
+        "question_number": 113,
+        "source_jsonl_line": 4683
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0131_4dfe0250bed0caab.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_5ca12e420aa27654bebc",
+        "question_number": 113,
+        "source_jsonl_line": 14430
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0127_4dfe0250bed0caab.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_2802906d3407befc312a",
+        "question_number": 113,
+        "source_jsonl_line": 24999
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0125_4dfe0250bed0caab.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_e416fe92ec7549d4ec66",
+        "question_number": 113,
+        "source_jsonl_line": 31677
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0121_4dfe0250bed0caab.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_5599478754c61ed05d8b",
+        "question_number": 113,
+        "source_jsonl_line": 38285
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0127_4dfe0250bed0caab.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_1e4fc91f7fd0a0c6786a",
+        "question_number": 113,
+        "source_jsonl_line": 40539
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0129_4dfe0250bed0caab.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_511d76d998411f93906d",
+        "question_number": 113,
+        "source_jsonl_line": 41951
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0121_4dfe0250bed0caab.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_b9bf1168c16db790063a",
+        "question_number": 113,
+        "source_jsonl_line": 65255
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0122_aa5b5764eee83bf9.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_c97c02f7b24fec2ca4c9",
+        "question_number": 113,
+        "source_jsonl_line": 69369
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0127_4dfe0250bed0caab.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_e31457b8ec4f177c1d13",
+        "question_number": 113,
+        "source_jsonl_line": 72649
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0146_aa5b5764eee83bf9.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_c90fa88bb9e328f3acb1",
+        "question_number": 113,
+        "source_jsonl_line": 77148
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0141_aa5b5764eee83bf9.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_e7616d0c14791ffdcd98",
+        "question_number": 113,
+        "source_jsonl_line": 79552
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0126_4dfe0250bed0caab.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_9fb922eeb7276177176e",
+        "question_number": 113,
+        "source_jsonl_line": 82778
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0128_4dfe0250bed0caab.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_f6aec859c8d8ab66dcd3",
+        "question_number": 113,
+        "source_jsonl_line": 92622
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0128_4dfe0250bed0caab.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_e27153ac738e998500a3",
+        "question_number": 113,
+        "source_jsonl_line": 97016
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0126_aa5b5764eee83bf9.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_aabdb171b4a3474d7233",
+        "question_number": 113,
+        "source_jsonl_line": 98991
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0130_4dfe0250bed0caab.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_645f1240693b642d9473",
+        "question_number": 113,
+        "source_jsonl_line": 101536
+      }
+    ],
+    "sha256": "0632e7ff0284d1d098f80502d6fc2d490a73dc925a7bc3900b10280d5c82f98a"
+  },
+  "structured_visual": {
+    "complexity": {
+      "estimatedDrawCommandCount": 20,
+      "optionCount": 4,
+      "sectorCount": 4
+    },
+    "coordinateSpace": {
+      "height": 231,
+      "width": 700
+    },
+    "evidence": {
+      "converterVersion": "semantic-pie-options-v1",
+      "geometryEngine": "human_verified_sector_geometry",
+      "renderSha256": "4f34d040371fef7116a9a928eb93c3fcf397f5c7ba59023a16e54a828ef23220",
+      "sourceAsset": "da_0632e7ff0284d1d098f80502",
+      "sourceSha256": "0632e7ff0284d1d098f80502d6fc2d490a73dc925a7bc3900b10280d5c82f98a"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticPieOptions",
+    "layoutType": "sequence",
+    "options": [
+      {
+        "center": {
+          "x": 89,
+          "y": 91
+        },
+        "frame": null,
+        "id": "da_0632e7ff0284d1d098f80502-0",
+        "label": "A",
+        "labelY": 194,
+        "position": 0,
+        "radius": 75,
+        "sectors": [
+          {
+            "startDegrees": 73,
+            "style": "diagonal",
+            "sweepDegrees": 17
+          }
+        ]
+      },
+      {
+        "center": {
+          "x": 260,
+          "y": 89
+        },
+        "frame": null,
+        "id": "da_0632e7ff0284d1d098f80502-1",
+        "label": "B",
+        "labelY": 194,
+        "position": 1,
+        "radius": 75,
+        "sectors": [
+          {
+            "startDegrees": 15,
+            "style": "diagonal",
+            "sweepDegrees": 75
+          }
+        ]
+      },
+      {
+        "center": {
+          "x": 441,
+          "y": 87
+        },
+        "frame": null,
+        "id": "da_0632e7ff0284d1d098f80502-2",
+        "label": "C",
+        "labelY": 194,
+        "position": 2,
+        "radius": 77,
+        "sectors": [
+          {
+            "startDegrees": 345,
+            "style": "diagonal",
+            "sweepDegrees": 105
+          }
+        ]
+      },
+      {
+        "center": {
+          "x": 614,
+          "y": 84
+        },
+        "frame": null,
+        "id": "da_0632e7ff0284d1d098f80502-3",
+        "label": "D",
+        "labelY": 194,
+        "position": 3,
+        "radius": 77,
+        "sectors": [
+          {
+            "startDegrees": 180,
+            "style": "diagonal",
+            "sweepDegrees": 270
+          }
+        ]
+      }
+    ],
+    "schemaVersion": "semantic-pie-options-v1",
+    "styleVocabulary": [
+      "diagonal"
+    ],
+    "visualGrammar": "patterned_pie_options"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0632e7ff0284d1d098f80502/quadrant_01.jpg",
+        "review-crops/da_0632e7ff0284d1d098f80502/quadrant_02.jpg",
+        "review-crops/da_0632e7ff0284d1d098f80502/quadrant_03.jpg",
+        "review-crops/da_0632e7ff0284d1d098f80502/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.85",
+      "crop_verification_elapsed_seconds:1.061",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:饼图未提供具体数值或百分比，仅能识别标签和视觉比例",
+      "non_data_multiple_choice_pies",
+      "foreground_iou:0.535792",
+      "mean_absolute_error:19.0824",
+      "trace_parameters:{\"epsilonRatio\": 0.0007, \"minimumContourArea\": 0.2, \"paletteSize\": 2}",
+      "converter:semantic-pie-options-v1",
+      "visual_grammar:patterned_pie_options",
+      "angle_convention:zero_at_twelve_clockwise",
+      "comparison_artifact:previews/structured_visual/da_0632e7ff0284d1d098f80502-comparison.png",
+      "manual_qa:source_redraw_pair_inspected; sector_order_and_fill_verified"
+    ],
+    "ocr_engine": "human_verified_sector_geometry",
+    "ocr_mean_confidence": 0.96,
+    "schema_valid": true
+  }
+}

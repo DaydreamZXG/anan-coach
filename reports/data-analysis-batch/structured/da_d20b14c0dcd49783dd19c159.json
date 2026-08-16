@@ -1,0 +1,289 @@
+{
+  "asset_id": "da_d20b14c0dcd49783dd19c159",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）_images/img_0078_55b87fbcb0af4f47.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）_images/img_0078_55b87fbcb0af4f47.png",
+        "paper_title": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）",
+        "question_id": "pq_405449c51b06ef174efd",
+        "question_number": 111,
+        "source_jsonl_line": 41421
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）_images/img_0078_55b87fbcb0af4f47.png",
+        "paper_title": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）",
+        "question_id": "pq_2bed1b1905197efb0a98",
+        "question_number": 112,
+        "source_jsonl_line": 41422
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）_images/img_0078_55b87fbcb0af4f47.png",
+        "paper_title": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）",
+        "question_id": "pq_179938139870e8a1c618",
+        "question_number": 113,
+        "source_jsonl_line": 41423
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）_images/img_0078_55b87fbcb0af4f47.png",
+        "paper_title": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）",
+        "question_id": "pq_6c5bed6a9c482c94f508",
+        "question_number": 114,
+        "source_jsonl_line": 41424
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）_images/img_0078_55b87fbcb0af4f47.png",
+        "paper_title": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）",
+        "question_id": "pq_bcbaaa4fde782bf42073",
+        "question_number": 115,
+        "source_jsonl_line": 41425
+      }
+    ],
+    "sha256": "d20b14c0dcd49783dd19c159cf8abf6a5120290fe849447fcd9e671cd72bbd6c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "实绩",
+      "比上年增长(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "运输船舶数量",
+        "group": "内河运输船舶",
+        "label": "内河运输船舶｜运输船舶数量",
+        "unit": "艘",
+        "values": [
+          16.58,
+          0.1
+        ]
+      },
+      {
+        "display_label": "净载重量",
+        "group": "内河运输船舶",
+        "label": "内河运输船舶｜净载重量",
+        "unit": "万吨",
+        "values": [
+          8779.99,
+          18.7
+        ]
+      },
+      {
+        "display_label": "平均净载重量",
+        "group": "内河运输船舶",
+        "label": "内河运输船舶｜平均净载重量",
+        "unit": "吨/艘",
+        "values": [
+          529,
+          17.9
+        ]
+      },
+      {
+        "display_label": "载客量",
+        "group": "内河运输船舶",
+        "label": "内河运输船舶｜载客量",
+        "unit": "万客位",
+        "values": [
+          81.89,
+          -0.7
+        ]
+      },
+      {
+        "display_label": "集装箱箱位",
+        "group": "内河运输船舶",
+        "label": "内河运输船舶｜集装箱箱位",
+        "unit": "万 TEU",
+        "values": [
+          16.07,
+          25.5
+        ]
+      },
+      {
+        "display_label": "船舶功率",
+        "group": "内河运输船舶",
+        "label": "内河运输船舶｜船舶功率",
+        "unit": "万千瓦",
+        "values": [
+          2771.27,
+          14.3
+        ]
+      },
+      {
+        "display_label": "运输船舶数量",
+        "group": "沿海运输船舶",
+        "label": "沿海运输船舶｜运输船舶数量",
+        "unit": "艘",
+        "values": [
+          10902,
+          4.1
+        ]
+      },
+      {
+        "display_label": "净载重量",
+        "group": "沿海运输船舶",
+        "label": "沿海运输船舶｜净载重量",
+        "unit": "万吨",
+        "values": [
+          5780.47,
+          16.1
+        ]
+      },
+      {
+        "display_label": "平均净载重量",
+        "group": "沿海运输船舶",
+        "label": "沿海运输船舶｜平均净载重量",
+        "unit": "吨/艘",
+        "values": [
+          5302,
+          11.5
+        ]
+      },
+      {
+        "display_label": "载客量",
+        "group": "沿海运输船舶",
+        "label": "沿海运输船舶｜载客量",
+        "unit": "万客位",
+        "values": [
+          16.9,
+          6.8
+        ]
+      },
+      {
+        "display_label": "集装箱箱位",
+        "group": "沿海运输船舶",
+        "label": "沿海运输船舶｜集装箱箱位",
+        "unit": "万 TEU",
+        "values": [
+          20.32,
+          9.4
+        ]
+      },
+      {
+        "display_label": "船舶功率",
+        "group": "沿海运输船舶",
+        "label": "沿海运输船舶｜船舶功率",
+        "unit": "万千瓦",
+        "values": [
+          1543.39,
+          9.1
+        ]
+      },
+      {
+        "display_label": "运输船舶数量",
+        "group": "远洋运输船舶",
+        "label": "远洋运输船舶｜运输船舶数量",
+        "unit": "艘",
+        "values": [
+          2492,
+          12.7
+        ]
+      },
+      {
+        "display_label": "净载重量",
+        "group": "远洋运输船舶",
+        "label": "远洋运输船舶｜净载重量",
+        "unit": "万吨",
+        "values": [
+          6703.86,
+          19.2
+        ]
+      },
+      {
+        "display_label": "平均净载重量",
+        "group": "远洋运输船舶",
+        "label": "远洋运输船舶｜平均净载重量",
+        "unit": "吨/艘",
+        "values": [
+          26880,
+          5.7
+        ]
+      },
+      {
+        "display_label": "载客量",
+        "group": "远洋运输船舶",
+        "label": "远洋运输船舶｜载客量",
+        "unit": "万客位",
+        "values": [
+          2.05,
+          0.5
+        ]
+      },
+      {
+        "display_label": "集装箱箱位",
+        "group": "远洋运输船舶",
+        "label": "远洋运输船舶｜集装箱箱位",
+        "unit": "万 TEU",
+        "values": [
+          111.14,
+          10
+        ]
+      },
+      {
+        "display_label": "船舶功率",
+        "group": "远洋运输船舶",
+        "label": "远洋运输船舶｜船舶功率",
+        "unit": "万千瓦",
+        "values": [
+          1644,
+          9.5
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

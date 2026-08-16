@@ -1,0 +1,288 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "原价",
+      "现价",
+      "涨跌"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "品牌型号",
+      "style": "diagonal",
+      "upper_label": "品名"
+    },
+    "missing_cells": [],
+    "row_header_label": "品牌型号",
+    "rows": [
+      {
+        "display_label": "彩电｜长虹 PT4209",
+        "group": null,
+        "label": "彩电｜长虹 PT4209",
+        "unit": null,
+        "values": [
+          16990,
+          10990,
+          6000
+        ]
+      },
+      {
+        "display_label": "彩电｜长虹 LT4018",
+        "group": null,
+        "label": "彩电｜长虹 LT4018",
+        "unit": null,
+        "values": [
+          19990,
+          12990,
+          7000
+        ]
+      },
+      {
+        "display_label": "彩电｜长虹 LT4219B",
+        "group": null,
+        "label": "彩电｜长虹 LT4219B",
+        "unit": null,
+        "values": [
+          22990,
+          14990,
+          8000
+        ]
+      },
+      {
+        "display_label": "彩电｜HPCLWD40 - 4SI",
+        "group": null,
+        "label": "彩电｜HPCLWD40 - 4SI",
+        "unit": null,
+        "values": [
+          13680,
+          11968,
+          1612
+        ]
+      },
+      {
+        "display_label": "彩电｜HPCPP - 42SC",
+        "group": null,
+        "label": "彩电｜HPCPP - 42SC",
+        "unit": null,
+        "values": [
+          11800,
+          9966,
+          1834
+        ]
+      },
+      {
+        "display_label": "小家电｜格兰仕微波炉 G8023ETL - X3",
+        "group": null,
+        "label": "小家电｜格兰仕微波炉 G8023ETL - X3",
+        "unit": null,
+        "values": [
+          1198,
+          958,
+          240
+        ]
+      },
+      {
+        "display_label": "小家电｜格兰仕微波炉 C18A - DP",
+        "group": null,
+        "label": "小家电｜格兰仕微波炉 C18A - DP",
+        "unit": null,
+        "values": [
+          498,
+          188,
+          310
+        ]
+      },
+      {
+        "display_label": "小家电｜美的微波炉 KJ17C - M",
+        "group": null,
+        "label": "小家电｜美的微波炉 KJ17C - M",
+        "unit": null,
+        "values": [
+          596,
+          299,
+          297
+        ]
+      },
+      {
+        "display_label": "电冰箱｜冰箱伊莱克斯 BCD - 206E",
+        "group": null,
+        "label": "电冰箱｜冰箱伊莱克斯 BCD - 206E",
+        "unit": null,
+        "values": [
+          2200,
+          1499,
+          701
+        ]
+      },
+      {
+        "display_label": "电冰箱｜康拜恩 BC - 50D",
+        "group": null,
+        "label": "电冰箱｜康拜恩 BC - 50D",
+        "unit": null,
+        "values": [
+          510,
+          288,
+          222
+        ]
+      },
+      {
+        "display_label": "电冰箱｜荣事达 BCD - 110",
+        "group": null,
+        "label": "电冰箱｜荣事达 BCD - 110",
+        "unit": null,
+        "values": [
+          688,
+          410,
+          270
+        ]
+      },
+      {
+        "display_label": "洗衣机｜小天鹅 XFB20 - 15B",
+        "group": null,
+        "label": "洗衣机｜小天鹅 XFB20 - 15B",
+        "unit": null,
+        "values": [
+          299,
+          88,
+          211
+        ]
+      },
+      {
+        "display_label": "洗衣机｜美菱 XFB55 - 768SM",
+        "group": null,
+        "label": "洗衣机｜美菱 XFB55 - 768SM",
+        "unit": null,
+        "values": [
+          633,
+          288,
+          345
+        ]
+      },
+      {
+        "display_label": "洗衣机｜三洋 XQB50 - 149",
+        "group": null,
+        "label": "洗衣机｜三洋 XQB50 - 149",
+        "unit": null,
+        "values": [
+          980,
+          788,
+          192
+        ]
+      },
+      {
+        "display_label": "洗衣机｜老板 907XT",
+        "group": null,
+        "label": "洗衣机｜老板 907XT",
+        "unit": null,
+        "values": [
+          1217,
+          700,
+          517
+        ]
+      },
+      {
+        "display_label": "厨卫电器｜伊莱克斯 198 - EA31",
+        "group": null,
+        "label": "厨卫电器｜伊莱克斯 198 - EA31",
+        "unit": null,
+        "values": [
+          2190,
+          998,
+          1192
+        ]
+      },
+      {
+        "display_label": "厨卫电器｜万和 JS916 - 8A",
+        "group": null,
+        "label": "厨卫电器｜万和 JS916 - 8A",
+        "unit": null,
+        "values": [
+          888,
+          488,
+          400
+        ]
+      },
+      {
+        "display_label": "数码｜索尼数码摄像机 DVD803",
+        "group": null,
+        "label": "数码｜索尼数码摄像机 DVD803",
+        "unit": null,
+        "values": [
+          8258,
+          7886,
+          372
+        ]
+      },
+      {
+        "display_label": "数码｜索尼数码摄像机 HC21E",
+        "group": null,
+        "label": "数码｜索尼数码摄像机 HC21E",
+        "unit": null,
+        "values": [
+          3329,
+          3143,
+          186
+        ]
+      },
+      {
+        "display_label": "数码｜柯达数码相机 C360",
+        "group": null,
+        "label": "数码｜柯达数码相机 C360",
+        "unit": null,
+        "values": [
+          2299,
+          3088,
+          789
+        ]
+      },
+      {
+        "display_label": "电脑｜惠普笔记本 2226",
+        "group": null,
+        "label": "电脑｜惠普笔记本 2226",
+        "unit": null,
+        "values": [
+          7999,
+          7299,
+          700
+        ]
+      },
+      {
+        "display_label": "电脑｜海尔笔记本 H40",
+        "group": null,
+        "label": "电脑｜海尔笔记本 H40",
+        "unit": null,
+        "values": [
+          5999,
+          5499,
+          500
+        ]
+      },
+      {
+        "display_label": "空调｜长虹 XFR - 23GW/A (05)",
+        "group": null,
+        "label": "空调｜长虹 XFR - 23GW/A (05)",
+        "unit": null,
+        "values": [
+          1680,
+          1297,
+          383
+        ]
+      },
+      {
+        "display_label": "空调｜科龙 KFR - 26GW/S2F",
+        "group": null,
+        "label": "空调｜科龙 KFR - 26GW/S2F",
+        "unit": null,
+        "values": [
+          2660,
+          2393,
+          467
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

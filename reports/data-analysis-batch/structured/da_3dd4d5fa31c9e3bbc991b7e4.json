@@ -1,0 +1,161 @@
+{
+  "asset_id": "da_3dd4d5fa31c9e3bbc991b7e4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 62000,
+        "min": 51000,
+        "ticks": [
+          51000,
+          52000,
+          53000,
+          54000,
+          55000,
+          56000,
+          57000,
+          58000,
+          59000,
+          60000,
+          61000,
+          62000
+        ],
+        "title": null,
+        "unit": "万吨"
+      }
+    ]
+  },
+  "categories": [
+    "2010年",
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "粮食产量",
+      "style": {
+        "dash": "solid",
+        "fill": "darkgray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "粮食产量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        54648,
+        57121,
+        58958,
+        60194,
+        60710
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2015年江西省法检系统招录考试《行测》题_images/img_0088_2e039cb581f96ea5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江西省法检系统招录考试《行测》题_images/img_0088_2e039cb581f96ea5.png",
+        "paper_title": "2015年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_0cb0bd265bdde9660383",
+        "question_number": 106,
+        "source_jsonl_line": 52265
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江西省法检系统招录考试《行测》题_images/img_0092_38328c78ac0ce0cb.png",
+        "paper_title": "2015年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_b81197222ab95e9b5963",
+        "question_number": 107,
+        "source_jsonl_line": 52266
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江西省法检系统招录考试《行测》题_images/img_0092_38328c78ac0ce0cb.png",
+        "paper_title": "2015年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_2d8765d94dc589fd1ca4",
+        "question_number": 108,
+        "source_jsonl_line": 52267
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江西省法检系统招录考试《行测》题_images/img_0092_38328c78ac0ce0cb.png",
+        "paper_title": "2015年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_4c6cb9e7460c53445260",
+        "question_number": 109,
+        "source_jsonl_line": 52268
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江西省法检系统招录考试《行测》题_images/img_0092_38328c78ac0ce0cb.png",
+        "paper_title": "2015年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_c047bc1b23cef854d4d9",
+        "question_number": 110,
+        "source_jsonl_line": 52269
+      }
+    ],
+    "sha256": "3dd4d5fa31c9e3bbc991b7e4fb9be4d7895300bbcc388f7978f46176f2e8f495"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2010-2014年粮食产量",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3dd4d5fa31c9e3bbc991b7e4/column_band_01.jpg",
+        "review-crops/da_3dd4d5fa31c9e3bbc991b7e4/column_band_02.jpg",
+        "review-crops/da_3dd4d5fa31c9e3bbc991b7e4/column_band_03.jpg",
+        "review-crops/da_3dd4d5fa31c9e3bbc991b7e4/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.81",
+      "crop_verification_elapsed_seconds:7.394",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2011年粮食产量的数值，从58121更正为57121，以匹配第二张图中的数据。",
+      "crop_note:修正了2013年粮食产量的数值，从60194更正为60194，以匹配第三张图中的数据。",
+      "crop_note:修正了2014年粮食产量的数值，从60710更正为60710，以匹配第四张图中的数据。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

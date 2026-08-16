@@ -1,0 +1,197 @@
+{
+  "asset_id": "da_d43bb9d83d7536c39e167fe5",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 25000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000
+        ],
+        "title": null,
+        "unit": "万个"
+      }
+    ]
+  },
+  "categories": [
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年",
+    "2023年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "累计核发量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "累计核发量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万个",
+      "values": [
+        1428,
+        2658,
+        2954,
+        3015,
+        3893,
+        5954,
+        22075
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0194_4966ef18bf1ea598.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0194_4966ef18bf1ea598.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_0705d74f115dafcdc1b9",
+        "question_number": 126,
+        "source_jsonl_line": 21636
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0194_4966ef18bf1ea598.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_4d316af444d8637a7626",
+        "question_number": 127,
+        "source_jsonl_line": 21637
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0197_609e51e5ef67cdac.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_0594055433e26ed0002a",
+        "question_number": 128,
+        "source_jsonl_line": 21638
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0194_4966ef18bf1ea598.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_c7aa5ca08161493cb474",
+        "question_number": 129,
+        "source_jsonl_line": 21639
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0194_4966ef18bf1ea598.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_6a251a55bac44cf7752c",
+        "question_number": 130,
+        "source_jsonl_line": 21640
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0141_4966ef18bf1ea598.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_eb78f3936b011063e5ab",
+        "question_number": 116,
+        "source_jsonl_line": 21761
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0141_4966ef18bf1ea598.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_061b646529e02a26484e",
+        "question_number": 117,
+        "source_jsonl_line": 21762
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0134_609e51e5ef67cdac.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_53c6cd055db70f711db6",
+        "question_number": 118,
+        "source_jsonl_line": 21763
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0134_609e51e5ef67cdac.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_fb19fc83fe698dc4e827",
+        "question_number": 119,
+        "source_jsonl_line": 21764
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0141_4966ef18bf1ea598.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_85951deaceef4f8af07b",
+        "question_number": 120,
+        "source_jsonl_line": 21765
+      }
+    ],
+    "sha256": "d43bb9d83d7536c39e167fe516a591169540675685a2cb10f8ca72dbfa80fc96"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2017年末-2023年末全国绿证累计核发量",
+  "unit": "万个",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d43bb9d83d7536c39e167fe5/column_band_01.jpg",
+        "review-crops/da_d43bb9d83d7536c39e167fe5/column_band_02.jpg",
+        "review-crops/da_d43bb9d83d7536c39e167fe5/column_band_03.jpg",
+        "review-crops/da_d43bb9d83d7536c39e167fe5/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.444",
+      "crop_verification_elapsed_seconds:2.359",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

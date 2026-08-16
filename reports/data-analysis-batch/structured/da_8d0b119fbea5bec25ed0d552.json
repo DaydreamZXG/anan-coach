@@ -1,0 +1,189 @@
+{
+  "asset_id": "da_8d0b119fbea5bec25ed0d552",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2002,
+        2003,
+        2004,
+        2005,
+        2006
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 60000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000,
+          60000
+        ],
+        "title": null,
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "乡村",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "城镇",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "乡村",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        48960,
+        48793,
+        48724,
+        48494,
+        48090
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "城镇",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        24780,
+        25639,
+        26476,
+        27331,
+        28310
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广西/2008年广西壮族自治区公务员录用考试《行测》题_images/img_0086_0fee693ee5345e7e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广西壮族自治区公务员录用考试《行测》题_images/img_0086_0fee693ee5345e7e.png",
+        "paper_title": "2008年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_87e32d30d3a20906df5a",
+        "question_number": 126,
+        "source_jsonl_line": 37788
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广西壮族自治区公务员录用考试《行测》题_images/img_0086_0fee693ee5345e7e.png",
+        "paper_title": "2008年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_de7278ffacb86abdab65",
+        "question_number": 127,
+        "source_jsonl_line": 37789
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广西壮族自治区公务员录用考试《行测》题_images/img_0086_0fee693ee5345e7e.png",
+        "paper_title": "2008年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_30afe43e3cc36c7b6ead",
+        "question_number": 128,
+        "source_jsonl_line": 37790
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广西壮族自治区公务员录用考试《行测》题_images/img_0083_5e4b8ceee1dc066e.png",
+        "paper_title": "2008年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_f45303f3c9fe7da22750",
+        "question_number": 129,
+        "source_jsonl_line": 37791
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广西壮族自治区公务员录用考试《行测》题_images/img_0086_0fee693ee5345e7e.png",
+        "paper_title": "2008年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_205a5aa1f41c6a77bf8e",
+        "question_number": 130,
+        "source_jsonl_line": 37792
+      }
+    ],
+    "sha256": "8d0b119fbea5bec25ed0d5520443c4006326d36ef7e38d1d20dac9c2cee330f2"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8d0b119fbea5bec25ed0d552/column_band_01.jpg",
+        "review-crops/da_8d0b119fbea5bec25ed0d552/column_band_02.jpg",
+        "review-crops/da_8d0b119fbea5bec25ed0d552/column_band_03.jpg",
+        "review-crops/da_8d0b119fbea5bec25ed0d552/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.933",
+      "crop_verification_elapsed_seconds:2.266",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

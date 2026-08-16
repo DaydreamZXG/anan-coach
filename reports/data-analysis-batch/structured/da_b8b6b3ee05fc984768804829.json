@@ -1,0 +1,161 @@
+{
+  "asset_id": "da_b8b6b3ee05fc984768804829",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/上海/2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0167_4d96fdbf1b587e65.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0167_4d96fdbf1b587e65.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_dbb2f456c0ad9f9f7264",
+        "question_number": 121,
+        "source_jsonl_line": 4061
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0160_1b87bb26602978a2.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_02558d7d9744c5d4be84",
+        "question_number": 122,
+        "source_jsonl_line": 4062
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0160_1b87bb26602978a2.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7d7b583aea3e82a7f41c",
+        "question_number": 123,
+        "source_jsonl_line": 4063
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0167_4d96fdbf1b587e65.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4fb2c2ef92276af3e2de",
+        "question_number": 124,
+        "source_jsonl_line": 4064
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年上海市公务员录用考试《行测》题（网友回忆版）_images/img_0167_4d96fdbf1b587e65.png",
+        "paper_title": "2026年上海市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bc32e1468e9ef62a6323",
+        "question_number": 125,
+        "source_jsonl_line": 4065
+      }
+    ],
+    "sha256": "b8b6b3ee05fc9847688048290cb7e8cbd9f77a3b80a171fdf1e6785eb8eeb3de"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年度",
+      "传统通用航空企业数量（家）",
+      "通用航空在册航空器总数（架）",
+      "通用航空飞行小时（万小时）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2021",
+        "unit": null,
+        "values": [
+          2021,
+          599,
+          3018,
+          117.7
+        ]
+      },
+      {
+        "label": "2022",
+        "unit": null,
+        "values": [
+          2022,
+          661,
+          3186,
+          121.9
+        ]
+      },
+      {
+        "label": "2023",
+        "unit": null,
+        "values": [
+          2023,
+          690,
+          3303,
+          137.1
+        ]
+      },
+      {
+        "label": "2024",
+        "unit": null,
+        "values": [
+          2024,
+          760,
+          3232,
+          131.1
+        ]
+      }
+    ]
+  },
+  "title": "表1 2021-2024年通用航空主要指标",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b8b6b3ee05fc984768804829/row_band_01.jpg",
+        "review-crops/da_b8b6b3ee05fc984768804829/row_band_02.jpg",
+        "review-crops/da_b8b6b3ee05fc984768804829/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.769",
+      "crop_verification_elapsed_seconds:4.745",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

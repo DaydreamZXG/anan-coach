@@ -1,0 +1,164 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2005年",
+          "2006年",
+          "增长率"
+        ],
+        "label": "工资收入情况"
+      }
+    ],
+    "columns": [
+      "2005年",
+      "2006年",
+      "增长率"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "增长率",
+        "display": "%",
+        "row": "在岗职工人数"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "全国在岗职工平均工资",
+        "unit": "元"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "工资总额",
+        "unit": "亿元"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "国有单位工资总额",
+        "unit": "亿元"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "集体单位工资总额",
+        "unit": "亿元"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "其他单位工资总额",
+        "unit": "亿元"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "国有单位职工年平均工资",
+        "unit": "元"
+      },
+      {
+        "column": "2005年",
+        "display": "-",
+        "row": "集体单位职工年平均工资",
+        "unit": "元"
+      },
+      {
+        "column": "2006年",
+        "display": "-",
+        "row": "其他单位职工年平均工资",
+        "unit": "元"
+      }
+    ],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "在岗职工人数",
+        "unit": "万人",
+        "values": [
+          315.32,
+          327.66,
+          null
+        ]
+      },
+      {
+        "label": "全国在岗职工平均工资",
+        "unit": "元",
+        "values": [
+          null,
+          14040,
+          14.6
+        ]
+      },
+      {
+        "label": "工资总额",
+        "unit": "亿元",
+        "values": [
+          null,
+          468.89,
+          8.0
+        ]
+      },
+      {
+        "label": "国有单位工资总额",
+        "unit": "亿元",
+        "values": [
+          null,
+          242.64,
+          8.0
+        ]
+      },
+      {
+        "label": "集体单位工资总额",
+        "unit": "亿元",
+        "values": [
+          null,
+          25.9,
+          2.0
+        ]
+      },
+      {
+        "label": "其他单位工资总额",
+        "unit": "亿元",
+        "values": [
+          158.15,
+          200.38,
+          null
+        ]
+      },
+      {
+        "label": "国有单位职工年平均工资",
+        "unit": "元",
+        "values": [
+          15026,
+          16460,
+          null
+        ]
+      },
+      {
+        "label": "集体单位职工年平均工资",
+        "unit": "元",
+        "values": [
+          10119,
+          11386,
+          null
+        ]
+      },
+      {
+        "label": "其他单位职工年平均工资",
+        "unit": "元",
+        "values": [
+          12719,
+          null,
+          6.1
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

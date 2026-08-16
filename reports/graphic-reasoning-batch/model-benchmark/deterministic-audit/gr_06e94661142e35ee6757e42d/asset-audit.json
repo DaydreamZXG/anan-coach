@@ -1,0 +1,76 @@
+{
+  "assetId": "gr_06e94661142e35ee6757e42d",
+  "evaluatedPanelCount": 8,
+  "failedGates": [
+    "pixelFit",
+    "topology"
+  ],
+  "finalAccepted": false,
+  "gates": {
+    "answerPreservation": {
+      "status": "pending"
+    },
+    "direction": {
+      "status": "pending"
+    },
+    "duplicateSuppression": {
+      "failedPanels": [],
+      "status": "pass"
+    },
+    "exactAngles": {
+      "status": "pending"
+    },
+    "firstPanelSemanticFamilies": {
+      "status": "pass"
+    },
+    "frontendContract": {
+      "status": "pending"
+    },
+    "optionCount": {
+      "status": "pass"
+    },
+    "panelCount": {
+      "status": "pass"
+    },
+    "pixelFit": {
+      "failedPanels": [
+        "panel-1",
+        "panel-8"
+      ],
+      "status": "fail"
+    },
+    "remainingPanelSemantics": {
+      "status": "pending"
+    },
+    "solidFillOnly": {
+      "failedPanels": [],
+      "status": "pass"
+    },
+    "sourceHash": {
+      "status": "pass"
+    },
+    "text": {
+      "status": "pending"
+    },
+    "topology": {
+      "failedPanels": [
+        "panel-1",
+        "panel-2",
+        "panel-3",
+        "panel-4",
+        "panel-6",
+        "panel-7",
+        "panel-8",
+        "panel-9"
+      ],
+      "status": "fail"
+    }
+  },
+  "panelCount": 9,
+  "reason": "failed gates require repair; pending semantic/answer/frontend gates prohibit final acceptance even when geometry passes",
+  "regularSubtype": "straight_line_network",
+  "schemaVersion": "graphic-deterministic-representative-audit-v1",
+  "skippedMissingMarkerCount": 1,
+  "sourceSha256": "06e94661142e35ee6757e42d903d019c853546aa658244a4294ca9317e0e0b13",
+  "status": "repair_pending"
+}

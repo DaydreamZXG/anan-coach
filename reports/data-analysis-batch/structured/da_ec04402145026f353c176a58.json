@@ -1,0 +1,285 @@
+{
+  "asset_id": "da_ec04402145026f353c176a58",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/宁夏/2015年425联考《行测》题（宁夏卷）_images/img_0161_a25d56c7e0304186.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（宁夏卷）_images/img_0161_a25d56c7e0304186.png",
+        "paper_title": "2015年425联考《行测》题（宁夏卷）",
+        "question_id": "pq_a35d4f6375319ff7da3a",
+        "question_number": 126,
+        "source_jsonl_line": 25406
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（宁夏卷）_images/img_0164_84c9c81d968e9512.png",
+        "paper_title": "2015年425联考《行测》题（宁夏卷）",
+        "question_id": "pq_fd12ea094509820728fb",
+        "question_number": 127,
+        "source_jsonl_line": 25407
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（宁夏卷）_images/img_0164_84c9c81d968e9512.png",
+        "paper_title": "2015年425联考《行测》题（宁夏卷）",
+        "question_id": "pq_96226253a7e8f109e864",
+        "question_number": 128,
+        "source_jsonl_line": 25408
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（宁夏卷）_images/img_0164_84c9c81d968e9512.png",
+        "paper_title": "2015年425联考《行测》题（宁夏卷）",
+        "question_id": "pq_fdbe8df8ff80e3b350ba",
+        "question_number": 129,
+        "source_jsonl_line": 25409
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（宁夏卷）_images/img_0164_84c9c81d968e9512.png",
+        "paper_title": "2015年425联考《行测》题（宁夏卷）",
+        "question_id": "pq_3398b8bd31cbca65550b",
+        "question_number": 130,
+        "source_jsonl_line": 25410
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（安徽卷）_images/img_0114_84c9c81d968e9512.png",
+        "paper_title": "2015年425联考《行测》题（安徽卷）",
+        "question_id": "pq_4a11989057a3416f8dd5",
+        "question_number": 101,
+        "source_jsonl_line": 27525
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（安徽卷）_images/img_0123_a25d56c7e0304186.png",
+        "paper_title": "2015年425联考《行测》题（安徽卷）",
+        "question_id": "pq_f4c45abbdee3c8774c1e",
+        "question_number": 102,
+        "source_jsonl_line": 27526
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（安徽卷）_images/img_0123_a25d56c7e0304186.png",
+        "paper_title": "2015年425联考《行测》题（安徽卷）",
+        "question_id": "pq_4e5df3a772a467440f2f",
+        "question_number": 103,
+        "source_jsonl_line": 27527
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（安徽卷）_images/img_0114_84c9c81d968e9512.png",
+        "paper_title": "2015年425联考《行测》题（安徽卷）",
+        "question_id": "pq_2eb28a74c17e96852071",
+        "question_number": 104,
+        "source_jsonl_line": 27528
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（安徽卷）_images/img_0114_84c9c81d968e9512.png",
+        "paper_title": "2015年425联考《行测》题（安徽卷）",
+        "question_id": "pq_48a2a786070290d71450",
+        "question_number": 105,
+        "source_jsonl_line": 27529
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（江西卷）_images/img_0190_84c9c81d968e9512.png",
+        "paper_title": "2015年425联考《行测》题（江西卷）",
+        "question_id": "pq_f84807b67648beeaab84",
+        "question_number": 131,
+        "source_jsonl_line": 52155
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（江西卷）_images/img_0190_84c9c81d968e9512.png",
+        "paper_title": "2015年425联考《行测》题（江西卷）",
+        "question_id": "pq_f258f903297fc13e94f9",
+        "question_number": 132,
+        "source_jsonl_line": 52156
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（江西卷）_images/img_0190_84c9c81d968e9512.png",
+        "paper_title": "2015年425联考《行测》题（江西卷）",
+        "question_id": "pq_4cd74f44d3d862b8466c",
+        "question_number": 133,
+        "source_jsonl_line": 52157
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（江西卷）_images/img_0190_84c9c81d968e9512.png",
+        "paper_title": "2015年425联考《行测》题（江西卷）",
+        "question_id": "pq_24a690c8a96774820d50",
+        "question_number": 134,
+        "source_jsonl_line": 52158
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（江西卷）_images/img_0208_a25d56c7e0304186.png",
+        "paper_title": "2015年425联考《行测》题（江西卷）",
+        "question_id": "pq_c894f85c19dd04f6b01f",
+        "question_number": 135,
+        "source_jsonl_line": 52159
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河南省从大学生村干部中考录乡镇机关公务员、省选调生考试《行政职业能力测验》试卷（精选）_images/img_0060_84c9c81d968e9512.png",
+        "paper_title": "2015年河南省从大学生村干部中考录乡镇机关公务员、省选调生考试《行政职业能力测验》试卷（精选）",
+        "question_id": "pq_0f680fd840fa83ef054a",
+        "question_number": 106,
+        "source_jsonl_line": 57963
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河南省从大学生村干部中考录乡镇机关公务员、省选调生考试《行政职业能力测验》试卷（精选）_images/img_0060_84c9c81d968e9512.png",
+        "paper_title": "2015年河南省从大学生村干部中考录乡镇机关公务员、省选调生考试《行政职业能力测验》试卷（精选）",
+        "question_id": "pq_b9f07a6f6dfebbbfc30d",
+        "question_number": 107,
+        "source_jsonl_line": 57964
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河南省从大学生村干部中考录乡镇机关公务员、省选调生考试《行政职业能力测验》试卷（精选）_images/img_0060_84c9c81d968e9512.png",
+        "paper_title": "2015年河南省从大学生村干部中考录乡镇机关公务员、省选调生考试《行政职业能力测验》试卷（精选）",
+        "question_id": "pq_5a18f8137900593f3b80",
+        "question_number": 108,
+        "source_jsonl_line": 57965
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河南省从大学生村干部中考录乡镇机关公务员、省选调生考试《行政职业能力测验》试卷（精选）_images/img_0089_a25d56c7e0304186.png",
+        "paper_title": "2015年河南省从大学生村干部中考录乡镇机关公务员、省选调生考试《行政职业能力测验》试卷（精选）",
+        "question_id": "pq_181347ad43c3cbcfdf9d",
+        "question_number": 109,
+        "source_jsonl_line": 57966
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河南省从大学生村干部中考录乡镇机关公务员、省选调生考试《行政职业能力测验》试卷（精选）_images/img_0060_84c9c81d968e9512.png",
+        "paper_title": "2015年河南省从大学生村干部中考录乡镇机关公务员、省选调生考试《行政职业能力测验》试卷（精选）",
+        "question_id": "pq_e1f35050fa6fd000028c",
+        "question_number": 110,
+        "source_jsonl_line": 57967
+      }
+    ],
+    "sha256": "ec04402145026f353c176a5846c3b62f339c7713cd35aff99ce55e14e9292bbc"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "证交所集中市场",
+      "上柜市场",
+      "兴柜市场"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "挂牌公司数（家）",
+        "group": "多层次资本市场",
+        "label": "多层次资本市场｜挂牌公司数（家）",
+        "unit": null,
+        "values": [
+          809,
+          638,
+          285
+        ]
+      },
+      {
+        "display_label": "资本数",
+        "group": "多层次资本市场",
+        "label": "多层次资本市场｜资本数",
+        "unit": null,
+        "values": [
+          6384,
+          667,
+          335
+        ]
+      },
+      {
+        "display_label": "总市值",
+        "group": "多层次资本市场",
+        "label": "多层次资本市场｜总市值",
+        "unit": null,
+        "values": [
+          21352,
+          1737,
+          538
+        ]
+      },
+      {
+        "display_label": "挂牌公司营收",
+        "group": "多层次资本市场",
+        "label": "多层次资本市场｜挂牌公司营收",
+        "unit": null,
+        "values": [
+          20083,
+          1384,
+          497
+        ]
+      },
+      {
+        "display_label": "总成交值",
+        "group": "多层次资本市场",
+        "label": "多层次资本市场｜总成交值",
+        "unit": null,
+        "values": [
+          20789,
+          2987,
+          154
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,380 @@
+{
+  "asset_id": "da_7e3efeb32d753d18ccf53396",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "GDP (亿元)",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "税收收入 (亿元)",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "1985",
+    "1986",
+    "1987",
+    "1988",
+    "1989",
+    "1990",
+    "1991",
+    "1992",
+    "1993",
+    "1994",
+    "1995",
+    "1996",
+    "1997",
+    "1998"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "GDP",
+      "label": "GDP (亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        8964.4,
+        10202.2,
+        11962.5,
+        14928.3,
+        16909.2,
+        18547.9,
+        21617.8,
+        26638.1,
+        34643.4,
+        46759.4,
+        58478.1,
+        67884.6,
+        74462.6,
+        79395.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "税收收入 (亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2040.8,
+        2090.7,
+        2140.4,
+        2390.5,
+        2727.4,
+        2821.9,
+        2990.2,
+        3296.9,
+        4255.3,
+        5126.9,
+        6038.0,
+        6906.8,
+        8234.0,
+        9262.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "GDP",
+      "label": "税收收入/GDP (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        22.8,
+        20.5,
+        17.9,
+        16.0,
+        16.1,
+        15.2,
+        13.8,
+        12.4,
+        12.3,
+        11.0,
+        10.3,
+        10.2,
+        11.1,
+        11.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2008年四川省公务员录用考试《行测》题_images/img_0067_7879b5cd1c466b1d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年四川省公务员录用考试《行测》题_images/img_0067_7879b5cd1c466b1d.png",
+        "paper_title": "2008年四川省公务员录用考试《行测》题",
+        "question_id": "pq_2f772417dc3c5ad05ad4",
+        "question_number": 86,
+        "source_jsonl_line": 13902
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年四川省公务员录用考试《行测》题_images/img_0067_7879b5cd1c466b1d.png",
+        "paper_title": "2008年四川省公务员录用考试《行测》题",
+        "question_id": "pq_af1f3db2a461c64fa009",
+        "question_number": 87,
+        "source_jsonl_line": 13903
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年四川省公务员录用考试《行测》题_images/img_0067_7879b5cd1c466b1d.png",
+        "paper_title": "2008年四川省公务员录用考试《行测》题",
+        "question_id": "pq_4c5adbd39555c11ddc31",
+        "question_number": 88,
+        "source_jsonl_line": 13904
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年四川省公务员录用考试《行测》题_images/img_0067_7879b5cd1c466b1d.png",
+        "paper_title": "2008年四川省公务员录用考试《行测》题",
+        "question_id": "pq_28eaa97a233e55354151",
+        "question_number": 89,
+        "source_jsonl_line": 13905
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年四川省公务员录用考试《行测》题_images/img_0067_7879b5cd1c466b1d.png",
+        "paper_title": "2008年四川省公务员录用考试《行测》题",
+        "question_id": "pq_b46722a88532fada7265",
+        "question_number": 90,
+        "source_jsonl_line": 13906
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年四川省公务员录用考试《行测》题（下半年）_images/img_0110_7879b5cd1c466b1d.png",
+        "paper_title": "2009年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_eafc9ce37c60db6502cd",
+        "question_number": 81,
+        "source_jsonl_line": 14097
+      }
+    ],
+    "sha256": "7e3efeb32d753d18ccf5339609335caf0eb03a6f5ae73c7b1b9666f0fcf5d161"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "GDP (亿元)",
+      "税收收入 (亿元)",
+      "税收收入/GDP (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "1985",
+        "unit": null,
+        "values": [
+          1985,
+          8964.4,
+          2040.8,
+          22.8
+        ]
+      },
+      {
+        "label": "1986",
+        "unit": null,
+        "values": [
+          1986,
+          10202.2,
+          2090.7,
+          20.5
+        ]
+      },
+      {
+        "label": "1987",
+        "unit": null,
+        "values": [
+          1987,
+          11962.5,
+          2140.4,
+          17.9
+        ]
+      },
+      {
+        "label": "1988",
+        "unit": null,
+        "values": [
+          1988,
+          14928.3,
+          2390.5,
+          16.0
+        ]
+      },
+      {
+        "label": "1989",
+        "unit": null,
+        "values": [
+          1989,
+          16909.2,
+          2727.4,
+          16.1
+        ]
+      },
+      {
+        "label": "1990",
+        "unit": null,
+        "values": [
+          1990,
+          18547.9,
+          2821.9,
+          15.2
+        ]
+      },
+      {
+        "label": "1991",
+        "unit": null,
+        "values": [
+          1991,
+          21617.8,
+          2990.2,
+          13.8
+        ]
+      },
+      {
+        "label": "1992",
+        "unit": null,
+        "values": [
+          1992,
+          26638.1,
+          3296.9,
+          12.4
+        ]
+      },
+      {
+        "label": "1993",
+        "unit": null,
+        "values": [
+          1993,
+          34643.4,
+          4255.3,
+          12.3
+        ]
+      },
+      {
+        "label": "1994",
+        "unit": null,
+        "values": [
+          1994,
+          46759.4,
+          5126.9,
+          11.0
+        ]
+      },
+      {
+        "label": "1995",
+        "unit": null,
+        "values": [
+          1995,
+          58478.1,
+          6038.0,
+          10.3
+        ]
+      },
+      {
+        "label": "1996",
+        "unit": null,
+        "values": [
+          1996,
+          67884.6,
+          6906.8,
+          10.2
+        ]
+      },
+      {
+        "label": "1997",
+        "unit": null,
+        "values": [
+          1997,
+          74462.6,
+          8234.0,
+          11.1
+        ]
+      },
+      {
+        "label": "1998",
+        "unit": null,
+        "values": [
+          1998,
+          79395.7,
+          9262.8,
+          11.7
+        ]
+      }
+    ]
+  },
+  "title": "我国税收收入占国民生产总值比重表",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_7e3efeb32d753d18ccf53396/row_band_01.jpg",
+        "review-crops/da_7e3efeb32d753d18ccf53396/row_band_02.jpg",
+        "review-crops/da_7e3efeb32d753d18ccf53396/row_band_03.jpg",
+        "review-crops/da_7e3efeb32d753d18ccf53396/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:17.769",
+      "crop_verification_elapsed_seconds:13.41",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

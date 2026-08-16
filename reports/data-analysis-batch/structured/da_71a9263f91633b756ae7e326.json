@@ -1,0 +1,255 @@
+{
+  "asset_id": "da_71a9263f91633b756ae7e326",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广州市考/2016年广州市公务员录用考试《行测》题_images/img_0222_17f5b4e5cac899b1.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广州市公务员录用考试《行测》题_images/img_0222_17f5b4e5cac899b1.jpg",
+        "paper_title": "2016年广州市公务员录用考试《行测》题",
+        "question_id": "pq_492c8303b17401c447ad",
+        "question_number": 96,
+        "source_jsonl_line": 37358
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广州市公务员录用考试《行测》题_images/img_0222_17f5b4e5cac899b1.jpg",
+        "paper_title": "2016年广州市公务员录用考试《行测》题",
+        "question_id": "pq_b9a4b9051fda98662b81",
+        "question_number": 97,
+        "source_jsonl_line": 37359
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广州市公务员录用考试《行测》题_images/img_0236_b3fd1d3b72ec8061.jpg",
+        "paper_title": "2016年广州市公务员录用考试《行测》题",
+        "question_id": "pq_15b437d19b28c565fa51",
+        "question_number": 98,
+        "source_jsonl_line": 37360
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广州市公务员录用考试《行测》题_images/img_0236_b3fd1d3b72ec8061.jpg",
+        "paper_title": "2016年广州市公务员录用考试《行测》题",
+        "question_id": "pq_f00876067f11f9d14572",
+        "question_number": 99,
+        "source_jsonl_line": 37361
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广州市公务员录用考试《行测》题_images/img_0236_b3fd1d3b72ec8061.jpg",
+        "paper_title": "2016年广州市公务员录用考试《行测》题",
+        "question_id": "pq_9790aa7f131e5fc71ea9",
+        "question_number": 100,
+        "source_jsonl_line": 37362
+      }
+    ],
+    "sha256": "71a9263f91633b756ae7e326941b4f452637c3f12241141db94343a917a19906"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "J市",
+      "W市",
+      "Z市",
+      "C市"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "义务教育｜小学生（元）",
+        "group": "项目",
+        "label": "项目｜义务教育｜小学生（元）",
+        "unit": null,
+        "values": [
+          5807.6,
+          7898.3,
+          3252.2,
+          3021.0
+        ]
+      },
+      {
+        "display_label": "义务教育｜中学生（元）",
+        "group": "项目",
+        "label": "项目｜义务教育｜中学生（元）",
+        "unit": null,
+        "values": [
+          7321.9,
+          10067.7,
+          4931.3,
+          3077.6
+        ]
+      },
+      {
+        "display_label": "义务教育｜校舍（元）",
+        "group": "项目",
+        "label": "项目｜义务教育｜校舍（元）",
+        "unit": null,
+        "values": [
+          2659.3,
+          2919.3,
+          3016.8,
+          2773.3
+        ]
+      },
+      {
+        "display_label": "居民合作医疗保险（元/年）",
+        "group": "项目",
+        "label": "项目｜居民合作医疗保险（元/年）",
+        "unit": null,
+        "values": [
+          118.0,
+          52.0,
+          31.2,
+          62.4
+        ]
+      },
+      {
+        "display_label": "基本养老保险（元）",
+        "group": "项目",
+        "label": "项目｜基本养老保险（元）",
+        "unit": null,
+        "values": [
+          36089.0,
+          29753.9,
+          42049.3,
+          35816.3
+        ]
+      },
+      {
+        "display_label": "民政部门的其他社会保障｜意外伤害保险（元/年）",
+        "group": "项目",
+        "label": "项目｜民政部门的其他社会保障｜意外伤害保险（元/年）",
+        "unit": null,
+        "values": [
+          0,
+          5.0,
+          0,
+          0
+        ]
+      },
+      {
+        "display_label": "民政部门的其他社会保障｜低保（元/年）",
+        "group": "项目",
+        "label": "项目｜民政部门的其他社会保障｜低保（元/年）",
+        "unit": null,
+        "values": [
+          76.5,
+          80.7,
+          59.0,
+          85.9
+        ]
+      },
+      {
+        "display_label": "民政部门的其他社会保障｜医疗等救助（元/年）",
+        "group": "项目",
+        "label": "项目｜民政部门的其他社会保障｜医疗等救助（元/年）",
+        "unit": null,
+        "values": [
+          8.2,
+          49.4,
+          15.9,
+          9.0
+        ]
+      },
+      {
+        "display_label": "民政部门的其他社会保障｜妇幼保健等（元/年）",
+        "group": "项目",
+        "label": "项目｜民政部门的其他社会保障｜妇幼保健等（元/年）",
+        "unit": null,
+        "values": [
+          46.1,
+          6.3,
+          0,
+          13.5
+        ]
+      },
+      {
+        "display_label": "民政部门的其他社会保障｜孤寡老人（元/年）",
+        "group": "项目",
+        "label": "项目｜民政部门的其他社会保障｜孤寡老人（元/年）",
+        "unit": null,
+        "values": [
+          14.2,
+          0,
+          8.0,
+          0
+        ]
+      },
+      {
+        "display_label": "城市管理费用（元/年）",
+        "group": "项目",
+        "label": "项目｜城市管理费用（元/年）",
+        "unit": null,
+        "values": [
+          338.0,
+          401.0,
+          259.8,
+          490.7
+        ]
+      },
+      {
+        "display_label": "住房（元）",
+        "group": "项目",
+        "label": "项目｜住房（元）",
+        "unit": null,
+        "values": [
+          10284.0,
+          9975.6,
+          8696.9,
+          8570.1
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

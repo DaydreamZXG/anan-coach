@@ -1,0 +1,98 @@
+{
+  "counts": {
+    "circles": 0,
+    "closed_shapes": 1,
+    "curves": 1,
+    "dots": 0,
+    "filled_regions": 0,
+    "straight_segments": 11,
+    "symbols": 0,
+    "text_glyphs": 0
+  },
+  "facts": [
+    "The figure consists of a square frame containing a grid-like structure with one diagonal segment in the bottom-center and one arc in the bottom-left."
+  ],
+  "frame": {
+    "features": [
+      "right_angle"
+    ],
+    "grid_columns": null,
+    "grid_rows": null,
+    "hollow": true,
+    "kind": "square"
+  },
+  "objects": [
+    {
+      "count": 1,
+      "features": [
+        "vertical_lines",
+        "horizontal_lines",
+        "diagonal_line"
+      ],
+      "fill_state": "none",
+      "id": "p1e1",
+      "kind": "lineNetwork",
+      "label": "grid_lines",
+      "line_character": "straight",
+      "orientations": [
+        "mixed"
+      ],
+      "parts": [],
+      "regions": [
+        "spanning"
+      ],
+      "text": null
+    },
+    {
+      "count": 1,
+      "features": [
+        "quarter_circle"
+      ],
+      "fill_state": "none",
+      "id": "p1e2",
+      "kind": "arc",
+      "label": "arc",
+      "line_character": "curved",
+      "orientations": [
+        "none"
+      ],
+      "parts": [],
+      "regions": [
+        "bottom_left"
+      ],
+      "text": null
+    }
+  ],
+  "option_label": null,
+  "position": 1,
+  "relations": [
+    {
+      "description": "grid lines and arc are inside the square frame",
+      "subjects": [
+        "p1e1",
+        "p1e2"
+      ],
+      "type": "inside"
+    },
+    {
+      "description": "the arc connects to the left and bottom boundary lines",
+      "subjects": [
+        "p1e1",
+        "p1e2"
+      ],
+      "type": "touching"
+    }
+  ],
+  "role": "stem",
+  "schema_version": "graphic-reasoning-panel-semantics-v2",
+  "topology": {
+    "components": 1,
+    "endpoints": null,
+    "junctions": null,
+    "loops": null,
+    "notes": [
+      "The internal structure resembles a modified 3x2 grid where some segments are replaced by a diagonal and an arc"
+    ]
+  },
+  "uncertainties": []
+}

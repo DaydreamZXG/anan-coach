@@ -1,0 +1,139 @@
+{
+  "asset_id": "da_ed3d4b71134871dc7dae96aa",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0296_87c9f5f54557e692.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0296_87c9f5f54557e692.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_2b5e47451fe367fb138f",
+        "question_number": 86,
+        "source_jsonl_line": 30510
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0303_3d61e849cddf8c98.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_3ebd929e504a7afc79df",
+        "question_number": 87,
+        "source_jsonl_line": 30511
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0296_87c9f5f54557e692.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_1da75725cc45335c3413",
+        "question_number": 88,
+        "source_jsonl_line": 30512
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0296_87c9f5f54557e692.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_1e4701baa42eb60af42d",
+        "question_number": 89,
+        "source_jsonl_line": 30513
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0303_3d61e849cddf8c98.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_af1010d8d256965f8808",
+        "question_number": 90,
+        "source_jsonl_line": 30514
+      }
+    ],
+    "sha256": "ed3d4b71134871dc7dae96aaea46269e9b04e1ee7a685ab846e7ab9d38284405"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1-12月累计金额(亿元)",
+      "1-12月累计同比增速(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "社会消费品零售总额",
+        "group": "社会消费品零售总额情况",
+        "label": "社会消费品零售总额情况｜社会消费品零售总额",
+        "unit": null,
+        "values": [
+          6582.85,
+          6.7
+        ]
+      },
+      {
+        "display_label": "其中：批发和零售业",
+        "group": "社会消费品零售总额情况",
+        "label": "社会消费品零售总额情况｜其中：批发和零售业",
+        "unit": null,
+        "values": [
+          5754.74,
+          6.1
+        ]
+      },
+      {
+        "display_label": "住宿和餐饮业",
+        "group": "社会消费品零售总额情况",
+        "label": "社会消费品零售总额情况｜住宿和餐饮业",
+        "unit": null,
+        "values": [
+          828.11,
+          11.2
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,313 @@
+{
+  "asset_id": "da_b4740a17667d893063faa254",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 300000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000000,
+          2000000,
+          3000000
+        ],
+        "title": null,
+        "unit": "吨/日"
+      }
+    ]
+  },
+  "categories": [
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年",
+    "2023年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2019-2023全国年底海水淡化工程规模",
+      "style": {
+        "dash": null,
+        "fill": "#404040",
+        "marker": null,
+        "stroke": "#404040"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2019-2023",
+      "label": "2019-2023全国年底海水淡化工程规模",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "吨/日",
+      "values": [
+        1573760,
+        1651083,
+        1856433,
+        2357048,
+        2522956
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0111_7c09f3492220933d.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0111_7c09f3492220933d.jpg",
+        "paper_title": "2025年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_204f33fb64c4fad67294",
+        "question_number": 101,
+        "source_jsonl_line": 6185
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0123_4539ab8b5d3383f1.jpg",
+        "paper_title": "2025年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d3780ab3ae2568dc8058",
+        "question_number": 102,
+        "source_jsonl_line": 6186
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0111_7c09f3492220933d.jpg",
+        "paper_title": "2025年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_724340ae356c991ccb82",
+        "question_number": 103,
+        "source_jsonl_line": 6187
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0123_4539ab8b5d3383f1.jpg",
+        "paper_title": "2025年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_aad0b7d0a11093e345ba",
+        "question_number": 104,
+        "source_jsonl_line": 6188
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0111_7c09f3492220933d.jpg",
+        "paper_title": "2025年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c95817ce7390762e35f3",
+        "question_number": 105,
+        "source_jsonl_line": 6189
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0088_4539ab8b5d3383f1.jpg",
+        "paper_title": "2025年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1807164a92a4daff7e09",
+        "question_number": 101,
+        "source_jsonl_line": 26471
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0097_7c09f3492220933d.jpg",
+        "paper_title": "2025年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_68caac8b5ee1f85e1ab2",
+        "question_number": 102,
+        "source_jsonl_line": 26472
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0097_7c09f3492220933d.jpg",
+        "paper_title": "2025年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_780a10cdb7d9b1a87ea1",
+        "question_number": 103,
+        "source_jsonl_line": 26473
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0097_7c09f3492220933d.jpg",
+        "paper_title": "2025年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d8f77ffcddcff91d5ee7",
+        "question_number": 104,
+        "source_jsonl_line": 26474
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0097_7c09f3492220933d.jpg",
+        "paper_title": "2025年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_766579cdb2b6bfa07f53",
+        "question_number": 105,
+        "source_jsonl_line": 26475
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0110_7c09f3492220933d.jpg",
+        "paper_title": "2025年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ec5dabb74734fc598924",
+        "question_number": 96,
+        "source_jsonl_line": 39892
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0110_7c09f3492220933d.jpg",
+        "paper_title": "2025年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d9bdabbf9f6421dc74ba",
+        "question_number": 97,
+        "source_jsonl_line": 39893
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0110_7c09f3492220933d.jpg",
+        "paper_title": "2025年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_aeb0c96f10b58c4bf40a",
+        "question_number": 98,
+        "source_jsonl_line": 39894
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0110_7c09f3492220933d.jpg",
+        "paper_title": "2025年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9110bacd64b9ff0f20e3",
+        "question_number": 99,
+        "source_jsonl_line": 39895
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0110_7c09f3492220933d.jpg",
+        "paper_title": "2025年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4202ed6ab0e8644c8e3d",
+        "question_number": 100,
+        "source_jsonl_line": 39896
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0129_7c09f3492220933d.jpg",
+        "paper_title": "2025年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d1711ad4564940bb669d",
+        "question_number": 111,
+        "source_jsonl_line": 76046
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0129_7c09f3492220933d.jpg",
+        "paper_title": "2025年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2122ea05ee38175eebcc",
+        "question_number": 112,
+        "source_jsonl_line": 76047
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0133_4539ab8b5d3383f1.jpg",
+        "paper_title": "2025年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_45a25301e34c5849b71b",
+        "question_number": 113,
+        "source_jsonl_line": 76048
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0133_4539ab8b5d3383f1.jpg",
+        "paper_title": "2025年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2259fc5d20e334f1a5e0",
+        "question_number": 114,
+        "source_jsonl_line": 76049
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0129_7c09f3492220933d.jpg",
+        "paper_title": "2025年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3f00823fe942e91809f6",
+        "question_number": 115,
+        "source_jsonl_line": 76050
+      }
+    ],
+    "sha256": "b4740a17667d893063faa254edcd7c41bed12e4bdeb664cd6abfd934b6013f49"
+  },
+  "structured_visual": null,
+  "table": {
+    "columns": [
+      "辽宁",
+      "天津",
+      "河北",
+      "山东",
+      "江苏"
+    ],
+    "rows": [
+      {
+        "label": "规模",
+        "values": [
+          161384,
+          306000,
+          390700,
+          713209,
+          5020
+        ]
+      },
+      {
+        "label": "地区",
+        "values": [
+          "浙江",
+          "福建",
+          "广东",
+          "广西",
+          "海南"
+        ]
+      },
+      {
+        "label": "规模",
+        "values": [
+          801473,
+          37870,
+          97800,
+          750,
+          8750
+        ]
+      }
+    ]
+  },
+  "title": "2019-2023全国年底海水淡化工程规模",
+  "unit": "吨/日",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b4740a17667d893063faa254/column_band_01.jpg",
+        "review-crops/da_b4740a17667d893063faa254/column_band_02.jpg",
+        "review-crops/da_b4740a17667d893063faa254/column_band_03.jpg",
+        "review-crops/da_b4740a17667d893063faa254/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.255",
+      "crop_verification_elapsed_seconds:2.793",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:表格中'地区'行的标签与'规模'行的数值对齐存在歧义，可能为跨行合并单元格的布局",
+      "crop_note:compact_delta_verification",
+      "table_row_label_column_removed:地区"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

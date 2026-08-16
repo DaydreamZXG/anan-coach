@@ -1,0 +1,206 @@
+{
+  "asset_id": "da_8ae16e5ab4889b1eab9efc6d",
+  "axes": {
+    "x": {
+      "max": 50,
+      "min": 0,
+      "ticks": [
+        0,
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        40,
+        45,
+        50
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 47.3,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "金属切削机床",
+    "机床功能部件（含零件）",
+    "切削刀具",
+    "数控装置",
+    "金属成形机床",
+    "磨料磨具",
+    "木工机床",
+    "量具、量仪",
+    "铸造机"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2020年1-9月",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "2021年1-9月",
+      "style": {
+        "dash": null,
+        "fill": "#696969",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2020_1-9",
+      "label": "2020年1-9月",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        36.7,
+        10.7,
+        10.7,
+        10.6,
+        7.7,
+        4.5,
+        2.2,
+        1.2,
+        0.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2021_1-9",
+      "label": "2021年1-9月",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        47.3,
+        14.8,
+        12.6,
+        10.4,
+        9.3,
+        5.7,
+        2.5,
+        1.8,
+        0.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0043_8cea05ac282e673d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0043_8cea05ac282e673d.png",
+        "paper_title": "2022年天津市公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_96b203052c4467cae311",
+        "question_number": 76,
+        "source_jsonl_line": 24008
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0048_e0d703ff1e4df8d3.png",
+        "paper_title": "2022年天津市公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_396238090346f60483b2",
+        "question_number": 77,
+        "source_jsonl_line": 24009
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0048_e0d703ff1e4df8d3.png",
+        "paper_title": "2022年天津市公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_275761b6df7a18e77e47",
+        "question_number": 78,
+        "source_jsonl_line": 24010
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0048_e0d703ff1e4df8d3.png",
+        "paper_title": "2022年天津市公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_e68bead5aaa9f37f5b00",
+        "question_number": 79,
+        "source_jsonl_line": 24011
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年天津市公务员录用考试《行测》试题（网友回忆版）_images/img_0048_e0d703ff1e4df8d3.png",
+        "paper_title": "2022年天津市公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_860bb3008086d1b09372",
+        "question_number": 80,
+        "source_jsonl_line": 24012
+      }
+    ],
+    "sha256": "8ae16e5ab4889b1eab9efc6d2e610b77d78dcef2ec9cd551b8e03f07a4502ab9"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "我国机床工具产品累计进口情况（亿美元）",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8ae16e5ab4889b1eab9efc6d/column_band_01.jpg",
+        "review-crops/da_8ae16e5ab4889b1eab9efc6d/column_band_02.jpg",
+        "review-crops/da_8ae16e5ab4889b1eab9efc6d/column_band_03.jpg",
+        "review-crops/da_8ae16e5ab4889b1eab9efc6d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.258",
+      "crop_verification_elapsed_seconds:6.559",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

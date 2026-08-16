@@ -1,0 +1,409 @@
+{
+  "asset_id": "da_1ba78a909f0afa69f49188a5",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2013年吉林省公务员录用考试《行测》题（乙级）_images/img_0073_d1b0f04047d95e99.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（乙级）_images/img_0073_d1b0f04047d95e99.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_8d9484671e2444aff4b5",
+        "question_number": 86,
+        "source_jsonl_line": 11662
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（乙级）_images/img_0080_25ff0f8635edf368.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_5dfc99725fb89a1b9fc5",
+        "question_number": 87,
+        "source_jsonl_line": 11663
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（乙级）_images/img_0073_d1b0f04047d95e99.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_10460aa5140c03e0fb72",
+        "question_number": 88,
+        "source_jsonl_line": 11664
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（乙级）_images/img_0080_25ff0f8635edf368.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_456f42eabd5df510c983",
+        "question_number": 89,
+        "source_jsonl_line": 11665
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（乙级）_images/img_0080_25ff0f8635edf368.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_ee3473d60d749e2c9a3a",
+        "question_number": 90,
+        "source_jsonl_line": 11666
+      }
+    ],
+    "sha256": "1ba78a909f0afa69f49188a5701cdcfa2cb708701fe69c6fe17be898dfc89339"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "增加值（亿元）",
+      "增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "广州",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜广州",
+        "unit": "亿元",
+        "values": [
+          8617,
+          11.1
+        ]
+      },
+      {
+        "display_label": "深圳",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜深圳",
+        "unit": "亿元",
+        "values": [
+          7207,
+          12.3
+        ]
+      },
+      {
+        "display_label": "成都",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜成都",
+        "unit": "亿元",
+        "values": [
+          4000,
+          11.5
+        ]
+      },
+      {
+        "display_label": "杭州",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜杭州",
+        "unit": "亿元",
+        "values": [
+          3921,
+          10.1
+        ]
+      },
+      {
+        "display_label": "南京",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜南京",
+        "unit": "亿元",
+        "values": [
+          3846,
+          11.8
+        ]
+      },
+      {
+        "display_label": "武汉",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜武汉",
+        "unit": "亿元",
+        "values": [
+          3833,
+          10.1
+        ]
+      },
+      {
+        "display_label": "青岛",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜青岛",
+        "unit": "亿元",
+        "values": [
+          3575,
+          10.6
+        ]
+      },
+      {
+        "display_label": "大连",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜大连",
+        "unit": "亿元",
+        "values": [
+          2917,
+          10.6
+        ]
+      },
+      {
+        "display_label": "宁波",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜宁波",
+        "unit": "亿元",
+        "values": [
+          2739,
+          10.6
+        ]
+      },
+      {
+        "display_label": "济南",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜济南",
+        "unit": "亿元",
+        "values": [
+          2622,
+          10.1
+        ]
+      },
+      {
+        "display_label": "长沙",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜长沙",
+        "unit": "亿元",
+        "values": [
+          2535,
+          12.0
+        ]
+      },
+      {
+        "display_label": "哈尔滨",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜哈尔滨",
+        "unit": "亿元",
+        "values": [
+          2404,
+          9.4
+        ]
+      },
+      {
+        "display_label": "长春",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜长春",
+        "unit": "亿元",
+        "values": [
+          2292,
+          13.1
+        ]
+      },
+      {
+        "display_label": "西安",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜西安",
+        "unit": "亿元",
+        "values": [
+          2280,
+          12.2
+        ]
+      },
+      {
+        "display_label": "郑州",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜郑州",
+        "unit": "亿元",
+        "values": [
+          2196,
+          8.4
+        ]
+      },
+      {
+        "display_label": "福州",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜福州",
+        "unit": "亿元",
+        "values": [
+          1934,
+          10.6
+        ]
+      },
+      {
+        "display_label": "石家庄",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜石家庄",
+        "unit": "亿元",
+        "values": [
+          1807,
+          10.0
+        ]
+      },
+      {
+        "display_label": "合肥",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜合肥",
+        "unit": "亿元",
+        "values": [
+          1631,
+          12.3
+        ]
+      },
+      {
+        "display_label": "昆明",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜昆明",
+        "unit": "亿元",
+        "values": [
+          1474,
+          13.0
+        ]
+      },
+      {
+        "display_label": "呼和浩特",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜呼和浩特",
+        "unit": "亿元",
+        "values": [
+          1453,
+          10.8
+        ]
+      },
+      {
+        "display_label": "厦门",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜厦门",
+        "unit": "亿元",
+        "values": [
+          1418,
+          11.7
+        ]
+      },
+      {
+        "display_label": "太原",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜太原",
+        "unit": "亿元",
+        "values": [
+          1240,
+          11.3
+        ]
+      },
+      {
+        "display_label": "南宁",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜南宁",
+        "unit": "亿元",
+        "values": [
+          1221,
+          9.6
+        ]
+      },
+      {
+        "display_label": "乌鲁木齐",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜乌鲁木齐",
+        "unit": "亿元",
+        "values": [
+          1157,
+          18.6
+        ]
+      },
+      {
+        "display_label": "南昌",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜南昌",
+        "unit": "亿元",
+        "values": [
+          1116,
+          14.5
+        ]
+      },
+      {
+        "display_label": "贵阳",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜贵阳",
+        "unit": "亿元",
+        "values": [
+          911,
+          14.1
+        ]
+      },
+      {
+        "display_label": "兰州",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜兰州",
+        "unit": "亿元",
+        "values": [
+          775,
+          14.8
+        ]
+      },
+      {
+        "display_label": "海口",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜海口",
+        "unit": "亿元",
+        "values": [
+          561,
+          9.4
+        ]
+      },
+      {
+        "display_label": "银川",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜银川",
+        "unit": "亿元",
+        "values": [
+          465,
+          10.1
+        ]
+      },
+      {
+        "display_label": "西宁",
+        "group": "2012年全国各城市第三产业增加值情况",
+        "label": "2012年全国各城市第三产业增加值情况｜西宁",
+        "unit": "亿元",
+        "values": [
+          380,
+          11.8
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -17,6 +17,18 @@
   background: var(--color-canvas);
 }
 
+.task-shell::before {
+  position: fixed;
+  z-index: var(--z-sticky);
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--task-status-bar-height);
+  background: var(--color-surface);
+  content: "";
+  pointer-events: none;
+}
+
 .task-shell--no-footer {
   padding-bottom: calc(56 * var(--rpx));
 }
@@ -27,7 +39,7 @@
 
 .task-header {
   position: sticky;
-  z-index: var(--z-sticky);
+  z-index: calc(var(--z-sticky) + 1);
   top: var(--task-status-bar-height);
   display: flex;
   align-items: center;

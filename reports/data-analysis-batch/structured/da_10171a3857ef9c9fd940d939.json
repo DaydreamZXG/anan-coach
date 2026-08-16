@@ -1,0 +1,207 @@
+{
+  "asset_id": "da_10171a3857ef9c9fd940d939",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2015年广东省公务员录用考试《行测》题（县级以上）_images/img_0185_ffba2094c12ea243.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年广东省公务员录用考试《行测》题（县级以上）_images/img_0185_ffba2094c12ea243.png",
+        "paper_title": "2015年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_fc84560c036346beb513",
+        "question_number": 96,
+        "source_jsonl_line": 34628
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年广东省公务员录用考试《行测》题（县级以上）_images/img_0185_ffba2094c12ea243.png",
+        "paper_title": "2015年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_e083781db6ef8de3e119",
+        "question_number": 97,
+        "source_jsonl_line": 34629
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年广东省公务员录用考试《行测》题（县级以上）_images/img_0185_ffba2094c12ea243.png",
+        "paper_title": "2015年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_0d47b6840bab592c4378",
+        "question_number": 98,
+        "source_jsonl_line": 34630
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年广东省公务员录用考试《行测》题（县级以上）_images/img_0185_ffba2094c12ea243.png",
+        "paper_title": "2015年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_6fd36dbfc045b9b7e1e7",
+        "question_number": 99,
+        "source_jsonl_line": 34631
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年广东省公务员录用考试《行测》题（县级以上）_images/img_0185_ffba2094c12ea243.png",
+        "paper_title": "2015年广东省公务员录用考试《行测》题（县级以上）",
+        "question_id": "pq_0769886f8add94bcfcd1",
+        "question_number": 100,
+        "source_jsonl_line": 34632
+      }
+    ],
+    "sha256": "10171a3857ef9c9fd940d9390310e24fa9f60673bfbfb9fa435d25489e21bf62"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "一季度",
+      "二季度",
+      "三季度",
+      "四季度"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标｜分类",
+    "rows": [
+      {
+        "display_label": "2013年",
+        "group": "货量运(单位: 亿吨)",
+        "label": "货量运(单位: 亿吨)｜2013年",
+        "unit": "亿吨",
+        "values": [
+          1.4,
+          1.5,
+          1.6,
+          1.7
+        ]
+      },
+      {
+        "display_label": "2014年",
+        "group": "货量运(单位: 亿吨)",
+        "label": "货量运(单位: 亿吨)｜2014年",
+        "unit": "亿吨",
+        "values": [
+          1.6,
+          1.7,
+          1.9,
+          1.9
+        ]
+      },
+      {
+        "display_label": "2013年",
+        "group": "货运周转量(单位: 亿吨公里)",
+        "label": "货运周转量(单位: 亿吨公里)｜2013年",
+        "unit": "亿吨公里",
+        "values": [
+          288,
+          322.6,
+          342.4,
+          397.9
+        ]
+      },
+      {
+        "display_label": "2014年",
+        "group": "货运周转量(单位: 亿吨公里)",
+        "label": "货运周转量(单位: 亿吨公里)｜2014年",
+        "unit": "亿吨公里",
+        "values": [
+          312.9,
+          338.8,
+          367.9,
+          442.5
+        ]
+      },
+      {
+        "display_label": "2013年",
+        "group": "客运量(单位: 万人)",
+        "label": "客运量(单位: 万人)｜2013年",
+        "unit": "万人",
+        "values": [
+          342,
+          370,
+          442,
+          442
+        ]
+      },
+      {
+        "display_label": "2014年",
+        "group": "客运量(单位: 万人)",
+        "label": "客运量(单位: 万人)｜2014年",
+        "unit": "万人",
+        "values": [
+          335,
+          387,
+          443,
+          440
+        ]
+      },
+      {
+        "display_label": "2013年",
+        "group": "客运周转量(单位: 亿人公里)",
+        "label": "客运周转量(单位: 亿人公里)｜2013年",
+        "unit": "亿人公里",
+        "values": [
+          1.9,
+          2,
+          2.3,
+          2.3
+        ]
+      },
+      {
+        "display_label": "2014年",
+        "group": "客运周转量(单位: 亿人公里)",
+        "label": "客运周转量(单位: 亿人公里)｜2014年",
+        "unit": "亿人公里",
+        "values": [
+          1.9,
+          2.1,
+          2.3,
+          2.3
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

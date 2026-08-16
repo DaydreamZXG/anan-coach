@@ -1,0 +1,216 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "国内生产总值(亿元)",
+          "人均国内生产总值(元)",
+          "第一产业占GDP比重(%)",
+          "第三产业占GDP比重(%)",
+          "出口依存度(%)"
+        ],
+        "label": "经济指标"
+      },
+      {
+        "columns": [
+          "城镇居民人均可支配收入(元)",
+          "农民人均纯收入(元)"
+        ],
+        "label": "人口与收入"
+      },
+      {
+        "columns": [
+          "土地面积(平方千米)"
+        ],
+        "label": "土地面积"
+      },
+      "国内生产总值(亿元)",
+      "人均国内生产总值(元)",
+      "第一产业占GDP比重(%)",
+      "第三产业占GDP比重(%)",
+      "出口依存度(%)",
+      "城镇居民人均可支配收入(元)",
+      "农民人均纯收入(元)"
+    ],
+    "columns": [
+      "土地面积(平方千米)",
+      "国内生产总值(亿元)",
+      "人均国内生产总值(元)",
+      "第一产业占GDP比重(%)",
+      "第三产业占GDP比重(%)",
+      "出口依存度(%)",
+      "城镇居民人均可支配收入(元)",
+      "农民人均纯收入(元)"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "城市",
+    "rows": [
+      {
+        "display_label": "苏州",
+        "group": null,
+        "label": "苏州",
+        "unit": null,
+        "values": [
+          8488,
+          1760,
+          3.04,
+          5.2,
+          38.0,
+          57.9,
+          10515,
+          5734
+        ]
+      },
+      {
+        "display_label": "无锡",
+        "group": null,
+        "label": "无锡",
+        "unit": null,
+        "values": [
+          4650,
+          1360,
+          3.12,
+          4.0,
+          46.8,
+          21.9,
+          9454,
+          5524
+        ]
+      },
+      {
+        "display_label": "常州",
+        "group": null,
+        "label": "常州",
+        "unit": null,
+        "values": [
+          4375,
+          673,
+          1.97,
+          7.0,
+          36.4,
+          26.6,
+          9406,
+          4896
+        ]
+      },
+      {
+        "display_label": "南京",
+        "group": null,
+        "label": "南京",
+        "unit": null,
+        "values": [
+          6598,
+          1150,
+          2.06,
+          5.1,
+          47.3,
+          41.4,
+          8848,
+          4311
+        ]
+      },
+      {
+        "display_label": "镇江",
+        "group": null,
+        "label": "镇江",
+        "unit": null,
+        "values": [
+          3843,
+          503,
+          1.89,
+          6.7,
+          38.1,
+          12.3,
+          7698,
+          4191
+        ]
+      },
+      {
+        "display_label": "扬州",
+        "group": null,
+        "label": "扬州",
+        "unit": null,
+        "values": [
+          3719,
+          2674,
+          3.8,
+          3.6,
+          54.0,
+          36.0,
+          14416,
+          6446
+        ]
+      },
+      {
+        "display_label": "苏州",
+        "group": "扬州",
+        "label": "扬州｜苏州",
+        "unit": null,
+        "values": [
+          2465,
+          578,
+          3.76,
+          5.4,
+          39.5,
+          271.8,
+          16938,
+          7366
+        ]
+      },
+      {
+        "display_label": "中山",
+        "group": null,
+        "label": "中山",
+        "unit": null,
+        "values": [
+          1800,
+          359,
+          2.68,
+          6.8,
+          36.3,
+          100.4,
+          12803,
+          6738
+        ]
+      },
+      {
+        "display_label": "衢州",
+        "group": null,
+        "label": "衢州",
+        "unit": null,
+        "values": [
+          807,
+          389,
+          3.61,
+          5.3,
+          39.5,
+          65.7,
+          15113,
+          5282
+        ]
+      },
+      {
+        "display_label": "深圳",
+        "group": null,
+        "label": "深圳",
+        "unit": null,
+        "values": [
+          1949,
+          1908,
+          4.23,
+          0.9,
+          46.5,
+          162.6,
+          23544,
+          9869
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

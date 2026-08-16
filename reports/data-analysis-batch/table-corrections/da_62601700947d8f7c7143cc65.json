@@ -1,0 +1,262 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2005年",
+          "2006年",
+          "2007年",
+          "2008年",
+          "2009年",
+          "2010年",
+          "2011年上半年"
+        ],
+        "label": "年份"
+      }
+    ],
+    "columns": [
+      "2005年",
+      "2006年",
+      "2007年",
+      "2008年",
+      "2009年",
+      "2010年",
+      "2011年上半年"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "display_label": "消费支出",
+        "group": null,
+        "label": "消费支出",
+        "unit": null,
+        "values": [
+          13773,
+          14762,
+          17255,
+          19398,
+          20992,
+          23200,
+          12210
+        ]
+      },
+      {
+        "display_label": "服务性消费支出",
+        "group": null,
+        "label": "服务性消费支出",
+        "unit": null,
+        "values": [
+          4447,
+          4841,
+          5595,
+          6287,
+          6656,
+          6955,
+          3668
+        ]
+      },
+      {
+        "display_label": "在外饮食服务费",
+        "group": null,
+        "label": "在外饮食服务费",
+        "unit": null,
+        "values": [
+          665,
+          741,
+          861,
+          1034,
+          1096,
+          963,
+          579
+        ]
+      },
+      {
+        "display_label": "衣着加工费",
+        "group": null,
+        "label": "衣着加工费",
+        "unit": null,
+        "values": [
+          12,
+          13,
+          12,
+          15,
+          15,
+          15,
+          11
+        ]
+      },
+      {
+        "display_label": "家庭服务费",
+        "group": null,
+        "label": "家庭服务费",
+        "unit": null,
+        "values": [
+          98,
+          93,
+          118,
+          140,
+          134,
+          152,
+          75
+        ]
+      },
+      {
+        "display_label": "医疗费",
+        "group": null,
+        "label": "医疗费",
+        "unit": null,
+        "values": [
+          176,
+          192,
+          231,
+          183,
+          284,
+          239,
+          149
+        ]
+      },
+      {
+        "display_label": "交通工具服务支出",
+        "group": null,
+        "label": "交通工具服务支出",
+        "unit": null,
+        "values": [
+          131,
+          195,
+          357,
+          420,
+          327,
+          494,
+          224
+        ]
+      },
+      {
+        "display_label": "交通费",
+        "group": null,
+        "label": "交通费",
+        "unit": null,
+        "values": [
+          521,
+          581,
+          675,
+          732,
+          759,
+          749,
+          452
+        ]
+      },
+      {
+        "display_label": "通信服务",
+        "group": null,
+        "label": "通信服务",
+        "unit": null,
+        "values": [
+          674,
+          751,
+          856,
+          886,
+          887,
+          978,
+          479
+        ]
+      },
+      {
+        "display_label": "文化娱乐服务费",
+        "group": null,
+        "label": "文化娱乐服务费",
+        "unit": null,
+        "values": [
+          489,
+          504,
+          709,
+          874,
+          990,
+          1139,
+          649
+        ]
+      },
+      {
+        "display_label": "教育费用",
+        "group": null,
+        "label": "教育费用",
+        "unit": null,
+        "values": [
+          1030,
+          1114,
+          1084,
+          1084,
+          1121,
+          1110,
+          505
+        ]
+      },
+      {
+        "display_label": "房租",
+        "group": null,
+        "label": "房租",
+        "unit": null,
+        "values": [
+          112,
+          120,
+          163,
+          266,
+          235,
+          265,
+          130
+        ]
+      },
+      {
+        "display_label": "住房装潢支出服务费",
+        "group": null,
+        "label": "住房装潢支出服务费",
+        "unit": null,
+        "values": [
+          205,
+          204,
+          147,
+          194,
+          282,
+          347,
+          129
+        ]
+      },
+      {
+        "display_label": "居住服务费",
+        "group": null,
+        "label": "居住服务费",
+        "unit": null,
+        "values": [
+          135,
+          134,
+          169,
+          164,
+          220,
+          178,
+          89
+        ]
+      },
+      {
+        "display_label": "其他服务费",
+        "group": null,
+        "label": "其他服务费",
+        "unit": null,
+        "values": [
+          199,
+          200,
+          212,
+          294,
+          306,
+          327,
+          197
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

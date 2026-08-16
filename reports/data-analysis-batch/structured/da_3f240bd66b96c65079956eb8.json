@@ -1,0 +1,657 @@
+{
+  "asset_id": "da_3f240bd66b96c65079956eb8",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "行业",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "平均工资",
+        "unit": "元"
+      }
+    ]
+  },
+  "categories": [
+    "行业"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "非私营单位 2009年",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "非私营单位 2019年",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "私营单位 2009年",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "私营单位 2019年",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2009",
+      "label": "非私营单位 2009年",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        14356,
+        38038,
+        26810,
+        41869,
+        24161,
+        35315,
+        58154,
+        29139,
+        20860,
+        60398,
+        32242,
+        35494,
+        50143,
+        23159,
+        25172,
+        34543,
+        35662,
+        37755,
+        35326
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2019",
+      "label": "非私营单位 2019年",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        39340,
+        91068,
+        78147,
+        107733,
+        65580,
+        97050,
+        161352,
+        89047,
+        50346,
+        131405,
+        80157,
+        88190,
+        133459,
+        61158,
+        60232,
+        97681,
+        108903,
+        107708,
+        94369
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2009",
+      "label": "私营单位 2009年",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        14585,
+        18553,
+        17260,
+        17795,
+        19867,
+        19634,
+        28166,
+        17775,
+        15623,
+        30452,
+        21334,
+        21344,
+        26187,
+        17170,
+        15688,
+        21066,
+        18641,
+        17339,
+        8191
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2019",
+      "label": "私营单位 2019年",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        37760,
+        49675,
+        52858,
+        49633,
+        54167,
+        54006,
+        85301,
+        48722,
+        42424,
+        76107,
+        54416,
+        57248,
+        67642,
+        44444,
+        43926,
+        50761,
+        57140,
+        49289,
+        null
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广西/2021年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0188_8e55a1f040a4d4f4.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0188_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_02994bce66746395edad",
+        "question_number": 106,
+        "source_jsonl_line": 39462
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0188_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8db58066bbedecbb9911",
+        "question_number": 107,
+        "source_jsonl_line": 39463
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0188_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d903d3611ec2218342c3",
+        "question_number": 108,
+        "source_jsonl_line": 39464
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0188_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_54b9cfacb0fe8ad3677c",
+        "question_number": 109,
+        "source_jsonl_line": 39465
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0200_c1167fe36db9f94c.png",
+        "paper_title": "2021年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_09eb99fe10b3a62b7eb8",
+        "question_number": 110,
+        "source_jsonl_line": 39466
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0212_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_87f2885944dc46bd3ed1",
+        "question_number": 101,
+        "source_jsonl_line": 43666
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0212_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_7c6f82905b4a4d46ba40",
+        "question_number": 102,
+        "source_jsonl_line": 43667
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0210_c1167fe36db9f94c.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_63ff312eb54bc6487f4b",
+        "question_number": 103,
+        "source_jsonl_line": 43668
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0212_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_19cfa6ddea6c2c6563e0",
+        "question_number": 104,
+        "source_jsonl_line": 43669
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0212_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_e2ad76db425b2397339b",
+        "question_number": 105,
+        "source_jsonl_line": 43670
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0265_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c06cb8e896acb44df85b",
+        "question_number": 116,
+        "source_jsonl_line": 73791
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0265_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3ca25a4cb90ea8aeb1b7",
+        "question_number": 117,
+        "source_jsonl_line": 73792
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0265_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7c8661b49757b6e779ad",
+        "question_number": 118,
+        "source_jsonl_line": 73793
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0265_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ac7b5a3df74089174bd2",
+        "question_number": 119,
+        "source_jsonl_line": 73794
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0264_c1167fe36db9f94c.png",
+        "paper_title": "2021年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0750831a1b0fcc561532",
+        "question_number": 120,
+        "source_jsonl_line": 73795
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年福建省公务员录用考试《行测》题（网友回忆版）_images/img_0227_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年福建省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1d55e9c59055ff4fd3f1",
+        "question_number": 111,
+        "source_jsonl_line": 78710
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年福建省公务员录用考试《行测》题（网友回忆版）_images/img_0227_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年福建省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1700ae5dc6633d5be55e",
+        "question_number": 112,
+        "source_jsonl_line": 78711
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年福建省公务员录用考试《行测》题（网友回忆版）_images/img_0227_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年福建省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_409d321c5856502e9ff5",
+        "question_number": 113,
+        "source_jsonl_line": 78712
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年福建省公务员录用考试《行测》题（网友回忆版）_images/img_0227_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年福建省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6dac45426b39081eafa1",
+        "question_number": 114,
+        "source_jsonl_line": 78713
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年福建省公务员录用考试《行测》题（网友回忆版）_images/img_0227_8e55a1f040a4d4f4.png",
+        "paper_title": "2021年福建省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_02954660435165ff7b2b",
+        "question_number": 115,
+        "source_jsonl_line": 78714
+      }
+    ],
+    "sha256": "3f240bd66b96c65079956eb887f8992c22fe1c7852ada43ad9e671db54434e3d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "行业",
+      "非私营单位 2009年",
+      "非私营单位 2019年",
+      "私营单位 2009年",
+      "私营单位 2019年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "农、林、牧、渔业",
+        "unit": null,
+        "values": [
+          "农、林、牧、渔业",
+          14356,
+          39340,
+          14585,
+          37760
+        ]
+      },
+      {
+        "label": "采矿业",
+        "unit": null,
+        "values": [
+          "采矿业",
+          38038,
+          91068,
+          18553,
+          49675
+        ]
+      },
+      {
+        "label": "制造业",
+        "unit": null,
+        "values": [
+          "制造业",
+          26810,
+          78147,
+          17260,
+          52858
+        ]
+      },
+      {
+        "label": "电力、燃气及水的生产和供应业",
+        "unit": null,
+        "values": [
+          "电力、燃气及水的生产和供应业",
+          41869,
+          107733,
+          17795,
+          49633
+        ]
+      },
+      {
+        "label": "建筑业",
+        "unit": null,
+        "values": [
+          "建筑业",
+          24161,
+          65580,
+          19867,
+          54167
+        ]
+      },
+      {
+        "label": "交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          "交通运输、仓储和邮政业",
+          35315,
+          97050,
+          19634,
+          54006
+        ]
+      },
+      {
+        "label": "信息传输、计算机服务和软件业",
+        "unit": null,
+        "values": [
+          "信息传输、计算机服务和软件业",
+          58154,
+          161352,
+          28166,
+          85301
+        ]
+      },
+      {
+        "label": "批发和零售业",
+        "unit": null,
+        "values": [
+          "批发和零售业",
+          29139,
+          89047,
+          17775,
+          48722
+        ]
+      },
+      {
+        "label": "住宿和餐饮业",
+        "unit": null,
+        "values": [
+          "住宿和餐饮业",
+          20860,
+          50346,
+          15623,
+          42424
+        ]
+      },
+      {
+        "label": "金融业",
+        "unit": null,
+        "values": [
+          "金融业",
+          60398,
+          131405,
+          30452,
+          76107
+        ]
+      },
+      {
+        "label": "房地产业",
+        "unit": null,
+        "values": [
+          "房地产业",
+          32242,
+          80157,
+          21334,
+          54416
+        ]
+      },
+      {
+        "label": "租赁和商务服务业",
+        "unit": null,
+        "values": [
+          "租赁和商务服务业",
+          35494,
+          88190,
+          21344,
+          57248
+        ]
+      },
+      {
+        "label": "科学研究、技术服务和地质勘查业",
+        "unit": null,
+        "values": [
+          "科学研究、技术服务和地质勘查业",
+          50143,
+          133459,
+          26187,
+          67642
+        ]
+      },
+      {
+        "label": "水利、环境和公共设施管理业",
+        "unit": null,
+        "values": [
+          "水利、环境和公共设施管理业",
+          23159,
+          61158,
+          17170,
+          44444
+        ]
+      },
+      {
+        "label": "居民服务和其他服务业",
+        "unit": null,
+        "values": [
+          "居民服务和其他服务业",
+          25172,
+          60232,
+          15688,
+          43926
+        ]
+      },
+      {
+        "label": "教育",
+        "unit": null,
+        "values": [
+          "教育",
+          34543,
+          97681,
+          21066,
+          50761
+        ]
+      },
+      {
+        "label": "卫生、社会保障和社会福利业",
+        "unit": null,
+        "values": [
+          "卫生、社会保障和社会福利业",
+          35662,
+          108903,
+          18641,
+          57140
+        ]
+      },
+      {
+        "label": "文化、体育和娱乐业",
+        "unit": null,
+        "values": [
+          "文化、体育和娱乐业",
+          37755,
+          107708,
+          17339,
+          49289
+        ]
+      },
+      {
+        "label": "公共管理和社会组织",
+        "unit": null,
+        "values": [
+          "公共管理和社会组织",
+          35326,
+          94369,
+          8191,
+          null
+        ]
+      }
+    ]
+  },
+  "title": "我国分行业城镇就业人员平均工资（2009年、2019年）",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3f240bd66b96c65079956eb8/row_band_01.jpg",
+        "review-crops/da_3f240bd66b96c65079956eb8/row_band_02.jpg",
+        "review-crops/da_3f240bd66b96c65079956eb8/row_band_03.jpg",
+        "review-crops/da_3f240bd66b96c65079956eb8/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:28.056",
+      "crop_verification_elapsed_seconds:16.784",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:表中‘公共管理和社会组织’在私营单位2019年数据缺失，标记为null",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:农、林、牧、渔业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:采矿业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:制造业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:电力、燃气及水的生产和供应业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:采矿业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:制造业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:电力、燃气及水的生产和供应业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:建筑业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:交通运输、仓储和邮政业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:信息传输、计算机服务和软件业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:批发和零售业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:住宿和餐饮业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:金融业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:批发和零售业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:住宿和餐饮业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:金融业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:房地产业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:租赁和商务服务业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:科学研究、技术服务和地质勘查业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:水利、环境和公共设施管理业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:居民服务和其他服务业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:教育:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:水利、环境和公共设施管理业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:居民服务和其他服务业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:教育:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:卫生、社会保障和社会福利业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:文化、体育和娱乐业:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:公共管理和社会组织:4!=5"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

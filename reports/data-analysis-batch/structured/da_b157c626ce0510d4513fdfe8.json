@@ -1,0 +1,269 @@
+{
+  "asset_id": "da_b157c626ce0510d4513fdfe8",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 60,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60
+        ],
+        "title": null,
+        "unit": "百分比 (%)"
+      }
+    ]
+  },
+  "categories": [
+    "北京",
+    "天津",
+    "河北",
+    "山西",
+    "内蒙古",
+    "辽宁",
+    "吉林",
+    "黑龙江",
+    "江苏",
+    "浙江",
+    "安徽",
+    "福建",
+    "江西",
+    "山东",
+    "河南",
+    "湖北",
+    "湖南",
+    "广东",
+    "广西",
+    "海南",
+    "重庆",
+    "四川",
+    "贵州",
+    "云南",
+    "西藏",
+    "陕西",
+    "甘肃",
+    "青海",
+    "宁夏",
+    "新疆",
+    "香港",
+    "澳门",
+    "台湾"
+  ],
+  "chart_type": "line",
+  "confidence": 0.9,
+  "legend": [
+    {
+      "label": "水质好转率=水质好转的监测点数/统计监测点总数",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "水质恶化率=水质恶化的监测点数/统计监测点总数",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "水质好转率=水质好转的监测点数/统计监测点总数",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百分比 (%)",
+      "values": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "水质恶化率=水质恶化的监测点数/统计监测点总数",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百分比 (%)",
+      "values": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2008年江苏省公务员录用考试《行测》题（B类）_images/img_0278_ea0572766a518652.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（B类）_images/img_0278_ea0572766a518652.jpg",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_9f3e7b43c3ef2502e8da",
+        "question_number": 151,
+        "source_jsonl_line": 44626
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（B类）_images/img_0283_7f6906d26bc929df.jpg",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_f52dc6390ad9bdb86602",
+        "question_number": 152,
+        "source_jsonl_line": 44627
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（B类）_images/img_0278_ea0572766a518652.jpg",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_a1acd2abcd08f23f0eed",
+        "question_number": 153,
+        "source_jsonl_line": 44628
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（B类）_images/img_0283_7f6906d26bc929df.jpg",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_9f5aa066c106bc2f271b",
+        "question_number": 154,
+        "source_jsonl_line": 44629
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（B类）_images/img_0283_7f6906d26bc929df.jpg",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_25a972709e6348121756",
+        "question_number": 155,
+        "source_jsonl_line": 44630
+      }
+    ],
+    "sha256": "b157c626ce0510d4513fdfe86ea37fd7b0a3ee33dcf64631bf2d6b450a71e6da"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2006年全国各省（区、市）地下水水质变化趋势",
+  "unit": "百分比 (%)",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b157c626ce0510d4513fdfe8/column_band_01.jpg",
+        "review-crops/da_b157c626ce0510d4513fdfe8/column_band_02.jpg",
+        "review-crops/da_b157c626ce0510d4513fdfe8/column_band_03.jpg",
+        "review-crops/da_b157c626ce0510d4513fdfe8/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:21.713",
+      "crop_verification_elapsed_seconds:23.58",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:图中未明确标出具体数值，仅能根据折线图趋势推测，数值精度有限。",
+      "model_uncertainty:图例中未明确说明数据来源或统计方法，存在解释歧义。",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.9,
+    "schema_valid": true
+  }
+}

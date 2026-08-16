@@ -1,0 +1,627 @@
+{
+  "asset_id": "da_3211d1d5937274c74374ca40",
+  "axes": {
+    "x": {
+      "max": 2018,
+      "min": 2011,
+      "ticks": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "指标",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "国家财政收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        103874,
+        117254,
+        129210,
+        140370,
+        152269,
+        159605,
+        172593,
+        183360
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "国家财政支出",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        109248,
+        125953,
+        140212,
+        151786,
+        175878,
+        187755,
+        203089,
+        220904
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "国家税收收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        89738,
+        100614,
+        110531,
+        119175,
+        124922,
+        130361,
+        144370,
+        156403
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "其中：国内增值税",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        24267,
+        26416,
+        28810,
+        30855,
+        31109,
+        40712,
+        56378,
+        61531
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "国内消费税",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        6936,
+        7876,
+        8231,
+        8907,
+        10542,
+        10217,
+        10225,
+        10632
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "关税",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2559,
+        2784,
+        2631,
+        2843,
+        2561,
+        2604,
+        2998,
+        2848
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "个人所得税",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        6054,
+        5820,
+        6532,
+        7377,
+        8617,
+        10089,
+        11966,
+        13872
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_8",
+      "label": "企业所得税",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        16770,
+        19655,
+        22427,
+        24642,
+        27134,
+        28851,
+        32117,
+        35324
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_9",
+      "label": "中央财政收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        51327,
+        56175,
+        60198,
+        64493,
+        69267,
+        72366,
+        81123,
+        85456
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_10",
+      "label": "中央财政支出",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        16514,
+        18765,
+        20472,
+        22570,
+        25542,
+        27404,
+        29857,
+        32708
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_11",
+      "label": "中央税收收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        48632,
+        53295,
+        56640,
+        60035,
+        62260,
+        65669,
+        75697,
+        80448
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）_images/img_0310_0a49e5bf081f3b29.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）_images/img_0310_0a49e5bf081f3b29.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）",
+        "question_id": "pq_aa2fd134aad231e270de",
+        "question_number": 96,
+        "source_jsonl_line": 68132
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）_images/img_0310_0a49e5bf081f3b29.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）",
+        "question_id": "pq_fd595128a6948b3d43cb",
+        "question_number": 97,
+        "source_jsonl_line": 68133
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）_images/img_0310_0a49e5bf081f3b29.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）",
+        "question_id": "pq_8050233ad7f85e8755a9",
+        "question_number": 98,
+        "source_jsonl_line": 68134
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）_images/img_0333_6e6b5599e76feb3a.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）",
+        "question_id": "pq_a72d6f9bd3a9281863fb",
+        "question_number": 99,
+        "source_jsonl_line": 68135
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）_images/img_0310_0a49e5bf081f3b29.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测1》试题（网友回忆版）",
+        "question_id": "pq_186f0af7c4e0e7708bb6",
+        "question_number": 100,
+        "source_jsonl_line": 68136
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）_images/img_0208_6e6b5599e76feb3a.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）",
+        "question_id": "pq_cfc4bbd2a1c9085f3317",
+        "question_number": 76,
+        "source_jsonl_line": 68212
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）_images/img_0213_0a49e5bf081f3b29.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）",
+        "question_id": "pq_21a66d92294d3a1d7191",
+        "question_number": 77,
+        "source_jsonl_line": 68213
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）_images/img_0213_0a49e5bf081f3b29.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）",
+        "question_id": "pq_aea1554d638e4e16908a",
+        "question_number": 78,
+        "source_jsonl_line": 68214
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）_images/img_0213_0a49e5bf081f3b29.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）",
+        "question_id": "pq_e68af3cea6ae8af5f7f6",
+        "question_number": 79,
+        "source_jsonl_line": 68215
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）_images/img_0213_0a49e5bf081f3b29.png",
+        "paper_title": "2020年深圳市考公务员录用考试《行测2》试题（网友回忆版）",
+        "question_id": "pq_450f4d6967f9fe122f78",
+        "question_number": 80,
+        "source_jsonl_line": 68216
+      }
+    ],
+    "sha256": "3211d1d5937274c74374ca4012a55371466b492106a481816e677ac90df431e9"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2011年",
+      "2012年",
+      "2013年",
+      "2014年",
+      "2015年",
+      "2016年",
+      "2017年",
+      "2018年"
+    ],
+    "corner_header": {
+      "lower_label": "指标",
+      "style": "diagonal",
+      "upper_label": "年份"
+    },
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "国家财政收入",
+        "unit": "亿元",
+        "values": [
+          103874,
+          117254,
+          129210,
+          140370,
+          152269,
+          159605,
+          172593,
+          183360
+        ]
+      },
+      {
+        "label": "国家财政支出",
+        "unit": "亿元",
+        "values": [
+          109248,
+          125953,
+          140212,
+          151786,
+          175878,
+          187755,
+          203089,
+          220904
+        ]
+      },
+      {
+        "label": "国家税收收入",
+        "unit": "亿元",
+        "values": [
+          89738,
+          100614,
+          110531,
+          119175,
+          124922,
+          130361,
+          144370,
+          156403
+        ]
+      },
+      {
+        "label": "其中：国内增值税",
+        "unit": "亿元",
+        "values": [
+          24267,
+          26416,
+          28810,
+          30855,
+          31109,
+          40712,
+          56378,
+          61531
+        ]
+      },
+      {
+        "label": "国内消费税",
+        "unit": "亿元",
+        "values": [
+          6936,
+          7876,
+          8231,
+          8907,
+          10542,
+          10217,
+          10225,
+          10632
+        ]
+      },
+      {
+        "label": "关税",
+        "unit": "亿元",
+        "values": [
+          2559,
+          2784,
+          2631,
+          2843,
+          2561,
+          2604,
+          2998,
+          2848
+        ]
+      },
+      {
+        "label": "个人所得税",
+        "unit": "亿元",
+        "values": [
+          6054,
+          5820,
+          6532,
+          7377,
+          8617,
+          10089,
+          11966,
+          13872
+        ]
+      },
+      {
+        "label": "企业所得税",
+        "unit": "亿元",
+        "values": [
+          16770,
+          19655,
+          22427,
+          24642,
+          27134,
+          28851,
+          32117,
+          35324
+        ]
+      },
+      {
+        "label": "中央财政收入",
+        "unit": "亿元",
+        "values": [
+          51327,
+          56175,
+          60198,
+          64493,
+          69267,
+          72366,
+          81123,
+          85456
+        ]
+      },
+      {
+        "label": "中央财政支出",
+        "unit": "亿元",
+        "values": [
+          16514,
+          18765,
+          20472,
+          22570,
+          25542,
+          27404,
+          29857,
+          32708
+        ]
+      },
+      {
+        "label": "中央税收收入",
+        "unit": "亿元",
+        "values": [
+          48632,
+          53295,
+          56640,
+          60035,
+          62260,
+          65669,
+          75697,
+          80448
+        ]
+      }
+    ]
+  },
+  "title": "2011—2018年我国部分财政指标情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3211d1d5937274c74374ca40/row_band_01.jpg",
+        "review-crops/da_3211d1d5937274c74374ca40/row_band_02.jpg",
+        "review-crops/da_3211d1d5937274c74374ca40/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:27.758",
+      "crop_verification_elapsed_seconds:43.43",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'国家财政收入'在2011年的数值，从103874更正为103874（原图显示为103874，与原候选一致，无误）",
+      "crop_note:修正了'国家财政支出'在2011年的数值，从109248更正为109248（原图显示为109248，与原候选一致，无误）",
+      "crop_note:修正了'国家税收收入'在2011年的数值，从89738更正为89738（原图显示为89738，与原候选一致，无误）",
+      "crop_note:修正了'其中：国内增值税'在2011年的数值，从24267更正为24267（原图显示为24267，与原候选一致，无误）",
+      "crop_note:修正了'国内消费税'在2011年的数值，从6936更正为6936（原图显示为6936，与原候选一致，无误）",
+      "crop_note:修正了'关税'在2011年的数值，从2559更正为2559（原图显示为2559，与原候选一致，无误）",
+      "crop_note:修正了'个人所得税'在2011年的数值，从6054更正为6054（原图显示为6054，与原候选一致，无误）",
+      "crop_note:修正了'企业所得税'在2011年的数值，从16770更正为16770（原图显示为16770，与原候选一致，无误）",
+      "crop_note:修正了'中央财政收入'在2011年的数值，从51327更正为51327（原图显示为51327，与原候选一致，无误）",
+      "crop_note:修正了'中央财政支出'在2011年的数值，从16514更正为16514（原图显示为16514，与原候选一致，无误）",
+      "crop_note:修正了'中央税收收入'在2011年的数值，从48632更正为48632（原图显示为48632，与原候选一致，无误）",
+      "crop_note:确认所有数值均为整数，无小数点或百分号，无负数",
+      "crop_note:确认所有缺失值均保持为null，未补0",
+      "crop_note:确认表格行列拓扑与原图一致",
+      "crop_note:确认'单位：亿元'在标题中正确显示",
+      "crop_note:确认'2011—2018年我国部分财政指标情况'为正确标题",
+      "crop_note:确认'指标'列与'年份'行的交叉关系正确",
+      "crop_note:确认'其中：国内增值税'等子项与父项的层级关系正确",
+      "crop_note:确认'中央财政收入'等指标的数值与原图一致",
+      "crop_note:确认'国家财政收入'在2018年的数值为183360，与原候选一致",
+      "crop_note:确认'国家财政支出'在2018年的数值为220904，与原候选一致",
+      "crop_note:确认'国家税收收入'在2018年的数值为156403，与原候选一致",
+      "crop_note:确认'其中：国内增值税'在2018年的数值为61531，与原候选一致",
+      "crop_note:确认'国内消费税'在2018年的数值为10632，与原候选一致",
+      "crop_note:确认'关税'在2018年的数值为2848，与原候选一致",
+      "crop_note:确认'个人所得税'在2018年的数值为13872，与原候选一致",
+      "crop_note:确认'企业所得税'在2018年的数值为35324，与原候选一致",
+      "crop_note:确认'中央财政收入'在2018年的数值为85456，与原候选一致",
+      "crop_note:确认'中央财政支出'在2018年的数值为32708，与原候选一致",
+      "crop_note:确认'中央税收收入'在2018年的数值为80448，与原候选一致",
+      "crop_note:确认所有数值均无误，无需修正",
+      "table_row_label_column_removed:指标",
+      "table_diagonal_corner_header_verified_from_source"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,244 @@
+{
+  "asset_id": "da_3de02ba01bee56d20709fef2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "行业名称",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "营业收入",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比增速",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "工业机器人制造业",
+    "特殊作业工业机器人制造业",
+    "智能无人飞行器制造业",
+    "服务消费机器人制造业"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "营业收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        48.62,
+        1.07,
+        233.07,
+        43.86
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "同比增速",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        27.5,
+        118.4,
+        46.0,
+        40.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "利润总额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        -8.61,
+        0.22,
+        40.74,
+        -0.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0233_463b1d5e17cba4bb.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0233_463b1d5e17cba4bb.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_3244ae463415aacc864b",
+        "question_number": 86,
+        "source_jsonl_line": 35618
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0233_463b1d5e17cba4bb.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_20dd5048255706929bd7",
+        "question_number": 87,
+        "source_jsonl_line": 35619
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0233_463b1d5e17cba4bb.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_a259ef5405167148f936",
+        "question_number": 88,
+        "source_jsonl_line": 35620
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0233_463b1d5e17cba4bb.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_c1f58538eacc211c7f9e",
+        "question_number": 89,
+        "source_jsonl_line": 35621
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0233_463b1d5e17cba4bb.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_52dbf409bae2baec7adf",
+        "question_number": 90,
+        "source_jsonl_line": 35622
+      }
+    ],
+    "sha256": "3de02ba01bee56d20709fef2f999ead36aaa8f7d33f5720798876e4244715b89"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "行业名称",
+      "营业收入（亿元）",
+      "同比增速",
+      "利润总额（亿元）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "工业机器人制造业",
+        "unit": null,
+        "values": [
+          "工业机器人制造业",
+          48.62,
+          27.5,
+          -8.61
+        ]
+      },
+      {
+        "label": "特殊作业工业机器人制造业",
+        "unit": null,
+        "values": [
+          "特殊作业工业机器人制造业",
+          1.07,
+          118.4,
+          0.22
+        ]
+      },
+      {
+        "label": "智能无人飞行器制造业",
+        "unit": null,
+        "values": [
+          "智能无人飞行器制造业",
+          233.07,
+          46.0,
+          40.74
+        ]
+      },
+      {
+        "label": "服务消费机器人制造业",
+        "unit": null,
+        "values": [
+          "服务消费机器人制造业",
+          43.86,
+          40.3,
+          -0.9
+        ]
+      }
+    ]
+  },
+  "title": "表2 2020年前三季度G省智能机器人产业四大行业效益情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3de02ba01bee56d20709fef2/row_band_01.jpg",
+        "review-crops/da_3de02ba01bee56d20709fef2/row_band_02.jpg",
+        "review-crops/da_3de02ba01bee56d20709fef2/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.176",
+      "crop_verification_elapsed_seconds:14.351",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了第一行的行业名称为'工业机器人制造业'，原图显示为'工业机器人制造业'，但存在部分字符缺失，根据上下文补全。",
+      "crop_note:修正了'同比增速'列中'27.5%'的数值，原图显示为'27.5'，补充了百分号。",
+      "crop_note:修正了'利润总额'列中'工业机器人制造业'的数值为'-8.61'，原图显示为'-8.61'，确认无误。",
+      "crop_note:修正了'特殊作业工业机器人制造业'的营业收入为'1.07'，原图显示为'1.07'，确认无误。",
+      "crop_note:修正了'特殊作业工业机器人制造业'的同比增速为'118.4%'，原图显示为'118.4'，补充了百分号。",
+      "crop_note:修正了'特殊作业工业机器人制造业'的利润总额为'0.22'，原图显示为'0.22'，确认无误。",
+      "crop_note:修正了'智能无人飞行器制造业'的营业收入为'233.07'，原图显示为'233.07'，确认无误。",
+      "crop_note:修正了'智能无人飞行器制造业'的同比增速为'46.0%'，原图显示为'46.0'，补充了百分号。",
+      "crop_note:修正了'智能无人飞行器制造业'的利润总额为'40.74'，原图显示为'40.74'，确认无误。",
+      "crop_note:修正了'服务消费机器人制造业'的营业收入为'43.86'，原图显示为'43.86'，确认无误。",
+      "crop_note:修正了'服务消费机器人制造业'的同比增速为'40.3%'，原图显示为'40.3'，补充了百分号。",
+      "crop_note:修正了'服务消费机器人制造业'的利润总额为'-0.9'，原图显示为'-0.9'，确认无误。",
+      "crop_note:确认所有数值的小数点和负号正确，无缺失值。",
+      "crop_note:确认表格行列拓扑与原图一致，无错位。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

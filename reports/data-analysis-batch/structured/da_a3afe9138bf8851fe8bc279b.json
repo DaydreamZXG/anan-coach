@@ -1,0 +1,256 @@
+{
+  "asset_id": "da_a3afe9138bf8851fe8bc279b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 50000,
+        "min": 10000,
+        "ticks": [
+          10000,
+          20000,
+          30000,
+          40000,
+          50000
+        ],
+        "title": null,
+        "unit": "元"
+      }
+    ]
+  },
+  "categories": [
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "全市居民",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "城镇常住居民",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "农村常住居民",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全市居民",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        24152,
+        26386,
+        28920,
+        30824,
+        33803
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "城镇常住居民",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        32193,
+        34889,
+        37938,
+        40006,
+        43502
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "农村常住居民",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        12638,
+        13781,
+        15133,
+        16361,
+        18100
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0051_e97c6de3e8fcadba.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0051_e97c6de3e8fcadba.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_79cfc616280232e7ce95",
+        "question_number": 91,
+        "source_jsonl_line": 90131
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0054_7206232f091e66cc.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_ef1f3eb8a4624b6a2f28",
+        "question_number": 92,
+        "source_jsonl_line": 90132
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0054_7206232f091e66cc.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_36024462c029b4733cf8",
+        "question_number": 93,
+        "source_jsonl_line": 90133
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0054_7206232f091e66cc.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_24b44f3cb5516cb36998",
+        "question_number": 94,
+        "source_jsonl_line": 90134
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0054_7206232f091e66cc.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_788c47f7d01144f836f9",
+        "question_number": 95,
+        "source_jsonl_line": 90135
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0049_7206232f091e66cc.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_50cffa1bba5ed66db06d",
+        "question_number": 91,
+        "source_jsonl_line": 95714
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0049_7206232f091e66cc.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_0bb47a2e4fef4dfe2281",
+        "question_number": 92,
+        "source_jsonl_line": 95715
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0049_7206232f091e66cc.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_aaf84b938ed1bbf0228f",
+        "question_number": 93,
+        "source_jsonl_line": 95716
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0049_7206232f091e66cc.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_f67720ca3570cf7553b1",
+        "question_number": 94,
+        "source_jsonl_line": 95717
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0103_e97c6de3e8fcadba.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_cc55b9a5f019e1ba2f44",
+        "question_number": 95,
+        "source_jsonl_line": 95718
+      }
+    ],
+    "sha256": "a3afe9138bf8851fe8bc279b8440cef41188d084ebd544e088eef2133fa40a3d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2017-2021年重庆市人均可支配收入统计图",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a3afe9138bf8851fe8bc279b/column_band_01.jpg",
+        "review-crops/da_a3afe9138bf8851fe8bc279b/column_band_02.jpg",
+        "review-crops/da_a3afe9138bf8851fe8bc279b/column_band_03.jpg",
+        "review-crops/da_a3afe9138bf8851fe8bc279b/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.461",
+      "crop_verification_elapsed_seconds:4.225",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

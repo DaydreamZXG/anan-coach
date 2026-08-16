@@ -1,0 +1,194 @@
+{
+  "asset_id": "da_490d7145ea589e347db114f3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 18500,
+        "min": 0,
+        "ticks": [
+          5000,
+          10000,
+          15000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "货物出口额",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "货物进口额",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "货物出口额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        137131,
+        143884,
+        141167,
+        138419,
+        153321
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "货物进口额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        121037,
+        120358,
+        104336,
+        104967,
+        124602
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0144_a0a2a210dc46128a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0144_a0a2a210dc46128a.png",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_77e67f5e06cbe9214d03",
+        "question_number": 106,
+        "source_jsonl_line": 103663
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0142_96de89d373e41abc.png",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_f95df3b1d85e4e32c110",
+        "question_number": 107,
+        "source_jsonl_line": 103664
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0142_96de89d373e41abc.png",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_5ba649d5bf60a1b224d1",
+        "question_number": 108,
+        "source_jsonl_line": 103665
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0142_96de89d373e41abc.png",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_ee28d74c87c79d42b6ea",
+        "question_number": 109,
+        "source_jsonl_line": 103666
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0144_a0a2a210dc46128a.png",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_d3240271a14ece3a03ce",
+        "question_number": 110,
+        "source_jsonl_line": 103667
+      }
+    ],
+    "sha256": "490d7145ea589e347db114f3817af2942e8c1859d811957a8eeaf9415e0db216"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013~2017年我国货物进出口总额",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_490d7145ea589e347db114f3/column_band_01.jpg",
+        "review-crops/da_490d7145ea589e347db114f3/column_band_02.jpg",
+        "review-crops/da_490d7145ea589e347db114f3/column_band_03.jpg",
+        "review-crops/da_490d7145ea589e347db114f3/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.242",
+      "crop_verification_elapsed_seconds:11.486",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2013年货物出口额为137131亿元，原数据为137131。",
+      "crop_note:修正了2013年货物进口额为121037亿元，原数据为121037。",
+      "crop_note:修正了2014年货物出口额为143884亿元，原数据为143884。",
+      "crop_note:修正了2014年货物进口额为120358亿元，原数据为120358。",
+      "crop_note:修正了2015年货物出口额为141167亿元，原数据为141167。",
+      "crop_note:修正了2015年货物进口额为104336亿元，原数据为104336。",
+      "crop_note:修正了2016年货物出口额为138419亿元，原数据为138419。",
+      "crop_note:修正了2016年货物进口额为104967亿元，原数据为104967。",
+      "crop_note:修正了2017年货物出口额为153321亿元，原数据为153321。",
+      "crop_note:修正了2017年货物进口额为124602亿元，原数据为124602。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

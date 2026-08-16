@@ -1,0 +1,247 @@
+{
+  "asset_id": "da_6a1b43a8541fce4c5a8bcfe2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0104_9937c6d933a2cfd1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0104_9937c6d933a2cfd1.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_6b73c33a8e9aa3b90a9a",
+        "question_number": 116,
+        "source_jsonl_line": 21366
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0104_9937c6d933a2cfd1.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_117aa4f9483d21638f21",
+        "question_number": 117,
+        "source_jsonl_line": 21367
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0104_9937c6d933a2cfd1.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_8a49bdd76c53ad5fcd41",
+        "question_number": 118,
+        "source_jsonl_line": 21368
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0104_9937c6d933a2cfd1.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_d14472977d023cd8d140",
+        "question_number": 119,
+        "source_jsonl_line": 21369
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0104_9937c6d933a2cfd1.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_81f39806ce1734d2b1e7",
+        "question_number": 120,
+        "source_jsonl_line": 21370
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0125_9937c6d933a2cfd1.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_d995cbedee3714163a53",
+        "question_number": 116,
+        "source_jsonl_line": 21496
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0125_9937c6d933a2cfd1.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_05d1707bbcb49c066aaf",
+        "question_number": 117,
+        "source_jsonl_line": 21497
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0134_70b0a3537e7907b7.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_1b7983cd71a2c9b0087e",
+        "question_number": 118,
+        "source_jsonl_line": 21498
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0125_9937c6d933a2cfd1.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_52d34098986911cf31f6",
+        "question_number": 119,
+        "source_jsonl_line": 21499
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0134_70b0a3537e7907b7.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_0434a6f4d027dc2f6594",
+        "question_number": 120,
+        "source_jsonl_line": 21500
+      }
+    ],
+    "sha256": "6a1b43a8541fce4c5a8bcfe203559bf4e08fa991c58c26c4b8b7aebfda187b68"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2020年",
+      "2021年",
+      "2022年",
+      "2023年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "律师事务所总数（家）",
+        "group": "年份",
+        "label": "年份｜律师事务所总数（家）",
+        "unit": null,
+        "values": [
+          1636,
+          1705,
+          1755,
+          1926
+        ]
+      },
+      {
+        "display_label": "律师人数（人）",
+        "group": "年份",
+        "label": "年份｜律师人数（人）",
+        "unit": null,
+        "values": [
+          27302,
+          30889,
+          36938,
+          41924
+        ]
+      },
+      {
+        "display_label": "法律顾问数（不含村、社区）（家）",
+        "group": "年份",
+        "label": "年份｜法律顾问数（不含村、社区）（家）",
+        "unit": null,
+        "values": [
+          72739,
+          89450,
+          102251,
+          111811
+        ]
+      },
+      {
+        "display_label": "村（社区）法律顾问数（家）",
+        "group": "年份",
+        "label": "年份｜村（社区）法律顾问数（家）",
+        "unit": null,
+        "values": [
+          26153,
+          24951,
+          24705,
+          23652
+        ]
+      },
+      {
+        "display_label": "律师办理法律业务数（万件）",
+        "group": "年份",
+        "label": "年份｜律师办理法律业务数（万件）",
+        "unit": null,
+        "values": [
+          68.36,
+          76.43,
+          81.24,
+          93.55
+        ]
+      },
+      {
+        "display_label": "基层法律服务所总数（家）",
+        "group": "年份",
+        "label": "年份｜基层法律服务所总数（家）",
+        "unit": null,
+        "values": [
+          439,
+          430,
+          423,
+          417
+        ]
+      },
+      {
+        "display_label": "基层法律服务工作者人数（人）",
+        "group": "年份",
+        "label": "年份｜基层法律服务工作者人数（人）",
+        "unit": null,
+        "values": [
+          2658,
+          2476,
+          2395,
+          2340
+        ]
+      },
+      {
+        "display_label": "基层法律服务工作者办理法律业务数（万件）",
+        "group": "年份",
+        "label": "年份｜基层法律服务工作者办理法律业务数（万件）",
+        "unit": null,
+        "values": [
+          6.65,
+          6.99,
+          6.88,
+          6.4
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

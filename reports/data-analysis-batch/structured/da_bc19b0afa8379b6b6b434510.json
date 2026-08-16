@@ -1,0 +1,234 @@
+{
+  "asset_id": "da_bc19b0afa8379b6b6b434510",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "21-30岁",
+    "20岁及以下",
+    "31-40岁",
+    "41-50岁",
+    "51岁及以上"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "21-30岁",
+      "style": {
+        "dash": null,
+        "fill": "pattern",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "20岁及以下",
+      "style": {
+        "dash": null,
+        "fill": "darkgray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "31-40岁",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "41-50岁",
+      "style": {
+        "dash": null,
+        "fill": "lightgray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "51岁及以上",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      69.859,
+      76.045,
+      109.452,
+      188.626,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 69.859,
+        "label": "21-30岁",
+        "share": 0.19405347,
+        "start_angle": 0.0,
+        "sweep_angle": 69.859
+      },
+      {
+        "end_angle": 76.045,
+        "label": "20岁及以下",
+        "share": 0.01718217,
+        "start_angle": 69.859,
+        "sweep_angle": 6.186
+      },
+      {
+        "end_angle": 109.452,
+        "label": "31-40岁",
+        "share": 0.09279896,
+        "start_angle": 76.045,
+        "sweep_angle": 33.408
+      },
+      {
+        "end_angle": 188.626,
+        "label": "41-50岁",
+        "share": 0.219926,
+        "start_angle": 109.452,
+        "sweep_angle": 79.173
+      },
+      {
+        "end_angle": 360.0,
+        "label": "51岁及以上",
+        "share": 0.47603939,
+        "start_angle": 188.626,
+        "sweep_angle": 171.374
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.19405347,
+        0.01718217,
+        0.09279896,
+        0.219926,
+        0.47603939
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2013年广东省公务员录用考试《行测》题（三）_images/img_0091_d7919480c54fb225.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（三）_images/img_0091_d7919480c54fb225.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（三）",
+        "question_id": "pq_168e8426194acf1f1de0",
+        "question_number": 86,
+        "source_jsonl_line": 34218
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（三）_images/img_0091_d7919480c54fb225.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（三）",
+        "question_id": "pq_be69f382653e44a99778",
+        "question_number": 87,
+        "source_jsonl_line": 34219
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（三）_images/img_0091_d7919480c54fb225.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（三）",
+        "question_id": "pq_7ab9212a9af858e73a38",
+        "question_number": 88,
+        "source_jsonl_line": 34220
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（三）_images/img_0091_d7919480c54fb225.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（三）",
+        "question_id": "pq_ed03131b6bafdbab0c10",
+        "question_number": 89,
+        "source_jsonl_line": 34221
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（三）_images/img_0095_96c9325748f667d8.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（三）",
+        "question_id": "pq_969071b7c3b0e852824c",
+        "question_number": 90,
+        "source_jsonl_line": 34222
+      }
+    ],
+    "sha256": "bc19b0afa8379b6b6b43451088c4f81f1cea6262fbcc4274ce52e0c11480de7e"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "调查样本年龄构成情况图",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_bc19b0afa8379b6b6b434510/quadrant_01.jpg",
+        "review-crops/da_bc19b0afa8379b6b6b434510/quadrant_02.jpg",
+        "review-crops/da_bc19b0afa8379b6b6b434510/quadrant_03.jpg",
+        "review-crops/da_bc19b0afa8379b6b6b434510/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.58",
+      "crop_verification_elapsed_seconds:1.252",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.9722",
+      "hough_circle_radius_ratio:0.2817",
+      "radial_line_candidates:10",
+      "detected_boundaries:5"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,236 @@
+{
+  "asset_id": "da_bcd5d598f94c137a6e920ec1",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.99,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/宁夏/2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0172_d3fdc2d11aec6be8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0172_d3fdc2d11aec6be8.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_55811e2a3bd357915bdf",
+        "question_number": 140,
+        "source_jsonl_line": 25146
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0179_d3fdc2d11aec6be8.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_c86771588b9d93519154",
+        "question_number": 141,
+        "source_jsonl_line": 27301
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0179_d3fdc2d11aec6be8.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_6e78a5167a6783423b44",
+        "question_number": 143,
+        "source_jsonl_line": 27303
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0182_d3fdc2d11aec6be8.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_c6d80cd65b3e4fb22f12",
+        "question_number": 142,
+        "source_jsonl_line": 31826
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0188_d3fdc2d11aec6be8.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_76d9a740cc7ec7f2122c",
+        "question_number": 141,
+        "source_jsonl_line": 51761
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0188_d3fdc2d11aec6be8.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_920f18cb689832c38154",
+        "question_number": 143,
+        "source_jsonl_line": 51763
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0181_d3fdc2d11aec6be8.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_757284d67973c6298e28",
+        "question_number": 142,
+        "source_jsonl_line": 69518
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0181_d3fdc2d11aec6be8.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_7c3a61180312383866a7",
+        "question_number": 144,
+        "source_jsonl_line": 69520
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年413联考《行测》题（辽宁_湖南_湖北_安徽_四川_福建_云南_黑龙江_江西_广西_贵州_海南_内蒙古_山西_重庆_宁_images/img_0176_d3fdc2d11aec6be8.png",
+        "paper_title": "2013年413联考《行测》题（辽宁/湖南/湖北/安徽/四川/福建/云南/黑龙江/江西/广西/贵州/海南/内蒙古/山西/重庆/宁夏/西藏）",
+        "question_id": "pq_bf74d84bc1ce039ce589",
+        "question_number": 143,
+        "source_jsonl_line": 92892
+      }
+    ],
+    "sha256": "bcd5d598f94c137a6e920ec1cf64a1bd29f398503b5d005d76f3fd3457a7916e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "7月绝对量",
+      "7月同比增长",
+      "1-7月绝对量",
+      "1-7月同比增长"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "发电量（亿千瓦时）",
+        "unit": null,
+        "values": [
+          4252,
+          13.2,
+          26426,
+          13.3
+        ]
+      },
+      {
+        "label": "钢材（万吨）",
+        "unit": null,
+        "values": [
+          7572,
+          14.9,
+          51401,
+          13.0
+        ]
+      },
+      {
+        "label": "水泥（万吨）",
+        "unit": null,
+        "values": [
+          18308,
+          16.8,
+          113480,
+          19.2
+        ]
+      },
+      {
+        "label": "原油加工量（万吨）",
+        "unit": null,
+        "values": [
+          3749,
+          5.9,
+          26046,
+          6.9
+        ]
+      },
+      {
+        "label": "十种有色金属（万吨）",
+        "unit": null,
+        "values": [
+          293,
+          9.8,
+          1984,
+          9.9
+        ]
+      },
+      {
+        "label": "乙烯（万吨）",
+        "unit": null,
+        "values": [
+          130,
+          11.5,
+          916,
+          16.9
+        ]
+      },
+      {
+        "label": "汽车（万辆）",
+        "unit": null,
+        "values": [
+          131.8,
+          -1.3,
+          1085,
+          4.0
+        ]
+      },
+      {
+        "label": "其中：轿车（万辆）",
+        "unit": null,
+        "values": [
+          77.7,
+          12.6,
+          585.8,
+          8.5
+        ]
+      }
+    ]
+  },
+  "title": "2011年7月份规模以上工业生产主要数据",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.552",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:图像内容为空，无法提取任何数据",
+      "route_reason:图片仅包含标题文字，无实际数据图表或选项内容",
+      "route_panel_count:1",
+      "foreground_iou:0.713933",
+      "mean_absolute_error:0.714264",
+      "trace_parameters:{\"epsilonRatio\": 0.002, \"minimumContourArea\": 1.2, \"paletteSize\": 4}",
+      "comparison_artifact:previews/structured_visual/da_bcd5d598f94c137a6e920ec1-comparison.png",
+      "alias:da_3440e1bda212ffbe4bd69649:title-only crop belongs to the same table; reuse the independently verified full-table asset"
+    ],
+    "ocr_engine": "human_verified_transcription",
+    "ocr_mean_confidence": 0.99,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,280 @@
+{
+  "asset_id": "da_1f3b266cdb06d4450015f970",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0056_c144c3ecf4b68f9c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0056_c144c3ecf4b68f9c.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_09a81241075b0daa4554",
+        "question_number": 91,
+        "source_jsonl_line": 11134
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0054_d7211f73dd57396f.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_8000fdee99489d81f21c",
+        "question_number": 92,
+        "source_jsonl_line": 11135
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0054_d7211f73dd57396f.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_ff44040becee379142eb",
+        "question_number": 93,
+        "source_jsonl_line": 11136
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0056_c144c3ecf4b68f9c.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_6319b6faa974bb06877d",
+        "question_number": 94,
+        "source_jsonl_line": 11137
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0056_c144c3ecf4b68f9c.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_379122bc6d3175eabba8",
+        "question_number": 95,
+        "source_jsonl_line": 11138
+      }
+    ],
+    "sha256": "1f3b266cdb06d4450015f9700ab6c9aa952f2cf79d5785333caaecc8133f0f37"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "产业活动单位点数｜绝对数",
+          "产业活动单位点数｜比重%"
+        ],
+        "label": "产业活动单位点数"
+      },
+      {
+        "columns": [
+          "从业人数｜绝对数",
+          "从业人数｜比重%"
+        ],
+        "label": "从业人数"
+      },
+      {
+        "columns": [
+          "实收资本｜绝对数",
+          "实收资本｜比重%"
+        ],
+        "label": "实收资本"
+      },
+      {
+        "columns": [
+          "实收资本增加值｜绝对数",
+          "实收资本增加值｜比重%"
+        ],
+        "label": "实收资本增加值"
+      }
+    ],
+    "columns": [
+      "产业活动单位点数｜绝对数",
+      "产业活动单位点数｜比重%",
+      "从业人数｜绝对数",
+      "从业人数｜比重%",
+      "实收资本｜绝对数",
+      "实收资本｜比重%",
+      "实收资本增加值｜绝对数",
+      "实收资本增加值｜比重%"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "产业活动单位点数",
+    "rows": [
+      {
+        "label": "总计",
+        "unit": null,
+        "values": [
+          2949,
+          100,
+          70702,
+          100,
+          1297539,
+          100,
+          337043,
+          100
+        ]
+      },
+      {
+        "label": "第一产业",
+        "unit": null,
+        "values": [
+          147,
+          4.98,
+          1236,
+          1.75,
+          1570,
+          0.12,
+          97788,
+          29.01
+        ]
+      },
+      {
+        "label": "第二产业",
+        "unit": null,
+        "values": [
+          478,
+          16.21,
+          45199,
+          63.93,
+          983893,
+          75.83,
+          122397,
+          36.32
+        ]
+      },
+      {
+        "label": "工业",
+        "unit": null,
+        "values": [
+          444,
+          15.06,
+          32172,
+          45.5,
+          731726,
+          56.39,
+          89970,
+          26.7
+        ]
+      },
+      {
+        "label": "建筑业",
+        "unit": null,
+        "values": [
+          34,
+          1.15,
+          13027,
+          18.43,
+          252167,
+          19.43,
+          32427,
+          9.62
+        ]
+      },
+      {
+        "label": "第三产业",
+        "unit": null,
+        "values": [
+          2324,
+          78.81,
+          24267,
+          34.32,
+          312076,
+          24.05,
+          116858,
+          34.67
+        ]
+      },
+      {
+        "label": "交通运输业",
+        "unit": null,
+        "values": [
+          50,
+          1.7,
+          2729,
+          3.86,
+          89726,
+          6.92,
+          18788,
+          5.57
+        ]
+      },
+      {
+        "label": "批零餐饮业",
+        "unit": null,
+        "values": [
+          232,
+          7.87,
+          2075,
+          2.93,
+          82543,
+          6.36,
+          38201,
+          11.33
+        ]
+      },
+      {
+        "label": "社会服务业",
+        "unit": null,
+        "values": [
+          61,
+          2.07,
+          391,
+          0.55,
+          22096,
+          1.7,
+          11035,
+          3.27
+        ]
+      }
+    ]
+  },
+  "title": "某县2005年产业情况统计表",
+  "unit": "个、人、千元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1f3b266cdb06d4450015f970/row_band_01.jpg",
+        "review-crops/da_1f3b266cdb06d4450015f970/row_band_02.jpg",
+        "review-crops/da_1f3b266cdb06d4450015f970/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.201",
+      "crop_verification_elapsed_seconds:11.317",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

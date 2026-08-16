@@ -1,0 +1,20 @@
+{
+  "answerIsolation": true,
+  "assetId": "gr_09a239f1f5c89bec86ff315d",
+  "model": "gemma-4-31b-it",
+  "officialAnswer": "B",
+  "originalImageCorrect": true,
+  "originalImagePrediction": {
+    "answer": "B",
+    "reason": "图形整体顺时针旋转90度，且内部四个三角形相对于中心点对称分布，第五项应为第一项旋转360度或第四项旋转90度，恢复至初始状态。"
+  },
+  "originalImageRaw": "{\"answer\":\"B\",\"reason\":\"图形整体顺时针旋转90度，且内部四个三角形相对于中心点对称分布，第五项应为第一项旋转360度或第四项旋转90度，恢复至初始状态。\"}",
+  "schemaVersion": "graphic-reasoning-semantic-solver-evaluation-v1",
+  "semanticJsonCorrect": true,
+  "semanticJsonPrediction": {
+    "answer": "B",
+    "information_sufficient": true,
+    "reason": "通过分析题干面板1-4中四个直角三角形直角顶点的变化，发现其呈现周期性循环规律。面板1的配置与选项B的配置完全一致（canonicalSignature完全匹配），且deterministicRelations明确指出面板1与选项B存在exact_panel_match，符合图形推理中常见的循环规律（1-2-3-4-1）。"
+  },
+  "semanticJsonRaw": "{\"answer\":\"B\",\"reason\":\"通过分析题干面板1-4中四个直角三角形直角顶点的变化，发现其呈现周期性循环规律。面板1的配置与选项B的配置完全一致（canonicalSignature完全匹配），且deterministicRelations明确指出面板1与选项B存在exact_panel_match，符合图形推理中常见的循环规律（1-2-3-4-1）。\",\"information_sufficient\":true}"
+}

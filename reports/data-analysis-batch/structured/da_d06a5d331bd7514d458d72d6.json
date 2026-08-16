@@ -1,0 +1,306 @@
+{
+  "asset_id": "da_d06a5d331bd7514d458d72d6",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1.8,
+        "min": 0,
+        "ticks": [
+          0,
+          0.2,
+          0.4,
+          0.6,
+          0.8,
+          1,
+          1.2,
+          1.4,
+          1.6,
+          1.8
+        ],
+        "title": null,
+        "unit": "(万亿元)"
+      }
+    ]
+  },
+  "categories": [
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年",
+    "2023年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "新兴业务收入",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "电信业务收入",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "新兴业务收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(万亿元)",
+      "values": [
+        0.1374,
+        0.1737,
+        0.2372,
+        0.306,
+        0.3564
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "电信业务收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(万亿元)",
+      "values": [
+        1.31,
+        1.36,
+        1.47,
+        1.58,
+        1.68
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2025年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0200_40ee73744acbb036.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0200_40ee73744acbb036.png",
+        "paper_title": "2025年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ab102acabde706fb1354",
+        "question_number": 121,
+        "source_jsonl_line": 28645
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0205_3dc04c5c449ca981.png",
+        "paper_title": "2025年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9f4dbce05830b3e6bb7b",
+        "question_number": 122,
+        "source_jsonl_line": 28646
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0200_40ee73744acbb036.png",
+        "paper_title": "2025年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6112b2c5186c3b6e3091",
+        "question_number": 123,
+        "source_jsonl_line": 28647
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0205_3dc04c5c449ca981.png",
+        "paper_title": "2025年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6ec3baba02b9353e4caa",
+        "question_number": 124,
+        "source_jsonl_line": 28648
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0200_40ee73744acbb036.png",
+        "paper_title": "2025年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_83496b702cf51bc04a0c",
+        "question_number": 125,
+        "source_jsonl_line": 28649
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0198_3dc04c5c449ca981.png",
+        "paper_title": "2025年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0db116d714b423de0a8e",
+        "question_number": 121,
+        "source_jsonl_line": 33419
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0205_40ee73744acbb036.png",
+        "paper_title": "2025年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7c5027922af16fae7e7d",
+        "question_number": 122,
+        "source_jsonl_line": 33420
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0205_40ee73744acbb036.png",
+        "paper_title": "2025年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fe0dc488b4fbfc329869",
+        "question_number": 123,
+        "source_jsonl_line": 33421
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0198_3dc04c5c449ca981.png",
+        "paper_title": "2025年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_18c5fa1d433cb11897f1",
+        "question_number": 124,
+        "source_jsonl_line": 33422
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0205_40ee73744acbb036.png",
+        "paper_title": "2025年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_47b6d804e12ff6c88f97",
+        "question_number": 125,
+        "source_jsonl_line": 33423
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0145_40ee73744acbb036.png",
+        "paper_title": "2025年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_23cf47519a19627f4c78",
+        "question_number": 106,
+        "source_jsonl_line": 44131
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0145_40ee73744acbb036.png",
+        "paper_title": "2025年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_04d15411c72baaf655a6",
+        "question_number": 107,
+        "source_jsonl_line": 44132
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0145_40ee73744acbb036.png",
+        "paper_title": "2025年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_f493710f143ec1212e72",
+        "question_number": 108,
+        "source_jsonl_line": 44133
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0145_40ee73744acbb036.png",
+        "paper_title": "2025年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_b4439a370728b97d8d82",
+        "question_number": 109,
+        "source_jsonl_line": 44134
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0167_3dc04c5c449ca981.png",
+        "paper_title": "2025年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_f95c9c9a035ae58153c8",
+        "question_number": 110,
+        "source_jsonl_line": 44135
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0101_40ee73744acbb036.png",
+        "paper_title": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_b971062b506bc8758a26",
+        "question_number": 96,
+        "source_jsonl_line": 44236
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0097_3dc04c5c449ca981.png",
+        "paper_title": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_1c60517753b8d210a1bd",
+        "question_number": 97,
+        "source_jsonl_line": 44237
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0101_40ee73744acbb036.png",
+        "paper_title": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_661b5201c6f2d07ee808",
+        "question_number": 98,
+        "source_jsonl_line": 44238
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0097_3dc04c5c449ca981.png",
+        "paper_title": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_ad8e65023d940db53dd3",
+        "question_number": 99,
+        "source_jsonl_line": 44239
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0101_40ee73744acbb036.png",
+        "paper_title": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_0842fb04bbae81ebc306",
+        "question_number": 100,
+        "source_jsonl_line": 44240
+      }
+    ],
+    "sha256": "d06a5d331bd7514d458d72d64e1384a76fe667e17fa3b9fa5aeab2e7d9b2303f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2019-2023年通信领域电信业务及新兴业务收入发展情况",
+  "unit": "(万亿元)",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d06a5d331bd7514d458d72d6/column_band_01.jpg",
+        "review-crops/da_d06a5d331bd7514d458d72d6/column_band_02.jpg",
+        "review-crops/da_d06a5d331bd7514d458d72d6/column_band_03.jpg",
+        "review-crops/da_d06a5d331bd7514d458d72d6/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.185",
+      "crop_verification_elapsed_seconds:3.288",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

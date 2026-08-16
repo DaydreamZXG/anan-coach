@@ -1,0 +1,236 @@
+{
+  "asset_id": "da_6c3b14170b9420d839fe25a6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 10,
+        "min": 0,
+        "ticks": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 40,
+        "min": -80,
+        "ticks": [
+          -80,
+          -60,
+          -40,
+          -20,
+          0,
+          20,
+          40
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2017年9月",
+    "10月",
+    "11月",
+    "12月",
+    "2018年1-2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "日均产量（万辆）",
+      "style": {
+        "dash": null,
+        "fill": "lightgray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "增速（%）",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "日均产量（万辆）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万辆",
+      "values": [
+        4.0,
+        3.4,
+        4.2,
+        4.0,
+        3.0,
+        3.3,
+        3.3,
+        3.4,
+        3.3,
+        2.9,
+        2.8,
+        3.4
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "增速（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -0.3,
+        -4.4,
+        0.5,
+        2.2,
+        -5.8,
+        -1.6,
+        15.7,
+        20.5,
+        12.0,
+        4.3,
+        0.3,
+        -8.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0180_267fa83aa2a30cb0.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0180_267fa83aa2a30cb0.png",
+        "paper_title": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_ac61401070cacc5ecf6d",
+        "question_number": 116,
+        "source_jsonl_line": 54480
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0180_267fa83aa2a30cb0.png",
+        "paper_title": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_3f62ff2d4650d059ab9b",
+        "question_number": 117,
+        "source_jsonl_line": 54481
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0180_267fa83aa2a30cb0.png",
+        "paper_title": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_615cae77fb8f764f17fb",
+        "question_number": 118,
+        "source_jsonl_line": 54482
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0180_267fa83aa2a30cb0.png",
+        "paper_title": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_539ebad2898e8244fac8",
+        "question_number": 119,
+        "source_jsonl_line": 54483
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0180_267fa83aa2a30cb0.png",
+        "paper_title": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_c79a7bfa802c0f0ca170",
+        "question_number": 120,
+        "source_jsonl_line": 54484
+      }
+    ],
+    "sha256": "6c3b14170b9420d839fe25a667e7fe02eb0e4a35f5256d37f38d7d147be2dec2"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "轿车同比增速及日均产量",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6c3b14170b9420d839fe25a6/column_band_01.jpg",
+        "review-crops/da_6c3b14170b9420d839fe25a6/column_band_02.jpg",
+        "review-crops/da_6c3b14170b9420d839fe25a6/column_band_03.jpg",
+        "review-crops/da_6c3b14170b9420d839fe25a6/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.069",
+      "crop_verification_elapsed_seconds:7.742",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_chart_point:2017年10月:日均产量（万辆）",
+      "crop_note:ignored_unknown_chart_point:2017年11月:日均产量（万辆）",
+      "crop_note:ignored_unknown_chart_point:2018年3月:日均产量（万辆）",
+      "crop_note:ignored_unknown_chart_point:2018年4月:日均产量（万辆）",
+      "crop_note:ignored_unknown_chart_point:2018年5月:日均产量（万辆）",
+      "crop_note:ignored_unknown_chart_point:2018年6月:日均产量（万辆）",
+      "crop_note:ignored_unknown_chart_point:2018年7月:日均产量（万辆）",
+      "crop_note:ignored_unknown_chart_point:2018年8月:日均产量（万辆）",
+      "crop_note:ignored_unknown_chart_point:2018年9月:日均产量（万辆）",
+      "crop_note:ignored_unknown_chart_point:2017年10月:增速（%）",
+      "crop_note:ignored_unknown_chart_point:2017年11月:增速（%）",
+      "crop_note:ignored_unknown_chart_point:2018年3月:增速（%）",
+      "crop_note:ignored_unknown_chart_point:2018年4月:增速（%）",
+      "crop_note:ignored_unknown_chart_point:2018年5月:增速（%）",
+      "crop_note:ignored_unknown_chart_point:2018年6月:增速（%）",
+      "crop_note:ignored_unknown_chart_point:2018年7月:增速（%）",
+      "crop_note:ignored_unknown_chart_point:2018年8月:增速（%）",
+      "crop_note:ignored_unknown_chart_point:2018年9月:增速（%）"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

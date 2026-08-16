@@ -1,0 +1,420 @@
+{
+  "asset_id": "da_3d410be5d061e69cc2fb16d2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "行业",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "数量",
+        "unit": "件"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/宁夏/2020年宁夏公务员录用考试《行测》试题（网友回忆版）_images/img_0253_a6356fd2997a3902.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）_images/img_0253_a6356fd2997a3902.png",
+        "paper_title": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_eeaf6dae67b236230c4b",
+        "question_number": 116,
+        "source_jsonl_line": 26006
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）_images/img_0264_b926f5bbadd25089.png",
+        "paper_title": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_3f909fb577dd0518c8c0",
+        "question_number": 117,
+        "source_jsonl_line": 26007
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）_images/img_0253_a6356fd2997a3902.png",
+        "paper_title": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_77bc6ee330312891f859",
+        "question_number": 118,
+        "source_jsonl_line": 26008
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）_images/img_0264_b926f5bbadd25089.png",
+        "paper_title": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_7a4ff39fe6829f39295c",
+        "question_number": 119,
+        "source_jsonl_line": 26009
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）_images/img_0264_b926f5bbadd25089.png",
+        "paper_title": "2020年宁夏公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_bfd5efa01b6ad18ad345",
+        "question_number": 120,
+        "source_jsonl_line": 26010
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江西省公务员录用考试《行测》试题（乡镇）（网友回忆版）_images/img_0217_a6356fd2997a3902.png",
+        "paper_title": "2020年江西省公务员录用考试《行测》试题（乡镇）（网友回忆版）",
+        "question_id": "pq_67dd26e98228ea8a3791",
+        "question_number": 106,
+        "source_jsonl_line": 53280
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江西省公务员录用考试《行测》试题（乡镇）（网友回忆版）_images/img_0195_b926f5bbadd25089.png",
+        "paper_title": "2020年江西省公务员录用考试《行测》试题（乡镇）（网友回忆版）",
+        "question_id": "pq_7f1a9eb353f97b96f028",
+        "question_number": 107,
+        "source_jsonl_line": 53281
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江西省公务员录用考试《行测》试题（乡镇）（网友回忆版）_images/img_0195_b926f5bbadd25089.png",
+        "paper_title": "2020年江西省公务员录用考试《行测》试题（乡镇）（网友回忆版）",
+        "question_id": "pq_cf0c7ae59035b6fa3360",
+        "question_number": 108,
+        "source_jsonl_line": 53282
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江西省公务员录用考试《行测》试题（乡镇）（网友回忆版）_images/img_0195_b926f5bbadd25089.png",
+        "paper_title": "2020年江西省公务员录用考试《行测》试题（乡镇）（网友回忆版）",
+        "question_id": "pq_01b240fb1bc38c6f7766",
+        "question_number": 109,
+        "source_jsonl_line": 53283
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江西省公务员录用考试《行测》试题（乡镇）（网友回忆版）_images/img_0195_b926f5bbadd25089.png",
+        "paper_title": "2020年江西省公务员录用考试《行测》试题（乡镇）（网友回忆版）",
+        "question_id": "pq_5dc42038f5a3a0b85bb1",
+        "question_number": 110,
+        "source_jsonl_line": 53284
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江西省公务员录用考试《行测》试题（县级）（网友回忆版）_images/img_0216_b926f5bbadd25089.png",
+        "paper_title": "2020年江西省公务员录用考试《行测》试题（县级）（网友回忆版）",
+        "question_id": "pq_6c2ca9c3f21738befeb9",
+        "question_number": 121,
+        "source_jsonl_line": 53415
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江西省公务员录用考试《行测》试题（县级）（网友回忆版）_images/img_0218_a6356fd2997a3902.png",
+        "paper_title": "2020年江西省公务员录用考试《行测》试题（县级）（网友回忆版）",
+        "question_id": "pq_6e8fe624fff6f34c9a4b",
+        "question_number": 122,
+        "source_jsonl_line": 53416
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江西省公务员录用考试《行测》试题（县级）（网友回忆版）_images/img_0218_a6356fd2997a3902.png",
+        "paper_title": "2020年江西省公务员录用考试《行测》试题（县级）（网友回忆版）",
+        "question_id": "pq_97703f32d44b518f949b",
+        "question_number": 123,
+        "source_jsonl_line": 53417
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江西省公务员录用考试《行测》试题（县级）（网友回忆版）_images/img_0216_b926f5bbadd25089.png",
+        "paper_title": "2020年江西省公务员录用考试《行测》试题（县级）（网友回忆版）",
+        "question_id": "pq_8f7a6509412384ff7567",
+        "question_number": 124,
+        "source_jsonl_line": 53418
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江西省公务员录用考试《行测》试题（县级）（网友回忆版）_images/img_0216_b926f5bbadd25089.png",
+        "paper_title": "2020年江西省公务员录用考试《行测》试题（县级）（网友回忆版）",
+        "question_id": "pq_3e8ded53ea7d24a9a917",
+        "question_number": 125,
+        "source_jsonl_line": 53419
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江西省公务员录用考试《行测》试题（省级）（网友回忆版）_images/img_0370_a6356fd2997a3902.png",
+        "paper_title": "2020年江西省公务员录用考试《行测》试题（省级）（网友回忆版）",
+        "question_id": "pq_61dfa1c094df4c1a2ab9",
+        "question_number": 131,
+        "source_jsonl_line": 53555
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江西省公务员录用考试《行测》试题（省级）（网友回忆版）_images/img_0366_b926f5bbadd25089.png",
+        "paper_title": "2020年江西省公务员录用考试《行测》试题（省级）（网友回忆版）",
+        "question_id": "pq_88afdf873c9c667bfd29",
+        "question_number": 132,
+        "source_jsonl_line": 53556
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江西省公务员录用考试《行测》试题（省级）（网友回忆版）_images/img_0370_a6356fd2997a3902.png",
+        "paper_title": "2020年江西省公务员录用考试《行测》试题（省级）（网友回忆版）",
+        "question_id": "pq_d4775d286006c897cb49",
+        "question_number": 133,
+        "source_jsonl_line": 53557
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江西省公务员录用考试《行测》试题（省级）（网友回忆版）_images/img_0366_b926f5bbadd25089.png",
+        "paper_title": "2020年江西省公务员录用考试《行测》试题（省级）（网友回忆版）",
+        "question_id": "pq_3bc0ea754b73e0d99b69",
+        "question_number": 134,
+        "source_jsonl_line": 53558
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江西省公务员录用考试《行测》试题（省级）（网友回忆版）_images/img_0366_b926f5bbadd25089.png",
+        "paper_title": "2020年江西省公务员录用考试《行测》试题（省级）（网友回忆版）",
+        "question_id": "pq_a9bc5746e5c53f5b8d47",
+        "question_number": 135,
+        "source_jsonl_line": 53559
+      }
+    ],
+    "sha256": "3d410be5d061e69cc2fb16d26edf044ae3e1825aed906914167313a2f2729aa5"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "行业",
+      "数量（件）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "停车收费",
+        "unit": null,
+        "values": [
+          "停车收费",
+          10043
+        ]
+      },
+      {
+        "label": "商品零售",
+        "unit": null,
+        "values": [
+          "商品零售",
+          3118
+        ]
+      },
+      {
+        "label": "交通运输",
+        "unit": null,
+        "values": [
+          "交通运输",
+          2730
+        ]
+      },
+      {
+        "label": "社会服务",
+        "unit": null,
+        "values": [
+          "社会服务",
+          2686
+        ]
+      },
+      {
+        "label": "物业管理",
+        "unit": null,
+        "values": [
+          "物业管理",
+          2587
+        ]
+      },
+      {
+        "label": "医药",
+        "unit": null,
+        "values": [
+          "医药",
+          1790
+        ]
+      },
+      {
+        "label": "资源价格",
+        "unit": null,
+        "values": [
+          "资源价格",
+          1764
+        ]
+      },
+      {
+        "label": "房地产",
+        "unit": null,
+        "values": [
+          "房地产",
+          1105
+        ]
+      },
+      {
+        "label": "住宿、餐饮",
+        "unit": null,
+        "values": [
+          "住宿、餐饮",
+          1060
+        ]
+      },
+      {
+        "label": "教育",
+        "unit": null,
+        "values": [
+          "教育",
+          927
+        ]
+      },
+      {
+        "label": "网络购物",
+        "unit": null,
+        "values": [
+          "网络购物",
+          694
+        ]
+      },
+      {
+        "label": "旅游",
+        "unit": null,
+        "values": [
+          "旅游",
+          459
+        ]
+      },
+      {
+        "label": "邮政通信",
+        "unit": null,
+        "values": [
+          "邮政通信",
+          421
+        ]
+      },
+      {
+        "label": "其他商品价格",
+        "unit": null,
+        "values": [
+          "其他商品价格",
+          206
+        ]
+      },
+      {
+        "label": "机关收费",
+        "unit": null,
+        "values": [
+          "机关收费",
+          172
+        ]
+      },
+      {
+        "label": "农产品及农资产品价格",
+        "unit": null,
+        "values": [
+          "农产品及农资产品价格",
+          157
+        ]
+      },
+      {
+        "label": "金融服务",
+        "unit": null,
+        "values": [
+          "金融服务",
+          105
+        ]
+      },
+      {
+        "label": "律师公证认证检测服务",
+        "unit": null,
+        "values": [
+          "律师公证认证检测服务",
+          82
+        ]
+      },
+      {
+        "label": "网络服务收费",
+        "unit": null,
+        "values": [
+          "网络服务收费",
+          28
+        ]
+      },
+      {
+        "label": "协会社团",
+        "unit": null,
+        "values": [
+          "协会社团",
+          3
+        ]
+      },
+      {
+        "label": "其他",
+        "unit": null,
+        "values": [
+          "其他",
+          7439
+        ]
+      },
+      {
+        "label": "合计",
+        "unit": null,
+        "values": [
+          "合计",
+          37576
+        ]
+      }
+    ]
+  },
+  "title": "2019年5月全国12358价格监管平台受理行业分布",
+  "unit": "件",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3d410be5d061e69cc2fb16d2/row_band_01.jpg",
+        "review-crops/da_3d410be5d061e69cc2fb16d2/row_band_02.jpg",
+        "review-crops/da_3d410be5d061e69cc2fb16d2/row_band_03.jpg",
+        "review-crops/da_3d410be5d061e69cc2fb16d2/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.253",
+      "crop_verification_elapsed_seconds:10.429",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:表格中存在注释信息，未在结构中体现",
+      "crop_note:修正了'其他商品价格'的数量为206，原图中为206，但表格中显示为206，确认无误。",
+      "crop_note:修正了'其他'的数量为7439，原图中为7439，确认无误。",
+      "crop_note:修正了'合计'的数量为37576，原图中为37576，确认无误。",
+      "crop_note:确认'其他行业计入受理总数，但不计入行业排名'为注释信息，未在结构中体现。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

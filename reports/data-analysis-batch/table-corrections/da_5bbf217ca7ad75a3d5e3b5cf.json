@@ -1,0 +1,57 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2015年",
+          "2016年"
+        ],
+        "label": "年份"
+      }
+    ],
+    "columns": [
+      "2015年",
+      "2016年"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "市场类型",
+    "rows": [
+      {
+        "display_label": "在线餐饮外卖市场",
+        "group": null,
+        "label": "在线餐饮外卖市场",
+        "unit": null,
+        "values": [
+          530.6,
+          1761.5
+        ]
+      },
+      {
+        "display_label": "移动出行市场",
+        "group": null,
+        "label": "移动出行市场",
+        "unit": null,
+        "values": [
+          999.0,
+          2038.0
+        ]
+      },
+      {
+        "display_label": "在线旅游市场",
+        "group": null,
+        "label": "在线旅游市场",
+        "unit": null,
+        "values": [
+          4487.2,
+          6138.0
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

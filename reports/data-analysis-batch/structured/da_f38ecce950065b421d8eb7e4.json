@@ -1,0 +1,270 @@
+{
+  "asset_id": "da_f38ecce950065b421d8eb7e4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "总人口 (万人)",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "男性人口 (万人)",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "15~64岁人口 (万人)",
+      "style": {
+        "dash": "solid",
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "65岁以上人口 (万人)",
+      "style": {
+        "dash": "solid",
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "出生率 (%)",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "总人口 (万人)",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        135404,
+        136072,
+        136782,
+        137462,
+        138271
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "男性人口 (万人)",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        69395,
+        69728,
+        70079,
+        70414,
+        70815
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "15_64",
+      "label": "15~64岁人口 (万人)",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        69395,
+        69728,
+        70079,
+        70414,
+        15003
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "65",
+      "label": "65岁以上人口 (万人)",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        4991,
+        6368,
+        8821,
+        14386,
+        100260
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_5",
+      "label": "出生率 (%)",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        12.1,
+        12.08,
+        12.37,
+        12.07,
+        12.95
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2018深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0181_a01369b85d5e7ce5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0181_a01369b85d5e7ce5.png",
+        "paper_title": "2018深圳市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7401b1c17f1bb21f8cf9",
+        "question_number": 91,
+        "source_jsonl_line": 67847
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0181_a01369b85d5e7ce5.png",
+        "paper_title": "2018深圳市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8bbc64a680b5206effa4",
+        "question_number": 92,
+        "source_jsonl_line": 67848
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0181_a01369b85d5e7ce5.png",
+        "paper_title": "2018深圳市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_802d5e7847ec350f3140",
+        "question_number": 93,
+        "source_jsonl_line": 67849
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0181_a01369b85d5e7ce5.png",
+        "paper_title": "2018深圳市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_edd4b55b7d8d01fc99e4",
+        "question_number": 94,
+        "source_jsonl_line": 67850
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0181_a01369b85d5e7ce5.png",
+        "paper_title": "2018深圳市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_441b2aca89067bca84e1",
+        "question_number": 95,
+        "source_jsonl_line": 67851
+      }
+    ],
+    "sha256": "f38ecce950065b421d8eb7e4c5e5c242637a8bf3d560702bc85ae6112e9a011c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2012-2016年全国人口情况统计图",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f38ecce950065b421d8eb7e4/column_band_01.jpg",
+        "review-crops/da_f38ecce950065b421d8eb7e4/column_band_02.jpg",
+        "review-crops/da_f38ecce950065b421d8eb7e4/column_band_03.jpg",
+        "review-crops/da_f38ecce950065b421d8eb7e4/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.848",
+      "crop_verification_elapsed_seconds:8.108",
+      "candidate_value_changes_after_crop:4",
+      "model_uncertainty:图中未明确标注y轴刻度，仅通过数值推断范围",
+      "model_uncertainty:注释中提及的城镇人口数据未在图表中体现，可能影响整体理解",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

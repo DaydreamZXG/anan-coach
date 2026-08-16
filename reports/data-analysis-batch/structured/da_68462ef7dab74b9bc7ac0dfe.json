@@ -1,0 +1,271 @@
+{
+  "asset_id": "da_68462ef7dab74b9bc7ac0dfe",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山西/2008年山西省公务员录用考试《行测》题_images/img_0291_add6f684c552486c.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山西省公务员录用考试《行测》题_images/img_0291_add6f684c552486c.jpg",
+        "paper_title": "2008年山西省公务员录用考试《行测》题",
+        "question_id": "pq_87f9676118493adf0e69",
+        "question_number": 116,
+        "source_jsonl_line": 31050
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山西省公务员录用考试《行测》题_images/img_0266_d4860da1aa7084ca.jpg",
+        "paper_title": "2008年山西省公务员录用考试《行测》题",
+        "question_id": "pq_d154d7233fba0100ee4a",
+        "question_number": 117,
+        "source_jsonl_line": 31051
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山西省公务员录用考试《行测》题_images/img_0266_d4860da1aa7084ca.jpg",
+        "paper_title": "2008年山西省公务员录用考试《行测》题",
+        "question_id": "pq_68dac6ca2b9b330fbae7",
+        "question_number": 118,
+        "source_jsonl_line": 31052
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山西省公务员录用考试《行测》题_images/img_0266_d4860da1aa7084ca.jpg",
+        "paper_title": "2008年山西省公务员录用考试《行测》题",
+        "question_id": "pq_e85e5dd8489e8dc60a35",
+        "question_number": 119,
+        "source_jsonl_line": 31053
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山西省公务员录用考试《行测》题_images/img_0291_add6f684c552486c.jpg",
+        "paper_title": "2008年山西省公务员录用考试《行测》题",
+        "question_id": "pq_8581fbef9d196c944969",
+        "question_number": 120,
+        "source_jsonl_line": 31054
+      }
+    ],
+    "sha256": "68462ef7dab74b9bc7ac0dfec51894e46e0c353836fd41ed27df333bcaef2867"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "全省",
+      "苏南地区",
+      "苏中地区",
+      "苏北地区"
+    ],
+    "corner_header": {
+      "lower_label": "苏南地区",
+      "style": "diagonal",
+      "upper_label": "全省"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "农村常住劳动力资源总量（万人）",
+        "group": "农村常住劳动力资源总量及构成",
+        "label": "农村常住劳动力资源总量及构成｜农村常住劳动力资源总量（万人）",
+        "unit": null,
+        "values": [
+          3060.4,
+          982.4,
+          770.3,
+          1307.7
+        ]
+      },
+      {
+        "display_label": "农村常住劳动力性质构成（%）｜男性",
+        "group": "农村常住劳动力资源总量及构成",
+        "label": "农村常住劳动力资源总量及构成｜农村常住劳动力性质构成（%）｜男性",
+        "unit": null,
+        "values": [
+          48.7,
+          51.6,
+          46.3,
+          47.9
+        ]
+      },
+      {
+        "display_label": "农村常住劳动力性质构成（%）｜女性",
+        "group": "农村常住劳动力资源总量及构成",
+        "label": "农村常住劳动力资源总量及构成｜农村常住劳动力性质构成（%）｜女性",
+        "unit": null,
+        "values": [
+          51.3,
+          48.4,
+          53.7,
+          52.1
+        ]
+      },
+      {
+        "display_label": "农村常住劳动力年龄构成（%）｜20岁及以下",
+        "group": "农村常住劳动力资源总量及构成",
+        "label": "农村常住劳动力资源总量及构成｜农村常住劳动力年龄构成（%）｜20岁及以下",
+        "unit": null,
+        "values": [
+          12.2,
+          11.0,
+          9.3,
+          15.0
+        ]
+      },
+      {
+        "display_label": "农村常住劳动力年龄构成（%）｜21-30岁",
+        "group": "农村常住劳动力资源总量及构成",
+        "label": "农村常住劳动力资源总量及构成｜农村常住劳动力年龄构成（%）｜21-30岁",
+        "unit": null,
+        "values": [
+          14.4,
+          18.5,
+          10.9,
+          13.3
+        ]
+      },
+      {
+        "display_label": "农村常住劳动力年龄构成（%）｜31-40岁",
+        "group": "农村常住劳动力资源总量及构成",
+        "label": "农村常住劳动力资源总量及构成｜农村常住劳动力年龄构成（%）｜31-40岁",
+        "unit": null,
+        "values": [
+          23.2,
+          25.7,
+          22.1,
+          21.9
+        ]
+      },
+      {
+        "display_label": "农村常住劳动力年龄构成（%）｜41-50岁",
+        "group": "农村常住劳动力资源总量及构成",
+        "label": "农村常住劳动力资源总量及构成｜农村常住劳动力年龄构成（%）｜41-50岁",
+        "unit": null,
+        "values": [
+          22.2,
+          21.8,
+          22.9,
+          22.0
+        ]
+      },
+      {
+        "display_label": "农村常住劳动力年龄构成（%）｜50岁以上",
+        "group": "农村常住劳动力资源总量及构成",
+        "label": "农村常住劳动力资源总量及构成｜农村常住劳动力年龄构成（%）｜50岁以上",
+        "unit": null,
+        "values": [
+          28.0,
+          23.0,
+          34.8,
+          27.8
+        ]
+      },
+      {
+        "display_label": "农村常住劳动力文化程度构成（%）｜文盲",
+        "group": "农村常住劳动力资源总量及构成",
+        "label": "农村常住劳动力资源总量及构成｜农村常住劳动力文化程度构成（%）｜文盲",
+        "unit": null,
+        "values": [
+          5.2,
+          2.1,
+          5.2,
+          7.6
+        ]
+      },
+      {
+        "display_label": "农村常住劳动力文化程度构成（%）｜小学",
+        "group": "农村常住劳动力资源总量及构成",
+        "label": "农村常住劳动力资源总量及构成｜农村常住劳动力文化程度构成（%）｜小学",
+        "unit": null,
+        "values": [
+          29.4,
+          25.2,
+          33.5,
+          30.1
+        ]
+      },
+      {
+        "display_label": "农村常住劳动力文化程度构成（%）｜初中",
+        "group": "农村常住劳动力资源总量及构成",
+        "label": "农村常住劳动力资源总量及构成｜农村常住劳动力文化程度构成（%）｜初中",
+        "unit": null,
+        "values": [
+          50.2,
+          54.8,
+          46.6,
+          48.9
+        ]
+      },
+      {
+        "display_label": "农村常住劳动力文化程度构成（%）｜高中",
+        "group": "农村常住劳动力资源总量及构成",
+        "label": "农村常住劳动力资源总量及构成｜农村常住劳动力文化程度构成（%）｜高中",
+        "unit": null,
+        "values": [
+          13.4,
+          15.3,
+          13.1,
+          12.1
+        ]
+      },
+      {
+        "display_label": "农村常住劳动力文化程度构成（%）｜大专及以上",
+        "group": "农村常住劳动力资源总量及构成",
+        "label": "农村常住劳动力资源总量及构成｜农村常住劳动力文化程度构成（%）｜大专及以上",
+        "unit": null,
+        "values": [
+          1.8,
+          8.6,
+          1.6,
+          1.3
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

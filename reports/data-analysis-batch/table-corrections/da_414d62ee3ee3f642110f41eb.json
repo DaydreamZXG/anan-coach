@@ -1,0 +1,237 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "金额（亿元）",
+          "同比增长（%）"
+        ],
+        "label": "收入项目"
+      }
+    ],
+    "columns": [
+      "金额（亿元）",
+      "同比增长（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "同比增长（%）",
+      "style": "diagonal",
+      "upper_label": "金额（亿元）"
+    },
+    "missing_cells": [
+      {
+        "column": "同比增长（%）",
+        "display": "-",
+        "row": "环境保护税"
+      }
+    ],
+    "row_header_label": "同比增长（%）",
+    "rows": [
+      {
+        "display_label": "国内增值税",
+        "group": null,
+        "label": "国内增值税",
+        "unit": null,
+        "values": [
+          47356,
+          12
+        ]
+      },
+      {
+        "display_label": "国内消费税",
+        "group": null,
+        "label": "国内消费税",
+        "unit": null,
+        "values": [
+          9886,
+          16.3
+        ]
+      },
+      {
+        "display_label": "企业所得税",
+        "group": null,
+        "label": "企业所得税",
+        "unit": null,
+        "values": [
+          30754,
+          12.5
+        ]
+      },
+      {
+        "display_label": "个人所得税",
+        "group": null,
+        "label": "个人所得税",
+        "unit": null,
+        "values": [
+          11349,
+          21.1
+        ]
+      },
+      {
+        "display_label": "进口货物增值税、消费税",
+        "group": null,
+        "label": "进口货物增值税、消费税",
+        "unit": null,
+        "values": [
+          13220,
+          12
+        ]
+      },
+      {
+        "display_label": "关税",
+        "group": null,
+        "label": "关税",
+        "unit": null,
+        "values": [
+          2216,
+          -0.9
+        ]
+      },
+      {
+        "display_label": "出口退税",
+        "group": null,
+        "label": "出口退税",
+        "unit": null,
+        "values": [
+          11403,
+          9.2
+        ]
+      },
+      {
+        "display_label": "城市维护建设税",
+        "group": null,
+        "label": "城市维护建设税",
+        "unit": null,
+        "values": [
+          3694,
+          13.7
+        ]
+      },
+      {
+        "display_label": "车辆购置税",
+        "group": null,
+        "label": "车辆购置税",
+        "unit": null,
+        "values": [
+          2684,
+          11.4
+        ]
+      },
+      {
+        "display_label": "印花税",
+        "group": null,
+        "label": "印花税",
+        "unit": null,
+        "values": [
+          1809,
+          1.2
+        ]
+      },
+      {
+        "display_label": "其中：证券交易印花税",
+        "group": null,
+        "label": "其中：证券交易印花税",
+        "unit": null,
+        "values": [
+          881,
+          -6.5
+        ]
+      },
+      {
+        "display_label": "资源税",
+        "group": null,
+        "label": "资源税",
+        "unit": null,
+        "values": [
+          1258,
+          22
+        ]
+      },
+      {
+        "display_label": "环境保护税",
+        "group": null,
+        "label": "环境保护税",
+        "unit": null,
+        "values": [
+          99,
+          null
+        ]
+      },
+      {
+        "display_label": "梨税",
+        "group": "土地和房地产相关税收：",
+        "label": "土地和房地产相关税收：｜梨税",
+        "unit": null,
+        "values": [
+          4517,
+          19.3
+        ]
+      },
+      {
+        "display_label": "土地增值税",
+        "group": "土地和房地产相关税收：",
+        "label": "土地和房地产相关税收：｜土地增值税",
+        "unit": null,
+        "values": [
+          4583,
+          14.7
+        ]
+      },
+      {
+        "display_label": "房产税",
+        "group": "土地和房地产相关税收：",
+        "label": "土地和房地产相关税收：｜房产税",
+        "unit": null,
+        "values": [
+          1967,
+          6.8
+        ]
+      },
+      {
+        "display_label": "城镇土地使用税",
+        "group": "土地和房地产相关税收：",
+        "label": "土地和房地产相关税收：｜城镇土地使用税",
+        "unit": null,
+        "values": [
+          1760,
+          -1.6
+        ]
+      },
+      {
+        "display_label": "耕地占用税",
+        "group": "土地和房地产相关税收：",
+        "label": "土地和房地产相关税收：｜耕地占用税",
+        "unit": null,
+        "values": [
+          1026,
+          -29.2
+        ]
+      },
+      {
+        "display_label": "车船税、船舶吨税、烟叶税等其他各项税收",
+        "group": "土地和房地产相关税收：",
+        "label": "土地和房地产相关税收：｜车船税、船舶吨税、烟叶税等其他各项税收",
+        "unit": null,
+        "values": [
+          711,
+          4.9
+        ]
+      },
+      {
+        "display_label": "收入合计",
+        "group": "土地和房地产相关税收：",
+        "label": "土地和房地产相关税收：｜收入合计",
+        "unit": null,
+        "values": [
+          null,
+          4.9
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

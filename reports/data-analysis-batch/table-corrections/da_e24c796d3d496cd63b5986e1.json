@@ -1,0 +1,201 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "累计（1-5）",
+      "当月",
+      "累计同比增长（%）",
+      "当月同比增长（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "邮电业务总量",
+        "group": null,
+        "label": "邮电业务总量",
+        "unit": "亿元",
+        "values": [
+          10722.8,
+          4274.2,
+          11.4,
+          11.6
+        ]
+      },
+      {
+        "display_label": "邮政业务总量",
+        "group": null,
+        "label": "邮政业务总量",
+        "unit": "亿元",
+        "values": [
+          630.1,
+          133.0,
+          12.7,
+          16.4
+        ]
+      },
+      {
+        "display_label": "电信业务总量",
+        "group": null,
+        "label": "电信业务总量",
+        "unit": "亿元",
+        "values": [
+          10092.7,
+          2141.2,
+          11.3,
+          11.4
+        ]
+      },
+      {
+        "display_label": "函件总数",
+        "group": null,
+        "label": "函件总数",
+        "unit": "万件",
+        "values": [
+          311389.3,
+          62864.3,
+          1.7,
+          2.8
+        ]
+      },
+      {
+        "display_label": "包裹",
+        "group": null,
+        "label": "包裹",
+        "unit": "万件",
+        "values": [
+          2912.7,
+          625.0,
+          -15.8,
+          -5.3
+        ]
+      },
+      {
+        "display_label": "快递",
+        "group": null,
+        "label": "快递",
+        "unit": "万件",
+        "values": [
+          67468.0,
+          14829.1,
+          18.1,
+          21.9
+        ]
+      },
+      {
+        "display_label": "汇票",
+        "group": null,
+        "label": "汇票",
+        "unit": "万笔",
+        "values": [
+          10825.3,
+          2487.6,
+          3.4,
+          3.0
+        ]
+      },
+      {
+        "display_label": "订销报纸累计数",
+        "group": null,
+        "label": "订销报纸累计数",
+        "unit": "万份",
+        "values": [
+          668388.1,
+          137278.6,
+          -0.1,
+          -1.5
+        ]
+      },
+      {
+        "display_label": "订销杂志累计数",
+        "group": null,
+        "label": "订销杂志累计数",
+        "unit": "万份",
+        "values": [
+          42900.2,
+          8916.3,
+          -0.5,
+          -4.3
+        ]
+      },
+      {
+        "display_label": "邮政储蓄期末余额",
+        "group": null,
+        "label": "邮政储蓄期末余额",
+        "unit": "亿元",
+        "values": [
+          null,
+          22788.8,
+          null,
+          20.5
+        ]
+      },
+      {
+        "display_label": "固定传统长途电话通话时长",
+        "group": null,
+        "label": "固定传统长途电话通话时长",
+        "unit": "亿分钟",
+        "values": [
+          352.1,
+          72.4,
+          -4.6,
+          -0.8
+        ]
+      },
+      {
+        "display_label": "移动电话通话时长（合计）",
+        "group": null,
+        "label": "移动电话通话时长（合计）",
+        "unit": "亿分钟",
+        "values": [
+          13770.2,
+          2961.3,
+          17.6,
+          16.4
+        ]
+      },
+      {
+        "display_label": "移动电话长途通话时长",
+        "group": null,
+        "label": "移动电话长途通话时长",
+        "unit": "亿分钟",
+        "values": [
+          895.2,
+          200.6,
+          28.4,
+          24.0
+        ]
+      },
+      {
+        "display_label": "IP电话通话时长",
+        "group": null,
+        "label": "IP电话通话时长",
+        "unit": "亿分钟",
+        "values": [
+          500.0,
+          103.9,
+          -16.8,
+          -20.3
+        ]
+      },
+      {
+        "display_label": "移动短信业务量",
+        "group": null,
+        "label": "移动短信业务量",
+        "unit": "亿条",
+        "values": [
+          3195.4,
+          643.2,
+          11.2,
+          10.4
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,223 @@
+{
+  "asset_id": "da_4d77fa5d7aada5ca2700b3ed",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0148_3c44ff860e0d88f6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0148_3c44ff860e0d88f6.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_6c7db97a1a1752917a64",
+        "question_number": 116,
+        "source_jsonl_line": 10259
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0161_20b1afaffb391399.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_fe80289cf9342735a23b",
+        "question_number": 117,
+        "source_jsonl_line": 10260
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0161_20b1afaffb391399.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_982bee01ea80e26cc0d4",
+        "question_number": 118,
+        "source_jsonl_line": 10261
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0148_3c44ff860e0d88f6.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_f27c2d6bc5789e4e59e9",
+        "question_number": 119,
+        "source_jsonl_line": 10262
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0148_3c44ff860e0d88f6.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_516f1152a212e347b44b",
+        "question_number": 120,
+        "source_jsonl_line": 10263
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0198_3c44ff860e0d88f6.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_dca2cf3588a9230a8c4f",
+        "question_number": 121,
+        "source_jsonl_line": 10394
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0198_3c44ff860e0d88f6.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_0587fc22fc81b6481fef",
+        "question_number": 122,
+        "source_jsonl_line": 10395
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0204_20b1afaffb391399.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_01b50a1d85ebf400ca22",
+        "question_number": 123,
+        "source_jsonl_line": 10396
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0198_3c44ff860e0d88f6.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_aa4056a32ef0b1e817df",
+        "question_number": 124,
+        "source_jsonl_line": 10397
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0204_20b1afaffb391399.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_8cbffdbb2a47e0e1aa72",
+        "question_number": 125,
+        "source_jsonl_line": 10398
+      }
+    ],
+    "sha256": "4d77fa5d7aada5ca2700b3ed26dd69a80ac670799c66fc3f3e4e35e31474a91c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "人均居住面积（平方米）｜城镇",
+      "人均居住面积（平方米）｜农村牧区",
+      "平均每百户家用汽车拥有量（辆）｜城镇",
+      "平均每百户家用汽车拥有量（辆）｜农村牧区",
+      "平均每百户移动电话拥有量（部）｜城镇",
+      "平均每百户移动电话拥有量（部）｜农村牧区"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "人均居住面积（平方米）｜2012年末",
+        "group": null,
+        "label": "人均居住面积（平方米）｜2012年末",
+        "unit": null,
+        "values": [
+          29.89,
+          24.9,
+          23.58,
+          9.27,
+          206.11,
+          201.65
+        ]
+      },
+      {
+        "display_label": "人均居住面积（平方米）｜2013年末",
+        "group": null,
+        "label": "人均居住面积（平方米）｜2013年末",
+        "unit": null,
+        "values": [
+          29.6,
+          26.01,
+          23.72,
+          15.31,
+          202.63,
+          194.55
+        ]
+      },
+      {
+        "display_label": "人均居住面积（平方米）｜2014年末",
+        "group": null,
+        "label": "人均居住面积（平方米）｜2014年末",
+        "unit": null,
+        "values": [
+          30.65,
+          25.8,
+          28.71,
+          17.12,
+          212.13,
+          206.74
+        ]
+      },
+      {
+        "display_label": "人均居住面积（平方米）｜2015年末",
+        "group": null,
+        "label": "人均居住面积（平方米）｜2015年末",
+        "unit": null,
+        "values": [
+          31.39,
+          26.07,
+          32.12,
+          23.08,
+          216.91,
+          220.58
+        ]
+      },
+      {
+        "display_label": "人均居住面积（平方米）｜2016年末",
+        "group": null,
+        "label": "人均居住面积（平方米）｜2016年末",
+        "unit": null,
+        "values": [
+          32.2,
+          27.4,
+          38.48,
+          27.29,
+          222.21,
+          231.53
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

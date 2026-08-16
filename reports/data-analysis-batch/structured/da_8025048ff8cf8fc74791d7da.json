@@ -1,0 +1,231 @@
+{
+  "asset_id": "da_8025048ff8cf8fc74791d7da",
+  "axes": {
+    "x": {
+      "max": 9,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 80,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80
+        ],
+        "title": "幸福指数（满分100）",
+        "unit": null
+      },
+      {
+        "max": 11,
+        "min": 0,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "title": "失业率100%",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "中国内地",
+    "中国香港",
+    "韩国",
+    "哥斯达黎加",
+    "美国",
+    "新加坡",
+    "多米尼加",
+    "俄罗斯",
+    "日本",
+    "越南"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "幸福指数",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "失业率",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "幸福指数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        57.1,
+        41.6,
+        44.4,
+        76.1,
+        30.7,
+        48.2,
+        71.8,
+        34.5,
+        43.3,
+        66.5
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "失业率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        25,
+        25,
+        25,
+        25,
+        30.7,
+        25,
+        71.8,
+        34.5,
+        43.3,
+        66.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2010年国家公务员录用考试《行测》题_images/img_0222_2167e0aacc4c4258.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0222_2167e0aacc4c4258.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_66b6f0ad4421ed88cf93",
+        "question_number": 101,
+        "source_jsonl_line": 17496
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0222_2167e0aacc4c4258.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_e45e9f4652e36d78a1a5",
+        "question_number": 102,
+        "source_jsonl_line": 17497
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0222_2167e0aacc4c4258.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_e85301d94fd79ed6c5da",
+        "question_number": 103,
+        "source_jsonl_line": 17498
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0222_2167e0aacc4c4258.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_d40df3fa4a9a14e038cb",
+        "question_number": 104,
+        "source_jsonl_line": 17499
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0222_2167e0aacc4c4258.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_6bcbd6428d64234ca544",
+        "question_number": 105,
+        "source_jsonl_line": 17500
+      }
+    ],
+    "sha256": "8025048ff8cf8fc74791d7da8e1ecc0f4019218e6f5bc1148ee736a382fca4bc"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8025048ff8cf8fc74791d7da/column_band_01.jpg",
+        "review-crops/da_8025048ff8cf8fc74791d7da/column_band_02.jpg",
+        "review-crops/da_8025048ff8cf8fc74791d7da/column_band_03.jpg",
+        "review-crops/da_8025048ff8cf8fc74791d7da/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.518",
+      "crop_verification_elapsed_seconds:4.893",
+      "candidate_value_changes_after_crop:5",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

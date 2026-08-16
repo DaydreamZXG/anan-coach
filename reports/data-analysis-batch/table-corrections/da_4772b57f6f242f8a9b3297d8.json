@@ -1,0 +1,163 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "东南",
+      "环渤海",
+      "东北",
+      "中部",
+      "西南",
+      "西北"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "城市排名（档次）",
+    "rows": [
+      {
+        "display_label": "前50名｜2002",
+        "group": null,
+        "label": "前50名｜2002",
+        "unit": null,
+        "values": [
+          28,
+          7,
+          5,
+          4,
+          4,
+          2
+        ]
+      },
+      {
+        "display_label": "前50名｜2011",
+        "group": null,
+        "label": "前50名｜2011",
+        "unit": null,
+        "values": [
+          26,
+          8,
+          5,
+          6,
+          2,
+          3
+        ]
+      },
+      {
+        "display_label": "第51-100名｜2002",
+        "group": null,
+        "label": "第51-100名｜2002",
+        "unit": null,
+        "values": [
+          17,
+          11,
+          2,
+          10,
+          6,
+          4
+        ]
+      },
+      {
+        "display_label": "第51-100名｜2011",
+        "group": null,
+        "label": "第51-100名｜2011",
+        "unit": null,
+        "values": [
+          19,
+          10,
+          3,
+          7,
+          6,
+          5
+        ]
+      },
+      {
+        "display_label": "第101-150名｜2002",
+        "group": null,
+        "label": "第101-150名｜2002",
+        "unit": null,
+        "values": [
+          12,
+          9,
+          5,
+          16,
+          4,
+          4
+        ]
+      },
+      {
+        "display_label": "第101-150名｜2011",
+        "group": null,
+        "label": "第101-150名｜2011",
+        "unit": null,
+        "values": [
+          10,
+          6,
+          6,
+          17,
+          7,
+          4
+        ]
+      },
+      {
+        "display_label": "第151-200名｜2002",
+        "group": null,
+        "label": "第151-200名｜2002",
+        "unit": null,
+        "values": [
+          4,
+          2,
+          7,
+          27,
+          7,
+          3
+        ]
+      },
+      {
+        "display_label": "第151-200名｜2011",
+        "group": null,
+        "label": "第151-200名｜2011",
+        "unit": null,
+        "values": [
+          5,
+          4,
+          10,
+          18,
+          8,
+          5
+        ]
+      },
+      {
+        "display_label": "前200名总计｜2002",
+        "group": null,
+        "label": "前200名总计｜2002",
+        "unit": null,
+        "values": [
+          61,
+          29,
+          19,
+          57,
+          21,
+          13
+        ]
+      },
+      {
+        "display_label": "前200名总计｜2011",
+        "group": null,
+        "label": "前200名总计｜2011",
+        "unit": null,
+        "values": [
+          60,
+          28,
+          24,
+          48,
+          23,
+          17
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

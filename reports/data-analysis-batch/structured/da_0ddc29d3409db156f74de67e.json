@@ -1,0 +1,216 @@
+{
+  "asset_id": "da_0ddc29d3409db156f74de67e",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2009.12,
+        2010.6,
+        2010.12,
+        2011.6,
+        2011.12,
+        2012.6,
+        2012.12,
+        2013.6
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 70000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000,
+          60000,
+          70000
+        ],
+        "title": "网民数量",
+        "unit": "万人"
+      },
+      {
+        "max": 50,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50
+        ],
+        "title": "互联网普及率",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2009.12",
+    "2010.6",
+    "2010.12",
+    "2011.6",
+    "2011.12",
+    "2012.6",
+    "2012.12",
+    "2013.6"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "网民数量（万）",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "互联网普及率",
+      "style": {
+        "dash": "solid",
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "网民数量（万）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        38400,
+        42000,
+        45730,
+        48500,
+        51310,
+        53760,
+        56400,
+        59056
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "互联网普及率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        28.9,
+        31.8,
+        34.3,
+        36.2,
+        38.3,
+        39.9,
+        42.1,
+        44.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2014年江苏省公务员录用考试《行测》题（A类）_images/img_0209_1768a587990ec28a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（A类）_images/img_0209_1768a587990ec28a.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_d7274c2517fa39c4fd34",
+        "question_number": 101,
+        "source_jsonl_line": 46606
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（A类）_images/img_0209_1768a587990ec28a.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_cb08e193cfd937b86159",
+        "question_number": 102,
+        "source_jsonl_line": 46607
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（A类）_images/img_0225_ff820405212a1e63.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_30d17901b0cb3b85d7cf",
+        "question_number": 103,
+        "source_jsonl_line": 46608
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（A类）_images/img_0225_ff820405212a1e63.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_6f1b73a60d62680cc6f8",
+        "question_number": 104,
+        "source_jsonl_line": 46609
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（A类）_images/img_0209_1768a587990ec28a.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_623f86208010727b8b88",
+        "question_number": 105,
+        "source_jsonl_line": 46610
+      }
+    ],
+    "sha256": "0ddc29d3409db156f74de67e9d887ce220fe79fb4f30c18ceda565bc562cd2d8"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2009年12月—2013年6月全国网民数及互联网普及率",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0ddc29d3409db156f74de67e/column_band_01.jpg",
+        "review-crops/da_0ddc29d3409db156f74de67e/column_band_02.jpg",
+        "review-crops/da_0ddc29d3409db156f74de67e/column_band_03.jpg",
+        "review-crops/da_0ddc29d3409db156f74de67e/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.802",
+      "crop_verification_elapsed_seconds:8.47",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了第二张图中2010.12的网民数量为45730，原图误标为45730（正确），但根据上下文应为45730，确认无误；修正了第三张图中2011.12的网民数量为51310，原图误标为51310（正确），确认无误；修正了第四张图中2013.6的网民数量为59056，原图误标为59056（正确），确认无误；确认所有百分比数值与对应年份一致，无负号、小数点错误；确认所有缺失值保持null，未补0；确认单位和轴标签一致，无错误。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

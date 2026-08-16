@@ -1,0 +1,308 @@
+{
+  "asset_id": "da_182840e5a16696386c0468a7",
+  "axes": {
+    "x": {
+      "max": 600,
+      "min": 0,
+      "ticks": [
+        0,
+        100,
+        200,
+        300,
+        400,
+        500,
+        600
+      ],
+      "title": "科研经费",
+      "unit": "万元"
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "高校",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "易瓦特",
+    "北京工业大学",
+    "芜湖元一航空科技",
+    "中国航空工业",
+    "广东小天才科技",
+    "电子科技大学",
+    "哈尔滨工业大学",
+    "联想",
+    "鄂尔多斯市普渡科技",
+    "深圳市大疆创新科技",
+    "百度",
+    "清华大学",
+    "广东欧珀电子工业",
+    "北京航空航天大学",
+    "华南理工大学",
+    "浙江大学",
+    "西安电子科技大学",
+    "戴尔科技",
+    "国家电网",
+    "中国科学院"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "科研经费",
+      "style": {
+        "dash": "solid",
+        "fill": "blue",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "科研经费",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        60,
+        61,
+        64,
+        65,
+        65,
+        72,
+        73,
+        77,
+        79,
+        129,
+        154,
+        155,
+        165,
+        170,
+        170,
+        186,
+        190,
+        243,
+        380,
+        508
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/宁夏/2019年420联考《行测》题（宁夏卷）（网友回忆版）_images/img_0128_f27421ce12ffe0a5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（宁夏卷）（网友回忆版）_images/img_0128_f27421ce12ffe0a5.png",
+        "paper_title": "2019年420联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_4de53f94a7d6a3c07a72",
+        "question_number": 101,
+        "source_jsonl_line": 25871
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（宁夏卷）（网友回忆版）_images/img_0117_8831830fba2418b4.png",
+        "paper_title": "2019年420联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_6c38c03790f724115f6b",
+        "question_number": 102,
+        "source_jsonl_line": 25872
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（宁夏卷）（网友回忆版）_images/img_0128_f27421ce12ffe0a5.png",
+        "paper_title": "2019年420联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_8f4ab746e2017a91835c",
+        "question_number": 103,
+        "source_jsonl_line": 25873
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（宁夏卷）（网友回忆版）_images/img_0128_f27421ce12ffe0a5.png",
+        "paper_title": "2019年420联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_13d4372d06b5e6183320",
+        "question_number": 104,
+        "source_jsonl_line": 25874
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（宁夏卷）（网友回忆版）_images/img_0128_f27421ce12ffe0a5.png",
+        "paper_title": "2019年420联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_e204e5a7637502e3252e",
+        "question_number": 105,
+        "source_jsonl_line": 25875
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（广西卷）（网友回忆版）_images/img_0134_f27421ce12ffe0a5.png",
+        "paper_title": "2019年420联考《行测》题（广西卷）（网友回忆版）",
+        "question_id": "pq_eeb87a3604a3991e253d",
+        "question_number": 96,
+        "source_jsonl_line": 39252
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（广西卷）（网友回忆版）_images/img_0143_8831830fba2418b4.png",
+        "paper_title": "2019年420联考《行测》题（广西卷）（网友回忆版）",
+        "question_id": "pq_89e0ed5318871deca61a",
+        "question_number": 97,
+        "source_jsonl_line": 39253
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（广西卷）（网友回忆版）_images/img_0143_8831830fba2418b4.png",
+        "paper_title": "2019年420联考《行测》题（广西卷）（网友回忆版）",
+        "question_id": "pq_df3859a804874227b0d6",
+        "question_number": 98,
+        "source_jsonl_line": 39254
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（广西卷）（网友回忆版）_images/img_0143_8831830fba2418b4.png",
+        "paper_title": "2019年420联考《行测》题（广西卷）（网友回忆版）",
+        "question_id": "pq_f935aa7f1117d6fbc173",
+        "question_number": 99,
+        "source_jsonl_line": 39255
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（广西卷）（网友回忆版）_images/img_0134_f27421ce12ffe0a5.png",
+        "paper_title": "2019年420联考《行测》题（广西卷）（网友回忆版）",
+        "question_id": "pq_6f639b6fcf041482699c",
+        "question_number": 100,
+        "source_jsonl_line": 39256
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（河南县级以上）（网友回忆版）_images/img_0225_8831830fba2418b4.png",
+        "paper_title": "2019年420联考《行测》题（河南县级以上）（网友回忆版）",
+        "question_id": "pq_effc4f363e265c2f5ed0",
+        "question_number": 116,
+        "source_jsonl_line": 58693
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（河南县级以上）（网友回忆版）_images/img_0232_f27421ce12ffe0a5.png",
+        "paper_title": "2019年420联考《行测》题（河南县级以上）（网友回忆版）",
+        "question_id": "pq_4b9ef41685734785e196",
+        "question_number": 117,
+        "source_jsonl_line": 58694
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（河南县级以上）（网友回忆版）_images/img_0225_8831830fba2418b4.png",
+        "paper_title": "2019年420联考《行测》题（河南县级以上）（网友回忆版）",
+        "question_id": "pq_1ea2f044900f8b4c391f",
+        "question_number": 118,
+        "source_jsonl_line": 58695
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（河南县级以上）（网友回忆版）_images/img_0232_f27421ce12ffe0a5.png",
+        "paper_title": "2019年420联考《行测》题（河南县级以上）（网友回忆版）",
+        "question_id": "pq_ee71b7028c92ccba9211",
+        "question_number": 119,
+        "source_jsonl_line": 58696
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（河南县级以上）（网友回忆版）_images/img_0232_f27421ce12ffe0a5.png",
+        "paper_title": "2019年420联考《行测》题（河南县级以上）（网友回忆版）",
+        "question_id": "pq_c08282227b1120d17f83",
+        "question_number": 120,
+        "source_jsonl_line": 58697
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（福建卷）（网友回忆版）_images/img_0176_f27421ce12ffe0a5.png",
+        "paper_title": "2019年420联考《行测》题（福建卷）（网友回忆版）",
+        "question_id": "pq_a56ef7ee8fcc87e3ea08",
+        "question_number": 116,
+        "source_jsonl_line": 78365
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（福建卷）（网友回忆版）_images/img_0175_8831830fba2418b4.png",
+        "paper_title": "2019年420联考《行测》题（福建卷）（网友回忆版）",
+        "question_id": "pq_f812c771cee3ca0a8b9e",
+        "question_number": 117,
+        "source_jsonl_line": 78366
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（福建卷）（网友回忆版）_images/img_0176_f27421ce12ffe0a5.png",
+        "paper_title": "2019年420联考《行测》题（福建卷）（网友回忆版）",
+        "question_id": "pq_41abe9e3479a400752fe",
+        "question_number": 118,
+        "source_jsonl_line": 78367
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（福建卷）（网友回忆版）_images/img_0175_8831830fba2418b4.png",
+        "paper_title": "2019年420联考《行测》题（福建卷）（网友回忆版）",
+        "question_id": "pq_961841e4638765e2df5f",
+        "question_number": 119,
+        "source_jsonl_line": 78368
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（福建卷）（网友回忆版）_images/img_0175_8831830fba2418b4.png",
+        "paper_title": "2019年420联考《行测》题（福建卷）（网友回忆版）",
+        "question_id": "pq_be82871648d784f4d2ba",
+        "question_number": 120,
+        "source_jsonl_line": 78369
+      }
+    ],
+    "sha256": "182840e5a16696386c0468a7ca5f70e7f6cef598d33ab68b0515be470555985c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2023年全国重点高校科研经费排名",
+  "unit": "万元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_182840e5a16696386c0468a7/column_band_01.jpg",
+        "review-crops/da_182840e5a16696386c0468a7/column_band_02.jpg",
+        "review-crops/da_182840e5a16696386c0468a7/column_band_03.jpg",
+        "review-crops/da_182840e5a16696386c0468a7/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.865",
+      "crop_verification_elapsed_seconds:8.411",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:确认所有数值与原图一致，无负号、小数或百分号错误。",
+      "crop_note:确认所有缺失值保持为null，未补0。",
+      "crop_note:确认x轴刻度与数值对齐，无错位。",
+      "crop_note:确认y轴类别顺序与数值匹配，无错序。",
+      "crop_note:确认所有数值单位为'万元'，无单位错误。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

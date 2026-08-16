@@ -1,0 +1,175 @@
+{
+  "asset_id": "da_0e13990f207b9ee5f9db577a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "城镇",
+    "农村"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "男",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "女",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "男",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        55.9,
+        62.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "女",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        44.1,
+        37.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2010年安徽省公务员录用考试《行测》题_images/img_0118_1532fff3c250dfda.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年安徽省公务员录用考试《行测》题_images/img_0118_1532fff3c250dfda.png",
+        "paper_title": "2010年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_d33b869f4750e5683662",
+        "question_number": 126,
+        "source_jsonl_line": 26896
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年安徽省公务员录用考试《行测》题_images/img_0129_30fd465a06a848bc.png",
+        "paper_title": "2010年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_e79a25f7a125bed898a8",
+        "question_number": 127,
+        "source_jsonl_line": 26897
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年安徽省公务员录用考试《行测》题_images/img_0129_30fd465a06a848bc.png",
+        "paper_title": "2010年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_ebcc36494cb2478d01ee",
+        "question_number": 128,
+        "source_jsonl_line": 26898
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年安徽省公务员录用考试《行测》题_images/img_0129_30fd465a06a848bc.png",
+        "paper_title": "2010年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_2aeb32a2f5d234106506",
+        "question_number": 129,
+        "source_jsonl_line": 26899
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年安徽省公务员录用考试《行测》题_images/img_0118_1532fff3c250dfda.png",
+        "paper_title": "2010年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_bbb38622c86778cbbdae",
+        "question_number": 130,
+        "source_jsonl_line": 26900
+      }
+    ],
+    "sha256": "0e13990f207b9ee5f9db577a3af6f6260eeff336db41778cb921e667bdec569a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "城镇与农村网民性别结构",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0e13990f207b9ee5f9db577a/column_band_01.jpg",
+        "review-crops/da_0e13990f207b9ee5f9db577a/column_band_02.jpg",
+        "review-crops/da_0e13990f207b9ee5f9db577a/column_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.214",
+      "crop_verification_elapsed_seconds:4.329",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了农村部分的男、女百分比数值，原图中农村男为62.7%，女为37.3%，与首轮候选一致。",
+      "crop_note:确认城镇部分男为55.9%，女为44.1%，与原图一致。",
+      "crop_note:确认图中百分号、小数点、负号均正确，无缺失值。",
+      "crop_note:确认图例中男为白色填充，女为灰色填充，与原图一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

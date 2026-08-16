@@ -1,0 +1,337 @@
+{
+  "asset_id": "da_850453f75989015969b7037e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2016年山东省公务员录用考试《行测》题_images/img_0112_d54c76600ac2c80e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0112_d54c76600ac2c80e.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_cc1b65b7a5d63118fb76",
+        "question_number": 101,
+        "source_jsonl_line": 29955
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0112_d54c76600ac2c80e.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_d8fee65f69a4555b9833",
+        "question_number": 102,
+        "source_jsonl_line": 29956
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0126_f69916979689a302.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_d88a94a2248f95f18ab9",
+        "question_number": 103,
+        "source_jsonl_line": 29957
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0126_f69916979689a302.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_9ec4a7a05a38c99b8e9b",
+        "question_number": 104,
+        "source_jsonl_line": 29958
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0112_d54c76600ac2c80e.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_621f18518f768acefaf5",
+        "question_number": 105,
+        "source_jsonl_line": 29959
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）_images/img_0231_d54c76600ac2c80e.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）",
+        "question_id": "pq_41e3ba05ab8788c925e9",
+        "question_number": 116,
+        "source_jsonl_line": 102553
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）_images/img_0225_f69916979689a302.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）",
+        "question_id": "pq_6f82ba8f12aad5309188",
+        "question_number": 117,
+        "source_jsonl_line": 102554
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）_images/img_0231_d54c76600ac2c80e.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）",
+        "question_id": "pq_8c54ce8b4cb5c1c773f8",
+        "question_number": 118,
+        "source_jsonl_line": 102555
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）_images/img_0231_d54c76600ac2c80e.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）",
+        "question_id": "pq_05a13ff21a5e19400a39",
+        "question_number": 119,
+        "source_jsonl_line": 102556
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）_images/img_0231_d54c76600ac2c80e.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）",
+        "question_id": "pq_81adda9ae42733655195",
+        "question_number": 120,
+        "source_jsonl_line": 102557
+      }
+    ],
+    "sha256": "850453f75989015969b7037efe9f8a75c43a2a40f2a70ea30a3fb2736d3fb5e0"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "基金类别｜城镇职工基本养老保险",
+      "基金类别｜居民基本养老保险",
+      "基金类别｜城镇职工基本医疗保险",
+      "基金类别｜居民基本医疗保险",
+      "基金类别｜工伤保险",
+      "基金类别｜失业保险",
+      "基金类别｜生育保险",
+      "合计"
+    ],
+    "corner_header": {
+      "lower_label": "资产项目",
+      "style": "diagonal",
+      "upper_label": "基金类别"
+    },
+    "missing_cells": [
+      {
+        "column": "基金类别｜居民基本医疗保险",
+        "display": "-",
+        "row": "债券投资"
+      },
+      {
+        "column": "基金类别｜居民基本养老保险",
+        "display": "-",
+        "row": "委托运营"
+      },
+      {
+        "column": "基金类别｜城镇职工基本医疗保险",
+        "display": "-",
+        "row": "委托运营"
+      },
+      {
+        "column": "基金类别｜居民基本医疗保险",
+        "display": "-",
+        "row": "委托运营"
+      },
+      {
+        "column": "基金类别｜工伤保险",
+        "display": "-",
+        "row": "委托运营"
+      },
+      {
+        "column": "基金类别｜失业保险",
+        "display": "-",
+        "row": "委托运营"
+      },
+      {
+        "column": "基金类别｜生育保险",
+        "display": "-",
+        "row": "委托运营"
+      },
+      {
+        "column": "基金类别｜居民基本养老保险",
+        "display": "-",
+        "row": "协议存款"
+      },
+      {
+        "column": "基金类别｜城镇职工基本医疗保险",
+        "display": "-",
+        "row": "协议存款"
+      },
+      {
+        "column": "基金类别｜居民基本医疗保险",
+        "display": "-",
+        "row": "协议存款"
+      },
+      {
+        "column": "基金类别｜工伤保险",
+        "display": "-",
+        "row": "协议存款"
+      },
+      {
+        "column": "基金类别｜失业保险",
+        "display": "-",
+        "row": "协议存款"
+      },
+      {
+        "column": "基金类别｜生育保险",
+        "display": "-",
+        "row": "协议存款"
+      }
+    ],
+    "row_header_label": "资产项目",
+    "rows": [
+      {
+        "display_label": "基金资产总额",
+        "group": null,
+        "label": "基金资产总额",
+        "unit": null,
+        "values": [
+          29930,
+          3124,
+          8348,
+          1077,
+          1004,
+          3726,
+          518,
+          47727
+        ]
+      },
+      {
+        "display_label": "其中：财政专户存款",
+        "group": null,
+        "label": "其中：财政专户存款",
+        "unit": null,
+        "values": [
+          24218,
+          2829,
+          7406,
+          966,
+          923,
+          3495,
+          474,
+          40311
+        ]
+      },
+      {
+        "display_label": "支出",
+        "group": null,
+        "label": "支出",
+        "unit": null,
+        "values": [
+          1234,
+          145,
+          730,
+          83,
+          73,
+          121,
+          41,
+          2427
+        ]
+      },
+      {
+        "display_label": "暂付款",
+        "group": null,
+        "label": "暂付款",
+        "unit": null,
+        "values": [
+          2544,
+          124,
+          197,
+          28,
+          4,
+          94,
+          2,
+          2993
+        ]
+      },
+      {
+        "display_label": "债券投资",
+        "group": null,
+        "label": "债券投资",
+        "unit": null,
+        "values": [
+          54,
+          26,
+          15,
+          null,
+          4,
+          16,
+          1,
+          116
+        ]
+      },
+      {
+        "display_label": "委托运营",
+        "group": null,
+        "label": "委托运营",
+        "unit": null,
+        "values": [
+          595,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          595
+        ]
+      },
+      {
+        "display_label": "协议存款",
+        "group": null,
+        "label": "协议存款",
+        "unit": null,
+        "values": [
+          1285,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1285
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

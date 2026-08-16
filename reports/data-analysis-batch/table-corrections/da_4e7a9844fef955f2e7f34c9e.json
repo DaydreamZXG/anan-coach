@@ -1,0 +1,121 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "全国",
+      "江苏",
+      "甘肃",
+      "广东",
+      "上海",
+      "浙江",
+      "北京",
+      "四川"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "2016年",
+        "group": null,
+        "label": "2016年",
+        "unit": null,
+        "values": [
+          1318,
+          454,
+          197,
+          219,
+          238,
+          74,
+          81,
+          33
+        ]
+      },
+      {
+        "display_label": "2017年",
+        "group": null,
+        "label": "2017年",
+        "unit": null,
+        "values": [
+          1565,
+          518,
+          281,
+          263,
+          233,
+          80,
+          93,
+          58
+        ]
+      },
+      {
+        "display_label": "2018年",
+        "group": null,
+        "label": "2018年",
+        "unit": null,
+        "values": [
+          1853,
+          554,
+          318,
+          301,
+          233,
+          65,
+          137,
+          77
+        ]
+      },
+      {
+        "display_label": "2019年",
+        "group": null,
+        "label": "2019年",
+        "unit": null,
+        "values": [
+          2018,
+          516,
+          390,
+          363,
+          208,
+          143,
+          154,
+          77
+        ]
+      },
+      {
+        "display_label": "2020年",
+        "group": null,
+        "label": "2020年",
+        "unit": null,
+        "values": [
+          2614,
+          835,
+          457,
+          374,
+          289,
+          174,
+          171,
+          106
+        ]
+      },
+      {
+        "display_label": "2021年",
+        "group": null,
+        "label": "2021年",
+        "unit": null,
+        "values": [
+          3594,
+          1186,
+          643,
+          539,
+          365,
+          230,
+          208,
+          143
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

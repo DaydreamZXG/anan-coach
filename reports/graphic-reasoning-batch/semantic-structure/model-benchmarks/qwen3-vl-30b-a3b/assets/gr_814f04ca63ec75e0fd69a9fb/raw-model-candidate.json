@@ -1,0 +1,1024 @@
+{
+  "cross_panel_patterns": [
+    {
+      "confidence": 0.8,
+      "description": "The star and triangle in the first row are replaced by a pentagon and arrow in the second row, with a rotation of the positions.",
+      "from_panels": [
+        1,
+        2,
+        3
+      ],
+      "subjects": [
+        "star",
+        "triangle"
+      ],
+      "to_panels": [
+        4,
+        5
+      ],
+      "type": "rotation"
+    },
+    {
+      "confidence": 0.7,
+      "description": "The pentagon and arrow are translated to different positions in the grid.",
+      "from_panels": [
+        4,
+        5
+      ],
+      "subjects": [
+        "pentagon",
+        "arrow"
+      ],
+      "to_panels": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "type": "translation"
+    }
+  ],
+  "option_count": 4,
+  "panel_count": 9,
+  "panels": [
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 2,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 10,
+        "symbol_count": 2,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p1e1",
+          "instances": [
+            {
+              "orientation": "unknown",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polygon",
+          "label": "star",
+          "line_character": "straight",
+          "orientation": "unknown",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p1e2",
+          "instances": [
+            {
+              "orientation": "unknown",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "polygon",
+          "label": "triangle",
+          "line_character": "straight",
+          "orientation": "unknown",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p1e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "grid",
+          "label": "grid",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 1,
+      "relations": [
+        {
+          "description": "star is inside the grid",
+          "subjects": [
+            "p1e1",
+            "p1e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "triangle is inside the grid",
+          "subjects": [
+            "p1e2",
+            "p1e3"
+          ],
+          "type": "inside"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 0,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 2,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 10,
+        "symbol_count": 2,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p2e1",
+          "instances": [
+            {
+              "orientation": "unknown",
+              "relative_region": "top"
+            }
+          ],
+          "kind": "polygon",
+          "label": "triangle",
+          "line_character": "straight",
+          "orientation": "unknown",
+          "parts": [],
+          "relative_region": "top",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p2e2",
+          "instances": [
+            {
+              "orientation": "unknown",
+              "relative_region": "bottom_right"
+            }
+          ],
+          "kind": "polygon",
+          "label": "star",
+          "line_character": "straight",
+          "orientation": "unknown",
+          "parts": [],
+          "relative_region": "bottom_right",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p2e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "grid",
+          "label": "grid",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 2,
+      "relations": [
+        {
+          "description": "triangle is inside the grid",
+          "subjects": [
+            "p2e1",
+            "p2e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "star is inside the grid",
+          "subjects": [
+            "p2e2",
+            "p2e3"
+          ],
+          "type": "inside"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 0,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 2,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 10,
+        "symbol_count": 2,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p3e1",
+          "instances": [
+            {
+              "orientation": "unknown",
+              "relative_region": "top"
+            }
+          ],
+          "kind": "polygon",
+          "label": "triangle",
+          "line_character": "straight",
+          "orientation": "unknown",
+          "parts": [],
+          "relative_region": "top",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p3e2",
+          "instances": [
+            {
+              "orientation": "unknown",
+              "relative_region": "bottom_left"
+            }
+          ],
+          "kind": "polygon",
+          "label": "star",
+          "line_character": "straight",
+          "orientation": "unknown",
+          "parts": [],
+          "relative_region": "bottom_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p3e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "grid",
+          "label": "grid",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 3,
+      "relations": [
+        {
+          "description": "triangle is inside the grid",
+          "subjects": [
+            "p3e1",
+            "p3e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "star is inside the grid",
+          "subjects": [
+            "p3e2",
+            "p3e3"
+          ],
+          "type": "inside"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 0,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 2,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 10,
+        "symbol_count": 2,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p4e1",
+          "instances": [
+            {
+              "orientation": "unknown",
+              "relative_region": "top"
+            }
+          ],
+          "kind": "polygon",
+          "label": "pentagon",
+          "line_character": "straight",
+          "orientation": "unknown",
+          "parts": [],
+          "relative_region": "top",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p4e2",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "left"
+            }
+          ],
+          "kind": "arrow",
+          "label": "left arrow",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p4e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "grid",
+          "label": "grid",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 4,
+      "relations": [
+        {
+          "description": "pentagon is inside the grid",
+          "subjects": [
+            "p4e1",
+            "p4e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "left arrow is inside the grid",
+          "subjects": [
+            "p4e2",
+            "p4e3"
+          ],
+          "type": "inside"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 0,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 2,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 10,
+        "symbol_count": 2,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p5e1",
+          "instances": [
+            {
+              "orientation": "unknown",
+              "relative_region": "bottom"
+            }
+          ],
+          "kind": "polygon",
+          "label": "pentagon",
+          "line_character": "straight",
+          "orientation": "unknown",
+          "parts": [],
+          "relative_region": "bottom",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p5e2",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "right"
+            }
+          ],
+          "kind": "arrow",
+          "label": "right arrow",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "right",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p5e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "grid",
+          "label": "grid",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 5,
+      "relations": [
+        {
+          "description": "pentagon is inside the grid",
+          "subjects": [
+            "p5e1",
+            "p5e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "right arrow is inside the grid",
+          "subjects": [
+            "p5e2",
+            "p5e3"
+          ],
+          "type": "inside"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 0,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 10,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p6e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "grid",
+          "label": "grid",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 6,
+      "relations": [],
+      "role": "missing",
+      "topology": {
+        "component_count": 1,
+        "endpoint_count": 0,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 2,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 10,
+        "symbol_count": 2,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p7e1",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "top"
+            }
+          ],
+          "kind": "arrow",
+          "label": "right arrow",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "top",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p7e2",
+          "instances": [
+            {
+              "orientation": "unknown",
+              "relative_region": "bottom"
+            }
+          ],
+          "kind": "polygon",
+          "label": "pentagon",
+          "line_character": "straight",
+          "orientation": "unknown",
+          "parts": [],
+          "relative_region": "bottom",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p7e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "grid",
+          "label": "grid",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "A",
+      "position": 7,
+      "relations": [
+        {
+          "description": "right arrow is inside the grid",
+          "subjects": [
+            "p7e1",
+            "p7e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "pentagon is inside the grid",
+          "subjects": [
+            "p7e2",
+            "p7e3"
+          ],
+          "type": "inside"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 0,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 2,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 10,
+        "symbol_count": 2,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p8e1",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "left"
+            }
+          ],
+          "kind": "arrow",
+          "label": "left arrow",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p8e2",
+          "instances": [
+            {
+              "orientation": "unknown",
+              "relative_region": "bottom"
+            }
+          ],
+          "kind": "polygon",
+          "label": "pentagon",
+          "line_character": "straight",
+          "orientation": "unknown",
+          "parts": [],
+          "relative_region": "bottom",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p8e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "grid",
+          "label": "grid",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "B",
+      "position": 8,
+      "relations": [
+        {
+          "description": "left arrow is inside the grid",
+          "subjects": [
+            "p8e1",
+            "p8e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "pentagon is inside the grid",
+          "subjects": [
+            "p8e2",
+            "p8e3"
+          ],
+          "type": "inside"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 0,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 2,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 10,
+        "symbol_count": 2,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p9e1",
+          "instances": [
+            {
+              "orientation": "unknown",
+              "relative_region": "top"
+            }
+          ],
+          "kind": "polygon",
+          "label": "pentagon",
+          "line_character": "straight",
+          "orientation": "unknown",
+          "parts": [],
+          "relative_region": "top",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p9e2",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "right"
+            }
+          ],
+          "kind": "arrow",
+          "label": "left arrow",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "right",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p9e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "grid",
+          "label": "grid",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "C",
+      "position": 9,
+      "relations": [
+        {
+          "description": "pentagon is inside the grid",
+          "subjects": [
+            "p9e1",
+            "p9e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "left arrow is inside the grid",
+          "subjects": [
+            "p9e2",
+            "p9e3"
+          ],
+          "type": "inside"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 0,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 2,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 10,
+        "symbol_count": 2,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p10e1",
+          "instances": [
+            {
+              "orientation": "unknown",
+              "relative_region": "top"
+            }
+          ],
+          "kind": "polygon",
+          "label": "pentagon",
+          "line_character": "straight",
+          "orientation": "unknown",
+          "parts": [],
+          "relative_region": "top",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p10e2",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "right"
+            }
+          ],
+          "kind": "arrow",
+          "label": "right arrow",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "right",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p10e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "spanning"
+            }
+          ],
+          "kind": "grid",
+          "label": "grid",
+          "line_character": "straight",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "spanning",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "D",
+      "position": 10,
+      "relations": [
+        {
+          "description": "pentagon is inside the grid",
+          "subjects": [
+            "p10e1",
+            "p10e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "right arrow is inside the grid",
+          "subjects": [
+            "p10e2",
+            "p10e3"
+          ],
+          "type": "inside"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 0,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    }
+  ],
+  "schema_version": "graphic-reasoning-model-semantics-v1",
+  "uncertainties": [
+    "The exact transformation rule between the first and second rows is not fully clear due to the change in shape types.",
+    "The orientation of the arrow in the missing panel is uncertain."
+  ],
+  "visual_grammar": "regular_geometry"
+}

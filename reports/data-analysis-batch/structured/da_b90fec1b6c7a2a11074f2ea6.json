@@ -1,0 +1,736 @@
+{
+  "asset_id": "da_b90fec1b6c7a2a11074f2ea6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "住地",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "务工经商",
+        "unit": null
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "工作调动",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "北京",
+    "上海",
+    "河南",
+    "山西",
+    "重庆",
+    "四川"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "series_1",
+      "label": "人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        520.62,
+        703.06,
+        28.0,
+        55.21,
+        44.0,
+        54.49
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_2",
+      "label": "比例",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        73.9,
+        78.3,
+        47.3,
+        59.3,
+        46.6,
+        48.3
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_3",
+      "label": "人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        25.62,
+        14.99,
+        3.04,
+        4.51,
+        4.63,
+        7.17
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_4",
+      "label": "比例",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        3.6,
+        1.7,
+        5.1,
+        4.8,
+        4.9,
+        6.4
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_5",
+      "label": "人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        32.79,
+        17.95,
+        9.44,
+        4.97,
+        18.81,
+        17.7
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_6",
+      "label": "比例",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        4.7,
+        2.0,
+        15.9,
+        5.3,
+        19.9,
+        15.7
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_7",
+      "label": "人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        56.57,
+        75.83,
+        7.08,
+        16.69,
+        8.65,
+        8.41
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_8",
+      "label": "比例",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        8.0,
+        8.4,
+        12.0,
+        17.9,
+        9.2,
+        7.5
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_9",
+      "label": "人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        31.67,
+        42.49,
+        2.23,
+        1.72,
+        5.81,
+        7.09
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_10",
+      "label": "比例",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        4.5,
+        4.7,
+        3.8,
+        1.8,
+        6.1,
+        6.3
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_11",
+      "label": "人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        4.73,
+        9.89,
+        0.97,
+        0.63,
+        2.9,
+        2.75
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_12",
+      "label": "比例",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        0.7,
+        1.1,
+        1.6,
+        0.7,
+        3.1,
+        2.4
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_13",
+      "label": "人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        1.04,
+        null,
+        0.17,
+        0.13,
+        0.13,
+        0.24
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_14",
+      "label": "比例",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        0.1,
+        null,
+        0.3,
+        0.1,
+        0.1,
+        0.2
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_15",
+      "label": "人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        20.57,
+        19.23,
+        4.42,
+        5.0,
+        5.98,
+        8.39
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_16",
+      "label": "比例",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        2.9,
+        2.1,
+        7.5,
+        5.4,
+        6.3,
+        7.4
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_17",
+      "label": "人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        10.84,
+        14.26,
+        3.86,
+        4.31,
+        3.61,
+        6.61
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_18",
+      "label": "比例",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        1.6,
+        1.7,
+        6.5,
+        4.7,
+        3.8,
+        5.8
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_19",
+      "label": "人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        704.45,
+        897.7,
+        59.21,
+        93.17,
+        94.52,
+        112.86
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_20",
+      "label": "比例",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/重庆/2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0085_3db2fd8ba4b950a2.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0085_3db2fd8ba4b950a2.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_794e558d9c6d441b133b",
+        "question_number": 101,
+        "source_jsonl_line": 93364
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0085_3db2fd8ba4b950a2.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_3704f0da1150e6290f88",
+        "question_number": 102,
+        "source_jsonl_line": 93365
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0085_3db2fd8ba4b950a2.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_f8e7c6f040d82812bf7b",
+        "question_number": 103,
+        "source_jsonl_line": 93366
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0085_3db2fd8ba4b950a2.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_e6ccdeb62b7816633391",
+        "question_number": 104,
+        "source_jsonl_line": 93367
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年重庆市公务员录用考试《行测》题（下半年）_images/img_0085_3db2fd8ba4b950a2.png",
+        "paper_title": "2015年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_ca4b540914846eb92711",
+        "question_number": 105,
+        "source_jsonl_line": 93368
+      }
+    ],
+    "sha256": "b90fec1b6c7a2a11074f2ea63551a265a827ff32d0613458751c9a93119174bb"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "住地",
+      "务工经商人数",
+      "工作调动人数",
+      "学习培训人数",
+      "随迁家属人数",
+      "投亲靠友人数",
+      "拆迁搬家人数",
+      "寄挂户口人数",
+      "婚姻嫁娶人数",
+      "其他人数",
+      "合计人数",
+      "务工经商比例",
+      "工作调动比例",
+      "学习培训比例",
+      "随迁家属比例",
+      "投亲靠友比例",
+      "拆迁搬家比例",
+      "寄挂户口比例",
+      "婚姻嫁娶比例",
+      "其他比例",
+      "合计比例"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "北京",
+        "unit": null,
+        "values": [
+          "北京",
+          520.62,
+          25.62,
+          32.79,
+          56.57,
+          31.67,
+          4.73,
+          1.04,
+          20.57,
+          10.84,
+          704.45,
+          73.9,
+          3.6,
+          4.7,
+          8.0,
+          4.5,
+          0.7,
+          0.1,
+          2.9,
+          1.6,
+          100.0
+        ]
+      },
+      {
+        "label": "上海",
+        "unit": null,
+        "values": [
+          "上海",
+          703.06,
+          14.99,
+          17.95,
+          75.83,
+          42.49,
+          9.89,
+          null,
+          19.23,
+          14.26,
+          897.7,
+          78.3,
+          1.7,
+          2.0,
+          8.4,
+          4.7,
+          1.1,
+          null,
+          2.1,
+          1.7,
+          100.0
+        ]
+      },
+      {
+        "label": "河南",
+        "unit": null,
+        "values": [
+          "河南",
+          28.0,
+          3.04,
+          9.44,
+          7.08,
+          2.23,
+          0.97,
+          0.17,
+          4.42,
+          3.86,
+          59.21,
+          47.3,
+          5.1,
+          15.9,
+          12.0,
+          3.8,
+          1.6,
+          0.3,
+          7.5,
+          6.5,
+          100.0
+        ]
+      },
+      {
+        "label": "山西",
+        "unit": null,
+        "values": [
+          "山西",
+          55.21,
+          4.51,
+          4.97,
+          16.69,
+          1.72,
+          0.63,
+          0.13,
+          5.0,
+          4.31,
+          93.17,
+          59.3,
+          4.8,
+          5.3,
+          17.9,
+          1.8,
+          0.7,
+          0.1,
+          5.4,
+          4.7,
+          100.0
+        ]
+      },
+      {
+        "label": "重庆",
+        "unit": null,
+        "values": [
+          "重庆",
+          44.0,
+          4.63,
+          18.81,
+          8.65,
+          5.81,
+          2.9,
+          0.13,
+          5.98,
+          3.61,
+          94.52,
+          46.6,
+          4.9,
+          19.9,
+          9.2,
+          6.1,
+          3.1,
+          0.1,
+          6.3,
+          3.8,
+          100.0
+        ]
+      },
+      {
+        "label": "四川",
+        "unit": null,
+        "values": [
+          "四川",
+          54.49,
+          7.17,
+          17.7,
+          8.41,
+          7.09,
+          2.75,
+          0.24,
+          8.39,
+          6.61,
+          112.86,
+          48.3,
+          6.4,
+          15.7,
+          7.5,
+          6.3,
+          2.4,
+          0.2,
+          7.4,
+          5.8,
+          100.0
+        ]
+      }
+    ]
+  },
+  "title": "按迁移原因统计的户口登记地在外省的人口情况",
+  "unit": "万人;%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b90fec1b6c7a2a11074f2ea6/row_band_01.jpg",
+        "review-crops/da_b90fec1b6c7a2a11074f2ea6/row_band_02.jpg",
+        "review-crops/da_b90fec1b6c7a2a11074f2ea6/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:36.433",
+      "crop_verification_elapsed_seconds:19.485",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:'寄挂户口'在'上海'的'人数'为'--'，表示缺失值，已标记为null",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

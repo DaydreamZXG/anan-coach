@@ -1,0 +1,85 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "投资总额",
+      "住宅投资",
+      "同比增长率",
+      "住宅同比增长率"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "住宅",
+      "style": "diagonal",
+      "upper_label": "同比增长（%）"
+    },
+    "missing_cells": [],
+    "row_header_label": "住宅",
+    "rows": [
+      {
+        "display_label": "全国总计",
+        "group": null,
+        "label": "全国总计",
+        "unit": null,
+        "values": [
+          84895,
+          63980,
+          12.7,
+          14.9
+        ]
+      },
+      {
+        "display_label": "东部地区",
+        "group": null,
+        "label": "东部地区",
+        "unit": null,
+        "values": [
+          45306,
+          33231,
+          11.5,
+          13.3
+        ]
+      },
+      {
+        "display_label": "中部地区",
+        "group": null,
+        "label": "中部地区",
+        "unit": null,
+        "values": [
+          17720,
+          14330,
+          20.0,
+          23.7
+        ]
+      },
+      {
+        "display_label": "西部地区",
+        "group": null,
+        "label": "西部地区",
+        "unit": null,
+        "values": [
+          18717,
+          14002,
+          10.0,
+          11.8
+        ]
+      },
+      {
+        "display_label": "东北地区",
+        "group": null,
+        "label": "东北地区",
+        "unit": null,
+        "values": [
+          3152,
+          2417,
+          8.1,
+          7.6
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

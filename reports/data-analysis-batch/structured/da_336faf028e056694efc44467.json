@@ -1,0 +1,222 @@
+{
+  "asset_id": "da_336faf028e056694efc44467",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河南/2008年河南省公务员录用考试《行测》题_images/img_0099_d19f010dc5eeaa08.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河南省公务员录用考试《行测》题_images/img_0099_d19f010dc5eeaa08.png",
+        "paper_title": "2008年河南省公务员录用考试《行测》题",
+        "question_id": "pq_98646a63c422439e972f",
+        "question_number": 131,
+        "source_jsonl_line": 56993
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河南省公务员录用考试《行测》题_images/img_0100_ca249856f9b0c603.png",
+        "paper_title": "2008年河南省公务员录用考试《行测》题",
+        "question_id": "pq_47c1be445924967a9b24",
+        "question_number": 132,
+        "source_jsonl_line": 56994
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河南省公务员录用考试《行测》题_images/img_0099_d19f010dc5eeaa08.png",
+        "paper_title": "2008年河南省公务员录用考试《行测》题",
+        "question_id": "pq_f5f9280d134710b90f02",
+        "question_number": 133,
+        "source_jsonl_line": 56995
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河南省公务员录用考试《行测》题_images/img_0100_ca249856f9b0c603.png",
+        "paper_title": "2008年河南省公务员录用考试《行测》题",
+        "question_id": "pq_dca816a4fa99f0992f9f",
+        "question_number": 134,
+        "source_jsonl_line": 56996
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河南省公务员录用考试《行测》题_images/img_0099_d19f010dc5eeaa08.png",
+        "paper_title": "2008年河南省公务员录用考试《行测》题",
+        "question_id": "pq_64df5f225042f1e010b8",
+        "question_number": 135,
+        "source_jsonl_line": 56997
+      }
+    ],
+    "sha256": "336faf028e056694efc4446784c498d4c647a08d45c2a86268004b67c9f02736"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "年末数｜2004",
+          "年末数｜2005"
+        ],
+        "label": "年末数"
+      },
+      {
+        "columns": [
+          "比重｜2004",
+          "比重｜2005"
+        ],
+        "label": "比重"
+      }
+    ],
+    "columns": [
+      "年末数｜2004",
+      "年末数｜2005",
+      "比重｜2004",
+      "比重｜2005"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "全国总人口",
+        "group": null,
+        "label": "全国总人口",
+        "unit": null,
+        "values": [
+          129988,
+          130756,
+          100,
+          100
+        ]
+      },
+      {
+        "display_label": "其中：城镇",
+        "group": null,
+        "label": "其中：城镇",
+        "unit": null,
+        "values": [
+          54283,
+          56212,
+          41.8,
+          43
+        ]
+      },
+      {
+        "display_label": "乡村",
+        "group": null,
+        "label": "乡村",
+        "unit": null,
+        "values": [
+          75705,
+          74544,
+          58.2,
+          57
+        ]
+      },
+      {
+        "display_label": "其中：男性",
+        "group": null,
+        "label": "其中：男性",
+        "unit": null,
+        "values": [
+          66796,
+          67375,
+          51.5,
+          51.5
+        ]
+      },
+      {
+        "display_label": "女性",
+        "group": null,
+        "label": "女性",
+        "unit": null,
+        "values": [
+          63012,
+          63381,
+          48.5,
+          48.5
+        ]
+      },
+      {
+        "display_label": "其中：0-14岁",
+        "group": null,
+        "label": "其中：0-14岁",
+        "unit": null,
+        "values": [
+          27947,
+          26504,
+          21.5,
+          20.3
+        ]
+      },
+      {
+        "display_label": "15-64岁",
+        "group": null,
+        "label": "15-64岁",
+        "unit": null,
+        "values": [
+          92184,
+          94197,
+          70.9,
+          72
+        ]
+      },
+      {
+        "display_label": "65岁及以上",
+        "group": null,
+        "label": "65岁及以上",
+        "unit": null,
+        "values": [
+          9857,
+          10055,
+          7.6,
+          7.7
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

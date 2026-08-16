@@ -1,0 +1,160 @@
+{
+  "asset_id": "da_2c321ba5cee2929d00bdf2b0",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2008,
+        2009,
+        2010,
+        2011,
+        2012
+      ],
+      "title": "时间",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 12000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000,
+          12000
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "研究与实验发展（R&D）经费支出",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "R_D",
+      "label": "研究与实验发展（R&D）经费支出",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        4616,
+        5802,
+        7063,
+        9587,
+        10240
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2014年吉林省政法干警考试《行政职业能力测验》题_images/img_0112_2fcebe12aa8ae725.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省政法干警考试《行政职业能力测验》题_images/img_0112_2fcebe12aa8ae725.png",
+        "paper_title": "2014年吉林省政法干警考试《行政职业能力测验》题",
+        "question_id": "pq_8109fdc1b23e0e720a81",
+        "question_number": 101,
+        "source_jsonl_line": 41161
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省政法干警考试《行政职业能力测验》题_images/img_0107_b8a1c867f62707b6.png",
+        "paper_title": "2014年吉林省政法干警考试《行政职业能力测验》题",
+        "question_id": "pq_8ee408ff42244e80bb41",
+        "question_number": 102,
+        "source_jsonl_line": 41162
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省政法干警考试《行政职业能力测验》题_images/img_0107_b8a1c867f62707b6.png",
+        "paper_title": "2014年吉林省政法干警考试《行政职业能力测验》题",
+        "question_id": "pq_ba86abdf02d1ff1d937a",
+        "question_number": 103,
+        "source_jsonl_line": 41163
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省政法干警考试《行政职业能力测验》题_images/img_0107_b8a1c867f62707b6.png",
+        "paper_title": "2014年吉林省政法干警考试《行政职业能力测验》题",
+        "question_id": "pq_91a886db4ef6a485fc5d",
+        "question_number": 104,
+        "source_jsonl_line": 41164
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省政法干警考试《行政职业能力测验》题_images/img_0107_b8a1c867f62707b6.png",
+        "paper_title": "2014年吉林省政法干警考试《行政职业能力测验》题",
+        "question_id": "pq_f64a309936c158bf300b",
+        "question_number": 105,
+        "source_jsonl_line": 41165
+      }
+    ],
+    "sha256": "2c321ba5cee2929d00bdf2b063ff375c7852b762a55bf4eafa9f784e108ad88d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2008—2012年研究与实验发展（R&D）经费支出",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2c321ba5cee2929d00bdf2b0/column_band_01.jpg",
+        "review-crops/da_2c321ba5cee2929d00bdf2b0/column_band_02.jpg",
+        "review-crops/da_2c321ba5cee2929d00bdf2b0/column_band_03.jpg",
+        "review-crops/da_2c321ba5cee2929d00bdf2b0/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.982",
+      "crop_verification_elapsed_seconds:3.952",
+      "candidate_value_changes_after_crop:1",
+      "crop_note:combined_crop_response_malformed;used_individual_crop_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

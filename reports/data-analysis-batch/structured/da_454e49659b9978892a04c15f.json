@@ -1,0 +1,259 @@
+{
+  "asset_id": "da_454e49659b9978892a04c15f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0197_154384b1862365bd.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0197_154384b1862365bd.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_3d597f5cf45436425922",
+        "question_number": 121,
+        "source_jsonl_line": 50301
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0197_154384b1862365bd.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_d64a4cc0bee0fb55fa0c",
+        "question_number": 122,
+        "source_jsonl_line": 50302
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0197_154384b1862365bd.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_836df1b68ea5798a77d7",
+        "question_number": 123,
+        "source_jsonl_line": 50303
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0197_154384b1862365bd.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_aacf4e637839faf32695",
+        "question_number": 124,
+        "source_jsonl_line": 50304
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0206_15ecf1cfa6541141.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_a8da1bd487df640caeb9",
+        "question_number": 125,
+        "source_jsonl_line": 50305
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0163_154384b1862365bd.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_267955e9a005309881d8",
+        "question_number": 116,
+        "source_jsonl_line": 50566
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0163_154384b1862365bd.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_5cc59a98e94f52eb9429",
+        "question_number": 117,
+        "source_jsonl_line": 50567
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0163_154384b1862365bd.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_f0a4a990a8ce62ba677c",
+        "question_number": 118,
+        "source_jsonl_line": 50568
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0190_15ecf1cfa6541141.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_86cafaa7b6d9e093d32a",
+        "question_number": 119,
+        "source_jsonl_line": 50569
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0163_154384b1862365bd.png",
+        "paper_title": "2024年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_956dc94c8796321b4db5",
+        "question_number": 120,
+        "source_jsonl_line": 50570
+      }
+    ],
+    "sha256": "454e49659b9978892a04c15f5feeb50644dd852679bb12f169f8d3e5c0ae4a37"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2022年1—3月累计",
+      "2022年1—6月累计",
+      "2022年1—9月累计",
+      "2022年1—12月累计",
+      "2023年1—3月累计",
+      "2023年1—6月累计"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "地区生产总值（亿元）",
+        "unit": null,
+        "values": [
+          4004.0,
+          7879.0,
+          12221.0,
+          16908.0,
+          4230.0,
+          8317.0
+        ]
+      },
+      {
+        "label": "第三产业增加值占比（%）",
+        "unit": null,
+        "values": [
+          64.3,
+          63.3,
+          62.9,
+          62.2,
+          65.4,
+          64.8
+        ]
+      },
+      {
+        "label": "固定资产投资（亿元）",
+        "unit": null,
+        "values": [
+          1323.0,
+          3040.0,
+          4512.0,
+          5875.0,
+          1406.0,
+          3111.0
+        ]
+      },
+      {
+        "label": "社会消费品零售总额（亿元）",
+        "unit": null,
+        "values": [
+          2112.0,
+          4000.0,
+          5833.0,
+          7832.0,
+          2252.0,
+          4358.0
+        ]
+      },
+      {
+        "label": "进出口总额（亿元）",
+        "unit": null,
+        "values": [
+          1388.0,
+          2988.0,
+          4566.0,
+          6292.0,
+          1443.0,
+          2915.0
+        ]
+      },
+      {
+        "label": "出口占进出口总额的比重（%）",
+        "unit": null,
+        "values": [
+          58.1,
+          59.9,
+          59.7,
+          60.8,
+          57.8,
+          58.1
+        ]
+      },
+      {
+        "label": "实际利用外资（亿美元）",
+        "unit": null,
+        "values": [
+          22.8,
+          35.3,
+          41.3,
+          48.5,
+          33.0,
+          39.6
+        ]
+      },
+      {
+        "label": "工业用电量（亿千瓦时）",
+        "unit": null,
+        "values": [
+          81.6,
+          169.8,
+          264.3,
+          355.3,
+          81.3,
+          173.3
+        ]
+      }
+    ]
+  },
+  "title": "2022—2023年上半年某地区经济社会发展主要指标",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_454e49659b9978892a04c15f/row_band_01.jpg",
+        "review-crops/da_454e49659b9978892a04c15f/row_band_02.jpg",
+        "review-crops/da_454e49659b9978892a04c15f/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.578",
+      "crop_verification_elapsed_seconds:9.618",
+      "candidate_value_changes_after_crop:0",
+      "table_row_label_column_removed:指标"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

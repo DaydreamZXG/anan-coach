@@ -138,7 +138,18 @@ async function memoryPage(
     captured = definition;
   });
   vi.stubGlobal("wx", {
-    request,
+    request: (options: WechatMiniprogram.RequestOption) => {
+      if (options.url.includes("/api/v2/companion/coach-understanding")) {
+        options.fail?.({
+          errMsg: "request:fail coach understanding unavailable",
+          errno: 0,
+          exception: { reasons: [], retryCount: 0 },
+          useHttpDNS: false,
+        });
+        return;
+      }
+      request(options);
+    },
     reLaunch: () => Promise.resolve(),
     showToast: () => Promise.resolve(),
     showModal: () => undefined,

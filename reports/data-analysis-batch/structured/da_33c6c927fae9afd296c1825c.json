@@ -1,0 +1,258 @@
+{
+  "asset_id": "da_33c6c927fae9afd296c1825c",
+  "axes": {
+    "x": {
+      "max": 9,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 600,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600
+        ],
+        "title": null,
+        "unit": "GW"
+      }
+    ]
+  },
+  "categories": [
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "风电累计装机容量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "光伏累计装机容量",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "风电累计装机容量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "GW",
+      "values": [
+        120.7,
+        159.1,
+        198.0,
+        238.1,
+        282.9,
+        318.8,
+        369.9,
+        432.7,
+        487.3,
+        539.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "光伏累计装机容量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "GW",
+      "values": [
+        15.8,
+        23.2,
+        40.3,
+        70.5,
+        100.5,
+        138.8,
+        179.0,
+        229.1,
+        306.5,
+        404.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2020年浙江公务员考试《行测》（A类）试题（网友回忆版）_images/img_0297_5db57f25628de98c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年浙江公务员考试《行测》（A类）试题（网友回忆版）_images/img_0297_5db57f25628de98c.png",
+        "paper_title": "2020年浙江公务员考试《行测》（A类）试题（网友回忆版）",
+        "question_id": "pq_eb813ae6881043ac341b",
+        "question_number": 91,
+        "source_jsonl_line": 62353
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年浙江公务员考试《行测》（A类）试题（网友回忆版）_images/img_0297_5db57f25628de98c.png",
+        "paper_title": "2020年浙江公务员考试《行测》（A类）试题（网友回忆版）",
+        "question_id": "pq_36feee59c127dec17aac",
+        "question_number": 92,
+        "source_jsonl_line": 62354
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年浙江公务员考试《行测》（A类）试题（网友回忆版）_images/img_0297_5db57f25628de98c.png",
+        "paper_title": "2020年浙江公务员考试《行测》（A类）试题（网友回忆版）",
+        "question_id": "pq_29576912a844af2e28e4",
+        "question_number": 93,
+        "source_jsonl_line": 62355
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年浙江公务员考试《行测》（A类）试题（网友回忆版）_images/img_0297_5db57f25628de98c.png",
+        "paper_title": "2020年浙江公务员考试《行测》（A类）试题（网友回忆版）",
+        "question_id": "pq_2f69d709be72a3cbc67a",
+        "question_number": 94,
+        "source_jsonl_line": 62356
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年浙江公务员考试《行测》（A类）试题（网友回忆版）_images/img_0324_e806cc1b152c9550.png",
+        "paper_title": "2020年浙江公务员考试《行测》（A类）试题（网友回忆版）",
+        "question_id": "pq_fa1cf44d75052ce561b7",
+        "question_number": 95,
+        "source_jsonl_line": 62357
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年浙江公务员考试《行测》（B类）试题（网友回忆版）_images/img_0303_5db57f25628de98c.png",
+        "paper_title": "2020年浙江公务员考试《行测》（B类）试题（网友回忆版）",
+        "question_id": "pq_4a290efd738532dab066",
+        "question_number": 91,
+        "source_jsonl_line": 62453
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年浙江公务员考试《行测》（B类）试题（网友回忆版）_images/img_0301_e806cc1b152c9550.png",
+        "paper_title": "2020年浙江公务员考试《行测》（B类）试题（网友回忆版）",
+        "question_id": "pq_393a39cfe41d0ff952a9",
+        "question_number": 92,
+        "source_jsonl_line": 62454
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年浙江公务员考试《行测》（B类）试题（网友回忆版）_images/img_0301_e806cc1b152c9550.png",
+        "paper_title": "2020年浙江公务员考试《行测》（B类）试题（网友回忆版）",
+        "question_id": "pq_6276865e24055b0064a5",
+        "question_number": 93,
+        "source_jsonl_line": 62455
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年浙江公务员考试《行测》（B类）试题（网友回忆版）_images/img_0303_5db57f25628de98c.png",
+        "paper_title": "2020年浙江公务员考试《行测》（B类）试题（网友回忆版）",
+        "question_id": "pq_33db7135150ce2ddfdbc",
+        "question_number": 94,
+        "source_jsonl_line": 62456
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年浙江公务员考试《行测》（B类）试题（网友回忆版）_images/img_0303_5db57f25628de98c.png",
+        "paper_title": "2020年浙江公务员考试《行测》（B类）试题（网友回忆版）",
+        "question_id": "pq_fcf858ef953ac11cd2b3",
+        "question_number": 95,
+        "source_jsonl_line": 62457
+      }
+    ],
+    "sha256": "33c6c927fae9afd296c1825cc8911bacad65a6425ec3cf5ec907ed43823e172e"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2008〜2017年全球风电及光伏累计装机容量",
+  "unit": "GW",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_33c6c927fae9afd296c1825c/column_band_01.jpg",
+        "review-crops/da_33c6c927fae9afd296c1825c/column_band_02.jpg",
+        "review-crops/da_33c6c927fae9afd296c1825c/column_band_03.jpg",
+        "review-crops/da_33c6c927fae9afd296c1825c/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.811",
+      "crop_verification_elapsed_seconds:12.741",
+      "candidate_value_changes_after_crop:1",
+      "crop_note:修正了2013年风电累计装机容量的值，原为318.7，应为318.8。",
+      "crop_note:修正了2013年光伏累计装机容量的值，原为138.8，应为138.8。",
+      "crop_note:修正了2014年风电累计装机容量的值，原为369.9，应为369.9。",
+      "crop_note:修正了2014年光伏累计装机容量的值，原为179.0，应为179.0。",
+      "crop_note:修正了2015年风电累计装机容量的值，原为432.7，应为432.7。",
+      "crop_note:修正了2015年光伏累计装机容量的值，原为229.1，应为229.1。",
+      "crop_note:修正了2016年风电累计装机容量的值，原为487.3，应为487.3。",
+      "crop_note:修正了2016年光伏累计装机容量的值，原为306.5，应为306.5。",
+      "crop_note:修正了2017年风电累计装机容量的值，原为539.1，应为539.1。",
+      "crop_note:修正了2017年光伏累计装机容量的值，原为404.5，应为404.5。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

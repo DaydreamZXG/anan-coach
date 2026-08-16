@@ -1,0 +1,84 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "证交所集中市场",
+          "上柜市场",
+          "兴柜市场"
+        ],
+        "label": "多层次资本市场"
+      }
+    ],
+    "columns": [
+      "证交所集中市场",
+      "上柜市场",
+      "兴柜市场"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "display_label": "挂牌公司数（家）",
+        "group": null,
+        "label": "挂牌公司数（家）",
+        "unit": null,
+        "values": [
+          809,
+          638,
+          285
+        ]
+      },
+      {
+        "display_label": "资本数",
+        "group": null,
+        "label": "资本数",
+        "unit": null,
+        "values": [
+          6384,
+          667,
+          335
+        ]
+      },
+      {
+        "display_label": "总市值",
+        "group": null,
+        "label": "总市值",
+        "unit": null,
+        "values": [
+          21352,
+          1737,
+          538
+        ]
+      },
+      {
+        "display_label": "挂牌公司营收",
+        "group": null,
+        "label": "挂牌公司营收",
+        "unit": null,
+        "values": [
+          20083,
+          1384,
+          497
+        ]
+      },
+      {
+        "display_label": "总成交值",
+        "group": null,
+        "label": "总成交值",
+        "unit": null,
+        "values": [
+          20789,
+          2987,
+          154
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

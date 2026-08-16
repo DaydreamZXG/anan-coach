@@ -1,0 +1,105 @@
+{
+  "confidence": 1.0,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "粮食｜总产量",
+          "粮食｜单产"
+        ],
+        "label": "粮食"
+      },
+      {
+        "columns": [
+          "棉花｜总产量",
+          "棉花｜单产"
+        ],
+        "label": "棉花"
+      },
+      {
+        "columns": [
+          "油料｜总产量",
+          "油料｜单产"
+        ],
+        "label": "油料"
+      }
+    ],
+    "columns": [
+      "粮食｜总产量",
+      "粮食｜单产",
+      "棉花｜总产量",
+      "棉花｜单产",
+      "油料｜总产量",
+      "油料｜单产"
+    ],
+    "confidence": 1.0,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          4335.7,
+          6120,
+          72.4,
+          945,
+          342.2,
+          4193
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          4426.3,
+          6194,
+          78.5,
+          1043,
+          341.0,
+          4227
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          4511.4,
+          6264,
+          69.8,
+          1012,
+          351.0,
+          4409
+        ]
+      },
+      {
+        "label": "2013",
+        "unit": null,
+        "values": [
+          4528.2,
+          6208,
+          62.1,
+          923,
+          349.6,
+          4398
+        ]
+      },
+      {
+        "label": "2014",
+        "unit": null,
+        "values": [
+          4596.6,
+          6178,
+          66.5,
+          1122,
+          335.9,
+          4344
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

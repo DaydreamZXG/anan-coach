@@ -1,0 +1,12 @@
+{
+  "endpoint": "http://127.0.0.1:18000/v1/models",
+  "httpStatus": 200,
+  "model": "qwen3-vl-30b-a3b",
+  "modelIds": [
+    "qwen3-vl-30b-a3b"
+  ],
+  "observedAt": "2026-08-10T11:12:07Z",
+  "requestedModelPresent": true,
+  "source": "local_health_check",
+  "status": "available"
+}

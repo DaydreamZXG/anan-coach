@@ -1,0 +1,226 @@
+{
+  "asset_id": "da_3c95f653859c6f4c06d8ab2e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0223_2b7b51558d70528b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0223_2b7b51558d70528b.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_30d346d28b1753f913a9",
+        "question_number": 96,
+        "source_jsonl_line": 36658
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0214_1ba82f0901ab2334.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_655ce5089d955a19a70e",
+        "question_number": 97,
+        "source_jsonl_line": 36659
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0223_2b7b51558d70528b.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_7ed68b1c14527cf3e0a2",
+        "question_number": 98,
+        "source_jsonl_line": 36660
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0223_2b7b51558d70528b.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_630c0c413cb5eb39051a",
+        "question_number": 99,
+        "source_jsonl_line": 36661
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0223_2b7b51558d70528b.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_0d0f650e23d4dc578ac6",
+        "question_number": 100,
+        "source_jsonl_line": 36662
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0206_2b7b51558d70528b.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_999818bba0aded8e2b20",
+        "question_number": 96,
+        "source_jsonl_line": 91365
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0206_2b7b51558d70528b.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_e71d60512d97c3b0d7d2",
+        "question_number": 97,
+        "source_jsonl_line": 91366
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0206_2b7b51558d70528b.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_d8aca216fd396d43cc54",
+        "question_number": 98,
+        "source_jsonl_line": 91367
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0206_2b7b51558d70528b.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_b5e8bd306262d44c2ee7",
+        "question_number": 99,
+        "source_jsonl_line": 91368
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0206_2b7b51558d70528b.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_ca43dbfc2768e6195f30",
+        "question_number": 100,
+        "source_jsonl_line": 91369
+      }
+    ],
+    "sha256": "3c95f653859c6f4c06d8ab2e1bf4581fb157e86c7ea057159b24b10b3f18706c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "全国｜绝对值（万亿元）",
+          "全国｜同比增长（%）"
+        ],
+        "label": "全国"
+      },
+      {
+        "columns": [
+          "广东｜绝对值（万亿元）",
+          "广东｜同比增长（%）"
+        ],
+        "label": "广东"
+      }
+    ],
+    "columns": [
+      "全国｜绝对值（万亿元）",
+      "全国｜同比增长（%）",
+      "广东｜绝对值（万亿元）",
+      "广东｜同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "GDP",
+        "group": null,
+        "label": "GDP",
+        "unit": "%",
+        "values": [
+          90.03,
+          6.6,
+          9.73,
+          6.8
+        ]
+      },
+      {
+        "display_label": "规模以上工业增加值",
+        "group": null,
+        "label": "规模以上工业增加值",
+        "unit": "%",
+        "values": [
+          30.52,
+          6.2,
+          3.23,
+          6.3
+        ]
+      },
+      {
+        "display_label": "固定资产投资",
+        "group": null,
+        "label": "固定资产投资",
+        "unit": "%",
+        "values": [
+          63.56,
+          5.9,
+          3.53,
+          10.7
+        ]
+      },
+      {
+        "display_label": "社会消费品零售总额",
+        "group": null,
+        "label": "社会消费品零售总额",
+        "unit": "%",
+        "values": [
+          38.1,
+          9.0,
+          3.95,
+          8.8
+        ]
+      },
+      {
+        "display_label": "进出口总额",
+        "group": null,
+        "label": "进出口总额",
+        "unit": "%",
+        "values": [
+          30.51,
+          9.7,
+          7.16,
+          5.1
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

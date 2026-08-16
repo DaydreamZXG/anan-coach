@@ -1,0 +1,64 @@
+{
+  "schema_version": "manual-standard-chart-overrides-v1",
+  "assets": {
+    "da_5d92352fe8283b5fa4ed3477": {
+      "chart_type": "combo",
+      "title": "7月27日—8月5日A影片单日票房及占当日全国总票房比例",
+      "unit": null,
+      "axes": {
+        "x": {"title": null, "unit": null, "min": null, "max": null, "ticks": []},
+        "y": [
+          {"title": "单日票房", "unit": "亿元", "min": 0, "max": 7, "ticks": [0,1,2,3,4,5,6,7]},
+          {"title": "占比", "unit": "%", "min": 0, "max": 100, "ticks": [0,20,40,60,80,100]}
+        ]
+      },
+      "categories": ["7.27","7.28","7.29","7.30","7.31","8.01","8.02","8.03","8.04","8.05"],
+      "series": [
+        {"id":"box_office","label":"票房","render_as":"bar","axis":"left","unit":"亿元","values":[1.03,2.15,3.13,3.67,2.73,2.93,2.79,2.28,2.66,4.05],"style":{"fill":"#ffffff","stroke":"#555555","dash":null,"marker":null}},
+        {"id":"share","label":"占比","render_as":"line","axis":"right","unit":"%","values":[58.3,73.5,77.8,80.4,86.2,86.3,88.8,54.7,66.3,77.0],"style":{"fill":null,"stroke":"#111111","dash":null,"marker":"square"}}
+      ],
+      "table": null,
+      "pie_geometry": null,
+      "structured_visual": null,
+      "legend": [
+        {"label":"票房","style":{"fill":"#ffffff","stroke":"#555555","dash":null,"marker":null}},
+        {"label":"占比","style":{"fill":null,"stroke":"#111111","dash":null,"marker":"square"}}
+      ],
+      "verified_values": 20
+    },
+    "da_ad887bc349eaeff737a7c45c": {
+      "chart_type": "table",
+      "title": "8月5日部分影片票房及排片上座率",
+      "unit": null,
+      "axes": {"x":{"title":null,"unit":null,"min":null,"max":null,"ticks":[]},"y":[]},
+      "categories": [],
+      "series": [],
+      "table": {
+        "title": "8月5日部分影片票房及排片上座率",
+        "row_header_label": "影片",
+        "corner_header": null,
+        "columns": ["单日票房（亿元）","排片占比（%）","上座率（%）"],
+        "column_groups": [],
+        "rows": [
+          {"label":"A影片","display_label":"A影片","group":null,"unit":null,"values":[4.05,50.9,55.5]},
+          {"label":"B影片","display_label":"B影片","group":null,"unit":null,"values":[0.87,31.2,21.4]},
+          {"label":"C影片","display_label":"C影片","group":null,"unit":null,"values":[0.12,5.0,32.9]},
+          {"label":"D影片","display_label":"D影片","group":null,"unit":null,"values":[0.04,2.9,18.4]},
+          {"label":"E影片","display_label":"E影片","group":null,"unit":null,"values":[0.04,1.8,21.8]}
+        ],
+        "missing_cells": [],
+        "sections": []
+      },
+      "pie_geometry": null,
+      "structured_visual": null,
+      "legend": [],
+      "verified_values": 15
+    }
+  },
+  "aliases": {
+    "da_bcd5d598f94c137a6e920ec1": {
+      "structured_source_asset": "da_3440e1bda212ffbe4bd69649",
+      "reason": "title-only crop belongs to the same table; reuse the independently verified full-table asset"
+    }
+  }
+}

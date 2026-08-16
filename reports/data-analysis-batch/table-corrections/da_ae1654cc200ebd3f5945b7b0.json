@@ -1,0 +1,97 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "本月｜第1列",
+      "比上年同期增长%｜第2列",
+      "当年累计｜第3列",
+      "比上年同期增长%｜第4列"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "比上年同期增长%",
+      "style": "diagonal",
+      "upper_label": "计算单位"
+    },
+    "missing_cells": [],
+    "row_header_label": "比上年同期增长%",
+    "rows": [
+      {
+        "display_label": "一、铁路运输",
+        "group": null,
+        "label": "一、铁路运输",
+        "unit": null,
+        "values": [
+          null,
+          11.8,
+          null,
+          9.6
+        ]
+      },
+      {
+        "display_label": "1.旅客发送量｜万人",
+        "group": null,
+        "label": "1.旅客发送量｜万人",
+        "unit": null,
+        "values": [
+          23219,
+          11.8,
+          308379,
+          9.6
+        ]
+      },
+      {
+        "display_label": "2.旅客周转量｜亿人公里",
+        "group": null,
+        "label": "2.旅客周转量｜亿人公里",
+        "unit": null,
+        "values": [
+          883.99,
+          8.4,
+          13456.92,
+          7.0
+        ]
+      },
+      {
+        "display_label": "3.货物总发送量｜万吨",
+        "group": null,
+        "label": "3.货物总发送量｜万吨",
+        "unit": null,
+        "values": [
+          30387,
+          -3.8,
+          368865,
+          10.7
+        ]
+      },
+      {
+        "display_label": "4.货物总周转量｜亿吨公里",
+        "group": null,
+        "label": "4.货物总周转量｜亿吨公里",
+        "unit": null,
+        "values": [
+          2333.13,
+          -1.0,
+          26962.2,
+          13.3
+        ]
+      },
+      {
+        "display_label": "二、铁路固定资产投资累计完成额｜亿元",
+        "group": null,
+        "label": "二、铁路固定资产投资累计完成额｜亿元",
+        "unit": null,
+        "values": [
+          8010.43,
+          -0.1,
+          8010.43,
+          -0.1
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

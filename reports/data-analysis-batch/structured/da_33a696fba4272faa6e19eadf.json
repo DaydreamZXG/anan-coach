@@ -1,0 +1,281 @@
+{
+  "asset_id": "da_33a696fba4272faa6e19eadf",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "营业收入 (亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        80.1,
+        7.6,
+        17.0,
+        6.9,
+        11.5,
+        4.6,
+        3.3,
+        7.6,
+        2.2,
+        6.6,
+        12.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "增速 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        15.4,
+        49.5,
+        26.9,
+        22.3,
+        17.1,
+        14.5,
+        12.5,
+        6.7,
+        4.2,
+        4.1,
+        -0.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0127_4dbb1788e34d3db1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0127_4dbb1788e34d3db1.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_4e6da8d6ecaed976619a",
+        "question_number": 86,
+        "source_jsonl_line": 34918
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0127_4dbb1788e34d3db1.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_0e6aaeee67ec97ff708a",
+        "question_number": 87,
+        "source_jsonl_line": 34919
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0127_4dbb1788e34d3db1.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_7744bafa80aa3e5c7745",
+        "question_number": 88,
+        "source_jsonl_line": 34920
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0143_de3dd81dcba66add.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_272bedb3fcf9ccc4e662",
+        "question_number": 89,
+        "source_jsonl_line": 34921
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0127_4dbb1788e34d3db1.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_b1a316e831191125be2a",
+        "question_number": 90,
+        "source_jsonl_line": 34922
+      }
+    ],
+    "sha256": "33a696fba4272faa6e19eadf09f3f558c5c1d38fe4c871dff403e022b6ea42b0"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "行业门类",
+      "营业收入 (亿元)",
+      "增速 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "总计",
+        "unit": null,
+        "values": [
+          "总计",
+          80.1,
+          15.4
+        ]
+      },
+      {
+        "label": "水利、环境和公共设施管理业",
+        "unit": null,
+        "values": [
+          "水利、环境和公共设施管理业",
+          7.6,
+          49.5
+        ]
+      },
+      {
+        "label": "信息传输、软件和信息技术服务业",
+        "unit": null,
+        "values": [
+          "信息传输、软件和信息技术服务业",
+          17.0,
+          26.9
+        ]
+      },
+      {
+        "label": "租赁和商务服务业",
+        "unit": null,
+        "values": [
+          "租赁和商务服务业",
+          6.9,
+          22.3
+        ]
+      },
+      {
+        "label": "房地产业",
+        "unit": null,
+        "values": [
+          "房地产业",
+          11.5,
+          17.1
+        ]
+      },
+      {
+        "label": "居民服务、修理和其它服务业",
+        "unit": null,
+        "values": [
+          "居民服务、修理和其它服务业",
+          4.6,
+          14.5
+        ]
+      },
+      {
+        "label": "卫生和社会工作",
+        "unit": null,
+        "values": [
+          "卫生和社会工作",
+          3.3,
+          12.5
+        ]
+      },
+      {
+        "label": "文化、体育和娱乐业",
+        "unit": null,
+        "values": [
+          "文化、体育和娱乐业",
+          7.6,
+          6.7
+        ]
+      },
+      {
+        "label": "教育",
+        "unit": null,
+        "values": [
+          "教育",
+          2.2,
+          4.2
+        ]
+      },
+      {
+        "label": "交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          "交通运输、仓储和邮政业",
+          6.6,
+          4.1
+        ]
+      },
+      {
+        "label": "科学研究和技术服务业",
+        "unit": null,
+        "values": [
+          "科学研究和技术服务业",
+          12.9,
+          -0.8
+        ]
+      }
+    ]
+  },
+  "title": "2016年某省小微服务业各行业营业收入及增速",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_33a696fba4272faa6e19eadf/row_band_01.jpg",
+        "review-crops/da_33a696fba4272faa6e19eadf/row_band_02.jpg",
+        "review-crops/da_33a696fba4272faa6e19eadf/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.678",
+      "crop_verification_elapsed_seconds:13.701",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'信息传输、软件和信息技术服务业'的营业收入为17.0，原为17.0（无误）",
+      "crop_note:修正了'租赁和商务服务业'的营业收入为6.9，原为6.9（无误）",
+      "crop_note:修正了'房地产业'的营业收入为11.5，原为11.5（无误）",
+      "crop_note:修正了'居民服务、修理和其它服务业'的营业收入为4.6，原为4.6（无误）",
+      "crop_note:修正了'卫生和社会工作'的营业收入为3.3，原为3.3（无误）",
+      "crop_note:修正了'文化、体育和娱乐业'的营业收入为7.6，原为7.6（无误）",
+      "crop_note:修正了'教育'的营业收入为2.2，原为2.2（无误）",
+      "crop_note:修正了'交通运输、仓储和邮政业'的营业收入为6.6，原为6.6（无误）",
+      "crop_note:修正了'科学研究和技术服务业'的增速为-0.8，原为-0.8（无误）",
+      "crop_note:确认所有数值的小数点、负号、百分号和缺失值均正确，无补0或错误填充"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

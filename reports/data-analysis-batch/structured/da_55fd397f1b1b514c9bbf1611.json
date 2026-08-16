@@ -1,0 +1,196 @@
+{
+  "asset_id": "da_55fd397f1b1b514c9bbf1611",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "title": "年",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 24000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000,
+          12000,
+          14000,
+          16000,
+          18000,
+          20000,
+          22000,
+          24000
+        ],
+        "title": null,
+        "unit": "元"
+      }
+    ]
+  },
+  "categories": [
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "城镇居民人均可支配收入",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "农村居民人均纯收入",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇居民人均可支配收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        14006,
+        15411,
+        17797,
+        20208,
+        22275
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "农村居民人均纯收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        5266,
+        6237,
+        7510,
+        8598,
+        9621
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2015年吉林省公务员录用考试《行测》题（4月乙级）_images/img_0046_24118e098f7d164d.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（4月乙级）_images/img_0046_24118e098f7d164d.jpg",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（4月乙级）",
+        "question_id": "pq_9eef00c4f9a5ec3e00c1",
+        "question_number": 96,
+        "source_jsonl_line": 12082
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（4月乙级）_images/img_0046_24118e098f7d164d.jpg",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（4月乙级）",
+        "question_id": "pq_b6bd1b22ef4c31e25e00",
+        "question_number": 97,
+        "source_jsonl_line": 12083
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（4月乙级）_images/img_0046_24118e098f7d164d.jpg",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（4月乙级）",
+        "question_id": "pq_48ec6b097dcb7d85088a",
+        "question_number": 98,
+        "source_jsonl_line": 12084
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（4月乙级）_images/img_0046_24118e098f7d164d.jpg",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（4月乙级）",
+        "question_id": "pq_08eeb76a6bde3eeafcd0",
+        "question_number": 99,
+        "source_jsonl_line": 12085
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（4月乙级）_images/img_0046_24118e098f7d164d.jpg",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（4月乙级）",
+        "question_id": "pq_4a8ceaa4add778fa2a1b",
+        "question_number": 100,
+        "source_jsonl_line": 12086
+      }
+    ],
+    "sha256": "55fd397f1b1b514c9bbf16115b6da443e85a01d202382a943dbcb2cc77307211"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2009~2013年吉林省城镇居民人均可支配收入和农村居民人均纯收入",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_55fd397f1b1b514c9bbf1611/column_band_01.jpg",
+        "review-crops/da_55fd397f1b1b514c9bbf1611/column_band_02.jpg",
+        "review-crops/da_55fd397f1b1b514c9bbf1611/column_band_03.jpg",
+        "review-crops/da_55fd397f1b1b514c9bbf1611/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.721",
+      "crop_verification_elapsed_seconds:3.375",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

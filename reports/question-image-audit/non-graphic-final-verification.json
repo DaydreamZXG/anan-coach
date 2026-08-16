@@ -1,0 +1,28 @@
+{
+  "assetCount": 1449,
+  "dataAnalysisExactShaOverlapCount": 0,
+  "errorsJsonlCount": 49,
+  "graphicReasoningProcessed": false,
+  "independentHashVerifiedCount": 1449,
+  "modelCoordinateCleanCount": 1449,
+  "passed": true,
+  "photoSampleGatePassed": true,
+  "routeContractChecks": {
+    "annotated_raster_source_preserved": 155,
+    "data_visual_contract_verified": 191,
+    "perceptual_source_glyph_preserved": 233,
+    "reasoning_graphic_primitives_v2": 870
+  },
+  "schemaVerifiedCount": 1449,
+  "schemaVersion": "non-graphic-final-verification-v1",
+  "statusCounts": {
+    "failed": 0,
+    "needs_review": 49,
+    "pending": 0,
+    "success": 1400,
+    "unsupported": 0
+  },
+  "structuredFileCount": 1449,
+  "uniqueAssetCount": 1449,
+  "verificationErrors": []
+}

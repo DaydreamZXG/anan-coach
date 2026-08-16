@@ -1,0 +1,380 @@
+{
+  "asset_id": "da_ae8143027befa49e1f596bee",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "时间",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "成交额",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "总计",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1675,
+        1314,
+        1283,
+        1345,
+        1207,
+        1200,
+        1152,
+        1057,
+        1133,
+        1098
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "食品饮料市场",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        753,
+        399,
+        359,
+        343,
+        309,
+        275,
+        208,
+        208,
+        230,
+        228
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "茶叶市场",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        244,
+        247,
+        269,
+        279,
+        255,
+        297,
+        308,
+        292,
+        346,
+        354
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "烟酒市场",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        74,
+        76,
+        73,
+        110,
+        105,
+        107,
+        105,
+        49,
+        50,
+        45
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "其他市场",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        604,
+        592,
+        582,
+        613,
+        538,
+        521,
+        531,
+        508,
+        507,
+        470
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0160_df4433ac98d00d71.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0160_df4433ac98d00d71.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d0112c68e2ac5fc250db",
+        "question_number": 111,
+        "source_jsonl_line": 84342
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0139_67eaad19d453e8d2.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4a2aaa25306982b1565e",
+        "question_number": 112,
+        "source_jsonl_line": 84343
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0139_67eaad19d453e8d2.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_73fe6f3abb0fc01cca39",
+        "question_number": 113,
+        "source_jsonl_line": 84344
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0139_67eaad19d453e8d2.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c21f01039509dbad0806",
+        "question_number": 114,
+        "source_jsonl_line": 84345
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0160_df4433ac98d00d71.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b9f41cb21e5fafd33f16",
+        "question_number": 115,
+        "source_jsonl_line": 84346
+      }
+    ],
+    "sha256": "ae8143027befa49e1f596beeb22c642149fbe6b6fc1566f094a1b415fac64dd1"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "时间",
+      "总计",
+      "食品饮料市场",
+      "茶叶市场",
+      "烟酒市场",
+      "其他市场"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2013年",
+        "unit": null,
+        "values": [
+          "2013年",
+          1675,
+          753,
+          244,
+          74,
+          604
+        ]
+      },
+      {
+        "label": "2014年",
+        "unit": null,
+        "values": [
+          "2014年",
+          1314,
+          399,
+          247,
+          76,
+          592
+        ]
+      },
+      {
+        "label": "2015年",
+        "unit": null,
+        "values": [
+          "2015年",
+          1314,
+          359,
+          269,
+          73,
+          582
+        ]
+      },
+      {
+        "label": "2016年",
+        "unit": null,
+        "values": [
+          "2016年",
+          1345,
+          343,
+          279,
+          110,
+          613
+        ]
+      },
+      {
+        "label": "2017年",
+        "unit": null,
+        "values": [
+          "2017年",
+          1207,
+          309,
+          255,
+          105,
+          538
+        ]
+      },
+      {
+        "label": "2018年",
+        "unit": null,
+        "values": [
+          "2018年",
+          1200,
+          275,
+          297,
+          107,
+          521
+        ]
+      },
+      {
+        "label": "2019年",
+        "unit": null,
+        "values": [
+          "2019年",
+          1152,
+          208,
+          308,
+          105,
+          531
+        ]
+      },
+      {
+        "label": "2020年",
+        "unit": null,
+        "values": [
+          "2020年",
+          1057,
+          208,
+          292,
+          49,
+          508
+        ]
+      },
+      {
+        "label": "2021年",
+        "unit": null,
+        "values": [
+          "2021年",
+          1133,
+          230,
+          346,
+          50,
+          507
+        ]
+      },
+      {
+        "label": "2022年",
+        "unit": null,
+        "values": [
+          "2022年",
+          1098,
+          228,
+          354,
+          45,
+          470
+        ]
+      }
+    ]
+  },
+  "title": "2013-2022年全国亿元以上食品、饮料及烟酒市场成交情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ae8143027befa49e1f596bee/row_band_01.jpg",
+        "review-crops/da_ae8143027befa49e1f596bee/row_band_02.jpg",
+        "review-crops/da_ae8143027befa49e1f596bee/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:15.091",
+      "crop_verification_elapsed_seconds:13.629",
+      "candidate_value_changes_after_crop:1",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "投入金额｜第1列",
+      "投入强度｜第2列",
+      "地区｜第3列",
+      "投入金额｜第4列",
+      "投入强度｜第5列"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          2629.3,
+          6.53,
+          "湖北",
+          1160.2,
+          2.32
+        ]
+      },
+      {
+        "display_label": "天津",
+        "group": null,
+        "label": "天津",
+        "unit": null,
+        "values": [
+          574.3,
+          3.66,
+          "湖南",
+          1028.9,
+          2.23
+        ]
+      },
+      {
+        "display_label": "河北",
+        "group": null,
+        "label": "河北",
+        "unit": null,
+        "values": [
+          745.5,
+          1.85,
+          "广东",
+          4002.2,
+          3.22
+        ]
+      },
+      {
+        "display_label": "山西",
+        "group": null,
+        "label": "山西",
+        "unit": null,
+        "values": [
+          251.9,
+          1.12,
+          "广西",
+          199.5,
+          0.81
+        ]
+      },
+      {
+        "display_label": "内蒙古",
+        "group": null,
+        "label": "内蒙古",
+        "unit": null,
+        "values": [
+          190.1,
+          0.93,
+          "海南",
+          47.0,
+          0.73
+        ]
+      },
+      {
+        "display_label": "辽宁",
+        "group": null,
+        "label": "辽宁",
+        "unit": null,
+        "values": [
+          600.4,
+          2.18,
+          "重庆",
+          603.8,
+          2.16
+        ]
+      },
+      {
+        "display_label": "吉林",
+        "group": null,
+        "label": "吉林",
+        "unit": null,
+        "values": [
+          183.7,
+          1.39,
+          "四川",
+          1214.5,
+          2.26
+        ]
+      },
+      {
+        "display_label": "黑龙江",
+        "group": null,
+        "label": "黑龙江",
+        "unit": null,
+        "values": [
+          194.6,
+          1.31,
+          "贵州",
+          180.4,
+          0.92
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          1819.8,
+          4.21,
+          "云南",
+          281.9,
+          1.04
+        ]
+      },
+      {
+        "display_label": "江苏",
+        "group": null,
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          3438.6,
+          2.95,
+          "西藏",
+          6.0,
+          0.29
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": null,
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          2157.7,
+          2.94,
+          "陕西",
+          700.6,
+          2.35
+        ]
+      },
+      {
+        "display_label": "安徽",
+        "group": null,
+        "label": "安徽",
+        "unit": null,
+        "values": [
+          1006.1,
+          2.34,
+          "甘肃",
+          129.5,
+          1.26
+        ]
+      },
+      {
+        "display_label": "福建",
+        "group": null,
+        "label": "福建",
+        "unit": null,
+        "values": [
+          968.6,
+          1.98,
+          "青海",
+          26.8,
+          0.8
+        ]
+      },
+      {
+        "display_label": "江西",
+        "group": null,
+        "label": "江西",
+        "unit": null,
+        "values": [
+          502.2,
+          1.7,
+          "宁夏",
+          70.4,
+          1.56
+        ]
+      },
+      {
+        "display_label": "山东",
+        "group": null,
+        "label": "山东",
+        "unit": null,
+        "values": [
+          1944.7,
+          2.34,
+          "新疆",
+          78.3,
+          0.49
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

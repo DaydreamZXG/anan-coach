@@ -1,0 +1,393 @@
+{
+  "asset_id": "da_002b585fdd9d5ce4ec43bbf3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "项目",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "基金收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        877,
+        1187,
+        1649,
+        2109,
+        2811,
+        5653,
+        6971,
+        8191,
+        9115
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "基金支出",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        675,
+        971,
+        1437,
+        1781,
+        2480,
+        4955,
+        6277,
+        8191,
+        8165
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "结余率",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        23.0,
+        18.2,
+        12.9,
+        15.6,
+        11.8,
+        12.4,
+        10.0,
+        4.5,
+        10.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2022年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0123_ccb4dacfdb6eac57.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0123_ccb4dacfdb6eac57.png",
+        "paper_title": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4272b830b153246acdb5",
+        "question_number": 116,
+        "source_jsonl_line": 8149
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0121_378afa57b5c74088.png",
+        "paper_title": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_61cec667317a94f6b16b",
+        "question_number": 117,
+        "source_jsonl_line": 8150
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0123_ccb4dacfdb6eac57.png",
+        "paper_title": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_afa45a1bff7492989f7e",
+        "question_number": 118,
+        "source_jsonl_line": 8151
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0123_ccb4dacfdb6eac57.png",
+        "paper_title": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f2b8a1c2141d9c7e560a",
+        "question_number": 119,
+        "source_jsonl_line": 8152
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0123_ccb4dacfdb6eac57.png",
+        "paper_title": "2022年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4bd5c82a9c24cd7ce703",
+        "question_number": 120,
+        "source_jsonl_line": 8153
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0081_ccb4dacfdb6eac57.png",
+        "paper_title": "2022年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b2ed2636dac2efa6bc3c",
+        "question_number": 91,
+        "source_jsonl_line": 13507
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0083_378afa57b5c74088.png",
+        "paper_title": "2022年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_346feb6c1d58477cf6b0",
+        "question_number": 92,
+        "source_jsonl_line": 13508
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0081_ccb4dacfdb6eac57.png",
+        "paper_title": "2022年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2fcfe19d68890f96e8ed",
+        "question_number": 93,
+        "source_jsonl_line": 13509
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0083_378afa57b5c74088.png",
+        "paper_title": "2022年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6533711a3ea58ee0fa0c",
+        "question_number": 94,
+        "source_jsonl_line": 13510
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0081_ccb4dacfdb6eac57.png",
+        "paper_title": "2022年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3ea56109ef90f32368dc",
+        "question_number": 95,
+        "source_jsonl_line": 13511
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0153_ccb4dacfdb6eac57.png",
+        "paper_title": "2022年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4e7614b2bd17b80a4c36",
+        "question_number": 106,
+        "source_jsonl_line": 28300
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0153_ccb4dacfdb6eac57.png",
+        "paper_title": "2022年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2295c4b2da6ec5bdf0a2",
+        "question_number": 107,
+        "source_jsonl_line": 28301
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0153_ccb4dacfdb6eac57.png",
+        "paper_title": "2022年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a96088111465538428c7",
+        "question_number": 108,
+        "source_jsonl_line": 28302
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0153_ccb4dacfdb6eac57.png",
+        "paper_title": "2022年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f81aed86f910df7939c8",
+        "question_number": 109,
+        "source_jsonl_line": 28303
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0153_ccb4dacfdb6eac57.png",
+        "paper_title": "2022年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7084adcee623d44d39bf",
+        "question_number": 110,
+        "source_jsonl_line": 28304
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0122_ccb4dacfdb6eac57.png",
+        "paper_title": "2022年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_90fd21c0be9908669a27",
+        "question_number": 116,
+        "source_jsonl_line": 32919
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0121_378afa57b5c74088.png",
+        "paper_title": "2022年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fb0235091f8fe3578271",
+        "question_number": 117,
+        "source_jsonl_line": 32920
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0122_ccb4dacfdb6eac57.png",
+        "paper_title": "2022年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_58baa568595cc2c5ad19",
+        "question_number": 118,
+        "source_jsonl_line": 32921
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0121_378afa57b5c74088.png",
+        "paper_title": "2022年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_dd2ffae0aadea518d6d5",
+        "question_number": 119,
+        "source_jsonl_line": 32922
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0122_ccb4dacfdb6eac57.png",
+        "paper_title": "2022年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e34436265170a58c311a",
+        "question_number": 120,
+        "source_jsonl_line": 32923
+      }
+    ],
+    "sha256": "002b585fdd9d5ce4ec43bbf3d91689165a05dcd0235a9791c032820684501739"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2012",
+      "2013",
+      "2014",
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020"
+    ],
+    "corner_header": {
+      "lower_label": "项目",
+      "style": "diagonal",
+      "upper_label": "年份"
+    },
+    "missing_cells": [
+      {
+        "column": "2019",
+        "display": "（？）",
+        "row": "基金收入"
+      }
+    ],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "label": "基金收入",
+        "unit": "亿元",
+        "values": [
+          877,
+          1187,
+          1649,
+          2109,
+          2811,
+          5653,
+          6971,
+          null,
+          9115
+        ]
+      },
+      {
+        "label": "基金支出",
+        "unit": "亿元",
+        "values": [
+          675,
+          971,
+          1437,
+          1781,
+          2480,
+          4955,
+          6277,
+          8191,
+          8165
+        ]
+      },
+      {
+        "label": "结余率",
+        "unit": "%",
+        "values": [
+          23.0,
+          18.2,
+          12.9,
+          15.6,
+          11.8,
+          12.4,
+          10.0,
+          4.5,
+          10.4
+        ]
+      }
+    ]
+  },
+  "title": "2012-2020年居民医保基金收支情况（单位：亿元）",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_002b585fdd9d5ce4ec43bbf3/row_band_01.jpg",
+        "review-crops/da_002b585fdd9d5ce4ec43bbf3/row_band_02.jpg",
+        "review-crops/da_002b585fdd9d5ce4ec43bbf3/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.241",
+      "crop_verification_elapsed_seconds:8.455",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:2019年基金收入数据为'?'，表示缺失，已标记为null",
+      "crop_note:修正了'2019年基金收入'的缺失值标记为null，原数据中为'?'",
+      "crop_note:确认所有数值的格式正确，包括小数点、百分号和单位",
+      "crop_note:确认'结余率'的单位为'%'，并正确标注",
+      "crop_note:确认'基金收入'和'基金支出'的单位为'亿元'，并正确标注",
+      "crop_note:确认所有年份列标题正确，无错位",
+      "crop_note:确认表格行列拓扑结构完整，无遗漏或错位",
+      "table_row_label_column_removed:项目",
+      "table_diagonal_corner_header_verified_from_source",
+      "explicit_missing_value_applied:基金收入:2019"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

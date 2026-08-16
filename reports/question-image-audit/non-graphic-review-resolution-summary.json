@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "non-graphic-review-resolution-summary-v1",
+  "assetCount": 1449,
+  "initialStatusCounts": {
+    "success": 1153,
+    "needs_review": 279,
+    "failed": 17,
+    "unsupported": 0,
+    "pending": 0
+  },
+  "initialNonSuccessCount": 296,
+  "resolvedToSuccessCount": 247,
+  "finalStatusCounts": {
+    "success": 1400,
+    "needs_review": 49,
+    "failed": 0,
+    "unsupported": 0,
+    "pending": 0
+  },
+  "finalNeedsReviewExclusiveReasons": {
+    "perceptual_confirmed_or_unresolved_ambiguous_tokens": 35,
+    "perceptual_zoom_json_persistently_malformed_with_existing_candidate": 4,
+    "perceptual_transcription_or_grid_consensus_not_reached": 4,
+    "perceptual_opaque_unicode_unresolved": 1,
+    "annotated_raster_ambiguous_ocr": 3,
+    "annotated_raster_low_confidence_blurry_source": 1,
+    "reasoning_low_confidence_topology_conflict": 1
+  },
+  "finalRouteCounts": {
+    "annotated_raster": 155,
+    "data_visual": 191,
+    "perceptual_grid": 233,
+    "reasoning_diagram": 870
+  },
+  "structuredFileCount": 1449,
+  "independentHashVerifiedCount": 1449,
+  "schemaVerifiedCount": 1449,
+  "modelCoordinateCleanCount": 1449,
+  "dataAnalysisExactShaOverlapCount": 0,
+  "graphicReasoningProcessed": false,
+  "verificationPassed": true
+}

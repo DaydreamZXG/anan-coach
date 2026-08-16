@@ -1,0 +1,1076 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "data-analysis-chart-candidate-v1",
+  "title": "Data analysis chart/table redraw candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "asset_id",
+    "chart_type",
+    "title",
+    "unit",
+    "axes",
+    "categories",
+    "series",
+    "table",
+    "pie_geometry",
+    "structured_visual",
+    "legend",
+    "source",
+    "confidence",
+    "review_status",
+    "verification"
+  ],
+  "properties": {
+    "schema_version": {"const": "data-analysis-chart-candidate-v1"},
+    "asset_id": {"type": "string", "pattern": "^da_[0-9a-f]{24}$"},
+    "chart_type": {
+      "enum": [
+        "grouped_bar",
+        "stacked_bar",
+        "line",
+        "combo",
+        "pie_donut",
+        "scatter",
+        "table",
+        "other_unsupported",
+        "structured_visual"
+      ]
+    },
+    "title": {"type": ["string", "null"]},
+    "unit": {"type": ["string", "null"]},
+    "axes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": {
+        "x": {"$ref": "#/$defs/axis"},
+        "y": {
+          "type": "array",
+          "maxItems": 2,
+          "items": {"$ref": "#/$defs/axis"}
+        }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "series": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/series"}
+    },
+    "table": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/table"}
+      ]
+    },
+    "pie_geometry": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/pieGeometry"}
+      ]
+    },
+    "structured_visual": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/structuredVisual"}
+      ]
+    },
+    "legend": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/legend"}
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sha256", "local_path", "occurrences"],
+      "properties": {
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "local_path": {"type": "string"},
+        "occurrences": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["question_id", "paper_title", "question_number", "source_jsonl_line", "html_field", "image_ref"],
+            "properties": {
+              "question_id": {"type": "string"},
+              "paper_title": {"type": "string"},
+              "question_number": {"type": ["integer", "null"]},
+              "source_jsonl_line": {"type": "integer", "minimum": 1},
+              "html_field": {"enum": ["material_html", "stem_html"]},
+              "image_ref": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "review_status": {
+      "enum": ["candidate_auto", "needs_manual_review", "verified_sample", "unsupported"]
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_valid", "ocr_engine", "ocr_mean_confidence", "local_crop_checks", "missing_values_preserved", "notes"],
+      "properties": {
+        "schema_valid": {"type": "boolean"},
+        "ocr_engine": {"type": "string"},
+        "ocr_mean_confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "local_crop_checks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["total", "matched", "mismatched", "reasons", "artifacts"],
+          "properties": {
+            "total": {"type": "integer", "minimum": 0},
+            "matched": {"type": "integer", "minimum": 0},
+            "mismatched": {"type": "integer", "minimum": 0},
+            "reasons": {"type": "array", "items": {"type": "string"}},
+            "artifacts": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "missing_values_preserved": {"type": "boolean"},
+        "notes": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  },
+  "$defs": {
+    "structuredVisual": {
+      "oneOf": [
+        {"$ref": "#/$defs/primitiveVisual"},
+        {"$ref": "#/$defs/patternedPieVisual"},
+        {"$ref": "#/$defs/semanticPieVisual"},
+        {"$ref": "#/$defs/semanticStatisticalPanelsVisual"},
+        {"$ref": "#/$defs/semanticSimplexGridVisual"},
+        {"$ref": "#/$defs/semanticFormulaVisual"},
+        {"$ref": "#/$defs/semanticMicrochartVisual"}
+      ]
+    },
+    "semanticMicrochartVisual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "visualGrammar", "fidelityTier", "layoutType", "coordinateSpace", "panels", "evidence", "complexity"],
+      "properties": {
+        "schemaVersion": {"const": "semantic-microcharts-v1"},
+        "kind": {"const": "semanticMicrocharts"},
+        "visualGrammar": {"enum": ["line_sequence", "line_options", "line_with_axis", "line_options_with_axis", "curve_chart", "curve_options", "curve_options_with_axis", "signed_bar"]},
+        "fidelityTier": {"const": "semantic_vector"},
+        "layoutType": {"const": "sequence"},
+        "coordinateSpace": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["width", "height"],
+          "properties": {
+            "width": {"type": "number", "exclusiveMinimum": 0, "maximum": 10000},
+            "height": {"type": "number", "exclusiveMinimum": 0, "maximum": 10000}
+          }
+        },
+        "panels": {"type": "array", "minItems": 1, "maxItems": 8, "items": {"$ref": "#/$defs/semanticMicrochartPanel"}},
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sourceAsset", "sourceSha256", "geometryEngine", "converterVersion", "renderSha256"],
+          "properties": {
+            "sourceAsset": {"type": "string"},
+            "sourceSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "geometryEngine": {"const": "opencv_connected_components"},
+            "converterVersion": {"type": "string"},
+            "renderSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+          }
+        },
+        "complexity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["panelCount", "pointCount", "barCount", "estimatedDrawCommandCount"],
+          "properties": {
+            "panelCount": {"type": "integer", "minimum": 1, "maximum": 8},
+            "pointCount": {"type": "integer", "minimum": 0, "maximum": 512},
+            "barCount": {"type": "integer", "minimum": 0, "maximum": 96},
+            "estimatedDrawCommandCount": {"type": "integer", "minimum": 1, "maximum": 1024}
+          }
+        }
+      }
+    },
+    "semanticMicrochartPanel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "position", "bounds", "chart"],
+      "properties": {
+        "id": {"type": "string"},
+        "label": {"type": ["string", "null"]},
+        "position": {"type": "integer", "minimum": 0, "maximum": 7},
+        "bounds": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["x", "y", "width", "height"],
+          "properties": {
+            "x": {"type": "integer", "minimum": 0},
+            "y": {"type": "integer", "minimum": 0},
+            "width": {"type": "integer", "minimum": 1},
+            "height": {"type": "integer", "minimum": 1}
+          }
+        },
+        "chart": {
+          "oneOf": [
+            {"$ref": "#/$defs/semanticPolyline"},
+            {"$ref": "#/$defs/semanticSignedBar"}
+          ]
+        }
+      }
+    },
+    "semanticPolyline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "points", "interpolation", "strokeStyle", "strokeWidth", "markers", "axis"],
+      "properties": {
+        "type": {"const": "polyline"},
+        "points": {"type": "array", "minItems": 2, "maxItems": 128, "items": {"$ref": "#/$defs/normalizedPoint"}},
+        "interpolation": {"enum": ["linear", "smooth"]},
+        "strokeStyle": {"const": "solid"},
+        "strokeWidth": {"type": "integer", "minimum": 1, "maximum": 12},
+        "markers": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["x", "y", "shape"],
+            "properties": {
+              "x": {"type": "number", "minimum": 0, "maximum": 1},
+              "y": {"type": "number", "minimum": 0, "maximum": 1},
+              "shape": {"enum": ["circle", "square", "diamond"]}
+            }
+          }
+        },
+        "axis": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["showX", "showY", "originX", "originY"],
+              "properties": {
+                "showX": {"type": "boolean"},
+                "showY": {"type": "boolean"},
+                "originX": {"type": "number", "minimum": 0, "maximum": 1},
+                "originY": {"type": "number", "minimum": 0, "maximum": 1}
+              }
+            }
+          ]
+        }
+      }
+    },
+    "semanticSignedBar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "baseline", "baselineStart", "baselineEnd", "verticalAxisX", "bars"],
+      "properties": {
+        "type": {"const": "signedBar"},
+        "baseline": {"type": "number", "minimum": 0, "maximum": 1},
+        "baselineStart": {"type": "number", "minimum": 0, "maximum": 1},
+        "baselineEnd": {"type": "number", "minimum": 0, "maximum": 1},
+        "verticalAxisX": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "bars": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["x", "width", "value"],
+            "properties": {
+              "x": {"type": "number", "minimum": 0, "maximum": 1},
+              "width": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+              "value": {"type": "number", "minimum": -1, "maximum": 1}
+            }
+          }
+        }
+      }
+    },
+    "normalizedPoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": {
+        "x": {"type": "number", "minimum": 0, "maximum": 1},
+        "y": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "semanticFormulaVisual": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "visualGrammar", "fidelityTier", "layoutType", "coordinateSpace", "expression", "format", "display", "fallbackText", "evidence", "complexity"],
+      "properties": {
+        "schemaVersion": {"const": "semantic-formula-v1"},
+        "kind": {"const": "semanticFormula"},
+        "visualGrammar": {"const": "formula_expression"},
+        "fidelityTier": {"const": "semantic_vector"},
+        "layoutType": {"const": "single"},
+        "coordinateSpace": {"$ref": "#/$defs/visualCoordinateSpace"},
+        "expression": {"type": "string", "minLength": 1, "maxLength": 4096},
+        "format": {"const": "latex"},
+        "display": {"type": "boolean"},
+        "fallbackText": {"type": "string", "minLength": 1, "maxLength": 4096},
+        "evidence": {
+          "type": "object", "additionalProperties": false,
+          "required": ["sourceAsset", "sourceSha256", "provider", "converterVersion", "renderSha256"],
+          "properties": {
+            "sourceAsset": {"type": "string"},
+            "sourceSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "provider": {"const": "manual_verified"},
+            "converterVersion": {"const": "semantic-formula-v1"},
+            "renderSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+          }
+        },
+        "complexity": {
+          "type": "object", "additionalProperties": false,
+          "required": ["expressionLength", "estimatedDrawCommandCount"],
+          "properties": {
+            "expressionLength": {"type": "integer", "minimum": 1, "maximum": 4096},
+            "estimatedDrawCommandCount": {"type": "integer", "minimum": 1, "maximum": 4096}
+          }
+        }
+      }
+    },
+    "semanticStatisticalPanelsVisual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "visualGrammar", "fidelityTier", "layoutType", "coordinateSpace", "panels", "evidence", "complexity"],
+      "properties": {
+        "schemaVersion": {"const": "semantic-statistical-panels-v1"},
+        "kind": {"const": "semanticStatisticalPanels"},
+        "visualGrammar": {"const": "statistical_chart_panels"},
+        "fidelityTier": {"const": "semantic_vector"},
+        "layoutType": {"const": "vertical"},
+        "coordinateSpace": {"$ref": "#/$defs/visualCoordinateSpace"},
+        "panels": {"type": "array", "minItems": 1, "maxItems": 8, "items": {"$ref": "#/$defs/semanticStatisticalPanel"}},
+        "evidence": {"$ref": "#/$defs/semanticStatisticalEvidence"},
+        "complexity": {
+          "type": "object", "additionalProperties": false,
+          "required": ["panelCount", "categoryCount", "seriesCount", "valueCount", "estimatedDrawCommandCount"],
+          "properties": {
+            "panelCount": {"type": "integer", "minimum": 1, "maximum": 8},
+            "categoryCount": {"type": "integer", "minimum": 1, "maximum": 512},
+            "seriesCount": {"type": "integer", "minimum": 1, "maximum": 32},
+            "valueCount": {"type": "integer", "minimum": 1, "maximum": 2048},
+            "estimatedDrawCommandCount": {"type": "integer", "minimum": 1, "maximum": 8192}
+          }
+        }
+      }
+    },
+    "semanticStatisticalPanel": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "title", "unit", "chartType", "categories", "yAxis", "series"],
+      "properties": {
+        "id": {"type": "string"},
+        "title": {"type": "string", "minLength": 1},
+        "unit": {"type": ["string", "null"]},
+        "chartType": {"enum": ["bar", "line", "combo"]},
+        "categories": {"type": "array", "minItems": 1, "maxItems": 256, "items": {"type": "string"}},
+        "yAxis": {"$ref": "#/$defs/axis"},
+        "series": {"type": "array", "minItems": 1, "maxItems": 16, "items": {"$ref": "#/$defs/series"}}
+      }
+    },
+    "semanticStatisticalEvidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sourceAsset", "sourceSha256", "geometryEngine", "converterVersion", "renderSha256"],
+      "properties": {
+        "sourceAsset": {"type": "string"},
+        "sourceSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "geometryEngine": {"const": "human_verified_chart_transcription"},
+        "converterVersion": {"const": "semantic-statistical-panels-v1"},
+        "renderSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "semanticSimplexGridVisual": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "visualGrammar", "fidelityTier", "layoutType", "coordinateSpace", "shape", "divisions", "vertices", "axes", "points", "caption", "evidence", "complexity"],
+      "properties": {
+        "schemaVersion": {"const": "semantic-simplex-grids-v1"},
+        "kind": {"const": "semanticSimplexGrid"},
+        "visualGrammar": {"enum": ["ternary_grid", "quaternary_grid"]},
+        "fidelityTier": {"const": "semantic_vector"},
+        "layoutType": {"const": "single"},
+        "coordinateSpace": {"$ref": "#/$defs/visualCoordinateSpace"},
+        "shape": {"enum": ["triangle", "diamond"]},
+        "divisions": {"type": "integer", "minimum": 2, "maximum": 20},
+        "vertices": {"type": "array", "minItems": 3, "maxItems": 4, "items": {"$ref": "#/$defs/vectorPoint"}},
+        "axes": {"type": "array", "minItems": 3, "maxItems": 4, "items": {"$ref": "#/$defs/simplexAxis"}},
+        "points": {"type": "array", "minItems": 1, "maxItems": 64, "items": {"$ref": "#/$defs/simplexPoint"}},
+        "caption": {"type": ["string", "null"]},
+        "styling": {"$ref": "#/$defs/simplexStyling"},
+        "evidence": {"$ref": "#/$defs/simplexEvidence"},
+        "complexity": {
+          "type": "object", "additionalProperties": false,
+          "required": ["vertexCount", "pointCount", "gridLineCount", "estimatedDrawCommandCount"],
+          "properties": {
+            "vertexCount": {"type": "integer", "minimum": 3, "maximum": 4},
+            "pointCount": {"type": "integer", "minimum": 1, "maximum": 64},
+            "gridLineCount": {"type": "integer", "minimum": 1, "maximum": 256},
+            "estimatedDrawCommandCount": {"type": "integer", "minimum": 1, "maximum": 1024}
+          }
+        }
+      }
+    },
+    "simplexAxis": {
+      "type": "object", "additionalProperties": false,
+      "required": ["label", "labelPosition"],
+      "properties": {"label": {"type": "string", "minLength": 1}, "labelPosition": {"$ref": "#/$defs/vectorPoint"}}
+    },
+    "simplexPoint": {
+      "type": "object", "additionalProperties": false,
+      "required": ["label", "position", "labelOffset"],
+      "properties": {"label": {"type": "string", "minLength": 1}, "position": {"$ref": "#/$defs/vectorPoint"}, "labelOffset": {"$ref": "#/$defs/signedVectorPoint"}}
+    },
+    "simplexStyling": {
+      "type": "object", "additionalProperties": false,
+      "required": ["outerLineWidth", "gridLineWidth", "pointRadius", "axisFontSize", "pointFontSize", "captionFontSize"],
+      "properties": {
+        "outerLineWidth": {"type": "integer", "minimum": 1, "maximum": 12},
+        "gridLineWidth": {"type": "integer", "minimum": 1, "maximum": 12},
+        "pointRadius": {"type": "integer", "minimum": 1, "maximum": 32},
+        "axisFontSize": {"type": "integer", "minimum": 6, "maximum": 72},
+        "pointFontSize": {"type": "integer", "minimum": 6, "maximum": 72},
+        "captionFontSize": {"type": "integer", "minimum": 6, "maximum": 72}
+      }
+    },
+    "simplexEvidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sourceAsset", "sourceSha256", "geometryEngine", "converterVersion", "renderSha256"],
+      "properties": {
+        "sourceAsset": {"type": "string"},
+        "sourceSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "geometryEngine": {"const": "human_verified_simplex_geometry"},
+        "converterVersion": {"const": "semantic-simplex-grids-v1"},
+        "renderSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "visualCoordinateSpace": {
+      "type": "object", "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {"width": {"type": "number", "exclusiveMinimum": 0, "maximum": 10000}, "height": {"type": "number", "exclusiveMinimum": 0, "maximum": 10000}}
+    },
+    "signedVectorPoint": {
+      "type": "object", "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": {"x": {"type": "number", "minimum": -10000, "maximum": 10000}, "y": {"type": "number", "minimum": -10000, "maximum": 10000}}
+    },
+    "semanticPieVisual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "visualGrammar", "fidelityTier", "layoutType", "coordinateSpace", "options", "styleVocabulary", "evidence", "complexity"],
+      "properties": {
+        "schemaVersion": {"const": "semantic-pie-options-v1"},
+        "kind": {"const": "semanticPieOptions"},
+        "visualGrammar": {"enum": ["pie_options", "filled_pie_options", "patterned_pie_options", "multislice_pie_options"]},
+        "fidelityTier": {"const": "semantic_vector"},
+        "layoutType": {"const": "sequence"},
+        "coordinateSpace": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["width", "height"],
+          "properties": {
+            "width": {"type": "number", "exclusiveMinimum": 0, "maximum": 10000},
+            "height": {"type": "number", "exclusiveMinimum": 0, "maximum": 10000}
+          }
+        },
+        "options": {"type": "array", "minItems": 3, "maxItems": 8, "items": {"$ref": "#/$defs/semanticPieOption"}},
+        "styleVocabulary": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/semanticPieStyle"}},
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sourceAsset", "sourceSha256", "geometryEngine", "converterVersion", "renderSha256"],
+          "properties": {
+            "sourceAsset": {"type": "string"},
+            "sourceSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "geometryEngine": {"const": "human_verified_sector_geometry"},
+            "converterVersion": {"const": "semantic-pie-options-v1"},
+            "renderSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+          }
+        },
+        "complexity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["optionCount", "sectorCount", "estimatedDrawCommandCount"],
+          "properties": {
+            "optionCount": {"type": "integer", "minimum": 3, "maximum": 8},
+            "sectorCount": {"type": "integer", "minimum": 3, "maximum": 64},
+            "estimatedDrawCommandCount": {"type": "integer", "minimum": 1, "maximum": 256}
+          }
+        }
+      }
+    },
+    "semanticPieOption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "position", "center", "radius", "labelY", "frame", "sectors"],
+      "properties": {
+        "id": {"type": "string"},
+        "label": {"type": "string", "pattern": "^[A-H]$"},
+        "position": {"type": "integer", "minimum": 0, "maximum": 7},
+        "center": {"$ref": "#/$defs/vectorPoint"},
+        "radius": {"type": "number", "exclusiveMinimum": 0, "maximum": 10000},
+        "labelY": {"type": "number", "minimum": 0, "maximum": 10000},
+        "frame": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["x", "y", "width", "height"],
+              "properties": {
+                "x": {"type": "number", "minimum": 0, "maximum": 10000},
+                "y": {"type": "number", "minimum": 0, "maximum": 10000},
+                "width": {"type": "number", "exclusiveMinimum": 0, "maximum": 10000},
+                "height": {"type": "number", "exclusiveMinimum": 0, "maximum": 10000}
+              }
+            }
+          ]
+        },
+        "boundariesDegrees": {"type": "array", "minItems": 1, "maxItems": 8, "uniqueItems": true, "items": {"type": "number", "minimum": 0, "maximum": 360}},
+        "sectors": {"type": "array", "minItems": 1, "maxItems": 8, "items": {"$ref": "#/$defs/semanticPieSector"}}
+      }
+    },
+    "semanticPieSector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["startDegrees", "sweepDegrees", "style"],
+      "properties": {
+        "startDegrees": {"type": "number", "minimum": 0, "maximum": 360},
+        "sweepDegrees": {"type": "number", "exclusiveMinimum": 0, "maximum": 360},
+        "style": {"$ref": "#/$defs/semanticPieStyle"}
+      }
+    },
+    "semanticPieStyle": {
+      "enum": ["white", "black", "gray_dark", "gray", "gray_light", "diagonal", "horizontal", "grid", "dots"]
+    },
+    "patternedPieVisual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "visualGrammar", "fidelityTier", "layoutType", "coordinateSpace", "options", "textureVocabulary", "evidence", "complexity"],
+      "properties": {
+        "schemaVersion": {"const": "patterned-pie-options-v1"},
+        "kind": {"const": "patternedPieOptions"},
+        "visualGrammar": {"const": "patterned_pie"},
+        "fidelityTier": {"const": "semantic_vector"},
+        "layoutType": {"const": "sequence"},
+        "coordinateSpace": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["width", "height"],
+          "properties": {
+            "width": {"type": "number", "exclusiveMinimum": 0, "maximum": 10000},
+            "height": {"type": "number", "exclusiveMinimum": 0, "maximum": 10000}
+          }
+        },
+        "options": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 8,
+          "items": {"$ref": "#/$defs/patternedPieOption"}
+        },
+        "textureVocabulary": {"$ref": "#/$defs/patternVocabulary"},
+        "evidence": {"$ref": "#/$defs/patternedPieEvidence"},
+        "complexity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["optionCount", "sectorCount", "patternDefinitionCount", "estimatedDrawCommandCount"],
+          "properties": {
+            "optionCount": {"type": "integer", "minimum": 3, "maximum": 8},
+            "sectorCount": {"type": "integer", "minimum": 9, "maximum": 24},
+            "patternDefinitionCount": {"const": 3},
+            "estimatedDrawCommandCount": {"type": "integer", "minimum": 1, "maximum": 128}
+          }
+        }
+      }
+    },
+    "patternedPieOption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "position", "center", "radius", "boundariesDegrees", "sectors"],
+      "properties": {
+        "id": {"type": "string"},
+        "label": {"type": "string", "pattern": "^[A-H]$"},
+        "position": {"type": "integer", "minimum": 0, "maximum": 7},
+        "center": {"$ref": "#/$defs/vectorPoint"},
+        "radius": {"type": "number", "exclusiveMinimum": 0, "maximum": 10000},
+        "boundariesDegrees": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number", "minimum": 0, "maximum": 360}},
+        "sectors": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/patternedPieSector"}}
+      }
+    },
+    "patternedPieSector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pattern", "startDegrees", "endDegrees"],
+      "properties": {
+        "pattern": {"enum": ["dots", "diagonal", "grid"]},
+        "startDegrees": {"type": "number", "minimum": 0, "maximum": 360},
+        "endDegrees": {"type": "number", "minimum": 0, "maximum": 360}
+      }
+    },
+    "patternVocabulary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dots", "grid", "diagonal"],
+      "properties": {
+        "dots": {"type": "object", "additionalProperties": false, "required": ["spacing", "radius"], "properties": {"spacing": {"type": "number", "exclusiveMinimum": 0}, "radius": {"type": "number", "exclusiveMinimum": 0}}},
+        "grid": {"type": "object", "additionalProperties": false, "required": ["spacing", "lineWidth"], "properties": {"spacing": {"type": "number", "exclusiveMinimum": 0}, "lineWidth": {"type": "number", "exclusiveMinimum": 0}}},
+        "diagonal": {"type": "object", "additionalProperties": false, "required": ["spacing", "lineWidth", "angleDegrees"], "properties": {"spacing": {"type": "number", "exclusiveMinimum": 0}, "lineWidth": {"type": "number", "exclusiveMinimum": 0}, "angleDegrees": {"type": "number", "minimum": 0, "maximum": 180}}}
+      }
+    },
+    "patternedPieEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceAsset", "sourceSha256", "layoutEngine", "semanticEngine", "geometryEngine", "converterVersion", "optionCount", "sectorsPerOption", "patternVocabulary", "boundaryMeanConfidence", "renderSha256"],
+      "properties": {
+        "sourceAsset": {"type": "string"},
+        "sourceSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "layoutEngine": {"const": "mineru_v4_image_block"},
+        "semanticEngine": {"type": "string"},
+        "geometryEngine": {"const": "opencv_hough_radial_scan"},
+        "converterVersion": {"type": "string"},
+        "optionCount": {"type": "integer", "minimum": 3, "maximum": 8},
+        "sectorsPerOption": {"const": 3},
+        "patternVocabulary": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"enum": ["dots", "diagonal", "grid"]}},
+        "boundaryMeanConfidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "renderSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "primitiveVisual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "kind",
+        "visualGrammar",
+        "fidelityTier",
+        "layoutType",
+        "coordinateSpace",
+        "panels",
+        "evidence",
+        "complexity"
+      ],
+      "properties": {
+        "schemaVersion": {"const": "graphic-primitives-v2"},
+        "kind": {"const": "primitivePanels"},
+        "visualGrammar": {"const": "primitive_scene"},
+        "fidelityTier": {"const": "deterministic_vector"},
+        "layoutType": {"const": "sequence"},
+        "coordinateSpace": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["width", "height"],
+          "properties": {
+            "width": {"type": "number", "exclusiveMinimum": 0, "maximum": 10000},
+            "height": {"type": "number", "exclusiveMinimum": 0, "maximum": 10000}
+          }
+        },
+        "panels": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "items": {"$ref": "#/$defs/structuredVisualPanel"}
+        },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sourceAsset",
+            "sourceSha256",
+            "extractionMethod",
+            "converterVersion",
+            "foregroundIoU",
+            "meanAbsoluteError",
+            "pixelDisagreementRatio",
+            "renderSha256"
+          ],
+          "properties": {
+            "sourceAsset": {"type": "string"},
+            "sourceSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "extractionMethod": {"enum": ["cv_quantized_contour", "cv_semantic_geometry"]},
+            "converterVersion": {"type": "string"},
+            "foregroundIoU": {"type": "number", "minimum": 0, "maximum": 1},
+            "meanAbsoluteError": {"type": "number", "minimum": 0, "maximum": 255},
+            "pixelDisagreementRatio": {"type": "number", "minimum": 0, "maximum": 1},
+            "renderSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+          }
+        },
+        "complexity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "primitiveCount",
+            "pathCommandCount",
+            "pointCount",
+            "wireframeEdgeCount",
+            "glyphCodePointCount",
+            "estimatedDrawCommandCount"
+          ],
+          "properties": {
+            "primitiveCount": {"type": "integer", "minimum": 1, "maximum": 512},
+            "pathCommandCount": {"type": "integer", "minimum": 0, "maximum": 4096},
+            "pointCount": {"type": "integer", "minimum": 1, "maximum": 4096},
+            "wireframeEdgeCount": {"const": 0},
+            "glyphCodePointCount": {"type": "integer", "minimum": 0, "maximum": 1024},
+            "estimatedDrawCommandCount": {"type": "integer", "minimum": 1, "maximum": 8192}
+          }
+        }
+      }
+    },
+    "structuredVisualPanel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "role", "position", "primitives"],
+      "properties": {
+        "id": {"type": "string"},
+        "role": {"const": "sample"},
+        "position": {"type": "integer", "minimum": 0},
+        "primitives": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128,
+          "items": {
+            "oneOf": [
+              {"$ref": "#/$defs/vectorPathGroup"},
+              {"$ref": "#/$defs/vectorLine"},
+              {"$ref": "#/$defs/vectorCircle"},
+              {"$ref": "#/$defs/vectorDot"},
+              {"$ref": "#/$defs/vectorTextGlyph"}
+            ]
+          }
+        }
+      }
+    },
+    "vectorPathGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "paths", "sourceEvidence", "style", "transform"],
+      "properties": {
+        "type": {"const": "pathGroup"},
+        "paths": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["commands", "fillRule"],
+            "properties": {
+              "commands": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 2048,
+                "items": {"$ref": "#/$defs/vectorPathCommand"}
+              },
+              "fillRule": {"const": "evenodd"}
+            }
+          }
+        },
+        "sourceEvidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sourceAsset", "extractionMethod", "verified"],
+          "properties": {
+            "sourceAsset": {"type": "string", "maxLength": 256},
+            "extractionMethod": {"const": "cv_contour"},
+            "verified": {"const": true}
+          }
+        },
+        "style": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["stroke", "fill", "lineWidth", "dash", "opacity"],
+          "properties": {
+            "stroke": {"type": "null"},
+            "fill": {"type": "string", "pattern": "^#[0-9a-fA-F]{6}$"},
+            "lineWidth": {"const": 0},
+            "dash": {"type": "array", "maxItems": 0},
+            "opacity": {"const": 1}
+          }
+        },
+        "transform": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["translateX", "translateY", "scaleX", "scaleY", "rotateDegrees", "originX", "originY"],
+          "properties": {
+            "translateX": {"const": 0},
+            "translateY": {"const": 0},
+            "scaleX": {"const": 1},
+            "scaleY": {"const": 1},
+            "rotateDegrees": {"const": 0},
+            "originX": {"const": 0},
+            "originY": {"const": 0}
+          }
+        }
+      }
+    },
+    "vectorLine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "from", "to", "style", "transform"],
+      "properties": {
+        "type": {"const": "line"},
+        "from": {"$ref": "#/$defs/vectorPoint"},
+        "to": {"$ref": "#/$defs/vectorPoint"},
+        "style": {"$ref": "#/$defs/strokedVectorStyle"},
+        "transform": {"$ref": "#/$defs/identityTransform"}
+      }
+    },
+    "vectorCircle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "center", "radius", "style", "transform"],
+      "properties": {
+        "type": {"const": "circle"},
+        "center": {"$ref": "#/$defs/vectorPoint"},
+        "radius": {"type": "number", "exclusiveMinimum": 0, "maximum": 10000},
+        "style": {"$ref": "#/$defs/strokedVectorStyle"},
+        "transform": {"$ref": "#/$defs/identityTransform"}
+      }
+    },
+    "vectorDot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "center", "radius", "style", "transform"],
+      "properties": {
+        "type": {"const": "dot"},
+        "center": {"$ref": "#/$defs/vectorPoint"},
+        "radius": {"type": "number", "exclusiveMinimum": 0, "maximum": 1000},
+        "style": {"$ref": "#/$defs/filledVectorStyle"},
+        "transform": {"$ref": "#/$defs/identityTransform"}
+      }
+    },
+    "vectorTextGlyph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "content", "position", "fontCategory", "fontStyle", "fontWeight", "fontSize", "direction", "align", "style", "transform"],
+      "properties": {
+        "type": {"const": "textGlyph"},
+        "content": {"type": "string", "minLength": 1, "maxLength": 16},
+        "position": {"$ref": "#/$defs/vectorPoint"},
+        "fontCategory": {"enum": ["sans", "serif", "monospace", "symbol"]},
+        "fontStyle": {"enum": ["normal", "italic"]},
+        "fontWeight": {"enum": [400, 500, 600, 700]},
+        "fontSize": {"type": "number", "exclusiveMinimum": 0, "maximum": 1000},
+        "direction": {"enum": ["ltr", "rtl", "vertical"]},
+        "align": {"enum": ["left", "center", "right"]},
+        "style": {"$ref": "#/$defs/filledVectorStyle"},
+        "transform": {"$ref": "#/$defs/identityTransform"}
+      }
+    },
+    "vectorPoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": {
+        "x": {"type": "number", "minimum": 0, "maximum": 10000},
+        "y": {"type": "number", "minimum": 0, "maximum": 10000}
+      }
+    },
+    "identityTransform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["translateX", "translateY", "scaleX", "scaleY", "rotateDegrees", "originX", "originY"],
+      "properties": {
+        "translateX": {"const": 0},
+        "translateY": {"const": 0},
+        "scaleX": {"const": 1},
+        "scaleY": {"const": 1},
+        "rotateDegrees": {"const": 0},
+        "originX": {"const": 0},
+        "originY": {"const": 0}
+      }
+    },
+    "strokedVectorStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stroke", "fill", "lineWidth", "dash", "opacity"],
+      "properties": {
+        "stroke": {"type": "string", "pattern": "^#[0-9a-fA-F]{6}$"},
+        "fill": {"type": "null"},
+        "lineWidth": {"type": "number", "exclusiveMinimum": 0, "maximum": 100},
+        "dash": {"type": "array", "maxItems": 8, "items": {"type": "number", "minimum": 0, "maximum": 100}},
+        "opacity": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "filledVectorStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stroke", "fill", "lineWidth", "dash", "opacity"],
+      "properties": {
+        "stroke": {"type": "null"},
+        "fill": {"type": "string", "pattern": "^#[0-9a-fA-F]{6}$"},
+        "lineWidth": {"const": 0},
+        "dash": {"type": "array", "maxItems": 0},
+        "opacity": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "vectorPathCommand": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["op", "x", "y"],
+          "properties": {
+            "op": {"enum": ["move", "line"]},
+            "x": {"type": "number", "minimum": 0, "maximum": 10000},
+            "y": {"type": "number", "minimum": 0, "maximum": 10000}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["op"],
+          "properties": {"op": {"const": "close"}}
+        }
+      ]
+    },
+    "scalar": {"type": ["number", "string", "null"]},
+    "axis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "unit", "min", "max", "ticks"],
+      "properties": {
+        "title": {"type": ["string", "null"]},
+        "unit": {"type": ["string", "null"]},
+        "min": {"type": ["number", "null"]},
+        "max": {"type": ["number", "null"]},
+        "ticks": {"type": "array", "items": {"type": "number"}}
+      }
+    },
+    "style": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fill", "stroke", "dash", "marker"],
+      "properties": {
+        "fill": {"type": ["string", "null"]},
+        "stroke": {"type": ["string", "null"]},
+        "dash": {"type": ["string", "null"]},
+        "marker": {"type": ["string", "null"]}
+      }
+    },
+    "series": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "render_as", "axis", "unit", "values", "style"],
+      "properties": {
+        "id": {"type": "string"},
+        "label": {"type": ["string", "null"]},
+        "render_as": {"enum": ["bar", "line", "point", "slice", "cell"]},
+        "axis": {"enum": ["left", "right", "none"]},
+        "unit": {"type": ["string", "null"]},
+        "values": {"type": "array", "items": {"$ref": "#/$defs/scalar"}},
+        "style": {"$ref": "#/$defs/style"}
+      }
+    },
+    "table": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["columns", "rows"],
+      "properties": {
+        "title": {"type": ["string", "null"]},
+        "row_header_label": {"type": ["string", "null"]},
+        "corner_header": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["style", "upper_label", "lower_label"],
+              "properties": {
+                "style": {"const": "diagonal"},
+                "upper_label": {"type": "string", "minLength": 1},
+                "lower_label": {"type": "string", "minLength": 1}
+              }
+            }
+          ]
+        },
+        "columns": {"type": "array", "items": {"type": "string"}},
+        "column_groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "columns"],
+            "properties": {
+              "label": {"type": "string", "minLength": 1},
+              "columns": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+            }
+          }
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "values"],
+            "properties": {
+              "label": {"type": ["string", "null"]},
+              "display_label": {"type": ["string", "null"]},
+              "group": {"type": ["string", "null"]},
+              "unit": {"type": ["string", "null"]},
+              "values": {"type": "array", "items": {"$ref": "#/$defs/scalar"}}
+            }
+          }
+        },
+        "missing_cells": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["row", "column", "display"],
+            "properties": {
+              "row": {"type": "string", "minLength": 1},
+              "column": {"type": "string", "minLength": 1},
+              "display": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "sections": {"type": "array", "items": {"$ref": "#/$defs/table"}}
+      }
+    },
+    "pieGeometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rotation_convention", "boundaries_degrees", "slices", "geometry_owner"],
+      "properties": {
+        "rotation_convention": {"const": "top_clockwise"},
+        "boundaries_degrees": {
+          "type": "array",
+          "minItems": 3,
+          "items": {"type": "number"}
+        },
+        "slices": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "start_angle", "end_angle", "sweep_angle", "share"],
+            "properties": {
+              "label": {"type": ["string", "null"]},
+              "start_angle": {"type": "number"},
+              "end_angle": {"type": "number"},
+              "sweep_angle": {"type": "number", "exclusiveMinimum": 0, "maximum": 360},
+              "share": {"type": "number", "exclusiveMinimum": 0, "maximum": 1}
+            }
+          }
+        },
+        "geometry_owner": {
+          "enum": ["opencv_hough_radial_scan", "labeled_share_reconstruction"]
+        }
+      }
+    },
+    "legend": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "style"],
+      "properties": {
+        "label": {"type": "string"},
+        "style": {"$ref": "#/$defs/style"}
+      }
+    }
+  }
+}

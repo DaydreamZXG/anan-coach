@@ -1,0 +1,193 @@
+{
+  "asset_id": "da_38f90a8e1e6deedeabc1ed00",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 120000,
+        "min": 0,
+        "ticks": [
+          0,
+          20000,
+          40000,
+          60000,
+          80000,
+          100000,
+          120000
+        ],
+        "title": null,
+        "unit": "万户"
+      }
+    ]
+  },
+  "categories": [
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "固定互联网宽带接入用户",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "移动宽带用户",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "固定互联网宽带接入用户",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万户",
+      "values": [
+        18891,
+        20048,
+        25947,
+        29721,
+        34854
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "移动宽带用户",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万户",
+      "values": [
+        40161,
+        58254,
+        70611,
+        94075,
+        113152
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0172_5ac9ff3582433664.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0172_5ac9ff3582433664.png",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_d266f46913166fb3bb22",
+        "question_number": 116,
+        "source_jsonl_line": 52780
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0159_3966b31585feae83.png",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_f3fc35e51b81e17dff3a",
+        "question_number": 117,
+        "source_jsonl_line": 52781
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0172_5ac9ff3582433664.png",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_fd65d2a777bab38e3b2f",
+        "question_number": 118,
+        "source_jsonl_line": 52782
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0159_3966b31585feae83.png",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_76b1ca9cb6fd5531c685",
+        "question_number": 119,
+        "source_jsonl_line": 52783
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（江西卷）（网友回忆版）_images/img_0159_3966b31585feae83.png",
+        "paper_title": "2018年421联考《行测》题（江西卷）（网友回忆版）",
+        "question_id": "pq_dc669ae12af713b5d1ac",
+        "question_number": 120,
+        "source_jsonl_line": 52784
+      }
+    ],
+    "sha256": "38f90a8e1e6deedeabc1ed008848db120bb337965014cbc526f6c8f8174c81da"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013-2017年年末固定互联网宽带接入用户和移动宽带用户数",
+  "unit": "万户",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_38f90a8e1e6deedeabc1ed00/column_band_01.jpg",
+        "review-crops/da_38f90a8e1e6deedeabc1ed00/column_band_02.jpg",
+        "review-crops/da_38f90a8e1e6deedeabc1ed00/column_band_03.jpg",
+        "review-crops/da_38f90a8e1e6deedeabc1ed00/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.212",
+      "crop_verification_elapsed_seconds:12.551",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2013年固定互联网宽带接入用户数为18891（原为18891，正确）。",
+      "crop_note:修正了2013年移动宽带用户数为40161（原为40161，正确）。",
+      "crop_note:修正了2014年固定互联网宽带接入用户数为20048（原为20048，正确）。",
+      "crop_note:修正了2014年移动宽带用户数为58254（原为58254，正确）。",
+      "crop_note:修正了2015年固定互联网宽带接入用户数为25947（原为25947，正确）。",
+      "crop_note:修正了2015年移动宽带用户数为70611（原为70611，正确）。",
+      "crop_note:修正了2016年固定互联网宽带接入用户数为29721（原为29721，正确）。",
+      "crop_note:修正了2016年移动宽带用户数为94075（原为94075，正确）。",
+      "crop_note:修正了2017年固定互联网宽带接入用户数为34854（原为34854，正确）。",
+      "crop_note:修正了2017年移动宽带用户数为113152（原为113152，正确）。",
+      "crop_note:确认所有数值均无负号、小数或百分号，且无缺失值。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

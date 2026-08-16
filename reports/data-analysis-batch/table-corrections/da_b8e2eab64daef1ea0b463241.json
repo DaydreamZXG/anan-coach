@@ -1,0 +1,89 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1-2月房屋新开工面积｜绝对数（万平方米）",
+      "1-2月房屋新开工面积｜同比增长（%）",
+      "1-2月房屋竣工面积｜绝对数（万平方米）",
+      "1-2月房屋竣工面积｜同比增长（%）",
+      "截至2月末房屋施工面积｜绝对数（万平方米）",
+      "截至2月末房屋施工面积｜同比增长（%）",
+      "1-2月房地产开发投资｜绝对数（万元）",
+      "1-2月房地产开发投资｜同比增长（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "总计",
+        "group": null,
+        "label": "总计",
+        "unit": null,
+        "values": [
+          16693,
+          -27.4,
+          12418,
+          -8.2,
+          529596,
+          16.3,
+          7956,
+          19.3
+        ]
+      },
+      {
+        "display_label": "其中：住宅",
+        "group": null,
+        "label": "其中：住宅",
+        "unit": null,
+        "values": [
+          12279,
+          -29.6,
+          9266,
+          -10.6,
+          380952,
+          13.5,
+          5426,
+          18.4
+        ]
+      },
+      {
+        "display_label": "办公用房",
+        "group": null,
+        "label": "办公用房",
+        "unit": null,
+        "values": [
+          524,
+          -27.3,
+          368,
+          14.0,
+          20964,
+          26.3,
+          494,
+          27.1
+        ]
+      },
+      {
+        "display_label": "商业用房",
+        "group": null,
+        "label": "商业用房",
+        "unit": null,
+        "values": [
+          2164,
+          -15.2,
+          1502,
+          -7.9,
+          66049,
+          25.1,
+          1117,
+          26.4
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

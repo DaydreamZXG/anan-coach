@@ -1,0 +1,291 @@
+{
+  "asset_id": "da_e24c796d3d496cd63b5986e1",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2010年国家公务员录用考试《行测》题_images/img_0234_8418254a921a91f1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0234_8418254a921a91f1.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_57efcd82de10cf6ee6b1",
+        "question_number": 106,
+        "source_jsonl_line": 17501
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0234_8418254a921a91f1.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_db1aa7b38e3208b82107",
+        "question_number": 107,
+        "source_jsonl_line": 17502
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0234_8418254a921a91f1.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_094aa65a21bd37506a8d",
+        "question_number": 108,
+        "source_jsonl_line": 17503
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0263_56aa13c190dadb83.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_1aa93ad1f4b6625ee8bc",
+        "question_number": 109,
+        "source_jsonl_line": 17504
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年国家公务员录用考试《行测》题_images/img_0234_8418254a921a91f1.png",
+        "paper_title": "2010年国家公务员录用考试《行测》题",
+        "question_id": "pq_14d58457dc1f7ecaf7fd",
+        "question_number": 110,
+        "source_jsonl_line": 17505
+      }
+    ],
+    "sha256": "e24c796d3d496cd63b5986e171a714ab496a34d9a3ed49bc3fbee6c7d9f42f10"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "累计（1-5）",
+      "当月",
+      "累计同比增长（%）",
+      "当月同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "邮电业务总量",
+        "group": null,
+        "label": "邮电业务总量",
+        "unit": "亿元",
+        "values": [
+          10722.8,
+          4274.2,
+          11.4,
+          11.6
+        ]
+      },
+      {
+        "display_label": "邮政业务总量",
+        "group": null,
+        "label": "邮政业务总量",
+        "unit": "亿元",
+        "values": [
+          630.1,
+          133.0,
+          12.7,
+          16.4
+        ]
+      },
+      {
+        "display_label": "电信业务总量",
+        "group": null,
+        "label": "电信业务总量",
+        "unit": "亿元",
+        "values": [
+          10092.7,
+          2141.2,
+          11.3,
+          11.4
+        ]
+      },
+      {
+        "display_label": "函件总数",
+        "group": null,
+        "label": "函件总数",
+        "unit": "万件",
+        "values": [
+          311389.3,
+          62864.3,
+          1.7,
+          2.8
+        ]
+      },
+      {
+        "display_label": "包裹",
+        "group": null,
+        "label": "包裹",
+        "unit": "万件",
+        "values": [
+          2912.7,
+          625.0,
+          -15.8,
+          -5.3
+        ]
+      },
+      {
+        "display_label": "快递",
+        "group": null,
+        "label": "快递",
+        "unit": "万件",
+        "values": [
+          67468.0,
+          14829.1,
+          18.1,
+          21.9
+        ]
+      },
+      {
+        "display_label": "汇票",
+        "group": null,
+        "label": "汇票",
+        "unit": "万笔",
+        "values": [
+          10825.3,
+          2487.6,
+          3.4,
+          3.0
+        ]
+      },
+      {
+        "display_label": "订销报纸累计数",
+        "group": null,
+        "label": "订销报纸累计数",
+        "unit": "万份",
+        "values": [
+          668388.1,
+          137278.6,
+          -0.1,
+          -1.5
+        ]
+      },
+      {
+        "display_label": "订销杂志累计数",
+        "group": null,
+        "label": "订销杂志累计数",
+        "unit": "万份",
+        "values": [
+          42900.2,
+          8916.3,
+          -0.5,
+          -4.3
+        ]
+      },
+      {
+        "display_label": "邮政储蓄期末余额",
+        "group": null,
+        "label": "邮政储蓄期末余额",
+        "unit": "亿元",
+        "values": [
+          null,
+          22788.8,
+          null,
+          20.5
+        ]
+      },
+      {
+        "display_label": "固定传统长途电话通话时长",
+        "group": null,
+        "label": "固定传统长途电话通话时长",
+        "unit": "亿分钟",
+        "values": [
+          352.1,
+          72.4,
+          -4.6,
+          -0.8
+        ]
+      },
+      {
+        "display_label": "移动电话通话时长（合计）",
+        "group": null,
+        "label": "移动电话通话时长（合计）",
+        "unit": "亿分钟",
+        "values": [
+          13770.2,
+          2961.3,
+          17.6,
+          16.4
+        ]
+      },
+      {
+        "display_label": "移动电话长途通话时长",
+        "group": null,
+        "label": "移动电话长途通话时长",
+        "unit": "亿分钟",
+        "values": [
+          895.2,
+          200.6,
+          28.4,
+          24.0
+        ]
+      },
+      {
+        "display_label": "IP电话通话时长",
+        "group": null,
+        "label": "IP电话通话时长",
+        "unit": "亿分钟",
+        "values": [
+          500.0,
+          103.9,
+          -16.8,
+          -20.3
+        ]
+      },
+      {
+        "display_label": "移动短信业务量",
+        "group": null,
+        "label": "移动短信业务量",
+        "unit": "亿条",
+        "values": [
+          3195.4,
+          643.2,
+          11.2,
+          10.4
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

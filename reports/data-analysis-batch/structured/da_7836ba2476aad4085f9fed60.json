@@ -1,0 +1,203 @@
+{
+  "asset_id": "da_7836ba2476aad4085f9fed60",
+  "axes": {
+    "x": {
+      "max": 2011,
+      "min": 2007,
+      "ticks": [
+        2007,
+        2008,
+        2009,
+        2010,
+        2011
+      ],
+      "title": "年",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 2500,
+        "min": 0,
+        "ticks": [
+          0,
+          500,
+          1000,
+          1500,
+          2000,
+          2500
+        ],
+        "title": "万人次",
+        "unit": "万人次"
+      },
+      {
+        "max": 30,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30
+        ],
+        "title": "%",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "国内外旅游者总人次",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "国内外旅游者同比增长率",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "国内外旅游者总人次",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        1001,
+        1241,
+        1535,
+        1801,
+        2123
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "国内外旅游者同比增长率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        22.5,
+        23.9,
+        23.7,
+        17.3,
+        17.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2012年安徽省公务员录用考试《行测》题_images/img_0085_783132ae15a9a7fc.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年安徽省公务员录用考试《行测》题_images/img_0085_783132ae15a9a7fc.png",
+        "paper_title": "2012年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_456a7eeedecc931f851f",
+        "question_number": 116,
+        "source_jsonl_line": 27146
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年安徽省公务员录用考试《行测》题_images/img_0063_a0781d6bbe058ca2.png",
+        "paper_title": "2012年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_403f23e9218fe87156bd",
+        "question_number": 117,
+        "source_jsonl_line": 27147
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年安徽省公务员录用考试《行测》题_images/img_0063_a0781d6bbe058ca2.png",
+        "paper_title": "2012年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_88b1dc58fe338fc6f2e8",
+        "question_number": 118,
+        "source_jsonl_line": 27148
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年安徽省公务员录用考试《行测》题_images/img_0063_a0781d6bbe058ca2.png",
+        "paper_title": "2012年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_8e6757a64679d3c2a388",
+        "question_number": 119,
+        "source_jsonl_line": 27149
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年安徽省公务员录用考试《行测》题_images/img_0063_a0781d6bbe058ca2.png",
+        "paper_title": "2012年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_b45379ea850c594eafa7",
+        "question_number": 120,
+        "source_jsonl_line": 27150
+      }
+    ],
+    "sha256": "7836ba2476aad4085f9fed6014d63cc5a8ba4c50ab84df6b0d874f03a47556d3"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2007年-2011年某市接待海内外旅游者情况",
+  "unit": "万人次",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_7836ba2476aad4085f9fed60/column_band_01.jpg",
+        "review-crops/da_7836ba2476aad4085f9fed60/column_band_02.jpg",
+        "review-crops/da_7836ba2476aad4085f9fed60/column_band_03.jpg",
+        "review-crops/da_7836ba2476aad4085f9fed60/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.563",
+      "crop_verification_elapsed_seconds:3.304",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

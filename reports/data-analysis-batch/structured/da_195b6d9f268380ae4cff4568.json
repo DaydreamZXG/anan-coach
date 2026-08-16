@@ -1,0 +1,139 @@
+{
+  "asset_id": "da_195b6d9f268380ae4cff4568",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2017年422联考《行测》题（吉林卷甲级）_images/img_0137_65877696c360ee6a.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（吉林卷甲级）_images/img_0137_65877696c360ee6a.jpg",
+        "paper_title": "2017年422联考《行测》题（吉林卷甲级）",
+        "question_id": "pq_722c35b02373e9f7815e",
+        "question_number": 101,
+        "source_jsonl_line": 12802
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（吉林卷甲级）_images/img_0137_65877696c360ee6a.jpg",
+        "paper_title": "2017年422联考《行测》题（吉林卷甲级）",
+        "question_id": "pq_79ba47cf82a359770276",
+        "question_number": 102,
+        "source_jsonl_line": 12803
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（吉林卷甲级）_images/img_0137_65877696c360ee6a.jpg",
+        "paper_title": "2017年422联考《行测》题（吉林卷甲级）",
+        "question_id": "pq_5e901af6c32f51516c69",
+        "question_number": 103,
+        "source_jsonl_line": 12804
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（吉林卷甲级）_images/img_0137_65877696c360ee6a.jpg",
+        "paper_title": "2017年422联考《行测》题（吉林卷甲级）",
+        "question_id": "pq_94f0f018e4a72c2c23af",
+        "question_number": 104,
+        "source_jsonl_line": 12805
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（吉林卷甲级）_images/img_0157_8314020079e446a7.jpg",
+        "paper_title": "2017年422联考《行测》题（吉林卷甲级）",
+        "question_id": "pq_a22cb9cc58da2306d596",
+        "question_number": 105,
+        "source_jsonl_line": 12806
+      }
+    ],
+    "sha256": "195b6d9f268380ae4cff456840e353f84cc94cb89d41424f251d9ae52f337242"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1-12月｜绝对量（万美元）",
+      "1-12月｜增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "海关进出口总值",
+        "group": "1-12月",
+        "label": "1-12月｜海关进出口总值",
+        "unit": null,
+        "values": [
+          1844246,
+          -2.3
+        ]
+      },
+      {
+        "display_label": "出口总值",
+        "group": "1-12月",
+        "label": "1-12月｜出口总值",
+        "unit": null,
+        "values": [
+          420568,
+          -8.8
+        ]
+      },
+      {
+        "display_label": "进口总值",
+        "group": "1-12月",
+        "label": "1-12月｜进口总值",
+        "unit": null,
+        "values": [
+          1423678,
+          -0.2
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

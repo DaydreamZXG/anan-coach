@@ -1,0 +1,198 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2012年",
+          "2021年",
+          "2022年"
+        ],
+        "label": "全球创新指数（GII）"
+      }
+    ],
+    "columns": [
+      "2012年",
+      "2021年",
+      "2022年"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "国家",
+      "style": "diagonal",
+      "upper_label": "年份"
+    },
+    "missing_cells": [],
+    "row_header_label": "国家",
+    "rows": [
+      {
+        "display_label": "瑞士",
+        "group": null,
+        "label": "瑞士",
+        "unit": null,
+        "values": [
+          68.2,
+          65.5,
+          64.6
+        ]
+      },
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": null,
+        "values": [
+          57.7,
+          61.3,
+          61.8
+        ]
+      },
+      {
+        "display_label": "瑞典",
+        "group": null,
+        "label": "瑞典",
+        "unit": null,
+        "values": [
+          64.8,
+          63.1,
+          61.6
+        ]
+      },
+      {
+        "display_label": "英国",
+        "group": null,
+        "label": "英国",
+        "unit": null,
+        "values": [
+          61.2,
+          59.8,
+          59.7
+        ]
+      },
+      {
+        "display_label": "荷兰",
+        "group": null,
+        "label": "荷兰",
+        "unit": null,
+        "values": [
+          60.5,
+          58.6,
+          58.0
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          53.9,
+          59.3,
+          57.8
+        ]
+      },
+      {
+        "display_label": "新加坡",
+        "group": null,
+        "label": "新加坡",
+        "unit": null,
+        "values": [
+          63.5,
+          57.8,
+          57.3
+        ]
+      },
+      {
+        "display_label": "德国",
+        "group": null,
+        "label": "德国",
+        "unit": null,
+        "values": [
+          56.2,
+          57.3,
+          57.2
+        ]
+      },
+      {
+        "display_label": "芬兰",
+        "group": null,
+        "label": "芬兰",
+        "unit": null,
+        "values": [
+          61.8,
+          58.4,
+          56.9
+        ]
+      },
+      {
+        "display_label": "丹麦",
+        "group": null,
+        "label": "丹麦",
+        "unit": null,
+        "values": [
+          59.9,
+          57.3,
+          55.9
+        ]
+      },
+      {
+        "display_label": "中国",
+        "group": null,
+        "label": "中国",
+        "unit": null,
+        "values": [
+          45.4,
+          54.8,
+          55.3
+        ]
+      },
+      {
+        "display_label": "巴西",
+        "group": null,
+        "label": "巴西",
+        "unit": null,
+        "values": [
+          36.6,
+          34.2,
+          32.5
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": null,
+        "label": "俄罗斯",
+        "unit": null,
+        "values": [
+          37.9,
+          36.6,
+          34.3
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": null,
+        "label": "印度",
+        "unit": null,
+        "values": [
+          35.7,
+          36.4,
+          36.6
+        ]
+      },
+      {
+        "display_label": "南非",
+        "group": null,
+        "label": "南非",
+        "unit": null,
+        "values": [
+          37.4,
+          32.7,
+          29.8
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

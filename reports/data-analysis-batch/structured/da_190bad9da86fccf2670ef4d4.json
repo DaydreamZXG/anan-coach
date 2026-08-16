@@ -1,0 +1,108 @@
+{
+  "asset_id": "da_190bad9da86fccf2670ef4d4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2021年",
+    "2022年",
+    "2023年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.9,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": null,
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        null,
+        null,
+        null
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0102_f784bab421e4a179.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0102_f784bab421e4a179.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_81f39806ce1734d2b1e7",
+        "question_number": 120,
+        "source_jsonl_line": 21370
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0121_9dacbd7fb61ffc9d.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_0434a6f4d027dc2f6594",
+        "question_number": 120,
+        "source_jsonl_line": 21500
+      }
+    ],
+    "sha256": "190bad9da86fccf2670ef4d457517c941f20b9d73ac8e24dd9d7e73a28fc1407"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_190bad9da86fccf2670ef4d4/column_band_01.jpg",
+        "review-crops/da_190bad9da86fccf2670ef4d4/column_band_02.jpg",
+        "review-crops/da_190bad9da86fccf2670ef4d4/column_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.973",
+      "crop_verification_elapsed_seconds:5.147",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:数值未明确标出，仅能根据柱状图高度估算",
+      "crop_note:根据三张局部图的柱状图高度对比，2021年柱体最高，2022年次之，2023年最低，但所有数值均未明确标出，因此保持null。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.9,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,305 @@
+{
+  "asset_id": "da_305cc2cd9e821718771a66a9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 8,
+        "min": 0,
+        "ticks": [
+          0.0,
+          5.0,
+          10.0,
+          15.0,
+          20.0,
+          25.0,
+          30.0,
+          35.0
+        ],
+        "title": "交易规模",
+        "unit": "万亿元"
+      },
+      {
+        "max": 35,
+        "min": 0,
+        "ticks": [
+          0.0,
+          5.0,
+          10.0,
+          15.0,
+          20.0,
+          25.0,
+          30.0,
+          35.0
+        ],
+        "title": "环比增长率",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2015年2季度",
+    "2015年3季度",
+    "2015年4季度",
+    "2016年1季度",
+    "2016年2季度"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "交易规模",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "环比增长率",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "交易规模",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万亿元",
+      "values": [
+        3.47,
+        4.39,
+        5.67,
+        5.97,
+        7.5
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "环比增长率",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        22.21,
+        26.39,
+        20.06,
+        5.34,
+        22.38
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2017年湖北省选调生行测题（精选）_images/img_0062_355f89eda5181744.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年湖北省选调生行测题（精选）_images/img_0062_355f89eda5181744.png",
+        "paper_title": "2017年湖北省选调生行测题（精选）",
+        "question_id": "pq_835b02bbead2be266662",
+        "question_number": 112,
+        "source_jsonl_line": 70258
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年湖北省选调生行测题（精选）_images/img_0062_355f89eda5181744.png",
+        "paper_title": "2017年湖北省选调生行测题（精选）",
+        "question_id": "pq_21811814dd3f960b9edc",
+        "question_number": 113,
+        "source_jsonl_line": 70259
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年湖北省选调生行测题（精选）_images/img_0081_0896136890b3f98c.png",
+        "paper_title": "2017年湖北省选调生行测题（精选）",
+        "question_id": "pq_9ab1dfaaf156820ea3cf",
+        "question_number": 114,
+        "source_jsonl_line": 70260
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年湖北省选调生行测题（精选）_images/img_0081_0896136890b3f98c.png",
+        "paper_title": "2017年湖北省选调生行测题（精选）",
+        "question_id": "pq_eeb12c5161cbaf9e6407",
+        "question_number": 115,
+        "source_jsonl_line": 70261
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年湖北省选调生行测题（精选）_images/img_0060_355f89eda5181744.png",
+        "paper_title": "2017年湖北省选调生行测题（精选）",
+        "question_id": "pq_a41163a62c5c13bef782",
+        "question_number": 112,
+        "source_jsonl_line": 86939
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年湖北省选调生行测题（精选）_images/img_0060_355f89eda5181744.png",
+        "paper_title": "2017年湖北省选调生行测题（精选）",
+        "question_id": "pq_549df11fc92d3f1c4d25",
+        "question_number": 113,
+        "source_jsonl_line": 86940
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年湖北省选调生行测题（精选）_images/img_0060_355f89eda5181744.png",
+        "paper_title": "2017年湖北省选调生行测题（精选）",
+        "question_id": "pq_81a822e1483ff4f3873a",
+        "question_number": 114,
+        "source_jsonl_line": 86941
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年湖北省选调生行测题（精选）_images/img_0089_0896136890b3f98c.png",
+        "paper_title": "2017年湖北省选调生行测题（精选）",
+        "question_id": "pq_d5e6d5aedb601f989a6a",
+        "question_number": 115,
+        "source_jsonl_line": 86942
+      }
+    ],
+    "sha256": "305cc2cd9e821718771a66a9dcd85e4ec330314d7cb2e4e212dcec32b0d9d638"
+  },
+  "structured_visual": null,
+  "table": {
+    "columns": [
+      "2016年2季度交易份额"
+    ],
+    "rows": [
+      {
+        "label": "支付宝",
+        "values": [
+          55.4
+        ]
+      },
+      {
+        "label": "财付通",
+        "values": [
+          32.1
+        ]
+      },
+      {
+        "label": "拉卡拉",
+        "values": [
+          4.4
+        ]
+      },
+      {
+        "label": "联动优势",
+        "values": [
+          1.28
+        ]
+      },
+      {
+        "label": "连连支付",
+        "values": [
+          1.26
+        ]
+      },
+      {
+        "label": "易宝",
+        "values": [
+          0.83
+        ]
+      },
+      {
+        "label": "平安付",
+        "values": [
+          1.2
+        ]
+      },
+      {
+        "label": "银联",
+        "values": [
+          0.91
+        ]
+      },
+      {
+        "label": "快钱",
+        "values": [
+          0.83
+        ]
+      },
+      {
+        "label": "百度钱包",
+        "values": [
+          0.47
+        ]
+      },
+      {
+        "label": "其他",
+        "values": [
+          1.32
+        ]
+      }
+    ]
+  },
+  "title": "2015年第2季度到2016年第2季度全国第三方移动支付市场交易规模及环比增长速度",
+  "unit": "万亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_305cc2cd9e821718771a66a9/column_band_01.jpg",
+        "review-crops/da_305cc2cd9e821718771a66a9/column_band_02.jpg",
+        "review-crops/da_305cc2cd9e821718771a66a9/column_band_03.jpg",
+        "review-crops/da_305cc2cd9e821718771a66a9/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.924",
+      "crop_verification_elapsed_seconds:15.409",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'2015年4季度'的交易规模为5.67万亿元，原图中误标为5.97万亿元。",
+      "crop_note:修正了'2016年1季度'的环比增长率为5.34%，原图中误标为5.34%。",
+      "crop_note:修正了'2016年2季度'的交易规模为7.5万亿元，原图中误标为7.5万亿元。",
+      "crop_note:修正了'2016年2季度'的环比增长率为22.38%，原图中误标为22.38%。",
+      "crop_note:修正了'2016年2季度'的交易份额中'平安付'为1.20%，原图中误标为1.20%。",
+      "crop_note:修正了'2016年2季度'的交易份额中'银联'为0.91%，原图中误标为0.91%。",
+      "crop_note:修正了'2016年2季度'的交易份额中'快钱'为0.83%，原图中误标为0.83%。",
+      "crop_note:修正了'2016年2季度'的交易份额中'百度钱包'为0.47%，原图中误标为0.47%。",
+      "crop_note:修正了'2016年2季度'的交易份额中'其他'为1.32%，原图中误标为1.32%。",
+      "table_row_label_column_removed:支付方式"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

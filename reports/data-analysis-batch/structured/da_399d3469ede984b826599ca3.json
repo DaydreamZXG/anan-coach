@@ -1,0 +1,211 @@
+{
+  "asset_id": "da_399d3469ede984b826599ca3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "政府",
+    "企业",
+    "国外",
+    "其他"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "政府",
+      "style": {
+        "dash": "none",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "企业",
+      "style": {
+        "dash": "none",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "国外",
+      "style": {
+        "dash": "none",
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "其他",
+      "style": {
+        "dash": "none",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -42.5,
+      122.0,
+      282.5,
+      300.5,
+      317.5
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 122.0,
+        "label": "政府",
+        "share": 0.45694444,
+        "start_angle": -42.5,
+        "sweep_angle": 164.5
+      },
+      {
+        "end_angle": 282.5,
+        "label": "企业",
+        "share": 0.44583333,
+        "start_angle": 122.0,
+        "sweep_angle": 160.5
+      },
+      {
+        "end_angle": 300.5,
+        "label": "国外",
+        "share": 0.05,
+        "start_angle": 282.5,
+        "sweep_angle": 18.0
+      },
+      {
+        "end_angle": 317.5,
+        "label": "其他",
+        "share": 0.04722222,
+        "start_angle": 300.5,
+        "sweep_angle": 17.0
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.45694444,
+        0.44583333,
+        0.05,
+        0.04722222
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2009年浙江省公务员录用考试《行测》题_images/img_0268_13580ebb9089a6af.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0268_13580ebb9089a6af.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_aceadc93da576de61da2",
+        "question_number": 126,
+        "source_jsonl_line": 60038
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0268_13580ebb9089a6af.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_6000b09f3ca775aef865",
+        "question_number": 127,
+        "source_jsonl_line": 60039
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0268_13580ebb9089a6af.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_08f4ecb7240250c446d5",
+        "question_number": 128,
+        "source_jsonl_line": 60040
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0284_9c44714308e11228.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_91e6e9249de81c65defc",
+        "question_number": 129,
+        "source_jsonl_line": 60041
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年浙江省公务员录用考试《行测》题_images/img_0268_13580ebb9089a6af.png",
+        "paper_title": "2009年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_3c981e99c6d74bac3536",
+        "question_number": 130,
+        "source_jsonl_line": 60042
+      }
+    ],
+    "sha256": "399d3469ede984b826599ca326a761c0dc9875c36509d5466c41dd75a826cc9d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "我国某年度科学研究与试验发展经费支出分类示意图",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_399d3469ede984b826599ca3/quadrant_01.jpg",
+        "review-crops/da_399d3469ede984b826599ca3/quadrant_02.jpg",
+        "review-crops/da_399d3469ede984b826599ca3/quadrant_03.jpg",
+        "review-crops/da_399d3469ede984b826599ca3/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.716",
+      "crop_verification_elapsed_seconds:5.576",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:图中未明确标注各扇区的分类顺序，仅通过图例和位置推断",
+      "model_uncertainty:饼图的3D效果可能影响视觉比例，但未提供精确数值",
+      "crop_note:修正了标题中的文字错误，将'经'更正为'经费'，以匹配完整标题",
+      "crop_note:确认了各扇区的百分比数值与图例对应关系，确保'政府'为69.1%,'企业'为24.7%,'国外'为4.6%,'其他'为1.6%",
+      "crop_note:确认了图例中'政府'对应灰色填充，'企业'对应黑色填充，'国外'对应白色填充，'其他'对应灰色填充，与图中一致",
+      "circle_edge_coverage:0.5569",
+      "hough_circle_radius_ratio:0.1924",
+      "radial_line_candidates:0",
+      "detected_boundaries:4"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

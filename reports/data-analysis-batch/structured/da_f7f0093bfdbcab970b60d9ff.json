@@ -1,0 +1,492 @@
+{
+  "asset_id": "da_f7f0093bfdbcab970b60d9ff",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/宁夏/2021年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0243_6b9ee9eb5ddf8e5d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0243_6b9ee9eb5ddf8e5d.png",
+        "paper_title": "2021年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a7fb201ebba6e0c08e3e",
+        "question_number": 111,
+        "source_jsonl_line": 26121
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0243_6b9ee9eb5ddf8e5d.png",
+        "paper_title": "2021年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_518f627dcfd77617d85e",
+        "question_number": 112,
+        "source_jsonl_line": 26122
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0255_d8903a2bdc7b83ef.png",
+        "paper_title": "2021年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_05bdb2e32101dc1cad5d",
+        "question_number": 113,
+        "source_jsonl_line": 26123
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0255_d8903a2bdc7b83ef.png",
+        "paper_title": "2021年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_be85495bb6ef9666f9f8",
+        "question_number": 114,
+        "source_jsonl_line": 26124
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0255_d8903a2bdc7b83ef.png",
+        "paper_title": "2021年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c108d3d067384eb1070b",
+        "question_number": 115,
+        "source_jsonl_line": 26125
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0192_d8903a2bdc7b83ef.png",
+        "paper_title": "2021年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d059ef6607cc85d6cb7d",
+        "question_number": 101,
+        "source_jsonl_line": 66307
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0192_d8903a2bdc7b83ef.png",
+        "paper_title": "2021年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_74fd9a772fd04a3ffd7f",
+        "question_number": 102,
+        "source_jsonl_line": 66308
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0192_d8903a2bdc7b83ef.png",
+        "paper_title": "2021年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_66550d53776e73363624",
+        "question_number": 103,
+        "source_jsonl_line": 66309
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0192_d8903a2bdc7b83ef.png",
+        "paper_title": "2021年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_36074b239e91946c2468",
+        "question_number": 104,
+        "source_jsonl_line": 66310
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0192_d8903a2bdc7b83ef.png",
+        "paper_title": "2021年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b683a9850e6e19954105",
+        "question_number": 105,
+        "source_jsonl_line": 66311
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0221_d8903a2bdc7b83ef.png",
+        "paper_title": "2021年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_204d733d7a5c71443de2",
+        "question_number": 111,
+        "source_jsonl_line": 75566
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0232_6b9ee9eb5ddf8e5d.png",
+        "paper_title": "2021年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3779a6eac5b3d3e96170",
+        "question_number": 112,
+        "source_jsonl_line": 75567
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0221_d8903a2bdc7b83ef.png",
+        "paper_title": "2021年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_152467369da19e482d5c",
+        "question_number": 113,
+        "source_jsonl_line": 75568
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0221_d8903a2bdc7b83ef.png",
+        "paper_title": "2021年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f4cddf726730d2ed7fc0",
+        "question_number": 114,
+        "source_jsonl_line": 75569
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0232_6b9ee9eb5ddf8e5d.png",
+        "paper_title": "2021年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_341007300835ecaf4365",
+        "question_number": 115,
+        "source_jsonl_line": 75570
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0318_d8903a2bdc7b83ef.png",
+        "paper_title": "2021年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fe0ae10b298d2f2f32b7",
+        "question_number": 111,
+        "source_jsonl_line": 81496
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0318_d8903a2bdc7b83ef.png",
+        "paper_title": "2021年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_39eed17b4a4d33509061",
+        "question_number": 112,
+        "source_jsonl_line": 81497
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0318_d8903a2bdc7b83ef.png",
+        "paper_title": "2021年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_eda799daa6b15736e3e5",
+        "question_number": 113,
+        "source_jsonl_line": 81498
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0318_d8903a2bdc7b83ef.png",
+        "paper_title": "2021年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2e2f73e907ddc9451929",
+        "question_number": 114,
+        "source_jsonl_line": 81499
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0318_d8903a2bdc7b83ef.png",
+        "paper_title": "2021年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7728a5dc19ca5940a03d",
+        "question_number": 115,
+        "source_jsonl_line": 81500
+      }
+    ],
+    "sha256": "f7f0093bfdbcab970b60d9ff7ecd24151a789accc7b9e39747cffeb9a28fbe99"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "城市",
+      "2020年度排名",
+      "通勤高峰交通拥堵指数",
+      "拥堵指数同比2019年(%)",
+      "通勤高峰实际速度(km/h)",
+      "地面公交线路网密度(km/km²)",
+      "地铁线路网密度(km/km²)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "北京",
+        "unit": null,
+        "values": [
+          "北京",
+          3,
+          2.063,
+          1.15,
+          26.91,
+          4.541,
+          1.033
+        ]
+      },
+      {
+        "label": "上海",
+        "unit": null,
+        "values": [
+          "上海",
+          5,
+          1.932,
+          11.08,
+          24.94,
+          4.672,
+          1.387
+        ]
+      },
+      {
+        "label": "广州",
+        "unit": null,
+        "values": [
+          "广州",
+          6,
+          1.887,
+          8.24,
+          29.84,
+          3.855,
+          0.727
+        ]
+      },
+      {
+        "label": "深圳",
+        "unit": null,
+        "values": [
+          "深圳",
+          21,
+          1.673,
+          4.61,
+          33.93,
+          4.864,
+          0.84
+        ]
+      },
+      {
+        "label": "成都",
+        "unit": null,
+        "values": [
+          "成都",
+          11,
+          1.763,
+          9.52,
+          32.72,
+          4.678,
+          0.977
+        ]
+      },
+      {
+        "label": "杭州",
+        "unit": null,
+        "values": [
+          "杭州",
+          13,
+          1.756,
+          7.91,
+          27.68,
+          5.14,
+          0.856
+        ]
+      },
+      {
+        "label": "重庆",
+        "unit": null,
+        "values": [
+          "重庆",
+          1,
+          2.26,
+          4.4,
+          24.06,
+          4.372,
+          1.016
+        ]
+      },
+      {
+        "label": "武汉",
+        "unit": null,
+        "values": [
+          "武汉",
+          17,
+          1.707,
+          -0.51,
+          30.12,
+          3.311,
+          0.872
+        ]
+      },
+      {
+        "label": "西安",
+        "unit": null,
+        "values": [
+          "西安",
+          4,
+          1.987,
+          14.83,
+          26.41,
+          3.999,
+          0.618
+        ]
+      },
+      {
+        "label": "苏州",
+        "unit": null,
+        "values": [
+          "苏州",
+          39,
+          1.556,
+          4.95,
+          37.26,
+          4.022,
+          0.644
+        ]
+      },
+      {
+        "label": "天津",
+        "unit": null,
+        "values": [
+          "天津",
+          24,
+          1.622,
+          2.96,
+          30.87,
+          3.707,
+          0.68
+        ]
+      },
+      {
+        "label": "南京",
+        "unit": null,
+        "values": [
+          "南京",
+          9,
+          1.822,
+          6.84,
+          27.11,
+          3.707,
+          0.68
+        ]
+      },
+      {
+        "label": "长沙",
+        "unit": null,
+        "values": [
+          "长沙",
+          14,
+          1.72,
+          1.92,
+          30.07,
+          3.953,
+          0.63
+        ]
+      },
+      {
+        "label": "郑州",
+        "unit": null,
+        "values": [
+          "郑州",
+          45,
+          1.526,
+          -3.44,
+          34.04,
+          4.106,
+          0.753
+        ]
+      },
+      {
+        "label": "东莞",
+        "unit": null,
+        "values": [
+          "东莞",
+          29,
+          1.605,
+          1.06,
+          34.51,
+          3.104,
+          0.075
+        ]
+      },
+      {
+        "label": "青岛",
+        "unit": null,
+        "values": [
+          "青岛",
+          8,
+          1.838,
+          16.74,
+          27.63,
+          3.749,
+          0.44
+        ]
+      },
+      {
+        "label": "沈阳",
+        "unit": null,
+        "values": [
+          "沈阳",
+          23,
+          1.665,
+          -0.76,
+          27.09,
+          3.997,
+          0.606
+        ]
+      },
+      {
+        "label": "佛山",
+        "unit": null,
+        "values": [
+          "佛山",
+          19,
+          1.681,
+          -0.9,
+          31.87,
+          5.029,
+          0.236
+        ]
+      },
+      {
+        "label": "合肥",
+        "unit": null,
+        "values": [
+          "合肥",
+          20,
+          1.678,
+          -1.96,
+          29.18,
+          3.029,
+          0.48
+        ]
+      }
+    ]
+  },
+  "title": "2020年一线城市和新一线城市交通状况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f7f0093bfdbcab970b60d9ff/row_band_01.jpg",
+        "review-crops/da_f7f0093bfdbcab970b60d9ff/row_band_02.jpg",
+        "review-crops/da_f7f0093bfdbcab970b60d9ff/row_band_03.jpg",
+        "review-crops/da_f7f0093bfdbcab970b60d9ff/row_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:15.49",
+      "crop_verification_elapsed_seconds:19.09",
+      "candidate_value_changes_after_crop:3",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

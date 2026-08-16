@@ -1,0 +1,170 @@
+{
+  "asset_id": "da_8db8f0d6fa55d522c58ea15a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 400,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400
+        ],
+        "title": null,
+        "unit": "平方米"
+      }
+    ]
+  },
+  "categories": [
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "平均每万人群众文化设施建筑面积",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "平均每万人群众文化设施建筑面积",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "平方米",
+      "values": [
+        221.23,
+        234.24,
+        249.09,
+        269.15,
+        279.95,
+        288.64,
+        295.44,
+        306.95,
+        322.72
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0098_cdfe9e2b943a1505.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0098_cdfe9e2b943a1505.png",
+        "paper_title": "2025年四川省考/选调公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_296f3dbec011ef5962b8",
+        "question_number": 91,
+        "source_jsonl_line": 17006
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0103_12c36073b104247b.png",
+        "paper_title": "2025年四川省考/选调公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_9c3dd0ecdf4fa4574844",
+        "question_number": 92,
+        "source_jsonl_line": 17007
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0098_cdfe9e2b943a1505.png",
+        "paper_title": "2025年四川省考/选调公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_9feb44419c882a3dba3f",
+        "question_number": 93,
+        "source_jsonl_line": 17008
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0098_cdfe9e2b943a1505.png",
+        "paper_title": "2025年四川省考/选调公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_86578445a600d84cef8a",
+        "question_number": 94,
+        "source_jsonl_line": 17009
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年四川省考_选调公务员录用考试《行测》试题（网友回忆版）_images/img_0103_12c36073b104247b.png",
+        "paper_title": "2025年四川省考/选调公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_148e48d16acf30714080",
+        "question_number": 95,
+        "source_jsonl_line": 17010
+      }
+    ],
+    "sha256": "8db8f0d6fa55d522c58ea15a8f16d0339123f9122336b5d5cb3d8cebe30219e9"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2011-2019年各年末全国平均每万人群众文化设施建筑面积",
+  "unit": "平方米",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8db8f0d6fa55d522c58ea15a/column_band_01.jpg",
+        "review-crops/da_8db8f0d6fa55d522c58ea15a/column_band_02.jpg",
+        "review-crops/da_8db8f0d6fa55d522c58ea15a/column_band_03.jpg",
+        "review-crops/da_8db8f0d6fa55d522c58ea15a/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.073",
+      "crop_verification_elapsed_seconds:3.392",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

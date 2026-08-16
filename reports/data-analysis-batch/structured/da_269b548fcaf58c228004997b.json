@@ -1,0 +1,114 @@
+{
+  "asset_id": "da_269b548fcaf58c228004997b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 15.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          5.0,
+          10.0,
+          15.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "第一季度",
+    "第二季度",
+    "第三季度",
+    "第四季度"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": null,
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.5,
+        9.2,
+        10.5,
+        11.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2009年北京市公务员录用考试《行测》题（社招）_images/img_0172_5cca495630b7be6a.jpg",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0172_5cca495630b7be6a.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_dbf20183ea50d7d2380d",
+        "question_number": 117,
+        "source_jsonl_line": 8910
+      }
+    ],
+    "sha256": "269b548fcaf58c228004997bfafdf36462d6429150d81ee220d9645e83fa0905"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "D.",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_269b548fcaf58c228004997b/column_band_01.jpg",
+        "review-crops/da_269b548fcaf58c228004997b/column_band_02.jpg",
+        "review-crops/da_269b548fcaf58c228004997b/column_band_03.jpg",
+        "review-crops/da_269b548fcaf58c228004997b/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.503",
+      "crop_verification_elapsed_seconds:5.134",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了 y 轴刻度标签的格式，确保百分号统一且对齐。",
+      "crop_note:确认 x 轴标签完整且顺序正确，无缺失。",
+      "crop_note:确认 y 轴最大值为 15.0%，最小值为 0.0%，刻度间隔正确。",
+      "crop_note:确认数据点位置与数值一致，无偏移。",
+      "crop_note:确认所有数值为正数，无负号。",
+      "crop_note:确认小数点后一位，无多余小数。",
+      "crop_note:确认单位为 %，与 y 轴标签一致。",
+      "crop_note:确认无缺失值，所有值均存在。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

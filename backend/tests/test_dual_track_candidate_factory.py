@@ -22,6 +22,14 @@ def test_normal_practice_scales_with_capacity_while_verification_stays_short() -
     assert xingce_practice_minutes(available_minutes=120, question_supply=30) == 60
     assert xingce_question_count(mode="baseline", estimated_minutes=60) == 30
     assert xingce_question_count(mode="verification", estimated_minutes=15) == 3
+    assert (
+        xingce_question_count(
+            mode="verification",
+            estimated_minutes=15,
+            module_name="资料分析",
+        )
+        == 5
+    )
 
 
 def test_capacity_driven_candidate_keeps_room_for_the_essay_track() -> None:

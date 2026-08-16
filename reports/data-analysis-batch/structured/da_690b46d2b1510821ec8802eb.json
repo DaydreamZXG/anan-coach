@@ -1,0 +1,403 @@
+{
+  "asset_id": "da_690b46d2b1510821ec8802eb",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0120_054bb57720095454.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0120_054bb57720095454.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_da6f1db088503ebe05bb",
+        "question_number": 116,
+        "source_jsonl_line": 24138
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0120_054bb57720095454.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_049d7684ac1723673a2d",
+        "question_number": 117,
+        "source_jsonl_line": 24139
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0120_054bb57720095454.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_bad4ef0b6f496f84ee14",
+        "question_number": 118,
+        "source_jsonl_line": 24140
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0120_054bb57720095454.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_cf2031b47322b34c189c",
+        "question_number": 119,
+        "source_jsonl_line": 24141
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0144_d0ee64e345caaaf1.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_ea92071f1a47f3116b41",
+        "question_number": 120,
+        "source_jsonl_line": 24142
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0111_054bb57720095454.png",
+        "paper_title": "2023年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4643cb6cb97eea7b0b1d",
+        "question_number": 106,
+        "source_jsonl_line": 28410
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0111_054bb57720095454.png",
+        "paper_title": "2023年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f699f39111a13f69ebb1",
+        "question_number": 107,
+        "source_jsonl_line": 28411
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0111_054bb57720095454.png",
+        "paper_title": "2023年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_50a035a610e9bf2d590c",
+        "question_number": 108,
+        "source_jsonl_line": 28412
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0111_054bb57720095454.png",
+        "paper_title": "2023年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e806029d9a146919c176",
+        "question_number": 109,
+        "source_jsonl_line": 28413
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0124_d0ee64e345caaaf1.png",
+        "paper_title": "2023年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6885693718040b900589",
+        "question_number": 110,
+        "source_jsonl_line": 28414
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0074_054bb57720095454.png",
+        "paper_title": "2023年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_f132c971453eb4adb002",
+        "question_number": 106,
+        "source_jsonl_line": 43786
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0074_054bb57720095454.png",
+        "paper_title": "2023年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_0f6b35d80587d7f0a4f9",
+        "question_number": 107,
+        "source_jsonl_line": 43787
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0074_054bb57720095454.png",
+        "paper_title": "2023年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_7275d2a5a62872732b33",
+        "question_number": 108,
+        "source_jsonl_line": 43788
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0074_054bb57720095454.png",
+        "paper_title": "2023年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_b5090a56afd7706c3263",
+        "question_number": 109,
+        "source_jsonl_line": 43789
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0074_054bb57720095454.png",
+        "paper_title": "2023年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_56975cdfe624903b4d10",
+        "question_number": 110,
+        "source_jsonl_line": 43790
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0063_054bb57720095454.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a11e5b16385142fcf8e1",
+        "question_number": 116,
+        "source_jsonl_line": 53945
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0063_054bb57720095454.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4a8158f0b755f71486b5",
+        "question_number": 117,
+        "source_jsonl_line": 53946
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0063_054bb57720095454.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7e20cc18ea06ebdb5b9d",
+        "question_number": 118,
+        "source_jsonl_line": 53947
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0063_054bb57720095454.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cd84d5a76beb1aa52376",
+        "question_number": 119,
+        "source_jsonl_line": 53948
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0085_d0ee64e345caaaf1.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c3800d83c1f2fb6e3572",
+        "question_number": 120,
+        "source_jsonl_line": 53949
+      }
+    ],
+    "sha256": "690b46d2b1510821ec8802eb1ce72a50dd0068168c04fdcae62a689050e5fcaa"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "批发价格｜第1列",
+      "零售价格｜第2列",
+      "批发价格｜第3列",
+      "零售价格｜第4列",
+      "批发价格｜第5列",
+      "零售价格｜第6列",
+      "批发价格｜第7列",
+      "零售价格｜第8列",
+      "批发价格｜第9列",
+      "零售价格｜第10列"
+    ],
+    "corner_header": {
+      "lower_label": "猪",
+      "style": "diagonal",
+      "upper_label": "年份"
+    },
+    "missing_cells": [],
+    "row_header_label": "猪",
+    "rows": [
+      {
+        "display_label": "货运量（单位：亿吨）｜2013年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2013年",
+        "unit": null,
+        "values": [
+          21.05,
+          35.21,
+          51.71,
+          59.59,
+          53.34,
+          60.25,
+          14.26,
+          18.7,
+          8.43,
+          9.53
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2014年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2014年",
+        "unit": null,
+        "values": [
+          18.94,
+          34.97,
+          54.33,
+          62.76,
+          55.4,
+          62.37,
+          14.61,
+          19.42,
+          9.57,
+          10.62
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2015年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2015年",
+        "unit": null,
+        "values": [
+          20.6,
+          27.64,
+          53.96,
+          70.87,
+          49.39,
+          60.3,
+          14.7,
+          19.99,
+          8.11,
+          9.57
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2016年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2016年",
+        "unit": null,
+        "values": [
+          24.87,
+          28.46,
+          53.24,
+          72.86,
+          45.05,
+          55.59,
+          14.9,
+          20.11,
+          7.49,
+          8.91
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2017年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2017年",
+        "unit": null,
+        "values": [
+          21.24,
+          25.98,
+          53.82,
+          72.08,
+          47.49,
+          55.48,
+          13.93,
+          20.19,
+          6.92,
+          8.28
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2018年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2018年",
+        "unit": null,
+        "values": [
+          18.66,
+          28.01,
+          57.46,
+          71.94,
+          55.76,
+          60.9,
+          15.0,
+          21.89,
+          8.55,
+          9.67
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2019年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2019年",
+        "unit": null,
+        "values": [
+          28.51,
+          50.81,
+          63.85,
+          74.6,
+          63.81,
+          69.47,
+          17.55,
+          25.55,
+          9.26,
+          10.52
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2020年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2020年",
+        "unit": null,
+        "values": [
+          43.22,
+          69.51,
+          73.03,
+          86.81,
+          69.27,
+          77.01,
+          16.82,
+          26.66,
+          7.53,
+          8.79
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2021年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2021年",
+        "unit": null,
+        "values": [
+          28.53,
+          54.71,
+          77.08,
+          89.48,
+          73.65,
+          81.4,
+          17.14,
+          25.71,
+          9.51,
+          10.72
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

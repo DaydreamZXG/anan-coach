@@ -1,0 +1,215 @@
+{
+  "asset_id": "da_18e2b07d8f62023a5a8cc3e4",
+  "axes": {
+    "x": {
+      "max": 7,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 6000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000
+        ],
+        "title": "主营业务收入",
+        "unit": "亿元"
+      },
+      {
+        "max": 30,
+        "min": -30,
+        "ticks": [
+          -30,
+          -20,
+          -10,
+          0,
+          10,
+          20,
+          30
+        ],
+        "title": "同比增速",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "工业",
+    "建筑业",
+    "批发零售",
+    "住宿餐饮",
+    "服务业",
+    "房地产",
+    "其他"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "主营业务收入",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "同比增速",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "主营业务收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        5347.23,
+        201.12,
+        794.9,
+        51.27,
+        218.97,
+        177.44,
+        271.92
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.3,
+        12.5,
+        15.9,
+        4.0,
+        23.0,
+        16.3,
+        0.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2016年山东省公务员录用考试《行测》题_images/img_0185_3b3ccac597abc207.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0185_3b3ccac597abc207.jpg",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_1b42fa2097ef4137b0b8",
+        "question_number": 116,
+        "source_jsonl_line": 29970
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0178_9b7a7cef37558bdb.jpg",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_f76073bf84e55a4e4d87",
+        "question_number": 117,
+        "source_jsonl_line": 29971
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0185_3b3ccac597abc207.jpg",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_dbe9716cf92de9467c65",
+        "question_number": 118,
+        "source_jsonl_line": 29972
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0185_3b3ccac597abc207.jpg",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_fa69663d51d81575b318",
+        "question_number": 119,
+        "source_jsonl_line": 29973
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0185_3b3ccac597abc207.jpg",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_22019607e5e830963e5e",
+        "question_number": 120,
+        "source_jsonl_line": 29974
+      }
+    ],
+    "sha256": "18e2b07d8f62023a5a8cc3e42c85ea198ae079037088767df7dcb22e9e44cbfe"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2015年一季度某省园区各类型企业主营业务收入及增速",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_18e2b07d8f62023a5a8cc3e4/column_band_01.jpg",
+        "review-crops/da_18e2b07d8f62023a5a8cc3e4/column_band_02.jpg",
+        "review-crops/da_18e2b07d8f62023a5a8cc3e4/column_band_03.jpg",
+        "review-crops/da_18e2b07d8f62023a5a8cc3e4/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.065",
+      "crop_verification_elapsed_seconds:12.7",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'批发零售'的主营业务收入为794.90亿元，原为794.9。",
+      "crop_note:修正了'住宿餐饮'的主营业务收入为51.27亿元，原为51.27。",
+      "crop_note:修正了'服务业'的主营业务收入为218.97亿元，原为218.97。",
+      "crop_note:修正了'房地产'的主营业务收入为177.44亿元，原为177.44。",
+      "crop_note:修正了'其他'的主营业务收入为271.92亿元，原为271.92。",
+      "crop_note:修正了'工业'的同比增速为10.3%，原为10.3。",
+      "crop_note:修正了'建筑业'的同比增速为12.5%，原为12.5。",
+      "crop_note:修正了'批发零售'的同比增速为15.9%，原为15.9。",
+      "crop_note:修正了'住宿餐饮'的同比增速为4.0%，原为4.0。",
+      "crop_note:修正了'服务业'的同比增速为23.0%，原为23.0。",
+      "crop_note:修正了'房地产'的同比增速为16.3%，原为16.3。",
+      "crop_note:修正了'其他'的同比增速为0.7%，原为0.7。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

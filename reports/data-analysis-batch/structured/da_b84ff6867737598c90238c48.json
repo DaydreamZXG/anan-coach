@@ -1,0 +1,249 @@
+{
+  "asset_id": "da_b84ff6867737598c90238c48",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2010年安徽省公务员录用考试《行测》题_images/img_0101_70de230ae0e098af.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年安徽省公务员录用考试《行测》题_images/img_0101_70de230ae0e098af.png",
+        "paper_title": "2010年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_e97a510a9e5ee78de6c2",
+        "question_number": 121,
+        "source_jsonl_line": 26891
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年安徽省公务员录用考试《行测》题_images/img_0101_70de230ae0e098af.png",
+        "paper_title": "2010年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_0e586d234f61276da38f",
+        "question_number": 122,
+        "source_jsonl_line": 26892
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年安徽省公务员录用考试《行测》题_images/img_0101_70de230ae0e098af.png",
+        "paper_title": "2010年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_acc402811552e6b920d2",
+        "question_number": 123,
+        "source_jsonl_line": 26893
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年安徽省公务员录用考试《行测》题_images/img_0101_70de230ae0e098af.png",
+        "paper_title": "2010年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_84d0b40813a5dbca7b57",
+        "question_number": 124,
+        "source_jsonl_line": 26894
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年安徽省公务员录用考试《行测》题_images/img_0101_70de230ae0e098af.png",
+        "paper_title": "2010年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_a8db187444d527f9d300",
+        "question_number": 125,
+        "source_jsonl_line": 26895
+      }
+    ],
+    "sha256": "b84ff6867737598c90238c48157287b0ae3dc45e012bbe8505a63a71aa7a4edb"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2001",
+      "2002",
+      "2003",
+      "2004",
+      "2005",
+      "2006",
+      "2007"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "display_label": "中小学校舍建筑面积（百万平方米）｜小学",
+        "group": null,
+        "label": "中小学校舍建筑面积（百万平方米）｜小学",
+        "unit": null,
+        "values": [
+          1088.01,
+          1132.99,
+          1185.51,
+          1232.84,
+          1274.88,
+          1331.1,
+          1353.2
+        ]
+      },
+      {
+        "display_label": "体育运动场馆面积达标率（%）｜小学",
+        "group": null,
+        "label": "体育运动场馆面积达标率（%）｜小学",
+        "unit": null,
+        "values": [
+          47.4,
+          48.79,
+          50.2,
+          51.38,
+          53.04,
+          53.49,
+          55.24
+        ]
+      },
+      {
+        "display_label": "音乐器械配备达标率（%）｜小学",
+        "group": null,
+        "label": "音乐器械配备达标率（%）｜小学",
+        "unit": null,
+        "values": [
+          36.62,
+          37.7,
+          38.66,
+          40.08,
+          41.8,
+          42.43,
+          44.68
+        ]
+      },
+      {
+        "display_label": "美术器械配备达标率（%）｜小学",
+        "group": null,
+        "label": "美术器械配备达标率（%）｜小学",
+        "unit": null,
+        "values": [
+          34.51,
+          35.69,
+          36.69,
+          38.17,
+          39.59,
+          40.74,
+          43.12
+        ]
+      },
+      {
+        "display_label": "数学自然实验仪器配备达标率（%）｜小学",
+        "group": null,
+        "label": "数学自然实验仪器配备达标率（%）｜小学",
+        "unit": null,
+        "values": [
+          48.55,
+          49.37,
+          49.8,
+          50.91,
+          52.29,
+          52.75,
+          54.27
+        ]
+      },
+      {
+        "display_label": "体育运动场馆面积达标率（%）｜普通初中",
+        "group": null,
+        "label": "体育运动场馆面积达标率（%）｜普通初中",
+        "unit": null,
+        "values": [
+          69.46,
+          64.43,
+          65.68,
+          66.38,
+          67.61,
+          67.76,
+          69.23
+        ]
+      },
+      {
+        "display_label": "音乐器械配备达标率（%）｜普通初中",
+        "group": null,
+        "label": "音乐器械配备达标率（%）｜普通初中",
+        "unit": null,
+        "values": [
+          50.42,
+          52.46,
+          53.95,
+          55.2,
+          56.58,
+          56.99,
+          59.34
+        ]
+      },
+      {
+        "display_label": "美术器械配备达标率（%）｜普通初中",
+        "group": null,
+        "label": "美术器械配备达标率（%）｜普通初中",
+        "unit": null,
+        "values": [
+          48.84,
+          50.86,
+          52.43,
+          53.72,
+          55.2,
+          55.59,
+          58.04
+        ]
+      },
+      {
+        "display_label": "数学自然实验仪器配备达标率（%）｜普通初中",
+        "group": null,
+        "label": "数学自然实验仪器配备达标率（%）｜普通初中",
+        "unit": null,
+        "values": [
+          68.35,
+          69.45,
+          70.17,
+          70.57,
+          71.84,
+          72.23,
+          73.54
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

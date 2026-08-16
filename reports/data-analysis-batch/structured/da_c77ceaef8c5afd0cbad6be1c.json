@@ -1,0 +1,187 @@
+{
+  "asset_id": "da_c77ceaef8c5afd0cbad6be1c",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 50.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          5.0,
+          10.0,
+          15.0,
+          20.0,
+          25.0,
+          30.0,
+          35.0,
+          40.0,
+          45.0,
+          50.0
+        ],
+        "title": null,
+        "unit": "万个"
+      }
+    ]
+  },
+  "categories": [
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "社会团体",
+      "style": {
+        "dash": null,
+        "fill": "darkgray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "民办非企业单位",
+      "style": {
+        "dash": null,
+        "fill": "lightgray",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "社会团体",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万个",
+      "values": [
+        31.0,
+        32.9,
+        33.6,
+        35.5,
+        36.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "民办非企业单位",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万个",
+      "values": [
+        28.2,
+        32.9,
+        36.1,
+        40.0,
+        44.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/新疆/2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0213_741f8b0211641df0.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0213_741f8b0211641df0.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_21c92e3fa0aebb81122b",
+        "question_number": 106,
+        "source_jsonl_line": 43206
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0213_741f8b0211641df0.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_3d1051ae1ba7e95596d9",
+        "question_number": 107,
+        "source_jsonl_line": 43207
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0213_741f8b0211641df0.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_7fdc87b2900933822a1a",
+        "question_number": 108,
+        "source_jsonl_line": 43208
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0213_741f8b0211641df0.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_4f75f2f89aaa0fa70d55",
+        "question_number": 109,
+        "source_jsonl_line": 43209
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0252_0935c74964e0c738.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_cca53c7da497172241ca",
+        "question_number": 110,
+        "source_jsonl_line": 43210
+      }
+    ],
+    "sha256": "c77ceaef8c5afd0cbad6be1c2a568907616414b39798abdbe775e275a44c63ed"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014-2018年社会团体、民办非企业单位情况",
+  "unit": "万个",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c77ceaef8c5afd0cbad6be1c/column_band_01.jpg",
+        "review-crops/da_c77ceaef8c5afd0cbad6be1c/column_band_02.jpg",
+        "review-crops/da_c77ceaef8c5afd0cbad6be1c/column_band_03.jpg",
+        "review-crops/da_c77ceaef8c5afd0cbad6be1c/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.016",
+      "crop_verification_elapsed_seconds:3.198",
+      "candidate_value_changes_after_crop:2",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

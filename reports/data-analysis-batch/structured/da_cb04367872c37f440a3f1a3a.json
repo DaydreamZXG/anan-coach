@@ -1,0 +1,232 @@
+{
+  "asset_id": "da_cb04367872c37f440a3f1a3a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 3,
+        "min": -4,
+        "ticks": [],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "201601",
+    "201602",
+    "201603",
+    "201604",
+    "201605",
+    "201606",
+    "201607",
+    "201608",
+    "201609",
+    "201610",
+    "201611",
+    "201612"
+  ],
+  "chart_type": "line",
+  "confidence": 0.97,
+  "legend": [
+    {
+      "label": "环比（%）",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": "circle",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "同比（%）",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": "circle",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "环比（%）",
+      "render_as": "line",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": "circle",
+        "stroke": "#000000"
+      },
+      "unit": "%",
+      "values": [
+        -0.61,
+        1.66,
+        -1.28,
+        0.56,
+        -0.05,
+        -1.4,
+        0.8,
+        -0.61,
+        0.16,
+        0.44,
+        -0.29,
+        0.87
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "同比（%）",
+      "render_as": "line",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": "circle",
+        "stroke": "#000000"
+      },
+      "unit": "%",
+      "values": [
+        -1.75,
+        -1.19,
+        -2.02,
+        -1.21,
+        -0.97,
+        -1.4,
+        -1.01,
+        -0.66,
+        -0.5,
+        -0.38,
+        -0.73,
+        0.21
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广西/2018年广西公务员录用考试《行测》题（网友回忆版）_images/img_0169_3423b32d64cb3124.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西公务员录用考试《行测》题（网友回忆版）_images/img_0169_3423b32d64cb3124.jpg",
+        "paper_title": "2018年广西公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c950f77062f9c40a7766",
+        "question_number": 96,
+        "source_jsonl_line": 39142
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西公务员录用考试《行测》题（网友回忆版）_images/img_0168_b29c1c1459c1b9b8.jpg",
+        "paper_title": "2018年广西公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8ef14932530fa4689c2b",
+        "question_number": 97,
+        "source_jsonl_line": 39143
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西公务员录用考试《行测》题（网友回忆版）_images/img_0169_3423b32d64cb3124.jpg",
+        "paper_title": "2018年广西公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_518dd91c4922ae4bb2c1",
+        "question_number": 98,
+        "source_jsonl_line": 39144
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西公务员录用考试《行测》题（网友回忆版）_images/img_0168_b29c1c1459c1b9b8.jpg",
+        "paper_title": "2018年广西公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1a5d6ad818d9a50ca7f1",
+        "question_number": 99,
+        "source_jsonl_line": 39145
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西公务员录用考试《行测》题（网友回忆版）_images/img_0169_3423b32d64cb3124.jpg",
+        "paper_title": "2018年广西公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_55a8affd5b069869aba5",
+        "question_number": 100,
+        "source_jsonl_line": 39146
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西选调生考试《行测》试题（网友回忆版）_images/img_0170_3423b32d64cb3124.jpg",
+        "paper_title": "2018年广西选调生考试《行测》试题（网友回忆版）",
+        "question_id": "pq_4b152b20b64d0cbd714e",
+        "question_number": 96,
+        "source_jsonl_line": 87701
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西选调生考试《行测》试题（网友回忆版）_images/img_0171_b29c1c1459c1b9b8.jpg",
+        "paper_title": "2018年广西选调生考试《行测》试题（网友回忆版）",
+        "question_id": "pq_4351aa7776dd4eb735bb",
+        "question_number": 97,
+        "source_jsonl_line": 87702
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西选调生考试《行测》试题（网友回忆版）_images/img_0171_b29c1c1459c1b9b8.jpg",
+        "paper_title": "2018年广西选调生考试《行测》试题（网友回忆版）",
+        "question_id": "pq_26636cd473e3743946b6",
+        "question_number": 98,
+        "source_jsonl_line": 87703
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西选调生考试《行测》试题（网友回忆版）_images/img_0170_3423b32d64cb3124.jpg",
+        "paper_title": "2018年广西选调生考试《行测》试题（网友回忆版）",
+        "question_id": "pq_77926b5c8f92aa2aba88",
+        "question_number": 99,
+        "source_jsonl_line": 87704
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西选调生考试《行测》试题（网友回忆版）_images/img_0171_b29c1c1459c1b9b8.jpg",
+        "paper_title": "2018年广西选调生考试《行测》试题（网友回忆版）",
+        "question_id": "pq_edfc3c07cd1ce5314efb",
+        "question_number": 100,
+        "source_jsonl_line": 87705
+      }
+    ],
+    "sha256": "cb04367872c37f440a3f1a3a7f5c5a6ec69be32a2ea8a963783d4ac4ae64d53c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2016年网购固定篮子价格指数变动情况",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:1.987",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "compact_series_extraction_after_full_schema_truncation",
+      "source_label_sequence_correction:同比201602=-1.19"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b_compact_line_values",
+    "ocr_mean_confidence": 0.97,
+    "schema_valid": true
+  }
+}

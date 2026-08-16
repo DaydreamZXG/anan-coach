@@ -1,0 +1,219 @@
+{
+  "asset_id": "da_b7187e180830569652c88d5b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2017年422联考《行测》题（山东卷）_images/img_0203_bbc8a42e6ed1acbb.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0203_bbc8a42e6ed1acbb.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_ba8acea5633f02f5899c",
+        "question_number": 111,
+        "source_jsonl_line": 30085
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0203_bbc8a42e6ed1acbb.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_268ba2fb313562fce67c",
+        "question_number": 112,
+        "source_jsonl_line": 30086
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0203_bbc8a42e6ed1acbb.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_d0298a5564a7e6ab0bd1",
+        "question_number": 113,
+        "source_jsonl_line": 30087
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0203_bbc8a42e6ed1acbb.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_85c281170f7d0c2bce12",
+        "question_number": 114,
+        "source_jsonl_line": 30088
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0222_05ab5584d671f623.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_72bd3d0eb097973ae874",
+        "question_number": 115,
+        "source_jsonl_line": 30089
+      }
+    ],
+    "sha256": "b7187e180830569652c88d5bc536b30e96c934da94778b3ed42a10f5843237d0"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标名称",
+      "单位",
+      "业务规模1~7月",
+      "业务规模7月",
+      "增速1~7月",
+      "增速7月"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "一、邮政行业业务收入",
+        "unit": null,
+        "values": [
+          "一、邮政行业业务收入",
+          "亿元",
+          2887.6,
+          411.8,
+          31.9,
+          29.7
+        ]
+      },
+      {
+        "label": "其中：快递业务收入",
+        "unit": null,
+        "values": [
+          "其中：快递业务收入",
+          "亿元",
+          2026.0,
+          311.4,
+          42.9,
+          40.4
+        ]
+      },
+      {
+        "label": "二、邮政行业业务总量",
+        "unit": null,
+        "values": [
+          "二、邮政行业业务总量",
+          "亿元",
+          3823.2,
+          584.9,
+          48.8,
+          46.7
+        ]
+      },
+      {
+        "label": "其中：函件",
+        "unit": null,
+        "values": [
+          "其中：函件",
+          "万件",
+          221974.7,
+          27251.9,
+          -22.1,
+          -24.1
+        ]
+      },
+      {
+        "label": "包裹",
+        "unit": null,
+        "values": [
+          "包裹",
+          "万件",
+          1630.1,
+          187.6,
+          -44.0,
+          -25.4
+        ]
+      },
+      {
+        "label": "快递",
+        "unit": null,
+        "values": [
+          "快递",
+          "万件",
+          1574731.0,
+          249640.6,
+          55.9,
+          52.2
+        ]
+      },
+      {
+        "label": "订销报纸累计数",
+        "unit": null,
+        "values": [
+          "订销报纸累计数",
+          "万份",
+          1054980.0,
+          150969.0,
+          -4.1,
+          -6.2
+        ]
+      },
+      {
+        "label": "订销杂志累计数",
+        "unit": null,
+        "values": [
+          "订销杂志累计数",
+          "万份",
+          51447.5,
+          7070.8,
+          -16.1,
+          -13.4
+        ]
+      }
+    ]
+  },
+  "title": "2016年全国邮政行业发展情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b7187e180830569652c88d5b/row_band_01.jpg",
+        "review-crops/da_b7187e180830569652c88d5b/row_band_02.jpg",
+        "review-crops/da_b7187e180830569652c88d5b/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.621",
+      "crop_verification_elapsed_seconds:5.308",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

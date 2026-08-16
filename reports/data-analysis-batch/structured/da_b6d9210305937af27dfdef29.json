@@ -1,0 +1,112 @@
+{
+  "asset_id": "da_b6d9210305937af27dfdef29",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2003年",
+    "2004年",
+    "2005年",
+    "2006年",
+    "2007年",
+    "2008年",
+    "2009年",
+    "2010年"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": null,
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2013年山东省公务员录用考试《行测》题_images/img_0096_784d9cdac8611c6f.jpg",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2013年山东省公务员录用考试《行测》题_images/img_0096_784d9cdac8611c6f.jpg",
+        "paper_title": "2013年山东省公务员录用考试《行测》题",
+        "question_id": "pq_d71d8aa5908da671f0ce",
+        "question_number": 112,
+        "source_jsonl_line": 29606
+      }
+    ],
+    "sha256": "b6d9210305937af27dfdef29d24d45e7ee65afa85a4e2a34665f0edccfc927b1"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b6d9210305937af27dfdef29/column_band_01.jpg",
+        "review-crops/da_b6d9210305937af27dfdef29/column_band_02.jpg",
+        "review-crops/da_b6d9210305937af27dfdef29/column_band_03.jpg",
+        "review-crops/da_b6d9210305937af27dfdef29/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.885",
+      "crop_verification_elapsed_seconds:1.835",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:数值未明确标出，仅能从折线趋势推断",
+      "model_uncertainty:Y轴刻度无具体数值，无法确定单位和量级",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

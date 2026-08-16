@@ -2,6 +2,26 @@
   "schemaVersion": 1,
   "domains": [
     {
+      "id": "data_analysis_visual_assets",
+      "owner": "reports/data-analysis-batch",
+      "scope": "target",
+      "owns": [
+        "data-analysis-structured-visual-candidate"
+      ],
+      "trackScope": [
+        "structured-visuals"
+      ],
+      "invariants": [
+        "每个 asset_id 只有一个结构化候选作为当前重绘事实。",
+        "AI 分类与路由不是完成证据；只有版本化 payload、确定性验证和来源证据同时通过才能进入 success。",
+        "不得将缺失值静默改为 0，不得用原始图片背景伪装结构化重绘。"
+      ],
+      "commands": [],
+      "queries": [],
+      "emits": [],
+      "consumes": []
+    },
+    {
       "id": "wechat_frontend_lifecycle",
       "owner": "apps/wechat/miniprogram/pages",
       "scope": "target",
@@ -21,7 +41,7 @@
       "id": "companion_memory",
       "owner": "backend/app/domains/companion",
       "scope": "target",
-      "owns": ["companion-memory-item", "companion-memory-setting", "companion-short-term-memory-turn"],
+      "owns": ["companion-memory-item", "companion-memory-setting", "companion-short-term-memory-turn", "coach-judgment-recheck-request"],
       "trackScope": ["companion-memory"],
       "invariants": [
         "长期记忆只由认证用户显式创建，不将 AI 推断或普通聊天自动写入。",
@@ -29,8 +49,267 @@
         "所有查询和变更均按 user_id 隔离；关闭长期记忆只停止注入，删除和清空才清除内容。",
         "长期记忆不得改变鉴权、路由、商业权益或高影响事实判断。"
       ],
+      "commands": ["request-coach-judgment-recheck@v1"],
+      "queries": [],
+      "emits": [],
+      "consumes": []
+    },
+    {
+      "id": "wechat_coach_orchestration",
+      "owner": "apps/wechat/miniprogram",
+      "scope": "target",
+      "owns": ["silent-wechat-entry-projection", "coach-recognition-entry-intent", "today-coach-golden-loop-projection", "coach-task-return-snapshot", "user-visible-coach-voice"],
+      "trackScope": ["frontend-lifecycle"],
+      "invariants": [
+        "微信身份恢复与登录在启动页自动发生，不展示需要用户点击的登录门槛，也不伪造条款接受记录。",
+        "安全建立微信身份后新老用户都可进入今日；成绩单、错题、快速诊断和选岗只是按 user_id 隔离的可选认识加速意图，不是能力、计划或错因事实，不能阻止开始默认真实诊断。",
+        "今日循环只投影服务端仪表盘、学习大脑画像、策略候选和任务事实；本地任务前快照只用于展示差异，不复制、不覆盖计划、能力、错因或任务执行权威状态。",
+        "内部专业 Agent 与路由角色可继续存在，但所有面向用户的教练身份统一为岸岸。",
+        "保留今日卡片现有紫色渐变图标、极光背景与黑色主按钮。"
+      ],
       "commands": [],
       "queries": [],
+      "emits": [],
+      "consumes": []
+    },
+    {
+      "id": "learning_brain_coach_suggestion",
+      "owner": "backend/app/domains/learning_brain",
+      "scope": "target",
+      "owns": ["daily-learning-brain-strategy-suggestion-api"],
+      "trackScope": ["frontend-lifecycle"],
+      "invariants": [
+        "每日入口只触发现有 inference candidate；候选在用户确认前不进入 planning 的 active strategy decisions。",
+        "同一 user_id 与上海自然日最多登记一个学习大脑建议，重放读取同一候选。",
+        "候选和响应严格按当前认证 user_id 隔离，不返回其他用户或隐藏内部路由身份。",
+        "学习大脑建议是增强项；配置、供应商、证据或未预期失败必须回滚该增强事务并返回 unavailable，不能阻断今日。"
+      ],
+      "commands": [],
+      "queries": [],
+      "emits": [],
+      "consumes": []
+    },
+    {
+      "id": "teaching_package_compilation",
+      "owner": "backend/app/domains/teaching_packages",
+      "scope": "target",
+      "owns": [
+        "compiled-teaching-package-candidate",
+        "verified-structured-visual-evidence-projection"
+      ],
+      "trackScope": [
+        "grounded-teach-back"
+      ],
+      "invariants": [
+        "考试范围由 examCode、regionCode、year、categoryCode 和 subjectCode 共同记录，用于定位用户的备考目标和后续追溯。",
+        "行测/职测方法卡默认跨国考、省考和事业单位复用；只有方法卡明确声明的考试例外能阻断，不要求逐地区、年份或类别重复审批。",
+        "方法卡历史的 draft、tested_count、reviewer 和 reviewed_at 字段不得成为教学包编译的整批阻断条件。",
+        "学生复现题、用户迁移题和原错题必须是三个不同且未曝光的不可变内容版本。",
+        "编译器只生成可追溯候选或失败原因，不调用 AI、不写用户掌握、计划、错因或内容发布事实。",
+        "题目缺少可用答案/解析、已曝光或无法选出两道不同题时失败关闭，不产生部分教学包。",
+        "需要图表才能作答的题只能使用已复核且与当前 question_ref、content_version_id 和源图哈希一致的结构化证据；候选、待复核、缺失或错版证据均在编译前失败。",
+        "进入学生岸岸的图表投影只包含答案无关原子事实，不包含答案、解析、方法步骤或学习者结论。",
+    "除图推外的普通实图和公式复用同一不可变媒体证据身份；题干、材料和选项证据可进入学生岸岸，解析和解法证据只进入后台核验，受众由当前运行 asset part_kind 决定而不是由离线候选自报。",
+    "解析媒体不得伪造成 question_asset；其绑定必须同时锚定当前 content head、analysis_source、源 image_ref 和源 SHA-256，读取时重新验证当前解析来源且固定为 verifier 受众。"
+      ],
+      "commands": [],
+      "queries": [],
+      "emits": [],
+      "consumes": []
+    },
+    {
+      "id": "teach_back_shadow",
+      "owner": "backend/app/domains/teach_back_shadow",
+      "scope": "target",
+      "owns": [
+        "student-reproduction-request-candidate",
+        "grounding-verification-shadow-candidate",
+        "teach-back-provider-shadow-run-candidate"
+      ],
+      "trackScope": ["grounded-teach-back"],
+      "invariants": [
+        "学生复现上下文只包含用户讲解与题 A 安全题面，不包含方法卡、答案、解析、误区、掌握或能力结论。",
+        "后台核验与学生复现使用不同提示包，核验引用必须属于当前教学包白名单。",
+        "输出是影子候选，不展示给用户、不改变掌握、能力、计划或错因。",
+        "离线准备是确定性纯函数；provider 影子运行只消费合成案例，使用两次物理分离的请求并只返回内存审计候选。",
+        "本阶段不持久模型调用、不注册生产 AI 场景、不读取真实用户或改变任何业务事实。"
+      ],
+      "commands": [],
+      "queries": [],
+      "emits": [],
+      "consumes": []
+    },
+    {
+      "id": "quick_diagnostic_loop",
+      "owner": "backend/app/domains/planning",
+      "scope": "target",
+      "owns": [
+        "objective-baseline-completion-recognition",
+        "quick-diagnostic-next-action-projection"
+      ],
+      "trackScope": ["frontend-lifecycle"],
+      "invariants": [
+        "一次已完成的当前计划 objective_baseline 任务足以结束快速诊断冷启动，不以固定最大题量强迫用户重复摸底。",
+        "岗位分差和正式双科能力仍只读取权威 ability estimate；快速诊断只决定先从哪里开始，不伪装完整测评。",
+        "计划、作答、画像和策略候选继续由现有边界分别拥有，本域不新增平行事实或数据库 schema。",
+        "旧画像生成的岸岸候选不得覆盖当前画像和当前计划。"
+      ],
+      "commands": [],
+      "queries": [],
+      "emits": [],
+      "consumes": []
+    },
+    {
+      "id": "learning_brain_evidence_projection",
+      "owner": "backend/app/domains/learning_brain",
+      "scope": "target",
+      "owns": [
+        "xingce-confirmed-cause-current-pattern-projection",
+        "xingce-stable-mastery-counterevidence-projection"
+      ],
+      "trackScope": ["frontend-lifecycle"],
+      "invariants": [
+        "本域只投影行测错因与掌握版本的权威事实，不拥有或改写错因决定、掌握状态、任务、计划或用户反馈快照。",
+        "反向证据必须沿 source_review_id 对应的同一 mastery 链关联，不按模块名、错因文字或相似度推断。",
+        "同一错误模式存在多个实例时，只有所有当前实例均稳定掌握才能把聚合状态标为 counterevidence；部分稳定实例只增加反证数。",
+        "画像证据引用在反证状态下必须指向当前 xingce mastery version，并继续按 user_id 隔离。"
+      ],
+      "commands": [],
+      "queries": [],
+      "emits": [],
+      "consumes": []
+    },
+    {
+      "id": "question_bank_runtime_alignment",
+      "owner": "backend/scripts",
+      "scope": "target",
+      "owns": [
+        "question-bank-local-server-reconciliation-manifest",
+        "question-bank-runtime-release-alignment",
+        "question-bank-source-identity-release",
+        "question-bank-delivery-quarantine-release",
+        "knowledge-map-release-manifest-integrity"
+      ],
+      "trackScope": ["shared"],
+      "invariants": [
+        "服务器实际 DATABASE_URL 与活动内容/知识图谱发布头是运行事实，数据库名称和本地导入日志不是发布完成证据。",
+        "国考、省考和事业编可以复用方法与客观题模块，但每条题目 occurrence、内容版本和考试范围身份必须可追溯。",
+        "任何生产题库写入、发布头切换、对象上传或服务重启都必须在独立发布单元中显式授权并先完成 dry-run。",
+        "对账与导入必须幂等、可重放、带批次指纹，并保留 quarantined、withdrawn、缺失资产和额外内容清单。",
+        "缺当前内容头或可靠答案的题可保留来源事实，但必须用可恢复的 question 状态隔离于用户投放；任何解隔离都需重新验证完整投放条件。"
+      ],
+      "commands": ["apply-question-bank-source-identity-release@v1", "apply-question-delivery-quarantine@v1", "repair-knowledge-map-release-manifest@v1"],
+      "queries": [],
+      "emits": [],
+      "consumes": []
+    },
+    {
+      "id": "question_catalog_delivery",
+      "owner": "backend/app/domains/knowledge",
+      "scope": "target",
+      "owns": ["public-question-detail-api"],
+      "trackScope": ["shared"],
+      "invariants": [
+        "公开题目详情、搜索和训练投放不得对同一 question status 给出冲突可见性。",
+        "只有 active/canonical 题可进入公开详情；内部运维与修复不通过该公开 API 读取隔离内容。",
+        "状态过滤必须先于响应 schema 构造和题目子资源读取，隔离脏数据不得转化为用户 500。"
+      ],
+      "commands": [],
+      "queries": ["public-question-detail@v1"],
+      "emits": [],
+      "consumes": []
+    },
+    {
+      "id": "learner_coach_context",
+      "owner": "backend/app/domains/learning_brain",
+      "scope": "target",
+      "owns": ["learner-coach-context-compiler", "authenticated-learner-coach-context-api"],
+      "trackScope": ["frontend-lifecycle", "companion-memory"],
+      "invariants": [
+        "统一上下文是对现有权威事实的只读编译，不持有或复制成绩、作答、掌握、错因、计划或岗位事实。",
+        "认识层级、新鲜度和用户可理解的观察文案由服务端确定性编译，前端和 Companion 不得各自产生第二套结论。",
+        "所有个人上下文必须按认证 user_id 隔离，并保留 profileVersionId 与 owner/entity/version 证据引用。",
+        "编译器不写库，聊天、情绪、推断和未确认候选不得被升格为新的学习事实。"
+      ],
+      "commands": [],
+      "queries": ["learner-coach-context@v1", "learner-coach-context@v2"],
+      "emits": [],
+      "consumes": []
+    },
+    {
+      "id": "teach_back_runtime",
+      "owner": "backend/app/domains/teach_back_runtime",
+      "scope": "target",
+      "owns": ["grounded-teach-back-session-version"],
+      "trackScope": ["grounded-teach-back", "frontend-lifecycle"],
+      "invariants": [
+        "每个会话只消费同账号当前 review、已确认错因、已发布方法卡、当前题目版本和教学包；不拥有题目、方法、错因或掌握事实。",
+        "学生模型只接触用户讲解与答案无关题面 A，后台核验只接触教学包允许证据，两次调用物理分离且结果越界整体失败关闭。",
+        "学生复现永不更新掌握；只有用户独立作答不同未见迁移题 B 后才调用 xingce mastery 所有者推进当前 immediate verification。",
+        "会话版本只追加、同账号隔离、按 commandId 幂等并以 revision 拒绝陈旧写；恢复读取不重复调用 provider。"
+      ],
+      "commands": ["start-grounded-teach-back@v1", "submit-grounded-teach-back-transfer@v1"],
+      "queries": ["grounded-teach-back-session@v1"],
+      "emits": [],
+      "consumes": []
+    },
+    {
+      "id": "coach_brick_assembly",
+      "owner": "backend/app/domains/coach_brick_assembly",
+      "scope": "target",
+      "owns": ["coach-teaching-brick-assembly"],
+      "trackScope": ["grounded-teach-back"],
+      "invariants": [
+        "本域只读拼装已确认错因关联的 review、当前知识发布、方法卡、未见题和可靠视觉证据，不拥有或改写任何上游事实。",
+        "救场卡可用性与讲回启动消费同一装配结果，不得在前后端各自维护第二套门禁。",
+        "用户 target exam 未知时失败关闭，不默认伪装国考；省考和事业编可显式复用国考知识发布作为教学素材源。",
+        "图推或其他图片题缺可靠结构化证据时只返回可理解的讲回不可用原因，不阻塞原题、原图、官方解析或错因链。"
+      ],
+      "commands": [],
+      "queries": [],
+      "emits": [],
+      "consumes": []
+    },
+    {
+      "id": "external_ingestion",
+      "owner": "backend/app/domains/external_ingestion",
+      "scope": "target",
+      "owns": [
+        "private-source-artifact-intake",
+        "recognition-revision",
+        "question-region-visual-evidence",
+        "question-unit-match-query",
+        "content-match-version"
+      ],
+      "trackScope": ["frontend-lifecycle", "structured-visuals"],
+      "invariants": [
+        "用户上传文件与识别结果按认证 user_id 私有隔离，不因匹配公共题库而公开源文件。",
+        "识别、匹配和 AI 估算解析是不同来源的追加版本，任何一层不得伪装成用户作答或掌握证据。",
+        "逐题匹配只能消费可确定归属于当前 question unit 的文本和视觉证据，全文件图像证据不得复制到多道题。",
+        "逐题区域证据只能由本地可信渲染页和已封存 segment/question-unit 坐标确定性派生；不保存裁剪字节，证据不可安全归属时必须无视觉匹配退回。",
+        "匹配只引用当前授权内容头；未命中或歧义是正常业务状态，不改写公共题库。"
+      ],
+      "commands": [],
+      "queries": ["question-region-visual-evidence@v1", "question-unit-match-query@v1"],
+      "emits": [],
+      "consumes": []
+    },
+    {
+      "id": "private_question_books",
+      "owner": "backend/app/domains/private_question_books",
+      "scope": "target",
+      "owns": ["private-question-book-source", "private-question-book-derived-view", "private-question-book-practice-lineage"],
+      "trackScope": ["frontend-lifecycle", "structured-visuals"],
+      "invariants": [
+        "题本不拥有上传、识别或匹配事实，只绑定当前已确认识别修订并派生可恢复视图。",
+        "同一账号与 source artifact 只有一个当前题本身份，幂等重放不复制私有搜索副本。",
+        "列表、详情、导出与删除全部按认证 user_id 隔离，题本删除复用 private knowledge 的可审计传播。",
+        "题本状态不是作答、掌握、错因或计划证据。",
+        "题本练习只冻结当前确认且可投放的精确内容身份作为现有 objective_practice 的选题来源；不得新建计划任务或第二套作答事实。",
+        "歧义、未命中、内容头变化与暂未发布是可见的排除原因，不得阻塞同一本内其他可用题。"
+      ],
+      "commands": ["register-private-question-book@v1", "delete-private-question-book@v1", "launch-private-question-book-practice@v1"],
+      "queries": ["private-question-book-view@v1"],
       "emits": [],
       "consumes": []
     }

@@ -1,0 +1,336 @@
+{
+  "asset_id": "da_540bd4024811ddac6b31e981",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2010年江西省公务员录用考试《行测》题_images/img_0142_ef1287bebe604f00.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江西省公务员录用考试《行测》题_images/img_0142_ef1287bebe604f00.jpg",
+        "paper_title": "2010年江西省公务员录用考试《行测》题",
+        "question_id": "pq_f0c58742af5aa7c45b3b",
+        "question_number": 96,
+        "source_jsonl_line": 51326
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江西省公务员录用考试《行测》题_images/img_0142_ef1287bebe604f00.jpg",
+        "paper_title": "2010年江西省公务员录用考试《行测》题",
+        "question_id": "pq_fdbb5706b8bd76d7af03",
+        "question_number": 97,
+        "source_jsonl_line": 51327
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江西省公务员录用考试《行测》题_images/img_0155_e6ca80b2b90224b8.jpg",
+        "paper_title": "2010年江西省公务员录用考试《行测》题",
+        "question_id": "pq_be433d77cdfe206935f0",
+        "question_number": 98,
+        "source_jsonl_line": 51328
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江西省公务员录用考试《行测》题_images/img_0142_ef1287bebe604f00.jpg",
+        "paper_title": "2010年江西省公务员录用考试《行测》题",
+        "question_id": "pq_59ab9f400e85c6573543",
+        "question_number": 99,
+        "source_jsonl_line": 51329
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江西省公务员录用考试《行测》题_images/img_0142_ef1287bebe604f00.jpg",
+        "paper_title": "2010年江西省公务员录用考试《行测》题",
+        "question_id": "pq_935836d66802ffcdfda6",
+        "question_number": 100,
+        "source_jsonl_line": 51330
+      }
+    ],
+    "sha256": "540bd4024811ddac6b31e9819fd6ef0d2ac9d2b834c23bab6ba65300948ec3ea"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "学校数（个）｜初中",
+          "学校数（个）｜高中"
+        ],
+        "label": "学校数（个）"
+      },
+      {
+        "columns": [
+          "毕业生数（人）｜初中",
+          "毕业生数（人）｜高中"
+        ],
+        "label": "毕业生数（人）"
+      },
+      {
+        "columns": [
+          "招生数（人）｜初中",
+          "招生数（人）｜高中"
+        ],
+        "label": "招生数（人）"
+      },
+      {
+        "columns": [
+          "在校生数（人）｜初中",
+          "在校生数（人）｜高中"
+        ],
+        "label": "在校生数（人）"
+      }
+    ],
+    "columns": [
+      "学校数（个）｜初中",
+      "学校数（个）｜高中",
+      "毕业生数（人）｜初中",
+      "毕业生数（人）｜高中",
+      "招生数（人）｜初中",
+      "招生数（人）｜高中",
+      "在校生数（人）｜初中",
+      "在校生数（人）｜高中"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "全省",
+        "group": null,
+        "label": "全省",
+        "unit": null,
+        "values": [
+          2083,
+          540,
+          600680,
+          236828,
+          668121,
+          273606,
+          1744883,
+          821981
+        ]
+      },
+      {
+        "display_label": "南昌市",
+        "group": null,
+        "label": "南昌市",
+        "unit": null,
+        "values": [
+          181,
+          87,
+          47482,
+          74553,
+          74553,
+          26809,
+          209567,
+          78089
+        ]
+      },
+      {
+        "display_label": "景德镇",
+        "group": null,
+        "label": "景德镇",
+        "unit": null,
+        "values": [
+          78,
+          28,
+          24988,
+          23007,
+          23007,
+          10333,
+          54663,
+          29470
+        ]
+      },
+      {
+        "display_label": "萍乡市",
+        "group": null,
+        "label": "萍乡市",
+        "unit": null,
+        "values": [
+          91,
+          22,
+          13551,
+          26689,
+          26689,
+          7496,
+          70087,
+          33300
+        ]
+      },
+      {
+        "display_label": "九江市",
+        "group": null,
+        "label": "九江市",
+        "unit": null,
+        "values": [
+          356,
+          67,
+          68666,
+          40160,
+          68834,
+          37493,
+          179423,
+          109059
+        ]
+      },
+      {
+        "display_label": "新余市",
+        "group": null,
+        "label": "新余市",
+        "unit": null,
+        "values": [
+          32,
+          16,
+          13265,
+          8372,
+          12344,
+          7776,
+          30022,
+          23240
+        ]
+      },
+      {
+        "display_label": "鹰潭市",
+        "group": null,
+        "label": "鹰潭市",
+        "unit": null,
+        "values": [
+          58,
+          13,
+          18063,
+          8007,
+          13185,
+          7392,
+          39768,
+          22733
+        ]
+      },
+      {
+        "display_label": "赣州市",
+        "group": null,
+        "label": "赣州市",
+        "unit": null,
+        "values": [
+          380,
+          74,
+          131001,
+          48442,
+          125211,
+          55439,
+          293319,
+          155709
+        ]
+      },
+      {
+        "display_label": "吉安市",
+        "group": null,
+        "label": "吉安市",
+        "unit": null,
+        "values": [
+          249,
+          58,
+          65675,
+          27463,
+          65805,
+          31962,
+          194517,
+          90555
+        ]
+      },
+      {
+        "display_label": "宜春市",
+        "group": null,
+        "label": "宜春市",
+        "unit": null,
+        "values": [
+          211,
+          42,
+          73153,
+          29307,
+          82453,
+          32252,
+          196696,
+          87152
+        ]
+      },
+      {
+        "display_label": "抚州市",
+        "group": null,
+        "label": "抚州市",
+        "unit": null,
+        "values": [
+          182,
+          35,
+          47893,
+          29831,
+          58480,
+          23825,
+          164501,
+          73464
+        ]
+      },
+      {
+        "display_label": "上饶市",
+        "group": null,
+        "label": "上饶市",
+        "unit": null,
+        "values": [
+          364,
+          98,
+          96943,
+          41482,
+          117560,
+          37829,
+          312320,
+          119213
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

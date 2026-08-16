@@ -1,0 +1,210 @@
+{
+  "asset_id": "da_e6c581045c0f0cc3848bf462",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 50,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50
+        ],
+        "title": null,
+        "unit": "万人"
+      },
+      {
+        "max": 1200,
+        "min": 0,
+        "ticks": [
+          0,
+          300,
+          600,
+          900,
+          1200
+        ],
+        "title": null,
+        "unit": "人"
+      }
+    ]
+  },
+  "categories": [
+    "第6届",
+    "第7届",
+    "第8届",
+    "第9届",
+    "第10届",
+    "第11届",
+    "第12届",
+    "第13届",
+    "第14届",
+    "第15届"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "参赛人数",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "决赛人数",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "参赛人数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        6.35,
+        6.98,
+        8.69,
+        11.09,
+        13.88,
+        17.08,
+        20.69,
+        21.89,
+        23.18,
+        28.84
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "决赛人数",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        269,
+        284,
+        284,
+        414,
+        539,
+        604,
+        646,
+        748,
+        922,
+        1169
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0170_5caeb3f18d2d4e5f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0170_5caeb3f18d2d4e5f.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_b4995d6718e97fb7a972",
+        "question_number": 126,
+        "source_jsonl_line": 21241
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0190_2f776cdfe7567b49.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_1a996d9597924de83c41",
+        "question_number": 127,
+        "source_jsonl_line": 21242
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0170_5caeb3f18d2d4e5f.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_1c8659f440cefa000927",
+        "question_number": 128,
+        "source_jsonl_line": 21243
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0190_2f776cdfe7567b49.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_45257b6d4f881a247ffa",
+        "question_number": 129,
+        "source_jsonl_line": 21244
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0170_5caeb3f18d2d4e5f.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_40f851550500fbb8327d",
+        "question_number": 130,
+        "source_jsonl_line": 21245
+      }
+    ],
+    "sha256": "e6c581045c0f0cc3848bf462d313bcb35d6020d772c0317b4dc24eb61083b1f7"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "第6-15届CMC（全国大学生数学竞赛）参赛情况",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e6c581045c0f0cc3848bf462/column_band_01.jpg",
+        "review-crops/da_e6c581045c0f0cc3848bf462/column_band_02.jpg",
+        "review-crops/da_e6c581045c0f0cc3848bf462/column_band_03.jpg",
+        "review-crops/da_e6c581045c0f0cc3848bf462/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.758",
+      "crop_verification_elapsed_seconds:5.295",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

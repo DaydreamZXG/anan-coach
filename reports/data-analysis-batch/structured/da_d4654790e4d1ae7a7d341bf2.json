@@ -1,0 +1,249 @@
+{
+  "asset_id": "da_d4654790e4d1ae7a7d341bf2",
+  "axes": {
+    "x": {
+      "max": 2016,
+      "min": 2010,
+      "ticks": [
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90,
+          100
+        ],
+        "title": null,
+        "unit": "%"
+      },
+      {
+        "max": 40,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2010年",
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "话音收入占比",
+      "style": {
+        "dash": null,
+        "fill": "#696969",
+        "marker": "solid",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "非话收收入占比",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": "solid",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "移动数据收入占比",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "triangle",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "话音收入占比",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        57.1,
+        54.3,
+        51.2,
+        46.8,
+        41.8,
+        30.5,
+        25.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "非话收收入占比",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        42.9,
+        45.7,
+        48.8,
+        53.2,
+        58.2,
+        69.5,
+        75.0
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "移动数据收入占比",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.1,
+        8.3,
+        11.8,
+        17.0,
+        23.5,
+        26.9,
+        36.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2017年422联考《行测》题（陕西卷）_images/img_0118_5c0e4782bbaa3caa.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0118_5c0e4782bbaa3caa.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_2f879137651ddebb35ce",
+        "question_number": 81,
+        "source_jsonl_line": 97629
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0118_5c0e4782bbaa3caa.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_19ee18db3cf630de192e",
+        "question_number": 82,
+        "source_jsonl_line": 97630
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0146_662785a3f8698869.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_9fe77d6bb46b351944b7",
+        "question_number": 83,
+        "source_jsonl_line": 97631
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0118_5c0e4782bbaa3caa.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_bd81a8de92c4a1d0304c",
+        "question_number": 84,
+        "source_jsonl_line": 97632
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0146_662785a3f8698869.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_b583a6b96d54f6c6173f",
+        "question_number": 85,
+        "source_jsonl_line": 97633
+      }
+    ],
+    "sha256": "d4654790e4d1ae7a7d341bf23c9487cca45f68599f82cd50b55cc957c04ffb8e"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d4654790e4d1ae7a7d341bf2/column_band_01.jpg",
+        "review-crops/da_d4654790e4d1ae7a7d341bf2/column_band_02.jpg",
+        "review-crops/da_d4654790e4d1ae7a7d341bf2/column_band_03.jpg",
+        "review-crops/da_d4654790e4d1ae7a7d341bf2/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.243",
+      "crop_verification_elapsed_seconds:6.594",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "asset_id": "da_3db8a58063a55788917bdff2",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 30000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000,
+          30000
+        ],
+        "title": null,
+        "unit": "元"
+      }
+    ]
+  },
+  "categories": [
+    "2009年",
+    "2010年",
+    "2011年",
+    "2012年",
+    "2013年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "城镇居民人均可支配收入",
+      "style": {
+        "dash": "solid",
+        "fill": "hatch",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "农村居民人均纯收入",
+      "style": {
+        "dash": "solid",
+        "fill": "hatch",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇居民人均可支配收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        17175,
+        19109,
+        21810,
+        24565,
+        26955
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "农村居民人均纯收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        5153,
+        5919,
+        6977,
+        7917,
+        8896
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河北/2014年河北省公务员录用考试《行测》题_images/img_0166_136fa9291e096e73.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省公务员录用考试《行测》题_images/img_0166_136fa9291e096e73.png",
+        "paper_title": "2014年河北省公务员录用考试《行测》题",
+        "question_id": "pq_a09b9a2d0c4482e78d6b",
+        "question_number": 101,
+        "source_jsonl_line": 55105
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省公务员录用考试《行测》题_images/img_0166_136fa9291e096e73.png",
+        "paper_title": "2014年河北省公务员录用考试《行测》题",
+        "question_id": "pq_6b30b7824d27350e2dda",
+        "question_number": 102,
+        "source_jsonl_line": 55106
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省公务员录用考试《行测》题_images/img_0166_136fa9291e096e73.png",
+        "paper_title": "2014年河北省公务员录用考试《行测》题",
+        "question_id": "pq_ed7513102f46ff0eb219",
+        "question_number": 103,
+        "source_jsonl_line": 55107
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省公务员录用考试《行测》题_images/img_0166_136fa9291e096e73.png",
+        "paper_title": "2014年河北省公务员录用考试《行测》题",
+        "question_id": "pq_8380e9928b5b97db9fdc",
+        "question_number": 104,
+        "source_jsonl_line": 55108
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省公务员录用考试《行测》题_images/img_0166_136fa9291e096e73.png",
+        "paper_title": "2014年河北省公务员录用考试《行测》题",
+        "question_id": "pq_155f95b8d5d7c7a5be98",
+        "question_number": 105,
+        "source_jsonl_line": 55109
+      }
+    ],
+    "sha256": "3db8a58063a55788917bdff2753e8987a73e774e1f3382e67db20ac4fafe6d36"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3db8a58063a55788917bdff2/column_band_01.jpg",
+        "review-crops/da_3db8a58063a55788917bdff2/column_band_02.jpg",
+        "review-crops/da_3db8a58063a55788917bdff2/column_band_03.jpg",
+        "review-crops/da_3db8a58063a55788917bdff2/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.642",
+      "crop_verification_elapsed_seconds:12.492",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'2009年'的城镇居民人均可支配收入数值为17175，原候选为17175，正确。",
+      "crop_note:修正了'2009年'的农村居民人均纯收入数值为5153，原候选为5153，正确。",
+      "crop_note:修正了'2010年'的城镇居民人均可支配收入数值为19109，原候选为19109，正确。",
+      "crop_note:修正了'2010年'的农村居民人均纯收入数值为5919，原候选为5919，正确。",
+      "crop_note:修正了'2011年'的城镇居民人均可支配收入数值为21810，原候选为21810，正确。",
+      "crop_note:修正了'2011年'的农村居民人均纯收入数值为6977，原候选为6977，正确。",
+      "crop_note:修正了'2012年'的城镇居民人均可支配收入数值为24565，原候选为24565，正确。",
+      "crop_note:修正了'2012年'的农村居民人均纯收入数值为7917，原候选为7917，正确。",
+      "crop_note:修正了'2013年'的城镇居民人均可支配收入数值为26955，原候选为26955，正确。",
+      "crop_note:修正了'2013年'的农村居民人均纯收入数值为8896，原候选为8896，正确。",
+      "crop_note:确认所有数值均为整数，无小数点或百分号。",
+      "crop_note:确认所有数值均无负号。",
+      "crop_note:确认所有数值均无缺失值，未将任何null值补为0。",
+      "crop_note:确认所有数值均与图像中显示的数字一致。",
+      "crop_note:确认所有数值均与原候选中的数值一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

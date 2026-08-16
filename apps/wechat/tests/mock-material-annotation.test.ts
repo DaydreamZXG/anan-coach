@@ -29,7 +29,11 @@ describe("mock exam material scratch", () => {
     expect(source).toContain("openMaterialAnnotation");
     expect(source).toContain("changeMaterialAnnotations");
     expect(source).toContain("replaceMaterialAnnotations");
-    expect(template).toContain("annotationSurface === 'material'");
+    expect(template).toContain("annotationOpen=\"{{annotationMode === 'annotate'}}\"");
+    expect(template).toContain('annotationSurfaceSwitchAvailable="{{false}}"');
+    expect(template).toContain(
+      "annotationToolbarAvailable=\"{{annotationCanvas === 'material' || materialOpen}}\"",
+    );
     expect(template).toContain('bindstrokeschange="changeMaterialAnnotations"');
     expect(readerTemplate).toContain('strokePrefix="material-stroke"');
   });
@@ -194,6 +198,43 @@ describe("mock exam material scratch", () => {
       );
     },
   );
+
+  it.each([
+    ["short inline material", "question_first", 0, 280, 280, ".material-reader__inline-scroll"],
+    ["long fullscreen material", "fullscreen", 1_600, 600, 1_600, ".material-reader__body-scroll"],
+  ])(
+    "keeps a non-zero drawing surface for %s",
+    async (_, readerMode, scrollHeight, viewportHeight, expectedHeight, expectedSelector) => {
+      const definitions: MiniComponentDefinition[] = [];
+      vi.stubGlobal("Component", (definition: MiniComponentDefinition) => {
+        definitions.push(definition);
+      });
+      vi.stubGlobal("wx", {
+        nextTick: (callback: () => void) => {
+          callback();
+        },
+      });
+      await import("../miniprogram/pages/mock-exam/shared/task-runtime/material-reader/index");
+      const readerDefinition = definitions[0];
+      if (!readerDefinition) throw new Error("material reader component must register");
+
+      const selector = vi.fn();
+      const reader = componentHost(readerDefinition, {
+        data: {
+          ...readerDefinition.data,
+          readerMode,
+          annotationContentHeight: 0,
+        },
+        createSelectorQuery: () =>
+          annotationHeightSelectorQuery(selector, scrollHeight, viewportHeight),
+      });
+
+      reader.measureAnnotationContent?.call(reader);
+
+      expect(selector).toHaveBeenCalledWith(expectedSelector);
+      expect(reader.data.annotationContentHeight).toBe(expectedHeight);
+    },
+  );
 });
 
 interface MiniComponentDefinition {
@@ -212,6 +253,7 @@ type ComponentHost = Record<string, unknown> & {
   triggerEvent(name: string, detail?: Record<string, unknown>): void;
   createSelectorQuery(): unknown;
   onTableScroll?: () => void;
+  measureAnnotationContent?: () => void;
   onHorizontalRegions?: (
     event: WechatMiniprogram.CustomEvent<{ regions: HorizontalAnnotationRegion[] }>,
   ) => void;
@@ -279,6 +321,24 @@ function readerSelectorQuery(viewportHeight: number) {
     boundingClientRect: vi.fn(() => query),
     exec: vi.fn((callback: (results: Array<{ height: number }>) => void) => {
       callback([{ height: viewportHeight }]);
+    }),
+  };
+  return query;
+}
+
+function annotationHeightSelectorQuery(
+  selector: (value: string) => void,
+  scrollHeight: number,
+  viewportHeight: number,
+) {
+  const query = {
+    select: vi.fn((value: string) => {
+      selector(value);
+      return query;
+    }),
+    fields: vi.fn(() => query),
+    exec: vi.fn((callback: (results: Array<{ height: number; scrollHeight: number }>) => void) => {
+      callback([{ height: viewportHeight, scrollHeight }]);
     }),
   };
   return query;

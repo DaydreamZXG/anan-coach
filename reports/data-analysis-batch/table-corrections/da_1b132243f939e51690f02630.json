@@ -1,0 +1,229 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "珠三角",
+      "东翼",
+      "西翼",
+      "粤北山区"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "display_label": "地区生产总值（亿元）",
+        "group": null,
+        "label": "地区生产总值（亿元）",
+        "unit": null,
+        "values": [
+          67841.85,
+          5893.19,
+          6491.93,
+          5328.69
+        ]
+      },
+      {
+        "display_label": "地方一般公共预算收入（亿元）",
+        "group": null,
+        "label": "地方一般公共预算收入（亿元）",
+        "unit": null,
+        "values": [
+          6923.98,
+          285.92,
+          292.35,
+          412.47
+        ]
+      },
+      {
+        "display_label": "固定资产投资（亿元）",
+        "group": null,
+        "label": "固定资产投资（亿元）",
+        "unit": null,
+        "values": [
+          22321.24,
+          4172.14,
+          3298.27,
+          3217.21
+        ]
+      },
+      {
+        "display_label": "房地产开发投资（亿元）",
+        "group": null,
+        "label": "房地产开发投资（亿元）",
+        "unit": null,
+        "values": [
+          8601.17,
+          478.4,
+          434.43,
+          793.8
+        ]
+      },
+      {
+        "display_label": "社会消费品零售总额（亿元）",
+        "group": null,
+        "label": "社会消费品零售总额（亿元）",
+        "unit": null,
+        "values": [
+          25048.68,
+          3522.33,
+          3407.67,
+          2767.44
+        ]
+      },
+      {
+        "display_label": "进出口总额（亿美元）",
+        "group": null,
+        "label": "进出口总额（亿美元）",
+        "unit": null,
+        "values": [
+          9101.75,
+          218.54,
+          82.81,
+          149.76
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "column_groups": [],
+        "columns": [
+          "珠三角",
+          "东翼",
+          "西翼",
+          "粤北山区"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "地区生产总值（亿元）",
+            "group": null,
+            "label": "地区生产总值（亿元）",
+            "unit": null,
+            "values": [
+              67841.85,
+              5893.19,
+              6491.93,
+              5328.69
+            ]
+          },
+          {
+            "display_label": "地方一般公共预算收入（亿元）",
+            "group": null,
+            "label": "地方一般公共预算收入（亿元）",
+            "unit": null,
+            "values": [
+              6923.98,
+              285.92,
+              292.35,
+              412.47
+            ]
+          },
+          {
+            "display_label": "固定资产投资（亿元）",
+            "group": null,
+            "label": "固定资产投资（亿元）",
+            "unit": null,
+            "values": [
+              22321.24,
+              4172.14,
+              3298.27,
+              3217.21
+            ]
+          },
+          {
+            "display_label": "房地产开发投资（亿元）",
+            "group": null,
+            "label": "房地产开发投资（亿元）",
+            "unit": null,
+            "values": [
+              8601.17,
+              478.4,
+              434.43,
+              793.8
+            ]
+          },
+          {
+            "display_label": "社会消费品零售总额（亿元）",
+            "group": null,
+            "label": "社会消费品零售总额（亿元）",
+            "unit": null,
+            "values": [
+              25048.68,
+              3522.33,
+              3407.67,
+              2767.44
+            ]
+          },
+          {
+            "display_label": "进出口总额（亿美元）",
+            "group": null,
+            "label": "进出口总额（亿美元）",
+            "unit": null,
+            "values": [
+              9101.75,
+              218.54,
+              82.81,
+              149.76
+            ]
+          }
+        ],
+        "title": "2016年广东各区域主要经济总量指标"
+      },
+      {
+        "column_groups": [],
+        "columns": [
+          "2012年",
+          "2013年",
+          "2014年",
+          "2015年",
+          "2016年",
+          "2017年",
+          "2018年"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "珠三角（亿元）",
+            "group": null,
+            "label": "珠三角（亿元）",
+            "unit": null,
+            "values": [
+              47824.18,
+              53307.67,
+              57650.02,
+              62267.78,
+              67841.85,
+              75809.75,
+              81048.5
+            ]
+          },
+          {
+            "display_label": "粤西北（亿元）",
+            "group": null,
+            "label": "粤西北（亿元）",
+            "unit": null,
+            "values": [
+              12650.41,
+              14149.4,
+              15470.76,
+              15416.71,
+              17713.81,
+              19345.38,
+              19977.45
+            ]
+          }
+        ],
+        "title": "2012-2018年广东珠三角与粤东西北地区生产总值"
+      }
+    ],
+    "title": "2016年广东各区域主要经济总量指标"
+  },
+  "uncertainties": []
+}

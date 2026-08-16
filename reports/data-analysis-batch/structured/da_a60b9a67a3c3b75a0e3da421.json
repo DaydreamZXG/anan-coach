@@ -1,0 +1,255 @@
+{
+  "asset_id": "da_a60b9a67a3c3b75a0e3da421",
+  "axes": {
+    "x": {
+      "max": 6,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "第三产业",
+      "style": {
+        "dash": null,
+        "fill": "blue",
+        "marker": null,
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "第二产业",
+      "style": {
+        "dash": null,
+        "fill": "red",
+        "marker": null,
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "第一产业",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "第三产业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        39.8,
+        39.9,
+        42.7,
+        45.0,
+        47.1,
+        50.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "第二产业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        55.0,
+        55.2,
+        52.6,
+        50.7,
+        49.0,
+        46.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "第一产业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.2,
+        4.9,
+        4.7,
+        4.3,
+        3.9,
+        3.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0089_6c19f5b1278164e8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0089_6c19f5b1278164e8.png",
+        "paper_title": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_82d1f1775662c9419a61",
+        "question_number": 36,
+        "source_jsonl_line": 28850
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0095_3df49e51421c1bb1.png",
+        "paper_title": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_050b8ac35cb748fe4a95",
+        "question_number": 37,
+        "source_jsonl_line": 28851
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0095_3df49e51421c1bb1.png",
+        "paper_title": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_3f6eb9e0d68c03eb2a6b",
+        "question_number": 38,
+        "source_jsonl_line": 28852
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0095_3df49e51421c1bb1.png",
+        "paper_title": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_4408a8104033232d8b8e",
+        "question_number": 39,
+        "source_jsonl_line": 28853
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0095_3df49e51421c1bb1.png",
+        "paper_title": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_d3322da78a4726504c40",
+        "question_number": 40,
+        "source_jsonl_line": 28854
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0095_3df49e51421c1bb1.png",
+        "paper_title": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_0bc5c212911fec768572",
+        "question_number": 36,
+        "source_jsonl_line": 91005
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0102_6c19f5b1278164e8.png",
+        "paper_title": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_1c09381b2f945318baa1",
+        "question_number": 37,
+        "source_jsonl_line": 91006
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0095_3df49e51421c1bb1.png",
+        "paper_title": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_0370cff03d26dbaba5d2",
+        "question_number": 38,
+        "source_jsonl_line": 91007
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0095_3df49e51421c1bb1.png",
+        "paper_title": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_9c20ad548d60dad431ea",
+        "question_number": 39,
+        "source_jsonl_line": 91008
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0095_3df49e51421c1bb1.png",
+        "paper_title": "安徽省2020年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_d5a17b3a6634ef83ee80",
+        "question_number": 40,
+        "source_jsonl_line": 91009
+      }
+    ],
+    "sha256": "a60b9a67a3c3b75a0e3da421679386db98862bf3e200a4a3e61e1f34d7a38191"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013-2018年H市第一、第二、第三产业占GDP的比重",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a60b9a67a3c3b75a0e3da421/column_band_01.jpg",
+        "review-crops/da_a60b9a67a3c3b75a0e3da421/column_band_02.jpg",
+        "review-crops/da_a60b9a67a3c3b75a0e3da421/column_band_03.jpg",
+        "review-crops/da_a60b9a67a3c3b75a0e3da421/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.505",
+      "crop_verification_elapsed_seconds:2.711",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

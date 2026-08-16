@@ -26,7 +26,7 @@
    且似然权重 ×1.5。
 4. 与 v1 分数的换算先用线性锚定：θ=0 对应 v1 行测均值口径（占位常数），
    斜率为占位常数；两个常数都必须在首届内测拿到 v1/v2 配对数据后重新标定
-   （见 docs/product/2026-07-27-cognitive-science-mapping.md 欠账清单）。
+   （历史依据见 docs/product/_archive/2026-07-27-cognitive-science-mapping.md 欠账清单）。
 5. 对比留痕：每次计算同步快照 v1 当前行测分数区间并落 divergence 字段。
 """
 

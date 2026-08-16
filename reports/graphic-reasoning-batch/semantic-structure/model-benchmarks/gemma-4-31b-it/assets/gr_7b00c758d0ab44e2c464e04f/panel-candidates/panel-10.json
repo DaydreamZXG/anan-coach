@@ -1,0 +1,37 @@
+{
+  "curves": [
+    {
+      "connects": "left_edge_to_right_edge",
+      "feat": [
+        "semi-ellipse"
+      ],
+      "k": "arc",
+      "reg": "center"
+    }
+  ],
+  "dots": [],
+  "facts": [
+    "a semi-ellipse is located in the middle right cell"
+  ],
+  "frame": {
+    "grid": [
+      3,
+      2
+    ],
+    "k": "grid"
+  },
+  "lines": [],
+  "opt": "D",
+  "p": 10,
+  "role": "option",
+  "schema": "graphic-reasoning-regular-panel-v1",
+  "shapes": [],
+  "symbols": [],
+  "topo": [
+    1,
+    2,
+    0,
+    0
+  ],
+  "uncertain": []
+}

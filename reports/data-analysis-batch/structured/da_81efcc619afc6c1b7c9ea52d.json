@@ -1,0 +1,189 @@
+{
+  "asset_id": "da_81efcc619afc6c1b7c9ea52d",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 300,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300
+        ],
+        "title": null,
+        "unit": "亿美元"
+      }
+    ]
+  },
+  "categories": [
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "出口额",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "进口额",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "出口额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        49.98,
+        59.83,
+        67.57,
+        57.78,
+        46.54
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "进口额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        170.49,
+        185.89,
+        190.96,
+        206,
+        142.84
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2017年422联考《行测》题（吉林卷甲级）_images/img_0136_91c7794454e86218.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（吉林卷甲级）_images/img_0136_91c7794454e86218.png",
+        "paper_title": "2017年422联考《行测》题（吉林卷甲级）",
+        "question_id": "pq_722c35b02373e9f7815e",
+        "question_number": 101,
+        "source_jsonl_line": 12802
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（吉林卷甲级）_images/img_0136_91c7794454e86218.png",
+        "paper_title": "2017年422联考《行测》题（吉林卷甲级）",
+        "question_id": "pq_79ba47cf82a359770276",
+        "question_number": 102,
+        "source_jsonl_line": 12803
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（吉林卷甲级）_images/img_0136_91c7794454e86218.png",
+        "paper_title": "2017年422联考《行测》题（吉林卷甲级）",
+        "question_id": "pq_5e901af6c32f51516c69",
+        "question_number": 103,
+        "source_jsonl_line": 12804
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（吉林卷甲级）_images/img_0136_91c7794454e86218.png",
+        "paper_title": "2017年422联考《行测》题（吉林卷甲级）",
+        "question_id": "pq_94f0f018e4a72c2c23af",
+        "question_number": 104,
+        "source_jsonl_line": 12805
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（吉林卷甲级）_images/img_0158_eca363ee5f41f1fd.png",
+        "paper_title": "2017年422联考《行测》题（吉林卷甲级）",
+        "question_id": "pq_a22cb9cc58da2306d596",
+        "question_number": 105,
+        "source_jsonl_line": 12806
+      }
+    ],
+    "sha256": "81efcc619afc6c1b7c9ea52d89989e31cc457249fa3f25185fe2503230f5738c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2011-2015年全省进出口总额",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_81efcc619afc6c1b7c9ea52d/column_band_01.jpg",
+        "review-crops/da_81efcc619afc6c1b7c9ea52d/column_band_02.jpg",
+        "review-crops/da_81efcc619afc6c1b7c9ea52d/column_band_03.jpg",
+        "review-crops/da_81efcc619afc6c1b7c9ea52d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.716",
+      "crop_verification_elapsed_seconds:2.76",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

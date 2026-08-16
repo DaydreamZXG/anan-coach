@@ -1,0 +1,198 @@
+{
+  "asset_id": "da_e137c5b866d1bafa601fa553",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0079_cfc9f0659ed44aeb.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0079_cfc9f0659ed44aeb.png",
+        "paper_title": "2025年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_867766afc510e1843578",
+        "question_number": 106,
+        "source_jsonl_line": 30920
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0079_cfc9f0659ed44aeb.png",
+        "paper_title": "2025年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_6a68d1de3562a1c3eee5",
+        "question_number": 107,
+        "source_jsonl_line": 30921
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0089_a89e8debd5369f3f.png",
+        "paper_title": "2025年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_dab47cc14b91a040daf0",
+        "question_number": 108,
+        "source_jsonl_line": 30922
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0089_a89e8debd5369f3f.png",
+        "paper_title": "2025年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_2fb75ef0d6f056c880f6",
+        "question_number": 109,
+        "source_jsonl_line": 30923
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0079_cfc9f0659ed44aeb.png",
+        "paper_title": "2025年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_ae771110edf662117605",
+        "question_number": 110,
+        "source_jsonl_line": 30924
+      }
+    ],
+    "sha256": "e137c5b866d1bafa601fa5533396022e19cfb07b320ac82bf6171a6518f6cad5"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "户数｜数量（户）",
+          "户数｜增长（%）"
+        ],
+        "label": "户数"
+      },
+      {
+        "columns": [
+          "注册资本（金）｜金额（亿元）",
+          "注册资本（金）｜增长（%）"
+        ],
+        "label": "注册资本（金）"
+      }
+    ],
+    "columns": [
+      "户数｜数量（户）",
+      "户数｜增长（%）",
+      "注册资本（金）｜金额（亿元）",
+      "注册资本（金）｜增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "经营主体类型",
+    "rows": [
+      {
+        "display_label": "国有、集体及其控股企业",
+        "group": null,
+        "label": "国有、集体及其控股企业",
+        "unit": null,
+        "values": [
+          3440,
+          1.7,
+          1630.77,
+          12.2
+        ]
+      },
+      {
+        "display_label": "私营企业",
+        "group": null,
+        "label": "私营企业",
+        "unit": null,
+        "values": [
+          126098,
+          6.1,
+          8368.98,
+          3.0
+        ]
+      },
+      {
+        "display_label": "外商投资企业",
+        "group": null,
+        "label": "外商投资企业",
+        "unit": null,
+        "values": [
+          818,
+          3.7,
+          1647.88,
+          9.8
+        ]
+      },
+      {
+        "display_label": "个体工商户",
+        "group": null,
+        "label": "个体工商户",
+        "unit": null,
+        "values": [
+          291783,
+          2.3,
+          398.79,
+          4.7
+        ]
+      },
+      {
+        "display_label": "农民专业合作社",
+        "group": null,
+        "label": "农民专业合作社",
+        "unit": null,
+        "values": [
+          5924,
+          -2.4,
+          69.5,
+          2.6
+        ]
+      },
+      {
+        "display_label": "合 计",
+        "group": null,
+        "label": "合 计",
+        "unit": null,
+        "values": [
+          428063,
+          3.3,
+          12115.92,
+          5.1
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,350 @@
+{
+  "asset_id": "da_03958018d5a9c1b1ed09b9b8",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "民政部门接收社会捐款（亿元）",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "社会组织接收社会捐款（亿元）",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2011",
+    "2012",
+    "2013",
+    "2014"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "民政部门接收社会捐款（亿元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        96.6,
+        101.7,
+        107.6,
+        79.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "社会组织接收社会捐款（亿元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        393.6,
+        470.8,
+        458.8,
+        524.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "民政部门接收捐赠衣被（万件）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万件",
+      "values": [
+        2918.5,
+        12538.2,
+        10405.0,
+        5244.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2017年422联考《行测》题（内蒙古卷）_images/img_0223_4aa9f68730bf7e08.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（内蒙古卷）_images/img_0223_4aa9f68730bf7e08.png",
+        "paper_title": "2017年422联考《行测》题（内蒙古卷）",
+        "question_id": "pq_8edbfa37472e5568ceb3",
+        "question_number": 116,
+        "source_jsonl_line": 7429
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（内蒙古卷）_images/img_0228_691f9ae85d539314.png",
+        "paper_title": "2017年422联考《行测》题（内蒙古卷）",
+        "question_id": "pq_ac563ac0d60857e87fba",
+        "question_number": 117,
+        "source_jsonl_line": 7430
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（内蒙古卷）_images/img_0228_691f9ae85d539314.png",
+        "paper_title": "2017年422联考《行测》题（内蒙古卷）",
+        "question_id": "pq_6d6adec0ef81f85622ad",
+        "question_number": 118,
+        "source_jsonl_line": 7431
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（内蒙古卷）_images/img_0223_4aa9f68730bf7e08.png",
+        "paper_title": "2017年422联考《行测》题（内蒙古卷）",
+        "question_id": "pq_8954b4f1b9cec7dc9a73",
+        "question_number": 119,
+        "source_jsonl_line": 7432
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（内蒙古卷）_images/img_0223_4aa9f68730bf7e08.png",
+        "paper_title": "2017年422联考《行测》题（内蒙古卷）",
+        "question_id": "pq_0f79012897924fb3d2cd",
+        "question_number": 120,
+        "source_jsonl_line": 7433
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（天津卷）_images/img_0200_691f9ae85d539314.png",
+        "paper_title": "2017年422联考《行测》题（天津卷）",
+        "question_id": "pq_9c5a78ad7d1029e75ea1",
+        "question_number": 111,
+        "source_jsonl_line": 23129
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（天津卷）_images/img_0200_691f9ae85d539314.png",
+        "paper_title": "2017年422联考《行测》题（天津卷）",
+        "question_id": "pq_f92d1c2fa52e470b0881",
+        "question_number": 112,
+        "source_jsonl_line": 23130
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（天津卷）_images/img_0200_691f9ae85d539314.png",
+        "paper_title": "2017年422联考《行测》题（天津卷）",
+        "question_id": "pq_eb7643426a5fae197086",
+        "question_number": 113,
+        "source_jsonl_line": 23131
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（天津卷）_images/img_0222_4aa9f68730bf7e08.png",
+        "paper_title": "2017年422联考《行测》题（天津卷）",
+        "question_id": "pq_7374c9b4b4850756c156",
+        "question_number": 114,
+        "source_jsonl_line": 23132
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（天津卷）_images/img_0200_691f9ae85d539314.png",
+        "paper_title": "2017年422联考《行测》题（天津卷）",
+        "question_id": "pq_12dab8916ccd55a63594",
+        "question_number": 115,
+        "source_jsonl_line": 23133
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（安徽卷）_images/img_0221_691f9ae85d539314.png",
+        "paper_title": "2017年422联考《行测》题（安徽卷）",
+        "question_id": "pq_fc6b7a7bde6f0fd4f9f6",
+        "question_number": 106,
+        "source_jsonl_line": 27750
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（安徽卷）_images/img_0221_691f9ae85d539314.png",
+        "paper_title": "2017年422联考《行测》题（安徽卷）",
+        "question_id": "pq_9184218e7ae12e033d53",
+        "question_number": 107,
+        "source_jsonl_line": 27751
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（安徽卷）_images/img_0221_691f9ae85d539314.png",
+        "paper_title": "2017年422联考《行测》题（安徽卷）",
+        "question_id": "pq_aef8d604371835f2c4d6",
+        "question_number": 108,
+        "source_jsonl_line": 27752
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（安徽卷）_images/img_0221_691f9ae85d539314.png",
+        "paper_title": "2017年422联考《行测》题（安徽卷）",
+        "question_id": "pq_58d3f3096b766d9df45a",
+        "question_number": 109,
+        "source_jsonl_line": 27753
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（安徽卷）_images/img_0221_691f9ae85d539314.png",
+        "paper_title": "2017年422联考《行测》题（安徽卷）",
+        "question_id": "pq_9d9cfcdcbc0fabf559d1",
+        "question_number": 110,
+        "source_jsonl_line": 27754
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山西卷）_images/img_0186_691f9ae85d539314.png",
+        "paper_title": "2017年422联考《行测》题（山西卷）",
+        "question_id": "pq_a3fa9f8649e47edf7612",
+        "question_number": 116,
+        "source_jsonl_line": 32314
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山西卷）_images/img_0190_4aa9f68730bf7e08.png",
+        "paper_title": "2017年422联考《行测》题（山西卷）",
+        "question_id": "pq_37ad119726dba3c22f4a",
+        "question_number": 117,
+        "source_jsonl_line": 32315
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山西卷）_images/img_0186_691f9ae85d539314.png",
+        "paper_title": "2017年422联考《行测》题（山西卷）",
+        "question_id": "pq_b16547dc2252da58bf51",
+        "question_number": 118,
+        "source_jsonl_line": 32316
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山西卷）_images/img_0186_691f9ae85d539314.png",
+        "paper_title": "2017年422联考《行测》题（山西卷）",
+        "question_id": "pq_00e9711007c26d19c4f9",
+        "question_number": 119,
+        "source_jsonl_line": 32317
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山西卷）_images/img_0190_4aa9f68730bf7e08.png",
+        "paper_title": "2017年422联考《行测》题（山西卷）",
+        "question_id": "pq_c1b33807f880bb0d4d57",
+        "question_number": 120,
+        "source_jsonl_line": 32318
+      }
+    ],
+    "sha256": "03958018d5a9c1b1ed09b9b86b41c34c20d293f0002eedcbc36368760695a26c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "民政部门接收社会捐款（亿元）",
+      "社会组织接收社会捐款（亿元）",
+      "民政部门接收捐赠衣被（万件）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          96.6,
+          393.6,
+          2918.5
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          101.7,
+          470.8,
+          12538.2
+        ]
+      },
+      {
+        "label": "2013",
+        "unit": null,
+        "values": [
+          2013,
+          107.6,
+          458.8,
+          10405.0
+        ]
+      },
+      {
+        "label": "2014",
+        "unit": null,
+        "values": [
+          2014,
+          79.6,
+          524.9,
+          5244.5
+        ]
+      }
+    ]
+  },
+  "title": "2011-2014年社会捐赠款和社会捐赠衣被情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_03958018d5a9c1b1ed09b9b8/row_band_01.jpg",
+        "review-crops/da_03958018d5a9c1b1ed09b9b8/row_band_02.jpg",
+        "review-crops/da_03958018d5a9c1b1ed09b9b8/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.183",
+      "crop_verification_elapsed_seconds:6.503",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

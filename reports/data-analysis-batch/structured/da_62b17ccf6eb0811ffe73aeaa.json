@@ -1,0 +1,168 @@
+{
+  "asset_id": "da_62b17ccf6eb0811ffe73aeaa",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 22,
+        "min": 10,
+        "ticks": [
+          10,
+          12,
+          14,
+          16,
+          18,
+          20,
+          22
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "12月 2012",
+    "1-2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "社会消费品零售总额分月同比增长速度",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "社会消费品零售总额分月同比增长速度",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        18.1,
+        14.7,
+        15.2,
+        14.1,
+        13.8,
+        13.7,
+        13.1,
+        13.2,
+        14.2,
+        14.5,
+        14.9,
+        15.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2013年山东省选调优秀高校毕业生到村任职笔试题目（网友回忆版）_images/img_0061_3b84e2268b8c9429.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年山东省选调优秀高校毕业生到村任职笔试题目（网友回忆版）_images/img_0061_3b84e2268b8c9429.png",
+        "paper_title": "2013年山东省选调优秀高校毕业生到村任职笔试题目（网友回忆版）",
+        "question_id": "pq_36d1a5d9ad62702f3353",
+        "question_number": 45,
+        "source_jsonl_line": 84636
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年山东省选调优秀高校毕业生到村任职笔试题目（网友回忆版）_images/img_0061_3b84e2268b8c9429.png",
+        "paper_title": "2013年山东省选调优秀高校毕业生到村任职笔试题目（网友回忆版）",
+        "question_id": "pq_cd3a46090106a23d0280",
+        "question_number": 46,
+        "source_jsonl_line": 84637
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年山东省选调优秀高校毕业生到村任职笔试题目（网友回忆版）_images/img_0061_3b84e2268b8c9429.png",
+        "paper_title": "2013年山东省选调优秀高校毕业生到村任职笔试题目（网友回忆版）",
+        "question_id": "pq_65bcc201d3a4c50d55cf",
+        "question_number": 47,
+        "source_jsonl_line": 84638
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年山东省选调优秀高校毕业生到村任职笔试题目（网友回忆版）_images/img_0061_3b84e2268b8c9429.png",
+        "paper_title": "2013年山东省选调优秀高校毕业生到村任职笔试题目（网友回忆版）",
+        "question_id": "pq_ea2fa26c21d62db8ab2e",
+        "question_number": 48,
+        "source_jsonl_line": 84639
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年山东省选调优秀高校毕业生到村任职笔试题目（网友回忆版）_images/img_0061_3b84e2268b8c9429.png",
+        "paper_title": "2013年山东省选调优秀高校毕业生到村任职笔试题目（网友回忆版）",
+        "question_id": "pq_aab20543eaf73b307926",
+        "question_number": 49,
+        "source_jsonl_line": 84640
+      }
+    ],
+    "sha256": "62b17ccf6eb0811ffe73aeaa81f362650671f721c58a324b63297ed2bb6b0a6c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "社会消费品零售总额分月同比增长速度",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_62b17ccf6eb0811ffe73aeaa/column_band_01.jpg",
+        "review-crops/da_62b17ccf6eb0811ffe73aeaa/column_band_02.jpg",
+        "review-crops/da_62b17ccf6eb0811ffe73aeaa/column_band_03.jpg",
+        "review-crops/da_62b17ccf6eb0811ffe73aeaa/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.497",
+      "crop_verification_elapsed_seconds:4.214",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "asset_id": "da_79619a43821d4a843c3cd52f",
+  "axes": {
+    "x": {
+      "max": 2017,
+      "min": 2012,
+      "ticks": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 90,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 90,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "接待人数（亿人）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "增长率（%）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "接待人数（亿人）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿人",
+      "values": [
+        7.2,
+        10,
+        12,
+        22,
+        24,
+        28
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "增长率（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        20.0,
+        38.9,
+        20.0,
+        83.3,
+        9.1,
+        16.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0109_3a2a6faa9d5fc0b5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0109_3a2a6faa9d5fc0b5.png",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_168705e8a932f9e661f5",
+        "question_number": 101,
+        "source_jsonl_line": 103658
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0109_3a2a6faa9d5fc0b5.png",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_0ffae48cdb8b2a9ff0f5",
+        "question_number": 102,
+        "source_jsonl_line": 103659
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0109_3a2a6faa9d5fc0b5.png",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_fb95dc29da77f1bc17cc",
+        "question_number": 103,
+        "source_jsonl_line": 103660
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0109_3a2a6faa9d5fc0b5.png",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_497d03e84a9aa3f6fe0e",
+        "question_number": 104,
+        "source_jsonl_line": 103661
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0109_3a2a6faa9d5fc0b5.png",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_390b16359b968820d291",
+        "question_number": 105,
+        "source_jsonl_line": 103662
+      }
+    ],
+    "sha256": "79619a43821d4a843c3cd52f6fb908bb4a1a8134b49fab12454c28440f892a29"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2012-2017年全国休闲农业与乡村旅游接待人数",
+  "unit": "亿人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_79619a43821d4a843c3cd52f/column_band_01.jpg",
+        "review-crops/da_79619a43821d4a843c3cd52f/column_band_02.jpg",
+        "review-crops/da_79619a43821d4a843c3cd52f/column_band_03.jpg",
+        "review-crops/da_79619a43821d4a843c3cd52f/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.987",
+      "crop_verification_elapsed_seconds:2.419",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

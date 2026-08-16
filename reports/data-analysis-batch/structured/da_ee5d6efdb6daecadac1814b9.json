@@ -1,0 +1,107 @@
+{
+  "asset_id": "da_ee5d6efdb6daecadac1814b9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 15.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          5.0,
+          10.0,
+          15.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "第一季度",
+    "第二季度",
+    "第三季度",
+    "第四季度"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": null,
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.0,
+        11.0,
+        6.0,
+        10.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2009年北京市公务员录用考试《行测》题（社招）_images/img_0161_7c4e6a74fe0e6e9a.jpg",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0161_7c4e6a74fe0e6e9a.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_dbf20183ea50d7d2380d",
+        "question_number": 117,
+        "source_jsonl_line": 8910
+      }
+    ],
+    "sha256": "ee5d6efdb6daecadac1814b954cbca381bf452bc61eda8afac5eec70c0757fc6"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "C.",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ee5d6efdb6daecadac1814b9/column_band_01.jpg",
+        "review-crops/da_ee5d6efdb6daecadac1814b9/column_band_02.jpg",
+        "review-crops/da_ee5d6efdb6daecadac1814b9/column_band_03.jpg",
+        "review-crops/da_ee5d6efdb6daecadac1814b9/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.083",
+      "crop_verification_elapsed_seconds:0.876",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

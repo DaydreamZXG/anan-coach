@@ -1,0 +1,203 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024",
+          "2025"
+        ],
+        "label": "整体"
+      }
+    ],
+    "columns": [
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "服装、鞋类",
+    "rows": [
+      {
+        "display_label": "服装｜整体",
+        "group": null,
+        "label": "服装｜整体",
+        "unit": null,
+        "values": [
+          19600.7,
+          21938.2,
+          19950.5,
+          21619.5,
+          21698.2,
+          22049.5
+        ]
+      },
+      {
+        "display_label": "服装｜其中：非运动",
+        "group": null,
+        "label": "服装｜其中：非运动",
+        "unit": null,
+        "values": [
+          18276.8,
+          20418.0,
+          18520.8,
+          19946.3,
+          19867.1,
+          20066.7
+        ]
+      },
+      {
+        "display_label": "服装｜运动",
+        "group": null,
+        "label": "服装｜运动",
+        "unit": null,
+        "values": [
+          1323.9,
+          1520.2,
+          1429.7,
+          1673.2,
+          1831.1,
+          1982.8
+        ]
+      },
+      {
+        "display_label": "服装｜其中：功能",
+        "group": null,
+        "label": "服装｜其中：功能",
+        "unit": null,
+        "values": [
+          465.9,
+          526.0,
+          495.9,
+          580.6,
+          612.5,
+          643.1
+        ]
+      },
+      {
+        "display_label": "服装｜户外",
+        "group": null,
+        "label": "服装｜户外",
+        "unit": null,
+        "values": [
+          182.4,
+          221.9,
+          260.7,
+          339.2,
+          452.9,
+          563.9
+        ]
+      },
+      {
+        "display_label": "服装｜时尚",
+        "group": null,
+        "label": "服装｜时尚",
+        "unit": null,
+        "values": [
+          675.6,
+          771.9,
+          673.1,
+          753.4,
+          765.7,
+          775.8
+        ]
+      },
+      {
+        "display_label": "鞋类｜整体",
+        "group": null,
+        "label": "鞋类｜整体",
+        "unit": null,
+        "values": [
+          4162.6,
+          4670.5,
+          4234.4,
+          4642.2,
+          4706.9,
+          4787.7
+        ]
+      },
+      {
+        "display_label": "鞋类｜其中：非运动",
+        "group": null,
+        "label": "鞋类｜其中：非运动",
+        "unit": null,
+        "values": [
+          2363.6,
+          2641.2,
+          2286.9,
+          2455.9,
+          2414.3,
+          2394.0
+        ]
+      },
+      {
+        "display_label": "鞋类｜运动",
+        "group": null,
+        "label": "鞋类｜运动",
+        "unit": null,
+        "values": [
+          1799.0,
+          2029.3,
+          1947.5,
+          2186.3,
+          2292.6,
+          2393.7
+        ]
+      },
+      {
+        "display_label": "鞋类｜其中：功能",
+        "group": null,
+        "label": "鞋类｜其中：功能",
+        "unit": null,
+        "values": [
+          642.2,
+          749.1,
+          735.6,
+          857.0,
+          915.2,
+          973.6
+        ]
+      },
+      {
+        "display_label": "鞋类｜户外",
+        "group": null,
+        "label": "鞋类｜户外",
+        "unit": null,
+        "values": [
+          86.9,
+          103.5,
+          117.6,
+          143.6,
+          173.6,
+          201.9
+        ]
+      },
+      {
+        "display_label": "鞋类｜时尚",
+        "group": null,
+        "label": "鞋类｜时尚",
+        "unit": null,
+        "values": [
+          1069.9,
+          1176.7,
+          1094.3,
+          1185.7,
+          1203.8,
+          1218.2
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

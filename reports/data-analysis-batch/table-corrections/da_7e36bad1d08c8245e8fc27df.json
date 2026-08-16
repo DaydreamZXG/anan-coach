@@ -1,0 +1,228 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2017年（亿元）",
+          "比上年增长（%）"
+        ],
+        "label": "年值"
+      },
+      {
+        "columns": [
+          "2017年（亿元）",
+          "比上年增长（%）"
+        ],
+        "label": "贴现值"
+      }
+    ],
+    "columns": [
+      "2017年（亿元）",
+      "比上年增长（%）",
+      "2017年（亿元）",
+      "比上年增长（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标名称",
+    "rows": [
+      {
+        "display_label": "现代农业生态服务价值",
+        "group": null,
+        "label": "现代农业生态服务价值",
+        "unit": null,
+        "values": [
+          3635.46,
+          3.0,
+          10769.36,
+          1.9
+        ]
+      },
+      {
+        "display_label": "一、直接经济价值",
+        "group": null,
+        "label": "一、直接经济价值",
+        "unit": null,
+        "values": [
+          372.6,
+          -6.0,
+          372.6,
+          -6.0
+        ]
+      },
+      {
+        "display_label": "1.农林牧渔业总产值",
+        "group": null,
+        "label": "1.农林牧渔业总产值",
+        "unit": null,
+        "values": [
+          308.32,
+          -8.8,
+          308.32,
+          -8.8
+        ]
+      },
+      {
+        "display_label": "2.供水价值",
+        "group": null,
+        "label": "2.供水价值",
+        "unit": null,
+        "values": [
+          64.28,
+          10.2,
+          64.28,
+          10.2
+        ]
+      },
+      {
+        "display_label": "二、间接经济价值",
+        "group": null,
+        "label": "二、间接经济价值",
+        "unit": null,
+        "values": [
+          1214.15,
+          5.6,
+          1214.15,
+          5.6
+        ]
+      },
+      {
+        "display_label": "1.旅游服务价值",
+        "group": null,
+        "label": "1.旅游服务价值",
+        "unit": null,
+        "values": [
+          804.78,
+          8.4,
+          804.78,
+          8.4
+        ]
+      },
+      {
+        "display_label": "2.水力发电价值",
+        "group": null,
+        "label": "2.水力发电价值",
+        "unit": null,
+        "values": [
+          8.68,
+          -10.1,
+          8.68,
+          -10.1
+        ]
+      },
+      {
+        "display_label": "3.景观增值价值",
+        "group": null,
+        "label": "3.景观增值价值",
+        "unit": null,
+        "values": [
+          400.7,
+          0.8,
+          400.7,
+          0.8
+        ]
+      },
+      {
+        "display_label": "三、生态与环境价值",
+        "group": null,
+        "label": "三、生态与环境价值",
+        "unit": null,
+        "values": [
+          2048.71,
+          3.2,
+          9182.61,
+          1.8
+        ]
+      },
+      {
+        "display_label": "其中：气候调节价值",
+        "group": null,
+        "label": "其中：气候调节价值",
+        "unit": null,
+        "values": [
+          732.34,
+          5.6,
+          2328.74,
+          2.7
+        ]
+      },
+      {
+        "display_label": "水源涵养价值",
+        "group": null,
+        "label": "水源涵养价值",
+        "unit": null,
+        "values": [
+          287.78,
+          10.2,
+          402.98,
+          7.5
+        ]
+      },
+      {
+        "display_label": "环境净化价值",
+        "group": null,
+        "label": "环境净化价值",
+        "unit": null,
+        "values": [
+          118.83,
+          -3.3,
+          984.83,
+          0.9
+        ]
+      },
+      {
+        "display_label": "生物多样性价值",
+        "group": null,
+        "label": "生物多样性价值",
+        "unit": null,
+        "values": [
+          670.07,
+          0.3,
+          2898.67,
+          1.2
+        ]
+      },
+      {
+        "display_label": "防护与减灾价值",
+        "group": null,
+        "label": "防护与减灾价值",
+        "unit": null,
+        "values": [
+          222.58,
+          0.3,
+          1540.38,
+          1.2
+        ]
+      },
+      {
+        "display_label": "土壤保持价值",
+        "group": null,
+        "label": "土壤保持价值",
+        "unit": null,
+        "values": [
+          3.37,
+          -12.6,
+          9.77,
+          -4.7
+        ]
+      },
+      {
+        "display_label": "土壤形成价值",
+        "group": null,
+        "label": "土壤形成价值",
+        "unit": null,
+        "values": [
+          13.74,
+          1.6,
+          288.54,
+          1.6
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

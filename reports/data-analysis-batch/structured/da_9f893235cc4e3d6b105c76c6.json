@@ -1,0 +1,312 @@
+{
+  "asset_id": "da_9f893235cc4e3d6b105c76c6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广西/2018年广西公务员录用考试《行测》题（网友回忆版）_images/img_0190_d4e2084cd96a4b43.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西公务员录用考试《行测》题（网友回忆版）_images/img_0190_d4e2084cd96a4b43.jpg",
+        "paper_title": "2018年广西公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6d70d6a8e4572638e3cd",
+        "question_number": 101,
+        "source_jsonl_line": 39147
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西公务员录用考试《行测》题（网友回忆版）_images/img_0190_d4e2084cd96a4b43.jpg",
+        "paper_title": "2018年广西公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_346357e0cd5ffcd63ed5",
+        "question_number": 102,
+        "source_jsonl_line": 39148
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西公务员录用考试《行测》题（网友回忆版）_images/img_0190_d4e2084cd96a4b43.jpg",
+        "paper_title": "2018年广西公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_38bc1880c9a4326f882c",
+        "question_number": 103,
+        "source_jsonl_line": 39149
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西公务员录用考试《行测》题（网友回忆版）_images/img_0197_18e1ee2d58dfe7ed.jpg",
+        "paper_title": "2018年广西公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_326446e3666f8fdaa674",
+        "question_number": 104,
+        "source_jsonl_line": 39150
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西公务员录用考试《行测》题（网友回忆版）_images/img_0197_18e1ee2d58dfe7ed.jpg",
+        "paper_title": "2018年广西公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_461db0e3c802739d0916",
+        "question_number": 105,
+        "source_jsonl_line": 39151
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西选调生考试《行测》试题（网友回忆版）_images/img_0192_d4e2084cd96a4b43.jpg",
+        "paper_title": "2018年广西选调生考试《行测》试题（网友回忆版）",
+        "question_id": "pq_68fbfe0f28a908d69f38",
+        "question_number": 101,
+        "source_jsonl_line": 87706
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西选调生考试《行测》试题（网友回忆版）_images/img_0192_d4e2084cd96a4b43.jpg",
+        "paper_title": "2018年广西选调生考试《行测》试题（网友回忆版）",
+        "question_id": "pq_2c6eb4ef8669fb81479a",
+        "question_number": 102,
+        "source_jsonl_line": 87707
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西选调生考试《行测》试题（网友回忆版）_images/img_0192_d4e2084cd96a4b43.jpg",
+        "paper_title": "2018年广西选调生考试《行测》试题（网友回忆版）",
+        "question_id": "pq_e440c9a902b4b7f32959",
+        "question_number": 103,
+        "source_jsonl_line": 87708
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西选调生考试《行测》试题（网友回忆版）_images/img_0192_d4e2084cd96a4b43.jpg",
+        "paper_title": "2018年广西选调生考试《行测》试题（网友回忆版）",
+        "question_id": "pq_c08096e3f4f46f6f407d",
+        "question_number": 104,
+        "source_jsonl_line": 87709
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广西选调生考试《行测》试题（网友回忆版）_images/img_0192_d4e2084cd96a4b43.jpg",
+        "paper_title": "2018年广西选调生考试《行测》试题（网友回忆版）",
+        "question_id": "pq_31c3fdb378e2a27d6276",
+        "question_number": 105,
+        "source_jsonl_line": 87710
+      }
+    ],
+    "sha256": "9f893235cc4e3d6b105c76c67ddc652f8052ba2a1573f6d0d023d28bb73c10c2"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "城市",
+      "软件企业（个）",
+      "软件业务收入（亿元）",
+      "同比增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "大连市",
+        "unit": null,
+        "values": [
+          "大连市",
+          610,
+          204.5,
+          4.4
+        ]
+      },
+      {
+        "label": "宁波市",
+        "unit": null,
+        "values": [
+          "宁波市",
+          694,
+          75.8,
+          17.4
+        ]
+      },
+      {
+        "label": "厦门市",
+        "unit": null,
+        "values": [
+          "厦门市",
+          1455,
+          143.1,
+          18.3
+        ]
+      },
+      {
+        "label": "青岛市",
+        "unit": null,
+        "values": [
+          "青岛市",
+          1595,
+          247.1,
+          16.1
+        ]
+      },
+      {
+        "label": "深圳市",
+        "unit": null,
+        "values": [
+          "深圳市",
+          1530,
+          875.1,
+          10.4
+        ]
+      },
+      {
+        "label": "沈阳市",
+        "unit": null,
+        "values": [
+          "沈阳市",
+          1349,
+          123.0,
+          2.1
+        ]
+      },
+      {
+        "label": "长春市",
+        "unit": null,
+        "values": [
+          "长春市",
+          417,
+          13.1,
+          16.1
+        ]
+      },
+      {
+        "label": "哈尔滨",
+        "unit": null,
+        "values": [
+          "哈尔滨",
+          238,
+          11.3,
+          8.5
+        ]
+      },
+      {
+        "label": "南京市",
+        "unit": null,
+        "values": [
+          "南京市",
+          1455,
+          404.7,
+          10.9
+        ]
+      },
+      {
+        "label": "杭州市",
+        "unit": null,
+        "values": [
+          "杭州市",
+          810,
+          326.6,
+          19.2
+        ]
+      },
+      {
+        "label": "济南市",
+        "unit": null,
+        "values": [
+          "济南市",
+          1730,
+          235.1,
+          12.0
+        ]
+      },
+      {
+        "label": "武汉市",
+        "unit": null,
+        "values": [
+          "武汉市",
+          2420,
+          210.6,
+          17.5
+        ]
+      },
+      {
+        "label": "广州市",
+        "unit": null,
+        "values": [
+          "广州市",
+          1561,
+          442.6,
+          14.1
+        ]
+      },
+      {
+        "label": "成都市",
+        "unit": null,
+        "values": [
+          "成都市",
+          1438,
+          340.1,
+          12.4
+        ]
+      },
+      {
+        "label": "西安市",
+        "unit": null,
+        "values": [
+          "西安市",
+          2050,
+          220.0,
+          21.3
+        ]
+      }
+    ]
+  },
+  "title": "2017年1~2月副省级城市软件业务收入情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9f893235cc4e3d6b105c76c6/row_band_01.jpg",
+        "review-crops/da_9f893235cc4e3d6b105c76c6/row_band_02.jpg",
+        "review-crops/da_9f893235cc4e3d6b105c76c6/row_band_03.jpg",
+        "review-crops/da_9f893235cc4e3d6b105c76c6/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.743",
+      "crop_verification_elapsed_seconds:12.028",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

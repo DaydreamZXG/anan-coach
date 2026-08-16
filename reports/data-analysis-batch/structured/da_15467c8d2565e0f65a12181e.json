@@ -1,0 +1,216 @@
+{
+  "asset_id": "da_15467c8d2565e0f65a12181e",
+  "axes": {
+    "x": {
+      "max": 1200,
+      "min": 0,
+      "ticks": [
+        0,
+        200,
+        400,
+        600,
+        800,
+        1000,
+        1200
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2005",
+    "2004",
+    "2003",
+    "2002",
+    "2001",
+    "2000"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "水污染",
+      "style": {
+        "dash": null,
+        "fill": "#A9A9A9",
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "大气污染",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "海洋污染",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "水污染",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "次",
+      "values": [
+        693,
+        753,
+        1042,
+        1097,
+        1096,
+        1138
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "大气污染",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "次",
+      "values": [
+        538,
+        596,
+        654,
+        597,
+        576,
+        864
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "海洋污染",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "次",
+      "values": [
+        19,
+        11,
+        4,
+        6,
+        6,
+        11
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2008年深圳市公务员录用考试《行测》题（上半年）_images/img_0100_e1d7b8fb52f002e8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（上半年）_images/img_0100_e1d7b8fb52f002e8.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_a1eca6a6832964be0359",
+        "question_number": 66,
+        "source_jsonl_line": 66932
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（上半年）_images/img_0090_3ab92550e13aade4.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_39697812c70c9f587ff8",
+        "question_number": 67,
+        "source_jsonl_line": 66933
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（上半年）_images/img_0100_e1d7b8fb52f002e8.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_ab8f9927a220967df011",
+        "question_number": 68,
+        "source_jsonl_line": 66934
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（上半年）_images/img_0100_e1d7b8fb52f002e8.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_0b34f7568259ddd8ee5d",
+        "question_number": 69,
+        "source_jsonl_line": 66935
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年深圳市公务员录用考试《行测》题（上半年）_images/img_0100_e1d7b8fb52f002e8.png",
+        "paper_title": "2008年深圳市公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_dea69d7cc5d4cf200356",
+        "question_number": 70,
+        "source_jsonl_line": 66936
+      }
+    ],
+    "sha256": "15467c8d2565e0f65a12181e124de010d71edcddb63b58d0afd55d24bfa7bb01"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2000—2005年我国环境污染与破坏事故次数统计",
+  "unit": "次",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_15467c8d2565e0f65a12181e/column_band_01.jpg",
+        "review-crops/da_15467c8d2565e0f65a12181e/column_band_02.jpg",
+        "review-crops/da_15467c8d2565e0f65a12181e/column_band_03.jpg",
+        "review-crops/da_15467c8d2565e0f65a12181e/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.463",
+      "crop_verification_elapsed_seconds:4.606",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

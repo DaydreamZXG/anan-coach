@@ -1,0 +1,289 @@
+{
+  "asset_id": "da_f20ed0c3fdc08ef8cf34ba8f",
+  "axes": {
+    "x": {
+      "max": 11,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 2400,
+        "min": 0,
+        "ticks": [
+          0,
+          600,
+          1200,
+          1800,
+          2400
+        ],
+        "title": null,
+        "unit": "百亿元"
+      },
+      {
+        "max": 12,
+        "min": 0,
+        "ticks": [
+          0,
+          3,
+          6,
+          9,
+          12
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "商品累计网上零售额",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "同比增速",
+      "style": {
+        "dash": "solid",
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "商品累计网上零售额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百亿元",
+      "values": [
+        227.6,
+        362.4,
+        474.2,
+        604.0,
+        743.0,
+        868.4,
+        998.3,
+        1128.3,
+        1279.2,
+        1445.8
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        7.3,
+        7.9,
+        7.7,
+        8.5,
+        8.5,
+        9.2,
+        9.6,
+        9.8,
+        9.6,
+        9.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2026年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0064_74831885788032d7.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0064_74831885788032d7.png",
+        "paper_title": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_135b9a2b8eb769fcd41d",
+        "question_number": 111,
+        "source_jsonl_line": 8509
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0074_92f4aebcd17fa498.png",
+        "paper_title": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c34044f917bf7b6714af",
+        "question_number": 112,
+        "source_jsonl_line": 8510
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0074_92f4aebcd17fa498.png",
+        "paper_title": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c6df4ccb07cdaf257a8a",
+        "question_number": 113,
+        "source_jsonl_line": 8511
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0074_92f4aebcd17fa498.png",
+        "paper_title": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f50430153fa48d8b4905",
+        "question_number": 114,
+        "source_jsonl_line": 8512
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0064_74831885788032d7.png",
+        "paper_title": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3d007d05bc48ae89d4ac",
+        "question_number": 115,
+        "source_jsonl_line": 8513
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0122_92f4aebcd17fa498.png",
+        "paper_title": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7275fc0a5bb98ddf1af8",
+        "question_number": 111,
+        "source_jsonl_line": 84582
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0127_74831885788032d7.png",
+        "paper_title": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bbb37d7018ff8e741298",
+        "question_number": 112,
+        "source_jsonl_line": 84583
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0127_74831885788032d7.png",
+        "paper_title": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d1bed70ca027012a9416",
+        "question_number": 113,
+        "source_jsonl_line": 84584
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0127_74831885788032d7.png",
+        "paper_title": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e83badec2b4d56cecd67",
+        "question_number": 114,
+        "source_jsonl_line": 84585
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0127_74831885788032d7.png",
+        "paper_title": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f320d90baa060134a18a",
+        "question_number": 115,
+        "source_jsonl_line": 84586
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0085_74831885788032d7.png",
+        "paper_title": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_179449fdee011e2cf9a6",
+        "question_number": 111,
+        "source_jsonl_line": 104753
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0103_92f4aebcd17fa498.png",
+        "paper_title": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_64d2c2c8971992cb91e3",
+        "question_number": 112,
+        "source_jsonl_line": 104754
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0103_92f4aebcd17fa498.png",
+        "paper_title": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a020781463e412496494",
+        "question_number": 113,
+        "source_jsonl_line": 104755
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0085_74831885788032d7.png",
+        "paper_title": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c6a5c478fdc192f828b8",
+        "question_number": 114,
+        "source_jsonl_line": 104756
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0103_92f4aebcd17fa498.png",
+        "paper_title": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f01f3314f2a76aa7272b",
+        "question_number": 115,
+        "source_jsonl_line": 104757
+      }
+    ],
+    "sha256": "f20ed0c3fdc08ef8cf34ba8fde34bf7adb62d2bf688935df9c82c707d7a9df2b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2025年2-11月全国商品累计网上零售额情况",
+  "unit": "百亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f20ed0c3fdc08ef8cf34ba8f/column_band_01.jpg",
+        "review-crops/da_f20ed0c3fdc08ef8cf34ba8f/column_band_02.jpg",
+        "review-crops/da_f20ed0c3fdc08ef8cf34ba8f/column_band_03.jpg",
+        "review-crops/da_f20ed0c3fdc08ef8cf34ba8f/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.955",
+      "crop_verification_elapsed_seconds:5.427",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

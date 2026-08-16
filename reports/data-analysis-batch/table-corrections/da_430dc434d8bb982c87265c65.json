@@ -1,0 +1,114 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "国别｜第1列",
+      "人数｜第2列",
+      "年份｜第3列",
+      "序号｜第4列",
+      "国别｜第5列",
+      "人数｜第6列",
+      "年份｜第7列"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "display_label": "1",
+        "group": null,
+        "label": "1",
+        "unit": null,
+        "values": [
+          "乌克兰",
+          6761,
+          1989,
+          7,
+          "捷克",
+          3248,
+          1992
+        ]
+      },
+      {
+        "display_label": "2",
+        "group": null,
+        "label": "2",
+        "unit": null,
+        "values": [
+          "俄罗斯",
+          5930,
+          1991,
+          8,
+          "德国",
+          2882,
+          1989
+        ]
+      },
+      {
+        "display_label": "3",
+        "group": null,
+        "label": "3",
+        "unit": null,
+        "values": [
+          "日本",
+          5677,
+          1992,
+          9,
+          "荷兰",
+          2656,
+          1991
+        ]
+      },
+      {
+        "display_label": "4",
+        "group": null,
+        "label": "4",
+        "unit": null,
+        "values": [
+          "以色列",
+          4826,
+          1984,
+          10,
+          "澳大利亚",
+          2477,
+          1990
+        ]
+      },
+      {
+        "display_label": "5",
+        "group": null,
+        "label": "5",
+        "unit": null,
+        "values": [
+          "保加利亚",
+          4240,
+          1992,
+          11,
+          "加拿大",
+          2322,
+          1991
+        ]
+      },
+      {
+        "display_label": "6",
+        "group": null,
+        "label": "6",
+        "unit": null,
+        "values": [
+          "美国",
+          3873,
+          1988,
+          12,
+          null,
+          2322,
+          1991
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

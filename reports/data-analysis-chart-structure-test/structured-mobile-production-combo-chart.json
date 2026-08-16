@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "dual-axis-combo-chart-v1",
+  "chartType": "barLine",
+  "title": "2025年3-11月全国智能手机当期产量情况",
+  "categories": ["3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月"],
+  "series": [
+    {
+      "name": "智能手机当期产量",
+      "renderAs": "bar",
+      "axis": "left",
+      "unit": "万部",
+      "values": [11086, 8611, 9100, 10827, 9432, 10040, 12275, 11693, 11789]
+    },
+    {
+      "name": "同比增速",
+      "renderAs": "line",
+      "axis": "right",
+      "unit": "%",
+      "values": [6.4, -5.4, -1.4, 8.5, 2.1, 3.4, 0.2, 0, -6.1]
+    }
+  ],
+  "leftAxis": {"min": 0, "max": 24000, "ticks": [0, 8000, 16000, 24000], "unit": "万部"},
+  "rightAxis": {"min": -80, "max": 10, "ticks": [-80, -50, -20, 10], "unit": "%"},
+  "verification": {"dataPoints": 18, "exactDataPoints": 18, "elapsedSeconds": 3.109}
+}

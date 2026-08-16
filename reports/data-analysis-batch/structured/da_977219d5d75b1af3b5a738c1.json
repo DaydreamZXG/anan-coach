@@ -1,0 +1,164 @@
+{
+  "asset_id": "da_977219d5d75b1af3b5a738c1",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2020年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0178_a3b9a5b47928bcee.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0178_a3b9a5b47928bcee.png",
+        "paper_title": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_6a3f4d76087ef52376ab",
+        "question_number": 91,
+        "source_jsonl_line": 16206
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0178_a3b9a5b47928bcee.png",
+        "paper_title": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_86dfe4df06b7adc88a9c",
+        "question_number": 92,
+        "source_jsonl_line": 16207
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0178_a3b9a5b47928bcee.png",
+        "paper_title": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_3874aa3c9d40ccdfbdc4",
+        "question_number": 93,
+        "source_jsonl_line": 16208
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0178_a3b9a5b47928bcee.png",
+        "paper_title": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_15cf20acc2289dd5287e",
+        "question_number": 94,
+        "source_jsonl_line": 16209
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0178_a3b9a5b47928bcee.png",
+        "paper_title": "2020年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_11c5131b76ad650a170f",
+        "question_number": 95,
+        "source_jsonl_line": 16210
+      }
+    ],
+    "sha256": "977219d5d75b1af3b5a738c11d67634f3f411ef5c90fe4ad6032e6f3efa5a759"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2012",
+      "2013",
+      "2014",
+      "2015",
+      "2016"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "就业人员",
+        "group": "就业人员情况",
+        "label": "就业人员情况｜就业人员",
+        "unit": null,
+        "values": [
+          76704,
+          76977,
+          77253,
+          77451,
+          77603
+        ]
+      },
+      {
+        "display_label": "其中：第一产业",
+        "group": "就业人员情况",
+        "label": "就业人员情况｜其中：第一产业",
+        "unit": null,
+        "values": [
+          25773,
+          24171,
+          22790,
+          21919,
+          21496
+        ]
+      },
+      {
+        "display_label": "第二产业",
+        "group": "就业人员情况",
+        "label": "就业人员情况｜第二产业",
+        "unit": null,
+        "values": [
+          23241,
+          23170,
+          23099,
+          22693,
+          22350
+        ]
+      },
+      {
+        "display_label": "第三产业",
+        "group": "就业人员情况",
+        "label": "就业人员情况｜第三产业",
+        "unit": null,
+        "values": [
+          27690,
+          29636,
+          31364,
+          32839,
+          33757
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

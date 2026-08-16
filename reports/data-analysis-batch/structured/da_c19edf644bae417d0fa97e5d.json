@@ -1,0 +1,185 @@
+{
+  "asset_id": "da_c19edf644bae417d0fa97e5d",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 16000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000,
+          12000,
+          14000,
+          16000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2004年",
+    "2005年",
+    "2006年",
+    "2007年",
+    "2008年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "货物出口额",
+      "style": {
+        "dash": null,
+        "fill": "#696969",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "货物进口额",
+      "style": {
+        "dash": null,
+        "fill": "#F5F5F5",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "货物出口额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        5933,
+        7620,
+        9690,
+        12186,
+        14285
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "货物进口额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        5612,
+        6600,
+        7915,
+        9560,
+        11331
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2010年四川省公务员录用考试《行测》题（下半年）_images/img_0199_053b758cfdab05ad.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年四川省公务员录用考试《行测》题（下半年）_images/img_0199_053b758cfdab05ad.png",
+        "paper_title": "2010年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_42c14959e615c60d3d98",
+        "question_number": 96,
+        "source_jsonl_line": 14193
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年四川省公务员录用考试《行测》题（下半年）_images/img_0199_053b758cfdab05ad.png",
+        "paper_title": "2010年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_764b93c37f0c173d63bf",
+        "question_number": 97,
+        "source_jsonl_line": 14194
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年四川省公务员录用考试《行测》题（下半年）_images/img_0199_053b758cfdab05ad.png",
+        "paper_title": "2010年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_543d3a89e809a52222a2",
+        "question_number": 98,
+        "source_jsonl_line": 14195
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年四川省公务员录用考试《行测》题（下半年）_images/img_0222_327eaeeb85c0de70.png",
+        "paper_title": "2010年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_7ec0530c7c056c369e5d",
+        "question_number": 99,
+        "source_jsonl_line": 14196
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年四川省公务员录用考试《行测》题（下半年）_images/img_0222_327eaeeb85c0de70.png",
+        "paper_title": "2010年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_f8e3849e81e4e616fb46",
+        "question_number": 100,
+        "source_jsonl_line": 14197
+      }
+    ],
+    "sha256": "c19edf644bae417d0fa97e5d65f550e31038f936dc148623d59971097f38a8d7"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2004-2008年世界货物进出口总额",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c19edf644bae417d0fa97e5d/column_band_01.jpg",
+        "review-crops/da_c19edf644bae417d0fa97e5d/column_band_02.jpg",
+        "review-crops/da_c19edf644bae417d0fa97e5d/column_band_03.jpg",
+        "review-crops/da_c19edf644bae417d0fa97e5d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.014",
+      "crop_verification_elapsed_seconds:2.826",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

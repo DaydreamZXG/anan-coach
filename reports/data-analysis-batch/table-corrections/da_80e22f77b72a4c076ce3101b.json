@@ -1,0 +1,93 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "粮食",
+      "棉花",
+      "油料",
+      "糖料",
+      "蔬菜",
+      "茶叶",
+      "水果",
+      "肉类",
+      "奶类",
+      "禽蛋",
+      "蚕茧",
+      "水产品"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "地区",
+      "style": "diagonal",
+      "upper_label": "单位：万吨"
+    },
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "粮食｜2013年",
+        "group": null,
+        "label": "粮食｜2013年",
+        "unit": null,
+        "values": [
+          1072.7,
+          3.2,
+          58.2,
+          106,
+          1634.1,
+          12.1,
+          250.6,
+          136.1,
+          17.6,
+          40.6,
+          11,
+          472.9
+        ]
+      },
+      {
+        "display_label": "油料｜2013年",
+        "group": null,
+        "label": "油料｜2013年",
+        "unit": null,
+        "values": [
+          null,
+          0,
+          80.9,
+          1213,
+          2377.6,
+          4.2,
+          686.2,
+          333.3,
+          10.4,
+          33.1,
+          4.5,
+          609.7
+        ]
+      },
+      {
+        "display_label": "糖料｜2013年",
+        "group": null,
+        "label": "糖料｜2013年",
+        "unit": null,
+        "values": [
+          null,
+          26.1,
+          95.5,
+          1161,
+          13.4,
+          401.2,
+          140,
+          11.4,
+          40.1,
+          null,
+          542.5,
+          686.1
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

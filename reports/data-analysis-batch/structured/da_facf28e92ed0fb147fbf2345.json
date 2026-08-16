@@ -1,0 +1,216 @@
+{
+  "asset_id": "da_facf28e92ed0fb147fbf2345",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1000,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600,
+          700,
+          800,
+          900,
+          1000
+        ],
+        "title": null,
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "2003年",
+    "2004年",
+    "2005年",
+    "2006年",
+    "2007年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "普通高等教育招生人数",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "中等职业教育招生人数",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "普通高中招生人数",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "普通高等教育招生人数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        382,
+        447,
+        504,
+        546,
+        566
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "中等职业教育招生人数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        516,
+        566,
+        656,
+        748,
+        800
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "普通高中招生人数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        752,
+        822,
+        878,
+        871,
+        840
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山西/2008年山西省公务员录用考试《行测》题_images/img_0158_d07f9ec5b3792714.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山西省公务员录用考试《行测》题_images/img_0158_d07f9ec5b3792714.png",
+        "paper_title": "2008年山西省公务员录用考试《行测》题",
+        "question_id": "pq_1bf27353dbc07f4c9eb5",
+        "question_number": 106,
+        "source_jsonl_line": 31040
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山西省公务员录用考试《行测》题_images/img_0180_fa9f2e129f49367a.png",
+        "paper_title": "2008年山西省公务员录用考试《行测》题",
+        "question_id": "pq_1e167e9d4320bc1e58ad",
+        "question_number": 107,
+        "source_jsonl_line": 31041
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山西省公务员录用考试《行测》题_images/img_0180_fa9f2e129f49367a.png",
+        "paper_title": "2008年山西省公务员录用考试《行测》题",
+        "question_id": "pq_f78a7591cc4310b80bcf",
+        "question_number": 108,
+        "source_jsonl_line": 31042
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山西省公务员录用考试《行测》题_images/img_0180_fa9f2e129f49367a.png",
+        "paper_title": "2008年山西省公务员录用考试《行测》题",
+        "question_id": "pq_a7e141464da32cc66c45",
+        "question_number": 109,
+        "source_jsonl_line": 31043
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年山西省公务员录用考试《行测》题_images/img_0180_fa9f2e129f49367a.png",
+        "paper_title": "2008年山西省公务员录用考试《行测》题",
+        "question_id": "pq_77b04573980f0ad89dc1",
+        "question_number": 110,
+        "source_jsonl_line": 31044
+      }
+    ],
+    "sha256": "facf28e92ed0fb147fbf234522f713a5fe01b48576008f49b62fe961af668e9f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2003——2007年各类教育招生人数（万人）",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_facf28e92ed0fb147fbf2345/column_band_01.jpg",
+        "review-crops/da_facf28e92ed0fb147fbf2345/column_band_02.jpg",
+        "review-crops/da_facf28e92ed0fb147fbf2345/column_band_03.jpg",
+        "review-crops/da_facf28e92ed0fb147fbf2345/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.974",
+      "crop_verification_elapsed_seconds:3.436",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "curves": [
+    {
+      "connects": "frame-left to frame-bottom",
+      "feat": [],
+      "k": "arc",
+      "reg": "center"
+    }
+  ],
+  "dots": [],
+  "facts": [
+    "A square frame contains a triangle-like structure and an arc",
+    "The arc intersects two diagonal lines"
+  ],
+  "frame": {
+    "grid": null,
+    "k": "square"
+  },
+  "lines": [
+    {
+      "connects": "top-left to top-right",
+      "feat": [],
+      "ori": "horizontal",
+      "reg": "top"
+    },
+    {
+      "connects": "top-left to bottom-left",
+      "feat": [],
+      "ori": "vertical",
+      "reg": "left"
+    },
+    {
+      "connects": "top-right to bottom-right",
+      "feat": [],
+      "ori": "vertical",
+      "reg": "right"
+    },
+    {
+      "connects": "bottom-left to bottom-right",
+      "feat": [],
+      "ori": "horizontal",
+      "reg": "bottom"
+    },
+    {
+      "connects": "bottom-left to top-center",
+      "feat": [],
+      "ori": "diagonal_up",
+      "reg": "center"
+    },
+    {
+      "connects": "top-center to mid-right",
+      "feat": [],
+      "ori": "diagonal_down",
+      "reg": "center"
+    },
+    {
+      "connects": "mid-right to frame-right",
+      "feat": [],
+      "ori": "horizontal",
+      "reg": "center"
+    }
+  ],
+  "opt": null,
+  "p": 5,
+  "role": "stem",
+  "schema": "graphic-reasoning-regular-panel-v1",
+  "shapes": [],
+  "symbols": [],
+  "topo": [
+    8,
+    10,
+    3,
+    2
+  ],
+  "uncertain": []
+}

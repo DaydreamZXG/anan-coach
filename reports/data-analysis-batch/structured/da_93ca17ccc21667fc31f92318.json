@@ -1,0 +1,212 @@
+{
+  "asset_id": "da_93ca17ccc21667fc31f92318",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 2500,
+        "min": 0,
+        "ticks": [
+          0,
+          500,
+          1000,
+          1500,
+          2000,
+          2500
+        ],
+        "title": "人数",
+        "unit": "万人"
+      },
+      {
+        "max": 250,
+        "min": -50,
+        "ticks": [
+          -50,
+          0,
+          50,
+          100,
+          150,
+          200,
+          250
+        ],
+        "title": "年增长率",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1999年",
+    "2000年",
+    "2001年",
+    "2002年",
+    "2003年",
+    "2004年",
+    "2005年",
+    "2006年",
+    "2007年",
+    "2008年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "保障人数",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "年增长率",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "保障人数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        265.9,
+        402.6,
+        1170.7,
+        2064.7,
+        2246.8,
+        2205.0,
+        2234.2,
+        2240.1,
+        2272.1,
+        2334.8
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "年增长率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        44.4,
+        51.4,
+        190.8,
+        190.8,
+        76.4,
+        -1.9,
+        1.3,
+        0.3,
+        1.4,
+        2.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2010年广东省公务员录用考试《行测》题_images/img_0124_8b96db01d42606b9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年广东省公务员录用考试《行测》题_images/img_0124_8b96db01d42606b9.png",
+        "paper_title": "2010年广东省公务员录用考试《行测》题",
+        "question_id": "pq_bb7509b4bc7a68479805",
+        "question_number": 75,
+        "source_jsonl_line": 33823
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年广东省公务员录用考试《行测》题_images/img_0124_8b96db01d42606b9.png",
+        "paper_title": "2010年广东省公务员录用考试《行测》题",
+        "question_id": "pq_270b89a70f9fcb839ea6",
+        "question_number": 76,
+        "source_jsonl_line": 33824
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年广东省公务员录用考试《行测》题_images/img_0125_69fdeaf6dc4b42c1.png",
+        "paper_title": "2010年广东省公务员录用考试《行测》题",
+        "question_id": "pq_386e4835c3e890d5a4d5",
+        "question_number": 77,
+        "source_jsonl_line": 33825
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年广东省公务员录用考试《行测》题_images/img_0125_69fdeaf6dc4b42c1.png",
+        "paper_title": "2010年广东省公务员录用考试《行测》题",
+        "question_id": "pq_505158841207f490412d",
+        "question_number": 78,
+        "source_jsonl_line": 33826
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年广东省公务员录用考试《行测》题_images/img_0125_69fdeaf6dc4b42c1.png",
+        "paper_title": "2010年广东省公务员录用考试《行测》题",
+        "question_id": "pq_243ac0597a57972cd76d",
+        "question_number": 79,
+        "source_jsonl_line": 33827
+      }
+    ],
+    "sha256": "93ca17ccc21667fc31f9231874ca9f8f772d32c0d6555c52df74f64bf9056d00"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "城市最低生活保障",
+  "unit": "（万人、%）",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_93ca17ccc21667fc31f92318/column_band_01.jpg",
+        "review-crops/da_93ca17ccc21667fc31f92318/column_band_02.jpg",
+        "review-crops/da_93ca17ccc21667fc31f92318/column_band_03.jpg",
+        "review-crops/da_93ca17ccc21667fc31f92318/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.848",
+      "crop_verification_elapsed_seconds:4.344",
+      "candidate_value_changes_after_crop:2",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

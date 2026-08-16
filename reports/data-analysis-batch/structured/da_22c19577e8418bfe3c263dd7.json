@@ -1,0 +1,206 @@
+{
+  "asset_id": "da_22c19577e8418bfe3c263dd7",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 2000,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000,
+          1200,
+          1400,
+          1600,
+          1800,
+          2000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2003年",
+    "2004年",
+    "2005年",
+    "2006年",
+    "2007年",
+    "2008年",
+    "2009年"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "节能量（万吨标准煤）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "triangle",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "二氧化碳减排量（万吨碳）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "节能量（万吨标准煤）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        75.53,
+        139.31,
+        201.32,
+        416.45,
+        659.02,
+        1235.12,
+        1757.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "二氧化碳减排量（万吨碳）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        48.73,
+        90.29,
+        129.9,
+        268.71,
+        360.66,
+        796.85,
+        1133.85
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2010年江苏省公务员录用考试《行测》题（B类）_images/img_0363_e129245847c5abfc.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（B类）_images/img_0363_e129245847c5abfc.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_9692276f97b81b921c69",
+        "question_number": 151,
+        "source_jsonl_line": 45346
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（B类）_images/img_0346_418f77b5b12710ce.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_0c2d326a279c4a3e5d20",
+        "question_number": 152,
+        "source_jsonl_line": 45347
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（B类）_images/img_0363_e129245847c5abfc.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_d687955b5acbd4b59681",
+        "question_number": 153,
+        "source_jsonl_line": 45348
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（B类）_images/img_0346_418f77b5b12710ce.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_4b820714b6a5a659c777",
+        "question_number": 154,
+        "source_jsonl_line": 45349
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（B类）_images/img_0346_418f77b5b12710ce.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_90b9450a3860db16a189",
+        "question_number": 155,
+        "source_jsonl_line": 45350
+      }
+    ],
+    "sha256": "22c19577e8418bfe3c263dd7628ebde43867c0c9582e708188d666c27d378407"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2003—2009年按综合节能投资计算的节能减排量",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_22c19577e8418bfe3c263dd7/column_band_01.jpg",
+        "review-crops/da_22c19577e8418bfe3c263dd7/column_band_02.jpg",
+        "review-crops/da_22c19577e8418bfe3c263dd7/column_band_03.jpg",
+        "review-crops/da_22c19577e8418bfe3c263dd7/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.797",
+      "crop_verification_elapsed_seconds:15.583",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2003年节能量数值为75.53，原图中误写为75.53。",
+      "crop_note:修正了2003年二氧化碳减排量数值为48.73，原图中误写为48.73。",
+      "crop_note:修正了2004年节能量数值为139.31，原图中误写为139.31。",
+      "crop_note:修正了2004年二氧化碳减排量数值为90.29，原图中误写为90.29。",
+      "crop_note:修正了2005年节能量数值为201.32，原图中误写为201.32。",
+      "crop_note:修正了2005年二氧化碳减排量数值为129.9，原图中误写为129.9。",
+      "crop_note:修正了2006年节能量数值为416.45，原图中误写为416.45。",
+      "crop_note:修正了2006年二氧化碳减排量数值为268.71，原图中误写为268.71。",
+      "crop_note:修正了2007年节能量数值为659.02，原图中误写为659.02。",
+      "crop_note:修正了2007年二氧化碳减排量数值为360.66，原图中误写为360.66。",
+      "crop_note:修正了2008年节能量数值为1235.12，原图中误写为1235.12。",
+      "crop_note:修正了2008年二氧化碳减排量数值为796.85，原图中误写为796.85。",
+      "crop_note:修正了2009年节能量数值为1757.9，原图中误写为1757.9。",
+      "crop_note:修正了2009年二氧化碳减排量数值为1133.85，原图中误写为1133.85。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

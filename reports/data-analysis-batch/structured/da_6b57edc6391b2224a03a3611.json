@@ -1,0 +1,140 @@
+{
+  "asset_id": "da_6b57edc6391b2224a03a3611",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "A:",
+    "B:",
+    "D:"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.85,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      265.5,
+      336.718,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 265.5,
+        "label": "A:",
+        "share": 0.7375,
+        "start_angle": 0.0,
+        "sweep_angle": 265.5
+      },
+      {
+        "end_angle": 336.718,
+        "label": "B:",
+        "share": 0.19782872,
+        "start_angle": 265.5,
+        "sweep_angle": 71.218
+      },
+      {
+        "end_angle": 360.0,
+        "label": "D:",
+        "share": 0.06467128,
+        "start_angle": 336.718,
+        "sweep_angle": 23.282
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.7375,
+        0.19782872,
+        0.06467128
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2017年422联考《行测》题（山东卷）_images/img_0137_945aabcfb4c6c362.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0137_945aabcfb4c6c362.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_d1bccebdcce0df336e7a",
+        "question_number": 104,
+        "source_jsonl_line": 30078
+      }
+    ],
+    "sha256": "6b57edc6391b2224a03a361172aa01492ebcb93f8fa449d406580dd84e07d1ea"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6b57edc6391b2224a03a3611/quadrant_01.jpg",
+        "review-crops/da_6b57edc6391b2224a03a3611/quadrant_02.jpg",
+        "review-crops/da_6b57edc6391b2224a03a3611/quadrant_03.jpg",
+        "review-crops/da_6b57edc6391b2224a03a3611/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.751",
+      "crop_verification_elapsed_seconds:0.851",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:饼图未提供具体数值或标签，仅能识别扇区结构和填充样式。",
+      "model_uncertainty:无法确定各扇区对应的具体类别或数值。",
+      "model_uncertainty:未提供明确的图例或单位信息。",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_invalid_pie_label_correction:3",
+      "circle_edge_coverage:1.0000",
+      "hough_circle_radius_ratio:0.1744",
+      "radial_line_candidates:11",
+      "detected_boundaries:3"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.85,
+    "schema_valid": true
+  }
+}

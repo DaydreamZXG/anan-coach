@@ -1,0 +1,96 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "全国｜绝对值（万亿元）",
+          "全国｜同比增长（%）"
+        ],
+        "label": "全国"
+      },
+      {
+        "columns": [
+          "广东｜绝对值（万亿元）",
+          "广东｜同比增长（%）"
+        ],
+        "label": "广东"
+      }
+    ],
+    "columns": [
+      "全国｜绝对值（万亿元）",
+      "全国｜同比增长（%）",
+      "广东｜绝对值（万亿元）",
+      "广东｜同比增长（%）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "GDP",
+        "group": null,
+        "label": "GDP",
+        "unit": null,
+        "values": [
+          90.03,
+          6.6,
+          9.73,
+          6.8
+        ]
+      },
+      {
+        "display_label": "规模以上工业增加值",
+        "group": null,
+        "label": "规模以上工业增加值",
+        "unit": null,
+        "values": [
+          30.52,
+          6.2,
+          3.23,
+          6.3
+        ]
+      },
+      {
+        "display_label": "固定资产投资",
+        "group": null,
+        "label": "固定资产投资",
+        "unit": null,
+        "values": [
+          63.56,
+          5.9,
+          3.53,
+          10.7
+        ]
+      },
+      {
+        "display_label": "社会消费品零售总额",
+        "group": null,
+        "label": "社会消费品零售总额",
+        "unit": null,
+        "values": [
+          38.1,
+          9.0,
+          3.95,
+          8.8
+        ]
+      },
+      {
+        "display_label": "进出口总额",
+        "group": null,
+        "label": "进出口总额",
+        "unit": null,
+        "values": [
+          30.51,
+          9.7,
+          7.16,
+          5.1
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

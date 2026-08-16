@@ -1,0 +1,467 @@
+{
+  "asset_id": "da_c7c3434cf116e5ac95885b8a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "华北",
+    "东北",
+    "华东",
+    "华中",
+    "华南",
+    "西南",
+    "西北"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2011",
+      "label": "2011",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万千瓦",
+      "values": [
+        2686.6,
+        1226.0,
+        861.2,
+        52.3,
+        163.8,
+        124.9,
+        1135.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2012",
+      "label": "2012",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万千瓦",
+      "values": [
+        2995.4,
+        1438.0,
+        1090.9,
+        87.3,
+        219.9,
+        271.4,
+        1443.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2013",
+      "label": "2013",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万千瓦",
+      "values": [
+        3345.9,
+        1602.6,
+        1329.0,
+        200.3,
+        288.4,
+        402.1,
+        1986.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2014",
+      "label": "2014",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万千瓦",
+      "values": [
+        3855.7,
+        1729.1,
+        1665.3,
+        343.6,
+        354.6,
+        627.4,
+        2898.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2015",
+      "label": "2015",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万千瓦",
+      "values": [
+        4477.5,
+        1899.8,
+        2066.8,
+        558.8,
+        427.3,
+        1060.4,
+        4059.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2016",
+      "label": "2016",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万千瓦",
+      "values": [
+        5030.1,
+        1977.2,
+        2536.4,
+        765.4,
+        532.4,
+        1387.8,
+        4658.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2017",
+      "label": "2017",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万千瓦",
+      "values": [
+        5532.1,
+        2029.2,
+        2987.9,
+        1082.4,
+        665.4,
+        1563.8,
+        4978.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2018",
+      "label": "2018",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万千瓦",
+      "values": [
+        6076.6,
+        2097.0,
+        3474.0,
+        1491.0,
+        855.5,
+        1681.0,
+        5278.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0172_74e3bf6f66f72529.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0172_74e3bf6f66f72529.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_ed36a4359fe4168acfd8",
+        "question_number": 116,
+        "source_jsonl_line": 10524
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0172_74e3bf6f66f72529.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_01f3d6cb40334624edf9",
+        "question_number": 117,
+        "source_jsonl_line": 10525
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0171_51ae520b8b02d1c3.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_cb22d26a42a387ab9292",
+        "question_number": 118,
+        "source_jsonl_line": 10526
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0171_51ae520b8b02d1c3.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_6801f52acaf62ca44ca8",
+        "question_number": 119,
+        "source_jsonl_line": 10527
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0172_74e3bf6f66f72529.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_4a3a314e76e2811bbef1",
+        "question_number": 120,
+        "source_jsonl_line": 10528
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0217_51ae520b8b02d1c3.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_a021cc27f3f470543b04",
+        "question_number": 121,
+        "source_jsonl_line": 10659
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0249_74e3bf6f66f72529.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_2ad37ab39932ea66f18e",
+        "question_number": 122,
+        "source_jsonl_line": 10660
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0249_74e3bf6f66f72529.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_4c4bb2694bed0cd8736e",
+        "question_number": 123,
+        "source_jsonl_line": 10661
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0249_74e3bf6f66f72529.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_2ad800c5b88c14dd34b9",
+        "question_number": 124,
+        "source_jsonl_line": 10662
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0217_51ae520b8b02d1c3.png",
+        "paper_title": "2021年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_f7e68a0e6dcc6f5aef3d",
+        "question_number": 125,
+        "source_jsonl_line": 10663
+      }
+    ],
+    "sha256": "c7c3434cf116e5ac95885b8a1afac0ac5f885279db8cfdea3a1b7b84e826a49e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2011",
+      "2012",
+      "2013",
+      "2014",
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "华北",
+        "unit": null,
+        "values": [
+          2686.6,
+          2995.4,
+          3345.9,
+          3855.7,
+          4477.5,
+          5030.1,
+          5532.1,
+          6076.6
+        ]
+      },
+      {
+        "label": "东北",
+        "unit": null,
+        "values": [
+          1226.0,
+          1438.0,
+          1602.6,
+          1729.1,
+          1899.8,
+          1977.2,
+          2029.2,
+          2097.0
+        ]
+      },
+      {
+        "label": "华东",
+        "unit": null,
+        "values": [
+          861.2,
+          1090.9,
+          1329.0,
+          1665.3,
+          2066.8,
+          2536.4,
+          2987.9,
+          3474.0
+        ]
+      },
+      {
+        "label": "华中",
+        "unit": null,
+        "values": [
+          52.3,
+          87.3,
+          200.3,
+          343.6,
+          558.8,
+          765.4,
+          1082.4,
+          1491.0
+        ]
+      },
+      {
+        "label": "华南",
+        "unit": null,
+        "values": [
+          163.8,
+          219.9,
+          288.4,
+          354.6,
+          427.3,
+          532.4,
+          665.4,
+          855.5
+        ]
+      },
+      {
+        "label": "西南",
+        "unit": null,
+        "values": [
+          124.9,
+          271.4,
+          402.1,
+          627.4,
+          1060.4,
+          1387.8,
+          1563.8,
+          1681.0
+        ]
+      },
+      {
+        "label": "西北",
+        "unit": null,
+        "values": [
+          1135.4,
+          1443.1,
+          1986.6,
+          2898.9,
+          4059.5,
+          4658.0,
+          4978.0,
+          5278.1
+        ]
+      }
+    ]
+  },
+  "title": "2011~2018年全国各地区风力发电年末累计装机容量",
+  "unit": "万千瓦",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c7c3434cf116e5ac95885b8a/row_band_01.jpg",
+        "review-crops/da_c7c3434cf116e5ac95885b8a/row_band_02.jpg",
+        "review-crops/da_c7c3434cf116e5ac95885b8a/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:19.107",
+      "crop_verification_elapsed_seconds:8.929",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:华北:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:华北:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:东北:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:华东:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:华中:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:华南:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:华南:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:西南:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:西北:8!=9",
+      "table_row_label_column_removed:<blank>"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "软件业务收入｜本年累计（亿元）",
+          "软件业务收入｜同比增长（%）"
+        ],
+        "label": "软件业务收入"
+      },
+      {
+        "columns": [
+          "其中：信息技术服务收入｜本年累计（亿元）",
+          "其中：信息技术服务收入｜同比增长（%）"
+        ],
+        "label": "其中：信息技术服务收入"
+      },
+      "rows:[{"
+    ],
+    "columns": [
+      "软件业务收入｜本年累计（亿元）",
+      "软件业务收入｜同比增长（%）",
+      "其中：信息技术服务收入｜本年累计（亿元）",
+      "其中：信息技术服务收入｜同比增长（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "名称",
+    "rows": [
+      {
+        "display_label": "全国",
+        "group": null,
+        "label": "全国",
+        "unit": null,
+        "values": [
+          20059.67,
+          11.6,
+          13102.09,
+          13.7
+        ]
+      },
+      {
+        "display_label": "贵州",
+        "group": null,
+        "label": "贵州",
+        "unit": null,
+        "values": [
+          144.3,
+          100.8,
+          133.14,
+          101.4
+        ]
+      },
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          4394.68,
+          13.2,
+          2894.97,
+          13.9
+        ]
+      },
+      {
+        "display_label": "天津",
+        "group": null,
+        "label": "天津",
+        "unit": null,
+        "values": [
+          420.08,
+          2.1,
+          273.05,
+          1.3
+        ]
+      },
+      {
+        "display_label": "河北",
+        "group": null,
+        "label": "河北",
+        "unit": null,
+        "values": [
+          84.18,
+          20.3,
+          73.43,
+          21.7
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          1647.5,
+          17.6,
+          1126.03,
+          22
+        ]
+      },
+      {
+        "display_label": "江苏",
+        "group": null,
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          2805.58,
+          10.5,
+          1697.25,
+          11.7
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": null,
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          1725.91,
+          5.4,
+          1357.55,
+          5.3
+        ]
+      },
+      {
+        "display_label": "福建",
+        "group": null,
+        "label": "福建",
+        "unit": null,
+        "values": [
+          414.63,
+          15.7,
+          231.61,
+          17.5
+        ]
+      },
+      {
+        "display_label": "山东",
+        "group": null,
+        "label": "山东",
+        "unit": null,
+        "values": [
+          1274.51,
+          18,
+          618.44,
+          24.8
+        ]
+      },
+      {
+        "display_label": "广东",
+        "group": null,
+        "label": "广东",
+        "unit": null,
+        "values": [
+          3785.08,
+          6.1,
+          2610.26,
+          10.2
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

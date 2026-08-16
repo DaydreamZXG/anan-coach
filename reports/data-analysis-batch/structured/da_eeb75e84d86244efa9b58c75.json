@@ -1,0 +1,211 @@
+{
+  "asset_id": "da_eeb75e84d86244efa9b58c75",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2005年",
+    "2006年",
+    "2007年",
+    "2008年",
+    "2009年"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "一产",
+      "style": {
+        "dash": null,
+        "fill": "#333333",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "二产",
+      "style": {
+        "dash": null,
+        "fill": "#CCCCCC",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "三产",
+      "style": {
+        "dash": null,
+        "fill": "#666666",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "一产",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        44.8,
+        42.6,
+        40.8,
+        39.6,
+        38.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "二产",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        23.8,
+        25.2,
+        26.8,
+        27.2,
+        27.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "三产",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        31.4,
+        32.2,
+        32.4,
+        33.2,
+        34.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2011年安徽省公务员录用考试《行测》题_images/img_0103_7789ea26890fcca1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年安徽省公务员录用考试《行测》题_images/img_0103_7789ea26890fcca1.png",
+        "paper_title": "2011年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_9fa9823bfaf6b20e086d",
+        "question_number": 126,
+        "source_jsonl_line": 27026
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年安徽省公务员录用考试《行测》题_images/img_0106_ef6dbb0155fd1ab1.png",
+        "paper_title": "2011年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_c9a40db790d5c35d4aad",
+        "question_number": 127,
+        "source_jsonl_line": 27027
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年安徽省公务员录用考试《行测》题_images/img_0106_ef6dbb0155fd1ab1.png",
+        "paper_title": "2011年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_e9141881a8ce661ee282",
+        "question_number": 128,
+        "source_jsonl_line": 27028
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年安徽省公务员录用考试《行测》题_images/img_0103_7789ea26890fcca1.png",
+        "paper_title": "2011年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_f67a16120d3f5682cce6",
+        "question_number": 129,
+        "source_jsonl_line": 27029
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年安徽省公务员录用考试《行测》题_images/img_0103_7789ea26890fcca1.png",
+        "paper_title": "2011年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_7800bba5e1df9924daa5",
+        "question_number": 130,
+        "source_jsonl_line": 27030
+      }
+    ],
+    "sha256": "eeb75e84d86244efa9b58c75d3db7d67607e19ffa867917d6e96064607c090b9"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "“十一五”时期我国就业人员三次产业结构变化情况",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_eeb75e84d86244efa9b58c75/column_band_01.jpg",
+        "review-crops/da_eeb75e84d86244efa9b58c75/column_band_02.jpg",
+        "review-crops/da_eeb75e84d86244efa9b58c75/column_band_03.jpg",
+        "review-crops/da_eeb75e84d86244efa9b58c75/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.998",
+      "crop_verification_elapsed_seconds:4.326",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

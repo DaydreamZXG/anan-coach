@@ -1,0 +1,10 @@
+{
+  "assetLevelExclusionsFile": "exclusions.jsonl",
+  "lifeSilhouettePolicy": "in_scope_requires_object_parts_pose_accessories_and_topology_not_outer_contour_only",
+  "naturalPhotoPolicy": "out_of_batch_only_after_asset_level_photo_or_natural_image_evidence",
+  "recordedAt": "2026-08-11",
+  "regularSubtypes": [],
+  "schemaVersion": "graphic-reasoning-exclusion-policy-v2",
+  "status": "latest_scope_reconciled",
+  "supersedes": "graphic-reasoning-exclusion-policy-v1 blanket subtype exclusions"
+}

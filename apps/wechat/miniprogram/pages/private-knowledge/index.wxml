@@ -28,15 +28,15 @@
   </block>
 
   <block wx:else>
-    <workbench-nav id="runtime-workbench-nav" title="专属资料库" back-behavior="emit" bind:back="goBack" />
+    <workbench-nav id="runtime-workbench-nav" title="我的学习资料" back-behavior="emit" bind:back="goBack" />
 
-    <block wx:if="{{status === 'loading' && !sources.length}}">
+    <block wx:if="{{status === 'loading' && !sources.length && questionBooksStatus === 'loading' && !questionBooks.length}}">
       <view class="library-state">
         <state-view state="loading" title="正在读取你的资料" />
       </view>
     </block>
 
-    <block wx:elif="{{status === 'error' && !sources.length}}">
+    <block wx:elif="{{status === 'error' && !sources.length && questionBooksStatus === 'error' && !questionBooks.length}}">
       <view class="library-state">
         <state-view state="error" title="资料库没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新读取" bind:action="retry" />
       </view>
@@ -46,12 +46,64 @@
       <view class="library-content">
         <view id="library-home" class="library-intro">
           <view class="library-intro__title">岸岸的私有阅读室</view>
-          <view class="library-intro__copy">你上传的笔记、讲义和错题卷，只用于提升你自己的答疑与检索。不与其他考生共享，不训练公共模型。</view>
+          <view class="library-intro__copy">名师题本会直接接入练习，笔记和讲义用于你的答疑与检索。全部只属于你，不与其他考生共享。</view>
         </view>
 
         <view class="library-security">
           <view class="library-security__lock">⌁</view>
           <view>内容仅属于当前账号，可随时彻底移除</view>
+        </view>
+
+        <view id="library-question-books" class="library-group question-book-group">
+          <view class="library-group__head question-book-group__head">
+            <view>
+              <view class="library-group__title">我的题本</view>
+              <view class="question-book-group__copy">上传名师题本，岸岸会自动找原题并接入今日训练</view>
+            </view>
+            <button hover-class="item--hover" class="control-center question-book-add" bindtap="newQuestionBook">导入题本</button>
+          </view>
+
+          <view wx:if="{{questionBooksStatus === 'loading' && !questionBooks.length}}" class="question-book-loading">正在读取我的题本…</view>
+          <view wx:elif="{{questionBooksStatus === 'error' && !questionBooks.length}}" class="question-book-empty question-book-empty--error">
+            <view class="question-book-empty__title">题本暂时没读到</view>
+            <view class="question-book-empty__copy">{{questionBooksError}}</view>
+            <button hover-class="item--hover" class="control-center question-book-retry" bindtap="loadQuestionBooks">重新读取</button>
+          </view>
+          <view wx:elif="{{!questionBooks.length}}" class="question-book-empty">
+            <view class="question-book-empty__title">还没有自己的题本</view>
+            <view class="question-book-empty__copy">拍整页或导入 PDF，能对上的题会直接变成可练题目。</view>
+          </view>
+
+          <view class="question-book-grid">
+            <view
+              wx:for="{{questionBooks}}"
+              wx:key="bookId"
+              hover-class="item--hover"
+              class="question-book-card"
+              data-book-id="{{item.bookId}}"
+              bindtap="openQuestionBook"
+            >
+              <view class="question-book-card__aurora"></view>
+              <view class="question-book-card__main">
+                <view class="question-book-card__eyebrow">私人题本</view>
+                <view class="question-book-card__title">{{item.title}}</view>
+                <view class="question-book-card__meta">已找到 {{item.resolvedQuestionCount}} / {{item.totalQuestionCount}} 道原题</view>
+                <view class="question-book-card__state {{item.unresolvedQuestionCount ? 'question-book-card__state--review' : ''}}">{{item.unresolvedQuestionCount ? '还有 ' + item.unresolvedQuestionCount + ' 题待处理' : '可以直接练'}}</view>
+              </view>
+              <view class="question-book-card__actions">
+                <view class="question-book-card__open">继续处理 ›</view>
+                <button
+                  hover-class="item--hover"
+                  class="control-center question-book-card__delete"
+                  data-book-id="{{item.bookId}}"
+                  loading="{{questionBookBusyId === item.bookId}}"
+                  disabled="{{questionBookBusyId !== ''}}"
+                  catchtap="deleteQuestionBook"
+                >删除</button>
+              </view>
+            </view>
+          </view>
+          <view wx:if="{{questionBooksError && questionBooks.length}}" class="library-inline-error">{{questionBooksError}}</view>
         </view>
 
         <view class="library-quick-actions">
@@ -158,7 +210,7 @@
 
         <view id="library-sources" class="library-group">
           <view class="library-group__head">
-            <view class="library-group__title">随时可引用</view>
+            <view class="library-group__title">讲义与笔记</view>
             <view class="library-group__count">{{sources.length}} 份</view>
           </view>
 

@@ -1,0 +1,351 @@
+{
+  "asset_id": "da_02f872fb8c55ebb170e2a4c3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2017年422联考《行测》题（云南卷）_images/img_0145_bf763c777713e31d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（云南卷）_images/img_0145_bf763c777713e31d.png",
+        "paper_title": "2017年422联考《行测》题（云南卷）",
+        "question_id": "pq_8acd8b66fabf51ce2f64",
+        "question_number": 111,
+        "source_jsonl_line": 5315
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（云南卷）_images/img_0145_bf763c777713e31d.png",
+        "paper_title": "2017年422联考《行测》题（云南卷）",
+        "question_id": "pq_744031035859e9edbbcb",
+        "question_number": 112,
+        "source_jsonl_line": 5316
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（云南卷）_images/img_0140_a62139f707961567.png",
+        "paper_title": "2017年422联考《行测》题（云南卷）",
+        "question_id": "pq_2cda6073fafd5e0301e1",
+        "question_number": 113,
+        "source_jsonl_line": 5317
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（云南卷）_images/img_0140_a62139f707961567.png",
+        "paper_title": "2017年422联考《行测》题（云南卷）",
+        "question_id": "pq_071e880e28c97c10a5a3",
+        "question_number": 114,
+        "source_jsonl_line": 5318
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（云南卷）_images/img_0140_a62139f707961567.png",
+        "paper_title": "2017年422联考《行测》题（云南卷）",
+        "question_id": "pq_2f13802f439553d070e1",
+        "question_number": 115,
+        "source_jsonl_line": 5319
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（宁夏卷）_images/img_0206_a62139f707961567.png",
+        "paper_title": "2017年422联考《行测》题（宁夏卷）",
+        "question_id": "pq_ff3ce4c611d45df9fa0e",
+        "question_number": 116,
+        "source_jsonl_line": 25646
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（宁夏卷）_images/img_0216_bf763c777713e31d.png",
+        "paper_title": "2017年422联考《行测》题（宁夏卷）",
+        "question_id": "pq_aa5bdd52b0acb2588fcb",
+        "question_number": 117,
+        "source_jsonl_line": 25647
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（宁夏卷）_images/img_0206_a62139f707961567.png",
+        "paper_title": "2017年422联考《行测》题（宁夏卷）",
+        "question_id": "pq_ad1d4f04957190b625be",
+        "question_number": 118,
+        "source_jsonl_line": 25648
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（宁夏卷）_images/img_0206_a62139f707961567.png",
+        "paper_title": "2017年422联考《行测》题（宁夏卷）",
+        "question_id": "pq_fdb4beef7db074171257",
+        "question_number": 119,
+        "source_jsonl_line": 25649
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（宁夏卷）_images/img_0206_a62139f707961567.png",
+        "paper_title": "2017年422联考《行测》题（宁夏卷）",
+        "question_id": "pq_d9e8bf92ba47d5bee646",
+        "question_number": 120,
+        "source_jsonl_line": 25650
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（广西卷）_images/img_0163_bf763c777713e31d.png",
+        "paper_title": "2017年422联考《行测》题（广西卷）",
+        "question_id": "pq_d43b11e6fcec1ff4ab49",
+        "question_number": 116,
+        "source_jsonl_line": 39042
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（广西卷）_images/img_0149_a62139f707961567.png",
+        "paper_title": "2017年422联考《行测》题（广西卷）",
+        "question_id": "pq_827cbefee61c646f9b53",
+        "question_number": 117,
+        "source_jsonl_line": 39043
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（广西卷）_images/img_0163_bf763c777713e31d.png",
+        "paper_title": "2017年422联考《行测》题（广西卷）",
+        "question_id": "pq_ca933a8420ca00d1ba07",
+        "question_number": 118,
+        "source_jsonl_line": 39044
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（广西卷）_images/img_0149_a62139f707961567.png",
+        "paper_title": "2017年422联考《行测》题（广西卷）",
+        "question_id": "pq_528277baeaa9d87c613a",
+        "question_number": 119,
+        "source_jsonl_line": 39045
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（广西卷）_images/img_0149_a62139f707961567.png",
+        "paper_title": "2017年422联考《行测》题（广西卷）",
+        "question_id": "pq_6bc94aa2af579c0c3099",
+        "question_number": 120,
+        "source_jsonl_line": 39046
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）_images/img_0297_bf763c777713e31d.png",
+        "paper_title": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_e5ef84a11b75dff615f9",
+        "question_number": 116,
+        "source_jsonl_line": 58573
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）_images/img_0300_a62139f707961567.png",
+        "paper_title": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_0607952926921ff022f7",
+        "question_number": 117,
+        "source_jsonl_line": 58574
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）_images/img_0297_bf763c777713e31d.png",
+        "paper_title": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_093d77a4c1ffd39627b5",
+        "question_number": 118,
+        "source_jsonl_line": 58575
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）_images/img_0300_a62139f707961567.png",
+        "paper_title": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_09f8a10ea9a583f433b1",
+        "question_number": 119,
+        "source_jsonl_line": 58576
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）_images/img_0297_bf763c777713e31d.png",
+        "paper_title": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_ef8a345f129aa7170595",
+        "question_number": 120,
+        "source_jsonl_line": 58577
+      }
+    ],
+    "sha256": "02f872fb8c55ebb170e2a4c3458b0329d83aaebcb31a80275d020c6fa431f8c0"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "营销事件",
+      "省份",
+      "舆论声量",
+      "美誉度",
+      "创新指数"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "哈尔滨国际冰雪节",
+        "unit": null,
+        "values": [
+          "哈尔滨国际冰雪节",
+          "黑龙江",
+          97,
+          89,
+          88
+        ]
+      },
+      {
+        "label": "黑龙江全民冰雪活动日",
+        "unit": null,
+        "values": [
+          "黑龙江全民冰雪活动日",
+          "黑龙江",
+          91,
+          87,
+          88
+        ]
+      },
+      {
+        "label": "长春净月潭瓦萨国际滑雪节",
+        "unit": null,
+        "values": [
+          "长春净月潭瓦萨国际滑雪节",
+          "吉林",
+          83,
+          88,
+          93
+        ]
+      },
+      {
+        "label": "鸟巢欢乐冰雪季",
+        "unit": null,
+        "values": [
+          "鸟巢欢乐冰雪季",
+          "北京",
+          85,
+          91,
+          85
+        ]
+      },
+      {
+        "label": "黑龙江大型冰雪旅游直播show",
+        "unit": null,
+        "values": [
+          "黑龙江大型冰雪旅游直播show",
+          "黑龙江",
+          82,
+          88,
+          91
+        ]
+      },
+      {
+        "label": "中国·吉林国际雾凇冰雪节",
+        "unit": null,
+        "values": [
+          "中国·吉林国际雾凇冰雪节",
+          "吉林",
+          81,
+          90,
+          86
+        ]
+      },
+      {
+        "label": "查干湖冬捕旅游节",
+        "unit": null,
+        "values": [
+          "查干湖冬捕旅游节",
+          "吉林",
+          86,
+          90,
+          83
+        ]
+      },
+      {
+        "label": "“冰雪天路”探寻之旅",
+        "unit": null,
+        "values": [
+          "“冰雪天路”探寻之旅",
+          "内蒙",
+          75,
+          89,
+          89
+        ]
+      },
+      {
+        "label": "内蒙古冰雪那达慕",
+        "unit": null,
+        "values": [
+          "内蒙古冰雪那达慕",
+          "内蒙",
+          78,
+          88,
+          83
+        ]
+      },
+      {
+        "label": "中国新疆冰雪旅游节暨冬季旅游产业博览会",
+        "unit": null,
+        "values": [
+          "中国新疆冰雪旅游节暨冬季旅游产业博览会",
+          "新疆",
+          75,
+          86,
+          81
+        ]
+      }
+    ]
+  },
+  "title": "表二：中国冰雪旅游营销事件排行榜",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_02f872fb8c55ebb170e2a4c3/row_band_01.jpg",
+        "review-crops/da_02f872fb8c55ebb170e2a4c3/row_band_02.jpg",
+        "review-crops/da_02f872fb8c55ebb170e2a4c3/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.588",
+      "crop_verification_elapsed_seconds:5.674",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

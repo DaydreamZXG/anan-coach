@@ -1,0 +1,211 @@
+{
+  "asset_id": "da_9f53e518b7c96f371a098789",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2021年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0103_b1677c27a0580544.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0103_b1677c27a0580544.png",
+        "paper_title": "2021年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_50d3f3bb55e8eb531e64",
+        "question_number": 96,
+        "source_jsonl_line": 89636
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0103_b1677c27a0580544.png",
+        "paper_title": "2021年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_f1a3fbfc06d344d43cd5",
+        "question_number": 97,
+        "source_jsonl_line": 89637
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0103_b1677c27a0580544.png",
+        "paper_title": "2021年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_ebc5f5e07b2436d55dec",
+        "question_number": 98,
+        "source_jsonl_line": 89638
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0103_b1677c27a0580544.png",
+        "paper_title": "2021年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_4bfeb9c0b31acc9db9a4",
+        "question_number": 99,
+        "source_jsonl_line": 89639
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0103_b1677c27a0580544.png",
+        "paper_title": "2021年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_f5350edf1952489fb4a4",
+        "question_number": 100,
+        "source_jsonl_line": 89640
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0101_ea62f28f90fb816a.png",
+        "paper_title": "2021年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_fdc5c6c5ffb5b6a378d6",
+        "question_number": 96,
+        "source_jsonl_line": 95279
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0097_b1677c27a0580544.png",
+        "paper_title": "2021年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_e9974809ec8e73b68b89",
+        "question_number": 97,
+        "source_jsonl_line": 95280
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0101_ea62f28f90fb816a.png",
+        "paper_title": "2021年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_27c1cd64c574c315e27d",
+        "question_number": 98,
+        "source_jsonl_line": 95281
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0097_b1677c27a0580544.png",
+        "paper_title": "2021年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_1a4f810284efa228aac9",
+        "question_number": 99,
+        "source_jsonl_line": 95282
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0097_b1677c27a0580544.png",
+        "paper_title": "2021年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_3847f6a4816bfcdf5d1e",
+        "question_number": 100,
+        "source_jsonl_line": 95283
+      }
+    ],
+    "sha256": "9f53e518b7c96f371a09878968f89e9d394408c3ef6266c4930d4f47ead02963"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "招生数（人）",
+      "在校生数（人）",
+      "毕业生数（人）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "普通本专科",
+        "unit": null,
+        "values": [
+          "普通本专科",
+          6283,
+          22555,
+          5765
+        ]
+      },
+      {
+        "label": "中等职业学校",
+        "unit": null,
+        "values": [
+          "中等职业学校",
+          5424,
+          16079,
+          4797
+        ]
+      },
+      {
+        "label": "普通高中",
+        "unit": null,
+        "values": [
+          "普通高中",
+          6475,
+          20387,
+          7235
+        ]
+      },
+      {
+        "label": "初中阶段",
+        "unit": null,
+        "values": [
+          "初中阶段",
+          11568,
+          33552,
+          11504
+        ]
+      },
+      {
+        "label": "小学",
+        "unit": null,
+        "values": [
+          "小学",
+          11338,
+          68523,
+          11519
+        ]
+      }
+    ]
+  },
+  "title": "某市2019年各级各类教育发展情况",
+  "unit": "人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9f53e518b7c96f371a098789/row_band_01.jpg",
+        "review-crops/da_9f53e518b7c96f371a098789/row_band_02.jpg",
+        "review-crops/da_9f53e518b7c96f371a098789/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.413",
+      "crop_verification_elapsed_seconds:4.64",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

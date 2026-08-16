@@ -1,0 +1,168 @@
+{
+  "asset_id": "da_70839bb309dd7ba4474ae4cc",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河南/2015年河南省公务员录用考试《行测》题_images/img_0104_064d09352fd78236.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河南省公务员录用考试《行测》题_images/img_0104_064d09352fd78236.png",
+        "paper_title": "2015年河南省公务员录用考试《行测》题",
+        "question_id": "pq_dc0d9cbaf2d8ae7e2074",
+        "question_number": 116,
+        "source_jsonl_line": 58093
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河南省公务员录用考试《行测》题_images/img_0104_064d09352fd78236.png",
+        "paper_title": "2015年河南省公务员录用考试《行测》题",
+        "question_id": "pq_467c1feeceea7ffeb1d3",
+        "question_number": 117,
+        "source_jsonl_line": 58094
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河南省公务员录用考试《行测》题_images/img_0101_ee8bef76dfb1ceb2.png",
+        "paper_title": "2015年河南省公务员录用考试《行测》题",
+        "question_id": "pq_e9a6a4c420fbedc19d1f",
+        "question_number": 118,
+        "source_jsonl_line": 58095
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河南省公务员录用考试《行测》题_images/img_0101_ee8bef76dfb1ceb2.png",
+        "paper_title": "2015年河南省公务员录用考试《行测》题",
+        "question_id": "pq_9b57a3668e2cb31d936f",
+        "question_number": 119,
+        "source_jsonl_line": 58096
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河南省公务员录用考试《行测》题_images/img_0104_064d09352fd78236.png",
+        "paper_title": "2015年河南省公务员录用考试《行测》题",
+        "question_id": "pq_852e017594633e75342f",
+        "question_number": 120,
+        "source_jsonl_line": 58097
+      }
+    ],
+    "sha256": "70839bb309dd7ba4474ae4ccd8229683aad8a4afa9b5105a48166a0ab39f90d4"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "1~2月房屋新开工面积",
+      "1~2月房屋竣工面积",
+      "截至2月末房屋施工面积",
+      "1~2月房地产开发投资"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "总计",
+        "unit": null,
+        "values": [
+          "总计",
+          16693,
+          12418,
+          529593,
+          7956
+        ]
+      },
+      {
+        "label": "其中：住宅",
+        "unit": null,
+        "values": [
+          "其中：住宅",
+          12279,
+          9266,
+          380952,
+          5426
+        ]
+      },
+      {
+        "label": "办公楼",
+        "unit": null,
+        "values": [
+          "办公楼",
+          524,
+          368,
+          20964,
+          494
+        ]
+      },
+      {
+        "label": "商业营业用房",
+        "unit": null,
+        "values": [
+          "商业营业用房",
+          2164,
+          1502,
+          66049,
+          1117
+        ]
+      }
+    ]
+  },
+  "title": "2014年1~2月房地产开发情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_70839bb309dd7ba4474ae4cc/row_band_01.jpg",
+        "review-crops/da_70839bb309dd7ba4474ae4cc/row_band_02.jpg",
+        "review-crops/da_70839bb309dd7ba4474ae4cc/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.272",
+      "crop_verification_elapsed_seconds:9.687",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:表1中'同比'列的单位为百分比，但未在表头明确标注",
+      "model_uncertainty:表2中'绝对数'和'绝对量'的单位为'万平方米'和'亿元'，但未在表头明确标注",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

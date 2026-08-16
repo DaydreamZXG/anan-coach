@@ -1,0 +1,30 @@
+{
+  "sourceManifest": "/Users/zxg/Documents/新项目/reports/question-image-audit/next-wave-manifest.jsonl",
+  "assetCount": 1449,
+  "analysisFailureCount": 0,
+  "familyCounts": {
+    "dense_text_or_symbol_candidate": 35,
+    "geometry_or_logic_diagram_candidate": 135,
+    "monochrome_diagram_candidate": 190,
+    "needs_visual_review": 103,
+    "photo_map_artifact_candidate": 37,
+    "science_diagram_or_map_candidate": 21,
+    "symbol_or_text_grid_candidate": 220,
+    "table_grid_candidate": 679,
+    "text_strip_or_long_diagram_candidate": 29
+  },
+  "contactSheetCounts": {
+    "dense_text_or_symbol_candidate": 3,
+    "geometry_or_logic_diagram_candidate": 9,
+    "monochrome_diagram_candidate": 12,
+    "needs_visual_review": 7,
+    "photo_map_artifact_candidate": 3,
+    "science_diagram_or_map_candidate": 2,
+    "symbol_or_text_grid_candidate": 14,
+    "table_grid_candidate": 43,
+    "text_strip_or_long_diagram_candidate": 2
+  },
+  "routingState": "candidate_family_needs_human_validation",
+  "note": "Candidate families are deterministic triage hints, not approved production routing.",
+  "failures": []
+}

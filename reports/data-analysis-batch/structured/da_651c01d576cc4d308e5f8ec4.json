@@ -1,0 +1,210 @@
+{
+  "asset_id": "da_651c01d576cc4d308e5f8ec4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2008年国家公务员录用考试《行测》题_images/img_0159_0d56544a591b9f13.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0159_0d56544a591b9f13.jpg",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_52adfa55ebb9dede5b75",
+        "question_number": 131,
+        "source_jsonl_line": 17246
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0159_0d56544a591b9f13.jpg",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_2a96c7fb7e7b3328bd76",
+        "question_number": 132,
+        "source_jsonl_line": 17247
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0159_0d56544a591b9f13.jpg",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_7df98f0aaa9b4a775b3c",
+        "question_number": 133,
+        "source_jsonl_line": 17248
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0159_0d56544a591b9f13.jpg",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_1c342ddfd286dc793622",
+        "question_number": 134,
+        "source_jsonl_line": 17249
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0159_0d56544a591b9f13.jpg",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_dcad5c59c61d20abc9a5",
+        "question_number": 135,
+        "source_jsonl_line": 17250
+      }
+    ],
+    "sha256": "651c01d576cc4d308e5f8ec46245614b6b27357c01d594b72db9e3783e3ae51a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "",
+      "城镇",
+      "农村",
+      "男",
+      "女"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "缺乏组织",
+        "unit": null,
+        "values": [
+          "缺乏组织",
+          8.8,
+          3.6,
+          7.0,
+          7.4
+        ]
+      },
+      {
+        "label": "缺乏指导",
+        "unit": null,
+        "values": [
+          "缺乏指导",
+          7.8,
+          4.7,
+          7.1,
+          6.8
+        ]
+      },
+      {
+        "label": "缺乏场地设施",
+        "unit": null,
+        "values": [
+          "缺乏场地设施",
+          13.2,
+          8.0,
+          12.1,
+          14.1
+        ]
+      },
+      {
+        "label": "工作忙、缺少时间",
+        "unit": null,
+        "values": [
+          "工作忙、缺少时间",
+          21.8,
+          21.5,
+          32.7,
+          24.6
+        ]
+      },
+      {
+        "label": "家务忙、缺少时间",
+        "unit": null,
+        "values": [
+          "家务忙、缺少时间",
+          9.2,
+          20.8,
+          17.6,
+          10.5
+        ]
+      },
+      {
+        "label": "体力工作多，不用参加",
+        "unit": null,
+        "values": [
+          "体力工作多，不用参加",
+          3.4,
+          15.9,
+          7.8,
+          11.8
+        ]
+      },
+      {
+        "label": "惰性",
+        "unit": null,
+        "values": [
+          "惰性",
+          4.9,
+          7.5,
+          15.9,
+          6.7
+        ]
+      },
+      {
+        "label": "没兴趣",
+        "unit": null,
+        "values": [
+          "没兴趣",
+          1.4,
+          9.1,
+          6.8,
+          6.1
+        ]
+      }
+    ]
+  },
+  "title": "表2:2005年某市城镇居民和农民参加体育锻炼的影响因素(%)",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_651c01d576cc4d308e5f8ec4/row_band_01.jpg",
+        "review-crops/da_651c01d576cc4d308e5f8ec4/row_band_02.jpg",
+        "review-crops/da_651c01d576cc4d308e5f8ec4/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.475",
+      "crop_verification_elapsed_seconds:4.585",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

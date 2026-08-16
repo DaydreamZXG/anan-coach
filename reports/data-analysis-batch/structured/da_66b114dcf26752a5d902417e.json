@@ -1,0 +1,361 @@
+{
+  "asset_id": "da_66b114dcf26752a5d902417e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "能源消费总量（折标准燃料）",
+        "unit": "万吨"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "占能源消费总量的（%）",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1980",
+    "1981",
+    "1982",
+    "1983",
+    "1984",
+    "1985"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "能源消费总量（折标准燃料）",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "煤炭",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "石油",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "天然气",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "水电",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "能源消费总量（折标准燃料）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        60275,
+        24947,
+        62646,
+        66040,
+        70904,
+        77020
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "煤炭",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        72.1,
+        72.75,
+        74.02,
+        74.27,
+        75.31,
+        75.92
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "石油",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        20.85,
+        20.0,
+        18.58,
+        18.07,
+        17.45,
+        17.02
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "天然气",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        3.06,
+        2.74,
+        2.48,
+        2.4,
+        2.33,
+        2.23
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_5",
+      "label": "水电",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        3.99,
+        4.51,
+        4.92,
+        5.26,
+        4.91,
+        4.83
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2008年内蒙古自治区公务员录用考试《行测》题_images/img_0098_6b8ef6af0b5dbbc7.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年内蒙古自治区公务员录用考试《行测》题_images/img_0098_6b8ef6af0b5dbbc7.jpg",
+        "paper_title": "2008年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_bc9283e0c753d4cf70df",
+        "question_number": 121,
+        "source_jsonl_line": 6425
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年内蒙古自治区公务员录用考试《行测》题_images/img_0098_6b8ef6af0b5dbbc7.jpg",
+        "paper_title": "2008年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_369872b89055cb507257",
+        "question_number": 122,
+        "source_jsonl_line": 6426
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年内蒙古自治区公务员录用考试《行测》题_images/img_0098_6b8ef6af0b5dbbc7.jpg",
+        "paper_title": "2008年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_fa24479be10ba8dad4be",
+        "question_number": 123,
+        "source_jsonl_line": 6427
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年内蒙古自治区公务员录用考试《行测》题_images/img_0098_6b8ef6af0b5dbbc7.jpg",
+        "paper_title": "2008年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_460a5a2a7c3d2f934f92",
+        "question_number": 124,
+        "source_jsonl_line": 6428
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年内蒙古自治区公务员录用考试《行测》题_images/img_0098_6b8ef6af0b5dbbc7.jpg",
+        "paper_title": "2008年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_4ede551803b3270a7b83",
+        "question_number": 125,
+        "source_jsonl_line": 6429
+      }
+    ],
+    "sha256": "66b114dcf26752a5d902417ec9cf4360585712509928b7ef493059028ffdcd88"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "能源消费总量（折标准燃料）（万吨）",
+      "煤炭",
+      "石油",
+      "天然气",
+      "水电"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "1980",
+        "unit": null,
+        "values": [
+          1980,
+          60275,
+          72.1,
+          20.85,
+          3.06,
+          3.99
+        ]
+      },
+      {
+        "label": "1981",
+        "unit": null,
+        "values": [
+          1981,
+          24947,
+          72.75,
+          20.0,
+          2.74,
+          4.51
+        ]
+      },
+      {
+        "label": "1982",
+        "unit": null,
+        "values": [
+          1982,
+          62646,
+          74.02,
+          18.58,
+          2.48,
+          4.92
+        ]
+      },
+      {
+        "label": "1983",
+        "unit": null,
+        "values": [
+          1983,
+          66040,
+          74.27,
+          18.07,
+          2.4,
+          5.26
+        ]
+      },
+      {
+        "label": "1984",
+        "unit": null,
+        "values": [
+          1984,
+          70904,
+          75.31,
+          17.45,
+          2.33,
+          4.91
+        ]
+      },
+      {
+        "label": "1985",
+        "unit": null,
+        "values": [
+          1985,
+          77020,
+          75.92,
+          17.02,
+          2.23,
+          4.83
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_66b114dcf26752a5d902417e/row_band_01.jpg",
+        "review-crops/da_66b114dcf26752a5d902417e/row_band_02.jpg",
+        "review-crops/da_66b114dcf26752a5d902417e/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:14.436",
+      "crop_verification_elapsed_seconds:8.133",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

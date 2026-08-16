@@ -1,0 +1,286 @@
+{
+  "asset_id": "da_7bad8a148235ff3c8a9615b9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0094_b2e4bcd1e064f0e4.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0094_b2e4bcd1e064f0e4.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_3be2874f579e1698eac6",
+        "question_number": 111,
+        "source_jsonl_line": 21361
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0094_b2e4bcd1e064f0e4.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_aed7864d936683664f24",
+        "question_number": 112,
+        "source_jsonl_line": 21362
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0094_b2e4bcd1e064f0e4.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_0f0e73e2c4f36f4060a0",
+        "question_number": 113,
+        "source_jsonl_line": 21363
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0094_b2e4bcd1e064f0e4.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_cf38cd34d495a47ccead",
+        "question_number": 114,
+        "source_jsonl_line": 21364
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0094_b2e4bcd1e064f0e4.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_8eda30d2dbd4eafd4bf3",
+        "question_number": 115,
+        "source_jsonl_line": 21365
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0131_04437fc942a52944.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_f375e4b5c72e09222119",
+        "question_number": 121,
+        "source_jsonl_line": 21501
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0146_b2e4bcd1e064f0e4.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_9af1ac1a02c918dd5136",
+        "question_number": 122,
+        "source_jsonl_line": 21502
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0146_b2e4bcd1e064f0e4.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_c98a68ccb1558f117efe",
+        "question_number": 123,
+        "source_jsonl_line": 21503
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0146_b2e4bcd1e064f0e4.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_3767ffa9dbeee857a52c",
+        "question_number": 124,
+        "source_jsonl_line": 21504
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0146_b2e4bcd1e064f0e4.png",
+        "paper_title": "2025年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_5b4ae073d1294be4355a",
+        "question_number": 125,
+        "source_jsonl_line": 21505
+      }
+    ],
+    "sha256": "7bad8a148235ff3c8a9615b9fd3c388c93eb64cd421f6287f38ff02459b25379"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "专精特新“小巨人”企业｜企业数（家）",
+          "专精特新“小巨人”企业｜全国城市排名"
+        ],
+        "label": "专精特新“小巨人”企业"
+      },
+      {
+        "columns": [
+          "专精特新“小巨人”上市企业｜企业数（家）",
+          "专精特新“小巨人”上市企业｜全国城市排名"
+        ],
+        "label": "专精特新“小巨人”上市企业"
+      }
+    ],
+    "columns": [
+      "专精特新“小巨人”企业｜企业数（家）",
+      "专精特新“小巨人”企业｜全国城市排名",
+      "专精特新“小巨人”上市企业｜企业数（家）",
+      "专精特新“小巨人”上市企业｜全国城市排名"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "城市",
+    "rows": [
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          713,
+          3,
+          73,
+          1
+        ]
+      },
+      {
+        "display_label": "深圳",
+        "group": null,
+        "label": "深圳",
+        "unit": null,
+        "values": [
+          755,
+          2,
+          73,
+          1
+        ]
+      },
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          840,
+          1,
+          64,
+          3
+        ]
+      },
+      {
+        "display_label": "苏州",
+        "group": null,
+        "label": "苏州",
+        "unit": null,
+        "values": [
+          402,
+          4,
+          41,
+          4
+        ]
+      },
+      {
+        "display_label": "杭州",
+        "group": null,
+        "label": "杭州",
+        "unit": null,
+        "values": [
+          325,
+          6,
+          39,
+          5
+        ]
+      },
+      {
+        "display_label": "成都",
+        "group": null,
+        "label": "成都",
+        "unit": null,
+        "values": [
+          288,
+          9,
+          30,
+          6
+        ]
+      },
+      {
+        "display_label": "南京",
+        "group": null,
+        "label": "南京",
+        "unit": null,
+        "values": [
+          213,
+          13,
+          29,
+          7
+        ]
+      },
+      {
+        "display_label": "广州",
+        "group": null,
+        "label": "广州",
+        "unit": null,
+        "values": [
+          249,
+          11,
+          23,
+          8
+        ]
+      },
+      {
+        "display_label": "无锡",
+        "group": null,
+        "label": "无锡",
+        "unit": null,
+        "values": [
+          234,
+          12,
+          23,
+          8
+        ]
+      },
+      {
+        "display_label": "合肥",
+        "group": null,
+        "label": "合肥",
+        "unit": null,
+        "values": [
+          193,
+          15,
+          19,
+          10
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

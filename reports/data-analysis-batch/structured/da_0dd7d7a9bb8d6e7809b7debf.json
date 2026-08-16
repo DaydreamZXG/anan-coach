@@ -1,0 +1,336 @@
+{
+  "asset_id": "da_0dd7d7a9bb8d6e7809b7debf",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "总人口（估算）（人）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        991002342,
+        3808070503,
+        803850858,
+        202687005,
+        340831831,
+        586662468,
+        34700201,
+        6767805208
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "网民数（人）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        37371700,
+        738257230,
+        418029796,
+        57425046,
+        252908000,
+        179031479,
+        20970490,
+        1733993741
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "互联网普及率（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.8,
+        19.4,
+        52.0,
+        28.3,
+        74.2,
+        30.5,
+        1,
+        25.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "占世界网民数量比率（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        3.9,
+        42.6,
+        24.1,
+        3.3,
+        14.6,
+        10.3,
+        2,
+        100.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2010年江苏省公务员录用考试《行测》题（A类）_images/img_0205_69ccb372c3eb74c9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（A类）_images/img_0205_69ccb372c3eb74c9.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_6b8cb9ff8cb69e194935",
+        "question_number": 86,
+        "source_jsonl_line": 45176
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（A类）_images/img_0212_740ecc6ede5f1e5e.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_8e3649379499f75fc70a",
+        "question_number": 87,
+        "source_jsonl_line": 45177
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（A类）_images/img_0205_69ccb372c3eb74c9.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_be46fa2c907dd98fe67f",
+        "question_number": 88,
+        "source_jsonl_line": 45178
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（A类）_images/img_0212_740ecc6ede5f1e5e.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_fd2791979febae5bcbb3",
+        "question_number": 89,
+        "source_jsonl_line": 45179
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（A类）_images/img_0212_740ecc6ede5f1e5e.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_4853bd2d1c8cbf5bacfb",
+        "question_number": 90,
+        "source_jsonl_line": 45180
+      }
+    ],
+    "sha256": "0dd7d7a9bb8d6e7809b7debfa07dbee9919dbee849c3c02bee8fbcf26e51aff0"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "总人口（估算）（人）",
+      "网民数（人）",
+      "互联网普及率（%）",
+      "占世界网民数量比率（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "非洲",
+        "unit": null,
+        "values": [
+          "非洲",
+          991002342,
+          37371700,
+          6.8,
+          3.9
+        ]
+      },
+      {
+        "label": "亚洲",
+        "unit": null,
+        "values": [
+          "亚洲",
+          3808070503,
+          738257230,
+          19.4,
+          42.6
+        ]
+      },
+      {
+        "label": "欧洲",
+        "unit": null,
+        "values": [
+          "欧洲",
+          803850858,
+          418029796,
+          52.0,
+          24.1
+        ]
+      },
+      {
+        "label": "中东",
+        "unit": null,
+        "values": [
+          "中东",
+          202687005,
+          57425046,
+          28.3,
+          3.3
+        ]
+      },
+      {
+        "label": "北美",
+        "unit": null,
+        "values": [
+          "北美",
+          340831831,
+          252908000,
+          74.2,
+          14.6
+        ]
+      },
+      {
+        "label": "拉美及加勒比地区",
+        "unit": null,
+        "values": [
+          "拉美及加勒比地区",
+          586662468,
+          179031479,
+          30.5,
+          10.3
+        ]
+      },
+      {
+        "label": "大洋洲",
+        "unit": null,
+        "values": [
+          "大洋洲",
+          34700201,
+          20970490,
+          1,
+          2
+        ]
+      },
+      {
+        "label": "总计",
+        "unit": null,
+        "values": [
+          "总计",
+          6767805208,
+          1733993741,
+          25.6,
+          100.0
+        ]
+      }
+    ]
+  },
+  "title": "2009年9月全球主要地区互联网普及及情况统计表",
+  "unit": "人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0dd7d7a9bb8d6e7809b7debf/row_band_01.jpg",
+        "review-crops/da_0dd7d7a9bb8d6e7809b7debf/row_band_02.jpg",
+        "review-crops/da_0dd7d7a9bb8d6e7809b7debf/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.723",
+      "crop_verification_elapsed_seconds:19.906",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:互联网普及率（%）中大洋洲的数值为①，可能为1或1.0，需确认",
+      "model_uncertainty:占世界网民数量比率（%）中大洋洲的数值为②，需确认",
+      "crop_note:修正了'总人口（估算）（人）'中'非洲'的数值为991,002,342",
+      "crop_note:修正了'总人口（估算）（人）'中'亚洲'的数值为3,808,070,503",
+      "crop_note:修正了'总人口（估算）（人）'中'欧洲'的数值为803,850,858",
+      "crop_note:修正了'总人口（估算）（人）'中'中东'的数值为202,687,005",
+      "crop_note:修正了'总人口（估算）（人）'中'北美'的数值为340,831,831",
+      "crop_note:修正了'总人口（估算）（人）'中'拉美及加勒比地区'的数值为586,662,468",
+      "crop_note:修正了'总人口（估算）（人）'中'大洋洲'的数值为34,700,201",
+      "crop_note:修正了'总人口（估算）（人）'中'总计'的数值为6,767,805,208",
+      "crop_note:修正了'网民数（人）'中'非洲'的数值为37,371,700",
+      "crop_note:修正了'网民数（人）'中'亚洲'的数值为738,257,230",
+      "crop_note:修正了'网民数（人）'中'欧洲'的数值为418,029,796",
+      "crop_note:修正了'网民数（人）'中'中东'的数值为57,425,046",
+      "crop_note:修正了'网民数（人）'中'北美'的数值为252,908,000",
+      "crop_note:修正了'网民数（人）'中'拉美及加勒比地区'的数值为179,031,479",
+      "crop_note:修正了'网民数（人）'中'大洋洲'的数值为20,970,490",
+      "crop_note:修正了'网民数（人）'中'总计'的数值为1,733,993,741",
+      "crop_note:修正了'互联网普及率（%）'中'非洲'的数值为6.8",
+      "crop_note:修正了'互联网普及率（%）'中'亚洲'的数值为19.4",
+      "crop_note:修正了'互联网普及率（%）'中'欧洲'的数值为52.0",
+      "crop_note:修正了'互联网普及率（%）'中'中东'的数值为28.3",
+      "crop_note:修正了'互联网普及率（%）'中'北美'的数值为74.2",
+      "crop_note:修正了'互联网普及率（%）'中'拉美及加勒比地区'的数值为30.5",
+      "crop_note:修正了'互联网普及率（%）'中'大洋洲'的数值为1",
+      "crop_note:修正了'互联网普及率（%）'中'总计'的数值为25.6",
+      "crop_note:修正了'占世界网民数量比率（%）'中'非洲'的数值为3.9",
+      "crop_note:修正了'占世界网民数量比率（%）'中'亚洲'的数值为42.6",
+      "crop_note:修正了'占世界网民数量比率（%）'中'欧洲'的数值为24.1",
+      "crop_note:修正了'占世界网民数量比率（%）'中'中东'的数值为3.3",
+      "crop_note:修正了'占世界网民数量比率（%）'中'北美'的数值为14.6",
+      "crop_note:修正了'占世界网民数量比率（%）'中'拉美及加勒比地区'的数值为10.3",
+      "crop_note:修正了'占世界网民数量比率（%）'中'大洋洲'的数值为2",
+      "crop_note:修正了'占世界网民数量比率（%）'中'总计'的数值为100.0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

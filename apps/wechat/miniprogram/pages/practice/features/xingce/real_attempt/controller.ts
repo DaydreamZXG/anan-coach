@@ -186,6 +186,50 @@ export function mergePendingDraft(
   return reduceTaskRuntime(merged, { type: "SAVE_FAILED", requestId: "reconcile-pending" });
 }
 
+/**
+ * A checkpoint response can confirm an older idempotent command while the page already owns
+ * newer local facts (for example, a confidence tap or a fast question change queued at the
+ * boundary of the previous save). Never replace those facts with the older response. Rebase
+ * them onto the new server revision and immediately issue one follow-up checkpoint instead.
+ */
+export function reconcileConfirmedCheckpoint(
+  authoritative: XingceTaskSession,
+  confirmed: XingceCheckpointCommand,
+  latestLocal: TaskRuntimeState,
+): { runtime: TaskRuntimeState; requiresFollowup: boolean } {
+  const server = runtimeFromXingceSession(authoritative);
+  if (
+    server.serverState !== "answering" ||
+    latestLocal.serverSessionId !== server.serverSessionId
+  ) {
+    return { runtime: server, requiresFollowup: false };
+  }
+  let latest: XingceCheckpointCommand;
+  try {
+    latest = checkpointCommand(latestLocal);
+  } catch {
+    return { runtime: server, requiresFollowup: false };
+  }
+  if (checkpointFactsEqual(confirmed, latest)) {
+    return { runtime: server, requiresFollowup: false };
+  }
+  return {
+    runtime: mergePendingDraft(authoritative, latestLocal),
+    requiresFollowup: true,
+  };
+}
+
+function checkpointFactsEqual(
+  left: XingceCheckpointCommand,
+  right: XingceCheckpointCommand,
+): boolean {
+  return (
+    left.currentQuestionId === right.currentQuestionId &&
+    left.totalElapsedSeconds === right.totalElapsedSeconds &&
+    JSON.stringify(left.answers) === JSON.stringify(right.answers)
+  );
+}
+
 export function checkpointCommand(runtime: TaskRuntimeState): XingceCheckpointCommand {
   const answers = runtime.questionOrder
     .map((questionId) => runtime.attempts[questionId])

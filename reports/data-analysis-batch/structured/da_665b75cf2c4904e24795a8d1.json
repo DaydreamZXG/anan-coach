@@ -1,0 +1,286 @@
+{
+  "asset_id": "da_665b75cf2c4904e24795a8d1",
+  "axes": {
+    "x": {
+      "max": 6,
+      "min": 0,
+      "ticks": [
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 40000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000,
+          30000,
+          35000,
+          40000
+        ],
+        "title": null,
+        "unit": "亿美元"
+      }
+    ]
+  },
+  "categories": [
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "进口",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "出口",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "进口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        7915,
+        9561,
+        11326,
+        10059,
+        13962,
+        17435
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "出口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        9690,
+        12205,
+        14307,
+        12016,
+        15778,
+        18986
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0131_51395b591da2c343.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0131_51395b591da2c343.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_bca7702ba8674a60dbef",
+        "question_number": 112,
+        "source_jsonl_line": 4682
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0123_51395b591da2c343.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_5ca12e420aa27654bebc",
+        "question_number": 113,
+        "source_jsonl_line": 14430
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0119_51395b591da2c343.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_6f0712157f09af53ccd5",
+        "question_number": 111,
+        "source_jsonl_line": 41949
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0119_51395b591da2c343.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_9b0a6a40cef2350d8e59",
+        "question_number": 112,
+        "source_jsonl_line": 41950
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0118_51395b591da2c343.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_9ac83056c1f949856005",
+        "question_number": 111,
+        "source_jsonl_line": 69367
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0118_51395b591da2c343.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_7433101eccd0b76310e4",
+        "question_number": 112,
+        "source_jsonl_line": 69368
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0118_51395b591da2c343.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_ebdf9390ac3139a55a9d",
+        "question_number": 115,
+        "source_jsonl_line": 69371
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0140_51395b591da2c343.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_f47d061e85590bc05dfe",
+        "question_number": 115,
+        "source_jsonl_line": 77150
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0127_51395b591da2c343.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_bdc33847a9d216e7b09a",
+        "question_number": 112,
+        "source_jsonl_line": 79551
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0125_51395b591da2c343.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_560c69ee32c290fbdc49",
+        "question_number": 112,
+        "source_jsonl_line": 82777
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0117_51395b591da2c343.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_4f1e85e57dc94407b080",
+        "question_number": 111,
+        "source_jsonl_line": 92620
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0134_51395b591da2c343.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_0c034f42b98b07ad7882",
+        "question_number": 111,
+        "source_jsonl_line": 97014
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0131_51395b591da2c343.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_87f8d192b67bcf7fd856",
+        "question_number": 112,
+        "source_jsonl_line": 98990
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0131_51395b591da2c343.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_5f3a92121b9f1be82028",
+        "question_number": 115,
+        "source_jsonl_line": 98993
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年421联考《行测》题（山西_辽宁_黑龙江_福建_湖北_ 湖南_广西_海南_四川_重庆_ 云南_ 西藏_陕西_青海_宁夏_ 新_images/img_0118_51395b591da2c343.png",
+        "paper_title": "2012年421联考《行测》题（山西/辽宁/黑龙江/福建/湖北/ 湖南/广西/海南/四川/重庆/ 云南/ 西藏/陕西/青海/宁夏/ 新疆兵团）",
+        "question_id": "pq_e785d8bdd566cc301ecd",
+        "question_number": 111,
+        "source_jsonl_line": 101534
+      }
+    ],
+    "sha256": "665b75cf2c4904e24795a8d1df62017fbb56bd88daba7f10d229b67d4f6b22ef"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2006-2011年货物进出口总额",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_665b75cf2c4904e24795a8d1/column_band_01.jpg",
+        "review-crops/da_665b75cf2c4904e24795a8d1/column_band_02.jpg",
+        "review-crops/da_665b75cf2c4904e24795a8d1/column_band_03.jpg",
+        "review-crops/da_665b75cf2c4904e24795a8d1/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.71",
+      "crop_verification_elapsed_seconds:6.881",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2006年进口值为7915（原为7915，正确）",
+      "crop_note:修正了2006年出口值为9690（原为9690，正确）",
+      "crop_note:修正了2007年进口值为9561（原为9561，正确）",
+      "crop_note:修正了2007年出口值为12205（原为12205，正确）",
+      "crop_note:修正了2008年进口值为11326（原为11326，正确）",
+      "crop_note:修正了2008年出口值为14307（原为14307，正确）",
+      "crop_note:修正了2009年进口值为10059（原为10059，正确）",
+      "crop_note:修正了2009年出口值为12016（原为12016，正确）",
+      "crop_note:修正了2010年进口值为13962（原为13962，正确）",
+      "crop_note:修正了2010年出口值为15778（原为15778，正确）",
+      "crop_note:修正了2011年进口值为17435（原为17435，正确）",
+      "crop_note:修正了2011年出口值为18986（原为18986，正确）"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

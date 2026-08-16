@@ -1,11 +1,14 @@
 # 多 Agent 与共享学习大脑架构
 
+> 历史目标架构：当前产品已确认用户只感知一位“岸岸”，后台能力不再作为多个用户人格。
+> 当前边界见 [正式产品与系统说明](../product/anan-product-system-spec.md)。
+>
 > 状态：目标架构  
 > 日期：2026-07-12  
 > 适用端：微信小程序、未来 iOS/Android/Web  
 > 核心约束：无人工主链依赖，所有高影响结论可追溯、可重算、可审计
 
-关联文档：[产品需求文档](../product/2026-07-12-ai-guokao-coach-prd.md) · [微信小程序实施与商业交付方案](../engineering/2026-07-12-wechat-mini-program-implementation.md) · [行测—申论双轨规划 Agent 契约](2026-07-13-dual-track-planning-agent.md)
+历史关联：[原产品需求文档](../product/_archive/2026-07-12-ai-guokao-coach-prd.md) · [微信小程序实施与商业交付方案](../engineering/2026-07-12-wechat-mini-program-implementation.md) · [行测—申论双轨规划 Agent 契约](2026-07-13-dual-track-planning-agent.md)
 
 ## 1. 架构决策
 

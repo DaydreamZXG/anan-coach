@@ -1,0 +1,129 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "绝对数",
+      "比上年增长(%)"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "货运量（单位：亿吨）",
+        "group": null,
+        "label": "货运量（单位：亿吨）",
+        "unit": "万吨",
+        "values": [
+          215124.2,
+          5.7
+        ]
+      },
+      {
+        "display_label": "其中：铁路",
+        "group": "货运量（单位：亿吨）",
+        "label": "货运量（单位：亿吨）｜其中：铁路",
+        "unit": "万吨",
+        "values": [
+          4183.2,
+          -6.9
+        ]
+      },
+      {
+        "display_label": "其中：公路",
+        "group": "货运量（单位：亿吨）",
+        "label": "货运量（单位：亿吨）｜其中：公路",
+        "unit": "万吨",
+        "values": [
+          184830.9,
+          7.1
+        ]
+      },
+      {
+        "display_label": "水运",
+        "group": "货运量（单位：亿吨）",
+        "label": "货运量（单位：亿吨）｜水运",
+        "unit": "万吨",
+        "values": [
+          25109.2,
+          -2.2
+        ]
+      },
+      {
+        "display_label": "民航",
+        "group": "货运量（单位：亿吨）",
+        "label": "货运量（单位：亿吨）｜民航",
+        "unit": "万吨",
+        "values": [
+          6.1,
+          -2.7
+        ]
+      },
+      {
+        "display_label": "管道",
+        "group": null,
+        "label": "管道",
+        "unit": "万吨",
+        "values": [
+          994.8,
+          21.9
+        ]
+      },
+      {
+        "display_label": "客运量（单位：亿人）",
+        "group": null,
+        "label": "客运量（单位：亿人）",
+        "unit": "万人",
+        "values": [
+          151080.5,
+          -7.0
+        ]
+      },
+      {
+        "display_label": "其中：铁路",
+        "group": "客运量（单位：亿人）",
+        "label": "客运量（单位：亿人）｜其中：铁路",
+        "unit": "万人",
+        "values": [
+          10390.2,
+          9.4
+        ]
+      },
+      {
+        "display_label": "其中：公路",
+        "group": "客运量（单位：亿人）",
+        "label": "客运量（单位：亿人）｜其中：公路",
+        "unit": "万人",
+        "values": [
+          138221.0,
+          8.2
+        ]
+      },
+      {
+        "display_label": "水运",
+        "group": "客运量（单位：亿人）",
+        "label": "客运量（单位：亿人）｜水运",
+        "unit": "万人",
+        "values": [
+          1533.9,
+          5.9
+        ]
+      },
+      {
+        "display_label": "民航",
+        "group": "客运量（单位：亿人）",
+        "label": "客运量（单位：亿人）｜民航",
+        "unit": "万人",
+        "values": [
+          935.4,
+          7.5
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

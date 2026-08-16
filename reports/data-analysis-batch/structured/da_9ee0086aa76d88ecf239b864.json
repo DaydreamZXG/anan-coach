@@ -1,0 +1,235 @@
+{
+  "asset_id": "da_9ee0086aa76d88ecf239b864",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 12.8,
+        "min": 12.3,
+        "ticks": [
+          12.3,
+          12.4,
+          12.5,
+          12.6,
+          12.7,
+          12.8
+        ],
+        "title": null,
+        "unit": "万公里"
+      }
+    ]
+  },
+  "categories": [
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "全国内河航道通航里程",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国内河航道通航里程",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万公里",
+      "values": [
+        12.46,
+        12.5,
+        12.59,
+        12.63,
+        12.7,
+        12.71
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0360_db8228e110a1d112.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0360_db8228e110a1d112.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_d6ea7e3c87df5eb29088",
+        "question_number": 136,
+        "source_jsonl_line": 61803
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0364_3783c62b68d37152.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_580a1fb301afc5732524",
+        "question_number": 137,
+        "source_jsonl_line": 61804
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0364_3783c62b68d37152.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_28f955d3359c33b0623c",
+        "question_number": 138,
+        "source_jsonl_line": 61805
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0364_3783c62b68d37152.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_44bdb7ce5b11d8bc3be8",
+        "question_number": 139,
+        "source_jsonl_line": 61806
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0360_db8228e110a1d112.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_16d3f2782dd9674a5de2",
+        "question_number": 140,
+        "source_jsonl_line": 61807
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0382_db8228e110a1d112.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_2cf13d8a0cc9d0425471",
+        "question_number": 136,
+        "source_jsonl_line": 61943
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0395_3783c62b68d37152.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_fd8ec9c15e541b3ea13f",
+        "question_number": 137,
+        "source_jsonl_line": 61944
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0395_3783c62b68d37152.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_bf49447ea30b8aaab204",
+        "question_number": 138,
+        "source_jsonl_line": 61945
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0395_3783c62b68d37152.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_65d674d1b20b056165c9",
+        "question_number": 139,
+        "source_jsonl_line": 61946
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0395_3783c62b68d37152.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_9d5bab6c5c1f1b018c70",
+        "question_number": 140,
+        "source_jsonl_line": 61947
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0388_3783c62b68d37152.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_9dab1fc52920f9f4a982",
+        "question_number": 136,
+        "source_jsonl_line": 87851
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0388_3783c62b68d37152.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_1ac2abf496793e40e052",
+        "question_number": 137,
+        "source_jsonl_line": 87852
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0401_db8228e110a1d112.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_217392ce2a5e4219af05",
+        "question_number": 138,
+        "source_jsonl_line": 87853
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0388_3783c62b68d37152.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_81c2627d929f691886ee",
+        "question_number": 139,
+        "source_jsonl_line": 87854
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0388_3783c62b68d37152.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_d74fc360b766873d3061",
+        "question_number": 140,
+        "source_jsonl_line": 87855
+      }
+    ],
+    "sha256": "9ee0086aa76d88ecf239b86446d32a0a17b4fcfd70042747eddb945e052ed806"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2011-2016年全国内河航道通航里程",
+  "unit": "万公里",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9ee0086aa76d88ecf239b864/column_band_01.jpg",
+        "review-crops/da_9ee0086aa76d88ecf239b864/column_band_02.jpg",
+        "review-crops/da_9ee0086aa76d88ecf239b864/column_band_03.jpg",
+        "review-crops/da_9ee0086aa76d88ecf239b864/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.29",
+      "crop_verification_elapsed_seconds:2.41",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

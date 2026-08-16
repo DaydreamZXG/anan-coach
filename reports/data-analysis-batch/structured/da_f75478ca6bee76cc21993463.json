@@ -1,0 +1,251 @@
+{
+  "asset_id": "da_f75478ca6bee76cc21993463",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 5,
+        "min": 0,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "title": null,
+        "unit": "万亿元美元"
+      },
+      {
+        "max": 50,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "进出口总额",
+      "style": {
+        "dash": null,
+        "fill": "darkgray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "占比",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "进出口总额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万亿元美元",
+      "values": [
+        1.63,
+        1.74,
+        1.54,
+        1.42,
+        1.63,
+        1.88,
+        1.94,
+        1.93,
+        2.53,
+        2.84
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "占比",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        39.2,
+        40.3,
+        38.9,
+        38.6,
+        39.6,
+        40.6,
+        42.4,
+        41.4,
+        42.2,
+        45.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0116_30e3d436fa52f0ff.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0116_30e3d436fa52f0ff.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8e8d853e04e6e49e1e0b",
+        "question_number": 106,
+        "source_jsonl_line": 84337
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0116_30e3d436fa52f0ff.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0f464d145cfa6ad2eeb5",
+        "question_number": 107,
+        "source_jsonl_line": 84338
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0111_a4fa0e9e83f02d9d.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_769fc1a142f288c9ae9a",
+        "question_number": 108,
+        "source_jsonl_line": 84339
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0116_30e3d436fa52f0ff.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_736e0767c1fadf1a0e22",
+        "question_number": 109,
+        "source_jsonl_line": 84340
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0116_30e3d436fa52f0ff.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5c6f97ac0b681aae984c",
+        "question_number": 110,
+        "source_jsonl_line": 84341
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0102_30e3d436fa52f0ff.png",
+        "paper_title": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5e646ae2ea3da8250ab6",
+        "question_number": 106,
+        "source_jsonl_line": 104388
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0108_a4fa0e9e83f02d9d.png",
+        "paper_title": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ab1aed393dc4084bb511",
+        "question_number": 107,
+        "source_jsonl_line": 104389
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0102_30e3d436fa52f0ff.png",
+        "paper_title": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0369e01f50d96a3be1cf",
+        "question_number": 108,
+        "source_jsonl_line": 104390
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0108_a4fa0e9e83f02d9d.png",
+        "paper_title": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3a3ddd555e75d2343fb5",
+        "question_number": 109,
+        "source_jsonl_line": 104391
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）_images/img_0102_30e3d436fa52f0ff.png",
+        "paper_title": "2024年黑龙江省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b66a52d79e8891b7977a",
+        "question_number": 110,
+        "source_jsonl_line": 104392
+      }
+    ],
+    "sha256": "f75478ca6bee76cc21993463818171e7d0d322ebeb459ff55121f9c0b61fdab4"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013-2022年，中国与共建国家进出口总额及其占中国外贸总值比重",
+  "unit": "万亿元美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f75478ca6bee76cc21993463/column_band_01.jpg",
+        "review-crops/da_f75478ca6bee76cc21993463/column_band_02.jpg",
+        "review-crops/da_f75478ca6bee76cc21993463/column_band_03.jpg",
+        "review-crops/da_f75478ca6bee76cc21993463/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.138",
+      "crop_verification_elapsed_seconds:5.095",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

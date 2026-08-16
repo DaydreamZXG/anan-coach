@@ -1,0 +1,245 @@
+{
+  "asset_id": "da_bdd4f8fc4d634db4c7c751e1",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0061_207e1881a1474bc2.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0061_207e1881a1474bc2.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_df011916df964c4fc263",
+        "question_number": 91,
+        "source_jsonl_line": 89831
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0061_207e1881a1474bc2.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_86b02ceb1c623430cd10",
+        "question_number": 92,
+        "source_jsonl_line": 89832
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0074_62d17e2ec2c7070d.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_12f106b842f1d74ce5fd",
+        "question_number": 93,
+        "source_jsonl_line": 89833
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0061_207e1881a1474bc2.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_dde24eb982f9b5aeffe1",
+        "question_number": 94,
+        "source_jsonl_line": 89834
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0061_207e1881a1474bc2.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_f73069ec31bd96247af5",
+        "question_number": 95,
+        "source_jsonl_line": 89835
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0063_207e1881a1474bc2.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_41c2b06928b630d9daef",
+        "question_number": 91,
+        "source_jsonl_line": 95494
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0063_207e1881a1474bc2.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_73dc5180b80cb8c9d78e",
+        "question_number": 92,
+        "source_jsonl_line": 95495
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0063_207e1881a1474bc2.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_1c7183bd82f48751b0e1",
+        "question_number": 93,
+        "source_jsonl_line": 95496
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0063_207e1881a1474bc2.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_80ebd708b4ad6479274a",
+        "question_number": 94,
+        "source_jsonl_line": 95497
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0063_207e1881a1474bc2.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_0f076e1504af0cb21b47",
+        "question_number": 95,
+        "source_jsonl_line": 95498
+      }
+    ],
+    "sha256": "bdd4f8fc4d634db4c7c751e1760db5e22c8d9fa3aac102d304de9b8da6d2244f"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2018｜收入",
+          "2018｜支出"
+        ],
+        "label": "2018"
+      },
+      {
+        "columns": [
+          "2019｜收入",
+          "2019｜支出"
+        ],
+        "label": "2019"
+      },
+      {
+        "columns": [
+          "2020｜收入",
+          "2020｜支出"
+        ],
+        "label": "2020"
+      }
+    ],
+    "columns": [
+      "2018｜收入",
+      "2018｜支出",
+      "2019｜收入",
+      "2019｜支出",
+      "2020｜收入",
+      "2020｜支出"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份省份",
+    "rows": [
+      {
+        "display_label": "全国",
+        "group": null,
+        "label": "全国",
+        "unit": null,
+        "values": [
+          51168,
+          44545,
+          52918,
+          49228,
+          44376,
+          51301
+        ]
+      },
+      {
+        "display_label": "甲省",
+        "group": null,
+        "label": "甲省",
+        "unit": null,
+        "values": [
+          2126,
+          2020,
+          2437,
+          2426,
+          1684,
+          1982
+        ]
+      },
+      {
+        "display_label": "乙省",
+        "group": null,
+        "label": "乙省",
+        "unit": null,
+        "values": [
+          2808,
+          2584,
+          2934,
+          2780,
+          2036,
+          2982
+        ]
+      },
+      {
+        "display_label": "丙省",
+        "group": null,
+        "label": "丙省",
+        "unit": null,
+        "values": [
+          4571,
+          2450,
+          5594,
+          3762,
+          3858,
+          3314
+        ]
+      },
+      {
+        "display_label": "丁省",
+        "group": null,
+        "label": "丁省",
+        "unit": null,
+        "values": [
+          1170,
+          1004,
+          1047,
+          1084,
+          1032,
+          1172
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

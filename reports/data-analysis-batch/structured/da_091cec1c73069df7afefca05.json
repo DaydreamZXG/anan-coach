@@ -1,0 +1,301 @@
+{
+  "asset_id": "da_091cec1c73069df7afefca05",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2014年四川省公务员录用考试《行测》题_images/img_0167_af53fc8dbdf9af86.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题_images/img_0167_af53fc8dbdf9af86.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题",
+        "question_id": "pq_1c9b506c7da66e8b195b",
+        "question_number": 111,
+        "source_jsonl_line": 14822
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题_images/img_0188_146a9a12ed4042d0.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题",
+        "question_id": "pq_b89e9d748364cadbb0eb",
+        "question_number": 112,
+        "source_jsonl_line": 14823
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题_images/img_0188_146a9a12ed4042d0.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题",
+        "question_id": "pq_3c8ff0b1012ef7720c0f",
+        "question_number": 113,
+        "source_jsonl_line": 14824
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题_images/img_0188_146a9a12ed4042d0.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题",
+        "question_id": "pq_dfbbc7943768502aba84",
+        "question_number": 114,
+        "source_jsonl_line": 14825
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题_images/img_0188_146a9a12ed4042d0.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题",
+        "question_id": "pq_5b3f86f252fe8a4bcc45",
+        "question_number": 115,
+        "source_jsonl_line": 14826
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山西省公务员录用考试《行测》题_images/img_0180_146a9a12ed4042d0.png",
+        "paper_title": "2014年山西省公务员录用考试《行测》题",
+        "question_id": "pq_fa955394eee2932526b5",
+        "question_number": 111,
+        "source_jsonl_line": 31949
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山西省公务员录用考试《行测》题_images/img_0185_af53fc8dbdf9af86.png",
+        "paper_title": "2014年山西省公务员录用考试《行测》题",
+        "question_id": "pq_4f49ec77740801155aac",
+        "question_number": 112,
+        "source_jsonl_line": 31950
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山西省公务员录用考试《行测》题_images/img_0180_146a9a12ed4042d0.png",
+        "paper_title": "2014年山西省公务员录用考试《行测》题",
+        "question_id": "pq_52f147af93e4ce0ceb1b",
+        "question_number": 113,
+        "source_jsonl_line": 31951
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山西省公务员录用考试《行测》题_images/img_0185_af53fc8dbdf9af86.png",
+        "paper_title": "2014年山西省公务员录用考试《行测》题",
+        "question_id": "pq_5e79332b180717f6e423",
+        "question_number": 114,
+        "source_jsonl_line": 31952
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山西省公务员录用考试《行测》题_images/img_0180_146a9a12ed4042d0.png",
+        "paper_title": "2014年山西省公务员录用考试《行测》题",
+        "question_id": "pq_728c37729c7f58d935bc",
+        "question_number": 115,
+        "source_jsonl_line": 31953
+      }
+    ],
+    "sha256": "091cec1c73069df7afefca057d64451a3444303c939f0a903e06ce202540676a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "货物周转量｜绝对数（亿吨公里）",
+          "货物周转量｜比上年增长（%）"
+        ],
+        "label": "货物周转量"
+      },
+      {
+        "columns": [
+          "货运量｜绝对数（万吨）",
+          "货运量｜比上年增长（%）"
+        ],
+        "label": "货运量"
+      },
+      {
+        "columns": [
+          "旅客周转量｜绝对数（亿人公里）",
+          "旅客周转量｜比上年增长（%）"
+        ],
+        "label": "旅客周转量"
+      },
+      {
+        "columns": [
+          "客运量｜绝对数（万人次）",
+          "客运量｜比上年增长（%）"
+        ],
+        "label": "客运量"
+      }
+    ],
+    "columns": [
+      "货物周转量｜绝对数（亿吨公里）",
+      "货物周转量｜比上年增长（%）",
+      "货运量｜绝对数（万吨）",
+      "货运量｜比上年增长（%）",
+      "旅客周转量｜绝对数（亿人公里）",
+      "旅客周转量｜比上年增长（%）",
+      "客运量｜绝对数（万人次）",
+      "客运量｜比上年增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "旅客周转量｜绝对数（亿人公里）",
+        "display": "（？）",
+        "row": "管道"
+      },
+      {
+        "column": "旅客周转量｜比上年增长（%）",
+        "display": "（？）",
+        "row": "管道"
+      },
+      {
+        "column": "客运量｜绝对数（万人次）",
+        "display": "（？）",
+        "row": "管道"
+      },
+      {
+        "column": "客运量｜比上年增长（%）",
+        "display": "（？）",
+        "row": "管道"
+      }
+    ],
+    "row_header_label": "运输方式",
+    "rows": [
+      {
+        "display_label": "总计",
+        "group": null,
+        "label": "总计",
+        "unit": null,
+        "values": [
+          5154.5,
+          8.5,
+          160966.8,
+          9.2,
+          1423.3,
+          8.1,
+          201262.9,
+          9.5
+        ]
+      },
+      {
+        "display_label": "铁路",
+        "group": null,
+        "label": "铁路",
+        "unit": null,
+        "values": [
+          323.9,
+          -6.2,
+          6137.4,
+          19.9,
+          311.3,
+          -2.4,
+          9167.2,
+          3.6
+        ]
+      },
+      {
+        "display_label": "公路",
+        "group": null,
+        "label": "公路",
+        "unit": null,
+        "values": [
+          971.1,
+          9.7,
+          104002.0,
+          8.8,
+          1058.0,
+          11.2,
+          191001.0,
+          9.8
+        ]
+      },
+      {
+        "display_label": "水路",
+        "group": null,
+        "label": "水路",
+        "unit": null,
+        "values": [
+          3372.1,
+          10.1,
+          42016.0,
+          9.1,
+          1.4,
+          85.6,
+          686.5,
+          9.7
+        ]
+      },
+      {
+        "display_label": "民航",
+        "group": null,
+        "label": "民航",
+        "unit": null,
+        "values": [
+          0.6,
+          -3.6,
+          4.4,
+          -5.1,
+          52.7,
+          15.4,
+          408.2,
+          16.3
+        ]
+      },
+      {
+        "display_label": "管道",
+        "group": null,
+        "label": "管道",
+        "unit": null,
+        "values": [
+          486.8,
+          6.4,
+          8807.0,
+          8.8,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

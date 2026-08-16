@@ -1,0 +1,232 @@
+{
+  "asset_id": "da_ac11dd011652c519f3c60a71",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2013年陕西省公务员录用考试《行测》题_images/img_0127_3e0e2ede18ab8ed0.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0127_3e0e2ede18ab8ed0.png",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_9387d7f1d8b7bf2461f3",
+        "question_number": 126,
+        "source_jsonl_line": 97149
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0127_3e0e2ede18ab8ed0.png",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_1f195073bead709b368c",
+        "question_number": 127,
+        "source_jsonl_line": 97150
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0141_37120e84b6550a8a.png",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_38d89cba900ca88cf509",
+        "question_number": 128,
+        "source_jsonl_line": 97151
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0127_3e0e2ede18ab8ed0.png",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_e6f7c1f92f15fcda5702",
+        "question_number": 129,
+        "source_jsonl_line": 97152
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0127_3e0e2ede18ab8ed0.png",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_d1235f74e397e3e17200",
+        "question_number": 130,
+        "source_jsonl_line": 97153
+      }
+    ],
+    "sha256": "ac11dd011652c519f3c60a71df44d5e499fb4f7d89ee1d74cd4a52b0d66c7296"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "排名",
+      "公司名称",
+      "500强排名",
+      "2011年利润",
+      "利润与2010年相比变化(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "1",
+        "unit": null,
+        "values": [
+          1,
+          "俄罗斯天然气工程公司",
+          15,
+          44459.6,
+          39.4
+        ]
+      },
+      {
+        "label": "2",
+        "unit": null,
+        "values": [
+          2,
+          "埃克森美孚",
+          2,
+          41060.0,
+          43.8
+        ]
+      },
+      {
+        "label": "3",
+        "unit": null,
+        "values": [
+          3,
+          "中国工商银行",
+          54,
+          32214.3,
+          32
+        ]
+      },
+      {
+        "label": "4",
+        "unit": null,
+        "values": [
+          4,
+          "荷兰皇家壳牌石油公司",
+          1,
+          30918.8,
+          53.6
+        ]
+      },
+      {
+        "label": "5",
+        "unit": null,
+        "values": [
+          5,
+          "雪佛龙",
+          8,
+          26855.8,
+          41.4
+        ]
+      },
+      {
+        "label": "6",
+        "unit": null,
+        "values": [
+          6,
+          "中国建设银行",
+          77,
+          26180.6,
+          31.4
+        ]
+      },
+      {
+        "label": "7",
+        "unit": null,
+        "values": [
+          7,
+          "苹果公司",
+          55,
+          25922.0,
+          85
+        ]
+      },
+      {
+        "label": "8",
+        "unit": null,
+        "values": [
+          8,
+          "英国石油公司",
+          4,
+          25700.0,
+          0
+        ]
+      },
+      {
+        "label": "9",
+        "unit": null,
+        "values": [
+          9,
+          "必和必拓",
+          108,
+          23618.0,
+          85.9
+        ]
+      },
+      {
+        "label": "10",
+        "unit": null,
+        "values": [
+          10,
+          "微软",
+          119,
+          23150.8,
+          23.4
+        ]
+      }
+    ]
+  },
+  "title": "表1 2011年盈利能力最强的公司（前10名）",
+  "unit": "百万美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ac11dd011652c519f3c60a71/row_band_01.jpg",
+        "review-crops/da_ac11dd011652c519f3c60a71/row_band_02.jpg",
+        "review-crops/da_ac11dd011652c519f3c60a71/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.478",
+      "crop_verification_elapsed_seconds:8.899",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -179,4 +179,15 @@ describe("capture camera responsive error layout", () => {
     expect(normalScenario?.data.cameraError ?? "").toBe("");
     expect(permissionScenario?.data.permissionDenied).toBe(true);
   });
+
+  it("keeps whole-book progress in normal flow above candidate cards", () => {
+    const progress = captureTemplate.indexOf('class="book-progress"');
+    const candidates = captureTemplate.indexOf('class="match-list"', progress);
+
+    expect(captureTemplate).toContain("整页/题本");
+    expect(progress).toBeGreaterThan(-1);
+    expect(candidates).toBeGreaterThan(progress);
+    expect(ruleFor(".book-progress")).not.toMatch(/position:\s*(?:fixed|absolute);/u);
+    expect(ruleFor(".book-progress")).toMatch(/box-sizing:\s*border-box;/u);
+  });
 });

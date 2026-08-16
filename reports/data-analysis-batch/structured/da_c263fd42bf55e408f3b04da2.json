@@ -1,0 +1,428 @@
+{
+  "asset_id": "da_c263fd42bf55e408f3b04da2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "月份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "出口车辆数（辆）",
+        "unit": "辆"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "出口车辆数同比增速（%）",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "出口车辆数（辆）",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "出口车辆数同比增速（%）",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "车辆出口值（万元）",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "车辆出口值同比增速（%）",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "出口车辆数（辆）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "辆",
+      "values": [
+        29105,
+        22785,
+        43361,
+        40437,
+        36519
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "出口车辆数同比增速（%）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        20.1,
+        50.1,
+        73.4,
+        49.6,
+        -12.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "车辆出口值（万元）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        151198.7,
+        161250.2,
+        229566.6,
+        236893.0,
+        222329.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "车辆出口值同比增速（%）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        44.0,
+        97.3,
+        50.4,
+        53.2,
+        0.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/宁夏/2024年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0053_21fadb0d0372550e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0053_21fadb0d0372550e.png",
+        "paper_title": "2024年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4d662f82e4960acd803a",
+        "question_number": 101,
+        "source_jsonl_line": 26351
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0065_9c49d8970d0fee2e.png",
+        "paper_title": "2024年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fcd3625b5f036295d999",
+        "question_number": 102,
+        "source_jsonl_line": 26352
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0065_9c49d8970d0fee2e.png",
+        "paper_title": "2024年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9d6f7ea3bf96fc5a2c81",
+        "question_number": 103,
+        "source_jsonl_line": 26353
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0065_9c49d8970d0fee2e.png",
+        "paper_title": "2024年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d60d89279a856a816489",
+        "question_number": 104,
+        "source_jsonl_line": 26354
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0065_9c49d8970d0fee2e.png",
+        "paper_title": "2024年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ec232daab458db7043bb",
+        "question_number": 105,
+        "source_jsonl_line": 26355
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0111_9c49d8970d0fee2e.png",
+        "paper_title": "2024年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b8930c1e9f0594c897d3",
+        "question_number": 106,
+        "source_jsonl_line": 39792
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0111_9c49d8970d0fee2e.png",
+        "paper_title": "2024年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4cc54a7d15cec47ddac4",
+        "question_number": 107,
+        "source_jsonl_line": 39793
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0111_9c49d8970d0fee2e.png",
+        "paper_title": "2024年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4f35a5febfcf50c39e9d",
+        "question_number": 108,
+        "source_jsonl_line": 39794
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0111_9c49d8970d0fee2e.png",
+        "paper_title": "2024年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f831ba958147a8923600",
+        "question_number": 109,
+        "source_jsonl_line": 39795
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0127_21fadb0d0372550e.png",
+        "paper_title": "2024年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0cf631d03b421a1eed8d",
+        "question_number": 110,
+        "source_jsonl_line": 39796
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0097_9c49d8970d0fee2e.png",
+        "paper_title": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_b12e9696062f563eee28",
+        "question_number": 111,
+        "source_jsonl_line": 44021
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0097_9c49d8970d0fee2e.png",
+        "paper_title": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_458b3bacd2a1729b6113",
+        "question_number": 112,
+        "source_jsonl_line": 44022
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0102_21fadb0d0372550e.png",
+        "paper_title": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_79aa6e4d850fbd676c4b",
+        "question_number": 113,
+        "source_jsonl_line": 44023
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0102_21fadb0d0372550e.png",
+        "paper_title": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_e057b5648d74057f3584",
+        "question_number": 114,
+        "source_jsonl_line": 44024
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0097_9c49d8970d0fee2e.png",
+        "paper_title": "2024年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_1cace7977adc6dfb912c",
+        "question_number": 115,
+        "source_jsonl_line": 44025
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0121_9c49d8970d0fee2e.png",
+        "paper_title": "2024年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_491461b0cc6db80751fe",
+        "question_number": 116,
+        "source_jsonl_line": 59293
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0121_9c49d8970d0fee2e.png",
+        "paper_title": "2024年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_47a19ab45db7d028edd2",
+        "question_number": 117,
+        "source_jsonl_line": 59294
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0121_9c49d8970d0fee2e.png",
+        "paper_title": "2024年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5e85a7b3e816d4e0d25e",
+        "question_number": 118,
+        "source_jsonl_line": 59295
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0121_9c49d8970d0fee2e.png",
+        "paper_title": "2024年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a17228a78b51a9a33b54",
+        "question_number": 119,
+        "source_jsonl_line": 59296
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0149_21fadb0d0372550e.png",
+        "paper_title": "2024年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bd49a09083463a4e5d18",
+        "question_number": 120,
+        "source_jsonl_line": 59297
+      }
+    ],
+    "sha256": "c263fd42bf55e408f3b04da2e46a3834655a68bc247c26084e669d63085a6b79"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "月份",
+      "出口车辆数（辆）",
+      "出口车辆数同比增速（%）",
+      "车辆出口值（万元）",
+      "车辆出口值同比增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "1",
+        "unit": null,
+        "values": [
+          1,
+          29105,
+          20.1,
+          151198.7,
+          44.0
+        ]
+      },
+      {
+        "label": "2",
+        "unit": null,
+        "values": [
+          2,
+          22785,
+          50.1,
+          161250.2,
+          97.3
+        ]
+      },
+      {
+        "label": "3",
+        "unit": null,
+        "values": [
+          3,
+          43361,
+          73.4,
+          229566.6,
+          50.4
+        ]
+      },
+      {
+        "label": "4",
+        "unit": null,
+        "values": [
+          4,
+          40437,
+          49.6,
+          236893.0,
+          53.2
+        ]
+      },
+      {
+        "label": "5",
+        "unit": null,
+        "values": [
+          5,
+          36519,
+          -12.1,
+          222329.5,
+          0.9
+        ]
+      }
+    ]
+  },
+  "title": "2023年1~5月天津口岸汽车出口月度数据表",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c263fd42bf55e408f3b04da2/row_band_01.jpg",
+        "review-crops/da_c263fd42bf55e408f3b04da2/row_band_02.jpg",
+        "review-crops/da_c263fd42bf55e408f3b04da2/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:13.16",
+      "crop_verification_elapsed_seconds:2.759",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,207 @@
+{
+  "asset_id": "da_ffe4902d7ecf194f79f3a776",
+  "axes": {
+    "x": {
+      "max": 12,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 25.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          5.0,
+          10.0,
+          15.0,
+          20.0,
+          25.0
+        ],
+        "title": null,
+        "unit": "万件"
+      }
+    ]
+  },
+  "categories": [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "接收诉求量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "接收诉求量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万件",
+      "values": [
+        15.2,
+        12.8,
+        20.1,
+        16.6,
+        18.5,
+        21.2,
+        21.6,
+        22.0,
+        20.0,
+        17.7,
+        17.8,
+        17.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0109_6956b2678999e599.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0109_6956b2678999e599.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_93959cb8cc92a0ad760e",
+        "question_number": 111,
+        "source_jsonl_line": 20966
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0105_f26d48d4c1729e9f.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_99e7d77a7cc6e300d9be",
+        "question_number": 112,
+        "source_jsonl_line": 20967
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0105_f26d48d4c1729e9f.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_aff2d3172b47f42986cc",
+        "question_number": 113,
+        "source_jsonl_line": 20968
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0109_6956b2678999e599.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_3e5a249bcc4d7715ac13",
+        "question_number": 114,
+        "source_jsonl_line": 20969
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0105_f26d48d4c1729e9f.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_198081a4af7652b9f36c",
+        "question_number": 115,
+        "source_jsonl_line": 20970
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0118_6956b2678999e599.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_fe4508b835c5ba351312",
+        "question_number": 111,
+        "source_jsonl_line": 21096
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0118_6956b2678999e599.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_9ddd24614436a919bd7b",
+        "question_number": 112,
+        "source_jsonl_line": 21097
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0118_6956b2678999e599.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_1b7d34bccd82032058d7",
+        "question_number": 113,
+        "source_jsonl_line": 21098
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0118_6956b2678999e599.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_23b1f4b8f52fe043a0dd",
+        "question_number": 114,
+        "source_jsonl_line": 21099
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0133_f26d48d4c1729e9f.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_eebe6f855f6f3d7da425",
+        "question_number": 115,
+        "source_jsonl_line": 21100
+      }
+    ],
+    "sha256": "ffe4902d7ecf194f79f3a776770a79cfee9ac1b048fee4fa34525e15a0b08f24"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2022年S省各级12315工作机构各月接收诉求量",
+  "unit": "万件",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ffe4902d7ecf194f79f3a776/column_band_01.jpg",
+        "review-crops/da_ffe4902d7ecf194f79f3a776/column_band_02.jpg",
+        "review-crops/da_ffe4902d7ecf194f79f3a776/column_band_03.jpg",
+        "review-crops/da_ffe4902d7ecf194f79f3a776/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.806",
+      "crop_verification_elapsed_seconds:3.218",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,210 @@
+{
+  "asset_id": "da_c82120757878168d78855b2f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广州市考/2012年广州市公务员录用考试《行测》题_images/img_0068_874e16e7d90a9328.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广州市公务员录用考试《行测》题_images/img_0068_874e16e7d90a9328.png",
+        "paper_title": "2012年广州市公务员录用考试《行测》题",
+        "question_id": "pq_81da3375df33a92c93b6",
+        "question_number": 96,
+        "source_jsonl_line": 36958
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广州市公务员录用考试《行测》题_images/img_0068_874e16e7d90a9328.png",
+        "paper_title": "2012年广州市公务员录用考试《行测》题",
+        "question_id": "pq_21ec59b51c2cd7227020",
+        "question_number": 97,
+        "source_jsonl_line": 36959
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广州市公务员录用考试《行测》题_images/img_0081_d458394c598ea507.png",
+        "paper_title": "2012年广州市公务员录用考试《行测》题",
+        "question_id": "pq_84c05bb97a15d5a945aa",
+        "question_number": 98,
+        "source_jsonl_line": 36960
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广州市公务员录用考试《行测》题_images/img_0081_d458394c598ea507.png",
+        "paper_title": "2012年广州市公务员录用考试《行测》题",
+        "question_id": "pq_438d88490affa79ea791",
+        "question_number": 99,
+        "source_jsonl_line": 36961
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广州市公务员录用考试《行测》题_images/img_0081_d458394c598ea507.png",
+        "paper_title": "2012年广州市公务员录用考试《行测》题",
+        "question_id": "pq_0b340be866967ea2dc1f",
+        "question_number": 100,
+        "source_jsonl_line": 36962
+      }
+    ],
+    "sha256": "c82120757878168d78855b2fccffe056abf139dbc2d1efbdc3ac5f1d37b7c76f"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1990年",
+      "1995年",
+      "2000年",
+      "2005年",
+      "2010年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "label": "企业主人数（万人）",
+        "unit": null,
+        "values": [
+          22.4,
+          134.0,
+          395.3,
+          1109.9,
+          1794.0
+        ]
+      },
+      {
+        "label": "注册资本总额（亿元）",
+        "unit": null,
+        "values": [
+          95.2,
+          2621.7,
+          13307.7,
+          61331.1,
+          192000.0
+        ]
+      },
+      {
+        "label": "雇用工人人数（万人）",
+        "unit": null,
+        "values": [
+          147.8,
+          822.0,
+          2011.1,
+          4714.1,
+          7623.6
+        ]
+      },
+      {
+        "label": "私营企业户数（万户）",
+        "unit": null,
+        "values": [
+          9.8,
+          65.5,
+          176.2,
+          430.1,
+          845.5
+        ]
+      },
+      {
+        "label": "工业产值（亿元）",
+        "unit": null,
+        "values": [
+          121.8,
+          2295.2,
+          10739.8,
+          27434.1,
+          null
+        ]
+      },
+      {
+        "label": "营业额（亿元）",
+        "unit": null,
+        "values": [
+          51.5,
+          1499.2,
+          9884.1,
+          30373.6,
+          null
+        ]
+      },
+      {
+        "label": "缴纳税金（亿元）",
+        "unit": null,
+        "values": [
+          2.0,
+          35.6,
+          414.4,
+          2715.9,
+          8202.1
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c82120757878168d78855b2f/row_band_01.jpg",
+        "review-crops/da_c82120757878168d78855b2f/row_band_02.jpg",
+        "review-crops/da_c82120757878168d78855b2f/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.258",
+      "crop_verification_elapsed_seconds:5.173",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:表格中存在明确的缺失值 '—'，已标记为 null。",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:企业主人数（万人）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:注册资本总额（亿元）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:注册资本总额（亿元）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:雇用工人人数（万人）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:私营企业户数（万户）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:工业产值（亿元）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:工业产值（亿元）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:营业额（亿元）:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:缴纳税金（亿元）:5!=6",
+      "table_row_label_column_removed:项目"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

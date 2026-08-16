@@ -1,0 +1,246 @@
+{
+  "asset_id": "da_b42d4c2728894f509de27e8f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0236_a9c26c293e88f71a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0236_a9c26c293e88f71a.png",
+        "paper_title": "2018年421联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_09ec7d170df615cae785",
+        "question_number": 81,
+        "source_jsonl_line": 97759
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0271_02175593b2b81c7e.png",
+        "paper_title": "2018年421联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_a4a94851d08a2be09577",
+        "question_number": 82,
+        "source_jsonl_line": 97760
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0271_02175593b2b81c7e.png",
+        "paper_title": "2018年421联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_75fc27701181057bb29d",
+        "question_number": 83,
+        "source_jsonl_line": 97761
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0271_02175593b2b81c7e.png",
+        "paper_title": "2018年421联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_c4a2981e2c4ef083a110",
+        "question_number": 84,
+        "source_jsonl_line": 97762
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0236_a9c26c293e88f71a.png",
+        "paper_title": "2018年421联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_8f958c5acc088e31fde2",
+        "question_number": 85,
+        "source_jsonl_line": 97763
+      }
+    ],
+    "sha256": "b42d4c2728894f509de27e8fc0abc1b78fba97d8abdfd2dc2bb5d62bd5cd0e00"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "国有控股",
+      "集体",
+      "股份制",
+      "外商及港澳台商投资企业",
+      "私营"
+    ],
+    "corner_header": {
+      "lower_label": "集体",
+      "style": "diagonal",
+      "upper_label": "国有控股"
+    },
+    "missing_cells": [],
+    "row_header_label": "集体",
+    "rows": [
+      {
+        "display_label": "主营业务收入（亿元）",
+        "group": null,
+        "label": "主营业务收入（亿元）",
+        "unit": null,
+        "values": [
+          258367.4,
+          5413.8,
+          837196.1,
+          259181.2,
+          400259.6
+        ]
+      },
+      {
+        "display_label": "利润总额（亿元）",
+        "group": null,
+        "label": "利润总额（亿元）",
+        "unit": null,
+        "values": [
+          16651.2,
+          399.9,
+          52404.4,
+          18762.9,
+          23753.1
+        ]
+      },
+      {
+        "display_label": "主营业务成本（亿元）",
+        "group": null,
+        "label": "主营业务成本（亿元）",
+        "unit": null,
+        "values": [
+          211177.7,
+          4459.8,
+          710435.7,
+          218913.5,
+          348344.6
+        ]
+      },
+      {
+        "display_label": "每百元主营业务收入中的成本（元）",
+        "group": null,
+        "label": "每百元主营业务收入中的成本（元）",
+        "unit": null,
+        "values": [
+          81.74,
+          82.38,
+          84.86,
+          84.46,
+          87.03
+        ]
+      },
+      {
+        "display_label": "每百元主营业务收入中的费用（元）",
+        "group": null,
+        "label": "每百元主营业务收入中的费用（元）",
+        "unit": null,
+        "values": [
+          8.42,
+          10.67,
+          7.78,
+          8.25,
+          6.6
+        ]
+      },
+      {
+        "display_label": "每百元资产实现的主营业务收入（元）",
+        "group": null,
+        "label": "每百元资产实现的主营业务收入（元）",
+        "unit": null,
+        "values": [
+          62.4,
+          100.6,
+          108.6,
+          120.1,
+          170.8
+        ]
+      },
+      {
+        "display_label": "人均主营业务收入（万元/人）",
+        "group": null,
+        "label": "人均主营业务收入（万元/人）",
+        "unit": null,
+        "values": [
+          172.8,
+          115.7,
+          132.5,
+          124.1,
+          122.4
+        ]
+      },
+      {
+        "display_label": "资产负债率（%）",
+        "group": null,
+        "label": "资产负债率（%）",
+        "unit": null,
+        "values": [
+          60.4,
+          59.1,
+          56.2,
+          54.1,
+          51.6
+        ]
+      },
+      {
+        "display_label": "产品库存周转天数（天）",
+        "group": null,
+        "label": "产品库存周转天数（天）",
+        "unit": null,
+        "values": [
+          15.4,
+          26.4,
+          14.6,
+          15.1,
+          12.3
+        ]
+      },
+      {
+        "display_label": "应收账款平均回收期（天）",
+        "group": null,
+        "label": "应收账款平均回收期（天）",
+        "unit": null,
+        "values": [
+          38.6,
+          29.3,
+          35.4,
+          55.6,
+          28.8
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

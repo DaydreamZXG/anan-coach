@@ -1,0 +1,303 @@
+{
+  "asset_id": "da_2eac7a7b50ea35922ee9cdc6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/海南/2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0203_ac712279f9d53bc2.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0203_ac712279f9d53bc2.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_8b1f80b9beb83e6c1617",
+        "question_number": 116,
+        "source_jsonl_line": 64778
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0218_5e9fac4429e7364f.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_e409886c861ac09815b7",
+        "question_number": 117,
+        "source_jsonl_line": 64779
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0203_ac712279f9d53bc2.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_76ca89b89fe37b4e5817",
+        "question_number": 118,
+        "source_jsonl_line": 64780
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0218_5e9fac4429e7364f.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_437d81e88a544b9297d4",
+        "question_number": 119,
+        "source_jsonl_line": 64781
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0218_5e9fac4429e7364f.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_d2b6f889d471f92390d1",
+        "question_number": 120,
+        "source_jsonl_line": 64782
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0213_5e9fac4429e7364f.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_b8a3209fbf610c463bf4",
+        "question_number": 116,
+        "source_jsonl_line": 76421
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0221_ac712279f9d53bc2.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_e353a87eead4e0769e87",
+        "question_number": 117,
+        "source_jsonl_line": 76422
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0213_5e9fac4429e7364f.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_50e0538e7e9359de2f1a",
+        "question_number": 118,
+        "source_jsonl_line": 76423
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0221_ac712279f9d53bc2.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_5b4e199f2cb2d6b54c75",
+        "question_number": 119,
+        "source_jsonl_line": 76424
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0213_5e9fac4429e7364f.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_e65d3c22a4bad7afb504",
+        "question_number": 120,
+        "source_jsonl_line": 76425
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0213_5e9fac4429e7364f.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_464b64bbf3cb397cccc4",
+        "question_number": 116,
+        "source_jsonl_line": 82301
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0220_ac712279f9d53bc2.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_94f51684c21e227b9221",
+        "question_number": 117,
+        "source_jsonl_line": 82302
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0213_5e9fac4429e7364f.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_6a4898b5a95b39305002",
+        "question_number": 118,
+        "source_jsonl_line": 82303
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0213_5e9fac4429e7364f.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_91ea82d87acbf8dc4715",
+        "question_number": 119,
+        "source_jsonl_line": 82304
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0213_5e9fac4429e7364f.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_66f5b231e5672ee71875",
+        "question_number": 120,
+        "source_jsonl_line": 82305
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0212_ac712279f9d53bc2.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_cf248eba28eb85da06a5",
+        "question_number": 116,
+        "source_jsonl_line": 92025
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0218_5e9fac4429e7364f.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_b238bdca3806f60138b5",
+        "question_number": 117,
+        "source_jsonl_line": 92026
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0218_5e9fac4429e7364f.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_5ffe2e65b7f9f0ad296c",
+        "question_number": 118,
+        "source_jsonl_line": 92027
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0218_5e9fac4429e7364f.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_7af429b278209ffc725d",
+        "question_number": 119,
+        "source_jsonl_line": 92028
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年913联考《行测》题（辽宁_海南_重庆_福建）_images/img_0218_5e9fac4429e7364f.jpg",
+        "paper_title": "2009年913联考《行测》题（辽宁/海南/重庆/福建）",
+        "question_id": "pq_9791605cf81b344e1d7c",
+        "question_number": 120,
+        "source_jsonl_line": 92029
+      }
+    ],
+    "sha256": "2eac7a7b50ea35922ee9cdc670d4428482b6c9dcc29b47af42bcd3f3d1aac643"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "3月",
+      "1-3月累计"
+    ],
+    "corner_header": {
+      "lower_label": "比上年同月增长（%）",
+      "style": "diagonal",
+      "upper_label": "比上年同月增长（%）"
+    },
+    "missing_cells": [],
+    "row_header_label": "比上年同月增长（%）",
+    "rows": [
+      {
+        "display_label": "社会消费品零售总额",
+        "group": null,
+        "label": "社会消费品零售总额",
+        "unit": null,
+        "values": [
+          8123.2,
+          25555.2
+        ]
+      },
+      {
+        "display_label": "市",
+        "group": "（一）按地区分",
+        "label": "（一）按地区分｜市",
+        "unit": null,
+        "values": [
+          5536.8,
+          17367.5
+        ]
+      },
+      {
+        "display_label": "县",
+        "group": "（一）按地区分",
+        "label": "（一）按地区分｜县",
+        "unit": null,
+        "values": [
+          894.0,
+          2839.0
+        ]
+      },
+      {
+        "display_label": "县以下",
+        "group": "（一）按地区分",
+        "label": "（一）按地区分｜县以下",
+        "unit": null,
+        "values": [
+          1692.4,
+          5338.8
+        ]
+      },
+      {
+        "display_label": "批发和零售业",
+        "group": "（二）按行业分",
+        "label": "（二）按行业分｜批发和零售业",
+        "unit": null,
+        "values": [
+          6851.7,
+          21490.2
+        ]
+      },
+      {
+        "display_label": "住宿和餐饮业",
+        "group": "（二）按行业分",
+        "label": "（二）按行业分｜住宿和餐饮业",
+        "unit": null,
+        "values": [
+          1151.6,
+          3687.3
+        ]
+      },
+      {
+        "display_label": "其他",
+        "group": "（二）按行业分",
+        "label": "（二）按行业分｜其他",
+        "unit": null,
+        "values": [
+          119.9,
+          377.7
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

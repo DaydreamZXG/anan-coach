@@ -1,7 +1,13 @@
 from __future__ import annotations
 
+from datetime import UTC, datetime
+
 from sqlalchemy.orm import Session
 
+from app.domains.coach_brick_assembly import (
+    CoachTeachingBrickAssembler,
+    assembly_reason_message,
+)
 from app.domains.xingce_learning.rescue.repository import RescueRepository
 from app.domains.xingce_learning.rescue.schemas import (
     MAX_ITEMS,
@@ -35,8 +41,16 @@ class XingceRescueService:
     同时出现在当前已确认集合时帮助定位到题，不能独立触发方法卡。
     """
 
-    def __init__(self, repository: RescueRepository | None = None) -> None:
+    def __init__(
+        self,
+        repository: type[RescueRepository] | None = None,
+        *,
+        brick_assembler: CoachTeachingBrickAssembler | None = None,
+    ) -> None:
         self._repository = repository or RescueRepository
+        self._brick_assembler = brick_assembler or CoachTeachingBrickAssembler(
+            rescue_repository=self._repository
+        )
 
     def rescue(
         self,
@@ -45,6 +59,7 @@ class XingceRescueService:
         user_id: str,
         review_id: str,
     ) -> XingceRescue:
+        recorded_at = datetime.now(UTC)
         review = self._repository(session).current_review(
             user_id=user_id,
             review_id=review_id,
@@ -142,10 +157,14 @@ class XingceRescueService:
                 module_name=node.module_name,
                 release=release,
                 excluded_question_ids=questions_to_locate,
-                limit=1,
+                limit=2,
             )
-            if similar_rows:
-                row = similar_rows[0]
+            preview_row = next(
+                (candidate for candidate in similar_rows if not candidate.visual_required),
+                None,
+            )
+            if preview_row is not None:
+                row = preview_row
                 similar = RescueSimilarQuestion(
                     questionId=row.question_id,
                     contentVersionId=row.content_version_id,
@@ -159,11 +178,16 @@ class XingceRescueService:
                         }
                         for option in row.options
                     ],
-                    correctOptionIds=list(row.correct_option_ids),
-                    explanation=row.explanation,
                 )
 
             focus = _focus_label(node.display_path)
+            brick_assembly = self._brick_assembler.assemble(
+                session,
+                user_id=user_id,
+                review_id=review_id,
+                source_question_id=question_id,
+                now=recorded_at,
+            )
             items.append(
                 XingceRescueItem(
                     questionId=question_id,
@@ -180,6 +204,8 @@ class XingceRescueService:
                     ),
                     methodCard=method_card,
                     similarQuestion=similar,
+                    teachBackAvailable=brick_assembly.available,
+                    teachBackReason=assembly_reason_message(brick_assembly.reason),
                 )
             )
 

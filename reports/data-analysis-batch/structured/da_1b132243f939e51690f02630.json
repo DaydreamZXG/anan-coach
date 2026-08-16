@@ -1,0 +1,321 @@
+{
+  "asset_id": "da_1b132243f939e51690f02630",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2019深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0242_cb2e81068af9c44a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0242_cb2e81068af9c44a.png",
+        "paper_title": "2019深圳市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3b2367786965e07c9da5",
+        "question_number": 96,
+        "source_jsonl_line": 67952
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0242_cb2e81068af9c44a.png",
+        "paper_title": "2019深圳市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3381597dc097137cbe45",
+        "question_number": 97,
+        "source_jsonl_line": 67953
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0242_cb2e81068af9c44a.png",
+        "paper_title": "2019深圳市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d7bcabaa08d9e590f65f",
+        "question_number": 98,
+        "source_jsonl_line": 67954
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0242_cb2e81068af9c44a.png",
+        "paper_title": "2019深圳市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e1c233980dec18a528f1",
+        "question_number": 99,
+        "source_jsonl_line": 67955
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019深圳市公务员录用考试《行测》题（网友回忆版）_images/img_0277_97b76de0e2408958.png",
+        "paper_title": "2019深圳市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a75a7ccf953a1b9b4a5f",
+        "question_number": 100,
+        "source_jsonl_line": 67956
+      }
+    ],
+    "sha256": "1b132243f939e51690f02630542627be42941c606474131cbb883e633ee501e5"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "珠三角",
+      "东翼",
+      "西翼",
+      "粤北山区"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "display_label": "地区生产总值（亿元）",
+        "group": null,
+        "label": "地区生产总值（亿元）",
+        "unit": null,
+        "values": [
+          67841.85,
+          5893.19,
+          6491.93,
+          5328.69
+        ]
+      },
+      {
+        "display_label": "地方一般公共预算收入（亿元）",
+        "group": null,
+        "label": "地方一般公共预算收入（亿元）",
+        "unit": null,
+        "values": [
+          6923.98,
+          285.92,
+          292.35,
+          412.47
+        ]
+      },
+      {
+        "display_label": "固定资产投资（亿元）",
+        "group": null,
+        "label": "固定资产投资（亿元）",
+        "unit": null,
+        "values": [
+          22321.24,
+          4172.14,
+          3298.27,
+          3217.21
+        ]
+      },
+      {
+        "display_label": "房地产开发投资（亿元）",
+        "group": null,
+        "label": "房地产开发投资（亿元）",
+        "unit": null,
+        "values": [
+          8601.17,
+          478.4,
+          434.43,
+          793.8
+        ]
+      },
+      {
+        "display_label": "社会消费品零售总额（亿元）",
+        "group": null,
+        "label": "社会消费品零售总额（亿元）",
+        "unit": null,
+        "values": [
+          25048.68,
+          3522.33,
+          3407.67,
+          2767.44
+        ]
+      },
+      {
+        "display_label": "进出口总额（亿美元）",
+        "group": null,
+        "label": "进出口总额（亿美元）",
+        "unit": null,
+        "values": [
+          9101.75,
+          218.54,
+          82.81,
+          149.76
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "column_groups": [],
+        "columns": [
+          "珠三角",
+          "东翼",
+          "西翼",
+          "粤北山区"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "地区生产总值（亿元）",
+            "group": null,
+            "label": "地区生产总值（亿元）",
+            "unit": null,
+            "values": [
+              67841.85,
+              5893.19,
+              6491.93,
+              5328.69
+            ]
+          },
+          {
+            "display_label": "地方一般公共预算收入（亿元）",
+            "group": null,
+            "label": "地方一般公共预算收入（亿元）",
+            "unit": null,
+            "values": [
+              6923.98,
+              285.92,
+              292.35,
+              412.47
+            ]
+          },
+          {
+            "display_label": "固定资产投资（亿元）",
+            "group": null,
+            "label": "固定资产投资（亿元）",
+            "unit": null,
+            "values": [
+              22321.24,
+              4172.14,
+              3298.27,
+              3217.21
+            ]
+          },
+          {
+            "display_label": "房地产开发投资（亿元）",
+            "group": null,
+            "label": "房地产开发投资（亿元）",
+            "unit": null,
+            "values": [
+              8601.17,
+              478.4,
+              434.43,
+              793.8
+            ]
+          },
+          {
+            "display_label": "社会消费品零售总额（亿元）",
+            "group": null,
+            "label": "社会消费品零售总额（亿元）",
+            "unit": null,
+            "values": [
+              25048.68,
+              3522.33,
+              3407.67,
+              2767.44
+            ]
+          },
+          {
+            "display_label": "进出口总额（亿美元）",
+            "group": null,
+            "label": "进出口总额（亿美元）",
+            "unit": null,
+            "values": [
+              9101.75,
+              218.54,
+              82.81,
+              149.76
+            ]
+          }
+        ],
+        "sections": [],
+        "title": "2016年广东各区域主要经济总量指标"
+      },
+      {
+        "column_groups": [],
+        "columns": [
+          "2012年",
+          "2013年",
+          "2014年",
+          "2015年",
+          "2016年",
+          "2017年",
+          "2018年"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "珠三角（亿元）",
+            "group": null,
+            "label": "珠三角（亿元）",
+            "unit": null,
+            "values": [
+              47824.18,
+              53307.67,
+              57650.02,
+              62267.78,
+              67841.85,
+              75809.75,
+              81048.5
+            ]
+          },
+          {
+            "display_label": "粤西北（亿元）",
+            "group": null,
+            "label": "粤西北（亿元）",
+            "unit": null,
+            "values": [
+              12650.41,
+              14149.4,
+              15470.76,
+              15416.71,
+              17713.81,
+              19345.38,
+              19977.45
+            ]
+          }
+        ],
+        "sections": [],
+        "title": "2012-2018年广东珠三角与粤东西北地区生产总值"
+      }
+    ],
+    "title": "2016年广东各区域主要经济总量指标"
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

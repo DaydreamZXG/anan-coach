@@ -1,0 +1,343 @@
+{
+  "asset_id": "da_95ec1ac3ce56809b71a3d24f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "指标",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "县级区划数（个）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        2854,
+        2853,
+        2852,
+        2853,
+        2856
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "开展新型农村合作医疗县（市、区）数（个）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        2349,
+        2489,
+        2566,
+        2637,
+        2678
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "参加新型农村合作医疗人数（亿人）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿人",
+      "values": [
+        7.36,
+        8.02,
+        8.05,
+        8.32,
+        8.36
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "新型农村合作医疗参与率（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        98.9,
+        99.0,
+        98.3,
+        97.5,
+        96.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "新型农村合作医疗人均筹资（元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        410.89,
+        370.59,
+        308.5,
+        246.21,
+        156.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "新型农村合作医疗基金支出（亿元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2890.4,
+        2908.0,
+        2408.0,
+        1710.19,
+        1187.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "新型农村合作医疗受益人次（亿人次）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿人次",
+      "values": [
+        16.52,
+        19.42,
+        17.45,
+        13.15,
+        10.87
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0114_6bfa69e43a80e326.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0114_6bfa69e43a80e326.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_1f292733b07d577856de",
+        "question_number": 91,
+        "source_jsonl_line": 34723
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0105_59db2bde1704d2d8.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_1255f642ac57a9bd7be3",
+        "question_number": 92,
+        "source_jsonl_line": 34724
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0114_6bfa69e43a80e326.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_8c98d5b15c60bfaea424",
+        "question_number": 93,
+        "source_jsonl_line": 34725
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0105_59db2bde1704d2d8.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_578c1073f3433eccacac",
+        "question_number": 94,
+        "source_jsonl_line": 34726
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年广东省公务员录用考试《行测》题（乡镇）_images/img_0114_6bfa69e43a80e326.png",
+        "paper_title": "2016年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_924c54f9c9a5f1f1676e",
+        "question_number": 95,
+        "source_jsonl_line": 34727
+      }
+    ],
+    "sha256": "95ec1ac3ce56809b71a3d24f01d45419d47c44e4ecccc08a346e4a18cc338053"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2014年",
+      "2013年",
+      "2012年",
+      "2011年",
+      "2010年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "县级区划数（个）",
+        "unit": "个",
+        "values": [
+          2854,
+          2853,
+          2852,
+          2853,
+          2856
+        ]
+      },
+      {
+        "label": "开展新型农村合作医疗县（市、区）数（个）",
+        "unit": "个",
+        "values": [
+          2349,
+          2489,
+          2566,
+          2637,
+          2678
+        ]
+      },
+      {
+        "label": "参加新型农村合作医疗人数（亿人）",
+        "unit": "亿人",
+        "values": [
+          7.36,
+          8.02,
+          8.05,
+          8.32,
+          8.36
+        ]
+      },
+      {
+        "label": "新型农村合作医疗参与率（%）",
+        "unit": "%",
+        "values": [
+          98.9,
+          99.0,
+          98.3,
+          97.5,
+          96.0
+        ]
+      },
+      {
+        "label": "新型农村合作医疗人均筹资（元）",
+        "unit": "元",
+        "values": [
+          410.89,
+          370.59,
+          308.5,
+          246.21,
+          156.6
+        ]
+      },
+      {
+        "label": "新型农村合作医疗基金支出（亿元）",
+        "unit": "亿元",
+        "values": [
+          2890.4,
+          2890.4,
+          2908.0,
+          2408.0,
+          1710.19
+        ]
+      },
+      {
+        "label": "新型农村合作医疗受益人次（亿人次）",
+        "unit": "亿人次",
+        "values": [
+          16.52,
+          16.52,
+          19.42,
+          17.45,
+          13.15
+        ]
+      }
+    ]
+  },
+  "title": "2010-2014年我国新型农村合作医疗情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_95ec1ac3ce56809b71a3d24f/row_band_01.jpg",
+        "review-crops/da_95ec1ac3ce56809b71a3d24f/row_band_02.jpg",
+        "review-crops/da_95ec1ac3ce56809b71a3d24f/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:16.072",
+      "crop_verification_elapsed_seconds:4.312",
+      "candidate_value_changes_after_crop:8",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_out_of_range_table_cell:新型农村合作医疗基金支出（亿元）:2010年",
+      "crop_note:ignored_out_of_range_table_cell:新型农村合作医疗受益人次（亿人次）:2010年",
+      "table_row_label_column_removed:指标"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

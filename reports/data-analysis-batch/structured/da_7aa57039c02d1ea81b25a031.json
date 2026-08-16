@@ -1,0 +1,352 @@
+{
+  "asset_id": "da_7aa57039c02d1ea81b25a031",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "次数(次)",
+        "unit": null
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "数量(枚)",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "series_1",
+      "label": "全球",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        "{'label': '次数(次)', 'values': [85, 91, 114, 102, 114]}",
+        "{'label': '数量(枚)', 'values': [209, 443, 461, 492, 1277]}"
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_2",
+      "label": "中国",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        "{'label': '次数(次)', 'values': [22, 18, 39, 34, 39]}",
+        "{'label': '数量(枚)', 'values': [40, 34, 95, 81, 77]}"
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_3",
+      "label": "美国",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        "{'label': '次数(次)', 'values': [22, 30, 31, 27, 44]}",
+        "{'label': '数量(枚)', 'values': [72, 152, 212, 252, 1099]}"
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_4",
+      "label": "俄罗斯",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        "{'label': '次数(次)', 'values': [19, 21, 20, 25, 17]}",
+        "{'label': '数量(枚)', 'values': [27, 116, 21, 77, 23]}"
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_5",
+      "label": "欧洲",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        "{'label': '次数(次)', 'values': [9, 9, 8, 6, 5]}",
+        "{'label': '数量(枚)', 'values': [20, 18, 9, 10, 36]}"
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0215_77cf9ee9e33132a8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0215_77cf9ee9e33132a8.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_59edfc0eb2ef6cc649f2",
+        "question_number": 121,
+        "source_jsonl_line": 49631
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0215_77cf9ee9e33132a8.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_895177e2d07e4900d24c",
+        "question_number": 122,
+        "source_jsonl_line": 49632
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0222_a796921d2e3e081f.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_df77b66c02f08d0323dd",
+        "question_number": 123,
+        "source_jsonl_line": 49633
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0215_77cf9ee9e33132a8.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_3b3871f0978d0111af55",
+        "question_number": 124,
+        "source_jsonl_line": 49634
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0222_a796921d2e3e081f.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_d8867b17a2073843fdc9",
+        "question_number": 125,
+        "source_jsonl_line": 49635
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0162_a796921d2e3e081f.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_08f70fe8ee532ce60d54",
+        "question_number": 111,
+        "source_jsonl_line": 49891
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0169_77cf9ee9e33132a8.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_66719c20443128b56530",
+        "question_number": 112,
+        "source_jsonl_line": 49892
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0162_a796921d2e3e081f.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_5dd58ff620e3297e9a2f",
+        "question_number": 113,
+        "source_jsonl_line": 49893
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0169_77cf9ee9e33132a8.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_3341b79a74e64b5271b4",
+        "question_number": 114,
+        "source_jsonl_line": 49894
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0162_a796921d2e3e081f.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_ddb9d65a2b333b34315b",
+        "question_number": 115,
+        "source_jsonl_line": 49895
+      }
+    ],
+    "sha256": "7aa57039c02d1ea81b25a03104ee52359e9aeec92c36493c8cd62e5481be9078"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "全球次数(次)",
+      "全球数量(枚)",
+      "中国次数(次)",
+      "中国数量(枚)",
+      "美国次数(次)",
+      "美国数量(枚)",
+      "俄罗斯次数(次)",
+      "俄罗斯数量(枚)",
+      "欧洲次数(次)",
+      "欧洲数量(枚)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2016",
+        "unit": null,
+        "values": [
+          2016,
+          85,
+          209,
+          22,
+          40,
+          22,
+          72,
+          19,
+          27,
+          9,
+          20
+        ]
+      },
+      {
+        "label": "2017",
+        "unit": null,
+        "values": [
+          2017,
+          91,
+          443,
+          18,
+          34,
+          30,
+          152,
+          21,
+          116,
+          9,
+          18
+        ]
+      },
+      {
+        "label": "2018",
+        "unit": null,
+        "values": [
+          2018,
+          114,
+          461,
+          39,
+          95,
+          31,
+          212,
+          20,
+          21,
+          8,
+          9
+        ]
+      },
+      {
+        "label": "2019",
+        "unit": null,
+        "values": [
+          2019,
+          102,
+          492,
+          34,
+          81,
+          27,
+          252,
+          25,
+          77,
+          6,
+          10
+        ]
+      },
+      {
+        "label": "2020",
+        "unit": null,
+        "values": [
+          2020,
+          114,
+          1277,
+          39,
+          77,
+          44,
+          1099,
+          17,
+          23,
+          5,
+          36
+        ]
+      }
+    ]
+  },
+  "title": "2016-2020年全球及主要国家或地区航天发射次数和航天器发射数量情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_7aa57039c02d1ea81b25a031/row_band_01.jpg",
+        "review-crops/da_7aa57039c02d1ea81b25a031/row_band_02.jpg",
+        "review-crops/da_7aa57039c02d1ea81b25a031/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:13.224",
+      "crop_verification_elapsed_seconds:11.314",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

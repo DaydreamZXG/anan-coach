@@ -1,0 +1,283 @@
+{
+  "asset_id": "da_8bd714a30f8f4503c5234f91",
+  "axes": {
+    "x": {
+      "max": 3,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1200.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          200.0,
+          400.0,
+          600.0,
+          800.0,
+          1000.0,
+          1200.0
+        ],
+        "title": null,
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "苏南",
+    "苏中",
+    "苏北"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "第一产业",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "第二产业",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "第三产业",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "第一产业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        132.1,
+        188.7,
+        478.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "第二产业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        994.8,
+        443.3,
+        603
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "第三产业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        886.8,
+        367.7,
+        662.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0377_0b0930eaf9455036.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0377_0b0930eaf9455036.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_289625b285002aa753fa",
+        "question_number": 121,
+        "source_jsonl_line": 48431
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0377_0b0930eaf9455036.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_f5d61d9a13d95d07c5bf",
+        "question_number": 122,
+        "source_jsonl_line": 48432
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0393_2a0a34db39c823b6.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_63bd23a5193bffc82694",
+        "question_number": 123,
+        "source_jsonl_line": 48433
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0377_0b0930eaf9455036.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_7bd08e872ca48d772f90",
+        "question_number": 124,
+        "source_jsonl_line": 48434
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0393_2a0a34db39c823b6.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_2df3ee6b427a224c763e",
+        "question_number": 125,
+        "source_jsonl_line": 48435
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0347_0b0930eaf9455036.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_1a490297632c3cba7a52",
+        "question_number": 121,
+        "source_jsonl_line": 48566
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0360_2a0a34db39c823b6.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_87e022facf4c86a258e5",
+        "question_number": 122,
+        "source_jsonl_line": 48567
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0360_2a0a34db39c823b6.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_efe18fb89b098161939f",
+        "question_number": 123,
+        "source_jsonl_line": 48568
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0347_0b0930eaf9455036.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_c1a80e7fdcb62544f99b",
+        "question_number": 124,
+        "source_jsonl_line": 48569
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0347_0b0930eaf9455036.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_3f9383ccb836e842da51",
+        "question_number": 125,
+        "source_jsonl_line": 48570
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0385_0b0930eaf9455036.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_5422f1bdbebd4faef950",
+        "question_number": 126,
+        "source_jsonl_line": 48706
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0385_0b0930eaf9455036.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_3be7b6f60f3b646d7f02",
+        "question_number": 127,
+        "source_jsonl_line": 48707
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0385_0b0930eaf9455036.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_b65ee0d619c1dc23233c",
+        "question_number": 128,
+        "source_jsonl_line": 48708
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0385_0b0930eaf9455036.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_5728f0d75fab0bfccd9a",
+        "question_number": 129,
+        "source_jsonl_line": 48709
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0415_2a0a34db39c823b6.png",
+        "paper_title": "2019年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_e7fd557b7826ca22c0aa",
+        "question_number": 130,
+        "source_jsonl_line": 48710
+      }
+    ],
+    "sha256": "8bd714a30f8f4503c5234f91f80d9febab3fe4c03ee13da1c3ec7e302ed3f4cc"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2017年江苏三大区域三次产业就业人数情况",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8bd714a30f8f4503c5234f91/column_band_01.jpg",
+        "review-crops/da_8bd714a30f8f4503c5234f91/column_band_02.jpg",
+        "review-crops/da_8bd714a30f8f4503c5234f91/column_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.326",
+      "crop_verification_elapsed_seconds:2.563",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

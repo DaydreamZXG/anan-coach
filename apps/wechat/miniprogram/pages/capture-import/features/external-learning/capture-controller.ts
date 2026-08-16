@@ -61,6 +61,7 @@ export interface CaptureImportControllerOptions {
   createCommandKey?: (prefix: string) => Promise<string>;
   schedule?: (callback: () => void, delayMs: number) => ReturnType<typeof setTimeout>;
   cancelSchedule?: (handle: ReturnType<typeof setTimeout>) => void;
+  bookMode?: boolean;
 }
 
 interface PendingImport {
@@ -80,6 +81,7 @@ export class CaptureImportController {
   private readonly createCommandKey: (prefix: string) => Promise<string>;
   private readonly schedule: NonNullable<CaptureImportControllerOptions["schedule"]>;
   private readonly cancelSchedule: NonNullable<CaptureImportControllerOptions["cancelSchedule"]>;
+  private readonly bookMode: boolean;
   private state: CaptureImportState;
   private disposed = false;
   private operationEpoch = 0;
@@ -87,6 +89,7 @@ export class CaptureImportController {
   private pollHandle: ReturnType<typeof setTimeout> | undefined;
   private pendingImport: PendingImport | null = null;
   private pendingConfirmation: PendingConfirmation | null = null;
+  private autoConfirmationRevisionId: string | null = null;
 
   constructor(options: CaptureImportControllerOptions) {
     this.gateway = options.gateway;
@@ -94,6 +97,7 @@ export class CaptureImportController {
     this.createCommandKey = options.createCommandKey ?? createIdempotencyKey;
     this.schedule = options.schedule ?? ((callback, delayMs) => setTimeout(callback, delayMs));
     this.cancelSchedule = options.cancelSchedule ?? clearTimeout;
+    this.bookMode = options.bookMode ?? false;
     this.state = initialCaptureState("xingce");
   }
 
@@ -113,6 +117,7 @@ export class CaptureImportController {
     this.commandPreparing = false;
     this.pendingImport = null;
     this.pendingConfirmation = null;
+    this.autoConfirmationRevisionId = null;
     this.clearPoll();
     this.state = initialCaptureState(learningTrack);
     this.publish();
@@ -165,6 +170,7 @@ export class CaptureImportController {
       if (!this.isCurrent(epoch)) return;
       this.pendingImport = null;
       this.pendingConfirmation = null;
+      this.autoConfirmationRevisionId = null;
       this.applyWorkspace(workspace);
     } catch (error) {
       if (!this.isCurrent(epoch)) return;
@@ -425,6 +431,7 @@ export class CaptureImportController {
       if (!this.isCurrent(epoch)) return;
       const view = externalLearningError(error);
       if (!view.uncertain) this.pendingConfirmation = null;
+      if (!view.uncertain && confirmingRecognition) this.autoConfirmationRevisionId = null;
       this.patch({
         status: "error",
         submitting: false,
@@ -443,14 +450,30 @@ export class CaptureImportController {
 
   private applyWorkspace(workspace: ImportWorkspace): void {
     this.clearPoll();
-    const status = captureStatus(workspace.state);
-    const previousId = this.state.activeQuestionUnit?.questionUnitId;
-    const activeIndex = Math.max(
-      0,
-      previousId
-        ? workspace.questionUnits.findIndex((unit) => unit.questionUnitId === previousId)
-        : workspace.questionUnits.findIndex((unit) => unit.state !== "ready"),
+    const recognitionConfirmed = workspace.recognition?.state === "confirmed";
+    const hasBookReview = workspace.questionUnits.some(
+      (unit) => unit.state === "recognition_review" || unit.state === "match_review",
     );
+    const status =
+      this.bookMode && recognitionConfirmed && workspace.questionUnits.length > 0 && !hasBookReview
+        ? "success"
+        : captureStatus(workspace.state);
+    const previousId = this.state.activeQuestionUnit?.questionUnitId;
+    const previousIndex = previousId
+      ? workspace.questionUnits.findIndex((unit) => unit.questionUnitId === previousId)
+      : -1;
+    const previousUnit = previousIndex >= 0 ? workspace.questionUnits[previousIndex] : undefined;
+    const requiresAttention = (unit: ImportQuestionUnit) =>
+      this.bookMode
+        ? unit.state === "recognition_review" || unit.state === "match_review"
+        : unit.state !== "ready";
+    const firstUnresolvedIndex = workspace.questionUnits.findIndex(requiresAttention);
+    const activeIndex =
+      previousUnit && requiresAttention(previousUnit)
+        ? previousIndex
+        : firstUnresolvedIndex >= 0
+          ? firstUnresolvedIndex
+          : Math.max(0, previousIndex);
     const activeQuestionUnit = workspace.questionUnits[activeIndex] ?? null;
     const selected =
       activeQuestionUnit?.match?.confirmedContentVersionId ??
@@ -485,6 +508,20 @@ export class CaptureImportController {
           : null,
     };
     this.publish();
+    const recognition = workspace.recognition;
+    if (
+      this.bookMode &&
+      recognition?.state === "candidate" &&
+      recognition.recognitionRevisionId !== this.autoConfirmationRevisionId &&
+      workspace.recognitionSegments.length > 0 &&
+      workspace.recognitionSegments.every(
+        (segment) => !segment.requiresCorrection && segment.text.trim().length > 0,
+      )
+    ) {
+      this.autoConfirmationRevisionId = recognition.recognitionRevisionId;
+      void this.confirm();
+      return;
+    }
     if (
       workspace.state === "processing" ||
       workspace.state === "uploading" ||

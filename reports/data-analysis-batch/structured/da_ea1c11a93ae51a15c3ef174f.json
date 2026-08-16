@@ -1,0 +1,367 @@
+{
+  "asset_id": "da_ea1c11a93ae51a15c3ef174f",
+  "axes": {
+    "x": {
+      "max": 3,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 90,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "中心城区",
+    "非中心城区",
+    "新区"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "噪音影响周围居民的生活和休息",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "挤占公共场地，影响他人休闲锻炼",
+      "style": {
+        "dash": null,
+        "fill": "#666666",
+        "marker": "square",
+        "stroke": "#666666"
+      }
+    },
+    {
+      "label": "音乐没有愉悦感，难以忍受",
+      "style": {
+        "dash": null,
+        "fill": "#CCCCCC",
+        "marker": "square",
+        "stroke": "#CCCCCC"
+      }
+    },
+    {
+      "label": "个别中老年对此着迷，影响家庭和谐",
+      "style": {
+        "dash": null,
+        "fill": "#DDDDDD",
+        "marker": "square",
+        "stroke": "#DDDDDD"
+      }
+    },
+    {
+      "label": "集体舞形式没有美感，影响观感",
+      "style": {
+        "dash": null,
+        "fill": "#EEEEEE",
+        "marker": "square",
+        "stroke": "#EEEEEE"
+      }
+    },
+    {
+      "label": "其他原因",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#FFFFFF"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "噪音影响周围居民的生活和休息",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        83.3,
+        80.4,
+        81.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "挤占公共场地，影响他人休闲锻炼",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        43.8,
+        54.3,
+        37.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "音乐没有愉悦感，难以忍受",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        20.8,
+        21.2,
+        29.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "个别中老年对此着迷，影响家庭和谐",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        16.7,
+        28.3,
+        11.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "集体舞形式没有美感，影响观感",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        14.6,
+        21.7,
+        14.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "其他原因",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.3,
+        4.3,
+        7.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2015年江苏省公务员录用考试《行测》题（A类）_images/img_0118_d2f5729b8059bf0f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0118_d2f5729b8059bf0f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_ff082b067221ad8ca689",
+        "question_number": 96,
+        "source_jsonl_line": 46911
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0118_d2f5729b8059bf0f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_d1d1961996b2e59196a1",
+        "question_number": 97,
+        "source_jsonl_line": 46912
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0118_d2f5729b8059bf0f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_fd39c2c03c60005f3365",
+        "question_number": 98,
+        "source_jsonl_line": 46913
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0121_6eaed3621f4e3a50.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_755a33c58a5fc91147cf",
+        "question_number": 99,
+        "source_jsonl_line": 46914
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0121_6eaed3621f4e3a50.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_6b3837ac52a87d126d8e",
+        "question_number": 100,
+        "source_jsonl_line": 46915
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（B类）_images/img_0116_d2f5729b8059bf0f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_539bb3da5df66a5e0dbf",
+        "question_number": 96,
+        "source_jsonl_line": 47011
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（B类）_images/img_0123_6eaed3621f4e3a50.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_fe5f5d617dc0d608787e",
+        "question_number": 97,
+        "source_jsonl_line": 47012
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（B类）_images/img_0116_d2f5729b8059bf0f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_c6798c4a7ae27a9d87e5",
+        "question_number": 98,
+        "source_jsonl_line": 47013
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（B类）_images/img_0116_d2f5729b8059bf0f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_635bc3280fc90bc84d73",
+        "question_number": 99,
+        "source_jsonl_line": 47014
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（B类）_images/img_0116_d2f5729b8059bf0f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_8096e395f25e6b8b7e81",
+        "question_number": 100,
+        "source_jsonl_line": 47015
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（C类）_images/img_0107_d2f5729b8059bf0f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_d5ab3bc68d3217221727",
+        "question_number": 91,
+        "source_jsonl_line": 47106
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（C类）_images/img_0107_d2f5729b8059bf0f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_15bc55bdde781edc5c2d",
+        "question_number": 92,
+        "source_jsonl_line": 47107
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（C类）_images/img_0109_6eaed3621f4e3a50.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_26867edd6bf32656ba1a",
+        "question_number": 93,
+        "source_jsonl_line": 47108
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（C类）_images/img_0107_d2f5729b8059bf0f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_070ff4fe66bae5e89a61",
+        "question_number": 94,
+        "source_jsonl_line": 47109
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（C类）_images/img_0107_d2f5729b8059bf0f.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_aac9d880905daeb0e9c5",
+        "question_number": 95,
+        "source_jsonl_line": 47110
+      }
+    ],
+    "sha256": "ea1c11a93ae51a15c3ef174f430326998f5802b9e68ce2f64f6844df663daf11"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "反对广场舞等活动的受访市民选择各主要原因的比例（%）",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ea1c11a93ae51a15c3ef174f/column_band_01.jpg",
+        "review-crops/da_ea1c11a93ae51a15c3ef174f/column_band_02.jpg",
+        "review-crops/da_ea1c11a93ae51a15c3ef174f/column_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.705",
+      "crop_verification_elapsed_seconds:4.566",
+      "candidate_value_changes_after_crop:2",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

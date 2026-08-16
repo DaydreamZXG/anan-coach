@@ -1,0 +1,150 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "货物周转量｜绝对数（亿吨公里）",
+          "货物周转量｜比上年增长（%）",
+          "货物周转量｜绝对数（万吨）",
+          "货物周转量｜比上年增长（%）"
+        ],
+        "label": "货物周转量"
+      },
+      {
+        "columns": [
+          "旅客周转量｜绝对数（亿人公里）",
+          "旅客周转量｜比上年增长（%）"
+        ],
+        "label": "旅客周转量"
+      },
+      {
+        "columns": [
+          "客运量｜绝对数（万人次）",
+          "客运量｜比上年增长（%）"
+        ],
+        "label": "客运量"
+      },
+      "rows:[{"
+    ],
+    "columns": [
+      "货物周转量｜绝对数（亿吨公里）",
+      "货物周转量｜比上年增长（%）",
+      "货物周转量｜绝对数（万吨）",
+      "货物周转量｜比上年增长（%）",
+      "旅客周转量｜绝对数（亿人公里）",
+      "旅客周转量｜比上年增长（%）",
+      "客运量｜绝对数（万人次）",
+      "客运量｜比上年增长（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "旅客周转量",
+      "style": "diagonal",
+      "upper_label": "货物周转量"
+    },
+    "missing_cells": [],
+    "row_header_label": "旅客周转量",
+    "rows": [
+      {
+        "display_label": "铁路｜2013年",
+        "group": null,
+        "label": "铁路｜2013年",
+        "unit": null,
+        "values": [
+          373.2,
+          -4.7,
+          6806.2,
+          -5.8,
+          505.9,
+          13.3,
+          13434.9,
+          14.3
+        ]
+      },
+      {
+        "display_label": "公路｜2013年",
+        "group": null,
+        "label": "公路｜2013年",
+        "unit": null,
+        "values": [
+          1653.5,
+          13.8,
+          16861.3,
+          9.7,
+          1461.2,
+          3,
+          264416,
+          3.5
+        ]
+      },
+      {
+        "display_label": "水路｜2013年",
+        "group": null,
+        "label": "水路｜2013年",
+        "unit": null,
+        "values": [
+          6857.7,
+          13.3,
+          63648,
+          8.5,
+          0.8,
+          -39.5,
+          443.9,
+          -25.3
+        ]
+      },
+      {
+        "display_label": "民航｜2013年",
+        "group": null,
+        "label": "民航｜2013年",
+        "unit": null,
+        "values": [
+          1,
+          5.1,
+          6.7,
+          -0.3,
+          94,
+          12.5,
+          729.5,
+          9.8
+        ]
+      },
+      {
+        "display_label": "管道｜2013年",
+        "group": null,
+        "label": "管道｜2013年",
+        "unit": null,
+        "values": [
+          619.3,
+          7.4,
+          12617,
+          7.6,
+          2061.9,
+          5.7,
+          279024.3,
+          4
+        ]
+      },
+      {
+        "display_label": "总计｜2013年",
+        "group": null,
+        "label": "总计｜2013年",
+        "unit": null,
+        "values": [
+          9504.7,
+          12.2,
+          251690.9,
+          8.8,
+          4061.9,
+          5.7,
+          279024.3,
+          4
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

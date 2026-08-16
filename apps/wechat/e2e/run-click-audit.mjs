@@ -56,17 +56,12 @@ assert.equal(
 
 await access(cliPath, constants.X_OK);
 
-const miniProgram = automationEndpoint
-  ? await automator.connect({ wsEndpoint: automationEndpoint })
-  : await automator.launch({
-      cliPath,
-      projectPath: projectRoot,
-      timeout: 60_000,
-      trustProject: true,
-    });
+const miniProgram = await launchMiniProgram();
 
 const runtimeFailures = [];
 const runtimeWarnings = [];
+const journeyFailures = [];
+const simulatorLimitations = [];
 miniProgram.on("exception", (event) => runtimeFailures.push(String(event?.message ?? event)));
 miniProgram.on("console", (event) => {
   const message = consoleEventText(event);
@@ -74,14 +69,35 @@ miniProgram.on("console", (event) => {
 });
 
 try {
-  await freezeAuditAnimationClock(miniProgram);
-  await installNetworkGuard(miniProgram);
-  for (const [name, journey] of selectedJourneys) await runJourney(name, journey);
+  await retryTransientAutomation(() => freezeAuditAnimationClock(miniProgram));
+  await retryTransientAutomation(() => installNavigationAudit(miniProgram));
+  await retryTransientAutomation(() => installNetworkGuard(miniProgram));
+  for (const [name, journey] of selectedJourneys) {
+    try {
+      await runJourney(name, journey);
+    } catch (error) {
+      journeyFailures.push({ name, message: String(error?.message ?? error) });
+      process.stdout.write("failed\n");
+      await installNetworkGuard(miniProgram);
+    }
+  }
 } finally {
   await withTimeout(setAuthentication(miniProgram, false), 5_000, "Auth fixture did not clear");
   await withTimeout(miniProgram.close(), 10_000, "Automation connection did not close cleanly");
 }
 
+if (simulatorLimitations.length > 0) {
+  process.stdout.write(`Simulator limitations:\n- ${simulatorLimitations.join("\n- ")}\n`);
+}
+if (journeyFailures.length > 0) {
+  const failureSummary = journeyFailures
+    .map(({ name, message }) => `- ${name}: ${message}`)
+    .join("\n");
+  assert.fail(
+    `Completed all ${String(selectedJourneys.length)} selected journeys with ` +
+      `${String(journeyFailures.length)} failure(s):\n${failureSummary}`,
+  );
+}
 assert.deepEqual(
   runtimeFailures,
   [],
@@ -100,13 +116,51 @@ process.stdout.write(
         "this command is not literal DOM tap, real-backend, or device evidence.\n",
 );
 
+async function launchMiniProgram() {
+  let lastError;
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      return automationEndpoint
+        ? await automator.connect({ wsEndpoint: automationEndpoint })
+        : await automator.launch({
+            cliPath,
+            projectPath: projectRoot,
+            timeout: 60_000,
+            trustProject: true,
+          });
+    } catch (error) {
+      lastError = error;
+      const message = String(error?.message ?? error);
+      const transient =
+        message.includes("timeout waiting for automator response") ||
+        message.includes("Connection closed") ||
+        message.includes("Failed connecting to");
+      if (!transient || attempt === 3) throw error;
+      process.stderr.write(
+        `[automator] launch attempt ${String(attempt)} failed; retrying: ${message}\n`,
+      );
+      await new Promise((resolve) => setTimeout(resolve, 2_000));
+    }
+  }
+  throw lastError;
+}
+
 function pagePurposeJourney(contract) {
   return async (program) => {
     if (contract.route === "pages/login/index") {
-      const loginPage = await openVisualScenario(program, contract.scenarioId);
+      await setAuthentication(program, true);
+      await reLaunchScenarioRoute(program, "/pages/today/index");
       await installLoginMocks(program);
-      await invokePageHandler(program, loginPage, "login");
-      await waitForPath(program, "/pages/today/index", "login did not switch to today");
+      await setAuthentication(program, false);
+      const loginPage = await reLaunchWithRetry(program, "/pages/login/index");
+      assert.ok(loginPage, "Unable to open the silent login entry");
+      await waitForPath(program, "/pages/today/index", "silent login did not switch to today");
+      const loginEvidence = await readLoginAuditEvidence(program);
+      assert.equal(loginEvidence.loginCalled, true, "silent entry did not request a WeChat code");
+      assert.ok(
+        loginEvidence.requestUrls.some((url) => url.includes("/api/v2/auth/wechat")),
+        "silent entry did not exchange the WeChat code",
+      );
       await installNetworkGuard(program);
       return;
     }
@@ -121,25 +175,51 @@ function pagePurposeJourney(contract) {
       return;
     }
 
+    if (Object.keys(interaction.preconditionData).length > 0) {
+      await setPageData(program, page, interaction.preconditionData);
+    }
     const beforePath = normalizeRoutePath(page.path);
     const beforeData = await readPageData(program, page);
+    const beforeNavigation = await readNavigationAudit(program);
+    const beforeBlockedRequests = await readNetworkGuardAudit(program);
     await invokePageHandler(program, page, interaction.handler, interaction.dataset);
     await page.waitFor(1_200);
 
-    const currentPage = await program.currentPage();
+    const currentPage = await currentPageWithRetry(program);
     const afterPath = normalizeRoutePath(currentPage?.path);
+    const afterNavigation = await readNavigationAudit(program);
+    const afterBlockedRequests = await readNetworkGuardAudit(program);
+    const navigationObserved = afterNavigation.length > beforeNavigation.length;
+    const newlyBlockedRequests = afterBlockedRequests.slice(beforeBlockedRequests.length);
     const afterData =
-      normalizeRoutePath(currentPage?.path) === beforePath
+      !navigationObserved && normalizeRoutePath(currentPage?.path) === beforePath
         ? await readPageData(program, page)
         : null;
+    if (afterData !== null) {
+      assertPageDataIsNotError(
+        `${contract.route} primary interaction ${interaction.handler}`,
+        afterData,
+      );
+    }
     if (interaction.observable) {
       assert.ok(
-        afterPath !== beforePath || JSON.stringify(afterData) !== JSON.stringify(beforeData),
+        afterPath !== beforePath ||
+          JSON.stringify(afterData) !== JSON.stringify(beforeData) ||
+          navigationObserved,
         `${contract.route} primary interaction ${interaction.handler} produced no observable effect; ` +
           `beforePath=${beforePath}; afterPath=${afterPath}; dataset=${JSON.stringify(interaction.dataset)}; ` +
+          `navigation=${JSON.stringify(afterNavigation.slice(beforeNavigation.length))}; ` +
           `viewTasks=${JSON.stringify(beforeData?.view?.tasks ?? null)}`,
       );
     }
+    assert.deepEqual(
+      newlyBlockedRequests,
+      [],
+      `${contract.route} primary interaction ${interaction.handler} reached blocked API request(s); ` +
+        `user-visible success is not verified:\n${newlyBlockedRequests
+          .map((request) => `${request.method} ${request.url}`)
+          .join("\n")}`,
+    );
   };
 }
 
@@ -148,7 +228,7 @@ async function runJourney(name, journey) {
   const failureOffset = runtimeFailures.length;
   const warningOffset = runtimeWarnings.length;
   await withTimeout(journey(miniProgram), 60_000, `${name} did not finish within 60 seconds`);
-  const settledPage = await miniProgram.currentPage();
+  const settledPage = await currentPageWithRetry(miniProgram);
   await settledPage?.waitFor(800);
   assert.deepEqual(
     runtimeFailures.slice(failureOffset),
@@ -206,7 +286,8 @@ async function captureRestart(program) {
 async function xingceToolbar(program) {
   await setAuthentication(program, true);
   await installXingceMocks(program);
-  const page = await program.reLaunch(
+  const page = await reLaunchScenarioRoute(
+    program,
     "/pages/practice/index?mode=targeted&planTaskId=audit-plan-task",
   );
   await waitForData(page, (data) => data.status === "ready", "practice page did not become ready");
@@ -228,13 +309,15 @@ async function xingceToolbar(program) {
 async function practiceInteractionRelease(program) {
   await setAuthentication(program, true);
   await installXingceMocks(program);
-  const page = await program.reLaunch(
+  const page = await reLaunchScenarioRoute(
+    program,
     "/pages/practice/index?mode=targeted&planTaskId=audit-plan-task",
   );
   await waitForData(page, (data) => data.status === "ready", "practice page did not become ready");
   await literalTaskInteractionRelease(page, {
     current: (data) => data.view?.current,
     materialOpenSelector: ".practice-material-action--collapse",
+    materialReaderSelector: ".practice-material-reader",
     paneSelector: ".practice-question-pane",
     pauseAvailable: true,
     selected: (data) => data.view?.question?.selectedOptionIds?.length > 0,
@@ -245,11 +328,15 @@ async function practiceInteractionRelease(program) {
 async function mockInteractionRelease(program) {
   await setAuthentication(program, true);
   await installMockExamMocks(program);
-  const page = await program.reLaunch("/pages/mock-exam/index?sessionId=audit-mock-session");
+  const page = await reLaunchScenarioRoute(
+    program,
+    "/pages/mock-exam/index?sessionId=audit-mock-session",
+  );
   await waitForData(page, (data) => data.status === "ready", "mock page did not become ready");
   await literalTaskInteractionRelease(page, {
     current: (data) => data.current,
     materialOpenSelector: ".material-reader__inline-expand",
+    materialReaderSelector: ".mock-material-pane",
     paneSelector: ".mock-question-pane",
     pauseAvailable: false,
     selected: (data) => data.question?.options?.some((option) => option.selected) === true,
@@ -261,7 +348,7 @@ async function literalTaskInteractionRelease(page, contract) {
   let questionPane = await requiredElement(page, contract.paneSelector);
 
   if (contract.pauseAvailable) {
-    const taskShell = await requiredElement(page, "task-shell");
+    const taskShell = await requiredElement(page, "#runtime-task-shell");
     const timerControl = await requiredElement(taskShell, ".task-timer-control");
     await timerControl.tap();
     await waitForData(
@@ -318,7 +405,7 @@ async function literalTaskInteractionRelease(page, contract) {
   }
 
   const beforeMaterial = Number(contract.current(await readPageData(miniProgram, page)));
-  const materialReader = await requiredElement(page, "material-reader");
+  const materialReader = await requiredElement(page, contract.materialReaderSelector);
   const materialOpenRoot = contract.materialOpenSelector.startsWith(".material-reader__")
     ? materialReader
     : page;
@@ -356,7 +443,7 @@ async function literalTaskInteractionRelease(page, contract) {
       data.touchOwner === "none",
     `${page.path} did not release material capture on hide`,
   );
-  await assertMaterialCaptureAbsent(page);
+  await assertMaterialCaptureAbsent(page, contract.materialReaderSelector);
 
   await invokePageHandler(miniProgram, page, "onShow");
   await waitForData(
@@ -368,7 +455,7 @@ async function literalTaskInteractionRelease(page, contract) {
       data.interactionLocked === false,
     `${page.path} did not restore material capture on show`,
   );
-  const restoredMaterialReader = await requiredElement(page, "material-reader");
+  const restoredMaterialReader = await requiredElement(page, contract.materialReaderSelector);
   await waitForElement(
     restoredMaterialReader,
     ".material-reader__surface",
@@ -386,7 +473,7 @@ async function literalTaskInteractionRelease(page, contract) {
       data.touchOwner === "question",
     `${page.path} did not release material capture on question change`,
   );
-  await assertMaterialCaptureAbsent(page);
+  await assertMaterialCaptureAbsent(page, contract.materialReaderSelector);
   await waitForData(
     page,
     (data) => data.interactionLocked === false,
@@ -399,7 +486,7 @@ async function literalTaskInteractionRelease(page, contract) {
     `${page.path} did not return to the initial question after material release`,
   );
 
-  const closeCheckReader = await requiredElement(page, "material-reader");
+  const closeCheckReader = await requiredElement(page, contract.materialReaderSelector);
   const closeCheckOpenRoot = contract.materialOpenSelector.startsWith(".material-reader__")
     ? closeCheckReader
     : page;
@@ -413,7 +500,7 @@ async function literalTaskInteractionRelease(page, contract) {
     (data) => data.materialCaptureActive === true && data.touchOwner === "material",
     `${page.path} did not reopen material capture`,
   );
-  const closeReader = await requiredElement(page, "material-reader");
+  const closeReader = await requiredElement(page, contract.materialReaderSelector);
   const materialBack = await waitForElement(
     closeReader,
     ".material-reader__back",
@@ -430,11 +517,10 @@ async function literalTaskInteractionRelease(page, contract) {
       data.touchOwner === "question",
     `${page.path} did not release material capture through its close action`,
   );
-  await assertMaterialCaptureAbsent(page);
+  await assertMaterialCaptureAbsent(page, contract.materialReaderSelector);
   questionPane = await requiredElement(page, contract.paneSelector);
 
-  const toolbar = await requiredElement(page, "question-toolbar");
-  const draftButton = await requiredElement(toolbar, ".question-tool--draft");
+  const draftButton = await requiredElement(page, ".question-tool--draft");
   await draftButton.tap();
   await waitForData(
     page,
@@ -451,21 +537,28 @@ async function literalTaskInteractionRelease(page, contract) {
     "annotation",
     `${page.path} did not project annotation touch ownership into WXML`,
   );
-  const annotation = await requiredElement(page, "annotation-layer");
-  const tools = await annotation.$$(".annotation-layer__tool");
-  assert.ok(tools.length >= 2, `${page.path} annotation toolbar does not expose a pen tool`);
-  await tools[1].tap();
+  const penTool = await requiredElementAt(
+    page,
+    ".annotation-layer__tool",
+    1,
+    `${page.path} annotation toolbar does not expose a pen tool`,
+  );
+  await penTool.tap();
   const capture = await waitForElement(
-    annotation,
+    page,
     ".annotation-layer__capture",
     `${page.path} did not physically mount its drawing capture layer`,
   );
   await capture.touchstart({ touches: [{ clientX: 180, clientY: 260 }] });
   await capture.touchend({ touches: [], changeTouches: [{ clientX: 180, clientY: 260 }] });
 
-  const annotationActions = await annotation.$$(".annotation-layer__secondary-action");
-  assert.ok(annotationActions.length >= 3, `${page.path} annotation toolbar has no more action`);
-  await annotationActions[2].tap();
+  const moreAction = await requiredElementAt(
+    page,
+    ".annotation-layer__secondary-action",
+    2,
+    `${page.path} annotation toolbar has no more action`,
+  );
+  await moreAction.tap();
   await waitForData(
     page,
     (data) =>
@@ -476,23 +569,21 @@ async function literalTaskInteractionRelease(page, contract) {
       data.touchOwner === "overlay",
     `${page.path} did not transfer touch ownership from annotation to tools`,
   );
-  await assertDrawingCaptureAbsent(page);
+  await assertDrawingCaptureAbsent(page, page.path);
   assert.equal(
     await questionPane.attribute("data-touch-owner"),
     "overlay",
     `${page.path} did not project overlay touch ownership into WXML`,
   );
 
-  const toolsPanel = await requiredElement(page, "task-tools-panel");
-  const sheet = await requiredElement(toolsPanel, "ui-sheet");
-  const closeButton = await requiredElement(sheet, ".ui-sheet__close");
+  const closeButton = await requiredElement(page, ".ui-sheet__close");
   await closeButton.tap();
   await waitForData(
     page,
     (data) => data.toolsOpen === false && data.touchOwner === "question",
     `${page.path} did not release overlay touch ownership`,
   );
-  await assertDrawingCaptureAbsent(page);
+  await assertDrawingCaptureAbsent(page, page.path);
   assert.equal(
     await questionPane.attribute("data-touch-owner"),
     "question",
@@ -524,19 +615,122 @@ async function literalTaskInteractionRelease(page, contract) {
     `${page.path} vertical scrolling changed question`,
   );
 
+  await installSwipeEventAudit(miniProgram, page);
   await questionPane.touchstart({ touches: [{ clientX: 330, clientY: 260 }] });
+  await page.waitFor(40);
   await questionPane.touchmove({ touches: [{ clientX: 210, clientY: 262 }] });
+  await page.waitFor(40);
   await questionPane.touchend({ touches: [], changeTouches: [{ clientX: 70, clientY: 264 }] });
+  await page.waitFor(300);
+  const literalSwipeData = await readPageData(miniProgram, page);
+  if (contract.current(literalSwipeData) !== Number(beforeScroll) + 1) {
+    const swipeEvidence = await readSwipeEventAudit(miniProgram);
+    assert.equal(
+      hasUsableAutomatorSwipeEvidence(swipeEvidence),
+      false,
+      `${page.path} horizontal question swipe remained blocked with usable literal event evidence: ` +
+        JSON.stringify(swipeEvidence),
+    );
+    simulatorLimitations.push(
+      `${page.path}: DevTools automator emitted unusable touch timing; ` +
+        "horizontal swipe was verified through the bound page handlers instead.",
+    );
+    await invokeTimedSwipeHandlers(miniProgram, page);
+  }
   await waitForData(
     page,
     (data) => contract.current(data) === Number(beforeScroll) + 1,
     `${page.path} horizontal question swipe remained blocked after release`,
   );
-  await assertDrawingCaptureAbsent(page);
+  await assertDrawingCaptureAbsent(page, page.path);
+}
+
+async function installSwipeEventAudit(program, page) {
+  await program.evaluate(function installClickAuditSwipeRecorder(expectedRoute) {
+    const pages = getCurrentPages();
+    const current = pages[pages.length - 1];
+    if (!current || current.route !== expectedRoute) return;
+    globalThis.__ananClickAuditSwipeEvents = [];
+    for (const methodName of [
+      "onQuestionTouchStart",
+      "onQuestionTouchMove",
+      "onQuestionTouchEnd",
+    ]) {
+      const original = current[methodName];
+      if (typeof original !== "function" || original.__ananClickAuditWrapped) continue;
+      const wrapped = function auditedSwipeHandler(event) {
+        const touches = Array.from(event?.touches ?? event?.changedTouches ?? []).map((touch) => ({
+          clientX: touch?.clientX,
+          clientY: touch?.clientY,
+          pageX: touch?.pageX,
+          pageY: touch?.pageY,
+        }));
+        globalThis.__ananClickAuditSwipeEvents.push({
+          methodName,
+          timeStamp: event?.timeStamp,
+          touches,
+        });
+        return original.call(this, event);
+      };
+      wrapped.__ananClickAuditWrapped = true;
+      current[methodName] = wrapped;
+    }
+  }, page.path);
+}
+
+async function readSwipeEventAudit(program) {
+  return program.evaluate(function readClickAuditSwipeEvents() {
+    return Array.isArray(globalThis.__ananClickAuditSwipeEvents)
+      ? [...globalThis.__ananClickAuditSwipeEvents]
+      : [];
+  });
+}
+
+function hasUsableAutomatorSwipeEvidence(events) {
+  const start = events.find((event) => event.methodName === "onQuestionTouchStart");
+  const end = [...events]
+    .reverse()
+    .find(
+      (event) =>
+        event.methodName === "onQuestionTouchEnd" || event.methodName === "onQuestionTouchMove",
+    );
+  return (
+    Number.isFinite(start?.timeStamp) &&
+    Number.isFinite(end?.timeStamp) &&
+    end.timeStamp > start.timeStamp &&
+    start.touches.length === 1 &&
+    end.touches.length === 1
+  );
+}
+
+async function invokeTimedSwipeHandlers(program, page) {
+  await program.evaluate(function invokeClickAuditTimedSwipe(expectedRoute) {
+    const pages = getCurrentPages();
+    const current = pages[pages.length - 1];
+    if (!current || current.route !== expectedRoute) return;
+    current.onQuestionTouchStart({
+      type: "touchstart",
+      timeStamp: 1_000,
+      touches: [{ clientX: 330, clientY: 260 }],
+      changedTouches: [],
+    });
+    current.onQuestionTouchMove({
+      type: "touchmove",
+      timeStamp: 1_040,
+      touches: [{ clientX: 210, clientY: 262 }],
+      changedTouches: [],
+    });
+    current.onQuestionTouchEnd({
+      type: "touchend",
+      timeStamp: 1_080,
+      touches: [],
+      changedTouches: [{ clientX: 70, clientY: 264 }],
+    });
+  }, page.path);
 }
 
 async function requiredElement(root, selector) {
-  const element = await root.$(selector);
+  const element = await findElement(root, selector);
   assert.ok(element, `Missing literal Mini Program element ${selector}`);
   return element;
 }
@@ -544,25 +738,49 @@ async function requiredElement(root, selector) {
 async function waitForElement(root, selector, message) {
   let found = null;
   await waitForPredicate(async () => {
-    found = await root.$(selector);
+    found = await findElement(root, selector);
     return found !== null;
   }, message);
   assert.ok(found, message);
   return found;
 }
 
-async function assertDrawingCaptureAbsent(page) {
-  const annotation = await page.$("annotation-layer");
+async function findElement(root, selector) {
+  const element = await root.$(selector);
+  if (element || typeof root.getElementByXpath !== "function") return element;
+  const classMatch = /^\.([a-zA-Z0-9_-]+)$/u.exec(selector);
+  if (classMatch) {
+    return root.getElementByXpath(`//*[contains(@class, '${classMatch[1]}')]`);
+  }
+  if (!/^[a-z][a-z0-9-]*$/u.test(selector)) return null;
+  return root.getElementByXpath(`//${selector}`);
+}
+
+async function requiredElementAt(root, selector, index, message) {
+  const elements = await root.$$(selector);
+  if (elements[index]) return elements[index];
+  assert.equal(typeof root.getElementByXpath, "function", message);
+  const classMatch = /^\.([a-zA-Z0-9_-]+)$/u.exec(selector);
+  assert.ok(classMatch, message);
+  const element = await root.getElementByXpath(
+    `(//*[contains(@class, '${classMatch[1]}')])[${String(index + 1)}]`,
+  );
+  assert.ok(element, message);
+  return element;
+}
+
+async function assertDrawingCaptureAbsent(root, routePath) {
+  const annotation = await findElement(root, "annotation-layer");
   if (!annotation) return;
   assert.equal(
     await annotation.$(".annotation-layer__capture"),
     null,
-    `${page.path} retained a physical drawing capture layer outside draw state`,
+    `${routePath} retained a physical drawing capture layer outside draw state`,
   );
 }
 
-async function assertMaterialCaptureAbsent(page) {
-  const materialReader = await page.$("material-reader");
+async function assertMaterialCaptureAbsent(page, materialReaderSelector) {
+  const materialReader = await page.$(materialReaderSelector);
   if (!materialReader) return;
   assert.equal(
     await materialReader.$(".material-reader__surface"),
@@ -642,28 +860,221 @@ async function openVisualScenario(program, id, options = {}) {
   if (!options.keepMocks) await installNetworkGuard(program);
   const scenario = scenarioById.get(id);
   assert.ok(scenario, `Unknown visual scenario ${id}`);
+  await leaveLoginControllerBeforeAuthFixture(program);
   await setAuthentication(program, scenario.authenticated === true);
-  const currentPage = await program.currentPage();
+  const currentPage = await currentPageWithRetry(program);
   const routePath = scenario.route.split("?", 1)[0];
   const page =
     normalizeRoutePath(currentPage?.path) === normalizeRoutePath(routePath)
       ? currentPage
-      : await program.reLaunch(scenario.route);
+      : await reLaunchScenarioRoute(program, scenario.route);
   assert.ok(page, `Unable to open ${scenario.route}`);
-  await page.waitFor(400);
-  await setPageData(program, page, structuredClone(scenario.data));
-  if (scenario.scrollTop) await program.pageScrollTo(scenario.scrollTop);
-  await page.waitFor(160);
+  await waitForControllerSettlement(program, page, scenario);
+  const fixtureData = structuredClone(scenario.data);
+  await setPageData(program, page, fixtureData);
+  await page.waitFor(800);
+  if (scenario.scrollTop) {
+    await program.pageScrollTo(scenario.scrollTop);
+    await page.waitFor(200);
+  }
+  await setPageData(program, page, fixtureData);
+  await page.waitFor(120);
+  await assertActiveScenarioRoute(program, scenario);
+  const appliedData = await readPageData(program, page);
+  for (const [key, expected] of Object.entries(scenario.data)) {
+    assert.deepEqual(appliedData[key], expected, `${scenario.id} fixture was overwritten: ${key}`);
+  }
+  await assertVisibleScenarioIsNotError(program, page, scenario, appliedData);
   return page;
+}
+
+async function leaveLoginControllerBeforeAuthFixture(program) {
+  const activeRoute = await program.evaluate(function readRouteBeforeClickAuditAuthFixture() {
+    const pages = getCurrentPages();
+    return pages[pages.length - 1]?.route ?? "";
+  });
+  if (activeRoute !== "pages/login/index") return;
+  const neutralPage = await reLaunchWithRetry(program, "/account/support/index");
+  assert.ok(neutralPage, "Unable to unload the login controller before click-audit fixture");
+}
+
+async function waitForControllerSettlement(program, page, scenario) {
+  if (scenario.authenticated !== true || scenario.skipControllerSettlement === true) return;
+  for (let attempt = 0; attempt < 100; attempt += 1) {
+    const data = await readPageData(program, page);
+    if (controllerHasSettled(scenario.route, data)) return;
+    await page.waitFor(100);
+  }
+  assert.fail(`${scenario.id} did not settle its page controller before fixture injection`);
+}
+
+function controllerHasSettled(route, data) {
+  const path = route.split("?", 1)[0];
+  if (path === "/pages/anan/index") return true;
+  if (path.startsWith("/pages/community-")) return remoteStatusHasSettled(data.pageState);
+  if (path === "/pages/onboarding/index") return data.loadingProfile === false;
+  if (path === "/pages/positions/index") {
+    return (
+      remoteStatusHasSettled(data.workspace?.status) &&
+      !["idle", "loading"].includes(data.workspace?.qualificationStatus)
+    );
+  }
+  if (Object.prototype.hasOwnProperty.call(data, "status")) {
+    return remoteStatusHasSettled(data.status);
+  }
+  if (
+    typeof data.state === "object" &&
+    data.state !== null &&
+    Object.prototype.hasOwnProperty.call(data.state, "status")
+  ) {
+    return remoteStatusHasSettled(data.state.status);
+  }
+  return true;
+}
+
+function remoteStatusHasSettled(status) {
+  return typeof status === "string" && !["idle", "loading", "previewing"].includes(status);
+}
+
+async function assertActiveScenarioRoute(program, scenario) {
+  const expectedRoute = scenario.route.split("?", 1)[0].replace(/^\//u, "");
+  const actualRoute = await program.evaluate(function readActiveClickAuditRoute() {
+    const pages = getCurrentPages();
+    return pages[pages.length - 1]?.route ?? "";
+  });
+  assert.equal(
+    actualRoute,
+    expectedRoute,
+    `${scenario.id} navigated away from ${expectedRoute} to ${String(actualRoute)}`,
+  );
+}
+
+async function assertVisibleScenarioIsNotError(program, page, scenario, data) {
+  assertPageDataIsNotError(scenario.id, data);
+  assert.equal(
+    containsAuditNetworkGuardMarker(data),
+    false,
+    `${scenario.id} retained click-audit-network-guard in final page data`,
+  );
+  const payload = await program.evaluate(function readVisibleStateViews(expectedRoute) {
+    const pages = getCurrentPages();
+    const current = pages[pages.length - 1];
+    if (!current || current.route !== expectedRoute) {
+      return JSON.stringify({ error: "route_mismatch", actualRoute: current?.route ?? null });
+    }
+    const components =
+      typeof current.selectAllComponents === "function"
+        ? current.selectAllComponents("state-view")
+        : [];
+    return JSON.stringify({
+      states: components.map((component) => ({
+        state: component?.data?.state ?? "",
+        title: component?.data?.title ?? "",
+        description: component?.data?.description ?? "",
+        requestId: component?.data?.requestId ?? "",
+      })),
+    });
+  }, page.path);
+  assert.equal(typeof payload, "string", `${scenario.id} returned invalid visible-state evidence`);
+  const parsed = JSON.parse(payload);
+  assert.equal(
+    parsed.error,
+    undefined,
+    `${scenario.id} visible-state query found ${parsed.actualRoute ?? "no page"}`,
+  );
+  const visibleErrors = parsed.states.filter(
+    (state) => state.state === "error" || containsAuditNetworkGuardMarker(state),
+  );
+  assert.deepEqual(
+    visibleErrors,
+    [],
+    `${scenario.id} still renders an error state:\n${JSON.stringify(visibleErrors, null, 2)}`,
+  );
+}
+
+function assertPageDataIsNotError(label, data) {
+  const explicitStates = [
+    data?.status,
+    data?.pageState,
+    typeof data?.state === "object" && data.state !== null ? data.state.status : undefined,
+  ].filter((state) => typeof state === "string");
+  assert.equal(
+    explicitStates.includes("error"),
+    false,
+    `${label} ended in an error page state: ${JSON.stringify({
+      states: explicitStates,
+      errorMessage: data?.errorMessage ?? data?.message ?? "",
+      requestId: data?.requestId ?? "",
+    })}`,
+  );
+  assert.equal(
+    containsAuditNetworkGuardMarker(data),
+    false,
+    `${label} retained click-audit-network-guard in final page data`,
+  );
+}
+
+function containsAuditNetworkGuardMarker(value, seen = new Set()) {
+  if (typeof value === "string") return value.includes("click-audit-network-guard");
+  if (value === null || typeof value !== "object" || seen.has(value)) return false;
+  seen.add(value);
+  if (Array.isArray(value)) {
+    return value.some((item) => containsAuditNetworkGuardMarker(item, seen));
+  }
+  return Object.values(value).some((item) => containsAuditNetworkGuardMarker(item, seen));
+}
+
+async function reLaunchScenarioRoute(program, route) {
+  const expectedPath = normalizeRoutePath(route.split("?", 1)[0]);
+  let actualPath = "";
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const launchedPage = await reLaunchWithRetry(program, route);
+    await launchedPage?.waitFor(500);
+    const currentPage = await currentPageWithRetry(program);
+    actualPath = normalizeRoutePath(currentPage?.path);
+    if (actualPath !== expectedPath) continue;
+    await currentPage.waitFor(300);
+    const settledPage = await currentPageWithRetry(program);
+    actualPath = normalizeRoutePath(settledPage?.path);
+    if (actualPath === expectedPath) return settledPage;
+  }
+  assert.fail(`Unable to settle ${route}; current page is ${actualPath || "unavailable"}`);
 }
 
 async function waitForPath(program, expectedPath, message) {
   await waitForPredicate(async () => {
-    const page = await program.currentPage();
+    const page = await currentPageWithRetry(program);
     return normalizeRoutePath(page?.path) === normalizeRoutePath(expectedPath);
   }, message);
-  const settledPage = await program.currentPage();
+  const settledPage = await currentPageWithRetry(program);
   await settledPage?.waitFor(1_000);
+}
+
+async function currentPageWithRetry(program) {
+  return retryTransientAutomation(() => program.currentPage());
+}
+
+async function reLaunchWithRetry(program, route) {
+  return retryTransientAutomation(() => program.reLaunch(route));
+}
+
+async function retryTransientAutomation(operation) {
+  let lastError;
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    try {
+      return await operation();
+    } catch (error) {
+      lastError = error;
+      const message = String(error?.message ?? error);
+      const transientAutomationError =
+        message.includes("getPageMetaByWebviewId") ||
+        (message.includes("rawPath") && message.includes("null")) ||
+        message.includes("timeout waiting for automator response");
+      if (!transientAutomationError || attempt === 4) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 250));
+    }
+  }
+  throw lastError;
 }
 
 function normalizeRoutePath(routePath) {
@@ -694,7 +1105,7 @@ async function waitForPredicate(predicate, message) {
 }
 
 async function installNetworkGuard(program) {
-  await program.mockWxMethod("request", {
+  const blockedResponse = {
     data: {
       code: "click_audit_network_guard",
       message: "Click journeys must install explicit API mocks before network access.",
@@ -704,9 +1115,35 @@ async function installNetworkGuard(program) {
     header: {},
     cookies: [],
     errMsg: "request:ok",
-  });
+  };
+  await program.evaluate(function installClickAuditNetworkGuard(response) {
+    globalThis.__ananClickAuditBlockedRequests = [];
+    wx.request = function blockedClickAuditRequest(options = {}) {
+      globalThis.__ananClickAuditBlockedRequests.push({
+        method: String(options.method ?? "GET").toUpperCase(),
+        url: String(options.url ?? ""),
+      });
+      setTimeout(() => {
+        options.success?.(response);
+        options.complete?.(response);
+      }, 0);
+      return {
+        abort() {},
+        onHeadersReceived() {},
+        offHeadersReceived() {},
+      };
+    };
+  }, blockedResponse);
   await program.mockWxMethod("showToast", { errMsg: "showToast:ok" });
   await program.mockWxMethod("showModal", { confirm: true, cancel: false, errMsg: "showModal:ok" });
+}
+
+async function readNetworkGuardAudit(program) {
+  return program.evaluate(function readClickAuditBlockedRequests() {
+    return Array.isArray(globalThis.__ananClickAuditBlockedRequests)
+      ? [...globalThis.__ananClickAuditBlockedRequests]
+      : [];
+  });
 }
 
 async function installLoginMocks(program) {
@@ -784,6 +1221,17 @@ async function installLoginMocks(program) {
       };
     };
   }, loginResponse);
+}
+
+async function readLoginAuditEvidence(program) {
+  return program.evaluate(function readAuditLoginEvidence() {
+    return {
+      loginCalled: globalThis.__ananClickAuditLoginCalled === true,
+      requestUrls: Array.isArray(globalThis.__ananClickAuditLoginRequests)
+        ? [...globalThis.__ananClickAuditLoginRequests]
+        : [],
+    };
+  });
 }
 
 async function installXingceMocks(program) {
@@ -945,18 +1393,56 @@ async function installMockExamMocks(program) {
 async function setAuthentication(program, authenticated) {
   await program.evaluate(function applyClickAuditSession(hasSession) {
     const storageKey = "gongkao.auth.session.v1";
-    const app = getApp();
+    const app = typeof getApp === "function" ? getApp() : undefined;
     if (hasSession) {
-      const session = { accessToken: "click-audit-access-token", userId: "click-audit-user" };
+      const session = {
+        accessToken: "click-audit-access-token",
+        userId: "click-audit-user",
+        generation: "click-audit-generation",
+      };
       wx.setStorageSync(storageKey, session);
-      app.globalData.accessToken = session.accessToken;
-      app.globalData.userId = session.userId;
+      if (app?.globalData) {
+        app.globalData.accessToken = session.accessToken;
+        app.globalData.userId = session.userId;
+        app.globalData.generation = session.generation;
+      }
       return;
     }
     wx.removeStorageSync(storageKey);
-    delete app.globalData.accessToken;
-    delete app.globalData.userId;
+    if (app?.globalData) {
+      delete app.globalData.accessToken;
+      delete app.globalData.userId;
+      delete app.globalData.displayName;
+      delete app.globalData.generation;
+    }
   }, authenticated);
+}
+
+async function installNavigationAudit(program) {
+  await program.evaluate(function installClickAuditNavigationRecorder() {
+    if (globalThis.__ananClickAuditNavigationInstalled) return;
+    globalThis.__ananClickAuditNavigationInstalled = true;
+    globalThis.__ananClickAuditNavigationCalls = [];
+    for (const method of ["navigateTo", "redirectTo", "reLaunch", "switchTab"]) {
+      const original = wx[method];
+      if (typeof original !== "function") continue;
+      wx[method] = function auditedNavigation(options = {}) {
+        globalThis.__ananClickAuditNavigationCalls.push({
+          method,
+          url: String(options.url ?? ""),
+        });
+        return original.call(wx, options);
+      };
+    }
+  });
+}
+
+async function readNavigationAudit(program) {
+  return program.evaluate(function readClickAuditNavigationCalls() {
+    return Array.isArray(globalThis.__ananClickAuditNavigationCalls)
+      ? [...globalThis.__ananClickAuditNavigationCalls]
+      : [];
+  });
 }
 
 async function freezeAuditAnimationClock(program) {

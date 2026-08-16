@@ -1,0 +1,65 @@
+{
+  "curves": [
+    {
+      "connects": "top_left_to_bottom_center",
+      "feat": [],
+      "k": "arc",
+      "reg": "center"
+    },
+    {
+      "connects": "top_right_to_bottom_center",
+      "feat": [],
+      "k": "arc",
+      "reg": "center"
+    }
+  ],
+  "dots": [],
+  "facts": [
+    "A central vertical line intersects a horizontal line and the bottom frame",
+    "Two arcs form a U-shape in the center",
+    "Two diagonal lines connect the side frames to the bottom center"
+  ],
+  "frame": {
+    "grid": null,
+    "k": "square"
+  },
+  "lines": [
+    {
+      "connects": "top_horizontal_to_bottom_frame",
+      "feat": [],
+      "ori": "vertical",
+      "reg": "center"
+    },
+    {
+      "connects": "left_arc_to_right_arc",
+      "feat": [],
+      "ori": "horizontal",
+      "reg": "center"
+    },
+    {
+      "connects": "left_frame_to_bottom_center",
+      "feat": [],
+      "ori": "diagonal_down",
+      "reg": "left"
+    },
+    {
+      "connects": "right_frame_to_bottom_center",
+      "feat": [],
+      "ori": "diagonal_up",
+      "reg": "right"
+    }
+  ],
+  "opt": "B",
+  "p": 8,
+  "role": "option",
+  "schema": "graphic-reasoning-regular-panel-v1",
+  "shapes": [],
+  "symbols": [],
+  "topo": [
+    7,
+    8,
+    3,
+    1
+  ],
+  "uncertain": []
+}

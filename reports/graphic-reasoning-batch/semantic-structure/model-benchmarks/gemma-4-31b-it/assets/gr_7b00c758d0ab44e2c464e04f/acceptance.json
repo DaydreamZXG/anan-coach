@@ -1,0 +1,8 @@
+{
+  "assetId": "gr_7b00c758d0ab44e2c464e04f",
+  "qualityStatus": "unsupported_by_simple_regular_v1",
+  "repairReasons": [
+    "subtype_pending:circle_polygon_composition"
+  ],
+  "status": "repair_pending"
+}

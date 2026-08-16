@@ -1,0 +1,296 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "数量(家)",
+          "营业收入(亿元)",
+          "餐饮收入比重(%)",
+          "客房收入比重(%)",
+          "平均房价(元/间夜)",
+          "平均出租率(%)",
+          "每间可供出租客房收入(元/间夜)",
+          "每间客房平均营业收入(元)"
+        ],
+        "label": "目标"
+      },
+      "rows:[{"
+    ],
+    "columns": [
+      "数量(家)",
+      "营业收入(亿元)",
+      "餐饮收入比重(%)",
+      "客房收入比重(%)",
+      "平均房价(元/间夜)",
+      "平均出租率(%)",
+      "每间可供出租客房收入(元/间夜)",
+      "每间客房平均营业收入(元)"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "全国",
+        "group": null,
+        "label": "全国",
+        "unit": null,
+        "values": [
+          2650,
+          165.5,
+          39.07,
+          39.31,
+          394.07,
+          35.07,
+          138.2,
+          27790.85
+        ]
+      },
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          286,
+          12.65,
+          25.84,
+          39.46,
+          455.69,
+          18.8,
+          85.67,
+          17757.42
+        ]
+      },
+      {
+        "display_label": "天津",
+        "group": null,
+        "label": "天津",
+        "unit": null,
+        "values": [
+          67,
+          3.16,
+          29.66,
+          45.01,
+          414.38,
+          29.98,
+          124.24,
+          24861.28
+        ]
+      },
+      {
+        "display_label": "石家庄",
+        "group": null,
+        "label": "石家庄",
+        "unit": null,
+        "values": [
+          41,
+          2.85,
+          45.24,
+          38.07,
+          323.59,
+          40.8,
+          132.04,
+          27513.31
+        ]
+      },
+      {
+        "display_label": "秦皇岛",
+        "group": null,
+        "label": "秦皇岛",
+        "unit": null,
+        "values": [
+          23,
+          0.22,
+          45.26,
+          25.72,
+          229.09,
+          7.28,
+          16.67,
+          5018.16
+        ]
+      },
+      {
+        "display_label": "太原",
+        "group": null,
+        "label": "太原",
+        "unit": null,
+        "values": [
+          13,
+          0.73,
+          41.18,
+          22.19,
+          282.65,
+          29.82,
+          84.3,
+          33473.51
+        ]
+      },
+      {
+        "display_label": "呼和浩特",
+        "group": null,
+        "label": "呼和浩特",
+        "unit": null,
+        "values": [
+          22,
+          0.85,
+          46.05,
+          39.78,
+          271.87,
+          32.14,
+          87.38,
+          17812.27
+        ]
+      },
+      {
+        "display_label": "沈阳",
+        "group": null,
+        "label": "沈阳",
+        "unit": null,
+        "values": [
+          47,
+          1.5,
+          37.81,
+          40.63,
+          261.62,
+          31.33,
+          81.97,
+          14192.06
+        ]
+      },
+      {
+        "display_label": "大连",
+        "group": null,
+        "label": "大连",
+        "unit": null,
+        "values": [
+          78,
+          2.61,
+          31.27,
+          36.76,
+          282.67,
+          27.93,
+          78.95,
+          17287.21
+        ]
+      },
+      {
+        "display_label": "长春",
+        "group": null,
+        "label": "长春",
+        "unit": null,
+        "values": [
+          22,
+          0.72,
+          41.68,
+          39.98,
+          312.38,
+          30.88,
+          96.47,
+          15470.04
+        ]
+      },
+      {
+        "display_label": "哈尔滨",
+        "group": null,
+        "label": "哈尔滨",
+        "unit": null,
+        "values": [
+          38,
+          0.76,
+          26.05,
+          52.53,
+          226.95,
+          35.36,
+          80.25,
+          12543.0
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          173,
+          25.2,
+          34.88,
+          38.69,
+          577.99,
+          38.92,
+          224.97,
+          51872.78
+        ]
+      },
+      {
+        "display_label": "南京",
+        "group": null,
+        "label": "南京",
+        "unit": null,
+        "values": [
+          46,
+          7.61,
+          29.0,
+          25.98,
+          464.1,
+          43.32,
+          201.03,
+          57708.81
+        ]
+      },
+      {
+        "display_label": "无锡",
+        "group": null,
+        "label": "无锡",
+        "unit": null,
+        "values": [
+          12,
+          1.63,
+          63.68,
+          23.1,
+          374.48,
+          39.96,
+          149.64,
+          44743.88
+        ]
+      },
+      {
+        "display_label": "苏州",
+        "group": null,
+        "label": "苏州",
+        "unit": null,
+        "values": [
+          50,
+          4.36,
+          64.46,
+          28.36,
+          399.31,
+          31.5,
+          125.8,
+          35276.42
+        ]
+      },
+      {
+        "display_label": "杭州",
+        "group": null,
+        "label": "杭州",
+        "unit": null,
+        "values": [
+          102,
+          7.4,
+          40.83,
+          35.63,
+          390.21,
+          38.94,
+          151.93,
+          35295.96
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

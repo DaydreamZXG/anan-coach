@@ -1,0 +1,251 @@
+{
+  "asset_id": "da_2bda3c12778bd3977626300f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/青海/2019年青海省公务员录用考试《行测》题省市州级（A类）（网友回忆版）_images/img_0201_da3bd69861285516.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2019年青海省公务员录用考试《行测》题省市州级（A类）（网友回忆版）_images/img_0201_da3bd69861285516.png",
+        "paper_title": "2019年青海省公务员录用考试《行测》题省市州级（A类）（网友回忆版）",
+        "question_id": "pq_fa3d389c2f5c76c8e443",
+        "question_number": 113,
+        "source_jsonl_line": 99776
+      }
+    ],
+    "sha256": "2bda3c12778bd3977626300fe68d2b2f85e8c6a822521a68bcd705157247b0e2"
+  },
+  "structured_visual": {
+    "complexity": {
+      "estimatedDrawCommandCount": 44,
+      "optionCount": 4,
+      "sectorCount": 12
+    },
+    "coordinateSpace": {
+      "height": 168,
+      "width": 638
+    },
+    "evidence": {
+      "converterVersion": "semantic-pie-options-v1",
+      "geometryEngine": "human_verified_sector_geometry",
+      "renderSha256": "e77c4e7897d98f817b2cf99459643d891f82cf2e96a2bcab01f0e52efcdd1f3f",
+      "sourceAsset": "da_2bda3c12778bd3977626300f",
+      "sourceSha256": "2bda3c12778bd3977626300fe68d2b2f85e8c6a822521a68bcd705157247b0e2"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticPieOptions",
+    "layoutType": "sequence",
+    "options": [
+      {
+        "center": {
+          "x": 86,
+          "y": 74
+        },
+        "frame": {
+          "height": 134,
+          "width": 143,
+          "x": 15,
+          "y": 8
+        },
+        "id": "da_2bda3c12778bd3977626300f-0",
+        "label": "A",
+        "labelY": 146,
+        "position": 0,
+        "radius": 49,
+        "sectors": [
+          {
+            "startDegrees": 0,
+            "style": "white",
+            "sweepDegrees": 120
+          },
+          {
+            "startDegrees": 120,
+            "style": "white",
+            "sweepDegrees": 120
+          },
+          {
+            "startDegrees": 240,
+            "style": "white",
+            "sweepDegrees": 120
+          }
+        ]
+      },
+      {
+        "center": {
+          "x": 239,
+          "y": 74
+        },
+        "frame": {
+          "height": 134,
+          "width": 131,
+          "x": 175,
+          "y": 8
+        },
+        "id": "da_2bda3c12778bd3977626300f-1",
+        "label": "B",
+        "labelY": 146,
+        "position": 1,
+        "radius": 49,
+        "sectors": [
+          {
+            "startDegrees": 0,
+            "style": "white",
+            "sweepDegrees": 120
+          },
+          {
+            "startDegrees": 120,
+            "style": "white",
+            "sweepDegrees": 180
+          },
+          {
+            "startDegrees": 300,
+            "style": "white",
+            "sweepDegrees": 60
+          }
+        ]
+      },
+      {
+        "center": {
+          "x": 392,
+          "y": 74
+        },
+        "frame": {
+          "height": 134,
+          "width": 143,
+          "x": 322,
+          "y": 8
+        },
+        "id": "da_2bda3c12778bd3977626300f-2",
+        "label": "C",
+        "labelY": 146,
+        "position": 2,
+        "radius": 49,
+        "sectors": [
+          {
+            "startDegrees": 0,
+            "style": "white",
+            "sweepDegrees": 125
+          },
+          {
+            "startDegrees": 125,
+            "style": "white",
+            "sweepDegrees": 200
+          },
+          {
+            "startDegrees": 325,
+            "style": "white",
+            "sweepDegrees": 35
+          }
+        ]
+      },
+      {
+        "center": {
+          "x": 545,
+          "y": 74
+        },
+        "frame": {
+          "height": 134,
+          "width": 145,
+          "x": 474,
+          "y": 8
+        },
+        "id": "da_2bda3c12778bd3977626300f-3",
+        "label": "D",
+        "labelY": 146,
+        "position": 3,
+        "radius": 49,
+        "sectors": [
+          {
+            "startDegrees": 0,
+            "style": "white",
+            "sweepDegrees": 150
+          },
+          {
+            "startDegrees": 150,
+            "style": "white",
+            "sweepDegrees": 185
+          },
+          {
+            "startDegrees": 335,
+            "style": "white",
+            "sweepDegrees": 25
+          }
+        ]
+      }
+    ],
+    "schemaVersion": "semantic-pie-options-v1",
+    "styleVocabulary": [
+      "white"
+    ],
+    "visualGrammar": "pie_options"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2bda3c12778bd3977626300f/quadrant_01.jpg",
+        "review-crops/da_2bda3c12778bd3977626300f/quadrant_02.jpg",
+        "review-crops/da_2bda3c12778bd3977626300f/quadrant_03.jpg",
+        "review-crops/da_2bda3c12778bd3977626300f/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.176",
+      "crop_verification_elapsed_seconds:3.604",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:图中未提供具体数值或标签，仅能识别为四个饼图的视觉对比，无法提取具体数据",
+      "crop_note:确认 labels_clockwise 顺序为 A, B, C, D，与图像中标签位置一致。",
+      "crop_note:确认图中无数字、负号、小数、百分号或缺失值，保持 null。",
+      "non_data_multiple_choice_pies",
+      "foreground_iou:0.498473",
+      "mean_absolute_error:9.082229",
+      "trace_parameters:{\"epsilonRatio\": 0.0035, \"minimumContourArea\": 2.0, \"paletteSize\": 8}",
+      "converter:semantic-pie-options-v1",
+      "visual_grammar:pie_options",
+      "angle_convention:zero_at_twelve_clockwise",
+      "comparison_artifact:previews/structured_visual/da_2bda3c12778bd3977626300f-comparison.png",
+      "manual_qa:source_redraw_pair_inspected; sector_order_and_fill_verified"
+    ],
+    "ocr_engine": "human_verified_sector_geometry",
+    "ocr_mean_confidence": 0.96,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,296 @@
+{
+  "asset_id": "da_4739c9394acb274091cba155",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0272_1a8f2cfc8ef27b5d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0272_1a8f2cfc8ef27b5d.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_19ded5a64d180380f817",
+        "question_number": 126,
+        "source_jsonl_line": 61793
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0278_ed94ce49c3952337.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_4e0b9b8043b2d820f4f3",
+        "question_number": 127,
+        "source_jsonl_line": 61794
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0278_ed94ce49c3952337.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_8317fd376c30488f97ab",
+        "question_number": 128,
+        "source_jsonl_line": 61795
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0272_1a8f2cfc8ef27b5d.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_9acdbd7973bc46d6d82b",
+        "question_number": 129,
+        "source_jsonl_line": 61796
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0272_1a8f2cfc8ef27b5d.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_377702659459b58cac94",
+        "question_number": 130,
+        "source_jsonl_line": 61797
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0304_1a8f2cfc8ef27b5d.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_334094dd1e89ce13be77",
+        "question_number": 126,
+        "source_jsonl_line": 61933
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0304_1a8f2cfc8ef27b5d.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_d2f3cabfc88890883dd7",
+        "question_number": 127,
+        "source_jsonl_line": 61934
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0304_1a8f2cfc8ef27b5d.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_69531342b8f43a0bd93a",
+        "question_number": 128,
+        "source_jsonl_line": 61935
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0304_1a8f2cfc8ef27b5d.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_7583c0977029b68569e3",
+        "question_number": 129,
+        "source_jsonl_line": 61936
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0304_1a8f2cfc8ef27b5d.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_af320cfd6efa01b029c5",
+        "question_number": 130,
+        "source_jsonl_line": 61937
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0304_1a8f2cfc8ef27b5d.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_4817c6522dab35fa8a63",
+        "question_number": 126,
+        "source_jsonl_line": 87841
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0304_1a8f2cfc8ef27b5d.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_125fdb1f2a816acc9950",
+        "question_number": 127,
+        "source_jsonl_line": 87842
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0304_1a8f2cfc8ef27b5d.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_82369a95b13228b46d6a",
+        "question_number": 128,
+        "source_jsonl_line": 87843
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0304_1a8f2cfc8ef27b5d.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_952c059d8cc407dc5695",
+        "question_number": 129,
+        "source_jsonl_line": 87844
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0345_ed94ce49c3952337.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_e20d12248aa0572765f7",
+        "question_number": 130,
+        "source_jsonl_line": 87845
+      }
+    ],
+    "sha256": "4739c9394acb274091cba1559f204638d011b6fd08bd19c534d5aa4883fc4d43"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "支出金额（亿元）",
+      "同比增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "支出项目",
+    "rows": [
+      {
+        "label": "一般公共服务",
+        "unit": null,
+        "values": [
+          6.37,
+          31.0
+        ]
+      },
+      {
+        "label": "公共安全",
+        "unit": null,
+        "values": [
+          4.77,
+          37.3
+        ]
+      },
+      {
+        "label": "教育",
+        "unit": null,
+        "values": [
+          6.03,
+          51.7
+        ]
+      },
+      {
+        "label": "科学技术",
+        "unit": null,
+        "values": [
+          1.11,
+          181.0
+        ]
+      },
+      {
+        "label": "文化体育与传媒",
+        "unit": null,
+        "values": [
+          1.29,
+          35.8
+        ]
+      },
+      {
+        "label": "社会保障和就业",
+        "unit": null,
+        "values": [
+          2.63,
+          26.7
+        ]
+      },
+      {
+        "label": "医疗卫生",
+        "unit": null,
+        "values": [
+          2.28,
+          14.4
+        ]
+      },
+      {
+        "label": "节能环保",
+        "unit": null,
+        "values": [
+          6.68,
+          567.0
+        ]
+      },
+      {
+        "label": "城乡社区事务",
+        "unit": null,
+        "values": [
+          2.57,
+          48.7
+        ]
+      },
+      {
+        "label": "农林水事务",
+        "unit": null,
+        "values": [
+          4.02,
+          34.5
+        ]
+      },
+      {
+        "label": "交通运输",
+        "unit": null,
+        "values": [
+          2.58,
+          10.8
+        ]
+      },
+      {
+        "label": "资源勘探电力信息等事务",
+        "unit": null,
+        "values": [
+          4.7,
+          67.8
+        ]
+      }
+    ]
+  },
+  "title": "表2 2016年该市本级主要预算支出项目完成情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4739c9394acb274091cba155/row_band_01.jpg",
+        "review-crops/da_4739c9394acb274091cba155/row_band_02.jpg",
+        "review-crops/da_4739c9394acb274091cba155/row_band_03.jpg",
+        "review-crops/da_4739c9394acb274091cba155/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.612",
+      "crop_verification_elapsed_seconds:6.14",
+      "candidate_value_changes_after_crop:0",
+      "table_row_label_column_removed:支出项目"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

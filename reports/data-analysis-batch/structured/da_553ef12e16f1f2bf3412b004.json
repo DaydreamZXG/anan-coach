@@ -1,0 +1,213 @@
+{
+  "asset_id": "da_553ef12e16f1f2bf3412b004",
+  "axes": {
+    "x": {
+      "max": 70,
+      "min": 0,
+      "ticks": [
+        0,
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 70,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "迁入本地五年内",
+    "迁入本地五年到十年",
+    "迁入本地十年以上"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "本地人",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "外地人",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "说不清",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "本地人",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        36.71,
+        51.06,
+        59.36
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "外地人",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        60.6,
+        47.52,
+        38.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "说不清",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        1.69,
+        1.42,
+        2.14
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广州市考/2012年广州市公务员录用考试《行测》题_images/img_0063_b22703c0057ebb5f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广州市公务员录用考试《行测》题_images/img_0063_b22703c0057ebb5f.png",
+        "paper_title": "2012年广州市公务员录用考试《行测》题",
+        "question_id": "pq_92a987c1f139c8053fe3",
+        "question_number": 91,
+        "source_jsonl_line": 36953
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广州市公务员录用考试《行测》题_images/img_0063_b22703c0057ebb5f.png",
+        "paper_title": "2012年广州市公务员录用考试《行测》题",
+        "question_id": "pq_47ec0f664615261812d7",
+        "question_number": 92,
+        "source_jsonl_line": 36954
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广州市公务员录用考试《行测》题_images/img_0070_69b15f5469e5e6c4.png",
+        "paper_title": "2012年广州市公务员录用考试《行测》题",
+        "question_id": "pq_884be19208bff1962161",
+        "question_number": 93,
+        "source_jsonl_line": 36955
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广州市公务员录用考试《行测》题_images/img_0063_b22703c0057ebb5f.png",
+        "paper_title": "2012年广州市公务员录用考试《行测》题",
+        "question_id": "pq_40aa45713bb6731d90ed",
+        "question_number": 94,
+        "source_jsonl_line": 36956
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年广州市公务员录用考试《行测》题_images/img_0070_69b15f5469e5e6c4.png",
+        "paper_title": "2012年广州市公务员录用考试《行测》题",
+        "question_id": "pq_471f7c075150113266ee",
+        "question_number": 95,
+        "source_jsonl_line": 36957
+      }
+    ],
+    "sha256": "553ef12e16f1f2bf3412b0044abac19919953f13e8ed8da0c4c69fe210f8bb69"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_553ef12e16f1f2bf3412b004/column_band_01.jpg",
+        "review-crops/da_553ef12e16f1f2bf3412b004/column_band_02.jpg",
+        "review-crops/da_553ef12e16f1f2bf3412b004/column_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.09",
+      "crop_verification_elapsed_seconds:2.59",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

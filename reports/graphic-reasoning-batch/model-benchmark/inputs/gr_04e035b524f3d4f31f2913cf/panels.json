@@ -1,0 +1,267 @@
+{
+  "assetId": "gr_04e035b524f3d4f31f2913cf",
+  "deterministicPanelEvidence": {
+    "detection": {
+      "candidateCount": 11,
+      "imageHeight": 359,
+      "imageWidth": 700,
+      "selectedCount": 9,
+      "splitFromGrid": false
+    },
+    "layoutType": "sequence",
+    "optionCount": 4,
+    "panelCount": 9
+  },
+  "issues": [],
+  "panels": [
+    {
+      "id": "panel-1",
+      "layoutBorderRemovedPixels": 5,
+      "modelInput": "/Users/zxg/Documents/新项目/reports/graphic-reasoning-batch/model-benchmark/inputs/gr_04e035b524f3d4f31f2913cf/panel-01.png",
+      "modelInputSha256": "a54076aaf9a5a435d99cd1f2139d7eeaab3bc9ed8bf1955f219c1dfb627c174f",
+      "modelPolicy": "generate_svg_candidate",
+      "role": "stem",
+      "semantics": {
+        "containsFilledRegions": false,
+        "containsText": false,
+        "expectedPrimitiveFamilies": [
+          "polygon"
+        ]
+      },
+      "sourceBox": {
+        "height": 137,
+        "normalized": {
+          "height": 0.381616,
+          "width": 0.195714,
+          "x": 0.01,
+          "y": 0.019499
+        },
+        "width": 137,
+        "x": 7,
+        "y": 7
+      }
+    },
+    {
+      "id": "panel-2",
+      "layoutBorderRemovedPixels": 5,
+      "modelInput": "/Users/zxg/Documents/新项目/reports/graphic-reasoning-batch/model-benchmark/inputs/gr_04e035b524f3d4f31f2913cf/panel-02.png",
+      "modelInputSha256": "2fb069d789de970f3a7f405669787af479af2417215147ba1bad68919312d0ea",
+      "modelPolicy": "generate_svg_candidate",
+      "role": "stem",
+      "semantics": {
+        "containsFilledRegions": false,
+        "containsText": false,
+        "expectedPrimitiveFamilies": [
+          "polygon"
+        ]
+      },
+      "sourceBox": {
+        "height": 137,
+        "normalized": {
+          "height": 0.381616,
+          "width": 0.197143,
+          "x": 0.404286,
+          "y": 0.019499
+        },
+        "width": 138,
+        "x": 283,
+        "y": 7
+      }
+    },
+    {
+      "id": "panel-3",
+      "layoutBorderRemovedPixels": 5,
+      "modelInput": "/Users/zxg/Documents/新项目/reports/graphic-reasoning-batch/model-benchmark/inputs/gr_04e035b524f3d4f31f2913cf/panel-03.png",
+      "modelInputSha256": "c8518377721db17148253a44a23a7c843fed2a95636a1a18accbdd1e1988bb2c",
+      "modelPolicy": "generate_svg_candidate",
+      "role": "stem",
+      "semantics": {
+        "containsFilledRegions": false,
+        "containsText": false,
+        "expectedPrimitiveFamilies": [
+          "polygon"
+        ]
+      },
+      "sourceBox": {
+        "height": 137,
+        "normalized": {
+          "height": 0.381616,
+          "width": 0.185714,
+          "x": 0.604286,
+          "y": 0.019499
+        },
+        "width": 130,
+        "x": 423,
+        "y": 7
+      }
+    },
+    {
+      "id": "panel-4",
+      "layoutBorderRemovedPixels": 5,
+      "modelInput": "/Users/zxg/Documents/新项目/reports/graphic-reasoning-batch/model-benchmark/inputs/gr_04e035b524f3d4f31f2913cf/panel-04.png",
+      "modelInputSha256": "8b0cbf92d48202b0b3d3a69e1c0749d7d772d077b44681ac7021f978c19fcdfe",
+      "modelPolicy": "generate_svg_candidate",
+      "role": "stem",
+      "semantics": {
+        "containsFilledRegions": false,
+        "containsText": false,
+        "expectedPrimitiveFamilies": [
+          "polygon"
+        ]
+      },
+      "sourceBox": {
+        "height": 138,
+        "normalized": {
+          "height": 0.384401,
+          "width": 0.195714,
+          "x": 0.207143,
+          "y": 0.019499
+        },
+        "width": 137,
+        "x": 145,
+        "y": 7
+      }
+    },
+    {
+      "id": "panel-5",
+      "layoutBorderRemovedPixels": 5,
+      "modelInput": "/Users/zxg/Documents/新项目/reports/graphic-reasoning-batch/model-benchmark/inputs/gr_04e035b524f3d4f31f2913cf/panel-05.png",
+      "modelInputSha256": "7ec8a28b661165fe474c85ca4baea37fe56ed01480c6beb5baf8f4f21f73f112",
+      "modelPolicy": "generate_svg_candidate",
+      "role": "stem",
+      "semantics": {
+        "containsFilledRegions": false,
+        "containsText": false,
+        "expectedPrimitiveFamilies": [
+          "polygon"
+        ]
+      },
+      "sourceBox": {
+        "height": 138,
+        "normalized": {
+          "height": 0.384401,
+          "width": 0.197143,
+          "x": 0.792857,
+          "y": 0.019499
+        },
+        "width": 138,
+        "x": 555,
+        "y": 7
+      }
+    },
+    {
+      "id": "panel-6",
+      "layoutBorderRemovedPixels": 5,
+      "modelInput": "/Users/zxg/Documents/新项目/reports/graphic-reasoning-batch/model-benchmark/inputs/gr_04e035b524f3d4f31f2913cf/panel-06.png",
+      "modelInputSha256": "18e9f38209cbb4a11363a1d8b9d0cdeb79d967336918dfeef4e00c9ee3590091",
+      "modelPolicy": "generate_svg_candidate",
+      "role": "option",
+      "semantics": {
+        "containsFilledRegions": false,
+        "containsText": false,
+        "expectedPrimitiveFamilies": [
+          "polygon"
+        ]
+      },
+      "sourceBox": {
+        "height": 137,
+        "normalized": {
+          "height": 0.381616,
+          "width": 0.197143,
+          "x": 0.102857,
+          "y": 0.495822
+        },
+        "width": 138,
+        "x": 72,
+        "y": 178
+      }
+    },
+    {
+      "id": "panel-7",
+      "layoutBorderRemovedPixels": 5,
+      "modelInput": "/Users/zxg/Documents/新项目/reports/graphic-reasoning-batch/model-benchmark/inputs/gr_04e035b524f3d4f31f2913cf/panel-07.png",
+      "modelInputSha256": "677ac99c53decdb70a01975430017af3609d782abc8adad1560bd1e35028b6a7",
+      "modelPolicy": "generate_svg_candidate",
+      "role": "option",
+      "semantics": {
+        "containsFilledRegions": false,
+        "containsText": false,
+        "expectedPrimitiveFamilies": [
+          "polygon"
+        ]
+      },
+      "sourceBox": {
+        "height": 137,
+        "normalized": {
+          "height": 0.381616,
+          "width": 0.197143,
+          "x": 0.301429,
+          "y": 0.495822
+        },
+        "width": 138,
+        "x": 211,
+        "y": 178
+      }
+    },
+    {
+      "id": "panel-8",
+      "layoutBorderRemovedPixels": 5,
+      "modelInput": "/Users/zxg/Documents/新项目/reports/graphic-reasoning-batch/model-benchmark/inputs/gr_04e035b524f3d4f31f2913cf/panel-08.png",
+      "modelInputSha256": "6ea2a652a5513f76135e27d93c2980de6a1f03a671de6559a46a18d68acae3a4",
+      "modelPolicy": "generate_svg_candidate",
+      "role": "option",
+      "semantics": {
+        "containsFilledRegions": false,
+        "containsText": false,
+        "expectedPrimitiveFamilies": [
+          "polygon"
+        ]
+      },
+      "sourceBox": {
+        "height": 137,
+        "normalized": {
+          "height": 0.381616,
+          "width": 0.195714,
+          "x": 0.5,
+          "y": 0.495822
+        },
+        "width": 137,
+        "x": 350,
+        "y": 178
+      }
+    },
+    {
+      "id": "panel-9",
+      "layoutBorderRemovedPixels": 5,
+      "modelInput": "/Users/zxg/Documents/新项目/reports/graphic-reasoning-batch/model-benchmark/inputs/gr_04e035b524f3d4f31f2913cf/panel-09.png",
+      "modelInputSha256": "132b55bc7340f7f68303d77ceeb96452f543f5115e67b935eef840c82ccfa508",
+      "modelPolicy": "generate_svg_candidate",
+      "role": "option",
+      "semantics": {
+        "containsFilledRegions": false,
+        "containsText": false,
+        "expectedPrimitiveFamilies": [
+          "polygon"
+        ]
+      },
+      "sourceBox": {
+        "height": 137,
+        "normalized": {
+          "height": 0.381616,
+          "width": 0.197143,
+          "x": 0.697143,
+          "y": 0.495822
+        },
+        "width": 138,
+        "x": 488,
+        "y": 178
+      }
+    }
+  ],
+  "phase": 1,
+  "regularSubtype": "closed_polygon_composition",
+  "schemaVersion": "graphic-vector-benchmark-input-v1",
+  "sourcePath": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2009年江苏省公务员录用考试《行测》题（A类）_images/img_0230_efb7f9480454ae98.png",
+  "sourceSha256": "04e035b524f3d4f31f2913cf1678db4905c6044fd102f9c06da5a2e636bbe96d",
+  "status": "repair_pending"
+}

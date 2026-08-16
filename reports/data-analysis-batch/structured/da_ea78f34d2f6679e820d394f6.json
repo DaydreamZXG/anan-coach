@@ -1,0 +1,129 @@
+{
+  "asset_id": "da_ea78f34d2f6679e820d394f6",
+  "axes": {
+    "x": {
+      "max": 100,
+      "min": 0,
+      "ticks": [
+        0,
+        20,
+        40,
+        60,
+        80,
+        100
+      ],
+      "title": "使用率",
+      "unit": "%"
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "类别",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "汽车前排驾乘人员安全带使用率",
+    "摩托车安全头盔佩戴率",
+    "非机动车遵守交通信号灯率",
+    "行人遵守交通信号灯率",
+    "机动车依法礼让率"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "使用率",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "使用率",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        100,
+        80,
+        80,
+        90,
+        60
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0075_a26c1b4972dfdfe5.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0075_a26c1b4972dfdfe5.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_d2dfa5eb20fde5803336",
+        "question_number": 115,
+        "source_jsonl_line": 20575
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0126_a26c1b4972dfdfe5.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_ba0b608662d570eaf0cd",
+        "question_number": 120,
+        "source_jsonl_line": 20710
+      }
+    ],
+    "sha256": "ea78f34d2f6679e820d394f6f12fd410719c86e626aff40a49c8d1b058d0c866"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "汽车前排驾乘人员安全带使用率",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ea78f34d2f6679e820d394f6/column_band_01.jpg",
+        "review-crops/da_ea78f34d2f6679e820d394f6/column_band_02.jpg",
+        "review-crops/da_ea78f34d2f6679e820d394f6/column_band_03.jpg",
+        "review-crops/da_ea78f34d2f6679e820d394f6/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.705",
+      "crop_verification_elapsed_seconds:1.273",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

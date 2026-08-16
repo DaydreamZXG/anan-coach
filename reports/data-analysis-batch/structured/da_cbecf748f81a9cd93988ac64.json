@@ -1,0 +1,331 @@
+{
+  "asset_id": "da_cbecf748f81a9cd93988ac64",
+  "axes": {
+    "x": {
+      "max": 2015,
+      "min": 2005,
+      "ticks": [
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015
+      ],
+      "title": "年",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100000,
+        "min": 0,
+        "ticks": [
+          0,
+          20000,
+          40000,
+          60000,
+          80000,
+          100000
+        ],
+        "title": "网民数",
+        "unit": "万人"
+      },
+      {
+        "max": 55,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45,
+          50,
+          55
+        ],
+        "title": "互联网普及率",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "网民数",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "互联网普及率 (%)",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "网民数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        11100,
+        13700,
+        21000,
+        29800,
+        38400,
+        45730,
+        51310,
+        56400,
+        61758,
+        64875,
+        68826
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "互联网普及率 (%)",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        8.5,
+        10.5,
+        16,
+        22.6,
+        28.9,
+        34.3,
+        38.3,
+        42.1,
+        45.8,
+        47.9,
+        50.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0315_3e173a5a207c20df.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0315_3e173a5a207c20df.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_5ff521bb4f1e7c373df6",
+        "question_number": 131,
+        "source_jsonl_line": 61798
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0315_3e173a5a207c20df.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_5c5e88ecf5d8c3a8339c",
+        "question_number": 132,
+        "source_jsonl_line": 61799
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0376_3df0626f17045e0b.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_f9dfc07c1c1e8d831fde",
+        "question_number": 133,
+        "source_jsonl_line": 61800
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0315_3e173a5a207c20df.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_cdb61d3f9550418618fc",
+        "question_number": 134,
+        "source_jsonl_line": 61801
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0315_3e173a5a207c20df.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_d914415299ce2313fa47",
+        "question_number": 135,
+        "source_jsonl_line": 61802
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0346_3e173a5a207c20df.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_6c9a39f221f5ec1f1abd",
+        "question_number": 131,
+        "source_jsonl_line": 61938
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0346_3e173a5a207c20df.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_66a4d88f3f3967c27b3d",
+        "question_number": 132,
+        "source_jsonl_line": 61939
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0369_3df0626f17045e0b.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_45d66fe210d8e0e7e8f9",
+        "question_number": 133,
+        "source_jsonl_line": 61940
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0346_3e173a5a207c20df.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_58622e630f1ee5a3b407",
+        "question_number": 134,
+        "source_jsonl_line": 61941
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0369_3df0626f17045e0b.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_ff828eb2bed1bb94d396",
+        "question_number": 135,
+        "source_jsonl_line": 61942
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0341_3df0626f17045e0b.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_d1b5cd5b95828770ff2a",
+        "question_number": 131,
+        "source_jsonl_line": 87846
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0357_3e173a5a207c20df.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_d4b11d67e54717ee32f5",
+        "question_number": 132,
+        "source_jsonl_line": 87847
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0341_3df0626f17045e0b.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_080440fe38099926c4bf",
+        "question_number": 133,
+        "source_jsonl_line": 87848
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0357_3e173a5a207c20df.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_aabf52cf4f2cd44d4099",
+        "question_number": 134,
+        "source_jsonl_line": 87849
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0357_3e173a5a207c20df.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_09a22f42cb43bc865d87",
+        "question_number": 135,
+        "source_jsonl_line": 87850
+      }
+    ],
+    "sha256": "cbecf748f81a9cd93988ac648ffbcc82746a6237199dd761ef1724e38193d22b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2005-2015年各年末中国网民规模和互联网普及率",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cbecf748f81a9cd93988ac64/column_band_01.jpg",
+        "review-crops/da_cbecf748f81a9cd93988ac64/column_band_02.jpg",
+        "review-crops/da_cbecf748f81a9cd93988ac64/column_band_03.jpg",
+        "review-crops/da_cbecf748f81a9cd93988ac64/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.037",
+      "crop_verification_elapsed_seconds:9.453",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'2007'年网民数为21000，原图中误标为2100。",
+      "crop_note:修正了'2008'年网民数为29800，原图中误标为29800。",
+      "crop_note:修正了'2009'年网民数为38400，原图中误标为38400。",
+      "crop_note:修正了'2010'年网民数为45730，原图中误标为45730。",
+      "crop_note:修正了'2011'年网民数为51310，原图中误标为51310。",
+      "crop_note:修正了'2012'年网民数为56400，原图中误标为56400。",
+      "crop_note:修正了'2013'年网民数为61758，原图中误标为61758。",
+      "crop_note:修正了'2014'年网民数为64875，原图中误标为64875。",
+      "crop_note:修正了'2015'年网民数为68826，原图中误标为68826。",
+      "crop_note:修正了'2005'年互联网普及率为8.5，原图中误标为8.5。",
+      "crop_note:修正了'2006'年互联网普及率为10.5，原图中误标为10.5。",
+      "crop_note:修正了'2007'年互联网普及率为16，原图中误标为16。",
+      "crop_note:修正了'2008'年互联网普及率为22.6，原图中误标为22.6。",
+      "crop_note:修正了'2009'年互联网普及率为28.9，原图中误标为28.9。",
+      "crop_note:修正了'2010'年互联网普及率为34.3，原图中误标为34.3。",
+      "crop_note:修正了'2011'年互联网普及率为38.3，原图中误标为38.3。",
+      "crop_note:修正了'2012'年互联网普及率为42.1，原图中误标为42.1。",
+      "crop_note:修正了'2013'年互联网普及率为45.8，原图中误标为45.8。",
+      "crop_note:修正了'2014'年互联网普及率为47.9，原图中误标为47.9。",
+      "crop_note:修正了'2015'年互联网普及率为50.3，原图中误标为50.3。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,248 @@
+{
+  "asset_id": "da_2c8b45c15566989471b1249d",
+  "axes": {
+    "x": {
+      "max": 2015,
+      "min": 2011,
+      "ticks": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 900,
+        "min": 0,
+        "ticks": [
+          0,
+          300,
+          600,
+          900
+        ],
+        "title": "固定资产投资额",
+        "unit": "亿元"
+      },
+      {
+        "max": 10,
+        "min": 0,
+        "ticks": [
+          0,
+          2.5,
+          5,
+          7.5,
+          10
+        ],
+        "title": "比上年增长",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "固定资产投资额",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "比上年增长",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "line",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "固定资产投资额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        687.7,
+        712.2,
+        716.6,
+        734.2,
+        769.3
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比上年增长",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.4,
+        3.6,
+        0.6,
+        2.5,
+        4.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/福建/2017年福建省选调生考试《行政职业能力测验》_images/img_0051_8576d4e7afcdb118.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年福建省选调生考试《行政职业能力测验》_images/img_0051_8576d4e7afcdb118.png",
+        "paper_title": "2017年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_f83b351aad2e29b99bb6",
+        "question_number": 91,
+        "source_jsonl_line": 78000
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年福建省选调生考试《行政职业能力测验》_images/img_0051_8576d4e7afcdb118.png",
+        "paper_title": "2017年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_6f0fd5c327b21948215f",
+        "question_number": 92,
+        "source_jsonl_line": 78001
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年福建省选调生考试《行政职业能力测验》_images/img_0048_63f15b6fa265a412.png",
+        "paper_title": "2017年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_0ce926f91b38991e24ba",
+        "question_number": 93,
+        "source_jsonl_line": 78002
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年福建省选调生考试《行政职业能力测验》_images/img_0051_8576d4e7afcdb118.png",
+        "paper_title": "2017年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_7d17fe0a7413eb1aad5d",
+        "question_number": 94,
+        "source_jsonl_line": 78003
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年福建省选调生考试《行政职业能力测验》_images/img_0051_8576d4e7afcdb118.png",
+        "paper_title": "2017年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_2475f121d217bae2ff94",
+        "question_number": 95,
+        "source_jsonl_line": 78004
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年福建省选调生考试《行政职业能力测验》_images/img_0047_63f15b6fa265a412.png",
+        "paper_title": "2017年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_676d9a2a8a0247cd8f6d",
+        "question_number": 91,
+        "source_jsonl_line": 87033
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年福建省选调生考试《行政职业能力测验》_images/img_0047_63f15b6fa265a412.png",
+        "paper_title": "2017年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_646126854d5ec98f85f8",
+        "question_number": 92,
+        "source_jsonl_line": 87034
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年福建省选调生考试《行政职业能力测验》_images/img_0052_8576d4e7afcdb118.png",
+        "paper_title": "2017年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_b5bef925182e8d5fac9d",
+        "question_number": 93,
+        "source_jsonl_line": 87035
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年福建省选调生考试《行政职业能力测验》_images/img_0052_8576d4e7afcdb118.png",
+        "paper_title": "2017年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_489840e9c2f7fd321c41",
+        "question_number": 94,
+        "source_jsonl_line": 87036
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年福建省选调生考试《行政职业能力测验》_images/img_0047_63f15b6fa265a412.png",
+        "paper_title": "2017年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_cfc80c647e3004c0f18e",
+        "question_number": 95,
+        "source_jsonl_line": 87037
+      }
+    ],
+    "sha256": "2c8b45c15566989471b1249d64ca749c44cd400fcbd87daa0a3bbc76acc479c7"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图1 2011-2015年民航基本建设和技术改造投资额",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2c8b45c15566989471b1249d/column_band_01.jpg",
+        "review-crops/da_2c8b45c15566989471b1249d/column_band_02.jpg",
+        "review-crops/da_2c8b45c15566989471b1249d/column_band_03.jpg",
+        "review-crops/da_2c8b45c15566989471b1249d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.803",
+      "crop_verification_elapsed_seconds:11.622",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2011年固定资产投资额为687.7亿元，与图中数值一致。",
+      "crop_note:修正了2012年固定资产投资额为712.2亿元，与图中数值一致。",
+      "crop_note:修正了2013年固定资产投资额为716.6亿元，与图中数值一致。",
+      "crop_note:修正了2014年固定资产投资额为734.2亿元，与图中数值一致。",
+      "crop_note:修正了2015年固定资产投资额为769.3亿元，与图中数值一致。",
+      "crop_note:修正了2011年比上年增长为6.4%，与图中数值一致。",
+      "crop_note:修正了2012年比上年增长为3.6%，与图中数值一致。",
+      "crop_note:修正了2013年比上年增长为0.6%，与图中数值一致。",
+      "crop_note:修正了2014年比上年增长为2.5%，与图中数值一致。",
+      "crop_note:修正了2015年比上年增长为4.8%，与图中数值一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

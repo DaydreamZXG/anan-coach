@@ -1,0 +1,202 @@
+{
+  "asset_id": "da_b4db2350479358bed0510697",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 500,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500
+        ],
+        "title": null,
+        "unit": "亿件"
+      },
+      {
+        "max": 200,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "快递业务量",
+      "style": {
+        "dash": null,
+        "fill": "#1F77B4",
+        "marker": null,
+        "stroke": "#1F77B4"
+      }
+    },
+    {
+      "label": "比上年增长",
+      "style": {
+        "dash": null,
+        "fill": "#A52A2A",
+        "marker": null,
+        "stroke": "#A52A2A"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "快递业务量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿件",
+      "values": [
+        91.9,
+        139.6,
+        206.7,
+        312.8,
+        400.6
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比上年增长",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        null,
+        139.6,
+        139.6,
+        139.6,
+        139.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河南/河南省2019年统一考试录用司法所公务员《行测》题（网友回忆版）_images/img_0188_6bae47a7314421b6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省2019年统一考试录用司法所公务员《行测》题（网友回忆版）_images/img_0188_6bae47a7314421b6.png",
+        "paper_title": "河南省2019年统一考试录用司法所公务员《行测》题（网友回忆版）",
+        "question_id": "pq_0b0dbb060c60717ac6e0",
+        "question_number": 111,
+        "source_jsonl_line": 59648
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省2019年统一考试录用司法所公务员《行测》题（网友回忆版）_images/img_0188_6bae47a7314421b6.png",
+        "paper_title": "河南省2019年统一考试录用司法所公务员《行测》题（网友回忆版）",
+        "question_id": "pq_12db752eb513317960a0",
+        "question_number": 112,
+        "source_jsonl_line": 59649
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省2019年统一考试录用司法所公务员《行测》题（网友回忆版）_images/img_0188_6bae47a7314421b6.png",
+        "paper_title": "河南省2019年统一考试录用司法所公务员《行测》题（网友回忆版）",
+        "question_id": "pq_2c1aafc24dd675eec166",
+        "question_number": 113,
+        "source_jsonl_line": 59650
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省2019年统一考试录用司法所公务员《行测》题（网友回忆版）_images/img_0196_e25748fbd86e6a22.png",
+        "paper_title": "河南省2019年统一考试录用司法所公务员《行测》题（网友回忆版）",
+        "question_id": "pq_0c0eb175df8bd55b7d08",
+        "question_number": 114,
+        "source_jsonl_line": 59651
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省2019年统一考试录用司法所公务员《行测》题（网友回忆版）_images/img_0188_6bae47a7314421b6.png",
+        "paper_title": "河南省2019年统一考试录用司法所公务员《行测》题（网友回忆版）",
+        "question_id": "pq_7995d1df640268002847",
+        "question_number": 115,
+        "source_jsonl_line": 59652
+      }
+    ],
+    "sha256": "b4db2350479358bed05106978c4322279e84428d7bd5009a27c1b9921bed7e6b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013-2017年快递业务量及其增长速度",
+  "unit": "亿件",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b4db2350479358bed0510697/column_band_01.jpg",
+        "review-crops/da_b4db2350479358bed0510697/column_band_02.jpg",
+        "review-crops/da_b4db2350479358bed0510697/column_band_03.jpg",
+        "review-crops/da_b4db2350479358bed0510697/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.104",
+      "crop_verification_elapsed_seconds:3.045",
+      "candidate_value_changes_after_crop:1",
+      "model_uncertainty:'比上年增长'系列的数值在图中未明确标注，仅通过折线位置估算，存在不确定性",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

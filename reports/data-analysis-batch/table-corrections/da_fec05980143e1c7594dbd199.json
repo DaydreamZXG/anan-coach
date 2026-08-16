@@ -1,0 +1,159 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "二级指标",
+      "2014年",
+      "2015年",
+      "2016年",
+      "2017年",
+      "2018年",
+      "变动幅度"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "创新发展的二级指标",
+    "rows": [
+      {
+        "display_label": "1.R&D经费支出占GDP比重指数",
+        "group": null,
+        "label": "1.R&D经费支出占GDP比重指数",
+        "unit": null,
+        "values": [
+          "R&D经费支出占GDP比重指数",
+          77.5,
+          82.9,
+          84.6,
+          88.2,
+          91.4,
+          13.9
+        ]
+      },
+      {
+        "display_label": "2.每万名就业人员R&D人员全时当量指数",
+        "group": null,
+        "label": "2.每万名就业人员R&D人员全时当量指数",
+        "unit": null,
+        "values": [
+          "每万名就业人员R&D人员全时当量指数",
+          91.7,
+          92.3,
+          91.6,
+          89.7,
+          89.4,
+          -2.3
+        ]
+      },
+      {
+        "display_label": "3.高新技术企业数量指数",
+        "group": null,
+        "label": "3.高新技术企业数量指数",
+        "unit": null,
+        "values": [
+          "高新技术企业数量指数",
+          23.9,
+          28.6,
+          33.2,
+          39.7,
+          70.9,
+          47.0
+        ]
+      },
+      {
+        "display_label": "4.每万人发明专利拥有量指数",
+        "group": null,
+        "label": "4.每万人发明专利拥有量指数",
+        "unit": null,
+        "values": [
+          "每万人发明专利拥有量指数",
+          37.3,
+          44.9,
+          52.2,
+          64.0,
+          77.7,
+          40.4
+        ]
+      },
+      {
+        "display_label": "5.每万人PCT国际专利申请受理量指数",
+        "group": null,
+        "label": "5.每万人PCT国际专利申请受理量指数",
+        "unit": null,
+        "values": [
+          "每万人PCT国际专利申请受理量指数",
+          48.3,
+          50.0,
+          61.1,
+          77.8,
+          100.0,
+          51.7
+        ]
+      },
+      {
+        "display_label": "6.科技贡献率指数",
+        "group": null,
+        "label": "6.科技贡献率指数",
+        "unit": null,
+        "values": [
+          "科技贡献率指数",
+          88.4,
+          90.0,
+          94.1,
+          94.7,
+          95.4,
+          6.9
+        ]
+      },
+      {
+        "display_label": "7.高技术制造业增加值占规模以上工业比重指数",
+        "group": null,
+        "label": "7.高技术制造业增加值占规模以上工业比重指数",
+        "unit": null,
+        "values": [
+          "高技术制造业增加值占规模以上工业比重指数",
+          77.7,
+          83.7,
+          85.7,
+          90.0,
+          92.0,
+          14.3
+        ]
+      },
+      {
+        "display_label": "8.先进制造业增加值占规模以上工业比重指数",
+        "group": null,
+        "label": "8.先进制造业增加值占规模以上工业比重指数",
+        "unit": null,
+        "values": [
+          "先进制造业增加值占规模以上工业比重指数",
+          92.1,
+          92.1,
+          92.5,
+          93.3,
+          94.8,
+          2.7
+        ]
+      },
+      {
+        "display_label": "9.高新技术产品出口额占总出口额比重指数",
+        "group": null,
+        "label": "9.高新技术产品出口额占总出口额比重指数",
+        "unit": null,
+        "values": [
+          "高新技术产品出口额占总出口额比重指数",
+          79.6,
+          89.5,
+          79.6,
+          80.2,
+          79.4,
+          -0.2
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

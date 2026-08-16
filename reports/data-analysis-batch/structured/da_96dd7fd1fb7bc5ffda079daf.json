@@ -1,0 +1,268 @@
+{
+  "asset_id": "da_96dd7fd1fb7bc5ffda079daf",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2009年四川省公务员录用考试《行测》题（上半年）_images/img_0147_a0fd81b9807a8e4c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年四川省公务员录用考试《行测》题（上半年）_images/img_0147_a0fd81b9807a8e4c.png",
+        "paper_title": "2009年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_98a952a3dadb710cc883",
+        "question_number": 91,
+        "source_jsonl_line": 14007
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年四川省公务员录用考试《行测》题（上半年）_images/img_0147_a0fd81b9807a8e4c.png",
+        "paper_title": "2009年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_9fc10b89074749948544",
+        "question_number": 92,
+        "source_jsonl_line": 14008
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年四川省公务员录用考试《行测》题（上半年）_images/img_0147_a0fd81b9807a8e4c.png",
+        "paper_title": "2009年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_75fef7a01e232afdaa3f",
+        "question_number": 93,
+        "source_jsonl_line": 14009
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年四川省公务员录用考试《行测》题（上半年）_images/img_0144_362a196b6cd48d8c.png",
+        "paper_title": "2009年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_abd37ad283227ae6da95",
+        "question_number": 94,
+        "source_jsonl_line": 14010
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年四川省公务员录用考试《行测》题（上半年）_images/img_0147_a0fd81b9807a8e4c.png",
+        "paper_title": "2009年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_9cc101db52bf0f909c5a",
+        "question_number": 95,
+        "source_jsonl_line": 14011
+      }
+    ],
+    "sha256": "96dd7fd1fb7bc5ffda079daf5558dfa0a8c976d9fde23982a7066e426d4491e4"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "每月",
+      "总指数",
+      "农产品",
+      "矿产品",
+      "煤油电",
+      "加工业产品"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2007.01",
+        "unit": null,
+        "values": [
+          2007.01,
+          104.6,
+          107.8,
+          114.6,
+          107.0,
+          103.0
+        ]
+      },
+      {
+        "label": "2007.02",
+        "unit": null,
+        "values": [
+          2007.02,
+          104.5,
+          108.6,
+          111.1,
+          104.2,
+          103.0
+        ]
+      },
+      {
+        "label": "2007.03",
+        "unit": null,
+        "values": [
+          2007.03,
+          104.2,
+          107.8,
+          110.9,
+          103.2,
+          103.0
+        ]
+      },
+      {
+        "label": "2007.04",
+        "unit": null,
+        "values": [
+          2007.04,
+          104.6,
+          109.1,
+          112.6,
+          103.3,
+          103.1
+        ]
+      },
+      {
+        "label": "2007.05",
+        "unit": null,
+        "values": [
+          2007.05,
+          105.1,
+          111.3,
+          115.3,
+          103.3,
+          103.0
+        ]
+      },
+      {
+        "label": "2007.06",
+        "unit": null,
+        "values": [
+          2007.06,
+          105.4,
+          112.7,
+          115.4,
+          102.4,
+          103.1
+        ]
+      },
+      {
+        "label": "2007.07",
+        "unit": null,
+        "values": [
+          2007.07,
+          106.1,
+          115.1,
+          115.0,
+          100.8,
+          103.6
+        ]
+      },
+      {
+        "label": "2007.08",
+        "unit": null,
+        "values": [
+          2007.08,
+          106.5,
+          115.7,
+          115.0,
+          101.0,
+          104.0
+        ]
+      },
+      {
+        "label": "2007.09",
+        "unit": null,
+        "values": [
+          2007.09,
+          106.2,
+          113.6,
+          115.4,
+          101.0,
+          104.2
+        ]
+      },
+      {
+        "label": "2007.10",
+        "unit": null,
+        "values": [
+          2007.1,
+          106.5,
+          113.1,
+          115.9,
+          103.3,
+          104.4
+        ]
+      },
+      {
+        "label": "2007.11",
+        "unit": null,
+        "values": [
+          2007.11,
+          107.4,
+          114.1,
+          116.5,
+          109.0,
+          104.8
+        ]
+      },
+      {
+        "label": "2007.12",
+        "unit": null,
+        "values": [
+          2007.12,
+          107.6,
+          111.3,
+          117.3,
+          111.9,
+          105.6
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_96dd7fd1fb7bc5ffda079daf/row_band_01.jpg",
+        "review-crops/da_96dd7fd1fb7bc5ffda079daf/row_band_02.jpg",
+        "review-crops/da_96dd7fd1fb7bc5ffda079daf/row_band_03.jpg",
+        "review-crops/da_96dd7fd1fb7bc5ffda079daf/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.046",
+      "crop_verification_elapsed_seconds:17.956",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

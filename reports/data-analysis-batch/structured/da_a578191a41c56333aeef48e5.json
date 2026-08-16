@@ -1,0 +1,228 @@
+{
+  "asset_id": "da_a578191a41c56333aeef48e5",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0238_9e4e849b525b51e9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0238_9e4e849b525b51e9.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_0c74e553048d0a6caa57",
+        "question_number": 126,
+        "source_jsonl_line": 49771
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0236_b11020511091e7ca.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_5e96ceab4a6b765d7e39",
+        "question_number": 127,
+        "source_jsonl_line": 49772
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0238_9e4e849b525b51e9.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_7fa112de04e8a2cad4c9",
+        "question_number": 128,
+        "source_jsonl_line": 49773
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0236_b11020511091e7ca.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_6e77c64e37a7a475be69",
+        "question_number": 129,
+        "source_jsonl_line": 49774
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0238_9e4e849b525b51e9.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_2151da603b01bde2ea6c",
+        "question_number": 130,
+        "source_jsonl_line": 49775
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0272_9e4e849b525b51e9.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_52644017c970a3442114",
+        "question_number": 126,
+        "source_jsonl_line": 49906
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0278_b11020511091e7ca.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_f1cf057fcaf9c1f7fee5",
+        "question_number": 127,
+        "source_jsonl_line": 49907
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0278_b11020511091e7ca.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_f142e665dab17d1462e4",
+        "question_number": 128,
+        "source_jsonl_line": 49908
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0272_9e4e849b525b51e9.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_3ee22acd55c8937556a1",
+        "question_number": 129,
+        "source_jsonl_line": 49909
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0272_9e4e849b525b51e9.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_90d298268247fc460edd",
+        "question_number": 130,
+        "source_jsonl_line": 49910
+      }
+    ],
+    "sha256": "a578191a41c56333aeef48e568d210379b442f29b5aeaf0cef3172dd5ce4a766"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "进口量（亿块）",
+      "出口量（亿块）",
+      "进口额（亿美元）",
+      "出口额（亿美元）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2015",
+        "unit": null,
+        "values": [
+          2015,
+          3140,
+          1827,
+          2299,
+          691
+        ]
+      },
+      {
+        "label": "2016",
+        "unit": null,
+        "values": [
+          2016,
+          3425,
+          1809,
+          2270,
+          610
+        ]
+      },
+      {
+        "label": "2017",
+        "unit": null,
+        "values": [
+          2017,
+          3770,
+          2044,
+          2601,
+          669
+        ]
+      },
+      {
+        "label": "2018",
+        "unit": null,
+        "values": [
+          2018,
+          4176,
+          2171,
+          3121,
+          846
+        ]
+      },
+      {
+        "label": "2019",
+        "unit": null,
+        "values": [
+          2019,
+          4451,
+          2187,
+          3055,
+          1016
+        ]
+      },
+      {
+        "label": "2020",
+        "unit": null,
+        "values": [
+          2020,
+          5449,
+          2698,
+          3500,
+          1166
+        ]
+      }
+    ]
+  },
+  "title": "表 2015-2020年我国集成电路进出口数据",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a578191a41c56333aeef48e5/row_band_01.jpg",
+        "review-crops/da_a578191a41c56333aeef48e5/row_band_02.jpg",
+        "review-crops/da_a578191a41c56333aeef48e5/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.711",
+      "crop_verification_elapsed_seconds:3.002",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

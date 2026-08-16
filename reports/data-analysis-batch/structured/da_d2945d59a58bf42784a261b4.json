@@ -1,0 +1,285 @@
+{
+  "asset_id": "da_d2945d59a58bf42784a261b4",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/甘肃/2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0261_05f2200e853bb5df.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0261_05f2200e853bb5df.png",
+        "paper_title": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_21bd8186bc391eb0dc68",
+        "question_number": 116,
+        "source_jsonl_line": 75331
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0261_05f2200e853bb5df.png",
+        "paper_title": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9fe0698296863c4cdf3d",
+        "question_number": 117,
+        "source_jsonl_line": 75332
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0261_05f2200e853bb5df.png",
+        "paper_title": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7713ce86d0bbed74f039",
+        "question_number": 118,
+        "source_jsonl_line": 75333
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0291_e37d2681620f13df.png",
+        "paper_title": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_671f8209a7a5fd59ecbe",
+        "question_number": 119,
+        "source_jsonl_line": 75334
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）_images/img_0291_e37d2681620f13df.png",
+        "paper_title": "2019年甘肃省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5828ce66228e89ba2ad3",
+        "question_number": 120,
+        "source_jsonl_line": 75335
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0321_05f2200e853bb5df.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_5295ea64f7fc97c84fe9",
+        "question_number": 116,
+        "source_jsonl_line": 94739
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0321_05f2200e853bb5df.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_0e3eec432f608687b175",
+        "question_number": 117,
+        "source_jsonl_line": 94740
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0321_05f2200e853bb5df.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_d93f8c3052bbff9b667d",
+        "question_number": 118,
+        "source_jsonl_line": 94741
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0352_e37d2681620f13df.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_d8b35d9637559f21ff0a",
+        "question_number": 119,
+        "source_jsonl_line": 94742
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0321_05f2200e853bb5df.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_81c9f149be4a827bf77e",
+        "question_number": 120,
+        "source_jsonl_line": 94743
+      }
+    ],
+    "sha256": "d2945d59a58bf42784a261b444cdf45be86006b8aeafe18944f83346a56af356"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "出口品种",
+      "数量(万吨)",
+      "出口额(亿美元)",
+      "数量",
+      "出口额"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "头足类",
+        "unit": null,
+        "values": [
+          "头足类",
+          13.06,
+          8.79,
+          21.99,
+          24.24
+        ]
+      },
+      {
+        "label": "对虾",
+        "unit": null,
+        "values": [
+          "对虾",
+          3.01,
+          3.81,
+          0.37,
+          4.24
+        ]
+      },
+      {
+        "label": "贝类",
+        "unit": null,
+        "values": [
+          "贝类",
+          5.74,
+          2.77,
+          -14.61,
+          -2.45
+        ]
+      },
+      {
+        "label": "罗非鱼",
+        "unit": null,
+        "values": [
+          "罗非鱼",
+          8.19,
+          2.47,
+          1.31,
+          -1.64
+        ]
+      },
+      {
+        "label": "鳝鱼",
+        "unit": null,
+        "values": [
+          "鳝鱼",
+          1.05,
+          2.46,
+          14.4,
+          26.05
+        ]
+      },
+      {
+        "label": "蟹类",
+        "unit": null,
+        "values": [
+          "蟹类",
+          1.44,
+          2.02,
+          3.0,
+          6.75
+        ]
+      },
+      {
+        "label": "鲭鱼",
+        "unit": null,
+        "values": [
+          "鲭鱼",
+          8.67,
+          1.7,
+          -30.71,
+          -25.02
+        ]
+      },
+      {
+        "label": "大黄鱼",
+        "unit": null,
+        "values": [
+          "大黄鱼",
+          1.11,
+          0.75,
+          71.75,
+          60.88
+        ]
+      },
+      {
+        "label": "藻类",
+        "unit": null,
+        "values": [
+          "藻类",
+          1.35,
+          0.98,
+          3.92,
+          10.25
+        ]
+      },
+      {
+        "label": "淡水小龙虾",
+        "unit": null,
+        "values": [
+          "淡水小龙虾",
+          0.02,
+          0.03,
+          -88.6,
+          -88.56
+        ]
+      }
+    ]
+  },
+  "title": "2018年第一季度我国水产品一般贸易主要出口品种",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d2945d59a58bf42784a261b4/row_band_01.jpg",
+        "review-crops/da_d2945d59a58bf42784a261b4/row_band_02.jpg",
+        "review-crops/da_d2945d59a58bf42784a261b4/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.966",
+      "crop_verification_elapsed_seconds:5.932",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:头足类:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:对虾:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:对虾:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:贝类:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:罗非鱼:4!=5",
+      "crop_note:ignored_unknown_table_row:鳗鱼",
+      "crop_note:ignored_table_row_length_mismatch:蟹类:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:鲭鱼:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:蟹类:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:鲭鱼:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:大黄鱼:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:藻类:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:淡水小龙虾:4!=5"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

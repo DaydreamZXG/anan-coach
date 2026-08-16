@@ -1,0 +1,214 @@
+{
+  "asset_id": "da_4eaeb617a1208e4546874ae3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 3.1,
+        "min": 2.3,
+        "ticks": [
+          2.3,
+          2.5,
+          2.7,
+          2.9,
+          3.1
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "餐饮卫生",
+    "食品",
+    "药品",
+    "家装安全",
+    "家装费用",
+    "儿童玩具"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "农村",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "城市",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "县镇",
+      "style": {
+        "dash": "dashed",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "农村",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        2.42,
+        2.39,
+        2.46,
+        2.68,
+        2.71,
+        2.97
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "城市",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        2.68,
+        2.58,
+        2.39,
+        3.02,
+        3.07,
+        2.92
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "县镇",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        2.39,
+        2.37,
+        2.32,
+        2.8,
+        2.86,
+        2.89
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2009年江苏省公务员录用考试《行测》题（A类）_images/img_0222_4910b823a339a7d9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0222_4910b823a339a7d9.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_895f8a0c5f0f29ac28e5",
+        "question_number": 96,
+        "source_jsonl_line": 44826
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0222_4910b823a339a7d9.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_54ef78837a593f6c372b",
+        "question_number": 97,
+        "source_jsonl_line": 44827
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0223_eb4d46cfff66e6ab.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_4dead061cdb655a342a4",
+        "question_number": 98,
+        "source_jsonl_line": 44828
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0222_4910b823a339a7d9.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_642deb704ece9d0bd20c",
+        "question_number": 99,
+        "source_jsonl_line": 44829
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（A类）_images/img_0223_eb4d46cfff66e6ab.png",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_8330d50a0ef4e978dc31",
+        "question_number": 100,
+        "source_jsonl_line": 44830
+      }
+    ],
+    "sha256": "4eaeb617a1208e4546874ae39b0aff9b29ce6cc97157c01d376f8aa0eaaf1b9f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2007年我国城乡居民各种生活领域的安全感比较",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4eaeb617a1208e4546874ae3/column_band_01.jpg",
+        "review-crops/da_4eaeb617a1208e4546874ae3/column_band_02.jpg",
+        "review-crops/da_4eaeb617a1208e4546874ae3/column_band_03.jpg",
+        "review-crops/da_4eaeb617a1208e4546874ae3/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.815",
+      "crop_verification_elapsed_seconds:4.049",
+      "candidate_value_changes_after_crop:4",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

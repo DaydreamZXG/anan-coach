@@ -1,0 +1,164 @@
+{
+  "asset_id": "da_92b183842eea910699bb6418",
+  "axes": {
+    "x": {
+      "max": 2023,
+      "min": 1949,
+      "ticks": [
+        1949,
+        1957,
+        1978,
+        1995,
+        2011,
+        2023
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 70.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          10.0,
+          20.0,
+          30.0,
+          40.0,
+          50.0,
+          60.0,
+          70.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1949年",
+    "1957年",
+    "1978年",
+    "1995年",
+    "2011年",
+    "2023年"
+  ],
+  "chart_type": "line",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "城镇化率",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇化率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.64,
+        15.39,
+        17.92,
+        29.04,
+        51.83,
+        66.14
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2026年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0106_35ada0fa2f3848b6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0106_35ada0fa2f3848b6.png",
+        "paper_title": "2026年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_19e35a9aadd9d641a9cf",
+        "question_number": 86,
+        "source_jsonl_line": 36298
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0106_35ada0fa2f3848b6.png",
+        "paper_title": "2026年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a48894256a9af84666f3",
+        "question_number": 87,
+        "source_jsonl_line": 36299
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0106_35ada0fa2f3848b6.png",
+        "paper_title": "2026年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f59ee52e8486710a9cfe",
+        "question_number": 88,
+        "source_jsonl_line": 36300
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0106_35ada0fa2f3848b6.png",
+        "paper_title": "2026年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_48c27e804802db876b4a",
+        "question_number": 89,
+        "source_jsonl_line": 36301
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0118_60896174c3284617.png",
+        "paper_title": "2026年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8eff577459ae503f4874",
+        "question_number": 90,
+        "source_jsonl_line": 36302
+      }
+    ],
+    "sha256": "92b183842eea910699bb6418cb1c87846d90a3e41aad9903c4e2c30ac3abe14f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "全国常住人口城镇化率发展趋势图",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_92b183842eea910699bb6418/column_band_01.jpg",
+        "review-crops/da_92b183842eea910699bb6418/column_band_02.jpg",
+        "review-crops/da_92b183842eea910699bb6418/column_band_03.jpg",
+        "review-crops/da_92b183842eea910699bb6418/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.431",
+      "crop_verification_elapsed_seconds:2.084",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

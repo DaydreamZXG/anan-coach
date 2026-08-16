@@ -1,0 +1,296 @@
+{
+  "asset_id": "da_c8176191987620da1634d39b",
+  "axes": {
+    "x": {
+      "max": 2024,
+      "min": 2015,
+      "ticks": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "title": "年",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 350,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300,
+          350
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "市场规模",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "市场规模",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        61.8,
+        71.0,
+        94.2,
+        128.2,
+        167.3,
+        183.5,
+        201.9,
+        232.6,
+        262.8,
+        291.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广西/2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0110_2ac69394b5957d07.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0110_2ac69394b5957d07.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_57074e2e2eee926ac5af",
+        "question_number": 105,
+        "source_jsonl_line": 40011
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0110_2ac69394b5957d07.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_094131c06c5ddca9ef7c",
+        "question_number": 106,
+        "source_jsonl_line": 40012
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0110_2ac69394b5957d07.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_aff153dad0d1c154bc40",
+        "question_number": 107,
+        "source_jsonl_line": 40013
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0120_086b0ffa9ad266c5.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0bf19b00aaff7281099d",
+        "question_number": 108,
+        "source_jsonl_line": 40014
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0110_2ac69394b5957d07.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ff77597a1dedb6bd9c72",
+        "question_number": 109,
+        "source_jsonl_line": 40015
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0110_2ac69394b5957d07.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_11fd34898a841f62a7e6",
+        "question_number": 110,
+        "source_jsonl_line": 40016
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0124_086b0ffa9ad266c5.png",
+        "paper_title": "2026年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7de83ec15b4dea9b07b9",
+        "question_number": 106,
+        "source_jsonl_line": 59523
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0133_2ac69394b5957d07.png",
+        "paper_title": "2026年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_25398dfbcab470cafa10",
+        "question_number": 107,
+        "source_jsonl_line": 59524
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0133_2ac69394b5957d07.png",
+        "paper_title": "2026年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c8fdd36c83e0e11be451",
+        "question_number": 108,
+        "source_jsonl_line": 59525
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0133_2ac69394b5957d07.png",
+        "paper_title": "2026年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c5efae82645db5551487",
+        "question_number": 109,
+        "source_jsonl_line": 59526
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0133_2ac69394b5957d07.png",
+        "paper_title": "2026年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e38cd0ac6d3a32135f14",
+        "question_number": 110,
+        "source_jsonl_line": 59527
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0156_086b0ffa9ad266c5.png",
+        "paper_title": "2026年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5ea1149e84fa48b32bfa",
+        "question_number": 111,
+        "source_jsonl_line": 76166
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0160_2ac69394b5957d07.png",
+        "paper_title": "2026年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_85a3d250eb55a1d81645",
+        "question_number": 112,
+        "source_jsonl_line": 76167
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0160_2ac69394b5957d07.png",
+        "paper_title": "2026年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_68f25c14662cb2e3dccf",
+        "question_number": 113,
+        "source_jsonl_line": 76168
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0160_2ac69394b5957d07.png",
+        "paper_title": "2026年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_df771bd6f1d4d194b96b",
+        "question_number": 114,
+        "source_jsonl_line": 76169
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0160_2ac69394b5957d07.png",
+        "paper_title": "2026年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0602929d7bd3bc2ebb42",
+        "question_number": 115,
+        "source_jsonl_line": 76170
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0160_2ac69394b5957d07.png",
+        "paper_title": "2026年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e2cd623e9696fd3d5177",
+        "question_number": 101,
+        "source_jsonl_line": 82046
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0160_2ac69394b5957d07.png",
+        "paper_title": "2026年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b247af8ad99cb04cf246",
+        "question_number": 102,
+        "source_jsonl_line": 82047
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0160_2ac69394b5957d07.png",
+        "paper_title": "2026年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6e3dd8a229e582238bea",
+        "question_number": 103,
+        "source_jsonl_line": 82048
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0160_2ac69394b5957d07.png",
+        "paper_title": "2026年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f48b3b62df9daa09aad1",
+        "question_number": 104,
+        "source_jsonl_line": 82049
+      }
+    ],
+    "sha256": "c8176191987620da1634d39b81c80a97f63aad40789a2d15cfc8bf30d8c76f36"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2015-2024年中国唇部彩妆行业市场规模",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c8176191987620da1634d39b/column_band_01.jpg",
+        "review-crops/da_c8176191987620da1634d39b/column_band_02.jpg",
+        "review-crops/da_c8176191987620da1634d39b/column_band_03.jpg",
+        "review-crops/da_c8176191987620da1634d39b/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.019",
+      "crop_verification_elapsed_seconds:2.709",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

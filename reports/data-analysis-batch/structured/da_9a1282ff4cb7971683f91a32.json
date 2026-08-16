@@ -1,0 +1,240 @@
+{
+  "asset_id": "da_9a1282ff4cb7971683f91a32",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2017年江苏省公务员录用考试《行测》题(B类)_images/img_0246_dace9895615cc262.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(B类)_images/img_0246_dace9895615cc262.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(B类)",
+        "question_id": "pq_75bd3b86add549825878",
+        "question_number": 126,
+        "source_jsonl_line": 47771
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(B类)_images/img_0246_dace9895615cc262.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(B类)",
+        "question_id": "pq_6b9b5871f4edf33ab6ff",
+        "question_number": 127,
+        "source_jsonl_line": 47772
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(B类)_images/img_0260_e6f4763aa2d1f4d4.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(B类)",
+        "question_id": "pq_aacd6cfa114b8ff986ff",
+        "question_number": 128,
+        "source_jsonl_line": 47773
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(B类)_images/img_0246_dace9895615cc262.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(B类)",
+        "question_id": "pq_2b02caa52f9761a4405d",
+        "question_number": 129,
+        "source_jsonl_line": 47774
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(B类)_images/img_0246_dace9895615cc262.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(B类)",
+        "question_id": "pq_5094c2ac9bd60657aad3",
+        "question_number": 130,
+        "source_jsonl_line": 47775
+      }
+    ],
+    "sha256": "9a1282ff4cb7971683f91a32db639090cf06b10832012b6aa9e40c9338fd7548"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "电视｜工作日",
+          "电视｜双休/节假日"
+        ],
+        "label": "电视"
+      },
+      {
+        "columns": [
+          "广播｜工作日",
+          "广播｜双休/节假日"
+        ],
+        "label": "广播"
+      },
+      {
+        "columns": [
+          "报纸/杂志｜工作日",
+          "报纸/杂志｜双休/节假日"
+        ],
+        "label": "报纸/杂志"
+      },
+      {
+        "columns": [
+          "网络｜工作日",
+          "网络｜双休/节假日"
+        ],
+        "label": "网络"
+      }
+    ],
+    "columns": [
+      "电视｜工作日",
+      "电视｜双休/节假日",
+      "广播｜工作日",
+      "广播｜双休/节假日",
+      "报纸/杂志｜工作日",
+      "报纸/杂志｜双休/节假日",
+      "网络｜工作日",
+      "网络｜双休/节假日"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "文化程度",
+    "rows": [
+      {
+        "display_label": "小学及以下",
+        "group": null,
+        "label": "小学及以下",
+        "unit": null,
+        "values": [
+          4.33,
+          4.47,
+          0.54,
+          0.58,
+          0.54,
+          0.54,
+          1.25,
+          1.5
+        ]
+      },
+      {
+        "display_label": "初中",
+        "group": null,
+        "label": "初中",
+        "unit": null,
+        "values": [
+          2.81,
+          3.16,
+          0.54,
+          0.53,
+          0.6,
+          0.62,
+          1.28,
+          1.45
+        ]
+      },
+      {
+        "display_label": "高中/中专",
+        "group": null,
+        "label": "高中/中专",
+        "unit": null,
+        "values": [
+          2.26,
+          2.86,
+          0.49,
+          0.51,
+          0.67,
+          0.72,
+          2.23,
+          2.75
+        ]
+      },
+      {
+        "display_label": "大专",
+        "group": null,
+        "label": "大专",
+        "unit": null,
+        "values": [
+          1.69,
+          2.29,
+          0.47,
+          0.45,
+          0.67,
+          0.73,
+          3.22,
+          4.03
+        ]
+      },
+      {
+        "display_label": "大学本科",
+        "group": null,
+        "label": "大学本科",
+        "unit": null,
+        "values": [
+          1.24,
+          1.93,
+          0.37,
+          0.31,
+          0.71,
+          0.78,
+          3.84,
+          4.88
+        ]
+      },
+      {
+        "display_label": "研究生",
+        "group": null,
+        "label": "研究生",
+        "unit": null,
+        "values": [
+          0.85,
+          1.21,
+          0.16,
+          0.12,
+          0.65,
+          0.73,
+          3.6,
+          4.37
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

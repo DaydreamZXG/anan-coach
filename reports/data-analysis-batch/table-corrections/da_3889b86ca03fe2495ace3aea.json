@@ -1,0 +1,219 @@
+{
+  "confidence": 1.0,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "水资源总量（亿立方米）",
+          "地表水资源（亿立方米）",
+          "地下水资源（亿立方米）",
+          "地表水与地下水资源重复量（亿立方米）",
+          "人均水资源量（立方米/人）"
+        ],
+        "label": "水资源量"
+      }
+    ],
+    "columns": [
+      "水资源总量（亿立方米）",
+      "地表水资源（亿立方米）",
+      "地下水资源（亿立方米）",
+      "地表水与地下水资源重复量（亿立方米）",
+      "人均水资源量（立方米/人）"
+    ],
+    "confidence": 1.0,
+    "corner_header": {
+      "lower_label": "人均水资源量（立方米/人）",
+      "style": "diagonal",
+      "upper_label": "地表水与地下水资源重复量（亿立方米）"
+    },
+    "missing_cells": [],
+    "row_header_label": "人均水资源量（立方米/人）",
+    "rows": [
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          24.8,
+          9.4,
+          18.7,
+          3.4,
+          118.6
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          28.0,
+          22.8,
+          8.2,
+          3.0,
+          116.9
+        ]
+      },
+      {
+        "display_label": "天津",
+        "group": null,
+        "label": "天津",
+        "unit": null,
+        "values": [
+          14.6,
+          10.8,
+          5.0,
+          1.2,
+          101.5
+        ]
+      },
+      {
+        "display_label": "重庆",
+        "group": null,
+        "label": "重庆",
+        "unit": null,
+        "values": [
+          474.3,
+          474.3,
+          96.4,
+          96.4,
+          1603.9
+        ]
+      },
+      {
+        "display_label": "湖北",
+        "group": null,
+        "label": "湖北",
+        "unit": null,
+        "values": [
+          790.1,
+          756.6,
+          251.3,
+          217.8,
+          1364.9
+        ]
+      },
+      {
+        "display_label": "广东",
+        "group": null,
+        "label": "广东",
+        "unit": null,
+        "values": [
+          2263.2,
+          2253.7,
+          532.5,
+          523.1,
+          2131.2
+        ]
+      },
+      {
+        "display_label": "四川",
+        "group": null,
+        "label": "四川",
+        "unit": null,
+        "values": [
+          2470.3,
+          2469.1,
+          607.5,
+          606.4,
+          3052.9
+        ]
+      },
+      {
+        "display_label": "陕西",
+        "group": null,
+        "label": "陕西",
+        "unit": null,
+        "values": [
+          353.8,
+          331.5,
+          118.5,
+          96.2,
+          941.3
+        ]
+      },
+      {
+        "display_label": "福建",
+        "group": null,
+        "label": "福建",
+        "unit": null,
+        "values": [
+          1151.9,
+          1150.7,
+          337.6,
+          336.3,
+          3062.7
+        ]
+      },
+      {
+        "display_label": "江西",
+        "group": null,
+        "label": "江西",
+        "unit": null,
+        "values": [
+          1424.0,
+          1405.3,
+          378.4,
+          359.7,
+          3155.3
+        ]
+      },
+      {
+        "display_label": "西藏",
+        "group": null,
+        "label": "西藏",
+        "unit": null,
+        "values": [
+          4415.7,
+          4415.7,
+          991.7,
+          991.7,
+          142530.5
+        ]
+      },
+      {
+        "display_label": "宁夏",
+        "group": null,
+        "label": "宁夏",
+        "unit": null,
+        "values": [
+          11.4,
+          9.5,
+          22.1,
+          20.2,
+          175.3
+        ]
+      },
+      {
+        "display_label": "广西",
+        "group": null,
+        "label": "广西",
+        "unit": null,
+        "values": [
+          2057.3,
+          2056.3,
+          478.1,
+          477.1,
+          4376.8
+        ]
+      },
+      {
+        "display_label": "云南",
+        "group": null,
+        "label": "云南",
+        "unit": null,
+        "values": [
+          1706.7,
+          1706.7,
+          573.3,
+          573.3,
+          3652.2
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

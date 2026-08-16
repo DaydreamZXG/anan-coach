@@ -1,0 +1,206 @@
+{
+  "asset_id": "da_7a13e7e246018472b7859896",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "完成公路水路固定资产投资额(亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        8335,
+        11143,
+        13213,
+        14464,
+        14512
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "比上年增长(%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        7.2,
+        33.7,
+        18.6,
+        9.5,
+        0.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2013年吉林省公务员录用考试《行测》题（甲级）_images/img_0124_b71da4dbc9f1c067.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（甲级）_images/img_0124_b71da4dbc9f1c067.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_32f97928989ae99b9b3a",
+        "question_number": 101,
+        "source_jsonl_line": 11777
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（甲级）_images/img_0130_66b8ab1f2c2cc0df.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_b9219fb86562ad29fe0a",
+        "question_number": 102,
+        "source_jsonl_line": 11778
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（甲级）_images/img_0130_66b8ab1f2c2cc0df.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_db7d7f1627749283cefb",
+        "question_number": 103,
+        "source_jsonl_line": 11779
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（甲级）_images/img_0124_b71da4dbc9f1c067.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_9c2d0333f941c1cf80dc",
+        "question_number": 104,
+        "source_jsonl_line": 11780
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年吉林省公务员录用考试《行测》题（甲级）_images/img_0124_b71da4dbc9f1c067.png",
+        "paper_title": "2013年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_6cbc24f10838b110409b",
+        "question_number": 105,
+        "source_jsonl_line": 11781
+      }
+    ],
+    "sha256": "7a13e7e246018472b785989670a9718b6f7647d98b9c5a94c5b5c1800a39ffe3"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "完成公路水路固定资产投资额(亿元)",
+      "比上年增长(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2008",
+        "unit": null,
+        "values": [
+          2008,
+          8335,
+          7.2
+        ]
+      },
+      {
+        "label": "2009",
+        "unit": null,
+        "values": [
+          2009,
+          11143,
+          33.7
+        ]
+      },
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          13213,
+          18.6
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          14464,
+          9.5
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          14512,
+          0.3
+        ]
+      }
+    ]
+  },
+  "title": "表1 2008-2012年交通固定资产投资额及增长速度",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_7a13e7e246018472b7859896/row_band_01.jpg",
+        "review-crops/da_7a13e7e246018472b7859896/row_band_02.jpg",
+        "review-crops/da_7a13e7e246018472b7859896/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.603",
+      "crop_verification_elapsed_seconds:2.207",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "asset_id": "da_4efa9cc1249012c6880165aa",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 60000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000,
+          60000
+        ],
+        "title": null,
+        "unit": "万户"
+      }
+    ]
+  },
+  "categories": [
+    "2003年",
+    "2004年",
+    "2005年",
+    "2006年",
+    "2007年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "固定电话年末用户",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "移动电话年末用户",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "固定电话年末用户",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万户",
+      "values": [
+        26275,
+        31176,
+        35045,
+        36779,
+        36545
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "移动电话年末用户",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万户",
+      "values": [
+        26995,
+        33482,
+        39341,
+        46106,
+        54729
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2008年广东省公务员录用考试《行测》题_images/img_0107_873f8196cc17ff8b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广东省公务员录用考试《行测》题_images/img_0107_873f8196cc17ff8b.png",
+        "paper_title": "2008年广东省公务员录用考试《行测》题",
+        "question_id": "pq_2d3094af52efd28ae6ed",
+        "question_number": 96,
+        "source_jsonl_line": 33644
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广东省公务员录用考试《行测》题_images/img_0109_31f32dad85ab0c19.png",
+        "paper_title": "2008年广东省公务员录用考试《行测》题",
+        "question_id": "pq_c2284c1a4012adcd4227",
+        "question_number": 97,
+        "source_jsonl_line": 33645
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广东省公务员录用考试《行测》题_images/img_0109_31f32dad85ab0c19.png",
+        "paper_title": "2008年广东省公务员录用考试《行测》题",
+        "question_id": "pq_3fcb7203ddec8138a434",
+        "question_number": 98,
+        "source_jsonl_line": 33646
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广东省公务员录用考试《行测》题_images/img_0107_873f8196cc17ff8b.png",
+        "paper_title": "2008年广东省公务员录用考试《行测》题",
+        "question_id": "pq_da6005ca08fe18bc0edb",
+        "question_number": 99,
+        "source_jsonl_line": 33647
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广东省公务员录用考试《行测》题_images/img_0109_31f32dad85ab0c19.png",
+        "paper_title": "2008年广东省公务员录用考试《行测》题",
+        "question_id": "pq_e2252ebc6fa75b9ab1da",
+        "question_number": 100,
+        "source_jsonl_line": 33648
+      }
+    ],
+    "sha256": "4efa9cc1249012c6880165aa565c541e07485344d6c093fcb2cdabc44094127f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2003年—2007年末电话用户情况示意图",
+  "unit": "万户",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4efa9cc1249012c6880165aa/column_band_01.jpg",
+        "review-crops/da_4efa9cc1249012c6880165aa/column_band_02.jpg",
+        "review-crops/da_4efa9cc1249012c6880165aa/column_band_03.jpg",
+        "review-crops/da_4efa9cc1249012c6880165aa/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.936",
+      "crop_verification_elapsed_seconds:3.12",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -19,11 +19,15 @@
   },
   "tracks": [
     "frontend-lifecycle",
-    "companion-memory"
+    "companion-memory",
+    "structured-visuals",
+    "grounded-teach-back"
   ],
   "trackDecisionRefs": {
     "frontend-lifecycle": "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001",
-    "companion-memory": "DEC-COMPANION-MEMORY-AUTHORITY-001"
+    "companion-memory": "DEC-COMPANION-MEMORY-AUTHORITY-001",
+    "structured-visuals": "DEC-FREEZE-RU-DATA-VISUAL-ZERO-UNSUPPORTED-001",
+    "grounded-teach-back": "DEC-TEACHING-PACKAGE-SCOPE-001"
   },
   "requiredPageStates": [
     "default",

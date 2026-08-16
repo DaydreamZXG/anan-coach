@@ -60,8 +60,9 @@ describe("third-layer UI and UX contracts", () => {
     expect(privateKnowledgeTemplate).toContain("没有找到“{{searchedQuery}}”");
     expect(privateKnowledgeTemplate).toContain("问题编号 · {{searchRequestId}}");
     expect(privateKnowledgeDetailTemplate).toContain('request-id="{{requestId}}"');
-    expect(todayTemplate).toContain("openingStatus === 'error'");
-    expect(todayTemplate).toContain('bindtap="loadDailyOpening"');
+    expect(todayTemplate).toContain("openingView.weatherReady");
+    expect(todayTemplate).toContain('bindtap="requestWeatherLocation"');
+    expect(todayTemplate).not.toContain('class="opening-failure"');
     expect(ananTemplate).toContain("state-{{semanticState}}");
     expect(ananLogic).toContain('stateLabel: "学习记录没读出来"');
   });
@@ -133,7 +134,7 @@ describe("third-layer UI and UX contracts", () => {
 
   it("reserves the two-column workbench for landscape tablets", () => {
     expect(todayTemplate).toContain('class="secondary-tools__title">学习工具</view>');
-    expect(todayTemplate).toContain('class="secondary-tools__meta">模考 · 复盘 · 计划</view>');
+    expect(todayTemplate).toContain('class="secondary-tools__meta">加练 · 复盘 · 计划</view>');
     expect(todayTemplate).toContain('class="track-section today-col--track"');
     expect(todayStyles).toContain("@media (min-width: 1024px) and (orientation: landscape)");
     expect(todayStyles).toMatch(

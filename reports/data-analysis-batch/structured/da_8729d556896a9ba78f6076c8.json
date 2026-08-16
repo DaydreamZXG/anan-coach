@@ -1,0 +1,406 @@
+{
+  "asset_id": "da_8729d556896a9ba78f6076c8",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2019年420联考《行测》题（云南卷）（网友回忆版）_images/img_0198_f5f4fa8ec3d3f4eb.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（云南卷）（网友回忆版）_images/img_0198_f5f4fa8ec3d3f4eb.png",
+        "paper_title": "2019年420联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_7affda165c9afac9b676",
+        "question_number": 116,
+        "source_jsonl_line": 5560
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（云南卷）（网友回忆版）_images/img_0213_fe5aa7300f95cb88.png",
+        "paper_title": "2019年420联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_268f1a2e2886946481ab",
+        "question_number": 117,
+        "source_jsonl_line": 5561
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（云南卷）（网友回忆版）_images/img_0198_f5f4fa8ec3d3f4eb.png",
+        "paper_title": "2019年420联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_1a1cf97a488fa5379b4a",
+        "question_number": 118,
+        "source_jsonl_line": 5562
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（云南卷）（网友回忆版）_images/img_0213_fe5aa7300f95cb88.png",
+        "paper_title": "2019年420联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_1a7f7aaf5ecb66ef9df4",
+        "question_number": 119,
+        "source_jsonl_line": 5563
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（云南卷）（网友回忆版）_images/img_0213_fe5aa7300f95cb88.png",
+        "paper_title": "2019年420联考《行测》题（云南卷）（网友回忆版）",
+        "question_id": "pq_d2c5eb3d192fbe33f40c",
+        "question_number": 120,
+        "source_jsonl_line": 5564
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（河南县级以上）（网友回忆版）_images/img_0203_fe5aa7300f95cb88.png",
+        "paper_title": "2019年420联考《行测》题（河南县级以上）（网友回忆版）",
+        "question_id": "pq_6c1ebe150dcec754f145",
+        "question_number": 111,
+        "source_jsonl_line": 58688
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（河南县级以上）（网友回忆版）_images/img_0220_f5f4fa8ec3d3f4eb.png",
+        "paper_title": "2019年420联考《行测》题（河南县级以上）（网友回忆版）",
+        "question_id": "pq_bda346139c88c7dd193d",
+        "question_number": 112,
+        "source_jsonl_line": 58689
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（河南县级以上）（网友回忆版）_images/img_0220_f5f4fa8ec3d3f4eb.png",
+        "paper_title": "2019年420联考《行测》题（河南县级以上）（网友回忆版）",
+        "question_id": "pq_a48f13e4b8b5d70cfc8b",
+        "question_number": 113,
+        "source_jsonl_line": 58690
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（河南县级以上）（网友回忆版）_images/img_0203_fe5aa7300f95cb88.png",
+        "paper_title": "2019年420联考《行测》题（河南县级以上）（网友回忆版）",
+        "question_id": "pq_50905378c6cf106ce2af",
+        "question_number": 114,
+        "source_jsonl_line": 58691
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（河南县级以上）（网友回忆版）_images/img_0203_fe5aa7300f95cb88.png",
+        "paper_title": "2019年420联考《行测》题（河南县级以上）（网友回忆版）",
+        "question_id": "pq_e495aed2d131aa35d90e",
+        "question_number": 115,
+        "source_jsonl_line": 58692
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（福建卷）（网友回忆版）_images/img_0154_f5f4fa8ec3d3f4eb.png",
+        "paper_title": "2019年420联考《行测》题（福建卷）（网友回忆版）",
+        "question_id": "pq_c031b48bad7fbd0c2340",
+        "question_number": 111,
+        "source_jsonl_line": 78360
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（福建卷）（网友回忆版）_images/img_0158_fe5aa7300f95cb88.png",
+        "paper_title": "2019年420联考《行测》题（福建卷）（网友回忆版）",
+        "question_id": "pq_a003fb90ac116219005c",
+        "question_number": 112,
+        "source_jsonl_line": 78361
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（福建卷）（网友回忆版）_images/img_0154_f5f4fa8ec3d3f4eb.png",
+        "paper_title": "2019年420联考《行测》题（福建卷）（网友回忆版）",
+        "question_id": "pq_790e536ba66574134b59",
+        "question_number": 113,
+        "source_jsonl_line": 78362
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（福建卷）（网友回忆版）_images/img_0154_f5f4fa8ec3d3f4eb.png",
+        "paper_title": "2019年420联考《行测》题（福建卷）（网友回忆版）",
+        "question_id": "pq_d31b5542af67d38298d8",
+        "question_number": 114,
+        "source_jsonl_line": 78363
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（福建卷）（网友回忆版）_images/img_0154_f5f4fa8ec3d3f4eb.png",
+        "paper_title": "2019年420联考《行测》题（福建卷）（网友回忆版）",
+        "question_id": "pq_ee00eb72ff94510a414b",
+        "question_number": 115,
+        "source_jsonl_line": 78364
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（西藏卷）（网友回忆版）_images/img_0202_f5f4fa8ec3d3f4eb.png",
+        "paper_title": "2019年420联考《行测》题（西藏卷）（网友回忆版）",
+        "question_id": "pq_89005b500a1baa2cd54d",
+        "question_number": 91,
+        "source_jsonl_line": 79924
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（西藏卷）（网友回忆版）_images/img_0202_f5f4fa8ec3d3f4eb.png",
+        "paper_title": "2019年420联考《行测》题（西藏卷）（网友回忆版）",
+        "question_id": "pq_dfee956412834bf4fea5",
+        "question_number": 92,
+        "source_jsonl_line": 79925
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（西藏卷）（网友回忆版）_images/img_0211_fe5aa7300f95cb88.png",
+        "paper_title": "2019年420联考《行测》题（西藏卷）（网友回忆版）",
+        "question_id": "pq_ebe38b9c3f2ddf5d815a",
+        "question_number": 93,
+        "source_jsonl_line": 79926
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（西藏卷）（网友回忆版）_images/img_0202_f5f4fa8ec3d3f4eb.png",
+        "paper_title": "2019年420联考《行测》题（西藏卷）（网友回忆版）",
+        "question_id": "pq_4f8b16756bd0d35c4dc5",
+        "question_number": 94,
+        "source_jsonl_line": 79927
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（西藏卷）（网友回忆版）_images/img_0202_f5f4fa8ec3d3f4eb.png",
+        "paper_title": "2019年420联考《行测》题（西藏卷）（网友回忆版）",
+        "question_id": "pq_1f3a2763cb4e2a9fa988",
+        "question_number": 95,
+        "source_jsonl_line": 79928
+      }
+    ],
+    "sha256": "8729d556896a9ba78f6076c863f44767a988c0c1cfe169198e88e0a53d85ed41"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "就业景气较好的十个职业｜第1列",
+      "2018年第四季度｜第2列",
+      "CIER指数｜第3列",
+      "比上一季度变化｜第4列",
+      "排名｜第5列",
+      "就业景气较差的十个职业｜第6列",
+      "2018年第四季度｜第7列",
+      "CIER指数｜第8列",
+      "比上一季度变化｜第9列"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "排名",
+    "rows": [
+      {
+        "display_label": "1",
+        "group": null,
+        "label": "1",
+        "unit": null,
+        "values": [
+          "技工/操作工",
+          25.67,
+          1.07,
+          0.82,
+          1,
+          "高级管理",
+          1.07,
+          1.07,
+          -0.32
+        ]
+      },
+      {
+        "display_label": "2",
+        "group": null,
+        "label": "2",
+        "unit": null,
+        "values": [
+          "教育/培训",
+          16.24,
+          1.36,
+          8.51,
+          2,
+          "公关/媒介",
+          1.36,
+          1.36,
+          -0.17
+        ]
+      },
+      {
+        "display_label": "3",
+        "group": null,
+        "label": "3",
+        "unit": null,
+        "values": [
+          "销售业务",
+          14.26,
+          1.41,
+          2.14,
+          3,
+          "项目管理/项目协调",
+          1.41,
+          1.41,
+          0.02
+        ]
+      },
+      {
+        "display_label": "4",
+        "group": null,
+        "label": "4",
+        "unit": null,
+        "values": [
+          "社区/居民/家政服务",
+          12.99,
+          1.42,
+          4.78,
+          4,
+          "销售行政/商务协调",
+          1.42,
+          1.42,
+          0.15
+        ]
+      },
+      {
+        "display_label": "5",
+        "group": null,
+        "label": "5",
+        "unit": null,
+        "values": [
+          "烹饪/料理/食品开发",
+          9.64,
+          1.45,
+          3.5,
+          5,
+          "物业管理",
+          1.45,
+          1.45,
+          0.21
+        ]
+      },
+      {
+        "display_label": "6",
+        "group": null,
+        "label": "6",
+        "unit": null,
+        "values": [
+          "交通运输/运输服务",
+          8.4,
+          1.45,
+          2.81,
+          6,
+          "生产管理/运营",
+          1.45,
+          1.45,
+          0.1
+        ]
+      },
+      {
+        "display_label": "7",
+        "group": null,
+        "label": "7",
+        "unit": null,
+        "values": [
+          "软件/互联网开发/系统集成",
+          7.99,
+          1.46,
+          1.68,
+          7,
+          "信托/担保/拍卖/典当",
+          1.46,
+          1.46,
+          0.28
+        ]
+      },
+      {
+        "display_label": "8",
+        "group": null,
+        "label": "8",
+        "unit": null,
+        "values": [
+          "商超/酒店/娱乐管理/服务",
+          7.87,
+          1.55,
+          1.14,
+          8,
+          "IT管理/项目协调",
+          1.55,
+          1.55,
+          -0.1
+        ]
+      },
+      {
+        "display_label": "9",
+        "group": null,
+        "label": "9",
+        "unit": null,
+        "values": [
+          "生物/制造/医疗器械",
+          7.71,
+          1.8,
+          0.81,
+          9,
+          "汽车制造",
+          1.8,
+          1.8,
+          -0.49
+        ]
+      },
+      {
+        "display_label": "10",
+        "group": null,
+        "label": "10",
+        "unit": null,
+        "values": [
+          "翻译（口译与笔译）",
+          7.67,
+          1.81,
+          1.58,
+          10,
+          "环境科学/环保",
+          1.81,
+          1.81,
+          0.41
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

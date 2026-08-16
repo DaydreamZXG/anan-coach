@@ -1,0 +1,209 @@
+{
+  "asset_id": "da_68ca78ae9e775be4441a61ed",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "手机邮箱",
+    "移动IM",
+    "手机广告",
+    "移动电子商务",
+    "手机浏览器",
+    "手机证券",
+    "移动搜索"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      40.488,
+      86.132,
+      233.82,
+      256.035,
+      284.263,
+      306.945,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 40.488,
+        "label": "手机邮箱",
+        "share": 0.11246772,
+        "start_angle": 0.0,
+        "sweep_angle": 40.488
+      },
+      {
+        "end_angle": 86.132,
+        "label": "移动IM",
+        "share": 0.12678697,
+        "start_angle": 40.488,
+        "sweep_angle": 45.643
+      },
+      {
+        "end_angle": 233.82,
+        "label": "手机广告",
+        "share": 0.41024622,
+        "start_angle": 86.132,
+        "sweep_angle": 147.689
+      },
+      {
+        "end_angle": 256.035,
+        "label": "移动电子商务",
+        "share": 0.06170773,
+        "start_angle": 233.82,
+        "sweep_angle": 22.215
+      },
+      {
+        "end_angle": 284.263,
+        "label": "手机浏览器",
+        "share": 0.07841006,
+        "start_angle": 256.035,
+        "sweep_angle": 28.228
+      },
+      {
+        "end_angle": 306.945,
+        "label": "手机证券",
+        "share": 0.06300504,
+        "start_angle": 284.263,
+        "sweep_angle": 22.682
+      },
+      {
+        "end_angle": 360.0,
+        "label": "移动搜索",
+        "share": 0.14737625,
+        "start_angle": 306.945,
+        "sweep_angle": 53.055
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.11246772,
+        0.12678697,
+        0.41024622,
+        0.06170773,
+        0.07841006,
+        0.06300504,
+        0.14737625
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2011年内蒙古自治区公务员录用考试《行测》题_images/img_0139_cc71a3037a18da9e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年内蒙古自治区公务员录用考试《行测》题_images/img_0139_cc71a3037a18da9e.png",
+        "paper_title": "2011年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_5f3ed63b9599c4148619",
+        "question_number": 116,
+        "source_jsonl_line": 6795
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年内蒙古自治区公务员录用考试《行测》题_images/img_0142_f2924631c30a94f6.png",
+        "paper_title": "2011年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_1c2f0f488680718c3fa7",
+        "question_number": 117,
+        "source_jsonl_line": 6796
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年内蒙古自治区公务员录用考试《行测》题_images/img_0139_cc71a3037a18da9e.png",
+        "paper_title": "2011年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_3d539c974f214784b17c",
+        "question_number": 118,
+        "source_jsonl_line": 6797
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年内蒙古自治区公务员录用考试《行测》题_images/img_0139_cc71a3037a18da9e.png",
+        "paper_title": "2011年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_a4c61db0c1baf4aa3b65",
+        "question_number": 119,
+        "source_jsonl_line": 6798
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年内蒙古自治区公务员录用考试《行测》题_images/img_0139_cc71a3037a18da9e.png",
+        "paper_title": "2011年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_59abd06b82a1b530c811",
+        "question_number": 120,
+        "source_jsonl_line": 6799
+      }
+    ],
+    "sha256": "68ca78ae9e775be4441a61eda9c909449ee012b03106d54f67a8593421eae5b2"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_68ca78ae9e775be4441a61ed/quadrant_01.jpg",
+        "review-crops/da_68ca78ae9e775be4441a61ed/quadrant_02.jpg",
+        "review-crops/da_68ca78ae9e775be4441a61ed/quadrant_03.jpg",
+        "review-crops/da_68ca78ae9e775be4441a61ed/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.126",
+      "crop_verification_elapsed_seconds:1.692",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "label_geometry_count_mismatch:11!=7",
+      "circle_edge_coverage:0.9778",
+      "hough_circle_radius_ratio:0.4169",
+      "radial_line_candidates:12",
+      "detected_boundaries:7"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

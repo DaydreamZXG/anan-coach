@@ -1,0 +1,403 @@
+{
+  "asset_id": "da_7ea165d41d060910bf903095",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年度",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "国内生产总值（亿元）",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "年末总人口（万人）",
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "国内生产总值（亿元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        688858,
+        746395,
+        832036,
+        919281,
+        986515,
+        1013567,
+        1143670
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "年末总人口（万人）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        138326,
+        139232,
+        140011,
+        140541,
+        141008,
+        141212,
+        141260
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "男性人口（万人）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        70857,
+        71307,
+        71650,
+        71864,
+        72039,
+        72357,
+        72311
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "女性人口（万人）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        67469,
+        67925,
+        68361,
+        68677,
+        68969,
+        68855,
+        68949
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "城镇人口（万人）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        79302,
+        81924,
+        84343,
+        86433,
+        88426,
+        90220,
+        91425
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "乡村人口（万人）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        59024,
+        57308,
+        55668,
+        54108,
+        52582,
+        50992,
+        49835
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2023年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0103_c3c93dca3d981781.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0103_c3c93dca3d981781.png",
+        "paper_title": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_43cbc79cc0e110cc277f",
+        "question_number": 116,
+        "source_jsonl_line": 8269
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0106_4368446ece553e04.png",
+        "paper_title": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_08d7425cc252126ae35e",
+        "question_number": 117,
+        "source_jsonl_line": 8270
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0106_4368446ece553e04.png",
+        "paper_title": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e3a936b728bf39e460eb",
+        "question_number": 118,
+        "source_jsonl_line": 8271
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0106_4368446ece553e04.png",
+        "paper_title": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_97e817e9bcb52028bec2",
+        "question_number": 119,
+        "source_jsonl_line": 8272
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0106_4368446ece553e04.png",
+        "paper_title": "2023年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5e5d1aa95487d0d368b0",
+        "question_number": 120,
+        "source_jsonl_line": 8273
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0122_c3c93dca3d981781.png",
+        "paper_title": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a56214d72c05f5895a51",
+        "question_number": 111,
+        "source_jsonl_line": 84222
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0119_4368446ece553e04.png",
+        "paper_title": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fe32b6aeb4f148a24a72",
+        "question_number": 112,
+        "source_jsonl_line": 84223
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0119_4368446ece553e04.png",
+        "paper_title": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7f831f67f56f64976847",
+        "question_number": 113,
+        "source_jsonl_line": 84224
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0122_c3c93dca3d981781.png",
+        "paper_title": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_29545922689952c36164",
+        "question_number": 114,
+        "source_jsonl_line": 84225
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0119_4368446ece553e04.png",
+        "paper_title": "2023年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4f3d8b32e1674ae226b3",
+        "question_number": 115,
+        "source_jsonl_line": 84226
+      }
+    ],
+    "sha256": "7ea165d41d060910bf903095f16d4b5722c2dfad7aee78b2bec5319de364a66f"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年度",
+      "国内生产总值（亿元）",
+      "年末总人口（万人）",
+      "男性人口（万人）",
+      "女性人口（万人）",
+      "城镇人口（万人）",
+      "乡村人口（万人）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2015",
+        "unit": null,
+        "values": [
+          2015,
+          688858,
+          138326,
+          70857,
+          67469,
+          79302,
+          59024
+        ]
+      },
+      {
+        "label": "2016",
+        "unit": null,
+        "values": [
+          2016,
+          746395,
+          139232,
+          71307,
+          67925,
+          81924,
+          57308
+        ]
+      },
+      {
+        "label": "2017",
+        "unit": null,
+        "values": [
+          2017,
+          832036,
+          140011,
+          71650,
+          68361,
+          84343,
+          55668
+        ]
+      },
+      {
+        "label": "2018",
+        "unit": null,
+        "values": [
+          2018,
+          919281,
+          140541,
+          71864,
+          68677,
+          86433,
+          54108
+        ]
+      },
+      {
+        "label": "2019",
+        "unit": null,
+        "values": [
+          2019,
+          986515,
+          141008,
+          72039,
+          68969,
+          88426,
+          52582
+        ]
+      },
+      {
+        "label": "2020",
+        "unit": null,
+        "values": [
+          2020,
+          1013567,
+          141212,
+          72357,
+          68855,
+          90220,
+          50992
+        ]
+      },
+      {
+        "label": "2021",
+        "unit": null,
+        "values": [
+          2021,
+          1143670,
+          141260,
+          72311,
+          68949,
+          91425,
+          49835
+        ]
+      }
+    ]
+  },
+  "title": "表1 2015年-2021年国内生产总值（亿元）、人口分布表（万人）",
+  "unit": "万元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_7ea165d41d060910bf903095/row_band_01.jpg",
+        "review-crops/da_7ea165d41d060910bf903095/row_band_02.jpg",
+        "review-crops/da_7ea165d41d060910bf903095/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:18.821",
+      "crop_verification_elapsed_seconds:13.845",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

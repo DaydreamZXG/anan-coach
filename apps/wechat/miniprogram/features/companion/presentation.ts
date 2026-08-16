@@ -1,7 +1,7 @@
 import type {
   CompanionAskResponse,
   CompanionCitation,
-  LearningBrainProfileVersion,
+  LearnerCoachContext,
   TodayDashboard,
 } from "../../api/generated/types.gen";
 import { ApiClientError } from "../../api/client";
@@ -237,11 +237,7 @@ export function companionAnswerView(
     quotaSummaryLabel: quotaUnlimited ? "" : "今日还可提问 " + String(quotaRemaining ?? 0) + " 次",
     stateLabel,
     confidenceLabel: { low: "依据较少", medium: "依据一般", high: "依据充分" }[response.confidence],
-    agentLabel: {
-      position: "岗位顾问",
-      tutor: "学习教练",
-      planner: "计划教练",
-    }[response.respondingAgent],
+    agentLabel: "岸岸",
     answerTypeLabel: answerTypeLabels[response.answerType] ?? "学习解答",
   };
 }
@@ -290,7 +286,7 @@ export function companionFailureView(error: unknown): CompanionFailureView {
 }
 
 export function companionContextView(
-  profileSource: CompanionContextSourceState<LearningBrainProfileVersion>,
+  profileSource: CompanionContextSourceState<LearnerCoachContext>,
   todaySource: CompanionContextSourceState<TodayDashboard>,
 ): CompanionContextView {
   const profile = contextSourceValue(profileSource);
@@ -308,14 +304,7 @@ export function companionContextView(
           : "error";
   const learnerStateVersion = profile?.profileVersionId.trim() ?? "";
   const askAvailable = profileReady && learnerStateVersion.length > 0;
-  const evidenceCount = profile
-    ? profile.evidenceSummary.scoreEvidenceCount +
-      profile.evidenceSummary.xingceAttemptCount +
-      profile.evidenceSummary.xingceMasteryCount +
-      profile.evidenceSummary.essayMasteryCount +
-      profile.evidenceSummary.taskExecutionCount +
-      (profile.evidenceSummary.externalAnswerCount ?? 0)
-    : 0;
+  const evidenceCount = profile?.recognition.evidenceCount ?? 0;
   const activeTaskCount =
     dashboard?.tasks.filter((task) => task.status === "ready" || task.status === "in_progress")
       .length ?? 0;
@@ -324,7 +313,7 @@ export function companionContextView(
     profile && dashboard
       ? (dashboard.dueReflectionCount ?? 0) +
         (dashboard.dueVerificationCount ?? 0) +
-        profile.decisionSummary.reviewDueCount
+        profile.profile.decisionSummary.reviewDueCount
       : null;
   const profileStalePrefix = profileSource.status === "stale" ? "上次同步 · " : "";
   const todayStalePrefix = todaySource.status === "stale" ? "上次同步 · " : "";
@@ -410,7 +399,7 @@ function contextSourceValue<T>(source: CompanionContextSourceState<T>): T | unde
 }
 
 function contextCoreCopy(
-  profileSource: CompanionContextSourceState<LearningBrainProfileVersion>,
+  profileSource: CompanionContextSourceState<LearnerCoachContext>,
   todaySource: CompanionContextSourceState<TodayDashboard>,
 ): string {
   if (profileSource.status === "loading" && todaySource.status === "loading") {
@@ -434,7 +423,7 @@ function contextCoreCopy(
 }
 
 function contextNotice(
-  profileSource: CompanionContextSourceState<LearningBrainProfileVersion>,
+  profileSource: CompanionContextSourceState<LearnerCoachContext>,
   todaySource: CompanionContextSourceState<TodayDashboard>,
 ): Pick<
   CompanionContextView,

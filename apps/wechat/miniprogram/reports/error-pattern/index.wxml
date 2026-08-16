@@ -54,6 +54,7 @@
       <view class="brain-note">趁印象还热，去今天的任务里堵它一次；真堵住了，它就该从这份档案里退场。</view>
       <button hover-class="item--hover" class="control-center brain-action" bindtap="goPractice">去把它练回来</button>
       <button hover-class="item--hover" class="control-center brain-secondary" bindtap="askAnan">带着这个问题问岸岸</button>
+      <button hover-class="item--hover" class="control-center brain-secondary" loading="{{recheckBusy}}" disabled="{{recheckBusy || recheckPending}}" bindtap="markInaccurate">{{recheckPending ? '已请求重新验证' : '这条判断不准确'}}</button>
     </view>
   </block>
 </view>

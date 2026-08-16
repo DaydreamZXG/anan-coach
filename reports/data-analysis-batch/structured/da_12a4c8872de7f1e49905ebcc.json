@@ -1,0 +1,223 @@
+{
+  "asset_id": "da_12a4c8872de7f1e49905ebcc",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "其他投资",
+    "制造业投资",
+    "基础设施投资",
+    "房地产开发投资"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "其他投资",
+      "style": {
+        "dash": null,
+        "fill": "#9370DB",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "制造业投资",
+      "style": {
+        "dash": null,
+        "fill": "#6495ED",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "房地产开发投资",
+      "style": {
+        "dash": null,
+        "fill": "#90EE90",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "基础设施投资",
+      "style": {
+        "dash": null,
+        "fill": "#DC143C",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -1.5,
+      120.0,
+      183.783,
+      247.08,
+      358.5
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 120.0,
+        "label": "其他投资",
+        "share": 0.3375,
+        "start_angle": -1.5,
+        "sweep_angle": 121.5
+      },
+      {
+        "end_angle": 183.783,
+        "label": "制造业投资",
+        "share": 0.17717403,
+        "start_angle": 120.0,
+        "sweep_angle": 63.783
+      },
+      {
+        "end_angle": 247.08,
+        "label": "基础设施投资",
+        "share": 0.17582723,
+        "start_angle": 183.783,
+        "sweep_angle": 63.298
+      },
+      {
+        "end_angle": 358.5,
+        "label": "房地产开发投资",
+        "share": 0.30949874,
+        "start_angle": 247.08,
+        "sweep_angle": 111.42
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.3375,
+        0.17717403,
+        0.17582723,
+        0.30949874
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2017年422联考《行测》题（江西卷）_images/img_0206_4d63f416056a191e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（江西卷）_images/img_0206_4d63f416056a191e.png",
+        "paper_title": "2017年422联考《行测》题（江西卷）",
+        "question_id": "pq_cd6f9b4713b8b2ab0ea2",
+        "question_number": 131,
+        "source_jsonl_line": 52660
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（江西卷）_images/img_0206_4d63f416056a191e.png",
+        "paper_title": "2017年422联考《行测》题（江西卷）",
+        "question_id": "pq_9c9904d1da35ad462538",
+        "question_number": 132,
+        "source_jsonl_line": 52661
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（江西卷）_images/img_0206_4d63f416056a191e.png",
+        "paper_title": "2017年422联考《行测》题（江西卷）",
+        "question_id": "pq_198b44260056654ae42f",
+        "question_number": 133,
+        "source_jsonl_line": 52662
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（江西卷）_images/img_0215_50f8922392da5021.png",
+        "paper_title": "2017年422联考《行测》题（江西卷）",
+        "question_id": "pq_9da2aaddde314c3487c3",
+        "question_number": 134,
+        "source_jsonl_line": 52663
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（江西卷）_images/img_0206_4d63f416056a191e.png",
+        "paper_title": "2017年422联考《行测》题（江西卷）",
+        "question_id": "pq_c8d8ea1f785a858c8e56",
+        "question_number": 135,
+        "source_jsonl_line": 52664
+      }
+    ],
+    "sha256": "12a4c8872de7f1e49905ebccdc546c8222a124f319605cc2250d3d51ec47ed07"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2015年按领域固定资产投资（不含农户）及其占比",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_12a4c8872de7f1e49905ebcc/quadrant_01.jpg",
+        "review-crops/da_12a4c8872de7f1e49905ebcc/quadrant_02.jpg",
+        "review-crops/da_12a4c8872de7f1e49905ebcc/quadrant_03.jpg",
+        "review-crops/da_12a4c8872de7f1e49905ebcc/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.002",
+      "crop_verification_elapsed_seconds:6.744",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'其他投资'的数值为173976亿元，原图显示为173976亿元，正确。",
+      "crop_note:修正了'制造业投资'的数值为180365亿元，原图显示为180365亿元，正确。",
+      "crop_note:修正了'基础设施投资'的数值为101271亿元，原图显示为101271亿元，正确。",
+      "crop_note:修正了'房地产开发投资'的数值为95979亿元，原图显示为95979亿元，正确。",
+      "crop_note:修正了'其他投资'的占比为31.50%，原图显示为31.50%，正确。",
+      "crop_note:修正了'制造业投资'的占比为32.70%，原图显示为32.70%，正确。",
+      "crop_note:修正了'基础设施投资'的占比为18.40%，原图显示为18.40%，正确。",
+      "crop_note:修正了'房地产开发投资'的占比为17.40%，原图显示为17.40%，正确。",
+      "crop_note:确认所有数值和百分比均与原图一致，无缺失值。",
+      "circle_edge_coverage:1.0000",
+      "hough_circle_radius_ratio:0.3372",
+      "radial_line_candidates:2",
+      "detected_boundaries:4"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

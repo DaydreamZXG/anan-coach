@@ -1,0 +1,337 @@
+{
+  "asset_id": "da_6c23cb565509e5e55b2c2242",
+  "axes": {
+    "x": {
+      "max": 2019,
+      "min": 2009,
+      "ticks": [
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000,
+          60000,
+          70000,
+          80000,
+          90000,
+          100000
+        ],
+        "title": "平均工资",
+        "unit": "元"
+      }
+    ]
+  },
+  "categories": [
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019"
+  ],
+  "chart_type": "line",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "非私营",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "私营",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "非私营",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        32244,
+        36539,
+        41799,
+        46469,
+        51483,
+        56360,
+        62029,
+        67569,
+        74318,
+        82413,
+        90501
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "私营",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        18199,
+        20759,
+        24556,
+        28752,
+        32706,
+        36390,
+        39589,
+        42833,
+        45761,
+        49575,
+        53604
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广西/2021年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0177_e2d446fed06d4598.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0177_e2d446fed06d4598.png",
+        "paper_title": "2021年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_02994bce66746395edad",
+        "question_number": 106,
+        "source_jsonl_line": 39462
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0177_e2d446fed06d4598.png",
+        "paper_title": "2021年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8db58066bbedecbb9911",
+        "question_number": 107,
+        "source_jsonl_line": 39463
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0177_e2d446fed06d4598.png",
+        "paper_title": "2021年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d903d3611ec2218342c3",
+        "question_number": 108,
+        "source_jsonl_line": 39464
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0177_e2d446fed06d4598.png",
+        "paper_title": "2021年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_54b9cfacb0fe8ad3677c",
+        "question_number": 109,
+        "source_jsonl_line": 39465
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0203_4b5fed32ae7d9869.png",
+        "paper_title": "2021年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_09eb99fe10b3a62b7eb8",
+        "question_number": 110,
+        "source_jsonl_line": 39466
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0204_e2d446fed06d4598.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_87f2885944dc46bd3ed1",
+        "question_number": 101,
+        "source_jsonl_line": 43666
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0204_e2d446fed06d4598.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_7c6f82905b4a4d46ba40",
+        "question_number": 102,
+        "source_jsonl_line": 43667
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0213_4b5fed32ae7d9869.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_63ff312eb54bc6487f4b",
+        "question_number": 103,
+        "source_jsonl_line": 43668
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0204_e2d446fed06d4598.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_19cfa6ddea6c2c6563e0",
+        "question_number": 104,
+        "source_jsonl_line": 43669
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0204_e2d446fed06d4598.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_e2ad76db425b2397339b",
+        "question_number": 105,
+        "source_jsonl_line": 43670
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0239_e2d446fed06d4598.png",
+        "paper_title": "2021年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c06cb8e896acb44df85b",
+        "question_number": 116,
+        "source_jsonl_line": 73791
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0239_e2d446fed06d4598.png",
+        "paper_title": "2021年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3ca25a4cb90ea8aeb1b7",
+        "question_number": 117,
+        "source_jsonl_line": 73792
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0239_e2d446fed06d4598.png",
+        "paper_title": "2021年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7c8661b49757b6e779ad",
+        "question_number": 118,
+        "source_jsonl_line": 73793
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0239_e2d446fed06d4598.png",
+        "paper_title": "2021年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ac7b5a3df74089174bd2",
+        "question_number": 119,
+        "source_jsonl_line": 73794
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0260_4b5fed32ae7d9869.png",
+        "paper_title": "2021年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0750831a1b0fcc561532",
+        "question_number": 120,
+        "source_jsonl_line": 73795
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年福建省公务员录用考试《行测》题（网友回忆版）_images/img_0224_e2d446fed06d4598.png",
+        "paper_title": "2021年福建省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1d55e9c59055ff4fd3f1",
+        "question_number": 111,
+        "source_jsonl_line": 78710
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年福建省公务员录用考试《行测》题（网友回忆版）_images/img_0224_e2d446fed06d4598.png",
+        "paper_title": "2021年福建省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1700ae5dc6633d5be55e",
+        "question_number": 112,
+        "source_jsonl_line": 78711
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年福建省公务员录用考试《行测》题（网友回忆版）_images/img_0224_e2d446fed06d4598.png",
+        "paper_title": "2021年福建省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_409d321c5856502e9ff5",
+        "question_number": 113,
+        "source_jsonl_line": 78712
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年福建省公务员录用考试《行测》题（网友回忆版）_images/img_0224_e2d446fed06d4598.png",
+        "paper_title": "2021年福建省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6dac45426b39081eafa1",
+        "question_number": 114,
+        "source_jsonl_line": 78713
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年福建省公务员录用考试《行测》题（网友回忆版）_images/img_0224_e2d446fed06d4598.png",
+        "paper_title": "2021年福建省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_02954660435165ff7b2b",
+        "question_number": 115,
+        "source_jsonl_line": 78714
+      }
+    ],
+    "sha256": "6c23cb565509e5e55b2c22424bfd8e7cab9808afb83d4598048a27a26e6be4a2"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图1 我国城镇就业人员平均工资（2009年-2019年）",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6c23cb565509e5e55b2c2242/column_band_01.jpg",
+        "review-crops/da_6c23cb565509e5e55b2c2242/column_band_02.jpg",
+        "review-crops/da_6c23cb565509e5e55b2c2242/column_band_03.jpg",
+        "review-crops/da_6c23cb565509e5e55b2c2242/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.005",
+      "crop_verification_elapsed_seconds:6.18",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

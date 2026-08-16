@@ -544,6 +544,11 @@ def _baseline_candidate(
         completion_rule="按真实水平答完这组题就行，用时和做题的感觉顺手记一下。",
         start_url="/xingce/xingce-task-intro/index?mode=baseline",
         evidence_refs=tuple(evidence),
+        # A brand-new learner cannot use the recommended quick-diagnostic entry
+        # unless the baseline survives the normal Xingce/essay ranking. Treat
+        # this first calibration as the one mandatory evidence task; the daily
+        # planner may still use any remaining minutes for optional work.
+        mandatory=True,
         priority=PriorityBreakdown(
             goal_gain=0.65 if goal.positive_gap else 0.45,
             ability_gain=0.95,

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 593 307" width="593" height="307">
+<rect width="100%" height="100%" fill="#fff"/>
+<g font-family="Arial, PingFang SC, sans-serif" fill="#111">
+<text x="4" y="19" font-size="14">（人次）</text>
+<text x="296.5" y="18" text-anchor="middle" font-size="18">2022-2025年Q市法律热线咨询量</text>
+<text x="36" y="258.00" text-anchor="end" font-size="11" fill="#555">0</text>
+<text x="36" y="227.43" text-anchor="end" font-size="11" fill="#555">10000</text>
+<text x="36" y="196.86" text-anchor="end" font-size="11" fill="#555">20000</text>
+<text x="36" y="166.29" text-anchor="end" font-size="11" fill="#555">30000</text>
+<text x="36" y="135.71" text-anchor="end" font-size="11" fill="#555">40000</text>
+<text x="36" y="105.14" text-anchor="end" font-size="11" fill="#555">50000</text>
+<text x="36" y="74.57" text-anchor="end" font-size="11" fill="#555">60000</text>
+<text x="36" y="44.00" text-anchor="end" font-size="11" fill="#555">70000</text>
+<path d="M47 40V254H588" fill="none" stroke="#111" stroke-width="1"/>
+<text x="114.62" y="274" text-anchor="middle" font-size="13">一季度</text>
+<rect x="72.62" y="148.05" width="18" height="105.95" fill="#111111" stroke="#111111" stroke-width="1"/>
+<text x="81.62" y="142.05" text-anchor="middle" font-size="12" fill="#444">34658</text>
+<rect x="94.62" y="110.28" width="18" height="143.72" fill="#a7a7a7" stroke="#a7a7a7" stroke-width="1"/>
+<text x="103.62" y="104.28" text-anchor="middle" font-size="12" fill="#444">47010</text>
+<rect x="116.62" y="124.06" width="18" height="129.94" fill="#ffffff" stroke="#111111" stroke-width="1"/>
+<text x="125.62" y="118.06" text-anchor="middle" font-size="12" fill="#444">42504</text>
+<rect x="138.62" y="92.58" width="18" height="161.42" fill="#ffffff" stroke="#111111" stroke-width="1" stroke-dasharray="5 4"/>
+<text x="147.62" y="86.58" text-anchor="middle" font-size="12" fill="#444">52802</text>
+<text x="249.88" y="274" text-anchor="middle" font-size="13">二季度</text>
+<rect x="207.88" y="149.97" width="18" height="104.03" fill="#111111" stroke="#111111" stroke-width="1"/>
+<text x="216.88" y="143.97" text-anchor="middle" font-size="12" fill="#444">34027</text>
+<rect x="229.88" y="102.72" width="18" height="151.28" fill="#a7a7a7" stroke="#a7a7a7" stroke-width="1"/>
+<text x="238.88" y="96.72" text-anchor="middle" font-size="12" fill="#444">49483</text>
+<rect x="251.88" y="100.88" width="18" height="153.12" fill="#ffffff" stroke="#111111" stroke-width="1"/>
+<text x="260.88" y="94.88" text-anchor="middle" font-size="12" fill="#444">50085</text>
+<text x="385.12" y="274" text-anchor="middle" font-size="13">三季度</text>
+<rect x="343.12" y="154.31" width="18" height="99.69" fill="#111111" stroke="#111111" stroke-width="1"/>
+<text x="352.12" y="148.31" text-anchor="middle" font-size="12" fill="#444">32610</text>
+<rect x="365.12" y="102.89" width="18" height="151.11" fill="#a7a7a7" stroke="#a7a7a7" stroke-width="1"/>
+<text x="374.12" y="96.89" text-anchor="middle" font-size="12" fill="#444">49429</text>
+<rect x="387.12" y="77.53" width="18" height="176.47" fill="#ffffff" stroke="#111111" stroke-width="1"/>
+<text x="396.12" y="71.53" text-anchor="middle" font-size="12" fill="#444">57725</text>
+<text x="520.38" y="274" text-anchor="middle" font-size="13">四季度</text>
+<rect x="478.38" y="102.05" width="18" height="151.95" fill="#111111" stroke="#111111" stroke-width="1"/>
+<text x="487.38" y="96.05" text-anchor="middle" font-size="12" fill="#444">49702</text>
+<rect x="500.38" y="131.74" width="18" height="122.26" fill="#a7a7a7" stroke="#a7a7a7" stroke-width="1"/>
+<text x="509.38" y="125.74" text-anchor="middle" font-size="12" fill="#444">39991</text>
+<rect x="522.38" y="60.81" width="18" height="193.19" fill="#ffffff" stroke="#111111" stroke-width="1"/>
+<text x="531.38" y="54.81" text-anchor="middle" font-size="12" fill="#444">63193</text>
+<rect x="165" y="289" width="8" height="8" fill="#111111" stroke="#111111"/>
+<text x="177" y="297" font-size="12">2022年</text>
+<rect x="242" y="289" width="8" height="8" fill="#a7a7a7" stroke="#a7a7a7"/>
+<text x="254" y="297" font-size="12">2023年</text>
+<rect x="319" y="289" width="8" height="8" fill="#ffffff" stroke="#111111"/>
+<text x="331" y="297" font-size="12">2024年</text>
+<rect x="396" y="289" width="8" height="8" fill="#ffffff" stroke="#111111" stroke-dasharray="5 4"/>
+<text x="408" y="297" font-size="12">2025年</text>
+</g>
+</svg>

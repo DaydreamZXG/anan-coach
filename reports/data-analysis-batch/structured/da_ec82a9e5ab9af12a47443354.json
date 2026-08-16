@@ -1,0 +1,224 @@
+{
+  "asset_id": "da_ec82a9e5ab9af12a47443354",
+  "axes": {
+    "x": {
+      "max": 2011,
+      "min": 2003,
+      "ticks": [
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 40000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000,
+          30000,
+          35000,
+          40000
+        ],
+        "title": "人均国内生产总值",
+        "unit": "(元)"
+      },
+      {
+        "max": 40,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40
+        ],
+        "title": "增长速度",
+        "unit": "(%)"
+      }
+    ]
+  },
+  "categories": [
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "人均国内生产总值",
+      "style": {
+        "dash": "solid",
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "增长速度（扣除价格因素）",
+      "style": {
+        "dash": "dot",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "人均国内生产总值",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(元)",
+      "values": [
+        10542,
+        12336,
+        14185,
+        16500,
+        20169,
+        23708,
+        25608,
+        30015,
+        35083
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "增长速度（扣除价格因素）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(%)",
+      "values": [
+        9.3,
+        9.4,
+        10.7,
+        12.0,
+        13.6,
+        9.1,
+        8.7,
+        9.9,
+        8.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2013年江苏省公务员录用考试《行测》题（A类）_images/img_0176_e3575fa769ff3840.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（A类）_images/img_0176_e3575fa769ff3840.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_3846b7b93640b66a3d5e",
+        "question_number": 101,
+        "source_jsonl_line": 46246
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（A类）_images/img_0190_8d76f1c33fb0cab4.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_4fa9935944dab70bf2e8",
+        "question_number": 102,
+        "source_jsonl_line": 46247
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（A类）_images/img_0190_8d76f1c33fb0cab4.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_bd49b459d16d89d04f13",
+        "question_number": 103,
+        "source_jsonl_line": 46248
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（A类）_images/img_0190_8d76f1c33fb0cab4.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_54bd389d5149c44945e3",
+        "question_number": 104,
+        "source_jsonl_line": 46249
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年江苏省公务员录用考试《行测》题（A类）_images/img_0190_8d76f1c33fb0cab4.png",
+        "paper_title": "2013年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_950f4243d2ea27e8b041",
+        "question_number": 105,
+        "source_jsonl_line": 46250
+      }
+    ],
+    "sha256": "ec82a9e5ab9af12a474433547a046e863e11c6e801819207121e946785758630"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图2：2003-2011年我国人均国内生产总值及其增长速度",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ec82a9e5ab9af12a47443354/column_band_01.jpg",
+        "review-crops/da_ec82a9e5ab9af12a47443354/column_band_02.jpg",
+        "review-crops/da_ec82a9e5ab9af12a47443354/column_band_03.jpg",
+        "review-crops/da_ec82a9e5ab9af12a47443354/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.465",
+      "crop_verification_elapsed_seconds:5.53",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

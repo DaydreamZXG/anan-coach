@@ -1,0 +1,234 @@
+{
+  "asset_id": "da_d258bc8003e05063799ac301",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "晚稻",
+    "早稻",
+    "小麦",
+    "大麦"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "晚稻",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "早稻",
+      "style": {
+        "dash": null,
+        "fill": "#ffffff",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "小麦",
+      "style": {
+        "dash": null,
+        "fill": "#ffffff",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "大麦",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "玉米",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "其他谷物",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -141.921,
+      157.767,
+      192.528,
+      206.886,
+      218.079
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 157.767,
+        "label": "晚稻",
+        "share": 0.83246706,
+        "start_angle": -141.921,
+        "sweep_angle": 299.688
+      },
+      {
+        "end_angle": 192.528,
+        "label": "早稻",
+        "share": 0.09655869,
+        "start_angle": 157.767,
+        "sweep_angle": 34.761
+      },
+      {
+        "end_angle": 206.886,
+        "label": "小麦",
+        "share": 0.03988173,
+        "start_angle": 192.528,
+        "sweep_angle": 14.357
+      },
+      {
+        "end_angle": 218.079,
+        "label": "大麦",
+        "share": 0.03109252,
+        "start_angle": 206.886,
+        "sweep_angle": 11.193
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.83246706,
+        0.09655869,
+        0.03988173,
+        0.03109252
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0153_7f744996da05f70f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0153_7f744996da05f70f.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_aefc38a363d40bfbe11b",
+        "question_number": 106,
+        "source_jsonl_line": 11149
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0158_09c328414755b305.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_af74aab27814393656bf",
+        "question_number": 107,
+        "source_jsonl_line": 11150
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0158_09c328414755b305.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_638daf4007b0bd6a754b",
+        "question_number": 108,
+        "source_jsonl_line": 11151
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0153_7f744996da05f70f.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_e20ef11061116050bfe2",
+        "question_number": 109,
+        "source_jsonl_line": 11152
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0153_7f744996da05f70f.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_45e537840618a6159f40",
+        "question_number": 110,
+        "source_jsonl_line": 11153
+      }
+    ],
+    "sha256": "d258bc8003e05063799ac301e24c67c2888251305b3b5cc550424cf0ef2dea27"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2003年谷物类粮食种植面积结构图",
+  "unit": "万公顷",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d258bc8003e05063799ac301/quadrant_01.jpg",
+        "review-crops/da_d258bc8003e05063799ac301/quadrant_02.jpg",
+        "review-crops/da_d258bc8003e05063799ac301/quadrant_03.jpg",
+        "review-crops/da_d258bc8003e05063799ac301/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.482",
+      "crop_verification_elapsed_seconds:1.086",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "label_geometry_count_mismatch:6!=4",
+      "circle_edge_coverage:0.9903",
+      "hough_circle_radius_ratio:0.2911",
+      "radial_line_candidates:7",
+      "detected_boundaries:4"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

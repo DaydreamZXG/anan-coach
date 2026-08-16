@@ -1,0 +1,310 @@
+{
+  "asset_id": "da_f7dd5cb5b19be9c15367cff9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "销售费用",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        635.2,
+        973.2,
+        1310.8,
+        1643.9,
+        2064.5,
+        2429.5,
+        2809.3,
+        3297.9,
+        3674.3,
+        4107.1,
+        4635.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "管理费用",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        201.0,
+        320.4,
+        434.1,
+        549.1,
+        687.6,
+        809.3,
+        927.7,
+        1070.9,
+        1198.4,
+        1347.4,
+        1575.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "财务费用",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        29.7,
+        49.6,
+        70.6,
+        88.2,
+        102.0,
+        123.7,
+        148.5,
+        174.5,
+        198.2,
+        225.3,
+        250.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0061_c30a437c7bf0bf6a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0061_c30a437c7bf0bf6a.png",
+        "paper_title": "2022年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_db269b66e7d512f92f86",
+        "question_number": 116,
+        "source_jsonl_line": 10789
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0061_c30a437c7bf0bf6a.png",
+        "paper_title": "2022年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_affd7c67bee5eabda19e",
+        "question_number": 117,
+        "source_jsonl_line": 10790
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0084_331abdee13d6bbe7.png",
+        "paper_title": "2022年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_153207d368d34c0e5d9c",
+        "question_number": 118,
+        "source_jsonl_line": 10791
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0061_c30a437c7bf0bf6a.png",
+        "paper_title": "2022年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_820bf1392912ece1e992",
+        "question_number": 119,
+        "source_jsonl_line": 10792
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0061_c30a437c7bf0bf6a.png",
+        "paper_title": "2022年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_03241b80ed896f23549f",
+        "question_number": 120,
+        "source_jsonl_line": 10793
+      }
+    ],
+    "sha256": "f7dd5cb5b19be9c15367cff94179c03ba8d6beed50d60ccbdc49031a3c2312dc"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1-2月",
+      "销售费用",
+      "管理费用",
+      "财务费用"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "1-2月",
+        "unit": null,
+        "values": [
+          "1-2月",
+          635.2,
+          201.0,
+          29.7
+        ]
+      },
+      {
+        "label": "1-3月",
+        "unit": null,
+        "values": [
+          "1-3月",
+          973.2,
+          320.4,
+          49.6
+        ]
+      },
+      {
+        "label": "1-4月",
+        "unit": null,
+        "values": [
+          "1-4月",
+          1310.8,
+          434.1,
+          70.6
+        ]
+      },
+      {
+        "label": "1-5月",
+        "unit": null,
+        "values": [
+          "1-5月",
+          1643.9,
+          549.1,
+          88.2
+        ]
+      },
+      {
+        "label": "1-6月",
+        "unit": null,
+        "values": [
+          "1-6月",
+          2064.5,
+          687.6,
+          102.0
+        ]
+      },
+      {
+        "label": "1-7月",
+        "unit": null,
+        "values": [
+          "1-7月",
+          2429.5,
+          809.3,
+          123.7
+        ]
+      },
+      {
+        "label": "1-8月",
+        "unit": null,
+        "values": [
+          "1-8月",
+          2809.3,
+          927.7,
+          148.5
+        ]
+      },
+      {
+        "label": "1-9月",
+        "unit": null,
+        "values": [
+          "1-9月",
+          3297.9,
+          1070.9,
+          174.5
+        ]
+      },
+      {
+        "label": "1-10月",
+        "unit": null,
+        "values": [
+          "1-10月",
+          3674.3,
+          1198.4,
+          198.2
+        ]
+      },
+      {
+        "label": "1-11月",
+        "unit": null,
+        "values": [
+          "1-11月",
+          4107.1,
+          1347.4,
+          225.3
+        ]
+      },
+      {
+        "label": "1-12月",
+        "unit": null,
+        "values": [
+          "1-12月",
+          4635.6,
+          1575.1,
+          250.2
+        ]
+      }
+    ]
+  },
+  "title": "2020年某行业销售、管理和财务费用累计值",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f7dd5cb5b19be9c15367cff9/row_band_01.jpg",
+        "review-crops/da_f7dd5cb5b19be9c15367cff9/row_band_02.jpg",
+        "review-crops/da_f7dd5cb5b19be9c15367cff9/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.108",
+      "crop_verification_elapsed_seconds:9.229",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

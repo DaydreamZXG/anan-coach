@@ -1,0 +1,301 @@
+{
+  "asset_id": "da_c9c92c54a59b060e84315f29",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "指标",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "全国",
+        "unit": "%"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "城市",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "居民消费价格指数",
+    "其中：食品",
+    "烟酒及用品",
+    "衣着",
+    "家庭设备用品及维修服务",
+    "医疗保健和个人用品",
+    "交通和通信",
+    "娱乐教育文化用品及服务",
+    "居住"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.4,
+        11.8,
+        2.8,
+        2.1,
+        2.4,
+        3.4,
+        0.5,
+        0.4,
+        5.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "城市",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.3,
+        11.6,
+        3.0,
+        2.2,
+        2.7,
+        3.4,
+        0.2,
+        0.3,
+        5.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "农村",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.8,
+        12.4,
+        2.4,
+        1.9,
+        1.5,
+        3.3,
+        1.3,
+        0.8,
+        5.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2015年天津市公务员录用考试《行测》题_images/img_0241_773a1f21486c39dd.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年天津市公务员录用考试《行测》题_images/img_0241_773a1f21486c39dd.png",
+        "paper_title": "2015年天津市公务员录用考试《行测》题",
+        "question_id": "pq_dd8997ad05162f630a42",
+        "question_number": 116,
+        "source_jsonl_line": 22621
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年天津市公务员录用考试《行测》题_images/img_0241_773a1f21486c39dd.png",
+        "paper_title": "2015年天津市公务员录用考试《行测》题",
+        "question_id": "pq_ea40ef1b2ec5d3524ce6",
+        "question_number": 117,
+        "source_jsonl_line": 22622
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年天津市公务员录用考试《行测》题_images/img_0240_45feaff613761d31.png",
+        "paper_title": "2015年天津市公务员录用考试《行测》题",
+        "question_id": "pq_02df0f130b8c6259725a",
+        "question_number": 118,
+        "source_jsonl_line": 22623
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年天津市公务员录用考试《行测》题_images/img_0240_45feaff613761d31.png",
+        "paper_title": "2015年天津市公务员录用考试《行测》题",
+        "question_id": "pq_44f6981a07e0e7e727bc",
+        "question_number": 119,
+        "source_jsonl_line": 22624
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年天津市公务员录用考试《行测》题_images/img_0241_773a1f21486c39dd.png",
+        "paper_title": "2015年天津市公务员录用考试《行测》题",
+        "question_id": "pq_e232877312767ade977c",
+        "question_number": 120,
+        "source_jsonl_line": 22625
+      }
+    ],
+    "sha256": "c9c92c54a59b060e84315f29fbca88393fd7532d63c0df74b3c8ce422ae41464"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "全国",
+      "城市",
+      "农村"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "居民消费价格指数",
+        "unit": null,
+        "values": [
+          "居民消费价格指数",
+          5.4,
+          5.3,
+          5.8
+        ]
+      },
+      {
+        "label": "其中：食品",
+        "unit": null,
+        "values": [
+          "其中：食品",
+          11.8,
+          11.6,
+          12.4
+        ]
+      },
+      {
+        "label": "烟酒及用品",
+        "unit": null,
+        "values": [
+          "烟酒及用品",
+          2.8,
+          3.0,
+          2.4
+        ]
+      },
+      {
+        "label": "衣着",
+        "unit": null,
+        "values": [
+          "衣着",
+          2.1,
+          2.2,
+          1.9
+        ]
+      },
+      {
+        "label": "家庭设备用品及维修服务",
+        "unit": null,
+        "values": [
+          "家庭设备用品及维修服务",
+          2.4,
+          2.7,
+          1.5
+        ]
+      },
+      {
+        "label": "医疗保健和个人用品",
+        "unit": null,
+        "values": [
+          "医疗保健和个人用品",
+          3.4,
+          3.4,
+          3.3
+        ]
+      },
+      {
+        "label": "交通和通信",
+        "unit": null,
+        "values": [
+          "交通和通信",
+          0.5,
+          0.2,
+          1.3
+        ]
+      },
+      {
+        "label": "娱乐教育文化用品及服务",
+        "unit": null,
+        "values": [
+          "娱乐教育文化用品及服务",
+          0.4,
+          0.3,
+          0.8
+        ]
+      },
+      {
+        "label": "居住",
+        "unit": null,
+        "values": [
+          "居住",
+          5.3,
+          5.1,
+          5.7
+        ]
+      }
+    ]
+  },
+  "title": "2011年我国居民消费价格比上年涨跌幅度（单位%）",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c9c92c54a59b060e84315f29/row_band_01.jpg",
+        "review-crops/da_c9c92c54a59b060e84315f29/row_band_02.jpg",
+        "review-crops/da_c9c92c54a59b060e84315f29/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.813",
+      "crop_verification_elapsed_seconds:6.473",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

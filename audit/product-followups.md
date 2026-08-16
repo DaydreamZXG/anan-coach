@@ -14,7 +14,7 @@ P0/P1/P2/P3 数量，也不能据此宣称已经发布完成或具备生产可�
 - **范围：** 微信小程序、FastAPI、PostgreSQL、现有行测复盘/掌握链路
 - **明确 N/A：** SwiftUI、iOS、Xcode
 - **basisRefs：**
-  - `docs/product/2026-07-12-ai-guokao-coach-prd.md:95`
+  - `docs/product/_archive/2026-07-12-ai-guokao-coach-prd.md:95`
   - `apps/wechat/miniprogram/task-runtime/contracts.ts:49`
   - `apps/wechat/miniprogram/pages/reflection/index.wxml:170`
   - `backend/app/domains/xingce_learning/cause_agent/tools.py:143`

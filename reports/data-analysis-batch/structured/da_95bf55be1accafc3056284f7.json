@@ -1,0 +1,308 @@
+{
+  "asset_id": "da_95bf55be1accafc3056284f7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "1991年收入分组",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "1996年收入分组",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "最低1/5",
+    "次低1/5",
+    "中",
+    "次高1/5",
+    "最高1/5"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "1_5",
+      "label": "最低1/5",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        51,
+        25,
+        11,
+        8,
+        4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "1_5",
+      "label": "次低1/5",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        26,
+        35,
+        21,
+        12,
+        6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "1_5",
+      "label": "中1/5",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        12,
+        22,
+        33,
+        20,
+        11
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "1_5",
+      "label": "次高1/5",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        7,
+        12,
+        23,
+        37,
+        21
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "1_5",
+      "label": "最高1/5",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        4,
+        6,
+        12,
+        23,
+        58
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "全部成年人",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2010年黑龙江省公务员录用考试《行测》题_images/img_0138_c1774c0b233e3c97.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年黑龙江省公务员录用考试《行测》题_images/img_0138_c1774c0b233e3c97.png",
+        "paper_title": "2010年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_9a90335485cd62d44588",
+        "question_number": 100,
+        "source_jsonl_line": 101263
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年黑龙江省公务员录用考试《行测》题_images/img_0138_c1774c0b233e3c97.png",
+        "paper_title": "2010年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_c490913513f778c14e11",
+        "question_number": 101,
+        "source_jsonl_line": 101264
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年黑龙江省公务员录用考试《行测》题_images/img_0138_c1774c0b233e3c97.png",
+        "paper_title": "2010年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_530cfcd87932e022b616",
+        "question_number": 102,
+        "source_jsonl_line": 101265
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年黑龙江省公务员录用考试《行测》题_images/img_0138_c1774c0b233e3c97.png",
+        "paper_title": "2010年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_cfd01e42bc2fc5b62afe",
+        "question_number": 103,
+        "source_jsonl_line": 101266
+      }
+    ],
+    "sha256": "95bf55be1accafc3056284f7d6b14eb355f2ff4ea2c8bc14c80077b0c7dd6ab2"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1991年收入分组",
+      "最低1/5",
+      "次低1/5",
+      "中1/5",
+      "次高1/5",
+      "最高1/5",
+      "全部成年人"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "最低1/5",
+        "unit": "人",
+        "values": [
+          "最低1/5",
+          51,
+          26,
+          12,
+          7,
+          4,
+          100
+        ]
+      },
+      {
+        "label": "次低1/5",
+        "unit": "人",
+        "values": [
+          "次低1/5",
+          25,
+          35,
+          22,
+          12,
+          6,
+          100
+        ]
+      },
+      {
+        "label": "中",
+        "unit": null,
+        "values": [
+          "中",
+          11,
+          21,
+          33,
+          23,
+          12,
+          100
+        ]
+      },
+      {
+        "label": "次高1/5",
+        "unit": "人",
+        "values": [
+          "次高1/5",
+          8,
+          12,
+          20,
+          37,
+          23,
+          100
+        ]
+      },
+      {
+        "label": "最高1/5",
+        "unit": "人",
+        "values": [
+          "最高1/5",
+          4,
+          6,
+          11,
+          21,
+          58,
+          100
+        ]
+      }
+    ]
+  },
+  "title": "1991年某群体500名成年人的收入分布在1996年的变动情况",
+  "unit": "人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_95bf55be1accafc3056284f7/row_band_01.jpg",
+        "review-crops/da_95bf55be1accafc3056284f7/row_band_02.jpg",
+        "review-crops/da_95bf55be1accafc3056284f7/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.257",
+      "crop_verification_elapsed_seconds:6.133",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

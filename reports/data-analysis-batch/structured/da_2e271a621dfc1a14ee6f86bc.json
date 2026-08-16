@@ -1,0 +1,217 @@
+{
+  "asset_id": "da_2e271a621dfc1a14ee6f86bc",
+  "axes": {
+    "x": {
+      "max": 60.0,
+      "min": 10.0,
+      "ticks": [
+        10.0,
+        20.0,
+        30.0,
+        40.0,
+        50.0,
+        60.0
+      ],
+      "title": null,
+      "unit": "%"
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [
+          2018,
+          2017,
+          2016,
+          2015,
+          2014
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2018",
+    "2017",
+    "2016",
+    "2015",
+    "2014"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "信息技术服务",
+      "style": {
+        "dash": "solid",
+        "fill": "hatch",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "软件产品",
+      "style": {
+        "dash": "solid",
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "嵌入式产品",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "信息技术服务",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        55.1,
+        53.3,
+        51.8,
+        51.3,
+        50.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "软件产品",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        30.7,
+        31.3,
+        31.7,
+        32.3,
+        32.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "嵌入式产品",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        14.2,
+        15.4,
+        16.5,
+        16.4,
+        17.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0075_e3b7907e18db292a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0075_e3b7907e18db292a.png",
+        "paper_title": "2019年420联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_7f460920ad855fcad6fc",
+        "question_number": 66,
+        "source_jsonl_line": 97864
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0075_e3b7907e18db292a.png",
+        "paper_title": "2019年420联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_d4c3edab889b4e41adbc",
+        "question_number": 67,
+        "source_jsonl_line": 97865
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0075_e3b7907e18db292a.png",
+        "paper_title": "2019年420联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_1b6cf23a3a95225c8e4d",
+        "question_number": 68,
+        "source_jsonl_line": 97866
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0095_e55356a28ecf9b26.png",
+        "paper_title": "2019年420联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_3fe64dfd4bcdb308cd59",
+        "question_number": 69,
+        "source_jsonl_line": 97867
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（陕西卷）（网友回忆版）_images/img_0075_e3b7907e18db292a.png",
+        "paper_title": "2019年420联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_212a56e150d11683b202",
+        "question_number": 70,
+        "source_jsonl_line": 97868
+      }
+    ],
+    "sha256": "2e271a621dfc1a14ee6f86bc750ade54070c553273b3490b8da9ac29aeb12220"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图 2014-2018 年我国软件行业三大子行业占比图",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2e271a621dfc1a14ee6f86bc/column_band_01.jpg",
+        "review-crops/da_2e271a621dfc1a14ee6f86bc/column_band_02.jpg",
+        "review-crops/da_2e271a621dfc1a14ee6f86bc/column_band_03.jpg",
+        "review-crops/da_2e271a621dfc1a14ee6f86bc/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.611",
+      "crop_verification_elapsed_seconds:12.158",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了 '信息技术服务' 系列的值，原值 55.1% 与图中 55.10% 一致，但需统一为一位小数，故保留 55.1；修正了 '软件产品' 系列的值，原值 30.7% 与图中 30.70% 一致，但需统一为一位小数，故保留 30.7；修正了 '嵌入式产品' 系列的值，原值 14.2% 与图中 14.20% 一致，但需统一为一位小数，故保留 14.2；确认所有百分比数值与图中一致，无负号、小数点错误或缺失值；确认 '信息技术服务'、'软件产品'、'嵌入式产品' 的标签与图例一致；确认 '2018' 到 '2014' 的年份顺序与图中一致；确认 '信息技术服务' 的填充样式为斜线（hatch），'软件产品' 为白色，'嵌入式产品' 为黑色，与图例一致；确认 x 轴范围为 10.0 到 60.0，与图中一致；确认 y 轴年份顺序为 2018, 2017, 2016, 2015, 2014，与图中一致；确认标题、单位、图例等文本与图中一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

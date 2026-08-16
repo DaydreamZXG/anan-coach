@@ -68,13 +68,53 @@ def test_artifact_database_contract_matches_single_alembic_head() -> None:
     }
 
 
+def test_question_occurrence_source_identity_is_owned_by_v110(
+    db_engine: Engine,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    inspector = inspect(db_engine)
+    columns = {
+        item["name"] for item in inspector.get_columns("question_occurrences", schema="product")
+    }
+    assert {
+        "source_paper_row_id",
+        "source_paper_key",
+        "source_occurrence_question_key",
+        "source_occurrence_paper_key",
+        "cls",
+        "occurrence_answer",
+        "occurrence_total_count",
+        "occurrence_easy_wrong",
+        "occurrence_most_wrong_answer",
+    }.issubset(columns)
+    indexes = {
+        item["name"] for item in inspector.get_indexes("question_occurrences", schema="product")
+    }
+    assert {
+        "question_occurrences_source_question_identity_idx",
+        "question_occurrences_source_paper_identity_idx",
+    }.issubset(indexes)
+
+    migration = import_module(
+        "migrations.versions.20260814_110_question_occurrence_source_identity"
+    )
+    assert migration.revision == "20260814_110"
+    assert migration.down_revision == "20260813_109"
+    statements: list[str] = []
+    monkeypatch.setattr(migration.op, "execute", statements.append)
+    migration.upgrade()
+    assert statements == list(migration._UPGRADE_STATEMENTS)
+    assert all("if not exists" in statement for statement in statements)
+    with pytest.raises(RuntimeError, match="source identity is forward-only"):
+        migration.downgrade()
+
+
 def test_learning_loop_v103_upgrade_owns_nullable_compatibility_columns(
     db_engine: Engine,
 ) -> None:
     inspector = inspect(db_engine)
     assert "selection_intent" in {
-        item["name"]
-        for item in inspector.get_columns("daily_plan_tasks", schema="learning")
+        item["name"] for item in inspector.get_columns("daily_plan_tasks", schema="learning")
     }
     assert {
         "scratch_evidence_projection",
@@ -89,8 +129,7 @@ def test_learning_loop_v103_upgrade_owns_nullable_compatibility_columns(
         }
     )
     assert "recognition_metadata" in {
-        item["name"]
-        for item in inspector.get_columns("math_ink_commands", schema="learning")
+        item["name"] for item in inspector.get_columns("math_ink_commands", schema="learning")
     }
     math_checks = {
         item["name"]: str(item["sqltext"])
@@ -105,9 +144,7 @@ def test_learning_loop_v103_upgrade_owns_nullable_compatibility_columns(
     assert "xfyun_candidate" in recognition_check
     assert "myscript_candidate" in recognition_check
 
-    migration = import_module(
-        "migrations.versions.20260809_103_learning_intelligence_loop_v1"
-    )
+    migration = import_module("migrations.versions.20260809_103_learning_intelligence_loop_v1")
     assert migration.revision == "20260809_103"
     assert migration.down_revision == "20260808_102"
 
@@ -129,9 +166,7 @@ def test_daily_track_focus_v104_is_the_persisted_database_contract(
         )
     }
     assert "preferred_track" in checks["daily_capacity_preferred_track_check"]
-    assert "preferred_xingce_module" in checks[
-        "daily_capacity_track_focus_consistency_check"
-    ]
+    assert "preferred_xingce_module" in checks["daily_capacity_track_focus_consistency_check"]
 
     migration = import_module("migrations.versions.20260809_104_daily_track_focus")
     assert migration.revision == "20260809_104"
@@ -153,72 +188,69 @@ def test_learning_loop_v103_empty_upgrade_downgrade_round_trip(
     command.downgrade(config, "20260808_102")
     inspector = inspect(db_engine)
     assert "selection_intent" not in {
-        item["name"]
-        for item in inspector.get_columns("daily_plan_tasks", schema="learning")
+        item["name"] for item in inspector.get_columns("daily_plan_tasks", schema="learning")
     }
     assert "scratch_evidence_projection" not in {
-        item["name"]
-        for item in inspector.get_columns("xingce_attempt_records", schema="learning")
+        item["name"] for item in inspector.get_columns("xingce_attempt_records", schema="learning")
     }
     assert "recognition_metadata" not in {
-        item["name"]
-        for item in inspector.get_columns("math_ink_commands", schema="learning")
+        item["name"] for item in inspector.get_columns("math_ink_commands", schema="learning")
     }
 
     command.upgrade(config, "head")
     with db_engine.connect() as connection:
-        assert connection.execute(
-            text("select version_num from alembic_version")
-        ).scalar_one() == "20260810_106"
+        assert (
+            connection.execute(text("select version_num from alembic_version")).scalar_one()
+            == artifact_database_revision()
+        )
     upgraded = inspect(db_engine)
     assert "selection_intent" in {
-        item["name"]
-        for item in upgraded.get_columns("daily_plan_tasks", schema="learning")
+        item["name"] for item in upgraded.get_columns("daily_plan_tasks", schema="learning")
     }
     assert "scratch_evidence_projection" in {
-        item["name"]
-        for item in upgraded.get_columns("xingce_attempt_records", schema="learning")
+        item["name"] for item in upgraded.get_columns("xingce_attempt_records", schema="learning")
     }
     assert "recognition_metadata" in {
-        item["name"]
-        for item in upgraded.get_columns("math_ink_commands", schema="learning")
+        item["name"] for item in upgraded.get_columns("math_ink_commands", schema="learning")
     }
 
 
 def _valid_selection_intent() -> dict[str, object]:
-    return freeze_selection_intent({
-        "contractVersion": "xingce-selection-intent@v1",
-        "knowledgeRelease": {
-            "releaseId": "knowledge-release-test",
-            "releaseVersion": "release-v1",
-            "sourceDataVersion": "source-v1",
-            "vocabVersion": "vocab-v1",
-            "freshUntil": "2026-08-20T00:00:00+00:00",
-        },
-        "targetModule": "data_analysis",
-        "targetKnowledgeNode": {
-            "releaseId": "knowledge-release-test",
-            "nodeId": "knowledge-node-test",
-            "nodeType": "knowledge_point",
-            "tagType": "knowledge_point",
-            "tagValue": "growth_rate",
-        },
-        "targetMicroSkillNode": None,
-        "confirmedCauseFocus": None,
-        "difficultyPolicy": {
-            "state": "unknown",
-            "reason": "missing_shadow_estimate",
-            "sourceVersionId": None,
-            "algorithmVersion": "ability-estimate-v2-shadow-1",
-        },
-        "noveltyPolicy": {
-            "answered": "exclude",
-            "exposed": "exclude",
-            "scope": "current_user",
-        },
-        "fallbackReason": None,
-        "evidenceRefs": ["knowledge-profile:knowledge-release-test"],
-    })
+    return freeze_selection_intent(
+        {
+            "contractVersion": "xingce-selection-intent@v1",
+            "knowledgeRelease": {
+                "releaseId": "knowledge-release-test",
+                "releaseVersion": "release-v1",
+                "sourceDataVersion": "source-v1",
+                "vocabVersion": "vocab-v1",
+                "freshUntil": "2026-08-20T00:00:00+00:00",
+            },
+            "targetModule": "data_analysis",
+            "targetKnowledgeNode": {
+                "releaseId": "knowledge-release-test",
+                "nodeId": "knowledge-node-test",
+                "nodeType": "knowledge_point",
+                "tagType": "knowledge_point",
+                "tagValue": "growth_rate",
+            },
+            "targetMicroSkillNode": None,
+            "confirmedCauseFocus": None,
+            "difficultyPolicy": {
+                "state": "unknown",
+                "reason": "missing_shadow_estimate",
+                "sourceVersionId": None,
+                "algorithmVersion": "ability-estimate-v2-shadow-1",
+            },
+            "noveltyPolicy": {
+                "answered": "exclude",
+                "exposed": "exclude",
+                "scope": "current_user",
+            },
+            "fallbackReason": None,
+            "evidenceRefs": ["knowledge-profile:knowledge-release-test"],
+        }
+    )
 
 
 def _insert_v103_daily_plan_task(
@@ -275,13 +307,16 @@ def test_learning_loop_v103_selection_intent_check_is_fail_closed(
         connection.execute(text("set local session_replication_role = 'replica'"))
         legacy_task_id = str(uuid4())
         _insert_v103_daily_plan_task(connection, task_id=legacy_task_id)
-        assert connection.execute(
-            text(
-                "select selection_intent from learning.daily_plan_tasks "
-                "where task_id = cast(:task_id as uuid)"
-            ),
-            {"task_id": legacy_task_id},
-        ).scalar_one() is None
+        assert (
+            connection.execute(
+                text(
+                    "select selection_intent from learning.daily_plan_tasks "
+                    "where task_id = cast(:task_id as uuid)"
+                ),
+                {"task_id": legacy_task_id},
+            ).scalar_one()
+            is None
+        )
         valid_task_id = str(uuid4())
         valid_intent = _valid_selection_intent()
         _insert_v103_daily_plan_task(
@@ -289,14 +324,17 @@ def test_learning_loop_v103_selection_intent_check_is_fail_closed(
             task_id=valid_task_id,
             intent=valid_intent,
         )
-        assert connection.execute(
-            text(
-                "select selection_intent ->> 'intentId' "
-                "from learning.daily_plan_tasks "
-                "where task_id = cast(:task_id as uuid)"
-            ),
-            {"task_id": valid_task_id},
-        ).scalar_one() == valid_intent["intentId"]
+        assert (
+            connection.execute(
+                text(
+                    "select selection_intent ->> 'intentId' "
+                    "from learning.daily_plan_tasks "
+                    "where task_id = cast(:task_id as uuid)"
+                ),
+                {"task_id": valid_task_id},
+            ).scalar_one()
+            == valid_intent["intentId"]
+        )
         transaction.rollback()
 
     invalid_release = json.loads(json.dumps(_valid_selection_intent()))
@@ -439,9 +477,7 @@ def test_learning_loop_v103_refuses_downgrade_when_any_new_fact_exists(
     db_engine: Engine,
     fact_kind: str,
 ) -> None:
-    migration = import_module(
-        "migrations.versions.20260809_103_learning_intelligence_loop_v1"
-    )
+    migration = import_module("migrations.versions.20260809_103_learning_intelligence_loop_v1")
     with db_engine.connect() as connection:
         transaction = connection.begin()
         connection.execute(text("set local session_replication_role = 'replica'"))
@@ -1042,12 +1078,12 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             "background_job_type_registry",
             "background_jobs",
             "commercial_data_publication_state",
-                "commercial_data_publication_transitions",
-                "companion_memory_items",
-                "companion_memory_settings",
-                "companion_paid_commands",
-                "companion_short_term_memory_turns",
-                "outbox_events",
+            "commercial_data_publication_transitions",
+            "companion_memory_items",
+            "companion_memory_settings",
+            "companion_paid_commands",
+            "companion_short_term_memory_turns",
+            "outbox_events",
         }
         companion_command_indexes = {
             index["name"]

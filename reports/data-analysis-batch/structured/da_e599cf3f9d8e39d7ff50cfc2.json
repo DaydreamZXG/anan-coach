@@ -1,0 +1,268 @@
+{
+  "asset_id": "da_e599cf3f9d8e39d7ff50cfc2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "国家财政性教育经费 (亿元)",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "占GDP比重 (%)",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "国家财政性教育经费 (亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        3850.62,
+        4465.86,
+        5161.08,
+        6348.36,
+        8280.21,
+        10449.63,
+        12231.09,
+        14670.07,
+        18586.7,
+        22236.23
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "GDP",
+      "label": "占GDP比重 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        2.84,
+        2.79,
+        2.79,
+        2.93,
+        3.12,
+        3.33,
+        3.59,
+        3.65,
+        3.93,
+        4.28
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2014年吉林省公务员录用考试《行测》题（甲级）_images/img_0092_20121613f0eb075b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（甲级）_images/img_0092_20121613f0eb075b.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_297bb0bf13891b76dab1",
+        "question_number": 91,
+        "source_jsonl_line": 11972
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（甲级）_images/img_0092_20121613f0eb075b.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_0a2e7151087351128282",
+        "question_number": 92,
+        "source_jsonl_line": 11973
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（甲级）_images/img_0092_20121613f0eb075b.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_7154d3f48c3d152987d1",
+        "question_number": 93,
+        "source_jsonl_line": 11974
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（甲级）_images/img_0092_20121613f0eb075b.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_260122c9ce0c3ca48934",
+        "question_number": 94,
+        "source_jsonl_line": 11975
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（甲级）_images/img_0092_20121613f0eb075b.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_d6347e55b2819c2eba79",
+        "question_number": 95,
+        "source_jsonl_line": 11976
+      }
+    ],
+    "sha256": "e599cf3f9d8e39d7ff50cfc284252fe7f79fd11764e9418f59fd6939cf7a83e4"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "国家财政性教育经费 (亿元)",
+      "占GDP比重 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2003",
+        "unit": null,
+        "values": [
+          2003,
+          3850.62,
+          2.84
+        ]
+      },
+      {
+        "label": "2004",
+        "unit": null,
+        "values": [
+          2004,
+          4465.86,
+          2.79
+        ]
+      },
+      {
+        "label": "2005",
+        "unit": null,
+        "values": [
+          2005,
+          5161.08,
+          2.79
+        ]
+      },
+      {
+        "label": "2006",
+        "unit": null,
+        "values": [
+          2006,
+          6348.36,
+          2.93
+        ]
+      },
+      {
+        "label": "2007",
+        "unit": null,
+        "values": [
+          2007,
+          8280.21,
+          3.12
+        ]
+      },
+      {
+        "label": "2008",
+        "unit": null,
+        "values": [
+          2008,
+          10449.63,
+          3.33
+        ]
+      },
+      {
+        "label": "2009",
+        "unit": null,
+        "values": [
+          2009,
+          12231.09,
+          3.59
+        ]
+      },
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          14670.07,
+          3.65
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          18586.7,
+          3.93
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          22236.23,
+          4.28
+        ]
+      }
+    ]
+  },
+  "title": "2003-2012年全国财政性教育经费情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e599cf3f9d8e39d7ff50cfc2/row_band_01.jpg",
+        "review-crops/da_e599cf3f9d8e39d7ff50cfc2/row_band_02.jpg",
+        "review-crops/da_e599cf3f9d8e39d7ff50cfc2/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.465",
+      "crop_verification_elapsed_seconds:4.294",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

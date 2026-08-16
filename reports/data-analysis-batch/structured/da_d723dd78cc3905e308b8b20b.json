@@ -1,0 +1,236 @@
+{
+  "asset_id": "da_d723dd78cc3905e308b8b20b",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1600,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000,
+          1200,
+          1400,
+          1600
+        ],
+        "title": null,
+        "unit": "亿立方米"
+      },
+      {
+        "max": 12,
+        "min": 0,
+        "ticks": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014年份"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "产量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "同比增长（右轴）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "在全球总产量中占比（右轴）",
+      "style": {
+        "dash": "dot",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "产量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿立方米",
+      "values": [
+        989.7,
+        1088.3,
+        1142.8,
+        1248.7,
+        1344.8
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增长（右轴）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.14,
+        9.97,
+        5.0,
+        9.27,
+        7.69
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "在全球总产量中占比（右轴）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        3.09,
+        3.28,
+        3.38,
+        3.66,
+        3.89
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广州市考/2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0232_8fa12b3375d2a4c1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0232_8fa12b3375d2a4c1.png",
+        "paper_title": "2017年广州市公务员录用考试《行测》题（单考区卷）",
+        "question_id": "pq_693f8de35f0e53f51ba9",
+        "question_number": 96,
+        "source_jsonl_line": 37458
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0232_8fa12b3375d2a4c1.png",
+        "paper_title": "2017年广州市公务员录用考试《行测》题（单考区卷）",
+        "question_id": "pq_29f09dd255b90fae6de1",
+        "question_number": 97,
+        "source_jsonl_line": 37459
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0250_b92bc5892b3aff52.png",
+        "paper_title": "2017年广州市公务员录用考试《行测》题（单考区卷）",
+        "question_id": "pq_2abf2306b35304ac6c31",
+        "question_number": 98,
+        "source_jsonl_line": 37460
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0250_b92bc5892b3aff52.png",
+        "paper_title": "2017年广州市公务员录用考试《行测》题（单考区卷）",
+        "question_id": "pq_ffc7c58f75acf78985ec",
+        "question_number": 99,
+        "source_jsonl_line": 37461
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广州市公务员录用考试《行测》题（单考区卷）_images/img_0250_b92bc5892b3aff52.png",
+        "paper_title": "2017年广州市公务员录用考试《行测》题（单考区卷）",
+        "question_id": "pq_dd070b361704a8ccd65d",
+        "question_number": 100,
+        "source_jsonl_line": 37462
+      }
+    ],
+    "sha256": "d723dd78cc3905e308b8b20b28f63e6cb809b9a2ff5cf62ca2185217fc521816"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2010-2014年我国天然气产量及占比",
+  "unit": "亿立方米",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d723dd78cc3905e308b8b20b/column_band_01.jpg",
+        "review-crops/da_d723dd78cc3905e308b8b20b/column_band_02.jpg",
+        "review-crops/da_d723dd78cc3905e308b8b20b/column_band_03.jpg",
+        "review-crops/da_d723dd78cc3905e308b8b20b/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.117",
+      "crop_verification_elapsed_seconds:5.024",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

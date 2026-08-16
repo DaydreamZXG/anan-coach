@@ -1,0 +1,166 @@
+{
+  "asset_id": "da_2ff18ee61cf40c071c0ee48b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "R&D 经费支出",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "R_D",
+      "label": "R&D 经费支出",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        13016,
+        14170,
+        15667,
+        17606,
+        19657
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）_images/img_0095_db0d9109ed4115ec.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）_images/img_0095_db0d9109ed4115ec.png",
+        "paper_title": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_fe2e537011df597ba4e9",
+        "question_number": 106,
+        "source_jsonl_line": 53160
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）_images/img_0107_fb8ad60c114e19f0.png",
+        "paper_title": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_2b7e2e422b6270750084",
+        "question_number": 107,
+        "source_jsonl_line": 53161
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）_images/img_0095_db0d9109ed4115ec.png",
+        "paper_title": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_f5f8e22d37fb575e9194",
+        "question_number": 108,
+        "source_jsonl_line": 53162
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）_images/img_0107_fb8ad60c114e19f0.png",
+        "paper_title": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_f58c94532b699d45a4c4",
+        "question_number": 109,
+        "source_jsonl_line": 53163
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）_images/img_0107_fb8ad60c114e19f0.png",
+        "paper_title": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_7193a43f0a85d721b6eb",
+        "question_number": 110,
+        "source_jsonl_line": 53164
+      }
+    ],
+    "sha256": "2ff18ee61cf40c071c0ee48b7d751f1396cd4024133f76dada79f642297cc0d2"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2014",
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "label": "R&D 经费支出 (亿元)",
+        "unit": null,
+        "values": [
+          13016,
+          14170,
+          15667,
+          17606,
+          19657
+        ]
+      }
+    ]
+  },
+  "title": "2014-2018年 R&D 经费支出",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2ff18ee61cf40c071c0ee48b/row_band_01.jpg",
+        "review-crops/da_2ff18ee61cf40c071c0ee48b/row_band_02.jpg",
+        "review-crops/da_2ff18ee61cf40c071c0ee48b/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.047",
+      "crop_verification_elapsed_seconds:5.234",
+      "candidate_value_changes_after_crop:0",
+      "table_row_label_column_removed:年份"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

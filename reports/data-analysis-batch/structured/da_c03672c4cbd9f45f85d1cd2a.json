@@ -1,0 +1,358 @@
+{
+  "asset_id": "da_c03672c4cbd9f45f85d1cd2a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 14701,
+        "min": 0,
+        "ticks": [],
+        "title": "销售收入",
+        "unit": "百万人民币"
+      }
+    ]
+  },
+  "categories": [
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "运营商业务",
+      "style": {
+        "dash": null,
+        "fill": "#F0F0F0",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "企业业务",
+      "style": {
+        "dash": null,
+        "fill": "#FFA500",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "消费者业务",
+      "style": {
+        "dash": null,
+        "fill": "#FFD700",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "其他",
+      "style": {
+        "dash": null,
+        "fill": "#FF6347",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "欧洲中东非洲",
+      "style": {
+        "dash": null,
+        "fill": "#00BFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "亚太",
+      "style": {
+        "dash": null,
+        "fill": "#1E90FF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "美洲",
+      "style": {
+        "dash": null,
+        "fill": "#FF4500",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "其他",
+      "style": {
+        "dash": null,
+        "fill": "#FF0000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "运营商业务",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百万人民币",
+      "values": [
+        264,
+        1633,
+        5965,
+        10539,
+        13586,
+        3929
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "企业业务",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百万人民币",
+      "values": [
+        56986,
+        75100,
+        129128,
+        179808,
+        237249,
+        348852
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "消费者业务",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百万人民币",
+      "values": [
+        38691,
+        45404,
+        50527,
+        67500,
+        74427,
+        81918
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "其他",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百万人民币",
+      "values": [
+        84006,
+        42424,
+        128016,
+        156509,
+        163854,
+        204536
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "欧洲中东非洲",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百万人民币",
+      "values": [
+        166512,
+        192073,
+        232307,
+        290561,
+        305092,
+        294012
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "亚太",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百万人民币",
+      "values": [
+        82785,
+        108881,
+        167690,
+        236512,
+        372162,
+        372162
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "美洲",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百万人民币",
+      "values": [
+        39285,
+        5050,
+        9800,
+        16971,
+        20963,
+        14701
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_8",
+      "label": "其他",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百万人民币",
+      "values": [
+        40666,
+        100990,
+        177609,
+        44082,
+        54948,
+        74409
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0193_a5121cc9477191b8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0193_a5121cc9477191b8.png",
+        "paper_title": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e883af362c265ba788a9",
+        "question_number": 106,
+        "source_jsonl_line": 83737
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0192_6606f67abf6251ae.png",
+        "paper_title": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4249f544170885851259",
+        "question_number": 107,
+        "source_jsonl_line": 83738
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0192_6606f67abf6251ae.png",
+        "paper_title": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3dc6444dc0167297b776",
+        "question_number": 108,
+        "source_jsonl_line": 83739
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0192_6606f67abf6251ae.png",
+        "paper_title": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5188215346b81b7b74b2",
+        "question_number": 109,
+        "source_jsonl_line": 83740
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0192_6606f67abf6251ae.png",
+        "paper_title": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5b6fb12480ab3ed7795d",
+        "question_number": 110,
+        "source_jsonl_line": 83741
+      }
+    ],
+    "sha256": "c03672c4cbd9f45f85d1cd2a603e9487330c19b0cdce8441e8d4f87b251c715d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "销售收入 (百万人民币)",
+  "unit": "百万人民币",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c03672c4cbd9f45f85d1cd2a/column_band_01.jpg",
+        "review-crops/da_c03672c4cbd9f45f85d1cd2a/column_band_02.jpg",
+        "review-crops/da_c03672c4cbd9f45f85d1cd2a/column_band_03.jpg",
+        "review-crops/da_c03672c4cbd9f45f85d1cd2a/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:15.258",
+      "crop_verification_elapsed_seconds:13.877",
+      "candidate_value_changes_after_crop:2",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

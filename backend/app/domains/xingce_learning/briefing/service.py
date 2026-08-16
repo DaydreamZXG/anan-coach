@@ -61,6 +61,7 @@ class XingceBriefingService:
         question_count = xingce_question_count(
             mode=mode,
             estimated_minutes=int(task["estimated_minutes"]),
+            module_name=module_name,
         )
         evidence_types = [
             str(value)

@@ -1,0 +1,166 @@
+{
+  "asset_id": "da_a6c73c748094513ba76410d7",
+  "axes": {
+    "x": {
+      "max": 40,
+      "min": 0,
+      "ticks": [
+        0,
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        40
+      ],
+      "title": null,
+      "unit": "%"
+    },
+    "y": [
+      {
+        "max": 6,
+        "min": 0,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "禁烟执法人员执法不严",
+    "公众对吸烟危害认识不足",
+    "购买香烟过于方便",
+    "禁烟条例的宣传教育力度不足",
+    "吸烟区设施配备不足",
+    "其他"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "市民认为禁烟效果不佳的主要原因",
+      "style": {
+        "dash": "solid",
+        "fill": "blue",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "市民认为禁烟效果不佳的主要原因",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        36.7,
+        23.6,
+        17.7,
+        10.8,
+        8.4,
+        2.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2016年江苏省公务员录用考试《行测》题（B类）_images/img_0260_37ab0ca346699f1d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0260_37ab0ca346699f1d.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_f89ec0bf6c022b1d4a7e",
+        "question_number": 131,
+        "source_jsonl_line": 47376
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0270_3640b3798fdd958a.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_147ed4196260e1a167db",
+        "question_number": 132,
+        "source_jsonl_line": 47377
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0270_3640b3798fdd958a.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_14381d5cd5c014791241",
+        "question_number": 133,
+        "source_jsonl_line": 47378
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0260_37ab0ca346699f1d.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_b6ce0dce762eca241dec",
+        "question_number": 134,
+        "source_jsonl_line": 47379
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0270_3640b3798fdd958a.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_b71c408c9bcf8e7c80fe",
+        "question_number": 135,
+        "source_jsonl_line": 47380
+      }
+    ],
+    "sha256": "a6c73c748094513ba76410d7eff18721fb2f472b1be83e5c39b7deed3d151984"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "市民认为禁烟效果不佳的主要原因",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a6c73c748094513ba76410d7/column_band_01.jpg",
+        "review-crops/da_a6c73c748094513ba76410d7/column_band_02.jpg",
+        "review-crops/da_a6c73c748094513ba76410d7/column_band_03.jpg",
+        "review-crops/da_a6c73c748094513ba76410d7/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.699",
+      "crop_verification_elapsed_seconds:2.361",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

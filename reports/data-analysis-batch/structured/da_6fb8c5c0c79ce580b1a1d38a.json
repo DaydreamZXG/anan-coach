@@ -1,0 +1,186 @@
+{
+  "asset_id": "da_6fb8c5c0c79ce580b1a1d38a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2014年广东省公务员录用考试《行测》题（乡镇）_images/img_0084_deab4f124e5fa0a4.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（乡镇）_images/img_0084_deab4f124e5fa0a4.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_3b9a566f788dabe08017",
+        "question_number": 91,
+        "source_jsonl_line": 34323
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（乡镇）_images/img_0084_deab4f124e5fa0a4.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_e5d4c94940d341530078",
+        "question_number": 92,
+        "source_jsonl_line": 34324
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（乡镇）_images/img_0083_dfa8df2f57b262c0.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_e4b4e43b0c06df9494bf",
+        "question_number": 93,
+        "source_jsonl_line": 34325
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（乡镇）_images/img_0083_dfa8df2f57b262c0.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_4cd9b20a7c6b259845f2",
+        "question_number": 94,
+        "source_jsonl_line": 34326
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（乡镇）_images/img_0083_dfa8df2f57b262c0.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_b7864a390a01efc34442",
+        "question_number": 95,
+        "source_jsonl_line": 34327
+      }
+    ],
+    "sha256": "6fb8c5c0c79ce580b1a1d38a2a9071b95fd5569f39e37b9f7dbe4eebff6744b1"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "货运营量｜完成（万吨）",
+          "货运营量｜比上年增长（%）"
+        ],
+        "label": "货运营量"
+      },
+      {
+        "columns": [
+          "货物周转量｜完成（亿吨公里）",
+          "货物周转量｜比上年增长（%）"
+        ],
+        "label": "货物周转量"
+      }
+    ],
+    "columns": [
+      "货运营量｜完成（万吨）",
+      "货运营量｜比上年增长（%）",
+      "货物周转量｜完成（亿吨公里）",
+      "货物周转量｜比上年增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "运输业类型",
+    "rows": [
+      {
+        "display_label": "铁路",
+        "group": null,
+        "label": "铁路",
+        "unit": null,
+        "values": [
+          12048,
+          0.4,
+          301.59,
+          -1.5
+        ]
+      },
+      {
+        "display_label": "公路",
+        "group": null,
+        "label": "公路",
+        "unit": null,
+        "values": [
+          217643,
+          15.1,
+          2872.31,
+          18
+        ]
+      },
+      {
+        "display_label": "水路",
+        "group": null,
+        "label": "水路",
+        "unit": null,
+        "values": [
+          68340,
+          18.4,
+          9019.14,
+          32.2
+        ]
+      },
+      {
+        "display_label": "航空",
+        "group": null,
+        "label": "航空",
+        "unit": null,
+        "values": [
+          131,
+          2.7,
+          44.14,
+          4.1
+        ]
+      },
+      {
+        "display_label": "管道",
+        "group": null,
+        "label": "管道",
+        "unit": null,
+        "values": [
+          7668,
+          2.8,
+          169.91,
+          -3.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

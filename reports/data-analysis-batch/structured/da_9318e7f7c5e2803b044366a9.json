@@ -1,0 +1,202 @@
+{
+  "asset_id": "da_9318e7f7c5e2803b044366a9",
+  "axes": {
+    "x": {
+      "max": 2015,
+      "min": 2011,
+      "ticks": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 300,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300
+        ],
+        "title": null,
+        "unit": "亿件"
+      },
+      {
+        "max": 80,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "快递业务量",
+      "style": {
+        "dash": null,
+        "fill": "darkgray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "比上年增长",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": null,
+        "stroke": "gray"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "快递业务量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿件",
+      "values": [
+        36.7,
+        56.9,
+        91.9,
+        139.6,
+        206.7
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比上年增长",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        57.0,
+        54.8,
+        61.6,
+        51.9,
+        48.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2016年江西省法检系统招录考试《行测》题_images/img_0123_380bc46f890c616c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江西省法检系统招录考试《行测》题_images/img_0123_380bc46f890c616c.png",
+        "paper_title": "2016年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_8c017494e2008e77f48f",
+        "question_number": 111,
+        "source_jsonl_line": 52520
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江西省法检系统招录考试《行测》题_images/img_0123_380bc46f890c616c.png",
+        "paper_title": "2016年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_9535360b74e9448f6261",
+        "question_number": 112,
+        "source_jsonl_line": 52521
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江西省法检系统招录考试《行测》题_images/img_0123_380bc46f890c616c.png",
+        "paper_title": "2016年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_32843f238ce7ece2d10f",
+        "question_number": 113,
+        "source_jsonl_line": 52522
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江西省法检系统招录考试《行测》题_images/img_0123_380bc46f890c616c.png",
+        "paper_title": "2016年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_40e53703a5c1b839a55a",
+        "question_number": 114,
+        "source_jsonl_line": 52523
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江西省法检系统招录考试《行测》题_images/img_0123_380bc46f890c616c.png",
+        "paper_title": "2016年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_af7e5070f63813658f6f",
+        "question_number": 115,
+        "source_jsonl_line": 52524
+      }
+    ],
+    "sha256": "9318e7f7c5e2803b044366a9c32510ce759c39f5511cb44762d9c5e7766db6b6"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图1 2011-2015年快递业务量及其增长速度",
+  "unit": "亿件",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9318e7f7c5e2803b044366a9/column_band_01.jpg",
+        "review-crops/da_9318e7f7c5e2803b044366a9/column_band_02.jpg",
+        "review-crops/da_9318e7f7c5e2803b044366a9/column_band_03.jpg",
+        "review-crops/da_9318e7f7c5e2803b044366a9/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.328",
+      "crop_verification_elapsed_seconds:3.116",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

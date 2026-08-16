@@ -1,0 +1,250 @@
+{
+  "asset_id": "da_f8e5c481d47c1df88b5b330a",
+  "axes": {
+    "x": {
+      "max": 10,
+      "min": 1,
+      "ticks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "title": "排名",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "公司名称",
+        "unit": null
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "500强排名",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2013年陕西省公务员录用考试《行测》题_images/img_0130_e08d5308f08341d0.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0130_e08d5308f08341d0.png",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_9387d7f1d8b7bf2461f3",
+        "question_number": 126,
+        "source_jsonl_line": 97149
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0130_e08d5308f08341d0.png",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_1f195073bead709b368c",
+        "question_number": 127,
+        "source_jsonl_line": 97150
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0153_6d658f240e8ef949.png",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_38d89cba900ca88cf509",
+        "question_number": 128,
+        "source_jsonl_line": 97151
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0130_e08d5308f08341d0.png",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_e6f7c1f92f15fcda5702",
+        "question_number": 129,
+        "source_jsonl_line": 97152
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年陕西省公务员录用考试《行测》题_images/img_0130_e08d5308f08341d0.png",
+        "paper_title": "2013年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_d1235f74e397e3e17200",
+        "question_number": 130,
+        "source_jsonl_line": 97153
+      }
+    ],
+    "sha256": "f8e5c481d47c1df88b5b330a79fadf02ede753cdab94e2202ec6fbfc13a41fb1"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "排名",
+      "公司名称",
+      "500强排名",
+      "2011年利润",
+      "利润与2010年相比变化(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "1",
+        "unit": null,
+        "values": [
+          1,
+          "medipal 控股公司",
+          310,
+          147.5,
+          541.6
+        ]
+      },
+      {
+        "label": "2",
+        "unit": null,
+        "values": [
+          2,
+          "默沙东",
+          207,
+          6272,
+          528.5
+        ]
+      },
+      {
+        "label": "3",
+        "unit": null,
+        "values": [
+          3,
+          "国际资产控股公司",
+          102,
+          37.3,
+          590.7
+        ]
+      },
+      {
+        "label": "4",
+        "unit": null,
+        "values": [
+          4,
+          "瓦莱罗能源公司",
+          35,
+          2090,
+          545.1
+        ]
+      },
+      {
+        "label": "5",
+        "unit": null,
+        "values": [
+          5,
+          "美国 EPP 公司",
+          226,
+          2046.9,
+          538.1
+        ]
+      },
+      {
+        "label": "6",
+        "unit": null,
+        "values": [
+          6,
+          "中国化工集团公司",
+          402,
+          100.1,
+          531.3
+        ]
+      },
+      {
+        "label": "7",
+        "unit": null,
+        "values": [
+          7,
+          "EXOR 集团",
+          45,
+          2700.8,
+          286.2
+        ]
+      },
+      {
+        "label": "8",
+        "unit": null,
+        "values": [
+          8,
+          "万通互惠理财",
+          457,
+          877.4,
+          239.8
+        ]
+      },
+      {
+        "label": "9",
+        "unit": null,
+        "values": [
+          9,
+          "英国葛兰素史克公司",
+          231,
+          8434.5,
+          234.2
+        ]
+      },
+      {
+        "label": "10",
+        "unit": null,
+        "values": [
+          10,
+          "美国联合大陆控股有限公司",
+          283,
+          340,
+          232
+        ]
+      }
+    ]
+  },
+  "title": "表3 2011年利润增长最快的公司（前10名）",
+  "unit": "（百万美元）",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f8e5c481d47c1df88b5b330a/row_band_01.jpg",
+        "review-crops/da_f8e5c481d47c1df88b5b330a/row_band_02.jpg",
+        "review-crops/da_f8e5c481d47c1df88b5b330a/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.266",
+      "crop_verification_elapsed_seconds:10.432",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

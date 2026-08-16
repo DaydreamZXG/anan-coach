@@ -1,0 +1,243 @@
+{
+  "asset_id": "da_d79f493ce80344291c4ec411",
+  "axes": {
+    "x": {
+      "max": 12,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 800,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600,
+          700,
+          800
+        ],
+        "title": null,
+        "unit": "亿块"
+      }
+    ]
+  },
+  "categories": [
+    "2020年1-2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "进口量 (亿块)",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "出口量 (亿块)",
+      "style": {
+        "dash": "dot",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "进口量 (亿块)",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿块",
+      "values": [
+        708,
+        453,
+        444,
+        406,
+        421,
+        469,
+        537,
+        485,
+        485,
+        528,
+        555
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "出口量 (亿块)",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿块",
+      "values": [
+        327,
+        205,
+        198,
+        207,
+        189,
+        238,
+        273,
+        272,
+        245,
+        255,
+        289
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0242_2e3514549299e423.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0242_2e3514549299e423.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_0c74e553048d0a6caa57",
+        "question_number": 126,
+        "source_jsonl_line": 49771
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0239_c8138442d6581875.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_5e96ceab4a6b765d7e39",
+        "question_number": 127,
+        "source_jsonl_line": 49772
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0242_2e3514549299e423.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_7fa112de04e8a2cad4c9",
+        "question_number": 128,
+        "source_jsonl_line": 49773
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0239_c8138442d6581875.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_6e77c64e37a7a475be69",
+        "question_number": 129,
+        "source_jsonl_line": 49774
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0242_2e3514549299e423.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_2151da603b01bde2ea6c",
+        "question_number": 130,
+        "source_jsonl_line": 49775
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0277_2e3514549299e423.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_52644017c970a3442114",
+        "question_number": 126,
+        "source_jsonl_line": 49906
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0283_c8138442d6581875.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_f1cf057fcaf9c1f7fee5",
+        "question_number": 127,
+        "source_jsonl_line": 49907
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0283_c8138442d6581875.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_f142e665dab17d1462e4",
+        "question_number": 128,
+        "source_jsonl_line": 49908
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0277_2e3514549299e423.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_3ee22acd55c8937556a1",
+        "question_number": 129,
+        "source_jsonl_line": 49909
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0277_2e3514549299e423.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_90d298268247fc460edd",
+        "question_number": 130,
+        "source_jsonl_line": 49910
+      }
+    ],
+    "sha256": "d79f493ce80344291c4ec41199823fa15be546dd15dc43a17ae8c8f758945c5a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2020年1-12月我国集成电路进出口量",
+  "unit": "亿块",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d79f493ce80344291c4ec411/column_band_01.jpg",
+        "review-crops/da_d79f493ce80344291c4ec411/column_band_02.jpg",
+        "review-crops/da_d79f493ce80344291c4ec411/column_band_03.jpg",
+        "review-crops/da_d79f493ce80344291c4ec411/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.457",
+      "crop_verification_elapsed_seconds:5.229",
+      "candidate_value_changes_after_crop:2",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

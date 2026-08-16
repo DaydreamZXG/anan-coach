@@ -1,0 +1,217 @@
+{
+  "asset_id": "da_2465fdb17c1fe47da772f9ae",
+  "axes": {
+    "x": {
+      "max": 11,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 50.0,
+        "min": -100.0,
+        "ticks": [
+          0.0,
+          10.0,
+          20.0,
+          30.0,
+          40.0,
+          50.0
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 100.0,
+        "min": -100.0,
+        "ticks": [
+          -100.0,
+          -60.0,
+          -20.0,
+          20.0,
+          60.0,
+          100.0
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "债券当期成交额（百亿元）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "同比增速（%）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "triangle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "债券当期成交额（百亿元）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "百亿元",
+      "values": [
+        11.0,
+        16.5,
+        19.3,
+        15.1,
+        17.3,
+        15.1,
+        15.3,
+        15.6,
+        13.3,
+        11.5,
+        16.1
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增速（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -12.2,
+        29.4,
+        4.0,
+        1.4,
+        55.9,
+        7.5,
+        31.5,
+        23.7,
+        24.9,
+        16.9,
+        15.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0156_8778bce1c72147c2.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0156_8778bce1c72147c2.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_667f3f69ccc9984b83d5",
+        "question_number": 116,
+        "source_jsonl_line": 84347
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0163_435337b92532ce2c.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8d659d75292bcd311194",
+        "question_number": 117,
+        "source_jsonl_line": 84348
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0163_435337b92532ce2c.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_31aa3b62dfa3c67869be",
+        "question_number": 118,
+        "source_jsonl_line": 84349
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0163_435337b92532ce2c.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_217562e82e7046694a33",
+        "question_number": 119,
+        "source_jsonl_line": 84350
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0163_435337b92532ce2c.png",
+        "paper_title": "2024年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fb2ec33ca1280d72d431",
+        "question_number": 120,
+        "source_jsonl_line": 84351
+      }
+    ],
+    "sha256": "2465fdb17c1fe47da772f9ae0c53dfb61e17e7cfaa6c8f6dd65e8e4f9eda4a4e"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2023年1-11月J省深圳证券交易所债券成交额情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2465fdb17c1fe47da772f9ae/column_band_01.jpg",
+        "review-crops/da_2465fdb17c1fe47da772f9ae/column_band_02.jpg",
+        "review-crops/da_2465fdb17c1fe47da772f9ae/column_band_03.jpg",
+        "review-crops/da_2465fdb17c1fe47da772f9ae/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.142",
+      "crop_verification_elapsed_seconds:13.999",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'同比增速'系列的数值，根据图像数据，1月为-12.2，2月为29.4，3月为4.0，4月为1.4，5月为55.9，6月为7.5，7月为31.5，8月为23.7，9月为24.9，10月为16.9，11月为15.9。",
+      "crop_note:修正了'债券当期成交额'系列的数值，根据图像数据，1月为11.0，2月为16.5，3月为19.3，4月为15.1，5月为17.3，6月为15.1，7月为15.3，8月为15.6，9月为13.3，10月为11.5，11月为16.1。",
+      "crop_note:确认了所有数值的负号、小数点和百分号的正确性。",
+      "crop_note:确认了所有缺失值保持为null，未进行补0操作。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

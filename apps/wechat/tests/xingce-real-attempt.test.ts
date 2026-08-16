@@ -5,6 +5,7 @@ import { XingceLearningApi } from "../miniprogram/xingce/shared/api/xingce-learn
 import {
   checkpointCommand,
   mergePendingDraft,
+  reconcileConfirmedCheckpoint,
   runtimeFromXingceSession,
   runtimeWithPendingCheckpoint,
 } from "../miniprogram/pages/practice/features/xingce/real_attempt/controller";
@@ -110,6 +111,45 @@ describe("real xingce attempt contracts", () => {
       confidence: "medium",
       marked: true,
       materialPosition: { anchorId: "material-1", scrollTop: 320, zoom: 1.25 },
+    });
+  });
+
+  it("rebases a newer local answer when an older checkpoint response arrives", () => {
+    const original = activeXingceSession({
+      revision: 8,
+      answers: [answer("q-1", ["B"])],
+    });
+    const confirmedRuntime = runtimeFromXingceSession(original);
+    const confirmed = checkpointCommand(confirmedRuntime);
+    let latestLocal = reduceTaskRuntime(confirmedRuntime, {
+      type: "QUESTION_CHANGED",
+      index: 1,
+    });
+    latestLocal = reduceTaskRuntime(latestLocal, {
+      type: "ANSWER_SELECTED",
+      optionIds: ["D"],
+    });
+    latestLocal = reduceTaskRuntime(latestLocal, {
+      type: "CONFIDENCE_SET",
+      confidence: "high",
+    });
+    const saved = activeXingceSession({
+      revision: 9,
+      answers: [answer("q-1", ["B"])],
+    });
+
+    const reconciled = reconcileConfirmedCheckpoint(saved, confirmed, latestLocal);
+
+    expect(reconciled.requiresFollowup).toBe(true);
+    expect(reconciled.runtime.revision).toBe(9);
+    expect(reconciled.runtime.currentQuestionIndex).toBe(1);
+    expect(reconciled.runtime.attempts["q-2"]).toMatchObject({
+      selectedOptionIds: ["D"],
+      confidence: "high",
+    });
+    expect(checkpointCommand(reconciled.runtime)).toMatchObject({
+      expectedRevision: 9,
+      currentQuestionId: "q-2",
     });
   });
 

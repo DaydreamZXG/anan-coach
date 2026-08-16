@@ -1,0 +1,235 @@
+{
+  "asset_id": "da_d10e21e10317dd270c8cedee",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 25000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000
+        ],
+        "title": "件",
+        "unit": "件"
+      }
+    ]
+  },
+  "categories": [
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年",
+    "2023年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "受理案件数",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "受理案件数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "件",
+      "values": [
+        8697,
+        11643,
+        12933,
+        14995,
+        17186,
+        22602
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0199_941d37a74947eff8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0199_941d37a74947eff8.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_5da5809cf2c7d431d395",
+        "question_number": 121,
+        "source_jsonl_line": 64078
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0209_a46bb6334a334e35.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_4eb016ee7305c84ca24d",
+        "question_number": 122,
+        "source_jsonl_line": 64079
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0199_941d37a74947eff8.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_c6630d683cde2df99dff",
+        "question_number": 123,
+        "source_jsonl_line": 64080
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0209_a46bb6334a334e35.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_e289c4890daecf91da1a",
+        "question_number": 124,
+        "source_jsonl_line": 64081
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0209_a46bb6334a334e35.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_044fe186a7732c3417f6",
+        "question_number": 125,
+        "source_jsonl_line": 64082
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0195_a46bb6334a334e35.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_dd3fdbffc3c52588ec62",
+        "question_number": 116,
+        "source_jsonl_line": 64198
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0195_a46bb6334a334e35.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_dd5cec5a9d619fcf4b11",
+        "question_number": 117,
+        "source_jsonl_line": 64199
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0195_a46bb6334a334e35.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_6539845591ccb7bc92ee",
+        "question_number": 118,
+        "source_jsonl_line": 64200
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0208_941d37a74947eff8.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_440bf82a3b63ca5a54af",
+        "question_number": 119,
+        "source_jsonl_line": 64201
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0195_a46bb6334a334e35.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_71a1f668ba940419c3e8",
+        "question_number": 120,
+        "source_jsonl_line": 64202
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0166_a46bb6334a334e35.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_adf099c34a5dfd398eec",
+        "question_number": 111,
+        "source_jsonl_line": 64313
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0170_941d37a74947eff8.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_c2d25268df1f5e73042d",
+        "question_number": 112,
+        "source_jsonl_line": 64314
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0166_a46bb6334a334e35.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_8a36c0b74a8739554443",
+        "question_number": 113,
+        "source_jsonl_line": 64315
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0170_941d37a74947eff8.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_9d2a0432c27a765c12e4",
+        "question_number": 114,
+        "source_jsonl_line": 64316
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0166_a46bb6334a334e35.png",
+        "paper_title": "2025年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_f2a5efbbaedd81a68568",
+        "question_number": 115,
+        "source_jsonl_line": 64317
+      }
+    ],
+    "sha256": "d10e21e10317dd270c8cedee100bf06a780c16b179b756e9810803feb75d66f8"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2018-2023年全国检察机关受理当事人申请行政生效裁判监督案件情况",
+  "unit": "件",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d10e21e10317dd270c8cedee/column_band_01.jpg",
+        "review-crops/da_d10e21e10317dd270c8cedee/column_band_02.jpg",
+        "review-crops/da_d10e21e10317dd270c8cedee/column_band_03.jpg",
+        "review-crops/da_d10e21e10317dd270c8cedee/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.229",
+      "crop_verification_elapsed_seconds:1.82",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

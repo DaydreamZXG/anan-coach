@@ -1,0 +1,217 @@
+{
+  "asset_id": "da_c10554830252a6ad89ba87d4",
+  "axes": {
+    "x": {
+      "max": 2006,
+      "min": 2002,
+      "ticks": [
+        2002,
+        2003,
+        2004,
+        2005,
+        2006
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1000,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000
+        ],
+        "title": null,
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "普通高等教育招生人数",
+      "style": {
+        "dash": null,
+        "fill": "#E0E0E0",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "中等职业教育招生人数",
+      "style": {
+        "dash": null,
+        "fill": "#BDBDBD",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "普通高中招生人数",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "普通高等教育招生人数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        321,
+        382,
+        447,
+        504,
+        540
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "中等职业教育招生人数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        474,
+        516,
+        566,
+        656,
+        741
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "普通高中招生人数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        677,
+        752,
+        822,
+        878,
+        871
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河南/2009年河南省公务员录用考试《行测》题_images/img_0185_45d4cdd6895b7a2d.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年河南省公务员录用考试《行测》题_images/img_0185_45d4cdd6895b7a2d.jpg",
+        "paper_title": "2009年河南省公务员录用考试《行测》题",
+        "question_id": "pq_199bc1c4feef31d7c61e",
+        "question_number": 126,
+        "source_jsonl_line": 57128
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年河南省公务员录用考试《行测》题_images/img_0174_9087fa0473df9829.jpg",
+        "paper_title": "2009年河南省公务员录用考试《行测》题",
+        "question_id": "pq_80cc98e03f393a466a02",
+        "question_number": 127,
+        "source_jsonl_line": 57129
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年河南省公务员录用考试《行测》题_images/img_0185_45d4cdd6895b7a2d.jpg",
+        "paper_title": "2009年河南省公务员录用考试《行测》题",
+        "question_id": "pq_1f5f8b278fdecd1ce62b",
+        "question_number": 128,
+        "source_jsonl_line": 57130
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年河南省公务员录用考试《行测》题_images/img_0174_9087fa0473df9829.jpg",
+        "paper_title": "2009年河南省公务员录用考试《行测》题",
+        "question_id": "pq_fefd2088128c78e9c82f",
+        "question_number": 129,
+        "source_jsonl_line": 57131
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年河南省公务员录用考试《行测》题_images/img_0174_9087fa0473df9829.jpg",
+        "paper_title": "2009年河南省公务员录用考试《行测》题",
+        "question_id": "pq_ca6a4baca298fd58aa4e",
+        "question_number": 130,
+        "source_jsonl_line": 57132
+      }
+    ],
+    "sha256": "c10554830252a6ad89ba87d4b3669f016d47a41d5e910407a5c53237a9f7f65a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c10554830252a6ad89ba87d4/column_band_01.jpg",
+        "review-crops/da_c10554830252a6ad89ba87d4/column_band_02.jpg",
+        "review-crops/da_c10554830252a6ad89ba87d4/column_band_03.jpg",
+        "review-crops/da_c10554830252a6ad89ba87d4/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.025",
+      "crop_verification_elapsed_seconds:4.484",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

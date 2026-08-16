@@ -1,0 +1,415 @@
+{
+  "asset_id": "da_6ad0326a437602ded1daf0f8",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "中医类医院（所）",
+        "unit": null
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "中医类医院实有床位（张）",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "中医类医院（所）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        191,
+        197,
+        191,
+        203,
+        206
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "中医类医院实有床位（张）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        59050,
+        59610,
+        57778,
+        59443,
+        60303
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "中医药从业人员（人）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        40050,
+        42839,
+        44919,
+        45957,
+        50623
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "中医类医院诊疗人次占全省医院诊疗人次的比重（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        20.1,
+        19.8,
+        19.3,
+        19.1,
+        19.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "中医医院患者门诊次均费用（元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        279.9,
+        318.8,
+        351.7,
+        372.4,
+        386.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "中西医结合医院患者门诊次均费用（元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        280.4,
+        304.7,
+        325.4,
+        348.2,
+        352.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "中医医院病床使用率（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        89.3,
+        77.1,
+        78.4,
+        73.4,
+        84.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_8",
+      "label": "中西医结合医院病床使用率（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        72.4,
+        66.7,
+        66.6,
+        65.5,
+        74.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0155_126f5f66be5dca2c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0155_126f5f66be5dca2c.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_74450656f6a1dbbac056",
+        "question_number": 121,
+        "source_jsonl_line": 50701
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0157_9a4d7ee812e0b0f1.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_956c65d6af00dc6d7c94",
+        "question_number": 122,
+        "source_jsonl_line": 50702
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0157_9a4d7ee812e0b0f1.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_360df9298154a0df3c20",
+        "question_number": 123,
+        "source_jsonl_line": 50703
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0155_126f5f66be5dca2c.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_c6c9e5dce296aac34596",
+        "question_number": 124,
+        "source_jsonl_line": 50704
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0157_9a4d7ee812e0b0f1.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_2e547a2e00bd96a358f3",
+        "question_number": 125,
+        "source_jsonl_line": 50705
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0151_126f5f66be5dca2c.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_63e86e46aa9bcc0da665",
+        "question_number": 116,
+        "source_jsonl_line": 50831
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0151_126f5f66be5dca2c.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_a725142ef0fb0f54ef22",
+        "question_number": 117,
+        "source_jsonl_line": 50832
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0151_126f5f66be5dca2c.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_4d4ac3b4a4cfe746293f",
+        "question_number": 118,
+        "source_jsonl_line": 50833
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0151_126f5f66be5dca2c.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_df72cb526a01438e1a72",
+        "question_number": 119,
+        "source_jsonl_line": 50834
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0151_126f5f66be5dca2c.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_34b9fc7ce38f7b2270eb",
+        "question_number": 120,
+        "source_jsonl_line": 50835
+      }
+    ],
+    "sha256": "6ad0326a437602ded1daf0f8403ebd22e996069418ea81d6bf4972e1246213ee"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "中医类医院（所）",
+      "中医类医院实有床位（张）",
+      "中医药从业人员（人）",
+      "中医类医院诊疗人次占全省医院诊疗人次的比重（%）",
+      "中医医院患者门诊次均费用（元）",
+      "中西医结合医院患者门诊次均费用（元）",
+      "中医医院病床使用率（%）",
+      "中西医结合医院病床使用率（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2019",
+        "unit": null,
+        "values": [
+          2019,
+          191,
+          59050,
+          40050,
+          20.1,
+          279.9,
+          280.4,
+          89.3,
+          72.4
+        ]
+      },
+      {
+        "label": "2020",
+        "unit": null,
+        "values": [
+          2020,
+          197,
+          59610,
+          42839,
+          19.8,
+          318.8,
+          304.7,
+          77.1,
+          66.7
+        ]
+      },
+      {
+        "label": "2021",
+        "unit": null,
+        "values": [
+          2021,
+          191,
+          57778,
+          44919,
+          19.3,
+          351.7,
+          325.4,
+          78.4,
+          66.6
+        ]
+      },
+      {
+        "label": "2022",
+        "unit": null,
+        "values": [
+          2022,
+          203,
+          59443,
+          45957,
+          19.1,
+          372.4,
+          348.2,
+          73.4,
+          65.5
+        ]
+      },
+      {
+        "label": "2023",
+        "unit": null,
+        "values": [
+          2023,
+          206,
+          60303,
+          50623,
+          19.2,
+          386.9,
+          352.8,
+          84.8,
+          74.6
+        ]
+      }
+    ]
+  },
+  "title": "表 2019-2023 年江苏省中医服务部分数据",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6ad0326a437602ded1daf0f8/row_band_01.jpg",
+        "review-crops/da_6ad0326a437602ded1daf0f8/row_band_02.jpg",
+        "review-crops/da_6ad0326a437602ded1daf0f8/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:18.326",
+      "crop_verification_elapsed_seconds:15.236",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

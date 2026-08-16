@@ -1,0 +1,210 @@
+{
+  "asset_id": "da_5597cb974286e20ebd7d17cd",
+  "axes": {
+    "x": {
+      "max": 12,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 450,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300,
+          350,
+          400,
+          450
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "南京市",
+    "无锡市",
+    "徐州市",
+    "常州市",
+    "苏州市",
+    "南通市",
+    "连云港市",
+    "淮安市",
+    "盐城市",
+    "扬州市",
+    "镇江市",
+    "泰州市",
+    "宿迁市"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2008年12月",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "2009年12月",
+      "style": {
+        "dash": "dashed",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2008_12",
+      "label": "2008年12月",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        106.1,
+        191.8,
+        63.2,
+        109.5,
+        337.6,
+        120.6,
+        26.4,
+        29.1,
+        47.6,
+        71.4,
+        54.9,
+        65.5,
+        14.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2009_12",
+      "label": "2009年12月",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        137.0,
+        223.8,
+        223.8,
+        84.2,
+        424.3,
+        149.2,
+        35.9,
+        40.8,
+        59.0,
+        94.8,
+        70.6,
+        98.8,
+        19.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2010年江苏省公务员录用考试《行测》题（A类）_images/img_0271_4e1820949c1b5ddb.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（A类）_images/img_0271_4e1820949c1b5ddb.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_b9ffe896298c199c25a6",
+        "question_number": 101,
+        "source_jsonl_line": 45191
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（A类）_images/img_0271_4e1820949c1b5ddb.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_16a63d004fee53d6e9bb",
+        "question_number": 102,
+        "source_jsonl_line": 45192
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（A类）_images/img_0271_4e1820949c1b5ddb.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_957b7514529a5434391a",
+        "question_number": 103,
+        "source_jsonl_line": 45193
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（A类）_images/img_0271_4e1820949c1b5ddb.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_fa6360104bb6e51db587",
+        "question_number": 104,
+        "source_jsonl_line": 45194
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江苏省公务员录用考试《行测》题（A类）_images/img_0271_4e1820949c1b5ddb.png",
+        "paper_title": "2010年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_59d984d9980c81a63db2",
+        "question_number": 105,
+        "source_jsonl_line": 45195
+      }
+    ],
+    "sha256": "5597cb974286e20ebd7d17cd9e0163c516e6f502238e7a7535ae5206afadd248"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2008年12月与2009年12月江苏省13省辖市工业增加值",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5597cb974286e20ebd7d17cd/column_band_01.jpg",
+        "review-crops/da_5597cb974286e20ebd7d17cd/column_band_02.jpg",
+        "review-crops/da_5597cb974286e20ebd7d17cd/column_band_03.jpg",
+        "review-crops/da_5597cb974286e20ebd7d17cd/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.929",
+      "crop_verification_elapsed_seconds:8.523",
+      "candidate_value_changes_after_crop:2",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

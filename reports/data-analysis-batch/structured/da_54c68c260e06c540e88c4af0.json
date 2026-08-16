@@ -1,0 +1,163 @@
+{
+  "asset_id": "da_54c68c260e06c540e88c4af0",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2016年山东省公务员录用考试《行测》题_images/img_0139_231a6a33e79a7d38.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0139_231a6a33e79a7d38.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_ce1e47d6affeb8cf9e66",
+        "question_number": 111,
+        "source_jsonl_line": 29965
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0145_0881d5bba7ceb928.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_22ca56200cefed44bb1d",
+        "question_number": 112,
+        "source_jsonl_line": 29966
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0145_0881d5bba7ceb928.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_0164664bc3cb0d505638",
+        "question_number": 113,
+        "source_jsonl_line": 29967
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0145_0881d5bba7ceb928.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_09a927bdbcf192faff65",
+        "question_number": 114,
+        "source_jsonl_line": 29968
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0139_231a6a33e79a7d38.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_0a960f3c6cbdb87a8501",
+        "question_number": 115,
+        "source_jsonl_line": 29969
+      }
+    ],
+    "sha256": "54c68c260e06c540e88c4af00c65b4b032cec3d63fd43e275da6a37a29ba2cc0"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "生态移民",
+      "农村居民"
+    ],
+    "corner_header": {
+      "lower_label": "农村居民",
+      "style": "diagonal",
+      "upper_label": "生态移民"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "工资性收入",
+        "group": "人均可支配收入",
+        "label": "人均可支配收入｜工资性收入",
+        "unit": null,
+        "values": [
+          3470,
+          3391
+        ]
+      },
+      {
+        "display_label": "经营净收入",
+        "group": "人均可支配收入",
+        "label": "人均可支配收入｜经营净收入",
+        "unit": null,
+        "values": [
+          692,
+          3645
+        ]
+      },
+      {
+        "display_label": "财产净收入",
+        "group": "人均可支配收入",
+        "label": "人均可支配收入｜财产净收入",
+        "unit": null,
+        "values": [
+          123,
+          149
+        ]
+      },
+      {
+        "display_label": "转移净收入",
+        "group": "人均可支配收入",
+        "label": "人均可支配收入｜转移净收入",
+        "unit": null,
+        "values": [
+          799,
+          1225
+        ]
+      },
+      {
+        "display_label": "总计",
+        "group": "人均可支配收入",
+        "label": "人均可支配收入｜总计",
+        "unit": null,
+        "values": [
+          5084,
+          8410
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

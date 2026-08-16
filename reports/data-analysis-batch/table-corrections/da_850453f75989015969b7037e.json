@@ -1,0 +1,220 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "基金类别｜城镇职工基本养老保险",
+          "基金类别｜居民基本养老保险",
+          "基金类别｜城镇职工基本医疗保险",
+          "基金类别｜居民基本医疗保险",
+          "基金类别｜工伤保险",
+          "基金类别｜失业保险",
+          "基金类别｜生育保险"
+        ],
+        "label": "基金类别"
+      }
+    ],
+    "columns": [
+      "基金类别｜城镇职工基本养老保险",
+      "基金类别｜居民基本养老保险",
+      "基金类别｜城镇职工基本医疗保险",
+      "基金类别｜居民基本医疗保险",
+      "基金类别｜工伤保险",
+      "基金类别｜失业保险",
+      "基金类别｜生育保险",
+      "合计"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "资产项目",
+      "style": "diagonal",
+      "upper_label": "基金类别"
+    },
+    "missing_cells": [
+      {
+        "column": "基金类别｜居民基本医疗保险",
+        "display": "-",
+        "row": "债券投资"
+      },
+      {
+        "column": "基金类别｜居民基本养老保险",
+        "display": "-",
+        "row": "委托运营"
+      },
+      {
+        "column": "基金类别｜城镇职工基本医疗保险",
+        "display": "-",
+        "row": "委托运营"
+      },
+      {
+        "column": "基金类别｜居民基本医疗保险",
+        "display": "-",
+        "row": "委托运营"
+      },
+      {
+        "column": "基金类别｜工伤保险",
+        "display": "-",
+        "row": "委托运营"
+      },
+      {
+        "column": "基金类别｜失业保险",
+        "display": "-",
+        "row": "委托运营"
+      },
+      {
+        "column": "基金类别｜生育保险",
+        "display": "-",
+        "row": "委托运营"
+      },
+      {
+        "column": "基金类别｜居民基本养老保险",
+        "display": "-",
+        "row": "协议存款"
+      },
+      {
+        "column": "基金类别｜城镇职工基本医疗保险",
+        "display": "-",
+        "row": "协议存款"
+      },
+      {
+        "column": "基金类别｜居民基本医疗保险",
+        "display": "-",
+        "row": "协议存款"
+      },
+      {
+        "column": "基金类别｜工伤保险",
+        "display": "-",
+        "row": "协议存款"
+      },
+      {
+        "column": "基金类别｜失业保险",
+        "display": "-",
+        "row": "协议存款"
+      },
+      {
+        "column": "基金类别｜生育保险",
+        "display": "-",
+        "row": "协议存款"
+      }
+    ],
+    "row_header_label": "资产项目",
+    "rows": [
+      {
+        "display_label": "基金资产总额",
+        "group": null,
+        "label": "基金资产总额",
+        "unit": null,
+        "values": [
+          29930,
+          3124,
+          8348,
+          1077,
+          1004,
+          3726,
+          518,
+          47727
+        ]
+      },
+      {
+        "display_label": "其中：财政专户存款",
+        "group": null,
+        "label": "其中：财政专户存款",
+        "unit": null,
+        "values": [
+          24218,
+          2829,
+          7406,
+          966,
+          923,
+          3495,
+          474,
+          40311
+        ]
+      },
+      {
+        "display_label": "支出",
+        "group": null,
+        "label": "支出",
+        "unit": null,
+        "values": [
+          1234,
+          145,
+          730,
+          83,
+          73,
+          121,
+          41,
+          2427
+        ]
+      },
+      {
+        "display_label": "暂付款",
+        "group": null,
+        "label": "暂付款",
+        "unit": null,
+        "values": [
+          2544,
+          124,
+          197,
+          28,
+          4,
+          94,
+          2,
+          2993
+        ]
+      },
+      {
+        "display_label": "债券投资",
+        "group": null,
+        "label": "债券投资",
+        "unit": null,
+        "values": [
+          54,
+          26,
+          15,
+          null,
+          4,
+          16,
+          1,
+          116
+        ]
+      },
+      {
+        "display_label": "委托运营",
+        "group": null,
+        "label": "委托运营",
+        "unit": null,
+        "values": [
+          595,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          595
+        ]
+      },
+      {
+        "display_label": "协议存款",
+        "group": null,
+        "label": "协议存款",
+        "unit": null,
+        "values": [
+          1285,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1285
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

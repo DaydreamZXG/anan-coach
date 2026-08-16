@@ -1,0 +1,206 @@
+{
+  "asset_id": "da_cf68d6282330884756a9bb2b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2008,
+        2009,
+        2010,
+        2011,
+        2012
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 66000,
+        "min": 50000,
+        "ticks": [
+          50000,
+          52000,
+          54000,
+          56000,
+          58000,
+          60000,
+          62000,
+          64000,
+          66000
+        ],
+        "title": null,
+        "unit": "万吨"
+      },
+      {
+        "max": 6,
+        "min": -6,
+        "ticks": [
+          -6,
+          -4,
+          -2,
+          0,
+          2,
+          4,
+          6
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "粮食产量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "同比增长",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "粮食产量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        52871,
+        53082,
+        54648,
+        57121,
+        58957
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增长",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.4,
+        0.4,
+        2.9,
+        4.5,
+        3.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2014年黑龙江省公务员录用考试《行测》题_images/img_0165_af27ff9b079edb79.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省公务员录用考试《行测》题_images/img_0165_af27ff9b079edb79.png",
+        "paper_title": "2014年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_5d46d82e63566a584a39",
+        "question_number": 116,
+        "source_jsonl_line": 101813
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省公务员录用考试《行测》题_images/img_0169_ff02877762057975.png",
+        "paper_title": "2014年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_20bed96229fa1d6724bf",
+        "question_number": 117,
+        "source_jsonl_line": 101814
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省公务员录用考试《行测》题_images/img_0165_af27ff9b079edb79.png",
+        "paper_title": "2014年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_e049f4dba3e565f56b14",
+        "question_number": 118,
+        "source_jsonl_line": 101815
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省公务员录用考试《行测》题_images/img_0165_af27ff9b079edb79.png",
+        "paper_title": "2014年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_630fe9918e87253b86c1",
+        "question_number": 119,
+        "source_jsonl_line": 101816
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省公务员录用考试《行测》题_images/img_0165_af27ff9b079edb79.png",
+        "paper_title": "2014年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_2b648726d72ce47e1129",
+        "question_number": 120,
+        "source_jsonl_line": 101817
+      }
+    ],
+    "sha256": "cf68d6282330884756a9bb2b82e1381249fb5049e394eb40df0f3cb0017a1f1a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2008年-2012年粮食产量及同比增速",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cf68d6282330884756a9bb2b/column_band_01.jpg",
+        "review-crops/da_cf68d6282330884756a9bb2b/column_band_02.jpg",
+        "review-crops/da_cf68d6282330884756a9bb2b/column_band_03.jpg",
+        "review-crops/da_cf68d6282330884756a9bb2b/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.518",
+      "crop_verification_elapsed_seconds:2.38",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -2,6 +2,18 @@
   "schemaVersion": 1,
   "decisions": [
     {
+      "id": "DEC-FREEZE-RU-DATA-VISUAL-ZERO-UNSUPPORTED-001",
+      "question": "是否把所有资料分析图片转成正式结构化视觉 payload，不留视觉积木遗留队列？",
+      "choice": "授权 RU-DATA-VISUAL-ZERO-UNSUPPORTED-001：将当前 63 张 unsupported 资产全部转换为已注册的结构化视觉 payload，最终 1486 张全部 success；仅修改批处理、schema、比较预览与验证测试，不接入业务页、不部署。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-10T19:10:00+08:00",
+      "evidenceRefs": [
+        "E-USER-DATA-VISUAL-ZERO-UNSUPPORTED-001",
+        "E-CODE-DATA-VISUAL-BASELINE-001"
+      ]
+    },
+    {
       "id": "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001",
       "question": "本并行窗口允许改变哪些 owner 与页面行为？",
       "choice": "只在 reflection、me、private-knowledge 页面及其页面私有 runtime/test 内建立 user+token+generation owner；onHide/onUnload 立即使请求、轮询、录音、试听、speech、replay 与 timer 失效，重复 onShow 只接受最新请求。API、存储 key、路由、支付、data_rights、业务智能和其他窗口文件均不改变。",
@@ -63,6 +75,938 @@
       "decidedBy": "user",
       "decidedAt": "2026-08-10T09:45:00+08:00",
       "evidenceRefs": ["E-USER-COMPANION-MEMORY-001", "E-CODE-COMPANION-BASELINE-001"]
+    },
+    {
+      "id": "DEC-ANAN-COACH-ORCHESTRATION-001",
+      "question": "如何补齐备考反馈循环并让多个内部 Agent 不再制造多个产品人格？",
+      "choice": "保留今日现有紫色渐变图标、极光背景和黑色主按钮；启动页改为无按钮的微信身份恢复，新用户直达现有第一步信息收集、老用户直达今日；今日卡片以现有权威数据投影判断—行动—完成标准—反馈—再判断循环；内部 Agent 不改编排，所有用户可见身份统一为岸岸。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-11T00:00:00+08:00",
+      "evidenceRefs": ["E-USER-ANAN-COACH-LOOP-001", "E-CODE-SILENT-WECHAT-ENTRY-001", "E-CODE-TODAY-LOOP-DATA-001", "E-CODE-VISIBLE-AGENT-LABELS-001"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-ANAN-COACH-LOOP-001",
+      "question": "是否授权岸岸单一教练与今日循环的最小前端实施单元？",
+      "choice": "授权 RU-ANAN-COACH-LOOP-001，仅修改静默身份入口、今日卡片循环投影和用户可见教练称呼；不重画整套界面、不修改后端事实所有权、不修改内部 Agent 路由、不部署。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-11T00:00:00+08:00",
+      "evidenceRefs": ["E-USER-ANAN-COACH-LOOP-001"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-ANAN-ENTRY-GUARD-001",
+      "question": "是否将旧登录页构成测试更新为已授权的静默入口守卫？",
+      "choice": "授权 RU-ANAN-ENTRY-GUARD-001，仅更新 stage9-login.test.ts：断言自动进入、无可见登录/游客/协议门槛、失败时可重新进入岸岸，并保留现有品牌资产与响应式构成。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-11T00:00:00+08:00",
+      "evidenceRefs": ["E-USER-ANAN-COACH-LOOP-001", "E-CODE-STALE-LOGIN-COMPOSITION-TEST-001"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-ANAN-ENTRY-DELIVERY-001",
+      "question": "是否同步运行时视觉与交互契约中的旧登录默认态？",
+      "choice": "授权 RU-ANAN-ENTRY-DELIVERY-001，仅将登录默认态更新为正在进入岸岸的自动只读状态，将失败态文案更新为重新进入岸岸，并保持今日卡片的新解释文案；不修改 Figma 源文件或运行时代码。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-11T00:00:00+08:00",
+      "evidenceRefs": ["E-USER-ANAN-COACH-LOOP-001", "E-CODE-STALE-ENTRY-DELIVERY-CONTRACT-001"]
+    },
+    {
+      "id": "DEC-ANAN-GOLDEN-LOOP-002",
+      "question": "如何让新用户在证据不足时完成第一次可验证的教练闭环，并让旧用户在今日持续看见岸岸如何修正判断？",
+      "choice": "静默恢复微信身份后，老用户直接进入今日；新用户先进入“你想让岸岸怎么认识你”并可选择成绩单、错题、约 20 分钟快速诊断或先选岗位。岸岸按刚认识、初步判断、正在验证、比较了解四级公开证据边界；今日现有岸岸建议升级为观察—暂时判断—今日行动—验证—判断不成立时的校正，并在练后展示权威证据、判断和下一任务的变化。每日学习大脑只生成待确认候选，用户确认前不改变计划；不新增平行计划、能力、错因或任务状态，不重画整套页面，保留现有紫色渐变、极光背景和黑色主按钮。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-11T18:00:00+08:00",
+      "evidenceRefs": [
+        "E-USER-ANAN-GOLDEN-LOOP-002",
+        "E-CODE-ANAN-COLD-START-ROUTES-002",
+        "E-CODE-ANAN-BRAIN-EVIDENCE-002",
+        "E-CODE-ANAN-DAILY-TRIGGER-GAP-002",
+        "E-CODE-ANAN-POST-TASK-GAP-002"
+      ]
+    },
+    {
+      "id": "DEC-FREEZE-RU-ANAN-GOLDEN-LOOP-002",
+      "question": "是否授权岸岸新用户黄金链路与今日可验证反馈循环的后继实现单元？",
+      "choice": "授权 RU-ANAN-GOLDEN-LOOP-002 作为四个既有岸岸/记忆实现单元的正式后继：仅交付四路冷启动入口、每日学习大脑待确认建议、今日现有岸岸建议的证据分级与练后反馈，以及对应契约和测试；保留既有记忆、单一教练人格和视觉资产，不部署、不发布、不声明全产品或生产就绪。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-11T18:00:00+08:00",
+      "evidenceRefs": ["E-USER-ANAN-GOLDEN-LOOP-002"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-ANAN-GOLDEN-LOOP-003",
+      "question": "是否用后继单元同步黄金教练闭环与仍指向旧建档入口的视觉、交互和按钮布局守卫？",
+      "choice": "授权 RU-ANAN-GOLDEN-LOOP-003 完整继承并取代 RU-ANAN-GOLDEN-LOOP-002，同时仅新增对视觉交付契约、页面交互矩阵和按钮宽度守卫的必要同步：今日守卫改为岸岸建议的观察与验证语义，新用户入口守卫改为四种认识方式和 chooseRecognitionPath，不恢复旧建档入口，不修改 Figma 源文件，不部署、不发布。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-11T18:30:00+08:00",
+      "evidenceRefs": [
+        "E-USER-ANAN-GOLDEN-LOOP-002",
+        "E-CODE-ANAN-GOLDEN-LOOP-VISUAL-CONFLICT-003"
+      ]
+    },
+    {
+      "id": "DEC-TEACHING-PACKAGE-SCOPE-001",
+      "question": "讲给岸岸的教学包应只服务事业编，还是使用统一的多考试范围架构？",
+      "choice": "使用统一架构。考试项目使用 guokao、shengkao、sydw，内容身份继续带地区、年度、类别和科目；方法本体可以跨考试复用，但每个目标范围必须有显式审核绑定。当前国考内容先接入，省考和事业编只新增范围发布与内容，不复制编译器、AI、会话或前端链路，也不允许无绑定时回退国考。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T13:05:00+08:00",
+      "evidenceRefs": [
+        "E-USER-TEACHING-PACKAGE-MULTI-EXAM-001",
+        "E-CODE-TEACHING-PACKAGE-SCOPE-GAP-001"
+      ]
+    },
+    {
+      "id": "DEC-FREEZE-RU-TEACHING-PACKAGE-COMPILER-001",
+      "question": "是否先实施多考试范围教学包的只读编译基础，再接入学生岸岸和用户界面？",
+      "choice": "授权 RU-TEACHING-PACKAGE-COMPILER-001：只新增通用考试范围、教学包输入输出契约、确定性编译器和失败场景测试；不改数据库、不调用外部模型、不接前端、不改变现有错因、掌握或计划事实，不声称完整 teach-back 已交付。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T13:05:00+08:00",
+      "evidenceRefs": [
+        "E-USER-TEACHING-PACKAGE-MULTI-EXAM-001",
+        "E-CODE-TEACHING-PACKAGE-SCOPE-GAP-001"
+      ]
+    },
+    {
+      "id": "DEC-TEACHING-PACKAGE-LIGHTWEIGHT-REUSE-002",
+      "question": "现有 475 张国考方法卡迁移到省考和事业单位时，是否需要每个目标范围重新审核？",
+      "choice": "不需要。本决策取代 DEC-TEACHING-PACKAGE-SCOPE-001 中的逐目标范围审核绑定：现有行测/职测方法卡视为可复用方法资产，默认通用于 guokao、shengkao 和 sydw，只有方法卡显式声明的不适用考试例外才阻断。文件中 draft、tested_count=0 或缺少 reviewer/reviewed_at 不再作为教学包编译门禁。题目仅保留未曝光、去重、微技能匹配和答案解析完整性检查。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T13:30:00+08:00",
+      "evidenceRefs": [
+        "E-USER-TEACHING-PACKAGE-REUSE-002"
+      ]
+    },
+    {
+      "id": "DEC-FREEZE-RU-TEACHING-PACKAGE-COMPILER-002",
+      "question": "是否用轻量方法复用规则取代已冻结的过度审核编译单元？",
+      "choice": "授权 RU-TEACHING-PACKAGE-COMPILER-002 完整继承并取代 RU-TEACHING-PACKAGE-COMPILER-001：只在同一 teaching_packages 领域与隔离测试中移除逐范围方法审核门槛，增加默认跨考试复用和显式例外；不修改数据库、方法卡原始文件、AI、前端、掌握或计划。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T13:30:00+08:00",
+      "evidenceRefs": [
+        "E-USER-TEACHING-PACKAGE-REUSE-002"
+      ]
+    },
+    {
+      "id": "DEC-TEACH-BACK-SHADOW-001",
+      "question": "学生岸岸如何避免用自有知识替用户补齐讲解？",
+      "choice": "将学生复现与后台依据核验拆成两个不相交的提示上下文。学生上下文只收到用户讲解和安全题 A，系统设定为对本轮方法一无所知的学生，不得使用自有知识补齐；后台核验单独读取方法与答案依据，只产生影子候选。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T13:45:00+08:00",
+      "evidenceRefs": ["E-USER-TEACH-BACK-STUDENT-001"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-TEACH-BACK-SHADOW-001",
+      "question": "是否先以不调用线上模型的方式落地学生岸岸提示隔离、输出校验与离线案例？",
+      "choice": "授权 RU-TEACH-BACK-SHADOW-001：仅新增学生复现提示包、后台依据包、封闭输出类型、越界引用校验和离线测试；不接 provider、不建会话表、不接复盘页、不写掌握或计划。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T13:45:00+08:00",
+      "evidenceRefs": ["E-USER-TEACH-BACK-STUDENT-001"]
+    },
+    {
+      "id": "DEC-TEACH-BACK-PROVIDER-REUSE-002",
+      "question": "影子运行应直接复用哪一层 AI 基建？",
+      "choice": "复用现有 OpenAI-compatible 传输协议、provider_contract 审计帮助、ModelTokenUsage/ModelPriceCard 成本模型和 model_call_ledger 字段语义，但不复用已绑定岸岸问答或学习大脑的输出契约。本阶段在 teach_back_shadow 域内提供可注入配置的薄适配层和内存审计候选，不修改公共 Settings 或生产 AI 场景注册。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T14:10:00+08:00",
+      "evidenceRefs": [
+        "E-USER-TEACH-BACK-STAGED-002",
+        "E-CODE-TEACH-BACK-PROVIDER-INFRA-002"
+      ]
+    },
+    {
+      "id": "DEC-FREEZE-RU-TEACH-BACK-PROVIDER-SHADOW-002",
+      "question": "是否授权下一阶段用合成案例接通双模型影子运行？",
+      "choice": "授权 RU-TEACH-BACK-PROVIDER-SHADOW-002：依赖已冻结的教学包 v2 和离线双上下文 v1，只在 teach_back_shadow 域内接入可注入的 OpenAI-compatible provider、结构化输出验证、双调用隔离和台账对齐的内存审计候选；测试用 MockTransport 执行合成案例，不调真实外网、不读取用户、不持久、不改掌握或计划、不接前端。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T14:10:00+08:00",
+      "evidenceRefs": [
+        "E-USER-TEACH-BACK-STAGED-002",
+        "E-USER-TEACH-BACK-STUDENT-001",
+        "E-CODE-TEACH-BACK-PROVIDER-INFRA-002"
+      ]
+    },
+    {
+      "id": "DEC-ANAN-ZERO-GATE-CORE-003",
+      "question": "小程序核心学习链路是否继续保留建档、能力就绪、权限和内容检查等用户可见门禁？",
+      "choice": "不保留。用户可见核心链路采用默认放行：静默身份成功后新老用户都直接进入今日；四种认识方式改为今日内可选的加速入口，不选择、不填资格或偏好、不确认 onboarding 结果也能立即开始默认诊断任务。内容、路由、AI 发布、provider、题量和视觉资产校验改为系统内部防线，必须优先自动替换或降级，不能把系统未准备好变成灰按钮和整页阻断。只有无法安全建立账户边界、账户禁用或待删除可以阻止个人数据访问；支付、删除、公开发布和敏感数据外发只在该动作发生前确认。此决策取代 DEC-ANAN-GOLDEN-LOOP-002 中新用户必须先通过独立四选一入口的用户可见门禁部分。",
+      "status": "superseded",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T16:30:00+08:00",
+      "evidenceRefs": ["E-USER-ANAN-ZERO-GATE-CORE-003"]
+    },
+    {
+      "id": "DEC-FUNCTIONAL-CLOSURE-004",
+      "question": "如何避免已经展示的功能因接口不兼容、权限/审核配置不匹配或证据没有交给下一环而变成半成品？",
+      "choice": "采用‘可见功能必须有用且端到端闭合’作为交付标准，而不是取消产品路径或用降级掩盖缺陷。每个入口必须在交付前验证 UI 事件、路由、生成 API、后端契约、权限配置、数据/AI 依赖、成功结果、规范事实写入和下一环消费全部兼容；任何一段未通过，该功能不得被宣称完成，必须修通原功能。运行时恢复只处理网络、超时等真实偶发故障，不把稳定复现的 403/404/409/422/503、审核/release 不匹配或路由/schema 不兼容包装成正常业务状态。此决策纠正 DEC-ANAN-ZERO-GATE-CORE-003 的过度解释，不改变已确认的冷启动、今日岸岸建议或四种认识路径产品设计。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T16:45:00+08:00",
+      "evidenceRefs": ["E-USER-FUNCTIONAL-CLOSURE-004"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-FUNCTIONAL-CLOSURE-004",
+      "question": "是否用后继发布单元取代黄金闭环旧实现标准，并优先修通四种冷启动认识路径和跨端接口契约？",
+      "choice": "授权 RU-FUNCTIONAL-CLOSURE-004 完整继承并取代 RU-ANAN-GOLDEN-LOOP-003：保留四种认识路径、今日岸岸建议和既有视觉，只修真实入口、任务参数、岗位证据交接以及前后端路由与权限兼容；不新增无关页面、不用旧表单或假任务兜底、不修改后端业务 schema、不部署、不发布，也不宣称尚未完成真实账号旅程的功能已闭合。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T16:50:00+08:00",
+      "evidenceRefs": ["E-USER-FUNCTIONAL-CLOSURE-004", "E-CODE-FUNCTIONAL-CLOSURE-004"]
+    },
+    {
+      "id": "DEC-QUICK-DIAGNOSTIC-CLOSURE-005",
+      "question": "快速诊断完成后用什么事实结束冷启动，并如何处理同日旧岸岸建议？",
+      "choice": "复用现有真实计划、task-session、逐题 assessment、task execution、学习画像和今日投影，不引入新 Agent 框架或诊断表。当前用户完成一轮 objective_baseline 计划任务即结束冷启动；30 条 assessment 只保留为历史兼容条件。岸岸策略候选只有在 basedOnProfileVersionId 等于当前 profileVersionId 时可展示，旧候选保留审计但不覆盖新证据。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T17:00:00+08:00",
+      "evidenceRefs": [
+        "E-USER-QUICK-DIAGNOSTIC-CLOSURE-005",
+        "E-CODE-QUICK-DIAGNOSTIC-GAP-005"
+      ]
+    },
+    {
+      "id": "DEC-FREEZE-RU-QUICK-DIAGNOSTIC-CLOSURE-005",
+      "question": "是否授权后端优先修通第一轮快速诊断后的真实黄金闭环？",
+      "choice": "授权 RU-QUICK-DIAGNOSTIC-CLOSURE-005 继承并取代 RU-FUNCTIONAL-CLOSURE-004 的相关闭环实现标准：只修基线完成判定、旧候选版本一致性和真实数据库旅程验收；不重画界面、不改数据库 schema、不接新框架、不部署、不发布。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T17:00:00+08:00",
+      "evidenceRefs": [
+        "E-USER-QUICK-DIAGNOSTIC-CLOSURE-005",
+        "E-CODE-QUICK-DIAGNOSTIC-GAP-005"
+      ]
+    },
+    {
+      "id": "DEC-CAUSE-VERIFICATION-FEEDBACK-006",
+      "question": "既有错因确认和复测链如何真正改变岸岸的可见判断？",
+      "choice": "不新增错因、复测、画像或教练状态。继续以 xingce_confirmed_cause_versions 和 xingce_mastery_state_versions 为权威：通过 source_review_id 把确认错因绑定到同一 mastery 链，只有 stable_mastered 才成为撤销旧弱项的反向证据；部分实例通过时保留 confirmed 并显示部分反证。今日任务前快照只新增错误模式最小摘要，返回后由确定性前端投影说清新增、仍在验证或已收回的具体判断，AI 不自行生成变化事实。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T18:25:00+08:00",
+      "evidenceRefs": [
+        "E-USER-CAUSE-VERIFICATION-FEEDBACK-006",
+        "E-CODE-CAUSE-COUNTEREVIDENCE-GAP-006"
+      ]
+    },
+    {
+      "id": "DEC-FREEZE-RU-CAUSE-VERIFICATION-FEEDBACK-006",
+      "question": "是否授权下一阶段修复错因验证回写与岸岸练后反馈？",
+      "choice": "授权 RU-CAUSE-VERIFICATION-FEEDBACK-006 继承并取代 RU-QUICK-DIAGNOSTIC-CLOSURE-005 的相关教练反馈标准：只修行测错误模式对 stable mastery 的反证投影、任务前错误模式快照和今日确定性差异反馈，并用真实 PostgreSQL 状态链验证；不新增页面、数据库迁移、Agent 或 AI 调用，不修改作答/复测状态机，不重画界面，不部署、不发布、不操作生产题库。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T18:25:00+08:00",
+      "evidenceRefs": [
+        "E-USER-CAUSE-VERIFICATION-FEEDBACK-006",
+        "E-CODE-CAUSE-COUNTEREVIDENCE-GAP-006"
+      ]
+    },
+    {
+      "id": "DEC-SERVER-QUESTION-BANK-ALIGNMENT-007",
+      "question": "服务器题库后续如何与本地国考、省考和事业编内容对齐？",
+      "choice": "把服务器题库对齐设为紧随教练闭环后的独立交付单元。先只读解析实际运行 DATABASE_URL、内容/知识图谱发布头和对象存储，再按不可变 question、occurrence、content、asset 与考试范围清单做 dry-run 差异；生产写入、发布切换、上传和重启必须另行显式授权。不得把 staging 名称、本地导入成功或服务 active 当作已对齐证据。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T18:25:00+08:00",
+      "evidenceRefs": [
+        "E-USER-SERVER-QUESTION-BANK-ALIGNMENT-007",
+        "E-CODE-SERVER-QUESTION-BANK-BASELINE-007"
+      ]
+    },
+    {
+      "id": "DEC-FREEZE-RU-CAUSE-VERIFICATION-FEEDBACK-006B",
+      "question": "部分反证与全部稳定反证的聚合判定需要落在哪个既有边界？",
+      "choice": "将 backend/app/domains/learning_brain/service.py 纳入后继 RU-CAUSE-VERIFICATION-FEEDBACK-006B。repository 只返回 occurrenceCount、counterevidenceCount 和精确版本，service 继续作为 LearningBrainProfileVersion 的既有构造边界，只有 counterevidenceCount 等于 occurrenceCount 时才把聚合错误模式标为 counterevidence；部分反证保持 confirmed。其他范围、非目标和验收保持 006 不变。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T18:55:00+08:00",
+      "evidenceRefs": [
+        "E-USER-CAUSE-VERIFICATION-FEEDBACK-006",
+        "E-CODE-CAUSE-COUNTEREVIDENCE-GAP-006"
+      ]
+    },
+    {
+      "id": "DEC-FREEZE-RU-SERVER-QUESTION-BANK-ALIGNMENT-007",
+      "question": "是否授权服务器国考、省考和事业编题库的只读对账单元？",
+      "choice": "授权 RU-SERVER-QUESTION-BANK-ALIGNMENT-007 依赖已完成的 RU-CAUSE-VERIFICATION-FEEDBACK-006B，仅实现无凭据落盘的运行库身份采集、题目/卷面出现/内容头/视觉资产/发布头差异对账和报告。本单元不写数据库、不上传对象、不切换发布、不重启服务；任何修复变更集必须进入后续显式授权单元。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T19:24:00+08:00",
+      "evidenceRefs": [
+        "E-USER-SERVER-QUESTION-BANK-ALIGNMENT-007",
+        "E-CODE-SERVER-QUESTION-BANK-BASELINE-007"
+      ]
+    },
+    {
+      "id": "DEC-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008",
+      "question": "如何在不重复造题和不串考试的前提下修好服务器上丢失卷属的两批题库？",
+      "choice": "把 qbank-import-20260801 与 sydw-public-import-20260801 作为一次源身份恢复：从已校验原始卷逐条构造期望 occurrence，按稳定 source_question_id 映射已有 question_id，先 dry-run 和备份，再在单事务中最小更新现有记录并补齐缺失出现。不得删除或合并 questions，不按题文相似度猜卷属，不发布知识图谱或重启服务。银行招聘与三支一扶目录另列为后继接入，避免混入国省考或事业编公共基础。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T22:35:00+08:00",
+      "evidenceRefs": [
+        "E-USER-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008",
+        "E-CODE-QUESTION-BANK-SOURCE-IDENTITY-GAP-008"
+      ]
+    },
+    {
+      "id": "DEC-FREEZE-RU-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008",
+      "question": "是否授权对活动运行库执行可回滚的题库源身份恢复？",
+      "choice": "授权 RU-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008 依赖只读对账单元，仅修改两批既有数据集的 question_occurrences 卷属身份并补齐源卷中的缺失出现。执行必须绑定运行库指纹、源清单指纹、dry-run 指纹和写前备份；若存在未映射源题、运行库漂移、跨考试冲突或备份不可验证则停止。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T22:35:00+08:00",
+      "evidenceRefs": [
+        "E-USER-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008",
+        "E-CODE-QUESTION-BANK-SOURCE-IDENTITY-GAP-008"
+      ]
+    },
+    {
+      "id": "DEC-QUESTION-BANK-CONTENT-HEAD-QUARANTINE-008B",
+      "question": "119 个缺活动内容头的国省考源题是否应阻断整个卷属恢复？",
+      "choice": "不阻断。卷属身份和用户投放资格分开验收：对具备稳定源题映射的 119 个缺头题照实恢复其原始卷关系，但明确标为 delivery-ineligible 基线，不让它们进入活动知识发布；其余有头题和全部事业编题正常完成恢复。内容头补齐进入后继单元，不在本次篡改题文或模糊匹配。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T23:18:00+08:00",
+      "evidenceRefs": ["E-USER-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008", "E-CODE-QUESTION-BANK-CONTENT-HEAD-QUARANTINE-008B"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008B",
+      "question": "是否用卷属恢复与投放隔离分离的规则取代 008 的过严内容头门禁？",
+      "choice": "授权 RU-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008B 依赖并取代 008。继承其源哈希、运行库指纹、备份、dry-run、事务范围与非目标，只把缺活动内容头处理从整批阻断改为精确计数和投放隔离；任何超过 119 个的国省考缺口或事业编缺口仍停止提交。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T23:18:00+08:00",
+      "evidenceRefs": ["E-USER-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008", "E-CODE-QUESTION-BANK-CONTENT-HEAD-QUARANTINE-008B"]
+    },
+    {
+      "id": "DEC-QUESTION-BANK-SURPLUS-OCCURRENCE-QUARANTINE-008C",
+      "question": "源卷没有对应位置的 5 条事业编重复 occurrence 如何处理？",
+      "choice": "不删除、不伪造卷属。保留 occurrence_id、question_id、source_question_id 和原字段，只将 dry-run 精确识别的 5 条从 sydw-public-import-20260801 改为 sydw-public-import-20260801-duplicate-quarantine；活动数据集随后按源清单补齐到精确 123812 条，隔离集不参与发布。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T23:38:00+08:00",
+      "evidenceRefs": ["E-USER-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008", "E-CODE-QUESTION-BANK-SURPLUS-OCCURRENCE-008C"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008C",
+      "question": "是否授权 008C 把精确 5 条无源位置重复记录移入非活动隔离数据集？",
+      "choice": "授权 RU-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008C 依赖并取代 008B，继承其全部边界，只增加精确 5 条事业编 surplus occurrence 的 source_dataset_id 隔离更新；任何非这 5 条记录、题目写入、删除、发布或重启仍禁止。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-12T23:38:00+08:00",
+      "evidenceRefs": ["E-USER-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008", "E-CODE-QUESTION-BANK-SURPLUS-OCCURRENCE-008C"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008D",
+      "question": "如何修正 008C 把已被取代规划包误作执行前置依赖的问题？",
+      "choice": "授权 RU-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008D 依赖并取代 008C，继承 008C 的全部需求、合约、范围、非目标和验收，只把工作包 dependsOn 改为无包级前置；发布单元依赖链仍保留完整架构血缘。",
+      "status": "accepted",
+      "decidedBy": "codex-root",
+      "decidedAt": "2026-08-13T00:15:00+08:00",
+      "evidenceRefs": ["E-USER-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008", "E-CODE-QUESTION-BANK-SURPLUS-OCCURRENCE-008C"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008E",
+      "question": "如何把已经完成且不再需要源代码变化的 008D 结果登记为可复验成果？",
+      "choice": "授权 RU-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008E 依赖并取代 008D，继承全部成果与验收，把唯一工作包声明为 verificationOnly；它只运行冻结测试并核验允许路径在验收期间零变化，不修改服务器或仓库产品文件。",
+      "status": "accepted",
+      "decidedBy": "codex-root",
+      "decidedAt": "2026-08-13T00:25:00+08:00",
+      "evidenceRefs": ["E-USER-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008", "E-CODE-QUESTION-BANK-SURPLUS-OCCURRENCE-008C"]
+    },
+    {
+      "id": "DEC-QUESTION-DELIVERY-QUARANTINE-009",
+      "question": "缺少当前内容头或可靠答案的约 300 道题应如何处理？",
+      "choice": "按运行库精确证据处理为 273 个物理 question_id，不删除题目，也不造默认答案。保存写前清单后，只把这 273 道的 product.questions.status 从 active 改为 quarantined，使正式选题和通用搜索均不主动投放；内容、图片、卷属和版本继续保留，未来补证后逐题复验再恢复。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T09:42:00+08:00",
+      "evidenceRefs": ["E-USER-QUESTION-DELIVERY-QUARANTINE-009", "E-CODE-QUESTION-DELIVERY-GAP-009"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-QUESTION-DELIVERY-QUARANTINE-009",
+      "question": "是否授权对活动运行库执行 273 道不完整题的可恢复隔离？",
+      "choice": "授权 RU-QUESTION-DELIVERY-QUARANTINE-009 依赖已完成的题库源身份恢复单元，只实现精确清单生成、dry-run、状态快照、单事务 active→quarantined 和写后/幂等验证；不得改题文、答案、图片、卷属、内容/知识发布、用户数据或服务进程。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T09:42:00+08:00",
+      "evidenceRefs": ["E-USER-QUESTION-DELIVERY-QUARANTINE-009", "E-CODE-QUESTION-DELIVERY-GAP-009"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-QUESTION-DELIVERY-QUARANTINE-009B",
+      "question": "如何登记已在调度前完成的 009 隔离脚本、测试和报告？",
+      "choice": "授权 RU-QUESTION-DELIVERY-QUARANTINE-009B 依赖并取代 009，把相同三个成果路径声明为 verificationOnly；只读运行冻结的 12 项测试并证明验收期间零文件变化。生产隔离仍只按 009 已冻结合约、计划指纹和备份执行。",
+      "status": "accepted",
+      "decidedBy": "codex-root",
+      "decidedAt": "2026-08-13T10:31:00+08:00",
+      "evidenceRefs": ["E-USER-QUESTION-DELIVERY-QUARANTINE-009", "E-CODE-QUESTION-DELIVERY-GAP-009"]
+    },
+    {
+      "id": "DEC-QUESTION-CATALOG-QUARANTINE-VISIBILITY-009C",
+      "question": "隔离题通过旧链接或精确 ID 仍可触达时如何处理？",
+      "choice": "公开题目详情只读取 active/canonical 题，其余状态统一按不存在返回 404；过滤必须发生在响应建模和内容子查询之前，避免缺字段隔离题返回 500。该修复进入下一次正常后端不可变发布，不在服务器 release 上热改或单独重启。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T09:42:00+08:00",
+      "evidenceRefs": ["E-USER-QUESTION-DELIVERY-QUARANTINE-009", "E-CODE-QUARANTINED-QUESTION-DETAIL-GAP-009C"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-QUESTION-CATALOG-QUARANTINE-VISIBILITY-009C",
+      "question": "是否冻结隔离题公开详情收口的最小代码单元？",
+      "choice": "授权 RU-QUESTION-CATALOG-QUARANTINE-VISIBILITY-009C 依赖并取代 009B，只修改 knowledge repository 的公开详情过滤、专用测试和隔离报告；不变更 schema、题库数据、内容/知识发布、前端或生产进程。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T09:42:00+08:00",
+      "evidenceRefs": ["E-USER-QUESTION-DELIVERY-QUARANTINE-009", "E-CODE-QUARANTINED-QUESTION-DETAIL-GAP-009C"]
+    },
+    {
+      "id": "DEC-DATA-ANALYSIS-TEACHING-BRIDGE-010",
+      "question": "资料分析结构化候选如何进入教学包和岸岸讲给 AI 听的闭环？",
+      "choice": "先交付一个不写数据库的版本绑定桥：教学候选题显式携带 visualRequired、contentVersionId 和图片哈希，只接受明确 verified 且三重身份一致的结构化证据。编译后学生岸岸只读答案无关图表事实，后台核验才可引用当前包的方法、答案与事实白名单。1424 份信任候选不在本单元中自动升级成 verified，真实内容版本绑定和批量接线作为下一单元。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T11:25:24+08:00",
+      "evidenceRefs": ["E-USER-DATA-ANALYSIS-TEACHING-BRIDGE-010", "E-CODE-DATA-ANALYSIS-TEACHING-BRIDGE-GAP-010"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-DATA-ANALYSIS-TEACHING-BRIDGE-010",
+      "question": "是否授权先实现资料分析结构化证据到教学包、学生岸岸和 provider 影子的安全桥接？",
+      "choice": "授权 RU-DATA-ANALYSIS-TEACHING-BRIDGE-010 依赖并取代现有教学包 v2、讲给 AI 听离线影子和 provider 影子的相关契约；只修改三个隔离后端域和对应测试，不导入真实候选、不新增数据库或前端、不调用真实 provider、不写掌握/计划/错因/长期记忆、不部署不发布。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T11:25:24+08:00",
+      "evidenceRefs": ["E-USER-DATA-ANALYSIS-TEACHING-BRIDGE-010", "E-CODE-DATA-ANALYSIS-TEACHING-BRIDGE-GAP-010"]
+    },
+    {
+      "id": "DEC-DATA-ANALYSIS-EVIDENCE-PUBLICATION-011",
+      "question": "1486 份资料分析结构化候选如何尽可能全量接入，又不把 schema 通过冒充事实正确？",
+      "choice": "不原位把候选改名为已审核。增加发布层确定性验收策略：对非矛盾资产经 schema、完整性、空间内一致性、题目/内容版本和 TOS 图片哈希全部通过后发布为 verified；同一候选里有 table 与 series 时使用明确主权结构投影事实，未能确定主权的异常资产隔离；占位题或缺图不硬绑。发布绑定按当前内容版本生效，支持同题多图。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T12:00:00+08:00",
+      "evidenceRefs": ["E-USER-DATA-ANALYSIS-FULL-INGESTION-011", "E-CODE-DATA-ANALYSIS-RUNTIME-RECONCILIATION-011", "E-CODE-DATA-ANALYSIS-SEMANTIC-CONFLICTS-011"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-DATA-ANALYSIS-EVIDENCE-PUBLICATION-011",
+      "question": "是否冻结资料分析结构化证据的全量对账、持久化、版本绑定和同题多图消费单元？",
+      "choice": "授权 RU-DATA-ANALYSIS-EVIDENCE-PUBLICATION-011 依赖并取代 010。单元只修改资料分析发布域、教学包/讲给岸岸的多图契约、一个追加迁移、导入/对账脚本及专用测试与报告；不改批次原始候选，不修占位题，不调用真实 AI，不写用户掌握/计划/错因/记忆，不改前端；生产数据导入必须在 dry-run、备份和迁移验证后单事务执行。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T12:00:00+08:00",
+      "evidenceRefs": ["E-USER-DATA-ANALYSIS-FULL-INGESTION-011", "E-CODE-DATA-ANALYSIS-RUNTIME-RECONCILIATION-011", "E-CODE-DATA-ANALYSIS-SEMANTIC-CONFLICTS-011"]
+    },
+    {
+      "id": "DEC-NON-GRAPHIC-MEDIA-EVIDENCE-PUBLICATION-012",
+      "question": "除图形推理外，普通题目图片、公式图和解析图片如何接入岸岸闭环而不泄露解析或把歧义候选当真？",
+      "choice": "复用 structured_visual 的不可变版本、当前头、题目内容版本绑定和批次收据作为统一 question-media 发布底座；增加非图推与公式确定性投影器，并从运行 question_asset.part_kind 派生 student/verifier 受众。1400 个 success 实图和通过最终公式门槛的结果可发布；49 个 needs_review 实图逐项隔离。学生请求只收 student 证据，后台核验可收两类证据。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T16:40:00+08:00",
+      "evidenceRefs": ["E-USER-NON-GRAPHIC-MEDIA-INGESTION-012", "E-CODE-NON-GRAPHIC-MEDIA-OFFLINE-012"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-NON-GRAPHIC-MEDIA-EVIDENCE-012",
+      "question": "是否冻结除图推外题目媒体证据的统一发布、受众隔离和教学/费曼消费单元？",
+      "choice": "授权 RU-NON-GRAPHIC-MEDIA-EVIDENCE-012 依赖并取代 011 的相关发布与消费路径；允许修改教学包发布/读取、学生岸岸与 provider 影子、一个新导入脚本、专用测试和交付报告。禁止改原始批次、图形推理、题文/答案/图片/卷属、用户事实、前端和真实 AI 场景；生产数据写入仍需 dry-run、备份、计划哈希和独立 verify。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T16:40:00+08:00",
+      "evidenceRefs": ["E-USER-NON-GRAPHIC-MEDIA-INGESTION-012", "E-CODE-NON-GRAPHIC-MEDIA-OFFLINE-012"]
+    },
+    {
+      "id": "DEC-ANALYSIS-MEDIA-VERIFIER-EVIDENCE-013",
+      "question": "解析与解法图片如何接入证据链，同时避免伪造成题干运行资产或泄露给学生岸岸？",
+      "choice": "新增只追加的解析媒体证据绑定：以当前 question/content head、analysis_source、源 image_ref、源 SHA-256 和可选已发布 object_key 作为身份。发布与读取时都重新确认当前解析来源和内容头；解析绑定固定为 verifier 受众，绝不进入 student 侧。证据版本、当前头和批次收据继续复用统一发布底座。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T17:18:00+08:00",
+      "evidenceRefs": ["E-USER-ANALYSIS-MEDIA-VERIFIER-013", "E-CODE-ANALYSIS-MEDIA-IDENTITY-GAP-013"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-ANALYSIS-MEDIA-VERIFIER-013",
+      "question": "是否冻结解析媒体验证者证据的独立身份、全量发布和消费收口单元？",
+      "choice": "授权 RU-ANALYSIS-MEDIA-VERIFIER-013 依赖并取代 012 的重叠发布/读取路径；允许新增一个追加迁移、解析绑定规划与发布、当前解析读取、专用测试和生产报告。禁止改题文、答案、preferred_analysis、原始图片、卷属、用户事实、前端或真实 AI 场景；生产写入必须先 dry-run、备份、计划哈希校验并独立 verify。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T17:18:00+08:00",
+      "evidenceRefs": ["E-USER-ANALYSIS-MEDIA-VERIFIER-013", "E-CODE-ANALYSIS-MEDIA-IDENTITY-GAP-013"]
+    },
+    {
+      "id": "DEC-LEARNER-COACH-CONTEXT-014",
+      "question": "长期学员模型的第一个可交付单元如何避免今日和岸岸对话产生两套判断？",
+      "choice": "由 learning_brain 域编译唯一的 learner-coach-context@v1 只读投影，封装当前 profile、认识层级、新鲜度和已生效/待确认策略。今日和岸岸对话必须读同一合约；编译器不写库、不复制学习事实、不把聊天或情绪变成能力事实。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T18:05:00+08:00",
+      "evidenceRefs": ["E-USER-LEARNER-COACH-CONTEXT-014", "E-CODE-LEARNER-COACH-CONTEXT-DIVERGENCE-014"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-LEARNER-COACH-CONTEXT-014",
+      "question": "是否冻结长期学员模型第一期的统一读投影与今日/对话消费改造？",
+      "choice": "授权 RU-LEARNER-COACH-CONTEXT-014 依赖并取代 006B 的重叠今日/学习画像投影路径；允许新增统一只读合约、API、Companion 上下文注入、小程序今日/岸岸消费与专用测试。禁止新建长期事实表、修改权威学习事实、调整记忆页容量、重做 UI、部署或修改生产数据。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T18:05:00+08:00",
+      "evidenceRefs": ["E-USER-LEARNER-COACH-CONTEXT-014", "E-CODE-LEARNER-COACH-CONTEXT-DIVERGENCE-014"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-LEARNER-COACH-CONTEXT-014A",
+      "question": "如何更正 014 同时依赖并取代未完成 006B 导致无法审计执行的历史依赖矛盾？",
+      "choice": "用 RU-LEARNER-COACH-CONTEXT-014A 取代 014 的发布记录，保留相同业务边界和验收范围，但新工作包不再把已经被本单元吸收的 006B 写成执行前置；不伪造 006B 完成记录，不扩大代码、数据、UI 或生产范围。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T19:12:00+08:00",
+      "evidenceRefs": ["E-USER-LEARNER-COACH-CONTEXT-014", "E-CODE-LEARNER-COACH-CONTEXT-DIVERGENCE-014"]
+    },
+    {
+      "id": "DEC-LEARNER-COACH-COMPLETION-015",
+      "question": "剩余长期学员模型能力如何一次收口，又不复制现有权威事实和复测状态机？",
+      "choice": "以 learner-coach-context@v2 扩展同一岸岸只读上下文：明示记忆先进入授权检索并逐条审计，学习发现保持权威域只读；用户认为判断不准确时记录复核请求并进入现有复测，不直接改能力。费曼讲回复用已发布方法卡、结构化题面、隔离学生与核验 provider，学生复现 A 不改掌握，只有用户独立作答未见迁移题 B 才通过 xingce mastery 所有者推进既有复测链。移除记忆 20 条用户硬门禁，保留内部相关性选择；不新增页签或重做 UI。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T20:05:00+08:00",
+      "evidenceRefs": ["E-USER-LEARNER-COACH-COMPLETION-015", "E-CODE-EXPLICIT-MEMORY-INTEGRATION-GAP-015", "E-CODE-CROSS-DAY-RETEST-REUSE-015", "E-CODE-GROUNDED-TEACHBACK-RUNTIME-GAP-015"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-LEARNER-COACH-COMPLETION-015",
+      "question": "是否把显式长期记忆、跨天复测展示与 grounded 费曼讲回冻结为一个依赖闭合的收口发布单元？",
+      "choice": "授权 RU-LEARNER-COACH-COMPLETION-015 依赖并取代 014A 的统一上下文重叠路径，同时依赖 013 的教学媒体证据，不取代其发布所有权。允许一个追加迁移、Companion/learning brain/xingce mastery/rescue/teach-back runtime 的必要改动、既有页面增量接线和专用测试；禁止新建第二套学习事实或复测状态机、改题库内容与发布身份、调用生产或部署、重做前端视觉。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T20:05:00+08:00",
+      "evidenceRefs": ["E-USER-LEARNER-COACH-COMPLETION-015", "E-CODE-CROSS-DAY-RETEST-REUSE-015", "E-CODE-GROUNDED-TEACHBACK-RUNTIME-GAP-015"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-LEARNER-COACH-COMPLETION-015A",
+      "question": "015 工作包把现有复盘页误写成 xingce/reflection 后，如何保留原冻结业务边界并覆盖真实页面 pages/reflection？",
+      "choice": "由 RU-LEARNER-COACH-COMPLETION-015A 取代 015 的执行记录，业务需求、数据、契约、状态机、非目标和测试不变，只更正并归并实际代码路径；不扩大到其他页面、题库、生产或 UI 重做。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T20:32:00+08:00",
+      "evidenceRefs": ["E-USER-LEARNER-COACH-COMPLETION-015", "E-CODE-GROUNDED-TEACHBACK-RUNTIME-GAP-015"]
+    },
+    {
+      "id": "DEC-CORE-FLOW-DEBURDENING-016",
+      "question": "如何拆掉新用户的五步硬建档又不把真实功能变成假降级，并保住错因闭环？",
+      "choice": "安全建立微信身份后直接进今日，未建档用户只在规划内部使用 30 分钟、parttime 的最小默认投影，不把它写成用户声明；四种认识方式改为今日内可选加速入口，完成证据后返回今日。今日去掉只负责滚动的第二个‘开始学习’动作，保留紫色渐变、极光背景和黑色主按钮；练后反馈只翻译权威作答、错因、复测和计划差异，不伪造提分。错因域、复盘页状态机、掌握链、教学包与费曼讲回都是禁改边界，必须用现有错因回归证明没有被破坏。稳定重现的路由、schema 或发布问题仍必须修通，不得包装为降级。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T22:29:48+08:00",
+      "evidenceRefs": ["E-USER-CORE-FLOW-DEBURDENING-016", "E-CODE-CORE-FLOW-FRICTION-016"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-CORE-FLOW-DEBURDENING-016",
+      "question": "是否冻结静默直达今日、未建档真实默认诊断、今日首屏减负与错因保护回归单元？",
+      "choice": "授权 RU-CORE-FLOW-DEBURDENING-016 依赖已验证的 015A 长期学员与错因/复测链，只修改规划默认投影、静默入口、今日门禁与页面投影、四条证据返回编排和专用测试。禁止修改错因/掌握后端、复盘页状态机、题库、结构化资产、教学包、费曼讲回、数据库 schema、生产数据、部署或整套 UI 重画。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-13T22:29:48+08:00",
+      "evidenceRefs": ["E-USER-CORE-FLOW-DEBURDENING-016", "E-CODE-CORE-FLOW-FRICTION-016"]
+    },
+    {
+      "id": "DEC-COACH-BRICK-ASSEMBLY-017",
+      "question": "如何在不继续死磕图推全量结构化的前提下，把错因、方法卡、教学包、讲回和复测稳定串起来？",
+      "choice": "新建一个无写入的教练积木装配器，统一复盘救场预检与讲回启动；从学员目标投影国考、省考、事业编 target scope，继续复用既有 guokao/xingce 知识发布和通用方法卡。图片结构化证据只影响对该图片有依赖的 AI 讲回，图推缺证据时保留原图与官方解析，不对 AI 理解作虚假承诺。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T10:00:00+08:00",
+      "evidenceRefs": ["E-USER-COACH-BRICK-ASSEMBLY-017", "E-CODE-COACH-BRICK-ASSEMBLY-GAP-017"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-COACH-BRICK-ASSEMBLY-017",
+      "question": "是否冻结教练积木统一装配、跨考试目标范围和图推非阻塞收尾单元？",
+      "choice": "授权 RU-COACH-BRICK-ASSEMBLY-017 依赖并取代 015A 的救场/讲回拼装路径与 016 的图推禁改边界，只允许新增教练积木装配域、改造 rescue 可用性预检与 teach_back_runtime 消费端、补专项测试。禁止修改教学包契约、错因/mastery 事实、前端视觉、图推资产、题库、迁移、生产数据、部署或服务重启。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T10:00:00+08:00",
+      "evidenceRefs": ["E-USER-COACH-BRICK-ASSEMBLY-017", "E-CODE-COACH-BRICK-ASSEMBLY-GAP-017"]
+    },
+    {
+      "id": "DEC-QUESTION-OCCURRENCE-SCHEMA-017A",
+      "question": "服务器恢复后存在、但正式迁移链缺失的 occurrence 来源列应如何收口？",
+      "choice": "用一个幂等、只加列与索引、禁止破坏性回滚的前向迁移把 question_occurrences 精确来源字段纳入 Alembic 权威，同步 minimal_schema 与 artifact compatibility。不在本次执行生产迁移或任何回填。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T10:20:00+08:00",
+      "evidenceRefs": ["E-CODE-QUESTION-OCCURRENCE-SCHEMA-GAP-017A", "E-USER-COACH-BRICK-ASSEMBLY-017"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-COACH-BRICK-ASSEMBLY-017A",
+      "question": "是否冻结 017 教练积木收尾与 occurrence 来源 schema 权威修复的一体后继单元？",
+      "choice": "授权 RU-COACH-BRICK-ASSEMBLY-017A 依赖并取代 017，继承其全部路径与边界，额外只允许新增 20260814_110 迁移、同步 minimal_schema、artifact database compatibility 和相关测试。禁止回填、生产执行、修改题库内容、改动图推资产、部署或重启。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T10:20:00+08:00",
+      "evidenceRefs": ["E-CODE-QUESTION-OCCURRENCE-SCHEMA-GAP-017A", "E-USER-COACH-BRICK-ASSEMBLY-017"]
+    },
+    {
+      "id": "DEC-PRIVATE-QUESTION-BOOK-INGESTION-018",
+      "question": "名师题本导入应新造一套识别/匹配流程，还是改造现有拍题与 external_ingestion？",
+      "choice": "复用现有私有上传、exam_segmentation、题库文本/视觉指纹匹配和授权原题解析。先修正多题文件的视觉证据归属，只保留安全的单页单题或页级一对一指纹；整卷 UI 自动跳过已完成项，只显示歧义。区域级图像裁剪、题本持久化和练习接入作为后续依赖单元，不在本次伪装完成。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T16:35:00+08:00",
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-018", "E-CODE-PRIVATE-QUESTION-BOOK-GAP-018"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-PRIVATE-QUESTION-BOOK-018",
+      "question": "是否冻结名师题本导入的安全匹配与整卷例外处理基础单元？",
+      "choice": "授权 RU-PRIVATE-QUESTION-BOOK-018 只修改 external_ingestion workspace 的逐题视觉证据投影、capture-import 整卷待处理导航与专项测试。禁止新建第二套 OCR/匹配器，禁止修改题库内容、错因/mastery/计划、数据库 schema、生产数据、部署或重启。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T16:35:00+08:00",
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-018", "E-CODE-PRIVATE-QUESTION-BOOK-GAP-018"]
+    },
+    {
+      "id": "DEC-PRIVATE-QUESTION-BOOK-PERSISTENCE-019",
+      "question": "名师题本应单独建表复制识别与匹配状态，还是作为现有私有资料的显式类型？",
+      "choice": "把题本实现为 private_knowledge_source_versions 的 question_book 类型，source_id 即 book_id；题目进度从当前 recognition revision 与 content match head 实时投影。复用现有导出、单份删除和账号擦除，不建第二套匹配或练习真相。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T17:05:00+08:00",
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-PERSISTENCE-019", "E-CODE-PRIVATE-QUESTION-BOOK-LIFECYCLE-019"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-PRIVATE-QUESTION-BOOK-PERSISTENCE-019",
+      "question": "是否冻结题本持久化、恢复与私有数据生命周期单元？",
+      "choice": "授权 RU-PRIVATE-QUESTION-BOOK-PERSISTENCE-019 依赖 018 的安全逐题匹配与 017A 的数据库头，只新增 question_book 私有资料类型、题本创建/列表/详情/导出/删除外观、必要迁移与专项验收。禁止回填、生产执行、题库内容修改、练习/错因/mastery/计划变更、前端重画、部署或重启。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T17:05:00+08:00",
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-PERSISTENCE-019", "E-CODE-PRIVATE-QUESTION-BOOK-LIFECYCLE-019"]
+    },
+    {
+      "id": "DEC-PRIVATE-QUESTION-BOOK-PRACTICE-020",
+      "question": "题本确认命中的题应另起自由练习、伪造成今日计划，还是作为现有真实计划练习的精确选题来源？",
+      "choice": "把题本作为现有 objective_practice 任务的一次精确选题来源：复用同一个 XingceAttemptService 和后续错因/mastery/岸岸链，不插入或改写 daily_plan_task。当前确认且仍为可投放内容头的题按题本顺序进入题包，歧义、未命中、内容头变化和未发布项只被跳过并返回计数；至少一题可用即可开始。题本来源只以不可变身份和发布 lineage 冻结，不把私有标题或 OCR 正文复制进作答事实。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T14:15:00+08:00",
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-PRACTICE-020", "E-CODE-PRIVATE-QUESTION-BOOK-PRACTICE-GAP-020"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-PRIVATE-QUESTION-BOOK-PRACTICE-020",
+      "question": "是否冻结题本精确选题接入现有真实作答闭环的最小后端单元？",
+      "choice": "授权 RU-PRIVATE-QUESTION-BOOK-PRACTICE-020 依赖并取代 019 的题本后端边界，只扩展题本仓储/服务/API与 XingceAttemptService 的显式选题入口，新增专项测试并更新开发小本本。禁止新增数据库表或迁移、伪造计划任务、修改错因/mastery/计划生成、识别/匹配、公共题库、前端、生产数据、部署或重启。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T14:15:00+08:00",
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-PRACTICE-020", "E-CODE-PRIVATE-QUESTION-BOOK-PRACTICE-GAP-020"]
+    },
+    {
+      "id": "DEC-PRIVATE-QUESTION-BOOK-REGION-VISUAL-021",
+      "question": "同页多题的图片证据应重读原件、信任 provider 新字段，还是从已向识别器提供的服务端页图中当场派生？",
+      "choice": "仅由明确标记为本地可信渲染页的识别适配器，在 provider 返回分题坐标后把同一批页图字节交给服务端纯函数裁剪。区域使用当前题 prompt 顶部到下一道不重叠 prompt 顶部（或页底）的全宽垂直带，并要求该题全部引用 segment 在同页且不跨入下一题。只持久化归一化框、源页哈希和现有同族视觉哈希，不保存裁剪字节。重叠、跨页、缺页或不可信 provider 统一退回 018 的安全文本/页级逻辑。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T15:05:00+08:00",
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-REGION-VISUAL-021", "E-CODE-PRIVATE-QUESTION-BOOK-REGION-VISUAL-GAP-021"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-PRIVATE-QUESTION-BOOK-REGION-VISUAL-021",
+      "question": "是否冻结同页多题逐题图片区域与视觉指纹的最小后端单元？",
+      "choice": "授权 RU-PRIVATE-QUESTION-BOOK-REGION-VISUAL-021 依赖并取代 020 的题本开发边界，只扩展 recognition 服务端候选契约、Grok/Gemma 本地渲染页交付、纯函数区域哈希和现有 _match_query 消费，补专项测试并更新小本本。禁止重读私有原件作为隐式第二处理器、信任通用 provider 伪造字节、持久化裁剪图、改题库/匹配真相/练习/前端、新增迁移、生产执行、部署或重启。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T15:05:00+08:00",
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-REGION-VISUAL-021", "E-CODE-PRIVATE-QUESTION-BOOK-REGION-VISUAL-GAP-021"]
+    },
+    {
+      "id": "DEC-PRIVATE-QUESTION-BOOK-PRODUCT-LOOP-022",
+      "question": "题本前端应新建独立流程、继续停留为拍题解析工具，还是把现有今日、整页导入、私人资料与真实练习串成一条产品闭环？",
+      "choice": "复用现有 capture-import 作为题本导入与歧义处理工作台，确认识别后自动保存题本；把私人资料库增加为题本独立资产区，今日“我想加练”直接进入题本模式。未命中只计为本次排除，不强迫 AI 解题；已匹配题消费当前 Today 中服务端排序最前的可用 objective_practice 任务并进入现有行测 runtime。没有可用任务时保留题本并给出真实下一步，不伪造计划或第二套教练反馈。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T16:20:00+08:00",
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-PRODUCT-LOOP-022", "E-CODE-PRIVATE-QUESTION-BOOK-PRODUCT-GAP-022"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-PRIVATE-QUESTION-BOOK-PRODUCT-LOOP-022",
+      "question": "是否冻结题本小程序入口、私有恢复、低阻塞整理与真实教练反馈的依赖闭合单元？",
+      "choice": "授权 RU-PRIVATE-QUESTION-BOOK-PRODUCT-LOOP-022 依赖并取代 021 的题本开发边界，只补齐生成 API 契约、小程序 question-book 网关、今日入口、capture-import 题本产品态、私人资料库题本资产区、专项测试与小本本。禁止新增页面、数据库迁移、计划生成、练习/错因/mastery/岸岸状态、公共题库修改、生产执行、部署或重启。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T16:20:00+08:00",
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-PRODUCT-LOOP-022", "E-CODE-PRIVATE-QUESTION-BOOK-PRODUCT-GAP-022"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-ROADMAP-AFTER-PRIVATE-QUESTION-BOOK-022A",
+      "question": "是否在 022 机器验收后冻结一个只同步唯一开发路线图和其机器断言的后继单元？",
+      "choice": "授权 RU-ROADMAP-AFTER-PRIVATE-QUESTION-BOOK-022A 依赖并取代 022 对唯一路线图的所有权，只把已验证事实、仍未完成边界和阶段 C 真实账号黄金旅程写回小本本，并用六个只读路线图断言验收。禁止修改运行时代码、接口、数据库、产品状态、生产环境或 022 历史证据。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T17:00:00+08:00",
+      "evidenceRefs": ["E-EXEC-PRIVATE-QUESTION-BOOK-PRODUCT-LOOP-022", "E-USER-ROADMAP-AFTER-PRIVATE-QUESTION-BOOK-022A"]
+    },
+    {
+      "id": "DEC-REAL-ACCOUNT-GOLDEN-CLOSURE-023",
+      "question": "真实账号走查中的全对空复盘、重复复测和教练上下文 404 应通过客户端兜底、零散热修还是同版本原子结算与正式发布对齐解决？",
+      "choice": "以服务端权威事实闭合：verification 每题客观答对就原子结算计划证据、mastery 和 session，不伪造用户复盘或错因决策；其他结果保留原严谨链。资料分析承诺完整 5 题材料组。小程序的完成反馈不能以学习画像请求成功为前提；同时通过完整后端制品与 105–当前头迁移演练消除路由/schema 错位，不以更多兜底或用户门禁掩盖。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T21:10:00+08:00",
+      "evidenceRefs": ["E-USER-REAL-ACCOUNT-GOLDEN-CLOSURE-023", "E-OPS-REAL-ACCOUNT-GOLDEN-GAPS-023", "E-OPS-BACKEND-CLIENT-VERSION-SKEW-023"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-REAL-ACCOUNT-GOLDEN-CLOSURE-023",
+      "question": "是否冻结一个只修复本次真实默认诊断黄金链和必要版本对齐的后继实施单元？",
+      "choice": "授权 RU-REAL-ACCOUNT-GOLDEN-CLOSURE-023 继承 022A 闭包中已由 006B、014–017A 与 019–022 逐级承接的完整系谱，并只直接取代当前系谱头 022A 在真实默认诊断链上的所有权；只修复已复现的完成基线判定、聚焦模块、资料分析题量、复测原子结算、练后反馈容错、DeepSeek 提供者契约和 112 迁移/制品兼容元数据，并补六类验收。本单元不修题库内容、不新增 Agent/计划/错因事实、不重画 UI、不处理图推结构化，也不直接授权生产部署；只有封存、机器验收、迁移演练和可回滚环境检查通过后才能单独执行服务器升级。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-14T21:10:00+08:00",
+      "evidenceRefs": ["E-USER-REAL-ACCOUNT-GOLDEN-CLOSURE-023", "E-OPS-REAL-ACCOUNT-GOLDEN-GAPS-023", "E-OPS-BACKEND-CLIENT-VERSION-SKEW-023"]
+    },
+    {
+      "id": "DEC-KNOWLEDGE-MAP-RELEASE-MANIFEST-REPAIR-024",
+      "question": "2,462 个知识图谱孤儿应删除、隔离、创建未知发布，还是按独立备份恢复原历史发布清单？",
+      "choice": "按迁移 65 的确定性身份、当前 2,462 节点指纹及两份 2026-07-29 独立备份恢复唯一的原历史 retired 发布和首个正式发布 supersedes 链；不删除或改写节点，不创建占位/未知发布。迁移必须失败关闭、幂等、重建并真实验证外键，且先在 104 真实备份副本完成二次零错误逻辑恢复。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-15T00:00:00+08:00",
+      "evidenceRefs": [
+        "E-USER-KNOWLEDGE-MAP-MANIFEST-REPAIR-024",
+        "E-OPS-KNOWLEDGE-MAP-MANIFEST-FORENSICS-024"
+      ]
+    },
+    {
+      "id": "DEC-FREEZE-RU-KNOWLEDGE-MAP-RESTORE-CLOSURE-024",
+      "question": "是否冻结一个只恢复已被备份精确证明的知识图谱历史发布清单并关闭逻辑恢复缺口的后继实施单元？",
+      "choice": "授权 RU-KNOWLEDGE-MAP-RESTORE-CLOSURE-024 只直接取代当前系谱头 023，新增一个前向 113 迁移、数据库级六类专项测试、制品数据库兼容头与取证/演练报告。禁止改节点/题目/用户学习事实、切活动发布、修改前端或直接执行生产迁移、部署、重启和发布指针切换。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-15T00:00:00+08:00",
+      "evidenceRefs": [
+        "E-USER-KNOWLEDGE-MAP-MANIFEST-REPAIR-024",
+        "E-OPS-KNOWLEDGE-MAP-MANIFEST-FORENSICS-024"
+      ]
+    },
+    {
+      "id": "DEC-PRODUCTION-104-TO-113-RELEASE-025",
+      "question": "线上严格签名商业发布控制面尚未初始化时，如何把已演练的 104→113 后端链部署而不发布脏工作区或把一次性备份冒充长期生产保障？",
+      "choice": "只从 024 完整测试快照逐字节一致的 2,704 个发布源文件生成独立干净临时提交与内容寻址制品。保留旧指针，先安装候选；在 API、全部数据库 worker 与 OpenILink 停写后生成服务器与本机双份同摘要 104 dump，再只用该候选迁移到 113、旁路启动验 health/ready/正式路由、原子切换指针并复跑真实测试账号。切换前失败可在持续停写时恢复 104 dump；恢复流量后只允许前向修复。本单元不宣称微信正式版、签名商业发布控制面或跨故障域长期备份已经完成。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-15T10:45:00+08:00",
+      "evidenceRefs": ["E-USER-PRODUCTION-104-TO-113-RELEASE-025", "E-OPS-PRODUCTION-104-TO-113-PREFLIGHT-025"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-PRODUCTION-104-TO-113-RELEASE-025",
+      "question": "是否冻结一个只读封存完整候选发布面并作为本次 104→113 生产执行前置门的后继单元？",
+      "choice": "授权 RU-PRODUCTION-104-TO-113-RELEASE-025 依赖并直接取代 024，冻结完整发布源面与 024 快照逐字节一致的预检证据，并由 verification-only 执行报告再次保存完整 tested snapshot；复验冷启动黄金链、跨账号失败关闭、记忆幂等、历史发布冲突、数据库锁与外键恢复。禁止在验收期间修改源文件；生产写入只能在该门通过后按 DEC-PRODUCTION-104-TO-113-RELEASE-025 的停写、双份备份、候选旁路与原子切换顺序执行。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-15T10:45:00+08:00",
+      "evidenceRefs": ["E-USER-PRODUCTION-104-TO-113-RELEASE-025", "E-OPS-PRODUCTION-104-TO-113-PREFLIGHT-025"]
+    },
+    {
+      "id": "DEC-PRODUCTION-BACKUP-TRANSFER-025A",
+      "question": "完整 104 服务器 dump 已验证但异地下载受 0.3 MB/s 出口限制时，是否继续停写近一小时等待，还是把异地传输改为发布闭环门而非迁移开始门？",
+      "choice": "保持完整服务器 dump、全停写、104 身份、pg_restore 清单和摘要为迁移开始硬条件；本机同摘要副本必须在发布闭环前完成，但可与迁移、候选旁路、切换和复验并行。副本未完成期间的即时回滚只使用服务器完整 dump；恢复入口流量后禁止旧 dump 覆盖新写入。该调整只改变传输顺序，不减少最终备份份数或数据库断言。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-15T11:55:00+08:00",
+      "evidenceRefs": ["E-OPS-PRODUCTION-BACKUP-TRANSFER-025A", "E-USER-PRODUCTION-104-TO-113-RELEASE-025"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-PRODUCTION-BACKUP-TRANSFER-025A",
+      "question": "是否冻结一个只修正本次异地备份传输顺序、不改变候选源与迁移事实的后继发布单元？",
+      "choice": "授权 RU-PRODUCTION-BACKUP-TRANSFER-025A 依赖并直接取代 025，只冻结已验证服务器备份、实测传输约束及最终同摘要闭环要求；复验相同六类发布场景，禁止源代码、迁移、产品数据、服务或指针由验收命令修改。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-15T11:55:00+08:00",
+      "evidenceRefs": ["E-OPS-PRODUCTION-BACKUP-TRANSFER-025A", "E-USER-PRODUCTION-104-TO-113-RELEASE-025"]
+    },
+    {
+      "id": "DEC-WORKSPACE-TRUTH-CONSISTENCY-026",
+      "question": "学习偏好尚未确认但后端已有系统默认真实计划时，各工作区应以什么作为可用性权威？",
+      "choice": "studyPreferenceReady 只表示用户是否确认常用学习时间，不再充当计划、目标差、岸岸上下文或周计划的可用门。安全认证后的今日、岸岸、能力、我的与周计划都必须独立读取各自权威接口；计划接口成功即展示真实计划，偏好未确认只显示非阻塞的可调整提示。某一来源失败只能影响该来源，不能用 onboarding 状态掩盖其他已成功事实。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-15T14:45:00+08:00",
+      "evidenceRefs": ["E-USER-WORKSPACE-TRUTH-CONSISTENCY-026", "E-CODE-WORKSPACE-TRUTH-DIVERGENCE-026"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-WORKSPACE-TRUTH-CONSISTENCY-026",
+      "question": "是否冻结一个后继发布单元，原子修正所有仍把学习偏好当硬门的工作区消费者？",
+      "choice": "授权 RU-WORKSPACE-TRUTH-CONSISTENCY-026 依赖并直接取代 025A，只修改微信前端消费者和专项测试：拆除岸岸、能力、我的与周计划的旧偏好门禁，保留 onboarding/profile 中偏好完成度本身的真实表达，并用成功、失败、重放、过期、竞态和恢复六类场景证明同账号事实一致。禁止修改后端、数据库、题库、错因、掌握、教学包、生产账号数据、上传或发布。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-15T14:45:00+08:00",
+      "evidenceRefs": ["E-USER-WORKSPACE-TRUTH-CONSISTENCY-026", "E-CODE-WORKSPACE-TRUTH-DIVERGENCE-026"]
+    },
+    {
+      "id": "DEC-WORKSPACE-UX-DECLUTTER-027",
+      "question": "真实计划与数据口径已统一后，今日和我的页应如何减少焦虑与操作负担，同时保留岸岸教练闭环？",
+      "choice": "今日页只保留一个首要决策：先展示任务、完成标准和黑色开始按钮，再展示岸岸的观察、暂时判断与验证依据；天气只作为问候旁的可选微信息，天气失败完全不阻塞计划；加练降到学习工具。我的页按目标、学习方式、学习资产、提醒、备考档案、社区与服务排序；资格未完成时只显示一个不阻塞学习的摘要入口。沿用现有色彩、渐变、极光、字体和组件，不新增视觉体系。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-15T16:45:00+08:00",
+      "evidenceRefs": ["E-USER-WORKSPACE-UX-DECLUTTER-027", "E-CODE-WORKSPACE-UX-CLUTTER-027"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-WORKSPACE-UX-DECLUTTER-027",
+      "question": "是否冻结一个后继发布单元，收完今日首屏和我的页的去阻塞体验，不触碰已经打通的学习闭环？",
+      "choice": "授权 RU-WORKSPACE-UX-DECLUTTER-027 依赖并直接取代 026，只修改今日/我的模板、样式、每日开场展示投影和专项测试。用成功、失败、重放、过期、竞态、恢复六类场景证明天气不再抢占或阻塞主任务、岸岸判断链未断、未完成资格档案不再压过学习资产。禁止修改后端、API schema、生产数据、错因、掌握、复测、教学包、费曼链路、上传或发布。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-15T16:45:00+08:00",
+      "evidenceRefs": ["E-USER-WORKSPACE-UX-DECLUTTER-027", "E-CODE-WORKSPACE-UX-CLUTTER-027"]
+    },
+    {
+      "id": "DEC-WEATHER-RAIN-GLANCE-027A",
+      "question": "问候旁的紧凑天气应如何说明下不下雨，而不重新变成一张天气卡或替用户做武断判断？",
+      "choice": "直接复用服务端已有降雨概率，在紧凑标签中显示‘天气现象 · 降雨N% · 当前温度’；位置未授权时按钮改为‘看降雨’。不新增卡片、阈值判断、权限门、天气接口或视觉资产。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-15T17:30:00+08:00",
+      "evidenceRefs": ["E-USER-WEATHER-RAIN-GLANCE-027A", "E-CODE-WEATHER-RAIN-GLANCE-027A"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-WEATHER-RAIN-GLANCE-027A",
+      "question": "是否冻结一个只补足紧凑天气降雨可读性的后继发布单元？",
+      "choice": "授权 RU-WEATHER-RAIN-GLANCE-027A 依赖并直接取代 027，只修改每日开场展示投影、今日紧凑天气文案和专项测试；六类场景证明降雨概率稳定、缺失时不伪造、重复与并发输入无共享状态。禁止修改后端、权限、计划、任务、错因、掌握、我的页或上传发布。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-15T17:30:00+08:00",
+      "evidenceRefs": ["E-USER-WEATHER-RAIN-GLANCE-027A", "E-CODE-WEATHER-RAIN-GLANCE-027A"]
+    },
+    {
+      "id": "DEC-WECHAT-INTERNAL-BETA-QUALITY-028",
+      "question": "微信模拟器已经可运行但整包质量门仍失败时，是否直接上传，还是先修复累计契约漂移？",
+      "choice": "先修复当前整包的格式、lint、包边界和 12 项回归失败，再判断体验版上传就绪；修真实耦合与兼容问题，更新被新产品决策取代的通用断言，保留历史路线图语义，不用 eslint 忽略、跳过测试或恢复已移除界面换取假通过。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-15T18:10:00+08:00",
+      "evidenceRefs": ["E-USER-WECHAT-INTERNAL-BETA-QUALITY-028", "E-CODE-WECHAT-INTERNAL-BETA-BLOCKERS-028"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-WECHAT-INTERNAL-BETA-QUALITY-028",
+      "question": "是否冻结一个只收敛微信体验版上传阻塞、直接取代 027A 的集成修复单元？",
+      "choice": "授权 RU-WECHAT-INTERNAL-BETA-QUALITY-028 依赖并直接取代 027A，只修改已定位的微信运行时代码、分包放置、测试类型/契约与路线图历史语义；以记忆、掌握、UI、核心流、题本和路线图六类现有测试及整包 npm check 证明收敛。禁止修改后端、API schema、数据库、生产数据、题库内容、错因/掌握事实语义、上传或部署。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-15T18:10:00+08:00",
+      "evidenceRefs": ["E-USER-WECHAT-INTERNAL-BETA-QUALITY-028", "E-CODE-WECHAT-INTERNAL-BETA-BLOCKERS-028"]
+    },
+    {
+      "id": "DEC-SUBPACKAGE-TEACH-BACK-SYNC-028A",
+      "question": "分包同步会删除只存在于反思副本的费曼讲回扩展时，应覆盖副本、忽略检查，还是修复唯一生成源？",
+      "choice": "保留已经实现的 grounded 讲回契约，把反思副本中的类型与 start/submit 方法提升到 subpackage-shared-src 唯一中立源，再使用现有生成器同步 xingce、practice、reflection；不放宽 package gate，不把任一生成副本继续当手工权威。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-15T18:45:00+08:00",
+      "evidenceRefs": ["E-CODE-SUBPACKAGE-TEACH-BACK-DRIFT-028A", "E-USER-WECHAT-INTERNAL-BETA-QUALITY-028"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-SUBPACKAGE-TEACH-BACK-SYNC-028A",
+      "question": "是否冻结一个只修复费曼讲回分包生成源漂移的 028 后继单元？",
+      "choice": "授权 RU-SUBPACKAGE-TEACH-BACK-SYNC-028A 依赖并直接取代 028，只修改 xingce-learning 中立源、三个生成副本和六类生成器专项测试；保持现有讲回 API 语义，不修改后端、生成 OpenAPI、页面、题库、生产数据、上传或部署。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-15T18:45:00+08:00",
+      "evidenceRefs": ["E-CODE-SUBPACKAGE-TEACH-BACK-DRIFT-028A", "E-USER-WECHAT-INTERNAL-BETA-QUALITY-028"]
+    },
+    {
+      "id": "DEC-ROADMAP-BETA-MARKER-STABILITY-028B",
+      "question": "路线图状态正确但历史测试依赖 Markdown 表格空格时，应撤销格式化、放宽测试，还是补稳定文字锚点？",
+      "choice": "保留 Prettier 合法表格格式与现有未验证状态，在表格附近补一条稳定文字锚点，使历史边界测试不再依赖列对齐空格；不改变当前开发焦点、公测判断或任何运行时行为。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-15T19:07:00+08:00",
+      "evidenceRefs": ["E-CODE-ROADMAP-BETA-MARKER-DRIFT-028B", "E-USER-WECHAT-INTERNAL-BETA-QUALITY-028"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-ROADMAP-BETA-MARKER-028B",
+      "question": "是否冻结一个只修复路线图公测状态文本锚点的 028A 后继单元？",
+      "choice": "授权 RU-ROADMAP-BETA-MARKER-028B 依赖并直接取代 028A，只修改正式路线图并复验 022A 六类边界测试；禁止修改应用、后端、数据、题库、上传或部署。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-15T19:07:00+08:00",
+      "evidenceRefs": ["E-CODE-ROADMAP-BETA-MARKER-DRIFT-028B", "E-USER-WECHAT-INTERNAL-BETA-QUALITY-028"]
+    },
+    {
+      "id": "DEC-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+      "question": "体验版的申论 409、PDF 无入口和固定剪切框应通过更多用户门禁规避，还是修正客户端状态恢复与原生能力选择？",
+      "choice": "以服务端 workspace 为申论作答真相，已有答案时直接续接评阅，409 后自动重读恢复而不让用户刷新重提。PDF 保留微信 chooseMessageFile 的平台边界，但把入口明确为‘从微信文件选 PDF’并就地说明文件传输助手；图片优先 editImage 自由编辑，cropImage 只作兼容回退。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-15T21:10:00+08:00",
+      "evidenceRefs": ["E-USER-INTERNAL-BETA-RUNTIME-BLOCKERS-029", "E-CODE-INTERNAL-BETA-RUNTIME-BLOCKERS-029"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+      "question": "是否冻结一个只收敛三类真机阻断的 028B 后继修复单元？",
+      "choice": "授权 RU-INTERNAL-BETA-RUNTIME-BLOCKERS-029 依赖并直接取代 028B，仅修改申论任务客户端恢复与排版、题本 PDF 选择说明、图片编辑选择以及对应生成副本和专项测试。禁止修改后端、API schema、数据库、题库、真实账号数据、上传或部署。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-15T21:10:00+08:00",
+      "evidenceRefs": ["E-USER-INTERNAL-BETA-RUNTIME-BLOCKERS-029", "E-CODE-INTERNAL-BETA-RUNTIME-BLOCKERS-029"]
+    },
+    {
+      "id": "DEC-BETA-FLOW-DISCOVERABILITY-030",
+      "question": "PDF、刚完成错题和资料分析草稿应继续以技术模块各自暴露入口，还是围绕用户当前任务收成单一路径？",
+      "choice": "PDF 保留微信文件选择能力但从拍照/相册控制组中独立成‘上传 PDF 题本’；新鲜错题先进入可直达的待复盘队列，复盘后才形成长期错误模式；练习和模考只保留题目栏一个草稿入口，草稿工具内切换‘本题/共享材料’，复用现有两种笔迹 surface 与共享材料同步。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-15T22:33:00+08:00",
+      "evidenceRefs": ["E-USER-BETA-FLOW-DISCOVERABILITY-030", "E-CODE-BETA-FLOW-DISCOVERABILITY-030"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-BETA-FLOW-DISCOVERABILITY-030",
+      "question": "是否冻结一个只修复三条体验断链、保留现有作答与批注数据契约的 029 后继单元？",
+      "choice": "授权 RU-BETA-FLOW-DISCOVERABILITY-030 依赖并直接取代 029，仅修改题本导入呈现、能力/复盘入口文案、练习与模考草稿入口、共享批注组件及对应生成副本和专项测试。禁止修改后端、API schema、数据库、题库、真实用户数据、上传或部署。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-15T22:33:00+08:00",
+      "evidenceRefs": ["E-USER-BETA-FLOW-DISCOVERABILITY-030", "E-CODE-BETA-FLOW-DISCOVERABILITY-030"]
+    },
+    {
+      "id": "DEC-DIRECT-DRAFT-CANVAS-031",
+      "question": "一个草稿入口应继续让用户选择题目/材料 surface，还是把两种存储面隐藏为可直接涂画的连续工作区？",
+      "choice": "隐藏 question/material 技术 surface。点一次草稿后同时激活题目与材料画布，以一个宿主工具状态驱动两层且只显示一套工具栏；笔迹仍由原 reducer 按 question/material 分别保存。PDF 与错题的真实可用性另交给独立新任务做完整模拟器旅程。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-15T23:42:00+08:00",
+      "evidenceRefs": ["E-USER-DIRECT-DRAFT-CANVAS-031", "E-CODE-DIRECT-DRAFT-CANVAS-031"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-DIRECT-DRAFT-CANVAS-031",
+      "question": "是否冻结一个只把 030 的显式 surface 切换改为连续涂画、并保留既有数据契约的后继单元？",
+      "choice": "授权 RU-DIRECT-DRAFT-CANVAS-031 依赖并直接取代 030，仅修改练习/模考宿主、共享批注组件及生成副本、PDF 辅助文案和 031 专项测试。禁止修改后端、API schema、数据库、题库、真实用户数据、上传或部署；完整模拟器体验审计在独立新任务中进行。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-15T23:42:00+08:00",
+      "evidenceRefs": ["E-USER-DIRECT-DRAFT-CANVAS-031", "E-CODE-DIRECT-DRAFT-CANVAS-031"]
+    },
+    {
+      "id": "DEC-DIRECT-DRAFT-TEST-CONTRACT-032",
+      "question": "三条仍要求 annotationSurface 单选门控的历史测试，应通过模板兼容标记维持还是更新到用户确认的新规则？",
+      "choice": "直接更新历史测试契约到 031 连续双画布规则；不在生产 WXML 中加入无效节点、注释锚点或伪兼容表达式来骗过旧断言。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-16T00:17:00+08:00",
+      "evidenceRefs": ["E-CODE-DIRECT-DRAFT-TEST-DRIFT-032", "E-USER-DIRECT-DRAFT-CANVAS-031"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-DIRECT-DRAFT-TEST-CONTRACT-032",
+      "question": "是否冻结一个只校正三条历史测试和增加六类测试契约证据的 031 后继验证单元？",
+      "choice": "授权 RU-DIRECT-DRAFT-TEST-CONTRACT-032 依赖 031，只修改三条过时测试及 032 专项测试，不修改运行时、后端、数据、题库、上传或部署。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-16T00:17:00+08:00",
+      "evidenceRefs": ["E-CODE-DIRECT-DRAFT-TEST-DRIFT-032", "E-USER-DIRECT-DRAFT-CANVAS-031"]
     }
   ]
 }

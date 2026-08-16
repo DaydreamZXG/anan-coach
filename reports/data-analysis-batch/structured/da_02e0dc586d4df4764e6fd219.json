@@ -1,0 +1,243 @@
+{
+  "asset_id": "da_02e0dc586d4df4764e6fd219",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "大型企业",
+    "中型企业",
+    "小型企业",
+    "微型企业"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "大型企业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        45.8,
+        45.9,
+        47.1,
+        50.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "中型企业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        47.2,
+        46.8,
+        54.6,
+        55.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "小型企业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        42.1,
+        46.1,
+        47.7,
+        45.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "微型企业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        27.4,
+        32.4,
+        26.6,
+        22.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0046_3e49242c35f58d27.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0046_3e49242c35f58d27.png",
+        "paper_title": "2023年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_dbfd14bcdbeffafb56ac",
+        "question_number": 76,
+        "source_jsonl_line": 30680
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0057_bdd4b876d4e3977f.png",
+        "paper_title": "2023年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_525f94ffd811041533f0",
+        "question_number": 77,
+        "source_jsonl_line": 30681
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0046_3e49242c35f58d27.png",
+        "paper_title": "2023年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_379b9b26e262b91976ca",
+        "question_number": 78,
+        "source_jsonl_line": 30682
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0046_3e49242c35f58d27.png",
+        "paper_title": "2023年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_dea69968fce44c181821",
+        "question_number": 79,
+        "source_jsonl_line": 30683
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0046_3e49242c35f58d27.png",
+        "paper_title": "2023年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_09984bb0309ac8fee5e5",
+        "question_number": 80,
+        "source_jsonl_line": 30684
+      }
+    ],
+    "sha256": "02e0dc586d4df4764e6fd219b210ebed9df5f400d8f09a377b3e2d6be04c821c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2019年",
+      "2020年",
+      "2021年",
+      "2022年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "大型企业",
+        "unit": "%",
+        "values": [
+          45.8,
+          45.9,
+          47.1,
+          50.9
+        ]
+      },
+      {
+        "label": "中型企业",
+        "unit": "%",
+        "values": [
+          47.2,
+          46.8,
+          54.6,
+          55.4
+        ]
+      },
+      {
+        "label": "小型企业",
+        "unit": "%",
+        "values": [
+          42.1,
+          46.1,
+          47.7,
+          45.3
+        ]
+      },
+      {
+        "label": "微型企业",
+        "unit": "%",
+        "values": [
+          27.4,
+          32.4,
+          26.6,
+          22.0
+        ]
+      }
+    ]
+  },
+  "title": "2019-2022年不同规模企业发明专利产业化率",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_02e0dc586d4df4764e6fd219/row_band_01.jpg",
+        "review-crops/da_02e0dc586d4df4764e6fd219/row_band_02.jpg",
+        "review-crops/da_02e0dc586d4df4764e6fd219/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.627",
+      "crop_verification_elapsed_seconds:5.859",
+      "candidate_value_changes_after_crop:0",
+      "table_row_label_column_removed:<blank>"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

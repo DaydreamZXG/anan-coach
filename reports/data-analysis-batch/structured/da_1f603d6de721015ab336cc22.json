@@ -1,0 +1,260 @@
+{
+  "asset_id": "da_1f603d6de721015ab336cc22",
+  "axes": {
+    "x": {
+      "max": 6,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 700,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600,
+          700
+        ],
+        "title": null,
+        "unit": "亿吨公里"
+      },
+      {
+        "max": 50,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "运输总周转量",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "比上年增长",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "运输总周转量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿吨公里",
+      "values": [
+        305.8,
+        365.3,
+        376.8,
+        427.1,
+        538.5,
+        577.4
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比上年增长",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        17,
+        19.5,
+        3.1,
+        13.4,
+        26.1,
+        7.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2013年921联考《行测》题（河南卷）_images/img_0131_55168a8fd10666ef.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0131_55168a8fd10666ef.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_0a2a7c92b164af63ca13",
+        "question_number": 111,
+        "source_jsonl_line": 40931
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0131_55168a8fd10666ef.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_4d0c99dc28e244737cd5",
+        "question_number": 112,
+        "source_jsonl_line": 40932
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0131_55168a8fd10666ef.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_29551e88e5d80152cd58",
+        "question_number": 113,
+        "source_jsonl_line": 40933
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0131_55168a8fd10666ef.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_bbae9573985375b3e9d3",
+        "question_number": 114,
+        "source_jsonl_line": 40934
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0131_55168a8fd10666ef.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_47e80084a852db5bea87",
+        "question_number": 115,
+        "source_jsonl_line": 40935
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0127_55168a8fd10666ef.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_bcc8adf8d919e34cf560",
+        "question_number": 111,
+        "source_jsonl_line": 57608
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0153_9f40d2cc49257736.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_6c67dc2ffb3b34837101",
+        "question_number": 112,
+        "source_jsonl_line": 57609
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0153_9f40d2cc49257736.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_60611771409e5dab523f",
+        "question_number": 113,
+        "source_jsonl_line": 57610
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0153_9f40d2cc49257736.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_e19e3f9ef1c945f6438c",
+        "question_number": 114,
+        "source_jsonl_line": 57611
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年921联考《行测》题（河南卷）_images/img_0127_55168a8fd10666ef.jpg",
+        "paper_title": "2013年921联考《行测》题（河南卷）",
+        "question_id": "pq_a7520018911b8072a12c",
+        "question_number": 115,
+        "source_jsonl_line": 57612
+      }
+    ],
+    "sha256": "1f603d6de721015ab336cc22abaaa67ba62861a84e7e30ffcace0e4cd1a41d75"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2006—2011年民航运输总周转量",
+  "unit": "亿吨公里",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1f603d6de721015ab336cc22/column_band_01.jpg",
+        "review-crops/da_1f603d6de721015ab336cc22/column_band_02.jpg",
+        "review-crops/da_1f603d6de721015ab336cc22/column_band_03.jpg",
+        "review-crops/da_1f603d6de721015ab336cc22/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.758",
+      "crop_verification_elapsed_seconds:14.096",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2006年运输总周转量的数值为305.8，原图中显示为305.8，正确。",
+      "crop_note:修正了2007年运输总周转量的数值为365.3，原图中显示为365.3，正确。",
+      "crop_note:修正了2008年运输总周转量的数值为376.8，原图中显示为376.8，正确。",
+      "crop_note:修正了2009年运输总周转量的数值为427.1，原图中显示为427.1，正确。",
+      "crop_note:修正了2010年运输总周转量的数值为538.5，原图中显示为538.5，正确。",
+      "crop_note:修正了2011年运输总周转量的数值为577.4，原图中显示为577.4，正确。",
+      "crop_note:修正了2006年比上年增长的数值为17，原图中显示为17，正确。",
+      "crop_note:修正了2007年比上年增长的数值为19.5，原图中显示为19.5，正确。",
+      "crop_note:修正了2008年比上年增长的数值为3.1，原图中显示为3.1，正确。",
+      "crop_note:修正了2009年比上年增长的数值为13.4，原图中显示为13.4，正确。",
+      "crop_note:修正了2010年比上年增长的数值为26.1，原图中显示为26.1，正确。",
+      "crop_note:修正了2011年比上年增长的数值为7.2，原图中显示为7.2，正确。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

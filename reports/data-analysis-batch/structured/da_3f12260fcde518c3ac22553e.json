@@ -1,0 +1,461 @@
+{
+  "asset_id": "da_3f12260fcde518c3ac22553e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2026年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0136_f5b6b1f299c4689e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0136_f5b6b1f299c4689e.png",
+        "paper_title": "2026年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8834b77c3c463324da20",
+        "question_number": 106,
+        "source_jsonl_line": 6300
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0136_f5b6b1f299c4689e.png",
+        "paper_title": "2026年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e218a71bf7244c04b0b4",
+        "question_number": 107,
+        "source_jsonl_line": 6301
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0138_b2b8a2b5f97469a2.png",
+        "paper_title": "2026年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4e37bc8e64e1285dbd28",
+        "question_number": 108,
+        "source_jsonl_line": 6302
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0138_b2b8a2b5f97469a2.png",
+        "paper_title": "2026年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3443bebecd18b13b38c7",
+        "question_number": 109,
+        "source_jsonl_line": 6303
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0136_f5b6b1f299c4689e.png",
+        "paper_title": "2026年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_eec73294b3faef609b57",
+        "question_number": 110,
+        "source_jsonl_line": 6304
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0080_b2b8a2b5f97469a2.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c321dd8501882acfbdb1",
+        "question_number": 99,
+        "source_jsonl_line": 40005
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0093_f5b6b1f299c4689e.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6218624e503ca5d42fbd",
+        "question_number": 100,
+        "source_jsonl_line": 40006
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0080_b2b8a2b5f97469a2.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_722d2e5f51ad3d1953d1",
+        "question_number": 101,
+        "source_jsonl_line": 40007
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0080_b2b8a2b5f97469a2.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4b034e1eb79a4e7004ca",
+        "question_number": 102,
+        "source_jsonl_line": 40008
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0080_b2b8a2b5f97469a2.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8fc6d222c2bc58e1123e",
+        "question_number": 103,
+        "source_jsonl_line": 40009
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0093_f5b6b1f299c4689e.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_42204b1833b47ebdc82e",
+        "question_number": 104,
+        "source_jsonl_line": 40010
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0118_b2b8a2b5f97469a2.png",
+        "paper_title": "2026年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_55ba6af380af474abec3",
+        "question_number": 91,
+        "source_jsonl_line": 82036
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0118_b2b8a2b5f97469a2.png",
+        "paper_title": "2026年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9f32262bdf23a5dcc889",
+        "question_number": 92,
+        "source_jsonl_line": 82037
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0130_f5b6b1f299c4689e.png",
+        "paper_title": "2026年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_34f9aa40e6e795cb24a9",
+        "question_number": 93,
+        "source_jsonl_line": 82038
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0118_b2b8a2b5f97469a2.png",
+        "paper_title": "2026年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_105de02888bda8057977",
+        "question_number": 94,
+        "source_jsonl_line": 82039
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0130_f5b6b1f299c4689e.png",
+        "paper_title": "2026年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_72c42d7e2f6cc48b24ec",
+        "question_number": 95,
+        "source_jsonl_line": 82040
+      }
+    ],
+    "sha256": "3f12260fcde518c3ac22553e61a5e94202bac4289b6cbf90369f14d97d5544bd"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "R&D经费(亿元)2021",
+      "R&D经费(亿元)2022",
+      "R&D经费(亿元)2023",
+      "R&D经费(亿元)2024",
+      "投入强度(%)2021",
+      "投入强度(%)2022",
+      "投入强度(%)2023",
+      "投入强度(%)2024"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全国",
+        "unit": null,
+        "values": [
+          "全国",
+          27956.3,
+          30782.9,
+          33357.1,
+          36326.8,
+          2.44,
+          2.54,
+          2.58,
+          2.69
+        ]
+      },
+      {
+        "label": "北京",
+        "unit": null,
+        "values": [
+          "北京",
+          2629.3,
+          2843.1,
+          2947.1,
+          3278.4,
+          6.53,
+          6.83,
+          6.22,
+          6.58
+        ]
+      },
+      {
+        "label": "上海",
+        "unit": null,
+        "values": [
+          "上海",
+          1819.8,
+          1981.6,
+          2049.6,
+          2343.7,
+          4.21,
+          4.44,
+          3.99,
+          4.35
+        ]
+      },
+      {
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          "江苏",
+          3438.6,
+          3835.4,
+          4212.3,
+          4597.5,
+          2.95,
+          3.12,
+          3.22,
+          3.36
+        ]
+      },
+      {
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          "浙江",
+          2157.7,
+          2416.8,
+          2640.2,
+          2901.4,
+          2.94,
+          3.11,
+          3.08,
+          3.22
+        ]
+      },
+      {
+        "label": "安徽",
+        "unit": null,
+        "values": [
+          "安徽",
+          1006.1,
+          1152.5,
+          1264.7,
+          1396.2,
+          2.34,
+          2.56,
+          2.62,
+          2.76
+        ]
+      },
+      {
+        "label": "福建",
+        "unit": null,
+        "values": [
+          "福建",
+          968.7,
+          1082.1,
+          1171.7,
+          1257.2,
+          1.98,
+          2.04,
+          2.14,
+          2.18
+        ]
+      },
+      {
+        "label": "江西",
+        "unit": null,
+        "values": [
+          "江西",
+          502.2,
+          558.2,
+          604.1,
+          666.3,
+          1.7,
+          1.74,
+          1.85,
+          1.95
+        ]
+      },
+      {
+        "label": "山东",
+        "unit": null,
+        "values": [
+          "山东",
+          1944.7,
+          2180.4,
+          2386.0,
+          2597.3,
+          2.34,
+          2.49,
+          2.53,
+          2.64
+        ]
+      },
+      {
+        "label": "河南",
+        "unit": null,
+        "values": [
+          "河南",
+          1018.8,
+          1143.3,
+          1211.7,
+          1275.1,
+          1.73,
+          1.86,
+          2.0,
+          2.01
+        ]
+      },
+      {
+        "label": "湖北",
+        "unit": null,
+        "values": [
+          "湖北",
+          1160.2,
+          1254.7,
+          1408.2,
+          1538.1,
+          2.32,
+          2.33,
+          2.48,
+          2.56
+        ]
+      },
+      {
+        "label": "湖南",
+        "unit": null,
+        "values": [
+          "湖南",
+          1028.9,
+          1175.3,
+          1283.9,
+          1394.6,
+          2.23,
+          2.41,
+          2.53,
+          2.62
+        ]
+      },
+      {
+        "label": "广东",
+        "unit": null,
+        "values": [
+          "广东",
+          4002.2,
+          4411.9,
+          4802.6,
+          5099.6,
+          3.22,
+          3.42,
+          3.48,
+          3.6
+        ]
+      },
+      {
+        "label": "重庆",
+        "unit": null,
+        "values": [
+          "重庆",
+          603.8,
+          686.6,
+          746.7,
+          797.3,
+          2.16,
+          2.36,
+          2.44,
+          2.48
+        ]
+      },
+      {
+        "label": "四川",
+        "unit": null,
+        "values": [
+          "四川",
+          1214.5,
+          1215.0,
+          1357.8,
+          1496.8,
+          2.26,
+          2.14,
+          2.21,
+          2.32
+        ]
+      }
+    ]
+  },
+  "title": "2021-2024年全国及部分省市R&D经费及其投入强度",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3f12260fcde518c3ac22553e/row_band_01.jpg",
+        "review-crops/da_3f12260fcde518c3ac22553e/row_band_02.jpg",
+        "review-crops/da_3f12260fcde518c3ac22553e/row_band_03.jpg",
+        "review-crops/da_3f12260fcde518c3ac22553e/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:17.319",
+      "crop_verification_elapsed_seconds:20.272",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:全国:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:北京:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:全国:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:北京:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:上海:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:江苏:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:浙江:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:安徽:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:福建:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:安徽:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:福建:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:江西:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:山东:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:河南:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:湖北:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:湖南:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:湖北:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:湖南:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:广东:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:重庆:8!=9",
+      "crop_note:ignored_table_row_length_mismatch:四川:8!=9"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

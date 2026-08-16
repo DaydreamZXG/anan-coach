@@ -1,0 +1,298 @@
+{
+  "asset_id": "da_6e85baf4fd2bbbf5ecac7621",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2022年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0088_2d75207b169aca43.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0088_2d75207b169aca43.png",
+        "paper_title": "2022年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_69f6311c608ac85bbf4e",
+        "question_number": 91,
+        "source_jsonl_line": 16606
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0088_2d75207b169aca43.png",
+        "paper_title": "2022年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_68fca732658ef0937af4",
+        "question_number": 92,
+        "source_jsonl_line": 16607
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0088_2d75207b169aca43.png",
+        "paper_title": "2022年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_23e48a643c7a81b37999",
+        "question_number": 93,
+        "source_jsonl_line": 16608
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0088_2d75207b169aca43.png",
+        "paper_title": "2022年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_f49b43528f9e50cc5e43",
+        "question_number": 94,
+        "source_jsonl_line": 16609
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川下半年公务员录用考试《行测》试题（网友回忆版）_images/img_0088_2d75207b169aca43.png",
+        "paper_title": "2022年四川下半年公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_1c2c7c77d0778f704bb0",
+        "question_number": 95,
+        "source_jsonl_line": 16610
+      }
+    ],
+    "sha256": "6e85baf4fd2bbbf5ecac7621ddab8f965eae710b4b76f4714291621b40e28388"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "全市居民",
+      "城镇居民",
+      "农村居民"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "display_label": "工资性收入",
+        "group": null,
+        "label": "工资性收入",
+        "unit": null,
+        "values": [
+          15475,
+          22119,
+          5316
+        ]
+      },
+      {
+        "display_label": "经营净收入",
+        "group": null,
+        "label": "经营净收入",
+        "unit": null,
+        "values": [
+          4697,
+          4361,
+          5210
+        ]
+      },
+      {
+        "display_label": "财产净收入",
+        "group": null,
+        "label": "财产净收入",
+        "unit": null,
+        "values": [
+          1792,
+          2724,
+          367
+        ]
+      },
+      {
+        "display_label": "转移净收入",
+        "group": null,
+        "label": "转移净收入",
+        "unit": null,
+        "values": [
+          6956,
+          8735,
+          4240
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "column_groups": [],
+        "columns": [
+          "全市居民",
+          "城镇居民",
+          "农村居民"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "工资性收入",
+            "group": null,
+            "label": "工资性收入",
+            "unit": null,
+            "values": [
+              15475,
+              22119,
+              5316
+            ]
+          },
+          {
+            "display_label": "经营净收入",
+            "group": null,
+            "label": "经营净收入",
+            "unit": null,
+            "values": [
+              4697,
+              4361,
+              5210
+            ]
+          },
+          {
+            "display_label": "财产净收入",
+            "group": null,
+            "label": "财产净收入",
+            "unit": null,
+            "values": [
+              1792,
+              2724,
+              367
+            ]
+          },
+          {
+            "display_label": "转移净收入",
+            "group": null,
+            "label": "转移净收入",
+            "unit": null,
+            "values": [
+              6956,
+              8735,
+              4240
+            ]
+          }
+        ],
+        "sections": [],
+        "title": "表 1  2019 年 A 市城乡居民各类人均收入"
+      },
+      {
+        "column_groups": [],
+        "columns": [
+          "2018 年",
+          "2019 年"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "全市城镇企业职工基本养老保险",
+            "group": null,
+            "label": "全市城镇企业职工基本养老保险",
+            "unit": null,
+            "values": [
+              1050.33,
+              1127.72
+            ]
+          },
+          {
+            "display_label": "城乡居民社会养老保险",
+            "group": null,
+            "label": "城乡居民社会养老保险",
+            "unit": null,
+            "values": [
+              1120.12,
+              1162.68
+            ]
+          },
+          {
+            "display_label": "城镇职工基本医疗保险",
+            "group": null,
+            "label": "城镇职工基本医疗保险",
+            "unit": null,
+            "values": [
+              678.56,
+              720.63
+            ]
+          },
+          {
+            "display_label": "城乡居民基本医疗保险",
+            "group": null,
+            "label": "城乡居民基本医疗保险",
+            "unit": null,
+            "values": [
+              2587.67,
+              2551.44
+            ]
+          },
+          {
+            "display_label": "工伤保险",
+            "group": null,
+            "label": "工伤保险",
+            "unit": null,
+            "values": [
+              576.87,
+              661.67
+            ]
+          },
+          {
+            "display_label": "生育保险",
+            "group": null,
+            "label": "生育保险",
+            "unit": null,
+            "values": [
+              439.69,
+              466.95
+            ]
+          },
+          {
+            "display_label": "失业保险",
+            "group": null,
+            "label": "失业保险",
+            "unit": null,
+            "values": [
+              489.96,
+              514.95
+            ]
+          }
+        ],
+        "sections": [],
+        "title": "表 2  2018~2019 年 A 市各类保险参保人数"
+      }
+    ],
+    "title": "表 1  2019 年 A 市城乡居民各类人均收入"
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

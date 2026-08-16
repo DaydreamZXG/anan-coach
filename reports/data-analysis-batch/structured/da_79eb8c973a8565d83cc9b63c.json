@@ -1,0 +1,386 @@
+{
+  "asset_id": "da_79eb8c973a8565d83cc9b63c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "指标",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "水平（元）",
+        "unit": "元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "增长率（%）",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "水平（元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        8834,
+        2678,
+        668,
+        1919,
+        535,
+        1211,
+        869,
+        718,
+        236
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "增长率（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        7.6,
+        5.6,
+        2.4,
+        8.3,
+        6.5,
+        9.6,
+        10.0,
+        11.9,
+        11.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2018年421联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0228_c4c498260483361e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0228_c4c498260483361e.png",
+        "paper_title": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_a8e3096ab34960fb8098",
+        "question_number": 116,
+        "source_jsonl_line": 7549
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0228_c4c498260483361e.png",
+        "paper_title": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_93ed42ded6586fc69738",
+        "question_number": 117,
+        "source_jsonl_line": 7550
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0228_c4c498260483361e.png",
+        "paper_title": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_00472b7c3e5fe65b46b2",
+        "question_number": 118,
+        "source_jsonl_line": 7551
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0228_c4c498260483361e.png",
+        "paper_title": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_364387659fa6a87fa951",
+        "question_number": 119,
+        "source_jsonl_line": 7552
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）_images/img_0228_c4c498260483361e.png",
+        "paper_title": "2018年421联考《行测》题（内蒙古卷）（网友回忆版）",
+        "question_id": "pq_9d62f3f6b4e058857a2a",
+        "question_number": 120,
+        "source_jsonl_line": 7553
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（天津卷）（网友回忆版）_images/img_0163_dc99f167c77294c2.png",
+        "paper_title": "2018年421联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_a9131c154cc68195d8d5",
+        "question_number": 106,
+        "source_jsonl_line": 23508
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（天津卷）（网友回忆版）_images/img_0171_c4c498260483361e.png",
+        "paper_title": "2018年421联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_717e2c78eef50df1ac8b",
+        "question_number": 107,
+        "source_jsonl_line": 23509
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（天津卷）（网友回忆版）_images/img_0171_c4c498260483361e.png",
+        "paper_title": "2018年421联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_20004d325f9a266fbce2",
+        "question_number": 108,
+        "source_jsonl_line": 23510
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（天津卷）（网友回忆版）_images/img_0163_dc99f167c77294c2.png",
+        "paper_title": "2018年421联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_03bb5096cfeef9fc8bcd",
+        "question_number": 109,
+        "source_jsonl_line": 23511
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（天津卷）（网友回忆版）_images/img_0163_dc99f167c77294c2.png",
+        "paper_title": "2018年421联考《行测》题（天津卷）（网友回忆版）",
+        "question_id": "pq_e21b18d3d1d3d3b9ac3e",
+        "question_number": 110,
+        "source_jsonl_line": 23512
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（山西卷）（网友回忆版）_images/img_0225_c4c498260483361e.png",
+        "paper_title": "2018年421联考《行测》题（山西卷）（网友回忆版）",
+        "question_id": "pq_9539d4351393a978bd0f",
+        "question_number": 116,
+        "source_jsonl_line": 32434
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（山西卷）（网友回忆版）_images/img_0238_dc99f167c77294c2.png",
+        "paper_title": "2018年421联考《行测》题（山西卷）（网友回忆版）",
+        "question_id": "pq_36cf3e48b9f642a866ec",
+        "question_number": 117,
+        "source_jsonl_line": 32435
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（山西卷）（网友回忆版）_images/img_0238_dc99f167c77294c2.png",
+        "paper_title": "2018年421联考《行测》题（山西卷）（网友回忆版）",
+        "question_id": "pq_31935e6b90b80b532c32",
+        "question_number": 118,
+        "source_jsonl_line": 32436
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（山西卷）（网友回忆版）_images/img_0225_c4c498260483361e.png",
+        "paper_title": "2018年421联考《行测》题（山西卷）（网友回忆版）",
+        "question_id": "pq_b39025300c2323b98c6e",
+        "question_number": 119,
+        "source_jsonl_line": 32437
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（山西卷）（网友回忆版）_images/img_0225_c4c498260483361e.png",
+        "paper_title": "2018年421联考《行测》题（山西卷）（网友回忆版）",
+        "question_id": "pq_241b287bda0e5e352f07",
+        "question_number": 120,
+        "source_jsonl_line": 32438
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（新疆卷）（网友回忆版）_images/img_0224_c4c498260483361e.png",
+        "paper_title": "2018年421联考《行测》题（新疆卷）（网友回忆版）",
+        "question_id": "pq_1b3f577d994cf462e953",
+        "question_number": 111,
+        "source_jsonl_line": 42861
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（新疆卷）（网友回忆版）_images/img_0238_dc99f167c77294c2.png",
+        "paper_title": "2018年421联考《行测》题（新疆卷）（网友回忆版）",
+        "question_id": "pq_ad1edd358f85b021e249",
+        "question_number": 112,
+        "source_jsonl_line": 42862
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（新疆卷）（网友回忆版）_images/img_0224_c4c498260483361e.png",
+        "paper_title": "2018年421联考《行测》题（新疆卷）（网友回忆版）",
+        "question_id": "pq_1da9fcc8730ea21635ce",
+        "question_number": 113,
+        "source_jsonl_line": 42863
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（新疆卷）（网友回忆版）_images/img_0238_dc99f167c77294c2.png",
+        "paper_title": "2018年421联考《行测》题（新疆卷）（网友回忆版）",
+        "question_id": "pq_26bab7af3e910dcfa239",
+        "question_number": 114,
+        "source_jsonl_line": 42864
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（新疆卷）（网友回忆版）_images/img_0224_c4c498260483361e.png",
+        "paper_title": "2018年421联考《行测》题（新疆卷）（网友回忆版）",
+        "question_id": "pq_cba92818e9638df076b8",
+        "question_number": 115,
+        "source_jsonl_line": 42865
+      }
+    ],
+    "sha256": "79eb8c973a8565d83cc9b63c3b7488b3ec1a598d1a64001cf3535a27fd6021fd"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "水平（元）",
+      "增长率（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全国居民人均消费支出",
+        "unit": null,
+        "values": [
+          "全国居民人均消费支出",
+          8834,
+          7.6
+        ]
+      },
+      {
+        "label": "按消费类别分:",
+        "unit": null,
+        "values": [
+          "按消费类别分:",
+          null,
+          null
+        ]
+      },
+      {
+        "label": "食品烟酒",
+        "unit": null,
+        "values": [
+          "食品烟酒",
+          2678,
+          5.6
+        ]
+      },
+      {
+        "label": "衣着",
+        "unit": null,
+        "values": [
+          "衣着",
+          668,
+          2.4
+        ]
+      },
+      {
+        "label": "居住",
+        "unit": null,
+        "values": [
+          "居住",
+          1919,
+          8.3
+        ]
+      },
+      {
+        "label": "生活用品及服务",
+        "unit": null,
+        "values": [
+          "生活用品及服务",
+          535,
+          6.5
+        ]
+      },
+      {
+        "label": "交通通信",
+        "unit": null,
+        "values": [
+          "交通通信",
+          1211,
+          9.6
+        ]
+      },
+      {
+        "label": "教育文化娱乐",
+        "unit": null,
+        "values": [
+          "教育文化娱乐",
+          869,
+          10
+        ]
+      },
+      {
+        "label": "医疗保健",
+        "unit": null,
+        "values": [
+          "医疗保健",
+          718,
+          11.9
+        ]
+      },
+      {
+        "label": "其他用品和服务",
+        "unit": null,
+        "values": [
+          "其他用品和服务",
+          236,
+          11.9
+        ]
+      }
+    ]
+  },
+  "title": "2017年上半年全国居民消费支出主要数据",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_79eb8c973a8565d83cc9b63c/row_band_01.jpg",
+        "review-crops/da_79eb8c973a8565d83cc9b63c/row_band_02.jpg",
+        "review-crops/da_79eb8c973a8565d83cc9b63c/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.235",
+      "crop_verification_elapsed_seconds:3.938",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

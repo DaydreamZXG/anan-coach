@@ -1,0 +1,384 @@
+{
+  "asset_id": "da_fc4d43751681fa79988898cc",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "地区",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "人均可支配收入",
+        "unit": "元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "人均消费性支出",
+        "unit": "元"
+      }
+    ]
+  },
+  "categories": [
+    "南昌",
+    "景德镇",
+    "萍乡",
+    "九江",
+    "新余",
+    "鹰潭",
+    "赣州",
+    "吉安",
+    "宜春",
+    "抚州",
+    "上饶",
+    "全省"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2009",
+      "label": "人均可支配收入 2009年",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        16472,
+        14996,
+        14825,
+        14203,
+        15610,
+        14140,
+        12901,
+        14095,
+        13006,
+        13119,
+        13989,
+        14022
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2009",
+      "label": "人均消费性支出 2009年",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        12406,
+        10560,
+        10576,
+        9368,
+        12351,
+        9839,
+        9882,
+        8306,
+        9923,
+        6697,
+        9953,
+        9740
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2010",
+      "label": "人均可支配收入 2010年",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        18276,
+        16657,
+        16381,
+        15764,
+        17358,
+        15618,
+        14203,
+        15547,
+        14333,
+        14445,
+        15535,
+        15481
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2010",
+      "label": "人均消费性支出 2010年",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        13899,
+        11475,
+        11775,
+        10823,
+        12709,
+        10929,
+        10662,
+        8893,
+        10098,
+        7474,
+        10099,
+        10619
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2012年江西省公务员录用考试《行测》题_images/img_0107_d16239ec1f87598a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江西省公务员录用考试《行测》题_images/img_0107_d16239ec1f87598a.png",
+        "paper_title": "2012年江西省公务员录用考试《行测》题",
+        "question_id": "pq_f9a6ca2bd894c7a68d89",
+        "question_number": 121,
+        "source_jsonl_line": 51606
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江西省公务员录用考试《行测》题_images/img_0127_6ef018b83616c9ef.png",
+        "paper_title": "2012年江西省公务员录用考试《行测》题",
+        "question_id": "pq_0b08707b1d246f352027",
+        "question_number": 122,
+        "source_jsonl_line": 51607
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江西省公务员录用考试《行测》题_images/img_0127_6ef018b83616c9ef.png",
+        "paper_title": "2012年江西省公务员录用考试《行测》题",
+        "question_id": "pq_891aefb7b94df4959693",
+        "question_number": 123,
+        "source_jsonl_line": 51608
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江西省公务员录用考试《行测》题_images/img_0107_d16239ec1f87598a.png",
+        "paper_title": "2012年江西省公务员录用考试《行测》题",
+        "question_id": "pq_6b89a18e3968f5c99faa",
+        "question_number": 124,
+        "source_jsonl_line": 51609
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江西省公务员录用考试《行测》题_images/img_0107_d16239ec1f87598a.png",
+        "paper_title": "2012年江西省公务员录用考试《行测》题",
+        "question_id": "pq_f1b654712ae79b024909",
+        "question_number": 125,
+        "source_jsonl_line": 51610
+      }
+    ],
+    "sha256": "fc4d43751681fa79988898cc72960a09d03422955678ab52f30d57c93eea8c1c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "人均可支配收入 2009年",
+      "人均消费性支出 2009年",
+      "人均可支配收入 2010年",
+      "人均消费性支出 2010年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "南昌",
+        "unit": null,
+        "values": [
+          "南昌",
+          16472,
+          12406,
+          18276,
+          13899
+        ]
+      },
+      {
+        "label": "景德镇",
+        "unit": null,
+        "values": [
+          "景德镇",
+          14996,
+          10560,
+          16657,
+          11475
+        ]
+      },
+      {
+        "label": "萍乡",
+        "unit": null,
+        "values": [
+          "萍乡",
+          14825,
+          10576,
+          16381,
+          11775
+        ]
+      },
+      {
+        "label": "九江",
+        "unit": null,
+        "values": [
+          "九江",
+          14203,
+          9368,
+          15764,
+          10823
+        ]
+      },
+      {
+        "label": "新余",
+        "unit": null,
+        "values": [
+          "新余",
+          15610,
+          12351,
+          17358,
+          12709
+        ]
+      },
+      {
+        "label": "鹰潭",
+        "unit": null,
+        "values": [
+          "鹰潭",
+          14140,
+          9839,
+          15618,
+          10929
+        ]
+      },
+      {
+        "label": "赣州",
+        "unit": null,
+        "values": [
+          "赣州",
+          12901,
+          9882,
+          14203,
+          10662
+        ]
+      },
+      {
+        "label": "吉安",
+        "unit": null,
+        "values": [
+          "吉安",
+          14095,
+          8306,
+          15547,
+          8893
+        ]
+      },
+      {
+        "label": "宜春",
+        "unit": null,
+        "values": [
+          "宜春",
+          13006,
+          9923,
+          14333,
+          10098
+        ]
+      },
+      {
+        "label": "抚州",
+        "unit": null,
+        "values": [
+          "抚州",
+          13119,
+          6697,
+          14445,
+          7474
+        ]
+      },
+      {
+        "label": "上饶",
+        "unit": null,
+        "values": [
+          "上饶",
+          13989,
+          9953,
+          15535,
+          10099
+        ]
+      },
+      {
+        "label": "全省",
+        "unit": null,
+        "values": [
+          "全省",
+          14022,
+          9740,
+          15481,
+          10619
+        ]
+      }
+    ]
+  },
+  "title": "江西省各设区市城镇居民人均可支配收入和人均消费性支出情况",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_fc4d43751681fa79988898cc/row_band_01.jpg",
+        "review-crops/da_fc4d43751681fa79988898cc/row_band_02.jpg",
+        "review-crops/da_fc4d43751681fa79988898cc/row_band_03.jpg",
+        "review-crops/da_fc4d43751681fa79988898cc/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:16.999",
+      "crop_verification_elapsed_seconds:15.47",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

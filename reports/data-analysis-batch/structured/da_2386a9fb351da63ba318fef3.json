@@ -1,0 +1,457 @@
+{
+  "asset_id": "da_2386a9fb351da63ba318fef3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0123_dc9a77061e8099f4.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0123_dc9a77061e8099f4.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_e6162ddcfee60beeac52",
+        "question_number": 86,
+        "source_jsonl_line": 4416
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0117_6f290ae4a6453fa9.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_534713da0758ad688583",
+        "question_number": 87,
+        "source_jsonl_line": 4417
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0123_dc9a77061e8099f4.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_360a57d496b769860400",
+        "question_number": 88,
+        "source_jsonl_line": 4418
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0123_dc9a77061e8099f4.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_1fac886d3f773a183ae2",
+        "question_number": 89,
+        "source_jsonl_line": 4419
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0117_6f290ae4a6453fa9.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_db2566981a838875c8f2",
+        "question_number": 90,
+        "source_jsonl_line": 4420
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0119_dc9a77061e8099f4.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_dfa217e3ac5099864eb1",
+        "question_number": 86,
+        "source_jsonl_line": 6525
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0119_dc9a77061e8099f4.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_798304dd28657b2a77a0",
+        "question_number": 87,
+        "source_jsonl_line": 6526
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0128_6f290ae4a6453fa9.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_c09d477fc36d5b6bd481",
+        "question_number": 88,
+        "source_jsonl_line": 6527
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0119_dc9a77061e8099f4.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_298235ccaa5c85617d73",
+        "question_number": 89,
+        "source_jsonl_line": 6528
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0119_dc9a77061e8099f4.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_ec725da9d05d5ce96a56",
+        "question_number": 90,
+        "source_jsonl_line": 6529
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0121_dc9a77061e8099f4.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_f9db75a4dcef1c4ba31d",
+        "question_number": 86,
+        "source_jsonl_line": 22111
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0121_dc9a77061e8099f4.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_7b58807e5c0b3a958733",
+        "question_number": 87,
+        "source_jsonl_line": 22112
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0121_dc9a77061e8099f4.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_a5b3660a602cea79c9be",
+        "question_number": 88,
+        "source_jsonl_line": 22113
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0121_dc9a77061e8099f4.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_6e84d9f993cf51af03ba",
+        "question_number": 89,
+        "source_jsonl_line": 22114
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0121_dc9a77061e8099f4.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_3d02c9468948f07d5109",
+        "question_number": 90,
+        "source_jsonl_line": 22115
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0123_dc9a77061e8099f4.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_a9d1f41907d1148c0a2e",
+        "question_number": 86,
+        "source_jsonl_line": 24732
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0123_dc9a77061e8099f4.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_bf0fb7482b4ffafeb91c",
+        "question_number": 87,
+        "source_jsonl_line": 24733
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0118_6f290ae4a6453fa9.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_eaee6cd26f162669d2b4",
+        "question_number": 88,
+        "source_jsonl_line": 24734
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0118_6f290ae4a6453fa9.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_b59ae15d1d8a6e70a186",
+        "question_number": 89,
+        "source_jsonl_line": 24735
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年425联考《行测》题（云南_湖南_海南_山东_内蒙古_重庆_广西_辽宁_宁夏_陕西_天津）_images/img_0123_dc9a77061e8099f4.png",
+        "paper_title": "2010年425联考《行测》题（云南/湖南/海南/山东/内蒙古/重庆/广西/辽宁/宁夏/陕西/天津）",
+        "question_id": "pq_b82af997f1767ceccd0b",
+        "question_number": 90,
+        "source_jsonl_line": 24736
+      }
+    ],
+    "sha256": "2386a9fb351da63ba318fef355af75e9d2144f83317c2441978fa53990d848c4"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地理纬度",
+      "海拔(米)",
+      "年均温度(度)",
+      "最冷月平均温度(度)",
+      "最暖月平均温度(度)",
+      "年均降水(mm)",
+      "最湿月平均降水(mm)",
+      "最干月平均降水(mm)",
+      "日照最常月平均日照时数(小时/月)",
+      "日照最短月平均日照时数(小时/月)"
+    ],
+    "corner_header": {
+      "lower_label": "最冷月平均温度（℃）",
+      "style": "diagonal",
+      "upper_label": "年均温度（℃）"
+    },
+    "missing_cells": [],
+    "row_header_label": "最冷月平均温度（℃）",
+    "rows": [
+      {
+        "display_label": "中国",
+        "group": "北京",
+        "label": "北京｜中国",
+        "unit": null,
+        "values": [
+          "39° 55′N",
+          37,
+          11.8,
+          "-4.3/7",
+          "25.9/7",
+          578,
+          "182/8",
+          "2/12",
+          "9.3/5",
+          "6.1/12"
+        ]
+      },
+      {
+        "display_label": "中国",
+        "group": "香港",
+        "label": "香港｜中国",
+        "unit": null,
+        "values": [
+          "22° 20′N",
+          33,
+          22.9,
+          "15.8/7",
+          "28.8/7",
+          2215,
+          "391/8",
+          "23/1",
+          "7.5/7",
+          "3.1/3"
+        ]
+      },
+      {
+        "display_label": "俄罗斯联邦",
+        "group": "鄂木斯克",
+        "label": "鄂木斯克｜俄罗斯联邦",
+        "unit": null,
+        "values": [
+          "55° 00′N",
+          85,
+          1.4,
+          "-17.3/7",
+          "19.7/7",
+          391,
+          "61/7",
+          "14/2,3",
+          "10.4/7",
+          "2.0/12"
+        ]
+      },
+      {
+        "display_label": "俄罗斯联邦",
+        "group": "海参崴",
+        "label": "海参崴｜俄罗斯联邦",
+        "unit": null,
+        "values": [
+          "43° 10′N",
+          28,
+          4.2,
+          "-13.1/7",
+          "19.5/8",
+          788,
+          "149/8",
+          "15/1",
+          "7.0/3",
+          "3.9/7"
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": "东京",
+        "label": "东京｜日本",
+        "unit": null,
+        "values": [
+          "35° 40′N",
+          6,
+          15.6,
+          "5.2/7",
+          "27.1/8",
+          1406,
+          "185/5",
+          "45/1",
+          "5.9/5",
+          "3.7/9"
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": "新德里",
+        "label": "新德里｜印度",
+        "unit": null,
+        "values": [
+          "28° 40′N",
+          216,
+          25.1,
+          "14.3/6",
+          "33.4/6",
+          790,
+          "237/7",
+          "9/11,12",
+          "7.3/9",
+          "5.4/7"
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": "加尔各答",
+        "label": "加尔各答｜印度",
+        "unit": null,
+        "values": [
+          "22° 35′N",
+          10,
+          26.9,
+          "20.1/7",
+          "30.7/5",
+          1800,
+          "411/7",
+          "11/1",
+          "7.9/4",
+          "3.0/7"
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": "孟买",
+        "label": "孟买｜印度",
+        "unit": null,
+        "values": [
+          "18° 55′N",
+          11,
+          27.5,
+          "24.5/7",
+          "30.2/5",
+          2168,
+          "682/7",
+          "0/1-3",
+          "9.6/5",
+          "2.4/7"
+        ]
+      },
+      {
+        "display_label": "菲律宾",
+        "group": "马尼拉",
+        "label": "马尼拉｜菲律宾",
+        "unit": null,
+        "values": [
+          "14° 35′N",
+          16,
+          27.4,
+          "25.6/7",
+          "29.5/5",
+          1875,
+          "398/8",
+          "3/2",
+          "8.6/4",
+          "4.2/8"
+        ]
+      },
+      {
+        "display_label": "越南",
+        "group": "胡志明市",
+        "label": "胡志明市｜越南",
+        "unit": null,
+        "values": [
+          "10° 45′N",
+          10,
+          27.2,
+          "25.7/1",
+          "29.0/4",
+          1861,
+          "303/9",
+          "4/2",
+          "7.5/2",
+          "4.4/7"
+        ]
+      },
+      {
+        "display_label": "新加坡",
+        "group": null,
+        "label": "新加坡",
+        "unit": null,
+        "values": [
+          "1° 20′N",
+          17,
+          26.7,
+          "25.7/12",
+          "27.5/5",
+          2150,
+          "304/12",
+          "140/6",
+          "6.2/2",
+          "4.3/11"
+        ]
+      },
+      {
+        "display_label": "印度尼西亚",
+        "group": "雅加达",
+        "label": "雅加达｜印度尼西亚",
+        "unit": null,
+        "values": [
+          "6° 10′S",
+          8,
+          26.2,
+          "25.6/7",
+          "27.3/8",
+          1802,
+          "336/1",
+          "46/8",
+          "7.6/8",
+          "4.5/1"
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

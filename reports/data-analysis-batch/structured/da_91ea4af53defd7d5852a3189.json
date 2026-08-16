@@ -1,0 +1,351 @@
+{
+  "asset_id": "da_91ea4af53defd7d5852a3189",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2013年天津市公务员录用考试《行测》题_images/img_0221_4d35df076697779f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年天津市公务员录用考试《行测》题_images/img_0221_4d35df076697779f.png",
+        "paper_title": "2013年天津市公务员录用考试《行测》题",
+        "question_id": "pq_e3c9be37be969ac2d975",
+        "question_number": 116,
+        "source_jsonl_line": 22381
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年天津市公务员录用考试《行测》题_images/img_0221_4d35df076697779f.png",
+        "paper_title": "2013年天津市公务员录用考试《行测》题",
+        "question_id": "pq_2f564d286e13a08b2541",
+        "question_number": 117,
+        "source_jsonl_line": 22382
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年天津市公务员录用考试《行测》题_images/img_0221_4d35df076697779f.png",
+        "paper_title": "2013年天津市公务员录用考试《行测》题",
+        "question_id": "pq_bd98d0b53d4981b7fa6f",
+        "question_number": 118,
+        "source_jsonl_line": 22383
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年天津市公务员录用考试《行测》题_images/img_0221_4d35df076697779f.png",
+        "paper_title": "2013年天津市公务员录用考试《行测》题",
+        "question_id": "pq_5a5cd1b6d84ece06bb0d",
+        "question_number": 119,
+        "source_jsonl_line": 22384
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年天津市公务员录用考试《行测》题_images/img_0226_1147c96c7c26e8df.png",
+        "paper_title": "2013年天津市公务员录用考试《行测》题",
+        "question_id": "pq_cd0d3b94ccecac99c113",
+        "question_number": 120,
+        "source_jsonl_line": 22385
+      }
+    ],
+    "sha256": "91ea4af53defd7d5852a31896e23ac31a5154b4917cd82045aa8c3c39845c9ca"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2005年",
+      "2009年",
+      "2010年",
+      "2011年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标｜分类",
+    "rows": [
+      {
+        "display_label": "巴西",
+        "group": "GDP（现价）",
+        "label": "GDP（现价）｜巴西",
+        "unit": null,
+        "values": [
+          8820,
+          16250,
+          21430,
+          24808
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": "GDP（现价）",
+        "label": "GDP（现价）｜俄罗斯",
+        "unit": null,
+        "values": [
+          7640,
+          12230,
+          14870,
+          18500
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": "GDP（现价）",
+        "label": "GDP（现价）｜印度",
+        "unit": null,
+        "values": [
+          7669,
+          12930,
+          16030,
+          null
+        ]
+      },
+      {
+        "display_label": "中国",
+        "group": "GDP（现价）",
+        "label": "GDP（现价）｜中国",
+        "unit": null,
+        "values": [
+          22580,
+          49910,
+          59310,
+          73010
+        ]
+      },
+      {
+        "display_label": "南非",
+        "group": "GDP（现价）",
+        "label": "GDP（现价）｜南非",
+        "unit": null,
+        "values": [
+          2470,
+          2840,
+          3640,
+          3750
+        ]
+      },
+      {
+        "display_label": "巴西",
+        "group": "人均GDP（现价）",
+        "label": "人均GDP（现价）｜巴西",
+        "unit": null,
+        "values": [
+          4812,
+          5887,
+          10812,
+          12726
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": "人均GDP（现价）",
+        "label": "人均GDP（现价）｜俄罗斯",
+        "unit": null,
+        "values": [
+          5339,
+          8616,
+          10409,
+          12945
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": "人均GDP（现价）",
+        "label": "人均GDP（现价）｜印度",
+        "unit": null,
+        "values": [
+          692,
+          1115,
+          1325,
+          null
+        ]
+      },
+      {
+        "display_label": "中国",
+        "group": "人均GDP（现价）",
+        "label": "人均GDP（现价）｜中国",
+        "unit": null,
+        "values": [
+          1732,
+          3749,
+          4434,
+          5432
+        ]
+      },
+      {
+        "display_label": "南非",
+        "group": "人均GDP（现价）",
+        "label": "人均GDP（现价）｜南非",
+        "unit": null,
+        "values": [
+          5215,
+          5727,
+          7250,
+          null
+        ]
+      },
+      {
+        "display_label": "巴西",
+        "group": "GDP增长率（不变价）",
+        "label": "GDP增长率（不变价）｜巴西",
+        "unit": null,
+        "values": [
+          3.2,
+          -0.3,
+          7.5,
+          2.7
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": "GDP增长率（不变价）",
+        "label": "GDP增长率（不变价）｜俄罗斯",
+        "unit": null,
+        "values": [
+          6.4,
+          -7.8,
+          4.3,
+          4.3
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": "GDP增长率（不变价）",
+        "label": "GDP增长率（不变价）｜印度",
+        "unit": null,
+        "values": [
+          15.8,
+          12.4,
+          23.9,
+          9.2
+        ]
+      },
+      {
+        "display_label": "中国",
+        "group": "GDP增长率（不变价）",
+        "label": "GDP增长率（不变价）｜中国",
+        "unit": null,
+        "values": [
+          11.3,
+          9.2,
+          10.4,
+          9.2
+        ]
+      },
+      {
+        "display_label": "南非",
+        "group": "GDP增长率（不变价）",
+        "label": "GDP增长率（不变价）｜南非",
+        "unit": null,
+        "values": [
+          5.3,
+          -1.5,
+          2.9,
+          3.1
+        ]
+      },
+      {
+        "display_label": "巴西",
+        "group": "公共教育支出占GDP比重（%）",
+        "label": "公共教育支出占GDP比重（%）｜巴西",
+        "unit": null,
+        "values": [
+          null,
+          4.3,
+          null,
+          null
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": "公共教育支出占GDP比重（%）",
+        "label": "公共教育支出占GDP比重（%）｜俄罗斯",
+        "unit": null,
+        "values": [
+          null,
+          null,
+          null,
+          4.1
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": "公共教育支出占GDP比重（%）",
+        "label": "公共教育支出占GDP比重（%）｜印度",
+        "unit": null,
+        "values": [
+          null,
+          3.9,
+          null,
+          null
+        ]
+      },
+      {
+        "display_label": "中国",
+        "group": "公共教育支出占GDP比重（%）",
+        "label": "公共教育支出占GDP比重（%）｜中国",
+        "unit": null,
+        "values": [
+          null,
+          null,
+          3.7,
+          null
+        ]
+      },
+      {
+        "display_label": "南非",
+        "group": "公共教育支出占GDP比重（%）",
+        "label": "公共教育支出占GDP比重（%）｜南非",
+        "unit": null,
+        "values": [
+          null,
+          null,
+          10.1,
+          null
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

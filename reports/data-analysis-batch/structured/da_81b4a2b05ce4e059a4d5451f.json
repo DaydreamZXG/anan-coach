@@ -1,0 +1,222 @@
+{
+  "asset_id": "da_81b4a2b05ce4e059a4d5451f",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2003,
+        2004,
+        2005,
+        2006,
+        2007
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1000,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600,
+          700,
+          800,
+          900,
+          1000
+        ],
+        "title": null,
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "普通高等教育招生人数",
+      "style": {
+        "dash": "solid",
+        "fill": "#808080",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "中等职业教育招生人数",
+      "style": {
+        "dash": "solid",
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "普通高中招生人数",
+      "style": {
+        "dash": "solid",
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "普通高等教育招生人数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        382,
+        447,
+        504,
+        546,
+        566
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "中等职业教育招生人数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        516,
+        566,
+        656,
+        748,
+        800
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "普通高中招生人数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        752,
+        822,
+        878,
+        871,
+        840
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河北/2008年河北省公务员录用考试《行测》题_images/img_0174_d430b784c92bb09e.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河北省公务员录用考试《行测》题_images/img_0174_d430b784c92bb09e.jpg",
+        "paper_title": "2008年河北省公务员录用考试《行测》题",
+        "question_id": "pq_9fd872686cd0c879e39f",
+        "question_number": 126,
+        "source_jsonl_line": 54610
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河北省公务员录用考试《行测》题_images/img_0174_d430b784c92bb09e.jpg",
+        "paper_title": "2008年河北省公务员录用考试《行测》题",
+        "question_id": "pq_d2c50a3fedcacc2fb3db",
+        "question_number": 127,
+        "source_jsonl_line": 54611
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河北省公务员录用考试《行测》题_images/img_0179_59e1af482e348751.jpg",
+        "paper_title": "2008年河北省公务员录用考试《行测》题",
+        "question_id": "pq_b7183dc940b1b4e57926",
+        "question_number": 128,
+        "source_jsonl_line": 54612
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河北省公务员录用考试《行测》题_images/img_0174_d430b784c92bb09e.jpg",
+        "paper_title": "2008年河北省公务员录用考试《行测》题",
+        "question_id": "pq_2b0fb9d7e4678a20e966",
+        "question_number": 129,
+        "source_jsonl_line": 54613
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年河北省公务员录用考试《行测》题_images/img_0174_d430b784c92bb09e.jpg",
+        "paper_title": "2008年河北省公务员录用考试《行测》题",
+        "question_id": "pq_806ff6068890ebbfbbdb",
+        "question_number": 130,
+        "source_jsonl_line": 54614
+      }
+    ],
+    "sha256": "81b4a2b05ce4e059a4d5451f366873b59a054dcc24ac883f586217815bc0a9ea"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2003年～2007年各类教育招生人数",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_81b4a2b05ce4e059a4d5451f/column_band_01.jpg",
+        "review-crops/da_81b4a2b05ce4e059a4d5451f/column_band_02.jpg",
+        "review-crops/da_81b4a2b05ce4e059a4d5451f/column_band_03.jpg",
+        "review-crops/da_81b4a2b05ce4e059a4d5451f/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.546",
+      "crop_verification_elapsed_seconds:4.404",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "asset_id": "da_215e920716f0d51241095be6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 25.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          5.0,
+          10.0,
+          15.0,
+          20.0,
+          25.0
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "清洁能源消费量占能源消费总量的比重",
+      "style": {
+        "dash": "solid",
+        "fill": "blue",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "清洁能源消费量占能源消费总量的比重",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        17.0,
+        18.0,
+        19.5,
+        20.8,
+        22.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/重庆/2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0268_b45f6ded4d3fcc5d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0268_b45f6ded4d3fcc5d.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_79191d5d89dda0469df5",
+        "question_number": 111,
+        "source_jsonl_line": 94734
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0268_b45f6ded4d3fcc5d.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_a9c7ef378558fa95f155",
+        "question_number": 112,
+        "source_jsonl_line": 94735
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0286_28a396c112709626.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_525f3117842e8b57ac28",
+        "question_number": 113,
+        "source_jsonl_line": 94736
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0286_28a396c112709626.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_2cc68d518be15bc2b42e",
+        "question_number": 114,
+        "source_jsonl_line": 94737
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）_images/img_0268_b45f6ded4d3fcc5d.png",
+        "paper_title": "2019年重庆市法检系统招录考试《行测》题（网友回忆版）",
+        "question_id": "pq_0fd2800cbe92106417c1",
+        "question_number": 115,
+        "source_jsonl_line": 94738
+      }
+    ],
+    "sha256": "215e920716f0d51241095be6a023df98bf88b3eb28d7fb68ca514837831d372d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014-2018年清洁能源消费量占能源消费总量的比重",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_215e920716f0d51241095be6/column_band_01.jpg",
+        "review-crops/da_215e920716f0d51241095be6/column_band_02.jpg",
+        "review-crops/da_215e920716f0d51241095be6/column_band_03.jpg",
+        "review-crops/da_215e920716f0d51241095be6/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.861",
+      "crop_verification_elapsed_seconds:4.994",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,210 @@
+{
+  "asset_id": "da_87d5feb0e91618086676eb5f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "医疗保健",
+    "教育文化娱乐",
+    "交通通信",
+    "生活用品及服务",
+    "其他用品及服务",
+    "食品烟酒",
+    "衣着",
+    "居住"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      32.376,
+      70.842,
+      121.5,
+      141.299,
+      152.01,
+      254.125,
+      278.805,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 32.376,
+        "label": "医疗保健",
+        "share": 0.08993205,
+        "start_angle": 0.0,
+        "sweep_angle": 32.376
+      },
+      {
+        "end_angle": 70.842,
+        "label": "教育文化娱乐",
+        "share": 0.10685089,
+        "start_angle": 32.376,
+        "sweep_angle": 38.466
+      },
+      {
+        "end_angle": 121.5,
+        "label": "交通通信",
+        "share": 0.14071706,
+        "start_angle": 70.842,
+        "sweep_angle": 50.658
+      },
+      {
+        "end_angle": 141.299,
+        "label": "生活用品及服务",
+        "share": 0.05499653,
+        "start_angle": 121.5,
+        "sweep_angle": 19.799
+      },
+      {
+        "end_angle": 152.01,
+        "label": "其他用品及服务",
+        "share": 0.0297534,
+        "start_angle": 141.299,
+        "sweep_angle": 10.711
+      },
+      {
+        "end_angle": 254.125,
+        "label": "食品烟酒",
+        "share": 0.28365338,
+        "start_angle": 152.01,
+        "sweep_angle": 102.115
+      },
+      {
+        "end_angle": 278.805,
+        "label": "衣着",
+        "share": 0.06855503,
+        "start_angle": 254.125,
+        "sweep_angle": 24.68
+      },
+      {
+        "end_angle": 360.0,
+        "label": "居住",
+        "share": 0.22554166,
+        "start_angle": 278.805,
+        "sweep_angle": 81.195
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.08993205,
+        0.10685089,
+        0.14071706,
+        0.05499653,
+        0.0297534,
+        0.28365338,
+        0.06855503,
+        0.22554166
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0121_b6f5400edd3ad4b5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0121_b6f5400edd3ad4b5.png",
+        "paper_title": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_1fc47eeb06709707fda9",
+        "question_number": 111,
+        "source_jsonl_line": 54475
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0137_f08a3986b46eedd4.png",
+        "paper_title": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_0a983c4baab7d6c4e8a6",
+        "question_number": 112,
+        "source_jsonl_line": 54476
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0137_f08a3986b46eedd4.png",
+        "paper_title": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_0e87027d4760f701d502",
+        "question_number": 113,
+        "source_jsonl_line": 54477
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0121_b6f5400edd3ad4b5.png",
+        "paper_title": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_e616a1549c14109f4c43",
+        "question_number": 114,
+        "source_jsonl_line": 54478
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）_images/img_0137_f08a3986b46eedd4.png",
+        "paper_title": "江西省2018年市县两级法院、检察院统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_af7639c628dd4000a09d",
+        "question_number": 115,
+        "source_jsonl_line": 54479
+      }
+    ],
+    "sha256": "87d5feb0e91618086676eb5fd61a1fd71b8e74bdc7a6ebc6884deaa6833a36ec"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2018年前三季度居民人均消费支出及构成",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_87d5feb0e91618086676eb5f/quadrant_01.jpg",
+        "review-crops/da_87d5feb0e91618086676eb5f/quadrant_02.jpg",
+        "review-crops/da_87d5feb0e91618086676eb5f/quadrant_03.jpg",
+        "review-crops/da_87d5feb0e91618086676eb5f/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.485",
+      "crop_verification_elapsed_seconds:1.376",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.6056",
+      "hough_circle_radius_ratio:0.2670",
+      "radial_line_candidates:8",
+      "detected_boundaries:8"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

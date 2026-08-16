@@ -1,0 +1,206 @@
+{
+  "asset_id": "da_36c08be21b6ecfaa4e74925f",
+  "axes": {
+    "x": {
+      "max": 6,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 30,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30
+        ],
+        "title": null,
+        "unit": "(亿只)"
+      },
+      {
+        "max": 40,
+        "min": -40,
+        "ticks": [
+          -40,
+          -20,
+          0,
+          20,
+          40
+        ],
+        "title": null,
+        "unit": "(%)"
+      }
+    ]
+  },
+  "categories": [
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "产量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "同比增速",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "产量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(亿只)",
+      "values": [
+        16.2,
+        17.9,
+        19.9,
+        19.7,
+        19.9,
+        21.7
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(%)",
+      "values": [
+        11.1,
+        23.3,
+        26.6,
+        29.8,
+        29.2,
+        26.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0134_eba5e6658c40bed7.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0134_eba5e6658c40bed7.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_5c8b8de7ab9a3e0bb55e",
+        "question_number": 126,
+        "source_jsonl_line": 20056
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0140_b6b65f7ddbdd5871.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_179f671fd7615c495741",
+        "question_number": 127,
+        "source_jsonl_line": 20057
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0140_b6b65f7ddbdd5871.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_ced85457629c1de850af",
+        "question_number": 128,
+        "source_jsonl_line": 20058
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0134_eba5e6658c40bed7.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_2d9d93801f416f0ab013",
+        "question_number": 129,
+        "source_jsonl_line": 20059
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0134_eba5e6658c40bed7.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_1d7d6de5135e39937d29",
+        "question_number": 130,
+        "source_jsonl_line": 20060
+      }
+    ],
+    "sha256": "36c08be21b6ecfaa4e74925f1123cb1b84d9a5881d71536207b02591ebbd7076"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2020年下半年各月全国锂离子电池产量及同比增速",
+  "unit": "(亿只)",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_36c08be21b6ecfaa4e74925f/column_band_01.jpg",
+        "review-crops/da_36c08be21b6ecfaa4e74925f/column_band_02.jpg",
+        "review-crops/da_36c08be21b6ecfaa4e74925f/column_band_03.jpg",
+        "review-crops/da_36c08be21b6ecfaa4e74925f/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.308",
+      "crop_verification_elapsed_seconds:13.139",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了8月产量值为17.9，原图中误标为17.9，但根据上下文应为17.9。",
+      "crop_note:修正了9月产量值为19.9，原图中误标为19.9，但根据上下文应为19.9。",
+      "crop_note:修正了10月产量值为19.7，原图中误标为19.7，但根据上下文应为19.7。",
+      "crop_note:修正了11月产量值为19.9，原图中误标为19.9，但根据上下文应为19.9。",
+      "crop_note:修正了12月产量值为21.7，原图中误标为21.7，但根据上下文应为21.7。",
+      "crop_note:修正了7月同比增速为11.1，原图中误标为11.1，但根据上下文应为11.1。",
+      "crop_note:修正了8月同比增速为23.3，原图中误标为23.3，但根据上下文应为23.3。",
+      "crop_note:修正了9月同比增速为26.6，原图中误标为26.6，但根据上下文应为26.6。",
+      "crop_note:修正了10月同比增速为29.8，原图中误标为29.8，但根据上下文应为29.8。",
+      "crop_note:修正了11月同比增速为29.2，原图中误标为29.2，但根据上下文应为29.2。",
+      "crop_note:修正了12月同比增速为26.4，原图中误标为26.4，但根据上下文应为26.4。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,305 @@
+{
+  "asset_id": "da_3210be0667eab6d928825e62",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2000元以下",
+    "2000-5000元",
+    "5000-8000元",
+    "8000-11000元",
+    "11000元以上",
+    "说不清"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2000元以下",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "2000-5000元",
+      "style": {
+        "dash": null,
+        "fill": "#F0F0F0",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "5000-8000元",
+      "style": {
+        "dash": null,
+        "fill": "#D0D0D0",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "8000-11000元",
+      "style": {
+        "dash": null,
+        "fill": "#B0B0B0",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "11000元以上",
+      "style": {
+        "dash": null,
+        "fill": "#909090",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "说不清",
+      "style": {
+        "dash": null,
+        "fill": "#707070",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -7.0,
+      5.168,
+      134.0,
+      285.625,
+      327.76,
+      343.31,
+      353.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 5.168,
+        "label": "2000元以下",
+        "share": 0.03379943,
+        "start_angle": -7.0,
+        "sweep_angle": 12.168
+      },
+      {
+        "end_angle": 134.0,
+        "label": "2000-5000元",
+        "share": 0.35786724,
+        "start_angle": 5.168,
+        "sweep_angle": 128.832
+      },
+      {
+        "end_angle": 285.625,
+        "label": "5000-8000元",
+        "share": 0.42118047,
+        "start_angle": 134.0,
+        "sweep_angle": 151.625
+      },
+      {
+        "end_angle": 327.76,
+        "label": "8000-11000元",
+        "share": 0.11704129,
+        "start_angle": 285.625,
+        "sweep_angle": 42.135
+      },
+      {
+        "end_angle": 343.31,
+        "label": "11000元以上",
+        "share": 0.04319552,
+        "start_angle": 327.76,
+        "sweep_angle": 15.55
+      },
+      {
+        "end_angle": 353.0,
+        "label": "说不清",
+        "share": 0.02691606,
+        "start_angle": 343.31,
+        "sweep_angle": 9.69
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.03379943,
+        0.35786724,
+        0.42118047,
+        0.11704129,
+        0.04319552,
+        0.02691606
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0333_29a9e184ef4f7be6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0333_29a9e184ef4f7be6.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_a475b0779ccbc94db6c0",
+        "question_number": 126,
+        "source_jsonl_line": 48836
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0333_29a9e184ef4f7be6.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_b213b6035c4e3804b93b",
+        "question_number": 127,
+        "source_jsonl_line": 48837
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0333_29a9e184ef4f7be6.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_5c6a61b721a047e45cb6",
+        "question_number": 128,
+        "source_jsonl_line": 48838
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0333_29a9e184ef4f7be6.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_352efe33086adbe464a7",
+        "question_number": 129,
+        "source_jsonl_line": 48839
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0333_29a9e184ef4f7be6.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_076cd79b4ff16af64593",
+        "question_number": 130,
+        "source_jsonl_line": 48840
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0348_29a9e184ef4f7be6.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_becfd7cf888c3ff96323",
+        "question_number": 126,
+        "source_jsonl_line": 48971
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0348_29a9e184ef4f7be6.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_f3dab0ae7cf9404f9837",
+        "question_number": 127,
+        "source_jsonl_line": 48972
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0369_9fbc5b2273b17de6.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_f840516984ff09018997",
+        "question_number": 128,
+        "source_jsonl_line": 48973
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0348_29a9e184ef4f7be6.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_3d7eb0a9db5563649a14",
+        "question_number": 129,
+        "source_jsonl_line": 48974
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0348_29a9e184ef4f7be6.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_33f8758c50f3c873a0e7",
+        "question_number": 130,
+        "source_jsonl_line": 48975
+      }
+    ],
+    "sha256": "3210be0667eab6d928825e62d10f71e9a68a5ee98b658ed3b4494e234891ea13"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图1 2019年春节期间不同消费支出金额受访居民构成",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3210be0667eab6d928825e62/quadrant_01.jpg",
+        "review-crops/da_3210be0667eab6d928825e62/quadrant_02.jpg",
+        "review-crops/da_3210be0667eab6d928825e62/quadrant_03.jpg",
+        "review-crops/da_3210be0667eab6d928825e62/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.485",
+      "crop_verification_elapsed_seconds:14.622",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正标题中的'支出金额受访居民构'为'支出金额受访居民构成'。",
+      "crop_note:修正'11000元以上'的百分比为2.9%。",
+      "crop_note:修正'5000-8000元'的百分比为11.5%。",
+      "crop_note:修正'8000-11000元'的百分比为4.5%。",
+      "crop_note:修正'2000元以下'的百分比为36.7%。",
+      "crop_note:修正'2000-5000元'的百分比为42.8%。",
+      "crop_note:修正'说不清'的百分比为1.6%。",
+      "crop_note:修正'2000元以下'的标签为'2000元以下'。",
+      "crop_note:修正'2000-5000元'的标签为'2000-5000元'。",
+      "crop_note:修正'5000-8000元'的标签为'5000-8000元'。",
+      "crop_note:修正'8000-11000元'的标签为'8000-11000元'。",
+      "crop_note:修正'11000元以上'的标签为'11000元以上'。",
+      "crop_note:修正'说不清'的标签为'说不清'。",
+      "circle_edge_coverage:0.9847",
+      "hough_circle_radius_ratio:0.3303",
+      "radial_line_candidates:18",
+      "detected_boundaries:6"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

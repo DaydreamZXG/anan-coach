@@ -1,0 +1,235 @@
+{
+  "asset_id": "da_299c591392f533ea0e43f32a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2024年江苏名校优生选调素质测试（网友回忆版）_images/img_0037_38c7931593426ab4.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏名校优生选调素质测试（网友回忆版）_images/img_0037_38c7931593426ab4.png",
+        "paper_title": "2024年江苏名校优生选调素质测试（网友回忆版）",
+        "question_id": "pq_36b6e8efb7edf438144e",
+        "question_number": 56,
+        "source_jsonl_line": 90246
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏名校优生选调素质测试（网友回忆版）_images/img_0037_38c7931593426ab4.png",
+        "paper_title": "2024年江苏名校优生选调素质测试（网友回忆版）",
+        "question_id": "pq_5a895116a09ed2c39810",
+        "question_number": 57,
+        "source_jsonl_line": 90247
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏名校优生选调素质测试（网友回忆版）_images/img_0037_38c7931593426ab4.png",
+        "paper_title": "2024年江苏名校优生选调素质测试（网友回忆版）",
+        "question_id": "pq_1e91851156390f2bd9cf",
+        "question_number": 58,
+        "source_jsonl_line": 90248
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏名校优生选调素质测试（网友回忆版）_images/img_0048_b87a19ce42122d91.png",
+        "paper_title": "2024年江苏名校优生选调素质测试（网友回忆版）",
+        "question_id": "pq_d340d2f94e908d2f86ff",
+        "question_number": 59,
+        "source_jsonl_line": 90249
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江苏名校优生选调素质测试（网友回忆版）_images/img_0037_38c7931593426ab4.png",
+        "paper_title": "2024年江苏名校优生选调素质测试（网友回忆版）",
+        "question_id": "pq_c409c568c5443c177027",
+        "question_number": 60,
+        "source_jsonl_line": 90250
+      }
+    ],
+    "sha256": "299c591392f533ea0e43f32a6999367c50ba2a67dda2a0b1a501f67113a14dfe"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "招生人数｜2021年",
+          "招生人数｜2022年"
+        ],
+        "label": "招生人数"
+      },
+      {
+        "columns": [
+          "在校人数｜2021年",
+          "在校人数｜2022年"
+        ],
+        "label": "在校人数"
+      },
+      {
+        "columns": [
+          "毕业人数｜2021年",
+          "毕业人数｜2022年"
+        ],
+        "label": "毕业人数"
+      }
+    ],
+    "columns": [
+      "招生人数｜2021年",
+      "招生人数｜2022年",
+      "在校人数｜2021年",
+      "在校人数｜2022年",
+      "毕业人数｜2021年",
+      "毕业人数｜2022年"
+    ],
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "招生人数｜2021年",
+        "display": "-",
+        "row": "中等职业教育"
+      },
+      {
+        "column": "毕业人数｜2021年",
+        "display": "-",
+        "row": "中等职业教育"
+      },
+      {
+        "column": "毕业人数｜2022年",
+        "display": "-",
+        "row": "中等职业教育"
+      }
+    ],
+    "row_header_label": "教育类型",
+    "rows": [
+      {
+        "display_label": "研究生",
+        "group": null,
+        "label": "研究生",
+        "unit": "万人",
+        "values": [
+          9.5,
+          10,
+          27.2,
+          30,
+          6.3,
+          6.7
+        ]
+      },
+      {
+        "display_label": "普通高等教育本专科",
+        "group": null,
+        "label": "普通高等教育本专科",
+        "unit": "万人",
+        "values": [
+          65.2,
+          71,
+          211.1,
+          221.9,
+          52.4,
+          57.4
+        ]
+      },
+      {
+        "display_label": "普通高中",
+        "group": null,
+        "label": "普通高中",
+        "unit": "万人",
+        "values": [
+          44.9,
+          48.7,
+          125.2,
+          135.1,
+          34.6,
+          38.1
+        ]
+      },
+      {
+        "display_label": "普通初中",
+        "group": null,
+        "label": "普通初中",
+        "unit": "万人",
+        "values": [
+          90.4,
+          92.3,
+          263.9,
+          270.3,
+          79.1,
+          85.2
+        ]
+      },
+      {
+        "display_label": "小学",
+        "group": null,
+        "label": "小学",
+        "unit": "万人",
+        "values": [
+          97.2,
+          93.5,
+          585.7,
+          585.6,
+          91.4,
+          93
+        ]
+      },
+      {
+        "display_label": "中等职业教育",
+        "group": null,
+        "label": "中等职业教育",
+        "unit": "万人",
+        "values": [
+          null,
+          23.5,
+          64.1,
+          67.3,
+          null,
+          null
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

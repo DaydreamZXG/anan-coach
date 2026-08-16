@@ -1,0 +1,189 @@
+{
+  "asset_id": "da_3e26858c5a730f40705c4798",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "一般公共服务",
+    "教育",
+    "社会保障和就业",
+    "农林水事务",
+    "交通运输",
+    "其他各项支出合计"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -2.5,
+      34.966,
+      92.026,
+      129.413,
+      164.433,
+      187.153,
+      357.5
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 34.966,
+        "label": "一般公共服务",
+        "share": 0.10407244,
+        "start_angle": -2.5,
+        "sweep_angle": 37.466
+      },
+      {
+        "end_angle": 92.026,
+        "label": "教育",
+        "share": 0.15849893,
+        "start_angle": 34.966,
+        "sweep_angle": 57.06
+      },
+      {
+        "end_angle": 129.413,
+        "label": "社会保障和就业",
+        "share": 0.10385493,
+        "start_angle": 92.026,
+        "sweep_angle": 37.388
+      },
+      {
+        "end_angle": 164.433,
+        "label": "农林水事务",
+        "share": 0.09727686,
+        "start_angle": 129.413,
+        "sweep_angle": 35.02
+      },
+      {
+        "end_angle": 187.153,
+        "label": "交通运输",
+        "share": 0.06311186,
+        "start_angle": 164.433,
+        "sweep_angle": 22.72
+      },
+      {
+        "end_angle": 357.5,
+        "label": "其他各项支出合计",
+        "share": 0.47318498,
+        "start_angle": 187.153,
+        "sweep_angle": 170.347
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.10407244,
+        0.15849893,
+        0.10385493,
+        0.09727686,
+        0.06311186,
+        0.47318498
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）_images/img_0100_f95f8c4ea690b4e6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）_images/img_0100_f95f8c4ea690b4e6.png",
+        "paper_title": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）",
+        "question_id": "pq_63bd70a7c42bcd12bac5",
+        "question_number": 106,
+        "source_jsonl_line": 41536
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）_images/img_0100_f95f8c4ea690b4e6.png",
+        "paper_title": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）",
+        "question_id": "pq_9791d8e490fa998389d6",
+        "question_number": 107,
+        "source_jsonl_line": 41537
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）_images/img_0100_f95f8c4ea690b4e6.png",
+        "paper_title": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）",
+        "question_id": "pq_a2b3e38a4edf21ea3837",
+        "question_number": 108,
+        "source_jsonl_line": 41538
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）_images/img_0117_c31ba6045e6a70a6.png",
+        "paper_title": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）",
+        "question_id": "pq_18856090853385338bb1",
+        "question_number": 109,
+        "source_jsonl_line": 41539
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）_images/img_0100_f95f8c4ea690b4e6.png",
+        "paper_title": "2015年9月政法干警联考《行政职业能力测验》试卷（专科整理版）",
+        "question_id": "pq_68a4a2b395da8c5fe8fd",
+        "question_number": 110,
+        "source_jsonl_line": 41540
+      }
+    ],
+    "sha256": "3e26858c5a730f40705c479864152bd41121643854f0f5bf8cc001997b74c36d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013年公共财政支出情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3e26858c5a730f40705c4798/quadrant_01.jpg",
+        "review-crops/da_3e26858c5a730f40705c4798/quadrant_02.jpg",
+        "review-crops/da_3e26858c5a730f40705c4798/quadrant_03.jpg",
+        "review-crops/da_3e26858c5a730f40705c4798/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.605",
+      "crop_verification_elapsed_seconds:5.017",
+      "candidate_value_changes_after_crop:0",
+      "circle_edge_coverage:0.6667",
+      "hough_circle_radius_ratio:0.3144",
+      "radial_line_candidates:8",
+      "detected_boundaries:6"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

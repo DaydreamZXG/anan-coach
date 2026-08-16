@@ -1,0 +1,285 @@
+{
+  "asset_id": "da_5309c73181aabd5f4e4514e5",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0369_ac858549be28af73.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0369_ac858549be28af73.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_d6ea7e3c87df5eb29088",
+        "question_number": 136,
+        "source_jsonl_line": 61803
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0367_99e5f08cbd1c9d4b.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_580a1fb301afc5732524",
+        "question_number": 137,
+        "source_jsonl_line": 61804
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0367_99e5f08cbd1c9d4b.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_28f955d3359c33b0623c",
+        "question_number": 138,
+        "source_jsonl_line": 61805
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0367_99e5f08cbd1c9d4b.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_44bdb7ce5b11d8bc3be8",
+        "question_number": 139,
+        "source_jsonl_line": 61806
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0369_ac858549be28af73.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_16d3f2782dd9674a5de2",
+        "question_number": 140,
+        "source_jsonl_line": 61807
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0385_ac858549be28af73.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_2cf13d8a0cc9d0425471",
+        "question_number": 136,
+        "source_jsonl_line": 61943
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0397_99e5f08cbd1c9d4b.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_fd8ec9c15e541b3ea13f",
+        "question_number": 137,
+        "source_jsonl_line": 61944
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0397_99e5f08cbd1c9d4b.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_bf49447ea30b8aaab204",
+        "question_number": 138,
+        "source_jsonl_line": 61945
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0397_99e5f08cbd1c9d4b.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_65d674d1b20b056165c9",
+        "question_number": 139,
+        "source_jsonl_line": 61946
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0397_99e5f08cbd1c9d4b.png",
+        "paper_title": "2018年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_9d5bab6c5c1f1b018c70",
+        "question_number": 140,
+        "source_jsonl_line": 61947
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0392_99e5f08cbd1c9d4b.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_9dab1fc52920f9f4a982",
+        "question_number": 136,
+        "source_jsonl_line": 87851
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0392_99e5f08cbd1c9d4b.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_1ac2abf496793e40e052",
+        "question_number": 137,
+        "source_jsonl_line": 87852
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0397_ac858549be28af73.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_217392ce2a5e4219af05",
+        "question_number": 138,
+        "source_jsonl_line": 87853
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0392_99e5f08cbd1c9d4b.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_81c2627d929f691886ee",
+        "question_number": 139,
+        "source_jsonl_line": 87854
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）_images/img_0392_99e5f08cbd1c9d4b.png",
+        "paper_title": "2018年浙江省选调生村官招录考试《行测》试题（网友回忆版）",
+        "question_id": "pq_d74fc360b766873d3061",
+        "question_number": 140,
+        "source_jsonl_line": 87855
+      }
+    ],
+    "sha256": "5309c73181aabd5f4e4514e58c7aaeb9e9a6b955ac0de451b6b3aa1d6f0fa7ef"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "全国港口｜泊位吨级",
+          "全国港口｜比上年末增加"
+        ],
+        "label": "全国港口"
+      },
+      {
+        "columns": [
+          "沿海港口｜泊位吨级",
+          "沿海港口｜比上年末增加"
+        ],
+        "label": "沿海港口"
+      },
+      {
+        "columns": [
+          "内河港口｜泊位吨级",
+          "内河港口｜比上年末增加"
+        ],
+        "label": "内河港口"
+      }
+    ],
+    "columns": [
+      "全国港口｜泊位吨级",
+      "全国港口｜比上年末增加",
+      "沿海港口｜泊位吨级",
+      "沿海港口｜比上年末增加",
+      "内河港口｜泊位吨级",
+      "内河港口｜比上年末增加"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "泊位吨级",
+    "rows": [
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          2317,
+          96,
+          1894,
+          87,
+          423,
+          9
+        ]
+      },
+      {
+        "display_label": "1~3 万吨级（不含 3 万）",
+        "group": null,
+        "label": "1~3 万吨级（不含 3 万）",
+        "unit": null,
+        "values": [
+          814,
+          21,
+          637,
+          18,
+          177,
+          3
+        ]
+      },
+      {
+        "display_label": "3~5 万吨级（不含 5 万）",
+        "group": null,
+        "label": "3~5 万吨级（不含 5 万）",
+        "unit": null,
+        "values": [
+          384,
+          15,
+          279,
+          13,
+          105,
+          2
+        ]
+      },
+      {
+        "display_label": "5~10 万吨级（不含 10 万）",
+        "group": null,
+        "label": "5~10 万吨级（不含 10 万）",
+        "unit": null,
+        "values": [
+          757,
+          29,
+          628,
+          28,
+          129,
+          1
+        ]
+      },
+      {
+        "display_label": "10 万吨级及以上",
+        "group": null,
+        "label": "10 万吨级及以上",
+        "unit": null,
+        "values": [
+          362,
+          31,
+          350,
+          28,
+          12,
+          3
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,297 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "废水排放量｜2011年（万吨）",
+          "废水排放量｜2012年（%）"
+        ],
+        "label": "废水排放量"
+      },
+      {
+        "columns": [
+          "化学需氧量排放量｜2011年（万吨）",
+          "化学需氧量排放量｜2012年（%）"
+        ],
+        "label": "化学需氧量排放量"
+      },
+      {
+        "columns": [
+          "氨、氮排放量｜2011年（万吨）",
+          "氨、氮排放量｜2012年（%）"
+        ],
+        "label": "氨、氮排放量"
+      }
+    ],
+    "columns": [
+      "废水排放量｜2011年（万吨）",
+      "废水排放量｜2012年（%）",
+      "化学需氧量排放量｜2011年（万吨）",
+      "化学需氧量排放量｜2012年（%）",
+      "氨、氮排放量｜2011年（万吨）",
+      "氨、氮排放量｜2012年（%）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "全省总计",
+        "group": null,
+        "label": "全省总计",
+        "unit": null,
+        "values": [
+          443331,
+          8.07,
+          1982497,
+          -3.09,
+          172945,
+          -2.52
+        ]
+      },
+      {
+        "display_label": "济南",
+        "group": null,
+        "label": "济南",
+        "unit": null,
+        "values": [
+          29794,
+          11.9,
+          120765,
+          -4.11,
+          10211,
+          -5.86
+        ]
+      },
+      {
+        "display_label": "青岛",
+        "group": null,
+        "label": "青岛",
+        "unit": null,
+        "values": [
+          41216,
+          24.49,
+          158339,
+          -5.63,
+          13231,
+          -4.97
+        ]
+      },
+      {
+        "display_label": "淄博",
+        "group": null,
+        "label": "淄博",
+        "unit": null,
+        "values": [
+          33371,
+          8.62,
+          68952,
+          -3.24,
+          6391,
+          -3.22
+        ]
+      },
+      {
+        "display_label": "枣庄",
+        "group": null,
+        "label": "枣庄",
+        "unit": null,
+        "values": [
+          19220,
+          6.1,
+          55878,
+          -0.5,
+          5926,
+          -0.39
+        ]
+      },
+      {
+        "display_label": "东营",
+        "group": null,
+        "label": "东营",
+        "unit": null,
+        "values": [
+          20005,
+          2.67,
+          70192,
+          -2.36,
+          4260,
+          -5.21
+        ]
+      },
+      {
+        "display_label": "烟台",
+        "group": null,
+        "label": "烟台",
+        "unit": null,
+        "values": [
+          30164,
+          6.32,
+          154521,
+          -3.7,
+          12917,
+          -0.77
+        ]
+      },
+      {
+        "display_label": "潍坊",
+        "group": null,
+        "label": "潍坊",
+        "unit": null,
+        "values": [
+          50913,
+          2.44,
+          184905,
+          -1.95,
+          18309,
+          -3.95
+        ]
+      },
+      {
+        "display_label": "济宁",
+        "group": null,
+        "label": "济宁",
+        "unit": null,
+        "values": [
+          35328,
+          20.09,
+          146945,
+          -2.68,
+          14454,
+          -0.07
+        ]
+      },
+      {
+        "display_label": "泰安",
+        "group": null,
+        "label": "泰安",
+        "unit": null,
+        "values": [
+          22506,
+          3.42,
+          124207,
+          -1.94,
+          10144,
+          -0.53
+        ]
+      },
+      {
+        "display_label": "威海",
+        "group": null,
+        "label": "威海",
+        "unit": null,
+        "values": [
+          10693,
+          2.51,
+          32805,
+          -3.41,
+          4557,
+          -1.29
+        ]
+      },
+      {
+        "display_label": "日照",
+        "group": null,
+        "label": "日照",
+        "unit": null,
+        "values": [
+          15415,
+          -1.06,
+          49223,
+          -0.73,
+          4973,
+          -0.04
+        ]
+      },
+      {
+        "display_label": "莱芜",
+        "group": null,
+        "label": "莱芜",
+        "unit": null,
+        "values": [
+          4877,
+          17.47,
+          19248,
+          -5.86,
+          2187,
+          -5.62
+        ]
+      },
+      {
+        "display_label": "临沂",
+        "group": null,
+        "label": "临沂",
+        "unit": null,
+        "values": [
+          34723,
+          4.4,
+          162670,
+          -2.1,
+          17941,
+          -0.59
+        ]
+      },
+      {
+        "display_label": "德州",
+        "group": null,
+        "label": "德州",
+        "unit": null,
+        "values": [
+          20869,
+          6.36,
+          171141,
+          -0.24,
+          13833,
+          -1.41
+        ]
+      },
+      {
+        "display_label": "聊城",
+        "group": null,
+        "label": "聊城",
+        "unit": null,
+        "values": [
+          22997,
+          -0.09,
+          160368,
+          6.06,
+          10459,
+          5.44
+        ]
+      },
+      {
+        "display_label": "滨州",
+        "group": null,
+        "label": "滨州",
+        "unit": null,
+        "values": [
+          23628,
+          17.86,
+          149864,
+          -2.44,
+          8923,
+          -4.68
+        ]
+      },
+      {
+        "display_label": "菏泽",
+        "group": null,
+        "label": "菏泽",
+        "unit": null,
+        "values": [
+          27614,
+          -5.38,
+          152475,
+          -5.08,
+          14228,
+          -2.13
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

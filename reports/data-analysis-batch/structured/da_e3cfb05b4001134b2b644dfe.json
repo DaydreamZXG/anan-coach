@@ -1,0 +1,340 @@
+{
+  "asset_id": "da_e3cfb05b4001134b2b644dfe",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2008年国家公务员录用考试《行测》题_images/img_0169_d535267533d8cc0b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0169_d535267533d8cc0b.png",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_0bd636e05daf526918ae",
+        "question_number": 136,
+        "source_jsonl_line": 17251
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0172_fc3a5203d0f96fc5.png",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_95462ad514a14fec967f",
+        "question_number": 137,
+        "source_jsonl_line": 17252
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0172_fc3a5203d0f96fc5.png",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_7103be7b742cf28070a9",
+        "question_number": 138,
+        "source_jsonl_line": 17253
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0169_d535267533d8cc0b.png",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_8c1d12b78e384c8961e9",
+        "question_number": 139,
+        "source_jsonl_line": 17254
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0172_fc3a5203d0f96fc5.png",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_499d46d93baed3dd5d75",
+        "question_number": 140,
+        "source_jsonl_line": 17255
+      }
+    ],
+    "sha256": "e3cfb05b4001134b2b644dfeeb7cb030a37e5404d3617ae5fd3ade6515531516"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "年份｜2001年",
+          "年份｜2002年",
+          "年份｜2003年",
+          "年份｜2004年",
+          "年份｜2005年"
+        ],
+        "label": "年份"
+      },
+      {
+        "columns": [
+          "平均增长率｜2001至2005年平均增长率"
+        ],
+        "label": "平均增长率"
+      }
+    ],
+    "columns": [
+      "年份｜2001年",
+      "年份｜2002年",
+      "年份｜2003年",
+      "年份｜2004年",
+      "年份｜2005年",
+      "平均增长率｜2001至2005年平均增长率"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家和地区",
+    "rows": [
+      {
+        "display_label": "世界总计",
+        "group": null,
+        "label": "世界总计",
+        "unit": "%",
+        "values": [
+          2.4,
+          3.0,
+          4.1,
+          5.3,
+          4.9,
+          4.0
+        ]
+      },
+      {
+        "display_label": "发达国家和地区",
+        "group": null,
+        "label": "发达国家和地区",
+        "unit": "%",
+        "values": [
+          1.2,
+          1.5,
+          1.9,
+          3.2,
+          2.6,
+          2.1
+        ]
+      },
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": "%",
+        "values": [
+          0.8,
+          1.6,
+          2.5,
+          3.9,
+          3.2,
+          2.4
+        ]
+      },
+      {
+        "display_label": "欧盟",
+        "group": null,
+        "label": "欧盟",
+        "unit": "%",
+        "values": [
+          2.0,
+          1.3,
+          1.4,
+          2.4,
+          1.8,
+          1.8
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": "%",
+        "values": [
+          0.2,
+          -0.3,
+          1.8,
+          2.3,
+          2.6,
+          1.4
+        ]
+      },
+      {
+        "display_label": "发展中国家和地区",
+        "group": null,
+        "label": "发展中国家和地区",
+        "unit": "%",
+        "values": [
+          4.1,
+          4.8,
+          6.7,
+          7.7,
+          7.4,
+          6.3
+        ]
+      },
+      {
+        "display_label": "中国",
+        "group": null,
+        "label": "中国",
+        "unit": "%",
+        "values": [
+          7.5,
+          8.3,
+          10.0,
+          10.1,
+          10.2,
+          9.5
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": null,
+        "label": "印度",
+        "unit": "%",
+        "values": [
+          3.9,
+          4.7,
+          7.2,
+          8.0,
+          8.5,
+          6.4
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": null,
+        "label": "俄罗斯",
+        "unit": "%",
+        "values": [
+          5.1,
+          4.7,
+          7.3,
+          7.2,
+          6.4,
+          6.1
+        ]
+      },
+      {
+        "display_label": "巴西",
+        "group": null,
+        "label": "巴西",
+        "unit": "%",
+        "values": [
+          1.3,
+          1.9,
+          0.5,
+          4.9,
+          2.3,
+          2.2
+        ]
+      },
+      {
+        "display_label": "马来西亚",
+        "group": null,
+        "label": "马来西亚",
+        "unit": "%",
+        "values": [
+          0.3,
+          4.4,
+          5.5,
+          7.2,
+          5.2,
+          4.5
+        ]
+      },
+      {
+        "display_label": "中国香港",
+        "group": null,
+        "label": "中国香港",
+        "unit": "%",
+        "values": [
+          0.5,
+          1.9,
+          3.2,
+          8.6,
+          7.3,
+          4.3
+        ]
+      },
+      {
+        "display_label": "中国台湾",
+        "group": null,
+        "label": "中国台湾",
+        "unit": "%",
+        "values": [
+          -2.2,
+          4.2,
+          3.4,
+          6.1,
+          4.1,
+          3.1
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": "%",
+        "values": [
+          3.8,
+          7.0,
+          3.1,
+          4.7,
+          4.0,
+          4.5
+        ]
+      },
+      {
+        "display_label": "新加坡",
+        "group": null,
+        "label": "新加坡",
+        "unit": "%",
+        "values": [
+          -1.9,
+          3.2,
+          2.9,
+          8.7,
+          6.4,
+          3.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

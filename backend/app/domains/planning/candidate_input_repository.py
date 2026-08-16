@@ -600,11 +600,41 @@ class CandidateInputRepositoryMixin:
             or goal.estimate_valid_until is None
             or _as_utc(goal.estimate_valid_until) <= _as_utc(now)
         )
+        completed_baseline_exists = bool(
+            session.execute(
+                text(
+                    """
+                    select exists (
+                      select 1
+                      from learning.task_execution_versions execution
+                      join learning.daily_plan_tasks task
+                        on task.task_id = execution.task_id
+                       and task.plan_version_id = execution.plan_version_id
+                       and task.user_id = execution.user_id
+                       and task.local_date = execution.local_date
+                       and task.plan_version_no = execution.plan_version_no
+                      where execution.user_id = cast(:user_id as uuid)
+                        and task.stage = 'objective_baseline'
+                        and execution.status = 'complete'
+                        and not exists (
+                          select 1
+                          from learning.task_execution_versions successor
+                          where successor.supersedes_execution_version_id =
+                                execution.execution_version_id
+                        )
+                    )
+                    """
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+        )
         # 岗位分差仍只认正式双科 ability estimate；但日常行测训练
-        # 不能因申论估分尚缺失而无限重复摸底。一个完整受控题组的
-        # 真实 assessments 已足以让规划转入复盘和针对训练。
+        # 不能因申论估分尚缺失而无限重复摸底。基线任务的 current
+        # complete execution 是“用户已完成一次诊断”的权威事实；
+        # 30 条 assessments 条件仅保留给没有历史任务执行的旧数据。
         baseline_required = (
             formal_xingce_estimate_unavailable
+            and not completed_baseline_exists
             and recent_assessment_count < XINGCE_MAX_QUESTION_BUNDLE_SIZE
             and preferred_xingce_module is None
         )

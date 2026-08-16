@@ -1,0 +1,314 @@
+{
+  "asset_id": "da_cb50f3a443b3b5792517792a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0130_646a30998da448ec.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0130_646a30998da448ec.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_4d30246567df6c8d610f",
+        "question_number": 91,
+        "source_jsonl_line": 36653
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0130_646a30998da448ec.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_a161d54bd6d812f37adb",
+        "question_number": 92,
+        "source_jsonl_line": 36654
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0130_646a30998da448ec.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_a76ad6d34edea8b9a46a",
+        "question_number": 93,
+        "source_jsonl_line": 36655
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0186_ec1ef493db840f6f.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_2069a44f25ccbb8a7528",
+        "question_number": 94,
+        "source_jsonl_line": 36656
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0130_646a30998da448ec.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_90b8ef017cf7105b8434",
+        "question_number": 95,
+        "source_jsonl_line": 36657
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0118_ec1ef493db840f6f.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_3e230ad019d4f4201ff3",
+        "question_number": 91,
+        "source_jsonl_line": 91360
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0147_646a30998da448ec.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_f738cd254d8f6b4b8522",
+        "question_number": 92,
+        "source_jsonl_line": 91361
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0147_646a30998da448ec.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_a0a1a151ef67c031379c",
+        "question_number": 93,
+        "source_jsonl_line": 91362
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0118_ec1ef493db840f6f.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_f218c61726a27a9702b3",
+        "question_number": 94,
+        "source_jsonl_line": 91363
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0118_ec1ef493db840f6f.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_154f9a445831e14326be",
+        "question_number": 95,
+        "source_jsonl_line": 91364
+      }
+    ],
+    "sha256": "cb50f3a443b3b5792517792aa243fcff8d68bdd731f5be3803fa71717bc0b23b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "总量（亿元）",
+      "增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "海洋生产总值",
+        "unit": null,
+        "values": [
+          "海洋生产总值",
+          83415,
+          8.7
+        ]
+      },
+      {
+        "label": "海洋产业",
+        "unit": null,
+        "values": [
+          "海洋产业",
+          52965,
+          6.2
+        ]
+      },
+      {
+        "label": "主要海洋产业",
+        "unit": null,
+        "values": [
+          "主要海洋产业",
+          33609,
+          4.0
+        ]
+      },
+      {
+        "label": "海洋渔业",
+        "unit": null,
+        "values": [
+          "海洋渔业",
+          4801,
+          -0.2
+        ]
+      },
+      {
+        "label": "海洋油气业",
+        "unit": null,
+        "values": [
+          "海洋油气业",
+          1477,
+          3.3
+        ]
+      },
+      {
+        "label": "海洋矿业",
+        "unit": null,
+        "values": [
+          "海洋矿业",
+          71,
+          0.5
+        ]
+      },
+      {
+        "label": "海洋盐业",
+        "unit": null,
+        "values": [
+          "海洋盐业",
+          39,
+          -16.6
+        ]
+      },
+      {
+        "label": "海洋化工业",
+        "unit": null,
+        "values": [
+          "海洋化工业",
+          1119,
+          3.1
+        ]
+      },
+      {
+        "label": "海洋生物医药业",
+        "unit": null,
+        "values": [
+          "海洋生物医药业",
+          413,
+          9.6
+        ]
+      },
+      {
+        "label": "海洋电力业",
+        "unit": null,
+        "values": [
+          "海洋电力业",
+          172,
+          12.8
+        ]
+      },
+      {
+        "label": "海水利用业",
+        "unit": null,
+        "values": [
+          "海水利用业",
+          17,
+          7.9
+        ]
+      },
+      {
+        "label": "海洋船舶工业",
+        "unit": null,
+        "values": [
+          "海洋船舶工业",
+          997,
+          -9.8
+        ]
+      },
+      {
+        "label": "海洋工程建筑业",
+        "unit": null,
+        "values": [
+          "海洋工程建筑业",
+          1905,
+          -3.8
+        ]
+      },
+      {
+        "label": "海洋交通运输业",
+        "unit": null,
+        "values": [
+          "海洋交通运输业",
+          6522,
+          5.5
+        ]
+      },
+      {
+        "label": "滨海旅游业",
+        "unit": null,
+        "values": [
+          "滨海旅游业",
+          16078,
+          8.3
+        ]
+      },
+      {
+        "label": "海洋科研教育管理服务业",
+        "unit": null,
+        "values": [
+          "海洋科研教育管理服务业",
+          19356,
+          10.2
+        ]
+      },
+      {
+        "label": "海洋相关产业",
+        "unit": null,
+        "values": [
+          "海洋相关产业",
+          30449,
+          null
+        ]
+      }
+    ]
+  },
+  "title": "2018年全国海洋产业产值情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cb50f3a443b3b5792517792a/row_band_01.jpg",
+        "review-crops/da_cb50f3a443b3b5792517792a/row_band_02.jpg",
+        "review-crops/da_cb50f3a443b3b5792517792a/row_band_03.jpg",
+        "review-crops/da_cb50f3a443b3b5792517792a/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.237",
+      "crop_verification_elapsed_seconds:8.753",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

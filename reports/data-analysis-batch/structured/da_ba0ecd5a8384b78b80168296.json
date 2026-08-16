@@ -1,0 +1,184 @@
+{
+  "asset_id": "da_ba0ecd5a8384b78b80168296",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0193_c96a10a5c478e7c5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0193_c96a10a5c478e7c5.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_02a097c50a5f77ca73f6",
+        "question_number": 96,
+        "source_jsonl_line": 35128
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0193_c96a10a5c478e7c5.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_e88a38c95a85dcd950c6",
+        "question_number": 97,
+        "source_jsonl_line": 35129
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0193_c96a10a5c478e7c5.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_45d53c3a6ce7ad9d4afa",
+        "question_number": 98,
+        "source_jsonl_line": 35130
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0198_b07ed42bce6d21b4.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_02ba79949fe5f51f74e6",
+        "question_number": 99,
+        "source_jsonl_line": 35131
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0193_c96a10a5c478e7c5.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_d4bbeb80635f2933bbbd",
+        "question_number": 100,
+        "source_jsonl_line": 35132
+      }
+    ],
+    "sha256": "ba0ecd5a8384b78b80168296ead4278952948820925dea504d5bdb6a578b6530"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2017年",
+      "2016年",
+      "2015年",
+      "2014年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "label": "农药使用总量（万吨）",
+        "unit": null,
+        "values": [
+          5.8,
+          6.15,
+          6.28,
+          6.51
+        ]
+      },
+      {
+        "label": "单位耕地面积农药使用量（千克/亩）",
+        "unit": null,
+        "values": [
+          1.47,
+          1.56,
+          1.59,
+          1.66
+        ]
+      },
+      {
+        "label": "“三品一标”总数（个）",
+        "unit": null,
+        "values": [
+          2570,
+          2561,
+          2113,
+          1905
+        ]
+      },
+      {
+        "label": "新增申报无公害农产品产地认定（个）",
+        "unit": null,
+        "values": [
+          221,
+          235,
+          194,
+          270
+        ]
+      },
+      {
+        "label": "无公害农产品产地（个）",
+        "unit": null,
+        "values": [
+          null,
+          null,
+          1895,
+          1701
+        ]
+      },
+      {
+        "label": "无公害农产品种植面积（万亩）",
+        "unit": null,
+        "values": [
+          1050,
+          1050,
+          650,
+          380
+        ]
+      }
+    ]
+  },
+  "title": "2014-2017年A省无公害农产品生产情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ba0ecd5a8384b78b80168296/row_band_01.jpg",
+        "review-crops/da_ba0ecd5a8384b78b80168296/row_band_02.jpg",
+        "review-crops/da_ba0ecd5a8384b78b80168296/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.631",
+      "crop_verification_elapsed_seconds:2.238",
+      "candidate_value_changes_after_crop:4",
+      "model_uncertainty:表中‘无公害农产品产地（个）’在2017年数据缺失，标记为‘-’，应视为明确缺失值",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_out_of_range_table_cell:无公害农产品种植面积（万亩）:2014年",
+      "table_row_label_column_removed:项目"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

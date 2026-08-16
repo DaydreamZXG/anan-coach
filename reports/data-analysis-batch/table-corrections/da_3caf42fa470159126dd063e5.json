@@ -1,0 +1,112 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "年份",
+          "实缴额",
+          "实缴余额"
+        ],
+        "label": "2015-2017年"
+      },
+      {
+        "columns": [
+          "年份",
+          "实缴额",
+          "实缴余额"
+        ],
+        "label": "2018-2020年"
+      }
+    ],
+    "columns": [
+      "年份",
+      "实缴额",
+      "实缴余额",
+      "年份",
+      "实缴额",
+      "实缴余额"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "label": "2015",
+        "unit": "万亿元",
+        "values": [
+          2015,
+          1.45,
+          4.07,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "2016",
+        "unit": "万亿元",
+        "values": [
+          2016,
+          1.66,
+          4.56,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "2017",
+        "unit": "万亿元",
+        "values": [
+          2017,
+          1.87,
+          5.16,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "2018",
+        "unit": "万亿元",
+        "values": [
+          null,
+          null,
+          null,
+          2018,
+          2.11,
+          5.79
+        ]
+      },
+      {
+        "label": "2019",
+        "unit": "万亿元",
+        "values": [
+          null,
+          null,
+          null,
+          2019,
+          2.37,
+          6.54
+        ]
+      },
+      {
+        "label": "2020",
+        "unit": "万亿元",
+        "values": [
+          null,
+          null,
+          null,
+          2020,
+          2.62,
+          7.3
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,176 @@
+{
+  "asset_id": "da_1762806a922d3a72995e09fd",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0149_cb3c5721f10aa95d.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年云南省公务员录用考试《行测》题（网友回忆版）_images/img_0149_cb3c5721f10aa95d.png",
+        "paper_title": "2025年云南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_30a168df03b86dd60298",
+        "question_number": 110,
+        "source_jsonl_line": 6194
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0143_cb3c5721f10aa95d.png",
+        "paper_title": "2025年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_52f64c530295dc67a10d",
+        "question_number": 105,
+        "source_jsonl_line": 66751
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年福建省公务员录用考试《行测》题（网友回忆版）_images/img_0178_cb3c5721f10aa95d.png",
+        "paper_title": "2025年福建省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3393993bc20b0acc0207",
+        "question_number": 120,
+        "source_jsonl_line": 79199
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0177_cb3c5721f10aa95d.png",
+        "paper_title": "2025年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_aefe248a669608f13394",
+        "question_number": 105,
+        "source_jsonl_line": 81940
+      }
+    ],
+    "sha256": "1762806a922d3a72995e09fdc735f4caffa2ed8516cf8305d11c1cd28994fbe6"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 4,
+      "estimatedDrawCommandCount": 8,
+      "panelCount": 1,
+      "pointCount": 0
+    },
+    "coordinateSpace": {
+      "height": 287,
+      "width": 542
+    },
+    "evidence": {
+      "converterVersion": "semantic-microcharts-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "43a6db52678dfd8998041676e3427ed81d34c23e1a71dd36f65e776aa4ed148e",
+      "sourceAsset": "da_1762806a922d3a72995e09fd",
+      "sourceSha256": "1762806a922d3a72995e09fdc735f4caffa2ed8516cf8305d11c1cd28994fbe6"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 287,
+          "width": 542,
+          "x": 0,
+          "y": 0
+        },
+        "chart": {
+          "bars": [
+            {
+              "value": 0.11538,
+              "width": 0.13124,
+              "x": 0.07024
+            },
+            {
+              "value": 0.22436,
+              "width": 0.13124,
+              "x": 0.31608
+            },
+            {
+              "value": -1.0,
+              "width": 0.13124,
+              "x": 0.56192
+            },
+            {
+              "value": 0.44872,
+              "width": 0.13124,
+              "x": 0.80776
+            }
+          ],
+          "baseline": 0.38811,
+          "baselineEnd": 0.99445,
+          "baselineStart": 0.01109,
+          "type": "signedBar",
+          "verticalAxisX": 0.01109
+        },
+        "id": "da_1762806a922d3a72995e09fd-0",
+        "label": null,
+        "position": 0
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "signed_bar"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.119",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:图表内容不完整，无法识别有效数据",
+      "model_uncertainty:缺少坐标轴标签和单位",
+      "model_uncertainty:无明确的系列或数值信息",
+      "route_reason:图像为简单线条构成的抽象图形，无实际数据或信息内容",
+      "route_panel_count:1",
+      "foreground_iou:0.496979",
+      "mean_absolute_error:1.624561",
+      "trace_parameters:{\"epsilonRatio\": 0.0007, \"minimumContourArea\": 0.2, \"paletteSize\": 6}",
+      "visual_grammar:signed_bar",
+      "visual_grammar:signed_bar",
+      "visual_grammar:signed_bar",
+      "visual_grammar:signed_bar",
+      "converter:semantic-microcharts-v1",
+      "visual_grammar:signed_bar",
+      "comparison_artifact:previews/structured_visual/da_1762806a922d3a72995e09fd-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

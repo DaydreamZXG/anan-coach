@@ -1,0 +1,335 @@
+{
+  "asset_id": "da_ed5852fb1b71880115d0b82e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0186_923252f38970141a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0186_923252f38970141a.png",
+        "paper_title": "2019年420联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_4c175357c514b3b77b21",
+        "question_number": 91,
+        "source_jsonl_line": 16006
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0186_923252f38970141a.png",
+        "paper_title": "2019年420联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_077e01844d6d821ac384",
+        "question_number": 92,
+        "source_jsonl_line": 16007
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0186_923252f38970141a.png",
+        "paper_title": "2019年420联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_35ee7d0f53ac0baa9773",
+        "question_number": 93,
+        "source_jsonl_line": 16008
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0210_f40b19ca434433e6.png",
+        "paper_title": "2019年420联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_03a165c4cd342388140b",
+        "question_number": 94,
+        "source_jsonl_line": 16009
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0210_f40b19ca434433e6.png",
+        "paper_title": "2019年420联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_7067846b2b7dacb02903",
+        "question_number": 95,
+        "source_jsonl_line": 16010
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）_images/img_0189_923252f38970141a.png",
+        "paper_title": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）",
+        "question_id": "pq_c10fb12a5447f208d091",
+        "question_number": 91,
+        "source_jsonl_line": 88446
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）_images/img_0189_923252f38970141a.png",
+        "paper_title": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）",
+        "question_id": "pq_bc85bda7eabbe0c1e5af",
+        "question_number": 92,
+        "source_jsonl_line": 88447
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）_images/img_0189_923252f38970141a.png",
+        "paper_title": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）",
+        "question_id": "pq_b720b6b74134dc392053",
+        "question_number": 93,
+        "source_jsonl_line": 88448
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）_images/img_0189_923252f38970141a.png",
+        "paper_title": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）",
+        "question_id": "pq_3854b0cb9dbc66833a3b",
+        "question_number": 94,
+        "source_jsonl_line": 88449
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）_images/img_0217_f40b19ca434433e6.png",
+        "paper_title": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）",
+        "question_id": "pq_717ae8397c38eb9158fc",
+        "question_number": 95,
+        "source_jsonl_line": 88450
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（黑龙江县乡卷）（网友回忆版）_images/img_0160_f40b19ca434433e6.png",
+        "paper_title": "2019年420联考《行测》题（黑龙江县乡卷）（网友回忆版）",
+        "question_id": "pq_425be1803f893e156854",
+        "question_number": 106,
+        "source_jsonl_line": 103413
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（黑龙江县乡卷）（网友回忆版）_images/img_0175_923252f38970141a.png",
+        "paper_title": "2019年420联考《行测》题（黑龙江县乡卷）（网友回忆版）",
+        "question_id": "pq_3376aa6446df8d725bfb",
+        "question_number": 107,
+        "source_jsonl_line": 103414
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（黑龙江县乡卷）（网友回忆版）_images/img_0175_923252f38970141a.png",
+        "paper_title": "2019年420联考《行测》题（黑龙江县乡卷）（网友回忆版）",
+        "question_id": "pq_b210fe1cac1c4b0d0dfc",
+        "question_number": 108,
+        "source_jsonl_line": 103415
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（黑龙江县乡卷）（网友回忆版）_images/img_0175_923252f38970141a.png",
+        "paper_title": "2019年420联考《行测》题（黑龙江县乡卷）（网友回忆版）",
+        "question_id": "pq_24bf1ad32564a6eae040",
+        "question_number": 109,
+        "source_jsonl_line": 103416
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（黑龙江县乡卷）（网友回忆版）_images/img_0175_923252f38970141a.png",
+        "paper_title": "2019年420联考《行测》题（黑龙江县乡卷）（网友回忆版）",
+        "question_id": "pq_be93149e189bde98e662",
+        "question_number": 110,
+        "source_jsonl_line": 103417
+      }
+    ],
+    "sha256": "ed5852fb1b71880115d0b82e0d3b93719ea92f16522bdc238f73e8d48306376f"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "省市",
+      "4月产量（万部）",
+      "4月增速（%）",
+      "1-4月产量（万部）",
+      "1-4月增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "广东",
+        "unit": null,
+        "values": [
+          "广东",
+          7093.52,
+          18.41,
+          25218.39,
+          1.97
+        ]
+      },
+      {
+        "label": "河南",
+        "unit": null,
+        "values": [
+          "河南",
+          1688.16,
+          1.12,
+          7468.19,
+          6.15
+        ]
+      },
+      {
+        "label": "重庆",
+        "unit": null,
+        "values": [
+          "重庆",
+          1313.21,
+          -52.73,
+          5648.64,
+          -45.99
+        ]
+      },
+      {
+        "label": "北京",
+        "unit": null,
+        "values": [
+          "北京",
+          588.23,
+          -2.94,
+          2716.72,
+          55.31
+        ]
+      },
+      {
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          "浙江",
+          528.17,
+          30.37,
+          1504.7,
+          -11.5
+        ]
+      },
+      {
+        "label": "江西",
+        "unit": null,
+        "values": [
+          "江西",
+          466.34,
+          -14.68,
+          1680.68,
+          -14.65
+        ]
+      },
+      {
+        "label": "上海",
+        "unit": null,
+        "values": [
+          "上海",
+          449.34,
+          72.71,
+          1659.65,
+          43.45
+        ]
+      },
+      {
+        "label": "四川",
+        "unit": null,
+        "values": [
+          "四川",
+          322.75,
+          141.65,
+          1145.06,
+          63.82
+        ]
+      },
+      {
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          "江苏",
+          305.97,
+          -36.77,
+          1713.12,
+          -2.1
+        ]
+      },
+      {
+        "label": "贵州",
+        "unit": null,
+        "values": [
+          "贵州",
+          250.89,
+          -40.16,
+          816.12,
+          -52.99
+        ]
+      },
+      {
+        "label": "天津",
+        "unit": null,
+        "values": [
+          "天津",
+          226.9,
+          -41.25,
+          1226.51,
+          -24.83
+        ]
+      },
+      {
+        "label": "湖北",
+        "unit": null,
+        "values": [
+          "湖北",
+          216.23,
+          -40.48,
+          1191.23,
+          -21.66
+        ]
+      }
+    ]
+  },
+  "title": "2018年4月手机产量前12位的省市手机产量及同比增速",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ed5852fb1b71880115d0b82e/row_band_01.jpg",
+        "review-crops/da_ed5852fb1b71880115d0b82e/row_band_02.jpg",
+        "review-crops/da_ed5852fb1b71880115d0b82e/row_band_03.jpg",
+        "review-crops/da_ed5852fb1b71880115d0b82e/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.926",
+      "crop_verification_elapsed_seconds:14.715",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

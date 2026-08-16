@@ -1,0 +1,119 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "公民责任",
+          "公民权利",
+          "公共利益",
+          "个人利益",
+          "个人兴趣",
+          "从众行为"
+        ],
+        "label": "社会性别与公民参与政策制定的动机"
+      }
+    ],
+    "columns": [
+      "公民责任",
+      "公民权利",
+      "公共利益",
+      "个人利益",
+      "个人兴趣",
+      "从众行为"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "性别",
+    "rows": [
+      {
+        "display_label": "男",
+        "group": null,
+        "label": "男",
+        "unit": null,
+        "values": [
+          393,
+          296,
+          218,
+          134,
+          93,
+          35
+        ]
+      },
+      {
+        "display_label": "%",
+        "group": "男",
+        "label": "男｜%",
+        "unit": null,
+        "values": [
+          33.6,
+          25.3,
+          18.7,
+          11.5,
+          8.0,
+          3
+        ]
+      },
+      {
+        "display_label": "女",
+        "group": null,
+        "label": "女",
+        "unit": null,
+        "values": [
+          251,
+          208,
+          113,
+          123,
+          84,
+          26
+        ]
+      },
+      {
+        "display_label": "%",
+        "group": "女",
+        "label": "女｜%",
+        "unit": null,
+        "values": [
+          31.2,
+          25.8,
+          14.0,
+          15.3,
+          10.4,
+          3.2
+        ]
+      },
+      {
+        "display_label": "总",
+        "group": null,
+        "label": "总",
+        "unit": null,
+        "values": [
+          644,
+          504,
+          331,
+          257,
+          177,
+          61
+        ]
+      },
+      {
+        "display_label": "%",
+        "group": "总",
+        "label": "总｜%",
+        "unit": null,
+        "values": [
+          32.6,
+          25.5,
+          16.7,
+          13.0,
+          9.0,
+          3.1
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

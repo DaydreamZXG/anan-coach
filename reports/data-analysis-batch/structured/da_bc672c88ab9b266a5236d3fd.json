@@ -1,0 +1,211 @@
+{
+  "asset_id": "da_bc672c88ab9b266a5236d3fd",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "30*37 42%",
+    "23*29 13%",
+    "21*22 2%",
+    "20 15%",
+    "16*17 2%",
+    "<15 3%",
+    ">42 1%",
+    "41*42 10%"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      14.362,
+      21.838,
+      75.672,
+      82.843,
+      129.702,
+      281.052,
+      324.329,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 14.362,
+        "label": "30*37 42%",
+        "share": 0.0398955,
+        "start_angle": 0.0,
+        "sweep_angle": 14.362
+      },
+      {
+        "end_angle": 21.838,
+        "label": "23*29 13%",
+        "share": 0.02076549,
+        "start_angle": 14.362,
+        "sweep_angle": 7.476
+      },
+      {
+        "end_angle": 75.672,
+        "label": "21*22 2%",
+        "share": 0.14954032,
+        "start_angle": 21.838,
+        "sweep_angle": 53.835
+      },
+      {
+        "end_angle": 82.843,
+        "label": "20 15%",
+        "share": 0.01991715,
+        "start_angle": 75.672,
+        "sweep_angle": 7.17
+      },
+      {
+        "end_angle": 129.702,
+        "label": "16*17 2%",
+        "share": 0.13016475,
+        "start_angle": 82.843,
+        "sweep_angle": 46.859
+      },
+      {
+        "end_angle": 281.052,
+        "label": "<15 3%",
+        "share": 0.42041722,
+        "start_angle": 129.702,
+        "sweep_angle": 151.35
+      },
+      {
+        "end_angle": 324.329,
+        "label": ">42 1%",
+        "share": 0.12021397,
+        "start_angle": 281.052,
+        "sweep_angle": 43.277
+      },
+      {
+        "end_angle": 360.0,
+        "label": "41*42 10%",
+        "share": 0.09908559,
+        "start_angle": 324.329,
+        "sweep_angle": 35.671
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.0398955,
+        0.02076549,
+        0.14954032,
+        0.01991715,
+        0.13016475,
+        0.42041722,
+        0.12021397,
+        0.09908559
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广西/2008年广西壮族自治区公务员录用考试《行测》题_images/img_0073_a358c93f55ac9966.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广西壮族自治区公务员录用考试《行测》题_images/img_0073_a358c93f55ac9966.png",
+        "paper_title": "2008年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_fe6e5c0179a3f642fb8f",
+        "question_number": 121,
+        "source_jsonl_line": 37783
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广西壮族自治区公务员录用考试《行测》题_images/img_0070_76b2df0af005005d.png",
+        "paper_title": "2008年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_eca84a9ad8c4deace0d9",
+        "question_number": 122,
+        "source_jsonl_line": 37784
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广西壮族自治区公务员录用考试《行测》题_images/img_0073_a358c93f55ac9966.png",
+        "paper_title": "2008年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_b2c45fb19ccc02b56974",
+        "question_number": 123,
+        "source_jsonl_line": 37785
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广西壮族自治区公务员录用考试《行测》题_images/img_0070_76b2df0af005005d.png",
+        "paper_title": "2008年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_8df0846fb9ebed51e85e",
+        "question_number": 124,
+        "source_jsonl_line": 37786
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广西壮族自治区公务员录用考试《行测》题_images/img_0073_a358c93f55ac9966.png",
+        "paper_title": "2008年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_1876db089895f17b6eec",
+        "question_number": 125,
+        "source_jsonl_line": 37787
+      }
+    ],
+    "sha256": "bc672c88ab9b266a5236d3fd386d8d0f666ef4dc35140b6535f3e6065ee41ebd"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2006年1月液晶电视产品的尺寸比例结构",
+  "unit": "寸",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_bc672c88ab9b266a5236d3fd/quadrant_01.jpg",
+        "review-crops/da_bc672c88ab9b266a5236d3fd/quadrant_02.jpg",
+        "review-crops/da_bc672c88ab9b266a5236d3fd/quadrant_03.jpg",
+        "review-crops/da_bc672c88ab9b266a5236d3fd/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.543",
+      "crop_verification_elapsed_seconds:2.279",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "label_geometry_count_mismatch:9!=8",
+      "circle_edge_coverage:0.9958",
+      "hough_circle_radius_ratio:0.3690",
+      "radial_line_candidates:20",
+      "detected_boundaries:8"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

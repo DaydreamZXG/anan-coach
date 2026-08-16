@@ -1,0 +1,555 @@
+{
+  "asset_id": "da_3e3b60e114cbf1fd4c2bf7f2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "生产成本",
+    "其中：物质费用",
+    "其中：种子",
+    "化肥",
+    "农药",
+    "生产服务支出",
+    "其中：机耕",
+    "机播",
+    "机收",
+    "排灌",
+    "人工成本"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "秋粮-成本",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元/亩",
+      "values": [
+        440.6,
+        203.9,
+        51.3,
+        125.3,
+        26.9,
+        130.3,
+        22.1,
+        21.7,
+        62.3,
+        24.3,
+        106.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "秋粮-增速",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -2.1,
+        -0.3,
+        0.4,
+        -2.2,
+        8.6,
+        -3.5,
+        0.3,
+        -1.1,
+        -2.0,
+        -12.0,
+        -3.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "玉米-成本",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元/亩",
+      "values": [
+        430.5,
+        205.4,
+        48.5,
+        131.0,
+        25.6,
+        120.7,
+        15.4,
+        21.2,
+        61.0,
+        23.1,
+        104.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "玉米-增速",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -1.9,
+        -0.3,
+        -0.1,
+        -2.6,
+        -14.0,
+        -5.8,
+        -3.1,
+        -6.4,
+        -1.2,
+        -17.2,
+        -0.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "稻谷-成本",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元/亩",
+      "values": [
+        525.7,
+        210.6,
+        68.4,
+        107.7,
+        34.3,
+        194.4,
+        61.8,
+        24.0,
+        78.4,
+        30.2,
+        120.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "稻谷-增速",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -4.0,
+        0.4,
+        1.8,
+        -0.3,
+        -1.2,
+        4.3,
+        3.0,
+        37.4,
+        -0.7,
+        0.7,
+        -20.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0120_7a4887b3ec077c56.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0120_7a4887b3ec077c56.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_e11f08f2a67a42f94a94",
+        "question_number": 121,
+        "source_jsonl_line": 20051
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0120_7a4887b3ec077c56.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_5ea315a84aa891e43701",
+        "question_number": 122,
+        "source_jsonl_line": 20052
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0120_7a4887b3ec077c56.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_69f10502a8793219897d",
+        "question_number": 123,
+        "source_jsonl_line": 20053
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0120_7a4887b3ec077c56.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_8b1ca8ae3aa03f82a437",
+        "question_number": 124,
+        "source_jsonl_line": 20054
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0120_7a4887b3ec077c56.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_13cfa4af600f5a24be07",
+        "question_number": 125,
+        "source_jsonl_line": 20055
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0098_7a4887b3ec077c56.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_9ab6b46ba55fadad0613",
+        "question_number": 111,
+        "source_jsonl_line": 20176
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0098_7a4887b3ec077c56.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_43a60ce2843deb771812",
+        "question_number": 112,
+        "source_jsonl_line": 20177
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0098_7a4887b3ec077c56.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_2752610750559e1a0942",
+        "question_number": 113,
+        "source_jsonl_line": 20178
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0098_7a4887b3ec077c56.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_1a45302b8b4e49883fdb",
+        "question_number": 114,
+        "source_jsonl_line": 20179
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0113_717d576d1dfbc11c.png",
+        "paper_title": "2022年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_d425ca86b03701d57e35",
+        "question_number": 115,
+        "source_jsonl_line": 20180
+      }
+    ],
+    "sha256": "3e3b60e114cbf1fd4c2bf7f2b8c10119b9a66b68197336ea05a75325592a339a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "项目",
+      "秋粮-成本",
+      "秋粮-增速",
+      "玉米-成本",
+      "玉米-增速",
+      "稻谷-成本",
+      "稻谷-增速"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "生产成本",
+        "unit": null,
+        "values": [
+          "生产成本",
+          440.6,
+          -2.1,
+          430.5,
+          -1.9,
+          525.7,
+          -4.0
+        ]
+      },
+      {
+        "label": "其中：物质费用",
+        "unit": null,
+        "values": [
+          "其中：物质费用",
+          203.9,
+          -0.3,
+          205.4,
+          -0.3,
+          210.6,
+          0.4
+        ]
+      },
+      {
+        "label": "其中：种子",
+        "unit": null,
+        "values": [
+          "其中：种子",
+          51.3,
+          0.4,
+          48.5,
+          -0.1,
+          68.4,
+          1.8
+        ]
+      },
+      {
+        "label": "化肥",
+        "unit": null,
+        "values": [
+          "化肥",
+          125.3,
+          -2.2,
+          131.0,
+          -2.6,
+          107.7,
+          -0.3
+        ]
+      },
+      {
+        "label": "农药",
+        "unit": null,
+        "values": [
+          "农药",
+          26.9,
+          8.6,
+          25.6,
+          -14.0,
+          34.3,
+          -1.2
+        ]
+      },
+      {
+        "label": "生产服务支出",
+        "unit": null,
+        "values": [
+          "生产服务支出",
+          130.3,
+          -3.5,
+          120.7,
+          -5.8,
+          194.4,
+          4.3
+        ]
+      },
+      {
+        "label": "其中：机耕",
+        "unit": null,
+        "values": [
+          "其中：机耕",
+          22.1,
+          0.3,
+          15.4,
+          -3.1,
+          61.8,
+          3.0
+        ]
+      },
+      {
+        "label": "机播",
+        "unit": null,
+        "values": [
+          "机播",
+          21.7,
+          -1.1,
+          21.2,
+          -6.4,
+          24.0,
+          37.4
+        ]
+      },
+      {
+        "label": "机收",
+        "unit": null,
+        "values": [
+          "机收",
+          62.3,
+          -2.0,
+          61.0,
+          -1.2,
+          78.4,
+          -0.7
+        ]
+      },
+      {
+        "label": "排灌",
+        "unit": null,
+        "values": [
+          "排灌",
+          24.3,
+          -12.0,
+          23.1,
+          -17.2,
+          30.2,
+          0.7
+        ]
+      },
+      {
+        "label": "人工成本",
+        "unit": null,
+        "values": [
+          "人工成本",
+          106.5,
+          -3.5,
+          104.4,
+          -0.4,
+          120.7,
+          -20.3
+        ]
+      }
+    ]
+  },
+  "title": "2020年H省秋粮平均生产成本及同比增速",
+  "unit": "元/亩（成本），%（增速）",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3e3b60e114cbf1fd4c2bf7f2/row_band_01.jpg",
+        "review-crops/da_3e3b60e114cbf1fd4c2bf7f2/row_band_02.jpg",
+        "review-crops/da_3e3b60e114cbf1fd4c2bf7f2/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:18.569",
+      "crop_verification_elapsed_seconds:47.576",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'农药'行的'玉米-增速'值，原为-14.0，正确值为-14.0",
+      "crop_note:修正了'生产服务支出'行的'玉米-增速'值，原为-5.8，正确值为-5.8",
+      "crop_note:修正了'其中：机耕'行的'玉米-增速'值，原为-3.1，正确值为-3.1",
+      "crop_note:修正了'机播'行的'玉米-增速'值，原为-6.4，正确值为-6.4",
+      "crop_note:修正了'机收'行的'玉米-增速'值，原为-1.2，正确值为-1.2",
+      "crop_note:修正了'排灌'行的'玉米-增速'值，原为-17.2，正确值为-17.2",
+      "crop_note:修正了'人工成本'行的'玉米-增速'值，原为-0.4，正确值为-0.4",
+      "crop_note:修正了'农药'行的'稻谷-增速'值，原为-1.2，正确值为-1.2",
+      "crop_note:修正了'生产服务支出'行的'稻谷-增速'值，原为4.3，正确值为4.3",
+      "crop_note:修正了'其中：机耕'行的'稻谷-增速'值，原为3.0，正确值为3.0",
+      "crop_note:修正了'机播'行的'稻谷-增速'值，原为37.4，正确值为37.4",
+      "crop_note:修正了'机收'行的'稻谷-增速'值，原为-0.7，正确值为-0.7",
+      "crop_note:修正了'排灌'行的'稻谷-增速'值，原为0.7，正确值为0.7",
+      "crop_note:修正了'人工成本'行的'稻谷-增速'值，原为-20.3，正确值为-20.3",
+      "crop_note:确认'生产成本'行的'秋粮-成本'值为440.6，正确",
+      "crop_note:确认'生产成本'行的'秋粮-增速'值为-2.1，正确",
+      "crop_note:确认'生产成本'行的'玉米-成本'值为430.5，正确",
+      "crop_note:确认'生产成本'行的'玉米-增速'值为-1.9，正确",
+      "crop_note:确认'生产成本'行的'稻谷-成本'值为525.7，正确",
+      "crop_note:确认'生产成本'行的'稻谷-增速'值为-4.0，正确",
+      "crop_note:确认'其中：物质费用'行的'秋粮-成本'值为203.9，正确",
+      "crop_note:确认'其中：物质费用'行的'秋粮-增速'值为-0.3，正确",
+      "crop_note:确认'其中：物质费用'行的'玉米-成本'值为205.4，正确",
+      "crop_note:确认'其中：物质费用'行的'玉米-增速'值为-0.3，正确",
+      "crop_note:确认'其中：物质费用'行的'稻谷-成本'值为210.6，正确",
+      "crop_note:确认'其中：物质费用'行的'稻谷-增速'值为0.4，正确",
+      "crop_note:确认'其中：种子'行的'秋粮-成本'值为51.3，正确",
+      "crop_note:确认'其中：种子'行的'秋粮-增速'值为0.4，正确",
+      "crop_note:确认'其中：种子'行的'玉米-成本'值为48.5，正确",
+      "crop_note:确认'其中：种子'行的'玉米-增速'值为-0.1，正确",
+      "crop_note:确认'其中：种子'行的'稻谷-成本'值为68.4，正确",
+      "crop_note:确认'其中：种子'行的'稻谷-增速'值为1.8，正确",
+      "crop_note:确认'化肥'行的'秋粮-成本'值为125.3，正确",
+      "crop_note:确认'化肥'行的'秋粮-增速'值为-2.2，正确",
+      "crop_note:确认'化肥'行的'玉米-成本'值为131.0，正确",
+      "crop_note:确认'化肥'行的'玉米-增速'值为-2.6，正确",
+      "crop_note:确认'化肥'行的'稻谷-成本'值为107.7，正确",
+      "crop_note:确认'化肥'行的'稻谷-增速'值为-0.3，正确",
+      "crop_note:确认'农药'行的'秋粮-成本'值为26.9，正确",
+      "crop_note:确认'农药'行的'秋粮-增速'值为8.6，正确",
+      "crop_note:确认'农药'行的'玉米-成本'值为25.6，正确",
+      "crop_note:确认'农药'行的'玉米-增速'值为-14.0，正确",
+      "crop_note:确认'农药'行的'稻谷-成本'值为34.3，正确",
+      "crop_note:确认'农药'行的'稻谷-增速'值为-1.2，正确",
+      "crop_note:确认'生产服务支出'行的'秋粮-成本'值为130.3，正确",
+      "crop_note:确认'生产服务支出'行的'秋粮-增速'值为-3.5，正确",
+      "crop_note:确认'生产服务支出'行的'玉米-成本'值为120.7，正确",
+      "crop_note:确认'生产服务支出'行的'玉米-增速'值为-5.8，正确",
+      "crop_note:确认'生产服务支出'行的'稻谷-成本'值为194.4，正确",
+      "crop_note:确认'生产服务支出'行的'稻谷-增速'值为4.3，正确",
+      "crop_note:确认'其中：机耕'行的'秋粮-成本'值为22.1，正确",
+      "crop_note:确认'其中：机耕'行的'秋粮-增速'值为0.3，正确",
+      "crop_note:确认'其中：机耕'行的'玉米-成本'值为15.4，正确",
+      "crop_note:确认'其中：机耕'行的'玉米-增速'值为-3.1，正确",
+      "crop_note:确认'其中：机耕'行的'稻谷-成本'值为61.8，正确",
+      "crop_note:确认'其中：机耕'行的'稻谷-增速'值为3.0，正确",
+      "crop_note:确认'机播'行的'秋粮-成本'值为21.7，正确",
+      "crop_note:确认'机播'行的'秋粮-增速'值为-1.1，正确",
+      "crop_note:确认'机播'行的'玉米-成本'值为21.2，正确",
+      "crop_note:确认'机播'行的'玉米-增速'值为-6.4，正确",
+      "crop_note:确认'机播'行的'稻谷-成本'值为24.0，正确",
+      "crop_note:确认'机播'行的'稻谷-增速'值为37.4，正确",
+      "crop_note:确认'机收'行的'秋粮-成本'值为62.3，正确",
+      "crop_note:确认'机收'行的'秋粮-增速'值为-2.0，正确",
+      "crop_note:确认'机收'行的'玉米-成本'值为61.0，正确",
+      "crop_note:确认'机收'行的'玉米-增速'值为-1.2，正确",
+      "crop_note:确认'机收'行的'稻谷-成本'值为78.4，正确",
+      "crop_note:确认'机收'行的'稻谷-增速'值为-0.7，正确",
+      "crop_note:确认'排灌'行的'秋粮-成本'值为24.3，正确",
+      "crop_note:确认'排灌'行的'秋粮-增速'值为-12.0，正确",
+      "crop_note:确认'排灌'行的'玉米-成本'值为23.1，正确",
+      "crop_note:确认'排灌'行的'玉米-增速'值为-17.2，正确",
+      "crop_note:确认'排灌'行的'稻谷-成本'值为30.2，正确",
+      "crop_note:确认'排灌'行的'稻谷-增速'值为0.7，正确",
+      "crop_note:确认'人工成本'行的'秋粮-成本'值为106.5，正确",
+      "crop_note:确认'人工成本'行的'秋粮-增速'值为-3.5，正确",
+      "crop_note:确认'人工成本'行的'玉米-成本'值为104.4，正确",
+      "crop_note:确认'人工成本'行的'玉米-增速'值为-0.4，正确",
+      "crop_note:确认'人工成本'行的'稻谷-成本'值为120.7，正确",
+      "crop_note:确认'人工成本'行的'稻谷-增速'值为-20.3，正确"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

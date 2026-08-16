@@ -1,0 +1,263 @@
+{
+  "asset_id": "da_b70691b6ff88f3ce1df9c161",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.92,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河北/2013年河北省公务员录用考试《行测》题_images/img_0122_6afab01a71e9f7cd.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年河北省公务员录用考试《行测》题_images/img_0122_6afab01a71e9f7cd.png",
+        "paper_title": "2013年河北省公务员录用考试《行测》题",
+        "question_id": "pq_a9446198d2b612a518ef",
+        "question_number": 96,
+        "source_jsonl_line": 54975
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年河北省公务员录用考试《行测》题_images/img_0135_23a76bbf6916a030.png",
+        "paper_title": "2013年河北省公务员录用考试《行测》题",
+        "question_id": "pq_33f0c0d1bec0a66fc3a0",
+        "question_number": 97,
+        "source_jsonl_line": 54976
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年河北省公务员录用考试《行测》题_images/img_0122_6afab01a71e9f7cd.png",
+        "paper_title": "2013年河北省公务员录用考试《行测》题",
+        "question_id": "pq_440f7e1db6a343a49759",
+        "question_number": 98,
+        "source_jsonl_line": 54977
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年河北省公务员录用考试《行测》题_images/img_0135_23a76bbf6916a030.png",
+        "paper_title": "2013年河北省公务员录用考试《行测》题",
+        "question_id": "pq_2c7ee816eb7468e05f2f",
+        "question_number": 99,
+        "source_jsonl_line": 54978
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年河北省公务员录用考试《行测》题_images/img_0122_6afab01a71e9f7cd.png",
+        "paper_title": "2013年河北省公务员录用考试《行测》题",
+        "question_id": "pq_413e35c23115bff93b98",
+        "question_number": 100,
+        "source_jsonl_line": 54979
+      }
+    ],
+    "sha256": "b70691b6ff88f3ce1df9c1615fb5efee3da7bf975760d4588ef37481bd02d3e9"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "出口｜数量(万册、份)",
+      "出口｜数量(万册、份)｜同比增长(%)",
+      "出口｜金额(万美元)",
+      "出口｜金额(万美元)｜同比增长(%)",
+      "进口｜数量(万册、份)",
+      "进口｜数量(万册、份)｜同比增长(%)",
+      "进口｜金额(万美元)",
+      "进口｜金额(万美元)｜同比增长(%)"
+    ],
+    "corner_header": {
+      "lower_label": "进口",
+      "style": "diagonal",
+      "upper_label": "出口"
+    },
+    "missing_cells": [],
+    "row_header_label": "进口",
+    "rows": [
+      {
+        "display_label": "图书合计",
+        "group": null,
+        "label": "图书合计",
+        "unit": null,
+        "values": [
+          855.76,
+          21.0,
+          3276.61,
+          1.38,
+          754.85,
+          32.76,
+          11666.91,
+          24.09
+        ]
+      },
+      {
+        "display_label": "文化教育",
+        "group": null,
+        "label": "文化教育",
+        "unit": null,
+        "values": [
+          158.08,
+          50.09,
+          571.18,
+          -30.86,
+          180.25,
+          194.95,
+          2037.88,
+          26.85
+        ]
+      },
+      {
+        "display_label": "社会科学",
+        "group": null,
+        "label": "社会科学",
+        "unit": null,
+        "values": [
+          101.52,
+          -18.29,
+          752.5,
+          36.17,
+          117.99,
+          -6.56,
+          2476.69,
+          41.86
+        ]
+      },
+      {
+        "display_label": "文学艺术",
+        "group": null,
+        "label": "文学艺术",
+        "unit": null,
+        "values": [
+          144.66,
+          11.53,
+          650.66,
+          8.17,
+          138.23,
+          53.2,
+          1690.11,
+          32.94
+        ]
+      },
+      {
+        "display_label": "自然科学",
+        "group": null,
+        "label": "自然科学",
+        "unit": null,
+        "values": [
+          57.99,
+          3.12,
+          345.88,
+          -0.01,
+          134.63,
+          25.13,
+          3414.3,
+          -1.85
+        ]
+      },
+      {
+        "display_label": "少儿读物",
+        "group": null,
+        "label": "少儿读物",
+        "unit": null,
+        "values": [
+          205.24,
+          46.11,
+          280.62,
+          5.95,
+          78.66,
+          99.27,
+          629.25,
+          67.66
+        ]
+      },
+      {
+        "display_label": "综合图书",
+        "group": null,
+        "label": "综合图书",
+        "unit": null,
+        "values": [
+          188.27,
+          27.52,
+          675.77,
+          5.42,
+          105.09,
+          -26.96,
+          1418.68,
+          53.49
+        ]
+      },
+      {
+        "display_label": "期刊",
+        "group": null,
+        "label": "期刊",
+        "unit": null,
+        "values": [
+          252.89,
+          29.83,
+          573.44,
+          35.25,
+          439.93,
+          4.58,
+          13906.17,
+          0.56
+        ]
+      },
+      {
+        "display_label": "报纸",
+        "group": null,
+        "label": "报纸",
+        "unit": null,
+        "values": [
+          35.53,
+          -18.53,
+          55.46,
+          1.0,
+          1785.1,
+          -5.68,
+          2800.18,
+          0.81
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.92,
+    "schema_valid": true
+  }
+}

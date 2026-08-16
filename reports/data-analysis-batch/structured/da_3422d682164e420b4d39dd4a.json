@@ -1,0 +1,190 @@
+{
+  "asset_id": "da_3422d682164e420b4d39dd4a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "火电, 80%",
+    "太阳能, 0.07%"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      287.757,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 287.757,
+        "label": "火电, 80%",
+        "share": 0.79932565,
+        "start_angle": 0.0,
+        "sweep_angle": 287.757
+      },
+      {
+        "end_angle": 360.0,
+        "label": "太阳能, 0.07%",
+        "share": 0.20067435,
+        "start_angle": 287.757,
+        "sweep_angle": 72.243
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.79932565,
+        0.20067435
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0193_3393cae34a2256b8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0193_3393cae34a2256b8.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_8119caf80fbc6e74528d",
+        "question_number": 96,
+        "source_jsonl_line": 89141
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0193_3393cae34a2256b8.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_66513774e0ade930d8c8",
+        "question_number": 97,
+        "source_jsonl_line": 89142
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0209_cf0216f76d7d4872.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_638cebfe46766f0f711b",
+        "question_number": 98,
+        "source_jsonl_line": 89143
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0193_3393cae34a2256b8.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_2da6960170369a58bf2e",
+        "question_number": 99,
+        "source_jsonl_line": 89144
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0209_cf0216f76d7d4872.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_cc856ec3c012e6cda3cc",
+        "question_number": 100,
+        "source_jsonl_line": 89145
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0188_3393cae34a2256b8.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_bc18bd774fc9d5dd5750",
+        "question_number": 96,
+        "source_jsonl_line": 94839
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0188_3393cae34a2256b8.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_9b5d305e6addf1f39bcc",
+        "question_number": 97,
+        "source_jsonl_line": 94840
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0188_3393cae34a2256b8.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_d3df94821d90cb65a593",
+        "question_number": 98,
+        "source_jsonl_line": 94841
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0197_cf0216f76d7d4872.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_755b0dffb65463504d36",
+        "question_number": 99,
+        "source_jsonl_line": 94842
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0188_3393cae34a2256b8.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_7bcda200c52672a058d8",
+        "question_number": 100,
+        "source_jsonl_line": 94843
+      }
+    ],
+    "sha256": "3422d682164e420b4d39dd4a1cae784a2121facec66b36b7cf93fbc83c47c9ab"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图1 中国2010年发电量",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3422d682164e420b4d39dd4a/quadrant_01.jpg",
+        "review-crops/da_3422d682164e420b4d39dd4a/quadrant_02.jpg",
+        "review-crops/da_3422d682164e420b4d39dd4a/quadrant_03.jpg",
+        "review-crops/da_3422d682164e420b4d39dd4a/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:1.743",
+      "crop_verification_elapsed_seconds:1.709",
+      "candidate_value_changes_after_crop:0",
+      "label_geometry_count_mismatch:5!=2",
+      "circle_edge_coverage:0.9319",
+      "hough_circle_radius_ratio:0.3126",
+      "radial_line_candidates:3",
+      "detected_boundaries:2"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

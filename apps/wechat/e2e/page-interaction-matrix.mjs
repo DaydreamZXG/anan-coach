@@ -14,6 +14,7 @@ function page(
     eventKind = "tap",
     evidence = null,
     dataset = {},
+    preconditionData = {},
     observable = true,
   } = {},
 ) {
@@ -33,6 +34,7 @@ function page(
           within,
           eventKind,
           dataset,
+          preconditionData,
           observable,
           evidence: evidence ?? BINDING_CONTROLLER,
         }
@@ -43,6 +45,7 @@ function page(
           within: null,
           eventKind: null,
           dataset: {},
+          preconditionData: {},
           observable: false,
           evidence: evidence ?? RUNTIME_READ_ONLY,
         },
@@ -55,10 +58,7 @@ function page(
  * user action (or the explicit reason why a page is read-only).
  */
 export const pageInteractionMatrix = [
-  page("pages/login/index", "a01-login-default", "建立微信身份", {
-    handler: "login",
-    selector: ".wechat-button",
-  }),
+  page("pages/login/index", "a01-login-default", "自动恢复或建立微信身份"),
   page("pages/today/index", "b01-today-ready", "从今日计划进入当前任务", {
     handler: "openTask",
     selector: ".primary-button",
@@ -115,6 +115,7 @@ export const pageInteractionMatrix = [
   page("account/memory/index", "g03-companion-memory-ready", "主动添加一条岸岸长期记忆", {
     handler: "saveMemory",
     selector: ".composer__save",
+    preconditionData: { draftContent: "我更容易理解先列式再解释的讲解。" },
   }),
   page("account/terms/index", "g03-terms-ready", "阅读用户协议", {
     evidence: RUNTIME_READ_ONLY,
@@ -124,9 +125,10 @@ export const pageInteractionMatrix = [
     selector: ".qr-action",
     evidence: PLATFORM_DEVICE,
   }),
-  page("pages/onboarding/entry/index", "a09-onboarding-entry", "选择新建或修改备考档案", {
-    handler: "startProfile",
-    selector: ".entry-action--primary",
+  page("pages/onboarding/entry/index", "a09-onboarding-entry", "选择岸岸认识自己的方式", {
+    handler: "chooseRecognitionPath",
+    selector: ".entry-option",
+    dataset: { path: "score_report" },
   }),
   page("pages/onboarding/index", "a04-qualification-review", "提交资格档案", {
     handler: "submit",

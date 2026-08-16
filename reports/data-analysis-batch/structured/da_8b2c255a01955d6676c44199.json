@@ -1,0 +1,212 @@
+{
+  "asset_id": "da_8b2c255a01955d6676c44199",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "新增创业人数（万人）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        11.4,
+        9.0,
+        5.9,
+        4.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "创办企业（个）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        9531,
+        4643,
+        7154,
+        6616
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "当年产值（亿元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        189.3,
+        108.6,
+        203.4,
+        113.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2016年四川省公务员录用考试《行测》题（下半年）_images/img_0187_607a26582fa5c722.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0187_607a26582fa5c722.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_81e1cf8f9db9dd947e04",
+        "question_number": 96,
+        "source_jsonl_line": 15411
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0187_607a26582fa5c722.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_6b8828e600a9f9a1d063",
+        "question_number": 97,
+        "source_jsonl_line": 15412
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0187_607a26582fa5c722.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_5afad8bbfa243dc56f07",
+        "question_number": 98,
+        "source_jsonl_line": 15413
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0187_607a26582fa5c722.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_cbab28cdfa3416913688",
+        "question_number": 99,
+        "source_jsonl_line": 15414
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0187_607a26582fa5c722.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_aa0349a3abdeba05bc6e",
+        "question_number": 100,
+        "source_jsonl_line": 15415
+      }
+    ],
+    "sha256": "8b2c255a01955d6676c441993b978e32a5c0fcd59b9ef4ed191e58fc1aa8e246"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2011年",
+      "2012年",
+      "2013年",
+      "2014年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "新增创业人数（万人）",
+        "unit": "万人",
+        "values": [
+          11.4,
+          9.0,
+          5.9,
+          4.6
+        ]
+      },
+      {
+        "label": "创办企业（个）",
+        "unit": "个",
+        "values": [
+          9531,
+          9531,
+          4643,
+          7154
+        ]
+      },
+      {
+        "label": "当年产值（亿元）",
+        "unit": "亿元",
+        "values": [
+          189.3,
+          189.3,
+          108.6,
+          203.4
+        ]
+      }
+    ]
+  },
+  "title": "2011-2014年某省农民工回乡创业情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8b2c255a01955d6676c44199/row_band_01.jpg",
+        "review-crops/da_8b2c255a01955d6676c44199/row_band_02.jpg",
+        "review-crops/da_8b2c255a01955d6676c44199/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.643",
+      "crop_verification_elapsed_seconds:2.592",
+      "candidate_value_changes_after_crop:6",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_out_of_range_table_cell:创办企业（个）:2014年",
+      "crop_note:ignored_out_of_range_table_cell:当年产值（亿元）:2014年",
+      "table_row_label_column_removed:<blank>"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

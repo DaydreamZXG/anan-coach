@@ -1,0 +1,380 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2014年｜播种面积（公顷）",
+          "2014年｜总产量（吨）",
+          "2014年｜单产（千克/公顷）"
+        ],
+        "label": "2014年"
+      },
+      {
+        "columns": [
+          "2015年｜播种面积（公顷）",
+          "2015年｜总产量（吨）",
+          "2015年｜单产（千克/公顷）"
+        ],
+        "label": "2015年"
+      }
+    ],
+    "columns": [
+      "2014年｜播种面积（公顷）",
+      "2014年｜总产量（吨）",
+      "2014年｜单产（千克/公顷）",
+      "2015年｜播种面积（公顷）",
+      "2015年｜总产量（吨）",
+      "2015年｜单产（千克/公顷）"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "总产量（吨）",
+      "style": "diagonal",
+      "upper_label": "播种面积（公顷）"
+    },
+    "missing_cells": [],
+    "row_header_label": "总产量（吨）",
+    "rows": [
+      {
+        "display_label": "（一）粮食作物合计",
+        "group": null,
+        "label": "（一）粮食作物合计",
+        "unit": null,
+        "values": [
+          7440033,
+          45966000,
+          6178,
+          7492100,
+          47127000,
+          6290
+        ]
+      },
+      {
+        "display_label": "（一）夏收粮食",
+        "group": null,
+        "label": "（一）夏收粮食",
+        "unit": null,
+        "values": [
+          3741400,
+          22645000,
+          6053,
+          3801300,
+          22473000,
+          6175
+        ]
+      },
+      {
+        "display_label": "1.谷物",
+        "group": "（一）夏收粮食",
+        "label": "（一）夏收粮食｜1.谷物",
+        "unit": null,
+        "values": [
+          3740833,
+          22641711,
+          6053,
+          3800520,
+          22469500,
+          6175
+        ]
+      },
+      {
+        "display_label": "#小麦",
+        "group": null,
+        "label": "#小麦",
+        "unit": null,
+        "values": [
+          3740227,
+          22638400,
+          6053,
+          3799833,
+          22466000,
+          6176
+        ]
+      },
+      {
+        "display_label": "2.豆类",
+        "group": null,
+        "label": "2.豆类",
+        "unit": null,
+        "values": [
+          567,
+          3290,
+          5805,
+          780,
+          3500,
+          4487
+        ]
+      },
+      {
+        "display_label": "（二）秋收粮食",
+        "group": null,
+        "label": "（二）秋收粮食",
+        "unit": null,
+        "values": [
+          3698633,
+          23321000,
+          6305,
+          3690800,
+          23654000,
+          6409
+        ]
+      },
+      {
+        "display_label": "1.谷物",
+        "group": "（二）秋收粮食",
+        "label": "（二）秋收粮食｜1.谷物",
+        "unit": null,
+        "values": [
+          3273607,
+          20973100,
+          6407,
+          3312160,
+          21531400,
+          6501
+        ]
+      },
+      {
+        "display_label": "（1）稻谷",
+        "group": null,
+        "label": "（1）稻谷",
+        "unit": null,
+        "values": [
+          122400,
+          1010200,
+          8253,
+          116280,
+          951000,
+          8179
+        ]
+      },
+      {
+        "display_label": "（2）玉米",
+        "group": null,
+        "label": "（2）玉米",
+        "unit": null,
+        "values": [
+          3126473,
+          19883400,
+          6360,
+          3173797,
+          20509000,
+          6462
+        ]
+      },
+      {
+        "display_label": "（3）谷子",
+        "group": null,
+        "label": "（3）谷子",
+        "unit": null,
+        "values": [
+          1880,
+          59674,
+          3174,
+          16870,
+          53400,
+          3165
+        ]
+      },
+      {
+        "display_label": "（4）高粱",
+        "group": null,
+        "label": "（4）高粱",
+        "unit": null,
+        "values": [
+          4733,
+          15697,
+          3316,
+          4333,
+          15000,
+          3462
+        ]
+      },
+      {
+        "display_label": "（5）其他",
+        "group": null,
+        "label": "（5）其他",
+        "unit": null,
+        "values": [
+          1200,
+          4129,
+          3441,
+          880,
+          3000,
+          3409
+        ]
+      },
+      {
+        "display_label": "2.豆类合计",
+        "group": null,
+        "label": "2.豆类合计",
+        "unit": null,
+        "values": [
+          168120,
+          414000,
+          2463,
+          151640,
+          384000,
+          2532
+        ]
+      },
+      {
+        "display_label": "#大豆",
+        "group": null,
+        "label": "#大豆",
+        "unit": null,
+        "values": [
+          149467,
+          367164,
+          2456,
+          137150,
+          348300,
+          2540
+        ]
+      },
+      {
+        "display_label": "3.薯类（按折粮计算）",
+        "group": null,
+        "label": "3.薯类（按折粮计算）",
+        "unit": null,
+        "values": [
+          256907,
+          1933900,
+          7528,
+          227000,
+          1738600,
+          7659
+        ]
+      },
+      {
+        "display_label": "二、油料作物合计",
+        "group": null,
+        "label": "二、油料作物合计",
+        "unit": null,
+        "values": [
+          773182,
+          3358878,
+          4344,
+          758260,
+          3241016,
+          4274
+        ]
+      },
+      {
+        "display_label": "#花生果",
+        "group": null,
+        "label": "#花生果",
+        "unit": null,
+        "values": [
+          755302,
+          3312957,
+          4386,
+          740440,
+          3194038,
+          4314
+        ]
+      },
+      {
+        "display_label": "油菜籽",
+        "group": null,
+        "label": "油菜籽",
+        "unit": null,
+        "values": [
+          9641,
+          24494,
+          2541,
+          9413,
+          24432,
+          2595
+        ]
+      },
+      {
+        "display_label": "芝麻",
+        "group": null,
+        "label": "芝麻",
+        "unit": null,
+        "values": [
+          530,
+          938,
+          1769,
+          631,
+          1110,
+          1758
+        ]
+      },
+      {
+        "display_label": "三、棉花",
+        "group": null,
+        "label": "三、棉花",
+        "unit": null,
+        "values": [
+          592900,
+          665000,
+          1122,
+          515500,
+          537000,
+          1042
+        ]
+      },
+      {
+        "display_label": "四、生麻",
+        "group": null,
+        "label": "四、生麻",
+        "unit": null,
+        "values": [
+          48,
+          97,
+          2036,
+          43,
+          78,
+          1837
+        ]
+      },
+      {
+        "display_label": "生大麻",
+        "group": null,
+        "label": "生大麻",
+        "unit": null,
+        "values": [
+          40,
+          74,
+          1851,
+          43,
+          78,
+          1837
+        ]
+      },
+      {
+        "display_label": "六、烟叶",
+        "group": null,
+        "label": "六、烟叶",
+        "unit": null,
+        "values": [
+          27926,
+          70938,
+          2540,
+          24359,
+          62773,
+          2577
+        ]
+      },
+      {
+        "display_label": "烤烟",
+        "group": null,
+        "label": "烤烟",
+        "unit": null,
+        "values": [
+          27911,
+          70824,
+          2538,
+          24359,
+          62773,
+          2577
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

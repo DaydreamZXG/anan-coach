@@ -7,7 +7,11 @@
  * 演示页面，所有项必须与 design/figma-delivery/route-map.json 一一对应。
  */
 export const visualDeliveryContracts = [
-  delivery("3:2", "b01-today-ready", "/pages/today/index", ".today-page", ["今天", "为什么这样练"]),
+  delivery("3:2", "b01-today-ready", "/pages/today/index", ".today-page", [
+    "岸岸建议",
+    "为什么今天先做这个",
+    "看岸岸怎么验证这个判断",
+  ]),
   delivery("4:2", "e01-learning-profile-ready", "/pages/ability/index", ".ability-page", [
     "能力",
     "目标对照",
@@ -20,21 +24,17 @@ export const visualDeliveryContracts = [
     "备考档案",
     "一级行政执法员",
   ]),
-  delivery(
-    "31:2",
-    "a01-login-default",
-    "/pages/login/index",
-    ".login-content",
-    ["岸岸备考", "微信一键登录"],
-    ".wechat-button",
-  ),
+  delivery("31:2", "a01-login-default", "/pages/login/index", ".login-content", [
+    "正在进入岸岸",
+    "正在准备你的备考空间",
+  ]),
   delivery(
     "8:2",
     "a09-onboarding-entry",
     "/pages/onboarding/entry/index",
     ".entry-content",
-    ["建立备考档案", "我是新用户，开始建档"],
-    ".entry-action--primary",
+    ["你想让岸岸怎么认识你？", "做一次快速诊断"],
+    ".entry-option--primary",
   ),
   delivery(
     "33:2",

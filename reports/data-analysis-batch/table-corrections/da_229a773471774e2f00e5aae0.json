@@ -1,0 +1,66 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "市场用人需求｜增加量（万人）",
+          "市场用人需求｜增长率（%）"
+        ],
+        "label": "市场用人需求"
+      },
+      {
+        "columns": [
+          "求职人数｜增加量（万人）",
+          "求职人数｜增长率（%）"
+        ],
+        "label": "求职人数"
+      }
+    ],
+    "columns": [
+      "市场用人需求｜增加量（万人）",
+      "市场用人需求｜增长率（%）",
+      "求职人数｜增加量（万人）",
+      "求职人数｜增长率（%）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "区域",
+    "rows": [
+      {
+        "label": "东部",
+        "unit": null,
+        "values": [
+          15,
+          7.1,
+          -12.2,
+          -6.2
+        ]
+      },
+      {
+        "label": "中部",
+        "unit": null,
+        "values": [
+          0.5,
+          0.4,
+          -0.4,
+          -0.4
+        ]
+      },
+      {
+        "label": "西部",
+        "unit": null,
+        "values": [
+          0.1,
+          0.2,
+          -4.7,
+          -7.4
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

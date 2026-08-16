@@ -1,0 +1,100 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "绝对贫困｜标准（元）",
+          "绝对贫困｜人口规模（万人）",
+          "绝对贫困｜人口比重（%）"
+        ],
+        "label": "绝对贫困"
+      },
+      {
+        "columns": [
+          "低收入｜标准（元）",
+          "低收入｜人口规模（万人）",
+          "低收入｜人口比重（%）"
+        ],
+        "label": "低收入"
+      }
+    ],
+    "columns": [
+      "绝对贫困｜标准（元）",
+      "绝对贫困｜人口规模（万人）",
+      "绝对贫困｜人口比重（%）",
+      "低收入｜标准（元）",
+      "低收入｜人口规模（万人）",
+      "低收入｜人口比重（%）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年度",
+    "rows": [
+      {
+        "label": "2000",
+        "unit": null,
+        "values": [
+          625,
+          3209,
+          3.5,
+          865,
+          6213,
+          6.7
+        ]
+      },
+      {
+        "label": "2001",
+        "unit": null,
+        "values": [
+          630,
+          2927,
+          3.2,
+          872,
+          6102,
+          6.6
+        ]
+      },
+      {
+        "label": "2002",
+        "unit": null,
+        "values": [
+          627,
+          2820,
+          3,
+          869,
+          5825,
+          6.2
+        ]
+      },
+      {
+        "label": "2003",
+        "unit": null,
+        "values": [
+          637,
+          2900,
+          3.1,
+          882,
+          5617,
+          6
+        ]
+      },
+      {
+        "label": "2004",
+        "unit": null,
+        "values": [
+          668,
+          2610,
+          2.8,
+          924,
+          4977,
+          5.3
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

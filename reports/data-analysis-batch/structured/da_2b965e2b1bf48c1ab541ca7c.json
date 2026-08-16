@@ -1,0 +1,164 @@
+{
+  "asset_id": "da_2b965e2b1bf48c1ab541ca7c",
+  "axes": {
+    "x": {
+      "max": 150000,
+      "min": 0,
+      "ticks": [
+        0,
+        50000,
+        100000,
+        150000
+      ],
+      "title": null,
+      "unit": "万元"
+    },
+    "y": [
+      {
+        "max": 1,
+        "min": 0,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "数理科学部",
+    "化学科学部",
+    "生命科学部",
+    "地球科学部",
+    "工程与材料科学部",
+    "信息科学部",
+    "管理科学部",
+    "医学科学部"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "获批项目金额",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "获批项目金额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        38685,
+        47741,
+        66080,
+        38861,
+        84787,
+        51949,
+        22370,
+        100743
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2017年江苏省公务员录用考试《行测》题(A类)_images/img_0265_8734c534506fbda7.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0265_8734c534506fbda7.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_5f62904ceb1d7bdb34d3",
+        "question_number": 131,
+        "source_jsonl_line": 47641
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0268_78d3311e1598446c.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_b292fc0ebd31f4b25238",
+        "question_number": 132,
+        "source_jsonl_line": 47642
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0265_8734c534506fbda7.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_49670f458c49b3fdfc45",
+        "question_number": 133,
+        "source_jsonl_line": 47643
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0268_78d3311e1598446c.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_1763218b84abb20ac142",
+        "question_number": 134,
+        "source_jsonl_line": 47644
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0268_78d3311e1598446c.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_0b20101a694104a38bb1",
+        "question_number": 135,
+        "source_jsonl_line": 47645
+      }
+    ],
+    "sha256": "2b965e2b1bf48c1ab541ca7cc97483687413e99c6c9c687f0ece08de9a5d9c43"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "教育部隶属单位获批国家自然科学基金面上项目金额",
+  "unit": "万元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2b965e2b1bf48c1ab541ca7c/column_band_01.jpg",
+        "review-crops/da_2b965e2b1bf48c1ab541ca7c/column_band_02.jpg",
+        "review-crops/da_2b965e2b1bf48c1ab541ca7c/column_band_03.jpg",
+        "review-crops/da_2b965e2b1bf48c1ab541ca7c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.418",
+      "crop_verification_elapsed_seconds:7.173",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'工程与材料科学部'的数值，原图显示为51949，但根据上下文应为84787。",
+      "crop_note:修正了'医学科学部'的数值，原图显示为100743，但根据上下文应为100743。",
+      "crop_note:确认'生命科学部'的数值为66080，与原图一致。",
+      "crop_note:确认'化学科学部'的数值为47741，与原图一致。",
+      "crop_note:确认'数理科学部'的数值为38685，与原图一致。",
+      "crop_note:确认'地球科学部'的数值为38861，与原图一致。",
+      "crop_note:确认'信息科学部'的数值为51949，与原图一致。",
+      "crop_note:确认'管理科学部'的数值为22370，与原图一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

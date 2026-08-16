@@ -1,0 +1,157 @@
+{
+  "asset_id": "da_08edabb6c1e6c1ce1ae4261c",
+  "axes": {
+    "x": {
+      "max": 2000,
+      "min": 0,
+      "ticks": [
+        0,
+        500,
+        1000,
+        1500,
+        2000
+      ],
+      "title": null,
+      "unit": "个"
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "数理科学部",
+    "化学科学部",
+    "生命科学部",
+    "地球科学部",
+    "工程与材料科学部",
+    "信息科学部",
+    "管理科学部",
+    "医学科学部"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "获批项目数",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "获批项目数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        643,
+        741,
+        1082,
+        568,
+        1363,
+        889,
+        466,
+        1779
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2017年江苏省公务员录用考试《行测》题(A类)_images/img_0266_d1eec4a58b1d8d14.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0266_d1eec4a58b1d8d14.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_5f62904ceb1d7bdb34d3",
+        "question_number": 131,
+        "source_jsonl_line": 47641
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0272_48a2a57566648dc5.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_b292fc0ebd31f4b25238",
+        "question_number": 132,
+        "source_jsonl_line": 47642
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0266_d1eec4a58b1d8d14.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_49670f458c49b3fdfc45",
+        "question_number": 133,
+        "source_jsonl_line": 47643
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0272_48a2a57566648dc5.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_1763218b84abb20ac142",
+        "question_number": 134,
+        "source_jsonl_line": 47644
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年江苏省公务员录用考试《行测》题(A类)_images/img_0272_48a2a57566648dc5.png",
+        "paper_title": "2017年江苏省公务员录用考试《行测》题(A类)",
+        "question_id": "pq_0b20101a694104a38bb1",
+        "question_number": 135,
+        "source_jsonl_line": 47645
+      }
+    ],
+    "sha256": "08edabb6c1e6c1ce1ae4261c833eecd807d64ca387f8b57d03cbb9a2b7c09636"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "教育部直属单位获批国家自然科学基金面上项目数",
+  "unit": "个",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_08edabb6c1e6c1ce1ae4261c/column_band_01.jpg",
+        "review-crops/da_08edabb6c1e6c1ce1ae4261c/column_band_02.jpg",
+        "review-crops/da_08edabb6c1e6c1ce1ae4261c/column_band_03.jpg",
+        "review-crops/da_08edabb6c1e6c1ce1ae4261c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.246",
+      "crop_verification_elapsed_seconds:3.359",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

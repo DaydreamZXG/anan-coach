@@ -1,0 +1,437 @@
+{
+  "asset_id": "da_a6a113419f2b7e22e1ff52b6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "消费类型",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "金额（元）",
+        "unit": "元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "比例（%）",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "住房",
+    "食品",
+    "衣着",
+    "医疗",
+    "交通",
+    "通讯",
+    "教育",
+    "文化、娱乐、游泳",
+    "电费、水费等日常开销",
+    "家用电器、家具",
+    "日用品",
+    "人情往来",
+    "合计"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "城市家庭-金额（元）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "城市家庭-比例（%）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "农村家庭-金额（元）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "农村家庭-比例（%）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "城市家庭-金额（元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        1865.9,
+        9790.2,
+        1957.6,
+        2670.9,
+        1425.0,
+        1482.9,
+        3170.5,
+        717.8,
+        1935.3,
+        1010.7,
+        467.7,
+        1849.1,
+        28343.7
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "-",
+      "label": "城市家庭-比例（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.6,
+        34.5,
+        6.9,
+        9.4,
+        5.0,
+        5.2,
+        11.2,
+        2.5,
+        6.8,
+        3.6,
+        1.7,
+        6.5,
+        100.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "农村家庭-金额（元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        484.7,
+        5751.0,
+        1171.7,
+        2141.6,
+        1107.0,
+        965.8,
+        2069.2,
+        180.3,
+        926.9,
+        567.3,
+        313.7,
+        1605.7,
+        17285.0
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "-",
+      "label": "农村家庭-比例（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        2.8,
+        33.3,
+        6.8,
+        12.4,
+        6.4,
+        5.6,
+        12.0,
+        1.0,
+        5.4,
+        3.3,
+        1.8,
+        9.3,
+        100.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2009年山东省公务员录用考试《行测》题_images/img_0156_2ac084e8830ff320.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山东省公务员录用考试《行测》题_images/img_0156_2ac084e8830ff320.png",
+        "paper_title": "2009年山东省公务员录用考试《行测》题",
+        "question_id": "pq_da4d0aeb21e769536450",
+        "question_number": 131,
+        "source_jsonl_line": 29125
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山东省公务员录用考试《行测》题_images/img_0156_2ac084e8830ff320.png",
+        "paper_title": "2009年山东省公务员录用考试《行测》题",
+        "question_id": "pq_6ef9de817e19a4fd1f97",
+        "question_number": 132,
+        "source_jsonl_line": 29126
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山东省公务员录用考试《行测》题_images/img_0156_2ac084e8830ff320.png",
+        "paper_title": "2009年山东省公务员录用考试《行测》题",
+        "question_id": "pq_e855ec3896aaaf2666d7",
+        "question_number": 133,
+        "source_jsonl_line": 29127
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山东省公务员录用考试《行测》题_images/img_0156_2ac084e8830ff320.png",
+        "paper_title": "2009年山东省公务员录用考试《行测》题",
+        "question_id": "pq_03ca1e2f063fd7017e86",
+        "question_number": 134,
+        "source_jsonl_line": 29128
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山东省公务员录用考试《行测》题_images/img_0156_2ac084e8830ff320.png",
+        "paper_title": "2009年山东省公务员录用考试《行测》题",
+        "question_id": "pq_db98ffea1b88a568659d",
+        "question_number": 135,
+        "source_jsonl_line": 29129
+      }
+    ],
+    "sha256": "a6a113419f2b7e22e1ff52b64e9e5d885cc3bf9c3936c53cb07baa4da6f8e05b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "消费类型",
+      "城市家庭-金额（元）",
+      "城市家庭-比例（%）",
+      "农村家庭-金额（元）",
+      "农村家庭-比例（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "住房",
+        "unit": null,
+        "values": [
+          "住房",
+          1865.9,
+          6.6,
+          484.7,
+          2.8
+        ]
+      },
+      {
+        "label": "食品",
+        "unit": null,
+        "values": [
+          "食品",
+          9790.2,
+          34.5,
+          5751.0,
+          33.3
+        ]
+      },
+      {
+        "label": "衣着",
+        "unit": null,
+        "values": [
+          "衣着",
+          1957.6,
+          6.9,
+          1171.7,
+          6.8
+        ]
+      },
+      {
+        "label": "医疗",
+        "unit": null,
+        "values": [
+          "医疗",
+          2670.9,
+          9.4,
+          2141.6,
+          12.4
+        ]
+      },
+      {
+        "label": "交通",
+        "unit": null,
+        "values": [
+          "交通",
+          1425.0,
+          5.0,
+          1107.0,
+          6.4
+        ]
+      },
+      {
+        "label": "通讯",
+        "unit": null,
+        "values": [
+          "通讯",
+          1482.9,
+          5.2,
+          965.8,
+          5.6
+        ]
+      },
+      {
+        "label": "教育",
+        "unit": null,
+        "values": [
+          "教育",
+          3170.5,
+          11.2,
+          2069.2,
+          12.0
+        ]
+      },
+      {
+        "label": "文化、娱乐、游泳",
+        "unit": null,
+        "values": [
+          "文化、娱乐、游泳",
+          717.8,
+          2.5,
+          180.3,
+          1.0
+        ]
+      },
+      {
+        "label": "电费、水费等日常开销",
+        "unit": null,
+        "values": [
+          "电费、水费等日常开销",
+          1935.3,
+          6.8,
+          926.9,
+          5.4
+        ]
+      },
+      {
+        "label": "家用电器、家具",
+        "unit": null,
+        "values": [
+          "家用电器、家具",
+          1010.7,
+          3.6,
+          567.3,
+          3.3
+        ]
+      },
+      {
+        "label": "日用品",
+        "unit": null,
+        "values": [
+          "日用品",
+          467.7,
+          1.7,
+          313.7,
+          1.8
+        ]
+      },
+      {
+        "label": "人情往来",
+        "unit": null,
+        "values": [
+          "人情往来",
+          1849.1,
+          6.5,
+          1605.7,
+          9.3
+        ]
+      },
+      {
+        "label": "合计",
+        "unit": null,
+        "values": [
+          "合计",
+          28343.7,
+          100.0,
+          17285.0,
+          100.0
+        ]
+      }
+    ]
+  },
+  "title": "表二：城乡家庭消费水平和消费结构比较",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a6a113419f2b7e22e1ff52b6/row_band_01.jpg",
+        "review-crops/da_a6a113419f2b7e22e1ff52b6/row_band_02.jpg",
+        "review-crops/da_a6a113419f2b7e22e1ff52b6/row_band_03.jpg",
+        "review-crops/da_a6a113419f2b7e22e1ff52b6/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:19.455",
+      "crop_verification_elapsed_seconds:13.046",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

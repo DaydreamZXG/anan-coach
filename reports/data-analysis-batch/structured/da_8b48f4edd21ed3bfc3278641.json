@@ -1,0 +1,399 @@
+{
+  "asset_id": "da_8b48f4edd21ed3bfc3278641",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0111_f8cb5fae6ad5d0e3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0111_f8cb5fae6ad5d0e3.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_095ee618a4797489f447",
+        "question_number": 101,
+        "source_jsonl_line": 24243
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0112_b5ee5cbaa429b459.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f6a6997525534bd7138d",
+        "question_number": 102,
+        "source_jsonl_line": 24244
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0111_f8cb5fae6ad5d0e3.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b382c9164198fd0dd0bd",
+        "question_number": 103,
+        "source_jsonl_line": 24245
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0112_b5ee5cbaa429b459.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9dc043db5c92850d2013",
+        "question_number": 104,
+        "source_jsonl_line": 24246
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0111_f8cb5fae6ad5d0e3.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d032b7b688379dd3a53b",
+        "question_number": 105,
+        "source_jsonl_line": 24247
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0118_f8cb5fae6ad5d0e3.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_8872deea80627b2403b6",
+        "question_number": 101,
+        "source_jsonl_line": 43896
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0118_f8cb5fae6ad5d0e3.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_21f0dc01d1b17c02f466",
+        "question_number": 102,
+        "source_jsonl_line": 43897
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0118_f8cb5fae6ad5d0e3.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_8a03d4538a2fdc36dbda",
+        "question_number": 103,
+        "source_jsonl_line": 43898
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0110_b5ee5cbaa429b459.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_b9899a9e1073526161ca",
+        "question_number": 104,
+        "source_jsonl_line": 43899
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0118_f8cb5fae6ad5d0e3.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_ebc9bb4cd4d43d220394",
+        "question_number": 105,
+        "source_jsonl_line": 43900
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0113_f8cb5fae6ad5d0e3.png",
+        "paper_title": "2024年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b2dab016413b2ba2d2bf",
+        "question_number": 116,
+        "source_jsonl_line": 54080
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0113_f8cb5fae6ad5d0e3.png",
+        "paper_title": "2024年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_227178e6200264b6db3d",
+        "question_number": 117,
+        "source_jsonl_line": 54081
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0113_f8cb5fae6ad5d0e3.png",
+        "paper_title": "2024年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_576f9982a906336c7424",
+        "question_number": 118,
+        "source_jsonl_line": 54082
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0123_b5ee5cbaa429b459.png",
+        "paper_title": "2024年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_eda6caa18ad1d8f23991",
+        "question_number": 119,
+        "source_jsonl_line": 54083
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0123_b5ee5cbaa429b459.png",
+        "paper_title": "2024年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1a7687ef5bf68c6c43d8",
+        "question_number": 120,
+        "source_jsonl_line": 54084
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0162_b5ee5cbaa429b459.png",
+        "paper_title": "2024年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a4906d12171c01585227",
+        "question_number": 116,
+        "source_jsonl_line": 56523
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0162_b5ee5cbaa429b459.png",
+        "paper_title": "2024年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a86cf781c932a323fa78",
+        "question_number": 117,
+        "source_jsonl_line": 56524
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0162_b5ee5cbaa429b459.png",
+        "paper_title": "2024年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_587b9929a03a71bb60df",
+        "question_number": 118,
+        "source_jsonl_line": 56525
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0162_b5ee5cbaa429b459.png",
+        "paper_title": "2024年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_07d4b597907ce75d4990",
+        "question_number": 119,
+        "source_jsonl_line": 56526
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0164_f8cb5fae6ad5d0e3.png",
+        "paper_title": "2024年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_19c9c8a850086f8bc085",
+        "question_number": 120,
+        "source_jsonl_line": 56527
+      }
+    ],
+    "sha256": "8b48f4edd21ed3bfc3278641fb8aef03a47f2959df795c5bcaabf81513924857"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2012年",
+      "2021年",
+      "2022年"
+    ],
+    "corner_header": {
+      "lower_label": "国家",
+      "style": "diagonal",
+      "upper_label": "年份"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "瑞士",
+        "group": "全球创新指数（GII）",
+        "label": "全球创新指数（GII）｜瑞士",
+        "unit": null,
+        "values": [
+          68.2,
+          65.5,
+          64.6
+        ]
+      },
+      {
+        "display_label": "美国",
+        "group": "全球创新指数（GII）",
+        "label": "全球创新指数（GII）｜美国",
+        "unit": null,
+        "values": [
+          57.7,
+          61.3,
+          61.8
+        ]
+      },
+      {
+        "display_label": "瑞典",
+        "group": "全球创新指数（GII）",
+        "label": "全球创新指数（GII）｜瑞典",
+        "unit": null,
+        "values": [
+          64.8,
+          63.1,
+          61.6
+        ]
+      },
+      {
+        "display_label": "英国",
+        "group": "全球创新指数（GII）",
+        "label": "全球创新指数（GII）｜英国",
+        "unit": null,
+        "values": [
+          61.2,
+          59.8,
+          59.7
+        ]
+      },
+      {
+        "display_label": "荷兰",
+        "group": "全球创新指数（GII）",
+        "label": "全球创新指数（GII）｜荷兰",
+        "unit": null,
+        "values": [
+          60.5,
+          58.6,
+          58.0
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": "全球创新指数（GII）",
+        "label": "全球创新指数（GII）｜韩国",
+        "unit": null,
+        "values": [
+          53.9,
+          59.3,
+          57.8
+        ]
+      },
+      {
+        "display_label": "新加坡",
+        "group": "全球创新指数（GII）",
+        "label": "全球创新指数（GII）｜新加坡",
+        "unit": null,
+        "values": [
+          63.5,
+          57.8,
+          57.3
+        ]
+      },
+      {
+        "display_label": "德国",
+        "group": "全球创新指数（GII）",
+        "label": "全球创新指数（GII）｜德国",
+        "unit": null,
+        "values": [
+          56.2,
+          57.3,
+          57.2
+        ]
+      },
+      {
+        "display_label": "芬兰",
+        "group": "全球创新指数（GII）",
+        "label": "全球创新指数（GII）｜芬兰",
+        "unit": null,
+        "values": [
+          61.8,
+          58.4,
+          56.9
+        ]
+      },
+      {
+        "display_label": "丹麦",
+        "group": "全球创新指数（GII）",
+        "label": "全球创新指数（GII）｜丹麦",
+        "unit": null,
+        "values": [
+          59.9,
+          57.3,
+          55.9
+        ]
+      },
+      {
+        "display_label": "中国",
+        "group": "全球创新指数（GII）",
+        "label": "全球创新指数（GII）｜中国",
+        "unit": null,
+        "values": [
+          45.4,
+          54.8,
+          55.3
+        ]
+      },
+      {
+        "display_label": "巴西",
+        "group": "全球创新指数（GII）",
+        "label": "全球创新指数（GII）｜巴西",
+        "unit": null,
+        "values": [
+          36.6,
+          34.2,
+          32.5
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": "全球创新指数（GII）",
+        "label": "全球创新指数（GII）｜俄罗斯",
+        "unit": null,
+        "values": [
+          37.9,
+          36.6,
+          34.3
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": "全球创新指数（GII）",
+        "label": "全球创新指数（GII）｜印度",
+        "unit": null,
+        "values": [
+          35.7,
+          36.4,
+          36.6
+        ]
+      },
+      {
+        "display_label": "南非",
+        "group": "全球创新指数（GII）",
+        "label": "全球创新指数（GII）｜南非",
+        "unit": null,
+        "values": [
+          37.4,
+          32.7,
+          29.8
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

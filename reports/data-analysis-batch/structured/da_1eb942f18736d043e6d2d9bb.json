@@ -1,0 +1,192 @@
+{
+  "asset_id": "da_1eb942f18736d043e6d2d9bb",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2016年国家公务员录用考试《行测》题（副省级）_images/img_0150_3ec0fd4ff09945b2.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年国家公务员录用考试《行测》题（副省级）_images/img_0150_3ec0fd4ff09945b2.jpg",
+        "paper_title": "2016年国家公务员录用考试《行测》题（副省级）",
+        "question_id": "pq_b477ff2ba538a214f938",
+        "question_number": 118,
+        "source_jsonl_line": 18458
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年国家公务员录用考试《行测》题（副省级）_images/img_0150_3ec0fd4ff09945b2.jpg",
+        "paper_title": "2016年国家公务员录用考试《行测》题（副省级）",
+        "question_id": "pq_76e4ab855b185a7838ff",
+        "question_number": 119,
+        "source_jsonl_line": 18459
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年国家公务员录用考试《行测》题（副省级）_images/img_0150_3ec0fd4ff09945b2.jpg",
+        "paper_title": "2016年国家公务员录用考试《行测》题（副省级）",
+        "question_id": "pq_a41b3bbeb6c9d3229683",
+        "question_number": 120,
+        "source_jsonl_line": 18460
+      }
+    ],
+    "sha256": "1eb942f18736d043e6d2d9bb01978a3ad85d222151127cba9ba3b51cf4608485"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "甲影片 平均票价: 30元",
+      "乙影片 平均票价: 30元",
+      "丙影片 平均票价: 30元",
+      "丁影片 平均票价: 40元"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "昨天票房总收入",
+        "unit": null,
+        "values": [
+          "9600元",
+          "18000元",
+          "9000元",
+          "16800元"
+        ]
+      },
+      {
+        "label": "影厅 座位数",
+        "unit": null,
+        "values": [
+          "8:00; 12:30; 14:00; 16:30; 19:00; 21:30; 23:00",
+          "7:50; 10:50; 13:50; 16:50; 19:50; 22:50",
+          "10:40; 12:50; 15:00; 17:10; 19:20; 21:00",
+          "12:20; 14:40; 20:10; 22:30"
+        ]
+      },
+      {
+        "label": "1厅",
+        "unit": null,
+        "values": [
+          "100座",
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "2厅",
+        "unit": null,
+        "values": [
+          "100座",
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "3厅",
+        "unit": null,
+        "values": [
+          "100座",
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "4厅",
+        "unit": null,
+        "values": [
+          "200座",
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "5厅",
+        "unit": null,
+        "values": [
+          "200座",
+          "10:00; 20:00",
+          null,
+          "13:00; 15:20; 17:40"
+        ]
+      },
+      {
+        "label": "VIP厅",
+        "unit": null,
+        "values": [
+          "50座",
+          "18:00; 20:30",
+          null,
+          null
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1eb942f18736d043e6d2d9bb/row_band_01.jpg",
+        "review-crops/da_1eb942f18736d043e6d2d9bb/row_band_02.jpg",
+        "review-crops/da_1eb942f18736d043e6d2d9bb/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.424",
+      "crop_verification_elapsed_seconds:16.178",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:表格中部分单元格内容为时间列表，未明确是否为票房数据或排片信息，存在语义歧义。",
+      "crop_note:修正了'影厅 座位数'行中'1厅'的座位数为'100座'，并确认其对应的时间列表完整。",
+      "crop_note:修正了'影厅 座位数'行中'2厅'的时间列表为'7:50; 10:50; 13:50; 16:50; 19:50; 22:50'，并确认其对应座位数为'100座'。",
+      "crop_note:修正了'影厅 座位数'行中'3厅'的时间列表为'10:40; 12:50; 15:00; 17:10; 19:20; 21:00'，并确认其对应座位数为'100座'。",
+      "crop_note:修正了'影厅 座位数'行中'4厅'的时间列表为'12:20; 14:40; 20:10; 22:30'，并确认其对应座位数为'200座'。",
+      "crop_note:修正了'影厅 座位数'行中'5厅'的时间列表为'10:00; 20:00'，并确认其对应座位数为'200座'。",
+      "crop_note:修正了'影厅 座位数'行中'VIP厅'的时间列表为'18:00; 20:30'，并确认其对应座位数为'50座'。",
+      "table_row_label_column_removed:<blank>"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

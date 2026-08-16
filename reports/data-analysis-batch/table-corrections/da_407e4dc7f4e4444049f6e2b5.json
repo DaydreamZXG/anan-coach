@@ -1,0 +1,257 @@
+{
+  "confidence": 0.92,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "数量",
+      "同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "display_label": "本外币贷款余额",
+        "group": null,
+        "label": "本外币贷款余额",
+        "unit": null,
+        "values": [
+          "52.61 万亿元",
+          17.6
+        ]
+      },
+      {
+        "display_label": "人民币贷款余额",
+        "group": null,
+        "label": "人民币贷款余额",
+        "unit": null,
+        "values": [
+          "49.47 万亿元",
+          17.9
+        ]
+      },
+      {
+        "display_label": "外币贷款余额",
+        "group": null,
+        "label": "外币贷款余额",
+        "unit": null,
+        "values": [
+          "4775 亿美元",
+          17.2
+        ]
+      },
+      {
+        "display_label": "本外币存款余额",
+        "group": null,
+        "label": "本外币存款余额",
+        "unit": null,
+        "values": [
+          "76.84 万亿元",
+          18.7
+        ]
+      },
+      {
+        "display_label": "人民币存款余额",
+        "group": null,
+        "label": "人民币存款余额",
+        "unit": null,
+        "values": [
+          "75.28 万亿元",
+          19.0
+        ]
+      },
+      {
+        "display_label": "外币存款余额",
+        "group": null,
+        "label": "外币存款余额",
+        "unit": null,
+        "values": [
+          "2369 亿美元",
+          9.4
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "column_groups": [],
+        "columns": [
+          "数量",
+          "同比增长（%）"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "本外币贷款余额",
+            "group": null,
+            "label": "本外币贷款余额",
+            "unit": null,
+            "values": [
+              "52.61 万亿元",
+              17.6
+            ]
+          },
+          {
+            "display_label": "人民币贷款余额",
+            "group": null,
+            "label": "人民币贷款余额",
+            "unit": null,
+            "values": [
+              "49.47 万亿元",
+              17.9
+            ]
+          },
+          {
+            "display_label": "外币贷款余额",
+            "group": null,
+            "label": "外币贷款余额",
+            "unit": null,
+            "values": [
+              "4775 亿美元",
+              17.2
+            ]
+          },
+          {
+            "display_label": "本外币存款余额",
+            "group": null,
+            "label": "本外币存款余额",
+            "unit": null,
+            "values": [
+              "76.84 万亿元",
+              18.7
+            ]
+          },
+          {
+            "display_label": "人民币存款余额",
+            "group": null,
+            "label": "人民币存款余额",
+            "unit": null,
+            "values": [
+              "75.28 万亿元",
+              19.0
+            ]
+          },
+          {
+            "display_label": "外币存款余额",
+            "group": null,
+            "label": "外币存款余额",
+            "unit": null,
+            "values": [
+              "2369 亿美元",
+              9.4
+            ]
+          }
+        ],
+        "title": "图 1  2011 年 3 月末我国外币存贷款情况"
+      },
+      {
+        "column_groups": [],
+        "columns": [
+          "数量",
+          "同比增长"
+        ],
+        "corner_header": null,
+        "missing_cells": [
+          {
+            "column": "同比增长",
+            "display": "?",
+            "row": "外币贷款增加"
+          },
+          {
+            "column": "同比增长",
+            "display": "?",
+            "row": "外币存款增加"
+          }
+        ],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "本外币贷款增加",
+            "group": null,
+            "label": "本外币贷款增加",
+            "unit": null,
+            "values": [
+              "2.39 万亿元",
+              "-4008 亿元"
+            ]
+          },
+          {
+            "display_label": "人民币贷款增加",
+            "group": null,
+            "label": "人民币贷款增加",
+            "unit": null,
+            "values": [
+              "2.24 万亿元",
+              "-3524 亿元"
+            ]
+          },
+          {
+            "display_label": "人民币贷款增加｜3 月份当月",
+            "group": null,
+            "label": "人民币贷款增加｜3 月份当月",
+            "unit": null,
+            "values": [
+              "6784 亿元",
+              "1727 亿元"
+            ]
+          },
+          {
+            "display_label": "外币贷款增加",
+            "group": null,
+            "label": "外币贷款增加",
+            "unit": null,
+            "values": [
+              "270 亿美元",
+              null
+            ]
+          },
+          {
+            "display_label": "本外币存款增加",
+            "group": null,
+            "label": "本外币存款增加",
+            "unit": null,
+            "values": [
+              "4.04 万亿元",
+              "776 亿元"
+            ]
+          },
+          {
+            "display_label": "人民币存款增加",
+            "group": null,
+            "label": "人民币存款增加",
+            "unit": null,
+            "values": [
+              "3.98 万亿元",
+              "545 亿元"
+            ]
+          },
+          {
+            "display_label": "人民币存款增加｜3 月份当月",
+            "group": null,
+            "label": "人民币存款增加｜3 月份当月",
+            "unit": null,
+            "values": [
+              "2.68 万亿元",
+              "1.32 万亿元"
+            ]
+          },
+          {
+            "display_label": "外币存款增加",
+            "group": null,
+            "label": "外币存款增加",
+            "unit": null,
+            "values": [
+              "112 亿美元",
+              null
+            ]
+          }
+        ],
+        "title": "图 2  2011 年一季度我国本外币存贷款情况"
+      }
+    ],
+    "title": "图 1  2011 年 3 月末我国外币存贷款情况"
+  },
+  "uncertainties": []
+}

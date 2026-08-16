@@ -1,0 +1,59 @@
+{
+  "schema_version": "semantic-structure-overrides-v1",
+  "statistical_assets": {
+    "da_a160ffcd6481e0ac31ab48ab": {
+      "panels": [
+        {
+          "id": "da_a160ffcd6481e0ac31ab48ab-0",
+          "title": "图1：2012—2021年全国城市人均日生活用水量（单位：升）",
+          "unit": "升",
+          "chartType": "bar",
+          "categories": ["2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"],
+          "yAxis": {"title": null, "unit": "升", "min": 165, "max": 190, "ticks": [165,170,175,180,185,190]},
+          "series": [{"id":"national_daily_water","label":"全国城市人均日生活用水量","render_as":"bar","axis":"left","unit":"升","values":[171.79,173.51,173.73,174.46,176.86,178.89,179.74,179.97,179.40,185.03],"style":{"fill":"#6b6b6b","stroke":null,"dash":null,"marker":null}}]
+        },
+        {
+          "id": "da_a160ffcd6481e0ac31ab48ab-1",
+          "title": "图2：2021年全国部分省（区、市）城市人均日生活用水量（单位：升）",
+          "unit": "升",
+          "chartType": "bar",
+          "categories": ["北京","山西","辽宁","吉林","天津","浙江","安徽","福建","河南","广东","海南","贵州","西藏","陕西","宁夏"],
+          "yAxis": {"title": null, "unit": "升", "min": 0, "max": 350, "ticks": [0,50,100,150,200,250,300,350]},
+          "series": [{"id":"province_daily_water","label":"2021年省级城市人均日生活用水量","render_as":"bar","axis":"left","unit":"升","values":[163,138,155,125,123,212,190,231,141,251,315,172,256,161,168],"style":{"fill":"#6b6b6b","stroke":null,"dash":null,"marker":null}}]
+        }
+      ]
+    }
+  },
+  "simplex_assets": {
+    "da_383e97b8390d55e5a1128e02": {
+      "visual_grammar":"ternary_grid","shape":"triangle","divisions":8,
+      "vertices":[{"x":359,"y":48},{"x":105,"y":393},{"x":614,"y":393}],
+      "axes":[{"label":"小城市100%","labelPosition":{"x":359,"y":25}},{"label":"中等城市100%","labelPosition":{"x":77,"y":416}},{"label":"大城市100%","labelPosition":{"x":625,"y":416}}],
+      "points":[{"label":"A","position":{"x":423,"y":307},"labelOffset":{"x":20,"y":12}},{"label":"B","position":{"x":327,"y":350},"labelOffset":{"x":-5,"y":25}},{"label":"C","position":{"x":327,"y":178},"labelOffset":{"x":-5,"y":23}},{"label":"D","position":{"x":519,"y":350},"labelOffset":{"x":-5,"y":25}},{"label":"E","position":{"x":263,"y":263},"labelOffset":{"x":-5,"y":23}}],
+      "caption":"销售量"
+    },
+    "da_a17f9561c67155407e0c6d4f": {
+      "visual_grammar":"ternary_grid","shape":"triangle","divisions":7,
+      "vertices":[{"x":345,"y":25},{"x":88,"y":473},{"x":605,"y":473}],
+      "axes":[{"label":"农村100%","labelPosition":{"x":345,"y":10}},{"label":"城市100%","labelPosition":{"x":45,"y":465}},{"label":"郊区100%","labelPosition":{"x":650,"y":465}}],
+      "points":[{"label":"A","position":{"x":237,"y":469},"labelOffset":{"x":0,"y":30}},{"label":"B","position":{"x":348,"y":410},"labelOffset":{"x":0,"y":24}},{"label":"C","position":{"x":455,"y":343},"labelOffset":{"x":8,"y":24}},{"label":"D","position":{"x":310,"y":343},"labelOffset":{"x":8,"y":24}},{"label":"E","position":{"x":273,"y":407},"labelOffset":{"x":0,"y":24}},{"label":"F","position":{"x":346,"y":282},"labelOffset":{"x":8,"y":24}},{"label":"G","position":{"x":199,"y":409},"labelOffset":{"x":28,"y":-12}}],
+      "caption":"某省城市、郊区、农村各类学校的分布情况图",
+      "styling":{"outerLineWidth":4,"gridLineWidth":3,"pointRadius":10,"axisFontSize":20,"pointFontSize":20,"captionFontSize":20}
+    },
+    "da_b1f1d179ade3472c753f8143": {
+      "visual_grammar":"quaternary_grid","shape":"diamond","divisions":4,
+      "vertices":[{"x":216,"y":33},{"x":351,"y":172},{"x":216,"y":308},{"x":80,"y":172}],
+      "axes":[{"label":"大化县100%","labelPosition":{"x":216,"y":25}},{"label":"共扎县100%","labelPosition":{"x":395,"y":172}},{"label":"南丹县100%","labelPosition":{"x":216,"y":323}},{"label":"太极县100%","labelPosition":{"x":45,"y":172}}],
+      "points":[{"label":"A","position":{"x":251,"y":103},"labelOffset":{"x":0,"y":-10}},{"label":"B","position":{"x":181,"y":137},"labelOffset":{"x":0,"y":-10}},{"label":"C","position":{"x":147,"y":172},"labelOffset":{"x":0,"y":18}},{"label":"D","position":{"x":236,"y":189},"labelOffset":{"x":0,"y":-10}},{"label":"E","position":{"x":322,"y":206},"labelOffset":{"x":10,"y":0}},{"label":"F","position":{"x":181,"y":240},"labelOffset":{"x":0,"y":18}}],
+      "caption":null,
+      "styling":{"outerLineWidth":1,"gridLineWidth":1,"pointRadius":2,"axisFontSize":10,"pointFontSize":10,"captionFontSize":10}
+    },
+    "da_c7694afc9f47b30bc43cb08e": {
+      "visual_grammar":"ternary_grid","shape":"triangle","divisions":7,
+      "vertices":[{"x":361,"y":68},{"x":138,"y":455},{"x":585,"y":455}],
+      "axes":[{"label":"汽车（100%）","labelPosition":{"x":361,"y":50}},{"label":"火车（100%）","labelPosition":{"x":65,"y":455}},{"label":"飞机（100%）","labelPosition":{"x":638,"y":455}}],
+      "points":[{"label":"钱","position":{"x":361,"y":177},"labelOffset":{"x":0,"y":37}},{"label":"周","position":{"x":233,"y":290},"labelOffset":{"x":-5,"y":36}},{"label":"孙","position":{"x":329,"y":344},"labelOffset":{"x":0,"y":37}},{"label":"赵","position":{"x":458,"y":344},"labelOffset":{"x":0,"y":37}},{"label":"李","position":{"x":233,"y":399},"labelOffset":{"x":0,"y":37}}],
+      "caption":null
+    }
+  }
+}

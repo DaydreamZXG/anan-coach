@@ -1,0 +1,230 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "全国"
+        ],
+        "label": "全国"
+      },
+      {
+        "columns": [
+          "城市"
+        ],
+        "label": "城市"
+      },
+      {
+        "columns": [
+          "农村"
+        ],
+        "label": "农村"
+      }
+    ],
+    "columns": [
+      "全国",
+      "城市",
+      "农村"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "城市",
+      "style": "diagonal",
+      "upper_label": "全国"
+    },
+    "missing_cells": [],
+    "row_header_label": "城市",
+    "rows": [
+      {
+        "display_label": "商品零售价格总指数",
+        "group": null,
+        "label": "商品零售价格总指数",
+        "unit": null,
+        "values": [
+          106.8,
+          106.5,
+          107.5
+        ]
+      },
+      {
+        "display_label": "食品",
+        "group": null,
+        "label": "食品",
+        "unit": null,
+        "values": [
+          114.5,
+          115,
+          113.4
+        ]
+      },
+      {
+        "display_label": "饮料、烟酒",
+        "group": null,
+        "label": "饮料、烟酒",
+        "unit": null,
+        "values": [
+          103.6,
+          103.9,
+          103.1
+        ]
+      },
+      {
+        "display_label": "服装、鞋帽",
+        "group": null,
+        "label": "服装、鞋帽",
+        "unit": null,
+        "values": [
+          98.3,
+          97.9,
+          99.3
+        ]
+      },
+      {
+        "display_label": "纺织品",
+        "group": null,
+        "label": "纺织品",
+        "unit": null,
+        "values": [
+          100.6,
+          100.3,
+          101
+        ]
+      },
+      {
+        "display_label": "家用电器及音像器材",
+        "group": null,
+        "label": "家用电器及音像器材",
+        "unit": null,
+        "values": [
+          97.1,
+          96.5,
+          98.5
+        ]
+      },
+      {
+        "display_label": "文化办公用品",
+        "group": null,
+        "label": "文化办公用品",
+        "unit": null,
+        "values": [
+          96.9,
+          96,
+          99.3
+        ]
+      },
+      {
+        "display_label": "日用品",
+        "group": null,
+        "label": "日用品",
+        "unit": null,
+        "values": [
+          104,
+          103.9,
+          104.3
+        ]
+      },
+      {
+        "display_label": "体育娱乐用品",
+        "group": null,
+        "label": "体育娱乐用品",
+        "unit": null,
+        "values": [
+          98,
+          96.9,
+          100.4
+        ]
+      },
+      {
+        "display_label": "交通、通信用品",
+        "group": null,
+        "label": "交通、通信用品",
+        "unit": null,
+        "values": [
+          93.6,
+          93.1,
+          95.1
+        ]
+      },
+      {
+        "display_label": "家具",
+        "group": null,
+        "label": "家具",
+        "unit": null,
+        "values": [
+          102.9,
+          102.9,
+          102.8
+        ]
+      },
+      {
+        "display_label": "化妆品",
+        "group": null,
+        "label": "化妆品",
+        "unit": null,
+        "values": [
+          100.6,
+          100.6,
+          100.7
+        ]
+      },
+      {
+        "display_label": "金银珠宝",
+        "group": null,
+        "label": "金银珠宝",
+        "unit": null,
+        "values": [
+          124.2,
+          124,
+          124.9
+        ]
+      },
+      {
+        "display_label": "中西药品及医疗保健用品",
+        "group": null,
+        "label": "中西药品及医疗保健用品",
+        "unit": null,
+        "values": [
+          102.7,
+          102.7,
+          102.7
+        ]
+      },
+      {
+        "display_label": "书报杂志及电子出版物",
+        "group": null,
+        "label": "书报杂志及电子出版物",
+        "unit": null,
+        "values": [
+          101.1,
+          101.5,
+          100.4
+        ]
+      },
+      {
+        "display_label": "燃料",
+        "group": null,
+        "label": "燃料",
+        "unit": null,
+        "values": [
+          124.5,
+          122,
+          130.5
+        ]
+      },
+      {
+        "display_label": "建筑材料及五金电料",
+        "group": null,
+        "label": "建筑材料及五金电料",
+        "unit": null,
+        "values": [
+          110.7,
+          109.9,
+          112.2
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,249 @@
+{
+  "asset_id": "da_68366090d592cb4c779139ef",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 900.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          100.0,
+          200.0,
+          300.0,
+          400.0,
+          500.0,
+          600.0,
+          700.0,
+          800.0,
+          900.0
+        ],
+        "title": null,
+        "unit": "万张"
+      },
+      {
+        "max": 15,
+        "min": -1,
+        "ticks": [
+          -1,
+          1,
+          3,
+          5,
+          7,
+          9,
+          11,
+          13,
+          15
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "床位数",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "比上年增长",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "床位数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万张",
+      "values": [
+        618.2,
+        660.1,
+        701.5,
+        741.0,
+        794.0
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比上年增长",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        8.0,
+        6.8,
+        6.3,
+        5.6,
+        7.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0240_e993dd86a698c239.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0240_e993dd86a698c239.png",
+        "paper_title": "2019年420联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_2c458c4dfe56ef936a95",
+        "question_number": 106,
+        "source_jsonl_line": 30320
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0240_e993dd86a698c239.png",
+        "paper_title": "2019年420联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_2c36576fa2239641e6d2",
+        "question_number": 107,
+        "source_jsonl_line": 30321
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0240_e993dd86a698c239.png",
+        "paper_title": "2019年420联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_e0bdce2d06c700c89e32",
+        "question_number": 108,
+        "source_jsonl_line": 30322
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0268_f92234b00906c28d.png",
+        "paper_title": "2019年420联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_a00eee2f8b6f06d256ba",
+        "question_number": 109,
+        "source_jsonl_line": 30323
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（山东卷）（网友回忆版）_images/img_0240_e993dd86a698c239.png",
+        "paper_title": "2019年420联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_e442c0c2e420bd3f969b",
+        "question_number": 110,
+        "source_jsonl_line": 30324
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）_images/img_0248_e993dd86a698c239.png",
+        "paper_title": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_5708480a2853fa08060a",
+        "question_number": 106,
+        "source_jsonl_line": 88561
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）_images/img_0255_f92234b00906c28d.png",
+        "paper_title": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_10da4d7a367a8e113cb9",
+        "question_number": 107,
+        "source_jsonl_line": 88562
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）_images/img_0248_e993dd86a698c239.png",
+        "paper_title": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_82ad70d27ec1c676cf53",
+        "question_number": 108,
+        "source_jsonl_line": 88563
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）_images/img_0255_f92234b00906c28d.png",
+        "paper_title": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_f0d213d996b541836c52",
+        "question_number": 109,
+        "source_jsonl_line": 88564
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）_images/img_0255_f92234b00906c28d.png",
+        "paper_title": "2019年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_4a97af47a81ce669eeaa",
+        "question_number": 110,
+        "source_jsonl_line": 88565
+      }
+    ],
+    "sha256": "68366090d592cb4c779139ef2a4999f7653219b2e26041052a8a1fe49b008500"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "全国医疗卫生机构床位数（万张）及增长情况（%）",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_68366090d592cb4c779139ef/column_band_01.jpg",
+        "review-crops/da_68366090d592cb4c779139ef/column_band_02.jpg",
+        "review-crops/da_68366090d592cb4c779139ef/column_band_03.jpg",
+        "review-crops/da_68366090d592cb4c779139ef/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.873",
+      "crop_verification_elapsed_seconds:2.91",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "asset_id": "da_4486ea9f08ef7257478d86cc",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2008年安徽省公务员录用考试《行测》题_images/img_0078_f2e48136aad283d8.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年安徽省公务员录用考试《行测》题_images/img_0078_f2e48136aad283d8.jpg",
+        "paper_title": "2008年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_bc022ebb8aef3e5f87c8",
+        "question_number": 126,
+        "source_jsonl_line": 26616
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年安徽省公务员录用考试《行测》题_images/img_0078_f2e48136aad283d8.jpg",
+        "paper_title": "2008年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_7c8447f693d39c37bb26",
+        "question_number": 127,
+        "source_jsonl_line": 26617
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年安徽省公务员录用考试《行测》题_images/img_0078_f2e48136aad283d8.jpg",
+        "paper_title": "2008年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_153276b3328093742e20",
+        "question_number": 128,
+        "source_jsonl_line": 26618
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年安徽省公务员录用考试《行测》题_images/img_0078_f2e48136aad283d8.jpg",
+        "paper_title": "2008年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_3cf3308602fc7ddde35c",
+        "question_number": 129,
+        "source_jsonl_line": 26619
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年安徽省公务员录用考试《行测》题_images/img_0078_f2e48136aad283d8.jpg",
+        "paper_title": "2008年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_85aef172e4c152127060",
+        "question_number": 130,
+        "source_jsonl_line": 26620
+      }
+    ],
+    "sha256": "4486ea9f08ef7257478d86cc84b4c60f7842b4eec7f93619b5c36ee5c524012a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "绝对数（亿元）",
+      "比上年增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "规模以上工业",
+        "unit": null,
+        "values": [
+          "规模以上工业",
+          2364.8,
+          24.5
+        ]
+      },
+      {
+        "label": "其中：轻工业",
+        "unit": null,
+        "values": [
+          "其中：轻工业",
+          682.7,
+          24.7
+        ]
+      },
+      {
+        "label": "重工业",
+        "unit": null,
+        "values": [
+          "重工业",
+          1682.1,
+          24.5
+        ]
+      },
+      {
+        "label": "其中：国有企业",
+        "unit": null,
+        "values": [
+          "其中：国有企业",
+          284.0,
+          13.7
+        ]
+      },
+      {
+        "label": "集体企业",
+        "unit": null,
+        "values": [
+          "集体企业",
+          36.3,
+          16.4
+        ]
+      },
+      {
+        "label": "股份合作企业",
+        "unit": null,
+        "values": [
+          "股份合作企业",
+          17.2,
+          26.3
+        ]
+      },
+      {
+        "label": "股份制企业",
+        "unit": null,
+        "values": [
+          "股份制企业",
+          1605.5,
+          25.9
+        ]
+      },
+      {
+        "label": "外商及港澳台商投资企业",
+        "unit": null,
+        "values": [
+          "外商及港澳台商投资企业",
+          353.1,
+          26.3
+        ]
+      },
+      {
+        "label": "其中：国有及国有控股企业",
+        "unit": null,
+        "values": [
+          "其中：国有及国有控股企业",
+          1114.5,
+          15.3
+        ]
+      },
+      {
+        "label": "其中：大中型工业企业",
+        "unit": null,
+        "values": [
+          "其中：大中型工业企业",
+          1567.1,
+          17.0
+        ]
+      }
+    ]
+  },
+  "title": "2007年安徽省规模以上工业增加值",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4486ea9f08ef7257478d86cc/row_band_01.jpg",
+        "review-crops/da_4486ea9f08ef7257478d86cc/row_band_02.jpg",
+        "review-crops/da_4486ea9f08ef7257478d86cc/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.642",
+      "crop_verification_elapsed_seconds:5.442",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:规模以上工业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:其中：轻工业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:重工业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:其中：轻工业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:重工业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:其中：国有企业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:集体企业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:股份合作企业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:股份制企业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:股份制企业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:外商及港澳台商投资企业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:其中：国有及国有控股企业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:其中：大中型工业企业:2!=3"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,299 @@
+{
+  "asset_id": "da_cb1ec2b02b829ac07d2ba766",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 20000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000
+        ],
+        "title": "楼面价",
+        "unit": "元/平方米"
+      },
+      {
+        "max": 70,
+        "min": -10,
+        "ticks": [
+          -10,
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70
+        ],
+        "title": "溢价率",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2017年3月",
+    "2017年4月",
+    "2017年5月",
+    "2017年6月",
+    "2017年7月",
+    "2017年8月",
+    "2017年9月",
+    "2017年10月",
+    "2017年11月",
+    "2017年12月",
+    "2018年1月",
+    "2018年2月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "楼面价",
+      "style": {
+        "dash": null,
+        "fill": "striped",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "溢价率",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "楼面价",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元/平方米",
+      "values": [
+        4546,
+        5004,
+        5120,
+        4659,
+        5649,
+        5293,
+        6540,
+        4706,
+        5229,
+        4660,
+        5510,
+        4879
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "溢价率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        52,
+        51,
+        63,
+        36,
+        38,
+        30,
+        30,
+        22,
+        22,
+        19,
+        25,
+        21
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0242_210f8b812f8a0ff2.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0242_210f8b812f8a0ff2.png",
+        "paper_title": "2019年420联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_b0c0d4829cf6c3ba9fa1",
+        "question_number": 96,
+        "source_jsonl_line": 16011
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0242_210f8b812f8a0ff2.png",
+        "paper_title": "2019年420联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_3ae98e3aa782351db43c",
+        "question_number": 97,
+        "source_jsonl_line": 16012
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0255_4e35d3779390152f.png",
+        "paper_title": "2019年420联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_897cbb4c5c1598e9eaaf",
+        "question_number": 98,
+        "source_jsonl_line": 16013
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0242_210f8b812f8a0ff2.png",
+        "paper_title": "2019年420联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_76cf9873917ae3b722e0",
+        "question_number": 99,
+        "source_jsonl_line": 16014
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0255_4e35d3779390152f.png",
+        "paper_title": "2019年420联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_1afe575f0491b4c2a31f",
+        "question_number": 100,
+        "source_jsonl_line": 16015
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）_images/img_0233_4e35d3779390152f.png",
+        "paper_title": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）",
+        "question_id": "pq_741633d0dbd4a1b11ed5",
+        "question_number": 96,
+        "source_jsonl_line": 88451
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）_images/img_0251_210f8b812f8a0ff2.png",
+        "paper_title": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）",
+        "question_id": "pq_558418cfc38b34515271",
+        "question_number": 97,
+        "source_jsonl_line": 88452
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）_images/img_0233_4e35d3779390152f.png",
+        "paper_title": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）",
+        "question_id": "pq_0113aa56547d8bd6f96c",
+        "question_number": 98,
+        "source_jsonl_line": 88453
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）_images/img_0233_4e35d3779390152f.png",
+        "paper_title": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）",
+        "question_id": "pq_b2e80a2c768033ce9d4e",
+        "question_number": 99,
+        "source_jsonl_line": 88454
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）_images/img_0233_4e35d3779390152f.png",
+        "paper_title": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）",
+        "question_id": "pq_bf668d06373405d2b210",
+        "question_number": 100,
+        "source_jsonl_line": 88455
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）_images/img_0299_4e35d3779390152f.png",
+        "paper_title": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）",
+        "question_id": "pq_dcc381ce6c531a02540f",
+        "question_number": 121,
+        "source_jsonl_line": 103303
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）_images/img_0299_4e35d3779390152f.png",
+        "paper_title": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）",
+        "question_id": "pq_cf481f1d2abe8df15c1f",
+        "question_number": 122,
+        "source_jsonl_line": 103304
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）_images/img_0299_4e35d3779390152f.png",
+        "paper_title": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）",
+        "question_id": "pq_e2370cc0edbcc237daf0",
+        "question_number": 123,
+        "source_jsonl_line": 103305
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）_images/img_0329_210f8b812f8a0ff2.png",
+        "paper_title": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）",
+        "question_id": "pq_a8b30a3edd39ab748891",
+        "question_number": 124,
+        "source_jsonl_line": 103306
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）_images/img_0329_210f8b812f8a0ff2.png",
+        "paper_title": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）",
+        "question_id": "pq_5278cd90b72286b3c1cf",
+        "question_number": 125,
+        "source_jsonl_line": 103307
+      }
+    ],
+    "sha256": "cb1ec2b02b829ac07d2ba76654029a728f48716a2e5a6cfd3bd036651a53e842"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2017年3月~2018年2月全国住宅用地楼面价及溢价率",
+  "unit": "元/平方米",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cb1ec2b02b829ac07d2ba766/column_band_01.jpg",
+        "review-crops/da_cb1ec2b02b829ac07d2ba766/column_band_02.jpg",
+        "review-crops/da_cb1ec2b02b829ac07d2ba766/column_band_03.jpg",
+        "review-crops/da_cb1ec2b02b829ac07d2ba766/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.836",
+      "crop_verification_elapsed_seconds:7.286",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "asset_id": "da_5f3a51985b8f38f40a78c11c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "A",
+    "B"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.9,
+  "legend": [
+    {
+      "label": "A",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "B",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "C",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "D",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      27.905,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 27.905,
+        "label": "A",
+        "share": 0.07751519,
+        "start_angle": 0.0,
+        "sweep_angle": 27.905
+      },
+      {
+        "end_angle": 360.0,
+        "label": "B",
+        "share": 0.92248481,
+        "start_angle": 27.905,
+        "sweep_angle": 332.095
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.07751519,
+        0.92248481
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0239_9899cd80104645bd.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0239_9899cd80104645bd.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_5f4d9645bf390fd8ac2e",
+        "question_number": 124,
+        "source_jsonl_line": 18994
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0181_ad46744cf12808c7.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_e0bfa0cefe183a85ccb7",
+        "question_number": 119,
+        "source_jsonl_line": 19124
+      }
+    ],
+    "sha256": "5f3a51985b8f38f40a78c11c395736edf3601e4c983fb8a08efa44b5a9e0ed8a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5f3a51985b8f38f40a78c11c/quadrant_01.jpg",
+        "review-crops/da_5f3a51985b8f38f40a78c11c/quadrant_02.jpg",
+        "review-crops/da_5f3a51985b8f38f40a78c11c/quadrant_03.jpg",
+        "review-crops/da_5f3a51985b8f38f40a78c11c/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.599",
+      "crop_verification_elapsed_seconds:0.77",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:饼图未提供具体数值，仅能识别标签和填充样式",
+      "crop_note:compact_delta_verification",
+      "label_geometry_count_mismatch:4!=2",
+      "circle_edge_coverage:1.0000",
+      "hough_circle_radius_ratio:0.2056",
+      "radial_line_candidates:2",
+      "detected_boundaries:2"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.9,
+    "schema_valid": true
+  }
+}

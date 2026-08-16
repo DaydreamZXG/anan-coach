@@ -1,0 +1,210 @@
+{
+  "asset_id": "da_57f5a32aff99f8876614232a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）_images/img_0054_b8d0d7bcfad01a70.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）_images/img_0054_b8d0d7bcfad01a70.png",
+        "paper_title": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）",
+        "question_id": "pq_041db12902aefd206674",
+        "question_number": 106,
+        "source_jsonl_line": 41416
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）_images/img_0054_b8d0d7bcfad01a70.png",
+        "paper_title": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）",
+        "question_id": "pq_bda13de94660fe30c7f9",
+        "question_number": 107,
+        "source_jsonl_line": 41417
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）_images/img_0054_b8d0d7bcfad01a70.png",
+        "paper_title": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）",
+        "question_id": "pq_33cab9162e6d2da275ee",
+        "question_number": 108,
+        "source_jsonl_line": 41418
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）_images/img_0054_b8d0d7bcfad01a70.png",
+        "paper_title": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）",
+        "question_id": "pq_2ba58ee6c4aff637fd83",
+        "question_number": 109,
+        "source_jsonl_line": 41419
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）_images/img_0054_b8d0d7bcfad01a70.png",
+        "paper_title": "2014年黑龙江省政法干警考试《行政职业能力测验》试卷（专科）",
+        "question_id": "pq_b891ecf42ed5b4e0bfeb",
+        "question_number": 110,
+        "source_jsonl_line": 41420
+      }
+    ],
+    "sha256": "57f5a32aff99f8876614232ae0084e8c43d04dd6911689633d0dbdf5838a0c99"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "商品种类",
+      "出口额(亿美元)",
+      "较上年增长(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "电器及电子产品",
+        "unit": null,
+        "values": [
+          "电器及电子产品",
+          35.6,
+          -21.1
+        ]
+      },
+      {
+        "label": "仪器仪表",
+        "unit": null,
+        "values": [
+          "仪器仪表",
+          8.5,
+          2.3
+        ]
+      },
+      {
+        "label": "机械及设备",
+        "unit": null,
+        "values": [
+          "机械及设备",
+          6.3,
+          -9.4
+        ]
+      },
+      {
+        "label": "针织或钩编的服装及衣着附件",
+        "unit": null,
+        "values": [
+          "针织或钩编的服装及衣着附件",
+          0.7,
+          -13.5
+        ]
+      },
+      {
+        "label": "家具、寝具、灯具、活动房",
+        "unit": null,
+        "values": [
+          "家具、寝具、灯具、活动房",
+          0.7,
+          -6.5
+        ]
+      },
+      {
+        "label": "有机化学品",
+        "unit": null,
+        "values": [
+          "有机化学品",
+          0.7,
+          8.7
+        ]
+      },
+      {
+        "label": "车辆及其零附件(铁道车辆除外)",
+        "unit": null,
+        "values": [
+          "车辆及其零附件(铁道车辆除外)",
+          0.6,
+          -10.9
+        ]
+      },
+      {
+        "label": "非针织或非钩编的服装及衣着附件",
+        "unit": null,
+        "values": [
+          "非针织或非钩编的服装及衣着附件",
+          0.5,
+          -24.5
+        ]
+      },
+      {
+        "label": "塑料及其制品",
+        "unit": null,
+        "values": [
+          "塑料及其制品",
+          0.4,
+          5.1
+        ]
+      },
+      {
+        "label": "钢铁制品",
+        "unit": null,
+        "values": [
+          "钢铁制品",
+          0.4,
+          -0.1
+        ]
+      }
+    ]
+  },
+  "title": "2012年中国对匈牙利出口前10大类商品",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_57f5a32aff99f8876614232a/row_band_01.jpg",
+        "review-crops/da_57f5a32aff99f8876614232a/row_band_02.jpg",
+        "review-crops/da_57f5a32aff99f8876614232a/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.822",
+      "crop_verification_elapsed_seconds:4.933",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

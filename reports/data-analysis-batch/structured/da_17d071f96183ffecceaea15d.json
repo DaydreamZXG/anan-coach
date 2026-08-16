@@ -1,0 +1,200 @@
+{
+  "asset_id": "da_17d071f96183ffecceaea15d",
+  "axes": {
+    "x": {
+      "max": 100,
+      "min": 0,
+      "ticks": [
+        0,
+        20,
+        40,
+        60,
+        80,
+        100
+      ],
+      "title": null,
+      "unit": "%"
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "发红包、给压岁钱",
+    "购年俗食品、烟酒、服饰",
+    "餐饮消费",
+    "看电影、滑雪、逛庙会",
+    "参加教育培训",
+    "去旅游",
+    "购数码产品、智能家电",
+    "购保健品",
+    "其他"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "受访居民占比",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "受访居民占比",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        82.7,
+        78.7,
+        70.2,
+        53.2,
+        33.2,
+        27.9,
+        16.0,
+        14.9,
+        4.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0332_cb8ab01a67f70753.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0332_cb8ab01a67f70753.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_a475b0779ccbc94db6c0",
+        "question_number": 126,
+        "source_jsonl_line": 48836
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0332_cb8ab01a67f70753.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_b213b6035c4e3804b93b",
+        "question_number": 127,
+        "source_jsonl_line": 48837
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0332_cb8ab01a67f70753.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_5c6a61b721a047e45cb6",
+        "question_number": 128,
+        "source_jsonl_line": 48838
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0332_cb8ab01a67f70753.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_352efe33086adbe464a7",
+        "question_number": 129,
+        "source_jsonl_line": 48839
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0332_cb8ab01a67f70753.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_076cd79b4ff16af64593",
+        "question_number": 130,
+        "source_jsonl_line": 48840
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0344_cb8ab01a67f70753.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_becfd7cf888c3ff96323",
+        "question_number": 126,
+        "source_jsonl_line": 48971
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0344_cb8ab01a67f70753.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_f3dab0ae7cf9404f9837",
+        "question_number": 127,
+        "source_jsonl_line": 48972
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0358_d295543e4f77aac0.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_f840516984ff09018997",
+        "question_number": 128,
+        "source_jsonl_line": 48973
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0344_cb8ab01a67f70753.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_3d7eb0a9db5563649a14",
+        "question_number": 129,
+        "source_jsonl_line": 48974
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0344_cb8ab01a67f70753.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_33f8758c50f3c873a0e7",
+        "question_number": 130,
+        "source_jsonl_line": 48975
+      }
+    ],
+    "sha256": "17d071f96183ffecceaea15d3327002fd3e074eef2c2d879118633c32c9d6834"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图2 2019年春节期间不同消费项目受访居民占比",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_17d071f96183ffecceaea15d/column_band_01.jpg",
+        "review-crops/da_17d071f96183ffecceaea15d/column_band_02.jpg",
+        "review-crops/da_17d071f96183ffecceaea15d/column_band_03.jpg",
+        "review-crops/da_17d071f96183ffecceaea15d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.694",
+      "crop_verification_elapsed_seconds:4.982",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

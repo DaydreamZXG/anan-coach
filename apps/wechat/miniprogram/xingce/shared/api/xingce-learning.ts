@@ -169,8 +169,60 @@ export type XingceRescueMethodCard = GeneratedRescueMethodCard;
 export type XingceRescueSimilarOption = GeneratedRescueSimilarOption;
 export type XingceRescueSimilarQuestion = GeneratedRescueSimilarQuestion;
 export type XingceRescueNodeContext = GeneratedRescueNodeContext;
-export type XingceRescueItem = GeneratedXingceRescueItem;
-export type XingceRescue = GeneratedXingceRescue;
+export type XingceRescueItem = GeneratedXingceRescueItem & {
+  teachBackAvailable: boolean;
+  teachBackReason: string | null;
+};
+export type XingceRescue = Omit<GeneratedXingceRescue, "items"> & {
+  items: XingceRescueItem[];
+};
+
+export interface XingceTeachBackStudent {
+  state: "blocked" | "reproduced";
+  reproducedSteps: string[];
+  attemptedOptionId: string | null;
+  blockedAt: string | null;
+  clarificationQuestion: string | null;
+}
+
+export interface XingceTeachBackGroundingClaim {
+  classification: "supported" | "omitted" | "conflict" | "unknown";
+  summary: string;
+}
+
+export interface XingceTeachBackQuestion {
+  questionId: string;
+  stem: string;
+  options: Array<{ optionId: string; label: string; text: string }>;
+  visualEvidence: Array<Record<string, unknown>>;
+}
+
+export interface XingceTeachBackSession {
+  contractVersion: "grounded-teach-back@v1";
+  sessionId: string;
+  revision: number;
+  state: "ready_for_transfer" | "blocked" | "provider_failed" | "completed";
+  reviewId: string;
+  sourceQuestionId: string;
+  coachMessage: string;
+  student: XingceTeachBackStudent | null;
+  grounding: XingceTeachBackGroundingClaim[];
+  transferQuestion: XingceTeachBackQuestion | null;
+  createdAt: string;
+}
+
+export interface XingceTeachBackTransferReceipt {
+  contractVersion: "teach-back-transfer-receipt@v1";
+  sessionId: string;
+  revision: number;
+  state: "completed";
+  correct: boolean;
+  masteryVersionId: string;
+  masteryState: string;
+  verificationStage: string;
+  dueAt: string | null;
+  coachMessage: string;
+}
 
 export interface XingceTaskSession {
   sessionId: string;
@@ -308,6 +360,28 @@ export class XingceLearningApi {
   /** 错题即时救场：错因 -> 方法卡 -> 同类题（只读，不打断做题）。 */
   getRescue(reviewId: string): Promise<ApiEnvelope<XingceRescue>> {
     return this.client.get<XingceRescue>(`${reviewPath(reviewId)}/rescue`);
+  }
+
+  startTeachBack(
+    reviewId: string,
+    command: { commandId: string; sourceQuestionId: string; userExplanation: string },
+  ): Promise<ApiEnvelope<XingceTeachBackSession>> {
+    return this.client.post<XingceTeachBackSession>(`${reviewPath(reviewId)}/teach-back`, command);
+  }
+
+  submitTeachBackTransfer(
+    sessionId: string,
+    command: {
+      commandId: string;
+      revision: number;
+      selectedOptionIds: string[];
+      confidence: XingceConfidence;
+    },
+  ): Promise<ApiEnvelope<XingceTeachBackTransferReceipt>> {
+    return this.client.post<XingceTeachBackTransferReceipt>(
+      `/api/v2/xingce/teach-back/${encodeURIComponent(requiredId(sessionId, "sessionId"))}/transfer`,
+      command,
+    );
   }
 
   reportDispute(

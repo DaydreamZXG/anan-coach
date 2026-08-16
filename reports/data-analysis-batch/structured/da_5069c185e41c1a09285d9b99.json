@@ -1,0 +1,228 @@
+{
+  "asset_id": "da_5069c185e41c1a09285d9b99",
+  "axes": {
+    "x": {
+      "max": 8,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000,
+          60000,
+          70000,
+          80000,
+          90000,
+          100000
+        ],
+        "title": null,
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "其他",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "铁路",
+      "style": {
+        "dash": null,
+        "fill": "#F5F5F5",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "民航",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "其他",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        30741,
+        34255,
+        37988,
+        40500,
+        41593,
+        43831,
+        45218,
+        45218
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "铁路",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        23609,
+        27297,
+        28038,
+        32900,
+        32560,
+        32682,
+        32862,
+        42860
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "民航",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        3977,
+        4320,
+        4569,
+        5000,
+        5170,
+        5312,
+        6243,
+        6396
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）_images/img_0101_726297b6be7bdb5d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）_images/img_0101_726297b6be7bdb5d.png",
+        "paper_title": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b27148fe7d9edb706cd9",
+        "question_number": 106,
+        "source_jsonl_line": 104508
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）_images/img_0101_726297b6be7bdb5d.png",
+        "paper_title": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cb520d08eac0538e560f",
+        "question_number": 107,
+        "source_jsonl_line": 104509
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）_images/img_0103_5b1d68a62c2f9f99.png",
+        "paper_title": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9e2472cd4ba0d230303b",
+        "question_number": 108,
+        "source_jsonl_line": 104510
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）_images/img_0101_726297b6be7bdb5d.png",
+        "paper_title": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_28c53e1e267f73f6892f",
+        "question_number": 109,
+        "source_jsonl_line": 104511
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）_images/img_0101_726297b6be7bdb5d.png",
+        "paper_title": "2024年黑龙江省公安机关人民警察专项录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_61153c2266cbd21277b3",
+        "question_number": 110,
+        "source_jsonl_line": 104512
+      }
+    ],
+    "sha256": "5069c185e41c1a09285d9b991c364cdafcbf2b03ffbfed9a3574fc9c97b5cc9c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2023年1-8月全国民航客运量、铁路客运量及其他客运量",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5069c185e41c1a09285d9b99/column_band_01.jpg",
+        "review-crops/da_5069c185e41c1a09285d9b99/column_band_02.jpg",
+        "review-crops/da_5069c185e41c1a09285d9b99/column_band_03.jpg",
+        "review-crops/da_5069c185e41c1a09285d9b99/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.323",
+      "crop_verification_elapsed_seconds:5.631",
+      "candidate_value_changes_after_crop:3",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "活动次数｜数量（万次）",
+          "活动次数｜增速（%）"
+        ],
+        "label": "活动次数"
+      },
+      {
+        "columns": [
+          "服务次数｜数量（万人次）",
+          "服务次数｜增速（%）"
+        ],
+        "label": "服务次数"
+      },
+      "rows:[{"
+    ],
+    "columns": [
+      "活动次数｜数量（万次）",
+      "活动次数｜增速（%）",
+      "服务次数｜数量（万人次）",
+      "服务次数｜增速（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "各项活动总计",
+        "group": null,
+        "label": "各项活动总计",
+        "unit": null,
+        "values": [
+          245.11,
+          11.7,
+          78716,
+          11.6
+        ]
+      },
+      {
+        "display_label": "其中：展览",
+        "group": null,
+        "label": "其中：展览",
+        "unit": null,
+        "values": [
+          16.4,
+          3.3,
+          12465,
+          12.9
+        ]
+      },
+      {
+        "display_label": "文艺活动",
+        "group": null,
+        "label": "文艺活动",
+        "unit": null,
+        "values": [
+          135.95,
+          10.4,
+          60137,
+          11.5
+        ]
+      },
+      {
+        "display_label": "公益性讲座",
+        "group": null,
+        "label": "公益性讲座",
+        "unit": null,
+        "values": [
+          3.84,
+          7.3,
+          710,
+          14.9
+        ]
+      },
+      {
+        "display_label": "训练班",
+        "group": null,
+        "label": "训练班",
+        "unit": null,
+        "values": [
+          88.92,
+          15.6,
+          5404,
+          8.9
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,169 @@
+{
+  "asset_id": "da_41afb930d17a089e6c1f9580",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 8000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000,
+          8000
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "全国休闲农业与乡村旅游营业收入",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国休闲农业与乡村旅游营业收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2400,
+        2800,
+        3200,
+        4400,
+        5700,
+        7400
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0114_52c079891351bc00.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0114_52c079891351bc00.png",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_168705e8a932f9e661f5",
+        "question_number": 101,
+        "source_jsonl_line": 103658
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0114_52c079891351bc00.png",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_0ffae48cdb8b2a9ff0f5",
+        "question_number": 102,
+        "source_jsonl_line": 103659
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0114_52c079891351bc00.png",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_fb95dc29da77f1bc17cc",
+        "question_number": 103,
+        "source_jsonl_line": 103660
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0114_52c079891351bc00.png",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_497d03e84a9aa3f6fe0e",
+        "question_number": 104,
+        "source_jsonl_line": 103661
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0114_52c079891351bc00.png",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_390b16359b968820d291",
+        "question_number": 105,
+        "source_jsonl_line": 103662
+      }
+    ],
+    "sha256": "41afb930d17a089e6c1f95805078aa64752ba5e9cc09a84b9a61f8006c6cd6aa"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2012-2017年全国休闲农业与乡村旅游营业收入",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_41afb930d17a089e6c1f9580/column_band_01.jpg",
+        "review-crops/da_41afb930d17a089e6c1f9580/column_band_02.jpg",
+        "review-crops/da_41afb930d17a089e6c1f9580/column_band_03.jpg",
+        "review-crops/da_41afb930d17a089e6c1f9580/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.191",
+      "crop_verification_elapsed_seconds:6.533",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了 y 轴刻度标签的显示，确保与数值对齐。",
+      "crop_note:确认了所有 bar 的数值与图中一致，未发现负号、小数或百分号。",
+      "crop_note:确认了所有缺失值保持为 null，未补 0。",
+      "crop_note:确认了 x 轴标签与 y 轴标签的单位和标题正确。",
+      "crop_note:确认了标题和单位的完整性，未发现遗漏。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

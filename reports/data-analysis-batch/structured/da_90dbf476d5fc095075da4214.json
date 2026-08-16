@@ -1,0 +1,643 @@
+{
+  "asset_id": "da_90dbf476d5fc095075da4214",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "指标名称",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "就业人员平均工资 (元)",
+        "unit": "元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "中层及以上管理人员",
+        "unit": "元"
+      }
+    ]
+  },
+  "categories": [
+    "总计",
+    "采矿业",
+    "制造业",
+    "电力、热力、燃气及水生产供应业",
+    "建筑业",
+    "批发和零售业",
+    "交通运输、仓储和邮政业",
+    "住宿和餐饮业",
+    "信息传输、软件和信息技术服务业",
+    "房地产业",
+    "租赁和商务服务业",
+    "科学研究和技术服务业",
+    "水利、环境和公共设施管理业",
+    "居民服务、修理和其他服务业",
+    "教育",
+    "卫生和社会工作",
+    "文化、体育和娱乐业"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "就业人员平均工资 (元)",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "中层及以上管理人员",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "专业技术人员",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "办事人员和有关人员",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "社会生活服务和生活服务人员",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "生产制造及有关人员",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "就业人员平均工资 (元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        62484,
+        53034,
+        62286,
+        115616,
+        59086,
+        62838,
+        78688,
+        43168,
+        88907,
+        72723,
+        56984,
+        96087,
+        51503,
+        50844,
+        76253,
+        82948,
+        65048
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "中层及以上管理人员",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        126154,
+        117596,
+        128227,
+        227181,
+        107630,
+        115384,
+        153858,
+        87194,
+        221498,
+        156070,
+        141033,
+        174126,
+        106555,
+        110260,
+        143992,
+        158149,
+        115905
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "专业技术人员",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        85254,
+        69788,
+        88226,
+        148922,
+        73097,
+        75908,
+        123777,
+        57086,
+        126091,
+        101234,
+        93330,
+        103645,
+        77452,
+        59337,
+        77593,
+        92472,
+        100065
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "办事人员和有关人员",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        55733,
+        46367,
+        64752,
+        71330,
+        48299,
+        58636,
+        69805,
+        43270,
+        78380,
+        58965,
+        49381,
+        55110,
+        55392,
+        45747,
+        74531,
+        49165,
+        57706
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "社会生活服务和生活服务人员",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        48570,
+        41360,
+        63066,
+        80778,
+        48983,
+        47389,
+        70171,
+        35570,
+        49776,
+        40673,
+        42227,
+        49333,
+        43059,
+        45546,
+        48871,
+        44022,
+        41874
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "生产制造及有关人员",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        56060,
+        48460,
+        54872,
+        101058,
+        56480,
+        46635,
+        68049,
+        36759,
+        76855,
+        49463,
+        42747,
+        74374,
+        43328,
+        43591,
+        40431,
+        66310,
+        38042
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0080_2596a70203868f6b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0080_2596a70203868f6b.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_65698cf920bf5c19af4e",
+        "question_number": 91,
+        "source_jsonl_line": 16706
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0083_17aa2533f1075e0f.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ba58a2613c9a34c92709",
+        "question_number": 92,
+        "source_jsonl_line": 16707
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0080_2596a70203868f6b.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3b4220c87a1b36b299b1",
+        "question_number": 93,
+        "source_jsonl_line": 16708
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0080_2596a70203868f6b.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_376db9ad80d8dbe27dd4",
+        "question_number": 94,
+        "source_jsonl_line": 16709
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0080_2596a70203868f6b.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_500e783ca91fc10903c3",
+        "question_number": 95,
+        "source_jsonl_line": 16710
+      }
+    ],
+    "sha256": "90dbf476d5fc095075da4214d7d09c14dfcd255ec32e74b3303173f370289430"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标名称",
+      "就业人员平均工资 (元)",
+      "中层及以上管理人员",
+      "专业技术人员",
+      "办事人员和有关人员",
+      "社会生活服务和生活服务人员",
+      "生产制造及有关人员"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "总计",
+        "unit": null,
+        "values": [
+          "总计",
+          62484,
+          126154,
+          85254,
+          55733,
+          48570,
+          56060
+        ]
+      },
+      {
+        "label": "采矿业",
+        "unit": null,
+        "values": [
+          "采矿业",
+          53034,
+          117596,
+          69788,
+          46367,
+          41360,
+          48460
+        ]
+      },
+      {
+        "label": "制造业",
+        "unit": null,
+        "values": [
+          "制造业",
+          62286,
+          128227,
+          88226,
+          64752,
+          63066,
+          54872
+        ]
+      },
+      {
+        "label": "电力、热力、燃气及水生产供应业",
+        "unit": null,
+        "values": [
+          "电力、热力、燃气及水生产供应业",
+          115616,
+          227181,
+          148922,
+          71330,
+          80778,
+          101058
+        ]
+      },
+      {
+        "label": "建筑业",
+        "unit": null,
+        "values": [
+          "建筑业",
+          59086,
+          107630,
+          73097,
+          48299,
+          48983,
+          56480
+        ]
+      },
+      {
+        "label": "批发和零售业",
+        "unit": null,
+        "values": [
+          "批发和零售业",
+          62838,
+          115384,
+          75908,
+          58636,
+          47389,
+          46635
+        ]
+      },
+      {
+        "label": "交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          "交通运输、仓储和邮政业",
+          78688,
+          153858,
+          123777,
+          69805,
+          70171,
+          68049
+        ]
+      },
+      {
+        "label": "住宿和餐饮业",
+        "unit": null,
+        "values": [
+          "住宿和餐饮业",
+          43168,
+          87194,
+          57086,
+          43270,
+          35570,
+          36759
+        ]
+      },
+      {
+        "label": "信息传输、软件和信息技术服务业",
+        "unit": null,
+        "values": [
+          "信息传输、软件和信息技术服务业",
+          88907,
+          221498,
+          126091,
+          78380,
+          49776,
+          76855
+        ]
+      },
+      {
+        "label": "房地产业",
+        "unit": null,
+        "values": [
+          "房地产业",
+          72723,
+          156070,
+          101234,
+          58965,
+          40673,
+          49463
+        ]
+      },
+      {
+        "label": "租赁和商务服务业",
+        "unit": null,
+        "values": [
+          "租赁和商务服务业",
+          56984,
+          141033,
+          93330,
+          49381,
+          42227,
+          42747
+        ]
+      },
+      {
+        "label": "科学研究和技术服务业",
+        "unit": null,
+        "values": [
+          "科学研究和技术服务业",
+          96087,
+          174126,
+          103645,
+          55110,
+          49333,
+          74374
+        ]
+      },
+      {
+        "label": "水利、环境和公共设施管理业",
+        "unit": null,
+        "values": [
+          "水利、环境和公共设施管理业",
+          51503,
+          106555,
+          77452,
+          55392,
+          43059,
+          43328
+        ]
+      },
+      {
+        "label": "居民服务、修理和其他服务业",
+        "unit": null,
+        "values": [
+          "居民服务、修理和其他服务业",
+          50844,
+          110260,
+          59337,
+          45747,
+          45546,
+          43591
+        ]
+      },
+      {
+        "label": "教育",
+        "unit": null,
+        "values": [
+          "教育",
+          76253,
+          143992,
+          77593,
+          74531,
+          48871,
+          40431
+        ]
+      },
+      {
+        "label": "卫生和社会工作",
+        "unit": null,
+        "values": [
+          "卫生和社会工作",
+          82948,
+          158149,
+          92472,
+          49165,
+          44022,
+          66310
+        ]
+      },
+      {
+        "label": "文化、体育和娱乐业",
+        "unit": null,
+        "values": [
+          "文化、体育和娱乐业",
+          65048,
+          115905,
+          100065,
+          57706,
+          41874,
+          38042
+        ]
+      }
+    ]
+  },
+  "title": "2018年某省分行业规模以上企业分职业就业人员平均工资",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_90dbf476d5fc095075da4214/row_band_01.jpg",
+        "review-crops/da_90dbf476d5fc095075da4214/row_band_02.jpg",
+        "review-crops/da_90dbf476d5fc095075da4214/row_band_03.jpg",
+        "review-crops/da_90dbf476d5fc095075da4214/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:35.884",
+      "crop_verification_elapsed_seconds:19.246",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:总计:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:采矿业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:制造业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:总计:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:采矿业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:制造业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:电力、热力、燃气及水生产供应业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:建筑业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:批发和零售业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:交通运输、仓储和邮政业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:住宿和餐饮业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:交通运输、仓储和邮政业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:住宿和餐饮业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:信息传输、软件和信息技术服务业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:房地产业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:租赁和商务服务业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:科学研究和技术服务业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:水利、环境和公共设施管理业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:科学研究和技术服务业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:水利、环境和公共设施管理业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:居民服务、修理和其他服务业:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:教育:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:卫生和社会工作:6!=7",
+      "crop_note:ignored_table_row_length_mismatch:文化、体育和娱乐业:6!=7"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

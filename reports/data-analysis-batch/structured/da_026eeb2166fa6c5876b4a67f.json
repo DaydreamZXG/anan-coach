@@ -1,0 +1,378 @@
+{
+  "asset_id": "da_026eeb2166fa6c5876b4a67f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "40万元以上",
+    "30万~40万元",
+    "20万~30万元",
+    "15万~20万元",
+    "10万~15万元",
+    "5万~10万元",
+    "5万元以下"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "40",
+      "label": "40万元以上",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万辆",
+      "values": [
+        3.7,
+        4.7,
+        9.7,
+        18.0,
+        26.1,
+        30.0,
+        11.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "30_40",
+      "label": "30万~40万元",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万辆",
+      "values": [
+        2.1,
+        8.1,
+        20.6,
+        32.7,
+        91.4,
+        75.0,
+        30.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "20_30",
+      "label": "20万~30万元",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万辆",
+      "values": [
+        22.8,
+        29.9,
+        79.4,
+        148.6,
+        179.0,
+        174.0,
+        87.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "15_20",
+      "label": "15万~20万元",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万辆",
+      "values": [
+        22.1,
+        19.7,
+        38.3,
+        83.0,
+        115.2,
+        133.0,
+        58.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "10_15",
+      "label": "10万~15万元",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万辆",
+      "values": [
+        34.7,
+        19.5,
+        58.2,
+        167.4,
+        236.0,
+        252.0,
+        146.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "5_10",
+      "label": "5万~10万元",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万辆",
+      "values": [
+        15.6,
+        17.8,
+        44.6,
+        61.0,
+        83.3,
+        123.0,
+        66.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "5",
+      "label": "5万元以下",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万辆",
+      "values": [
+        0.0,
+        11.3,
+        48.1,
+        57.0,
+        43.2,
+        45.0,
+        34.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0090_6de4f3d5494b82ca.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0090_6de4f3d5494b82ca.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_dc2853a16f06d3f1526b",
+        "question_number": 101,
+        "source_jsonl_line": 24483
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0090_6de4f3d5494b82ca.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b4ed8de7acfedfeade6e",
+        "question_number": 102,
+        "source_jsonl_line": 24484
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0090_6de4f3d5494b82ca.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1a0569ef53c2d981f014",
+        "question_number": 103,
+        "source_jsonl_line": 24485
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0090_6de4f3d5494b82ca.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f1c5a683d225660509e6",
+        "question_number": 104,
+        "source_jsonl_line": 24486
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0090_6de4f3d5494b82ca.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f6b1089299bf7b10e821",
+        "question_number": 105,
+        "source_jsonl_line": 24487
+      }
+    ],
+    "sha256": "026eeb2166fa6c5876b4a67f35b2b93ecb45602ffd873bd26d39c498f0434e6d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2019年",
+      "2020年",
+      "2021年",
+      "2022年",
+      "2023年",
+      "2024年",
+      "2025年（1~5月）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "40万元以上",
+        "unit": "万辆",
+        "values": [
+          3.7,
+          4.7,
+          9.7,
+          18.0,
+          26.1,
+          30.0,
+          11.0
+        ]
+      },
+      {
+        "label": "30万~40万元",
+        "unit": "万辆",
+        "values": [
+          2.1,
+          8.1,
+          20.6,
+          32.7,
+          91.4,
+          75.0,
+          30.2
+        ]
+      },
+      {
+        "label": "20万~30万元",
+        "unit": "万辆",
+        "values": [
+          22.8,
+          29.9,
+          79.4,
+          148.6,
+          179.0,
+          174.0,
+          87.9
+        ]
+      },
+      {
+        "label": "15万~20万元",
+        "unit": "万辆",
+        "values": [
+          22.1,
+          19.7,
+          38.3,
+          83.0,
+          115.2,
+          133.0,
+          58.3
+        ]
+      },
+      {
+        "label": "10万~15万元",
+        "unit": "万辆",
+        "values": [
+          34.7,
+          19.5,
+          58.2,
+          167.4,
+          236.0,
+          252.0,
+          146.7
+        ]
+      },
+      {
+        "label": "5万~10万元",
+        "unit": "万辆",
+        "values": [
+          15.6,
+          17.8,
+          44.6,
+          61.0,
+          83.3,
+          123.0,
+          66.9
+        ]
+      },
+      {
+        "label": "5万元以下",
+        "unit": "万辆",
+        "values": [
+          0.0,
+          11.3,
+          48.1,
+          57.0,
+          43.2,
+          45.0,
+          34.0
+        ]
+      }
+    ]
+  },
+  "title": "2019~2025年全国不同价位新能源乘用车销量",
+  "unit": "万辆",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_026eeb2166fa6c5876b4a67f/row_band_01.jpg",
+        "review-crops/da_026eeb2166fa6c5876b4a67f/row_band_02.jpg",
+        "review-crops/da_026eeb2166fa6c5876b4a67f/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.199",
+      "crop_verification_elapsed_seconds:12.212",
+      "candidate_value_changes_after_crop:0",
+      "table_row_label_column_removed:<blank>"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

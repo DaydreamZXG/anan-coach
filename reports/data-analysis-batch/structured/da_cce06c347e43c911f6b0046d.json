@@ -1,0 +1,261 @@
+{
+  "asset_id": "da_cce06c347e43c911f6b0046d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "700",
+      "label": "700强企业研发投入比重 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        21.7,
+        18.0,
+        17.5,
+        10.4,
+        6.4,
+        3.9,
+        4.8,
+        2.2,
+        2.2,
+        10.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2",
+      "label": "投入最多的2家公司占行业总投入的比重 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        13.0,
+        21.0,
+        18.0,
+        31.0,
+        44.0,
+        35.0,
+        23.0,
+        58.0,
+        33.0,
+        0.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2008年湖北省公务员录用考试《行测》题（A类）_images/img_0089_b037e76832873663.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（A类）_images/img_0089_b037e76832873663.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_d99e83437c1767826fa8",
+        "question_number": 121,
+        "source_jsonl_line": 68737
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（A类）_images/img_0089_b037e76832873663.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_9dd0f572022c470ceea6",
+        "question_number": 122,
+        "source_jsonl_line": 68738
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（A类）_images/img_0100_10173ccefc5ea9f5.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_8e6df4f8540dbf22cdff",
+        "question_number": 123,
+        "source_jsonl_line": 68739
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（A类）_images/img_0089_b037e76832873663.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_b159b07b6ec5ec38e95e",
+        "question_number": 124,
+        "source_jsonl_line": 68740
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年湖北省公务员录用考试《行测》题（A类）_images/img_0089_b037e76832873663.png",
+        "paper_title": "2008年湖北省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_d9bf2123a73fd375781b",
+        "question_number": 125,
+        "source_jsonl_line": 68741
+      }
+    ],
+    "sha256": "cce06c347e43c911f6b0046da34dbce1daa355731247938d6885ea5d554551f9"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "行业",
+      "700强企业研发投入比重 (%)",
+      "投入最多的2家公司占行业总投入的比重 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "IT 硬件",
+        "unit": null,
+        "values": [
+          "IT 硬件",
+          21.7,
+          13
+        ]
+      },
+      {
+        "label": "汽车",
+        "unit": null,
+        "values": [
+          "汽车",
+          18,
+          21
+        ]
+      },
+      {
+        "label": "生物制药",
+        "unit": null,
+        "values": [
+          "生物制药",
+          17.5,
+          18
+        ]
+      },
+      {
+        "label": "电子电气",
+        "unit": null,
+        "values": [
+          "电子电气",
+          10.4,
+          31
+        ]
+      },
+      {
+        "label": "IT 软件及计算机服务",
+        "unit": null,
+        "values": [
+          "IT 软件及计算机服务",
+          6.4,
+          44
+        ]
+      },
+      {
+        "label": "航空及国防",
+        "unit": null,
+        "values": [
+          "航空及国防",
+          3.9,
+          35
+        ]
+      },
+      {
+        "label": "化学",
+        "unit": null,
+        "values": [
+          "化学",
+          4.8,
+          23
+        ]
+      },
+      {
+        "label": "电信",
+        "unit": null,
+        "values": [
+          "电信",
+          2.2,
+          58
+        ]
+      },
+      {
+        "label": "保健品",
+        "unit": null,
+        "values": [
+          "保健品",
+          2.2,
+          33
+        ]
+      },
+      {
+        "label": "其他",
+        "unit": null,
+        "values": [
+          "其他",
+          10,
+          0
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cce06c347e43c911f6b0046d/row_band_01.jpg",
+        "review-crops/da_cce06c347e43c911f6b0046d/row_band_02.jpg",
+        "review-crops/da_cce06c347e43c911f6b0046d/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.03",
+      "crop_verification_elapsed_seconds:6.665",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

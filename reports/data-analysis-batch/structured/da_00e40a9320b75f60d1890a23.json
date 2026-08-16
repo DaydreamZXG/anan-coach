@@ -1,0 +1,295 @@
+{
+  "asset_id": "da_00e40a9320b75f60d1890a23",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2012年山东省公务员录用考试《行测》题_images/img_0098_359d343284097a7f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年山东省公务员录用考试《行测》题_images/img_0098_359d343284097a7f.png",
+        "paper_title": "2012年山东省公务员录用考试《行测》题",
+        "question_id": "pq_f63d484c984478ffe265",
+        "question_number": 106,
+        "source_jsonl_line": 29480
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年山东省公务员录用考试《行测》题_images/img_0102_be81e6693767670a.png",
+        "paper_title": "2012年山东省公务员录用考试《行测》题",
+        "question_id": "pq_30ad560c3283f9d9f2d4",
+        "question_number": 107,
+        "source_jsonl_line": 29481
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年山东省公务员录用考试《行测》题_images/img_0102_be81e6693767670a.png",
+        "paper_title": "2012年山东省公务员录用考试《行测》题",
+        "question_id": "pq_10310e2cea0a42e61bb7",
+        "question_number": 108,
+        "source_jsonl_line": 29482
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年山东省公务员录用考试《行测》题_images/img_0102_be81e6693767670a.png",
+        "paper_title": "2012年山东省公务员录用考试《行测》题",
+        "question_id": "pq_293c62937688bc10a32c",
+        "question_number": 109,
+        "source_jsonl_line": 29483
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年山东省公务员录用考试《行测》题_images/img_0102_be81e6693767670a.png",
+        "paper_title": "2012年山东省公务员录用考试《行测》题",
+        "question_id": "pq_aba802dcda0351c7074d",
+        "question_number": 110,
+        "source_jsonl_line": 29484
+      }
+    ],
+    "sha256": "00e40a9320b75f60d1890a23091bcd568f2dc8a712f865bc42697d364000ad03"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "合计",
+      "宾馆、酒店",
+      "旅行社",
+      "景点",
+      "其他旅游企业"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "营业性收入",
+        "unit": null,
+        "values": [
+          1627953,
+          722581,
+          659313,
+          239717,
+          6342
+        ]
+      },
+      {
+        "label": "营业成本",
+        "unit": null,
+        "values": [
+          904353,
+          213312,
+          602885,
+          82863,
+          5294
+        ]
+      },
+      {
+        "label": "营业费用",
+        "unit": null,
+        "values": [
+          325602,
+          256849,
+          27913,
+          40335,
+          505
+        ]
+      },
+      {
+        "label": "营业税金及附加",
+        "unit": null,
+        "values": [
+          55509,
+          37826,
+          2780,
+          14805,
+          98
+        ]
+      },
+      {
+        "label": "经营利润",
+        "unit": null,
+        "values": [
+          342489,
+          214594,
+          25735,
+          101714,
+          445
+        ]
+      },
+      {
+        "label": "管理费用",
+        "unit": null,
+        "values": [
+          276647,
+          184995,
+          18426,
+          64509,
+          8715
+        ]
+      },
+      {
+        "label": "财务费用",
+        "unit": null,
+        "values": [
+          39688,
+          22382,
+          345,
+          13299,
+          3663
+        ]
+      },
+      {
+        "label": "营业利润",
+        "unit": null,
+        "values": [
+          26154,
+          7217,
+          6964,
+          23906,
+          -11933
+        ]
+      },
+      {
+        "label": "投资收益",
+        "unit": null,
+        "values": [
+          105160,
+          1199,
+          1021,
+          1079,
+          101861
+        ]
+      },
+      {
+        "label": "营业外收支差",
+        "unit": null,
+        "values": [
+          1643,
+          2624,
+          188,
+          -1171,
+          2
+        ]
+      },
+      {
+        "label": "利润总额",
+        "unit": null,
+        "values": [
+          132957,
+          11040,
+          8173,
+          23814,
+          89930
+        ]
+      },
+      {
+        "label": "年末固定资产原值",
+        "unit": null,
+        "values": [
+          3620101,
+          2366343,
+          18930,
+          1229681,
+          5147
+        ]
+      },
+      {
+        "label": "年末固定资产净值",
+        "unit": null,
+        "values": [
+          2460965,
+          1585377,
+          10251,
+          860228,
+          5109
+        ]
+      },
+      {
+        "label": "年末职工人数(人)",
+        "unit": null,
+        "values": [
+          76103,
+          53881,
+          6212,
+          15812,
+          198
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_00e40a9320b75f60d1890a23/row_band_01.jpg",
+        "review-crops/da_00e40a9320b75f60d1890a23/row_band_02.jpg",
+        "review-crops/da_00e40a9320b75f60d1890a23/row_band_03.jpg",
+        "review-crops/da_00e40a9320b75f60d1890a23/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.2",
+      "crop_verification_elapsed_seconds:8.774",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:营业性收入:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:营业成本:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:营业费用:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:营业费用:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:营业税金及附加:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:经营利润:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:管理费用:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:财务费用:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:财务费用:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:营业利润:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:投资收益:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:营业外收支差:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:利润总额:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:利润总额:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:年末固定资产原值:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:年末固定资产净值:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:年末职工人数(人):5!=6",
+      "table_row_label_column_removed:指标"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

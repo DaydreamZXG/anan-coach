@@ -1,0 +1,261 @@
+{
+  "asset_id": "da_1debc366d1d21728e4d24524",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2013年浙江省公务员录用考试《行测》题（A类）_images/img_0225_9311cc7882b01c11.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（A类）_images/img_0225_9311cc7882b01c11.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_14bb9918d5c3a868fc99",
+        "question_number": 126,
+        "source_jsonl_line": 60558
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（A类）_images/img_0232_03cb8949c3ce04e0.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_3ce958eec7ef9652e9e5",
+        "question_number": 127,
+        "source_jsonl_line": 60559
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（A类）_images/img_0232_03cb8949c3ce04e0.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_3471feb329f2a0ee13fe",
+        "question_number": 128,
+        "source_jsonl_line": 60560
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（A类）_images/img_0225_9311cc7882b01c11.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_24290d10275450076320",
+        "question_number": 129,
+        "source_jsonl_line": 60561
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（A类）_images/img_0225_9311cc7882b01c11.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_1e3f4064bcafae5296cd",
+        "question_number": 130,
+        "source_jsonl_line": 60562
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0234_9311cc7882b01c11.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_cd5a960d1c5a39466bb8",
+        "question_number": 116,
+        "source_jsonl_line": 60678
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0234_9311cc7882b01c11.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_4c8c51f165db55d71f13",
+        "question_number": 117,
+        "source_jsonl_line": 60679
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0234_9311cc7882b01c11.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_249ffc634281d2ec0260",
+        "question_number": 118,
+        "source_jsonl_line": 60680
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0260_03cb8949c3ce04e0.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_baefbac440f01018920d",
+        "question_number": 119,
+        "source_jsonl_line": 60681
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0234_9311cc7882b01c11.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_36b0930c109c82cce099",
+        "question_number": 120,
+        "source_jsonl_line": 60682
+      }
+    ],
+    "sha256": "1debc366d1d21728e4d245242948c185d021d6945efc5b95e4816e6cca49ae34"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口｜出口额（亿美元）",
+          "出口｜比上年增长（%）"
+        ],
+        "label": "出口"
+      },
+      {
+        "columns": [
+          "进口｜进口额（亿美元）",
+          "进口｜比上年增长（%）"
+        ],
+        "label": "进口"
+      }
+    ],
+    "columns": [
+      "出口｜出口额（亿美元）",
+      "出口｜比上年增长（%）",
+      "进口｜进口额（亿美元）",
+      "进口｜比上年增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家或地区",
+    "rows": [
+      {
+        "label": "欧盟",
+        "unit": "亿美元",
+        "values": [
+          557.7,
+          15.4,
+          111.9,
+          19.2
+        ]
+      },
+      {
+        "label": "东盟",
+        "unit": "亿美元",
+        "values": [
+          147.5,
+          34.0,
+          106.5,
+          55.0
+        ]
+      },
+      {
+        "label": "美国",
+        "unit": "亿美元",
+        "values": [
+          349.2,
+          14.7,
+          77.6,
+          26.8
+        ]
+      },
+      {
+        "label": "日本",
+        "unit": "亿美元",
+        "values": [
+          133.4,
+          26.4,
+          118.6,
+          18.4
+        ]
+      },
+      {
+        "label": "俄罗斯",
+        "unit": "亿美元",
+        "values": [
+          70.1,
+          37.1,
+          18.3,
+          49.5
+        ]
+      },
+      {
+        "label": "韩国",
+        "unit": "亿美元",
+        "values": [
+          54.5,
+          20.1,
+          87.2,
+          37.3
+        ]
+      },
+      {
+        "label": "中国香港",
+        "unit": "亿美元",
+        "values": [
+          59.4,
+          -7.8,
+          3.3,
+          30.8
+        ]
+      },
+      {
+        "label": "中国台湾",
+        "unit": "亿美元",
+        "values": [
+          23.7,
+          17.9,
+          112.4,
+          10.3
+        ]
+      }
+    ]
+  },
+  "title": "2011年Z省对8个主要市场进出口情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1debc366d1d21728e4d24524/row_band_01.jpg",
+        "review-crops/da_1debc366d1d21728e4d24524/row_band_02.jpg",
+        "review-crops/da_1debc366d1d21728e4d24524/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.898",
+      "crop_verification_elapsed_seconds:8.966",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'俄罗斯'的进口额为18.3（原为18.3，无误）",
+      "crop_note:修正了'韩国'的进口额为87.2（原为87.2，无误）",
+      "crop_note:确认'中国香港'的出口额为59.4，比上年增长为-7.8（原为-7.8，无误）",
+      "crop_note:确认'中国台湾'的进口额为112.4，比上年增长为10.3（原为10.3，无误）",
+      "crop_note:确认所有数值的小数点、负号、百分号和缺失值均正确，无补0或错误填充",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

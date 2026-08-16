@@ -1,0 +1,279 @@
+{
+  "asset_id": "da_2842d8864b257bc81d4483e5",
+  "axes": {
+    "x": {
+      "max": 2022,
+      "min": 2012,
+      "ticks": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "title": "年",
+      "unit": "年"
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "指标",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "低保资金",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        22.19,
+        24.32,
+        24.42,
+        26.44,
+        35.1,
+        42.13,
+        45.71,
+        48.42,
+        48.62,
+        55.43,
+        61.48
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "特困资金",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2.53,
+        2.61,
+        2.85,
+        2.94,
+        3.04,
+        3.02,
+        3.37,
+        4.24,
+        5.21,
+        6.48,
+        8.09
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0123_c0f9fc714540377f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0123_c0f9fc714540377f.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_d5ae6f38613b53b36634",
+        "question_number": 46,
+        "source_jsonl_line": 63593
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0124_8f74b3c603c2969c.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_5f81ca548246bd160b52",
+        "question_number": 47,
+        "source_jsonl_line": 63594
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0123_c0f9fc714540377f.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_37f7bb990f07eea7854d",
+        "question_number": 48,
+        "source_jsonl_line": 63595
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0124_8f74b3c603c2969c.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_fb910bd983729c7eabf3",
+        "question_number": 49,
+        "source_jsonl_line": 63596
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0124_8f74b3c603c2969c.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_3e95268f6cb9c605f2f7",
+        "question_number": 50,
+        "source_jsonl_line": 63597
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0121_c0f9fc714540377f.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_d40aa9dbeb971dcc1630",
+        "question_number": 46,
+        "source_jsonl_line": 90186
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0121_c0f9fc714540377f.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_cbffbb1f841e5034a9a3",
+        "question_number": 47,
+        "source_jsonl_line": 90187
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0121_c0f9fc714540377f.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_9751bb0a2e311685b2ae",
+        "question_number": 48,
+        "source_jsonl_line": 90188
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0121_c0f9fc714540377f.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_b6faa8ab9811120e0037",
+        "question_number": 49,
+        "source_jsonl_line": 90189
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0121_c0f9fc714540377f.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_0a1bbe8e58e0bfbe467b",
+        "question_number": 50,
+        "source_jsonl_line": 90190
+      }
+    ],
+    "sha256": "2842d8864b257bc81d4483e577d985d57079005c6508f54e83a445844e83b1d4"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2012年",
+      "2013年",
+      "2014年",
+      "2015年",
+      "2016年",
+      "2017年",
+      "2018年",
+      "2019年",
+      "2020年",
+      "2021年",
+      "2022年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "低保资金（亿元）",
+        "unit": null,
+        "values": [
+          22.19,
+          24.32,
+          24.42,
+          26.44,
+          35.1,
+          42.13,
+          45.71,
+          48.42,
+          48.62,
+          55.43,
+          61.48
+        ]
+      },
+      {
+        "label": "特困资金（亿元）",
+        "unit": null,
+        "values": [
+          2.53,
+          2.61,
+          2.85,
+          2.94,
+          3.04,
+          3.02,
+          3.37,
+          4.24,
+          5.21,
+          6.48,
+          8.09
+        ]
+      }
+    ]
+  },
+  "title": "表2 2012-2022年Z省城乡低保、特困资金发放情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2842d8864b257bc81d4483e5/row_band_01.jpg",
+        "review-crops/da_2842d8864b257bc81d4483e5/row_band_02.jpg",
+        "review-crops/da_2842d8864b257bc81d4483e5/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.54",
+      "crop_verification_elapsed_seconds:9.463",
+      "candidate_value_changes_after_crop:0",
+      "table_row_label_column_removed:指标"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

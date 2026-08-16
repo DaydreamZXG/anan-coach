@@ -1,0 +1,230 @@
+{
+  "asset_id": "da_73f2e395880733fc5ebb1355",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0116_f3aa17114da36e98.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0116_f3aa17114da36e98.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_9f59b06e365bde801032",
+        "question_number": 116,
+        "source_jsonl_line": 21626
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0116_f3aa17114da36e98.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_f7539f296586bcd9bc0c",
+        "question_number": 117,
+        "source_jsonl_line": 21627
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0116_f3aa17114da36e98.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_0934e17b9941af4f9373",
+        "question_number": 118,
+        "source_jsonl_line": 21628
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0116_f3aa17114da36e98.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_9c92659671ad41379865",
+        "question_number": 119,
+        "source_jsonl_line": 21629
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0116_f3aa17114da36e98.png",
+        "paper_title": "2026年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_f46a4cb7c80a427f3731",
+        "question_number": 120,
+        "source_jsonl_line": 21630
+      }
+    ],
+    "sha256": "73f2e395880733fc5ebb13558332371f14f1c8e093f72a1e9c89e2c4bf911f6e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "成交量｜数量｜一季度",
+          "成交量｜数量｜3月",
+          "成交量｜增速｜一季度",
+          "成交量｜增速｜3月"
+        ],
+        "label": "成交量"
+      },
+      {
+        "columns": [
+          "成交额｜金额｜一季度",
+          "成交额｜金额｜3月",
+          "成交额｜增速｜一季度",
+          "成交额｜增速｜3月"
+        ],
+        "label": "成交额"
+      }
+    ],
+    "columns": [
+      "成交量｜数量｜一季度",
+      "成交量｜数量｜3月",
+      "成交量｜增速｜一季度",
+      "成交量｜增速｜3月",
+      "成交额｜金额｜一季度",
+      "成交额｜金额｜3月",
+      "成交额｜增速｜一季度",
+      "成交额｜增速｜3月"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "期货交易所",
+    "rows": [
+      {
+        "display_label": "上海期货交易所",
+        "group": null,
+        "label": "上海期货交易所",
+        "unit": null,
+        "values": [
+          493.5,
+          193.3,
+          27.8,
+          12.9,
+          48.2,
+          19.4,
+          54.4,
+          31.9
+        ]
+      },
+      {
+        "display_label": "上海国际能源交易中心",
+        "group": null,
+        "label": "上海国际能源交易中心",
+        "unit": null,
+        "values": [
+          39.0,
+          15.0,
+          16.0,
+          31.3,
+          7.7,
+          2.8,
+          -10.6,
+          -5.0
+        ]
+      },
+      {
+        "display_label": "郑州商品交易所",
+        "group": null,
+        "label": "郑州商品交易所",
+        "unit": null,
+        "values": [
+          633.2,
+          253.4,
+          28.9,
+          28.7,
+          21.1,
+          7.8,
+          28.5,
+          20.1
+        ]
+      },
+      {
+        "display_label": "中国金融期货交易所",
+        "group": null,
+        "label": "中国金融期货交易所",
+        "unit": null,
+        "values": [
+          72.7,
+          26.2,
+          17.7,
+          33.2,
+          60.6,
+          21.9,
+          39.1,
+          44.7
+        ]
+      },
+      {
+        "display_label": "大连商品交易所",
+        "group": null,
+        "label": "大连商品交易所",
+        "unit": null,
+        "values": [
+          573.1,
+          234.7,
+          12.7,
+          11.0,
+          22.6,
+          9.3,
+          1.9,
+          0.4
+        ]
+      },
+      {
+        "display_label": "广州期货交易所",
+        "group": null,
+        "label": "广州期货交易所",
+        "unit": null,
+        "values": [
+          38.2,
+          11.9,
+          33.6,
+          -24.6,
+          1.8,
+          0.5,
+          -15.7,
+          -58.8
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.96,
+    "schema_valid": true
+  }
+}

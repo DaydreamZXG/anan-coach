@@ -1,0 +1,266 @@
+{
+  "asset_id": "da_a3ec628037af1a2d28c909dd",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2007,
+        2006,
+        2005,
+        2004,
+        2003
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "项目",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2007",
+    "2006",
+    "2005",
+    "2004",
+    "2003"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "社会消费品零售总额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        3356.48,
+        null,
+        2459.1,
+        2069.8,
+        1816.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "其中：批发和零售贸易业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2831.62,
+        2386.6,
+        2104.5,
+        1763.8,
+        1594.84
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "住宿和餐饮业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        479.76,
+        404.3,
+        317.4,
+        269.9,
+        261.04
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "其他",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        45.1,
+        43.3,
+        37.2,
+        36.2,
+        33.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广西/2008年广西壮族自治区公务员录用考试《行测》题_images/img_0084_516dce734373e5f5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广西壮族自治区公务员录用考试《行测》题_images/img_0084_516dce734373e5f5.png",
+        "paper_title": "2008年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_990281ee5992b6638112",
+        "question_number": 131,
+        "source_jsonl_line": 37793
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广西壮族自治区公务员录用考试《行测》题_images/img_0085_d1a1e2daa7a2bc1a.png",
+        "paper_title": "2008年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_19583069ea61c8067eb5",
+        "question_number": 132,
+        "source_jsonl_line": 37794
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广西壮族自治区公务员录用考试《行测》题_images/img_0084_516dce734373e5f5.png",
+        "paper_title": "2008年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_99259da128228a8c32c3",
+        "question_number": 133,
+        "source_jsonl_line": 37795
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广西壮族自治区公务员录用考试《行测》题_images/img_0084_516dce734373e5f5.png",
+        "paper_title": "2008年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_7d7722d8ccebdfd87bf4",
+        "question_number": 134,
+        "source_jsonl_line": 37796
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广西壮族自治区公务员录用考试《行测》题_images/img_0085_d1a1e2daa7a2bc1a.png",
+        "paper_title": "2008年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_235585d6f68a9ad3afe1",
+        "question_number": 135,
+        "source_jsonl_line": 37797
+      }
+    ],
+    "sha256": "a3ec628037af1a2d28c909dd66d2055c243ca28e0b3cb8ca7b84b42e77c498e1"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2007",
+      "2006",
+      "2005",
+      "2004",
+      "2003"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "label": "社会消费品零售总额",
+        "unit": "亿元",
+        "values": [
+          3356.48,
+          null,
+          null,
+          2069.8,
+          1816.3
+        ]
+      },
+      {
+        "label": "其中：批发和零售贸易业",
+        "unit": "亿元",
+        "values": [
+          2831.62,
+          2386.6,
+          2104.5,
+          1763.8,
+          1594.84
+        ]
+      },
+      {
+        "label": "住宿和餐饮业",
+        "unit": "亿元",
+        "values": [
+          479.76,
+          404.3,
+          404.3,
+          317.4,
+          269.9
+        ]
+      },
+      {
+        "label": "其他",
+        "unit": "亿元",
+        "values": [
+          45.1,
+          43.3,
+          43.3,
+          37.2,
+          36.2
+        ]
+      }
+    ]
+  },
+  "title": "社会消费品零售总额及构成",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a3ec628037af1a2d28c909dd/row_band_01.jpg",
+        "review-crops/da_a3ec628037af1a2d28c909dd/row_band_02.jpg",
+        "review-crops/da_a3ec628037af1a2d28c909dd/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.097",
+      "crop_verification_elapsed_seconds:3.32",
+      "candidate_value_changes_after_crop:7",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_table_cell:其中：批发零售贸易业:2006",
+      "crop_note:ignored_unknown_table_cell:其中：批发零售贸易业:2005",
+      "crop_note:ignored_unknown_table_cell:其中：批发零售贸易业:2004",
+      "crop_note:ignored_unknown_table_cell:其中：批发零售贸易业:2003",
+      "crop_note:ignored_out_of_range_table_cell:住宿和餐饮业:2003",
+      "crop_note:ignored_out_of_range_table_cell:其他:2003",
+      "table_row_label_column_removed:项目"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

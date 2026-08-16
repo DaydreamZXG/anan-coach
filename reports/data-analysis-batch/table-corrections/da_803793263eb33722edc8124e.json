@@ -1,0 +1,151 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "营业收入（亿元）",
+          "占规上服务业比重（%）",
+          "同比增长（%）",
+          "拉动规上服务业增长（百分点）"
+        ],
+        "label": "指标"
+      }
+    ],
+    "columns": [
+      "营业收入（亿元）",
+      "占规上服务业比重（%）",
+      "同比增长（%）",
+      "拉动规上服务业增长（百分点）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "全国",
+        "group": null,
+        "label": "全国",
+        "unit": null,
+        "values": [
+          39271.6,
+          29,
+          25.7,
+          7.7
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          4678.99,
+          23,
+          30.5,
+          7.2
+        ]
+      },
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          9751.1,
+          41,
+          34.1,
+          13.2
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": null,
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          5586.62,
+          45.9,
+          28.8,
+          13.7
+        ]
+      },
+      {
+        "display_label": "广东",
+        "group": null,
+        "label": "广东",
+        "unit": null,
+        "values": [
+          6611.73,
+          34.5,
+          20.2,
+          7.3
+        ]
+      },
+      {
+        "display_label": "江苏",
+        "group": null,
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          2202.2,
+          22.9,
+          25.1,
+          6.2
+        ]
+      },
+      {
+        "display_label": "湖北",
+        "group": null,
+        "label": "湖北",
+        "unit": null,
+        "values": [
+          744.27,
+          20.6,
+          19.7,
+          4.9
+        ]
+      },
+      {
+        "display_label": "河南",
+        "group": null,
+        "label": "河南",
+        "unit": null,
+        "values": [
+          639.54,
+          17.4,
+          18.4,
+          3.4
+        ]
+      },
+      {
+        "display_label": "安徽",
+        "group": null,
+        "label": "安徽",
+        "unit": null,
+        "values": [
+          555.5,
+          25.7,
+          15.8,
+          4.5
+        ]
+      },
+      {
+        "display_label": "江西",
+        "group": null,
+        "label": "江西",
+        "unit": null,
+        "values": [
+          378.19,
+          23,
+          13.7,
+          3.7
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

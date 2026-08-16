@@ -1,0 +1,399 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "数量",
+      "载重"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "载重",
+      "style": "diagonal",
+      "upper_label": "数量"
+    },
+    "missing_cells": [
+      {
+        "column": "载重",
+        "display": "—",
+        "row": "合计｜2008年"
+      },
+      {
+        "column": "载重",
+        "display": "—",
+        "row": "合计｜2009年"
+      },
+      {
+        "column": "载重",
+        "display": "—",
+        "row": "合计｜2010年"
+      },
+      {
+        "column": "载重",
+        "display": "—",
+        "row": "合计｜2011年"
+      },
+      {
+        "column": "载重",
+        "display": "—",
+        "row": "合计｜2012年"
+      }
+    ],
+    "row_header_label": "载重",
+    "rows": [
+      {
+        "display_label": "集装箱船｜2008年",
+        "group": null,
+        "label": "集装箱船｜2008年",
+        "unit": null,
+        "values": [
+          93,
+          30.0
+        ]
+      },
+      {
+        "display_label": "集装箱船｜2009年",
+        "group": null,
+        "label": "集装箱船｜2009年",
+        "unit": null,
+        "values": [
+          92,
+          31.5
+        ]
+      },
+      {
+        "display_label": "集装箱船｜2010年",
+        "group": null,
+        "label": "集装箱船｜2010年",
+        "unit": null,
+        "values": [
+          101,
+          35.9
+        ]
+      },
+      {
+        "display_label": "集装箱船｜2011年",
+        "group": null,
+        "label": "集装箱船｜2011年",
+        "unit": null,
+        "values": [
+          100,
+          35.9
+        ]
+      },
+      {
+        "display_label": "集装箱船｜2012年",
+        "group": null,
+        "label": "集装箱船｜2012年",
+        "unit": null,
+        "values": [
+          105,
+          39.5
+        ]
+      },
+      {
+        "display_label": "干散货船｜2008年",
+        "group": null,
+        "label": "干散货船｜2008年",
+        "unit": null,
+        "values": [
+          224,
+          1476.0
+        ]
+      },
+      {
+        "display_label": "干散货船｜2009年",
+        "group": null,
+        "label": "干散货船｜2009年",
+        "unit": null,
+        "values": [
+          238,
+          1745.0
+        ]
+      },
+      {
+        "display_label": "干散货船｜2010年",
+        "group": null,
+        "label": "干散货船｜2010年",
+        "unit": null,
+        "values": [
+          245,
+          1882.1
+        ]
+      },
+      {
+        "display_label": "干散货船｜2011年",
+        "group": null,
+        "label": "干散货船｜2011年",
+        "unit": null,
+        "values": [
+          249,
+          1997.3
+        ]
+      },
+      {
+        "display_label": "干散货船｜2012年",
+        "group": null,
+        "label": "干散货船｜2012年",
+        "unit": null,
+        "values": [
+          237,
+          1970.0
+        ]
+      },
+      {
+        "display_label": "游轮｜2008年",
+        "group": null,
+        "label": "游轮｜2008年",
+        "unit": null,
+        "values": [
+          24,
+          347.0
+        ]
+      },
+      {
+        "display_label": "游轮｜2009年",
+        "group": null,
+        "label": "游轮｜2009年",
+        "unit": null,
+        "values": [
+          25,
+          382.0
+        ]
+      },
+      {
+        "display_label": "游轮｜2010年",
+        "group": null,
+        "label": "游轮｜2010年",
+        "unit": null,
+        "values": [
+          29,
+          463.0
+        ]
+      },
+      {
+        "display_label": "游轮｜2011年",
+        "group": null,
+        "label": "游轮｜2011年",
+        "unit": null,
+        "values": [
+          31,
+          522.0
+        ]
+      },
+      {
+        "display_label": "游轮｜2012年",
+        "group": null,
+        "label": "游轮｜2012年",
+        "unit": null,
+        "values": [
+          32,
+          552.0
+        ]
+      },
+      {
+        "display_label": "其他液体散货船｜2008年",
+        "group": null,
+        "label": "其他液体散货船｜2008年",
+        "unit": null,
+        "values": [
+          22,
+          10.4
+        ]
+      },
+      {
+        "display_label": "其他液体散货船｜2009年",
+        "group": null,
+        "label": "其他液体散货船｜2009年",
+        "unit": null,
+        "values": [
+          18,
+          9.3
+        ]
+      },
+      {
+        "display_label": "其他液体散货船｜2010年",
+        "group": null,
+        "label": "其他液体散货船｜2010年",
+        "unit": null,
+        "values": [
+          19,
+          10.0
+        ]
+      },
+      {
+        "display_label": "其他液体散货船｜2011年",
+        "group": null,
+        "label": "其他液体散货船｜2011年",
+        "unit": null,
+        "values": [
+          15,
+          8.5
+        ]
+      },
+      {
+        "display_label": "其他液体散货船｜2012年",
+        "group": null,
+        "label": "其他液体散货船｜2012年",
+        "unit": null,
+        "values": [
+          15,
+          8.5
+        ]
+      },
+      {
+        "display_label": "杂货船｜2008年",
+        "group": null,
+        "label": "杂货船｜2008年",
+        "unit": null,
+        "values": [
+          93,
+          166.0
+        ]
+      },
+      {
+        "display_label": "杂货船｜2009年",
+        "group": null,
+        "label": "杂货船｜2009年",
+        "unit": null,
+        "values": [
+          74,
+          143.0
+        ]
+      },
+      {
+        "display_label": "杂货船｜2010年",
+        "group": null,
+        "label": "杂货船｜2010年",
+        "unit": null,
+        "values": [
+          73,
+          157.2
+        ]
+      },
+      {
+        "display_label": "杂货船｜2011年",
+        "group": null,
+        "label": "杂货船｜2011年",
+        "unit": null,
+        "values": [
+          68,
+          153.0
+        ]
+      },
+      {
+        "display_label": "杂货船｜2012年",
+        "group": null,
+        "label": "杂货船｜2012年",
+        "unit": null,
+        "values": [
+          75,
+          174.2
+        ]
+      },
+      {
+        "display_label": "其他船｜2008年",
+        "group": null,
+        "label": "其他船｜2008年",
+        "unit": null,
+        "values": [
+          18,
+          20.7
+        ]
+      },
+      {
+        "display_label": "其他船｜2009年",
+        "group": null,
+        "label": "其他船｜2009年",
+        "unit": null,
+        "values": [
+          15,
+          21.4
+        ]
+      },
+      {
+        "display_label": "其他船｜2010年",
+        "group": null,
+        "label": "其他船｜2010年",
+        "unit": null,
+        "values": [
+          14,
+          22.9
+        ]
+      },
+      {
+        "display_label": "其他船｜2011年",
+        "group": null,
+        "label": "其他船｜2011年",
+        "unit": null,
+        "values": [
+          18,
+          41.6
+        ]
+      },
+      {
+        "display_label": "其他船｜2012年",
+        "group": null,
+        "label": "其他船｜2012年",
+        "unit": null,
+        "values": [
+          22,
+          49.2
+        ]
+      },
+      {
+        "display_label": "合计｜2008年",
+        "group": null,
+        "label": "合计｜2008年",
+        "unit": null,
+        "values": [
+          474,
+          null
+        ]
+      },
+      {
+        "display_label": "合计｜2009年",
+        "group": null,
+        "label": "合计｜2009年",
+        "unit": null,
+        "values": [
+          462,
+          null
+        ]
+      },
+      {
+        "display_label": "合计｜2010年",
+        "group": null,
+        "label": "合计｜2010年",
+        "unit": null,
+        "values": [
+          481,
+          null
+        ]
+      },
+      {
+        "display_label": "合计｜2011年",
+        "group": null,
+        "label": "合计｜2011年",
+        "unit": null,
+        "values": [
+          481,
+          null
+        ]
+      },
+      {
+        "display_label": "合计｜2012年",
+        "group": null,
+        "label": "合计｜2012年",
+        "unit": null,
+        "values": [
+          486,
+          null
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

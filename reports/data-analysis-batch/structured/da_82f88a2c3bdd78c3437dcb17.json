@@ -1,0 +1,318 @@
+{
+  "asset_id": "da_82f88a2c3bdd78c3437dcb17",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2017年天津滨海新区公务员考试《行测》题（网友回忆版）_images/img_0194_b88338c623e6cc27.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）_images/img_0194_b88338c623e6cc27.png",
+        "paper_title": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_73c18a4f1aa6da2a6d70",
+        "question_number": 111,
+        "source_jsonl_line": 23393
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）_images/img_0156_bb620fafd62abb7b.png",
+        "paper_title": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_b9dd44904c4751b69e48",
+        "question_number": 112,
+        "source_jsonl_line": 23394
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）_images/img_0156_bb620fafd62abb7b.png",
+        "paper_title": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_787a575a46218854818d",
+        "question_number": 113,
+        "source_jsonl_line": 23395
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）_images/img_0156_bb620fafd62abb7b.png",
+        "paper_title": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_fc9ad598febffed43bbf",
+        "question_number": 114,
+        "source_jsonl_line": 23396
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）_images/img_0156_bb620fafd62abb7b.png",
+        "paper_title": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_6131b47fff30d07444e8",
+        "question_number": 115,
+        "source_jsonl_line": 23397
+      }
+    ],
+    "sha256": "82f88a2c3bdd78c3437dcb172a4e57448b5dcd269390b0d5150fdc79cc5de1f6"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "代码",
+      "名称",
+      "全部机构持股比例合计(%)",
+      "月涨跌幅(%)",
+      "年涨跌幅(%)",
+      "每股收益(元)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "600276",
+        "unit": null,
+        "values": [
+          600276,
+          "恒瑞医药",
+          90.04,
+          -8.41,
+          70.58,
+          0.36
+        ]
+      },
+      {
+        "label": "600664",
+        "unit": null,
+        "values": [
+          600664,
+          "S哈药",
+          89.79,
+          8.84,
+          192.92,
+          0.16
+        ]
+      },
+      {
+        "label": "600038",
+        "unit": null,
+        "values": [
+          600038,
+          "哈飞股份",
+          86.43,
+          -3.18,
+          51.98,
+          0.04
+        ]
+      },
+      {
+        "label": "002007",
+        "unit": null,
+        "values": [
+          2007,
+          "华兰生物",
+          85.71,
+          11.59,
+          172.33,
+          0.29
+        ]
+      },
+      {
+        "label": "600533",
+        "unit": null,
+        "values": [
+          600533,
+          "栖霞建设",
+          83.81,
+          -5.6,
+          161.46,
+          0.4
+        ]
+      },
+      {
+        "label": "600585",
+        "unit": null,
+        "values": [
+          null,
+          "海螺水泥",
+          82.75,
+          13.32,
+          149.01,
+          0.56
+        ]
+      },
+      {
+        "label": "600011",
+        "unit": null,
+        "values": [
+          null,
+          "华能国际",
+          82.52,
+          14.7,
+          159.5,
+          0.24
+        ]
+      },
+      {
+        "label": "600588",
+        "unit": null,
+        "values": [
+          null,
+          "用友软件",
+          81.7,
+          -2.72,
+          72.75,
+          0.67
+        ]
+      },
+      {
+        "label": "600761",
+        "unit": null,
+        "values": [
+          null,
+          "安徽合力",
+          81.44,
+          -6.9,
+          68.46,
+          0.48
+        ]
+      },
+      {
+        "label": "600150",
+        "unit": null,
+        "values": [
+          null,
+          "中国船舶",
+          81.42,
+          24.66,
+          634.3,
+          0.76
+        ]
+      },
+      {
+        "label": "600694",
+        "unit": null,
+        "values": [
+          null,
+          "大商股份",
+          80.13,
+          -7.8,
+          101.18,
+          0.9
+        ]
+      },
+      {
+        "label": "600859",
+        "unit": null,
+        "values": [
+          null,
+          "王府井",
+          78.07,
+          -9.1,
+          92.43,
+          0.29
+        ]
+      },
+      {
+        "label": "600299",
+        "unit": null,
+        "values": [
+          600299,
+          "星新材料",
+          76.98,
+          3.93,
+          219.62,
+          0.4
+        ]
+      },
+      {
+        "label": "600686",
+        "unit": null,
+        "values": [
+          600686,
+          "金龙汽车",
+          76.67,
+          -2.08,
+          98.56,
+          0.31
+        ]
+      },
+      {
+        "label": "000024",
+        "unit": null,
+        "values": [
+          24,
+          "招商地产",
+          76.32,
+          1.79,
+          181.03,
+          0.57
+        ]
+      }
+    ]
+  },
+  "title": "有关股票统计表",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_82f88a2c3bdd78c3437dcb17/row_band_01.jpg",
+        "review-crops/da_82f88a2c3bdd78c3437dcb17/row_band_02.jpg",
+        "review-crops/da_82f88a2c3bdd78c3437dcb17/row_band_03.jpg",
+        "review-crops/da_82f88a2c3bdd78c3437dcb17/row_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.237",
+      "crop_verification_elapsed_seconds:13.697",
+      "candidate_value_changes_after_crop:7",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:600276:4!=6",
+      "crop_note:ignored_table_row_length_mismatch:600664:4!=6",
+      "crop_note:ignored_table_row_length_mismatch:600038:4!=6",
+      "crop_note:ignored_table_row_length_mismatch:600664:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:600038:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:002007:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:600533:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:600585:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:600011:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:600694:4!=6",
+      "crop_note:ignored_table_row_length_mismatch:600859:4!=6",
+      "crop_note:ignored_table_row_length_mismatch:600299:4!=6",
+      "crop_note:ignored_table_row_length_mismatch:600686:4!=6",
+      "crop_note:ignored_table_row_length_mismatch:000024:4!=6"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

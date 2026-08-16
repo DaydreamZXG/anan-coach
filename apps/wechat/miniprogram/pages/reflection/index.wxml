@@ -115,11 +115,11 @@
 
       <view class="summary-actions">
         <view class="summary-actions__row">
-          <button hover-class="item--hover" class="summary-secondary" bindtap="exit">稍后复盘</button>
+          <button hover-class="item--hover" class="summary-secondary" bindtap="exit">先放到待复盘</button>
           <button hover-class="item--hover" class="summary-anan" bindtap="askAnanAboutGroup">带着本组问岸岸</button>
         </view>
       </view>
-      <view class="summary-boundary">这组新增了 {{result.totalCount}} 条真实作答。一次练习成不了稳定水平，做完复测再确认也不迟。</view>
+      <view class="summary-boundary">这组新增了 {{result.totalCount}} 条真实作答。现在退出也不会丢，可从「能力 → 刚做的错题与待复盘」回来。</view>
       <view class="reflection-bottom-spacer"></view>
     </view>
 
@@ -498,20 +498,69 @@
               <view wx:for="{{item.similarQuestion.options}}" wx:for-item="option" wx:key="optionId" class="rescue-similar__option">
                 <text class="rescue-similar__label">{{option.label}}</text>
                 <text class="rescue-similar__text">{{option.text}}</text>
-                <text wx:if="{{option.optionId === item.similarQuestion.correctOptionIds[0]}}" class="rescue-similar__correct">✓ 正确</text>
-              </view>
-              <view wx:if="{{item.similarQuestion.explanation}}" class="rescue-similar__explanation">
-                <view class="rescue-similar__explanation-label">解析</view>
-                <view class="rescue-similar__explanation-copy">{{item.similarQuestion.explanation}}</view>
               </view>
             </view>
           </view>
         </view>
         <button
+          wx:if="{{rescue.items[0].teachBackAvailable}}"
           hover-class="item--hover"
           class="reflection-primary completed-primary rescue-practice-button tap-tactile"
           bindtap="startRescuePractice"
-        >再练一道同类题</button>
+        >讲给岸岸，再验证</button>
+        <view wx:else class="teach-back__unavailable">{{rescue.items[0].teachBackReason}}</view>
+
+        <view wx:if="{{teachBackOpen}}" class="teach-back">
+          <view class="teach-back__title">把刚学会的方法讲给岸岸</view>
+          <view class="teach-back__hint">岸岸会先当一个一无所知的学生，只按你说出的步骤复现，不会偷偷补答案。</view>
+          <textarea
+            class="cause-textarea teach-back__textarea"
+            maxlength="50000"
+            cursor-spacing="24"
+            disabled="{{teachBackLoading}}"
+            value="{{teachBackExplanation}}"
+            placeholder="例如：我先看问法和限定词，再逐项比较……"
+            bindinput="inputTeachBackExplanation"
+          />
+          <button hover-class="item--hover" class="rescue-retry teach-back__submit" loading="{{teachBackLoading}}" disabled="{{teachBackLoading}}" bindtap="submitTeachBack">让岸岸复现</button>
+
+          <view wx:if="{{teachBackSession}}" class="teach-back__result">
+            <view class="teach-back__coach">{{teachBackSession.coachMessage}}</view>
+            <view wx:if="{{teachBackSession.student && teachBackSession.student.reproducedSteps.length}}" class="teach-back__steps">
+              <view wx:for="{{teachBackSession.student.reproducedSteps}}" wx:key="*this" class="teach-back__step">{{index + 1}}. {{item}}</view>
+            </view>
+            <view wx:if="{{teachBackSession.grounding.length}}" class="teach-back__claims">
+              <view wx:for="{{teachBackSession.grounding}}" wx:key="summary" class="teach-back__claim">{{item.summary}}</view>
+            </view>
+            <view wx:if="{{teachBackSession.transferQuestion && !teachBackReceipt}}" class="teach-back__transfer">
+              <view class="teach-back__eyebrow">迁移验证</view>
+              <view class="teach-back__stem">{{teachBackSession.transferQuestion.stem}}</view>
+              <view wx:for="{{teachBackSession.transferQuestion.visualEvidence}}" wx:for-item="visual" wx:key="evidenceRef" class="teach-back__visual">
+                <view wx:if="{{visual.title}}" class="teach-back__visual-title">{{visual.title}}</view>
+                <view wx:for="{{visual.facts}}" wx:for-item="fact" wx:key="factRef" class="teach-back__visual-fact">{{fact.value}}{{fact.unit}}</view>
+              </view>
+              <view
+                wx:for="{{teachBackSession.transferQuestion.options}}"
+                wx:for-item="option"
+                wx:key="optionId"
+                class="teach-back__option {{teachBackSelectedOptionIds[0] === option.optionId ? 'teach-back__option--selected' : ''}}"
+                data-option-id="{{option.optionId}}"
+                bindtap="selectTeachBackOption"
+              >
+                <text class="teach-back__option-label">{{option.label}}</text>
+                <text>{{option.text}}</text>
+              </view>
+              <view class="teach-back__confidence">
+                <view wx:for="{{teachBackConfidenceOptions}}" wx:key="value" class="teach-back__confidence-chip {{teachBackConfidence === item.value ? 'teach-back__confidence-chip--selected' : ''}}" data-confidence="{{item.value}}" bindtap="selectTeachBackConfidence">{{item.label}}</view>
+              </view>
+              <button hover-class="item--hover" class="reflection-primary completed-primary rescue-practice-button" loading="{{teachBackLoading}}" disabled="{{teachBackLoading}}" bindtap="submitTeachBackTransfer">提交迁移答案</button>
+            </view>
+            <view wx:if="{{teachBackReceipt}}" class="teach-back__receipt {{teachBackReceipt.correct ? 'teach-back__receipt--correct' : ''}}">
+              <view class="teach-back__receipt-title">{{teachBackReceipt.correct ? '这次迁移站住了' : '这次还没站稳'}}</view>
+              <view class="teach-back__receipt-copy">{{teachBackReceipt.coachMessage}}</view>
+            </view>
+          </view>
+        </view>
       </view>
       <view wx:elif="{{rescueLoading}}" class="rescue-card rescue-card--loading">
         <view class="rescue-card__head"><view class="rescue-card__mark">救</view><view class="rescue-card__title">正在准备方法卡…</view></view>

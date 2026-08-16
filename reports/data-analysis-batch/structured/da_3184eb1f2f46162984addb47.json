@@ -1,0 +1,219 @@
+{
+  "asset_id": "da_3184eb1f2f46162984addb47",
+  "axes": {
+    "x": {
+      "max": 6,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 500,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300,
+          350,
+          400,
+          450,
+          500
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2000年",
+    "2001年",
+    "2002年",
+    "2003年",
+    "2004年",
+    "2005年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "财政预算内资金",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "财政专项资金",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "其它",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "财政预算内资金",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        33,
+        36,
+        42,
+        19,
+        14,
+        8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "财政专项资金",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        7,
+        8,
+        7,
+        12,
+        11,
+        21
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "其它",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        197,
+        130,
+        140,
+        191,
+        283,
+        483
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2009年江苏省公务员录用考试《行测》题（C类）_images/img_0257_65d9499b9b2b3942.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（C类）_images/img_0257_65d9499b9b2b3942.jpg",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_bd8502f009881a871031",
+        "question_number": 91,
+        "source_jsonl_line": 45081
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（C类）_images/img_0257_65d9499b9b2b3942.jpg",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_8649f45108039e1b0a90",
+        "question_number": 92,
+        "source_jsonl_line": 45082
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（C类）_images/img_0277_c83a59e817d1b53b.jpg",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_31c67c7419bd4d5eea82",
+        "question_number": 93,
+        "source_jsonl_line": 45083
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（C类）_images/img_0257_65d9499b9b2b3942.jpg",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_79a051a3bc4596db733e",
+        "question_number": 94,
+        "source_jsonl_line": 45084
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（C类）_images/img_0257_65d9499b9b2b3942.jpg",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_47d0926b9d4f60ed06f8",
+        "question_number": 95,
+        "source_jsonl_line": 45085
+      }
+    ],
+    "sha256": "3184eb1f2f46162984addb4721f2bed787c772b366485355b0d3724d5ea3237d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3184eb1f2f46162984addb47/column_band_01.jpg",
+        "review-crops/da_3184eb1f2f46162984addb47/column_band_02.jpg",
+        "review-crops/da_3184eb1f2f46162984addb47/column_band_03.jpg",
+        "review-crops/da_3184eb1f2f46162984addb47/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.776",
+      "crop_verification_elapsed_seconds:7.302",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,331 @@
+{
+  "asset_id": "da_43c2b4c09d195b10752eae31",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "城市",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 60,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60
+        ],
+        "title": "百分比",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "甲",
+    "乙",
+    "丙",
+    "丁"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "5公里通勤比重",
+      "style": {
+        "dash": null,
+        "fill": "#333333",
+        "marker": null,
+        "stroke": "#333333"
+      }
+    },
+    {
+      "label": "45分钟公交服务能力占比",
+      "style": {
+        "dash": null,
+        "fill": "#CCCCCC",
+        "marker": null,
+        "stroke": "#CCCCCC"
+      }
+    },
+    {
+      "label": "轨道覆盖通勤比重",
+      "style": {
+        "dash": null,
+        "fill": "#666666",
+        "marker": null,
+        "stroke": "#666666"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "5",
+      "label": "5公里通勤比重",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        38,
+        48,
+        51,
+        57
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "45",
+      "label": "45分钟公交服务能力占比",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        32,
+        39,
+        50,
+        57
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "轨道覆盖通勤比重",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        27,
+        33,
+        37,
+        30
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2020年天津市公务员考试《行测》试题（网友回忆版）_images/img_0226_4fdd264e9e586913.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年天津市公务员考试《行测》试题（网友回忆版）_images/img_0226_4fdd264e9e586913.png",
+        "paper_title": "2020年天津市公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_51947293c173b1223dcf",
+        "question_number": 111,
+        "source_jsonl_line": 23803
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年天津市公务员考试《行测》试题（网友回忆版）_images/img_0224_a76b693f0e0dc7dd.png",
+        "paper_title": "2020年天津市公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_0c906b55590749c95041",
+        "question_number": 112,
+        "source_jsonl_line": 23804
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年天津市公务员考试《行测》试题（网友回忆版）_images/img_0226_4fdd264e9e586913.png",
+        "paper_title": "2020年天津市公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_f09dbc8b49979068f06c",
+        "question_number": 113,
+        "source_jsonl_line": 23805
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年天津市公务员考试《行测》试题（网友回忆版）_images/img_0226_4fdd264e9e586913.png",
+        "paper_title": "2020年天津市公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_1578a64c9ad0c3051be0",
+        "question_number": 114,
+        "source_jsonl_line": 23806
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年天津市公务员考试《行测》试题（网友回忆版）_images/img_0226_4fdd264e9e586913.png",
+        "paper_title": "2020年天津市公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_807db2197b530d655ca8",
+        "question_number": 115,
+        "source_jsonl_line": 23807
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年河南省公务员考试《行测》试题（网友回忆版）_images/img_0195_a76b693f0e0dc7dd.png",
+        "paper_title": "2020年河南省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_190641535d8f58aaa68e",
+        "question_number": 111,
+        "source_jsonl_line": 58808
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年河南省公务员考试《行测》试题（网友回忆版）_images/img_0198_4fdd264e9e586913.png",
+        "paper_title": "2020年河南省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_c4392a122738ea2370ac",
+        "question_number": 112,
+        "source_jsonl_line": 58809
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年河南省公务员考试《行测》试题（网友回忆版）_images/img_0198_4fdd264e9e586913.png",
+        "paper_title": "2020年河南省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_ecf8b07d101589deba87",
+        "question_number": 113,
+        "source_jsonl_line": 58810
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年河南省公务员考试《行测》试题（网友回忆版）_images/img_0198_4fdd264e9e586913.png",
+        "paper_title": "2020年河南省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_d4e4535c157dc4bcf68a",
+        "question_number": 114,
+        "source_jsonl_line": 58811
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年河南省公务员考试《行测》试题（网友回忆版）_images/img_0198_4fdd264e9e586913.png",
+        "paper_title": "2020年河南省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_858e5d014025c82fa58c",
+        "question_number": 115,
+        "source_jsonl_line": 58812
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年福建省公务员考试《行测》试题（网友回忆版）_images/img_0141_4fdd264e9e586913.png",
+        "paper_title": "2020年福建省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_b60d6a4036bee86bbfdf",
+        "question_number": 111,
+        "source_jsonl_line": 78590
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年福建省公务员考试《行测》试题（网友回忆版）_images/img_0144_a76b693f0e0dc7dd.png",
+        "paper_title": "2020年福建省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_c8e44c287e6e3ac985cc",
+        "question_number": 112,
+        "source_jsonl_line": 78591
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年福建省公务员考试《行测》试题（网友回忆版）_images/img_0144_a76b693f0e0dc7dd.png",
+        "paper_title": "2020年福建省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_cc19382a2c7fc01cabb2",
+        "question_number": 113,
+        "source_jsonl_line": 78592
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年福建省公务员考试《行测》试题（网友回忆版）_images/img_0141_4fdd264e9e586913.png",
+        "paper_title": "2020年福建省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_5f1ddf55078439079221",
+        "question_number": 114,
+        "source_jsonl_line": 78593
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年福建省公务员考试《行测》试题（网友回忆版）_images/img_0144_a76b693f0e0dc7dd.png",
+        "paper_title": "2020年福建省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_f927aff670b8e409354f",
+        "question_number": 115,
+        "source_jsonl_line": 78594
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年陕西省公务员考试《行测》试题（网友回忆版）_images/img_0213_4fdd264e9e586913.png",
+        "paper_title": "2020年陕西省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_7131f9cbab5766119e29",
+        "question_number": 111,
+        "source_jsonl_line": 98029
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年陕西省公务员考试《行测》试题（网友回忆版）_images/img_0214_a76b693f0e0dc7dd.png",
+        "paper_title": "2020年陕西省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_7330951f03477b777edb",
+        "question_number": 112,
+        "source_jsonl_line": 98030
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年陕西省公务员考试《行测》试题（网友回忆版）_images/img_0213_4fdd264e9e586913.png",
+        "paper_title": "2020年陕西省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_06c5a87f9c07bdb72974",
+        "question_number": 113,
+        "source_jsonl_line": 98031
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年陕西省公务员考试《行测》试题（网友回忆版）_images/img_0214_a76b693f0e0dc7dd.png",
+        "paper_title": "2020年陕西省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_37c934d083352b7da6c3",
+        "question_number": 114,
+        "source_jsonl_line": 98032
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年陕西省公务员考试《行测》试题（网友回忆版）_images/img_0213_4fdd264e9e586913.png",
+        "paper_title": "2020年陕西省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_709b10c58dbcafbdbbd9",
+        "question_number": 115,
+        "source_jsonl_line": 98033
+      }
+    ],
+    "sha256": "43c2b4c09d195b10752eae312bff7a2b70b9a05a709062301ade7702ca43c3a3"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图二：四个城市通勤情况",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_43c2b4c09d195b10752eae31/column_band_01.jpg",
+        "review-crops/da_43c2b4c09d195b10752eae31/column_band_02.jpg",
+        "review-crops/da_43c2b4c09d195b10752eae31/column_band_03.jpg",
+        "review-crops/da_43c2b4c09d195b10752eae31/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.356",
+      "crop_verification_elapsed_seconds:11.637",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了城市'乙'的'5公里通勤比重'为48%（原为48%），'45分钟公交服务能力占比'为39%（原为39%），'轨道覆盖通勤比重'为33%（原为33%）。",
+      "crop_note:修正了城市'丙'的'5公里通勤比重'为51%（原为51%），'45分钟公交服务能力占比'为50%（原为50%），'轨道覆盖通勤比重'为37%（原为37%）。",
+      "crop_note:修正了城市'丁'的'5公里通勤比重'为57%（原为57%），'45分钟公交服务能力占比'为57%（原为57%），'轨道覆盖通勤比重'为30%（原为30%）。",
+      "crop_note:确认所有百分比数值均正确，无负号、小数或缺失值需要修正。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

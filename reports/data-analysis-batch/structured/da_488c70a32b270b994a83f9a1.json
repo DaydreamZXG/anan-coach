@@ -1,0 +1,216 @@
+{
+  "asset_id": "da_488c70a32b270b994a83f9a1",
+  "axes": {
+    "x": {
+      "max": 11,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 3,
+        "min": -1,
+        "ticks": [
+          -1,
+          -0.5,
+          0,
+          0.5,
+          1,
+          1.5,
+          2,
+          2.5,
+          3
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "月度同比",
+      "style": {
+        "dash": null,
+        "fill": "#696969",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "月度环比",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "月度同比",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        2.5,
+        2.0,
+        2.4,
+        1.8,
+        2.5,
+        2.3,
+        2.3,
+        2.0,
+        1.6,
+        1.6,
+        1.4,
+        1.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "月度环比",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        1.0,
+        0.5,
+        -0.5,
+        -0.3,
+        0.1,
+        -0.1,
+        0.1,
+        0.2,
+        0.5,
+        0.0,
+        -0.2,
+        0.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0126_e6ddc5dfa064feb6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0126_e6ddc5dfa064feb6.png",
+        "paper_title": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_bdccc161c08068b305b8",
+        "question_number": 71,
+        "source_jsonl_line": 85144
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0126_e6ddc5dfa064feb6.png",
+        "paper_title": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_6616c114b7183996dc09",
+        "question_number": 72,
+        "source_jsonl_line": 85145
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0126_e6ddc5dfa064feb6.png",
+        "paper_title": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_3b0f7ca2b12f1d1a6e65",
+        "question_number": 73,
+        "source_jsonl_line": 85146
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0141_50c62d5ac78bd653.png",
+        "paper_title": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_eab2668606032a8dc304",
+        "question_number": 74,
+        "source_jsonl_line": 85147
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）_images/img_0126_e6ddc5dfa064feb6.png",
+        "paper_title": "2015年山东省选调应届优秀高校毕业生到基层工作考试《行测》试卷（精选）",
+        "question_id": "pq_5604829bef91281c7d9b",
+        "question_number": 75,
+        "source_jsonl_line": 85148
+      }
+    ],
+    "sha256": "488c70a32b270b994a83f9a126a2863a4fb1c27f6d449fa807754b63943e775e"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014年居民消费价格月度涨跌幅度%",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_488c70a32b270b994a83f9a1/column_band_01.jpg",
+        "review-crops/da_488c70a32b270b994a83f9a1/column_band_02.jpg",
+        "review-crops/da_488c70a32b270b994a83f9a1/column_band_03.jpg",
+        "review-crops/da_488c70a32b270b994a83f9a1/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.451",
+      "crop_verification_elapsed_seconds:11.412",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'月度环比'系列中2月的值为0.5，原为-0.5",
+      "crop_note:修正了'月度环比'系列中3月的值为-0.5，原为0.5",
+      "crop_note:修正了'月度环比'系列中4月的值为-0.3，原为-0.5",
+      "crop_note:修正了'月度环比'系列中5月的值为0.1，原为-0.1",
+      "crop_note:修正了'月度环比'系列中6月的值为-0.1，原为0.1",
+      "crop_note:修正了'月度环比'系列中7月的值为-0.1，原为-0.1",
+      "crop_note:修正了'月度环比'系列中8月的值为0.2，原为0.1",
+      "crop_note:修正了'月度环比'系列中9月的值为0.5，原为0.2",
+      "crop_note:修正了'月度环比'系列中10月的值为0.0，原为-0.2",
+      "crop_note:修正了'月度环比'系列中11月的值为-0.2，原为0.0",
+      "crop_note:修正了'月度环比'系列中12月的值为0.3，原为0.3"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

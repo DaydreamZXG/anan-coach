@@ -1,0 +1,235 @@
+{
+  "asset_id": "da_81c2b9bd27383a516eaa6d42",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "绝对数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        15300,
+        830,
+        796,
+        1207
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "比上年增长 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        98.9,
+        312.6,
+        293.0,
+        13.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0186_c495981a83535ef5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0186_c495981a83535ef5.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_57087fcb0accd1a49a85",
+        "question_number": 121,
+        "source_jsonl_line": 50836
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0191_40cac8a6b3ab3346.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_95196b622256f786f515",
+        "question_number": 122,
+        "source_jsonl_line": 50837
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0191_40cac8a6b3ab3346.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_df22167ded2ec66a1604",
+        "question_number": 123,
+        "source_jsonl_line": 50838
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0191_40cac8a6b3ab3346.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_5e3a8ba1b35a9d257575",
+        "question_number": 124,
+        "source_jsonl_line": 50839
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0186_c495981a83535ef5.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_1bfd561662587cad34e4",
+        "question_number": 125,
+        "source_jsonl_line": 50840
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0155_c495981a83535ef5.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_6cc533d5474e72ba791d",
+        "question_number": 116,
+        "source_jsonl_line": 50966
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0158_40cac8a6b3ab3346.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_3aca387a1543083523d8",
+        "question_number": 117,
+        "source_jsonl_line": 50967
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0155_c495981a83535ef5.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_28a7f6f5d65ad6a8d88f",
+        "question_number": 118,
+        "source_jsonl_line": 50968
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0155_c495981a83535ef5.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_ea91518c78f3f0365dd5",
+        "question_number": 119,
+        "source_jsonl_line": 50969
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0155_c495981a83535ef5.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_ebbec43a4fa2a61ada2d",
+        "question_number": 120,
+        "source_jsonl_line": 50970
+      }
+    ],
+    "sha256": "81c2b9bd27383a516eaa6d4278e4659cc02f1eb387d212b78f5007a5896c7d3c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "绝对数",
+      "比上年增长 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "label": "A 级景区接待游客 (万人次)",
+        "unit": null,
+        "values": [
+          15300,
+          15300
+        ]
+      },
+      {
+        "label": "旅行社国内旅游组织游客 (万人次)",
+        "unit": null,
+        "values": [
+          830,
+          830
+        ]
+      },
+      {
+        "label": "旅行社国内旅游接待游客 (万人次)",
+        "unit": null,
+        "values": [
+          796,
+          796
+        ]
+      },
+      {
+        "label": "旅游及相关产业增加值 (亿元)",
+        "unit": null,
+        "values": [
+          1207,
+          1207
+        ]
+      }
+    ]
+  },
+  "title": "表 2023 年 M 市旅游接待及相关产业增加值情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_81c2b9bd27383a516eaa6d42/row_band_01.jpg",
+        "review-crops/da_81c2b9bd27383a516eaa6d42/row_band_02.jpg",
+        "review-crops/da_81c2b9bd27383a516eaa6d42/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.199",
+      "crop_verification_elapsed_seconds:2.614",
+      "candidate_value_changes_after_crop:4",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_out_of_range_table_cell:A 级景区接待游客 (万人次):比上年增长 (%)",
+      "crop_note:ignored_out_of_range_table_cell:旅行社国内旅游组织游客 (万人次):比上年增长 (%)",
+      "crop_note:ignored_out_of_range_table_cell:旅行社国内旅游接待游客 (万人次):比上年增长 (%)",
+      "crop_note:ignored_out_of_range_table_cell:旅游及相关产业增加值 (亿元):比上年增长 (%)",
+      "table_row_label_column_removed:指标"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "confidence": 0.92,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "按人均纯收入等级分组｜低收入户",
+          "按人均纯收入等级分组｜次低收入户",
+          "按人均纯收入等级分组｜中等收入户",
+          "按人均纯收入等级分组｜次高收入户",
+          "按人均纯收入等级分组｜高收入户"
+        ],
+        "label": "按人均纯收入等级分组"
+      },
+      {
+        "columns": [
+          "平均"
+        ],
+        "label": "平均"
+      },
+      "rows:[{"
+    ],
+    "columns": [
+      "平均",
+      "按人均纯收入等级分组｜低收入户",
+      "按人均纯收入等级分组｜次低收入户",
+      "按人均纯收入等级分组｜中等收入户",
+      "按人均纯收入等级分组｜次高收入户",
+      "按人均纯收入等级分组｜高收入户"
+    ],
+    "corner_header": {
+      "lower_label": "按人均纯收入等级分组",
+      "style": "diagonal",
+      "upper_label": "平均"
+    },
+    "label": "人均纯收入",
+    "missing_cells": [],
+    "row_header_label": "按人均纯收入等级分组",
+    "rows": [
+      {
+        "display_label": "人均纯收入",
+        "group": null,
+        "label": "人均纯收入",
+        "unit": null,
+        "values": [
+          13071,
+          3687,
+          8111,
+          11582,
+          15814,
+          28404
+        ]
+      },
+      {
+        "display_label": "人均工资性收入",
+        "group": null,
+        "label": "人均工资性收入",
+        "unit": null,
+        "values": [
+          6878,
+          2309,
+          4557,
+          7089,
+          9754,
+          11439
+        ]
+      },
+      {
+        "display_label": "人均家庭经营收入",
+        "group": null,
+        "label": "人均家庭经营收入",
+        "unit": null,
+        "values": [
+          4872,
+          283,
+          2727,
+          3449,
+          4921,
+          14281
+        ]
+      },
+      {
+        "display_label": "人均财产性收入",
+        "group": null,
+        "label": "人均财产性收入",
+        "unit": null,
+        "values": [
+          553,
+          500,
+          152,
+          304,
+          438,
+          1510
+        ]
+      },
+      {
+        "display_label": "人均转移性收入",
+        "group": null,
+        "label": "人均转移性收入",
+        "unit": null,
+        "values": [
+          767,
+          595,
+          676,
+          740,
+          701,
+          1174
+        ]
+      }
+    ],
+    "unit": "元",
+    "values": [
+      13071,
+      3687,
+      8111,
+      11582,
+      15814,
+      28404
+    ]
+  },
+  "uncertainties": []
+}

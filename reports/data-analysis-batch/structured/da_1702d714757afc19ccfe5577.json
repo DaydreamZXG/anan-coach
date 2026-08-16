@@ -1,0 +1,311 @@
+{
+  "asset_id": "da_1702d714757afc19ccfe5577",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0071_73ab4b9b82e70bf4.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0071_73ab4b9b82e70bf4.png",
+        "paper_title": "2024年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d762def20e7570d1e41d",
+        "question_number": 76,
+        "source_jsonl_line": 36108
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0071_73ab4b9b82e70bf4.png",
+        "paper_title": "2024年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_846492781efa7a942c4a",
+        "question_number": 77,
+        "source_jsonl_line": 36109
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0071_73ab4b9b82e70bf4.png",
+        "paper_title": "2024年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d28a1fbcce74dcec4abb",
+        "question_number": 78,
+        "source_jsonl_line": 36110
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0086_e5edd0ca526af433.png",
+        "paper_title": "2024年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bda625834168229e8841",
+        "question_number": 79,
+        "source_jsonl_line": 36111
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0071_73ab4b9b82e70bf4.png",
+        "paper_title": "2024年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c24d952b4a364f174568",
+        "question_number": 80,
+        "source_jsonl_line": 36112
+      }
+    ],
+    "sha256": "1702d714757afc19ccfe557768d0d811c6393ed4a43e84fa1c6563cafd745805"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "行业",
+      "流量（亿美元）",
+      "增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "合计",
+        "unit": null,
+        "values": [
+          "合计",
+          1631.2,
+          -8.8
+        ]
+      },
+      {
+        "label": "租赁和商务服务业",
+        "unit": null,
+        "values": [
+          "租赁和商务服务业",
+          434.8,
+          -11.9
+        ]
+      },
+      {
+        "label": "制造业",
+        "unit": null,
+        "values": [
+          "制造业",
+          271.5,
+          1.0
+        ]
+      },
+      {
+        "label": "金融业",
+        "unit": null,
+        "values": [
+          "金融业",
+          221.2,
+          -17.5
+        ]
+      },
+      {
+        "label": "批发和零售业",
+        "unit": null,
+        "values": [
+          "批发和零售业",
+          211.7,
+          -24.8
+        ]
+      },
+      {
+        "label": "采矿业",
+        "unit": null,
+        "values": [
+          "采矿业",
+          151.0,
+          79.5
+        ]
+      },
+      {
+        "label": "交通运输/仓储和邮政业",
+        "unit": null,
+        "values": [
+          "交通运输/仓储和邮政业",
+          150.4,
+          23.0
+        ]
+      },
+      {
+        "label": "电力/热力/燃气及水的生产和供应业",
+        "unit": null,
+        "values": [
+          "电力/热力/燃气及水的生产和供应业",
+          54.5,
+          24.1
+        ]
+      },
+      {
+        "label": "科学研究和技术服务业",
+        "unit": null,
+        "values": [
+          "科学研究和技术服务业",
+          48.2,
+          -4.9
+        ]
+      },
+      {
+        "label": "房地产业",
+        "unit": null,
+        "values": [
+          "房地产业",
+          22.1,
+          -46.1
+        ]
+      },
+      {
+        "label": "信息传输/软件和信息技术服务业",
+        "unit": null,
+        "values": [
+          "信息传输/软件和信息技术服务业",
+          16.9,
+          -67.1
+        ]
+      },
+      {
+        "label": "文化/体育和娱乐业",
+        "unit": null,
+        "values": [
+          "文化/体育和娱乐业",
+          15.3,
+          1600.0
+        ]
+      },
+      {
+        "label": "建筑业",
+        "unit": null,
+        "values": [
+          "建筑业",
+          14.5,
+          -68.6
+        ]
+      },
+      {
+        "label": "居民服务/维修和其他服务业",
+        "unit": null,
+        "values": [
+          "居民服务/维修和其他服务业",
+          6.8,
+          -62.4
+        ]
+      },
+      {
+        "label": "农/林/牧/渔业",
+        "unit": null,
+        "values": [
+          "农/林/牧/渔业",
+          5.1,
+          -45.2
+        ]
+      },
+      {
+        "label": "卫生和社会工作",
+        "unit": null,
+        "values": [
+          "卫生和社会工作",
+          2.9,
+          -45.2
+        ]
+      },
+      {
+        "label": "教育",
+        "unit": null,
+        "values": [
+          "教育",
+          2.4,
+          700.0
+        ]
+      },
+      {
+        "label": "水利/环境和公共设施管理业",
+        "unit": null,
+        "values": [
+          "水利/环境和公共设施管理业",
+          1.8,
+          -18.2
+        ]
+      },
+      {
+        "label": "住宿和餐饮业",
+        "unit": null,
+        "values": [
+          "住宿和餐饮业",
+          0.1,
+          -96.3
+        ]
+      }
+    ]
+  },
+  "title": "2022年中国对外直接投资流量行业分布",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1702d714757afc19ccfe5577/row_band_01.jpg",
+        "review-crops/da_1702d714757afc19ccfe5577/row_band_02.jpg",
+        "review-crops/da_1702d714757afc19ccfe5577/row_band_03.jpg",
+        "review-crops/da_1702d714757afc19ccfe5577/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.239",
+      "crop_verification_elapsed_seconds:18.554",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'文化/体育和娱乐业'的增长值为1600.0，原为1600.0，无误。",
+      "crop_note:修正了'教育'的增长值为700.0，原为700.0，无误。",
+      "crop_note:修正了'水利/环境和公共设施管理业'的增长值为-18.2，原为-18.2，无误。",
+      "crop_note:修正了'住宿和餐饮业'的流量为0.1，原为0.1，无误。",
+      "crop_note:修正了'卫生和社会工作'的增长值为-45.2，原为-45.2，无误。",
+      "crop_note:修正了'农/林/牧/渔业'的增长值为-45.2，原为-45.2，无误。",
+      "crop_note:修正了'居民服务/维修和其他服务业'的增长值为-62.4，原为-62.4，无误。",
+      "crop_note:修正了'建筑业'的增长值为-68.6，原为-68.6，无误。",
+      "crop_note:修正了'信息传输/软件和信息技术服务业'的增长值为-67.1，原为-67.1，无误。",
+      "crop_note:修正了'房地产业'的增长值为-46.1，原为-46.1，无误。",
+      "crop_note:修正了'科学研究和技术服务业'的增长值为-4.9，原为-4.9，无误。",
+      "crop_note:修正了'电力/热力/燃气及水的生产和供应业'的增长值为24.1，原为24.1，无误。",
+      "crop_note:修正了'交通运输/仓储和邮政业'的增长值为23.0，原为23.0，无误。",
+      "crop_note:修正了'采矿业'的增长值为79.5，原为79.5，无误。",
+      "crop_note:修正了'批发和零售业'的增长值为-24.8，原为-24.8，无误。",
+      "crop_note:修正了'金融业'的增长值为-17.5，原为-17.5，无误。",
+      "crop_note:修正了'制造业'的增长值为1.0，原为1.0，无误。",
+      "crop_note:修正了'租赁和商务服务业'的增长值为-11.9，原为-11.9，无误。",
+      "crop_note:修正了'合计'的流量为1631.2，原为1631.2，无误。",
+      "crop_note:修正了'合计'的增长值为-8.8，原为-8.8，无误。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

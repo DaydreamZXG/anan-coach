@@ -1,0 +1,216 @@
+{
+  "asset_id": "da_fd08c4fb2d811b2c60c1f26c",
+  "axes": {
+    "x": {
+      "max": 11,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 25000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000
+        ],
+        "title": "产量",
+        "unit": "万吨"
+      },
+      {
+        "max": 40,
+        "min": -100,
+        "ticks": [
+          -100,
+          -80,
+          -60,
+          -40,
+          -20,
+          0,
+          20,
+          40
+        ],
+        "title": "同比增长率",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1-2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "产量（万吨）",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "bar",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "同比增长率（%）",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "line",
+        "stroke": "gray"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "产量（万吨）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        15035,
+        8640,
+        7510,
+        7760,
+        8516,
+        8571,
+        8633,
+        8437,
+        8645,
+        8577,
+        8603
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增长率（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        3.7,
+        -4.8,
+        0.7,
+        -2.9,
+        1.8,
+        8.0,
+        1.3,
+        -0.9,
+        29.8,
+        6.6,
+        0.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2024年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0075_25b347506240bd80.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0075_25b347506240bd80.png",
+        "paper_title": "2024年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ddd310b57d0ca463a97f",
+        "question_number": 96,
+        "source_jsonl_line": 13712
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0086_97ae11a5cea599c3.png",
+        "paper_title": "2024年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_40d53618d9a2e8f3c716",
+        "question_number": 97,
+        "source_jsonl_line": 13713
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0086_97ae11a5cea599c3.png",
+        "paper_title": "2024年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e8985ceda8be2ebaf387",
+        "question_number": 98,
+        "source_jsonl_line": 13714
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0086_97ae11a5cea599c3.png",
+        "paper_title": "2024年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_070d5eb18edb0dfbab3f",
+        "question_number": 99,
+        "source_jsonl_line": 13715
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0086_97ae11a5cea599c3.png",
+        "paper_title": "2024年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1734a4b665030875d5ff",
+        "question_number": 100,
+        "source_jsonl_line": 13716
+      }
+    ],
+    "sha256": "fd08c4fb2d811b2c60c1f26c503d33b69194e66c20d11ba9f0109a90c014509d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2023年1-12月全国铁矿石产量及增长率",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_fd08c4fb2d811b2c60c1f26c/column_band_01.jpg",
+        "review-crops/da_fd08c4fb2d811b2c60c1f26c/column_band_02.jpg",
+        "review-crops/da_fd08c4fb2d811b2c60c1f26c/column_band_03.jpg",
+        "review-crops/da_fd08c4fb2d811b2c60c1f26c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.733",
+      "crop_verification_elapsed_seconds:6.055",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

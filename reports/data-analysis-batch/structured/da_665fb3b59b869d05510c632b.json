@@ -1,0 +1,166 @@
+{
+  "asset_id": "da_665fb3b59b869d05510c632b",
+  "axes": {
+    "x": {
+      "max": 12,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 800,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800
+        ],
+        "title": null,
+        "unit": "万吨"
+      }
+    ]
+  },
+  "categories": [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "LNG进口量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "LNG",
+      "label": "LNG进口量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        725,
+        595,
+        665,
+        621,
+        656,
+        561,
+        589,
+        653,
+        683,
+        655,
+        613,
+        745
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0142_6d04d38373c3046b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0142_6d04d38373c3046b.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3c66c5cf9b216d50fa9a",
+        "question_number": 111,
+        "source_jsonl_line": 24493
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0142_6d04d38373c3046b.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8a9c9d2e669ab5e699e3",
+        "question_number": 112,
+        "source_jsonl_line": 24494
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0142_6d04d38373c3046b.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8d51fb339843474c89ca",
+        "question_number": 113,
+        "source_jsonl_line": 24495
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0164_b27de0df4015fd6f.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fe3b0b1e974f86fb581e",
+        "question_number": 114,
+        "source_jsonl_line": 24496
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0164_b27de0df4015fd6f.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_872a2308a66a0604a389",
+        "question_number": 115,
+        "source_jsonl_line": 24497
+      }
+    ],
+    "sha256": "665fb3b59b869d05510c632b74df9b7eb5d327c8b20e6e8b5c401c09ffc33268"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2024年1-12月我国LNG进口量",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_665fb3b59b869d05510c632b/column_band_01.jpg",
+        "review-crops/da_665fb3b59b869d05510c632b/column_band_02.jpg",
+        "review-crops/da_665fb3b59b869d05510c632b/column_band_03.jpg",
+        "review-crops/da_665fb3b59b869d05510c632b/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.481",
+      "crop_verification_elapsed_seconds:2.859",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

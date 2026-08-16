@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "graphic-reasoning-run-state-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "totalAssets",
+    "processedAssets",
+    "structuredCandidateCount",
+    "repairPendingCount",
+    "completed",
+    "updatedAt",
+    "notes"
+  ],
+  "properties": {
+    "schemaVersion": {"const": "graphic-reasoning-run-state-v1"},
+    "totalAssets": {"type": "integer", "minimum": 1},
+    "processedAssets": {"type": "integer", "minimum": 0},
+    "structuredCandidateCount": {"type": "integer", "minimum": 0},
+    "repairPendingCount": {"type": "integer", "minimum": 0},
+    "completed": {"type": "boolean"},
+    "updatedAt": {"type": "string", "minLength": 1},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

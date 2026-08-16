@@ -1,0 +1,261 @@
+{
+  "asset_id": "da_5a3bb3a8b561eef95c8fb0b6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0259_63cdc043400c47c9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0259_63cdc043400c47c9.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_1ae5a5dc8ea2085eb216",
+        "question_number": 126,
+        "source_jsonl_line": 18996
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0259_63cdc043400c47c9.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_d43d30dd9eb03b1d4672",
+        "question_number": 127,
+        "source_jsonl_line": 18997
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0259_63cdc043400c47c9.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_528f59b05482b55d5973",
+        "question_number": 128,
+        "source_jsonl_line": 18998
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0276_991bd1fcead4a398.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_bb11fddadaea5e506cab",
+        "question_number": 129,
+        "source_jsonl_line": 18999
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0259_63cdc043400c47c9.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_1824696a441c50cbf83a",
+        "question_number": 130,
+        "source_jsonl_line": 19000
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0198_63cdc043400c47c9.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_7ec56f2942befaf1838f",
+        "question_number": 121,
+        "source_jsonl_line": 19126
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0220_991bd1fcead4a398.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_569308746caa69af4313",
+        "question_number": 122,
+        "source_jsonl_line": 19127
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0220_991bd1fcead4a398.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_f1e3d73a2acc3f0e90ce",
+        "question_number": 123,
+        "source_jsonl_line": 19128
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0220_991bd1fcead4a398.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_794c58731be6ed968898",
+        "question_number": 124,
+        "source_jsonl_line": 19129
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0198_63cdc043400c47c9.png",
+        "paper_title": "2018年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_84383e2bd6c015caebbd",
+        "question_number": 125,
+        "source_jsonl_line": 19130
+      }
+    ],
+    "sha256": "5a3bb3a8b561eef95c8fb0b63685d61ba69d02baa63745af36b358e4bfc8dabc"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "城市",
+      "公园个数（个）",
+      "公园面积（公顷）",
+      "公园绿地面积（公顷）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "东莞",
+        "unit": null,
+        "values": [
+          "东莞",
+          1223,
+          14493,
+          11536
+        ]
+      },
+      {
+        "label": "深圳",
+        "unit": null,
+        "values": [
+          "深圳",
+          911,
+          21955,
+          19241
+        ]
+      },
+      {
+        "label": "昆明",
+        "unit": null,
+        "values": [
+          "昆明",
+          463,
+          3206,
+          3941
+        ]
+      },
+      {
+        "label": "广州",
+        "unit": null,
+        "values": [
+          "广州",
+          246,
+          5193,
+          27200
+        ]
+      },
+      {
+        "label": "杭州",
+        "unit": null,
+        "values": [
+          "杭州",
+          217,
+          2488,
+          7640
+        ]
+      },
+      {
+        "label": "佛山",
+        "unit": null,
+        "values": [
+          "佛山",
+          202,
+          2033,
+          2768
+        ]
+      },
+      {
+        "label": "珠海",
+        "unit": null,
+        "values": [
+          "珠海",
+          197,
+          2792,
+          3594
+        ]
+      },
+      {
+        "label": "苏州",
+        "unit": null,
+        "values": [
+          "苏州",
+          167,
+          2110,
+          4540
+        ]
+      },
+      {
+        "label": "宁波",
+        "unit": null,
+        "values": [
+          "宁波",
+          133,
+          1126,
+          2132
+        ]
+      },
+      {
+        "label": "南京",
+        "unit": null,
+        "values": [
+          "南京",
+          127,
+          7122,
+          9328
+        ]
+      }
+    ]
+  },
+  "title": "2016年部分城市公园数量及面积",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5a3bb3a8b561eef95c8fb0b6/row_band_01.jpg",
+        "review-crops/da_5a3bb3a8b561eef95c8fb0b6/row_band_02.jpg",
+        "review-crops/da_5a3bb3a8b561eef95c8fb0b6/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.446",
+      "crop_verification_elapsed_seconds:12.321",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

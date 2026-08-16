@@ -1,0 +1,191 @@
+{
+  "asset_id": "da_64736e322853c996583aca27",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "其他",
+    "印度尼西亚",
+    "美国",
+    "马来西亚",
+    "俄罗斯",
+    "卡塔尔"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      122.931,
+      207.955,
+      246.996,
+      283.374,
+      320.908,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 122.931,
+        "label": "其他",
+        "share": 0.34147496,
+        "start_angle": 0.0,
+        "sweep_angle": 122.931
+      },
+      {
+        "end_angle": 207.955,
+        "label": "印度尼西亚",
+        "share": 0.23617772,
+        "start_angle": 122.931,
+        "sweep_angle": 85.024
+      },
+      {
+        "end_angle": 246.996,
+        "label": "美国",
+        "share": 0.10844663,
+        "start_angle": 207.955,
+        "sweep_angle": 39.041
+      },
+      {
+        "end_angle": 283.374,
+        "label": "马来西亚",
+        "share": 0.10105001,
+        "start_angle": 246.996,
+        "sweep_angle": 36.378
+      },
+      {
+        "end_angle": 320.908,
+        "label": "俄罗斯",
+        "share": 0.10426294,
+        "start_angle": 283.374,
+        "sweep_angle": 37.535
+      },
+      {
+        "end_angle": 360.0,
+        "label": "卡塔尔",
+        "share": 0.10858773,
+        "start_angle": 320.908,
+        "sweep_angle": 39.092
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.34147496,
+        0.23617772,
+        0.10844663,
+        0.10105001,
+        0.10426294,
+        0.10858773
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0147_1d3a18c7ba3ce9ad.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0147_1d3a18c7ba3ce9ad.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3c66c5cf9b216d50fa9a",
+        "question_number": 111,
+        "source_jsonl_line": 24493
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0147_1d3a18c7ba3ce9ad.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8a9c9d2e669ab5e699e3",
+        "question_number": 112,
+        "source_jsonl_line": 24494
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0147_1d3a18c7ba3ce9ad.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8d51fb339843474c89ca",
+        "question_number": 113,
+        "source_jsonl_line": 24495
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0196_2a6d73b89b711084.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fe3b0b1e974f86fb581e",
+        "question_number": 114,
+        "source_jsonl_line": 24496
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0196_2a6d73b89b711084.png",
+        "paper_title": "2026年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_872a2308a66a0604a389",
+        "question_number": 115,
+        "source_jsonl_line": 24497
+      }
+    ],
+    "sha256": "64736e322853c996583aca27ab4ae480e05265a2071e15d8d45842c2da667006"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图3 2024年我国LNG进口来源国及地区",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_64736e322853c996583aca27/quadrant_01.jpg",
+        "review-crops/da_64736e322853c996583aca27/quadrant_02.jpg",
+        "review-crops/da_64736e322853c996583aca27/quadrant_03.jpg",
+        "review-crops/da_64736e322853c996583aca27/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.87",
+      "crop_verification_elapsed_seconds:0.91",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "label_geometry_count_mismatch:7!=6",
+      "circle_edge_coverage:0.9528",
+      "hough_circle_radius_ratio:0.3417",
+      "radial_line_candidates:12",
+      "detected_boundaries:6"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

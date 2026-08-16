@@ -1,0 +1,160 @@
+{
+  "asset_id": "da_79c03c3091a99db2055c380c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "同比增长速度",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "同比增长速度",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        14.0,
+        22.1,
+        18.0,
+        18.5,
+        18.7,
+        18.3,
+        17.9,
+        18.4,
+        18.8,
+        18.6,
+        18.7,
+        19.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2011年江苏省公务员录用考试《行测》题（C类）_images/img_0221_4c70218cf15eb74a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（C类）_images/img_0221_4c70218cf15eb74a.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_9437fbf29d6653392844",
+        "question_number": 91,
+        "source_jsonl_line": 45801
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（C类）_images/img_0221_4c70218cf15eb74a.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_120229e2c2e9398b6cad",
+        "question_number": 92,
+        "source_jsonl_line": 45802
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（C类）_images/img_0221_4c70218cf15eb74a.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_df6b817aeac3191f228e",
+        "question_number": 93,
+        "source_jsonl_line": 45803
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（C类）_images/img_0221_4c70218cf15eb74a.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_69575ce9747aedf1089d",
+        "question_number": 94,
+        "source_jsonl_line": 45804
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（C类）_images/img_0236_7b87cb934e056485.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_ffdfc7ac95d76687656a",
+        "question_number": 95,
+        "source_jsonl_line": 45805
+      }
+    ],
+    "sha256": "79c03c3091a99db2055c380c32eb394851d44e4a2a4ebab1f2f8a555a8b03cf6"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2010年全国社会消费品零售总额月度同比增长速度（%）",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_79c03c3091a99db2055c380c/column_band_01.jpg",
+        "review-crops/da_79c03c3091a99db2055c380c/column_band_02.jpg",
+        "review-crops/da_79c03c3091a99db2055c380c/column_band_03.jpg",
+        "review-crops/da_79c03c3091a99db2055c380c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.785",
+      "crop_verification_elapsed_seconds:2.855",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

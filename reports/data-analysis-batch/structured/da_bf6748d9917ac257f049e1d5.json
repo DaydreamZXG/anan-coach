@@ -1,0 +1,349 @@
+{
+  "asset_id": "da_bf6748d9917ac257f049e1d5",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0127_7bd246f85ff84cb9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0127_7bd246f85ff84cb9.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f50264a098e6b1c3162c",
+        "question_number": 106,
+        "source_jsonl_line": 24248
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0127_7bd246f85ff84cb9.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_518c5a6e7479bb0f29b9",
+        "question_number": 107,
+        "source_jsonl_line": 24249
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0127_7bd246f85ff84cb9.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e900b0a2b8844018e75f",
+        "question_number": 108,
+        "source_jsonl_line": 24250
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0127_7bd246f85ff84cb9.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_35eebd5a886d501d581f",
+        "question_number": 109,
+        "source_jsonl_line": 24251
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0127_7bd246f85ff84cb9.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c0cb80fe16371e353e34",
+        "question_number": 110,
+        "source_jsonl_line": 24252
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0209_7bd246f85ff84cb9.png",
+        "paper_title": "2024年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_834d741b3a5b5e0d1917",
+        "question_number": 106,
+        "source_jsonl_line": 28520
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0209_7bd246f85ff84cb9.png",
+        "paper_title": "2024年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_19806e5b90f4283e8e33",
+        "question_number": 107,
+        "source_jsonl_line": 28521
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0209_7bd246f85ff84cb9.png",
+        "paper_title": "2024年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2d4f9bf705b28e206bb5",
+        "question_number": 108,
+        "source_jsonl_line": 28522
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0209_7bd246f85ff84cb9.png",
+        "paper_title": "2024年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fdd06f85be5989b9ea35",
+        "question_number": 109,
+        "source_jsonl_line": 28523
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0209_7bd246f85ff84cb9.png",
+        "paper_title": "2024年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_935bb4b40d538da9e1c9",
+        "question_number": 110,
+        "source_jsonl_line": 28524
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0112_7bd246f85ff84cb9.png",
+        "paper_title": "2024年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f603dc65e036f402ef3d",
+        "question_number": 111,
+        "source_jsonl_line": 33164
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0112_7bd246f85ff84cb9.png",
+        "paper_title": "2024年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_652a3af1a0b059bb5d07",
+        "question_number": 112,
+        "source_jsonl_line": 33165
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0112_7bd246f85ff84cb9.png",
+        "paper_title": "2024年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_da7d789261427f3c9187",
+        "question_number": 113,
+        "source_jsonl_line": 33166
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0136_00f6d994b6ebcf32.png",
+        "paper_title": "2024年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f962532ea63a182d8198",
+        "question_number": 114,
+        "source_jsonl_line": 33167
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0112_7bd246f85ff84cb9.png",
+        "paper_title": "2024年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5aecb1aa9e1552df2b6d",
+        "question_number": 115,
+        "source_jsonl_line": 33168
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0126_7bd246f85ff84cb9.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_13badc137f73e2a3a0b6",
+        "question_number": 106,
+        "source_jsonl_line": 43901
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0130_00f6d994b6ebcf32.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_17f9220a1db47f7f83b3",
+        "question_number": 107,
+        "source_jsonl_line": 43902
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0126_7bd246f85ff84cb9.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_3602e5a1e50f0928c2f0",
+        "question_number": 108,
+        "source_jsonl_line": 43903
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0126_7bd246f85ff84cb9.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_eae6f4fa6ca8f5976068",
+        "question_number": 109,
+        "source_jsonl_line": 43904
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0130_00f6d994b6ebcf32.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_f75946e7b93c8dace743",
+        "question_number": 110,
+        "source_jsonl_line": 43905
+      }
+    ],
+    "sha256": "bf6748d9917ac257f049e1d5967348ec23f76e81914619ee5d2e19962859ecd8"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "数量"
+    ],
+    "corner_header": {
+      "lower_label": "数量",
+      "style": "diagonal",
+      "upper_label": "单位"
+    },
+    "missing_cells": [],
+    "row_header_label": "数量",
+    "rows": [
+      {
+        "display_label": "基础大项场地｜田径场地",
+        "group": null,
+        "label": "基础大项场地｜田径场地",
+        "unit": null,
+        "values": [
+          19.74
+        ]
+      },
+      {
+        "display_label": "基础大项场地｜游泳场地",
+        "group": null,
+        "label": "基础大项场地｜游泳场地",
+        "unit": null,
+        "values": [
+          3.6
+        ]
+      },
+      {
+        "display_label": "球类运动场地｜足球场地",
+        "group": null,
+        "label": "球类运动场地｜足球场地",
+        "unit": null,
+        "values": [
+          13.59
+        ]
+      },
+      {
+        "display_label": "球类运动场地｜篮球场地",
+        "group": null,
+        "label": "球类运动场地｜篮球场地",
+        "unit": null,
+        "values": [
+          110.28
+        ]
+      },
+      {
+        "display_label": "球类运动场地｜排球场地",
+        "group": null,
+        "label": "球类运动场地｜排球场地",
+        "unit": null,
+        "values": [
+          10.12
+        ]
+      },
+      {
+        "display_label": "球类运动场地｜乒乓球场地",
+        "group": null,
+        "label": "球类运动场地｜乒乓球场地",
+        "unit": null,
+        "values": [
+          93.53
+        ]
+      },
+      {
+        "display_label": "球类运动场地｜羽毛球场地",
+        "group": null,
+        "label": "球类运动场地｜羽毛球场地",
+        "unit": null,
+        "values": [
+          24.61
+        ]
+      },
+      {
+        "display_label": "球类运动场地｜其他球类运动场地",
+        "group": null,
+        "label": "球类运动场地｜其他球类运动场地",
+        "unit": null,
+        "values": [
+          10.53
+        ]
+      },
+      {
+        "display_label": "冰雪运动场地｜滑冰场地",
+        "group": null,
+        "label": "冰雪运动场地｜滑冰场地",
+        "unit": null,
+        "values": [
+          1576
+        ]
+      },
+      {
+        "display_label": "冰雪运动场地｜滑雪场地",
+        "group": null,
+        "label": "冰雪运动场地｜滑雪场地",
+        "unit": null,
+        "values": [
+          876
+        ]
+      },
+      {
+        "display_label": "体育健身场地｜全民健身路径",
+        "group": null,
+        "label": "体育健身场地｜全民健身路径",
+        "unit": null,
+        "values": [
+          98.02
+        ]
+      },
+      {
+        "display_label": "体育健身场地｜健身房",
+        "group": null,
+        "label": "体育健身场地｜健身房",
+        "unit": null,
+        "values": [
+          14.29
+        ]
+      },
+      {
+        "display_label": "体育健身场地｜健身步道",
+        "group": null,
+        "label": "体育健身场地｜健身步道",
+        "unit": null,
+        "values": [
+          12.78
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

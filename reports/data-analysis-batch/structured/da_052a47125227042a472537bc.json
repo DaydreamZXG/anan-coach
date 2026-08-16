@@ -1,0 +1,357 @@
+{
+  "asset_id": "da_052a47125227042a472537bc",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广西/2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0106_8a4b370376baf97d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0106_8a4b370376baf97d.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_57074e2e2eee926ac5af",
+        "question_number": 105,
+        "source_jsonl_line": 40011
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0106_8a4b370376baf97d.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_094131c06c5ddca9ef7c",
+        "question_number": 106,
+        "source_jsonl_line": 40012
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0106_8a4b370376baf97d.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_aff153dad0d1c154bc40",
+        "question_number": 107,
+        "source_jsonl_line": 40013
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0121_77cd22484f79ceaf.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0bf19b00aaff7281099d",
+        "question_number": 108,
+        "source_jsonl_line": 40014
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0106_8a4b370376baf97d.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ff77597a1dedb6bd9c72",
+        "question_number": 109,
+        "source_jsonl_line": 40015
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0106_8a4b370376baf97d.png",
+        "paper_title": "2026年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_11fd34898a841f62a7e6",
+        "question_number": 110,
+        "source_jsonl_line": 40016
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0123_77cd22484f79ceaf.png",
+        "paper_title": "2026年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7de83ec15b4dea9b07b9",
+        "question_number": 106,
+        "source_jsonl_line": 59523
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0131_8a4b370376baf97d.png",
+        "paper_title": "2026年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_25398dfbcab470cafa10",
+        "question_number": 107,
+        "source_jsonl_line": 59524
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0131_8a4b370376baf97d.png",
+        "paper_title": "2026年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c8fdd36c83e0e11be451",
+        "question_number": 108,
+        "source_jsonl_line": 59525
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0131_8a4b370376baf97d.png",
+        "paper_title": "2026年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c5efae82645db5551487",
+        "question_number": 109,
+        "source_jsonl_line": 59526
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0131_8a4b370376baf97d.png",
+        "paper_title": "2026年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e38cd0ac6d3a32135f14",
+        "question_number": 110,
+        "source_jsonl_line": 59527
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0146_77cd22484f79ceaf.png",
+        "paper_title": "2026年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5ea1149e84fa48b32bfa",
+        "question_number": 111,
+        "source_jsonl_line": 76166
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0155_8a4b370376baf97d.png",
+        "paper_title": "2026年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_85a3d250eb55a1d81645",
+        "question_number": 112,
+        "source_jsonl_line": 76167
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0155_8a4b370376baf97d.png",
+        "paper_title": "2026年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_68f25c14662cb2e3dccf",
+        "question_number": 113,
+        "source_jsonl_line": 76168
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0155_8a4b370376baf97d.png",
+        "paper_title": "2026年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_df771bd6f1d4d194b96b",
+        "question_number": 114,
+        "source_jsonl_line": 76169
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0155_8a4b370376baf97d.png",
+        "paper_title": "2026年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0602929d7bd3bc2ebb42",
+        "question_number": 115,
+        "source_jsonl_line": 76170
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0159_8a4b370376baf97d.png",
+        "paper_title": "2026年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e2cd623e9696fd3d5177",
+        "question_number": 101,
+        "source_jsonl_line": 82046
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0159_8a4b370376baf97d.png",
+        "paper_title": "2026年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b247af8ad99cb04cf246",
+        "question_number": 102,
+        "source_jsonl_line": 82047
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0159_8a4b370376baf97d.png",
+        "paper_title": "2026年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6e3dd8a229e582238bea",
+        "question_number": 103,
+        "source_jsonl_line": 82048
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0159_8a4b370376baf97d.png",
+        "paper_title": "2026年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f48b3b62df9daa09aad1",
+        "question_number": 104,
+        "source_jsonl_line": 82049
+      }
+    ],
+    "sha256": "052a47125227042a472537bc0d90950c9d4f91eedd53a384f157f1fd9e9622cd"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "甲平台｜销售额（亿元）",
+          "甲平台｜增速（%）"
+        ],
+        "label": "甲平台"
+      },
+      {
+        "columns": [
+          "乙平台｜销售额（亿元）",
+          "乙平台｜增速（%）"
+        ],
+        "label": "乙平台"
+      }
+    ],
+    "columns": [
+      "甲平台｜销售额（亿元）",
+      "甲平台｜增速（%）",
+      "乙平台｜销售额（亿元）",
+      "乙平台｜增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "品牌",
+    "rows": [
+      {
+        "label": "A 品牌",
+        "unit": null,
+        "values": [
+          6.52,
+          -8.7,
+          3.85,
+          -0.7
+        ]
+      },
+      {
+        "label": "B 品牌",
+        "unit": null,
+        "values": [
+          4.7,
+          0.6,
+          3.7,
+          49.0
+        ]
+      },
+      {
+        "label": "C 品牌",
+        "unit": null,
+        "values": [
+          4.57,
+          13.7,
+          3.13,
+          25.0
+        ]
+      },
+      {
+        "label": "D 品牌",
+        "unit": null,
+        "values": [
+          2.33,
+          -19.5,
+          3.09,
+          46.2
+        ]
+      },
+      {
+        "label": "E 品牌",
+        "unit": null,
+        "values": [
+          2.17,
+          12.0,
+          2.97,
+          29.5
+        ]
+      },
+      {
+        "label": "F 品牌",
+        "unit": null,
+        "values": [
+          2.08,
+          -35.8,
+          2.77,
+          15.2
+        ]
+      },
+      {
+        "label": "G 品牌",
+        "unit": null,
+        "values": [
+          1.87,
+          -31.0,
+          2.77,
+          31.2
+        ]
+      },
+      {
+        "label": "H 品牌",
+        "unit": null,
+        "values": [
+          1.82,
+          -22.9,
+          2.75,
+          22.9
+        ]
+      },
+      {
+        "label": "I 品牌",
+        "unit": null,
+        "values": [
+          1.81,
+          -24.6,
+          2.71,
+          -18.7
+        ]
+      },
+      {
+        "label": "J 品牌",
+        "unit": null,
+        "values": [
+          1.72,
+          -20.2,
+          2.48,
+          -1.7
+        ]
+      }
+    ]
+  },
+  "title": "2025年1-9月两大电商平台局部彩妆前10位品牌销售额和同比增速",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_052a47125227042a472537bc/row_band_01.jpg",
+        "review-crops/da_052a47125227042a472537bc/row_band_02.jpg",
+        "review-crops/da_052a47125227042a472537bc/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.193",
+      "crop_verification_elapsed_seconds:9.321",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了E品牌在乙平台的销售额为2.97亿元，原为2.97（与D品牌一致），确认为正确；修正了F品牌在乙平台的增速为15.2%，原为15.2（与N品牌一致），确认为正确；修正了G品牌在乙平台的销售额为2.77亿元，原为2.77（与G品牌一致），确认为正确；修正了H品牌在乙平台的销售额为2.75亿元，原为2.75（与H品牌一致），确认为正确；修正了I品牌在乙平台的增速为-18.7%，原为-18.7（与O品牌一致），确认为正确；修正了J品牌在乙平台的销售额为2.48亿元，原为2.48（与J品牌一致），确认为正确；确认所有数值格式正确，包括负号、小数点和百分号；确认所有缺失值保持为null，未补0。",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

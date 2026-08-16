@@ -1,0 +1,108 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "占比（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "产业分类",
+    "rows": [
+      {
+        "display_label": "印刷复制",
+        "group": null,
+        "label": "印刷复制",
+        "unit": null,
+        "values": [
+          53.87
+        ]
+      },
+      {
+        "display_label": "出版物发行",
+        "group": null,
+        "label": "出版物发行",
+        "unit": null,
+        "values": [
+          14.52
+        ]
+      },
+      {
+        "display_label": "数字出版",
+        "group": null,
+        "label": "数字出版",
+        "unit": null,
+        "values": [
+          24.24
+        ]
+      },
+      {
+        "display_label": "图书出版",
+        "group": null,
+        "label": "图书出版",
+        "unit": null,
+        "values": [
+          3.53
+        ]
+      },
+      {
+        "display_label": "报纸出版",
+        "group": null,
+        "label": "报纸出版",
+        "unit": null,
+        "values": [
+          2.45
+        ]
+      },
+      {
+        "display_label": "期刊出版",
+        "group": null,
+        "label": "期刊出版",
+        "unit": null,
+        "values": [
+          0.82
+        ]
+      },
+      {
+        "display_label": "出版物进出口",
+        "group": null,
+        "label": "出版物进出口",
+        "unit": null,
+        "values": [
+          0.39
+        ]
+      },
+      {
+        "display_label": "音像制品出版",
+        "group": null,
+        "label": "音像制品出版",
+        "unit": null,
+        "values": [
+          0.12
+        ]
+      },
+      {
+        "display_label": "电子出版物出版",
+        "group": null,
+        "label": "电子出版物出版",
+        "unit": null,
+        "values": [
+          0.06
+        ]
+      },
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          100.0
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

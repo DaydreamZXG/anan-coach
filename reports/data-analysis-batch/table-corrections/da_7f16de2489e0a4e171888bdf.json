@@ -1,0 +1,187 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2000",
+          "2001",
+          "2002",
+          "2003",
+          "2004",
+          "2005",
+          "2006"
+        ],
+        "label": "上市公司情况"
+      }
+    ],
+    "columns": [
+      "2000",
+      "2001",
+      "2002",
+      "2003",
+      "2004",
+      "2005",
+      "2006"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "display_label": "上市公司数目（家）",
+        "group": null,
+        "label": "上市公司数目（家）",
+        "unit": null,
+        "values": [
+          1088,
+          1160,
+          1224,
+          1287,
+          1377,
+          1381,
+          1434
+        ]
+      },
+      {
+        "display_label": "上市股票数目（只）",
+        "group": null,
+        "label": "上市股票数目（只）",
+        "unit": null,
+        "values": [
+          1174,
+          1240,
+          1310,
+          1372,
+          1463,
+          1467,
+          1520
+        ]
+      },
+      {
+        "display_label": "A 股",
+        "group": "上市股票数目（只）",
+        "label": "上市股票数目（只）｜A 股",
+        "unit": null,
+        "values": [
+          1060,
+          1130,
+          1199,
+          1261,
+          1353,
+          1358,
+          1411
+        ]
+      },
+      {
+        "display_label": "B 股",
+        "group": "上市股票数目（只）",
+        "label": "上市股票数目（只）｜B 股",
+        "unit": null,
+        "values": [
+          114,
+          110,
+          111,
+          111,
+          110,
+          109,
+          109
+        ]
+      },
+      {
+        "display_label": "股票成交金额（亿元）",
+        "group": null,
+        "label": "股票成交金额（亿元）",
+        "unit": null,
+        "values": [
+          60827,
+          38305,
+          27990,
+          32115,
+          42334,
+          31665,
+          90469
+        ]
+      },
+      {
+        "display_label": "A 股",
+        "group": "股票成交金额（亿元）",
+        "label": "股票成交金额（亿元）｜A 股",
+        "unit": null,
+        "values": [
+          60279,
+          33242,
+          27142,
+          31270,
+          41576,
+          31099,
+          89217
+        ]
+      },
+      {
+        "display_label": "B 股",
+        "group": "股票成交金额（亿元）",
+        "label": "股票成交金额（亿元）｜B 股",
+        "unit": null,
+        "values": [
+          548,
+          5063,
+          848,
+          845,
+          758,
+          566,
+          1252
+        ]
+      },
+      {
+        "display_label": "总成交股本（亿股）",
+        "group": null,
+        "label": "总成交股本（亿股）",
+        "unit": null,
+        "values": [
+          4758.38,
+          3152.29,
+          3016.19,
+          4163.08,
+          5827.73,
+          6623.73,
+          16145.23
+        ]
+      },
+      {
+        "display_label": "A 股",
+        "group": "总成交股本（亿股）",
+        "label": "总成交股本（亿股）｜A 股",
+        "unit": null,
+        "values": [
+          4558.02,
+          2463.41,
+          2859.49,
+          3992.28,
+          5672.91,
+          6470.87,
+          15808.62
+        ]
+      },
+      {
+        "display_label": "B 股",
+        "group": "总成交股本（亿股）",
+        "label": "总成交股本（亿股）｜B 股",
+        "unit": null,
+        "values": [
+          200.36,
+          688.88,
+          156.7,
+          170.8,
+          154.82,
+          152.86,
+          336.61
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

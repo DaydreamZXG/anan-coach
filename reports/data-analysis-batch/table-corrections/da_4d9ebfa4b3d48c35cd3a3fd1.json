@@ -1,0 +1,198 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "3月固定电话用户",
+          "3月移动电话用户｜3G",
+          "3月移动电话用户｜5G"
+        ],
+        "label": "3月"
+      },
+      {
+        "columns": [
+          "4月固定电话用户",
+          "4月移动电话用户｜3G",
+          "4月移动电话用户｜5G"
+        ],
+        "label": "4月"
+      }
+    ],
+    "columns": [
+      "3月固定电话用户",
+      "3月移动电话用户｜3G",
+      "3月移动电话用户｜5G",
+      "4月固定电话用户",
+      "4月移动电话用户｜3G",
+      "4月移动电话用户｜5G"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "4月移动电话用户",
+      "style": "diagonal",
+      "upper_label": "4月固定电话用户"
+    },
+    "missing_cells": [],
+    "row_header_label": "4月移动电话用户",
+    "rows": [
+      {
+        "display_label": "东部地区",
+        "group": null,
+        "label": "东部地区",
+        "unit": null,
+        "values": [
+          7855.4,
+          75949.1,
+          38149.0,
+          7818.2,
+          76251.0,
+          38927.0
+        ]
+      },
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          460.6,
+          4077.5,
+          2162.3,
+          458.6,
+          4077.4,
+          2202.1
+        ]
+      },
+      {
+        "display_label": "天津",
+        "group": null,
+        "label": "天津",
+        "unit": null,
+        "values": [
+          317.5,
+          1929.1,
+          928.8,
+          316.2,
+          1936.3,
+          948.9
+        ]
+      },
+      {
+        "display_label": "河北",
+        "group": null,
+        "label": "河北",
+        "unit": null,
+        "values": [
+          578.7,
+          8867.6,
+          4306.6,
+          576.2,
+          8872.2,
+          4396.3
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          606.5,
+          4691.2,
+          2097.6,
+          600.2,
+          4709.8,
+          2136.8
+        ]
+      },
+      {
+        "display_label": "江苏",
+        "group": null,
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          1138.7,
+          11112.7,
+          5597.0,
+          1134.3,
+          11116.3,
+          5711.2
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": null,
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          1048.1,
+          9491.9,
+          4927.5,
+          1044.0,
+          9536.7,
+          5022.9
+        ]
+      },
+      {
+        "display_label": "福建",
+        "group": null,
+        "label": "福建",
+        "unit": null,
+        "values": [
+          667.4,
+          4983.7,
+          2464.0,
+          665.6,
+          4983.4,
+          2508.6
+        ]
+      },
+      {
+        "display_label": "山东",
+        "group": null,
+        "label": "山东",
+        "unit": null,
+        "values": [
+          1094.9,
+          12158.1,
+          5728.4,
+          1092.1,
+          12176.8,
+          5825.9
+        ]
+      },
+      {
+        "display_label": "广东",
+        "group": null,
+        "label": "广东",
+        "unit": null,
+        "values": [
+          1763.2,
+          17426.0,
+          9291.6,
+          1751.4,
+          17628.3,
+          9509.6
+        ]
+      },
+      {
+        "display_label": "海南",
+        "group": null,
+        "label": "海南",
+        "unit": null,
+        "values": [
+          179.8,
+          1211.3,
+          645.4,
+          179.6,
+          1213.8,
+          664.5
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

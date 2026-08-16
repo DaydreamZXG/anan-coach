@@ -1,0 +1,194 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "国外游客到达人数｜2000年",
+          "国外游客到达人数｜2004年",
+          "国外游客到达人数｜2005年"
+        ],
+        "label": "国外游客到达人数"
+      },
+      {
+        "columns": [
+          "出国旅游人数｜2000年",
+          "出国旅游人数｜2004年",
+          "出国旅游人数｜2005年"
+        ],
+        "label": "出国旅游人数"
+      }
+    ],
+    "columns": [
+      "国外游客到达人数｜2000年",
+      "国外游客到达人数｜2004年",
+      "国外游客到达人数｜2005年",
+      "出国旅游人数｜2000年",
+      "出国旅游人数｜2004年",
+      "出国旅游人数｜2005年"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家",
+    "rows": [
+      {
+        "display_label": "中国",
+        "group": null,
+        "label": "中国",
+        "unit": null,
+        "values": [
+          3123,
+          4176,
+          4681,
+          1047,
+          2885,
+          3103
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": null,
+        "values": [
+          476,
+          614,
+          673,
+          1782,
+          1683,
+          1740
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          532,
+          582,
+          602,
+          551,
+          883,
+          1008
+        ]
+      },
+      {
+        "display_label": "加拿大",
+        "group": null,
+        "label": "加拿大",
+        "unit": null,
+        "values": [
+          1963,
+          1910,
+          1877,
+          1918,
+          1955,
+          2110
+        ]
+      },
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": null,
+        "values": [
+          5124,
+          4608,
+          4921,
+          6133,
+          6181,
+          6350
+        ]
+      },
+      {
+        "display_label": "巴西",
+        "group": null,
+        "label": "巴西",
+        "unit": null,
+        "values": [
+          531,
+          479,
+          536,
+          323,
+          374,
+          470
+        ]
+      },
+      {
+        "display_label": "法国",
+        "group": null,
+        "label": "法国",
+        "unit": null,
+        "values": [
+          7719,
+          7512,
+          7600,
+          1989,
+          2113,
+          2227
+        ]
+      },
+      {
+        "display_label": "德国",
+        "group": null,
+        "label": "德国",
+        "unit": null,
+        "values": [
+          1898,
+          2014,
+          2150,
+          7440,
+          7230,
+          7740
+        ]
+      },
+      {
+        "display_label": "俄罗斯联邦",
+        "group": null,
+        "label": "俄罗斯联邦",
+        "unit": null,
+        "values": [
+          2117,
+          2206,
+          2220,
+          1837,
+          2415,
+          2842
+        ]
+      },
+      {
+        "display_label": "英国",
+        "group": null,
+        "label": "英国",
+        "unit": null,
+        "values": [
+          2521,
+          2776,
+          2997,
+          5684,
+          6419,
+          6649
+        ]
+      },
+      {
+        "display_label": "澳大利亚",
+        "group": null,
+        "label": "澳大利亚",
+        "unit": null,
+        "values": [
+          493,
+          522,
+          550,
+          350,
+          437,
+          475
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

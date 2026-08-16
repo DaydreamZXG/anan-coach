@@ -1,8 +1,8 @@
 <view class="s9-page memory-page">
-  <view class="memory-hero">
-    <view class="memory-eyebrow">岸岸的记忆</view>
-    <view class="memory-title">记住什么，由你决定</view>
-    <view class="memory-intro">普通聊天不会被自动变成长期记忆。只有你在这里主动添加的内容，才会被岸岸长期使用。</view>
+    <view class="memory-hero">
+    <view class="memory-eyebrow">岸岸对我的了解</view>
+    <view class="memory-title">你说的偏好你来管，学习判断用证据验证</view>
+    <view class="memory-intro">普通聊天不会被自动变成能力事实。你主动保存的偏好可以修改删除；学习发现来自真实作答和复测。</view>
   </view>
 
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
@@ -44,7 +44,7 @@
 
     <view class="memory-section">
       <view class="memory-section__head memory-section__head--list">
-        <view><view class="memory-section__title">长期记忆</view><view class="memory-section__copy">已保存 {{items.length}} / {{maximumLongTermItems}} 条</view></view>
+        <view><view class="memory-section__title">我主动告诉岸岸的</view><view class="memory-section__copy">已保存 {{items.length}} 条，可随时修改删除</view></view>
         <button hover-class="item--hover" class="text-action text-action--danger" disabled="{{busy || items.length === 0}}" bindtap="clearLongTerm">全部删除</button>
       </view>
       <view wx:if="{{items.length === 0}}" class="memory-empty"><view class="memory-empty__title">还没有长期记忆</view><view class="memory-empty__copy">岸岸不会从你的日常问答里暗自提取。</view></view>
@@ -57,6 +57,24 @@
             <view class="memory-item__source">记忆来路 · 你主动添加</view>
             <view class="memory-item__actions"><button hover-class="item--hover" data-id="{{item.memoryId}}" disabled="{{busy}}" bindtap="editMemory">修改</button><button hover-class="item--hover" class="memory-item__delete" data-id="{{item.memoryId}}" disabled="{{busy}}" bindtap="deleteMemory">删除</button></view>
           </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="memory-section">
+      <view class="memory-section__head">
+        <view><view class="memory-section__title">岸岸从学习里发现的</view><view class="memory-section__copy">这些是待验证的判断，不是不可更改的标签。</view></view>
+      </view>
+      <view class="short-term-rail">
+        <view class="short-term-rail__dot"></view>
+        <view class="short-term-rail__main"><view class="short-term-rail__value">{{dueRetestCount}} 项现在待复测 · {{stableMasteryCount}} 项已稳定</view><view class="short-term-rail__source">复测会直接更新岸岸的判断</view></view>
+        <button hover-class="item--hover" class="text-action" bindtap="openRetest">去复测</button>
+      </view>
+      <view wx:if="{{discoveries.length === 0}}" class="memory-empty"><view class="memory-empty__title">还没有形成学习判断</view><view class="memory-empty__copy">完成一次真实作答后，岸岸会从证据开始认识你。</view></view>
+      <view wx:else class="memory-list">
+        <view class="memory-item" wx:for="{{discoveries}}" wx:key="patternId" data-pattern-id="{{item.patternId}}" bindtap="openDiscovery">
+          <view class="memory-item__rail"><view class="memory-item__dot"></view><view class="memory-item__line"></view></view>
+          <view class="memory-item__body"><view class="memory-item__content">{{item.title}}</view><view class="memory-item__source">{{item.meta}} · 查看证据或标记不准确</view></view>
         </view>
       </view>
     </view>

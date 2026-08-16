@@ -1,0 +1,220 @@
+{
+  "asset_id": "da_96e33920d00cd4410ac7ce7d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "50册及以下",
+    "51-100册",
+    "101-300册",
+    "301-500册",
+    "501册及以上"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -0.5,
+      143.631,
+      239.765,
+      320.0,
+      341.238,
+      359.5
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 143.631,
+        "label": "50册及以下",
+        "share": 0.40036441,
+        "start_angle": -0.5,
+        "sweep_angle": 144.131
+      },
+      {
+        "end_angle": 239.765,
+        "label": "51-100册",
+        "share": 0.26703738,
+        "start_angle": 143.631,
+        "sweep_angle": 96.133
+      },
+      {
+        "end_angle": 320.0,
+        "label": "101-300册",
+        "share": 0.22287599,
+        "start_angle": 239.765,
+        "sweep_angle": 80.235
+      },
+      {
+        "end_angle": 341.238,
+        "label": "301-500册",
+        "share": 0.05899406,
+        "start_angle": 320.0,
+        "sweep_angle": 21.238
+      },
+      {
+        "end_angle": 359.5,
+        "label": "501册及以上",
+        "share": 0.05072816,
+        "start_angle": 341.238,
+        "sweep_angle": 18.262
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.40036441,
+        0.26703738,
+        0.22287599,
+        0.05899406,
+        0.05072816
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0302_0179fe81f7d66879.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0302_0179fe81f7d66879.jpg",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_e4f1b3b8f05582f9a704",
+        "question_number": 131,
+        "source_jsonl_line": 48041
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0324_9d9e8ea9e2f17746.jpg",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_4aa9c59bfa4c20edb700",
+        "question_number": 132,
+        "source_jsonl_line": 48042
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0324_9d9e8ea9e2f17746.jpg",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_84ac425218752455e565",
+        "question_number": 133,
+        "source_jsonl_line": 48043
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0302_0179fe81f7d66879.jpg",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_a1a2b73c298a7902081f",
+        "question_number": 134,
+        "source_jsonl_line": 48044
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0324_9d9e8ea9e2f17746.jpg",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_910c6d5c57aacc4af2a1",
+        "question_number": 135,
+        "source_jsonl_line": 48045
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0295_9d9e8ea9e2f17746.jpg",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_3fbd0a731ba5b09a5ba6",
+        "question_number": 126,
+        "source_jsonl_line": 48306
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0295_9d9e8ea9e2f17746.jpg",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_6f29daf130e8ba05fcdb",
+        "question_number": 127,
+        "source_jsonl_line": 48307
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0320_0179fe81f7d66879.jpg",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_4470e01018d905fcc353",
+        "question_number": 128,
+        "source_jsonl_line": 48308
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0295_9d9e8ea9e2f17746.jpg",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_b6c8e61b4a12cfe70a63",
+        "question_number": 129,
+        "source_jsonl_line": 48309
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0295_9d9e8ea9e2f17746.jpg",
+        "paper_title": "2018年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_251cf6a440b88cea889c",
+        "question_number": 130,
+        "source_jsonl_line": 48310
+      }
+    ],
+    "sha256": "96e33920d00cd4410ac7ce7d58aeba7a083b327276029339b614639526ef53ba"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "受访市民家庭存书情况",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_96e33920d00cd4410ac7ce7d/quadrant_01.jpg",
+        "review-crops/da_96e33920d00cd4410ac7ce7d/quadrant_02.jpg",
+        "review-crops/da_96e33920d00cd4410ac7ce7d/quadrant_03.jpg",
+        "review-crops/da_96e33920d00cd4410ac7ce7d/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.356",
+      "crop_verification_elapsed_seconds:1.327",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.9958",
+      "hough_circle_radius_ratio:0.3312",
+      "radial_line_candidates:52",
+      "detected_boundaries:5"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

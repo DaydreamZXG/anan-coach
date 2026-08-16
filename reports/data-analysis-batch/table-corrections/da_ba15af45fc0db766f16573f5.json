@@ -1,0 +1,205 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "金额（亿元）｜进出口",
+          "金额（亿元）｜出口",
+          "金额（亿元）｜进口",
+          "金额（亿元）｜贸易差额"
+        ],
+        "label": "金额（亿元）"
+      },
+      {
+        "columns": [
+          "同比增长（%）｜进出口",
+          "同比增长（%）｜出口",
+          "同比增长（%）｜进口",
+          "同比增长（%）｜贸易差额"
+        ],
+        "label": "同比增长（%）"
+      },
+      "rows:[{"
+    ],
+    "columns": [
+      "金额（亿元）｜进出口",
+      "金额（亿元）｜出口",
+      "金额（亿元）｜进口",
+      "金额（亿元）｜贸易差额",
+      "同比增长（%）｜进出口",
+      "同比增长（%）｜出口",
+      "同比增长（%）｜进口",
+      "同比增长（%）｜贸易差额"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家或地区",
+    "rows": [
+      {
+        "display_label": "欧盟",
+        "group": null,
+        "label": "欧盟",
+        "unit": null,
+        "values": [
+          19753.4,
+          12180.2,
+          7573.2,
+          4607.0,
+          -7.6,
+          -4.4,
+          -12.4,
+          12.5
+        ]
+      },
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": null,
+        "values": [
+          19242.8,
+          13973.8,
+          5269,
+          8704.8,
+          2.7,
+          7.2,
+          -7.5,
+          18.6
+        ]
+      },
+      {
+        "display_label": "东盟",
+        "group": null,
+        "label": "东盟",
+        "unit": null,
+        "values": [
+          16226.2,
+          9680,
+          6546.2,
+          3133.8,
+          1.3,
+          7.9,
+          -7.2,
+          63.5
+        ]
+      },
+      {
+        "display_label": "香港",
+        "group": null,
+        "label": "香港",
+        "unit": null,
+        "values": [
+          10609.6,
+          10270.9,
+          338.7,
+          9932.2,
+          -10.3,
+          -10.2,
+          -13.5,
+          -10.1
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": null,
+        "values": [
+          9767,
+          4710.6,
+          5056.4,
+          -345.8,
+          -11.1,
+          -11.1,
+          -11.1,
+          -11.1
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          9461.7,
+          3494.3,
+          5967.4,
+          -2473.1,
+          -5.0,
+          -0.7,
+          -7.3,
+          -15.3
+        ]
+      },
+      {
+        "display_label": "台湾",
+        "group": null,
+        "label": "台湾",
+        "unit": null,
+        "values": [
+          6574.3,
+          1593.1,
+          4981.2,
+          -3388.1,
+          -2.8,
+          0.8,
+          -3.9,
+          -6.0
+        ]
+      },
+      {
+        "display_label": "澳大利亚",
+        "group": null,
+        "label": "澳大利亚",
+        "unit": null,
+        "values": [
+          4044.0,
+          1341.8,
+          2702.2,
+          -1360.4,
+          -18.0,
+          4.0,
+          -25.8,
+          -42.1
+        ]
+      },
+      {
+        "display_label": "巴西",
+        "group": null,
+        "label": "巴西",
+        "unit": null,
+        "values": [
+          2579.4,
+          1073.7,
+          1505.7,
+          -432,
+          -18.4,
+          -9.7,
+          -23.6,
+          -44.7
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": null,
+        "label": "印度",
+        "unit": null,
+        "values": [
+          2493.4,
+          2006.3,
+          487.1,
+          1519.2,
+          1.2,
+          9.6,
+          -23.0,
+          26.8
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

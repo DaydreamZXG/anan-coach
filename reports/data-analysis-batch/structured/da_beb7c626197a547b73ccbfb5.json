@@ -1,0 +1,195 @@
+{
+  "asset_id": "da_beb7c626197a547b73ccbfb5",
+  "axes": {
+    "x": {
+      "max": 6,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 35000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000,
+          30000,
+          35000
+        ],
+        "title": null,
+        "unit": "元"
+      }
+    ]
+  },
+  "categories": [
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "城镇",
+      "style": {
+        "dash": "solid",
+        "fill": "solid",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "农村",
+      "style": {
+        "dash": "solid",
+        "fill": "hatched",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        21809.8,
+        24564.7,
+        26955.1,
+        29381,
+        31195,
+        33616
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "农村",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        6977.3,
+        7916.6,
+        8895.9,
+        9892,
+        11422,
+        12363
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2017年422联考《行测》题（吉林卷乙级）_images/img_0134_e47a827587978506.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（吉林卷乙级）_images/img_0134_e47a827587978506.jpg",
+        "paper_title": "2017年422联考《行测》题（吉林卷乙级）",
+        "question_id": "pq_5778c5a924fce55dd5ef",
+        "question_number": 96,
+        "source_jsonl_line": 12697
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（吉林卷乙级）_images/img_0119_1bae080ceb7ab0b9.jpg",
+        "paper_title": "2017年422联考《行测》题（吉林卷乙级）",
+        "question_id": "pq_4cf4bdae01f733789409",
+        "question_number": 97,
+        "source_jsonl_line": 12698
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（吉林卷乙级）_images/img_0119_1bae080ceb7ab0b9.jpg",
+        "paper_title": "2017年422联考《行测》题（吉林卷乙级）",
+        "question_id": "pq_6f0a043fea4ead86930c",
+        "question_number": 98,
+        "source_jsonl_line": 12699
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（吉林卷乙级）_images/img_0119_1bae080ceb7ab0b9.jpg",
+        "paper_title": "2017年422联考《行测》题（吉林卷乙级）",
+        "question_id": "pq_0e4f1e7530d9ac4e02db",
+        "question_number": 99,
+        "source_jsonl_line": 12700
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（吉林卷乙级）_images/img_0119_1bae080ceb7ab0b9.jpg",
+        "paper_title": "2017年422联考《行测》题（吉林卷乙级）",
+        "question_id": "pq_f31b7b71d115ca74960c",
+        "question_number": 100,
+        "source_jsonl_line": 12701
+      }
+    ],
+    "sha256": "beb7c626197a547b73ccbfb57185264dc0553a61896ff5dc39bc61aa6500516c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2011-2016年全国城乡居民人均可支配收入情况表",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_beb7c626197a547b73ccbfb5/column_band_01.jpg",
+        "review-crops/da_beb7c626197a547b73ccbfb5/column_band_02.jpg",
+        "review-crops/da_beb7c626197a547b73ccbfb5/column_band_03.jpg",
+        "review-crops/da_beb7c626197a547b73ccbfb5/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.343",
+      "crop_verification_elapsed_seconds:3.452",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

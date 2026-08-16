@@ -62,15 +62,6 @@
             </view>
             <view class="practice-material-actions">
               <button
-                class="practice-material-action practice-material-action--annotate {{annotationSurface === 'material' ? 'practice-material-action--active' : ''}}"
-                hover-class="item--hover"
-                disabled="{{interactionLocked}}"
-                aria-label="在材料上写草稿"
-                bindtap="openMaterialAnnotation"
-              >
-                <text class="practice-material-annotate-glyph" aria-hidden="true">✎</text>
-              </button>
-              <button
                 class="practice-material-action practice-material-action--collapse"
                 hover-class="item--hover"
                 disabled="{{interactionLocked}}"
@@ -95,21 +86,28 @@
             subtitle="{{view.question.moduleName}}{{view.materialScopeLabel ? ' · 第 ' + view.materialScopeLabel : ''}}"
             chipLabel="{{view.question.moduleName}} · 共享材料{{view.materialScopeLabel ? '（' + view.materialScopeLabel + '）' : ''}}"
             returnLabel="回到第 {{view.current}} 题"
-            blocks="{{view && view.question && view.question.material && view.question.material.content ? view.question.material.content : emptyRichContentBlocks}}"
-            anchors="{{view && view.question && view.question.material && view.question.material.anchors ? view.question.material.anchors : emptyContentAnchors}}"
+            blocks="{{view.question.material.content}}"
+            anchors="{{view.question.material.anchors}}"
             state="{{materialReaderState}}"
             interactionActive="{{materialCaptureActive}}"
             annotateAvailable="{{true}}"
-            annotateActive="{{annotationMode === 'annotate' && annotationSurface === 'material'}}"
-            annotationOpen="{{annotationMode === 'annotate' && annotationSurface === 'material'}}"
+            annotateActive="{{annotationMode === 'annotate'}}"
+            annotationOpen="{{annotationMode === 'annotate'}}"
             annotationStrokes="{{materialAnnotations}}"
             annotationElapsedSeconds="{{view.question.elapsedSeconds}}"
             annotationElapsedMs="{{view.question.elapsedMs || -1}}"
+            annotationSurfaceSwitchAvailable="{{false}}"
+            annotationActiveSurface="{{annotationSurface || 'material'}}"
+            annotationToolbarAvailable="{{annotationCanvas === 'material' || materialOpen}}"
+            annotationTool="{{annotationTool}}"
             bindstatechange="updateMaterialReader"
             bindannotate="openMaterialAnnotation"
             bindstrokeschange="changeMaterialAnnotations"
             bindannotatedone="closeAnnotation"
             bindannotationmore="openTaskTools"
+            bindannotationsurfacechange="switchAnnotationSurface"
+            bindannotationtoolchange="changeAnnotationTool"
+            bindannotationfocus="focusMaterialAnnotation"
           />
         </view>
 
@@ -164,7 +162,7 @@
               <!-- Figma 84:2 画词：题干句段可选中，点选后浮出工具条。 -->
               <content-renderer
                 class="question-stem question-rich-content"
-                blocks="{{view && view.question && view.question.stemContent ? view.question.stemContent : emptyRichContentBlocks}}"
+                blocks="{{view.question.stemContent}}"
                 zoom="{{1}}"
                 preferences="{{displayPreferences}}"
                 selectable
@@ -190,7 +188,7 @@
                 <view class="option-label">{{item.label}}</view>
                 <content-renderer
                   class="option-copy option-rich-content"
-                  blocks="{{item.content ? item.content : emptyRichContentBlocks}}"
+                  blocks="{{item.content}}"
                   zoom="{{1}}"
                   preferences="{{displayPreferences}}"
                 />
@@ -237,19 +235,26 @@
         </scroll-view>
 
         <!-- 草稿直接覆盖在题面上；非绘写时已有笔迹静态显示且触摸穿透。 -->
-        <view class="practice-annotation-host {{touchOwner === 'annotation' && annotationSurface === 'question' ? 'practice-annotation-host--active' : ''}}">
+        <view class="practice-annotation-host {{touchOwner === 'annotation' ? 'practice-annotation-host--active' : ''}}">
           <annotation-layer
             wx:if="{{annotationMode === 'annotate' || questionAnnotations.length}}"
-            mode="{{annotationMode === 'annotate' && annotationSurface === 'question' ? 'annotate' : 'static'}}"
+            mode="{{annotationMode === 'annotate' ? 'annotate' : 'static'}}"
             strokes="{{questionAnnotations}}"
             elapsedSeconds="{{view.question.elapsedSeconds}}"
             elapsedMs="{{view.question.elapsedMs || -1}}"
             segments="{{annotationSegments}}"
             scroll-top="{{questionScrollPosition}}"
             content-height="{{questionContentHeight}}"
+            surfaceSwitchAvailable="{{false}}"
+            activeSurface="{{annotationSurface || 'question'}}"
+            toolbarAvailable="{{annotationCanvas === 'question' && !materialOpen}}"
+            activeTool="{{annotationTool}}"
             bindstrokeschange="changeAnnotations"
             binddone="closeAnnotation"
             bindmore="openTaskTools"
+            bindsurfacechange="switchAnnotationSurface"
+            bindtoolchange="changeAnnotationTool"
+            bindfocus="focusQuestionAnnotation"
           />
         </view>
         </view>

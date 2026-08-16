@@ -1,0 +1,375 @@
+{
+  "asset_id": "da_06eca459572f21ed40cdde20",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020
+      ],
+      "title": "时间",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "农村居民人均可支配收入",
+        "unit": "元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "工资性收入",
+        "unit": "元"
+      }
+    ]
+  },
+  "categories": [
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "农村居民人均可支配收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        10488.9,
+        11421.7,
+        12363.4,
+        13432.4,
+        14617.1,
+        16020.8,
+        17131.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "工资性收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        4152.2,
+        4600.3,
+        5021.8,
+        5498.4,
+        5996.1,
+        6583.5,
+        6973.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "经营性收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        4237.4,
+        4503.6,
+        4741.3,
+        5027.8,
+        5358.4,
+        5762.2,
+        6077.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "财产净收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        222.1,
+        251.5,
+        272.1,
+        303.0,
+        342.1,
+        377.3,
+        418.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "转移净收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        1877.2,
+        2066.3,
+        2328.2,
+        2603.2,
+        2920.5,
+        3297.8,
+        3661.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/青海/2022年青海省公务员录用考试《行测》题（网友回忆版）_images/img_0078_95f79fa137b34398.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年青海省公务员录用考试《行测》题（网友回忆版）_images/img_0078_95f79fa137b34398.png",
+        "paper_title": "2022年青海省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_53c30bb8d2fa5eaa0bb8",
+        "question_number": 106,
+        "source_jsonl_line": 100394
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年青海省公务员录用考试《行测》题（网友回忆版）_images/img_0087_b694dc4ec9d61543.png",
+        "paper_title": "2022年青海省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_da45b45ba8a308ee1658",
+        "question_number": 107,
+        "source_jsonl_line": 100395
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年青海省公务员录用考试《行测》题（网友回忆版）_images/img_0087_b694dc4ec9d61543.png",
+        "paper_title": "2022年青海省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_03a2ca0167a187ca1cd1",
+        "question_number": 108,
+        "source_jsonl_line": 100396
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年青海省公务员录用考试《行测》题（网友回忆版）_images/img_0087_b694dc4ec9d61543.png",
+        "paper_title": "2022年青海省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f7f9688bf692fce1beaa",
+        "question_number": 109,
+        "source_jsonl_line": 100397
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年青海省公务员录用考试《行测》题（网友回忆版）_images/img_0078_95f79fa137b34398.png",
+        "paper_title": "2022年青海省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_411cfb804afd1ff17bc8",
+        "question_number": 110,
+        "source_jsonl_line": 100398
+      }
+    ],
+    "sha256": "06eca459572f21ed40cdde201c3171d03796c1dc2601788ff92b0336eee32f12"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "时间",
+      "农村居民人均可支配收入",
+      "工资性收入",
+      "经营性收入",
+      "财产净收入",
+      "转移净收入"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2014",
+        "unit": null,
+        "values": [
+          2014,
+          10488.9,
+          4152.2,
+          4237.4,
+          222.1,
+          1877.2
+        ]
+      },
+      {
+        "label": "2015",
+        "unit": null,
+        "values": [
+          2015,
+          11421.7,
+          4600.3,
+          4503.6,
+          251.5,
+          2066.3
+        ]
+      },
+      {
+        "label": "2016",
+        "unit": null,
+        "values": [
+          2016,
+          12363.4,
+          5021.8,
+          4741.3,
+          272.1,
+          2328.2
+        ]
+      },
+      {
+        "label": "2017",
+        "unit": null,
+        "values": [
+          2017,
+          13432.4,
+          5498.4,
+          5027.8,
+          303.0,
+          2603.2
+        ]
+      },
+      {
+        "label": "2018",
+        "unit": null,
+        "values": [
+          2018,
+          14617.1,
+          5996.1,
+          5358.4,
+          342.1,
+          2920.5
+        ]
+      },
+      {
+        "label": "2019",
+        "unit": null,
+        "values": [
+          2019,
+          16020.8,
+          6583.5,
+          5762.2,
+          377.3,
+          3297.8
+        ]
+      },
+      {
+        "label": "2020",
+        "unit": null,
+        "values": [
+          2020,
+          17131.4,
+          6973.9,
+          6077.4,
+          418.8,
+          3661.3
+        ]
+      }
+    ]
+  },
+  "title": "表1 2014-2020年全国农村居民人均可支配收入构成变化情况",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_06eca459572f21ed40cdde20/row_band_01.jpg",
+        "review-crops/da_06eca459572f21ed40cdde20/row_band_02.jpg",
+        "review-crops/da_06eca459572f21ed40cdde20/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.484",
+      "crop_verification_elapsed_seconds:24.979",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2014年转移净收入为1877.2，原数据为1877.2，无误。",
+      "crop_note:修正了2015年经营性收入为4503.6，原数据为4503.6，无误。",
+      "crop_note:修正了2016年经营性收入为4741.3，原数据为4741.3，无误。",
+      "crop_note:修正了2017年经营性收入为5027.8，原数据为5027.8，无误。",
+      "crop_note:修正了2018年经营性收入为5358.4，原数据为5358.4，无误。",
+      "crop_note:修正了2019年经营性收入为5762.2，原数据为5762.2，无误。",
+      "crop_note:修正了2020年经营性收入为6077.4，原数据为6077.4，无误。",
+      "crop_note:修正了2014年财产净收入为222.1，原数据为222.1，无误。",
+      "crop_note:修正了2015年财产净收入为251.5，原数据为251.5，无误。",
+      "crop_note:修正了2016年财产净收入为272.1，原数据为272.1，无误。",
+      "crop_note:修正了2017年财产净收入为303.0，原数据为303.0，无误。",
+      "crop_note:修正了2018年财产净收入为342.1，原数据为342.1，无误。",
+      "crop_note:修正了2019年财产净收入为377.3，原数据为377.3，无误。",
+      "crop_note:修正了2020年财产净收入为418.8，原数据为418.8，无误。",
+      "crop_note:修正了2014年工资性收入为4152.2，原数据为4152.2，无误。",
+      "crop_note:修正了2015年工资性收入为4600.3，原数据为4600.3，无误。",
+      "crop_note:修正了2016年工资性收入为5021.8，原数据为5021.8，无误。",
+      "crop_note:修正了2017年工资性收入为5498.4，原数据为5498.4，无误。",
+      "crop_note:修正了2018年工资性收入为5996.1，原数据为5996.1，无误。",
+      "crop_note:修正了2019年工资性收入为6583.5，原数据为6583.5，无误。",
+      "crop_note:修正了2020年工资性收入为6973.9，原数据为6973.9，无误。",
+      "crop_note:修正了2014年农村居民人均可支配收入为10488.9，原数据为10488.9，无误。",
+      "crop_note:修正了2015年农村居民人均可支配收入为11421.7，原数据为11421.7，无误。",
+      "crop_note:修正了2016年农村居民人均可支配收入为12363.4，原数据为12363.4，无误。",
+      "crop_note:修正了2017年农村居民人均可支配收入为13432.4，原数据为13432.4，无误。",
+      "crop_note:修正了2018年农村居民人均可支配收入为14617.1，原数据为14617.1，无误。",
+      "crop_note:修正了2019年农村居民人均可支配收入为16020.8，原数据为16020.8，无误。",
+      "crop_note:修正了2020年农村居民人均可支配收入为17131.4，原数据为17131.4，无误。",
+      "crop_note:修正了2014年转移净收入为1877.2，原数据为1877.2，无误。",
+      "crop_note:修正了2015年转移净收入为2066.3，原数据为2066.3，无误。",
+      "crop_note:修正了2016年转移净收入为2328.2，原数据为2328.2，无误。",
+      "crop_note:修正了2017年转移净收入为2603.2，原数据为2603.2，无误。",
+      "crop_note:修正了2018年转移净收入为2920.5，原数据为2920.5，无误。",
+      "crop_note:修正了2019年转移净收入为3297.8，原数据为3297.8，无误。",
+      "crop_note:修正了2020年转移净收入为3661.3，原数据为3661.3，无误。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

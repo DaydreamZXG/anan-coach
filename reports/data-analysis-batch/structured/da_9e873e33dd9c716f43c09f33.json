@@ -1,0 +1,158 @@
+{
+  "asset_id": "da_9e873e33dd9c716f43c09f33",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "时间",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "增长率",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2008年国家公务员录用考试《行测》题_images/img_0171_c36e46dacf753772.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2008年国家公务员录用考试《行测》题_images/img_0171_c36e46dacf753772.png",
+        "paper_title": "2008年国家公务员录用考试《行测》题",
+        "question_id": "pq_95462ad514a14fec967f",
+        "question_number": 137,
+        "source_jsonl_line": 17252
+      }
+    ],
+    "sha256": "9e873e33dd9c716f43c09f33ad292ba51cf41dc4980c7eee56f36293c8602579"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 0,
+      "estimatedDrawCommandCount": 4,
+      "panelCount": 1,
+      "pointCount": 4
+    },
+    "coordinateSpace": {
+      "height": 141,
+      "width": 232
+    },
+    "evidence": {
+      "converterVersion": "hand-annotated-semantic-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "aa42bf73cd10eda2e6db0d5832140b38c668f8c6d615b49ec121df77e16b8460",
+      "sourceAsset": "da_9e873e33dd9c716f43c09f33",
+      "sourceSha256": "9e873e33dd9c716f43c09f33ad292ba51cf41dc4980c7eee56f36293c8602579"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 114,
+          "width": 191,
+          "x": 29,
+          "y": 16
+        },
+        "chart": {
+          "axis": {
+            "originX": 0.05789,
+            "originY": 0.81416,
+            "showX": true,
+            "showY": true
+          },
+          "interpolation": "smooth",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.18421,
+              "y": 0.60177
+            },
+            {
+              "x": 0.62105,
+              "y": 0.23894
+            },
+            {
+              "x": 0.71053,
+              "y": 0.20354
+            },
+            {
+              "x": 0.87895,
+              "y": 0.23894
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_9e873e33dd9c716f43c09f33-0",
+        "label": null,
+        "position": 0
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "curve_chart"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9e873e33dd9c716f43c09f33/column_band_01.jpg",
+        "review-crops/da_9e873e33dd9c716f43c09f33/column_band_02.jpg",
+        "review-crops/da_9e873e33dd9c716f43c09f33/column_band_03.jpg",
+        "review-crops/da_9e873e33dd9c716f43c09f33/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:1.953",
+      "crop_verification_elapsed_seconds:0.338",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:坐标轴刻度未明确标出，无法确定具体数值范围",
+      "model_uncertainty:数据点未标注，无法提取精确数值",
+      "crop_note:compact_delta_verification",
+      "non_data_option_sparkline",
+      "foreground_iou:0.774264",
+      "mean_absolute_error:1.739606",
+      "trace_parameters:{\"epsilonRatio\": 0.0007, \"minimumContourArea\": 0.2, \"paletteSize\": 2}",
+      "visual_grammar:curve_chart",
+      "visual_grammar:curve_chart",
+      "visual_grammar:curve_chart",
+      "visual_grammar:curve_chart",
+      "converter:hand-annotated-semantic-v1",
+      "visual_grammar:curve_chart",
+      "comparison_artifact:previews/structured_visual/da_9e873e33dd9c716f43c09f33-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "asset_id": "da_2138ea5dc8b5123df748dfdd",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0216_df5af6772704b815.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0216_df5af6772704b815.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_1fff210b87cf80fcc69f",
+        "question_number": 96,
+        "source_jsonl_line": 35228
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0216_df5af6772704b815.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_dc8ef804b7613b8d010c",
+        "question_number": 97,
+        "source_jsonl_line": 35229
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0216_df5af6772704b815.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_250983fd7c35820278c1",
+        "question_number": 98,
+        "source_jsonl_line": 35230
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0243_56b76c67e08f501d.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_4d00b4698dcf81cddaaf",
+        "question_number": 99,
+        "source_jsonl_line": 35231
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0243_56b76c67e08f501d.png",
+        "paper_title": "2019年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_c1d9478fc99c699e0a70",
+        "question_number": 100,
+        "source_jsonl_line": 35232
+      }
+    ],
+    "sha256": "2138ea5dc8b5123df748dfdd2fedddc1a1bb420cefdd1e5526e7f8f9deb1056d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2018年",
+      "2017年",
+      "2016年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标名称",
+    "rows": [
+      {
+        "label": "可再生能源发电量（亿千瓦时）",
+        "unit": null,
+        "values": [
+          18700,
+          17000,
+          15500
+        ]
+      },
+      {
+        "label": "其中：水电发电量（亿千瓦时）",
+        "unit": null,
+        "values": [
+          12000,
+          11945,
+          11745
+        ]
+      },
+      {
+        "label": "风电发电量（亿千瓦时）",
+        "unit": null,
+        "values": [
+          3660,
+          3057,
+          2420
+        ]
+      },
+      {
+        "label": "光伏发电发电量（亿千瓦时）",
+        "unit": null,
+        "values": [
+          1775,
+          1182,
+          662
+        ]
+      },
+      {
+        "label": "生物质发电发电量（亿千瓦时）",
+        "unit": null,
+        "values": [
+          906,
+          794,
+          647
+        ]
+      },
+      {
+        "label": "全口径发电设备容量（万千瓦）",
+        "unit": null,
+        "values": [
+          189967,
+          177703,
+          165151
+        ]
+      }
+    ]
+  },
+  "title": "2016年-2018年全国电力工业统计数据（部分）",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2138ea5dc8b5123df748dfdd/row_band_01.jpg",
+        "review-crops/da_2138ea5dc8b5123df748dfdd/row_band_02.jpg",
+        "review-crops/da_2138ea5dc8b5123df748dfdd/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.844",
+      "crop_verification_elapsed_seconds:5.485",
+      "candidate_value_changes_after_crop:0",
+      "table_row_label_column_removed:指标名称"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

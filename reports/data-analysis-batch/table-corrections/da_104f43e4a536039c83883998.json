@@ -1,0 +1,84 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "活动次数(万次)",
+          "增速(%)"
+        ],
+        "label": "活动次数"
+      },
+      {
+        "columns": [
+          "参加人数(万人次)",
+          "增速(%)"
+        ],
+        "label": "参加人数"
+      }
+    ],
+    "columns": [
+      "活动次数(万次)",
+      "增速(%)",
+      "参加人数(万人次)",
+      "增速(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "label": "展览",
+        "unit": null,
+        "values": [
+          13.82,
+          20.4,
+          9245,
+          3.2
+        ]
+      },
+      {
+        "label": "文艺活动",
+        "unit": null,
+        "values": [
+          74.06,
+          7.6,
+          31379,
+          -1.8
+        ]
+      },
+      {
+        "label": "公益性讲座",
+        "unit": null,
+        "values": [
+          2.36,
+          13.5,
+          441,
+          20.5
+        ]
+      },
+      {
+        "label": "训练班",
+        "unit": null,
+        "values": [
+          39.08,
+          0.9,
+          3105,
+          12.9
+        ]
+      },
+      {
+        "label": "总计",
+        "unit": null,
+        "values": [
+          129.32,
+          6.8,
+          44170,
+          0.3
+        ]
+      }
+    ]
+  },
+  "uncertainties": []
+}

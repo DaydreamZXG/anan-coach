@@ -1,0 +1,11 @@
+{
+  "coordinateAuthority": "deterministic_cv_only",
+  "endpoint": "http://127.0.0.1:18000/v1/chat/completions",
+  "errors": 0,
+  "model": "qwen3-vl-30b-a3b",
+  "optionCountDisagreements": 1,
+  "panelCountDisagreements": 1,
+  "requested": 1,
+  "schemaInvalid": 0,
+  "schemaValid": 1
+}

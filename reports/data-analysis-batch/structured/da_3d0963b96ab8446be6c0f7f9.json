@@ -1,0 +1,417 @@
+{
+  "asset_id": "da_3d0963b96ab8446be6c0f7f9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/青海/2019年青海省公务员录用考试《行测》题省市州级（A类）（网友回忆版）_images/img_0180_2e503d003c9004bf.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年青海省公务员录用考试《行测》题省市州级（A类）（网友回忆版）_images/img_0180_2e503d003c9004bf.png",
+        "paper_title": "2019年青海省公务员录用考试《行测》题省市州级（A类）（网友回忆版）",
+        "question_id": "pq_46e0d01a83460597e094",
+        "question_number": 111,
+        "source_jsonl_line": 99774
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年青海省公务员录用考试《行测》题省市州级（A类）（网友回忆版）_images/img_0180_2e503d003c9004bf.png",
+        "paper_title": "2019年青海省公务员录用考试《行测》题省市州级（A类）（网友回忆版）",
+        "question_id": "pq_ac053d3cad2cde0ee61f",
+        "question_number": 112,
+        "source_jsonl_line": 99775
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年青海省公务员录用考试《行测》题省市州级（A类）（网友回忆版）_images/img_0180_2e503d003c9004bf.png",
+        "paper_title": "2019年青海省公务员录用考试《行测》题省市州级（A类）（网友回忆版）",
+        "question_id": "pq_fa3d389c2f5c76c8e443",
+        "question_number": 113,
+        "source_jsonl_line": 99776
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年青海省公务员录用考试《行测》题省市州级（A类）（网友回忆版）_images/img_0216_2b8ce05fa9176c7f.png",
+        "paper_title": "2019年青海省公务员录用考试《行测》题省市州级（A类）（网友回忆版）",
+        "question_id": "pq_bc950a5316dc54565ec7",
+        "question_number": 114,
+        "source_jsonl_line": 99777
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年青海省公务员录用考试《行测》题省市州级（A类）（网友回忆版）_images/img_0180_2e503d003c9004bf.png",
+        "paper_title": "2019年青海省公务员录用考试《行测》题省市州级（A类）（网友回忆版）",
+        "question_id": "pq_8fe9141081ce58ffb3f9",
+        "question_number": 115,
+        "source_jsonl_line": 99778
+      }
+    ],
+    "sha256": "3d0963b96ab8446be6c0f7f99e66ddb3a103b4861a77f3d8b8d832a7472baa7a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "一线城市｜就业满意度（%）"
+        ],
+        "label": "一线城市"
+      },
+      {
+        "columns": [
+          "部分新一线城市｜杭州｜就业满意度（%）",
+          "部分新一线城市｜宁波｜就业满意度（%）",
+          "部分新一线城市｜天津｜就业满意度（%）",
+          "部分新一线城市｜南京｜就业满意度（%）",
+          "部分新一线城市｜苏州｜就业满意度（%）",
+          "部分新一线城市｜成都｜就业满意度（%）",
+          "部分新一线城市｜武汉｜就业满意度（%）",
+          "部分新一线城市｜西安｜就业满意度（%）",
+          "部分新一线城市｜重庆｜就业满意度（%）",
+          "部分新一线城市｜郑州｜就业满意度（%）"
+        ],
+        "label": "部分新一线城市"
+      }
+    ],
+    "columns": [
+      "一线城市｜就业满意度（%）",
+      "部分新一线城市｜杭州｜就业满意度（%）",
+      "部分新一线城市｜宁波｜就业满意度（%）",
+      "部分新一线城市｜天津｜就业满意度（%）",
+      "部分新一线城市｜南京｜就业满意度（%）",
+      "部分新一线城市｜苏州｜就业满意度（%）",
+      "部分新一线城市｜成都｜就业满意度（%）",
+      "部分新一线城市｜武汉｜就业满意度（%）",
+      "部分新一线城市｜西安｜就业满意度（%）",
+      "部分新一线城市｜重庆｜就业满意度（%）",
+      "部分新一线城市｜郑州｜就业满意度（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "部分新一线城市｜杭州｜就业满意度（%）",
+        "display": "?",
+        "row": "北京"
+      },
+      {
+        "column": "部分新一线城市｜宁波｜就业满意度（%）",
+        "display": "?",
+        "row": "北京"
+      },
+      {
+        "column": "部分新一线城市｜天津｜就业满意度（%）",
+        "display": "?",
+        "row": "北京"
+      },
+      {
+        "column": "部分新一线城市｜南京｜就业满意度（%）",
+        "display": "?",
+        "row": "北京"
+      },
+      {
+        "column": "部分新一线城市｜苏州｜就业满意度（%）",
+        "display": "?",
+        "row": "北京"
+      },
+      {
+        "column": "部分新一线城市｜成都｜就业满意度（%）",
+        "display": "?",
+        "row": "北京"
+      },
+      {
+        "column": "部分新一线城市｜武汉｜就业满意度（%）",
+        "display": "?",
+        "row": "北京"
+      },
+      {
+        "column": "部分新一线城市｜西安｜就业满意度（%）",
+        "display": "?",
+        "row": "北京"
+      },
+      {
+        "column": "部分新一线城市｜重庆｜就业满意度（%）",
+        "display": "?",
+        "row": "北京"
+      },
+      {
+        "column": "部分新一线城市｜郑州｜就业满意度（%）",
+        "display": "?",
+        "row": "北京"
+      },
+      {
+        "column": "部分新一线城市｜杭州｜就业满意度（%）",
+        "display": "?",
+        "row": "上海"
+      },
+      {
+        "column": "部分新一线城市｜宁波｜就业满意度（%）",
+        "display": "?",
+        "row": "上海"
+      },
+      {
+        "column": "部分新一线城市｜天津｜就业满意度（%）",
+        "display": "?",
+        "row": "上海"
+      },
+      {
+        "column": "部分新一线城市｜南京｜就业满意度（%）",
+        "display": "?",
+        "row": "上海"
+      },
+      {
+        "column": "部分新一线城市｜苏州｜就业满意度（%）",
+        "display": "?",
+        "row": "上海"
+      },
+      {
+        "column": "部分新一线城市｜成都｜就业满意度（%）",
+        "display": "?",
+        "row": "上海"
+      },
+      {
+        "column": "部分新一线城市｜武汉｜就业满意度（%）",
+        "display": "?",
+        "row": "上海"
+      },
+      {
+        "column": "部分新一线城市｜西安｜就业满意度（%）",
+        "display": "?",
+        "row": "上海"
+      },
+      {
+        "column": "部分新一线城市｜重庆｜就业满意度（%）",
+        "display": "?",
+        "row": "上海"
+      },
+      {
+        "column": "部分新一线城市｜郑州｜就业满意度（%）",
+        "display": "?",
+        "row": "上海"
+      },
+      {
+        "column": "部分新一线城市｜杭州｜就业满意度（%）",
+        "display": "?",
+        "row": "广州"
+      },
+      {
+        "column": "部分新一线城市｜宁波｜就业满意度（%）",
+        "display": "?",
+        "row": "广州"
+      },
+      {
+        "column": "部分新一线城市｜天津｜就业满意度（%）",
+        "display": "?",
+        "row": "广州"
+      },
+      {
+        "column": "部分新一线城市｜南京｜就业满意度（%）",
+        "display": "?",
+        "row": "广州"
+      },
+      {
+        "column": "部分新一线城市｜苏州｜就业满意度（%）",
+        "display": "?",
+        "row": "广州"
+      },
+      {
+        "column": "部分新一线城市｜成都｜就业满意度（%）",
+        "display": "?",
+        "row": "广州"
+      },
+      {
+        "column": "部分新一线城市｜武汉｜就业满意度（%）",
+        "display": "?",
+        "row": "广州"
+      },
+      {
+        "column": "部分新一线城市｜西安｜就业满意度（%）",
+        "display": "?",
+        "row": "广州"
+      },
+      {
+        "column": "部分新一线城市｜重庆｜就业满意度（%）",
+        "display": "?",
+        "row": "广州"
+      },
+      {
+        "column": "部分新一线城市｜郑州｜就业满意度（%）",
+        "display": "?",
+        "row": "广州"
+      },
+      {
+        "column": "部分新一线城市｜杭州｜就业满意度（%）",
+        "display": "?",
+        "row": "深圳"
+      },
+      {
+        "column": "部分新一线城市｜宁波｜就业满意度（%）",
+        "display": "?",
+        "row": "深圳"
+      },
+      {
+        "column": "部分新一线城市｜天津｜就业满意度（%）",
+        "display": "?",
+        "row": "深圳"
+      },
+      {
+        "column": "部分新一线城市｜南京｜就业满意度（%）",
+        "display": "?",
+        "row": "深圳"
+      },
+      {
+        "column": "部分新一线城市｜苏州｜就业满意度（%）",
+        "display": "?",
+        "row": "深圳"
+      },
+      {
+        "column": "部分新一线城市｜成都｜就业满意度（%）",
+        "display": "?",
+        "row": "深圳"
+      },
+      {
+        "column": "部分新一线城市｜武汉｜就业满意度（%）",
+        "display": "?",
+        "row": "深圳"
+      },
+      {
+        "column": "部分新一线城市｜西安｜就业满意度（%）",
+        "display": "?",
+        "row": "深圳"
+      },
+      {
+        "column": "部分新一线城市｜重庆｜就业满意度（%）",
+        "display": "?",
+        "row": "深圳"
+      },
+      {
+        "column": "部分新一线城市｜郑州｜就业满意度（%）",
+        "display": "?",
+        "row": "深圳"
+      }
+    ],
+    "row_header_label": "城市",
+    "rows": [
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": "%",
+        "values": [
+          75.9,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": "%",
+        "values": [
+          73.9,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "display_label": "广州",
+        "group": null,
+        "label": "广州",
+        "unit": "%",
+        "values": [
+          71.0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "display_label": "深圳",
+        "group": null,
+        "label": "深圳",
+        "unit": "%",
+        "values": [
+          70.2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

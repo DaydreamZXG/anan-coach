@@ -1,0 +1,299 @@
+{
+  "asset_id": "da_e40525304bd9e8077975da4e",
+  "axes": {
+    "x": {
+      "max": 2021,
+      "min": 2012,
+      "ticks": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 2000.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          200.0,
+          400.0,
+          600.0,
+          800.0,
+          1000.0,
+          1200.0,
+          1400.0,
+          1600.0,
+          1800.0,
+          2000.0
+        ],
+        "title": null,
+        "unit": "亿吨"
+      }
+    ]
+  },
+  "categories": [
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "海水冷却用水量",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "海水冷却用水量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿吨",
+      "values": [
+        841.0,
+        883.0,
+        1009.0,
+        1125.7,
+        1201.4,
+        1344.9,
+        1391.6,
+        1486.1,
+        1698.1,
+        1775.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0080_cd45363940682134.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0080_cd45363940682134.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_bf0c3e416930e8e3d1d3",
+        "question_number": 106,
+        "source_jsonl_line": 24128
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0079_57674d77f205e380.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_a8242617115912464ab7",
+        "question_number": 107,
+        "source_jsonl_line": 24129
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0080_cd45363940682134.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_7785de6b7da486376e41",
+        "question_number": 108,
+        "source_jsonl_line": 24130
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0080_cd45363940682134.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_8dbb65aaeb74712e460b",
+        "question_number": 109,
+        "source_jsonl_line": 24131
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年天津市公务员考试《行测》题（网友回忆版）_images/img_0079_57674d77f205e380.png",
+        "paper_title": "2023年天津市公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_93aff5fceadecd598889",
+        "question_number": 110,
+        "source_jsonl_line": 24132
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0120_57674d77f205e380.png",
+        "paper_title": "2023年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5d23a2595fe12da63d78",
+        "question_number": 121,
+        "source_jsonl_line": 33049
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0120_57674d77f205e380.png",
+        "paper_title": "2023年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_96551e933c12d5dcdf38",
+        "question_number": 122,
+        "source_jsonl_line": 33050
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0120_57674d77f205e380.png",
+        "paper_title": "2023年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d5e476d8127e094ec74d",
+        "question_number": 123,
+        "source_jsonl_line": 33051
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0119_cd45363940682134.png",
+        "paper_title": "2023年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d112d8c42027ea99512c",
+        "question_number": 124,
+        "source_jsonl_line": 33052
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0119_cd45363940682134.png",
+        "paper_title": "2023年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d27f000450eb609a2e29",
+        "question_number": 125,
+        "source_jsonl_line": 33053
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0108_cd45363940682134.png",
+        "paper_title": "2023年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_b5c982e4833d5c7286cf",
+        "question_number": 111,
+        "source_jsonl_line": 43791
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0108_cd45363940682134.png",
+        "paper_title": "2023年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_fe466606a7cf5e2d6750",
+        "question_number": 112,
+        "source_jsonl_line": 43792
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0108_cd45363940682134.png",
+        "paper_title": "2023年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_d4f71b6212538c42d075",
+        "question_number": 113,
+        "source_jsonl_line": 43793
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0110_57674d77f205e380.png",
+        "paper_title": "2023年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_c36561b726d11fd20eb8",
+        "question_number": 114,
+        "source_jsonl_line": 43794
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0110_57674d77f205e380.png",
+        "paper_title": "2023年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_835eef33be86a70be883",
+        "question_number": 115,
+        "source_jsonl_line": 43795
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0103_cd45363940682134.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0e15dc109a6b5427ed98",
+        "question_number": 126,
+        "source_jsonl_line": 53955
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0141_57674d77f205e380.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a0bca4f78094033928b2",
+        "question_number": 127,
+        "source_jsonl_line": 53956
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0103_cd45363940682134.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_54b6654c23d346e6e2e7",
+        "question_number": 128,
+        "source_jsonl_line": 53957
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0103_cd45363940682134.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_672fc26b2dda8a887fc4",
+        "question_number": 129,
+        "source_jsonl_line": 53958
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0141_57674d77f205e380.png",
+        "paper_title": "2023年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_55b72667706ec62ff353",
+        "question_number": 130,
+        "source_jsonl_line": 53959
+      }
+    ],
+    "sha256": "e40525304bd9e8077975da4e0942b16fd6f9136d75a5514026ede1a56bb1f72b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2012-2021年全国11个沿海省市海水冷却用水量",
+  "unit": "亿吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e40525304bd9e8077975da4e/column_band_01.jpg",
+        "review-crops/da_e40525304bd9e8077975da4e/column_band_02.jpg",
+        "review-crops/da_e40525304bd9e8077975da4e/column_band_03.jpg",
+        "review-crops/da_e40525304bd9e8077975da4e/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.505",
+      "crop_verification_elapsed_seconds:3.354",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

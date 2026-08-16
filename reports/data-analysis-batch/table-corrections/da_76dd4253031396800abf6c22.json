@@ -1,0 +1,107 @@
+{
+  "confidence": 1,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2008年",
+          "2009年",
+          "2010年",
+          "2011年"
+        ],
+        "label": "年份"
+      }
+    ],
+    "columns": [
+      "2008年",
+      "2009年",
+      "2010年",
+      "2011年"
+    ],
+    "confidence": 1,
+    "corner_header": {
+      "lower_label": "/",
+      "style": "diagonal",
+      "upper_label": "/"
+    },
+    "missing_cells": [],
+    "row_header_label": "/",
+    "rows": [
+      {
+        "display_label": "制造业",
+        "group": null,
+        "label": "制造业",
+        "unit": null,
+        "values": [
+          37.2,
+          36.1,
+          36.7,
+          36.0
+        ]
+      },
+      {
+        "display_label": "建筑业",
+        "group": null,
+        "label": "建筑业",
+        "unit": null,
+        "values": [
+          13.8,
+          15.2,
+          16.1,
+          17.7
+        ]
+      },
+      {
+        "display_label": "交通运输、仓储和邮政业",
+        "group": null,
+        "label": "交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          6.4,
+          6.8,
+          6.9,
+          6.6
+        ]
+      },
+      {
+        "display_label": "批发零售业",
+        "group": null,
+        "label": "批发零售业",
+        "unit": null,
+        "values": [
+          9.0,
+          10.0,
+          10.0,
+          10.1
+        ]
+      },
+      {
+        "display_label": "住宿餐饮业",
+        "group": null,
+        "label": "住宿餐饮业",
+        "unit": null,
+        "values": [
+          5.5,
+          6.0,
+          6.0,
+          5.3
+        ]
+      },
+      {
+        "display_label": "居民服务和其他服务业",
+        "group": null,
+        "label": "居民服务和其他服务业",
+        "unit": null,
+        "values": [
+          12.2,
+          12.7,
+          12.7,
+          12.2
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

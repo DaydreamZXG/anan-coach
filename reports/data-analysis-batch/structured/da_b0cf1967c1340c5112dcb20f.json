@@ -1,0 +1,267 @@
+{
+  "asset_id": "da_b0cf1967c1340c5112dcb20f",
+  "axes": {
+    "x": {
+      "max": 70,
+      "min": 0,
+      "ticks": [
+        0,
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70
+      ],
+      "title": null,
+      "unit": "%"
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "只买必需品，多存点钱",
+    "关注品质，少买点，买好的",
+    "冲动购物，随机消费",
+    "精挑细选，找性价比最高的",
+    "关注时尚品牌，跟随潮流",
+    "关注个性，为自己的钟爱买单"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2023年",
+      "style": {
+        "dash": null,
+        "fill": "#E0E0E0",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "2025年",
+      "style": {
+        "dash": null,
+        "fill": "#BDBDBD",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2023",
+      "label": "2023年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        63.29,
+        48.28,
+        10.08,
+        47.64,
+        1.24,
+        16.77
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2025",
+      "label": "2025年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        64.01,
+        56.09,
+        8.79,
+        57.43,
+        5.36,
+        24.34
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0171_d2146abc429e331d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0171_d2146abc429e331d.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_35348ce383033d39ebdb",
+        "question_number": 116,
+        "source_jsonl_line": 64433
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0176_3c3d75640c4c5911.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_788ad393e12cb5176795",
+        "question_number": 117,
+        "source_jsonl_line": 64434
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0171_d2146abc429e331d.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_410e007725d1ef7486c8",
+        "question_number": 118,
+        "source_jsonl_line": 64435
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0176_3c3d75640c4c5911.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_4020ec684dd362c89338",
+        "question_number": 119,
+        "source_jsonl_line": 64436
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0171_d2146abc429e331d.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_2c8a8a145c5dc726c20d",
+        "question_number": 120,
+        "source_jsonl_line": 64437
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0167_3c3d75640c4c5911.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_6c67b2409304e067fc1b",
+        "question_number": 111,
+        "source_jsonl_line": 64548
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0167_3c3d75640c4c5911.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_95beac94cb3743a85ed9",
+        "question_number": 112,
+        "source_jsonl_line": 64549
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0167_3c3d75640c4c5911.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_8a08bc2a2c46c73abe02",
+        "question_number": 113,
+        "source_jsonl_line": 64550
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0167_3c3d75640c4c5911.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_e489b4c05bd9e05a4830",
+        "question_number": 114,
+        "source_jsonl_line": 64551
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0167_3c3d75640c4c5911.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_cb456db7393d3a6d242a",
+        "question_number": 115,
+        "source_jsonl_line": 64552
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0138_3c3d75640c4c5911.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_c19dac7acdb10ce19056",
+        "question_number": 106,
+        "source_jsonl_line": 64658
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0138_3c3d75640c4c5911.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_50537c6f434122a32fd6",
+        "question_number": 107,
+        "source_jsonl_line": 64659
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0138_3c3d75640c4c5911.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_81877727db682b8d4c2d",
+        "question_number": 108,
+        "source_jsonl_line": 64660
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0138_3c3d75640c4c5911.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_02859ae1681ed886e884",
+        "question_number": 109,
+        "source_jsonl_line": 64661
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0148_d2146abc429e331d.png",
+        "paper_title": "2026年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_e3f1252be3cfe396a21b",
+        "question_number": 110,
+        "source_jsonl_line": 64662
+      }
+    ],
+    "sha256": "b0cf1967c1340c5112dcb20fa83b6e00b60dd3d608bb9d2430524ec5586936f9"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2023年与2025年各消费观念人数占比",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b0cf1967c1340c5112dcb20f/column_band_01.jpg",
+        "review-crops/da_b0cf1967c1340c5112dcb20f/column_band_02.jpg",
+        "review-crops/da_b0cf1967c1340c5112dcb20f/column_band_03.jpg",
+        "review-crops/da_b0cf1967c1340c5112dcb20f/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.266",
+      "crop_verification_elapsed_seconds:4.729",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

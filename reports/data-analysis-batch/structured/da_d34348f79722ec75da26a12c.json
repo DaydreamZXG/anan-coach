@@ -1,0 +1,346 @@
+{
+  "asset_id": "da_d34348f79722ec75da26a12c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2010年广东省公务员录用考试《行测》题_images/img_0152_5ef6a95b51db9559.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年广东省公务员录用考试《行测》题_images/img_0152_5ef6a95b51db9559.jpg",
+        "paper_title": "2010年广东省公务员录用考试《行测》题",
+        "question_id": "pq_59224c073179c9aaac32",
+        "question_number": 80,
+        "source_jsonl_line": 33828
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年广东省公务员录用考试《行测》题_images/img_0141_215035ec84e80761.jpg",
+        "paper_title": "2010年广东省公务员录用考试《行测》题",
+        "question_id": "pq_f44f8712534576fe7d4f",
+        "question_number": 81,
+        "source_jsonl_line": 33829
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年广东省公务员录用考试《行测》题_images/img_0152_5ef6a95b51db9559.jpg",
+        "paper_title": "2010年广东省公务员录用考试《行测》题",
+        "question_id": "pq_2e4d0bd68683e3a05545",
+        "question_number": 82,
+        "source_jsonl_line": 33830
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年广东省公务员录用考试《行测》题_images/img_0152_5ef6a95b51db9559.jpg",
+        "paper_title": "2010年广东省公务员录用考试《行测》题",
+        "question_id": "pq_2bb8e96fb559cafa5571",
+        "question_number": 83,
+        "source_jsonl_line": 33831
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年广东省公务员录用考试《行测》题_images/img_0141_215035ec84e80761.jpg",
+        "paper_title": "2010年广东省公务员录用考试《行测》题",
+        "question_id": "pq_a70ae2c56d067977504a",
+        "question_number": 84,
+        "source_jsonl_line": 33832
+      }
+    ],
+    "sha256": "d34348f79722ec75da26a12ccf87aba0d131a41447eb4f35e26cb8247d2e5a41"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "内容",
+      "单位",
+      "2004年",
+      "2005年",
+      "2006年",
+      "2007年",
+      "2008年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "一、废水",
+        "unit": null,
+        "values": [
+          "一、废水",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "废水排放总量",
+        "unit": null,
+        "values": [
+          "废水排放总量",
+          "亿吨",
+          54.2,
+          63.8,
+          65.5,
+          69.1,
+          67.7
+        ]
+      },
+      {
+        "label": "工业废水排放达标率",
+        "unit": null,
+        "values": [
+          "工业废水排放达标率",
+          "%",
+          83.9,
+          83.9,
+          84.9,
+          86.1,
+          89.7
+        ]
+      },
+      {
+        "label": "城镇生活污水处理率",
+        "unit": null,
+        "values": [
+          "城镇生活污水处理率",
+          "%",
+          35.7,
+          40.2,
+          45.3,
+          50.2,
+          55.9
+        ]
+      },
+      {
+        "label": "二、废气",
+        "unit": null,
+        "values": [
+          "二、废气",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "工业废气排放总量",
+        "unit": null,
+        "values": [
+          "工业废气排放总量",
+          "亿立方米",
+          12543,
+          13447,
+          13584,
+          16939,
+          20510
+        ]
+      },
+      {
+        "label": "烟尘排放总量",
+        "unit": null,
+        "values": [
+          "烟尘排放总量",
+          "万吨",
+          26.1,
+          27.9,
+          28.2,
+          29.4,
+          32.5
+        ]
+      },
+      {
+        "label": "其中：工业烟尘排放量",
+        "unit": null,
+        "values": [
+          "其中：工业烟尘排放量",
+          "万吨",
+          25.2,
+          27.1,
+          27.3,
+          27.3,
+          28.2
+        ]
+      },
+      {
+        "label": "三、工业固体废物",
+        "unit": null,
+        "values": [
+          "三、工业固体废物",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "产生量",
+        "unit": null,
+        "values": [
+          "产生量",
+          "万吨",
+          2609.2,
+          2896.2,
+          3057.0,
+          3852.4,
+          4833.3
+        ]
+      },
+      {
+        "label": "综合利用量",
+        "unit": null,
+        "values": [
+          "综合利用量",
+          "万吨",
+          2312.1,
+          2518.0,
+          2878.2,
+          3378.5,
+          4184.3
+        ]
+      },
+      {
+        "label": "综合利用率",
+        "unit": null,
+        "values": [
+          "综合利用率",
+          "%",
+          80.3,
+          76.7,
+          84.3,
+          84.2,
+          85.3
+        ]
+      },
+      {
+        "label": "四、城镇污水处理厂数量",
+        "unit": null,
+        "values": [
+          "四、城镇污水处理厂数量",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "城镇污水处理厂数量",
+        "unit": null,
+        "values": [
+          "城镇污水处理厂数量",
+          "座",
+          62,
+          79,
+          99,
+          127,
+          179
+        ]
+      },
+      {
+        "label": "城镇污水处理厂处理能力",
+        "unit": null,
+        "values": [
+          "城镇污水处理厂处理能力",
+          "万吨/日",
+          521.8,
+          633.6,
+          724.3,
+          874.4,
+          1092
+        ]
+      },
+      {
+        "label": "污水处理量",
+        "unit": null,
+        "values": [
+          "污水处理量",
+          "万吨",
+          139410,
+          192356,
+          244147,
+          282700,
+          361282
+        ]
+      },
+      {
+        "label": "运行费用",
+        "unit": null,
+        "values": [
+          "运行费用",
+          "万元",
+          54069,
+          90286,
+          142886,
+          155506,
+          217727
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d34348f79722ec75da26a12c/row_band_01.jpg",
+        "review-crops/da_d34348f79722ec75da26a12c/row_band_02.jpg",
+        "review-crops/da_d34348f79722ec75da26a12c/row_band_03.jpg",
+        "review-crops/da_d34348f79722ec75da26a12c/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:13.169",
+      "crop_verification_elapsed_seconds:17.234",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "assets": 5,
+  "bothCorrect": 0,
+  "observedAt": "2026-08-11T09:45:22.709734+00:00",
+  "originalImageCorrect": 1,
+  "rows": [
+    {
+      "assetId": "gr_7b00c758d0ab44e2c464e04f",
+      "officialAnswer": "C",
+      "originalImageCorrect": false,
+      "semanticJsonCorrect": false
+    },
+    {
+      "assetId": "gr_06e94661142e35ee6757e42d",
+      "officialAnswer": "D",
+      "originalImageCorrect": true,
+      "semanticJsonCorrect": false
+    },
+    {
+      "assetId": "gr_0751a8530a3a10bda058e654",
+      "officialAnswer": "B",
+      "originalImageCorrect": false,
+      "semanticJsonCorrect": false
+    },
+    {
+      "assetId": "gr_09a239f1f5c89bec86ff315d",
+      "officialAnswer": "B",
+      "originalImageCorrect": false,
+      "semanticJsonCorrect": true
+    },
+    {
+      "assetId": "gr_814f04ca63ec75e0fd69a9fb",
+      "officialAnswer": "B",
+      "originalImageCorrect": false,
+      "semanticJsonCorrect": false
+    }
+  ],
+  "schemaVersion": "graphic-reasoning-semantic-solver-evaluation-state-v1",
+  "semanticJsonCorrect": 1
+}

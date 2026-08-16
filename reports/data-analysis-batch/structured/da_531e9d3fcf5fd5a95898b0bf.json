@@ -1,0 +1,312 @@
+{
+  "asset_id": "da_531e9d3fcf5fd5a95898b0bf",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2023年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0057_bfd98045162da3d0.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0057_bfd98045162da3d0.jpg",
+        "paper_title": "2023年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5cfc7cd00a7fc41de002",
+        "question_number": 91,
+        "source_jsonl_line": 13607
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0052_cc35db4a407fb1df.jpg",
+        "paper_title": "2023年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6f814a376712212ddc24",
+        "question_number": 92,
+        "source_jsonl_line": 13608
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0052_cc35db4a407fb1df.jpg",
+        "paper_title": "2023年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2ef433e985d7218081f2",
+        "question_number": 93,
+        "source_jsonl_line": 13609
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0057_bfd98045162da3d0.jpg",
+        "paper_title": "2023年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_67dc7095bca1749883f1",
+        "question_number": 94,
+        "source_jsonl_line": 13610
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0057_bfd98045162da3d0.jpg",
+        "paper_title": "2023年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_256b5a9ae02f01d45574",
+        "question_number": 95,
+        "source_jsonl_line": 13611
+      }
+    ],
+    "sha256": "531e9d3fcf5fd5a95898b0bf6d22d14d4f2f6e95c09c5c120ff396c584babc38"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "体育彩票｜乐透数字型",
+          "体育彩票｜竞猜型",
+          "体育彩票｜即开型",
+          "体育彩票｜视频型"
+        ],
+        "label": "体育彩票"
+      },
+      {
+        "columns": [
+          "福利彩票｜乐透数字型",
+          "福利彩票｜即开型",
+          "福利彩票｜基诺型"
+        ],
+        "label": "福利彩票"
+      }
+    ],
+    "columns": [
+      "体育彩票｜乐透数字型",
+      "体育彩票｜竞猜型",
+      "体育彩票｜即开型",
+      "体育彩票｜视频型",
+      "福利彩票｜乐透数字型",
+      "福利彩票｜即开型",
+      "福利彩票｜基诺型"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "月份",
+    "rows": [
+      {
+        "display_label": "货运量（单位：亿吨）｜2013年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2013年",
+        "unit": null,
+        "values": [
+          5319.51,
+          8244.62,
+          3276.97,
+          0.05,
+          7545.3,
+          4375.62,
+          2058.52
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2014年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2014年",
+        "unit": null,
+        "values": [
+          3868.84,
+          7010.1,
+          2219.85,
+          0.11,
+          5210.51,
+          2725.33,
+          1446.36
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2015年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2015年",
+        "unit": null,
+        "values": [
+          5855.35,
+          10737.77,
+          3040.46,
+          0.11,
+          8304.09,
+          2668.08,
+          2337.71
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2016年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2016年",
+        "unit": null,
+        "values": [
+          6003.76,
+          10665.55,
+          2433.12,
+          0.01,
+          7261.26,
+          2421.86,
+          2286.67
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2017年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2017年",
+        "unit": null,
+        "values": [
+          6175.17,
+          10896.8,
+          2551.47,
+          0.03,
+          7817.46,
+          2535.34,
+          2789.11
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2018年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2018年",
+        "unit": null,
+        "values": [
+          5864.59,
+          10449.17,
+          2588.32,
+          0.15,
+          7169.67,
+          2834.29,
+          3074.4
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2019年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2019年",
+        "unit": null,
+        "values": [
+          5802.25,
+          10873.7,
+          2313.56,
+          0.06,
+          7466.64,
+          2280.66,
+          2632.94
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2020年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2020年",
+        "unit": null,
+        "values": [
+          5874.08,
+          13739.23,
+          2191.68,
+          0.02,
+          7453.13,
+          2611.24,
+          2606.57
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2021年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2021年",
+        "unit": null,
+        "values": [
+          5358.91,
+          12891.92,
+          2762.24,
+          0.01,
+          7569.92,
+          2202.47,
+          2546.22
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2022年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2022年",
+        "unit": null,
+        "values": [
+          5296.72,
+          11341.84,
+          2088.74,
+          0.01,
+          6614.96,
+          2184.98,
+          2191.07
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2023年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2023年",
+        "unit": null,
+        "values": [
+          5743.78,
+          31081.42,
+          1941.06,
+          0.02,
+          8734.88,
+          1947.31,
+          2395.72
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2024年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2024年",
+        "unit": null,
+        "values": [
+          5331.21,
+          42994.68,
+          1692.49,
+          0.02,
+          7775.85,
+          1559.68,
+          2495.05
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

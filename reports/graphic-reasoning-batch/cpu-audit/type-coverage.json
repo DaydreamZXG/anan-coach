@@ -1,0 +1,157 @@
+{
+  "crossPanelRuleEvidenceByQuestion": {
+    "add_remove": 407,
+    "connection_change": 0,
+    "count_change": 2277,
+    "direction": 0,
+    "folding_spatial": 940,
+    "overlay_boolean": 407,
+    "reflection": 76,
+    "rotation": 228,
+    "symmetry": 440,
+    "translation": 432
+  },
+  "families": {
+    "arrows_directional_symbols": {
+      "evidenceHits": {
+        "regular_subtype": 35
+      },
+      "finalAcceptedAssets": 0,
+      "gap": "classified_or_routed_only; semantic observations and renderer acceptance are not complete",
+      "inventoryCoverage": "present",
+      "matchedAssets": 35,
+      "requiredSemanticFields": [
+        "semanticSymbol",
+        "head/tail",
+        "direction vector",
+        "rotation/reflection"
+      ]
+    },
+    "circles_ellipses_arcs_curves": {
+      "evidenceHits": {
+        "classification_category": 1168,
+        "regular_subtype": 174,
+        "visual_grammar": 16
+      },
+      "finalAcceptedAssets": 0,
+      "gap": "classified_or_routed_only; semantic observations and renderer acceptance are not complete",
+      "inventoryCoverage": "present",
+      "matchedAssets": 1309,
+      "requiredSemanticFields": [
+        "circle/ellipse/arc/Bezier type",
+        "center/radius/angle",
+        "open/closed"
+      ]
+    },
+    "dots_grids_matrices": {
+      "evidenceHits": {
+        "classification_category": 105,
+        "regular_subtype": 398,
+        "visual_grammar": 161
+      },
+      "finalAcceptedAssets": 0,
+      "gap": "classified_or_routed_only; semantic observations and renderer acceptance are not complete",
+      "inventoryCoverage": "present",
+      "matchedAssets": 661,
+      "requiredSemanticFields": [
+        "rows/columns",
+        "occupancy",
+        "dot coordinates",
+        "cell movement"
+      ]
+    },
+    "filled_shaded_overlay": {
+      "evidenceHits": {
+        "classification_category": 1074,
+        "regular_subtype": 187,
+        "visual_grammar": 161
+      },
+      "finalAcceptedAssets": 0,
+      "gap": "classified_or_routed_only; semantic observations and renderer acceptance are not complete",
+      "inventoryCoverage": "present",
+      "matchedAssets": 1273,
+      "requiredSemanticFields": [
+        "hollow/solid",
+        "overlap order",
+        "Boolean overlay",
+        "texture identity"
+      ]
+    },
+    "folding_3d_wireframes": {
+      "evidenceHits": {
+        "classification_category": 1013,
+        "regular_subtype": 1,
+        "visual_grammar": 1034
+      },
+      "finalAcceptedAssets": 0,
+      "gap": "classified_or_routed_only; semantic observations and renderer acceptance are not complete",
+      "inventoryCoverage": "present",
+      "matchedAssets": 1053,
+      "requiredSemanticFields": [
+        "vertices",
+        "edges",
+        "faces",
+        "fold adjacency",
+        "view direction"
+      ]
+    },
+    "glyph_chinese_letters_digits": {
+      "evidenceHits": {
+        "classification_category": 150,
+        "regular_subtype": 26,
+        "visual_grammar": 306
+      },
+      "finalAcceptedAssets": 0,
+      "gap": "classified_or_routed_only; semantic observations and renderer acceptance are not complete",
+      "inventoryCoverage": "present",
+      "matchedAssets": 309,
+      "requiredSemanticFields": [
+        "textGlyph content",
+        "font category",
+        "position",
+        "reading direction"
+      ]
+    },
+    "life_objects_and_silhouettes": {
+      "evidenceHits": {
+        "regular_subtype": 173,
+        "visual_grammar": 306
+      },
+      "finalAcceptedAssets": 0,
+      "gap": "classified_or_routed_only; semantic observations and renderer acceptance are not complete",
+      "inventoryCoverage": "present",
+      "matchedAssets": 479,
+      "requiredSemanticFields": [
+        "object label",
+        "part graph",
+        "held/accessory objects",
+        "pose and topology",
+        "not outer contour only"
+      ]
+    },
+    "straight_lines_right_angles": {
+      "evidenceHits": {
+        "classification_category": 315,
+        "regular_subtype": 450,
+        "visual_grammar": 2664
+      },
+      "finalAcceptedAssets": 0,
+      "gap": "classified_or_routed_only; semantic observations and renderer acceptance are not complete",
+      "inventoryCoverage": "present",
+      "matchedAssets": 2674,
+      "requiredSemanticFields": [
+        "line count",
+        "orientation",
+        "shared endpoints",
+        "exact angles"
+      ]
+    }
+  },
+  "schemaVersion": "graphic-reasoning-type-coverage-v1",
+  "scopeDecision": {
+    "blanketLifeOrSilhouetteExclusion": "prohibited_by_latest_user_direction",
+    "lifeSilhouettes": "in_scope; must preserve semantic parts and topology",
+    "naturalPhotos": "out_of_batch_only_with_asset-level evidence"
+  },
+  "status": "all_required_families_have_inventory_evidence_but_zero_are_final"
+}

@@ -1,0 +1,257 @@
+{
+  "asset_id": "da_49093aa396de45d256cb2b7c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2012年安徽省公务员录用考试《行测》题_images/img_0086_a6220915d582fdd2.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年安徽省公务员录用考试《行测》题_images/img_0086_a6220915d582fdd2.png",
+        "paper_title": "2012年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_23b21fc208a133cea3cd",
+        "question_number": 121,
+        "source_jsonl_line": 27151
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年安徽省公务员录用考试《行测》题_images/img_0087_afd14d8ce5abc7ed.png",
+        "paper_title": "2012年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_81b8efd4992e9e1488c2",
+        "question_number": 122,
+        "source_jsonl_line": 27152
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年安徽省公务员录用考试《行测》题_images/img_0087_afd14d8ce5abc7ed.png",
+        "paper_title": "2012年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_5d7a657c73a270cda522",
+        "question_number": 123,
+        "source_jsonl_line": 27153
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年安徽省公务员录用考试《行测》题_images/img_0087_afd14d8ce5abc7ed.png",
+        "paper_title": "2012年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_055eb30744a94d0c3f1a",
+        "question_number": 124,
+        "source_jsonl_line": 27154
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年安徽省公务员录用考试《行测》题_images/img_0086_a6220915d582fdd2.png",
+        "paper_title": "2012年安徽省公务员录用考试《行测》题",
+        "question_id": "pq_4b2dca199bbb959e65e8",
+        "question_number": 125,
+        "source_jsonl_line": 27155
+      }
+    ],
+    "sha256": "49093aa396de45d256cb2b7c6580f4cc161a93dcbfb641f70424e8df0b80096e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "行业",
+      "增加值（亿元）",
+      "同比增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "主要海洋产业总体",
+        "unit": null,
+        "values": [
+          "主要海洋产业总体",
+          12989,
+          8.7
+        ]
+      },
+      {
+        "label": "其中：海洋交通运输业",
+        "unit": null,
+        "values": [
+          "其中：海洋交通运输业",
+          3478,
+          -2.4
+        ]
+      },
+      {
+        "label": "海洋工程建筑业",
+        "unit": null,
+        "values": [
+          "海洋工程建筑业",
+          658,
+          31.9
+        ]
+      },
+      {
+        "label": "滨海旅游业",
+        "unit": null,
+        "values": [
+          "滨海旅游业",
+          3725,
+          12.3
+        ]
+      },
+      {
+        "label": "海洋渔业",
+        "unit": null,
+        "values": [
+          "海洋渔业",
+          2509,
+          12.4
+        ]
+      },
+      {
+        "label": "海洋油气业",
+        "unit": null,
+        "values": [
+          "海洋油气业",
+          748,
+          8.5
+        ]
+      },
+      {
+        "label": "海洋矿业",
+        "unit": null,
+        "values": [
+          "海洋矿业",
+          21,
+          7.5
+        ]
+      },
+      {
+        "label": "海洋盐业",
+        "unit": null,
+        "values": [
+          "海洋盐业",
+          55,
+          0.7
+        ]
+      },
+      {
+        "label": "海洋化工业",
+        "unit": null,
+        "values": [
+          "海洋化工业",
+          611,
+          26.0
+        ]
+      },
+      {
+        "label": "海洋生物医药业",
+        "unit": null,
+        "values": [
+          "海洋生物医药业",
+          59,
+          12.6
+        ]
+      },
+      {
+        "label": "海洋电力业",
+        "unit": null,
+        "values": [
+          "海洋电力业",
+          12,
+          25.2
+        ]
+      },
+      {
+        "label": "海水利用业",
+        "unit": null,
+        "values": [
+          "海水利用业",
+          15,
+          18.6
+        ]
+      },
+      {
+        "label": "海洋船舶工业",
+        "unit": null,
+        "values": [
+          "海洋船舶工业",
+          828,
+          15.8
+        ]
+      }
+    ]
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_49093aa396de45d256cb2b7c/row_band_01.jpg",
+        "review-crops/da_49093aa396de45d256cb2b7c/row_band_02.jpg",
+        "review-crops/da_49093aa396de45d256cb2b7c/row_band_03.jpg",
+        "review-crops/da_49093aa396de45d256cb2b7c/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.945",
+      "crop_verification_elapsed_seconds:6.664",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:主要海洋产业总体:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:其中：海洋交通运输业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:海洋工程建筑业:2!=3",
+      "crop_note:ignored_unknown_table_row:海洋交通运输业",
+      "crop_note:ignored_table_row_length_mismatch:海洋工程建筑业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:滨海旅游业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:海洋渔业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:海洋油气业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:海洋矿业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:海洋油气业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:海洋矿业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:海洋盐业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:海洋化工业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:海洋生物医药业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:海洋电力业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:海洋生物医药业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:海洋电力业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:海水利用业:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:海洋船舶工业:2!=3"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

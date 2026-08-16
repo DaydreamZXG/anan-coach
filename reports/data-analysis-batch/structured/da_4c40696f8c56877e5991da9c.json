@@ -1,0 +1,247 @@
+{
+  "asset_id": "da_4c40696f8c56877e5991da9c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广州市考/2018年广州市公务员录用考试 《行测》题（3月24日网友回忆版）_images/img_0108_d9f8e9093527b4d8.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广州市公务员录用考试 《行测》题（3月24日网友回忆版）_images/img_0108_d9f8e9093527b4d8.jpg",
+        "paper_title": "2018年广州市公务员录用考试 《行测》题（3月24日网友回忆版）",
+        "question_id": "pq_46d842ebcc22dd762419",
+        "question_number": 86,
+        "source_jsonl_line": 37548
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广州市公务员录用考试 《行测》题（3月24日网友回忆版）_images/img_0108_d9f8e9093527b4d8.jpg",
+        "paper_title": "2018年广州市公务员录用考试 《行测》题（3月24日网友回忆版）",
+        "question_id": "pq_613a44aafe29d1275567",
+        "question_number": 87,
+        "source_jsonl_line": 37549
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广州市公务员录用考试 《行测》题（3月24日网友回忆版）_images/img_0115_aad2cfaefba9f58a.jpg",
+        "paper_title": "2018年广州市公务员录用考试 《行测》题（3月24日网友回忆版）",
+        "question_id": "pq_55fad9a9b4cee4dc20fd",
+        "question_number": 88,
+        "source_jsonl_line": 37550
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广州市公务员录用考试 《行测》题（3月24日网友回忆版）_images/img_0108_d9f8e9093527b4d8.jpg",
+        "paper_title": "2018年广州市公务员录用考试 《行测》题（3月24日网友回忆版）",
+        "question_id": "pq_f190c5aa4f45e4e2c7bd",
+        "question_number": 89,
+        "source_jsonl_line": 37551
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年广州市公务员录用考试 《行测》题（3月24日网友回忆版）_images/img_0108_d9f8e9093527b4d8.jpg",
+        "paper_title": "2018年广州市公务员录用考试 《行测》题（3月24日网友回忆版）",
+        "question_id": "pq_f0bb5c7e817cd87bfde2",
+        "question_number": 90,
+        "source_jsonl_line": 37552
+      }
+    ],
+    "sha256": "4c40696f8c56877e5991da9c22efb3e4ee2b570b7eb6508546953e2f27e05f79"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2010年｜进口量",
+      "2010年｜进口量｜占世界比重",
+      "2016年｜进口量",
+      "2016年｜进口量｜占世界比重",
+      "2010年｜出口量",
+      "2010年｜出口量｜占世界比重",
+      "2016年｜出口量",
+      "2016年｜出口量｜占世界比重"
+    ],
+    "corner_header": {
+      "lower_label": "占世界比重",
+      "style": "diagonal",
+      "upper_label": "出口量"
+    },
+    "missing_cells": [],
+    "row_header_label": "占世界比重",
+    "rows": [
+      {
+        "display_label": "北美",
+        "group": null,
+        "label": "北美",
+        "unit": null,
+        "values": [
+          10627,
+          24.7,
+          8768,
+          19.5,
+          1520,
+          3.7,
+          3262,
+          7.4
+        ]
+      },
+      {
+        "display_label": "拉丁美洲",
+        "group": null,
+        "label": "拉丁美洲",
+        "unit": null,
+        "values": [
+          1381,
+          3.2,
+          837,
+          1.9,
+          4624,
+          11.2,
+          5122,
+          11.6
+        ]
+      },
+      {
+        "display_label": "东欧",
+        "group": null,
+        "label": "东欧",
+        "unit": null,
+        "values": [
+          1850,
+          4.3,
+          1771,
+          3.9,
+          7273,
+          17.7,
+          7382,
+          16.7
+        ]
+      },
+      {
+        "display_label": "西欧",
+        "group": null,
+        "label": "西欧",
+        "unit": null,
+        "values": [
+          10625,
+          24.7,
+          10303,
+          22.9,
+          2555,
+          6.2,
+          2096,
+          4.7
+        ]
+      },
+      {
+        "display_label": "中东",
+        "group": null,
+        "label": "中东",
+        "unit": null,
+        "values": [
+          519,
+          1.2,
+          501,
+          1.1,
+          15988,
+          38.8,
+          19211,
+          43.5
+        ]
+      },
+      {
+        "display_label": "非洲",
+        "group": null,
+        "label": "非洲",
+        "unit": null,
+        "values": [
+          805,
+          1.9,
+          653,
+          1.5,
+          7635,
+          18.6,
+          5747,
+          13.0
+        ]
+      },
+      {
+        "display_label": "亚太地区",
+        "group": null,
+        "label": "亚太地区",
+        "unit": null,
+        "values": [
+          17269,
+          40.1,
+          22074,
+          49.2,
+          1565,
+          3.8,
+          1356,
+          3.1
+        ]
+      },
+      {
+        "display_label": "世界",
+        "group": null,
+        "label": "世界",
+        "unit": null,
+        "values": [
+          43075,
+          100.0,
+          44908,
+          100.0,
+          41159,
+          100.0,
+          44175,
+          100.0
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

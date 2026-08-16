@@ -1,0 +1,11 @@
+{
+  "acceptedFinalAssets": 0,
+  "classifiedAssets": 4833,
+  "manifestEntries": 12,
+  "partialOutputDirectories": 857,
+  "partialRepairQueue": 850,
+  "reason": "generic contour/Hough full render was stopped before manifest acceptance",
+  "repairRequiredBeforeFinal": true,
+  "schemaVersion": "graphic-reasoning-batch-state-v1",
+  "status": "paused_for_grammar_renderer_review"
+}

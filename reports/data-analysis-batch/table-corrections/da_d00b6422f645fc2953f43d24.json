@@ -1,0 +1,128 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "企业数（个）",
+          "互联网业务收入（亿元）",
+          "利润总额（亿元）",
+          "研发费用（亿元）",
+          "研发人员（人）"
+        ],
+        "label": "业务指标"
+      }
+    ],
+    "columns": [
+      "企业数（个）",
+      "互联网业务收入（亿元）",
+      "利润总额（亿元）",
+      "研发费用（亿元）",
+      "研发人员（人）"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "互联网业务收入（亿元）",
+      "style": "diagonal",
+      "upper_label": "企业数（个）"
+    },
+    "missing_cells": [],
+    "row_header_label": "互联网业务收入（亿元）",
+    "rows": [
+      {
+        "display_label": "货运量（单位：亿吨）｜2013年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2013年",
+        "unit": null,
+        "values": [
+          78661,
+          20497.5,
+          2688.9,
+          2244.5,
+          649977
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2014年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2014年",
+        "unit": null,
+        "values": [
+          524,
+          12.5,
+          -1.6,
+          1.7,
+          1906
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2015年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2015年",
+        "unit": null,
+        "values": [
+          1335,
+          226.8,
+          9.9,
+          37.8,
+          16346
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2016年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2016年",
+        "unit": null,
+        "values": [
+          813,
+          118.0,
+          8.1,
+          8.5,
+          3836
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2017年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2017年",
+        "unit": null,
+        "values": [
+          6252,
+          155.7,
+          68.0,
+          19.6,
+          14758
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2018年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2018年",
+        "unit": null,
+        "values": [
+          1745,
+          376.8,
+          18.7,
+          29.4,
+          14766
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2019年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2019年",
+        "unit": null,
+        "values": [
+          1233,
+          213.6,
+          22.8,
+          19.5,
+          8920
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

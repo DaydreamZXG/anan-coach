@@ -1,0 +1,336 @@
+{
+  "asset_id": "da_877e3ac7dc2215eb53879056",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 7000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000
+        ],
+        "title": null,
+        "unit": "亿元"
+      },
+      {
+        "max": 650,
+        "min": -50,
+        "ticks": [
+          -50,
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300,
+          350,
+          400,
+          450,
+          500,
+          550,
+          600,
+          650
+        ],
+        "title": null,
+        "unit": "家"
+      }
+    ]
+  },
+  "categories": [
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "首次募资金额",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "新上市公司数量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "首次募资金额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1564,
+        1496,
+        2296,
+        1378,
+        2532,
+        4793,
+        5426,
+        5870
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "新上市公司数量",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "家",
+      "values": [
+        220,
+        227,
+        437,
+        105,
+        203,
+        434,
+        524,
+        428
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2025年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0197_cced503507523f43.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0197_cced503507523f43.png",
+        "paper_title": "2025年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2a173ed61c6c2cfb1413",
+        "question_number": 116,
+        "source_jsonl_line": 28640
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0197_cced503507523f43.png",
+        "paper_title": "2025年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cdebc7f8a4dfbc4ba6e2",
+        "question_number": 117,
+        "source_jsonl_line": 28641
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0197_cced503507523f43.png",
+        "paper_title": "2025年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e034ac8396bee62cd89a",
+        "question_number": 118,
+        "source_jsonl_line": 28642
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0197_cced503507523f43.png",
+        "paper_title": "2025年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f76b80de19b1dd2d38f6",
+        "question_number": 119,
+        "source_jsonl_line": 28643
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0197_cced503507523f43.png",
+        "paper_title": "2025年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_70dfff3ef48b88bf4714",
+        "question_number": 120,
+        "source_jsonl_line": 28644
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0141_cced503507523f43.png",
+        "paper_title": "2025年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ca72e22d3e2e6338fec3",
+        "question_number": 111,
+        "source_jsonl_line": 33409
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0148_c7bbb3d3affaa650.png",
+        "paper_title": "2025年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6571e6db957ab668fac3",
+        "question_number": 112,
+        "source_jsonl_line": 33410
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0141_cced503507523f43.png",
+        "paper_title": "2025年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_621bb610d6d67dcf9cf1",
+        "question_number": 113,
+        "source_jsonl_line": 33411
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0141_cced503507523f43.png",
+        "paper_title": "2025年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8200252561ecfa70e62a",
+        "question_number": 114,
+        "source_jsonl_line": 33412
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0141_cced503507523f43.png",
+        "paper_title": "2025年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_afab489df3b2595bc53f",
+        "question_number": 115,
+        "source_jsonl_line": 33413
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0172_c7bbb3d3affaa650.png",
+        "paper_title": "2025年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_22badf5c0222d8ae7f5f",
+        "question_number": 111,
+        "source_jsonl_line": 44136
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0183_cced503507523f43.png",
+        "paper_title": "2025年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_74a46eadb323a8e83fad",
+        "question_number": 112,
+        "source_jsonl_line": 44137
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0183_cced503507523f43.png",
+        "paper_title": "2025年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_35be54586d7a43e0c2ef",
+        "question_number": 113,
+        "source_jsonl_line": 44138
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0183_cced503507523f43.png",
+        "paper_title": "2025年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_8b3deb2632eb4f938226",
+        "question_number": 114,
+        "source_jsonl_line": 44139
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0183_cced503507523f43.png",
+        "paper_title": "2025年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_f39e5718fd3a74a64a2c",
+        "question_number": 115,
+        "source_jsonl_line": 44140
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0129_cced503507523f43.png",
+        "paper_title": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_aa58cc511be6845d53ac",
+        "question_number": 106,
+        "source_jsonl_line": 44246
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0129_cced503507523f43.png",
+        "paper_title": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_2a6ac14f235c41faf63c",
+        "question_number": 107,
+        "source_jsonl_line": 44247
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0129_cced503507523f43.png",
+        "paper_title": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_c7900236ccdd37bd3f08",
+        "question_number": 108,
+        "source_jsonl_line": 44248
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0129_cced503507523f43.png",
+        "paper_title": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_f945219041d45eb52276",
+        "question_number": 109,
+        "source_jsonl_line": 44249
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0129_cced503507523f43.png",
+        "paper_title": "2025年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_dafc29107c3525bb9865",
+        "question_number": 110,
+        "source_jsonl_line": 44250
+      }
+    ],
+    "sha256": "877e3ac7dc2215eb538790566421b44d5828f437332e7baa232003e197a2bcb0"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2015-2022年我国A股市场新上市公司数量与首次募资金额情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_877e3ac7dc2215eb53879056/column_band_01.jpg",
+        "review-crops/da_877e3ac7dc2215eb53879056/column_band_02.jpg",
+        "review-crops/da_877e3ac7dc2215eb53879056/column_band_03.jpg",
+        "review-crops/da_877e3ac7dc2215eb53879056/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.53",
+      "crop_verification_elapsed_seconds:3.653",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "asset_id": "da_f4bbbb7b5ceaa663906993f6",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2015年北京市公务员录用考试《行测》题_images/img_0118_49bcdc7fb8d9fddf.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年北京市公务员录用考试《行测》题_images/img_0118_49bcdc7fb8d9fddf.png",
+        "paper_title": "2015年北京市公务员录用考试《行测》题",
+        "question_id": "pq_50af97a86d2f787e5449",
+        "question_number": 116,
+        "source_jsonl_line": 9584
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年北京市公务员录用考试《行测》题_images/img_0119_0b85bfffc477d405.png",
+        "paper_title": "2015年北京市公务员录用考试《行测》题",
+        "question_id": "pq_f8f904f532e12f8042d6",
+        "question_number": 117,
+        "source_jsonl_line": 9585
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年北京市公务员录用考试《行测》题_images/img_0118_49bcdc7fb8d9fddf.png",
+        "paper_title": "2015年北京市公务员录用考试《行测》题",
+        "question_id": "pq_1776c35519d0cfd4a65a",
+        "question_number": 118,
+        "source_jsonl_line": 9586
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年北京市公务员录用考试《行测》题_images/img_0119_0b85bfffc477d405.png",
+        "paper_title": "2015年北京市公务员录用考试《行测》题",
+        "question_id": "pq_ca1f1924ab3aa91727ff",
+        "question_number": 119,
+        "source_jsonl_line": 9587
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年北京市公务员录用考试《行测》题_images/img_0118_49bcdc7fb8d9fddf.png",
+        "paper_title": "2015年北京市公务员录用考试《行测》题",
+        "question_id": "pq_086c13dc63978024af7e",
+        "question_number": 120,
+        "source_jsonl_line": 9588
+      }
+    ],
+    "sha256": "f4bbbb7b5ceaa663906993f6cb813d9d83767e2bcc5c6cd89d7ff24a9130dacc"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "商品房销售面积绝对数（万平方米）",
+      "商品房销售面积比上年增长（%）",
+      "商品房销售额绝对数（亿元）",
+      "商品房销售额比上年增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全国总计",
+        "unit": null,
+        "values": [
+          "全国总计",
+          130551,
+          17.3,
+          81428,
+          26.3
+        ]
+      },
+      {
+        "label": "东部地区",
+        "unit": null,
+        "values": [
+          "东部地区",
+          63476,
+          19.3,
+          49327,
+          28.4
+        ]
+      },
+      {
+        "label": "中部地区",
+        "unit": null,
+        "values": [
+          "中部地区",
+          35192,
+          16.8,
+          16525,
+          26.9
+        ]
+      },
+      {
+        "label": "西部地区",
+        "unit": null,
+        "values": [
+          "西部地区",
+          31883,
+          14.1,
+          15576,
+          19.6
+        ]
+      }
+    ]
+  },
+  "title": "2013年东中西部地区房地产销售情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f4bbbb7b5ceaa663906993f6/row_band_01.jpg",
+        "review-crops/da_f4bbbb7b5ceaa663906993f6/row_band_02.jpg",
+        "review-crops/da_f4bbbb7b5ceaa663906993f6/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.804",
+      "crop_verification_elapsed_seconds:4.911",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

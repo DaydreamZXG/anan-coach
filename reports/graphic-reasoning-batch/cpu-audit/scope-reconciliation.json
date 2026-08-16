@@ -1,0 +1,10 @@
+{
+  "blanketExcludedSubtypes": [],
+  "decision": "natural photos require asset evidence; life silhouettes remain in the batch and require semantic part topology",
+  "explicitAssetExclusions": 1,
+  "finalAcceptedAssets": 0,
+  "lifeRestored": 144,
+  "photoReviewRequired": 29,
+  "schemaVersion": "graphic-reasoning-scope-reconciliation-v1",
+  "status": "reconciled"
+}

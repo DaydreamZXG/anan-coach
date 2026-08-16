@@ -1,0 +1,243 @@
+{
+  "asset_id": "da_56a6076a21170043ace953aa",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2016年江苏省公务员录用考试《行测》题（B类）_images/img_0165_db1107527a966250.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0165_db1107527a966250.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_f21a00fad5a466c6ff8b",
+        "question_number": 121,
+        "source_jsonl_line": 47366
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0165_db1107527a966250.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_3411f48934812f1daae4",
+        "question_number": 122,
+        "source_jsonl_line": 47367
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0165_db1107527a966250.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_d280999b3c740db3b638",
+        "question_number": 123,
+        "source_jsonl_line": 47368
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0199_68b9fafbf6641f3e.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_1f1769fc790acaed2bde",
+        "question_number": 124,
+        "source_jsonl_line": 47369
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0199_68b9fafbf6641f3e.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_87bf72d1134da0ad12cb",
+        "question_number": 125,
+        "source_jsonl_line": 47370
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（C类）_images/img_0235_db1107527a966250.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_305b34895efd673ec50a",
+        "question_number": 126,
+        "source_jsonl_line": 47506
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（C类）_images/img_0258_68b9fafbf6641f3e.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_022c392461d71bfcc93f",
+        "question_number": 127,
+        "source_jsonl_line": 47507
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（C类）_images/img_0235_db1107527a966250.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_623b03415e653fc78ef7",
+        "question_number": 128,
+        "source_jsonl_line": 47508
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（C类）_images/img_0235_db1107527a966250.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_883f75a71850a3bfe476",
+        "question_number": 129,
+        "source_jsonl_line": 47509
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（C类）_images/img_0235_db1107527a966250.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_95353cbadf41dd3e2b69",
+        "question_number": 130,
+        "source_jsonl_line": 47510
+      }
+    ],
+    "sha256": "56a6076a21170043ace953aa687ec480e867ccdde619af3306da2dd7860265c0"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2010",
+      "2011",
+      "2012",
+      "2013",
+      "2014"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "城镇新增就业人数（万人）",
+        "group": "2010-2014年末全国劳动就业状况",
+        "label": "2010-2014年末全国劳动就业状况｜城镇新增就业人数（万人）",
+        "unit": null,
+        "values": [
+          1168,
+          1221,
+          1266,
+          1310,
+          1322
+        ]
+      },
+      {
+        "display_label": "城镇失业人员再就业人数（万人）",
+        "group": "2010-2014年末全国劳动就业状况",
+        "label": "2010-2014年末全国劳动就业状况｜城镇失业人员再就业人数（万人）",
+        "unit": null,
+        "values": [
+          547,
+          553,
+          552,
+          566,
+          551
+        ]
+      },
+      {
+        "display_label": "城镇登记失业人数（万人）",
+        "group": "2010-2014年末全国劳动就业状况",
+        "label": "2010-2014年末全国劳动就业状况｜城镇登记失业人数（万人）",
+        "unit": null,
+        "values": [
+          908,
+          922,
+          917,
+          926,
+          952
+        ]
+      },
+      {
+        "display_label": "城镇登记失业率（%）",
+        "group": "2010-2014年末全国劳动就业状况",
+        "label": "2010-2014年末全国劳动就业状况｜城镇登记失业率（%）",
+        "unit": null,
+        "values": [
+          4.14,
+          4.09,
+          4.09,
+          4.05,
+          4.09
+        ]
+      },
+      {
+        "display_label": "第一产业就业人员占比（%）",
+        "group": "2010-2014年末全国劳动就业状况",
+        "label": "2010-2014年末全国劳动就业状况｜第一产业就业人员占比（%）",
+        "unit": null,
+        "values": [
+          36.7,
+          34.8,
+          33.6,
+          31.4,
+          29.5
+        ]
+      },
+      {
+        "display_label": "第二产业就业人员占比（%）",
+        "group": "2010-2014年末全国劳动就业状况",
+        "label": "2010-2014年末全国劳动就业状况｜第二产业就业人员占比（%）",
+        "unit": null,
+        "values": [
+          28.7,
+          29.5,
+          30.3,
+          30.1,
+          29.9
+        ]
+      },
+      {
+        "display_label": "第三产业就业人员占比（%）",
+        "group": "2010-2014年末全国劳动就业状况",
+        "label": "2010-2014年末全国劳动就业状况｜第三产业就业人员占比（%）",
+        "unit": null,
+        "values": [
+          34.6,
+          35.7,
+          36.1,
+          38.5,
+          40.6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

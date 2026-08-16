@@ -1,0 +1,203 @@
+{
+  "asset_id": "da_9c8fecc9bc0255e20ac8c3f2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2003,
+        2004,
+        2005,
+        2006,
+        2007
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 52000,
+        "min": 38000,
+        "ticks": [
+          38000,
+          40000,
+          42000,
+          44000,
+          46000,
+          48000,
+          50000,
+          52000
+        ],
+        "title": null,
+        "unit": "万吨"
+      },
+      {
+        "max": 9.0,
+        "min": -5.8,
+        "ticks": [
+          -5.8,
+          0.7,
+          2.9,
+          3.1,
+          9.0
+        ],
+        "title": "比去年增长 (%)",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "粮食产量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "比去年增长 (%)",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "粮食产量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        43070,
+        46947,
+        48402,
+        49800,
+        50150
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比去年增长 (%)",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -5.8,
+        9.0,
+        3.1,
+        2.9,
+        0.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2012年江西省公务员录用考试《行测》题_images/img_0142_9185c1b955ab7a85.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江西省公务员录用考试《行测》题_images/img_0142_9185c1b955ab7a85.png",
+        "paper_title": "2012年江西省公务员录用考试《行测》题",
+        "question_id": "pq_103e596cf5ea131750fd",
+        "question_number": 131,
+        "source_jsonl_line": 51616
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江西省公务员录用考试《行测》题_images/img_0142_9185c1b955ab7a85.png",
+        "paper_title": "2012年江西省公务员录用考试《行测》题",
+        "question_id": "pq_3ab66b04a8b270cff642",
+        "question_number": 132,
+        "source_jsonl_line": 51617
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江西省公务员录用考试《行测》题_images/img_0142_9185c1b955ab7a85.png",
+        "paper_title": "2012年江西省公务员录用考试《行测》题",
+        "question_id": "pq_367e29b6f80e2e4db487",
+        "question_number": 133,
+        "source_jsonl_line": 51618
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江西省公务员录用考试《行测》题_images/img_0142_9185c1b955ab7a85.png",
+        "paper_title": "2012年江西省公务员录用考试《行测》题",
+        "question_id": "pq_c4a0fc703c699251edce",
+        "question_number": 134,
+        "source_jsonl_line": 51619
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年江西省公务员录用考试《行测》题_images/img_0142_9185c1b955ab7a85.png",
+        "paper_title": "2012年江西省公务员录用考试《行测》题",
+        "question_id": "pq_044be4e0351891e7f4d7",
+        "question_number": 135,
+        "source_jsonl_line": 51620
+      }
+    ],
+    "sha256": "9c8fecc9bc0255e20ac8c3f208badb2ad050d9c1ca6a32fd69ec1cb2adf4224a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "某地区2003~2007年粮食产量情况",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9c8fecc9bc0255e20ac8c3f2/column_band_01.jpg",
+        "review-crops/da_9c8fecc9bc0255e20ac8c3f2/column_band_02.jpg",
+        "review-crops/da_9c8fecc9bc0255e20ac8c3f2/column_band_03.jpg",
+        "review-crops/da_9c8fecc9bc0255e20ac8c3f2/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.592",
+      "crop_verification_elapsed_seconds:2.886",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

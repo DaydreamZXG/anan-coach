@@ -1,0 +1,175 @@
+{
+  "asset_id": "da_2178c6768c0e026f7cdf3de2",
+  "axes": {
+    "x": {
+      "max": 45,
+      "min": 0,
+      "ticks": [
+        0,
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        40,
+        45
+      ],
+      "title": null,
+      "unit": "%"
+    },
+    "y": [
+      {
+        "max": 40,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "加大处罚力度",
+    "增设公共场所吸烟区",
+    "扩大媒体宣传",
+    "明确执法主体",
+    "提供戒烟引导咨询服务",
+    "其他"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "市民认为达到全面禁烟最有效的方法和途径",
+      "style": {
+        "dash": null,
+        "fill": "blue",
+        "marker": null,
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "市民认为达到全面禁烟最有效的方法和途径",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        39.2,
+        26.9,
+        13.7,
+        10.6,
+        7.7,
+        2.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2016年江苏省公务员录用考试《行测》题（B类）_images/img_0261_e514f189f0ea12a3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0261_e514f189f0ea12a3.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_f89ec0bf6c022b1d4a7e",
+        "question_number": 131,
+        "source_jsonl_line": 47376
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0268_d2ca20f5955ba38e.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_147ed4196260e1a167db",
+        "question_number": 132,
+        "source_jsonl_line": 47377
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0268_d2ca20f5955ba38e.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_14381d5cd5c014791241",
+        "question_number": 133,
+        "source_jsonl_line": 47378
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0261_e514f189f0ea12a3.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_b6ce0dce762eca241dec",
+        "question_number": 134,
+        "source_jsonl_line": 47379
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（B类）_images/img_0268_d2ca20f5955ba38e.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_b71c408c9bcf8e7c80fe",
+        "question_number": 135,
+        "source_jsonl_line": 47380
+      }
+    ],
+    "sha256": "2178c6768c0e026f7cdf3de22250bba2e541bb2c6553a9be4888a3c3be2b1d57"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "市民认为达到全面禁烟最有效的方法和途径",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2178c6768c0e026f7cdf3de2/column_band_01.jpg",
+        "review-crops/da_2178c6768c0e026f7cdf3de2/column_band_02.jpg",
+        "review-crops/da_2178c6768c0e026f7cdf3de2/column_band_03.jpg",
+        "review-crops/da_2178c6768c0e026f7cdf3de2/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.79",
+      "crop_verification_elapsed_seconds:7.237",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了 '增设公共场所吸烟区' 的数值为 26.9，与图2一致。",
+      "crop_note:修正了 '扩大媒体宣传' 的数值为 13.7，与图2一致。",
+      "crop_note:修正了 '明确执法主体' 的数值为 10.6，与图2一致。",
+      "crop_note:修正了 '提供戒烟引导咨询服务' 的数值为 7.7，与图2一致。",
+      "crop_note:修正了 '其他' 的数值为 2.1，与图2一致。",
+      "crop_note:修正了 '加大处罚力度' 的数值为 39.2，与图4一致。",
+      "crop_note:确认所有百分号、小数点和负号正确，无缺失值。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "asset_id": "da_beb713c3518cc04a911b6d25",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 50000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "全省",
+    "珠三角",
+    "山区",
+    "东翼",
+    "西翼"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2012年",
+      "style": {
+        "dash": null,
+        "fill": "#1F77B4",
+        "marker": null,
+        "stroke": "#1F77B4"
+      }
+    },
+    {
+      "label": "2013年",
+      "style": {
+        "dash": null,
+        "fill": "#FF7F0E",
+        "marker": null,
+        "stroke": "#FF7F0E"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2012",
+      "label": "2012年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        31920,
+        34177,
+        25017,
+        27626,
+        22386
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2013",
+      "label": "2013年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        37020,
+        38868,
+        27403,
+        30701,
+        28304
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2014年广东省公务员录用考试《行测》题（乡镇）_images/img_0101_a8759fa6c03a4b7f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（乡镇）_images/img_0101_a8759fa6c03a4b7f.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_71d1e03a8933130f0951",
+        "question_number": 96,
+        "source_jsonl_line": 34328
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（乡镇）_images/img_0101_a8759fa6c03a4b7f.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_933d89bb9e18cbdf8883",
+        "question_number": 97,
+        "source_jsonl_line": 34329
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（乡镇）_images/img_0101_a8759fa6c03a4b7f.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_8bfe5c9fba9b03e7d83f",
+        "question_number": 98,
+        "source_jsonl_line": 34330
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（乡镇）_images/img_0101_a8759fa6c03a4b7f.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_0974fa841d23fa4af911",
+        "question_number": 99,
+        "source_jsonl_line": 34331
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年广东省公务员录用考试《行测》题（乡镇）_images/img_0101_a8759fa6c03a4b7f.png",
+        "paper_title": "2014年广东省公务员录用考试《行测》题（乡镇）",
+        "question_id": "pq_15cd0ba9831882c430d9",
+        "question_number": 100,
+        "source_jsonl_line": 34332
+      }
+    ],
+    "sha256": "beb713c3518cc04a911b6d25f1d0b7020e9a96dc4e9e4d5b3988b817c6618025"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_beb713c3518cc04a911b6d25/column_band_01.jpg",
+        "review-crops/da_beb713c3518cc04a911b6d25/column_band_02.jpg",
+        "review-crops/da_beb713c3518cc04a911b6d25/column_band_03.jpg",
+        "review-crops/da_beb713c3518cc04a911b6d25/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.257",
+      "crop_verification_elapsed_seconds:3.13",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

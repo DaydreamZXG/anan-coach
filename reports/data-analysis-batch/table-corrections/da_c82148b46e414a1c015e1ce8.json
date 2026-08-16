@@ -1,0 +1,189 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "绝对数",
+      "比上年增长（%）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "投资完成额",
+        "group": null,
+        "label": "投资完成额",
+        "unit": "亿元",
+        "values": [
+          48267,
+          33.2
+        ]
+      },
+      {
+        "display_label": "其中：商品住宅",
+        "group": "投资完成额",
+        "label": "投资完成额｜其中：商品住宅",
+        "unit": "亿元",
+        "values": [
+          34038,
+          32.9
+        ]
+      },
+      {
+        "display_label": "其中：90平方米以下住宅",
+        "group": null,
+        "label": "其中：90平方米以下住宅",
+        "unit": "亿元",
+        "values": [
+          10665,
+          27.4
+        ]
+      },
+      {
+        "display_label": "房屋施工面积",
+        "group": null,
+        "label": "房屋施工面积",
+        "unit": "万平方米",
+        "values": [
+          405539,
+          26.6
+        ]
+      },
+      {
+        "display_label": "其中：商品住宅",
+        "group": "房屋施工面积",
+        "label": "房屋施工面积｜其中：商品住宅",
+        "unit": "万平方米",
+        "values": [
+          314943,
+          25.3
+        ]
+      },
+      {
+        "display_label": "房屋新开工面积",
+        "group": null,
+        "label": "房屋新开工面积",
+        "unit": "万平方米",
+        "values": [
+          163777,
+          40.7
+        ]
+      },
+      {
+        "display_label": "其中：商品住宅",
+        "group": "房屋新开工面积",
+        "label": "房屋新开工面积｜其中：商品住宅",
+        "unit": "万平方米",
+        "values": [
+          129468,
+          38.8
+        ]
+      },
+      {
+        "display_label": "房屋竣工面积",
+        "group": null,
+        "label": "房屋竣工面积",
+        "unit": "万平方米",
+        "values": [
+          75961,
+          4.5
+        ]
+      },
+      {
+        "display_label": "其中：商品住宅",
+        "group": "房屋竣工面积",
+        "label": "房屋竣工面积｜其中：商品住宅",
+        "unit": "万平方米",
+        "values": [
+          61216,
+          2.7
+        ]
+      },
+      {
+        "display_label": "商品房销售面积",
+        "group": null,
+        "label": "商品房销售面积",
+        "unit": "万平方米",
+        "values": [
+          104349,
+          10.1
+        ]
+      },
+      {
+        "display_label": "其中：商品住宅",
+        "group": "商品房销售面积",
+        "label": "商品房销售面积｜其中：商品住宅",
+        "unit": "万平方米",
+        "values": [
+          93052,
+          8.0
+        ]
+      },
+      {
+        "display_label": "本年资金来源",
+        "group": null,
+        "label": "本年资金来源",
+        "unit": "亿元",
+        "values": [
+          72494,
+          25.4
+        ]
+      },
+      {
+        "display_label": "其中：国内贷款",
+        "group": null,
+        "label": "其中：国内贷款",
+        "unit": "亿元",
+        "values": [
+          12540,
+          10.3
+        ]
+      },
+      {
+        "display_label": "其中：个人按揭贷款",
+        "group": null,
+        "label": "其中：个人按揭贷款",
+        "unit": "亿元",
+        "values": [
+          9211,
+          7.6
+        ]
+      },
+      {
+        "display_label": "本年购置土地面积",
+        "group": null,
+        "label": "本年购置土地面积",
+        "unit": "万平方米",
+        "values": [
+          40970,
+          28.4
+        ]
+      },
+      {
+        "display_label": "完成开发土地面积",
+        "group": null,
+        "label": "完成开发土地面积",
+        "unit": "万平方米",
+        "values": [
+          21254,
+          -7.7
+        ]
+      },
+      {
+        "display_label": "土地购置费",
+        "group": null,
+        "label": "土地购置费",
+        "unit": "亿元",
+        "values": [
+          9992,
+          65.9
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

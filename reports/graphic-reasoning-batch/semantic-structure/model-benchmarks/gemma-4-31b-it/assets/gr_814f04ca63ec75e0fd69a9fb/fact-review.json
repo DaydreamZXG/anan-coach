@@ -1,0 +1,114 @@
+{
+  "answerUsed": false,
+  "assetId": "gr_814f04ca63ec75e0fd69a9fb",
+  "checks": [
+    {
+      "evidence": "gr_814f04ca63ec75e0fd69a9fb",
+      "name": "asset_identity",
+      "status": "pass"
+    },
+    {
+      "evidence": "814f04ca63ec75e0fd69a9fbb46e7b19791c28db16478af6bcc5645ffc7a8483",
+      "name": "source_sha256",
+      "status": "pass"
+    },
+    {
+      "evidence": {
+        "imageAuthority": "source_sha256",
+        "mode": "original_image",
+        "vectorRequired": false
+      },
+      "name": "original_image_presentation",
+      "status": "pass"
+    },
+    {
+      "evidence": true,
+      "name": "answer_isolation",
+      "status": "pass"
+    },
+    {
+      "evidence": {
+        "layoutType": "matrix",
+        "optionCount": 4,
+        "panelCount": 10,
+        "panelRoles": [
+          "stem",
+          "stem",
+          "stem",
+          "stem",
+          "stem",
+          "missing",
+          "option",
+          "option",
+          "option",
+          "option"
+        ],
+        "source": "phase1_benchmark_cv+matrix_missing_slot_inferred"
+      },
+      "name": "layout",
+      "status": "pass"
+    },
+    {
+      "evidence": {
+        "facts": [
+          "missing matrix cell"
+        ],
+        "frame": {
+          "columns": 4,
+          "kind": "grid",
+          "rows": 4
+        },
+        "opt": null,
+        "p": 6,
+        "role": "missing",
+        "symbols": []
+      },
+      "name": "missing_slot",
+      "status": "pass"
+    },
+    {
+      "evidence": {
+        "visiblePanels": 9
+      },
+      "name": "exact_4x4_frames",
+      "status": "pass"
+    },
+    {
+      "evidence": {
+        "visiblePanels": 9
+      },
+      "name": "two_hollow_symbols",
+      "status": "pass"
+    },
+    {
+      "evidence": {
+        "checkedSymbols": 18,
+        "mismatches": {}
+      },
+      "name": "symbol_kind_cell_orientation",
+      "status": "pass"
+    },
+    {
+      "evidence": {
+        "components": 18,
+        "visiblePanels": 9
+      },
+      "name": "deterministic_grid_and_components",
+      "status": "pass"
+    },
+    {
+      "evidence": {
+        "evaluationPresent": true,
+        "originalImageCorrect": false,
+        "semanticJsonCorrect": true
+      },
+      "name": "semantic_answer_preservation",
+      "status": "pass"
+    }
+  ],
+  "method": "manual_source_fixture_plus_deterministic_assertions",
+  "reviewedAt": "2026-08-11T12:45:30.686414+00:00",
+  "schemaVersion": "graphic-reasoning-representative-visible-fact-review-v1",
+  "status": "semantic_solver_validated",
+  "visibleFactsStatus": "pass"
+}

@@ -1,0 +1,249 @@
+{
+  "asset_id": "da_b35e37242c47decbce3f075e",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 450.0,
+        "min": 0,
+        "ticks": [
+          0.0,
+          50.0,
+          100.0,
+          150.0,
+          200.0,
+          250.0,
+          300.0,
+          350.0,
+          400.0,
+          450.0
+        ],
+        "title": null,
+        "unit": "平方米"
+      }
+    ]
+  },
+  "categories": [
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年",
+    "2023年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "全国平均每万人群众文化设施建筑面积",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国平均每万人群众文化设施建筑面积",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "平方米",
+      "values": [
+        249.1,
+        269.2,
+        280.0,
+        288.6,
+        295.4,
+        307.0,
+        322.7,
+        331.3,
+        352.1,
+        375.2,
+        399.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2025年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0135_f40845eb607c9b8c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0135_f40845eb607c9b8c.png",
+        "paper_title": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_30d69735fc36a8539983",
+        "question_number": 121,
+        "source_jsonl_line": 8394
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0135_f40845eb607c9b8c.png",
+        "paper_title": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3bd0f85aa4369412e990",
+        "question_number": 122,
+        "source_jsonl_line": 8395
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0135_f40845eb607c9b8c.png",
+        "paper_title": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_05588b230a07c4aa3d18",
+        "question_number": 123,
+        "source_jsonl_line": 8396
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0150_698ab99da8356894.png",
+        "paper_title": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_22daeb664b35ec34b5e4",
+        "question_number": 124,
+        "source_jsonl_line": 8397
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0150_698ab99da8356894.png",
+        "paper_title": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9f6b5f2e01ec12f59e4c",
+        "question_number": 125,
+        "source_jsonl_line": 8398
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0142_698ab99da8356894.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8a3238195052fe76daa3",
+        "question_number": 116,
+        "source_jsonl_line": 84467
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0136_f40845eb607c9b8c.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_785cc832cd640a4d21d5",
+        "question_number": 117,
+        "source_jsonl_line": 84468
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0142_698ab99da8356894.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_00c5b89592f10f465b88",
+        "question_number": 118,
+        "source_jsonl_line": 84469
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0136_f40845eb607c9b8c.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8dde0d6997074417e3ec",
+        "question_number": 119,
+        "source_jsonl_line": 84470
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0142_698ab99da8356894.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d108e2f2d6836067cd17",
+        "question_number": 120,
+        "source_jsonl_line": 84471
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0106_698ab99da8356894.png",
+        "paper_title": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9f1188e0343eef0097e4",
+        "question_number": 116,
+        "source_jsonl_line": 104638
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0119_f40845eb607c9b8c.png",
+        "paper_title": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3d80dadd7fdd366fb791",
+        "question_number": 117,
+        "source_jsonl_line": 104639
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0119_f40845eb607c9b8c.png",
+        "paper_title": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e144fd8dbd4f45f7a01c",
+        "question_number": 118,
+        "source_jsonl_line": 104640
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0119_f40845eb607c9b8c.png",
+        "paper_title": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3fea6da3d837464c279d",
+        "question_number": 119,
+        "source_jsonl_line": 104641
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0119_f40845eb607c9b8c.png",
+        "paper_title": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c573d1414895113d8c63",
+        "question_number": 120,
+        "source_jsonl_line": 104642
+      }
+    ],
+    "sha256": "b35e37242c47decbce3f075e60cb4211f9d41f3b66a0ec42257a7fef780c0d5d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013-2023年全国平均每万人群众文化设施建筑面积",
+  "unit": "平方米",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b35e37242c47decbce3f075e/column_band_01.jpg",
+        "review-crops/da_b35e37242c47decbce3f075e/column_band_02.jpg",
+        "review-crops/da_b35e37242c47decbce3f075e/column_band_03.jpg",
+        "review-crops/da_b35e37242c47decbce3f075e/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.103",
+      "crop_verification_elapsed_seconds:4.133",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

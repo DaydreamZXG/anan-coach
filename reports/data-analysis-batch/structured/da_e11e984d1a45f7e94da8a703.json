@@ -1,0 +1,243 @@
+{
+  "asset_id": "da_e11e984d1a45f7e94da8a703",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1200,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000,
+          1200
+        ],
+        "title": null,
+        "unit": "(亿美元)"
+      }
+    ]
+  },
+  "categories": [
+    "2000",
+    "2001",
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "中国对非出口",
+      "style": {
+        "dash": null,
+        "fill": "#F5F5DC",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "中国自非进口",
+      "style": {
+        "dash": null,
+        "fill": "#F5F5DC",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "中非贸易额",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "中国对非出口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(亿美元)",
+      "values": [
+        60,
+        70,
+        70,
+        90,
+        180,
+        220,
+        290,
+        400,
+        520,
+        450
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "中国自非进口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(亿美元)",
+      "values": [
+        70,
+        50,
+        60,
+        100,
+        190,
+        230,
+        300,
+        400,
+        570,
+        480
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "中非贸易额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(亿美元)",
+      "values": [
+        130,
+        120,
+        130,
+        190,
+        370,
+        450,
+        590,
+        800,
+        1100,
+        930
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/青海/2014年青海省公务员录用考试《行测》题_images/img_0157_e447f9b30d451362.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年青海省公务员录用考试《行测》题_images/img_0157_e447f9b30d451362.png",
+        "paper_title": "2014年青海省公务员录用考试《行测》题",
+        "question_id": "pq_ae6e21cc1c707222fac0",
+        "question_number": 116,
+        "source_jsonl_line": 99114
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年青海省公务员录用考试《行测》题_images/img_0161_d7366bc941c923d4.png",
+        "paper_title": "2014年青海省公务员录用考试《行测》题",
+        "question_id": "pq_4a9f1b1e5db1b875f089",
+        "question_number": 117,
+        "source_jsonl_line": 99115
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年青海省公务员录用考试《行测》题_images/img_0157_e447f9b30d451362.png",
+        "paper_title": "2014年青海省公务员录用考试《行测》题",
+        "question_id": "pq_b56a3958fa4cc0a22c18",
+        "question_number": 118,
+        "source_jsonl_line": 99116
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年青海省公务员录用考试《行测》题_images/img_0161_d7366bc941c923d4.png",
+        "paper_title": "2014年青海省公务员录用考试《行测》题",
+        "question_id": "pq_647a48ef9e7c7ddf46b7",
+        "question_number": 119,
+        "source_jsonl_line": 99117
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年青海省公务员录用考试《行测》题_images/img_0157_e447f9b30d451362.png",
+        "paper_title": "2014年青海省公务员录用考试《行测》题",
+        "question_id": "pq_481a05754ccc889f418d",
+        "question_number": 120,
+        "source_jsonl_line": 99118
+      }
+    ],
+    "sha256": "e11e984d1a45f7e94da8a70376c8a61c964dd47a7f85ce3cbb3515f668ab2c16"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图1 2000-2009中国与非洲贸易",
+  "unit": "(亿美元)",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e11e984d1a45f7e94da8a703/column_band_01.jpg",
+        "review-crops/da_e11e984d1a45f7e94da8a703/column_band_02.jpg",
+        "review-crops/da_e11e984d1a45f7e94da8a703/column_band_03.jpg",
+        "review-crops/da_e11e984d1a45f7e94da8a703/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.698",
+      "crop_verification_elapsed_seconds:8.412",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

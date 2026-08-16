@@ -1,0 +1,450 @@
+{
+  "asset_id": "da_c12112c56f427e9d46852b2c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "地区",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "污染治理项目本年投资来源总额",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "国家预算内资金",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "北京",
+    "江苏",
+    "浙江",
+    "福建",
+    "山东",
+    "广东",
+    "甘肃"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "污染治理项目本年投资来源总额",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "国家预算内资金",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "环保专项资金",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "其他资金",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "国内贷款",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "利用外资",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "企业自筹",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "污染治理项目本年投资来源总额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        6.4,
+        15.0,
+        10.5,
+        12.9,
+        35.2,
+        25.1,
+        3.57
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "国家预算内资金",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        0.22,
+        0.04,
+        0.51,
+        0.53,
+        1.33,
+        6.97,
+        0.31
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "环保专项资金",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        4.43,
+        0.96,
+        0.27,
+        0.27,
+        0.86,
+        0.31,
+        0.12
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "其他资金",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1.75,
+        14.03,
+        9.67,
+        12.09,
+        32.96,
+        17.79,
+        3.15
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "国内贷款",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        0.06,
+        1.35,
+        2.28,
+        0.26,
+        5.01,
+        2.12,
+        0.64
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "利用外资",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1.03,
+        0.14,
+        0.11,
+        0.26,
+        1.22,
+        1.78,
+        null
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "企业自筹",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        11.62,
+        6.63,
+        6.63,
+        11.01,
+        24.57,
+        13.95,
+        1.78
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2010年黑龙江省公务员录用考试《行测》题_images/img_0129_4869bfc7803949d7.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年黑龙江省公务员录用考试《行测》题_images/img_0129_4869bfc7803949d7.png",
+        "paper_title": "2010年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_04aa020cd176211772a6",
+        "question_number": 96,
+        "source_jsonl_line": 101259
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年黑龙江省公务员录用考试《行测》题_images/img_0129_4869bfc7803949d7.png",
+        "paper_title": "2010年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_892c1c2fc9203a10f26d",
+        "question_number": 97,
+        "source_jsonl_line": 101260
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年黑龙江省公务员录用考试《行测》题_images/img_0149_8140379e975c4bae.png",
+        "paper_title": "2010年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_e2ec6e3de864246407e0",
+        "question_number": 98,
+        "source_jsonl_line": 101261
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年黑龙江省公务员录用考试《行测》题_images/img_0149_8140379e975c4bae.png",
+        "paper_title": "2010年黑龙江省公务员录用考试《行测》题",
+        "question_id": "pq_f40e69b4fef959be7bee",
+        "question_number": 99,
+        "source_jsonl_line": 101262
+      }
+    ],
+    "sha256": "c12112c56f427e9d46852b2c7f698f88db5cd955041ddb577311dee5ec2069c3"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "污染治理项目本年投资来源总额",
+      "国家预算内资金",
+      "环保专项资金",
+      "其他资金",
+      "国内贷款",
+      "利用外资",
+      "企业自筹"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "北京",
+        "unit": null,
+        "values": [
+          "北京",
+          6.4,
+          0.22,
+          4.43,
+          1.75,
+          0.06,
+          null,
+          11.62
+        ]
+      },
+      {
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          "江苏",
+          15.0,
+          0.04,
+          0.96,
+          14.03,
+          1.35,
+          1.03,
+          6.63
+        ]
+      },
+      {
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          "浙江",
+          10.5,
+          0.51,
+          0.27,
+          9.67,
+          2.28,
+          0.11,
+          6.63
+        ]
+      },
+      {
+        "label": "福建",
+        "unit": null,
+        "values": [
+          "福建",
+          12.9,
+          0.53,
+          0.27,
+          12.09,
+          0.26,
+          0.11,
+          11.01
+        ]
+      },
+      {
+        "label": "山东",
+        "unit": null,
+        "values": [
+          "山东",
+          35.2,
+          1.33,
+          0.86,
+          32.96,
+          5.01,
+          0.26,
+          24.57
+        ]
+      },
+      {
+        "label": "广东",
+        "unit": null,
+        "values": [
+          "广东",
+          25.1,
+          6.97,
+          0.31,
+          17.79,
+          2.12,
+          1.78,
+          13.95
+        ]
+      },
+      {
+        "label": "甘肃",
+        "unit": null,
+        "values": [
+          "甘肃",
+          3.57,
+          0.31,
+          0.12,
+          3.15,
+          0.64,
+          0.64,
+          1.78
+        ]
+      }
+    ]
+  },
+  "title": "表 2003 年我国部分地区工业污染治理投资来源情况（亿元）",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c12112c56f427e9d46852b2c/row_band_01.jpg",
+        "review-crops/da_c12112c56f427e9d46852b2c/row_band_02.jpg",
+        "review-crops/da_c12112c56f427e9d46852b2c/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:21.267",
+      "crop_verification_elapsed_seconds:11.685",
+      "candidate_value_changes_after_crop:5",
+      "model_uncertainty:利用外资在甘肃的数据为'——'，明确表示缺失，已标记为null",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

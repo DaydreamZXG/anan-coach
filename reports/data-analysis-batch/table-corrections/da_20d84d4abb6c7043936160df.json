@@ -1,0 +1,117 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "9月",
+      "比上年同月增长%",
+      "1-9月",
+      "比上年同期增长%"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "铁路",
+        "group": "客运量",
+        "label": "客运量｜铁路",
+        "unit": "亿人",
+        "values": [
+          1.25,
+          12.8,
+          11.2,
+          11.8
+        ]
+      },
+      {
+        "display_label": "公路",
+        "group": "客运量",
+        "label": "客运量｜公路",
+        "unit": "亿人",
+        "values": [
+          18.47,
+          11.4,
+          163.06,
+          7.4
+        ]
+      },
+      {
+        "display_label": "水运",
+        "group": "客运量",
+        "label": "客运量｜水运",
+        "unit": "亿人",
+        "values": [
+          0.2,
+          -2.1,
+          1.73,
+          -2.7
+        ]
+      },
+      {
+        "display_label": "民航",
+        "group": "客运量",
+        "label": "客运量｜民航",
+        "unit": "亿人",
+        "values": [
+          0.16,
+          0.7,
+          1.41,
+          1.7
+        ]
+      },
+      {
+        "display_label": "铁路",
+        "group": "旅客周转量",
+        "label": "旅客周转量｜铁路",
+        "unit": "亿人公里",
+        "values": [
+          656.67,
+          9.3,
+          6073.82,
+          7.2
+        ]
+      },
+      {
+        "display_label": "公路",
+        "group": "旅客周转量",
+        "label": "旅客周转量｜公路",
+        "unit": "亿人公里",
+        "values": [
+          1067.85,
+          12.4,
+          9316.19,
+          9.4
+        ]
+      },
+      {
+        "display_label": "水运",
+        "group": "旅客周转量",
+        "label": "旅客周转量｜水运",
+        "unit": "亿人公里",
+        "values": [
+          6.46,
+          0.2,
+          52.79,
+          -6.4
+        ]
+      },
+      {
+        "display_label": "民航",
+        "group": "旅客周转量",
+        "label": "旅客周转量｜民航",
+        "unit": "亿人公里",
+        "values": [
+          240.96,
+          -2.5,
+          2113.91,
+          1.5
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,166 @@
+{
+  "asset_id": "da_b39fb7153ebbcb03d809addc",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 80,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "衣着服饰",
+    "食品保健品",
+    "日用化妆品",
+    "缴费充值服务",
+    "装潢家居服务",
+    "家用电器",
+    "手机数码产品",
+    "图书音像",
+    "旅游服务",
+    "汽车用品"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "受访者占比",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "受访者占比",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        78.7,
+        49.5,
+        39.7,
+        36.8,
+        28.8,
+        28.0,
+        23.1,
+        17.8,
+        17.4,
+        10.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2015年江苏省公务员录用考试《行测》题（A类）_images/img_0096_c32b8a9495d71760.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0096_c32b8a9495d71760.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_b512cf98993a1d14d53d",
+        "question_number": 81,
+        "source_jsonl_line": 46896
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0096_c32b8a9495d71760.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_f03040f49f4aed49449e",
+        "question_number": 82,
+        "source_jsonl_line": 46897
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0100_89c8a42746d01ee1.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_511b3748e12370c00eb0",
+        "question_number": 83,
+        "source_jsonl_line": 46898
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0096_c32b8a9495d71760.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_9c9c1f025db443361cf3",
+        "question_number": 84,
+        "source_jsonl_line": 46899
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江苏省公务员录用考试《行测》题（A类）_images/img_0096_c32b8a9495d71760.png",
+        "paper_title": "2015年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_16bc6bb957c093edbe9b",
+        "question_number": 85,
+        "source_jsonl_line": 46900
+      }
+    ],
+    "sha256": "b39fb7153ebbcb03d809addce00e07904b27a896408fd38c942d65712c090248"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013年S市网购10类主要商品和服务的受访者占比（%）",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b39fb7153ebbcb03d809addc/column_band_01.jpg",
+        "review-crops/da_b39fb7153ebbcb03d809addc/column_band_02.jpg",
+        "review-crops/da_b39fb7153ebbcb03d809addc/column_band_03.jpg",
+        "review-crops/da_b39fb7153ebbcb03d809addc/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.383",
+      "crop_verification_elapsed_seconds:2.449",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

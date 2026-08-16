@@ -1,0 +1,328 @@
+{
+  "asset_id": "da_f16e83ea6a0ad7b519bb6309",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "指标",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "全市居民",
+        "unit": null
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "城镇常住居民",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "工资性收入",
+    "经营性收入",
+    "财产性收入",
+    "转移性收入"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "绝对量 (元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        18138,
+        5358,
+        2090,
+        8217
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "比上年增长 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        9.8,
+        9.3,
+        9.6,
+        9.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "绝对量 (元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        25396,
+        4894,
+        3016,
+        10106
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "比上年增长 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        8.7,
+        9.2,
+        8.6,
+        8.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "绝对量 (元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        6386,
+        6110,
+        447,
+        5157
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "比上年增长 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        11.3,
+        9.8,
+        9.9,
+        10.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0059_007b688c2a0c4692.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0059_007b688c2a0c4692.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_79cfc616280232e7ce95",
+        "question_number": 91,
+        "source_jsonl_line": 90131
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0055_02a9077478e20423.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_ef1f3eb8a4624b6a2f28",
+        "question_number": 92,
+        "source_jsonl_line": 90132
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0055_02a9077478e20423.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_36024462c029b4733cf8",
+        "question_number": 93,
+        "source_jsonl_line": 90133
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0055_02a9077478e20423.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_24b44f3cb5516cb36998",
+        "question_number": 94,
+        "source_jsonl_line": 90134
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0055_02a9077478e20423.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_788c47f7d01144f836f9",
+        "question_number": 95,
+        "source_jsonl_line": 90135
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0052_02a9077478e20423.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_50cffa1bba5ed66db06d",
+        "question_number": 91,
+        "source_jsonl_line": 95714
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0052_02a9077478e20423.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_0bb47a2e4fef4dfe2281",
+        "question_number": 92,
+        "source_jsonl_line": 95715
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0052_02a9077478e20423.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_aaf84b938ed1bbf0228f",
+        "question_number": 93,
+        "source_jsonl_line": 95716
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0052_02a9077478e20423.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_f67720ca3570cf7553b1",
+        "question_number": 94,
+        "source_jsonl_line": 95717
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0072_007b688c2a0c4692.png",
+        "paper_title": "2023年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_cc55b9a5f019e1ba2f44",
+        "question_number": 95,
+        "source_jsonl_line": 95718
+      }
+    ],
+    "sha256": "f16e83ea6a0ad7b519bb6309939be5e155ae494b07ac49af16b76a88dc97dee9"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "全市居民",
+      "城镇常住居民",
+      "农村常住居民"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "工资性收入",
+        "unit": null,
+        "values": [
+          "绝对量 (元)",
+          18138,
+          25396,
+          6386
+        ]
+      },
+      {
+        "label": "经营性收入",
+        "unit": null,
+        "values": [
+          "绝对量 (元)",
+          5358,
+          4894,
+          6110
+        ]
+      },
+      {
+        "label": "财产性收入",
+        "unit": null,
+        "values": [
+          "绝对量 (元)",
+          2090,
+          3016,
+          447
+        ]
+      },
+      {
+        "label": "转移性收入",
+        "unit": null,
+        "values": [
+          "绝对量 (元)",
+          8217,
+          10106,
+          5157
+        ]
+      }
+    ]
+  },
+  "title": "2021年重庆市居民人均可支配收入结构表",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f16e83ea6a0ad7b519bb6309/row_band_01.jpg",
+        "review-crops/da_f16e83ea6a0ad7b519bb6309/row_band_02.jpg",
+        "review-crops/da_f16e83ea6a0ad7b519bb6309/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.546",
+      "crop_verification_elapsed_seconds:2.714",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

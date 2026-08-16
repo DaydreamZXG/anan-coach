@@ -1,0 +1,190 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "数量（万吨）"
+        ],
+        "label": "数量"
+      },
+      {
+        "columns": [
+          "比上年增长（%）"
+        ],
+        "label": "同比增长"
+      },
+      {
+        "columns": [
+          "金额（亿元）"
+        ],
+        "label": "金额"
+      },
+      {
+        "columns": [
+          "比上年增长（%）"
+        ],
+        "label": "同比增长"
+      }
+    ],
+    "columns": [
+      "数量（万吨）",
+      "比上年增长（%）",
+      "金额（亿元）",
+      "比上年增长（%）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "商品名称",
+    "rows": [
+      {
+        "display_label": "谷物及谷物粉",
+        "group": null,
+        "label": "谷物及谷物粉",
+        "unit": null,
+        "values": [
+          3270,
+          67.6,
+          582,
+          52.4
+        ]
+      },
+      {
+        "display_label": "大豆",
+        "group": null,
+        "label": "大豆",
+        "unit": null,
+        "values": [
+          8169,
+          14.4,
+          2157,
+          -12.8
+        ]
+      },
+      {
+        "display_label": "食用植物油",
+        "group": null,
+        "label": "食用植物油",
+        "unit": null,
+        "values": [
+          676,
+          4.1,
+          311,
+          -14.5
+        ]
+      },
+      {
+        "display_label": "铁矿砂及其精矿",
+        "group": null,
+        "label": "铁矿砂及其精矿",
+        "unit": null,
+        "values": [
+          95272,
+          2.2,
+          3574,
+          -37.7
+        ]
+      },
+      {
+        "display_label": "氧化铝",
+        "group": null,
+        "label": "氧化铝",
+        "unit": null,
+        "values": [
+          465,
+          -11.8,
+          101,
+          -14.2
+        ]
+      },
+      {
+        "display_label": "煤（包括褐煤）",
+        "group": null,
+        "label": "煤（包括褐煤）",
+        "unit": null,
+        "values": [
+          20406,
+          -29.9,
+          749,
+          -45.2
+        ]
+      },
+      {
+        "display_label": "原油",
+        "group": null,
+        "label": "原油",
+        "unit": null,
+        "values": [
+          33550,
+          8.8,
+          8333,
+          -40.5
+        ]
+      },
+      {
+        "display_label": "成品油",
+        "group": null,
+        "label": "成品油",
+        "unit": null,
+        "values": [
+          2990,
+          -0.3,
+          886,
+          -38.5
+        ]
+      },
+      {
+        "display_label": "初级形状的塑料",
+        "group": null,
+        "label": "初级形状的塑料",
+        "unit": null,
+        "values": [
+          2610,
+          2.9,
+          2793,
+          -11.8
+        ]
+      },
+      {
+        "display_label": "纸浆",
+        "group": null,
+        "label": "纸浆",
+        "unit": null,
+        "values": [
+          1984,
+          10.4,
+          792,
+          6.9
+        ]
+      },
+      {
+        "display_label": "钢材",
+        "group": null,
+        "label": "钢材",
+        "unit": null,
+        "values": [
+          1278,
+          -11.4,
+          889,
+          -19.2
+        ]
+      },
+      {
+        "display_label": "未锻轧铜及铜材",
+        "group": null,
+        "label": "未锻轧铜及铜材",
+        "unit": null,
+        "values": [
+          481,
+          -0.3,
+          1804,
+          -17.4
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

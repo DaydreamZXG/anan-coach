@@ -1,0 +1,261 @@
+{
+  "asset_id": "da_845d293bd675a4e996e20a3c",
+  "axes": {
+    "x": {
+      "max": 2013,
+      "min": 2004,
+      "ticks": [
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 8000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000
+        ],
+        "title": null,
+        "unit": "亿元"
+      },
+      {
+        "max": 1.5,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          0.3,
+          0.6,
+          0.9,
+          1.2,
+          1.5
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "成交金额",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "占GDP比重",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "成交金额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1334,
+        1551,
+        1818,
+        2227,
+        2665,
+        3039,
+        3907,
+        4764,
+        6437,
+        7469
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "GDP",
+      "label": "占GDP比重",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.98,
+        0.85,
+        0.87,
+        0.9,
+        0.89,
+        0.89,
+        0.97,
+        1.01,
+        1.24,
+        1.31
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/上海/2016年上海市公务员录用考试《行测》题（A类）_images/img_0084_35cbcf5709165cb4.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（A类）_images/img_0084_35cbcf5709165cb4.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（A类）",
+        "question_id": "pq_ae5950580cee5023d2a0",
+        "question_number": 96,
+        "source_jsonl_line": 1611
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（A类）_images/img_0087_c2ca203730c7761a.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（A类）",
+        "question_id": "pq_9aeef1ce54eb317aa0e2",
+        "question_number": 97,
+        "source_jsonl_line": 1612
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（A类）_images/img_0087_c2ca203730c7761a.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（A类）",
+        "question_id": "pq_bc52ad6c9522284059d0",
+        "question_number": 98,
+        "source_jsonl_line": 1613
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（A类）_images/img_0087_c2ca203730c7761a.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（A类）",
+        "question_id": "pq_fef224d284caebde5bce",
+        "question_number": 99,
+        "source_jsonl_line": 1614
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（A类）_images/img_0087_c2ca203730c7761a.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（A类）",
+        "question_id": "pq_f7f6e932898417639648",
+        "question_number": 100,
+        "source_jsonl_line": 1615
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0143_35cbcf5709165cb4.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_04a001b3343be50be8e0",
+        "question_number": 126,
+        "source_jsonl_line": 1741
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0124_c2ca203730c7761a.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_ba07abe14143ee559dda",
+        "question_number": 127,
+        "source_jsonl_line": 1742
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0124_c2ca203730c7761a.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_7e4d127ff21b00b0708d",
+        "question_number": 128,
+        "source_jsonl_line": 1743
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0143_35cbcf5709165cb4.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_48b674a432392b27a26a",
+        "question_number": 129,
+        "source_jsonl_line": 1744
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0124_c2ca203730c7761a.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_8fcbfe602fb19ef103fc",
+        "question_number": 130,
+        "source_jsonl_line": 1745
+      }
+    ],
+    "sha256": "845d293bd675a4e996e20a3c6403328b2d6e9b3d2620c436eff5fb375679dfaa"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2004-2013年全国技术合同成交金额及其占GDP比重",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_845d293bd675a4e996e20a3c/column_band_01.jpg",
+        "review-crops/da_845d293bd675a4e996e20a3c/column_band_02.jpg",
+        "review-crops/da_845d293bd675a4e996e20a3c/column_band_03.jpg",
+        "review-crops/da_845d293bd675a4e996e20a3c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.533",
+      "crop_verification_elapsed_seconds:5.619",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

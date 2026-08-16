@@ -1,0 +1,67 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "笔试｜合格",
+          "笔试｜不合格"
+        ],
+        "label": "笔试"
+      },
+      {
+        "columns": [
+          "合计"
+        ],
+        "label": "合计"
+      }
+    ],
+    "columns": [
+      "笔试｜合格",
+      "笔试｜不合格",
+      "合计"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "面试",
+    "rows": [
+      {
+        "display_label": "合格",
+        "group": null,
+        "label": "合格",
+        "unit": null,
+        "values": [
+          350,
+          0,
+          350
+        ]
+      },
+      {
+        "display_label": "不合格",
+        "group": null,
+        "label": "不合格",
+        "unit": null,
+        "values": [
+          700,
+          1575,
+          2275
+        ]
+      },
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          1050,
+          1575,
+          2625
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

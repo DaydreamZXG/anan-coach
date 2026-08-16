@@ -1,0 +1,306 @@
+{
+  "asset_id": "da_f54719d3665f8f4137c430fa",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0027_80595f56a575cdbe.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0027_80595f56a575cdbe.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_a92978aa2d3d5178ab88",
+        "question_number": 106,
+        "source_jsonl_line": 40652
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0027_80595f56a575cdbe.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_bbbc302d50224be7f30d",
+        "question_number": 107,
+        "source_jsonl_line": 40653
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0027_80595f56a575cdbe.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_d16243217ac5b37f3c90",
+        "question_number": 108,
+        "source_jsonl_line": 40654
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0027_80595f56a575cdbe.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_1a6d1b1e76b152c699cb",
+        "question_number": 109,
+        "source_jsonl_line": 40655
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0027_80595f56a575cdbe.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_4c1b798a2ddfb6cd549a",
+        "question_number": 110,
+        "source_jsonl_line": 40656
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0029_e192095a81c9f6c3.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_52350b8d9275b8391818",
+        "question_number": 106,
+        "source_jsonl_line": 42064
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0029_e192095a81c9f6c3.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_d268b7a4a9dbcc8e3d64",
+        "question_number": 107,
+        "source_jsonl_line": 42065
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0029_e192095a81c9f6c3.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_279abea1b30c1992a29e",
+        "question_number": 108,
+        "source_jsonl_line": 42066
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0054_80595f56a575cdbe.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_4fcaf1511a9a56e20dce",
+        "question_number": 109,
+        "source_jsonl_line": 42067
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0054_80595f56a575cdbe.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_aebb5972fb4657b62168",
+        "question_number": 110,
+        "source_jsonl_line": 42068
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0031_80595f56a575cdbe.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_a45bc873934edd12207b",
+        "question_number": 106,
+        "source_jsonl_line": 57483
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0036_e192095a81c9f6c3.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_bf1780d50f94e8c9ff6b",
+        "question_number": 107,
+        "source_jsonl_line": 57484
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0036_e192095a81c9f6c3.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_ce56f5030a279791345b",
+        "question_number": 108,
+        "source_jsonl_line": 57485
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0031_80595f56a575cdbe.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_569a90f8c3ae84a094c7",
+        "question_number": 109,
+        "source_jsonl_line": 57486
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0031_80595f56a575cdbe.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_1ad61adcfdd890ee005f",
+        "question_number": 110,
+        "source_jsonl_line": 57487
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0024_80595f56a575cdbe.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_f8f5f6be3f42a2c8866d",
+        "question_number": 106,
+        "source_jsonl_line": 77261
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0024_80595f56a575cdbe.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_e65aac10159fbb4bb4e6",
+        "question_number": 107,
+        "source_jsonl_line": 77262
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0024_80595f56a575cdbe.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_66337fe6c0eb832d8314",
+        "question_number": 108,
+        "source_jsonl_line": 77263
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0024_80595f56a575cdbe.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_b7d689ad365bc5b662e6",
+        "question_number": 109,
+        "source_jsonl_line": 77264
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0053_e192095a81c9f6c3.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_fb88915b3cf73d4f4023",
+        "question_number": 110,
+        "source_jsonl_line": 77265
+      }
+    ],
+    "sha256": "f54719d3665f8f4137c430fadbccc53b8d4bc0e440465c7f3fe7463fd75b90e6"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "GDP｜2010年GDP(亿美元)",
+          "GDP｜2011年GDP(亿美元)"
+        ],
+        "label": "GDP"
+      },
+      {
+        "columns": [
+          "人口数｜2010年人口数(万人)",
+          "人口数｜2011年人口数(万人)"
+        ],
+        "label": "人口数"
+      }
+    ],
+    "columns": [
+      "GDP｜2010年GDP(亿美元)",
+      "GDP｜2011年GDP(亿美元)",
+      "人口数｜2010年人口数(万人)",
+      "人口数｜2011年人口数(万人)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家",
+    "rows": [
+      {
+        "display_label": "巴西",
+        "group": null,
+        "label": "巴西",
+        "unit": null,
+        "values": [
+          21430,
+          24808,
+          19070,
+          19200
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": null,
+        "label": "俄罗斯",
+        "unit": null,
+        "values": [
+          14870,
+          18500,
+          14191,
+          14287
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": null,
+        "label": "印度",
+        "unit": null,
+        "values": [
+          16030,
+          18392,
+          118211,
+          121000
+        ]
+      },
+      {
+        "display_label": "中国",
+        "group": null,
+        "label": "中国",
+        "unit": null,
+        "values": [
+          59310,
+          73010,
+          133787,
+          134413
+        ]
+      },
+      {
+        "display_label": "南非",
+        "group": null,
+        "label": "南非",
+        "unit": null,
+        "values": [
+          3640,
+          3750,
+          4999,
+          5000
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

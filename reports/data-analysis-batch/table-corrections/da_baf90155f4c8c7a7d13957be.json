@@ -1,0 +1,178 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "绝对量",
+      "同比增长率（百分点）",
+      "同比增速（百分点）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "同比增速（百分点）",
+        "display": "—",
+        "row": "项目｜个体工商户（万户）"
+      },
+      {
+        "column": "同比增速（百分点）",
+        "display": "—",
+        "row": "项目｜农民专业合作社（万户）"
+      },
+      {
+        "column": "同比增速（百分点）",
+        "display": "—",
+        "row": "项目｜生产总值（亿元）"
+      },
+      {
+        "column": "同比增速（百分点）",
+        "display": "—",
+        "row": "项目｜年人均生产总值（元）"
+      },
+      {
+        "column": "同比增速（百分点）",
+        "display": "—",
+        "row": "项目｜税收总额（亿元）"
+      }
+    ],
+    "row_header_label": "指标｜分类",
+    "rows": [
+      {
+        "display_label": "市场主体（万户）",
+        "group": "项目",
+        "label": "项目｜市场主体（万户）",
+        "unit": null,
+        "values": [
+          343.8,
+          8.2,
+          1.1
+        ]
+      },
+      {
+        "display_label": "其中：企业（万户）",
+        "group": "项目",
+        "label": "项目｜其中：企业（万户）",
+        "unit": null,
+        "values": [
+          90.7,
+          12,
+          -2.9
+        ]
+      },
+      {
+        "display_label": "个体工商户（万户）",
+        "group": "项目",
+        "label": "项目｜个体工商户（万户）",
+        "unit": null,
+        "values": [
+          246.5,
+          6.9,
+          null
+        ]
+      },
+      {
+        "display_label": "农民专业合作社（万户）",
+        "group": "项目",
+        "label": "项目｜农民专业合作社（万户）",
+        "unit": null,
+        "values": [
+          66.2,
+          5.8,
+          null
+        ]
+      },
+      {
+        "display_label": "注册资本（万亿元）",
+        "group": "项目",
+        "label": "项目｜注册资本（万亿元）",
+        "unit": null,
+        "values": [
+          129.23,
+          27.7,
+          -2.9
+        ]
+      },
+      {
+        "display_label": "新登记市场主体（万户）",
+        "group": "项目",
+        "label": "项目｜新登记市场主体（万户）",
+        "unit": null,
+        "values": [
+          66.1,
+          5.1,
+          -25.5
+        ]
+      },
+      {
+        "display_label": "生产总值（亿元）",
+        "group": "项目",
+        "label": "项目｜生产总值（亿元）",
+        "unit": null,
+        "values": [
+          25315.4,
+          5.7,
+          null
+        ]
+      },
+      {
+        "display_label": "年人均生产总值（元）",
+        "group": "项目",
+        "label": "项目｜年人均生产总值（元）",
+        "unit": null,
+        "values": [
+          58008,
+          5.9,
+          null
+        ]
+      },
+      {
+        "display_label": "规模以上工业主营业务收入（亿元）",
+        "group": "项目",
+        "label": "项目｜规模以上工业主营业务收入（亿元）",
+        "unit": null,
+        "values": [
+          26489.9,
+          15.8,
+          6.9
+        ]
+      },
+      {
+        "display_label": "规模以上工业利税总额（亿元）",
+        "group": "项目",
+        "label": "项目｜规模以上工业利税总额（亿元）",
+        "unit": null,
+        "values": [
+          2925.1,
+          20.7,
+          -7.5
+        ]
+      },
+      {
+        "display_label": "其中：利润总额（亿元）",
+        "group": "项目",
+        "label": "项目｜其中：利润总额（亿元）",
+        "unit": null,
+        "values": [
+          1460.3,
+          41.8,
+          -51.9
+        ]
+      },
+      {
+        "display_label": "税收总额（亿元）",
+        "group": "项目",
+        "label": "项目｜税收总额（亿元）",
+        "unit": null,
+        "values": [
+          1464.8,
+          5.1,
+          null
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

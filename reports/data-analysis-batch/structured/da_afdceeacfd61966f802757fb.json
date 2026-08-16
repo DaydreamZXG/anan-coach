@@ -1,0 +1,213 @@
+{
+  "asset_id": "da_afdceeacfd61966f802757fb",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "SAT",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "GPA",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "1600-1300",
+    "1299-1000",
+    "999-700",
+    "699-400"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2.0-2.4",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "2.5-2.9",
+      "style": {
+        "dash": "solid",
+        "fill": "white",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "3.0-3.4",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "3.5-4.0",
+      "style": {
+        "dash": "solid",
+        "fill": "white",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2_0-2_4",
+      "label": "2.0-2.4",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        14,
+        10,
+        50,
+        25
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2_5-2_9",
+      "label": "2.5-2.9",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        120,
+        25,
+        80,
+        450
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "3_0-3_4",
+      "label": "3.0-3.4",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        60,
+        25,
+        52,
+        20
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "3_5-4_0",
+      "label": "3.5-4.0",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        25,
+        25,
+        55,
+        14
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖南/2009年湖南省公务员录用考试《行测》题_images/img_0111_fce534853e31d5c0.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年湖南省公务员录用考试《行测》题_images/img_0111_fce534853e31d5c0.png",
+        "paper_title": "2009年湖南省公务员录用考试《行测》题",
+        "question_id": "pq_39883972a0535b2a436c",
+        "question_number": 133,
+        "source_jsonl_line": 72289
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年湖南省公务员录用考试《行测》题_images/img_0111_fce534853e31d5c0.png",
+        "paper_title": "2009年湖南省公务员录用考试《行测》题",
+        "question_id": "pq_3022cae93e06f413d020",
+        "question_number": 134,
+        "source_jsonl_line": 72290
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年湖南省公务员录用考试《行测》题_images/img_0111_fce534853e31d5c0.png",
+        "paper_title": "2009年湖南省公务员录用考试《行测》题",
+        "question_id": "pq_e0ce8c7836f7b227043c",
+        "question_number": 135,
+        "source_jsonl_line": 72291
+      }
+    ],
+    "sha256": "afdceeacfd61966f802757fbf91d5169629839e3bb32ba594a52eac6739524b2"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "SAT Scores and GPA Distribution",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_afdceeacfd61966f802757fb/column_band_01.jpg",
+        "review-crops/da_afdceeacfd61966f802757fb/column_band_02.jpg",
+        "review-crops/da_afdceeacfd61966f802757fb/column_band_03.jpg",
+        "review-crops/da_afdceeacfd61966f802757fb/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.715",
+      "crop_verification_elapsed_seconds:6.102",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:GPA categories are not explicitly labeled on the y-axis, inferred from the labels at the end of the bars.",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

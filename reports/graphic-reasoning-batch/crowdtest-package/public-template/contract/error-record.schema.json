@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "graphic-reasoning-error-record-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["assetId", "code", "message", "recoverable"],
+  "properties": {
+    "assetId": {"type": "string", "pattern": "^gr_[0-9a-f]{24}$"},
+    "code": {"type": "string", "minLength": 1},
+    "message": {"type": "string", "minLength": 1},
+    "recoverable": {"type": "boolean"}
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "3月",
+      "1-3月累计"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "比上年同月增长（%）",
+      "style": "diagonal",
+      "upper_label": "比上年同月增长（%）"
+    },
+    "missing_cells": [],
+    "row_header_label": "比上年同月增长（%）",
+    "rows": [
+      {
+        "display_label": "社会消费品零售总额",
+        "group": null,
+        "label": "社会消费品零售总额",
+        "unit": null,
+        "values": [
+          8123.2,
+          25555.2
+        ]
+      },
+      {
+        "display_label": "市",
+        "group": "（一）按地区分",
+        "label": "（一）按地区分｜市",
+        "unit": null,
+        "values": [
+          5536.8,
+          17367.5
+        ]
+      },
+      {
+        "display_label": "县",
+        "group": "（一）按地区分",
+        "label": "（一）按地区分｜县",
+        "unit": null,
+        "values": [
+          894.0,
+          2839.0
+        ]
+      },
+      {
+        "display_label": "县以下",
+        "group": "（一）按地区分",
+        "label": "（一）按地区分｜县以下",
+        "unit": null,
+        "values": [
+          1692.4,
+          5338.8
+        ]
+      },
+      {
+        "display_label": "批发和零售业",
+        "group": "（二）按行业分",
+        "label": "（二）按行业分｜批发和零售业",
+        "unit": null,
+        "values": [
+          6851.7,
+          21490.2
+        ]
+      },
+      {
+        "display_label": "住宿和餐饮业",
+        "group": "（二）按行业分",
+        "label": "（二）按行业分｜住宿和餐饮业",
+        "unit": null,
+        "values": [
+          1151.6,
+          3687.3
+        ]
+      },
+      {
+        "display_label": "其他",
+        "group": "（二）按行业分",
+        "label": "（二）按行业分｜其他",
+        "unit": null,
+        "values": [
+          119.9,
+          377.7
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

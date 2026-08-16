@@ -1,0 +1,233 @@
+{
+  "asset_id": "da_356fa18605201d9e61cd4198",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2013年深圳市公务员录用考试《行测》题_images/img_0193_831e90846ea4fbe5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年深圳市公务员录用考试《行测》题_images/img_0193_831e90846ea4fbe5.png",
+        "paper_title": "2013年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_eb681afc7b87fcfa3c58",
+        "question_number": 96,
+        "source_jsonl_line": 67352
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年深圳市公务员录用考试《行测》题_images/img_0205_804cf1ac7ecae579.png",
+        "paper_title": "2013年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_1480f7ac7721b78cd0f3",
+        "question_number": 97,
+        "source_jsonl_line": 67353
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年深圳市公务员录用考试《行测》题_images/img_0205_804cf1ac7ecae579.png",
+        "paper_title": "2013年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_ed99d4a67c6343f5ef80",
+        "question_number": 98,
+        "source_jsonl_line": 67354
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年深圳市公务员录用考试《行测》题_images/img_0205_804cf1ac7ecae579.png",
+        "paper_title": "2013年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_16cd4f16019c6bf7d066",
+        "question_number": 99,
+        "source_jsonl_line": 67355
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年深圳市公务员录用考试《行测》题_images/img_0193_831e90846ea4fbe5.png",
+        "paper_title": "2013年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_3bfca9d466cb6f6e8727",
+        "question_number": 100,
+        "source_jsonl_line": 67356
+      }
+    ],
+    "sha256": "356fa18605201d9e61cd41983c7fad2429348314395bce3b861bc2a9c0331d61"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "企业登记类型｜企业总数",
+          "企业登记类型｜外资企业",
+          "企业登记类型｜私营企业"
+        ],
+        "label": "企业登记类型"
+      },
+      {
+        "columns": [
+          "产业｜第一产业",
+          "产业｜第二产业",
+          "产业｜第三产业"
+        ],
+        "label": "产业"
+      },
+      {
+        "columns": [
+          "注册资本（100万元以上）｜100-999万元",
+          "注册资本（100万元以上）｜1000-4999万元",
+          "注册资本（100万元以上）｜5000-9999万元",
+          "注册资本（100万元以上）｜1亿元以上"
+        ],
+        "label": "注册资本（100万元以上）"
+      }
+    ],
+    "columns": [
+      "企业登记类型｜企业总数",
+      "企业登记类型｜外资企业",
+      "企业登记类型｜私营企业",
+      "产业｜第一产业",
+      "产业｜第二产业",
+      "产业｜第三产业",
+      "注册资本（100万元以上）｜100-999万元",
+      "注册资本（100万元以上）｜1000-4999万元",
+      "注册资本（100万元以上）｜5000-9999万元",
+      "注册资本（100万元以上）｜1亿元以上"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "display_label": "货运量（单位：亿吨）｜2006年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2006年",
+        "unit": null,
+        "values": [
+          244291,
+          27055,
+          191756,
+          347,
+          65220,
+          178724,
+          56046,
+          13070,
+          1979,
+          1602
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2007年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2007年",
+        "unit": null,
+        "values": [
+          283734,
+          32248,
+          227063,
+          348,
+          75381,
+          208005,
+          64853,
+          14287,
+          2111,
+          1719
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2008年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2008年",
+        "unit": null,
+        "values": [
+          281238,
+          32898,
+          229867,
+          309,
+          74044,
+          206885,
+          72196,
+          15218,
+          2197,
+          1802
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2009年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2009年",
+        "unit": null,
+        "values": [
+          307242,
+          33386,
+          257063,
+          302,
+          80052,
+          226888,
+          81519,
+          16459,
+          2314,
+          1910
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2010年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2010年",
+        "unit": null,
+        "values": [
+          360912,
+          35207,
+          309618,
+          312,
+          88870,
+          271730,
+          93338,
+          18155,
+          2483,
+          2060
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

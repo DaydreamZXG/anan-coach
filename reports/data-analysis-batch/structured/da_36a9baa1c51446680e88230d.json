@@ -1,0 +1,424 @@
+{
+  "asset_id": "da_36a9baa1c51446680e88230d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "月份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 40,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40
+        ],
+        "title": "装车量",
+        "unit": "GWh"
+      }
+    ]
+  },
+  "categories": [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2020年",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "2019年",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "2018年",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2020",
+      "label": "2020年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "GWh",
+      "values": [
+        2.32,
+        0.6,
+        2.77,
+        3.59,
+        3.51,
+        4.7,
+        5.02,
+        5.13,
+        6.58,
+        5.87,
+        10.61,
+        12.95
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2019",
+      "label": "2019年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "GWh",
+      "values": [
+        4.97,
+        2.24,
+        5.09,
+        5.41,
+        5.68,
+        6.62,
+        4.7,
+        3.46,
+        3.95,
+        4.07,
+        6.29,
+        9.71
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2018",
+      "label": "2018年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "GWh",
+      "values": [
+        1.31,
+        1.03,
+        2.08,
+        3.76,
+        4.5,
+        2.87,
+        3.34,
+        4.18,
+        5.72,
+        5.94,
+        8.92,
+        13.37
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0065_e6d36821b15ed179.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0065_e6d36821b15ed179.png",
+        "paper_title": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_6f4e9cf0ff7a9c02646d",
+        "question_number": 96,
+        "source_jsonl_line": 70982
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0067_fc30577f6a658594.png",
+        "paper_title": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_c493cf20f3066ba2d16d",
+        "question_number": 97,
+        "source_jsonl_line": 70983
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0067_fc30577f6a658594.png",
+        "paper_title": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_0446f3f428ff59e2902c",
+        "question_number": 98,
+        "source_jsonl_line": 70984
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0065_e6d36821b15ed179.png",
+        "paper_title": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_4f26d857c8874a8c36e4",
+        "question_number": 99,
+        "source_jsonl_line": 70985
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0065_e6d36821b15ed179.png",
+        "paper_title": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_95107400b69e9154fe29",
+        "question_number": 100,
+        "source_jsonl_line": 70986
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0059_e6d36821b15ed179.png",
+        "paper_title": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_74ec07f2221a8c29dde8",
+        "question_number": 96,
+        "source_jsonl_line": 89536
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0059_e6d36821b15ed179.png",
+        "paper_title": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_30eae7c2959c0497ceb5",
+        "question_number": 97,
+        "source_jsonl_line": 89537
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0059_e6d36821b15ed179.png",
+        "paper_title": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_bc87bf8fa008fbbc1450",
+        "question_number": 98,
+        "source_jsonl_line": 89538
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0074_fc30577f6a658594.png",
+        "paper_title": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_8451127d506781f361ef",
+        "question_number": 99,
+        "source_jsonl_line": 89539
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0059_e6d36821b15ed179.png",
+        "paper_title": "2021年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_417f80a217feefb33450",
+        "question_number": 100,
+        "source_jsonl_line": 89540
+      }
+    ],
+    "sha256": "36a9baa1c51446680e88230d33996f5476cd7f43f5df57d8d00252f3dadea581"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2020年",
+      "2019年",
+      "2018年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "1月",
+        "group": "装车量",
+        "label": "装车量｜1月",
+        "unit": "GWh",
+        "values": [
+          2.32,
+          4.97,
+          1.31
+        ]
+      },
+      {
+        "display_label": "2月",
+        "group": "装车量",
+        "label": "装车量｜2月",
+        "unit": "GWh",
+        "values": [
+          0.6,
+          2.24,
+          1.03
+        ]
+      },
+      {
+        "display_label": "3月",
+        "group": "装车量",
+        "label": "装车量｜3月",
+        "unit": "GWh",
+        "values": [
+          2.77,
+          5.09,
+          2.08
+        ]
+      },
+      {
+        "display_label": "4月",
+        "group": "装车量",
+        "label": "装车量｜4月",
+        "unit": "GWh",
+        "values": [
+          3.59,
+          5.41,
+          3.76
+        ]
+      },
+      {
+        "display_label": "5月",
+        "group": "装车量",
+        "label": "装车量｜5月",
+        "unit": "GWh",
+        "values": [
+          3.51,
+          5.68,
+          4.5
+        ]
+      },
+      {
+        "display_label": "6月",
+        "group": "装车量",
+        "label": "装车量｜6月",
+        "unit": "GWh",
+        "values": [
+          4.7,
+          6.62,
+          2.87
+        ]
+      },
+      {
+        "display_label": "7月",
+        "group": "装车量",
+        "label": "装车量｜7月",
+        "unit": "GWh",
+        "values": [
+          5.02,
+          4.7,
+          3.34
+        ]
+      },
+      {
+        "display_label": "8月",
+        "group": "装车量",
+        "label": "装车量｜8月",
+        "unit": "GWh",
+        "values": [
+          5.13,
+          3.46,
+          4.18
+        ]
+      },
+      {
+        "display_label": "9月",
+        "group": "装车量",
+        "label": "装车量｜9月",
+        "unit": "GWh",
+        "values": [
+          6.58,
+          3.95,
+          5.72
+        ]
+      },
+      {
+        "display_label": "10月",
+        "group": "装车量",
+        "label": "装车量｜10月",
+        "unit": "GWh",
+        "values": [
+          5.87,
+          4.07,
+          5.94
+        ]
+      },
+      {
+        "display_label": "11月",
+        "group": "装车量",
+        "label": "装车量｜11月",
+        "unit": "GWh",
+        "values": [
+          10.61,
+          6.29,
+          8.92
+        ]
+      },
+      {
+        "display_label": "12月",
+        "group": "装车量",
+        "label": "装车量｜12月",
+        "unit": "GWh",
+        "values": [
+          12.95,
+          9.71,
+          13.37
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": "2018年~2020年各月中国动力电池月度装车量",
+  "unit": "GWh",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_36a9baa1c51446680e88230d/column_band_01.jpg",
+        "review-crops/da_36a9baa1c51446680e88230d/column_band_02.jpg",
+        "review-crops/da_36a9baa1c51446680e88230d/column_band_03.jpg",
+        "review-crops/da_36a9baa1c51446680e88230d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:16.102",
+      "crop_verification_elapsed_seconds:6.436",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

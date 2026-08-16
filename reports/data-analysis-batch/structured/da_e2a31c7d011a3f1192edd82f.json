@@ -1,0 +1,197 @@
+{
+  "asset_id": "da_e2a31c7d011a3f1192edd82f",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 10,
+        "min": 0,
+        "ticks": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "全国铝电容器出口额",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国铝电容器出口额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        9.81,
+        7.77,
+        7.19,
+        8.22,
+        8.92,
+        8.14,
+        9.15
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0080_f967510d4020ff92.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0080_f967510d4020ff92.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_91a9befbe105e910ac5d",
+        "question_number": 96,
+        "source_jsonl_line": 89836
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0080_f967510d4020ff92.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_c51e4fb7129f04e4ec53",
+        "question_number": 97,
+        "source_jsonl_line": 89837
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0080_f967510d4020ff92.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_9cc2000d85d86982c90d",
+        "question_number": 98,
+        "source_jsonl_line": 89838
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0080_f967510d4020ff92.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_00d3156b981616049bab",
+        "question_number": 99,
+        "source_jsonl_line": 89839
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0099_536ed1b9bddb0538.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_fdd94409bc193cff0183",
+        "question_number": 100,
+        "source_jsonl_line": 89840
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0080_f967510d4020ff92.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_f0b711e5e4240ce87544",
+        "question_number": 96,
+        "source_jsonl_line": 95499
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0094_536ed1b9bddb0538.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_e05402ad3334ceb655aa",
+        "question_number": 97,
+        "source_jsonl_line": 95500
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0080_f967510d4020ff92.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_311b4bb8d12330e4ddfb",
+        "question_number": 98,
+        "source_jsonl_line": 95501
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0080_f967510d4020ff92.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_2bf0d6968e8fc069682b",
+        "question_number": 99,
+        "source_jsonl_line": 95502
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0080_f967510d4020ff92.png",
+        "paper_title": "2022年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_ed878215b62cdbbacf7d",
+        "question_number": 100,
+        "source_jsonl_line": 95503
+      }
+    ],
+    "sha256": "e2a31c7d011a3f1192edd82f508c4a291ca382b1ffdac253ec71a7e3afbb182b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014-2020年全国铝电容器出口额",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e2a31c7d011a3f1192edd82f/column_band_01.jpg",
+        "review-crops/da_e2a31c7d011a3f1192edd82f/column_band_02.jpg",
+        "review-crops/da_e2a31c7d011a3f1192edd82f/column_band_03.jpg",
+        "review-crops/da_e2a31c7d011a3f1192edd82f/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.221",
+      "crop_verification_elapsed_seconds:2.058",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

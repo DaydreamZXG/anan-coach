@@ -1,0 +1,462 @@
+{
+  "asset_id": "da_86cfa3a8e6a4cc0a7fdabc52",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "京沪穗深(4个)",
+    "东部城市(14个)",
+    "中部城市(8个)",
+    "西部城市(4个)",
+    "全部城市(30个)"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "A",
+      "label": "A网站",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        58.1,
+        75.2,
+        71.7,
+        72.3,
+        68.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "B",
+      "label": "B网站",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        9.8,
+        3.5,
+        4.8,
+        4.5,
+        5.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "C",
+      "label": "C网站",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        3.4,
+        3.5,
+        3.1,
+        3.9,
+        3.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "D",
+      "label": "D网站",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        2.2,
+        1.6,
+        1.9,
+        2.4,
+        1.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "E",
+      "label": "E网站",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        3.2,
+        1.5,
+        1.8,
+        1.2,
+        1.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "F",
+      "label": "F网站",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        2.9,
+        1.2,
+        1.8,
+        1.7,
+        1.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "其他",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        20.4,
+        13.5,
+        14.9,
+        14.0,
+        17.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0105_5fdac00277eb95c1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0105_5fdac00277eb95c1.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_b94a303971b7f0c53d90",
+        "question_number": 116,
+        "source_jsonl_line": 40662
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0111_17ddc54a1b9534ca.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_4fa03546c50ffb99dec1",
+        "question_number": 117,
+        "source_jsonl_line": 40663
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0105_5fdac00277eb95c1.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_6a90ccfd2f61dd35071f",
+        "question_number": 118,
+        "source_jsonl_line": 40664
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0111_17ddc54a1b9534ca.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_c387e899e8a162895d3c",
+        "question_number": 119,
+        "source_jsonl_line": 40665
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0105_5fdac00277eb95c1.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_c7012e3a65e4b80752c4",
+        "question_number": 120,
+        "source_jsonl_line": 40666
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0107_17ddc54a1b9534ca.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_77f6fe73c68a07e397b6",
+        "question_number": 116,
+        "source_jsonl_line": 42074
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0110_5fdac00277eb95c1.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_e70cc5b3a23172cab0f3",
+        "question_number": 117,
+        "source_jsonl_line": 42075
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0110_5fdac00277eb95c1.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_f3de669eea3c49a6bc77",
+        "question_number": 118,
+        "source_jsonl_line": 42076
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0110_5fdac00277eb95c1.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_7421e96d06c80fa2934e",
+        "question_number": 119,
+        "source_jsonl_line": 42077
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0110_5fdac00277eb95c1.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_073cce4b87028268379e",
+        "question_number": 120,
+        "source_jsonl_line": 42078
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0118_5fdac00277eb95c1.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_35fedb6ce2e8cb5c19b2",
+        "question_number": 116,
+        "source_jsonl_line": 57493
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0111_17ddc54a1b9534ca.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_5f10e54e0eccb3443d50",
+        "question_number": 117,
+        "source_jsonl_line": 57494
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0118_5fdac00277eb95c1.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_d114214dc41b7a7b4411",
+        "question_number": 118,
+        "source_jsonl_line": 57495
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0118_5fdac00277eb95c1.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_437ab462311a00c83d9f",
+        "question_number": 119,
+        "source_jsonl_line": 57496
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0111_17ddc54a1b9534ca.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_fdd45775014317667d4a",
+        "question_number": 120,
+        "source_jsonl_line": 57497
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0110_17ddc54a1b9534ca.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_ce9a01612d41219f216f",
+        "question_number": 116,
+        "source_jsonl_line": 77271
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0110_17ddc54a1b9534ca.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_dc617062939b57ceb6b3",
+        "question_number": 117,
+        "source_jsonl_line": 77272
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0119_5fdac00277eb95c1.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_890275bfac486f569eb7",
+        "question_number": 118,
+        "source_jsonl_line": 77273
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0110_17ddc54a1b9534ca.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_c70e0fc6b39d6bb9bab3",
+        "question_number": 119,
+        "source_jsonl_line": 77274
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年915联考《行测》题（新疆_福建_重庆_河南）_images/img_0110_17ddc54a1b9534ca.png",
+        "paper_title": "2012年915联考《行测》题（新疆/福建/重庆/河南）",
+        "question_id": "pq_e9e5904d8e16e6622766",
+        "question_number": 120,
+        "source_jsonl_line": 77275
+      }
+    ],
+    "sha256": "86cfa3a8e6a4cc0a7fdabc52c2a994937c6bb99f49aafeaa7996c4fc726896ba"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "抽样城市归类及个数",
+      "A网站",
+      "B网站",
+      "C网站",
+      "D网站",
+      "E网站",
+      "F网站",
+      "其他"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "京沪穗深(4个)",
+        "unit": null,
+        "values": [
+          "京沪穗深(4个)",
+          58.1,
+          9.8,
+          3.4,
+          2.2,
+          3.2,
+          2.9,
+          20.4
+        ]
+      },
+      {
+        "label": "东部城市(14个)",
+        "unit": null,
+        "values": [
+          "东部城市(14个)",
+          75.2,
+          3.5,
+          3.5,
+          1.6,
+          1.5,
+          1.2,
+          13.5
+        ]
+      },
+      {
+        "label": "中部城市(8个)",
+        "unit": null,
+        "values": [
+          "中部城市(8个)",
+          71.7,
+          4.8,
+          3.1,
+          1.9,
+          1.8,
+          1.8,
+          14.9
+        ]
+      },
+      {
+        "label": "西部城市(4个)",
+        "unit": null,
+        "values": [
+          "西部城市(4个)",
+          72.3,
+          4.5,
+          3.9,
+          2.4,
+          1.2,
+          1.7,
+          14.0
+        ]
+      },
+      {
+        "label": "全部城市(30个)",
+        "unit": null,
+        "values": [
+          "全部城市(30个)",
+          68.1,
+          5.4,
+          3.5,
+          1.9,
+          1.9,
+          1.7,
+          17.5
+        ]
+      }
+    ]
+  },
+  "title": "2011年四大区域中购物网站的市场份额(%)",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_86cfa3a8e6a4cc0a7fdabc52/row_band_01.jpg",
+        "review-crops/da_86cfa3a8e6a4cc0a7fdabc52/row_band_02.jpg",
+        "review-crops/da_86cfa3a8e6a4cc0a7fdabc52/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.269",
+      "crop_verification_elapsed_seconds:9.367",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

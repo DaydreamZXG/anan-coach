@@ -1,0 +1,309 @@
+{
+  "asset_id": "da_725fe375e64103ca582531b5",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2009年北京市公务员录用考试《行测》题（社招）_images/img_0264_2ad05f99de96ec82.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0264_2ad05f99de96ec82.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_d415dd0d32c024c7124c",
+        "question_number": 131,
+        "source_jsonl_line": 8924
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0264_2ad05f99de96ec82.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_a6851c639050f225e0a0",
+        "question_number": 132,
+        "source_jsonl_line": 8925
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0264_2ad05f99de96ec82.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_9c92a021639f93ff096c",
+        "question_number": 133,
+        "source_jsonl_line": 8926
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0264_2ad05f99de96ec82.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_00eab71e753de3927f8f",
+        "question_number": 134,
+        "source_jsonl_line": 8927
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（社招）_images/img_0264_2ad05f99de96ec82.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（社招）",
+        "question_id": "pq_2df97a71a76f19ad56f3",
+        "question_number": 135,
+        "source_jsonl_line": 8928
+      }
+    ],
+    "sha256": "725fe375e64103ca582531b50c6bd431ddc2758491afbd572d5cb17172fa8642"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "研究与与发展经费｜2001",
+          "研究与与发展经费｜2003",
+          "研究与与发展经费｜2005"
+        ],
+        "label": "研究与与发展经费"
+      },
+      {
+        "columns": [
+          "国内生产总值（GDP）｜2001",
+          "国内生产总值（GDP）｜2003",
+          "国内生产总值（GDP）｜2005"
+        ],
+        "label": "国内生产总值（GDP）"
+      }
+    ],
+    "columns": [
+      "研究与与发展经费｜2001",
+      "研究与与发展经费｜2003",
+      "研究与与发展经费｜2005",
+      "国内生产总值（GDP）｜2001",
+      "国内生产总值（GDP）｜2003",
+      "国内生产总值（GDP）｜2005"
+    ],
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "研究与与发展经费｜2005",
+        "display": "-",
+        "row": "英国"
+      },
+      {
+        "column": "研究与与发展经费｜2005",
+        "display": "-",
+        "row": "美国"
+      }
+    ],
+    "row_header_label": "国家",
+    "rows": [
+      {
+        "display_label": "中国",
+        "group": null,
+        "label": "中国",
+        "unit": null,
+        "values": [
+          125.95,
+          186.01,
+          298.98,
+          13248,
+          16410,
+          22343
+        ]
+      },
+      {
+        "display_label": "加拿大",
+        "group": null,
+        "label": "加拿大",
+        "unit": null,
+        "values": [
+          146.78,
+          173.71,
+          224.25,
+          7154,
+          8661,
+          11315
+        ]
+      },
+      {
+        "display_label": "芬兰",
+        "group": null,
+        "label": "芬兰",
+        "unit": null,
+        "values": [
+          41.33,
+          56.49,
+          68.07,
+          1252,
+          1647,
+          1957
+        ]
+      },
+      {
+        "display_label": "法国",
+        "group": null,
+        "label": "法国",
+        "unit": null,
+        "values": [
+          294.29,
+          390.16,
+          452.62,
+          13397,
+          17999,
+          21266
+        ]
+      },
+      {
+        "display_label": "德国",
+        "group": null,
+        "label": "德国",
+        "unit": null,
+        "values": [
+          465.34,
+          615.54,
+          700.84,
+          18910,
+          24395,
+          27869
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": null,
+        "values": [
+          1278.94,
+          1342.8,
+          null,
+          40877,
+          42313,
+          45590
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          124.79,
+          160.02,
+          235.87,
+          4819,
+          6081,
+          7876
+        ]
+      },
+      {
+        "display_label": "西班牙",
+        "group": null,
+        "label": "西班牙",
+        "unit": null,
+        "values": [
+          55.72,
+          92.69,
+          125.6,
+          6091,
+          8832,
+          11260
+        ]
+      },
+      {
+        "display_label": "英国",
+        "group": null,
+        "label": "英国",
+        "unit": null,
+        "values": [
+          268.09,
+          323.79,
+          null,
+          14352,
+          18128,
+          22263
+        ]
+      },
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": null,
+        "values": [
+          2778.2,
+          2924.37,
+          null,
+          100789,
+          109080,
+          123979
+        ]
+      },
+      {
+        "display_label": "以色列",
+        "group": null,
+        "label": "以色列",
+        "unit": null,
+        "values": [
+          56.5,
+          51.37,
+          61.07,
+          1186,
+          1151,
+          1298
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": null,
+        "label": "俄罗斯",
+        "unit": null,
+        "values": [
+          36.09,
+          55.34,
+          81.59,
+          3066,
+          4315,
+          7636
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

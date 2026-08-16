@@ -9,6 +9,10 @@ import { requireExternalLearningGateway } from "../../features/external-learning
 import { externalLearningError } from "../shared/features/external-learning/error";
 import { ExternalLearningPageRuntimeRegistry } from "../shared/features/external-learning/page-runtime";
 import {
+  markCoachEntryEvidence,
+  readCoachEntryIntent,
+} from "../../features/onboarding/coach-entry";
+import {
   chooseAnswerImage,
   ensureCameraPermission,
   requestCameraSetting,
@@ -17,6 +21,7 @@ import {
 interface AnswerIngestionPageData {
   state: AnswerIngestionState | null;
   configurationError: string;
+  coachEntryActive: boolean;
 }
 
 interface AnswerIngestionPageCustom {
@@ -33,6 +38,7 @@ interface AnswerIngestionPageCustom {
   confirmAndCommit(): void;
   resetDraft(): void;
   openLearningPackets(): void;
+  continueCoachMeeting(): void;
   noop(): void;
 }
 
@@ -50,6 +56,7 @@ Page<AnswerIngestionPageData, AnswerIngestionPageCustom>({
   data: {
     state: null,
     configurationError: "",
+    coachEntryActive: false,
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -65,12 +72,19 @@ Page<AnswerIngestionPageData, AnswerIngestionPageCustom>({
       void wx.reLaunch({ url: loginUrlForReturn(returnTo) });
       return;
     }
+    this.setData({
+      coachEntryActive: readCoachEntryIntent(session.userId)?.path === "wrong_question",
+    });
     try {
       const gateway = requireExternalLearningGateway(session);
       const controller = new AnswerIngestionController({
         gateway,
         onChange: (state) => {
-          if (runtimes.owns(this, controller)) this.setData({ state });
+          if (!runtimes.owns(this, controller)) return;
+          this.setData({ state });
+          if (state.status === "success") {
+            markCoachEntryEvidence(session.userId, "external_answer");
+          }
         },
       });
       runtimes.attach(this, controller);
@@ -157,6 +171,12 @@ Page<AnswerIngestionPageData, AnswerIngestionPageCustom>({
 
   openLearningPackets() {
     void wx.navigateTo({ url: routes.learningPackets });
+  },
+
+  continueCoachMeeting() {
+    const session = currentAuthSession();
+    if (session) markCoachEntryEvidence(session.userId, "external_answer");
+    void wx.switchTab({ url: routes.today });
   },
 
   noop() {},

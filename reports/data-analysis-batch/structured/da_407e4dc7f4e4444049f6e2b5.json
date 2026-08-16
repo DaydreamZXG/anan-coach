@@ -1,0 +1,349 @@
+{
+  "asset_id": "da_407e4dc7f4e4444049f6e2b5",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.92,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/甘肃/2015年甘肃省公务员录用考试《行测》题_images/img_0230_9ffb05eefe7ed148.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年甘肃省公务员录用考试《行测》题_images/img_0230_9ffb05eefe7ed148.png",
+        "paper_title": "2015年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_e537012129a32b1175c3",
+        "question_number": 116,
+        "source_jsonl_line": 74851
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年甘肃省公务员录用考试《行测》题_images/img_0230_9ffb05eefe7ed148.png",
+        "paper_title": "2015年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_b6c56b6043149b6c044e",
+        "question_number": 117,
+        "source_jsonl_line": 74852
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年甘肃省公务员录用考试《行测》题_images/img_0229_02742ab1d3fa0090.png",
+        "paper_title": "2015年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_4aa8e286d6e43bd0b28c",
+        "question_number": 118,
+        "source_jsonl_line": 74853
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年甘肃省公务员录用考试《行测》题_images/img_0229_02742ab1d3fa0090.png",
+        "paper_title": "2015年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_c79aeac4345c20bae585",
+        "question_number": 119,
+        "source_jsonl_line": 74854
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年甘肃省公务员录用考试《行测》题_images/img_0230_9ffb05eefe7ed148.png",
+        "paper_title": "2015年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_0541ae8596fbe4615570",
+        "question_number": 120,
+        "source_jsonl_line": 74855
+      }
+    ],
+    "sha256": "407e4dc7f4e4444049f6e2b556a6f42caa46d050d2c6b662900985f150c51aef"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "数量",
+      "同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "display_label": "本外币贷款余额",
+        "group": null,
+        "label": "本外币贷款余额",
+        "unit": "亿元",
+        "values": [
+          "52.61 万亿元",
+          17.6
+        ]
+      },
+      {
+        "display_label": "人民币贷款余额",
+        "group": null,
+        "label": "人民币贷款余额",
+        "unit": "亿元",
+        "values": [
+          "49.47 万亿元",
+          17.9
+        ]
+      },
+      {
+        "display_label": "外币贷款余额",
+        "group": null,
+        "label": "外币贷款余额",
+        "unit": "亿美元",
+        "values": [
+          "4775 亿美元",
+          17.2
+        ]
+      },
+      {
+        "display_label": "本外币存款余额",
+        "group": null,
+        "label": "本外币存款余额",
+        "unit": "亿元",
+        "values": [
+          "76.84 万亿元",
+          18.7
+        ]
+      },
+      {
+        "display_label": "人民币存款余额",
+        "group": null,
+        "label": "人民币存款余额",
+        "unit": "亿元",
+        "values": [
+          "75.28 万亿元",
+          19.0
+        ]
+      },
+      {
+        "display_label": "外币存款余额",
+        "group": null,
+        "label": "外币存款余额",
+        "unit": "亿美元",
+        "values": [
+          "2369 亿美元",
+          9.4
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "column_groups": [],
+        "columns": [
+          "数量",
+          "同比增长（%）"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "本外币贷款余额",
+            "group": null,
+            "label": "本外币贷款余额",
+            "unit": null,
+            "values": [
+              "52.61 万亿元",
+              17.6
+            ]
+          },
+          {
+            "display_label": "人民币贷款余额",
+            "group": null,
+            "label": "人民币贷款余额",
+            "unit": null,
+            "values": [
+              "49.47 万亿元",
+              17.9
+            ]
+          },
+          {
+            "display_label": "外币贷款余额",
+            "group": null,
+            "label": "外币贷款余额",
+            "unit": null,
+            "values": [
+              "4775 亿美元",
+              17.2
+            ]
+          },
+          {
+            "display_label": "本外币存款余额",
+            "group": null,
+            "label": "本外币存款余额",
+            "unit": null,
+            "values": [
+              "76.84 万亿元",
+              18.7
+            ]
+          },
+          {
+            "display_label": "人民币存款余额",
+            "group": null,
+            "label": "人民币存款余额",
+            "unit": null,
+            "values": [
+              "75.28 万亿元",
+              19.0
+            ]
+          },
+          {
+            "display_label": "外币存款余额",
+            "group": null,
+            "label": "外币存款余额",
+            "unit": null,
+            "values": [
+              "2369 亿美元",
+              9.4
+            ]
+          }
+        ],
+        "sections": [],
+        "title": "图 1  2011 年 3 月末我国外币存贷款情况"
+      },
+      {
+        "column_groups": [],
+        "columns": [
+          "数量",
+          "同比增长"
+        ],
+        "corner_header": null,
+        "missing_cells": [
+          {
+            "column": "同比增长",
+            "display": "?",
+            "row": "外币贷款增加"
+          },
+          {
+            "column": "同比增长",
+            "display": "?",
+            "row": "外币存款增加"
+          }
+        ],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "本外币贷款增加",
+            "group": null,
+            "label": "本外币贷款增加",
+            "unit": null,
+            "values": [
+              "2.39 万亿元",
+              "-4008 亿元"
+            ]
+          },
+          {
+            "display_label": "人民币贷款增加",
+            "group": null,
+            "label": "人民币贷款增加",
+            "unit": null,
+            "values": [
+              "2.24 万亿元",
+              "-3524 亿元"
+            ]
+          },
+          {
+            "display_label": "人民币贷款增加｜3 月份当月",
+            "group": null,
+            "label": "人民币贷款增加｜3 月份当月",
+            "unit": null,
+            "values": [
+              "6784 亿元",
+              "1727 亿元"
+            ]
+          },
+          {
+            "display_label": "外币贷款增加",
+            "group": null,
+            "label": "外币贷款增加",
+            "unit": null,
+            "values": [
+              "270 亿美元",
+              null
+            ]
+          },
+          {
+            "display_label": "本外币存款增加",
+            "group": null,
+            "label": "本外币存款增加",
+            "unit": null,
+            "values": [
+              "4.04 万亿元",
+              "776 亿元"
+            ]
+          },
+          {
+            "display_label": "人民币存款增加",
+            "group": null,
+            "label": "人民币存款增加",
+            "unit": null,
+            "values": [
+              "3.98 万亿元",
+              "545 亿元"
+            ]
+          },
+          {
+            "display_label": "人民币存款增加｜3 月份当月",
+            "group": null,
+            "label": "人民币存款增加｜3 月份当月",
+            "unit": null,
+            "values": [
+              "2.68 万亿元",
+              "1.32 万亿元"
+            ]
+          },
+          {
+            "display_label": "外币存款增加",
+            "group": null,
+            "label": "外币存款增加",
+            "unit": null,
+            "values": [
+              "112 亿美元",
+              null
+            ]
+          }
+        ],
+        "sections": [],
+        "title": "图 2  2011 年一季度我国本外币存贷款情况"
+      }
+    ],
+    "title": "图 1  2011 年 3 月末我国外币存贷款情况"
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.92,
+    "schema_valid": true
+  }
+}

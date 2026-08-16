@@ -1,0 +1,166 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "企业数（家）"
+        ],
+        "label": "企业数"
+      },
+      {
+        "columns": [
+          "同比增速（%）"
+        ],
+        "label": "同比增速"
+      },
+      {
+        "columns": [
+          "投资金额（亿元）"
+        ],
+        "label": "投资金额"
+      },
+      {
+        "columns": [
+          "同比增速（%）"
+        ],
+        "label": "同比增速"
+      }
+    ],
+    "columns": [
+      "企业数（家）",
+      "同比增速（%）",
+      "投资金额（亿元）",
+      "同比增速（%）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "行业",
+    "rows": [
+      {
+        "display_label": "总计",
+        "group": null,
+        "label": "总计",
+        "unit": null,
+        "values": [
+          60533,
+          69.8,
+          8856,
+          0.9
+        ]
+      },
+      {
+        "display_label": "其中：农、林、牧、渔业",
+        "group": null,
+        "label": "其中：农、林、牧、渔业",
+        "unit": null,
+        "values": [
+          741,
+          5.0,
+          53,
+          -26.4
+        ]
+      },
+      {
+        "display_label": "制造业",
+        "group": null,
+        "label": "制造业",
+        "unit": null,
+        "values": [
+          6152,
+          23.4,
+          2713,
+          20.1
+        ]
+      },
+      {
+        "display_label": "电力、热力、燃气及水生产和供应业",
+        "group": null,
+        "label": "电力、热力、燃气及水生产和供应业",
+        "unit": null,
+        "values": [
+          284,
+          -23.7,
+          291,
+          23.6
+        ]
+      },
+      {
+        "display_label": "交通运输、仓储和邮政业",
+        "group": null,
+        "label": "交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          754,
+          45.8,
+          314,
+          -16.0
+        ]
+      },
+      {
+        "display_label": "信息传输、软件和信息技术服务业",
+        "group": null,
+        "label": "信息传输、软件和信息技术服务业",
+        "unit": null,
+        "values": [
+          7222,
+          127.9,
+          773,
+          -44.4
+        ]
+      },
+      {
+        "display_label": "批发和零售业",
+        "group": null,
+        "label": "批发和零售业",
+        "unit": null,
+        "values": [
+          22853,
+          86.1,
+          643,
+          -16.5
+        ]
+      },
+      {
+        "display_label": "房地产业",
+        "group": null,
+        "label": "房地产业",
+        "unit": null,
+        "values": [
+          1053,
+          42.9,
+          1489,
+          31.4
+        ]
+      },
+      {
+        "display_label": "租赁和商务服务业",
+        "group": null,
+        "label": "租赁和商务服务业",
+        "unit": null,
+        "values": [
+          9099,
+          78.9,
+          1196,
+          6.4
+        ]
+      },
+      {
+        "display_label": "居民服务、修理和其他服务业",
+        "group": null,
+        "label": "居民服务、修理和其他服务业",
+        "unit": null,
+        "values": [
+          485,
+          39.0,
+          37,
+          -2.6
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

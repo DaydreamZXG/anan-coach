@@ -1,0 +1,177 @@
+{
+  "asset_id": "da_65ccae447b70fd12c658c063",
+  "axes": {
+    "x": {
+      "max": 2017,
+      "min": 2007,
+      "ticks": [
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 25000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000
+        ],
+        "title": null,
+        "unit": "亿美元"
+      }
+    ]
+  },
+  "categories": [
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "外商投资企业进出口总额",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "外商投资企业进出口总额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        12552,
+        14099,
+        12175,
+        16006,
+        18599,
+        18941,
+        19183,
+        19836,
+        18335,
+        16875,
+        18391
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0145_872819013e1ad6ac.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0145_872819013e1ad6ac.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_93b011eedf11c1ce74af",
+        "question_number": 106,
+        "source_jsonl_line": 83617
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0145_872819013e1ad6ac.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_39eb763a817e8e4c1565",
+        "question_number": 107,
+        "source_jsonl_line": 83618
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0165_b3dfdc3b2921afca.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_989f46a6a352a874f383",
+        "question_number": 108,
+        "source_jsonl_line": 83619
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0145_872819013e1ad6ac.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6ba3905e4d0cd0bc9683",
+        "question_number": 109,
+        "source_jsonl_line": 83620
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0145_872819013e1ad6ac.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3bf0aa79504567035f7b",
+        "question_number": 110,
+        "source_jsonl_line": 83621
+      }
+    ],
+    "sha256": "65ccae447b70fd12c658c063dba99d8d23f13d2cbb19e2650308c8d7dafd3b51"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2007-2017外商投资企业进出口总额",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_65ccae447b70fd12c658c063/column_band_01.jpg",
+        "review-crops/da_65ccae447b70fd12c658c063/column_band_02.jpg",
+        "review-crops/da_65ccae447b70fd12c658c063/column_band_03.jpg",
+        "review-crops/da_65ccae447b70fd12c658c063/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.513",
+      "crop_verification_elapsed_seconds:3.234",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

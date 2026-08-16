@@ -5,7 +5,22 @@
     <view class="today-header">
       <view class="today-header__copy">
         <view class="today-date">{{openingView ? openingView.localDateLabel : '今天'}}</view>
-        <view class="today-greeting">{{headerGreeting}}</view>
+        <view class="today-greeting-row">
+          <view class="today-greeting">{{headerGreeting}}</view>
+          <view wx:if="{{openingStatus === 'ready' && openingView && openingView.weatherReady}}" class="header-weather">
+            <image class="header-weather__icon" src="/assets/icons/today/cloud-rain-muted.png" mode="aspectFit" />
+            <text>{{openingView.weatherCompactLabel}}</text>
+          </view>
+          <button
+            wx:elif="{{openingStatus === 'ready' && openingView && openingView.weatherLocationRequired}}"
+            hover-class="item--hover"
+            class="header-weather header-weather--action"
+            bindtap="requestWeatherLocation"
+          >
+            <image class="header-weather__icon" src="/assets/icons/today/cloud-rain-muted.png" mode="aspectFit" />
+            <text>{{weatherLocationStatus === 'requesting' ? '获取中…' : '看降雨'}}</text>
+          </button>
+        </view>
         <view class="today-countdown">{{headerContextLabel}}</view>
       </view>
       <button hover-class="item--hover" class="capture-button" bindtap="openCaptureImport" aria-label="拍照搜题">
@@ -24,64 +39,6 @@
     />
 
     <block wx:elif="{{view}}">
-      <view class="today-col today-col--side-a">
-      <view
-        wx:if="{{openingStatus === 'error'}}"
-        class="opening-failure"
-      >
-        <view class="opening-failure__copy">{{openingError || '每日开场没有加载成功。'}}</view>
-        <button hover-class="item--hover" class="opening-failure__retry" bindtap="loadDailyOpening">重新读取</button>
-      </view>
-
-      <view
-        wx:elif="{{openingStatus === 'ready' && openingView && !openingCollapsed}}"
-        class="opening-card"
-      >
-        <view class="opening-line" wx:if="{{openingView.weatherReady}}">
-          <image class="icon icon--small" src="/assets/icons/today/cloud-rain-muted.png" mode="aspectFit" />
-          <text class="opening-line__text">{{openingView.weatherHeadline}} {{openingView.weatherDetail}}</text>
-        </view>
-
-        <view class="opening-line" wx:elif="{{openingView.weatherLocationRequired}}">
-          <image class="icon icon--small" src="/assets/icons/today/cloud-rain-muted.png" mode="aspectFit" />
-          <text class="opening-line__text">
-            {{weatherLocationStatus === 'requesting' ? '正在获取附近天气…' : (weatherLocationMessage || '开启定位后显示附近天气')}}
-          </text>
-          <button hover-class="item--hover"
-            wx:if="{{weatherLocationStatus === 'denied' || weatherLocationStatus === 'error'}}"
-            class="weather-location-button"
-            bindtap="requestWeatherLocation"
-          >{{weatherLocationStatus === 'denied' ? '去开启' : '重试'}}</button>
-        </view>
-
-        <view class="opening-line">
-          <image class="icon icon--small" src="/assets/icons/today/target-muted.png" mode="aspectFit" />
-          <text class="opening-line__text">今天安排 {{view.availableDurationLabel}}，先完成 {{openingView.planTitle}}</text>
-        </view>
-
-        <view class="opening-actions">
-          <view wx:if="{{openingView.coffeeVisible}}" class="coffee-prompt">
-            <image class="icon icon--small" src="/assets/icons/today/coffee-muted.png" mode="aspectFit" />
-            <text class="coffee-prompt__text">顺便看咖啡？</text>
-            <button hover-class="item--hover" class="coffee-button coffee-button--quiet" bindtap="declineDailyCoffee">今天不喝</button>
-          </view>
-          <button hover-class="item--hover" class="opening-start" bindtap="startDailyOpening">开始学习</button>
-        </view>
-        <view wx:if="{{openingError}}" class="opening-error">{{openingError}}</view>
-      </view>
-
-      <view
-        wx:elif="{{openingStatus === 'ready' && openingView && openingCollapsed}}"
-        class="opening-collapsed"
-      >
-        <view class="opening-collapsed__main">
-          <image class="icon icon--small" src="/assets/icons/today/target-ink.png" mode="aspectFit" />
-          <text>学习进行中 · {{view.availableDurationLabel}}</text>
-        </view>
-        <text wx:if="{{openingView.weatherReady}}" class="opening-collapsed__weather">{{openingView.weatherHeadline}}</text>
-      </view>
-      </view>
-
       <view class="today-col today-col--main">
       <view
         wx:if="{{capacityMessage && (capacitySubmission === 'conflict' || capacitySubmission === 'error')}}"
@@ -95,7 +52,9 @@
         <view class="task-heading__title">{{view.planSectionTitle}}</view>
         <view class="task-heading__meta">
           <text>今天可学 {{view.availableDurationLabel}} · 精力{{energyLabel}} · 压力{{stressLabel}}</text>
-          <button hover-class="item--hover" class="adjust-button" bindtap="openDayAdjustment">调整今天</button>
+          <view class="task-heading__actions">
+            <button hover-class="item--hover" class="adjust-button" bindtap="openDayAdjustment">调整今天</button>
+          </view>
         </view>
       </view>
 
@@ -106,30 +65,35 @@
         <view class="empty-card__summary">{{view.dueSummary}}</view>
         <view wx:if="{{view.dayState === 'recovery'}}" class="empty-card__actions">
           <button hover-class="item--hover" class="control-center empty-card__secondary" bindtap="openMasteryQueue">查看到期复盘</button>
-          <button hover-class="item--hover" class="control-center empty-card__secondary" bindtap="openDayAdjustment">我想加练</button>
+          <button hover-class="item--hover" class="control-center empty-card__secondary" bindtap="openQuestionBookImport">我想加练</button>
         </view>
         <button wx:elif="{{view.dayState === 'complete'}}" hover-class="item--hover" class="primary-button" bindtap="openDailySettlement">结束今天并复盘</button>
         <button wx:else hover-class="item--hover" class="primary-button" bindtap="openDayAdjustment">调整今天</button>
       </view>
 
+      <view wx:if="{{!view.hasTasks && view.loop && view.loop.feedback}}" class="primary-task primary-task--feedback-only">
+        <view class="task-aurora"></view>
+        <view class="anan-insight anan-insight--feedback-only">
+          <view class="anan-icon">
+            <image class="icon icon--sparkles" src="/assets/icons/today/sparkles-white.png" mode="aspectFit" />
+          </view>
+          <view class="anan-insight__main">
+            <view class="anan-insight__heading">
+              <text class="anan-insight__title">岸岸建议</text>
+              <text class="anan-insight__status">{{view.loop.recognitionLabel}}</text>
+            </view>
+            <view class="coach-return-feedback coach-return-feedback--standalone">
+              <view class="coach-return-feedback__title">{{view.loop.feedback.title}}</view>
+              <view wx:for="{{view.loop.feedback.changes}}" wx:key="*this" class="coach-return-feedback__change">{{item}}</view>
+              <view class="coach-return-feedback__next">{{view.loop.feedback.nextAction}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
       <block wx:for="{{view.activeTasks}}" wx:key="id">
         <view wx:if="{{index === 0}}" class="primary-task">
           <view class="task-aurora"></view>
-          <view class="anan-insight">
-            <view class="anan-icon">
-              <image class="icon icon--sparkles" src="/assets/icons/today/sparkles-white.png" mode="aspectFit" />
-            </view>
-            <view class="anan-insight__main">
-              <view class="anan-insight__title">岸岸建议</view>
-              <view class="anan-insight__copy">{{view.headline}}</view>
-              <view wx:if="{{insightExpanded}}" class="anan-insight__detail">{{view.rationale}}</view>
-              <button hover-class="item--hover" class="insight-toggle" bindtap="toggleInsight">
-                <text>{{insightExpanded ? '收起' : '为什么今天先做这个？'}}</text>
-                <image class="icon icon--chevron {{insightExpanded ? 'icon--rotated' : ''}}" src="/assets/icons/today/chevron-down-muted.png" mode="aspectFit" />
-              </button>
-            </view>
-          </view>
-
           <view class="primary-task__body">
             <view class="primary-task__head">
               <view class="compact-task__copy">
@@ -137,12 +101,18 @@
                   <text class="task-tag">{{item.kindLabel}}</text>
                   <text class="task-duration">· 预计 {{item.estimatedMinutes}} 分钟</text>
                 </view>
-                <view class="primary-task__title">{{item.title}}</view>
+                <view class="primary-task__title">{{view.loop.actionTitle}}</view>
               </view>
-              <button hover-class="item--hover" class="basis-button" bindtap="openPlanBasis">
-                <text>为什么这样练</text>
-                <image class="icon icon--chevron" src="/assets/icons/today/chevron-right-indigo.png" mode="aspectFit" />
-              </button>
+            </view>
+            <view class="coach-loop-details">
+              <view class="coach-loop-detail">
+                <text class="coach-loop-detail__label">完成标准</text>
+                <text class="coach-loop-detail__copy">{{view.loop.completionRule}}</text>
+              </view>
+              <view class="coach-loop-detail coach-loop-detail--feedback">
+                <text class="coach-loop-detail__label">完成后</text>
+                <text class="coach-loop-detail__copy">{{view.loop.feedbackPromise}}</text>
+              </view>
             </view>
             <button
               hover-class="item--hover"
@@ -155,6 +125,74 @@
               <text>{{taskOpeningId === item.id ? '正在打开…' : item.status === 'in_progress' ? '继续第一项任务' : '开始第一项任务'}}</text>
             </button>
             <view wx:if="{{!item.canOpen}}" class="task-disabled">{{item.disabledReason}}</view>
+          </view>
+
+          <view class="anan-insight">
+            <view class="anan-icon">
+              <image class="icon icon--sparkles" src="/assets/icons/today/sparkles-white.png" mode="aspectFit" />
+            </view>
+            <view class="anan-insight__main">
+              <view class="anan-insight__heading">
+                <text class="anan-insight__title">岸岸建议</text>
+                <text class="anan-insight__status">{{view.loop.recognitionLabel}}</text>
+              </view>
+              <view class="anan-insight__phase">{{view.loop.statusLabel}}</view>
+              <view class="coach-statement">
+                <view class="coach-statement__label">我观察到</view>
+                <view class="anan-insight__copy">{{view.loop.observation}}</view>
+              </view>
+              <view class="coach-statement coach-statement--judgment">
+                <view class="coach-statement__label">暂时判断</view>
+                <view class="anan-insight__copy">{{view.loop.judgment}}</view>
+              </view>
+              <button
+                wx:if="{{view.loop.recognitionLevel === 'just_met'}}"
+                hover-class="item--hover"
+                class="recognition-accelerator"
+                bindtap="openRecognitionOptions"
+              >
+                <view>
+                  <view class="recognition-accelerator__title">有成绩单或错题？</view>
+                  <view class="recognition-accelerator__copy">可选 · 让岸岸更快认识你</view>
+                </view>
+                <text class="recognition-accelerator__arrow">→</text>
+              </button>
+              <view wx:if="{{insightExpanded}}" class="anan-insight__detail">
+                <view class="coach-detail-row">
+                  <text class="coach-detail-row__label">为什么今天先做这个</text>
+                  <text class="coach-detail-row__copy">{{view.loop.why}}</text>
+                </view>
+                <view class="coach-detail-row">
+                  <text class="coach-detail-row__label">怎么验证</text>
+                  <text class="coach-detail-row__copy">{{view.loop.verification}}</text>
+                </view>
+                <view class="coach-detail-row">
+                  <text class="coach-detail-row__label">判断错了</text>
+                  <text class="coach-detail-row__copy">{{view.loop.correction}}</text>
+                </view>
+              </view>
+              <button hover-class="item--hover" class="insight-toggle" bindtap="toggleInsight">
+                <text>{{insightExpanded ? '收起判断依据' : '看岸岸怎么验证这个判断'}}</text>
+                <image class="icon icon--chevron {{insightExpanded ? 'icon--rotated' : ''}}" src="/assets/icons/today/chevron-down-muted.png" mode="aspectFit" />
+              </button>
+
+              <view wx:if="{{view.loop.candidate}}" class="coach-candidate">
+                <view class="coach-candidate__eyebrow">等待你确认 · 确认前不改变计划</view>
+                <view class="coach-candidate__title">{{view.loop.candidate.title}}</view>
+                <view class="coach-candidate__copy">{{view.loop.candidate.rationale}}</view>
+                <view class="coach-candidate__actions">
+                  <button hover-class="item--hover" class="coach-candidate__reject control-center" data-action="reject" disabled="{{coachDecisionSubmitting}}" bindtap="decideCoachSuggestion">不像我</button>
+                  <button hover-class="item--hover" class="coach-candidate__confirm control-center" data-action="confirm" loading="{{coachDecisionSubmitting}}" bindtap="decideCoachSuggestion">按这个方向练</button>
+                </view>
+              </view>
+              <view wx:if="{{coachDecisionMessage}}" class="coach-decision-message">{{coachDecisionMessage}}</view>
+
+              <view wx:if="{{view.loop.feedback}}" class="coach-return-feedback">
+                <view class="coach-return-feedback__title">{{view.loop.feedback.title}}</view>
+                <view wx:for="{{view.loop.feedback.changes}}" wx:key="*this" class="coach-return-feedback__change">{{item}}</view>
+                <view class="coach-return-feedback__next">{{view.loop.feedback.nextAction}}</view>
+              </view>
+            </view>
           </view>
         </view>
       </block>
@@ -226,7 +264,7 @@
       <view class="secondary-tools">
         <view class="secondary-tools__head">
           <view class="secondary-tools__title">学习工具</view>
-          <view class="secondary-tools__meta">模考 · 复盘 · 计划</view>
+          <view class="secondary-tools__meta">加练 · 复盘 · 计划</view>
         </view>
         <button hover-class="item--hover" class="mock-entry" bindtap="openMockExam">
           <view class="mock-entry__icon">
@@ -246,6 +284,10 @@
         </button>
 
         <view class="tool-row">
+          <button hover-class="item--hover" class="tool-link" bindtap="openQuestionBookImport">
+            <image class="icon icon--small" src="/assets/icons/today/file-text-secondary.png" mode="aspectFit" />
+            <text>我想加练</text>
+          </button>
           <button hover-class="item--hover" class="tool-link" bindtap="openPlanBasis">
             <image class="icon icon--small" src="/assets/icons/today/target-muted.png" mode="aspectFit" />
             <text>计划依据</text>

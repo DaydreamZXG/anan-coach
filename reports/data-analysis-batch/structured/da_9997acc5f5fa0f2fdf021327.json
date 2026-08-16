@@ -1,0 +1,545 @@
+{
+  "asset_id": "da_9997acc5f5fa0f2fdf021327",
+  "axes": {
+    "x": {
+      "max": 2018,
+      "min": 2013,
+      "ticks": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "农作物",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "小麦",
+    "稻谷",
+    "大豆",
+    "薯类",
+    "玉米",
+    "猪肉",
+    "牛肉",
+    "羊肉",
+    "猪（万头）",
+    "牛（万头）",
+    "羊（万只）"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "小麦",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        180.4,
+        153.9,
+        158.3,
+        169.9,
+        170.3,
+        202.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "稻谷",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        56.0,
+        52.4,
+        53.2,
+        63.2,
+        77.1,
+        121.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "大豆",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        119.7,
+        81.9,
+        88.8,
+        100.5,
+        108.4,
+        179.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "薯类",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        201.1,
+        161.4,
+        147.0,
+        168.0,
+        163.8,
+        149.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "玉米",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        2069.7,
+        2186.1,
+        2250.8,
+        2143.3,
+        2085.0,
+        2700.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "猪肉",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        73.4,
+        73.3,
+        70.8,
+        72.1,
+        73.5,
+        71.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "牛肉",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        51.8,
+        54.5,
+        52.9,
+        55.6,
+        59.5,
+        61.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_8",
+      "label": "羊肉",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        88.8,
+        93.3,
+        92.6,
+        99.0,
+        104.1,
+        106.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_9",
+      "label": "猪（万头）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万头",
+      "values": [
+        1528.5,
+        1516.3,
+        1491.0,
+        1478.4,
+        1387.6,
+        497.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_10",
+      "label": "牛（万头）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万头",
+      "values": [
+        1047.5,
+        1078.5,
+        1126.3,
+        1151.1,
+        1118.4,
+        616.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_11",
+      "label": "羊（万只）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万只",
+      "values": [
+        9024.7,
+        10091.0,
+        10736.5,
+        10730.5,
+        9873.5,
+        6001.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0221_a8c4f2f2999aab2c.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0221_a8c4f2f2999aab2c.jpg",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_84bc5f8074be4126e351",
+        "question_number": 116,
+        "source_jsonl_line": 103673
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0231_6d0964bce6903407.jpg",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_7b8438f308264dff87cc",
+        "question_number": 117,
+        "source_jsonl_line": 103674
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0231_6d0964bce6903407.jpg",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_74dc40e9437560fa2edc",
+        "question_number": 118,
+        "source_jsonl_line": 103675
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0221_a8c4f2f2999aab2c.jpg",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_8123a4b416cb8f2e84c4",
+        "question_number": 119,
+        "source_jsonl_line": 103676
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题_images/img_0231_6d0964bce6903407.jpg",
+        "paper_title": "2019年黑龙江边境县（市、区）急需紧缺专业岗公务员考试《行测》题",
+        "question_id": "pq_58bda01ac353e27462ee",
+        "question_number": 120,
+        "source_jsonl_line": 103677
+      }
+    ],
+    "sha256": "9997acc5f5fa0f2fdf021327b55672f4dba6cc3c20adef6b7479a81eb6798700"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "农作物（万吨）",
+      "2013",
+      "2014",
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "小麦",
+        "unit": "万吨",
+        "values": [
+          "小麦",
+          180.4,
+          153.9,
+          158.3,
+          169.9,
+          170.3,
+          202.3
+        ]
+      },
+      {
+        "label": "稻谷",
+        "unit": "万吨",
+        "values": [
+          "稻谷",
+          56.0,
+          52.4,
+          53.2,
+          63.2,
+          77.1,
+          121.9
+        ]
+      },
+      {
+        "label": "大豆",
+        "unit": "万吨",
+        "values": [
+          "大豆",
+          119.7,
+          81.9,
+          88.8,
+          100.5,
+          108.4,
+          179.4
+        ]
+      },
+      {
+        "label": "薯类",
+        "unit": "万吨",
+        "values": [
+          "薯类",
+          201.1,
+          161.4,
+          147.0,
+          168.0,
+          163.8,
+          149.8
+        ]
+      },
+      {
+        "label": "玉米",
+        "unit": "万吨",
+        "values": [
+          "玉米",
+          2069.7,
+          2186.1,
+          2250.8,
+          2143.3,
+          2085.0,
+          2700.0
+        ]
+      },
+      {
+        "label": "肉类产量（万吨）",
+        "unit": null,
+        "values": [
+          "肉类产量（万吨）",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "猪肉",
+        "unit": "万吨",
+        "values": [
+          "猪肉",
+          73.4,
+          73.3,
+          70.8,
+          72.1,
+          73.5,
+          71.4
+        ]
+      },
+      {
+        "label": "牛肉",
+        "unit": "万吨",
+        "values": [
+          "牛肉",
+          51.8,
+          54.5,
+          52.9,
+          55.6,
+          59.5,
+          61.4
+        ]
+      },
+      {
+        "label": "羊肉",
+        "unit": "万吨",
+        "values": [
+          "羊肉",
+          88.8,
+          93.3,
+          92.6,
+          99.0,
+          104.1,
+          106.3
+        ]
+      },
+      {
+        "label": "年末牲畜头数（万头、只）",
+        "unit": null,
+        "values": [
+          "年末牲畜头数（万头、只）",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "猪（万头）",
+        "unit": "万头",
+        "values": [
+          "猪（万头）",
+          1528.5,
+          1516.3,
+          1491.0,
+          1478.4,
+          1387.6,
+          497.3
+        ]
+      },
+      {
+        "label": "牛（万头）",
+        "unit": "万头",
+        "values": [
+          "牛（万头）",
+          1047.5,
+          1078.5,
+          1126.3,
+          1151.1,
+          1118.4,
+          616.2
+        ]
+      },
+      {
+        "label": "羊（万只）",
+        "unit": "万只",
+        "values": [
+          "羊（万只）",
+          9024.7,
+          10091.0,
+          10736.5,
+          10730.5,
+          9873.5,
+          6001.9
+        ]
+      }
+    ]
+  },
+  "title": "2013-2018年C省农业生产情况表（部分）",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9997acc5f5fa0f2fdf021327/row_band_01.jpg",
+        "review-crops/da_9997acc5f5fa0f2fdf021327/row_band_02.jpg",
+        "review-crops/da_9997acc5f5fa0f2fdf021327/row_band_03.jpg",
+        "review-crops/da_9997acc5f5fa0f2fdf021327/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:24.458",
+      "crop_verification_elapsed_seconds:18.349",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>图推 JSON 人工验收台</title>
+  <style>
+    :root { --ink:#152035; --muted:#687184; --paper:#f2f5f8; --card:#fff; --line:#d7dde8; --blue:#1d4ed8; --red:#b42318; --green:#067647; --amber:#b54708; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--paper); font:15px/1.55 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif; }
+    button,input,textarea { font:inherit; }
+    header { position:sticky; top:0; z-index:4; display:grid; grid-template-columns:1fr auto; gap:24px; align-items:end; padding:22px 28px 18px; background:rgba(242,245,248,.96); border-bottom:1px solid var(--line); backdrop-filter:blur(12px); }
+    h1 { margin:0; font-size:27px; letter-spacing:-.02em; }
+    .sub { color:var(--muted); margin-top:3px; }
+    .nav { display:flex; align-items:center; gap:8px; }
+    button { border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:8px; padding:8px 12px; cursor:pointer; }
+    button:hover { border-color:#9aa7bc; }
+    button:focus-visible,input:focus-visible,textarea:focus-visible { outline:3px solid #93c5fd; outline-offset:2px; }
+    .counter { min-width:100px; text-align:center; font-variant-numeric:tabular-nums; }
+    main { display:grid; grid-template-columns:minmax(390px,46%) minmax(480px,54%); gap:18px; padding:18px 24px 28px; max-width:1760px; margin:auto; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 8px 30px rgba(20,32,53,.05); }
+    .card-head { display:flex; justify-content:space-between; gap:12px; align-items:center; padding:13px 16px; border-bottom:1px solid var(--line); }
+    .asset-id { font:600 14px ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .source { min-height:560px; display:flex; align-items:center; justify-content:center; padding:18px; background:#fff; }
+    .source img { max-width:100%; max-height:68vh; image-rendering:auto; }
+    .model-tabs { display:flex; gap:7px; flex-wrap:wrap; padding:12px 14px 0; }
+    .model-tab[aria-selected="true"] { color:#fff; background:var(--blue); border-color:var(--blue); }
+    pre { margin:12px 14px; height:52vh; min-height:430px; overflow:auto; padding:16px; border:1px solid var(--line); border-radius:10px; background:#f8fafc; color:#172033; font:13px/1.48 ui-monospace,SFMono-Regular,Menlo,monospace; white-space:pre-wrap; word-break:break-word; }
+    .review { grid-column:1/-1; padding:18px; }
+    .review h2 { margin:0 0 6px; font-size:20px; }
+    .hint { color:var(--muted); margin-bottom:14px; }
+    .checks { display:grid; grid-template-columns:repeat(4,minmax(180px,1fr)); gap:10px; }
+    .check { display:flex; gap:9px; align-items:flex-start; padding:10px 12px; border:1px solid var(--line); border-radius:9px; background:#fbfcfe; }
+    .check input { margin-top:4px; }
+    .notes { display:grid; grid-template-columns:1fr auto; gap:10px; margin-top:12px; align-items:stretch; }
+    textarea { min-height:82px; width:100%; resize:vertical; padding:10px 12px; border:1px solid var(--line); border-radius:9px; }
+    .actions { display:flex; flex-direction:column; gap:8px; }
+    .primary { background:var(--blue); color:#fff; border-color:var(--blue); }
+    .danger { color:var(--red); }
+    .saved { color:var(--green); font-weight:600; min-height:24px; margin-top:8px; }
+    .protocol { grid-column:1/-1; padding:14px 18px; color:var(--muted); }
+    .protocol strong { color:var(--ink); }
+    @media (max-width:980px) { main { grid-template-columns:1fr; } .checks { grid-template-columns:1fr 1fr; } header { position:static; grid-template-columns:1fr; } }
+    @media print { header,.actions,.protocol { display:none; } main { display:block; padding:0; } .card { box-shadow:none; margin-bottom:12px; } pre { height:auto; max-height:none; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div><h1>图推 JSON 人工验收台</h1><div class="sub">原图与原始 ZIP 输出直接对照。页面不预判对错，勾选结果由你产生。</div></div>
+    <div class="nav"><button id="prev">上一题</button><span class="counter" id="counter"></span><button id="next">下一题</button></div>
+  </header>
+  <main>
+    <section class="card">
+      <div class="card-head"><strong>原始题图</strong><span class="asset-id" id="asset"></span></div>
+      <div class="source"><img id="source" alt="待验收的图推原图"></div>
+    </section>
+    <section class="card">
+      <div class="card-head"><strong>模型提交的原始结构摘要</strong><span id="modelName"></span></div>
+      <div class="model-tabs" id="tabs"></div>
+      <pre id="json"></pre>
+    </section>
+    <section class="card review">
+      <h2>我亲自核对后的记录</h2>
+      <div class="hint">只勾选你能从原图直接确认的项目；不懂规律也没关系。重点检查面板/选项、图形种类、数量位置和文字。</div>
+      <div class="checks" id="checks"></div>
+      <div class="notes"><textarea id="notes" placeholder="用自己的话记一条具体发现，例如：选项 C 原图有 3 个黑点，JSON 的 count 为 2。"></textarea><div class="actions"><button class="primary" id="copy">复制本题记录</button><button id="download">下载全部记录</button><button class="danger" id="clear">清空本题</button></div></div>
+      <div class="saved" id="saved"></div>
+    </section>
+    <section class="card protocol"><strong>截图要求：</strong>保留原图、模型名、资产 ID、右侧 JSON 和你勾选的结果。建议每个模型实际抽查至少 5 题：常规几何、曲线圆点、文字、纹理/折叠、特殊版式各一题。不要只截结论页。</section>
+  </main>
+  <script type="application/json" id="payload">__REVIEW_DATA__</script>
+  <script>
+    const DATA=JSON.parse(document.getElementById('payload').textContent);
+    const MODELS=['summit','rudder','pelican','quarry'];
+    const DIMS=[['layout','面板、缺项和选项分组正确'],['geometry','直线/曲线/点/圆及空实心正确'],['facts','数量、方向和相对位置正确'],['text','字母、数字、汉字或符号正确'],['relations','连接、交点、纹理或立体关系正确'],['critical','发现会影响做题的关键错误']];
+    let index=0, model='summit';
+    const key=()=>`gr-review:${DATA[index].assetId}:${model}`;
+    const get=()=>JSON.parse(localStorage.getItem(key())||'{}');
+    function renderChecks(){ const state=get(); const root=document.getElementById('checks'); root.innerHTML=''; DIMS.forEach(([id,label])=>{ const node=document.createElement('label'); node.className='check'; node.innerHTML=`<input type="checkbox" data-id="${id}" ${state[id]?'checked':''}><span>${label}</span>`; root.appendChild(node); }); root.querySelectorAll('input').forEach(el=>el.onchange=save); document.getElementById('notes').value=state.notes||''; }
+    function save(){ const state={notes:document.getElementById('notes').value}; document.querySelectorAll('#checks input').forEach(el=>state[el.dataset.id]=el.checked); localStorage.setItem(key(),JSON.stringify(state)); document.getElementById('saved').textContent='已保存在本机浏览器'; }
+    function render(){ const row=DATA[index]; document.getElementById('asset').textContent=row.assetId; document.getElementById('source').src=row.image; document.getElementById('counter').textContent=`${index+1} / ${DATA.length}`; document.getElementById('modelName').textContent=model.toUpperCase(); document.getElementById('json').textContent=JSON.stringify(row.models[model],null,2); const tabs=document.getElementById('tabs'); tabs.innerHTML=''; MODELS.forEach(name=>{ const b=document.createElement('button'); b.className='model-tab'; b.textContent=name.toUpperCase(); b.setAttribute('aria-selected',name===model); b.onclick=()=>{save();model=name;render();}; tabs.appendChild(b); }); renderChecks(); document.getElementById('saved').textContent=''; }
+    document.getElementById('notes').oninput=save;
+    document.getElementById('prev').onclick=()=>{save();index=(index-1+DATA.length)%DATA.length;render();};
+    document.getElementById('next').onclick=()=>{save();index=(index+1)%DATA.length;render();};
+    document.getElementById('clear').onclick=()=>{localStorage.removeItem(key());renderChecks();document.getElementById('saved').textContent='本题记录已清空';};
+    function record(){ const row=DATA[index],state=get(); return {assetId:row.assetId,model,...state,reviewedAt:new Date().toISOString()}; }
+    document.getElementById('copy').onclick=async()=>{save(); const content=JSON.stringify(record(),null,2); await navigator.clipboard.writeText(content); document.getElementById('saved').textContent='本题记录已复制';};
+    document.getElementById('download').onclick=()=>{save(); const rows=[]; for(let i=0;i<DATA.length;i++){for(const m of MODELS){const state=JSON.parse(localStorage.getItem(`gr-review:${DATA[i].assetId}:${m}`)||'null');if(state)rows.push({assetId:DATA[i].assetId,model:m,...state});}} const blob=new Blob([JSON.stringify(rows,null,2)],{type:'application/json'}); const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='graphic-reasoning-human-review.json';a.click();URL.revokeObjectURL(a.href);};
+    render();
+  </script>
+</body>
+</html>

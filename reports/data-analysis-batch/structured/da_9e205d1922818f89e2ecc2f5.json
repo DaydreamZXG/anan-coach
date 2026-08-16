@@ -1,0 +1,222 @@
+{
+  "asset_id": "da_9e205d1922818f89e2ecc2f5",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0206_eec5cd81041b135f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0206_eec5cd81041b135f.png",
+        "paper_title": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_21ed4ec763fbc2c73995",
+        "question_number": 96,
+        "source_jsonl_line": 85482
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0212_ed60c50264763fee.png",
+        "paper_title": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_bdcdcd3e4eb827f44d3a",
+        "question_number": 97,
+        "source_jsonl_line": 85483
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0206_eec5cd81041b135f.png",
+        "paper_title": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_9ab130a948f1618b4c4e",
+        "question_number": 98,
+        "source_jsonl_line": 85484
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0206_eec5cd81041b135f.png",
+        "paper_title": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_39c91782897aec751636",
+        "question_number": 99,
+        "source_jsonl_line": 85485
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0206_eec5cd81041b135f.png",
+        "paper_title": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_5f5b18bc67ce7dfa95da",
+        "question_number": 100,
+        "source_jsonl_line": 85486
+      }
+    ],
+    "sha256": "9e205d1922818f89e2ecc2f580ed58a2a504ca20ebe7008acebc1b8fdda09e3d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口情况｜出口额（亿美元）",
+          "出口情况｜同比增长（%）"
+        ],
+        "label": "出口情况"
+      },
+      {
+        "columns": [
+          "进口情况｜进口额（亿美元）",
+          "进口情况｜同比增长（%）"
+        ],
+        "label": "进口情况"
+      }
+    ],
+    "columns": [
+      "出口情况｜出口额（亿美元）",
+      "出口情况｜同比增长（%）",
+      "进口情况｜进口额（亿美元）",
+      "进口情况｜同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "电子信息产品",
+    "rows": [
+      {
+        "display_label": "电子器件",
+        "group": null,
+        "label": "电子器件",
+        "unit": null,
+        "values": [
+          616,
+          -31.7,
+          1347,
+          -14.8
+        ]
+      },
+      {
+        "display_label": "计算机",
+        "group": null,
+        "label": "计算机",
+        "unit": null,
+        "values": [
+          1039,
+          -1.4,
+          283,
+          -1
+        ]
+      },
+      {
+        "display_label": "计算器",
+        "group": null,
+        "label": "计算器",
+        "unit": null,
+        "values": [
+          686,
+          3.3,
+          214,
+          -5.2
+        ]
+      },
+      {
+        "display_label": "家用电子设备",
+        "group": null,
+        "label": "家用电子设备",
+        "unit": null,
+        "values": [
+          504,
+          3.1,
+          95,
+          0.2
+        ]
+      },
+      {
+        "display_label": "电子元件",
+        "group": null,
+        "label": "电子元件",
+        "unit": null,
+        "values": [
+          360,
+          4.7,
+          237,
+          -8.2
+        ]
+      },
+      {
+        "display_label": "电子仪器设备",
+        "group": null,
+        "label": "电子仪器设备",
+        "unit": null,
+        "values": [
+          151,
+          4.7,
+          239,
+          22.2
+        ]
+      },
+      {
+        "display_label": "广播电视设备",
+        "group": null,
+        "label": "广播电视设备",
+        "unit": null,
+        "values": [
+          40,
+          23.2,
+          22,
+          12.3
+        ]
+      },
+      {
+        "display_label": "电子材料",
+        "group": null,
+        "label": "电子材料",
+        "unit": null,
+        "values": [
+          33,
+          23.9,
+          39,
+          4.3
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

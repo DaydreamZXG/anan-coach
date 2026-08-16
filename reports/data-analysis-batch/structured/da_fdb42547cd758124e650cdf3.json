@@ -1,0 +1,386 @@
+{
+  "asset_id": "da_fdb42547cd758124e650cdf3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "指标",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "全国",
+        "unit": "%"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "城市",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "居民消费价格",
+    "食品",
+    "其中：粮食",
+    "肉禽及其制品",
+    "油脂",
+    "鲜蛋",
+    "鲜菜",
+    "鲜果",
+    "烟酒及用品",
+    "衣着",
+    "家庭设备用品及服务",
+    "医疗保健及个人用品",
+    "交通和通信",
+    "娱乐教育文化用品及服务",
+    "居住"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.9,
+        14.3,
+        7.0,
+        21.7,
+        25.4,
+        3.7,
+        10.7,
+        9.0,
+        2.9,
+        -1.5,
+        2.8,
+        2.9,
+        -0.9,
+        -0.7,
+        5.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "城市",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.6,
+        14.5,
+        7.2,
+        22.6,
+        24.9,
+        3.9,
+        10.5,
+        8.9,
+        3.1,
+        -1.8,
+        3.0,
+        2.8,
+        -1.6,
+        -0.9,
+        4.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "农村",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.5,
+        14.0,
+        6.7,
+        20.0,
+        25.9,
+        3.5,
+        11.3,
+        9.3,
+        2.6,
+        -0.6,
+        2.4,
+        3.2,
+        0.7,
+        -0.1,
+        8.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2010年吉林省公务员录用考试《行测》题_images/img_0056_d4a8b700b708219e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年吉林省公务员录用考试《行测》题_images/img_0056_d4a8b700b708219e.png",
+        "paper_title": "2010年吉林省公务员录用考试《行测》题",
+        "question_id": "pq_d63a0e2a331dacd94052",
+        "question_number": 86,
+        "source_jsonl_line": 11344
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年吉林省公务员录用考试《行测》题_images/img_0058_b0c1146bf3112012.png",
+        "paper_title": "2010年吉林省公务员录用考试《行测》题",
+        "question_id": "pq_5a404fea53800f161c4b",
+        "question_number": 87,
+        "source_jsonl_line": 11345
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年吉林省公务员录用考试《行测》题_images/img_0056_d4a8b700b708219e.png",
+        "paper_title": "2010年吉林省公务员录用考试《行测》题",
+        "question_id": "pq_2d2827750fde7a6c8f42",
+        "question_number": 88,
+        "source_jsonl_line": 11346
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年吉林省公务员录用考试《行测》题_images/img_0056_d4a8b700b708219e.png",
+        "paper_title": "2010年吉林省公务员录用考试《行测》题",
+        "question_id": "pq_7c362fe975e18943a06e",
+        "question_number": 89,
+        "source_jsonl_line": 11347
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年吉林省公务员录用考试《行测》题_images/img_0056_d4a8b700b708219e.png",
+        "paper_title": "2010年吉林省公务员录用考试《行测》题",
+        "question_id": "pq_34b2f18d2e5cf3b07a2b",
+        "question_number": 90,
+        "source_jsonl_line": 11348
+      }
+    ],
+    "sha256": "fdb42547cd758124e650cdf36d2d10b167f785553f24ed8651e67114b6f09dfe"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "全国",
+      "城市",
+      "农村"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "居民消费价格",
+        "unit": null,
+        "values": [
+          "居民消费价格",
+          5.9,
+          5.6,
+          6.5
+        ]
+      },
+      {
+        "label": "食品",
+        "unit": null,
+        "values": [
+          "食品",
+          14.3,
+          14.5,
+          14.0
+        ]
+      },
+      {
+        "label": "其中：粮食",
+        "unit": null,
+        "values": [
+          "其中：粮食",
+          7.0,
+          7.2,
+          6.7
+        ]
+      },
+      {
+        "label": "肉禽及其制品",
+        "unit": null,
+        "values": [
+          "肉禽及其制品",
+          21.7,
+          22.6,
+          20.0
+        ]
+      },
+      {
+        "label": "油脂",
+        "unit": null,
+        "values": [
+          "油脂",
+          25.4,
+          24.9,
+          25.9
+        ]
+      },
+      {
+        "label": "鲜蛋",
+        "unit": null,
+        "values": [
+          "鲜蛋",
+          3.7,
+          3.9,
+          3.5
+        ]
+      },
+      {
+        "label": "鲜菜",
+        "unit": null,
+        "values": [
+          "鲜菜",
+          10.7,
+          10.5,
+          11.3
+        ]
+      },
+      {
+        "label": "鲜果",
+        "unit": null,
+        "values": [
+          "鲜果",
+          9.0,
+          8.9,
+          9.3
+        ]
+      },
+      {
+        "label": "烟酒及用品",
+        "unit": null,
+        "values": [
+          "烟酒及用品",
+          2.9,
+          3.1,
+          2.6
+        ]
+      },
+      {
+        "label": "衣着",
+        "unit": null,
+        "values": [
+          "衣着",
+          -1.5,
+          -1.8,
+          -0.6
+        ]
+      },
+      {
+        "label": "家庭设备用品及服务",
+        "unit": null,
+        "values": [
+          "家庭设备用品及服务",
+          2.8,
+          3.0,
+          2.4
+        ]
+      },
+      {
+        "label": "医疗保健及个人用品",
+        "unit": null,
+        "values": [
+          "医疗保健及个人用品",
+          2.9,
+          2.8,
+          3.2
+        ]
+      },
+      {
+        "label": "交通和通信",
+        "unit": null,
+        "values": [
+          "交通和通信",
+          -0.9,
+          -1.6,
+          0.7
+        ]
+      },
+      {
+        "label": "娱乐教育文化用品及服务",
+        "unit": null,
+        "values": [
+          "娱乐教育文化用品及服务",
+          -0.7,
+          -0.9,
+          -0.1
+        ]
+      },
+      {
+        "label": "居住",
+        "unit": null,
+        "values": [
+          "居住",
+          5.5,
+          4.3,
+          8.2
+        ]
+      }
+    ]
+  },
+  "title": "表1 2008年居民消费价格比上年涨跌幅度",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_fdb42547cd758124e650cdf3/row_band_01.jpg",
+        "review-crops/da_fdb42547cd758124e650cdf3/row_band_02.jpg",
+        "review-crops/da_fdb42547cd758124e650cdf3/row_band_03.jpg",
+        "review-crops/da_fdb42547cd758124e650cdf3/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:14.917",
+      "crop_verification_elapsed_seconds:7.909",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

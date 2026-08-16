@@ -1,0 +1,200 @@
+{
+  "assetId": "gr_7b00c758d0ab44e2c464e04f",
+  "candidate": {
+    "authority": "semantic_candidate",
+    "elements": [
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e1",
+        "kind": "polygon",
+        "label": null,
+        "line_character": "straight",
+        "observations": [],
+        "orientation_bucket": "horizontal",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e2",
+        "kind": "polygon",
+        "label": null,
+        "line_character": "straight",
+        "observations": [],
+        "orientation_bucket": "vertical",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e3",
+        "kind": "arc",
+        "label": null,
+        "line_character": "curved",
+        "observations": [],
+        "orientation_bucket": "circular",
+        "parts": [],
+        "relative_region": "bottom_left",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e4",
+        "kind": "line",
+        "label": null,
+        "line_character": "straight",
+        "observations": [],
+        "orientation_bucket": "diagonal_down",
+        "parts": [],
+        "relative_region": "bottom_left",
+        "text_content": null
+      }
+    ],
+    "relations": [
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e1",
+          "e2"
+        ],
+        "type": "touching"
+      },
+      {
+        "confidence": 0.8,
+        "subjects": [
+          "e3",
+          "e4"
+        ],
+        "type": "touching"
+      },
+      {
+        "confidence": 0.85,
+        "subjects": [
+          "e3",
+          "e1"
+        ],
+        "type": "inside"
+      }
+    ],
+    "schema_version": "graphic-semantic-candidate-v1",
+    "topology_candidates": {
+      "component_count": 4,
+      "endpoint_count": 4,
+      "junction_count": 4,
+      "loop_count": 0,
+      "notes": []
+    },
+    "uncertainties": [],
+    "visual_grammar": "regular_geometry"
+  },
+  "geometryAuthority": false,
+  "model": "qwen3-vl-30b-a3b",
+  "modelInputSha256": "45933f47f54eb9ba5e70ac7073524bd74aad7199c51dfacee258200dab44b829",
+  "normalizations": [],
+  "panelId": "panel-1",
+  "rawCandidate": {
+    "authority": "semantic_candidate",
+    "elements": [
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e1",
+        "kind": "polygon",
+        "label": null,
+        "line_character": "straight",
+        "observations": [],
+        "orientation_bucket": "horizontal",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e2",
+        "kind": "polygon",
+        "label": null,
+        "line_character": "straight",
+        "observations": [],
+        "orientation_bucket": "vertical",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e3",
+        "kind": "arc",
+        "label": null,
+        "line_character": "curved",
+        "observations": [],
+        "orientation_bucket": "circular",
+        "parts": [],
+        "relative_region": "bottom_left",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "none",
+        "id": "e4",
+        "kind": "line",
+        "label": null,
+        "line_character": "straight",
+        "observations": [],
+        "orientation_bucket": "diagonal_down",
+        "parts": [],
+        "relative_region": "bottom_left",
+        "text_content": null
+      }
+    ],
+    "relations": [
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e1",
+          "e2"
+        ],
+        "type": "touching"
+      },
+      {
+        "confidence": 0.8,
+        "subjects": [
+          "e3",
+          "e4"
+        ],
+        "type": "touching"
+      },
+      {
+        "confidence": 0.85,
+        "subjects": [
+          "e3",
+          "e1"
+        ],
+        "type": "inside"
+      }
+    ],
+    "schema_version": "graphic-semantic-candidate-v1",
+    "topology_candidates": {
+      "component_count": 4,
+      "endpoint_count": 4,
+      "junction_count": 4,
+      "loop_count": 0,
+      "notes": []
+    },
+    "uncertainties": [],
+    "visual_grammar": "regular_geometry"
+  },
+  "regularSubtype": "line_curve_composition",
+  "role": "stem",
+  "schemaVersion": "graphic-semantic-observation-v1",
+  "sourceSha256": "7b00c758d0ab44e2c464e04f809f8c6e5d4d1fede558131385aff156347be4b0",
+  "status": "valid_semantic_candidate",
+  "validationErrors": []
+}

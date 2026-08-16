@@ -1,0 +1,281 @@
+{
+  "asset_id": "da_0e6d353afeaaad4049da00fe",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)_images/img_0179_0ed5661294e380e8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)_images/img_0179_0ed5661294e380e8.png",
+        "paper_title": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)",
+        "question_id": "pq_f6863fef726f418509fe",
+        "question_number": 88,
+        "source_jsonl_line": 83267
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)_images/img_0185_b06ce4041c784c66.png",
+        "paper_title": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)",
+        "question_id": "pq_dfeba897a6120ad82dff",
+        "question_number": 89,
+        "source_jsonl_line": 83268
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)_images/img_0185_b06ce4041c784c66.png",
+        "paper_title": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)",
+        "question_id": "pq_230a4db575bcc3decc74",
+        "question_number": 90,
+        "source_jsonl_line": 83269
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)_images/img_0185_b06ce4041c784c66.png",
+        "paper_title": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)",
+        "question_id": "pq_e50a26e5c96ec8651dd4",
+        "question_number": 91,
+        "source_jsonl_line": 83270
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)_images/img_0185_b06ce4041c784c66.png",
+        "paper_title": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)",
+        "question_id": "pq_6a8f05417f9ea205146b",
+        "question_number": 92,
+        "source_jsonl_line": 83271
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)_images/img_0169_0ed5661294e380e8.png",
+        "paper_title": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)",
+        "question_id": "pq_dd1686bf2a2c0e1c2a96",
+        "question_number": 88,
+        "source_jsonl_line": 85700
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)_images/img_0174_b06ce4041c784c66.png",
+        "paper_title": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)",
+        "question_id": "pq_1b52d0b7981472137604",
+        "question_number": 89,
+        "source_jsonl_line": 85701
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)_images/img_0169_0ed5661294e380e8.png",
+        "paper_title": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)",
+        "question_id": "pq_189a86c3918a6724c949",
+        "question_number": 90,
+        "source_jsonl_line": 85702
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)_images/img_0174_b06ce4041c784c66.png",
+        "paper_title": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)",
+        "question_id": "pq_b7e6f26b3a00cb4b6b81",
+        "question_number": 91,
+        "source_jsonl_line": 85703
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)_images/img_0174_b06ce4041c784c66.png",
+        "paper_title": "2015年辽宁省选调生招录考试 行政职业能力测验试卷(精选)",
+        "question_id": "pq_792fd53e5a69b4d4228c",
+        "question_number": 92,
+        "source_jsonl_line": 85704
+      }
+    ],
+    "sha256": "0e6d353afeaaad4049da00fe6391de96324f1d1ad7d50b929cf72e802d681612"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "总人口数｜总人口数（人）"
+        ],
+        "label": "总人口数"
+      },
+      {
+        "columns": [
+          "男性人口数｜男性人口数（人）"
+        ],
+        "label": "男性人口数"
+      },
+      {
+        "columns": [
+          "女性人口数｜女性人口数（人）"
+        ],
+        "label": "女性人口数"
+      },
+      {
+        "columns": [
+          "占总人口数的比重（%）｜0-14岁",
+          "占总人口数的比重（%）｜15-59岁",
+          "占总人口数的比重（%）｜60岁以上"
+        ],
+        "label": "占总人口数的比重（%）"
+      }
+    ],
+    "columns": [
+      "总人口数｜总人口数（人）",
+      "男性人口数｜男性人口数（人）",
+      "女性人口数｜女性人口数（人）",
+      "占总人口数的比重（%）｜0-14岁",
+      "占总人口数的比重（%）｜15-59岁",
+      "占总人口数的比重（%）｜60岁以上"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          11700,
+          6083,
+          5617,
+          15,
+          72,
+          13
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          13400,
+          6916,
+          6484,
+          17,
+          70,
+          13
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          14500,
+          7597,
+          6903,
+          17,
+          69,
+          14
+        ]
+      },
+      {
+        "label": "2013",
+        "unit": null,
+        "values": [
+          16600,
+          8701,
+          7899,
+          18,
+          68,
+          14
+        ]
+      },
+      {
+        "label": "2014",
+        "unit": null,
+        "values": [
+          16900,
+          8502,
+          8398,
+          20,
+          65,
+          15
+        ]
+      }
+    ]
+  },
+  "title": "某街道 2010 年以来人口数及其构成",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0e6d353afeaaad4049da00fe/row_band_01.jpg",
+        "review-crops/da_0e6d353afeaaad4049da00fe/row_band_02.jpg",
+        "review-crops/da_0e6d353afeaaad4049da00fe/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.627",
+      "crop_verification_elapsed_seconds:11.425",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2010年总人口数为11700，与原图一致。",
+      "crop_note:修正了2010年男性人口数为6083，与原图一致。",
+      "crop_note:修正了2010年女性人口数为5617，与原图一致。",
+      "crop_note:修正了2011年总人口数为13400，与原图一致。",
+      "crop_note:修正了2011年男性人口数为6916，与原图一致。",
+      "crop_note:修正了2011年女性人口数为6484，与原图一致。",
+      "crop_note:修正了2012年总人口数为14500，与原图一致。",
+      "crop_note:修正了2012年男性人口数为7597，与原图一致。",
+      "crop_note:修正了2012年女性人口数为6903，与原图一致。",
+      "crop_note:修正了2013年总人口数为16600，与原图一致。",
+      "crop_note:修正了2013年男性人口数为8701，与原图一致。",
+      "crop_note:修正了2013年女性人口数为7899，与原图一致。",
+      "crop_note:修正了2014年总人口数为16900，与原图一致。",
+      "crop_note:修正了2014年男性人口数为8502，与原图一致。",
+      "crop_note:修正了2014年女性人口数为8398，与原图一致。",
+      "crop_note:修正了2010年0-14岁比重为15%，与原图一致。",
+      "crop_note:修正了2010年15-59岁比重为72%，与原图一致。",
+      "crop_note:修正了2010年60岁以上比重为13%，与原图一致。",
+      "crop_note:修正了2011年0-14岁比重为17%，与原图一致。",
+      "crop_note:修正了2011年15-59岁比重为70%，与原图一致。",
+      "crop_note:修正了2011年60岁以上比重为13%，与原图一致。",
+      "crop_note:修正了2012年0-14岁比重为17%，与原图一致。",
+      "crop_note:修正了2012年15-59岁比重为69%，与原图一致。",
+      "crop_note:修正了2012年60岁以上比重为14%，与原图一致。",
+      "crop_note:修正了2013年0-14岁比重为18%，与原图一致。",
+      "crop_note:修正了2013年15-59岁比重为68%，与原图一致。",
+      "crop_note:修正了2013年60岁以上比重为14%，与原图一致。",
+      "crop_note:修正了2014年0-14岁比重为20%，与原图一致。",
+      "crop_note:修正了2014年15-59岁比重为65%，与原图一致。",
+      "crop_note:修正了2014年60岁以上比重为15%，与原图一致。",
+      "crop_note:确认所有数值均与原图一致，无缺失值。",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

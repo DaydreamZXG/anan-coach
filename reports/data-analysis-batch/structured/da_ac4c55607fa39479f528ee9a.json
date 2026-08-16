@@ -1,0 +1,262 @@
+{
+  "asset_id": "da_ac4c55607fa39479f528ee9a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0220_2098783e3b9d54d6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0220_2098783e3b9d54d6.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_884ef9ed8982ac236fb8",
+        "question_number": 96,
+        "source_jsonl_line": 35528
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0235_04d85b6d7d1c2fbf.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_d7e7d3a3646606428cfe",
+        "question_number": 97,
+        "source_jsonl_line": 35529
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0235_04d85b6d7d1c2fbf.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_0c459229dbb238df1f30",
+        "question_number": 98,
+        "source_jsonl_line": 35530
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0235_04d85b6d7d1c2fbf.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_4371b9263d2bb82790e4",
+        "question_number": 99,
+        "source_jsonl_line": 35531
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0235_04d85b6d7d1c2fbf.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_6e42866838473560a564",
+        "question_number": 100,
+        "source_jsonl_line": 35532
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0282_04d85b6d7d1c2fbf.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_8ddb91cf4c03e94002be",
+        "question_number": 91,
+        "source_jsonl_line": 35623
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0282_04d85b6d7d1c2fbf.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_0484c012b6acc8c6dcf8",
+        "question_number": 92,
+        "source_jsonl_line": 35624
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0282_04d85b6d7d1c2fbf.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_8226d502d2c90b913bec",
+        "question_number": 93,
+        "source_jsonl_line": 35625
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0282_04d85b6d7d1c2fbf.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_0e4d640f939479654bc2",
+        "question_number": 94,
+        "source_jsonl_line": 35626
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0282_04d85b6d7d1c2fbf.png",
+        "paper_title": "2021年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_fd0baa244d3092d12d4c",
+        "question_number": 95,
+        "source_jsonl_line": 35627
+      }
+    ],
+    "sha256": "ac4c55607fa39479f528ee9a95e24fb7017416515c02ba4db56e43d18551ea2d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "进口｜进口额(亿美元)",
+          "进口｜同比增长"
+        ],
+        "label": "进口"
+      },
+      {
+        "columns": [
+          "出口｜出口额(亿美元)",
+          "出口｜同比增长"
+        ],
+        "label": "出口"
+      }
+    ],
+    "columns": [
+      "进口｜进口额(亿美元)",
+      "进口｜同比增长",
+      "出口｜出口额(亿美元)",
+      "出口｜同比增长"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别",
+    "rows": [
+      {
+        "display_label": "谷物",
+        "group": null,
+        "label": "谷物",
+        "unit": null,
+        "values": [
+          33.9,
+          25.2,
+          5.5,
+          -7.0
+        ]
+      },
+      {
+        "display_label": "食用蔬菜",
+        "group": null,
+        "label": "食用蔬菜",
+        "unit": null,
+        "values": [
+          9.6,
+          4.0,
+          44.9,
+          -4.8
+        ]
+      },
+      {
+        "display_label": "禽类产品",
+        "group": null,
+        "label": "禽类产品",
+        "unit": null,
+        "values": [
+          17.0,
+          66.0,
+          11.7,
+          -24.5
+        ]
+      },
+      {
+        "display_label": "畜类产品",
+        "group": null,
+        "label": "畜类产品",
+        "unit": null,
+        "values": [
+          222.0,
+          43.2,
+          12.4,
+          -16.6
+        ]
+      },
+      {
+        "display_label": "水、海产品",
+        "group": null,
+        "label": "水、海产品",
+        "unit": null,
+        "values": [
+          65.8,
+          -6.4,
+          48.7,
+          -19.6
+        ]
+      },
+      {
+        "display_label": "饮料、酒及醋",
+        "group": null,
+        "label": "饮料、酒及醋",
+        "unit": null,
+        "values": [
+          21.3,
+          -23.9,
+          10.1,
+          3.3
+        ]
+      },
+      {
+        "display_label": "食用水果及坚果",
+        "group": null,
+        "label": "食用水果及坚果",
+        "unit": null,
+        "values": [
+          68.0,
+          10.2,
+          22.9,
+          24.4
+        ]
+      },
+      {
+        "display_label": "咖啡、茶、马黛茶及调味香料",
+        "group": null,
+        "label": "咖啡、茶、马黛茶及调味香料",
+        "unit": null,
+        "values": [
+          5.3,
+          20.1,
+          20.4,
+          15.5
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

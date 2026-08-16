@@ -1,0 +1,298 @@
+{
+  "asset_id": "da_9c5e32866a66a91960ed74aa",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "活动次数（次）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "次",
+      "values": [
+        2521666,
+        1391480,
+        920740,
+        167497,
+        41939
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "服务人次（万人次）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        83289,
+        62140,
+        6119,
+        14259,
+        768
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "活动次数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        30.9,
+        27.8,
+        37.6,
+        21.4,
+        36.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "服务人次",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        47.9,
+        44.1,
+        55.7,
+        64,
+        35.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0072_d84d235b75261c99.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0072_d84d235b75261c99.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_35d56cb2eb6477798854",
+        "question_number": 96,
+        "source_jsonl_line": 71432
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0072_d84d235b75261c99.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_985b71cdb3583caf9dc3",
+        "question_number": 97,
+        "source_jsonl_line": 71433
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0082_acf00ad3d93195e1.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_fc9f93028015e806cc49",
+        "question_number": 98,
+        "source_jsonl_line": 71434
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0082_acf00ad3d93195e1.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_e2323b476ba818d7cf75",
+        "question_number": 99,
+        "source_jsonl_line": 71435
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0082_acf00ad3d93195e1.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_4bbad10772586cc36f0a",
+        "question_number": 100,
+        "source_jsonl_line": 71436
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0060_acf00ad3d93195e1.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_c1cd3dae70e463acd377",
+        "question_number": 96,
+        "source_jsonl_line": 90036
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0060_acf00ad3d93195e1.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_363882e5535eb5ff1842",
+        "question_number": 97,
+        "source_jsonl_line": 90037
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0060_acf00ad3d93195e1.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_96baf81897e8cd2b75eb",
+        "question_number": 98,
+        "source_jsonl_line": 90038
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0095_d84d235b75261c99.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_1c18efa6a9f45b66e149",
+        "question_number": 99,
+        "source_jsonl_line": 90039
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0060_acf00ad3d93195e1.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_95745ea69cae64395584",
+        "question_number": 100,
+        "source_jsonl_line": 90040
+      }
+    ],
+    "sha256": "9c5e32866a66a91960ed74aaa6e15a7c343a1c1eca1c553ff9aa412e2999d230"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "项目",
+      "总量-活动次数（次）",
+      "总量-服务人次（万人次）",
+      "比上年增长（%）-活动次数",
+      "比上年增长（%）-服务人次"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "各项活动总计",
+        "unit": null,
+        "values": [
+          "各项活动总计",
+          2521666,
+          83289,
+          30.9,
+          47.9
+        ]
+      },
+      {
+        "label": "其中：文艺活动",
+        "unit": null,
+        "values": [
+          "其中：文艺活动",
+          1391480,
+          62140,
+          27.8,
+          44.1
+        ]
+      },
+      {
+        "label": "训练班",
+        "unit": null,
+        "values": [
+          "训练班",
+          920740,
+          6119,
+          37.6,
+          55.7
+        ]
+      },
+      {
+        "label": "展览",
+        "unit": null,
+        "values": [
+          "展览",
+          167497,
+          14259,
+          21.4,
+          64
+        ]
+      },
+      {
+        "label": "公益性讲座",
+        "unit": null,
+        "values": [
+          "公益性讲座",
+          41939,
+          768,
+          36.9,
+          35.8
+        ]
+      }
+    ]
+  },
+  "title": "2021年全国群众文化机构活动开展情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9c5e32866a66a91960ed74aa/row_band_01.jpg",
+        "review-crops/da_9c5e32866a66a91960ed74aa/row_band_02.jpg",
+        "review-crops/da_9c5e32866a66a91960ed74aa/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.628",
+      "crop_verification_elapsed_seconds:5.587",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

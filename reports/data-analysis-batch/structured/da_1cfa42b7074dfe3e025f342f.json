@@ -1,0 +1,209 @@
+{
+  "asset_id": "da_1cfa42b7074dfe3e025f342f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "运营商",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "国际出口带宽",
+        "unit": "Mbps"
+      }
+    ]
+  },
+  "categories": [
+    "中国电信",
+    "中国联通",
+    "中国移动",
+    "中国教育和科研网",
+    "中国科技网",
+    "中国国际经济贸易互联网",
+    "合计"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "国际出口带宽",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "Mbps",
+      "values": [
+        3223629,
+        1414868,
+        645073,
+        61440,
+        47104,
+        2,
+        5392116
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2018年421联考《行测》题（四川卷）（网友回忆版）_images/img_0166_e4e935581fbed827.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（四川卷）（网友回忆版）_images/img_0166_e4e935581fbed827.png",
+        "paper_title": "2018年421联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_4f4e98f33ef61d48f3ab",
+        "question_number": 96,
+        "source_jsonl_line": 15811
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（四川卷）（网友回忆版）_images/img_0159_c4c6e77217b275dd.png",
+        "paper_title": "2018年421联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_180f2af07e1ddda66f41",
+        "question_number": 97,
+        "source_jsonl_line": 15812
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（四川卷）（网友回忆版）_images/img_0166_e4e935581fbed827.png",
+        "paper_title": "2018年421联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_dc35c3d201a13aa56205",
+        "question_number": 98,
+        "source_jsonl_line": 15813
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（四川卷）（网友回忆版）_images/img_0159_c4c6e77217b275dd.png",
+        "paper_title": "2018年421联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_55665d3a435b84dcda24",
+        "question_number": 99,
+        "source_jsonl_line": 15814
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（四川卷）（网友回忆版）_images/img_0159_c4c6e77217b275dd.png",
+        "paper_title": "2018年421联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_d61ff1ec33357c8ee816",
+        "question_number": 100,
+        "source_jsonl_line": 15815
+      }
+    ],
+    "sha256": "1cfa42b7074dfe3e025f342f5b0d19b04fa1189e81d5bc9d1798c0fd486c6274"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "运营商",
+      "国际出口带宽"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "中国电信",
+        "unit": null,
+        "values": [
+          "中国电信",
+          3223629
+        ]
+      },
+      {
+        "label": "中国联通",
+        "unit": null,
+        "values": [
+          "中国联通",
+          1414868
+        ]
+      },
+      {
+        "label": "中国移动",
+        "unit": null,
+        "values": [
+          "中国移动",
+          645073
+        ]
+      },
+      {
+        "label": "中国教育和科研网",
+        "unit": null,
+        "values": [
+          "中国教育和科研网",
+          61440
+        ]
+      },
+      {
+        "label": "中国科技网",
+        "unit": null,
+        "values": [
+          "中国科技网",
+          47104
+        ]
+      },
+      {
+        "label": "中国国际经济贸易互联网",
+        "unit": null,
+        "values": [
+          "中国国际经济贸易互联网",
+          2
+        ]
+      },
+      {
+        "label": "合计",
+        "unit": null,
+        "values": [
+          "合计",
+          5392116
+        ]
+      }
+    ]
+  },
+  "title": "2015年主要运营商骨干网络国际出口带宽",
+  "unit": "Mbps",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1cfa42b7074dfe3e025f342f/row_band_01.jpg",
+        "review-crops/da_1cfa42b7074dfe3e025f342f/row_band_02.jpg",
+        "review-crops/da_1cfa42b7074dfe3e025f342f/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.825",
+      "crop_verification_elapsed_seconds:7.633",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'中国教育和科研网'的带宽值为61440，原图中为61440，与整图首轮候选一致。",
+      "crop_note:修正了'中国科技网'的带宽值为47104，原图中为47104，与整图首轮候选一致。",
+      "crop_note:修正了'合计'的带宽值为5392116，原图中为5392116，与整图首轮候选一致。",
+      "crop_note:确认所有数值无负号、小数、百分号，缺失值保持null。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

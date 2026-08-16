@@ -1,0 +1,94 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2010年GDP(亿美元)",
+          "2011年GDP(亿美元)"
+        ],
+        "label": "GDP"
+      },
+      {
+        "columns": [
+          "2010年人口数(万人)",
+          "2011年人口数(万人)"
+        ],
+        "label": "人口数"
+      }
+    ],
+    "columns": [
+      "2010年GDP(亿美元)",
+      "2011年GDP(亿美元)",
+      "2010年人口数(万人)",
+      "2011年人口数(万人)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家",
+    "rows": [
+      {
+        "display_label": "巴西",
+        "group": null,
+        "label": "巴西",
+        "unit": null,
+        "values": [
+          21430,
+          24808,
+          19070,
+          19200
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": null,
+        "label": "俄罗斯",
+        "unit": null,
+        "values": [
+          14870,
+          18500,
+          14191,
+          14287
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": null,
+        "label": "印度",
+        "unit": null,
+        "values": [
+          16030,
+          18392,
+          118211,
+          121000
+        ]
+      },
+      {
+        "display_label": "中国",
+        "group": null,
+        "label": "中国",
+        "unit": null,
+        "values": [
+          59310,
+          73010,
+          133787,
+          134413
+        ]
+      },
+      {
+        "display_label": "南非",
+        "group": null,
+        "label": "南非",
+        "unit": null,
+        "values": [
+          3640,
+          3750,
+          4999,
+          5000
+        ]
+      }
+    ]
+  },
+  "uncertainties": []
+}

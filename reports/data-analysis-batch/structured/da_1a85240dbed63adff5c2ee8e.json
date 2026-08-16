@@ -1,0 +1,209 @@
+{
+  "asset_id": "da_1a85240dbed63adff5c2ee8e",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "第一产业",
+    "第二产业",
+    "第三产业"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "第一产业",
+      "style": {
+        "dash": null,
+        "fill": "lightgray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "第二产业",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "第三产业",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -182.5,
+      84.5,
+      92.5,
+      177.5
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 84.5,
+        "label": "第一产业",
+        "share": 0.74166667,
+        "start_angle": -182.5,
+        "sweep_angle": 267.0
+      },
+      {
+        "end_angle": 92.5,
+        "label": "第二产业",
+        "share": 0.02222222,
+        "start_angle": 84.5,
+        "sweep_angle": 8.0
+      },
+      {
+        "end_angle": 177.5,
+        "label": "第三产业",
+        "share": 0.23611111,
+        "start_angle": 92.5,
+        "sweep_angle": 85.0
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.74166667,
+        0.02222222,
+        0.23611111
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2012年浙江省公务员录用考试《行测》题_images/img_0153_0f2116d3773c90ad.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年浙江省公务员录用考试《行测》题_images/img_0153_0f2116d3773c90ad.png",
+        "paper_title": "2012年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_eddd2b663c79fc27a704",
+        "question_number": 121,
+        "source_jsonl_line": 60423
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年浙江省公务员录用考试《行测》题_images/img_0153_0f2116d3773c90ad.png",
+        "paper_title": "2012年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_736ab2458bfb51a3facd",
+        "question_number": 122,
+        "source_jsonl_line": 60424
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年浙江省公务员录用考试《行测》题_images/img_0153_0f2116d3773c90ad.png",
+        "paper_title": "2012年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_078c5e9f7451a8c85292",
+        "question_number": 123,
+        "source_jsonl_line": 60425
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年浙江省公务员录用考试《行测》题_images/img_0175_cd8915f827c75d1a.png",
+        "paper_title": "2012年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_dc30d7faf2b034a6d888",
+        "question_number": 124,
+        "source_jsonl_line": 60426
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年浙江省公务员录用考试《行测》题_images/img_0175_cd8915f827c75d1a.png",
+        "paper_title": "2012年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_7c86a04d4f39cc31dbdc",
+        "question_number": 125,
+        "source_jsonl_line": 60427
+      }
+    ],
+    "sha256": "1a85240dbed63adff5c2ee8e92eaba6150c7654ce1f9549604cea6cf35b8278d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2007-2010年浙江省三次产业增加值结构图",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1a85240dbed63adff5c2ee8e/quadrant_01.jpg",
+        "review-crops/da_1a85240dbed63adff5c2ee8e/quadrant_02.jpg",
+        "review-crops/da_1a85240dbed63adff5c2ee8e/quadrant_03.jpg",
+        "review-crops/da_1a85240dbed63adff5c2ee8e/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.313",
+      "crop_verification_elapsed_seconds:10.895",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:各年份饼图中数值为近似值，存在四舍五入误差",
+      "model_uncertainty:未明确标注单位，但根据上下文推断为百分比",
+      "crop_note:修正2007年第三产业数值为40.4%（原图显示40.4%）",
+      "crop_note:修正2008年第三产业数值为41.0%（原图显示41.0%）",
+      "crop_note:修正2009年第三产业数值为43.0%（原图显示43.0%）",
+      "crop_note:修正2010年第三产业数值为43.1%（原图显示43.1%）",
+      "crop_note:修正2007年第一产业数值为5.5%（原图显示5.5%）",
+      "crop_note:修正2008年第一产业数值为5.1%（原图显示5.1%）",
+      "crop_note:修正2009年第一产业数值为5.1%（原图显示5.1%）",
+      "crop_note:修正2010年第一产业数值为5.0%（原图显示5.0%）",
+      "crop_note:修正2007年第二产业数值为54.1%（原图显示54.1%）",
+      "crop_note:修正2008年第二产业数值为53.9%（原图显示53.9%）",
+      "crop_note:修正2009年第二产业数值为51.9%（原图显示51.9%）",
+      "crop_note:修正2010年第二产业数值为51.9%（原图显示51.9%）",
+      "circle_edge_coverage:0.4278",
+      "hough_circle_radius_ratio:0.1089",
+      "radial_line_candidates:0",
+      "detected_boundaries:3"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

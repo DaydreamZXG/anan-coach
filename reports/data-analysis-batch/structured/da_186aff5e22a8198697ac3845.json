@@ -1,0 +1,354 @@
+{
+  "asset_id": "da_186aff5e22a8198697ac3845",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0058_be5fc5bf4a3d0072.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0058_be5fc5bf4a3d0072.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_627e0e976063c7fcedfc",
+        "question_number": 86,
+        "source_jsonl_line": 11029
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0058_be5fc5bf4a3d0072.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_50aa7495357dd767fa1e",
+        "question_number": 87,
+        "source_jsonl_line": 11030
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0060_01f7252a1b7b965b.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_78baa11fde2b5a80b990",
+        "question_number": 88,
+        "source_jsonl_line": 11031
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0060_01f7252a1b7b965b.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_2a55ff25656ce713fc5d",
+        "question_number": 89,
+        "source_jsonl_line": 11032
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0060_01f7252a1b7b965b.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_ab1796f0559f1cf7c017",
+        "question_number": 90,
+        "source_jsonl_line": 11033
+      }
+    ],
+    "sha256": "186aff5e22a8198697ac38451fe3cbfce7acf8a593b3ec81fc293ad9c9df4b9d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "左表｜序号",
+          "左表｜地区",
+          "左表｜质量竞争力指数"
+        ],
+        "label": "左表"
+      },
+      {
+        "columns": [
+          "右表｜序号",
+          "右表｜地区",
+          "右表｜质量竞争力指数"
+        ],
+        "label": "右表"
+      }
+    ],
+    "columns": [
+      "左表｜序号",
+      "左表｜地区",
+      "左表｜质量竞争力指数",
+      "右表｜序号",
+      "右表｜地区",
+      "右表｜质量竞争力指数"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "序号",
+    "rows": [
+      {
+        "display_label": "1",
+        "group": null,
+        "label": "1",
+        "unit": null,
+        "values": [
+          1,
+          "江苏",
+          84.94,
+          17,
+          "湖北",
+          79.02
+        ]
+      },
+      {
+        "display_label": "2",
+        "group": null,
+        "label": "2",
+        "unit": null,
+        "values": [
+          2,
+          "福建",
+          84.39,
+          18,
+          "河北",
+          78.29
+        ]
+      },
+      {
+        "display_label": "3",
+        "group": null,
+        "label": "3",
+        "unit": null,
+        "values": [
+          3,
+          "上海",
+          84.34,
+          19,
+          "江西",
+          78.26
+        ]
+      },
+      {
+        "display_label": "4",
+        "group": null,
+        "label": "4",
+        "unit": null,
+        "values": [
+          4,
+          "广东",
+          83.82,
+          20,
+          "黑龙江",
+          77.54
+        ]
+      },
+      {
+        "display_label": "5",
+        "group": null,
+        "label": "5",
+        "unit": null,
+        "values": [
+          5,
+          "北京",
+          83.8,
+          21,
+          "河南",
+          76.79
+        ]
+      },
+      {
+        "display_label": "6",
+        "group": null,
+        "label": "6",
+        "unit": null,
+        "values": [
+          6,
+          "重庆",
+          83.79,
+          22,
+          "山西",
+          76.29
+        ]
+      },
+      {
+        "display_label": "7",
+        "group": null,
+        "label": "7",
+        "unit": null,
+        "values": [
+          7,
+          "天津",
+          83.76,
+          23,
+          "甘肃",
+          75.57
+        ]
+      },
+      {
+        "display_label": "8",
+        "group": null,
+        "label": "8",
+        "unit": null,
+        "values": [
+          8,
+          "浙江",
+          82.86,
+          24,
+          "广西",
+          74.82
+        ]
+      },
+      {
+        "display_label": "9",
+        "group": null,
+        "label": "9",
+        "unit": null,
+        "values": [
+          9,
+          "辽宁",
+          82.8,
+          25,
+          "海南",
+          74.61
+        ]
+      },
+      {
+        "display_label": "10",
+        "group": null,
+        "label": "10",
+        "unit": null,
+        "values": [
+          10,
+          "山东",
+          80.86,
+          26,
+          "内蒙古",
+          74.36
+        ]
+      },
+      {
+        "display_label": "11",
+        "group": null,
+        "label": "11",
+        "unit": null,
+        "values": [
+          11,
+          "四川",
+          80.81,
+          27,
+          "青海",
+          73.46
+        ]
+      },
+      {
+        "display_label": "12",
+        "group": null,
+        "label": "12",
+        "unit": null,
+        "values": [
+          12,
+          "吉林",
+          79.49,
+          28,
+          "宁夏",
+          72.71
+        ]
+      },
+      {
+        "display_label": "13",
+        "group": null,
+        "label": "13",
+        "unit": null,
+        "values": [
+          13,
+          "贵州",
+          79.4,
+          29,
+          "云南",
+          72.33
+        ]
+      },
+      {
+        "display_label": "14",
+        "group": null,
+        "label": "14",
+        "unit": null,
+        "values": [
+          14,
+          "湖南",
+          79.4,
+          30,
+          "新疆",
+          71.74
+        ]
+      },
+      {
+        "display_label": "15",
+        "group": null,
+        "label": "15",
+        "unit": null,
+        "values": [
+          15,
+          "安徽",
+          79.28,
+          31,
+          "西藏",
+          68.3
+        ]
+      },
+      {
+        "display_label": "16",
+        "group": null,
+        "label": "16",
+        "unit": null,
+        "values": [
+          16,
+          "陕西",
+          79.12,
+          null,
+          null,
+          null
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

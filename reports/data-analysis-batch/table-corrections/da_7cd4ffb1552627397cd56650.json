@@ -1,0 +1,203 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "1970年",
+          "1980年",
+          "1990年",
+          "2000年",
+          "2010年",
+          "2011年"
+        ],
+        "label": "部分国家和地区城镇化率"
+      }
+    ],
+    "columns": [
+      "1970年",
+      "1980年",
+      "1990年",
+      "2000年",
+      "2010年",
+      "2011年"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家",
+    "rows": [
+      {
+        "display_label": "世界",
+        "group": null,
+        "label": "世界",
+        "unit": null,
+        "values": [
+          36.54,
+          39.32,
+          42.88,
+          46.61,
+          51.52,
+          51.99
+        ]
+      },
+      {
+        "display_label": "高收入国家",
+        "group": null,
+        "label": "高收入国家",
+        "unit": null,
+        "values": [
+          68.78,
+          71.77,
+          74.1,
+          76.53,
+          80.23,
+          80.5
+        ]
+      },
+      {
+        "display_label": "上中等收入国家",
+        "group": null,
+        "label": "上中等收入国家",
+        "unit": null,
+        "values": [
+          32.45,
+          36.57,
+          43.39,
+          50.63,
+          59.75,
+          60.62
+        ]
+      },
+      {
+        "display_label": "中等收入国家",
+        "group": null,
+        "label": "中等收入国家",
+        "unit": null,
+        "values": [
+          28.82,
+          32.66,
+          37.88,
+          42.92,
+          48.99,
+          49.58
+        ]
+      },
+      {
+        "display_label": "低收入国家",
+        "group": null,
+        "label": "低收入国家",
+        "unit": null,
+        "values": [
+          14.82,
+          18.61,
+          21.48,
+          24.26,
+          27.6,
+          28.0
+        ]
+      },
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": null,
+        "values": [
+          73.6,
+          73.74,
+          75.3,
+          79.09,
+          82.14,
+          82.38
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": null,
+        "values": [
+          71.88,
+          76.18,
+          77.34,
+          78.65,
+          90.54,
+          91.14
+        ]
+      },
+      {
+        "display_label": "德国",
+        "group": null,
+        "label": "德国",
+        "unit": null,
+        "values": [
+          72.27,
+          72.84,
+          73.12,
+          73.07,
+          73.82,
+          73.94
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": null,
+        "label": "俄罗斯",
+        "unit": null,
+        "values": [
+          62.47,
+          69.75,
+          73.39,
+          73.35,
+          73.65,
+          73.82
+        ]
+      },
+      {
+        "display_label": "巴西",
+        "group": null,
+        "label": "巴西",
+        "unit": null,
+        "values": [
+          55.91,
+          65.47,
+          73.92,
+          81.19,
+          84.34,
+          84.6
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": null,
+        "label": "印度",
+        "unit": null,
+        "values": [
+          19.76,
+          23.1,
+          25.55,
+          27.67,
+          30.93,
+          31.3
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          40.7,
+          56.72,
+          73.84,
+          79.62,
+          82.93,
+          83.2
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

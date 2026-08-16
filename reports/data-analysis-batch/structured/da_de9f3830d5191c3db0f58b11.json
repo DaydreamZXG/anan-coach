@@ -1,0 +1,235 @@
+{
+  "asset_id": "da_de9f3830d5191c3db0f58b11",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0056_6b652c6ec69d0385.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0056_6b652c6ec69d0385.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_af775f77e792bbc4f71f",
+        "question_number": 91,
+        "source_jsonl_line": 11034
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0056_6b652c6ec69d0385.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_88ac29415668e1ff14af",
+        "question_number": 92,
+        "source_jsonl_line": 11035
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0056_6b652c6ec69d0385.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_aba9a11ed5d181621588",
+        "question_number": 93,
+        "source_jsonl_line": 11036
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0062_0030759a29d2a8d5.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_6ac548f6f34e47275a33",
+        "question_number": 94,
+        "source_jsonl_line": 11037
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0056_6b652c6ec69d0385.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_cd40888d57b2ebc61a50",
+        "question_number": 95,
+        "source_jsonl_line": 11038
+      }
+    ],
+    "sha256": "de9f3830d5191c3db0f58b1107a4144c8a9f3c77b028e97f5396ca61e10b9af1"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "东部地区｜2005年",
+      "中部地区｜2005年",
+      "西部地区｜2005年"
+    ],
+    "corner_header": {
+      "lower_label": "中部地区",
+      "style": "diagonal",
+      "upper_label": "东部地区"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "北京",
+        "group": "2005年",
+        "label": "2005年｜北京",
+        "unit": null,
+        "values": [
+          32.86,
+          23.9,
+          25.24
+        ]
+      },
+      {
+        "display_label": "天津",
+        "group": "2005年",
+        "label": "2005年｜天津",
+        "unit": null,
+        "values": [
+          24.97,
+          24.79,
+          22.96
+        ]
+      },
+      {
+        "display_label": "河北",
+        "group": "2005年",
+        "label": "2005年｜河北",
+        "unit": null,
+        "values": [
+          26.04,
+          22.46,
+          25.23
+        ]
+      },
+      {
+        "display_label": "辽宁",
+        "group": "2005年",
+        "label": "2005年｜辽宁",
+        "unit": null,
+        "values": [
+          21.96,
+          22.03,
+          30.68
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": "2005年",
+        "label": "2005年｜上海",
+        "unit": null,
+        "values": [
+          33.07,
+          22.56,
+          27.48
+        ]
+      },
+      {
+        "display_label": "江苏",
+        "group": "2005年",
+        "label": "2005年｜江苏",
+        "unit": null,
+        "values": [
+          27.95,
+          25.58,
+          20.4
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": "2005年",
+        "label": "2005年｜浙江",
+        "unit": null,
+        "values": [
+          34.8,
+          23.4,
+          28.59
+        ]
+      },
+      {
+        "display_label": "福建",
+        "group": "2005年",
+        "label": "2005年｜福建",
+        "unit": null,
+        "values": [
+          32.28,
+          24.99,
+          20.86
+        ]
+      },
+      {
+        "display_label": "山东",
+        "group": "2005年",
+        "label": "2005年｜山东",
+        "unit": null,
+        "values": [
+          26.47,
+          26,
+          23.4
+        ]
+      },
+      {
+        "display_label": "广东",
+        "group": "2005年",
+        "label": "2005年｜广东",
+        "unit": null,
+        "values": [
+          26.46,
+          null,
+          23.28
+        ]
+      },
+      {
+        "display_label": "海南",
+        "group": "2005年",
+        "label": "2005年｜海南",
+        "unit": null,
+        "values": [
+          24.18,
+          null,
+          22
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "asset_id": "da_65bcaae58c7490892c0bf590",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2015年四川省公务员录用考试《行测》题（上半年）_images/img_0123_a1ec969e014c2709.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年四川省公务员录用考试《行测》题（上半年）_images/img_0123_a1ec969e014c2709.png",
+        "paper_title": "2015年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_860e06171bea1b70ec8c",
+        "question_number": 96,
+        "source_jsonl_line": 15120
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年四川省公务员录用考试《行测》题（上半年）_images/img_0123_a1ec969e014c2709.png",
+        "paper_title": "2015年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_e9a3bfa09a8716882cf1",
+        "question_number": 97,
+        "source_jsonl_line": 15121
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年四川省公务员录用考试《行测》题（上半年）_images/img_0123_a1ec969e014c2709.png",
+        "paper_title": "2015年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_a4d08872aa85294fe17f",
+        "question_number": 98,
+        "source_jsonl_line": 15122
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年四川省公务员录用考试《行测》题（上半年）_images/img_0123_a1ec969e014c2709.png",
+        "paper_title": "2015年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_ae7f9a0e2d035663b884",
+        "question_number": 99,
+        "source_jsonl_line": 15123
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年四川省公务员录用考试《行测》题（上半年）_images/img_0123_a1ec969e014c2709.png",
+        "paper_title": "2015年四川省公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_7aef7e54897ff181fe7e",
+        "question_number": 100,
+        "source_jsonl_line": 15124
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山西省公务员录用考试《行测》题_images/img_0132_a1ec969e014c2709.png",
+        "paper_title": "2015年山西省公务员录用考试《行测》题",
+        "question_id": "pq_1f5090a05dcbc5c2ecde",
+        "question_number": 111,
+        "source_jsonl_line": 32069
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山西省公务员录用考试《行测》题_images/img_0132_a1ec969e014c2709.png",
+        "paper_title": "2015年山西省公务员录用考试《行测》题",
+        "question_id": "pq_e8fcba5a917a7ba1ec82",
+        "question_number": 112,
+        "source_jsonl_line": 32070
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山西省公务员录用考试《行测》题_images/img_0151_35eacddd2c9b53ea.png",
+        "paper_title": "2015年山西省公务员录用考试《行测》题",
+        "question_id": "pq_e197aab77906db44f12d",
+        "question_number": 113,
+        "source_jsonl_line": 32071
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山西省公务员录用考试《行测》题_images/img_0151_35eacddd2c9b53ea.png",
+        "paper_title": "2015年山西省公务员录用考试《行测》题",
+        "question_id": "pq_f7712562dacc6ef8dc71",
+        "question_number": 114,
+        "source_jsonl_line": 32072
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山西省公务员录用考试《行测》题_images/img_0151_35eacddd2c9b53ea.png",
+        "paper_title": "2015年山西省公务员录用考试《行测》题",
+        "question_id": "pq_77341196fb72a8d728d0",
+        "question_number": 115,
+        "source_jsonl_line": 32073
+      }
+    ],
+    "sha256": "65bcaae58c7490892c0bf5903a53d27b7b67c0177a8351d808db7761ccbcb3df"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "",
+      "金额(亿元)",
+      "同比增速(%)",
+      "增速与1~11月累计相比(百分点)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "第一产业",
+        "unit": null,
+        "values": [
+          "第一产业",
+          9004,
+          32.2,
+          1.7
+        ]
+      },
+      {
+        "label": "第二产业",
+        "unit": null,
+        "values": [
+          "第二产业",
+          158672,
+          20.2,
+          -0.9
+        ]
+      },
+      {
+        "label": "其中：工业",
+        "unit": null,
+        "values": [
+          "其中：工业",
+          154636,
+          20.0,
+          -1.1
+        ]
+      },
+      {
+        "label": "其中：采矿业",
+        "unit": null,
+        "values": [
+          "其中：采矿业",
+          13129,
+          11.8,
+          -0.4
+        ]
+      },
+      {
+        "label": "制造业",
+        "unit": null,
+        "values": [
+          "制造业",
+          124971,
+          22.0,
+          -0.8
+        ]
+      },
+      {
+        "label": "电力、热力、燃气及水的生产和供应业",
+        "unit": null,
+        "values": [
+          "电力、热力、燃气及水的生产和供应业",
+          16536,
+          12.8,
+          -3.4
+        ]
+      },
+      {
+        "label": "第三产业",
+        "unit": null,
+        "values": [
+          "第三产业",
+          197159,
+          20.6,
+          0.2
+        ]
+      }
+    ]
+  },
+  "title": "2012年1~12月，全国固定资产投资状况（不含农户）",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_65bcaae58c7490892c0bf590/row_band_01.jpg",
+        "review-crops/da_65bcaae58c7490892c0bf590/row_band_02.jpg",
+        "review-crops/da_65bcaae58c7490892c0bf590/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.386",
+      "crop_verification_elapsed_seconds:4.552",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

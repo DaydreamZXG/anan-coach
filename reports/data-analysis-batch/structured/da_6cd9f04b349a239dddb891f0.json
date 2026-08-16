@@ -1,0 +1,203 @@
+{
+  "asset_id": "da_6cd9f04b349a239dddb891f0",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2016年山东省公务员录用考试《行测》题_images/img_0146_f6f0646694489d77.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0146_f6f0646694489d77.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_ce1e47d6affeb8cf9e66",
+        "question_number": 111,
+        "source_jsonl_line": 29965
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0147_71941d4441ef3d42.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_22ca56200cefed44bb1d",
+        "question_number": 112,
+        "source_jsonl_line": 29966
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0147_71941d4441ef3d42.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_0164664bc3cb0d505638",
+        "question_number": 113,
+        "source_jsonl_line": 29967
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0147_71941d4441ef3d42.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_09a927bdbcf192faff65",
+        "question_number": 114,
+        "source_jsonl_line": 29968
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年山东省公务员录用考试《行测》题_images/img_0146_f6f0646694489d77.png",
+        "paper_title": "2016年山东省公务员录用考试《行测》题",
+        "question_id": "pq_0a960f3c6cbdb87a8501",
+        "question_number": 115,
+        "source_jsonl_line": 29969
+      }
+    ],
+    "sha256": "6cd9f04b349a239dddb891f0df1c42aaf75d424a9c6d3b28eb42e4ea28ca6630"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "生态移民",
+      "农村居民"
+    ],
+    "corner_header": {
+      "lower_label": "农村居民",
+      "style": "diagonal",
+      "upper_label": "生态移民"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "食品烟酒",
+        "group": "人均生活消费支出",
+        "label": "人均生活消费支出｜食品烟酒",
+        "unit": null,
+        "values": [
+          2033,
+          2296
+        ]
+      },
+      {
+        "display_label": "衣着",
+        "group": "人均生活消费支出",
+        "label": "人均生活消费支出｜衣着",
+        "unit": null,
+        "values": [
+          411,
+          602
+        ]
+      },
+      {
+        "display_label": "居住",
+        "group": "人均生活消费支出",
+        "label": "人均生活消费支出｜居住",
+        "unit": null,
+        "values": [
+          939,
+          1388
+        ]
+      },
+      {
+        "display_label": "生活用品及服务",
+        "group": "人均生活消费支出",
+        "label": "人均生活消费支出｜生活用品及服务",
+        "unit": null,
+        "values": [
+          261,
+          496
+        ]
+      },
+      {
+        "display_label": "交通通信",
+        "group": "人均生活消费支出",
+        "label": "人均生活消费支出｜交通通信",
+        "unit": null,
+        "values": [
+          526,
+          961
+        ]
+      },
+      {
+        "display_label": "教育文化娱乐",
+        "group": "人均生活消费支出",
+        "label": "人均生活消费支出｜教育文化娱乐",
+        "unit": null,
+        "values": [
+          393,
+          867
+        ]
+      },
+      {
+        "display_label": "医疗保健",
+        "group": "人均生活消费支出",
+        "label": "人均生活消费支出｜医疗保健",
+        "unit": null,
+        "values": [
+          427,
+          857
+        ]
+      },
+      {
+        "display_label": "其他用品服务类",
+        "group": "人均生活消费支出",
+        "label": "人均生活消费支出｜其他用品服务类",
+        "unit": null,
+        "values": [
+          100,
+          209
+        ]
+      },
+      {
+        "display_label": "总计",
+        "group": "人均生活消费支出",
+        "label": "人均生活消费支出｜总计",
+        "unit": null,
+        "values": [
+          5090,
+          7676
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

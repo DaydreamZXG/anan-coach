@@ -1,0 +1,218 @@
+{
+  "asset_id": "da_b7f1f02ba2aaab18a5fc60e7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 14,
+        "min": 8,
+        "ticks": [
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2017年3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月",
+    "2018年1-2月",
+    "3月"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "社会消费品零售总额分月同比增长速度",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "社会消费品零售总额分月同比增长速度",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.9,
+        10.7,
+        10.7,
+        11.0,
+        10.4,
+        10.1,
+        10.3,
+        10.0,
+        10.2,
+        9.4,
+        9.7,
+        10.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0033_ff75464204618e6a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0033_ff75464204618e6a.png",
+        "paper_title": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_5c79ea93c4ac14482b60",
+        "question_number": 36,
+        "source_jsonl_line": 28810
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0033_ff75464204618e6a.png",
+        "paper_title": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_82f18d0f32ea42077eb2",
+        "question_number": 37,
+        "source_jsonl_line": 28811
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0033_ff75464204618e6a.png",
+        "paper_title": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_849fd30bd753f8da02b2",
+        "question_number": 38,
+        "source_jsonl_line": 28812
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0033_ff75464204618e6a.png",
+        "paper_title": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_94edb75f4d8ccfaada08",
+        "question_number": 39,
+        "source_jsonl_line": 28813
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0033_ff75464204618e6a.png",
+        "paper_title": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_3f6c00060ae29ac49562",
+        "question_number": 40,
+        "source_jsonl_line": 28814
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0038_ff75464204618e6a.png",
+        "paper_title": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_b16ab985a98e3e285cca",
+        "question_number": 36,
+        "source_jsonl_line": 90965
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0033_261d505470a383e0.png",
+        "paper_title": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_ce3db577032ddc746a64",
+        "question_number": 37,
+        "source_jsonl_line": 90966
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0038_ff75464204618e6a.png",
+        "paper_title": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_806e629e91d4940b3c69",
+        "question_number": 38,
+        "source_jsonl_line": 90967
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0038_ff75464204618e6a.png",
+        "paper_title": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_1022e8e6fe2de30db042",
+        "question_number": 39,
+        "source_jsonl_line": 90968
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）_images/img_0038_ff75464204618e6a.png",
+        "paper_title": "安徽省2019年面向全国重点高校定向招录选调生《行测》题（网友回忆版）",
+        "question_id": "pq_b1da001409bf87cb7454",
+        "question_number": 40,
+        "source_jsonl_line": 90969
+      }
+    ],
+    "sha256": "b7f1f02ba2aaab18a5fc60e70b741ec65d2b78b2dfbc985da7f3a810608df398"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "社会消费品零售总额分月同比增长速度",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b7f1f02ba2aaab18a5fc60e7/column_band_01.jpg",
+        "review-crops/da_b7f1f02ba2aaab18a5fc60e7/column_band_02.jpg",
+        "review-crops/da_b7f1f02ba2aaab18a5fc60e7/column_band_03.jpg",
+        "review-crops/da_b7f1f02ba2aaab18a5fc60e7/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.027",
+      "crop_verification_elapsed_seconds:5.045",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_chart_point:2017年4月:社会消费品零售总额分月同比增长速度",
+      "crop_note:ignored_unknown_chart_point:2017年5月:社会消费品零售总额分月同比增长速度",
+      "crop_note:ignored_unknown_chart_point:2017年6月:社会消费品零售总额分月同比增长速度",
+      "crop_note:ignored_unknown_chart_point:2017年7月:社会消费品零售总额分月同比增长速度",
+      "crop_note:ignored_unknown_chart_point:2017年8月:社会消费品零售总额分月同比增长速度",
+      "crop_note:ignored_unknown_chart_point:2017年9月:社会消费品零售总额分月同比增长速度",
+      "crop_note:ignored_unknown_chart_point:2017年10月:社会消费品零售总额分月同比增长速度",
+      "crop_note:ignored_unknown_chart_point:2017年11月:社会消费品零售总额分月同比增长速度",
+      "crop_note:ignored_unknown_chart_point:2017年12月:社会消费品零售总额分月同比增长速度",
+      "crop_note:ignored_unknown_chart_point:2018年3月:社会消费品零售总额分月同比增长速度"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

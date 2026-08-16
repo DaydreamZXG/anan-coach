@@ -1,0 +1,410 @@
+{
+  "asset_id": "da_968f09120cefd6fe39ab2351",
+  "axes": {
+    "x": {
+      "max": 2023,
+      "min": 2014,
+      "ticks": [
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "title": "时间（年）",
+      "unit": "年"
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "摊位数（万个）",
+        "unit": "万个"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "营业面积（万平方米）",
+        "unit": "万平方米"
+      }
+    ]
+  },
+  "categories": [
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "摊位数（万个）",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "营业面积（万平方米）",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "批发市场成交额（亿元）",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "零售市场成交额（亿元）",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "摊位数（万个）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万个",
+      "values": [
+        5.1,
+        4.9,
+        4.9,
+        4.5,
+        4.1,
+        4.0,
+        3.4,
+        3.4,
+        3.3,
+        3.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "营业面积（万平方米）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万平方米",
+      "values": [
+        295,
+        294,
+        322,
+        301,
+        374,
+        356,
+        331,
+        327,
+        303,
+        289
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "批发市场成交额（亿元）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        709,
+        669,
+        656,
+        550,
+        399,
+        438,
+        348,
+        461,
+        338,
+        398
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "零售市场成交额（亿元）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        442,
+        423,
+        425,
+        337,
+        205,
+        249,
+        192,
+        386,
+        275,
+        345
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0051_79282dd85d40e3ed.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0051_79282dd85d40e3ed.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8e987856d17ffc90fbdf",
+        "question_number": 106,
+        "source_jsonl_line": 84457
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0066_e806841ece7afb7b.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_91aea904a7a888295913",
+        "question_number": 107,
+        "source_jsonl_line": 84458
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0051_79282dd85d40e3ed.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3b79768eb407acef02c9",
+        "question_number": 108,
+        "source_jsonl_line": 84459
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0051_79282dd85d40e3ed.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c37f700a0ca7c4bdd01a",
+        "question_number": 109,
+        "source_jsonl_line": 84460
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0051_79282dd85d40e3ed.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c7dc7d2fa4cd82b8f6e2",
+        "question_number": 110,
+        "source_jsonl_line": 84461
+      }
+    ],
+    "sha256": "968f09120cefd6fe39ab2351fb3942675656fdb8adecf01940e91d55b72bbd51"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "时间（年）",
+      "摊位数（万个）",
+      "营业面积（万平方米）",
+      "成交总额（亿元）",
+      "批发市场成交额（亿元）",
+      "零售市场成交额（亿元）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2014",
+        "unit": null,
+        "values": [
+          2014,
+          5.1,
+          295,
+          709,
+          442,
+          267
+        ]
+      },
+      {
+        "label": "2015",
+        "unit": null,
+        "values": [
+          2015,
+          4.9,
+          294,
+          669,
+          423,
+          246
+        ]
+      },
+      {
+        "label": "2016",
+        "unit": null,
+        "values": [
+          2016,
+          4.9,
+          322,
+          656,
+          425,
+          231
+        ]
+      },
+      {
+        "label": "2017",
+        "unit": null,
+        "values": [
+          2017,
+          4.5,
+          301,
+          550,
+          337,
+          213
+        ]
+      },
+      {
+        "label": "2018",
+        "unit": null,
+        "values": [
+          2018,
+          4.1,
+          374,
+          399,
+          205,
+          194
+        ]
+      },
+      {
+        "label": "2019",
+        "unit": null,
+        "values": [
+          2019,
+          4.0,
+          356,
+          438,
+          249,
+          189
+        ]
+      },
+      {
+        "label": "2020",
+        "unit": null,
+        "values": [
+          2020,
+          3.4,
+          331,
+          348,
+          192,
+          156
+        ]
+      },
+      {
+        "label": "2021",
+        "unit": null,
+        "values": [
+          2021,
+          3.4,
+          327,
+          461,
+          386,
+          75
+        ]
+      },
+      {
+        "label": "2022",
+        "unit": null,
+        "values": [
+          2022,
+          3.3,
+          303,
+          338,
+          275,
+          63
+        ]
+      },
+      {
+        "label": "2023",
+        "unit": null,
+        "values": [
+          2023,
+          3.1,
+          289,
+          398,
+          345,
+          53
+        ]
+      }
+    ]
+  },
+  "title": "2014~2023年全国亿元以上商品交易市场情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_968f09120cefd6fe39ab2351/row_band_01.jpg",
+        "review-crops/da_968f09120cefd6fe39ab2351/row_band_02.jpg",
+        "review-crops/da_968f09120cefd6fe39ab2351/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:17.019",
+      "crop_verification_elapsed_seconds:2.706",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

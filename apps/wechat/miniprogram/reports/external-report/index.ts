@@ -4,6 +4,11 @@ import type {
 } from "../../api/generated/types.gen";
 import { ReportingApi } from "../shared/api/reporting";
 import { routes } from "../../app/navigation/routes";
+import { currentAuthSession } from "../../auth/session";
+import {
+  markCoachEntryEvidence,
+  readCoachEntryIntent,
+} from "../../features/onboarding/coach-entry";
 import {
   confirmedExternalScoreRevision,
   editExternalScoreSpan,
@@ -45,6 +50,14 @@ Page({
     submitting: false,
     evidenceLabel: "",
     abilityLabel: "",
+    coachEntryActive: false,
+  },
+  onLoad() {
+    const session = currentAuthSession();
+    this.setData({
+      coachEntryActive:
+        session !== undefined && readCoachEntryIntent(session.userId)?.path === "score_report",
+    });
   },
   chooseCamera() {
     void this.selectImage("camera");
@@ -176,6 +189,7 @@ Page({
         evidenceLabel: evidenceGradeLabel(data.evidenceGrade),
         abilityLabel: abilityImpactLabel(data.abilityImpact),
       });
+      if (data.state === "confirmed") markCurrentCoachEntryEvidence();
     } catch (error) {
       this.setWorkflowError(error, "没有识别出可核对的成绩字段。");
     } finally {
@@ -198,6 +212,7 @@ Page({
         evidenceLabel: evidenceGradeLabel(data.evidenceGrade),
         abilityLabel: abilityImpactLabel(data.abilityImpact),
       });
+      markCurrentCoachEntryEvidence();
     } catch (error) {
       this.setWorkflowError(error, "外部模考单没有完成最终确认。");
     } finally {
@@ -218,6 +233,10 @@ Page({
   openLearningProfile() {
     void wx.switchTab({ url: routes.ability });
   },
+  continueCoachMeeting() {
+    markCurrentCoachEntryEvidence();
+    void wx.switchTab({ url: routes.today });
+  },
   returnToday() {
     void wx.switchTab({ url: routes.today });
   },
@@ -230,6 +249,11 @@ Page({
     });
   },
 });
+
+function markCurrentCoachEntryEvidence(): void {
+  const session = currentAuthSession();
+  if (session) markCoachEntryEvidence(session.userId, "score_report");
+}
 
 function initialForm(): ExternalScoreForm {
   const today = new Date();

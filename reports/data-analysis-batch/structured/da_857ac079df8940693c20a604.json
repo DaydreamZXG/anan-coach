@@ -1,0 +1,208 @@
+{
+  "asset_id": "da_857ac079df8940693c20a604",
+  "axes": {
+    "x": {
+      "max": 6,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 60000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000,
+          60000
+        ],
+        "title": null,
+        "unit": "万吨"
+      },
+      {
+        "max": 20.0,
+        "min": -80.0,
+        "ticks": [
+          -80.0,
+          -60.0,
+          -40.0,
+          -20.0,
+          0.0,
+          20.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "原油进口量",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "增速",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "black",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "原油进口量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        27103,
+        28174,
+        30837,
+        33548,
+        38101,
+        41957
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.8,
+        4.0,
+        9.5,
+        8.8,
+        13.6,
+        10.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0105_761c8e9af6ccdc2b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0105_761c8e9af6ccdc2b.png",
+        "paper_title": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验",
+        "question_id": "pq_b9456c4f4f32924d9dd2",
+        "question_number": 53,
+        "source_jsonl_line": 87550
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0105_761c8e9af6ccdc2b.png",
+        "paper_title": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验",
+        "question_id": "pq_7afe32266149271c918b",
+        "question_number": 54,
+        "source_jsonl_line": 87551
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0105_761c8e9af6ccdc2b.png",
+        "paper_title": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验",
+        "question_id": "pq_a308f80beaaa94514e77",
+        "question_number": 55,
+        "source_jsonl_line": 87552
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0105_761c8e9af6ccdc2b.png",
+        "paper_title": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验",
+        "question_id": "pq_abeae726722f83cf53f5",
+        "question_number": 56,
+        "source_jsonl_line": 87553
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验_images/img_0105_761c8e9af6ccdc2b.png",
+        "paper_title": "2018年山东省选调应届优秀高校毕业生到基层工作笔试行政职业能力测验",
+        "question_id": "pq_49479e5ad9ac8c520b65",
+        "question_number": 57,
+        "source_jsonl_line": 87554
+      }
+    ],
+    "sha256": "857ac079df8940693c20a604cad3beb562937f86fe2a42b4de40c93c214e1ed0"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图2 原油进口年度走势",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_857ac079df8940693c20a604/column_band_01.jpg",
+        "review-crops/da_857ac079df8940693c20a604/column_band_02.jpg",
+        "review-crops/da_857ac079df8940693c20a604/column_band_03.jpg",
+        "review-crops/da_857ac079df8940693c20a604/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.374",
+      "crop_verification_elapsed_seconds:3.565",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

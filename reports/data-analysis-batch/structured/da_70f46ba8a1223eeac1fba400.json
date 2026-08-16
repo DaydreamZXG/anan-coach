@@ -1,0 +1,233 @@
+{
+  "asset_id": "da_70f46ba8a1223eeac1fba400",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河南/2017年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0294_d2068e71ee954dce.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0294_d2068e71ee954dce.png",
+        "paper_title": "2017年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fbf4b6de252186125c90",
+        "question_number": 111,
+        "source_jsonl_line": 58448
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0294_d2068e71ee954dce.png",
+        "paper_title": "2017年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a1a85c729bc3abde6665",
+        "question_number": 112,
+        "source_jsonl_line": 58449
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0294_d2068e71ee954dce.png",
+        "paper_title": "2017年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_dbef04bfe74e0ad71156",
+        "question_number": 113,
+        "source_jsonl_line": 58450
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0294_d2068e71ee954dce.png",
+        "paper_title": "2017年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e3a2ee5bb86d42faeeb0",
+        "question_number": 114,
+        "source_jsonl_line": 58451
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0294_d2068e71ee954dce.png",
+        "paper_title": "2017年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a88c815f9586c1814fdc",
+        "question_number": 115,
+        "source_jsonl_line": 58452
+      }
+    ],
+    "sha256": "70f46ba8a1223eeac1fba400c9768041464dc231eee78587d9752156a8e2f3e8"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "企业法人单位（万个）",
+      "从业人员（万人）"
+    ],
+    "corner_header": {
+      "lower_label": "从业人员",
+      "style": "diagonal",
+      "upper_label": "企业法人单位"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "合计",
+        "group": "企业法人单位和从业人员",
+        "label": "企业法人单位和从业人员｜合计",
+        "unit": null,
+        "values": [
+          241.0,
+          14025.8
+        ]
+      },
+      {
+        "display_label": "内资企业",
+        "group": "企业法人单位和从业人员",
+        "label": "企业法人单位和从业人员｜内资企业",
+        "unit": null,
+        "values": [
+          229.3,
+          11259.1
+        ]
+      },
+      {
+        "display_label": "国有企业",
+        "group": "企业法人单位和从业人员",
+        "label": "企业法人单位和从业人员｜国有企业",
+        "unit": null,
+        "values": [
+          2.0,
+          478.5
+        ]
+      },
+      {
+        "display_label": "集体企业",
+        "group": "企业法人单位和从业人员",
+        "label": "企业法人单位和从业人员｜集体企业",
+        "unit": null,
+        "values": [
+          4.0,
+          173.6
+        ]
+      },
+      {
+        "display_label": "股份合作企业",
+        "group": "企业法人单位和从业人员",
+        "label": "企业法人单位和从业人员｜股份合作企业",
+        "unit": null,
+        "values": [
+          2.4,
+          62.2
+        ]
+      },
+      {
+        "display_label": "联营企业",
+        "group": "企业法人单位和从业人员",
+        "label": "企业法人单位和从业人员｜联营企业",
+        "unit": null,
+        "values": [
+          0.5,
+          19.8
+        ]
+      },
+      {
+        "display_label": "有限责任公司",
+        "group": "企业法人单位和从业人员",
+        "label": "企业法人单位和从业人员｜有限责任公司",
+        "unit": null,
+        "values": [
+          32.1,
+          3194.8
+        ]
+      },
+      {
+        "display_label": "股份有限公司",
+        "group": "企业法人单位和从业人员",
+        "label": "企业法人单位和从业人员｜股份有限公司",
+        "unit": null,
+        "values": [
+          3.0,
+          847.6
+        ]
+      },
+      {
+        "display_label": "私营企业",
+        "group": "企业法人单位和从业人员",
+        "label": "企业法人单位和从业人员｜私营企业",
+        "unit": null,
+        "values": [
+          176.0,
+          6272.2
+        ]
+      },
+      {
+        "display_label": "其他企业",
+        "group": "企业法人单位和从业人员",
+        "label": "企业法人单位和从业人员｜其他企业",
+        "unit": null,
+        "values": [
+          9.3,
+          210.4
+        ]
+      },
+      {
+        "display_label": "港、澳、台商投资企业",
+        "group": "企业法人单位和从业人员",
+        "label": "企业法人单位和从业人员｜港、澳、台商投资企业",
+        "unit": null,
+        "values": [
+          5.7,
+          1343.1
+        ]
+      },
+      {
+        "display_label": "外商投资企业",
+        "group": "企业法人单位和从业人员",
+        "label": "企业法人单位和从业人员｜外商投资企业",
+        "unit": null,
+        "values": [
+          5.9,
+          1423.6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

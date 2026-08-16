@@ -1,0 +1,260 @@
+{
+  "asset_id": "da_e3b6dd9831537194e0054b42",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "公司",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "类别",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "Eastlands",
+    "Boeing",
+    "Nipooocar",
+    "Reassair",
+    "Fouthea",
+    "订单单价（英磅）"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "磨床",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "英磅",
+      "values": [
+        1178,
+        574,
+        0,
+        1722,
+        2026,
+        405
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "铣床",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "英磅",
+      "values": [
+        35,
+        0,
+        15,
+        6,
+        45,
+        20245
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "钻床",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "英磅",
+      "values": [
+        145,
+        84,
+        0,
+        30,
+        200,
+        287
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0187_cf2173fae259a030.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0187_cf2173fae259a030.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_66ec1f907ee34fb07e7d",
+        "question_number": 111,
+        "source_jsonl_line": 83622
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0214_5cf64afde8155466.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3cfd795d702089bc1e66",
+        "question_number": 112,
+        "source_jsonl_line": 83623
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0187_cf2173fae259a030.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7452eca74bd85459440e",
+        "question_number": 113,
+        "source_jsonl_line": 83624
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0187_cf2173fae259a030.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9c93167d264b531b6a4e",
+        "question_number": 114,
+        "source_jsonl_line": 83625
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0187_cf2173fae259a030.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_45affb1c3dc142efd96d",
+        "question_number": 115,
+        "source_jsonl_line": 83626
+      }
+    ],
+    "sha256": "e3b6dd9831537194e0054b42a9ebee385bdf1639fc6c33c63a8325cff7ad58b2"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "公司",
+      "类别",
+      "磨床",
+      "铣床",
+      "钻床"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "Eastlands",
+        "unit": null,
+        "values": [
+          "Eastlands",
+          "磨床",
+          1178,
+          35,
+          145
+        ]
+      },
+      {
+        "label": "Boeing",
+        "unit": null,
+        "values": [
+          "Boeing",
+          "铣床",
+          574,
+          0,
+          84
+        ]
+      },
+      {
+        "label": "Nipooocar",
+        "unit": null,
+        "values": [
+          "Nipooocar",
+          "铣床",
+          0,
+          15,
+          0
+        ]
+      },
+      {
+        "label": "Reassair",
+        "unit": null,
+        "values": [
+          "Reassair",
+          "磨床",
+          1722,
+          6,
+          30
+        ]
+      },
+      {
+        "label": "Fouthea",
+        "unit": null,
+        "values": [
+          "Fouthea",
+          "磨床",
+          2026,
+          45,
+          200
+        ]
+      },
+      {
+        "label": "订单单价（英磅）",
+        "unit": null,
+        "values": [
+          "订单单价（英磅）",
+          "磨床",
+          405,
+          20245,
+          287
+        ]
+      }
+    ]
+  },
+  "title": "AK制造公司2018年4月订单情况表",
+  "unit": "英磅",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e3b6dd9831537194e0054b42/row_band_01.jpg",
+        "review-crops/da_e3b6dd9831537194e0054b42/row_band_02.jpg",
+        "review-crops/da_e3b6dd9831537194e0054b42/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.047",
+      "crop_verification_elapsed_seconds:4.41",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:表格中存在两个独立表格，第二个表格未明确标题与单位，仅通过上下文推断其为汇率表，可能存在信息缺失",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

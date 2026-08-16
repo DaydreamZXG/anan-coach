@@ -1,0 +1,250 @@
+{
+  "asset_id": "da_33c33d2a94eb814deca48c23",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0074_9f7d1560a35cf7bf.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0074_9f7d1560a35cf7bf.png",
+        "paper_title": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_d45410c705593b1b0ded",
+        "question_number": 86,
+        "source_jsonl_line": 71647
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0074_9f7d1560a35cf7bf.png",
+        "paper_title": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_a79c89f5461afa57fd94",
+        "question_number": 87,
+        "source_jsonl_line": 71648
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0104_a7e26af04f8b3c1e.png",
+        "paper_title": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_d072b21974cad48f2100",
+        "question_number": 88,
+        "source_jsonl_line": 71649
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0104_a7e26af04f8b3c1e.png",
+        "paper_title": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_bad2231ee0b08d101ab8",
+        "question_number": 89,
+        "source_jsonl_line": 71650
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0074_9f7d1560a35cf7bf.png",
+        "paper_title": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_59203d4e0b17af1c2497",
+        "question_number": 90,
+        "source_jsonl_line": 71651
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0070_9f7d1560a35cf7bf.png",
+        "paper_title": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_1a316368ad3f623c4c25",
+        "question_number": 86,
+        "source_jsonl_line": 90336
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0079_a7e26af04f8b3c1e.png",
+        "paper_title": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_f2df8ae95b8058e5fa5c",
+        "question_number": 87,
+        "source_jsonl_line": 90337
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0070_9f7d1560a35cf7bf.png",
+        "paper_title": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_8fbae99c25a058853cbb",
+        "question_number": 88,
+        "source_jsonl_line": 90338
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0079_a7e26af04f8b3c1e.png",
+        "paper_title": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_fe431363685d8d7bd0c0",
+        "question_number": 89,
+        "source_jsonl_line": 90339
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0070_9f7d1560a35cf7bf.png",
+        "paper_title": "2024年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_d0e07780f54e7ee2abd3",
+        "question_number": 90,
+        "source_jsonl_line": 90340
+      }
+    ],
+    "sha256": "33c33d2a94eb814deca48c234b0ec3df2e7925f7a5d9c31a842195abcba4072d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "国内｜国内（万辆）",
+          "国内｜同比增长（%）"
+        ],
+        "label": "国内"
+      },
+      {
+        "columns": [
+          "出口｜出口（万辆）",
+          "出口｜同比增长（%）"
+        ],
+        "label": "出口"
+      }
+    ],
+    "columns": [
+      "国内｜国内（万辆）",
+      "国内｜同比增长（%）",
+      "出口｜出口（万辆）",
+      "出口｜同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "月份",
+    "rows": [
+      {
+        "display_label": "1~12",
+        "group": null,
+        "label": "1~12",
+        "unit": null,
+        "values": [
+          829.2,
+          33.5,
+          120.3,
+          77.6
+        ]
+      },
+      {
+        "display_label": "7",
+        "group": null,
+        "label": "7",
+        "unit": null,
+        "values": [
+          67.9,
+          26.0,
+          10.1,
+          87.0
+        ]
+      },
+      {
+        "display_label": "8",
+        "group": null,
+        "label": "8",
+        "unit": null,
+        "values": [
+          75.6,
+          29.7,
+          9.0,
+          8.1
+        ]
+      },
+      {
+        "display_label": "9",
+        "group": null,
+        "label": "9",
+        "unit": null,
+        "values": [
+          80.8,
+          22.8,
+          9.6,
+          92.8
+        ]
+      },
+      {
+        "display_label": "10",
+        "group": null,
+        "label": "10",
+        "unit": null,
+        "values": [
+          83.2,
+          37.3,
+          12.4,
+          12.8
+        ]
+      },
+      {
+        "display_label": "11",
+        "group": null,
+        "label": "11",
+        "unit": null,
+        "values": [
+          92.9,
+          33.9,
+          9.7,
+          1.6
+        ]
+      },
+      {
+        "display_label": "12",
+        "group": null,
+        "label": "12",
+        "unit": null,
+        "values": [
+          108.0,
+          47.5,
+          11.1,
+          36.5
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

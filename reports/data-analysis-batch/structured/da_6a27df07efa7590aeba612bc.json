@@ -1,0 +1,328 @@
+{
+  "asset_id": "da_6a27df07efa7590aeba612bc",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "零售总额（亿元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        278.86,
+        267.07,
+        14.26,
+        2.56,
+        5.22,
+        10.97,
+        2.54,
+        2.45,
+        4.66,
+        56.35,
+        15.52,
+        5.19,
+        50.81,
+        13.09,
+        83.45,
+        11.79
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "同比增长（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        4.4,
+        4.4,
+        4.6,
+        5.6,
+        -6.91,
+        3.4,
+        3.1,
+        -16.0,
+        -3.9,
+        22.8,
+        -3.0,
+        21.0,
+        9.1,
+        5.9,
+        -5.4,
+        5.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2022年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0073_606a6aeb9713e236.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0073_606a6aeb9713e236.png",
+        "paper_title": "2022年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_bc06365527ba5dc32cc3",
+        "question_number": 86,
+        "source_jsonl_line": 30600
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0073_606a6aeb9713e236.png",
+        "paper_title": "2022年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_5381e2ac2b741de651c9",
+        "question_number": 87,
+        "source_jsonl_line": 30601
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0086_578a7051ba805d91.png",
+        "paper_title": "2022年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_7d0a2e8d6c19155ace5f",
+        "question_number": 88,
+        "source_jsonl_line": 30602
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0073_606a6aeb9713e236.png",
+        "paper_title": "2022年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_04a1dc352d0802a610ff",
+        "question_number": 89,
+        "source_jsonl_line": 30603
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0086_578a7051ba805d91.png",
+        "paper_title": "2022年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_87c1a99ffc3693de34b9",
+        "question_number": 90,
+        "source_jsonl_line": 30604
+      }
+    ],
+    "sha256": "6a27df07efa7590aeba612bce37467cb692039f06afbae2a24f2937e79388369"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标名称",
+      "零售总额（亿元）",
+      "同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "限额以上单位社会消费品零售总额",
+        "unit": null,
+        "values": [
+          "限额以上单位社会消费品零售总额",
+          278.86,
+          4.4
+        ]
+      },
+      {
+        "label": "其中：批发和零售业",
+        "unit": null,
+        "values": [
+          "其中：批发和零售业",
+          267.07,
+          4.4
+        ]
+      },
+      {
+        "label": "其中：粮油、食品类",
+        "unit": null,
+        "values": [
+          "其中：粮油、食品类",
+          14.26,
+          4.6
+        ]
+      },
+      {
+        "label": "饮料类",
+        "unit": null,
+        "values": [
+          "饮料类",
+          2.56,
+          5.6
+        ]
+      },
+      {
+        "label": "烟酒类",
+        "unit": null,
+        "values": [
+          "烟酒类",
+          5.22,
+          -6.91
+        ]
+      },
+      {
+        "label": "服装、鞋帽、针纺织品类",
+        "unit": null,
+        "values": [
+          "服装、鞋帽、针纺织品类",
+          10.97,
+          3.4
+        ]
+      },
+      {
+        "label": "化妆品类",
+        "unit": null,
+        "values": [
+          "化妆品类",
+          2.54,
+          3.1
+        ]
+      },
+      {
+        "label": "金银珠宝类",
+        "unit": null,
+        "values": [
+          "金银珠宝类",
+          2.45,
+          -16.0
+        ]
+      },
+      {
+        "label": "日用品类",
+        "unit": null,
+        "values": [
+          "日用品类",
+          4.66,
+          -3.9
+        ]
+      },
+      {
+        "label": "书报杂志类",
+        "unit": null,
+        "values": [
+          "书报杂志类",
+          56.35,
+          22.8
+        ]
+      },
+      {
+        "label": "家用电器和音像器材类",
+        "unit": null,
+        "values": [
+          "家用电器和音像器材类",
+          15.52,
+          -3.0
+        ]
+      },
+      {
+        "label": "中西药品类",
+        "unit": null,
+        "values": [
+          "中西药品类",
+          5.19,
+          21.0
+        ]
+      },
+      {
+        "label": "石油及制品类",
+        "unit": null,
+        "values": [
+          "石油及制品类",
+          50.81,
+          9.1
+        ]
+      },
+      {
+        "label": "机电产品及设备类",
+        "unit": null,
+        "values": [
+          "机电产品及设备类",
+          13.09,
+          5.9
+        ]
+      },
+      {
+        "label": "汽车类",
+        "unit": null,
+        "values": [
+          "汽车类",
+          83.45,
+          -5.4
+        ]
+      },
+      {
+        "label": "住宿和餐饮业",
+        "unit": null,
+        "values": [
+          "住宿和餐饮业",
+          11.79,
+          5.0
+        ]
+      }
+    ]
+  },
+  "title": "2020年全市限额以上社会消费品零售额情况表",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6a27df07efa7590aeba612bc/row_band_01.jpg",
+        "review-crops/da_6a27df07efa7590aeba612bc/row_band_02.jpg",
+        "review-crops/da_6a27df07efa7590aeba612bc/row_band_03.jpg",
+        "review-crops/da_6a27df07efa7590aeba612bc/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.784",
+      "crop_verification_elapsed_seconds:6.839",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

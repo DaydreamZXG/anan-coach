@@ -11,6 +11,12 @@ from sqlalchemy.orm import Session
 
 from app.domains.ai.governance.routing import prompt_injection_detected
 from app.domains.companion.schemas import (
+    CompanionCoachPreference,
+    CompanionCoachRecheck,
+    CompanionCoachRecheckCommand,
+    CompanionCoachRecheckReceipt,
+    CompanionCoachRetest,
+    CompanionCoachUnderstanding,
     CompanionMemoryCategory,
     CompanionMemoryItem,
     CompanionMemoryState,
@@ -18,8 +24,7 @@ from app.domains.companion.schemas import (
 )
 
 
-MAX_LONG_TERM_MEMORY_ITEMS = 20
-MAX_PROVIDER_MEMORY_ITEMS = MAX_LONG_TERM_MEMORY_ITEMS
+MAX_PROVIDER_MEMORY_ITEMS = 20
 
 
 class CompanionMemoryNotFound(LookupError):
@@ -30,11 +35,11 @@ class CompanionMemoryConflict(RuntimeError):
     pass
 
 
-class CompanionMemoryLimitReached(RuntimeError):
+class CompanionMemoryUnsafeContent(ValueError):
     pass
 
 
-class CompanionMemoryUnsafeContent(ValueError):
+class CompanionCoachRecheckConflict(RuntimeError):
     pass
 
 
@@ -70,14 +75,14 @@ class CompanionMemoryStore:
             longTermEnabled=True if setting is None else bool(setting),
             items=[_memory_item(row) for row in rows],
             shortTerm=summary,
-            maximumLongTermItems=MAX_LONG_TERM_MEMORY_ITEMS,
+            maximumLongTermItems=None,
         )
 
     def active_provider_items(
         self,
         *,
         user_id: str | UUID,
-    ) -> tuple[dict[str, str], ...]:
+    ) -> tuple[dict[str, str | int], ...]:
         enabled = self._session.execute(
             text(
                 "select long_term_enabled from platform.companion_memory_settings "
@@ -90,7 +95,7 @@ class CompanionMemoryStore:
         rows = self._session.execute(
             text(
                 """
-                select category, content
+                select memory_id, category, content, revision
                 from platform.companion_memory_items
                 where user_id = cast(:user_id as uuid)
                 order by updated_at desc, memory_id
@@ -100,8 +105,139 @@ class CompanionMemoryStore:
             {"user_id": str(user_id), "item_limit": MAX_PROVIDER_MEMORY_ITEMS},
         ).mappings()
         return tuple(
-            {"category": str(row["category"]), "content": str(row["content"])}
+            {
+                "memoryId": str(row["memory_id"]),
+                "category": str(row["category"]),
+                "content": str(row["content"]),
+                "revision": int(row["revision"]),
+            }
             for row in rows
+        )
+
+    def coach_understanding(
+        self,
+        *,
+        user_id: str | UUID,
+        coach_context: dict[str, object],
+    ) -> CompanionCoachUnderstanding:
+        items = self.active_provider_items(user_id=user_id)
+        effects = {
+            "explanation_preference": ("applied_to_answers", None),
+            "study_constraint": ("needs_confirmation", "/plans/study-preference/index"),
+            "personal_note": ("context_only", None),
+        }
+        profile = dict(coach_context.get("profile") or {})
+        decision = dict(profile.get("decisionSummary") or {})
+        modules = list(profile.get("modules") or [])
+        return CompanionCoachUnderstanding(
+            coachContext=coach_context,
+            explicitPreferences=[
+                CompanionCoachPreference(
+                    memoryId=str(item["memoryId"]),
+                    revision=int(item["revision"]),
+                    category=str(item["category"]),
+                    content=str(item["content"]),
+                    effect=effects[str(item["category"])][0],
+                    actionUrl=effects[str(item["category"])][1],
+                )
+                for item in items
+            ],
+            pendingRechecks=[
+                CompanionCoachRecheck(
+                    requestId=row["request_id"],
+                    revision=int(row["revision"]),
+                    profileVersionId=row["profile_version_id"],
+                    patternId=str(row["pattern_id"]),
+                    state="pending_reverification",
+                    note=row["note"],
+                    createdAt=row["created_at"],
+                    retestUrl="/xingce/xingce-mastery/index?bucket=due_verification",
+                )
+                for row in self._pending_rechecks(user_id=user_id)
+            ],
+            retest=CompanionCoachRetest(
+                dueNow=int(decision.get("reviewDueCount") or 0),
+                scheduled=sum(int(dict(item).get("dueCount") or 0) for item in modules),
+                stable=sum(int(dict(item).get("stableMasteryCount") or 0) for item in modules),
+                actionUrl="/xingce/xingce-mastery/index?bucket=due_verification",
+            ),
+        )
+
+    def request_coach_recheck(
+        self,
+        *,
+        user_id: str | UUID,
+        command: CompanionCoachRecheckCommand,
+        coach_context: dict[str, object],
+        now: datetime | None = None,
+    ) -> CompanionCoachRecheckReceipt:
+        recorded_at = now or datetime.now(UTC)
+        self._lock_user(user_id=user_id)
+        payload = command.model_dump(mode="json", by_alias=True)
+        request_fingerprint = _fingerprint(payload)
+        existing = self._session.execute(
+            text(
+                "select * from learning.coach_judgment_recheck_versions "
+                "where user_id = cast(:user_id as uuid) and command_id = :command_id"
+            ),
+            {"user_id": str(user_id), "command_id": command.command_id},
+        ).mappings().one_or_none()
+        if existing is not None:
+            if str(existing["request_fingerprint"]) != request_fingerprint:
+                raise CompanionCoachRecheckConflict("recheck command payload changed")
+            return _coach_recheck_receipt(existing)
+        if str(coach_context.get("profileVersionId")) != str(command.profile_version_id):
+            raise CompanionCoachRecheckConflict("coach context changed")
+        profile = dict(coach_context.get("profile") or {})
+        patterns = list(profile.get("errorPatterns") or [])
+        if not any(str(dict(item).get("patternId")) == command.pattern_id for item in patterns):
+            raise CompanionMemoryNotFound("error pattern is not available")
+        row = self._session.execute(
+            text(
+                """
+                insert into learning.coach_judgment_recheck_versions (
+                  request_version_id, request_id, command_id, request_fingerprint,
+                  user_id, revision, profile_version_id, pattern_id, action, note,
+                  state, supersedes_request_version_id, created_at
+                ) values (
+                  cast(:request_version_id as uuid), cast(:request_id as uuid),
+                  :command_id, :request_fingerprint, cast(:user_id as uuid), 1,
+                  cast(:profile_version_id as uuid), :pattern_id, 'not_accurate',
+                  :note, 'pending_reverification', null, :created_at
+                ) returning *
+                """
+            ),
+            {
+                "request_version_id": str(uuid5(NAMESPACE_URL, f"coach-recheck-version:{user_id}:{command.command_id}")),
+                "request_id": str(uuid5(NAMESPACE_URL, f"coach-recheck:{user_id}:{command.command_id}")),
+                "command_id": command.command_id,
+                "request_fingerprint": request_fingerprint,
+                "user_id": str(user_id),
+                "profile_version_id": str(command.profile_version_id),
+                "pattern_id": command.pattern_id,
+                "note": command.note,
+                "created_at": recorded_at,
+            },
+        ).mappings().one()
+        return _coach_recheck_receipt(row)
+
+    def _pending_rechecks(self, *, user_id: str | UUID) -> tuple[Mapping[str, object], ...]:
+        return tuple(
+            self._session.execute(
+                text(
+                    """
+                    select item.* from learning.coach_judgment_recheck_versions item
+                    where item.user_id = cast(:user_id as uuid)
+                      and item.state = 'pending_reverification'
+                      and not exists (
+                        select 1 from learning.coach_judgment_recheck_versions successor
+                        where successor.supersedes_request_version_id = item.request_version_id
+                      )
+                    order by item.created_at desc, item.request_id
+                    """
+                ),
+                {"user_id": str(user_id)},
+            ).mappings()
         )
 
     def create(
@@ -143,17 +279,6 @@ class CompanionMemoryStore:
             if str(existing["request_fingerprint"]) != request_fingerprint:
                 raise CompanionMemoryConflict("idempotency key was reused with another memory")
             return _memory_item(existing)
-        item_count = int(
-            self._session.execute(
-                text(
-                    "select count(*) from platform.companion_memory_items "
-                    "where user_id = cast(:user_id as uuid)"
-                ),
-                {"user_id": str(user_id)},
-            ).scalar_one()
-        )
-        if item_count >= MAX_LONG_TERM_MEMORY_ITEMS:
-            raise CompanionMemoryLimitReached("long-term memory item limit reached")
         row = self._session.execute(
             text(
                 """
@@ -344,7 +469,7 @@ def _safe_content(value: str) -> str:
     return normalized
 
 
-def _fingerprint(value: dict[str, str]) -> str:
+def _fingerprint(value: Mapping[str, object]) -> str:
     return sha256(
         json.dumps(
             value,
@@ -364,4 +489,13 @@ def _memory_item(row: Mapping[str, object]) -> CompanionMemoryItem:
         revision=row["revision"],
         createdAt=row["created_at"],
         updatedAt=row["updated_at"],
+    )
+
+
+def _coach_recheck_receipt(row: Mapping[str, object]) -> CompanionCoachRecheckReceipt:
+    return CompanionCoachRecheckReceipt(
+        requestId=row["request_id"],
+        state="pending_reverification",
+        revision=int(row["revision"]),
+        retestUrl="/xingce/xingce-mastery/index?bucket=due_verification",
     )

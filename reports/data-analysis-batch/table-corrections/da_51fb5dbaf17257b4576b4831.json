@@ -1,0 +1,169 @@
+{
+  "confidence": 0.92,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "32100",
+      "第2列",
+      "33104"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "display_label": "七、中草药材",
+        "group": null,
+        "label": "七、中草药材",
+        "unit": null,
+        "values": [
+          32100,
+          null,
+          33104
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "column_groups": [],
+        "columns": [
+          "32100",
+          "第2列",
+          "33104"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "七、中草药材",
+            "group": null,
+            "label": "七、中草药材",
+            "unit": null,
+            "values": [
+              32100,
+              null,
+              33104
+            ]
+          }
+        ],
+        "title": "七、中草药材"
+      },
+      {
+        "column_groups": [],
+        "columns": [
+          "1862410",
+          "99736978",
+          "53553",
+          "1888555",
+          "102728735",
+          "54395"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "八、蔬菜及食用菌",
+            "group": null,
+            "label": "八、蔬菜及食用菌",
+            "unit": null,
+            "values": [
+              1862410,
+              99736978,
+              53553,
+              1888555,
+              102728735,
+              54395
+            ]
+          }
+        ],
+        "title": "八、蔬菜及食用菌"
+      },
+      {
+        "column_groups": [],
+        "columns": [
+          "282005",
+          "14685661",
+          "52076",
+          "286759",
+          "15156109",
+          "52853"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "九、瓜果类",
+            "group": null,
+            "label": "九、瓜果类",
+            "unit": null,
+            "values": [
+              282005,
+              14685661,
+              52076,
+              286759,
+              15156109,
+              52853
+            ]
+          }
+        ],
+        "title": "九、瓜果类"
+      },
+      {
+        "column_groups": [],
+        "columns": [
+          "27317",
+          "第2列",
+          "27891"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "十、其他农作物",
+            "group": null,
+            "label": "十、其他农作物",
+            "unit": null,
+            "values": [
+              27317,
+              null,
+              27891
+            ]
+          }
+        ],
+        "title": "十、其他农作物"
+      },
+      {
+        "column_groups": [],
+        "columns": [
+          "3226",
+          "第2列",
+          "1941"
+        ],
+        "corner_header": null,
+        "missing_cells": [],
+        "row_header_label": null,
+        "rows": [
+          {
+            "display_label": "#清饲料",
+            "group": null,
+            "label": "#清饲料",
+            "unit": null,
+            "values": [
+              3226,
+              null,
+              1941
+            ]
+          }
+        ],
+        "title": "#清饲料"
+      }
+    ],
+    "title": "七、中草药材"
+  },
+  "uncertainties": []
+}

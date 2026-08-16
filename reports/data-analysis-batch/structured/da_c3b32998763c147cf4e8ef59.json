@@ -1,0 +1,261 @@
+{
+  "asset_id": "da_c3b32998763c147cf4e8ef59",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2008年江苏省公务员录用考试《行测》题（B类）_images/img_0259_faadee26c13bad8c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（B类）_images/img_0259_faadee26c13bad8c.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_7b1477d4c69dde7684b9",
+        "question_number": 141,
+        "source_jsonl_line": 44616
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（B类）_images/img_0259_faadee26c13bad8c.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_ccba261f52fbce3896d2",
+        "question_number": 142,
+        "source_jsonl_line": 44617
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（B类）_images/img_0259_faadee26c13bad8c.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_9c8e7a0f4a26bb9a5026",
+        "question_number": 143,
+        "source_jsonl_line": 44618
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（B类）_images/img_0259_faadee26c13bad8c.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_d843761ec357ae4e9c25",
+        "question_number": 144,
+        "source_jsonl_line": 44619
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（B类）_images/img_0281_592abe9d4c2ec35b.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_65a8ef2b72b97394e783",
+        "question_number": 145,
+        "source_jsonl_line": 44620
+      }
+    ],
+    "sha256": "c3b32998763c147cf4e8ef598f8f6264c37ea0f02c34f79fec376d0ef35a7f3f"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "其中女",
+      "25岁以下",
+      "26-30",
+      "31-35",
+      "36-40",
+      "41-45",
+      "46-50",
+      "51-55",
+      "56-60",
+      "61岁及以上"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "职称",
+    "rows": [
+      {
+        "display_label": "总计｜11546",
+        "group": null,
+        "label": "总计｜11546",
+        "unit": null,
+        "values": [
+          4844,
+          1574,
+          2835,
+          2647,
+          1870,
+          1236,
+          697,
+          448,
+          238,
+          1
+        ]
+      },
+      {
+        "display_label": "中学高级",
+        "group": null,
+        "label": "中学高级",
+        "unit": null,
+        "values": [
+          440,
+          133,
+          null,
+          1,
+          12,
+          66,
+          134,
+          111,
+          82,
+          34
+        ]
+      },
+      {
+        "display_label": "中学一级｜3866",
+        "group": null,
+        "label": "中学一级｜3866",
+        "unit": null,
+        "values": [
+          1350,
+          16,
+          187,
+          830,
+          1092,
+          813,
+          462,
+          289,
+          176,
+          1
+        ]
+      },
+      {
+        "display_label": "中学二级",
+        "group": null,
+        "label": "中学二级",
+        "unit": null,
+        "values": [
+          4954,
+          2249,
+          326,
+          1827,
+          1657,
+          674,
+          263,
+          108,
+          74,
+          25
+        ]
+      },
+      {
+        "display_label": "中学三级",
+        "group": null,
+        "label": "中学三级",
+        "unit": null,
+        "values": [
+          1267,
+          607,
+          558,
+          559,
+          99,
+          25,
+          14,
+          7,
+          2,
+          3
+        ]
+      },
+      {
+        "display_label": "总计中",
+        "group": null,
+        "label": "总计中",
+        "unit": null,
+        "values": [
+          null,
+          4844,
+          822,
+          1378,
+          1242,
+          789,
+          381,
+          154,
+          76,
+          2
+        ]
+      },
+      {
+        "display_label": "女",
+        "group": null,
+        "label": "女",
+        "unit": null,
+        "values": [
+          null,
+          665,
+          300,
+          432,
+          401,
+          265,
+          138,
+          81,
+          28,
+          18
+        ]
+      },
+      {
+        "display_label": "少数民族",
+        "group": null,
+        "label": "少数民族",
+        "unit": null,
+        "values": [
+          null,
+          665,
+          300,
+          432,
+          401,
+          265,
+          138,
+          81,
+          28,
+          18
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

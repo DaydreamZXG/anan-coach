@@ -1,0 +1,454 @@
+{
+  "asset_id": "da_ad7c50f50b1de0e3ed853012",
+  "axes": {
+    "x": {
+      "max": 2010,
+      "min": 2006,
+      "ticks": [
+        2006,
+        2007,
+        2008,
+        2009,
+        2010
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 22944,
+        "min": 3587,
+        "ticks": [],
+        "title": "收入（元）",
+        "unit": "元"
+      },
+      {
+        "max": 17.2,
+        "min": 8.2,
+        "ticks": [],
+        "title": "增长（%）",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "农村居民人均纯收入-江苏",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "农村居民人均纯收入-全国",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "农村居民人均纯收入-增长（%）-江苏",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "农村居民人均纯收入-增长（%）-全国",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "城镇居民人均可支配收入-江苏",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "城镇居民人均可支配收入-全国",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "城镇居民人均可支配收入-增长（%）-江苏",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "城镇居民人均可支配收入-增长（%）-全国",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "农村居民人均纯收入-江苏",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        5813,
+        6561,
+        7357,
+        8004,
+        9118
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "农村居民人均纯收入-全国",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        3587,
+        4140,
+        4761,
+        5153,
+        5919
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "-_-",
+      "label": "农村居民人均纯收入-增长（%）-江苏",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.2,
+        12.9,
+        12.1,
+        8.8,
+        13.9
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "-_-",
+      "label": "农村居民人均纯收入-增长（%）-全国",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.2,
+        15.4,
+        15.0,
+        8.2,
+        14.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "城镇居民人均可支配收入-江苏",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        14084,
+        16378,
+        18680,
+        20552,
+        22944
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "-",
+      "label": "城镇居民人均可支配收入-全国",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        11759,
+        13786,
+        15781,
+        17175,
+        19109
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "-_-",
+      "label": "城镇居民人均可支配收入-增长（%）-江苏",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        14.3,
+        16.3,
+        14.1,
+        10.0,
+        11.6
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "-_-",
+      "label": "城镇居民人均可支配收入-增长（%）-全国",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        12.1,
+        17.2,
+        14.5,
+        8.8,
+        11.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2011年江苏省公务员录用考试《行测》题（C类）_images/img_0165_64a086397e3bd8a4.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（C类）_images/img_0165_64a086397e3bd8a4.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_96c8ab7ea70d8db44e52",
+        "question_number": 81,
+        "source_jsonl_line": 45791
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（C类）_images/img_0165_64a086397e3bd8a4.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_8757794e7c112c812812",
+        "question_number": 82,
+        "source_jsonl_line": 45792
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（C类）_images/img_0165_64a086397e3bd8a4.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_d21fb33d2e084e116ff2",
+        "question_number": 83,
+        "source_jsonl_line": 45793
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（C类）_images/img_0165_64a086397e3bd8a4.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_9f30c01861d391637886",
+        "question_number": 84,
+        "source_jsonl_line": 45794
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（C类）_images/img_0190_61a1c4e385d61ae6.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_62d602f9c8f2b530cddb",
+        "question_number": 85,
+        "source_jsonl_line": 45795
+      }
+    ],
+    "sha256": "ad7c50f50b1de0e3ed8530120a2a40fdd923a8973e987d2828380bcf48f20936"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "农村居民人均纯收入-江苏-收入（元）",
+      "农村居民人均纯收入-江苏-增长（%）",
+      "农村居民人均纯收入-全国-收入（元）",
+      "农村居民人均纯收入-全国-增长（%）",
+      "城镇居民人均可支配收入-江苏-收入（元）",
+      "城镇居民人均可支配收入-江苏-增长（%）",
+      "城镇居民人均可支配收入-全国-收入（元）",
+      "城镇居民人均可支配收入-全国-增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2006",
+        "unit": null,
+        "values": [
+          2006,
+          5813,
+          10.2,
+          3587,
+          10.2,
+          14084,
+          14.3,
+          11759,
+          12.1
+        ]
+      },
+      {
+        "label": "2007",
+        "unit": null,
+        "values": [
+          2007,
+          6561,
+          12.9,
+          4140,
+          15.4,
+          16378,
+          16.3,
+          13786,
+          17.2
+        ]
+      },
+      {
+        "label": "2008",
+        "unit": null,
+        "values": [
+          2008,
+          7357,
+          12.1,
+          4761,
+          15.0,
+          18680,
+          14.1,
+          15781,
+          14.5
+        ]
+      },
+      {
+        "label": "2009",
+        "unit": null,
+        "values": [
+          2009,
+          8004,
+          8.8,
+          5153,
+          8.2,
+          20552,
+          10.0,
+          17175,
+          8.8
+        ]
+      },
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          9118,
+          13.9,
+          5919,
+          14.9,
+          22944,
+          11.6,
+          19109,
+          11.3
+        ]
+      }
+    ]
+  },
+  "title": "“十一五”期间城乡居民收入情况（江苏与全国对照）",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ad7c50f50b1de0e3ed853012/row_band_01.jpg",
+        "review-crops/da_ad7c50f50b1de0e3ed853012/row_band_02.jpg",
+        "review-crops/da_ad7c50f50b1de0e3ed853012/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:20.659",
+      "crop_verification_elapsed_seconds:14.411",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

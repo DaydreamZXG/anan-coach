@@ -1,0 +1,350 @@
+{
+  "asset_id": "da_c5a5c6532a0a28a233b4853e",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 450,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300,
+          350,
+          400,
+          450
+        ],
+        "title": "全国体育场地数量",
+        "unit": "万个"
+      },
+      {
+        "max": 3.0,
+        "min": 0,
+        "ticks": [
+          0.0,
+          0.5,
+          1.0,
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ],
+        "title": "人均体育场地面积",
+        "unit": "平方米"
+      }
+    ]
+  },
+  "categories": [
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "全国体育场地数量（万个）",
+      "style": {
+        "dash": null,
+        "fill": "lightgray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "全国体育场地面积（亿平方米）",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "人均体育场地面积（平方米）",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": null,
+        "stroke": "darkgray"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国体育场地数量（万个）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万个",
+      "values": [
+        316.2,
+        354.44,
+        371.34,
+        397.14,
+        422.68
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "全国体育场地面积（亿平方米）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿平方米",
+      "values": [
+        25.94,
+        29.17,
+        30.99,
+        34.11,
+        37.02
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "人均体育场地面积（平方米）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "平方米",
+      "values": [
+        1.86,
+        2.08,
+        2.2,
+        2.41,
+        2.62
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0128_245f2bcce50042a6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0128_245f2bcce50042a6.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f50264a098e6b1c3162c",
+        "question_number": 106,
+        "source_jsonl_line": 24248
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0128_245f2bcce50042a6.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_518c5a6e7479bb0f29b9",
+        "question_number": 107,
+        "source_jsonl_line": 24249
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0128_245f2bcce50042a6.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e900b0a2b8844018e75f",
+        "question_number": 108,
+        "source_jsonl_line": 24250
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0128_245f2bcce50042a6.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_35eebd5a886d501d581f",
+        "question_number": 109,
+        "source_jsonl_line": 24251
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0128_245f2bcce50042a6.png",
+        "paper_title": "2024年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c0cb80fe16371e353e34",
+        "question_number": 110,
+        "source_jsonl_line": 24252
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0207_245f2bcce50042a6.png",
+        "paper_title": "2024年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_834d741b3a5b5e0d1917",
+        "question_number": 106,
+        "source_jsonl_line": 28520
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0207_245f2bcce50042a6.png",
+        "paper_title": "2024年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_19806e5b90f4283e8e33",
+        "question_number": 107,
+        "source_jsonl_line": 28521
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0207_245f2bcce50042a6.png",
+        "paper_title": "2024年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2d4f9bf705b28e206bb5",
+        "question_number": 108,
+        "source_jsonl_line": 28522
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0207_245f2bcce50042a6.png",
+        "paper_title": "2024年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fdd06f85be5989b9ea35",
+        "question_number": 109,
+        "source_jsonl_line": 28523
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0207_245f2bcce50042a6.png",
+        "paper_title": "2024年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_935bb4b40d538da9e1c9",
+        "question_number": 110,
+        "source_jsonl_line": 28524
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0118_245f2bcce50042a6.png",
+        "paper_title": "2024年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f603dc65e036f402ef3d",
+        "question_number": 111,
+        "source_jsonl_line": 33164
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0118_245f2bcce50042a6.png",
+        "paper_title": "2024年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_652a3af1a0b059bb5d07",
+        "question_number": 112,
+        "source_jsonl_line": 33165
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0118_245f2bcce50042a6.png",
+        "paper_title": "2024年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_da7d789261427f3c9187",
+        "question_number": 113,
+        "source_jsonl_line": 33166
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0131_7e84fc893b438569.png",
+        "paper_title": "2024年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f962532ea63a182d8198",
+        "question_number": 114,
+        "source_jsonl_line": 33167
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0118_245f2bcce50042a6.png",
+        "paper_title": "2024年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5aecb1aa9e1552df2b6d",
+        "question_number": 115,
+        "source_jsonl_line": 33168
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0123_245f2bcce50042a6.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_13badc137f73e2a3a0b6",
+        "question_number": 106,
+        "source_jsonl_line": 43901
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0134_7e84fc893b438569.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_17f9220a1db47f7f83b3",
+        "question_number": 107,
+        "source_jsonl_line": 43902
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0123_245f2bcce50042a6.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_3602e5a1e50f0928c2f0",
+        "question_number": 108,
+        "source_jsonl_line": 43903
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0123_245f2bcce50042a6.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_eae6f4fa6ca8f5976068",
+        "question_number": 109,
+        "source_jsonl_line": 43904
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0134_7e84fc893b438569.png",
+        "paper_title": "2024年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_f75946e7b93c8dace743",
+        "question_number": 110,
+        "source_jsonl_line": 43905
+      }
+    ],
+    "sha256": "c5a5c6532a0a28a233b4853ef32d94015bf72ebbbb07e487a099b578c61612af"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2018~2022年全国体育场地数量及面积",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c5a5c6532a0a28a233b4853e/column_band_01.jpg",
+        "review-crops/da_c5a5c6532a0a28a233b4853e/column_band_02.jpg",
+        "review-crops/da_c5a5c6532a0a28a233b4853e/column_band_03.jpg",
+        "review-crops/da_c5a5c6532a0a28a233b4853e/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.615",
+      "crop_verification_elapsed_seconds:5.545",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

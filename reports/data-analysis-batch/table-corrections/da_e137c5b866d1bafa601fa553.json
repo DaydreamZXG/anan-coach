@@ -1,0 +1,109 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "户数｜数量（户）",
+          "户数｜增长（%）"
+        ],
+        "label": "户数"
+      },
+      {
+        "columns": [
+          "注册资本（金）｜金额（亿元）",
+          "注册资本（金）｜增长（%）"
+        ],
+        "label": "注册资本（金）"
+      },
+      "rows:[{"
+    ],
+    "columns": [
+      "户数｜数量（户）",
+      "户数｜增长（%）",
+      "注册资本（金）｜金额（亿元）",
+      "注册资本（金）｜增长（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "经营主体类型",
+    "rows": [
+      {
+        "display_label": "国有、集体及其控股企业",
+        "group": null,
+        "label": "国有、集体及其控股企业",
+        "unit": null,
+        "values": [
+          3440,
+          1.7,
+          1630.77,
+          12.2
+        ]
+      },
+      {
+        "display_label": "私营企业",
+        "group": null,
+        "label": "私营企业",
+        "unit": null,
+        "values": [
+          126098,
+          6.1,
+          8368.98,
+          3.0
+        ]
+      },
+      {
+        "display_label": "外商投资企业",
+        "group": null,
+        "label": "外商投资企业",
+        "unit": null,
+        "values": [
+          818,
+          3.7,
+          1647.88,
+          9.8
+        ]
+      },
+      {
+        "display_label": "个体工商户",
+        "group": null,
+        "label": "个体工商户",
+        "unit": null,
+        "values": [
+          291783,
+          2.3,
+          398.79,
+          4.7
+        ]
+      },
+      {
+        "display_label": "农民专业合作社",
+        "group": null,
+        "label": "农民专业合作社",
+        "unit": null,
+        "values": [
+          5924,
+          -2.4,
+          69.5,
+          2.6
+        ]
+      },
+      {
+        "display_label": "合 计",
+        "group": null,
+        "label": "合 计",
+        "unit": null,
+        "values": [
+          428063,
+          3.3,
+          12115.92,
+          5.1
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

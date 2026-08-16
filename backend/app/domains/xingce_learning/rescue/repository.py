@@ -50,6 +50,16 @@ class RescueSimilarQuestionRow:
     options: tuple[dict[str, str], ...]
     correct_option_ids: tuple[str, ...]
     explanation: str | None
+    visual_required: bool
+
+
+@dataclass(frozen=True, slots=True)
+class RescueTargetProfile:
+    """Only the explicit learner facts needed to project a teaching target."""
+
+    target_exam: str | None
+    target_region: str | None
+    position_group: str | None
 
 
 class RescueRepository:
@@ -87,6 +97,29 @@ class RescueRepository:
             )
             .mappings()
             .one_or_none()
+        )
+
+    def target_profile(self, *, user_id: str) -> RescueTargetProfile | None:
+        row = (
+            self._session.execute(
+                text(
+                    """
+                    select target_exam, target_region, position_group
+                    from learner.profiles
+                    where user_id = cast(:user_id as uuid)
+                    """
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
+        if row is None:
+            return None
+        return RescueTargetProfile(
+            target_exam=(str(row["target_exam"]) if row["target_exam"] else None),
+            target_region=(str(row["target_region"]) if row["target_region"] else None),
+            position_group=(str(row["position_group"]) if row["position_group"] else None),
         )
 
     def confirmed_cause_codes(
@@ -246,6 +279,8 @@ class RescueRepository:
             return None
         return {
             "release_id": str(row["release_id"]),
+            "exam_scope": "guokao",
+            "track": "xingce",
             "release_version": str(row["release_version"]),
             "source_data_version": str(row["source_data_version"]),
             "source_fingerprint": str(row["source_fingerprint"]),
@@ -337,9 +372,7 @@ class RescueRepository:
                 node_id=str(row["node_id"]),
                 display_path=str(row["display_path"]),
                 module_name=str(row["module_name"]),
-                method_card_ids=tuple(
-                    str(item) for item in (row["method_card_ids"] or [])
-                ),
+                method_card_ids=tuple(str(item) for item in (row["method_card_ids"] or [])),
             )
             for row in rows
         }
@@ -495,9 +528,9 @@ class RescueRepository:
         for row in rows:
             if not bool(row["binding_unambiguous"]):
                 continue
-            if bool(row["visual_required"]) or bool(row["shared_context_required"]):
-                # 救场同类题必须是单题可独立作答的客观题；
-                # 需要共享材料/图片的题不适合内嵌展示，跳过。
+            if bool(row["shared_context_required"]):
+                # 共享材料题仍需要完整题组运行时，不能降格为独立题。
+                # 图片题可由结构化视觉证据进入教学包，不能一概排除。
                 continue
             snapshot = dict(row["snapshot_payload"] or {})
             options = snapshot.get("options")
@@ -527,6 +560,7 @@ class RescueRepository:
                     options=tuple(option_rows),
                     correct_option_ids=correct,
                     explanation=_published_explanation(snapshot),
+                    visual_required=bool(row["visual_required"]),
                 )
             )
             if len(result) >= limit:

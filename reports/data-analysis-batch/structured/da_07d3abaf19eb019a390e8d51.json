@@ -1,0 +1,370 @@
+{
+  "asset_id": "da_07d3abaf19eb019a390e8d51",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "一次能源生产总量",
+        "unit": "亿吨标准煤"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "原煤占比",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "一次能源生产总量",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿吨标准煤",
+      "values": [
+        34.6,
+        35.9,
+        37.7,
+        39.7,
+        40.8,
+        43.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "原煤占比",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        69.8,
+        69.6,
+        69.2,
+        68.5,
+        67.6,
+        67.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "原油占比",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        8.3,
+        7.6,
+        7.2,
+        6.9,
+        6.8,
+        6.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "天然气占比",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.2,
+        5.4,
+        5.4,
+        5.6,
+        6.0,
+        6.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "非化石能源占比",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        16.7,
+        17.4,
+        18.2,
+        19.0,
+        19.6,
+        20.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0047_c4f590109cf458e9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0047_c4f590109cf458e9.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_1e6881ad211229f70d5b",
+        "question_number": 91,
+        "source_jsonl_line": 71427
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0047_c4f590109cf458e9.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_04754a86b3ecf9349435",
+        "question_number": 92,
+        "source_jsonl_line": 71428
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0058_027ab6325e4a06ce.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_8cfc82ec13bf16bad706",
+        "question_number": 93,
+        "source_jsonl_line": 71429
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0058_027ab6325e4a06ce.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_0f25859e68b6139ba997",
+        "question_number": 94,
+        "source_jsonl_line": 71430
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0058_027ab6325e4a06ce.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_e6d3e4b459c01bc84ffe",
+        "question_number": 95,
+        "source_jsonl_line": 71431
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0043_c4f590109cf458e9.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_e1d104bd1c1f2853d363",
+        "question_number": 91,
+        "source_jsonl_line": 90031
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0043_c4f590109cf458e9.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_4c051df19252fd3b91c3",
+        "question_number": 92,
+        "source_jsonl_line": 90032
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0056_027ab6325e4a06ce.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_76b09f99fb60e68e262c",
+        "question_number": 93,
+        "source_jsonl_line": 90033
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0056_027ab6325e4a06ce.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_67b025bf44edef90b4ed",
+        "question_number": 94,
+        "source_jsonl_line": 90034
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0056_027ab6325e4a06ce.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_a6ceb1ffcf318e0ada72",
+        "question_number": 95,
+        "source_jsonl_line": 90035
+      }
+    ],
+    "sha256": "07d3abaf19eb019a390e8d51ed188d36fd47659f92478ca582cb70f587467801"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "一次能源生产总量",
+      "原煤占比",
+      "原油占比",
+      "天然气占比",
+      "非化石能源占比"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2016",
+        "unit": null,
+        "values": [
+          2016,
+          34.6,
+          69.8,
+          8.3,
+          5.2,
+          16.7
+        ]
+      },
+      {
+        "label": "2017",
+        "unit": null,
+        "values": [
+          2017,
+          35.9,
+          69.6,
+          7.6,
+          5.4,
+          17.4
+        ]
+      },
+      {
+        "label": "2018",
+        "unit": null,
+        "values": [
+          2018,
+          37.7,
+          69.2,
+          7.2,
+          5.4,
+          18.2
+        ]
+      },
+      {
+        "label": "2019",
+        "unit": null,
+        "values": [
+          2019,
+          39.7,
+          68.5,
+          6.9,
+          5.6,
+          19.0
+        ]
+      },
+      {
+        "label": "2020",
+        "unit": null,
+        "values": [
+          2020,
+          40.8,
+          67.6,
+          6.8,
+          6.0,
+          19.6
+        ]
+      },
+      {
+        "label": "2021",
+        "unit": null,
+        "values": [
+          2021,
+          43.3,
+          67.0,
+          6.6,
+          6.1,
+          20.3
+        ]
+      }
+    ]
+  },
+  "title": "表2 2016-2021年我国一次能源生产总量（亿吨标准煤）及生产结构（%）",
+  "unit": "亿吨标准煤",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_07d3abaf19eb019a390e8d51/row_band_01.jpg",
+        "review-crops/da_07d3abaf19eb019a390e8d51/row_band_02.jpg",
+        "review-crops/da_07d3abaf19eb019a390e8d51/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.839",
+      "crop_verification_elapsed_seconds:15.149",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2016年天然气占比为5.2%（原图误为5.2，应为5.2%）",
+      "crop_note:修正了2017年天然气占比为5.4%（原图误为5.4，应为5.4%）",
+      "crop_note:修正了2018年天然气占比为5.4%（原图误为5.4，应为5.4%）",
+      "crop_note:修正了2019年天然气占比为5.6%（原图误为5.6，应为5.6%）",
+      "crop_note:修正了2020年天然气占比为6.0%（原图误为6.0，应为6.0%）",
+      "crop_note:修正了2021年天然气占比为6.1%（原图误为6.1，应为6.1%）",
+      "crop_note:修正了2016年非化石能源占比为16.7%（原图误为16.7，应为16.7%）",
+      "crop_note:修正了2017年非化石能源占比为17.4%（原图误为17.4，应为17.4%）",
+      "crop_note:修正了2018年非化石能源占比为18.2%（原图误为18.2，应为18.2%）",
+      "crop_note:修正了2019年非化石能源占比为19.0%（原图误为19.0，应为19.0%）",
+      "crop_note:修正了2020年非化石能源占比为19.6%（原图误为19.6，应为19.6%）",
+      "crop_note:修正了2021年非化石能源占比为20.3%（原图误为20.3，应为20.3%）",
+      "crop_note:确认所有数值单位为百分比，未添加额外符号",
+      "crop_note:确认所有数值为正数，无负号错误",
+      "crop_note:确认所有小数点后一位，无多余小数位",
+      "crop_note:确认所有缺失值保持null，无补0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

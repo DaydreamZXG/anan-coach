@@ -1,0 +1,170 @@
+{
+  "asset_id": "da_e92a862a4edbbfee35f1414d",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 50000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000
+        ],
+        "title": null,
+        "unit": "人"
+      }
+    ]
+  },
+  "categories": [
+    "广东",
+    "江苏",
+    "北京",
+    "浙江",
+    "四川",
+    "上海",
+    "福建",
+    "山东",
+    "湖北",
+    "天津"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "考试报名人数",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "考试报名人数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        47423,
+        26400,
+        13337,
+        12365,
+        9357,
+        8734,
+        8714,
+        7870,
+        7166,
+        6523
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2015年吉林省公务员录用考试《行测》题（4月甲级）_images/img_0055_e5486c901a8fa013.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（4月甲级）_images/img_0055_e5486c901a8fa013.jpg",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（4月甲级）",
+        "question_id": "pq_8d95f439c008a8138b5d",
+        "question_number": 101,
+        "source_jsonl_line": 12187
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（4月甲级）_images/img_0055_e5486c901a8fa013.jpg",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（4月甲级）",
+        "question_id": "pq_5e067236b56f31591fb8",
+        "question_number": 102,
+        "source_jsonl_line": 12188
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（4月甲级）_images/img_0055_e5486c901a8fa013.jpg",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（4月甲级）",
+        "question_id": "pq_7109aad4c3960f306ba2",
+        "question_number": 103,
+        "source_jsonl_line": 12189
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（4月甲级）_images/img_0055_e5486c901a8fa013.jpg",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（4月甲级）",
+        "question_id": "pq_35decb6caeed14952d47",
+        "question_number": 104,
+        "source_jsonl_line": 12190
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（4月甲级）_images/img_0055_e5486c901a8fa013.jpg",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（4月甲级）",
+        "question_id": "pq_9ea6c9aa490ad1e8b540",
+        "question_number": 105,
+        "source_jsonl_line": 12191
+      }
+    ],
+    "sha256": "e92a862a4edbbfee35f1414d551ccee481e921ba917becaf9e74f6c20d8fa0b8"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014年全国社工考试报名人数前十省份",
+  "unit": "人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e92a862a4edbbfee35f1414d/column_band_01.jpg",
+        "review-crops/da_e92a862a4edbbfee35f1414d/column_band_02.jpg",
+        "review-crops/da_e92a862a4edbbfee35f1414d/column_band_03.jpg",
+        "review-crops/da_e92a862a4edbbfee35f1414d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.879",
+      "crop_verification_elapsed_seconds:6.752",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_crop_verification",
+      "crop_note:ignored_unknown_crop_category:湖南",
+      "crop_note:ignored_unknown_crop_category:年",
+      "crop_note:ignored_unknown_crop_category:2011年",
+      "crop_note:ignored_unknown_crop_category:2012年",
+      "crop_note:ignored_unknown_crop_category:2013年",
+      "crop_note:ignored_unknown_crop_category:2013 年",
+      "crop_note:ignored_unknown_crop_category:2014 年"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

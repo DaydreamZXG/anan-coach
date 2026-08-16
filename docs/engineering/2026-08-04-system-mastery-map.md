@@ -3,6 +3,10 @@
 > 用途:让产品负责人自己搞懂「每个功能怎么转的、改哪能生效、最容易踩什么坑」,不用通读 493 个后端文件 + 265 个前端文件。
 > 生成:2026-08-04,由 10 个并行深读基于真实代码 trace 而成,每条功能点带 file:line 引用。
 > 配套:[结构健康度评估报告 2026-08-04](2026-08-04-structure-health-assessment.md)
+>
+> **时效声明：**这是 2026-08-04 的代码学习快照，页面数、文件数、流程和状态均可能已经
+> 变化，不再拥有当前产品或完成度权威。当前产品与系统说明见
+> `docs/product/anan-product-system-spec.md`；引用本图前必须重新核对代码。
 
 ## 全景图:10 个产品簇
 
@@ -1133,9 +1137,9 @@
   - activate_release.sh 不跑 migration/业务写入,只验证并切换;迁移必须走数据发布的 forward-only mutation 路径,违规手工升级会被数据库兼容契约拦。
 - **关联**: 服务器双环境拓扑、验证门禁、数据库迁移、治理文件体系
 
-#### 6. 治理文件体系:.product-governance 与『两活一档』
+#### 6. 治理文件体系：.product-governance 与当前文档入口
 
-- **产品意图**:产品治理用结构化 JSON 承载权威决策:.product-governance/ 下 manifest.json 定义产品名(岸岸公考搭子)、权威优先级(user_confirmed > applicable_policy > frozen_decision > code_observed > existing_document > inferred > proposed)与 17 个 artifacts(domains/contracts/requirements/decisions/evidence-ledger/release-units/work-packages 等)。execution/ 存 release-unit 快照与 qbank 收口结果,reports/ 存每个发布单元的 review/freeze 评审。文档侧是『两活一档』:global-backlog.md(活待办,唯一进度真相)+ docs/product/2026-07-18-canonical-product-boundaries.md(产品边界,产品负责人已确认,契约性质)+ docs/engineering/_archive/(已完结历史,只供追溯不再作现状依据);operations-playbook.md 是『怎么做』的活知识唯一汇总,交接文档只作历史追溯。
+- **产品意图**:产品治理用结构化 JSON 承载局部发布单元的决策、需求、工作包和执行证据；`docs/product/anan-product-system-spec.md` 提供当前完整产品与系统叙事入口；`global-backlog.md` 只保存待重新核对的工程事项，`operations-playbook.md` 保存操作知识，`docs/product/_archive/` 与 `docs/engineering/_archive/` 只供历史追溯。`.product-governance/manifest.json` 当前仍是局部、`draft` 的治理包，不可推断为完整产品架构已经冻结。
 - **调用链**:产品决策 -> decisions.json(decision register)+ evidence-ledger.json(证据台账) -> requirements.json(REQ-* 条目 + acceptance) -> work-packages.json(WP-* 拆包) -> release-units.json(RU-* 冻结,closure 关联) -> execution/reports 产出 RU-* review/freeze 快照;运维真相走两活一档:global-backlog.md(当前状态+待办,如 T2 生产备份 P0 阻塞) -> operations-playbook.md(怎么做的活知识) -> _archive/(只追溯)
 - **关键文件**:
   - `.product-governance/manifest.json:1-17(产品名/status=review/权威优先级 precedence/17 个 artifacts 映射)`
@@ -1148,9 +1152,9 @@
   - `docs/engineering/global-backlog.md:28(T2 生产备份启用 P0 阻塞,BACKUP_ENABLED 未开)`
   - `docs/engineering/operations-playbook.md:1-5(活知识唯一汇总,历史交接只作追溯)`
   - `docs/engineering/2026-07-26-session-handoff.md:1-5(大会话交接文档,作历史追溯用)`
-  - `docs/product/2026-07-18-canonical-product-boundaries.md(产品边界,契约性质)`
+  - `docs/product/anan-product-system-spec.md(当前产品与系统叙事入口)`
 - **易错点**:
-  - 文档有新旧之别:global-backlog.md 与 operations-playbook.md 才是活真相,_archive/ 与 2026-07-26-session-handoff.md 只供追溯,别拿历史文档当现状(如 README 里的旧迁移 head 已过期)。
+  - 文档有新旧之别:正式产品说明提供当前叙事入口；实现状态仍以代码、迁移、生成契约和可重复测试为准；backlog、system-mastery-map、_archive 与交接文档不能单独证明现状。
   - 跨端字段改动必须标 v1/v2、旧数据缺省合法、前后端必须同源(OpenAPI 生成类型);遇到 403/409/429 先怀疑 fail-closed 守卫在拦(内容发布/PII 出口/对象归属/版本不可变),别当 bug 排查。
   - .product-governance 的 JSON 由工具生成、体积大(release-units.json 约 403KB),手工编辑易破坏 schemaVersion 与引用一致性,改契约应走对应权威渠道而非直接改 JSON。
 - **关联**: 发布与部署、验证门禁、服务器双环境拓扑

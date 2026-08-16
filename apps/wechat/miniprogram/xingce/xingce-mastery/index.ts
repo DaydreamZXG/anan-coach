@@ -69,13 +69,16 @@ const runtimes = new XingceMasteryPageRuntimeRegistry<XingceMasteryPage>();
 Page<XingceMasteryPageData, XingceMasteryPageCustom>({
   data: initialData(defaultBucket),
 
-  onLoad() {
+  onLoad(options: Record<string, string | undefined> = {}) {
     const session = currentAuthSession();
     if (!session) {
       showLoggedOut(this, "登录后才能查看错题与掌握记录。");
       return;
     }
-    const runtime = attachRuntime(this, session, defaultBucket);
+    const requestedBucket = options.bucket ?? "";
+    const initialBucket = isMasteryQueueBucket(requestedBucket) ? requestedBucket : defaultBucket;
+    resetForAccount(this, initialBucket);
+    const runtime = attachRuntime(this, session, initialBucket);
     void loadPage(this, runtime, false);
   },
 

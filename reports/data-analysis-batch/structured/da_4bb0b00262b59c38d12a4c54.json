@@ -1,0 +1,206 @@
+{
+  "asset_id": "da_4bb0b00262b59c38d12a4c54",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 28000,
+        "min": 24000,
+        "ticks": [
+          24000,
+          24500,
+          25000,
+          25500,
+          26000,
+          26500,
+          27000,
+          27500,
+          28000
+        ],
+        "title": "总量",
+        "unit": "万人"
+      },
+      {
+        "max": 5,
+        "min": 0,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "title": "增速",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "总量",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "增速",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "总量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        25278,
+        26261,
+        26894,
+        27395,
+        27747
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        4.4,
+        3.9,
+        2.4,
+        1.9,
+        1.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2017年422联考《行测》题（陕西卷）_images/img_0043_c37a4a992c3ff8dc.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0043_c37a4a992c3ff8dc.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_616c744a7ddc0bb8104f",
+        "question_number": 71,
+        "source_jsonl_line": 97619
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0047_4ae103ef02b5cc6b.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_65e418ffff797a813245",
+        "question_number": 72,
+        "source_jsonl_line": 97620
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0047_4ae103ef02b5cc6b.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_87d13b6f149bc7dc27b2",
+        "question_number": 73,
+        "source_jsonl_line": 97621
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0043_c37a4a992c3ff8dc.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_4124da16eef654fd9e6a",
+        "question_number": 74,
+        "source_jsonl_line": 97622
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（陕西卷）_images/img_0043_c37a4a992c3ff8dc.png",
+        "paper_title": "2017年422联考《行测》题（陕西卷）",
+        "question_id": "pq_e6d219fc83107c87e74b",
+        "question_number": 75,
+        "source_jsonl_line": 97623
+      }
+    ],
+    "sha256": "4bb0b00262b59c38d12a4c544bfd3794c60decdc260c0bce710efb84923f928d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2011-2015年农民工总量及增速",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4bb0b00262b59c38d12a4c54/column_band_01.jpg",
+        "review-crops/da_4bb0b00262b59c38d12a4c54/column_band_02.jpg",
+        "review-crops/da_4bb0b00262b59c38d12a4c54/column_band_03.jpg",
+        "review-crops/da_4bb0b00262b59c38d12a4c54/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.013",
+      "crop_verification_elapsed_seconds:3.912",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,422 @@
+{
+  "asset_id": "da_8c850e5addc7ecd49f049b31",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "税目",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "收入",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "比上年同期增收",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        14963.38,
+        14319.5,
+        8845.14,
+        6382.82,
+        4353.49,
+        3630.79,
+        1946.04,
+        1236.7,
+        1212.1,
+        910.66,
+        822.3,
+        223.39,
+        -5300.86
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比上年同期增收",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1857.07,
+        887.11,
+        1007.2,
+        -1313.78,
+        150.93,
+        359.1,
+        554.07,
+        150.03,
+        -230.9,
+        67.44,
+        81.7,
+        47.6,
+        15.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2015年云南省公务员录用考试《行测》题_images/img_0105_fb78eb6f311a0f35.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年云南省公务员录用考试《行测》题_images/img_0105_fb78eb6f311a0f35.png",
+        "paper_title": "2015年云南省公务员录用考试《行测》题",
+        "question_id": "pq_cea0bbef7e7c1d242e30",
+        "question_number": 111,
+        "source_jsonl_line": 5075
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年云南省公务员录用考试《行测》题_images/img_0105_fb78eb6f311a0f35.png",
+        "paper_title": "2015年云南省公务员录用考试《行测》题",
+        "question_id": "pq_b44605c2ed87fc6383b8",
+        "question_number": 112,
+        "source_jsonl_line": 5076
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年云南省公务员录用考试《行测》题_images/img_0105_fb78eb6f311a0f35.png",
+        "paper_title": "2015年云南省公务员录用考试《行测》题",
+        "question_id": "pq_081d4f87244d006acb67",
+        "question_number": 113,
+        "source_jsonl_line": 5077
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年云南省公务员录用考试《行测》题_images/img_0105_fb78eb6f311a0f35.png",
+        "paper_title": "2015年云南省公务员录用考试《行测》题",
+        "question_id": "pq_2e5d5c090e2e975799be",
+        "question_number": 114,
+        "source_jsonl_line": 5078
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年云南省公务员录用考试《行测》题_images/img_0105_fb78eb6f311a0f35.png",
+        "paper_title": "2015年云南省公务员录用考试《行测》题",
+        "question_id": "pq_a65dedd82b7503dfae70",
+        "question_number": 115,
+        "source_jsonl_line": 5079
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（内蒙古卷）_images/img_0111_33892e54a0313432.png",
+        "paper_title": "2015年425联考《行测》题（内蒙古卷）",
+        "question_id": "pq_34538e91fea961c39056",
+        "question_number": 106,
+        "source_jsonl_line": 7179
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（内蒙古卷）_images/img_0128_fb78eb6f311a0f35.png",
+        "paper_title": "2015年425联考《行测》题（内蒙古卷）",
+        "question_id": "pq_7af63aeab0aca9581a4e",
+        "question_number": 107,
+        "source_jsonl_line": 7180
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（内蒙古卷）_images/img_0128_fb78eb6f311a0f35.png",
+        "paper_title": "2015年425联考《行测》题（内蒙古卷）",
+        "question_id": "pq_4ad0c6c49917770c0b72",
+        "question_number": 108,
+        "source_jsonl_line": 7181
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（内蒙古卷）_images/img_0128_fb78eb6f311a0f35.png",
+        "paper_title": "2015年425联考《行测》题（内蒙古卷）",
+        "question_id": "pq_414551a9c101a979d1e5",
+        "question_number": 109,
+        "source_jsonl_line": 7182
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（内蒙古卷）_images/img_0111_33892e54a0313432.png",
+        "paper_title": "2015年425联考《行测》题（内蒙古卷）",
+        "question_id": "pq_d6027e61964aff8be3aa",
+        "question_number": 110,
+        "source_jsonl_line": 7183
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（宁夏卷）_images/img_0082_fb78eb6f311a0f35.png",
+        "paper_title": "2015年425联考《行测》题（宁夏卷）",
+        "question_id": "pq_67dab2d5fed59e954294",
+        "question_number": 116,
+        "source_jsonl_line": 25396
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（宁夏卷）_images/img_0082_fb78eb6f311a0f35.png",
+        "paper_title": "2015年425联考《行测》题（宁夏卷）",
+        "question_id": "pq_d87a6f6cd218ce1c450a",
+        "question_number": 117,
+        "source_jsonl_line": 25397
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（宁夏卷）_images/img_0105_33892e54a0313432.png",
+        "paper_title": "2015年425联考《行测》题（宁夏卷）",
+        "question_id": "pq_35497441fbd6874e9995",
+        "question_number": 118,
+        "source_jsonl_line": 25398
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（宁夏卷）_images/img_0082_fb78eb6f311a0f35.png",
+        "paper_title": "2015年425联考《行测》题（宁夏卷）",
+        "question_id": "pq_ef803e983410e95249e1",
+        "question_number": 119,
+        "source_jsonl_line": 25399
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（宁夏卷）_images/img_0082_fb78eb6f311a0f35.png",
+        "paper_title": "2015年425联考《行测》题（宁夏卷）",
+        "question_id": "pq_45da446727cf8d14b3cd",
+        "question_number": 120,
+        "source_jsonl_line": 25400
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（安徽卷）_images/img_0068_fb78eb6f311a0f35.png",
+        "paper_title": "2015年425联考《行测》题（安徽卷）",
+        "question_id": "pq_fe90110c1141c8bce77f",
+        "question_number": 96,
+        "source_jsonl_line": 27520
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（安徽卷）_images/img_0068_fb78eb6f311a0f35.png",
+        "paper_title": "2015年425联考《行测》题（安徽卷）",
+        "question_id": "pq_afb3e7b6a0961d74869a",
+        "question_number": 97,
+        "source_jsonl_line": 27521
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（安徽卷）_images/img_0068_fb78eb6f311a0f35.png",
+        "paper_title": "2015年425联考《行测》题（安徽卷）",
+        "question_id": "pq_7b99193f72d31214a599",
+        "question_number": 98,
+        "source_jsonl_line": 27522
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（安徽卷）_images/img_0068_fb78eb6f311a0f35.png",
+        "paper_title": "2015年425联考《行测》题（安徽卷）",
+        "question_id": "pq_786a284b9c2dfa6d49b6",
+        "question_number": 99,
+        "source_jsonl_line": 27523
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年425联考《行测》题（安徽卷）_images/img_0068_fb78eb6f311a0f35.png",
+        "paper_title": "2015年425联考《行测》题（安徽卷）",
+        "question_id": "pq_605b3fad895c575a77bc",
+        "question_number": 100,
+        "source_jsonl_line": 27524
+      }
+    ],
+    "sha256": "8c850e5addc7ecd49f049b315b261092308a89cf878fed08c49e7400a52fe0f7"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "税目",
+      "收入",
+      "比上年同期增收"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "企业所得税",
+        "unit": null,
+        "values": [
+          "企业所得税",
+          14963.38,
+          1857.07
+        ]
+      },
+      {
+        "label": "国内增值税",
+        "unit": null,
+        "values": [
+          "国内增值税",
+          14319.5,
+          887.11
+        ]
+      },
+      {
+        "label": "营业税",
+        "unit": null,
+        "values": [
+          "营业税",
+          8845.14,
+          1007.2
+        ]
+      },
+      {
+        "label": "进口货物增值税消费税",
+        "unit": null,
+        "values": [
+          "进口货物增值税消费税",
+          6382.82,
+          -1313.78
+        ]
+      },
+      {
+        "label": "国内消费税",
+        "unit": null,
+        "values": [
+          "国内消费税",
+          4353.49,
+          150.93
+        ]
+      },
+      {
+        "label": "个人所得税",
+        "unit": null,
+        "values": [
+          "个人所得税",
+          3630.79,
+          359.1
+        ]
+      },
+      {
+        "label": "契税",
+        "unit": null,
+        "values": [
+          "契税",
+          1946.04,
+          554.07
+        ]
+      },
+      {
+        "label": "车辆购置税",
+        "unit": null,
+        "values": [
+          "车辆购置税",
+          1236.7,
+          150.03
+        ]
+      },
+      {
+        "label": "关税",
+        "unit": null,
+        "values": [
+          "关税",
+          1212.1,
+          -230.9
+        ]
+      },
+      {
+        "label": "城镇土地使用税",
+        "unit": null,
+        "values": [
+          "城镇土地使用税",
+          910.66,
+          67.44
+        ]
+      },
+      {
+        "label": "房产税",
+        "unit": null,
+        "values": [
+          "房产税",
+          822.3,
+          81.7
+        ]
+      },
+      {
+        "label": "证券交易印花税",
+        "unit": null,
+        "values": [
+          "证券交易印花税",
+          223.39,
+          47.6
+        ]
+      },
+      {
+        "label": "出口货物退增值税消费税",
+        "unit": null,
+        "values": [
+          "出口货物退增值税消费税",
+          -5300.86,
+          15.5
+        ]
+      }
+    ]
+  },
+  "title": "2013年1-6月全国主要税种收入表",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8c850e5addc7ecd49f049b31/row_band_01.jpg",
+        "review-crops/da_8c850e5addc7ecd49f049b31/row_band_02.jpg",
+        "review-crops/da_8c850e5addc7ecd49f049b31/row_band_03.jpg",
+        "review-crops/da_8c850e5addc7ecd49f049b31/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.3",
+      "crop_verification_elapsed_seconds:12.759",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

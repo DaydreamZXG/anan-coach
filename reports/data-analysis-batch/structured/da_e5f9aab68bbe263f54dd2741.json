@@ -1,0 +1,324 @@
+{
+  "asset_id": "da_e5f9aab68bbe263f54dd2741",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广西/2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0139_506f8d998dd52ada.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0139_506f8d998dd52ada.png",
+        "paper_title": "2022年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3703789643bafcfc54f4",
+        "question_number": 106,
+        "source_jsonl_line": 39572
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0146_a655bc90b7ca2481.png",
+        "paper_title": "2022年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_710e5521a01ae2aca9ed",
+        "question_number": 107,
+        "source_jsonl_line": 39573
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0139_506f8d998dd52ada.png",
+        "paper_title": "2022年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_06bea609b629f4447513",
+        "question_number": 108,
+        "source_jsonl_line": 39574
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0146_a655bc90b7ca2481.png",
+        "paper_title": "2022年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d6c927f0ce112a112248",
+        "question_number": 109,
+        "source_jsonl_line": 39575
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0139_506f8d998dd52ada.png",
+        "paper_title": "2022年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7d5e579a1390827d200c",
+        "question_number": 110,
+        "source_jsonl_line": 39576
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0103_506f8d998dd52ada.png",
+        "paper_title": "2022年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_05863fce8ff4a207c143",
+        "question_number": 106,
+        "source_jsonl_line": 59043
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0103_506f8d998dd52ada.png",
+        "paper_title": "2022年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_13f5a786585ba103ce86",
+        "question_number": 107,
+        "source_jsonl_line": 59044
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0103_506f8d998dd52ada.png",
+        "paper_title": "2022年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d6e5c68ce5eeb91a0584",
+        "question_number": 108,
+        "source_jsonl_line": 59045
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0103_506f8d998dd52ada.png",
+        "paper_title": "2022年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6ae917ef35cb3d9d6475",
+        "question_number": 109,
+        "source_jsonl_line": 59046
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0119_a655bc90b7ca2481.png",
+        "paper_title": "2022年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4fe4853fde3d2adc768b",
+        "question_number": 110,
+        "source_jsonl_line": 59047
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0113_a655bc90b7ca2481.png",
+        "paper_title": "2022年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4430b4e88c1073edbc6a",
+        "question_number": 111,
+        "source_jsonl_line": 73906
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0104_506f8d998dd52ada.png",
+        "paper_title": "2022年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b177e6ec0168c1f2f343",
+        "question_number": 112,
+        "source_jsonl_line": 73907
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0113_a655bc90b7ca2481.png",
+        "paper_title": "2022年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c29fdc65555b9b4f557e",
+        "question_number": 113,
+        "source_jsonl_line": 73908
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0104_506f8d998dd52ada.png",
+        "paper_title": "2022年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d3f2e6002d02afd12e9a",
+        "question_number": 114,
+        "source_jsonl_line": 73909
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0104_506f8d998dd52ada.png",
+        "paper_title": "2022年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c4f4dbcea88a89180a91",
+        "question_number": 115,
+        "source_jsonl_line": 73910
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0144_a655bc90b7ca2481.png",
+        "paper_title": "2022年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ef23e6d246056425f513",
+        "question_number": 111,
+        "source_jsonl_line": 75686
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0148_506f8d998dd52ada.png",
+        "paper_title": "2022年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d473f333255d5626be92",
+        "question_number": 112,
+        "source_jsonl_line": 75687
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0148_506f8d998dd52ada.png",
+        "paper_title": "2022年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_dafc3c4abedd2d05d8a0",
+        "question_number": 113,
+        "source_jsonl_line": 75688
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0148_506f8d998dd52ada.png",
+        "paper_title": "2022年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5b50610cd5ce36976ffb",
+        "question_number": 114,
+        "source_jsonl_line": 75689
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0148_506f8d998dd52ada.png",
+        "paper_title": "2022年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_eaf1168a4f2b4f7fcc4e",
+        "question_number": 115,
+        "source_jsonl_line": 75690
+      }
+    ],
+    "sha256": "e5f9aab68bbe263f54dd274148cd333b2dbb7f4441961ce841289dec3c899866"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2014",
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "钓鱼钩出口",
+        "group": "年份",
+        "label": "年份｜钓鱼钩出口",
+        "unit": "万美元",
+        "values": [
+          10667,
+          9455,
+          9525,
+          9280,
+          10110,
+          10279,
+          9935
+        ]
+      },
+      {
+        "display_label": "钓鱼钩进口",
+        "group": "年份",
+        "label": "年份｜钓鱼钩进口",
+        "unit": "万美元",
+        "values": [
+          1058,
+          1156,
+          938,
+          748,
+          903,
+          993,
+          1070
+        ]
+      },
+      {
+        "display_label": "钓鱼竿出口",
+        "group": "年份",
+        "label": "年份｜钓鱼竿出口",
+        "unit": "万美元",
+        "values": [
+          58613,
+          57780,
+          55405,
+          55934,
+          60617,
+          58234,
+          61267
+        ]
+      },
+      {
+        "display_label": "钓鱼竿进口",
+        "group": "年份",
+        "label": "年份｜钓鱼竿进口",
+        "unit": "万美元",
+        "values": [
+          2222,
+          2317,
+          2316,
+          2184,
+          2727,
+          3674,
+          5081
+        ]
+      },
+      {
+        "display_label": "钓线轮出口",
+        "group": "年份",
+        "label": "年份｜钓线轮出口",
+        "unit": "万美元",
+        "values": [
+          29151,
+          27722,
+          27344,
+          28676,
+          31163,
+          27426,
+          31215
+        ]
+      },
+      {
+        "display_label": "钓线轮进口",
+        "group": "年份",
+        "label": "年份｜钓线轮进口",
+        "unit": "万美元",
+        "values": [
+          869,
+          1187,
+          1448,
+          1903,
+          2443,
+          5323,
+          7623
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

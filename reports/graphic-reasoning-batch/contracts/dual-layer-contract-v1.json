@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "graphic-reasoning-dual-layer-v1",
+  "title": "图形推理可推理语义层与可渲染图元层契约",
+  "type": "object",
+  "required": ["schemaVersion", "assetId", "source", "layout", "panels", "crossPanelRelations", "evaluation", "acceptance"],
+  "properties": {
+    "schemaVersion": {"const": "graphic-reasoning-dual-layer-v1"},
+    "assetId": {"type": "string", "pattern": "^gr_"},
+    "source": {
+      "type": "object",
+      "required": ["sha256", "questionReferences"],
+      "properties": {
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "questionReferences": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["questionId", "role", "field"],
+            "properties": {
+              "questionId": {"type": "string"},
+              "role": {"enum": ["material", "stem", "option", "analysis", "solution"]},
+              "field": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "required": ["panelCount", "optionCount", "layoutType", "authority"],
+      "properties": {
+        "panelCount": {"type": "integer", "minimum": 1, "maximum": 16},
+        "optionCount": {"type": "integer", "minimum": 0, "maximum": 16},
+        "layoutType": {"enum": ["matrix_3x3", "sequence", "classification_2x3"]},
+        "authority": {"const": "deterministic_cv"}
+      }
+    },
+    "panels": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "required": ["id", "role", "sequenceIndex", "semanticLayer", "renderLayer"],
+        "properties": {
+          "id": {"type": "string"},
+          "role": {"enum": ["stem", "sequence", "missing", "option", "sample"]},
+          "sequenceIndex": {"type": "integer", "minimum": 0},
+          "optionLabel": {"type": ["string", "null"]},
+          "semanticLayer": {
+            "type": "object",
+            "required": ["elements", "relations", "topology", "observations"],
+            "properties": {
+              "elements": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["id", "kind", "count", "position", "attributes", "evidence"],
+                  "properties": {
+                    "id": {"type": "string"},
+                    "kind": {"enum": ["line", "polyline", "polygon", "rect", "circle", "ellipse", "arc", "curve", "dot", "grid", "arrow", "textGlyph", "lifeObject", "objectPart", "wireframe", "face", "textureSector", "semanticSymbol"]},
+                    "label": {"type": ["string", "null"]},
+                    "textContent": {"type": ["string", "null"]},
+                    "count": {"type": "integer", "minimum": 1},
+                    "position": {
+                      "type": "object",
+                      "required": ["center", "boundingBox", "relativeRegion"],
+                      "properties": {
+                        "center": {"$ref": "#/$defs/point"},
+                        "boundingBox": {"$ref": "#/$defs/box"},
+                        "relativeRegion": {"enum": ["top_left", "top", "top_right", "left", "center", "right", "bottom_left", "bottom", "bottom_right", "spanning"]}
+                      }
+                    },
+                    "attributes": {
+                      "type": "object",
+                      "properties": {
+                        "fillState": {"enum": ["hollow", "solid", "textured", "none", "unknown"]},
+                        "orientationDegrees": {"type": ["number", "null"]},
+                        "directionVector": {"anyOf": [{"$ref": "#/$defs/point"}, {"type": "null"}]},
+                        "reflectionState": {"enum": ["none", "horizontal", "vertical", "diagonal", "unknown"]},
+                        "texture": {"enum": ["none", "dots", "grid", "diagonal", "crosshatch", "solid", "unknown"]},
+                        "symmetryAxes": {"type": "array", "items": {"type": "number"}}
+                      }
+                    },
+                    "parts": {"type": "array", "items": {"type": "string"}},
+                    "evidence": {"$ref": "#/$defs/evidence"}
+                  }
+                }
+              },
+              "relations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["type", "subjects", "evidence"],
+                  "properties": {
+                    "type": {"enum": ["connected", "touching", "intersecting", "inside", "contains", "overlapping", "disjoint", "aligned", "parallel", "perpendicular", "sameObjectPart", "holds", "pointsTo", "frontOf", "behind"]},
+                    "subjects": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+                    "evidence": {"$ref": "#/$defs/evidence"}
+                  }
+                }
+              },
+              "topology": {
+                "type": "object",
+                "required": ["componentCount", "endpointCount", "junctionCount", "loopCount", "nodes", "edges"],
+                "properties": {
+                  "componentCount": {"type": "integer", "minimum": 0},
+                  "endpointCount": {"type": "integer", "minimum": 0},
+                  "junctionCount": {"type": "integer", "minimum": 0},
+                  "loopCount": {"type": "integer", "minimum": 0},
+                  "nodes": {"type": "array"},
+                  "edges": {"type": "array"}
+                }
+              },
+              "observations": {"type": "array", "items": {"type": "string"}}
+            }
+          },
+          "renderLayer": {
+            "type": "object",
+            "required": ["schemaVersion", "fidelityTier", "coordinateSpace", "primitives", "geometryAuthority"],
+            "properties": {
+              "schemaVersion": {"const": "graphic-primitives-v2"},
+              "fidelityTier": {"enum": ["semantic", "deterministic_vector"]},
+              "coordinateSpace": {"type": "object", "required": ["width", "height"]},
+              "primitives": {"type": "array"},
+              "geometryAuthority": {"const": "deterministic_cv_or_verified_vector_refinement"}
+            }
+          }
+        }
+      }
+    },
+    "crossPanelRelations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "fromPanels", "toPanels", "subjects", "parameters", "status", "evidence"],
+        "properties": {
+          "type": {"enum": ["rotation", "reflection", "translation", "overlay_union", "overlay_intersection", "overlay_difference", "overlay_xor", "count_delta", "add_remove", "permutation", "connection_change", "fill_change", "texture_change", "direction_change", "sequence_repeat", "analogy_mapping"]},
+          "fromPanels": {"type": "array", "items": {"type": "string"}},
+          "toPanels": {"type": "array", "items": {"type": "string"}},
+          "subjects": {"type": "array", "items": {"type": "string"}},
+          "parameters": {"type": "object"},
+          "status": {"enum": ["observed", "candidate", "verified"]},
+          "evidence": {"$ref": "#/$defs/evidence"}
+        }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "required": ["solverInputExcludesAnswer", "answerLabel", "optionPanelMap", "answerPreservationGate"],
+      "properties": {
+        "solverInputExcludesAnswer": {"const": true},
+        "answerLabel": {"type": ["string", "null"]},
+        "optionPanelMap": {"type": "object"},
+        "answerPreservationGate": {"enum": ["pass", "fail", "pending"]}
+      }
+    },
+    "acceptance": {
+      "type": "object",
+      "required": ["status", "gates"],
+      "properties": {
+        "status": {"enum": ["repair_pending", "accepted"]},
+        "gates": {
+          "type": "object",
+          "required": ["sourceHash", "panelCount", "optionCount", "topology", "fillState", "arrow", "text", "direction", "exactAngles", "pixelFit", "answerPreservation", "frontendContract"],
+          "additionalProperties": {"enum": ["pass", "fail", "pending", "not_applicable"]}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "point": {"type": "object", "required": ["x", "y"], "properties": {"x": {"type": "number", "minimum": 0, "maximum": 1000}, "y": {"type": "number", "minimum": 0, "maximum": 1000}}},
+    "box": {"type": "object", "required": ["x", "y", "width", "height"], "properties": {"x": {"type": "number"}, "y": {"type": "number"}, "width": {"type": "number", "minimum": 0}, "height": {"type": "number", "minimum": 0}}},
+    "evidence": {
+      "type": "object",
+      "required": ["source", "confidence", "authority"],
+      "properties": {
+        "source": {"enum": ["deterministic_cv", "verified_vector", "ocr", "qwen_semantic_candidate", "specialized_svg_candidate", "human_review"]},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "authority": {"enum": ["observation", "semantic_candidate", "geometry_authority", "answer_authority"]}
+      }
+    }
+  }
+}

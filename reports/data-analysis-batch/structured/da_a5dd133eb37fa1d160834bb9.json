@@ -1,0 +1,236 @@
+{
+  "asset_id": "da_a5dd133eb37fa1d160834bb9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 4000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000
+        ],
+        "title": null,
+        "unit": "万吨"
+      },
+      {
+        "max": 120,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100,
+          120
+        ],
+        "title": null,
+        "unit": "亿美元"
+      }
+    ]
+  },
+  "categories": [
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "进口量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "进口额",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "进口量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        2389,
+        2367,
+        2351,
+        2107,
+        1892
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "进口额",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        96.9,
+        97.8,
+        83.1,
+        74.4,
+        78.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0108_cca9187052f054cd.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0108_cca9187052f054cd.jpg",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_9d2b86d7c95f60b1e0f4",
+        "question_number": 121,
+        "source_jsonl_line": 20581
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0098_765cda1880638bfe.jpg",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_fc09164e436eecb9713e",
+        "question_number": 122,
+        "source_jsonl_line": 20582
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0098_765cda1880638bfe.jpg",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_3c74c018110b4176988f",
+        "question_number": 123,
+        "source_jsonl_line": 20583
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0108_cca9187052f054cd.jpg",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_76f83f363ad10e6a2e36",
+        "question_number": 124,
+        "source_jsonl_line": 20584
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0108_cca9187052f054cd.jpg",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_cc4dc5d33e1cdd3d4650",
+        "question_number": 125,
+        "source_jsonl_line": 20585
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0132_765cda1880638bfe.jpg",
+        "paper_title": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_8a0573dfcf4a8dedeb87",
+        "question_number": 121,
+        "source_jsonl_line": 20711
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0134_cca9187052f054cd.jpg",
+        "paper_title": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_a7cb90a15ba477522c9a",
+        "question_number": 122,
+        "source_jsonl_line": 20712
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0134_cca9187052f054cd.jpg",
+        "paper_title": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_8211b99b758c49551354",
+        "question_number": 123,
+        "source_jsonl_line": 20713
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0134_cca9187052f054cd.jpg",
+        "paper_title": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_358b469401666ecf77a4",
+        "question_number": 124,
+        "source_jsonl_line": 20714
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）_images/img_0132_765cda1880638bfe.jpg",
+        "paper_title": "2023年国家公务员录用考试《行测》题（行政执法卷网友回忆版）",
+        "question_id": "pq_aff9b84a30ccc31ea318",
+        "question_number": 125,
+        "source_jsonl_line": 20715
+      }
+    ],
+    "sha256": "a5dd133eb37fa1d160834bb92e7bb93bd30f3e609c11c440ecd19f349f5e54b7"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2017-2021年我国木材进口量及进口额",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a5dd133eb37fa1d160834bb9/column_band_01.jpg",
+        "review-crops/da_a5dd133eb37fa1d160834bb9/column_band_02.jpg",
+        "review-crops/da_a5dd133eb37fa1d160834bb9/column_band_03.jpg",
+        "review-crops/da_a5dd133eb37fa1d160834bb9/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.275",
+      "crop_verification_elapsed_seconds:3.097",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

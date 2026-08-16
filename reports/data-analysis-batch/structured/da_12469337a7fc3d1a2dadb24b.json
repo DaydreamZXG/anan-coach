@@ -1,0 +1,264 @@
+{
+  "asset_id": "da_12469337a7fc3d1a2dadb24b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.92,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）_images/img_0112_5409bbd410278959.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）_images/img_0112_5409bbd410278959.png",
+        "paper_title": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）",
+        "question_id": "pq_16b19b8f7562db12acbe",
+        "question_number": 106,
+        "source_jsonl_line": 41276
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）_images/img_0112_5409bbd410278959.png",
+        "paper_title": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）",
+        "question_id": "pq_816560421cbff6150a25",
+        "question_number": 107,
+        "source_jsonl_line": 41277
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）_images/img_0124_6ef36c04d0d31c23.png",
+        "paper_title": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）",
+        "question_id": "pq_f919774154c15e4bfb17",
+        "question_number": 108,
+        "source_jsonl_line": 41278
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）_images/img_0112_5409bbd410278959.png",
+        "paper_title": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）",
+        "question_id": "pq_5cacbe4d8ca52a9986c6",
+        "question_number": 109,
+        "source_jsonl_line": 41279
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）_images/img_0112_5409bbd410278959.png",
+        "paper_title": "2014年河北省政法干警考试《行政职业能力测验》试卷（本硕）",
+        "question_id": "pq_c0e55750e98b2389ae9b",
+        "question_number": 110,
+        "source_jsonl_line": 41280
+      }
+    ],
+    "sha256": "12469337a7fc3d1a2dadb24b6cd98ec7223844cce04669b1f727f8fc06b9a559"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1-5月",
+      "上年同期",
+      "增长速度（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标名称",
+    "rows": [
+      {
+        "display_label": "计划总投资（万元）",
+        "group": null,
+        "label": "计划总投资（万元）",
+        "unit": null,
+        "values": [
+          362808937,
+          325163971,
+          11.6
+        ]
+      },
+      {
+        "display_label": "其中：本年新开工项目",
+        "group": null,
+        "label": "其中：本年新开工项目",
+        "unit": null,
+        "values": [
+          60130330,
+          61006290,
+          -1.4
+        ]
+      },
+      {
+        "display_label": "施工项目个数（个）",
+        "group": "其中：本年新开工项目",
+        "label": "其中：本年新开工项目｜施工项目个数（个）",
+        "unit": null,
+        "values": [
+          10178,
+          null,
+          -13.6
+        ]
+      },
+      {
+        "display_label": "其中：本年新开工",
+        "group": "其中：本年新开工项目",
+        "label": "其中：本年新开工项目｜其中：本年新开工",
+        "unit": null,
+        "values": [
+          3303,
+          4043,
+          -18.3
+        ]
+      },
+      {
+        "display_label": "亿元以上项目",
+        "group": null,
+        "label": "亿元以上项目",
+        "unit": null,
+        "values": [
+          null,
+          3754,
+          2.1
+        ]
+      },
+      {
+        "display_label": "施工项目个数（个）",
+        "group": "亿元以上项目",
+        "label": "亿元以上项目｜施工项目个数（个）",
+        "unit": null,
+        "values": [
+          null,
+          50637661,
+          20.8
+        ]
+      },
+      {
+        "display_label": "本年完成投资（万元）",
+        "group": "亿元以上项目",
+        "label": "亿元以上项目｜本年完成投资（万元）",
+        "unit": null,
+        "values": [
+          null,
+          41918509,
+          14.4
+        ]
+      },
+      {
+        "display_label": "其中亿元以上新开工项目",
+        "group": null,
+        "label": "其中亿元以上新开工项目",
+        "unit": null,
+        "values": [
+          null,
+          855,
+          18.1
+        ]
+      },
+      {
+        "display_label": "施工项目个数（个）",
+        "group": "其中亿元以上新开工项目",
+        "label": "其中亿元以上新开工项目｜施工项目个数（个）",
+        "unit": null,
+        "values": [
+          null,
+          10285752,
+          30.9
+        ]
+      },
+      {
+        "display_label": "本年完成投资（万元）",
+        "group": "其中亿元以上新开工项目",
+        "label": "其中亿元以上新开工项目｜本年完成投资（万元）",
+        "unit": null,
+        "values": [
+          null,
+          7857152,
+          4.0
+        ]
+      },
+      {
+        "display_label": "计划总投资（万元）",
+        "group": "其中亿元以上新开工项目",
+        "label": "其中亿元以上新开工项目｜计划总投资（万元）",
+        "unit": null,
+        "values": [
+          null,
+          44602417,
+          29.2
+        ]
+      },
+      {
+        "display_label": "平均项目规模（万元）",
+        "group": null,
+        "label": "平均项目规模（万元）",
+        "unit": null,
+        "values": [
+          null,
+          31948,
+          12.0
+        ]
+      },
+      {
+        "display_label": "其中：本年新开工",
+        "group": "平均项目规模（万元）",
+        "label": "平均项目规模（万元）｜其中：本年新开工",
+        "unit": null,
+        "values": [
+          null,
+          18205,
+          20.6
+        ]
+      },
+      {
+        "display_label": "亿元以上平均项目规模（万元）",
+        "group": null,
+        "label": "亿元以上平均项目规模（万元）",
+        "unit": null,
+        "values": [
+          null,
+          54268,
+          -11.9
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.92,
+    "schema_valid": true
+  }
+}

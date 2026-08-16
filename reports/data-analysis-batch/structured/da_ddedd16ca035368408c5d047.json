@@ -1,0 +1,161 @@
+{
+  "asset_id": "da_ddedd16ca035368408c5d047",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 600000,
+        "min": 0,
+        "ticks": [
+          0,
+          100000,
+          200000,
+          300000,
+          400000,
+          500000,
+          600000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "全社会固定资产投资",
+      "style": {
+        "dash": null,
+        "fill": "#B22222",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全社会固定资产投资",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(亿元)",
+      "values": [
+        311485,
+        374695,
+        444618,
+        512021,
+        562000
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2017年422联考《行测》题（江西卷）_images/img_0202_83b3e4f45b9c786c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（江西卷）_images/img_0202_83b3e4f45b9c786c.png",
+        "paper_title": "2017年422联考《行测》题（江西卷）",
+        "question_id": "pq_cd6f9b4713b8b2ab0ea2",
+        "question_number": 131,
+        "source_jsonl_line": 52660
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（江西卷）_images/img_0202_83b3e4f45b9c786c.png",
+        "paper_title": "2017年422联考《行测》题（江西卷）",
+        "question_id": "pq_9c9904d1da35ad462538",
+        "question_number": 132,
+        "source_jsonl_line": 52661
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（江西卷）_images/img_0202_83b3e4f45b9c786c.png",
+        "paper_title": "2017年422联考《行测》题（江西卷）",
+        "question_id": "pq_198b44260056654ae42f",
+        "question_number": 133,
+        "source_jsonl_line": 52662
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（江西卷）_images/img_0221_0ea6702bd724971a.png",
+        "paper_title": "2017年422联考《行测》题（江西卷）",
+        "question_id": "pq_9da2aaddde314c3487c3",
+        "question_number": 134,
+        "source_jsonl_line": 52663
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（江西卷）_images/img_0202_83b3e4f45b9c786c.png",
+        "paper_title": "2017年422联考《行测》题（江西卷）",
+        "question_id": "pq_c8d8ea1f785a858c8e56",
+        "question_number": 135,
+        "source_jsonl_line": 52664
+      }
+    ],
+    "sha256": "ddedd16ca035368408c5d047ef18d368f663113ca8cb8de201bb02e73edac5b3"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2011-2015年全社会固定资产投资",
+  "unit": "(亿元)",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ddedd16ca035368408c5d047/column_band_01.jpg",
+        "review-crops/da_ddedd16ca035368408c5d047/column_band_02.jpg",
+        "review-crops/da_ddedd16ca035368408c5d047/column_band_03.jpg",
+        "review-crops/da_ddedd16ca035368408c5d047/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.857",
+      "crop_verification_elapsed_seconds:1.6",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

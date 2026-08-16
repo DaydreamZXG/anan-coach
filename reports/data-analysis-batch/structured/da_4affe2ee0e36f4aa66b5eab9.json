@@ -1,0 +1,553 @@
+{
+  "asset_id": "da_4affe2ee0e36f4aa66b5eab9",
+  "axes": {
+    "x": {
+      "max": 2015,
+      "min": 2000,
+      "ticks": [
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 2967,
+        "min": 179,
+        "ticks": [],
+        "title": "整车制造",
+        "unit": "件"
+      },
+      {
+        "max": 1162,
+        "min": 41,
+        "ticks": [],
+        "title": "电动机制造",
+        "unit": "件"
+      }
+    ]
+  },
+  "categories": [
+    "2000",
+    "2001",
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "series_1",
+      "label": "整车制造",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "件",
+      "values": [
+        179,
+        225,
+        215,
+        345,
+        424,
+        554,
+        833,
+        994,
+        1317,
+        1389,
+        1854,
+        2597,
+        2603,
+        2487,
+        2035,
+        769
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_2",
+      "label": "电动机制造",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "件",
+      "values": [
+        41,
+        53,
+        91,
+        156,
+        195,
+        323,
+        399,
+        474,
+        550,
+        585,
+        821,
+        1088,
+        1176,
+        1162,
+        807,
+        303
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_3",
+      "label": "储能装置制造",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "件",
+      "values": [
+        134,
+        143,
+        199,
+        272,
+        330,
+        524,
+        841,
+        1021,
+        1422,
+        1769,
+        2497,
+        3437,
+        3277,
+        3156,
+        2326,
+        848
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_4",
+      "label": "零部件配件制造",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "件",
+      "values": [
+        31,
+        30,
+        57,
+        81,
+        134,
+        282,
+        445,
+        585,
+        745,
+        768,
+        1029,
+        1553,
+        1564,
+        1618,
+        1232,
+        377
+      ]
+    },
+    {
+      "axis": "none",
+      "id": "series_5",
+      "label": "供能装置制造",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "件",
+      "values": [
+        45,
+        67,
+        88,
+        137,
+        178,
+        267,
+        368,
+        391,
+        462,
+        410,
+        653,
+        831,
+        867,
+        797,
+        745,
+        315
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2017年国家公务员录用考试《行测》题（副省级）_images/img_0325_4c5ef141947b1c77.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年国家公务员录用考试《行测》题（副省级）_images/img_0325_4c5ef141947b1c77.png",
+        "paper_title": "2017年国家公务员录用考试《行测》题（副省级）",
+        "question_id": "pq_ed7d01850925b1d09545",
+        "question_number": 131,
+        "source_jsonl_line": 18736
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年国家公务员录用考试《行测》题（副省级）_images/img_0320_a61b7298e10b7811.png",
+        "paper_title": "2017年国家公务员录用考试《行测》题（副省级）",
+        "question_id": "pq_fce716df6b9a9c532210",
+        "question_number": 132,
+        "source_jsonl_line": 18737
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年国家公务员录用考试《行测》题（副省级）_images/img_0325_4c5ef141947b1c77.png",
+        "paper_title": "2017年国家公务员录用考试《行测》题（副省级）",
+        "question_id": "pq_62d36d12f7acef0f5c34",
+        "question_number": 133,
+        "source_jsonl_line": 18738
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年国家公务员录用考试《行测》题（副省级）_images/img_0325_4c5ef141947b1c77.png",
+        "paper_title": "2017年国家公务员录用考试《行测》题（副省级）",
+        "question_id": "pq_4228022c73a5b5577774",
+        "question_number": 134,
+        "source_jsonl_line": 18739
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年国家公务员录用考试《行测》题（副省级）_images/img_0320_a61b7298e10b7811.png",
+        "paper_title": "2017年国家公务员录用考试《行测》题（副省级）",
+        "question_id": "pq_ac8db047e5a92e545fa0",
+        "question_number": 135,
+        "source_jsonl_line": 18740
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年国家公务员录用考试《行测》题（地市级）_images/img_0260_a61b7298e10b7811.png",
+        "paper_title": "2017年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_7fb620e85fcc7e5b1485",
+        "question_number": 126,
+        "source_jsonl_line": 18866
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年国家公务员录用考试《行测》题（地市级）_images/img_0260_a61b7298e10b7811.png",
+        "paper_title": "2017年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_824f7545789dda30d88e",
+        "question_number": 127,
+        "source_jsonl_line": 18867
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年国家公务员录用考试《行测》题（地市级）_images/img_0273_4c5ef141947b1c77.png",
+        "paper_title": "2017年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_57e976047825e8ab7302",
+        "question_number": 128,
+        "source_jsonl_line": 18868
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年国家公务员录用考试《行测》题（地市级）_images/img_0260_a61b7298e10b7811.png",
+        "paper_title": "2017年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_375927cdb5355b2d732b",
+        "question_number": 129,
+        "source_jsonl_line": 18869
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年国家公务员录用考试《行测》题（地市级）_images/img_0260_a61b7298e10b7811.png",
+        "paper_title": "2017年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_b548604ac38aed7705bb",
+        "question_number": 130,
+        "source_jsonl_line": 18870
+      }
+    ],
+    "sha256": "4affe2ee0e36f4aa66b5eab93c4dd166dc658e44b98a3f18228c83429951c3d4"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "整车制造",
+      "电动机制造",
+      "储能装置制造",
+      "零部件配件制造",
+      "供能装置制造"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2000",
+        "unit": null,
+        "values": [
+          2000,
+          179,
+          41,
+          134,
+          31,
+          45
+        ]
+      },
+      {
+        "label": "2001",
+        "unit": null,
+        "values": [
+          2001,
+          225,
+          53,
+          143,
+          30,
+          67
+        ]
+      },
+      {
+        "label": "2002",
+        "unit": null,
+        "values": [
+          2002,
+          215,
+          91,
+          199,
+          57,
+          88
+        ]
+      },
+      {
+        "label": "2003",
+        "unit": null,
+        "values": [
+          2003,
+          345,
+          156,
+          272,
+          81,
+          137
+        ]
+      },
+      {
+        "label": "2004",
+        "unit": null,
+        "values": [
+          2004,
+          424,
+          195,
+          330,
+          134,
+          178
+        ]
+      },
+      {
+        "label": "2005",
+        "unit": null,
+        "values": [
+          2005,
+          554,
+          323,
+          524,
+          282,
+          267
+        ]
+      },
+      {
+        "label": "2006",
+        "unit": null,
+        "values": [
+          2006,
+          833,
+          399,
+          841,
+          445,
+          368
+        ]
+      },
+      {
+        "label": "2007",
+        "unit": null,
+        "values": [
+          2007,
+          994,
+          474,
+          1021,
+          585,
+          391
+        ]
+      },
+      {
+        "label": "2008",
+        "unit": null,
+        "values": [
+          2008,
+          1317,
+          550,
+          1422,
+          745,
+          462
+        ]
+      },
+      {
+        "label": "2009",
+        "unit": null,
+        "values": [
+          2009,
+          1389,
+          585,
+          1769,
+          768,
+          410
+        ]
+      },
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          1854,
+          821,
+          2497,
+          1029,
+          653
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          2597,
+          1088,
+          3437,
+          1553,
+          831
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          2603,
+          1176,
+          3277,
+          1564,
+          867
+        ]
+      },
+      {
+        "label": "2013",
+        "unit": null,
+        "values": [
+          2013,
+          2487,
+          1162,
+          3156,
+          1618,
+          797
+        ]
+      },
+      {
+        "label": "2014",
+        "unit": null,
+        "values": [
+          2014,
+          2035,
+          807,
+          2326,
+          1232,
+          745
+        ]
+      },
+      {
+        "label": "2015",
+        "unit": null,
+        "values": [
+          2015,
+          769,
+          303,
+          848,
+          377,
+          315
+        ]
+      }
+    ]
+  },
+  "title": "中国新能源汽车产业各类技术专利申请情况表",
+  "unit": "件",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4affe2ee0e36f4aa66b5eab9/row_band_01.jpg",
+        "review-crops/da_4affe2ee0e36f4aa66b5eab9/row_band_02.jpg",
+        "review-crops/da_4affe2ee0e36f4aa66b5eab9/row_band_03.jpg",
+        "review-crops/da_4affe2ee0e36f4aa66b5eab9/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:33.35",
+      "crop_verification_elapsed_seconds:22.533",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

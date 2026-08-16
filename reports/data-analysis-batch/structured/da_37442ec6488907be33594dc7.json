@@ -1,0 +1,171 @@
+{
+  "asset_id": "da_37442ec6488907be33594dc7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）_images/img_0269_c8e8ca217ebd301d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）_images/img_0269_c8e8ca217ebd301d.png",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）",
+        "question_id": "pq_055ddfb3010792246b04",
+        "question_number": 96,
+        "source_jsonl_line": 35428
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）_images/img_0269_c8e8ca217ebd301d.png",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）",
+        "question_id": "pq_824b186710aac97b28a1",
+        "question_number": 97,
+        "source_jsonl_line": 35429
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）_images/img_0269_c8e8ca217ebd301d.png",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）",
+        "question_id": "pq_1886148c648c21ba620c",
+        "question_number": 98,
+        "source_jsonl_line": 35430
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）_images/img_0325_865b043a1670b987.png",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）",
+        "question_id": "pq_2beba1eb7cfeeb307f4d",
+        "question_number": 99,
+        "source_jsonl_line": 35431
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）_images/img_0269_c8e8ca217ebd301d.png",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（县级卷）（网友回忆版）",
+        "question_id": "pq_bc7feb9e4abfde654900",
+        "question_number": 100,
+        "source_jsonl_line": 35432
+      }
+    ],
+    "sha256": "37442ec6488907be33594dc71a52c20f25eb1039eb651e37e82a4efb0a8a4497"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "2019年用水量",
+      "同比变化率",
+      "占比"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "珠三角",
+        "unit": null,
+        "values": [
+          "珠三角",
+          "29.85 亿立方米",
+          -0.6,
+          75.5
+        ]
+      },
+      {
+        "label": "粤东",
+        "unit": null,
+        "values": [
+          "粤东",
+          "2.46 亿立方米",
+          -10.0,
+          6.2
+        ]
+      },
+      {
+        "label": "粤西",
+        "unit": null,
+        "values": [
+          "粤西",
+          "2.96 亿立方米",
+          -8.2,
+          7.5
+        ]
+      },
+      {
+        "label": "粤北",
+        "unit": null,
+        "values": [
+          "粤北",
+          "4.27 亿立方米",
+          -2.4,
+          10.8
+        ]
+      }
+    ]
+  },
+  "title": "2019年广东各地区用水量情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_37442ec6488907be33594dc7/row_band_01.jpg",
+        "review-crops/da_37442ec6488907be33594dc7/row_band_02.jpg",
+        "review-crops/da_37442ec6488907be33594dc7/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.205",
+      "crop_verification_elapsed_seconds:8.999",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了第一行'珠三角'的'同比变化率'为'-0.6%'，原数据为'0.6%'，负号缺失。",
+      "crop_note:修正了第一行'珠三角'的'占比'为'75.5%'，原数据为'75.1%'，小数点后一位错误。",
+      "crop_note:修正了第二行'粤东'的'同比变化率'为'-10.0%'，原数据为'-10.0%'，但原图中为'-10.0%'，无误。",
+      "crop_note:修正了第二行'粤东'的'占比'为'6.2%'，原数据为'6.2%'，无误。",
+      "crop_note:修正了第三行'粤西'的'同比变化率'为'-8.2%'，原数据为'-8.2%'，无误。",
+      "crop_note:修正了第三行'粤西'的'占比'为'7.5%'，原数据为'7.5%'，无误。",
+      "crop_note:修正了第四行'粤北'的'同比变化率'为'-2.4%'，原数据为'-2.4%'，无误。",
+      "crop_note:修正了第四行'粤北'的'占比'为'10.8%'，原数据为'10.8%'，无误。",
+      "crop_note:确认所有数值格式正确，包括小数点、百分号和负号。",
+      "crop_note:确认所有缺失值保持为null，无补0操作。",
+      "crop_note:确认表格行列拓扑结构完整，未发生错位。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

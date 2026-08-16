@@ -1,0 +1,578 @@
+{
+  "asset_id": "da_0e14471be2404e70990ac138",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "科室",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "出院人数",
+        "unit": "人"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "治愈人数",
+        "unit": "人"
+      }
+    ]
+  },
+  "categories": [
+    "内科",
+    "外科",
+    "妇科",
+    "儿科",
+    "合计"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "甲医院 出院人数",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "甲医院 治愈人数",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "乙医院 出院人数",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "乙医院 治愈人数",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "丙医院 出院人数",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "丙医院 治愈人数",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "丁医院 出院人数",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "丁医院 治愈人数",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "甲医院 出院人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        880,
+        320,
+        320,
+        130,
+        1650
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "甲医院 治愈人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        290,
+        294,
+        265,
+        118,
+        967
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "乙医院 出院人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        350,
+        420,
+        840,
+        580,
+        2190
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "乙医院 治愈人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        108,
+        380,
+        749,
+        545,
+        1782
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "丙医院 出院人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        1200,
+        860,
+        450,
+        350,
+        2860
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "丙医院 治愈人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        432,
+        817,
+        382,
+        301,
+        1932
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "丁医院 出院人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        930,
+        580,
+        280,
+        240,
+        2030
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_8",
+      "label": "丁医院 治愈人数",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        353,
+        550,
+        235,
+        197,
+        1335
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）_images/img_0243_4a11eba5379e8166.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）_images/img_0243_4a11eba5379e8166.png",
+        "paper_title": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）",
+        "question_id": "pq_4a28e1a7e0888c0bc677",
+        "question_number": 116,
+        "source_jsonl_line": 7909
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）_images/img_0243_4a11eba5379e8166.png",
+        "paper_title": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）",
+        "question_id": "pq_83c56b3449dc78939130",
+        "question_number": 117,
+        "source_jsonl_line": 7910
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）_images/img_0243_4a11eba5379e8166.png",
+        "paper_title": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）",
+        "question_id": "pq_d2a27f34ae9a081651ba",
+        "question_number": 118,
+        "source_jsonl_line": 7911
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）_images/img_0289_8e1e9eed09911761.png",
+        "paper_title": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）",
+        "question_id": "pq_bda7eead588abbb21319",
+        "question_number": 119,
+        "source_jsonl_line": 7912
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）_images/img_0243_4a11eba5379e8166.png",
+        "paper_title": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）",
+        "question_id": "pq_c08238ddb7cb473e4ea1",
+        "question_number": 120,
+        "source_jsonl_line": 7913
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年天津市公务员考试《行测》试题（网友回忆版）_images/img_0251_4a11eba5379e8166.png",
+        "paper_title": "2020年天津市公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_ebf6ad31ea0b420a13e9",
+        "question_number": 116,
+        "source_jsonl_line": 23808
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年天津市公务员考试《行测》试题（网友回忆版）_images/img_0251_4a11eba5379e8166.png",
+        "paper_title": "2020年天津市公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_c317352003842f1263a7",
+        "question_number": 117,
+        "source_jsonl_line": 23809
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年天津市公务员考试《行测》试题（网友回忆版）_images/img_0276_8e1e9eed09911761.png",
+        "paper_title": "2020年天津市公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_39b38bff59473eec36ca",
+        "question_number": 118,
+        "source_jsonl_line": 23810
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年天津市公务员考试《行测》试题（网友回忆版）_images/img_0251_4a11eba5379e8166.png",
+        "paper_title": "2020年天津市公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_18c5eb86abf9e9962e7e",
+        "question_number": 119,
+        "source_jsonl_line": 23811
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年天津市公务员考试《行测》试题（网友回忆版）_images/img_0251_4a11eba5379e8166.png",
+        "paper_title": "2020年天津市公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_0522f74bcdee93cf2b79",
+        "question_number": 120,
+        "source_jsonl_line": 23812
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年湖南公务员考试《行测》试题（网友回忆版）_images/img_0189_4a11eba5379e8166.png",
+        "paper_title": "2020年湖南公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_6fda6910be953bf9eedd",
+        "question_number": 111,
+        "source_jsonl_line": 73666
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年湖南公务员考试《行测》试题（网友回忆版）_images/img_0189_4a11eba5379e8166.png",
+        "paper_title": "2020年湖南公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_eb3859b3fe470f286b49",
+        "question_number": 112,
+        "source_jsonl_line": 73667
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年湖南公务员考试《行测》试题（网友回忆版）_images/img_0189_4a11eba5379e8166.png",
+        "paper_title": "2020年湖南公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_93c2166ea21371468971",
+        "question_number": 113,
+        "source_jsonl_line": 73668
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年湖南公务员考试《行测》试题（网友回忆版）_images/img_0189_4a11eba5379e8166.png",
+        "paper_title": "2020年湖南公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_2f980c7a10bdd66f6dc7",
+        "question_number": 114,
+        "source_jsonl_line": 73669
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年湖南公务员考试《行测》试题（网友回忆版）_images/img_0243_8e1e9eed09911761.png",
+        "paper_title": "2020年湖南公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_0aa2416ba10324989b7a",
+        "question_number": 115,
+        "source_jsonl_line": 73670
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年陕西省公务员考试《行测》试题（网友回忆版）_images/img_0235_8e1e9eed09911761.png",
+        "paper_title": "2020年陕西省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_a4d9fc9ca9fd2923601e",
+        "question_number": 116,
+        "source_jsonl_line": 98034
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年陕西省公务员考试《行测》试题（网友回忆版）_images/img_0235_8e1e9eed09911761.png",
+        "paper_title": "2020年陕西省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_82136ca7334d6cc24fc0",
+        "question_number": 117,
+        "source_jsonl_line": 98035
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年陕西省公务员考试《行测》试题（网友回忆版）_images/img_0271_4a11eba5379e8166.png",
+        "paper_title": "2020年陕西省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_9a256bf08448ff693d97",
+        "question_number": 118,
+        "source_jsonl_line": 98036
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年陕西省公务员考试《行测》试题（网友回忆版）_images/img_0271_4a11eba5379e8166.png",
+        "paper_title": "2020年陕西省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_3021363d896af6a38cdd",
+        "question_number": 119,
+        "source_jsonl_line": 98037
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年陕西省公务员考试《行测》试题（网友回忆版）_images/img_0271_4a11eba5379e8166.png",
+        "paper_title": "2020年陕西省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_4c1294734dfc703b2300",
+        "question_number": 120,
+        "source_jsonl_line": 98038
+      }
+    ],
+    "sha256": "0e14471be2404e70990ac13835b819495ccaad39ad426045af3b094689b5787a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "科室",
+      "甲医院 出院人数",
+      "甲医院 治愈人数",
+      "乙医院 出院人数",
+      "乙医院 治愈人数",
+      "丙医院 出院人数",
+      "丙医院 治愈人数",
+      "丁医院 出院人数",
+      "丁医院 治愈人数"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "内科",
+        "unit": null,
+        "values": [
+          "内科",
+          880,
+          290,
+          350,
+          108,
+          1200,
+          432,
+          930,
+          353
+        ]
+      },
+      {
+        "label": "外科",
+        "unit": null,
+        "values": [
+          "外科",
+          320,
+          294,
+          420,
+          380,
+          860,
+          817,
+          580,
+          550
+        ]
+      },
+      {
+        "label": "妇科",
+        "unit": null,
+        "values": [
+          "妇科",
+          320,
+          265,
+          840,
+          749,
+          450,
+          382,
+          280,
+          235
+        ]
+      },
+      {
+        "label": "儿科",
+        "unit": null,
+        "values": [
+          "儿科",
+          130,
+          118,
+          580,
+          545,
+          350,
+          301,
+          240,
+          197
+        ]
+      },
+      {
+        "label": "合计",
+        "unit": null,
+        "values": [
+          "合计",
+          1650,
+          967,
+          2190,
+          1782,
+          2860,
+          1932,
+          2030,
+          1335
+        ]
+      }
+    ]
+  },
+  "title": "某市三甲医院分科室出院和治愈人数",
+  "unit": "人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0e14471be2404e70990ac138/row_band_01.jpg",
+        "review-crops/da_0e14471be2404e70990ac138/row_band_02.jpg",
+        "review-crops/da_0e14471be2404e70990ac138/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:13.225",
+      "crop_verification_elapsed_seconds:16.057",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了儿科的出院人数为130，原数据为130，正确。",
+      "crop_note:修正了儿科的治愈人数为118，原数据为118，正确。",
+      "crop_note:修正了合计行的出院人数为1650，原数据为1650，正确。",
+      "crop_note:修正了合计行的治愈人数为967，原数据为967，正确。",
+      "crop_note:修正了乙医院的出院人数为350，原数据为350，正确。",
+      "crop_note:修正了乙医院的治愈人数为108，原数据为108，正确。",
+      "crop_note:修正了丙医院的出院人数为1200，原数据为1200，正确。",
+      "crop_note:修正了丙医院的治愈人数为432，原数据为432，正确。",
+      "crop_note:修正了丁医院的出院人数为930，原数据为930，正确。",
+      "crop_note:修正了丁医院的治愈人数为353，原数据为353，正确。",
+      "crop_note:确认所有数值均无负号、小数、百分号，且无缺失值。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

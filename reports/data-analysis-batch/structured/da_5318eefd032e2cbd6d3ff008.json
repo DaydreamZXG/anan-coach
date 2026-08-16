@@ -1,0 +1,453 @@
+{
+  "asset_id": "da_5318eefd032e2cbd6d3ff008",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "总清运量（万吨）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        16395,
+        17081,
+        17239,
+        17860,
+        19142,
+        20362,
+        21521,
+        22802,
+        24206,
+        23512
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "无害化处理场（座）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "座",
+      "values": [
+        677,
+        701,
+        765,
+        818,
+        890,
+        940,
+        1013,
+        1091,
+        1183,
+        1287
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "无害化处理能力（万吨/日）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨/日",
+      "values": [
+        40.91,
+        44.63,
+        49.23,
+        53.35,
+        57.69,
+        62.14,
+        67.99,
+        76.62,
+        86.99,
+        96.35
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "无害化处理量（万吨）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        13090,
+        14490,
+        15394,
+        16394,
+        18013,
+        19674,
+        21034,
+        22565,
+        24013,
+        23452
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0113_6b90692305d94d9f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0113_6b90692305d94d9f.png",
+        "paper_title": "2022年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4ff255b6e306a2c0ac09",
+        "question_number": 91,
+        "source_jsonl_line": 5875
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0106_59c93ff00adede95.png",
+        "paper_title": "2022年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c4fa3accce06d2b07f48",
+        "question_number": 92,
+        "source_jsonl_line": 5876
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0106_59c93ff00adede95.png",
+        "paper_title": "2022年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_56754881036b14bd4b32",
+        "question_number": 93,
+        "source_jsonl_line": 5877
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0106_59c93ff00adede95.png",
+        "paper_title": "2022年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e5455f3de882651e455a",
+        "question_number": 94,
+        "source_jsonl_line": 5878
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0113_6b90692305d94d9f.png",
+        "paper_title": "2022年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_95c35bea701bbd8391dd",
+        "question_number": 95,
+        "source_jsonl_line": 5879
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0104_59c93ff00adede95.png",
+        "paper_title": "2022年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_00ccba9b22e9e7e2c587",
+        "question_number": 101,
+        "source_jsonl_line": 39567
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0104_59c93ff00adede95.png",
+        "paper_title": "2022年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_df8f34a761a14b157a47",
+        "question_number": 102,
+        "source_jsonl_line": 39568
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0107_6b90692305d94d9f.png",
+        "paper_title": "2022年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7872e143dbf0263f31b6",
+        "question_number": 103,
+        "source_jsonl_line": 39569
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0104_59c93ff00adede95.png",
+        "paper_title": "2022年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cf44a7a3bd919fceace0",
+        "question_number": 104,
+        "source_jsonl_line": 39570
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0104_59c93ff00adede95.png",
+        "paper_title": "2022年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_83f808b976d50372a347",
+        "question_number": 105,
+        "source_jsonl_line": 39571
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0089_6b90692305d94d9f.png",
+        "paper_title": "2022年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6c4927d3afd4d8a762e2",
+        "question_number": 96,
+        "source_jsonl_line": 66412
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0090_59c93ff00adede95.png",
+        "paper_title": "2022年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_de2971fb41d25b4c35e7",
+        "question_number": 97,
+        "source_jsonl_line": 66413
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0089_6b90692305d94d9f.png",
+        "paper_title": "2022年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_20b39e5975041211e014",
+        "question_number": 98,
+        "source_jsonl_line": 66414
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0090_59c93ff00adede95.png",
+        "paper_title": "2022年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2ae13513e1bf9328fd87",
+        "question_number": 99,
+        "source_jsonl_line": 66415
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0090_59c93ff00adede95.png",
+        "paper_title": "2022年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5698baeeabe4b49a1f21",
+        "question_number": 100,
+        "source_jsonl_line": 66416
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0121_59c93ff00adede95.png",
+        "paper_title": "2022年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4d1310b62e6b0c1b3c9d",
+        "question_number": 116,
+        "source_jsonl_line": 73911
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0121_59c93ff00adede95.png",
+        "paper_title": "2022年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fd9d6337225ca70bb2f5",
+        "question_number": 117,
+        "source_jsonl_line": 73912
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0140_6b90692305d94d9f.png",
+        "paper_title": "2022年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2dcc5e4cbc788f710475",
+        "question_number": 118,
+        "source_jsonl_line": 73913
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0140_6b90692305d94d9f.png",
+        "paper_title": "2022年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_39c5f343d362f0533580",
+        "question_number": 119,
+        "source_jsonl_line": 73914
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0121_59c93ff00adede95.png",
+        "paper_title": "2022年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_af6f894e1debde08bc27",
+        "question_number": 120,
+        "source_jsonl_line": 73915
+      }
+    ],
+    "sha256": "5318eefd032e2cbd6d3ff0088e45600dbad2b688afc3ad9c4c6c9b6b72ebae95"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "总清运量（万吨）",
+      "无害化处理场（座）",
+      "无害化处理能力（万吨/日）",
+      "无害化处理量（万吨）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2011年",
+        "unit": null,
+        "values": [
+          "2011年",
+          16395,
+          677,
+          40.91,
+          13090
+        ]
+      },
+      {
+        "label": "2012年",
+        "unit": null,
+        "values": [
+          "2012年",
+          17081,
+          701,
+          44.63,
+          14490
+        ]
+      },
+      {
+        "label": "2013年",
+        "unit": null,
+        "values": [
+          "2013年",
+          17239,
+          765,
+          49.23,
+          15394
+        ]
+      },
+      {
+        "label": "2014年",
+        "unit": null,
+        "values": [
+          "2014年",
+          17860,
+          818,
+          53.35,
+          16394
+        ]
+      },
+      {
+        "label": "2015年",
+        "unit": null,
+        "values": [
+          "2015年",
+          19142,
+          890,
+          57.69,
+          18013
+        ]
+      },
+      {
+        "label": "2016年",
+        "unit": null,
+        "values": [
+          "2016年",
+          20362,
+          940,
+          62.14,
+          19674
+        ]
+      },
+      {
+        "label": "2017年",
+        "unit": null,
+        "values": [
+          "2017年",
+          21521,
+          1013,
+          67.99,
+          21034
+        ]
+      },
+      {
+        "label": "2018年",
+        "unit": null,
+        "values": [
+          "2018年",
+          22802,
+          1091,
+          76.62,
+          22565
+        ]
+      },
+      {
+        "label": "2019年",
+        "unit": null,
+        "values": [
+          "2019年",
+          24206,
+          1183,
+          86.99,
+          24013
+        ]
+      },
+      {
+        "label": "2020年",
+        "unit": null,
+        "values": [
+          "2020年",
+          23512,
+          1287,
+          96.35,
+          23452
+        ]
+      }
+    ]
+  },
+  "title": "2011~2020年全国城市生活垃圾无害化处理状况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5318eefd032e2cbd6d3ff008/row_band_01.jpg",
+        "review-crops/da_5318eefd032e2cbd6d3ff008/row_band_02.jpg",
+        "review-crops/da_5318eefd032e2cbd6d3ff008/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:14.459",
+      "crop_verification_elapsed_seconds:14.794",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,319 @@
+{
+  "asset_id": "da_50cdb24f2bf9432e1b8e26b7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "项目",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "2023年",
+        "unit": null
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "2022年",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "社会消费品零售额",
+    "按销售所在地",
+    "城镇",
+    "其中：城区",
+    "乡村",
+    "按消费形态",
+    "餐饮收入",
+    "商品零售"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "12",
+      "label": "12月",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        4055.97,
+        3471.91,
+        2882.42,
+        584.07,
+        533.54,
+        3522.43
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "1_12",
+      "label": "1~12月",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        47494.86,
+        41385.83,
+        34433.16,
+        6109.03,
+        5763.44,
+        41731.42
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "12",
+      "label": "12月",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        3741.65,
+        3218.27,
+        2680.11,
+        523.36,
+        348.35,
+        3393.31
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "1_12",
+      "label": "1~12月",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        44882.92,
+        39286.68,
+        32776.77,
+        5596.24,
+        4555.64,
+        40327.74
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2025年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0100_eafcbede79fe66d6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0100_eafcbede79fe66d6.png",
+        "paper_title": "2025年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_037c7b60c534636ea3a4",
+        "question_number": 71,
+        "source_jsonl_line": 36193
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0103_0341e00658a4da2c.png",
+        "paper_title": "2025年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d207d55bb6b437344c72",
+        "question_number": 72,
+        "source_jsonl_line": 36194
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0103_0341e00658a4da2c.png",
+        "paper_title": "2025年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5d4cc3802a3cc9964e12",
+        "question_number": 73,
+        "source_jsonl_line": 36195
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0100_eafcbede79fe66d6.png",
+        "paper_title": "2025年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d29c91b128fa8f161377",
+        "question_number": 74,
+        "source_jsonl_line": 36196
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0103_0341e00658a4da2c.png",
+        "paper_title": "2025年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_245954d0af0bd9f78299",
+        "question_number": 75,
+        "source_jsonl_line": 36197
+      }
+    ],
+    "sha256": "50cdb24f2bf9432e1b8e26b7b804cff184513f2428d3f8d5df2fb1bc899d4e3a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2023年12月",
+      "2023年1~12月",
+      "2022年12月",
+      "2022年1~12月"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "label": "社会消费品零售额",
+        "unit": null,
+        "values": [
+          4055.97,
+          47494.86,
+          3741.65,
+          44882.92
+        ]
+      },
+      {
+        "label": "按销售所在地",
+        "unit": null,
+        "values": [
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "城镇",
+        "unit": null,
+        "values": [
+          3471.91,
+          41385.83,
+          3218.27,
+          39286.68
+        ]
+      },
+      {
+        "label": "其中：城区",
+        "unit": null,
+        "values": [
+          2882.42,
+          34433.16,
+          2680.11,
+          32776.77
+        ]
+      },
+      {
+        "label": "乡村",
+        "unit": null,
+        "values": [
+          584.07,
+          6109.03,
+          523.36,
+          5596.24
+        ]
+      },
+      {
+        "label": "按消费形态",
+        "unit": null,
+        "values": [
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "餐饮收入",
+        "unit": null,
+        "values": [
+          533.54,
+          5763.44,
+          348.35,
+          4555.64
+        ]
+      },
+      {
+        "label": "商品零售",
+        "unit": null,
+        "values": [
+          3522.43,
+          41731.42,
+          3393.31,
+          40327.74
+        ]
+      }
+    ]
+  },
+  "title": "2022-2023年G省社会消费品零售额（单位：亿元）",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_50cdb24f2bf9432e1b8e26b7/row_band_01.jpg",
+        "review-crops/da_50cdb24f2bf9432e1b8e26b7/row_band_02.jpg",
+        "review-crops/da_50cdb24f2bf9432e1b8e26b7/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.132",
+      "crop_verification_elapsed_seconds:7.666",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:社会消费品零售额:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:按销售所在地:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:城镇:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:其中：城区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:乡村:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:按消费形态:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:餐饮收入:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:商品零售:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:社会消费品零售额:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:按销售所在地:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:城镇:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:其中：城区:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:乡村:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:乡村:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:餐饮收入:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:商品零售:4!=5",
+      "table_row_label_column_removed:项目"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

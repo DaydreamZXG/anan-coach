@@ -1,0 +1,17 @@
+{
+  "endpointCalls": 0,
+  "finalAcceptedAssets": 0,
+  "gpuCalls": 0,
+  "inventoryMatch": "exact_match",
+  "outputs": [
+    "rescan-summary.json",
+    "inventory-comparison.json",
+    "processing-coverage.json",
+    "type-coverage.json",
+    "top-knowledge-points.jsonl",
+    "questions-without-image.jsonl",
+    "text-glyph-question-inventory.jsonl"
+  ],
+  "schemaVersion": "graphic-reasoning-cpu-audit-state-v1",
+  "status": "complete"
+}

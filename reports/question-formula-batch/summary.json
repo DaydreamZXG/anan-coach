@@ -1,0 +1,20 @@
+{
+  "asset_count": 55345,
+  "explicit_formula_asset_count": 55342,
+  "output_contract": "formula-asset-v1",
+  "priority_counts": {
+    "explanation": 49874,
+    "question_critical": 5471
+  },
+  "processing_order": [
+    "question_critical",
+    "explanation"
+  ],
+  "provider": "xfyun_formula",
+  "schema_version": "formula-batch-summary-v1",
+  "source_kind_counts": {
+    "formula_tex": 55342,
+    "visual_formula_supplement": 3
+  },
+  "visual_formula_supplement_count": 3
+}

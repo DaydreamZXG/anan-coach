@@ -1,0 +1,481 @@
+{
+  "asset_id": "da_91459cd8129aaad2f2e517a7",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "行业",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "投资额（亿元）",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比增长（%）",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "投资额（亿元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        364835,
+        9004,
+        158672,
+        13129,
+        124971,
+        16536,
+        4036,
+        197159,
+        9816,
+        30296,
+        5102,
+        2834,
+        932,
+        92357,
+        4645,
+        2176,
+        29296,
+        1718,
+        4679,
+        2645,
+        4299,
+        6363
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增长（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        20.6,
+        32.2,
+        20.2,
+        11.8,
+        22,
+        12.8,
+        24.6,
+        20.6,
+        33,
+        9.1,
+        30.2,
+        30.6,
+        46.2,
+        22.1,
+        37.4,
+        27.8,
+        19.5,
+        26,
+        20.3,
+        23,
+        36.2,
+        9.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2014年四川省公务员录用考试《行测》题（下半年）_images/img_0117_c49b3ab0a1fd4c75.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题（下半年）_images/img_0117_c49b3ab0a1fd4c75.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_8899c2888d52afb69b45",
+        "question_number": 91,
+        "source_jsonl_line": 14922
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题（下半年）_images/img_0117_c49b3ab0a1fd4c75.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_337b426148bee75b75ef",
+        "question_number": 92,
+        "source_jsonl_line": 14923
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题（下半年）_images/img_0117_c49b3ab0a1fd4c75.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_84c6c82925f064de7833",
+        "question_number": 93,
+        "source_jsonl_line": 14924
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题（下半年）_images/img_0117_c49b3ab0a1fd4c75.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_d0afb9f7797e7c100a41",
+        "question_number": 94,
+        "source_jsonl_line": 14925
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年四川省公务员录用考试《行测》题（下半年）_images/img_0117_c49b3ab0a1fd4c75.png",
+        "paper_title": "2014年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_0638aeae78d596523247",
+        "question_number": 95,
+        "source_jsonl_line": 14926
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省公务员录用考试《行测》题_images/img_0129_8595aebf17e655e7.png",
+        "paper_title": "2014年河南省公务员录用考试《行测》题",
+        "question_id": "pq_cbd81e71a6632f1ed4e1",
+        "question_number": 111,
+        "source_jsonl_line": 57728
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省公务员录用考试《行测》题_images/img_0131_c49b3ab0a1fd4c75.png",
+        "paper_title": "2014年河南省公务员录用考试《行测》题",
+        "question_id": "pq_ab3a4f3d77c01c7ab841",
+        "question_number": 112,
+        "source_jsonl_line": 57729
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省公务员录用考试《行测》题_images/img_0131_c49b3ab0a1fd4c75.png",
+        "paper_title": "2014年河南省公务员录用考试《行测》题",
+        "question_id": "pq_e604c798ad8cd0aa0f5c",
+        "question_number": 113,
+        "source_jsonl_line": 57730
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省公务员录用考试《行测》题_images/img_0131_c49b3ab0a1fd4c75.png",
+        "paper_title": "2014年河南省公务员录用考试《行测》题",
+        "question_id": "pq_a38d9fb33f374a8e6e61",
+        "question_number": 114,
+        "source_jsonl_line": 57731
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年河南省公务员录用考试《行测》题_images/img_0129_8595aebf17e655e7.png",
+        "paper_title": "2014年河南省公务员录用考试《行测》题",
+        "question_id": "pq_4ac596963bcdd798c8a4",
+        "question_number": 115,
+        "source_jsonl_line": 57732
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年甘肃省公务员录用考试《行测》题_images/img_0192_c49b3ab0a1fd4c75.png",
+        "paper_title": "2014年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_951b908856f8dc134c9c",
+        "question_number": 116,
+        "source_jsonl_line": 74731
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年甘肃省公务员录用考试《行测》题_images/img_0194_8595aebf17e655e7.png",
+        "paper_title": "2014年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_a69a4595d74e08ba87d8",
+        "question_number": 117,
+        "source_jsonl_line": 74732
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年甘肃省公务员录用考试《行测》题_images/img_0192_c49b3ab0a1fd4c75.png",
+        "paper_title": "2014年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_a892b0d4d2ab28c9b40e",
+        "question_number": 118,
+        "source_jsonl_line": 74733
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年甘肃省公务员录用考试《行测》题_images/img_0192_c49b3ab0a1fd4c75.png",
+        "paper_title": "2014年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_2435d112cfa7ec972bce",
+        "question_number": 119,
+        "source_jsonl_line": 74734
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年甘肃省公务员录用考试《行测》题_images/img_0192_c49b3ab0a1fd4c75.png",
+        "paper_title": "2014年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_8ac356762e80671d7e10",
+        "question_number": 120,
+        "source_jsonl_line": 74735
+      }
+    ],
+    "sha256": "91459cd8129aaad2f2e517a7dfe914545960898642b776aaaad0e629996fe66c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "行业",
+      "投资额（亿元）",
+      "同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "总计",
+        "unit": null,
+        "values": [
+          "总计",
+          364835,
+          20.6
+        ]
+      },
+      {
+        "label": "第一产业",
+        "unit": null,
+        "values": [
+          "第一产业",
+          9004,
+          32.2
+        ]
+      },
+      {
+        "label": "第二产业",
+        "unit": null,
+        "values": [
+          "第二产业",
+          158672,
+          20.2
+        ]
+      },
+      {
+        "label": "其中：采矿业",
+        "unit": null,
+        "values": [
+          "其中：采矿业",
+          13129,
+          11.8
+        ]
+      },
+      {
+        "label": "制造业",
+        "unit": null,
+        "values": [
+          "制造业",
+          124971,
+          22
+        ]
+      },
+      {
+        "label": "电力、热力、燃气及水的生产和供应业",
+        "unit": null,
+        "values": [
+          "电力、热力、燃气及水的生产和供应业",
+          16536,
+          12.8
+        ]
+      },
+      {
+        "label": "建筑业",
+        "unit": null,
+        "values": [
+          "建筑业",
+          4036,
+          24.6
+        ]
+      },
+      {
+        "label": "第三产业",
+        "unit": null,
+        "values": [
+          "第三产业",
+          197159,
+          20.6
+        ]
+      },
+      {
+        "label": "其中：批发和零售业",
+        "unit": null,
+        "values": [
+          "其中：批发和零售业",
+          9816,
+          33
+        ]
+      },
+      {
+        "label": "交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          "交通运输、仓储和邮政业",
+          30296,
+          9.1
+        ]
+      },
+      {
+        "label": "住宿和餐饮业",
+        "unit": null,
+        "values": [
+          "住宿和餐饮业",
+          5102,
+          30.2
+        ]
+      },
+      {
+        "label": "信息传输、软件和信息技术服务业",
+        "unit": null,
+        "values": [
+          "信息传输、软件和信息技术服务业",
+          2834,
+          30.6
+        ]
+      },
+      {
+        "label": "金融业",
+        "unit": null,
+        "values": [
+          "金融业",
+          932,
+          46.2
+        ]
+      },
+      {
+        "label": "房地产业",
+        "unit": null,
+        "values": [
+          "房地产业",
+          92357,
+          22.1
+        ]
+      },
+      {
+        "label": "租赁和商务服务业",
+        "unit": null,
+        "values": [
+          "租赁和商务服务业",
+          4645,
+          37.4
+        ]
+      },
+      {
+        "label": "科学研究和技术服务业",
+        "unit": null,
+        "values": [
+          "科学研究和技术服务业",
+          2176,
+          27.8
+        ]
+      },
+      {
+        "label": "水利、环境和公共设施管理业",
+        "unit": null,
+        "values": [
+          "水利、环境和公共设施管理业",
+          29296,
+          19.5
+        ]
+      },
+      {
+        "label": "居民服务、修理和其他服务业",
+        "unit": null,
+        "values": [
+          "居民服务、修理和其他服务业",
+          1718,
+          26
+        ]
+      },
+      {
+        "label": "教育",
+        "unit": null,
+        "values": [
+          "教育",
+          4679,
+          20.3
+        ]
+      },
+      {
+        "label": "卫生和社会工作",
+        "unit": null,
+        "values": [
+          "卫生和社会工作",
+          2645,
+          23
+        ]
+      },
+      {
+        "label": "文化、体育和娱乐业",
+        "unit": null,
+        "values": [
+          "文化、体育和娱乐业",
+          4299,
+          36.2
+        ]
+      },
+      {
+        "label": "公共管理、社会保障和社会组织",
+        "unit": null,
+        "values": [
+          "公共管理、社会保障和社会组织",
+          6363,
+          9.2
+        ]
+      }
+    ]
+  },
+  "title": "2012年全国分行业固定资产投资（不含农户）及其增长速度",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_91459cd8129aaad2f2e517a7/row_band_01.jpg",
+        "review-crops/da_91459cd8129aaad2f2e517a7/row_band_02.jpg",
+        "review-crops/da_91459cd8129aaad2f2e517a7/row_band_03.jpg",
+        "review-crops/da_91459cd8129aaad2f2e517a7/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:17.082",
+      "crop_verification_elapsed_seconds:11.225",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

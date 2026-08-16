@@ -1,0 +1,171 @@
+{
+  "asset_id": "da_1bc52f857b5d3eaa977bb8ef",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "百分比",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "百分比",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        27.0,
+        30.3,
+        32.7,
+        34.0,
+        36.3,
+        38.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0062_b3b4b25c5c44a2f6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0062_b3b4b25c5c44a2f6.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b0fa997996456eb657d7",
+        "question_number": 86,
+        "source_jsonl_line": 16701
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0062_b3b4b25c5c44a2f6.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2ae8e449f1e3f5678149",
+        "question_number": 87,
+        "source_jsonl_line": 16702
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0062_b3b4b25c5c44a2f6.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_726d3694a3217000a662",
+        "question_number": 88,
+        "source_jsonl_line": 16703
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0062_b3b4b25c5c44a2f6.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8c3635572a88ffad0919",
+        "question_number": 89,
+        "source_jsonl_line": 16704
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0075_8fe3161832351aea.png",
+        "paper_title": "2022年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8c805d4b79bce25454fa",
+        "question_number": 90,
+        "source_jsonl_line": 16705
+      }
+    ],
+    "sha256": "1bc52f857b5d3eaa977bb8eff1ab43de4805bf4fd75c3f9533c98846cedcf3be"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "label": "百分比",
+        "unit": "%",
+        "values": [
+          27.0,
+          30.3,
+          32.7,
+          34.0,
+          36.3,
+          38.6
+        ]
+      }
+    ]
+  },
+  "title": "我国数字经济占GDP的比重",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1bc52f857b5d3eaa977bb8ef/row_band_01.jpg",
+        "review-crops/da_1bc52f857b5d3eaa977bb8ef/row_band_02.jpg",
+        "review-crops/da_1bc52f857b5d3eaa977bb8ef/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.098",
+      "crop_verification_elapsed_seconds:5.235",
+      "candidate_value_changes_after_crop:0",
+      "table_row_label_column_removed:年份"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "asset_id": "da_5c29a04769f5aa8763050885",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 50.0,
+        "min": -10.0,
+        "ticks": [
+          -10.0,
+          0.0,
+          10.0,
+          20.0,
+          30.0,
+          40.0,
+          50.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "国有控股企业",
+    "股份制企业",
+    "外商及港澳台商投资企业",
+    "私营企业"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "主营业务收入",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "主营业务成本",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "利润总额",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "主营业务收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        15.0,
+        -5.5,
+        12.0,
+        8.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "主营业务成本",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        14.4,
+        -6.4,
+        11.5,
+        8.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "利润总额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        45.1,
+        -8.5,
+        23.5,
+        11.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0232_9d5fd6c659aaf579.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0232_9d5fd6c659aaf579.png",
+        "paper_title": "2018年421联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_09ec7d170df615cae785",
+        "question_number": 81,
+        "source_jsonl_line": 97759
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0245_c9e2415517537d2f.png",
+        "paper_title": "2018年421联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_a4a94851d08a2be09577",
+        "question_number": 82,
+        "source_jsonl_line": 97760
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0245_c9e2415517537d2f.png",
+        "paper_title": "2018年421联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_75fc27701181057bb29d",
+        "question_number": 83,
+        "source_jsonl_line": 97761
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0245_c9e2415517537d2f.png",
+        "paper_title": "2018年421联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_c4a2981e2c4ef083a110",
+        "question_number": 84,
+        "source_jsonl_line": 97762
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（陕西卷）（网友回忆版）_images/img_0232_9d5fd6c659aaf579.png",
+        "paper_title": "2018年421联考《行测》题（陕西卷）（网友回忆版）",
+        "question_id": "pq_8f958c5acc088e31fde2",
+        "question_number": 85,
+        "source_jsonl_line": 97763
+      }
+    ],
+    "sha256": "5c29a04769f5aa8763050885f8509eecfeb2236302f9794bf58503c9ef24d09a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2017年主要经济类型规模以上工业企业的财务指标的同比增速",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5c29a04769f5aa8763050885/column_band_01.jpg",
+        "review-crops/da_5c29a04769f5aa8763050885/column_band_02.jpg",
+        "review-crops/da_5c29a04769f5aa8763050885/column_band_03.jpg",
+        "review-crops/da_5c29a04769f5aa8763050885/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.041",
+      "crop_verification_elapsed_seconds:3.446",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

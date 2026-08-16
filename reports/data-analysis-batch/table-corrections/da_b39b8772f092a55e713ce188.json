@@ -1,0 +1,98 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2008年",
+          "2009年",
+          "2010年",
+          "2011年",
+          "2012年"
+        ],
+        "label": "并网总容量"
+      }
+    ],
+    "columns": [
+      "2008年",
+      "2009年",
+      "2010年",
+      "2011年",
+      "2012年"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "并网总容量",
+        "group": null,
+        "label": "并网总容量",
+        "unit": null,
+        "values": [
+          61300,
+          67100,
+          74400,
+          81800,
+          88000
+        ]
+      },
+      {
+        "display_label": "其中：清洁能源机组并网容量",
+        "group": null,
+        "label": "其中：清洁能源机组并网容量",
+        "unit": null,
+        "values": [
+          13524,
+          15357,
+          17585,
+          20260,
+          24004
+        ]
+      },
+      {
+        "display_label": "其中：水电并网容量",
+        "group": null,
+        "label": "其中：水电并网容量",
+        "unit": null,
+        "values": [
+          12214,
+          13419,
+          14458,
+          15617,
+          16816
+        ]
+      },
+      {
+        "display_label": "核电并网容量",
+        "group": null,
+        "label": "核电并网容量",
+        "unit": null,
+        "values": [
+          507,
+          507,
+          574,
+          640,
+          640
+        ]
+      },
+      {
+        "display_label": "新能源发电机组并网容量",
+        "group": null,
+        "label": "新能源发电机组并网容量",
+        "unit": null,
+        "values": [
+          803,
+          1431,
+          2553,
+          4003,
+          6548
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

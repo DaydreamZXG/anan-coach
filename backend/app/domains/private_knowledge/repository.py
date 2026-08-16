@@ -328,6 +328,7 @@ class PrivateKnowledgeRepository:
                    where chunk.source_version_id = source.source_version_id) chunk_count
                 from learning.private_knowledge_source_versions source
                 where source.owner_user_id = cast(:owner as uuid)
+                  and source.document_kind <> 'question_book'
                   and not exists (
                     select 1 from learning.private_knowledge_source_versions successor
                     where successor.supersedes_source_version_id = source.source_version_id

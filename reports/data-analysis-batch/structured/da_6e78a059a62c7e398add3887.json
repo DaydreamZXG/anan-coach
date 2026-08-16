@@ -1,0 +1,260 @@
+{
+  "asset_id": "da_6e78a059a62c7e398add3887",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0143_38419e8a5b10cff1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0143_38419e8a5b10cff1.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_a40731332cb365e69d38",
+        "question_number": 91,
+        "source_jsonl_line": 89136
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0143_38419e8a5b10cff1.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_e5d1319691d8b51e2d2d",
+        "question_number": 92,
+        "source_jsonl_line": 89137
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0155_9c81f15c7aac53f2.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_b4d6951d7e039b6c1f10",
+        "question_number": 93,
+        "source_jsonl_line": 89138
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0155_9c81f15c7aac53f2.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_e976266cccb18c3c6c0c",
+        "question_number": 94,
+        "source_jsonl_line": 89139
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0155_9c81f15c7aac53f2.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_fee79080a2a91eeb7e09",
+        "question_number": 95,
+        "source_jsonl_line": 89140
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0138_38419e8a5b10cff1.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_1d35c7e3035806b2c98b",
+        "question_number": 91,
+        "source_jsonl_line": 94834
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0145_9c81f15c7aac53f2.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_9d59061ae73cf83a83e6",
+        "question_number": 92,
+        "source_jsonl_line": 94835
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0145_9c81f15c7aac53f2.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_e8197e20788ef97b01d0",
+        "question_number": 93,
+        "source_jsonl_line": 94836
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0138_38419e8a5b10cff1.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_1124a062f602079ce0fc",
+        "question_number": 94,
+        "source_jsonl_line": 94837
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0145_9c81f15c7aac53f2.png",
+        "paper_title": "2019年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_93ccba2753936660003f",
+        "question_number": 95,
+        "source_jsonl_line": 94838
+      }
+    ],
+    "sha256": "6e78a059a62c7e398add38879aa21f304b05413492b74bb47c088bd2c68f557e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "人均 GDP/元｜第1列",
+      "年份｜第2列",
+      "人均 GDP/元｜第3列"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "display_label": "1978",
+        "group": null,
+        "label": "1978",
+        "unit": null,
+        "values": [
+          385,
+          1978,
+          385
+        ]
+      },
+      {
+        "display_label": "1979",
+        "group": null,
+        "label": "1979",
+        "unit": null,
+        "values": [
+          423,
+          1979,
+          423
+        ]
+      },
+      {
+        "display_label": "1980",
+        "group": null,
+        "label": "1980",
+        "unit": null,
+        "values": [
+          468,
+          1980,
+          468
+        ]
+      },
+      {
+        "display_label": "1981",
+        "group": null,
+        "label": "1981",
+        "unit": null,
+        "values": [
+          497,
+          1981,
+          497
+        ]
+      },
+      {
+        "display_label": "1982",
+        "group": null,
+        "label": "1982",
+        "unit": null,
+        "values": [
+          533,
+          1982,
+          533
+        ]
+      },
+      {
+        "display_label": "2012",
+        "group": null,
+        "label": "2012",
+        "unit": null,
+        "values": [
+          40007,
+          2012,
+          40007
+        ]
+      },
+      {
+        "display_label": "2013",
+        "group": null,
+        "label": "2013",
+        "unit": null,
+        "values": [
+          43852,
+          2013,
+          43852
+        ]
+      },
+      {
+        "display_label": "2014",
+        "group": null,
+        "label": "2014",
+        "unit": null,
+        "values": [
+          47203,
+          2014,
+          47203
+        ]
+      },
+      {
+        "display_label": "2015",
+        "group": null,
+        "label": "2015",
+        "unit": null,
+        "values": [
+          50251,
+          2015,
+          50251
+        ]
+      },
+      {
+        "display_label": "2016",
+        "group": null,
+        "label": "2016",
+        "unit": null,
+        "values": [
+          53935,
+          2016,
+          53935
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

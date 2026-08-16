@@ -1,0 +1,262 @@
+{
+  "asset_id": "da_cd0d5e3903477477323a1208",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/陕西/2008年陕西省公务员录用考试《行测》题_images/img_0110_41cf0e9b81bf16eb.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年陕西省公务员录用考试《行测》题_images/img_0110_41cf0e9b81bf16eb.jpg",
+        "paper_title": "2008年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_d9c1f48ce442dccb2e6d",
+        "question_number": 128,
+        "source_jsonl_line": 96411
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年陕西省公务员录用考试《行测》题_images/img_0110_41cf0e9b81bf16eb.jpg",
+        "paper_title": "2008年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_237538864c93117fd9cb",
+        "question_number": 129,
+        "source_jsonl_line": 96412
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年陕西省公务员录用考试《行测》题_images/img_0110_41cf0e9b81bf16eb.jpg",
+        "paper_title": "2008年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_8f18137c7911f5e20c2a",
+        "question_number": 130,
+        "source_jsonl_line": 96413
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年陕西省公务员录用考试《行测》题_images/img_0110_41cf0e9b81bf16eb.jpg",
+        "paper_title": "2008年陕西省公务员录用考试《行测》题",
+        "question_id": "pq_380a354bc0aed670c3c4",
+        "question_number": 131,
+        "source_jsonl_line": 96414
+      }
+    ],
+    "sha256": "cd0d5e3903477477323a12084844af14957c004acd2932b962da51159e59b68d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "获奖人数"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "洲别",
+    "rows": [
+      {
+        "display_label": "北美洲｜美国",
+        "group": null,
+        "label": "北美洲｜美国",
+        "unit": null,
+        "values": [
+          178
+        ]
+      },
+      {
+        "display_label": "北美洲｜加拿大",
+        "group": null,
+        "label": "北美洲｜加拿大",
+        "unit": null,
+        "values": [
+          8
+        ]
+      },
+      {
+        "display_label": "拉丁美洲｜阿根廷",
+        "group": null,
+        "label": "拉丁美洲｜阿根廷",
+        "unit": null,
+        "values": [
+          5
+        ]
+      },
+      {
+        "display_label": "欧洲｜英国",
+        "group": null,
+        "label": "欧洲｜英国",
+        "unit": null,
+        "values": [
+          78
+        ]
+      },
+      {
+        "display_label": "欧洲｜德国",
+        "group": null,
+        "label": "欧洲｜德国",
+        "unit": null,
+        "values": [
+          64
+        ]
+      },
+      {
+        "display_label": "欧洲｜法国",
+        "group": null,
+        "label": "欧洲｜法国",
+        "unit": null,
+        "values": [
+          43
+        ]
+      },
+      {
+        "display_label": "欧洲｜瑞典",
+        "group": null,
+        "label": "欧洲｜瑞典",
+        "unit": null,
+        "values": [
+          28
+        ]
+      },
+      {
+        "display_label": "欧洲｜前苏联",
+        "group": null,
+        "label": "欧洲｜前苏联",
+        "unit": null,
+        "values": [
+          16
+        ]
+      },
+      {
+        "display_label": "欧洲｜瑞士",
+        "group": null,
+        "label": "欧洲｜瑞士",
+        "unit": null,
+        "values": [
+          15
+        ]
+      },
+      {
+        "display_label": "欧洲｜奥地利",
+        "group": null,
+        "label": "欧洲｜奥地利",
+        "unit": null,
+        "values": [
+          14
+        ]
+      },
+      {
+        "display_label": "欧洲｜意大利",
+        "group": null,
+        "label": "欧洲｜意大利",
+        "unit": null,
+        "values": [
+          13
+        ]
+      },
+      {
+        "display_label": "欧洲｜荷兰",
+        "group": null,
+        "label": "欧洲｜荷兰",
+        "unit": null,
+        "values": [
+          13
+        ]
+      },
+      {
+        "display_label": "欧洲｜丹麦",
+        "group": null,
+        "label": "欧洲｜丹麦",
+        "unit": null,
+        "values": [
+          11
+        ]
+      },
+      {
+        "display_label": "欧洲｜挪威",
+        "group": null,
+        "label": "欧洲｜挪威",
+        "unit": null,
+        "values": [
+          8
+        ]
+      },
+      {
+        "display_label": "欧洲｜比利时",
+        "group": null,
+        "label": "欧洲｜比利时",
+        "unit": null,
+        "values": [
+          6
+        ]
+      },
+      {
+        "display_label": "欧洲｜南斯拉夫",
+        "group": null,
+        "label": "欧洲｜南斯拉夫",
+        "unit": null,
+        "values": [
+          6
+        ]
+      },
+      {
+        "display_label": "欧洲｜爱尔兰",
+        "group": null,
+        "label": "欧洲｜爱尔兰",
+        "unit": null,
+        "values": [
+          6
+        ]
+      },
+      {
+        "display_label": "亚洲｜日本",
+        "group": null,
+        "label": "亚洲｜日本",
+        "unit": null,
+        "values": [
+          6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

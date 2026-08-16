@@ -1,0 +1,319 @@
+{
+  "asset_id": "da_0e08c5a3f3b3ba6f93c7e7d2",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2013年广东省公务员录用考试《行测》题（一）_images/img_0070_89be9cd51717459c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（一）_images/img_0070_89be9cd51717459c.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（一）",
+        "question_id": "pq_46a2ef5e5cb3f893cd1a",
+        "question_number": 91,
+        "source_jsonl_line": 34123
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（一）_images/img_0070_89be9cd51717459c.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（一）",
+        "question_id": "pq_f89b845ad2a2bccd74e3",
+        "question_number": 92,
+        "source_jsonl_line": 34124
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（一）_images/img_0070_89be9cd51717459c.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（一）",
+        "question_id": "pq_d689c6c7564b66c6f306",
+        "question_number": 93,
+        "source_jsonl_line": 34125
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（一）_images/img_0080_da7e7fb05a4a1b37.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（一）",
+        "question_id": "pq_641acfffb5a17b0f96bb",
+        "question_number": 94,
+        "source_jsonl_line": 34126
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年广东省公务员录用考试《行测》题（一）_images/img_0070_89be9cd51717459c.png",
+        "paper_title": "2013年广东省公务员录用考试《行测》题（一）",
+        "question_id": "pq_0838620f97694a2a5bc4",
+        "question_number": 95,
+        "source_jsonl_line": 34127
+      }
+    ],
+    "sha256": "0e08c5a3f3b3ba6f93c7e7d2870752358155b03ec2d4f9c8912866d614d82729"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "全市",
+      "城镇",
+      "农村"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "工作时间",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜工作时间",
+        "unit": null,
+        "values": [
+          455,
+          457,
+          452
+        ]
+      },
+      {
+        "display_label": "其中：工作活动",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜其中：工作活动",
+        "unit": null,
+        "values": [
+          null,
+          362,
+          293
+        ]
+      },
+      {
+        "display_label": "家庭经营活动",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜家庭经营活动",
+        "unit": null,
+        "values": [
+          null,
+          4,
+          89
+        ]
+      },
+      {
+        "display_label": "交通活动",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜家庭经营活动｜交通活动",
+        "unit": null,
+        "values": [
+          null,
+          91,
+          70
+        ]
+      },
+      {
+        "display_label": "个人生活必需时间",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜个人生活必需时间",
+        "unit": null,
+        "values": [
+          670,
+          664,
+          679
+        ]
+      },
+      {
+        "display_label": "其中：睡眠休息",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜其中：睡眠休息",
+        "unit": null,
+        "values": [
+          null,
+          506,
+          536
+        ]
+      },
+      {
+        "display_label": "吃饭",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜吃饭",
+        "unit": null,
+        "values": [
+          null,
+          98,
+          89
+        ]
+      },
+      {
+        "display_label": "个人卫生",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜个人卫生",
+        "unit": null,
+        "values": [
+          null,
+          56,
+          51
+        ]
+      },
+      {
+        "display_label": "交通时间",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜个人卫生｜交通时间",
+        "unit": null,
+        "values": [
+          null,
+          4,
+          3
+        ]
+      },
+      {
+        "display_label": "家务劳动时间",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜家务劳动时间",
+        "unit": null,
+        "values": [
+          106,
+          104,
+          109
+        ]
+      },
+      {
+        "display_label": "其中：准备事务和清理",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜其中：准备事务和清理",
+        "unit": null,
+        "values": [
+          null,
+          51,
+          73
+        ]
+      },
+      {
+        "display_label": "购买商品和服务",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜购买商品和服务",
+        "unit": null,
+        "values": [
+          null,
+          15,
+          8
+        ]
+      },
+      {
+        "display_label": "照顾家人",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜照顾家人",
+        "unit": null,
+        "values": [
+          null,
+          13,
+          9
+        ]
+      },
+      {
+        "display_label": "环境清洁整理",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜环境清洁整理",
+        "unit": null,
+        "values": [
+          null,
+          10,
+          11
+        ]
+      },
+      {
+        "display_label": "交通时间",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜环境清洁整理｜交通时间",
+        "unit": null,
+        "values": [
+          null,
+          15,
+          8
+        ]
+      },
+      {
+        "display_label": "可自由支配时间",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜可自由支配时间",
+        "unit": null,
+        "values": [
+          209,
+          215,
+          200
+        ]
+      },
+      {
+        "display_label": "其中：娱乐休闲",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜其中：娱乐休闲",
+        "unit": null,
+        "values": [
+          null,
+          203,
+          193
+        ]
+      },
+      {
+        "display_label": "学习培训",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜学习培训",
+        "unit": null,
+        "values": [
+          null,
+          4,
+          3
+        ]
+      },
+      {
+        "display_label": "交通活动",
+        "group": "时间（分钟/天）",
+        "label": "时间（分钟/天）｜学习培训｜交通活动",
+        "unit": null,
+        "values": [
+          null,
+          8,
+          4
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

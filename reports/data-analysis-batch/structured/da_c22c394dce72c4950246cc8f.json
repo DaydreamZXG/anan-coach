@@ -1,0 +1,308 @@
+{
+  "asset_id": "da_c22c394dce72c4950246cc8f",
+  "axes": {
+    "x": {
+      "max": 1600,
+      "min": 0,
+      "ticks": [
+        0,
+        200,
+        400,
+        600,
+        800,
+        1000,
+        1200,
+        1400,
+        1600
+      ],
+      "title": "职工人数",
+      "unit": "人"
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "岗位级别",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "1级岗",
+    "2级岗",
+    "3级岗",
+    "4级岗",
+    "5级岗",
+    "6级岗"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "报告期",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "solid",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "基期",
+      "style": {
+        "dash": null,
+        "fill": "#F2F2F2",
+        "marker": "solid",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "报告期",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        24,
+        60,
+        180,
+        310,
+        400,
+        1500
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "基期",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "人",
+      "values": [
+        24,
+        80,
+        160,
+        320,
+        600,
+        1400
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/宁夏/2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0137_8fb0534ed907a41a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0137_8fb0534ed907a41a.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_24c72cbef82a9c5217bf",
+        "question_number": 106,
+        "source_jsonl_line": 25756
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0137_8fb0534ed907a41a.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_ca06c2ea3dc71a6d8c9c",
+        "question_number": 107,
+        "source_jsonl_line": 25757
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0149_2396cffc2dcc0700.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_aead9957258fd9a92853",
+        "question_number": 108,
+        "source_jsonl_line": 25758
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0137_8fb0534ed907a41a.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_edd6e4e46139b65d14ad",
+        "question_number": 109,
+        "source_jsonl_line": 25759
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（宁夏卷）（网友回忆版）_images/img_0137_8fb0534ed907a41a.png",
+        "paper_title": "2018年421联考《行测》题（宁夏卷）（网友回忆版）",
+        "question_id": "pq_5132ee9cb07c6d32e9d0",
+        "question_number": 110,
+        "source_jsonl_line": 25760
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0201_2396cffc2dcc0700.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_8e535039a96ba6dcbb73",
+        "question_number": 116,
+        "source_jsonl_line": 59773
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0189_8fb0534ed907a41a.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_823a193d61d073760bee",
+        "question_number": 117,
+        "source_jsonl_line": 59774
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0201_2396cffc2dcc0700.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_c2e3e353f2f981c623de",
+        "question_number": 118,
+        "source_jsonl_line": 59775
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0189_8fb0534ed907a41a.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_2d1f994731290a527722",
+        "question_number": 119,
+        "source_jsonl_line": 59776
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）_images/img_0201_2396cffc2dcc0700.png",
+        "paper_title": "河南省选调2018年优秀高校毕业生到基层工作考试（网友回忆版）",
+        "question_id": "pq_cf2a056fa035188a285e",
+        "question_number": 120,
+        "source_jsonl_line": 59777
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（福建卷）（网友回忆版）_images/img_0187_8fb0534ed907a41a.png",
+        "paper_title": "2018年421联考《行测》题（福建卷）（网友回忆版）",
+        "question_id": "pq_5220a4cac7e23f0c07e1",
+        "question_number": 116,
+        "source_jsonl_line": 78135
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（福建卷）（网友回忆版）_images/img_0187_8fb0534ed907a41a.png",
+        "paper_title": "2018年421联考《行测》题（福建卷）（网友回忆版）",
+        "question_id": "pq_0c5f37968766fdf69dc7",
+        "question_number": 117,
+        "source_jsonl_line": 78136
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（福建卷）（网友回忆版）_images/img_0187_8fb0534ed907a41a.png",
+        "paper_title": "2018年421联考《行测》题（福建卷）（网友回忆版）",
+        "question_id": "pq_374e1cc21aae98f081cf",
+        "question_number": 118,
+        "source_jsonl_line": 78137
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（福建卷）（网友回忆版）_images/img_0187_8fb0534ed907a41a.png",
+        "paper_title": "2018年421联考《行测》题（福建卷）（网友回忆版）",
+        "question_id": "pq_df56768041af8349db87",
+        "question_number": 119,
+        "source_jsonl_line": 78138
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（福建卷）（网友回忆版）_images/img_0187_8fb0534ed907a41a.png",
+        "paper_title": "2018年421联考《行测》题（福建卷）（网友回忆版）",
+        "question_id": "pq_b608e1566a7f0014cbde",
+        "question_number": 120,
+        "source_jsonl_line": 78139
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（贵州卷）（网友回忆版）_images/img_0201_8fb0534ed907a41a.png",
+        "paper_title": "2018年421联考《行测》题（贵州卷）（网友回忆版）",
+        "question_id": "pq_902034d3e7a050e4add9",
+        "question_number": 111,
+        "source_jsonl_line": 81151
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（贵州卷）（网友回忆版）_images/img_0201_8fb0534ed907a41a.png",
+        "paper_title": "2018年421联考《行测》题（贵州卷）（网友回忆版）",
+        "question_id": "pq_b5c7a6794f07a467654a",
+        "question_number": 112,
+        "source_jsonl_line": 81152
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（贵州卷）（网友回忆版）_images/img_0216_2396cffc2dcc0700.png",
+        "paper_title": "2018年421联考《行测》题（贵州卷）（网友回忆版）",
+        "question_id": "pq_e684ee8353f0215760eb",
+        "question_number": 113,
+        "source_jsonl_line": 81153
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（贵州卷）（网友回忆版）_images/img_0201_8fb0534ed907a41a.png",
+        "paper_title": "2018年421联考《行测》题（贵州卷）（网友回忆版）",
+        "question_id": "pq_7d0cc503b296469a5053",
+        "question_number": 114,
+        "source_jsonl_line": 81154
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（贵州卷）（网友回忆版）_images/img_0216_2396cffc2dcc0700.png",
+        "paper_title": "2018年421联考《行测》题（贵州卷）（网友回忆版）",
+        "question_id": "pq_a119361dac820523d279",
+        "question_number": 115,
+        "source_jsonl_line": 81155
+      }
+    ],
+    "sha256": "c22c394dce72c4950246cc8f7af904d431a556e69bacd489782aff878c2c2b13"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "某研究设计院岗位级别与职工人数",
+  "unit": "人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c22c394dce72c4950246cc8f/column_band_01.jpg",
+        "review-crops/da_c22c394dce72c4950246cc8f/column_band_02.jpg",
+        "review-crops/da_c22c394dce72c4950246cc8f/column_band_03.jpg",
+        "review-crops/da_c22c394dce72c4950246cc8f/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.073",
+      "crop_verification_elapsed_seconds:3.101",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

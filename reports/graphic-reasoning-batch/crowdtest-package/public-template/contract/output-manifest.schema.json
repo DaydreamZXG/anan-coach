@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "graphic-reasoning-output-manifest-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["assetId", "sourceSha256", "outputPath", "schemaStatus", "qualityStatus", "errorCodes"],
+  "properties": {
+    "assetId": {"type": "string", "pattern": "^gr_[0-9a-f]{24}$"},
+    "sourceSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "outputPath": {"type": "string", "pattern": "^output/assets/gr_[0-9a-f]{24}\\.json$"},
+    "schemaStatus": {"enum": ["valid", "invalid"]},
+    "qualityStatus": {"enum": ["structured_candidate", "repair_pending"]},
+    "errorCodes": {"type": "array", "items": {"type": "string"}}
+  }
+}
+

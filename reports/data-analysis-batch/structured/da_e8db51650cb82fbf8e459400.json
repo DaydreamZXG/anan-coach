@@ -1,0 +1,237 @@
+{
+  "asset_id": "da_e8db51650cb82fbf8e459400",
+  "axes": {
+    "x": {
+      "max": 4,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 7,
+        "min": 0,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "较清洁",
+    "轻度污染",
+    "中度污染",
+    "严重污染"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "渤海",
+      "style": {
+        "dash": null,
+        "fill": "#808080",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "黄海",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "东海",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "南海",
+      "style": {
+        "dash": null,
+        "fill": "#C0C0C0",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "渤海",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万平方公里",
+      "values": [
+        1.59,
+        0.541,
+        0.303,
+        0.231
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "黄海",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万平方公里",
+      "values": [
+        1.56,
+        1.29,
+        1.131,
+        0.808
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "东海",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万平方公里",
+      "values": [
+        2.155,
+        1.362,
+        1.211,
+        2.068
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "南海",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万平方公里",
+      "values": [
+        1.258,
+        0.857,
+        0.436,
+        0.099
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2015年深圳市公务员录用考试《行测》题_images/img_0194_da688fbf7ea52422.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年深圳市公务员录用考试《行测》题_images/img_0194_da688fbf7ea52422.png",
+        "paper_title": "2015年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_c288269e62df22500077",
+        "question_number": 96,
+        "source_jsonl_line": 67552
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年深圳市公务员录用考试《行测》题_images/img_0194_da688fbf7ea52422.png",
+        "paper_title": "2015年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_93e4b3432f7246b9bca0",
+        "question_number": 97,
+        "source_jsonl_line": 67553
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年深圳市公务员录用考试《行测》题_images/img_0256_29d44b60a435cccd.png",
+        "paper_title": "2015年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_3bc584d3dcc663501c2d",
+        "question_number": 98,
+        "source_jsonl_line": 67554
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年深圳市公务员录用考试《行测》题_images/img_0194_da688fbf7ea52422.png",
+        "paper_title": "2015年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_7f16f076ffdde5fd8bdc",
+        "question_number": 99,
+        "source_jsonl_line": 67555
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年深圳市公务员录用考试《行测》题_images/img_0194_da688fbf7ea52422.png",
+        "paper_title": "2015年深圳市公务员录用考试《行测》题",
+        "question_id": "pq_2f947efe5d13303e3e6b",
+        "question_number": 100,
+        "source_jsonl_line": 67556
+      }
+    ],
+    "sha256": "e8db51650cb82fbf8e45940079be47935e6e45e5dc4c00720222b975d73b09c0"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2004年我国全国海域海水水质评价结果",
+  "unit": "万平方公里",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e8db51650cb82fbf8e459400/column_band_01.jpg",
+        "review-crops/da_e8db51650cb82fbf8e459400/column_band_02.jpg",
+        "review-crops/da_e8db51650cb82fbf8e459400/column_band_03.jpg",
+        "review-crops/da_e8db51650cb82fbf8e459400/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.95",
+      "crop_verification_elapsed_seconds:4.164",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "巴西",
+          "中国",
+          "印度",
+          "俄罗斯",
+          "南非"
+        ],
+        "label": "国家"
+      }
+    ],
+    "columns": [
+      "巴西",
+      "中国",
+      "印度",
+      "俄罗斯",
+      "南非"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "国土面积（万平方公里）",
+        "group": null,
+        "label": "国土面积（万平方公里）",
+        "unit": null,
+        "values": [
+          852,
+          960,
+          329,
+          1710,
+          122
+        ]
+      },
+      {
+        "display_label": "人口（万人）",
+        "group": null,
+        "label": "人口（万人）",
+        "unit": null,
+        "values": [
+          19070,
+          133787,
+          118211,
+          14191,
+          4999
+        ]
+      },
+      {
+        "display_label": "GDP（现价，亿美元）",
+        "group": null,
+        "label": "GDP（现价，亿美元）",
+        "unit": null,
+        "values": [
+          20898,
+          58790,
+          12930,
+          14651,
+          3630
+        ]
+      },
+      {
+        "display_label": "进出口总额（亿美元）",
+        "group": null,
+        "label": "进出口总额（亿美元）",
+        "unit": null,
+        "values": [
+          4783,
+          24466,
+          4655,
+          5439,
+          1996
+        ]
+      },
+      {
+        "display_label": "外汇储备（亿美元）",
+        "group": null,
+        "label": "外汇储备（亿美元）",
+        "unit": null,
+        "values": [
+          2886,
+          28473,
+          2791,
+          4058,
+          438
+        ]
+      },
+      {
+        "display_label": "原油产量（万吨）",
+        "group": null,
+        "label": "原油产量（万吨）",
+        "unit": null,
+        "values": [
+          10397,
+          20300,
+          3351,
+          50500,
+          259
+        ]
+      },
+      {
+        "display_label": "铁路里程（公里）",
+        "group": null,
+        "label": "铁路里程（公里）",
+        "unit": null,
+        "values": [
+          30837,
+          91000,
+          64000,
+          85600,
+          20953
+        ]
+      },
+      {
+        "display_label": "公共教育支出占GDP的比重（%）",
+        "group": null,
+        "label": "公共教育支出占GDP的比重（%）",
+        "unit": null,
+        "values": [
+          4.3,
+          3.6,
+          3.8,
+          4.3,
+          10.1
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

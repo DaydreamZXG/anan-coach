@@ -1,0 +1,302 @@
+{
+  "asset_id": "da_70034b9de6d9b80e9f7965aa",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "指标",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "增速",
+        "unit": "%"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "比重",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "增速",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        5.1,
+        -11.0,
+        2.7,
+        8.5,
+        14.9,
+        1.0,
+        -8.8,
+        25.6,
+        -7.0,
+        -1.8,
+        1.0,
+        -2.3,
+        1.0
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比重",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        100.0,
+        2.3,
+        2.2,
+        8.8,
+        2.2,
+        3.7,
+        3.7,
+        23.6,
+        1.5,
+        4.1,
+        8.0,
+        2.2,
+        17.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0253_aaa67f17c0af6c0e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0253_aaa67f17c0af6c0e.png",
+        "paper_title": "2018年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bd19d3169e3c3b003f08",
+        "question_number": 126,
+        "source_jsonl_line": 9999
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0253_aaa67f17c0af6c0e.png",
+        "paper_title": "2018年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0f4dfc49bfe600e6b0ee",
+        "question_number": 127,
+        "source_jsonl_line": 10000
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0253_aaa67f17c0af6c0e.png",
+        "paper_title": "2018年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_abaeb987a56fd28c54e2",
+        "question_number": 128,
+        "source_jsonl_line": 10001
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0257_08ba1d044304ddb9.png",
+        "paper_title": "2018年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_63eb661300cbd530d058",
+        "question_number": 129,
+        "source_jsonl_line": 10002
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0257_08ba1d044304ddb9.png",
+        "paper_title": "2018年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_62adb36957d8495f1c65",
+        "question_number": 130,
+        "source_jsonl_line": 10003
+      }
+    ],
+    "sha256": "70034b9de6d9b80e9f7965aaee69489e74635c9e19ecbebad9c388b9e44eca4d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "增速",
+      "比重"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "规模以上工业增加值",
+        "unit": null,
+        "values": [
+          "规模以上工业增加值",
+          5.1,
+          100.0
+        ]
+      },
+      {
+        "label": "其中：石油加工、炼焦和核燃料加工业",
+        "unit": null,
+        "values": [
+          "其中：石油加工、炼焦和核燃料加工业",
+          -11.0,
+          2.3
+        ]
+      },
+      {
+        "label": "化学原料和化学制品制造业",
+        "unit": null,
+        "values": [
+          "化学原料和化学制品制造业",
+          2.7,
+          2.2
+        ]
+      },
+      {
+        "label": "医药制造业",
+        "unit": null,
+        "values": [
+          "医药制造业",
+          8.5,
+          8.8
+        ]
+      },
+      {
+        "label": "非金属矿物制品业",
+        "unit": null,
+        "values": [
+          "非金属矿物制品业",
+          14.9,
+          2.2
+        ]
+      },
+      {
+        "label": "通用设备制造业",
+        "unit": null,
+        "values": [
+          "通用设备制造业",
+          1.0,
+          3.7
+        ]
+      },
+      {
+        "label": "专用设备制造业",
+        "unit": null,
+        "values": [
+          "专用设备制造业",
+          -8.8,
+          3.7
+        ]
+      },
+      {
+        "label": "汽车制造业",
+        "unit": null,
+        "values": [
+          "汽车制造业",
+          25.6,
+          23.6
+        ]
+      },
+      {
+        "label": "铁路、船舶、航空航天和其他运输设备制造业",
+        "unit": null,
+        "values": [
+          "铁路、船舶、航空航天和其他运输设备制造业",
+          -7.0,
+          1.5
+        ]
+      },
+      {
+        "label": "电气机械和器材制造业",
+        "unit": null,
+        "values": [
+          "电气机械和器材制造业",
+          -1.8,
+          4.1
+        ]
+      },
+      {
+        "label": "计算机、通信和其他电子设备制造业",
+        "unit": null,
+        "values": [
+          "计算机、通信和其他电子设备制造业",
+          1.0,
+          8.0
+        ]
+      },
+      {
+        "label": "仪器仪表制造业",
+        "unit": null,
+        "values": [
+          "仪器仪表制造业",
+          -2.3,
+          2.2
+        ]
+      },
+      {
+        "label": "电力、热力生产和供应业",
+        "unit": null,
+        "values": [
+          "电力、热力生产和供应业",
+          1.0,
+          17.9
+        ]
+      }
+    ]
+  },
+  "title": "2016年规模以上工业重点监测行业增加值增速及其占规模以上工业增加值比重",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_70034b9de6d9b80e9f7965aa/row_band_01.jpg",
+        "review-crops/da_70034b9de6d9b80e9f7965aa/row_band_02.jpg",
+        "review-crops/da_70034b9de6d9b80e9f7965aa/row_band_03.jpg",
+        "review-crops/da_70034b9de6d9b80e9f7965aa/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.573",
+      "crop_verification_elapsed_seconds:10.135",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

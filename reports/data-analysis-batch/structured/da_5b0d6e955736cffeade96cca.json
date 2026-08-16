@@ -1,0 +1,144 @@
+{
+  "asset_id": "da_5b0d6e955736cffeade96cca",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "striped",
+    "solid",
+    "none"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      50.064,
+      233.146,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 50.064,
+        "label": "striped",
+        "share": 0.13906559,
+        "start_angle": 0.0,
+        "sweep_angle": 50.064
+      },
+      {
+        "end_angle": 233.146,
+        "label": "solid",
+        "share": 0.5085634,
+        "start_angle": 50.064,
+        "sweep_angle": 183.083
+      },
+      {
+        "end_angle": 360.0,
+        "label": "none",
+        "share": 0.35237101,
+        "start_angle": 233.146,
+        "sweep_angle": 126.854
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.13906559,
+        0.5085634,
+        0.35237101
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0197_fd266df29ccd4b5b.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0197_fd266df29ccd4b5b.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_6a23019cf43ed42b49aa",
+        "question_number": 100,
+        "source_jsonl_line": 90735
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0199_fd266df29ccd4b5b.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_72c2c9d2105921f71777",
+        "question_number": 100,
+        "source_jsonl_line": 96163
+      }
+    ],
+    "sha256": "5b0d6e955736cffeade96cca16791bc42cbf1bf68074da9f8a6757c0446057af"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5b0d6e955736cffeade96cca/quadrant_01.jpg",
+        "review-crops/da_5b0d6e955736cffeade96cca/quadrant_02.jpg",
+        "review-crops/da_5b0d6e955736cffeade96cca/quadrant_03.jpg",
+        "review-crops/da_5b0d6e955736cffeade96cca/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.75",
+      "crop_verification_elapsed_seconds:0.582",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.9819",
+      "hough_circle_radius_ratio:0.4755",
+      "radial_line_candidates:7",
+      "detected_boundaries:3"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

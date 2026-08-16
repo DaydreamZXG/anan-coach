@@ -1,0 +1,317 @@
+{
+  "asset_id": "da_4e8f5e9518d26bc454823ba0",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "尖端超算",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        20.9,
+        23.1,
+        24.2,
+        26.4,
+        28.3,
+        31.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "通用超算",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        23.9,
+        26.9,
+        29.7,
+        32.2,
+        37.8,
+        40.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "业务超算",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        15.6,
+        24.1,
+        34.8,
+        48.1,
+        64.4,
+        85.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "人工智能超算",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        4.7,
+        7.9,
+        12.5,
+        18.8,
+        27.7,
+        38.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0165_b6b2e47be3760ad5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0165_b6b2e47be3760ad5.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_d13a8f674bfa9845fffa",
+        "question_number": 126,
+        "source_jsonl_line": 20451
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0165_b6b2e47be3760ad5.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_dc9faeec67cdd0dcd912",
+        "question_number": 127,
+        "source_jsonl_line": 20452
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0163_08715795064cc6d2.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_77050d5ffb08adf33ddc",
+        "question_number": 128,
+        "source_jsonl_line": 20453
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0163_08715795064cc6d2.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_75dff18b5806e1431bdb",
+        "question_number": 129,
+        "source_jsonl_line": 20454
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）_images/img_0163_08715795064cc6d2.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（副省级网友回忆版）",
+        "question_id": "pq_aa9d10d1cf2c87753ae4",
+        "question_number": 130,
+        "source_jsonl_line": 20455
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0077_b6b2e47be3760ad5.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_6dde9b246e5ebb545e41",
+        "question_number": 116,
+        "source_jsonl_line": 20576
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0077_b6b2e47be3760ad5.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_9826d04d9225d328b7e0",
+        "question_number": 117,
+        "source_jsonl_line": 20577
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0077_b6b2e47be3760ad5.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_b9b3b32a6dca6e5e14f7",
+        "question_number": 118,
+        "source_jsonl_line": 20578
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0076_08715795064cc6d2.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_b438f931b37b6dfae629",
+        "question_number": 119,
+        "source_jsonl_line": 20579
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0077_b6b2e47be3760ad5.png",
+        "paper_title": "2023年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_04c2213b912d28854af1",
+        "question_number": 120,
+        "source_jsonl_line": 20580
+      }
+    ],
+    "sha256": "4e8f5e9518d26bc454823ba025099c716c023a22225b15390fc753d41b40fd5d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "尖端超算",
+      "通用超算",
+      "业务超算",
+      "人工智能超算"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2016年",
+        "unit": null,
+        "values": [
+          20.9,
+          23.9,
+          15.6,
+          4.7
+        ]
+      },
+      {
+        "label": "2017年",
+        "unit": null,
+        "values": [
+          23.1,
+          26.9,
+          24.1,
+          7.9
+        ]
+      },
+      {
+        "label": "2018年",
+        "unit": null,
+        "values": [
+          24.2,
+          29.7,
+          34.8,
+          12.5
+        ]
+      },
+      {
+        "label": "2019年",
+        "unit": null,
+        "values": [
+          26.4,
+          26.4,
+          32.2,
+          48.1
+        ]
+      },
+      {
+        "label": "2020年",
+        "unit": null,
+        "values": [
+          28.3,
+          28.3,
+          37.8,
+          64.4
+        ]
+      },
+      {
+        "label": "2021年",
+        "unit": null,
+        "values": [
+          31.4,
+          31.4,
+          40.3,
+          85.6
+        ]
+      }
+    ]
+  },
+  "title": "2016~2021年中国超算服务细分市场规模",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4e8f5e9518d26bc454823ba0/row_band_01.jpg",
+        "review-crops/da_4e8f5e9518d26bc454823ba0/row_band_02.jpg",
+        "review-crops/da_4e8f5e9518d26bc454823ba0/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.285",
+      "crop_verification_elapsed_seconds:2.6",
+      "candidate_value_changes_after_crop:9",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_out_of_range_table_cell:2019年:人工智能超算",
+      "crop_note:ignored_out_of_range_table_cell:2020年:人工智能超算",
+      "crop_note:ignored_out_of_range_table_cell:2021年:人工智能超算",
+      "table_row_label_column_removed:<blank>"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

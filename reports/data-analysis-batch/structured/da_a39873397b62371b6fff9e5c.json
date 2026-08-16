@@ -1,0 +1,228 @@
+{
+  "asset_id": "da_a39873397b62371b6fff9e5c",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 8000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000
+        ],
+        "title": null,
+        "unit": "亿元"
+      },
+      {
+        "max": 30,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "集成电路设计",
+    "数据处理和存储服务",
+    "信息技术咨询服务",
+    "软件产品",
+    "信息系统集成服务",
+    "嵌入式系统软件"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "完成收入",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "solid",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "同比增速",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "diamond",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "去年同期增速",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "triangle_up",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "完成收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        11.9,
+        2430,
+        1399,
+        4141,
+        2649,
+        2230
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        22.3,
+        27,
+        24.7,
+        27.2,
+        25.2,
+        19.2
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "去年同期增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        405,
+        24.2,
+        22.9,
+        19.6,
+        18.7,
+        18.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2015年北京市公务员录用考试《行测》题_images/img_0164_93643187b7bde143.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年北京市公务员录用考试《行测》题_images/img_0164_93643187b7bde143.png",
+        "paper_title": "2015年北京市公务员录用考试《行测》题",
+        "question_id": "pq_111c4114e53f7f7b0885",
+        "question_number": 121,
+        "source_jsonl_line": 9589
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年北京市公务员录用考试《行测》题_images/img_0264_558413475ccf9a15.png",
+        "paper_title": "2015年北京市公务员录用考试《行测》题",
+        "question_id": "pq_03bd362275035ebf0089",
+        "question_number": 122,
+        "source_jsonl_line": 9590
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年北京市公务员录用考试《行测》题_images/img_0164_93643187b7bde143.png",
+        "paper_title": "2015年北京市公务员录用考试《行测》题",
+        "question_id": "pq_d18e51a058c03b0ad374",
+        "question_number": 123,
+        "source_jsonl_line": 9591
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年北京市公务员录用考试《行测》题_images/img_0164_93643187b7bde143.png",
+        "paper_title": "2015年北京市公务员录用考试《行测》题",
+        "question_id": "pq_ccae5ccc4affd2d9fa30",
+        "question_number": 124,
+        "source_jsonl_line": 9592
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年北京市公务员录用考试《行测》题_images/img_0164_93643187b7bde143.png",
+        "paper_title": "2015年北京市公务员录用考试《行测》题",
+        "question_id": "pq_1914cfb2c1de2b9b3c69",
+        "question_number": 125,
+        "source_jsonl_line": 9593
+      }
+    ],
+    "sha256": "a39873397b62371b6fff9e5cc2a84cdd5a4ba84619f9bb1d327f7ede6490dabe"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a39873397b62371b6fff9e5c/column_band_01.jpg",
+        "review-crops/da_a39873397b62371b6fff9e5c/column_band_02.jpg",
+        "review-crops/da_a39873397b62371b6fff9e5c/column_band_03.jpg",
+        "review-crops/da_a39873397b62371b6fff9e5c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.228",
+      "crop_verification_elapsed_seconds:4.725",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:类别标签可能存在 OCR 识别误差",
+      "model_uncertainty:数值标签可能因图像分辨率导致精度损失",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "用户数（百万人）｜第1列",
+      "增长率（%）｜第2列",
+      "年份｜第3列",
+      "用户数（百万人）｜第4列",
+      "增长率（%）｜第5列"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "增长率（%）｜第2列",
+        "display": "-",
+        "row": "货运量（单位：亿吨）｜2013年"
+      },
+      {
+        "column": "增长率（%）｜第5列",
+        "display": "-",
+        "row": "货运量（单位：亿吨）｜2013年"
+      }
+    ],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "display_label": "货运量（单位：亿吨）｜2013年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2013年",
+        "unit": null,
+        "values": [
+          494,
+          null,
+          "2013年",
+          494,
+          null
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2014年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2014年",
+        "unit": null,
+        "values": [
+          517,
+          4.6,
+          "2014年",
+          517,
+          4.6
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2015年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2015年",
+        "unit": null,
+        "values": [
+          534,
+          3.3,
+          "2015年",
+          534,
+          3.3
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2016年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2016年",
+        "unit": null,
+        "values": [
+          566,
+          6.0,
+          "2016年",
+          566,
+          6.0
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2017年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2017年",
+        "unit": null,
+        "values": [
+          583,
+          3.0,
+          "2017年",
+          583,
+          3.0
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2018年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2018年",
+        "unit": null,
+        "values": [
+          626,
+          7.4,
+          "2018年",
+          626,
+          7.4
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2019年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2019年",
+        "unit": null,
+        "values": [
+          641,
+          2.4,
+          "2019年",
+          641,
+          2.4
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2020年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2020年",
+        "unit": null,
+        "values": [
+          665,
+          3.7,
+          "2020年",
+          665,
+          3.7
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2021年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2021年",
+        "unit": null,
+        "values": [
+          666,
+          0.2,
+          "2021年",
+          666,
+          0.2
+        ]
+      },
+      {
+        "display_label": "货运量（单位：亿吨）｜2022年",
+        "group": null,
+        "label": "货运量（单位：亿吨）｜2022年",
+        "unit": null,
+        "values": [
+          664,
+          -0.3,
+          "2022年",
+          664,
+          -0.3
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

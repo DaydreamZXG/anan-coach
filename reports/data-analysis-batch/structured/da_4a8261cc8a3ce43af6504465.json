@@ -1,0 +1,295 @@
+{
+  "asset_id": "da_4a8261cc8a3ce43af6504465",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2016年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0170_e18043fee54d0133.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0170_e18043fee54d0133.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_b9757e5f5166f18dfb99",
+        "question_number": 111,
+        "source_jsonl_line": 102428
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0171_d38aaab24d0c6dee.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_4b83bd6c09f258a48f03",
+        "question_number": 112,
+        "source_jsonl_line": 102429
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0171_d38aaab24d0c6dee.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_ee2e0415320038752ad0",
+        "question_number": 113,
+        "source_jsonl_line": 102430
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0171_d38aaab24d0c6dee.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_0f54ebad167dd3805b69",
+        "question_number": 114,
+        "source_jsonl_line": 102431
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（公检法卷）_images/img_0171_d38aaab24d0c6dee.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（公检法卷）",
+        "question_id": "pq_6e1af611ad9b5ea92d85",
+        "question_number": 115,
+        "source_jsonl_line": 102432
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）_images/img_0195_d38aaab24d0c6dee.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）",
+        "question_id": "pq_91d7daaab9825d7ef8fa",
+        "question_number": 111,
+        "source_jsonl_line": 102548
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）_images/img_0195_d38aaab24d0c6dee.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）",
+        "question_id": "pq_58d07162d25afba21369",
+        "question_number": 112,
+        "source_jsonl_line": 102549
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）_images/img_0195_d38aaab24d0c6dee.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）",
+        "question_id": "pq_e57ad465d69a87d6857f",
+        "question_number": 113,
+        "source_jsonl_line": 102550
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）_images/img_0195_d38aaab24d0c6dee.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）",
+        "question_id": "pq_9cb2d009eca40598612c",
+        "question_number": 114,
+        "source_jsonl_line": 102551
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）_images/img_0195_d38aaab24d0c6dee.png",
+        "paper_title": "2016年黑龙江省公务员录用考试《行测》题（县乡卷）",
+        "question_id": "pq_81af55a7c072e87afae2",
+        "question_number": 115,
+        "source_jsonl_line": 102552
+      }
+    ],
+    "sha256": "4a8261cc8a3ce43af6504465a6ba36d7cf1ebe135ea594113baaffe9ef00749d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "国家",
+      "氮肥（万吨）",
+      "磷肥（万吨）",
+      "钾肥（万吨）",
+      "耕地面积（万公顷）",
+      "陆地面积（万公顷）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "中国",
+        "unit": null,
+        "values": [
+          "中国",
+          3321,
+          1215,
+          549,
+          14063,
+          93275
+        ]
+      },
+      {
+        "label": "印度",
+        "unit": null,
+        "values": [
+          "印度",
+          1491,
+          605,
+          331,
+          15865,
+          29732
+        ]
+      },
+      {
+        "label": "南非",
+        "unit": null,
+        "values": [
+          "南非",
+          42,
+          19,
+          11,
+          1450,
+          12145
+        ]
+      },
+      {
+        "label": "巴西",
+        "unit": null,
+        "values": [
+          "巴西",
+          248,
+          345,
+          418,
+          5950,
+          84594
+        ]
+      },
+      {
+        "label": "俄罗斯",
+        "unit": null,
+        "values": [
+          "俄罗斯",
+          121,
+          43,
+          29,
+          12157,
+          163777
+        ]
+      },
+      {
+        "label": "美国",
+        "unit": null,
+        "values": [
+          "美国",
+          1096,
+          334,
+          327,
+          17043,
+          91619
+        ]
+      },
+      {
+        "label": "英国",
+        "unit": null,
+        "values": [
+          "英国",
+          91,
+          13,
+          21,
+          609,
+          2419
+        ]
+      },
+      {
+        "label": "法国",
+        "unit": null,
+        "values": [
+          "法国",
+          201,
+          29,
+          37,
+          1843,
+          5477
+        ]
+      },
+      {
+        "label": "德国",
+        "unit": null,
+        "values": [
+          "德国",
+          156,
+          17,
+          18,
+          1188,
+          3488
+        ]
+      },
+      {
+        "label": "意大利",
+        "unit": null,
+        "values": [
+          "意大利",
+          70,
+          20,
+          21,
+          717,
+          2941
+        ]
+      },
+      {
+        "label": "世界",
+        "unit": null,
+        "values": [
+          "世界",
+          9917,
+          3662,
+          2604,
+          null,
+          1296123
+        ]
+      }
+    ]
+  },
+  "title": "2008年世界部分国家化肥施用量及耕地面积",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4a8261cc8a3ce43af6504465/row_band_01.jpg",
+        "review-crops/da_4a8261cc8a3ce43af6504465/row_band_02.jpg",
+        "review-crops/da_4a8261cc8a3ce43af6504465/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.624",
+      "crop_verification_elapsed_seconds:12.821",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

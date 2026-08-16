@@ -4,6 +4,13 @@ data/question-bank-export/files/
 data/local-pg/
 import-staging/
 
+# Local question-bank source archives and rebuild workspaces
+# Keep multi-GB recovery inputs outside Git; commit only small manifests/reports.
+data/question-bank-sources/
+data/question-bank-work/
+data/question-bank-recovery/
+.local-question-bank/
+
 # OS/editor noise
 .DS_Store
 
@@ -34,6 +41,35 @@ apps/wechat/miniprogram_npm/
 # Generated release/export artifacts
 dist/
 exports/
+reports/*-publication-plan.json
+
+# Offline question-media batch bulk artifacts
+# Keep source code, schemas, review decisions, compact manifests and final reports
+# in Git. Large per-asset outputs stay local or in content-addressed artifact
+# storage and are validated through the committed summaries/publication reports.
+reports/graphic-reasoning-batch/assets/
+reports/graphic-reasoning-batch/classification.jsonl
+reports/graphic-reasoning-batch/inventory.jsonl
+reports/graphic-reasoning-batch/task-book-review/
+reports/graphic-reasoning-batch/crowdtest-package/build/
+reports/graphic-reasoning-batch/crowdtest-review-evidence/*/
+reports/graphic-reasoning-batch/crowdtest-review-evidence/review.html
+reports/graphic-reasoning-batch/semantic-structure/queue.jsonl
+reports/question-image-audit/assets.jsonl
+reports/question-image-audit/cache/
+reports/question-image-audit/non-graphic-work/
+reports/question-image-audit/non-graphic-structured/
+reports/question-image-audit/non-graphic-review-evidence/
+reports/question-image-audit/next-wave-contact-sheets/
+reports/data-analysis-batch/audit-contact-sheets/
+reports/data-analysis-batch/cache/
+reports/data-analysis-batch/previews/
+reports/data-analysis-batch/review-crops/
+reports/data-analysis-batch/structured-legacy/
+reports/data-analysis-batch/work/
+reports/question-formula-batch/manifest.jsonl
+reports/question-formula-batch/pending-review-sheets/
+reports/question-formula-batch/results/
 
 # Python build/test caches
 __pycache__/

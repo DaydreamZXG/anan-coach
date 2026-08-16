@@ -1,0 +1,191 @@
+{
+  "asset_id": "da_2a43416e7451e65a33fa72e9",
+  "axes": {
+    "x": {
+      "max": 200000,
+      "min": 0,
+      "ticks": [
+        0,
+        50000,
+        100000,
+        150000,
+        200000
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [
+          2018,
+          2017,
+          2016,
+          2015,
+          2014
+        ],
+        "title": "年",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2018",
+    "2017",
+    "2016",
+    "2015",
+    "2014"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "粮食产量（亿公斤）",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "粮食种植面积（万亩）",
+      "style": {
+        "dash": "solid",
+        "fill": "lightgray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "粮食产量（亿公斤）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿公斤",
+      "values": [
+        6579,
+        6616,
+        6604,
+        6606,
+        6396
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "粮食种植面积（万亩）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万亩",
+      "values": [
+        175555,
+        176984,
+        178845,
+        178444,
+        176183
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0255_41fbbb3bf08d054d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0255_41fbbb3bf08d054d.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7ba57711a62e9fd1b384",
+        "question_number": 116,
+        "source_jsonl_line": 83627
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0265_d03d2a8873638c89.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e1f7a3d6915a17c1041c",
+        "question_number": 117,
+        "source_jsonl_line": 83628
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0265_d03d2a8873638c89.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c51c92c4245ba293407f",
+        "question_number": 118,
+        "source_jsonl_line": 83629
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0265_d03d2a8873638c89.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7866f83df2e04178f1f0",
+        "question_number": 119,
+        "source_jsonl_line": 83630
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0265_d03d2a8873638c89.png",
+        "paper_title": "2018年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_065be727f5b128ef9508",
+        "question_number": 120,
+        "source_jsonl_line": 83631
+      }
+    ],
+    "sha256": "2a43416e7451e65a33fa72e957daeb297eeac6fd99837b868bac6b160add67eb"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014-2018年全年粮食播种面积及产量数据",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2a43416e7451e65a33fa72e9/column_band_01.jpg",
+        "review-crops/da_2a43416e7451e65a33fa72e9/column_band_02.jpg",
+        "review-crops/da_2a43416e7451e65a33fa72e9/column_band_03.jpg",
+        "review-crops/da_2a43416e7451e65a33fa72e9/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.44",
+      "crop_verification_elapsed_seconds:10.684",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了系列 '粮食产量（亿公斤）' 的值，确认其为 6579, 6616, 6604, 6606, 6396。",
+      "crop_note:修正了系列 '粮食种植面积（万亩）' 的值，确认其为 175555, 176984, 178845, 178444, 176183。",
+      "crop_note:确认 x 轴最大值为 200000，与图中刻度一致。",
+      "crop_note:确认 y 轴年份顺序为 2018, 2017, 2016, 2015, 2014，与图中从上到下顺序一致。",
+      "crop_note:确认图例标签 '粮食产量（亿公斤）' 和 '粮食种植面积（万亩）' 与图中一致。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

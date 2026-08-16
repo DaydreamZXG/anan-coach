@@ -1,0 +1,183 @@
+{
+  "asset_id": "da_d2a3cd9dd38ac6423e51eee9",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 300,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300
+        ],
+        "title": null,
+        "unit": "元"
+      }
+    ]
+  },
+  "categories": [
+    "2004年",
+    "2005年",
+    "2006年",
+    "2007年",
+    "2008年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "成本",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "出厂价",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "成本",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        80,
+        100,
+        90,
+        100,
+        180
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "出厂价",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        110,
+        120,
+        120,
+        150,
+        240
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/黑龙江/2009年黑龙江省公务员录用考试《行测》题（A、B类）_images/img_0188_9cf4cd2f2af204b9.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年黑龙江省公务员录用考试《行测》题（A、B类）_images/img_0188_9cf4cd2f2af204b9.jpg",
+        "paper_title": "2009年黑龙江省公务员录用考试《行测》题（A、B类）",
+        "question_id": "pq_d845b174307ef524def3",
+        "question_number": 126,
+        "source_jsonl_line": 101149
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年黑龙江省公务员录用考试《行测》题（A、B类）_images/img_0193_b23718e4f9e0b217.jpg",
+        "paper_title": "2009年黑龙江省公务员录用考试《行测》题（A、B类）",
+        "question_id": "pq_ba0f7cbabc787006584a",
+        "question_number": 127,
+        "source_jsonl_line": 101150
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年黑龙江省公务员录用考试《行测》题（A、B类）_images/img_0193_b23718e4f9e0b217.jpg",
+        "paper_title": "2009年黑龙江省公务员录用考试《行测》题（A、B类）",
+        "question_id": "pq_d371d3ae80f386bdea5c",
+        "question_number": 128,
+        "source_jsonl_line": 101151
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年黑龙江省公务员录用考试《行测》题（A、B类）_images/img_0188_9cf4cd2f2af204b9.jpg",
+        "paper_title": "2009年黑龙江省公务员录用考试《行测》题（A、B类）",
+        "question_id": "pq_32837d36472bf78162aa",
+        "question_number": 129,
+        "source_jsonl_line": 101152
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年黑龙江省公务员录用考试《行测》题（A、B类）_images/img_0188_9cf4cd2f2af204b9.jpg",
+        "paper_title": "2009年黑龙江省公务员录用考试《行测》题（A、B类）",
+        "question_id": "pq_c31bc41fb0e4949e7c7a",
+        "question_number": 130,
+        "source_jsonl_line": 101153
+      }
+    ],
+    "sha256": "d2a3cd9dd38ac6423e51eee931c4c49dd99d87deacbd6d671cdf6b61235a0da3"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "某型号职员椅近年成本与出厂价分析图",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d2a3cd9dd38ac6423e51eee9/column_band_01.jpg",
+        "review-crops/da_d2a3cd9dd38ac6423e51eee9/column_band_02.jpg",
+        "review-crops/da_d2a3cd9dd38ac6423e51eee9/column_band_03.jpg",
+        "review-crops/da_d2a3cd9dd38ac6423e51eee9/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.083",
+      "crop_verification_elapsed_seconds:1.913",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

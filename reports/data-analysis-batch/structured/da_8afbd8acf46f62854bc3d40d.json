@@ -1,0 +1,295 @@
+{
+  "asset_id": "da_8afbd8acf46f62854bc3d40d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "企业性质",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "金额 (亿美元)",
+        "unit": "亿美元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比 (%)",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "总值",
+    "国有企业",
+    "外商投资企业",
+    "其他企业"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "出口额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        20487.4,
+        2562.8,
+        10227.5,
+        7699.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "进口额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        18182.3,
+        4954.2,
+        8712.5,
+        4511.5
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "同比 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        6.2,
+        -1.2,
+        1.8,
+        19.6
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "占比 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        100.0,
+        19.4,
+        49.0,
+        31.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）_images/img_0094_23de5cf66bc3ae67.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）_images/img_0094_23de5cf66bc3ae67.png",
+        "paper_title": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）",
+        "question_id": "pq_2794c9748863f2cff96e",
+        "question_number": 112,
+        "source_jsonl_line": 69892
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）_images/img_0094_23de5cf66bc3ae67.png",
+        "paper_title": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）",
+        "question_id": "pq_0ee85b8ce8d8ef15f49f",
+        "question_number": 113,
+        "source_jsonl_line": 69893
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）_images/img_0096_c4f750050353743b.png",
+        "paper_title": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）",
+        "question_id": "pq_eda083726c19e82d1279",
+        "question_number": 114,
+        "source_jsonl_line": 69894
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）_images/img_0094_23de5cf66bc3ae67.png",
+        "paper_title": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）",
+        "question_id": "pq_be860fe94b2264cff915",
+        "question_number": 115,
+        "source_jsonl_line": 69895
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）_images/img_0094_23de5cf66bc3ae67.png",
+        "paper_title": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）",
+        "question_id": "pq_fb7a00f0c5c3547d9d90",
+        "question_number": 116,
+        "source_jsonl_line": 69896
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）_images/img_0095_23de5cf66bc3ae67.png",
+        "paper_title": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）",
+        "question_id": "pq_847ad7c1f92810abe557",
+        "question_number": 112,
+        "source_jsonl_line": 85608
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）_images/img_0095_23de5cf66bc3ae67.png",
+        "paper_title": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）",
+        "question_id": "pq_06d5806aae1b77588717",
+        "question_number": 113,
+        "source_jsonl_line": 85609
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）_images/img_0095_23de5cf66bc3ae67.png",
+        "paper_title": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）",
+        "question_id": "pq_4c95184b6357c62f3a81",
+        "question_number": 114,
+        "source_jsonl_line": 85610
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）_images/img_0095_23de5cf66bc3ae67.png",
+        "paper_title": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）",
+        "question_id": "pq_80b95094dd8a4489f537",
+        "question_number": 115,
+        "source_jsonl_line": 85611
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）_images/img_0095_23de5cf66bc3ae67.png",
+        "paper_title": "2015年湖北省选调生招录考试 综合知识和行政职业能力测验试卷（精选）",
+        "question_id": "pq_aac0ed5d5bf6e22bcd45",
+        "question_number": 116,
+        "source_jsonl_line": 85612
+      }
+    ],
+    "sha256": "8afbd8acf46f62854bc3d40d679606d21aa2a4d8cba23bb95a87a43a01c05341"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "企业性质",
+      "出口额 (亿美元)",
+      "进口额 (亿美元)",
+      "同比 (%)",
+      "占比 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "总值",
+        "unit": null,
+        "values": [
+          "总值",
+          20487.4,
+          18182.3,
+          6.2,
+          100.0
+        ]
+      },
+      {
+        "label": "国有企业",
+        "unit": null,
+        "values": [
+          "国有企业",
+          2562.8,
+          4954.2,
+          -1.2,
+          19.4
+        ]
+      },
+      {
+        "label": "外商投资企业",
+        "unit": null,
+        "values": [
+          "外商投资企业",
+          10227.5,
+          8712.5,
+          1.8,
+          49
+        ]
+      },
+      {
+        "label": "其他企业",
+        "unit": null,
+        "values": [
+          "其他企业",
+          7699.1,
+          4511.5,
+          19.6,
+          31.6
+        ]
+      }
+    ]
+  },
+  "title": "2012年中国进出口企业性质情况",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8afbd8acf46f62854bc3d40d/row_band_01.jpg",
+        "review-crops/da_8afbd8acf46f62854bc3d40d/row_band_02.jpg",
+        "review-crops/da_8afbd8acf46f62854bc3d40d/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.869",
+      "crop_verification_elapsed_seconds:3.967",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

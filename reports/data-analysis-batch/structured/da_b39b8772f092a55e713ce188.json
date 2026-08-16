@@ -1,0 +1,177 @@
+{
+  "asset_id": "da_b39b8772f092a55e713ce188",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2014年国家公务员录用考试《行测》题_images/img_0152_238bb9cd8538fb13.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0152_238bb9cd8538fb13.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_8d991f44460e68bc1c1d",
+        "question_number": 131,
+        "source_jsonl_line": 18071
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0152_238bb9cd8538fb13.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_cf28c820d56c421e0ca1",
+        "question_number": 132,
+        "source_jsonl_line": 18072
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0152_238bb9cd8538fb13.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_ed579dec51f7c13f6377",
+        "question_number": 133,
+        "source_jsonl_line": 18073
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0152_238bb9cd8538fb13.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_2c285c5a54acc77c0948",
+        "question_number": 134,
+        "source_jsonl_line": 18074
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年国家公务员录用考试《行测》题_images/img_0152_238bb9cd8538fb13.png",
+        "paper_title": "2014年国家公务员录用考试《行测》题",
+        "question_id": "pq_eb5cd39d7a4fca9fd88b",
+        "question_number": 135,
+        "source_jsonl_line": 18075
+      }
+    ],
+    "sha256": "b39b8772f092a55e713ce188708f6f0d3977e7b10a033306c152e2024287801b"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2008年",
+      "2009年",
+      "2010年",
+      "2011年",
+      "2012年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "并网总容量",
+        "group": "并网总容量",
+        "label": "并网总容量｜并网总容量",
+        "unit": null,
+        "values": [
+          61300,
+          67100,
+          74400,
+          81800,
+          88000
+        ]
+      },
+      {
+        "display_label": "其中：清洁能源机组并网容量",
+        "group": "并网总容量",
+        "label": "并网总容量｜其中：清洁能源机组并网容量",
+        "unit": null,
+        "values": [
+          13524,
+          15357,
+          17585,
+          20260,
+          24004
+        ]
+      },
+      {
+        "display_label": "其中：水电并网容量",
+        "group": "并网总容量",
+        "label": "并网总容量｜其中：水电并网容量",
+        "unit": null,
+        "values": [
+          12214,
+          13419,
+          14458,
+          15617,
+          16816
+        ]
+      },
+      {
+        "display_label": "核电并网容量",
+        "group": "并网总容量",
+        "label": "并网总容量｜核电并网容量",
+        "unit": null,
+        "values": [
+          507,
+          507,
+          574,
+          640,
+          640
+        ]
+      },
+      {
+        "display_label": "新能源发电机组并网容量",
+        "group": "并网总容量",
+        "label": "并网总容量｜新能源发电机组并网容量",
+        "unit": null,
+        "values": [
+          803,
+          1431,
+          2553,
+          4003,
+          6548
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

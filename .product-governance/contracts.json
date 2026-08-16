@@ -3,6 +3,111 @@
   "contractLifecycle": ["draft", "specified", "implemented", "verified", "deprecated"],
   "contracts": [
     {
+      "id": "data-analysis-structured-visual-candidate@v1",
+      "kind": "file",
+      "owner": "data_analysis_visual_assets",
+      "consumers": [
+        "data-analysis-batch-finalizer",
+        "wechat-structured-visual-prototype"
+      ],
+      "schemaLocator": "inline://contracts.json#/contracts/data-analysis-structured-visual-candidate@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "One immutable source visual asset selected by content hash.",
+        "properties": {
+          "assetId": {
+            "type": "string",
+            "description": "Stable content-hash-derived batch asset identifier."
+          },
+          "sourceSha256": {
+            "type": "string",
+            "description": "SHA-256 of the immutable source bytes."
+          },
+          "sourcePath": {
+            "type": "string",
+            "description": "Repository-local source locator used only by the offline batch."
+          }
+        },
+        "required": [
+          "assetId",
+          "sourceSha256",
+          "sourcePath"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "A validated structured visual candidate and its deterministic verification identity.",
+        "properties": {
+          "assetId": {
+            "type": "string",
+            "description": "Stable identifier matching the input asset."
+          },
+          "schemaVersion": {
+            "type": "string",
+            "const": "graphic-primitives-v2",
+            "description": "Exact registered mini-program structured visual schema version."
+          },
+          "structuredPath": {
+            "type": "string",
+            "description": "Repository-relative path to the complete candidate JSON."
+          },
+          "payloadSha256": {
+            "type": "string",
+            "description": "SHA-256 of the canonical structured visual payload."
+          },
+          "sourceSha256": {
+            "type": "string",
+            "description": "Source SHA-256 repeated for lineage verification."
+          },
+          "foregroundIoU": {
+            "type": "number",
+            "description": "Deterministic foreground intersection-over-union between source and rerender."
+          },
+          "status": {
+            "type": "string",
+            "const": "success",
+            "description": "Candidate status after every required schema and render check passes."
+          }
+        },
+        "required": [
+          "assetId",
+          "schemaVersion",
+          "structuredPath",
+          "payloadSha256",
+          "sourceSha256",
+          "foregroundIoU",
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "dataClasses": [
+        "public"
+      ],
+      "authorization": "Offline repository-local batch only; it does not read an authenticated user session.",
+      "idempotency": "The source SHA-256 and converter version deterministically select one payload; reruns replace only the same asset candidate atomically.",
+      "compatibility": "v1 adds structured_visual to the existing data-analysis candidate and reuses the exact graphic-primitives-v2 discriminator.",
+      "errorSemantics": [
+        "SOURCE_UNREADABLE",
+        "COMPLEXITY_LIMIT_EXCEEDED",
+        "RENDER_VERIFICATION_FAILED",
+        "SCHEMA_INVALID"
+      ],
+      "requirementRefs": [
+        "REQ-DATA-VISUAL-ZERO-UNSUPPORTED-001"
+      ],
+      "evidenceRefs": [
+        "E-USER-DATA-VISUAL-ZERO-UNSUPPORTED-001",
+        "E-CODE-DATA-VISUAL-BASELINE-001"
+      ],
+      "observability": {
+        "correlation": "asset_id and source SHA-256 correlate source, payload, preview and verification evidence.",
+        "audit": "The batch inventory and per-asset verification record retain converter version, source hash, payload hash and deterministic comparison metrics.",
+        "metrics": "Counts success, unsupported, review and failed states and records per-asset foreground IoU and pixel disagreement."
+      },
+      "status": "specified"
+    },
+    {
       "id": "wechat-page-request-owner@v1",
       "kind": "file",
       "owner": "wechat_frontend_lifecycle",
@@ -146,6 +251,1738 @@
         "correlation": "HTTP request IDs correlate mutations; Idempotency-Key is fingerprinted rather than returned or logged as content.",
         "audit": "Mutation outcomes and stale revision conflicts are observable through request correlation; memory content is not written to application logs.",
         "metrics": "Count create, update, delete, clear and conflict outcomes without memory content labels."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "anan-coach-loop-projection@v1",
+      "kind": "file",
+      "owner": "wechat_coach_orchestration",
+      "consumers": ["today-page"],
+      "schemaLocator": "inline://contracts.json#/contracts/anan-coach-loop-projection@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "The existing Today dashboard judgment and first active canonical task selected for user presentation.",
+        "properties": {
+          "headline": {"type": "string", "description": "Existing server-authored current judgment."},
+          "rationale": {"type": "string", "description": "Existing server-authored dashboard rationale."},
+          "taskTitle": {"type": "string", "description": "Existing canonical task title."},
+          "taskReason": {"type": "string", "description": "Existing canonical task reason."},
+          "completionRule": {"type": "string", "description": "Existing canonical task completion rule."},
+          "kind": {"type": "string", "description": "Existing task kind.", "enum": ["practice", "reflection", "verification", "essay", "unknown"]},
+          "status": {"type": "string", "description": "Existing task execution status.", "enum": ["pending", "in_progress", "completed", "skipped", "unknown"]}
+        },
+        "required": ["headline", "rationale", "taskTitle", "taskReason", "completionRule", "kind", "status"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "A deterministic read-only user-facing loop projection owned by 岸岸.",
+        "properties": {
+          "phase": {"type": "string", "description": "Current presentation phase.", "enum": ["act", "resume", "reflect", "verify", "complete", "rest"]},
+          "statusLabel": {"type": "string", "description": "Short phase label visible on the Today card."},
+          "judgment": {"type": "string", "description": "Unchanged current dashboard judgment."},
+          "why": {"type": "string", "description": "Task reason with dashboard rationale as a non-invented fallback."},
+          "actionTitle": {"type": "string", "description": "Unchanged active task title."},
+          "completionRule": {"type": "string", "description": "Unchanged canonical completion rule or an explicit absence label."},
+          "feedbackPromise": {"type": "string", "description": "Deterministic explanation of which existing facts 岸岸 will use after completion."}
+        },
+        "required": ["phase", "statusLabel", "judgment", "why", "actionTitle", "completionRule", "feedbackPromise"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["internal"],
+      "authorization": "Local authenticated-page projection only; no independent authorization or persistence boundary is introduced.",
+      "idempotency": "The same dashboard and task snapshot always produce the same projection without mutation.",
+      "compatibility": "Additive presentation fields may be added in v1; changing canonical task ownership or phase meaning requires a new version.",
+      "errorSemantics": ["NO_ACTIVE_TASK"],
+      "requirementRefs": ["REQ-ANAN-COACH-LOOP-001", "REQ-ANAN-SINGLE-COACH-VOICE-001"],
+      "evidenceRefs": ["E-USER-ANAN-COACH-LOOP-001", "E-CODE-TODAY-LOOP-DATA-001"],
+      "observability": {
+        "correlation": "No new correlation identifier; the projection inherits the loaded Today dashboard snapshot.",
+        "audit": "No new write or audit event; canonical task commands remain the only execution mutations.",
+        "metrics": "Existing Today impression and task action metrics may group by phase without recording free text."
+      },
+      "status": "deprecated"
+    },
+    {
+      "id": "learning-brain-daily-strategy-suggestion@v1",
+      "kind": "api",
+      "owner": "learning_brain_coach_suggestion",
+      "consumers": ["today-page"],
+      "schemaLocator": "inline://contracts.json#/contracts/learning-brain-daily-strategy-suggestion@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "Authenticated non-blocking request to trigger or replay today's learning-brain strategy suggestion.",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "A same-user daily suggestion result; candidate fields are present only when a candidate is available.",
+        "properties": {
+          "status": {"type": "string", "description": "Whether a usable candidate is returned.", "enum": ["suggested", "unavailable"]},
+          "triggerKind": {"type": "string", "description": "Canonical trigger kind.", "enum": ["daily_first_entry"]},
+          "suggestionId": {"type": "string", "description": "Stable daily suggestion identifier when available."},
+          "skippedReason": {"type": "string", "description": "Deterministic replay or safe-degradation reason when present."},
+          "candidateId": {"type": "string", "description": "Existing inference candidate identifier when status is suggested."},
+          "candidateVersionId": {"type": "string", "description": "Exact candidate version required for user confirmation."},
+          "candidateStatus": {"type": "string", "description": "Existing candidate lifecycle state.", "enum": ["pending_validation", "awaiting_confirmation", "accepted", "rejected", "expired"]},
+          "rationale": {"type": "string", "description": "Evidence-grounded candidate rationale."}
+        },
+        "required": ["status", "triggerKind"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["personal", "internal"],
+      "authorization": "Bearer-authenticated user; service and repository constrain suggestion and candidate reads by the exact current user_id.",
+      "idempotency": "Existing user lock plus user_id and Asia/Shanghai local_date uniqueness replays the same daily suggestion; retries do not create another candidate.",
+      "compatibility": "Additive response fields may be added in v1; changing candidate confirmation semantics, daily key or failure blocking behavior requires v2.",
+      "errorSemantics": ["UNAUTHENTICATED", "SAFE_UNAVAILABLE"],
+      "requirementRefs": ["REQ-ANAN-DAILY-BRAIN-SUGGESTION-002"],
+      "evidenceRefs": ["E-USER-ANAN-GOLDEN-LOOP-002", "E-CODE-ANAN-DAILY-TRIGGER-GAP-002"],
+      "observability": {
+        "correlation": "HTTP request ID correlates the call; existing suggestionId and candidateVersionId correlate successful replays.",
+        "audit": "Existing learning_brain.agent_suggestion.created outbox event records successful candidate creation; unavailable responses do not fabricate an event.",
+        "metrics": "Count suggested, already_suggested_today and unavailable outcomes without rationale labels."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "anan-coach-golden-loop-projection@v2",
+      "kind": "file",
+      "owner": "wechat_coach_orchestration",
+      "consumers": ["today-page", "onboarding-entry", "external-score-page", "answer-ingestion-page"],
+      "schemaLocator": "inline://contracts.json#/contracts/anan-coach-golden-loop-projection@v2",
+      "inputSchema": {
+        "type": "object",
+        "description": "Existing Today dashboard, learning-brain profile and optional same-user daily candidate plus a bounded task-before snapshot.",
+        "properties": {
+          "profileVersionId": {"type": "string", "description": "Current learning-brain profile version when loaded."},
+          "planVersionId": {"type": "string", "description": "Current Today plan version."},
+          "taskId": {"type": "string", "description": "Current or previously opened canonical task identifier."},
+          "headline": {"type": "string", "description": "Existing Today headline."},
+          "evidenceTotal": {"type": "integer", "description": "Sum of canonical evidence counters.", "minimum": 0},
+          "stableMasteryCount": {"type": "integer", "description": "Sum of module stable mastery counters.", "minimum": 0},
+          "candidateStatus": {"type": "string", "description": "Optional existing strategy candidate status.", "enum": ["pending_validation", "awaiting_confirmation", "accepted", "rejected", "expired"]}
+        },
+        "required": ["planVersionId", "headline", "evidenceTotal", "stableMasteryCount"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Deterministic user-facing coach loop embedded in the existing 岸岸建议 card.",
+        "properties": {
+          "recognitionLevel": {"type": "string", "description": "Evidence maturity level.", "enum": ["just_met", "initial_hypothesis", "verifying", "understands"]},
+          "observation": {"type": "string", "description": "Canonical evidence observation or explicit unavailable copy."},
+          "judgment": {"type": "string", "description": "Provisional candidate rationale or current dashboard judgment."},
+          "actionTitle": {"type": "string", "description": "Current canonical task title."},
+          "verification": {"type": "string", "description": "How the current task will test the provisional judgment."},
+          "correction": {"type": "string", "description": "What 岸岸 will do when evidence does not support the judgment."},
+          "feedbackChanges": {"type": "array", "description": "Verified task, evidence, profile, plan or next-action deltas after return.", "items": {"type": "string", "description": "One user-visible verified delta."}}
+        },
+        "required": ["recognitionLevel", "observation", "judgment", "actionTitle", "verification", "correction", "feedbackChanges"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["personal", "internal"],
+      "authorization": "Local authenticated-page projection; stored intent and task snapshot keys include the exact user_id and are rejected for another account.",
+      "idempotency": "The same dashboard, profile, candidate and same-user before snapshot always produce the same projection without canonical mutation.",
+      "compatibility": "v2 succeeds the retired explanation-only v1; changing canonical owners or persisting a new coach fact requires a new version.",
+      "errorSemantics": ["PROFILE_UNAVAILABLE", "SNAPSHOT_INVALID", "SNAPSHOT_EXPIRED", "NO_ACTIVE_TASK"],
+      "requirementRefs": ["REQ-ANAN-COACH-ENTRY-002", "REQ-ANAN-EVIDENCE-LEVEL-002", "REQ-ANAN-VERIFIABLE-COACH-LOOP-002", "REQ-ANAN-SINGLE-COACH-VOICE-001"],
+      "evidenceRefs": ["E-USER-ANAN-GOLDEN-LOOP-002", "E-CODE-ANAN-BRAIN-EVIDENCE-002", "E-CODE-ANAN-POST-TASK-GAP-002"],
+      "observability": {
+        "correlation": "Projection inherits planVersionId, profileVersionId, candidateVersionId and taskId without logging free text.",
+        "audit": "Only existing strategy decision and task execution commands write canonical facts; local snapshot removal is not a canonical audit event.",
+        "metrics": "Existing Today metrics may group by recognitionLevel, candidate action and whether verified feedback was shown."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "multi-exam-teaching-package-compiler@v1",
+      "kind": "file",
+      "owner": "teaching_package_compilation",
+      "consumers": ["teach-back-shadow-evaluation", "teach-back-session-runtime"],
+      "schemaLocator": "inline://contracts.json#/contracts/multi-exam-teaching-package-compiler@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "Read-only resolved content for one objective-test micro-skill and one exact exam scope key.",
+        "properties": {
+          "targetScopeKey": {"type": "string", "description": "Canonical examCode:regionCode:year:categoryCode:subjectCode identity."},
+          "microSkillId": {"type": "string", "description": "Stable micro-skill identifier selected by confirmed learning evidence."},
+          "sourceQuestionRef": {"type": "string", "description": "Immutable source question and content-version reference that initiated remediation."},
+          "methodBinding": {
+            "type": "object",
+            "description": "One reviewed method-content binding and its explicitly authorized target scopes.",
+            "properties": {
+              "bindingRef": {"type": "string", "description": "Immutable binding identifier and version."},
+              "methodCardRef": {"type": "string", "description": "Immutable method-card identifier and content version."},
+              "status": {"type": "string", "description": "Publication state of the scope binding.", "enum": ["draft", "published", "withdrawn"]},
+              "scopeKeys": {"type": "array", "description": "Exact authorized exam scope keys; no implicit inheritance is allowed.", "items": {"type": "string", "description": "One canonical authorized scope key."}, "minItems": 1},
+              "microSkillId": {"type": "string", "description": "Micro-skill authorized by the binding."},
+              "title": {"type": "string", "description": "Reviewed method title."},
+              "recognition": {"type": "string", "description": "Reviewed cue for recognizing applicable questions."},
+              "methodSteps": {"type": "array", "description": "Reviewed executable method steps.", "items": {"type": "string", "description": "One method step."}, "minItems": 1},
+              "applicability": {"type": "array", "description": "Reviewed positive application boundaries.", "items": {"type": "string", "description": "One application condition."}, "minItems": 1},
+              "exclusions": {"type": "array", "description": "Reviewed conditions where the method must not be used.", "items": {"type": "string", "description": "One exclusion boundary."}, "minItems": 1},
+              "pitfalls": {"type": "array", "description": "Reviewed common mistakes used only by the verifier layer.", "items": {"type": "string", "description": "One reviewed pitfall."}, "minItems": 1},
+              "reviewer": {"type": "string", "description": "Accountable human reviewer identity."},
+              "reviewedAt": {"type": "string", "description": "Review timestamp or date attached to this binding version."},
+              "evidenceRefs": {"type": "array", "description": "References supporting method content, scope and review.", "items": {"type": "string", "description": "One immutable method evidence reference."}, "minItems": 1}
+            },
+            "required": ["bindingRef", "methodCardRef", "status", "scopeKeys", "microSkillId", "title", "recognition", "methodSteps", "applicability", "exclusions", "pitfalls", "reviewer", "reviewedAt", "evidenceRefs"],
+            "additionalProperties": false
+          },
+          "questionCandidates": {
+            "type": "array",
+            "description": "Resolved immutable candidate questions ordered by deterministic selection key.",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "description": "One internal candidate containing both safe question text and server-only answer context.",
+              "properties": {
+                "questionRef": {"type": "string", "description": "Immutable question and content-version reference."},
+                "scopeKey": {"type": "string", "description": "Exact canonical scope of this content version."},
+                "microSkillId": {"type": "string", "description": "Micro-skill bound to this question version."},
+                "status": {"type": "string", "description": "Question publication state.", "enum": ["draft", "published", "withdrawn"]},
+                "exposureState": {"type": "string", "description": "Whether this user has seen or answered the content version.", "enum": ["unseen", "seen"]},
+                "answerStatus": {"type": "string", "description": "Authority status of the answer key.", "enum": ["accepted", "missing", "disputed"]},
+                "explanationStatus": {"type": "string", "description": "Authority status of the explanation.", "enum": ["accepted", "missing", "disputed"]},
+                "qualityStatus": {"type": "string", "description": "Current content quality decision.", "enum": ["approved", "needs_review", "invalid"]},
+                "rightsStatus": {"type": "string", "description": "Permission to use this content in the teaching workflow.", "enum": ["permitted", "pending", "blocked"]},
+                "visualStatus": {"type": "string", "description": "Whether required visuals are deterministically usable.", "enum": ["not_required", "verified", "needs_review", "invalid"]},
+                "stem": {"type": "string", "description": "Safe question stem without answer or explanation."},
+                "options": {"type": "array", "description": "Safe labeled answer options.", "items": {"type": "string", "description": "One labeled option."}, "minItems": 2},
+                "answerKey": {"type": "array", "description": "Server-only accepted option identifiers.", "items": {"type": "string", "description": "One accepted option identifier."}, "minItems": 1},
+                "explanation": {"type": "string", "description": "Server-only accepted explanation."},
+                "evidenceRefs": {"type": "array", "description": "References supporting content, answer, quality and rights state.", "items": {"type": "string", "description": "One immutable question evidence reference."}, "minItems": 1}
+              },
+              "required": ["questionRef", "scopeKey", "microSkillId", "status", "exposureState", "answerStatus", "explanationStatus", "qualityStatus", "rightsStatus", "visualStatus", "stem", "options", "answerKey", "explanation", "evidenceRefs"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["targetScopeKey", "microSkillId", "sourceQuestionRef", "methodBinding", "questionCandidates"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "A complete internal teaching package candidate or a closed failure report; never a partial package.",
+        "properties": {
+          "state": {"type": "string", "description": "Whether a complete package was compiled.", "enum": ["teachable", "unavailable"]},
+          "reasonCodes": {"type": "array", "description": "Stable bounded failure reasons; empty for a teachable package.", "items": {"type": "string", "description": "One stable compiler reason code."}},
+          "packageCandidates": {
+            "type": "array",
+            "description": "Exactly one complete package for teachable or no package for unavailable.",
+            "maxItems": 1,
+            "items": {
+              "type": "object",
+              "description": "Internal package with separately projectable safe question and answer contexts.",
+              "properties": {
+                "contractVersion": {"type": "string", "description": "Exact compiled package contract version.", "const": "multi-exam-teaching-package@v1"},
+                "fingerprint": {"type": "string", "description": "SHA-256 of the canonical resolved input."},
+                "targetScopeKey": {"type": "string", "description": "Exact target exam scope key."},
+                "microSkillId": {"type": "string", "description": "Exact micro-skill taught by this package."},
+                "methodBindingRef": {"type": "string", "description": "Reviewed scope binding used for compilation."},
+                "studentQuestionRef": {"type": "string", "description": "Question A immutable reference."},
+                "studentStem": {"type": "string", "description": "Question A safe stem."},
+                "studentOptions": {"type": "array", "description": "Question A safe options.", "items": {"type": "string", "description": "One safe Question A option."}, "minItems": 2},
+                "studentAnswerKey": {"type": "array", "description": "Question A server-only answer key.", "items": {"type": "string", "description": "One accepted Question A option identifier."}, "minItems": 1},
+                "studentExplanation": {"type": "string", "description": "Question A server-only explanation."},
+                "userTransferQuestionRef": {"type": "string", "description": "Question B immutable reference."},
+                "userTransferStem": {"type": "string", "description": "Question B safe stem."},
+                "userTransferOptions": {"type": "array", "description": "Question B safe options.", "items": {"type": "string", "description": "One safe Question B option."}, "minItems": 2},
+                "userTransferAnswerKey": {"type": "array", "description": "Question B server-only answer key.", "items": {"type": "string", "description": "One accepted Question B option identifier."}, "minItems": 1},
+                "userTransferExplanation": {"type": "string", "description": "Question B server-only explanation."},
+                "evidenceRefs": {"type": "array", "description": "Complete de-duplicated method and question evidence references.", "items": {"type": "string", "description": "One immutable package evidence reference."}, "minItems": 1}
+              },
+              "required": ["contractVersion", "fingerprint", "targetScopeKey", "microSkillId", "methodBindingRef", "studentQuestionRef", "studentStem", "studentOptions", "studentAnswerKey", "studentExplanation", "userTransferQuestionRef", "userTransferStem", "userTransferOptions", "userTransferAnswerKey", "userTransferExplanation", "evidenceRefs"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["state", "reasonCodes", "packageCandidates"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["internal"],
+      "authorization": "Offline or server-internal compilation only; caller must already be authorized for every resolved content version and no user-private material is accepted by v1.",
+      "idempotency": "Canonicalized target scope, method binding and ordered content versions produce one SHA-256 fingerprint; compilation performs no write.",
+      "compatibility": "v1 covers objective xingce/zhice micro-skills for guokao, shengkao and sydw. Written-response rubric packages require a later additive contract rather than weakening answer determinism.",
+      "errorSemantics": ["METHOD_SCOPE_MISMATCH", "METHOD_UNPUBLISHED", "METHOD_REVIEW_MISSING", "QUESTION_SCOPE_MISMATCH", "QUESTION_UNPUBLISHED", "QUESTION_EXPOSED", "ANSWER_UNAVAILABLE", "EXPLANATION_UNAVAILABLE", "QUALITY_UNAPPROVED", "RIGHTS_UNPERMITTED", "VISUAL_UNAVAILABLE", "INSUFFICIENT_DISTINCT_QUESTIONS", "EVIDENCE_MISSING"],
+      "requirementRefs": ["REQ-TEACHING-PACKAGE-MULTI-EXAM-001"],
+      "evidenceRefs": ["E-USER-TEACHING-PACKAGE-MULTI-EXAM-001", "E-CODE-TEACHING-PACKAGE-SCOPE-GAP-001"],
+      "observability": {
+        "correlation": "The deterministic package fingerprint correlates later shadow and session calls without containing user identity.",
+        "audit": "This pure compiler writes no audit event; later content publication and teach-back session commands own their audits.",
+        "metrics": "Tests and future callers may count state and bounded reasonCode only; content text and answer keys must not be metric labels."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "multi-exam-teaching-package-compiler@v2",
+      "kind": "file",
+      "owner": "teaching_package_compilation",
+      "consumers": ["teach-back-shadow-evaluation", "teach-back-session-runtime"],
+      "schemaLocator": "inline://contracts.json#/contracts/multi-exam-teaching-package-compiler@v2",
+      "inputSchema": {
+        "type": "object",
+        "description": "Read-only objective-test material using lightweight cross-exam method reuse.",
+        "properties": {
+          "targetScopeKey": {"type": "string", "description": "Canonical examCode:regionCode:year:categoryCode:subjectCode target identity."},
+          "microSkillId": {"type": "string", "description": "Stable micro-skill selected from learning evidence."},
+          "sourceQuestionRef": {"type": "string", "description": "Original remediation question reference excluded from both selected slots."},
+          "methodAsset": {
+            "type": "object",
+            "description": "Existing reusable method card content with only explicit exam exclusions.",
+            "properties": {
+              "methodCardRef": {"type": "string", "description": "Immutable method-card reference."},
+              "excludedExamCodes": {"type": "array", "description": "Exam projects explicitly declared incompatible; empty means reusable across supported projects.", "items": {"type": "string", "description": "One explicitly excluded exam code.", "enum": ["guokao", "shengkao", "sydw"]}},
+              "microSkillId": {"type": "string", "description": "Micro-skill taught by this method."},
+              "title": {"type": "string", "description": "Method title."},
+              "recognition": {"type": "string", "description": "Cue for recognizing applicable questions."},
+              "methodSteps": {"type": "array", "description": "Executable method steps.", "items": {"type": "string", "description": "One method step."}, "minItems": 1},
+              "applicability": {"type": "array", "description": "Positive application conditions.", "items": {"type": "string", "description": "One application condition."}, "minItems": 1},
+              "exclusions": {"type": "array", "description": "Question-level boundaries where the method does not apply.", "items": {"type": "string", "description": "One method boundary."}},
+              "pitfalls": {"type": "array", "description": "Common mistakes supplied to the later verifier only.", "items": {"type": "string", "description": "One common mistake."}}
+            },
+            "required": ["methodCardRef", "excludedExamCodes", "microSkillId", "title", "recognition", "methodSteps", "applicability", "exclusions", "pitfalls"],
+            "additionalProperties": false
+          },
+          "questionCandidates": {
+            "type": "array",
+            "description": "Resolved candidate questions; source scope is traceability rather than a reuse gate.",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "description": "One unseen question with a safe surface and server-only answer context.",
+              "properties": {
+                "questionRef": {"type": "string", "description": "Immutable question reference."},
+                "sourceScopeKey": {"type": "string", "description": "Original content scope retained for traceability."},
+                "microSkillId": {"type": "string", "description": "Micro-skill bound to the question."},
+                "exposureState": {"type": "string", "description": "Whether this user has seen the question.", "enum": ["unseen", "seen"]},
+                "stem": {"type": "string", "description": "Safe question stem."},
+                "options": {"type": "array", "description": "Safe labeled options.", "items": {"type": "string", "description": "One labeled option."}, "minItems": 2},
+                "answerKey": {"type": "array", "description": "Server-only answer identifiers.", "items": {"type": "string", "description": "One answer identifier."}, "minItems": 1},
+                "explanation": {"type": "string", "description": "Server-only explanation."}
+              },
+              "required": ["questionRef", "sourceScopeKey", "microSkillId", "exposureState", "stem", "options", "answerKey", "explanation"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["targetScopeKey", "microSkillId", "sourceQuestionRef", "methodAsset", "questionCandidates"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "One complete package or a bounded failure report with no partial package.",
+        "properties": {
+          "state": {"type": "string", "description": "Compilation availability.", "enum": ["teachable", "unavailable"]},
+          "reasonCodes": {"type": "array", "description": "Stable failure reasons; empty when teachable.", "items": {"type": "string", "description": "One compiler failure reason."}},
+          "packageCandidates": {
+            "type": "array",
+            "description": "Exactly one complete package or none.",
+            "maxItems": 1,
+            "items": {
+              "type": "object",
+              "description": "Internal package with separate safe surfaces and answer contexts.",
+              "properties": {
+                "contractVersion": {"type": "string", "description": "Compiled package version.", "const": "multi-exam-teaching-package@v2"},
+                "fingerprint": {"type": "string", "description": "SHA-256 of the canonical resolved input."},
+                "targetScopeKey": {"type": "string", "description": "Target learning scope."},
+                "microSkillId": {"type": "string", "description": "Taught micro-skill."},
+                "methodCardRef": {"type": "string", "description": "Reusable method asset used by the package."},
+                "studentQuestionRef": {"type": "string", "description": "Question A reference."},
+                "studentStem": {"type": "string", "description": "Question A safe stem."},
+                "studentOptions": {"type": "array", "description": "Question A safe options.", "items": {"type": "string", "description": "One Question A option."}, "minItems": 2},
+                "studentAnswerKey": {"type": "array", "description": "Question A server-only answer.", "items": {"type": "string", "description": "One Question A answer identifier."}, "minItems": 1},
+                "studentExplanation": {"type": "string", "description": "Question A server-only explanation."},
+                "userTransferQuestionRef": {"type": "string", "description": "Question B reference."},
+                "userTransferStem": {"type": "string", "description": "Question B safe stem."},
+                "userTransferOptions": {"type": "array", "description": "Question B safe options.", "items": {"type": "string", "description": "One Question B option."}, "minItems": 2},
+                "userTransferAnswerKey": {"type": "array", "description": "Question B server-only answer.", "items": {"type": "string", "description": "One Question B answer identifier."}, "minItems": 1},
+                "userTransferExplanation": {"type": "string", "description": "Question B server-only explanation."}
+              },
+              "required": ["contractVersion", "fingerprint", "targetScopeKey", "microSkillId", "methodCardRef", "studentQuestionRef", "studentStem", "studentOptions", "studentAnswerKey", "studentExplanation", "userTransferQuestionRef", "userTransferStem", "userTransferOptions", "userTransferAnswerKey", "userTransferExplanation"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["state", "reasonCodes", "packageCandidates"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["internal"],
+      "authorization": "Offline or server-internal compilation only; v2 accepts no user-private material and performs no write.",
+      "idempotency": "Canonical target, reusable method asset and selected questions produce one deterministic fingerprint.",
+      "compatibility": "v2 replaces per-scope method approval with default cross-exam reuse and explicit exam exclusions; written responses remain outside this contract.",
+      "errorSemantics": ["METHOD_EXCLUDED_FOR_EXAM", "QUESTION_EXPOSED", "ANSWER_UNAVAILABLE", "EXPLANATION_UNAVAILABLE", "INSUFFICIENT_DISTINCT_QUESTIONS"],
+      "requirementRefs": ["REQ-TEACHING-PACKAGE-LIGHTWEIGHT-REUSE-002"],
+      "evidenceRefs": ["E-USER-TEACHING-PACKAGE-REUSE-002", "E-CODE-TEACHING-PACKAGE-SCOPE-GAP-001"],
+      "observability": {
+        "correlation": "The deterministic fingerprint correlates later shadow and session calls without user identity.",
+        "audit": "The pure compiler writes no audit event.",
+        "metrics": "Future callers may count state and reason code only; method text, stems and answers are never metric labels."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "teach-back-shadow-evaluation@v1",
+      "kind": "file",
+      "owner": "teach_back_shadow",
+      "consumers": ["teach-back-shadow-evaluation", "future-teach-back-session-runtime"],
+      "schemaLocator": "inline://contracts.json#/contracts/teach-back-shadow-evaluation@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "Offline preparation input containing one compiled package and one user explanation.",
+        "properties": {
+          "packageFingerprint": {"type": "string", "description": "Compiled teaching-package identity."},
+          "methodCardRef": {"type": "string", "description": "Reusable method asset reference used only in the isolated verifier context."},
+          "methodSteps": {"type": "array", "description": "Method steps supplied only to the verifier.", "items": {"type": "string", "description": "One authoritative method step."}, "minItems": 1},
+          "pitfalls": {"type": "array", "description": "Method pitfalls supplied only to the verifier.", "items": {"type": "string", "description": "One known pitfall."}},
+          "studentQuestionRef": {"type": "string", "description": "Question A identity."},
+          "studentStem": {"type": "string", "description": "Question A safe stem visible to the student context."},
+          "studentOptions": {"type": "array", "description": "Question A safe options visible to the student context.", "items": {"type": "string", "description": "One safe option."}, "minItems": 2},
+          "studentAnswerKey": {"type": "array", "description": "Question A answer supplied only to the verifier.", "items": {"type": "string", "description": "One answer identifier."}, "minItems": 1},
+          "studentExplanation": {"type": "string", "description": "Question A explanation supplied only to the verifier."},
+          "userExplanation": {"type": "string", "description": "User wording that is the only knowledge source for the student context."}
+        },
+        "required": ["packageFingerprint", "methodCardRef", "methodSteps", "pitfalls", "studentQuestionRef", "studentStem", "studentOptions", "studentAnswerKey", "studentExplanation", "userExplanation"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Prepared isolated prompt candidates or a pre-model explanation failure.",
+        "properties": {
+          "state": {"type": "string", "description": "Preparation state.", "enum": ["ready", "needs_explanation"]},
+          "reasonCodes": {"type": "array", "description": "Stable pre-model failure reasons.", "items": {"type": "string", "description": "One preparation reason."}},
+          "studentRequests": {
+            "type": "array",
+            "description": "Exactly one answer-free student request when ready, otherwise none.",
+            "maxItems": 1,
+            "items": {
+              "type": "object",
+              "description": "Student-only prompt candidate.",
+              "properties": {
+                "promptVersion": {"type": "string", "description": "Student prompt version.", "const": "student-anan-reproduction@v1"},
+                "systemPrompt": {"type": "string", "description": "No-prior-knowledge student instruction."},
+                "userExplanation": {"type": "string", "description": "User explanation passed unchanged."},
+                "questionRef": {"type": "string", "description": "Question A identity."},
+                "stem": {"type": "string", "description": "Question A safe stem."},
+                "options": {"type": "array", "description": "Question A safe options.", "items": {"type": "string", "description": "One safe option."}, "minItems": 2}
+              },
+              "required": ["promptVersion", "systemPrompt", "userExplanation", "questionRef", "stem", "options"],
+              "additionalProperties": false
+            }
+          },
+          "verifierRequests": {
+            "type": "array",
+            "description": "Exactly one isolated grounding request when ready, otherwise none.",
+            "maxItems": 1,
+            "items": {
+              "type": "object",
+              "description": "Verifier-only request containing the teaching authority and allowed references.",
+              "properties": {
+                "promptVersion": {"type": "string", "description": "Verifier prompt version.", "const": "teach-back-grounding-verifier@v1"},
+                "packageFingerprint": {"type": "string", "description": "Teaching package identity."},
+                "allowedEvidenceRefs": {"type": "array", "description": "Complete evidence reference whitelist.", "items": {"type": "string", "description": "One allowed evidence reference."}, "minItems": 2}
+              },
+              "required": ["promptVersion", "packageFingerprint", "allowedEvidenceRefs"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["state", "reasonCodes", "studentRequests", "verifierRequests"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["internal"],
+      "authorization": "Offline shadow preparation only; no network, provider, persistence or user-facing delivery is authorized.",
+      "idempotency": "Identical package fingerprint, safe question and user explanation produce identical immutable request candidates.",
+      "compatibility": "v1 prepares isolated requests and validates synthetic outputs; provider execution and sessions require a later contract.",
+      "errorSemantics": ["EXPLANATION_REQUIRED", "STUDENT_OUTPUT_INVALID", "GROUNDING_REFERENCE_OUT_OF_SCOPE"],
+      "requirementRefs": ["REQ-TEACH-BACK-SHADOW-001"],
+      "evidenceRefs": ["E-USER-TEACH-BACK-STUDENT-001", "E-USER-TEACHING-PACKAGE-REUSE-002"],
+      "observability": {
+        "correlation": "Package fingerprint and prompt versions correlate offline cases without user identity.",
+        "audit": "This pure shadow unit writes no audit fact.",
+        "metrics": "Offline tests may count preparation states and validation reasons only; explanation and question text are not metric labels."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "teach-back-student-provider-candidate@v1",
+      "kind": "ai_candidate",
+      "owner": "teach_back_shadow",
+      "consumers": ["teach-back-provider-shadow-runtime", "future-teach-back-session-runtime"],
+      "schemaLocator": "inline://contracts.json#/contracts/teach-back-student-provider-candidate@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "The complete answer-free student-model request produced by teach-back-shadow-evaluation@v1.",
+        "properties": {
+          "promptVersion": {"type": "string", "description": "Frozen student prompt version.", "const": "student-anan-reproduction@v1"},
+          "systemPrompt": {"type": "string", "description": "No-prior-knowledge system instruction."},
+          "userExplanation": {"type": "string", "description": "Synthetic user explanation and only teaching source."},
+          "questionRef": {"type": "string", "description": "Synthetic Question A reference."},
+          "stem": {"type": "string", "description": "Question A safe stem."},
+          "options": {"type": "array", "description": "Question A safe options.", "items": {"type": "string", "description": "One safe option."}, "minItems": 2}
+        },
+        "required": ["promptVersion", "systemPrompt", "userExplanation", "questionRef", "stem", "options"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "One validated student reproduction candidate plus an in-memory audit record aligned with the existing model-call ledger.",
+        "properties": {
+          "state": {"type": "string", "description": "Whether the student could reproduce only the taught steps.", "enum": ["blocked", "reproduced"]},
+          "reproducedSteps": {"type": "array", "description": "Steps restated from the synthetic explanation only.", "items": {"type": "string", "description": "One restated step."}},
+          "attemptedOptionId": {"type": "string", "description": "Attempted option when reproduction is complete."},
+          "blockedAt": {"type": "string", "description": "First missing or unusable step when blocked."},
+          "clarificationQuestion": {"type": "string", "description": "Exactly one clarification when blocked."},
+          "callAudit": {
+            "type": "object",
+            "description": "Content-free model-call audit candidate.",
+            "properties": {
+              "idempotencyKey": {"type": "string", "description": "Stable phase-specific provider idempotency key."},
+              "operation": {"type": "string", "description": "Stable student reproduction operation."},
+              "provider": {"type": "string", "description": "Provider release identity."},
+              "model": {"type": "string", "description": "Requested model identity."},
+              "promptVersion": {"type": "string", "description": "Prompt version."},
+              "schemaVersion": {"type": "string", "description": "Output schema version."},
+              "inputFingerprint": {"type": "string", "description": "SHA-256 of the exact provider request body."},
+              "outputFingerprint": {"type": "string", "description": "SHA-256 of returned structured content."},
+              "inputTokens": {"type": "integer", "description": "Provider-reported input tokens.", "minimum": 0},
+              "cachedInputTokens": {"type": "integer", "description": "Provider-reported cached input tokens.", "minimum": 0},
+              "outputTokens": {"type": "integer", "description": "Provider-reported output tokens.", "minimum": 0},
+              "totalCostCny": {"type": "string", "description": "Price-card-derived decimal CNY cost."},
+              "latencyMs": {"type": "integer", "description": "Observed provider latency in milliseconds.", "minimum": 0},
+              "requestIdSource": {"type": "string", "description": "Configured response header or body field used for audit."},
+              "requestIdFingerprint": {"type": "string", "description": "SHA-256 of the provider request ID."}
+            },
+            "required": ["idempotencyKey", "operation", "provider", "model", "promptVersion", "schemaVersion", "inputFingerprint", "outputFingerprint", "inputTokens", "cachedInputTokens", "outputTokens", "totalCostCny", "latencyMs", "requestIdSource", "requestIdFingerprint"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["state", "callAudit"],
+        "additionalProperties": false,
+        "oneOf": [
+          {
+            "type": "object",
+            "description": "Blocked student candidate with one clarification and no attempted answer.",
+            "properties": {
+              "state": {"type": "string", "description": "Blocked discriminator.", "const": "blocked"},
+              "reproducedSteps": {"type": "array", "description": "Any faithfully reproduced prefix.", "items": {"type": "string", "description": "One restated step."}},
+              "attemptedOptionId": {"type": "string", "description": "Must be absent for blocked candidates."},
+              "blockedAt": {"type": "string", "description": "First missing or unusable step."},
+              "clarificationQuestion": {"type": "string", "description": "Exactly one clarification."},
+              "callAudit": {"type": "object", "description": "Ledger-aligned audit candidate.", "properties": {"idempotencyKey": {"type": "string", "description": "Stable phase-specific provider idempotency key."}, "operation": {"type": "string", "description": "Stable student reproduction operation."}, "provider": {"type": "string", "description": "Provider release identity."}, "model": {"type": "string", "description": "Requested model identity."}, "promptVersion": {"type": "string", "description": "Prompt version."}, "schemaVersion": {"type": "string", "description": "Output schema version."}, "inputFingerprint": {"type": "string", "description": "SHA-256 of the exact provider request body."}, "outputFingerprint": {"type": "string", "description": "SHA-256 of returned structured content."}, "inputTokens": {"type": "integer", "description": "Provider-reported input tokens.", "minimum": 0}, "cachedInputTokens": {"type": "integer", "description": "Provider-reported cached input tokens.", "minimum": 0}, "outputTokens": {"type": "integer", "description": "Provider-reported output tokens.", "minimum": 0}, "totalCostCny": {"type": "string", "description": "Price-card-derived decimal CNY cost."}, "latencyMs": {"type": "integer", "description": "Observed provider latency in milliseconds.", "minimum": 0}, "requestIdSource": {"type": "string", "description": "Configured response header or body field used for audit."}, "requestIdFingerprint": {"type": "string", "description": "SHA-256 of the provider request ID."}}, "required": ["idempotencyKey", "operation", "provider", "model", "promptVersion", "schemaVersion", "inputFingerprint", "outputFingerprint", "inputTokens", "cachedInputTokens", "outputTokens", "totalCostCny", "latencyMs", "requestIdSource", "requestIdFingerprint"], "additionalProperties": false}
+            },
+            "required": ["state", "blockedAt", "clarificationQuestion", "callAudit"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "description": "Complete reproduction candidate with restated steps and one attempted option.",
+            "properties": {
+              "state": {"type": "string", "description": "Reproduced discriminator.", "const": "reproduced"},
+              "reproducedSteps": {"type": "array", "description": "Faithfully reproduced steps.", "items": {"type": "string", "description": "One restated step."}, "minItems": 1},
+              "attemptedOptionId": {"type": "string", "description": "Attempted option identifier."},
+              "blockedAt": {"type": "string", "description": "Must be absent for reproduced candidates."},
+              "clarificationQuestion": {"type": "string", "description": "Must be absent for reproduced candidates."},
+              "callAudit": {"type": "object", "description": "Ledger-aligned audit candidate.", "properties": {"idempotencyKey": {"type": "string", "description": "Stable phase-specific provider idempotency key."}, "operation": {"type": "string", "description": "Stable student reproduction operation."}, "provider": {"type": "string", "description": "Provider release identity."}, "model": {"type": "string", "description": "Requested model identity."}, "promptVersion": {"type": "string", "description": "Prompt version."}, "schemaVersion": {"type": "string", "description": "Output schema version."}, "inputFingerprint": {"type": "string", "description": "SHA-256 of the exact provider request body."}, "outputFingerprint": {"type": "string", "description": "SHA-256 of returned structured content."}, "inputTokens": {"type": "integer", "description": "Provider-reported input tokens.", "minimum": 0}, "cachedInputTokens": {"type": "integer", "description": "Provider-reported cached input tokens.", "minimum": 0}, "outputTokens": {"type": "integer", "description": "Provider-reported output tokens.", "minimum": 0}, "totalCostCny": {"type": "string", "description": "Price-card-derived decimal CNY cost."}, "latencyMs": {"type": "integer", "description": "Observed provider latency in milliseconds.", "minimum": 0}, "requestIdSource": {"type": "string", "description": "Configured response header or body field used for audit."}, "requestIdFingerprint": {"type": "string", "description": "SHA-256 of the provider request ID."}}, "required": ["idempotencyKey", "operation", "provider", "model", "promptVersion", "schemaVersion", "inputFingerprint", "outputFingerprint", "inputTokens", "cachedInputTokens", "outputTokens", "totalCostCny", "latencyMs", "requestIdSource", "requestIdFingerprint"], "additionalProperties": false}
+            },
+            "required": ["state", "reproducedSteps", "attemptedOptionId", "callAudit"],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "dataClasses": ["internal"],
+      "authorization": "Synthetic shadow cases only; no authenticated user or business-state access.",
+      "idempotency": "The package fingerprint and student phase produce one stable provider idempotency key; replay never changes the phase key.",
+      "compatibility": "The provider adapter may change only behind the frozen prompt and output schema versions; user sessions require a later contract.",
+      "errorSemantics": ["PROVIDER_CONFIGURATION_INVALID", "PROVIDER_OUTCOME_UNCERTAIN", "PROVIDER_RESPONSE_INVALID", "PROVIDER_REQUEST_ID_INVALID"],
+      "requirementRefs": ["REQ-TEACH-BACK-PROVIDER-SHADOW-002"],
+      "evidenceRefs": ["E-USER-TEACH-BACK-STAGED-002", "E-CODE-TEACH-BACK-PROVIDER-INFRA-002"],
+      "observability": {
+        "correlation": "Package fingerprint, phase idempotency key and content-free fingerprints correlate the synthetic call.",
+        "audit": "The unit returns a ledger-aligned in-memory candidate and performs no repository write.",
+        "metrics": "Token, latency and derived cost may be aggregated; prompt, explanation and question content are prohibited labels."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "teach-back-verifier-provider-candidate@v1",
+      "kind": "ai_candidate",
+      "owner": "teach_back_shadow",
+      "consumers": ["teach-back-provider-shadow-runtime", "future-teach-back-session-runtime"],
+      "schemaLocator": "inline://contracts.json#/contracts/teach-back-verifier-provider-candidate@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "Isolated verifier authority, the validated student candidate and its exact evidence whitelist.",
+        "properties": {
+          "promptVersion": {"type": "string", "description": "Frozen verifier prompt version.", "const": "teach-back-grounding-verifier@v1"},
+          "packageFingerprint": {"type": "string", "description": "Current teaching-package identity."},
+          "methodSteps": {"type": "array", "description": "Authoritative method steps for verifier use only.", "items": {"type": "string", "description": "One method step."}, "minItems": 1},
+          "answerKey": {"type": "array", "description": "Question A answer identifiers for verifier use only.", "items": {"type": "string", "description": "One answer identifier."}, "minItems": 1},
+          "answerExplanation": {"type": "string", "description": "Question A explanation for verifier use only."},
+          "allowedEvidenceRefs": {"type": "array", "description": "Complete package-scoped evidence whitelist.", "items": {"type": "string", "description": "One allowed reference."}, "minItems": 2},
+          "studentCandidate": {"type": "object", "description": "Validated output of the isolated student call.", "properties": {"state": {"type": "string", "description": "Student outcome.", "enum": ["blocked", "reproduced"]}, "reproducedSteps": {"type": "array", "description": "Student-restated steps.", "items": {"type": "string", "description": "One step."}}}, "required": ["state", "reproducedSteps"], "additionalProperties": false}
+        },
+        "required": ["promptVersion", "packageFingerprint", "methodSteps", "answerKey", "answerExplanation", "allowedEvidenceRefs", "studentCandidate"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "One verifier candidate whose every claim remains package-grounded plus an in-memory ledger-aligned audit record.",
+        "properties": {
+          "claims": {"type": "array", "description": "Package-grounded verification claims.", "items": {"type": "object", "description": "One classified verifier claim.", "properties": {"classification": {"type": "string", "description": "Grounding classification.", "enum": ["supported", "omitted", "conflict", "unknown"]}, "summary": {"type": "string", "description": "Bounded claim summary."}, "evidenceRefs": {"type": "array", "description": "Only exact references from the request whitelist.", "items": {"type": "string", "description": "One package evidence reference."}, "minItems": 1}}, "required": ["classification", "summary", "evidenceRefs"], "additionalProperties": false}, "minItems": 1},
+          "nextAction": {"type": "string", "description": "Shadow-only handoff candidate.", "enum": ["ready_for_transfer", "needs_clarification", "unknown"]},
+          "callAudit": {
+            "type": "object",
+            "description": "Content-free model-call audit candidate.",
+            "properties": {
+              "idempotencyKey": {"type": "string", "description": "Stable verifier-phase provider idempotency key."},
+              "operation": {"type": "string", "description": "Stable grounding verification operation."},
+              "provider": {"type": "string", "description": "Provider release identity."},
+              "model": {"type": "string", "description": "Requested model identity."},
+              "promptVersion": {"type": "string", "description": "Prompt version."},
+              "schemaVersion": {"type": "string", "description": "Output schema version."},
+              "inputFingerprint": {"type": "string", "description": "SHA-256 of the exact provider request body."},
+              "outputFingerprint": {"type": "string", "description": "SHA-256 of returned structured content."},
+              "inputTokens": {"type": "integer", "description": "Provider-reported input tokens.", "minimum": 0},
+              "cachedInputTokens": {"type": "integer", "description": "Provider-reported cached input tokens.", "minimum": 0},
+              "outputTokens": {"type": "integer", "description": "Provider-reported output tokens.", "minimum": 0},
+              "totalCostCny": {"type": "string", "description": "Price-card-derived decimal CNY cost."},
+              "latencyMs": {"type": "integer", "description": "Observed provider latency in milliseconds.", "minimum": 0},
+              "requestIdSource": {"type": "string", "description": "Configured response header or body field used for audit."},
+              "requestIdFingerprint": {"type": "string", "description": "SHA-256 of the provider request ID."}
+            },
+            "required": ["idempotencyKey", "operation", "provider", "model", "promptVersion", "schemaVersion", "inputFingerprint", "outputFingerprint", "inputTokens", "cachedInputTokens", "outputTokens", "totalCostCny", "latencyMs", "requestIdSource", "requestIdFingerprint"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["claims", "nextAction", "callAudit"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["internal"],
+      "authorization": "Synthetic shadow cases and current package authority only; no authenticated user or business-state access.",
+      "idempotency": "The package fingerprint and verifier phase produce a key distinct from the student call and stable across replay.",
+      "compatibility": "Only a fully whitelisted candidate can leave the provider boundary; persistence and user delivery require a later contract.",
+      "errorSemantics": ["PROVIDER_CONFIGURATION_INVALID", "PROVIDER_OUTCOME_UNCERTAIN", "PROVIDER_RESPONSE_INVALID", "PROVIDER_REQUEST_ID_INVALID", "GROUNDING_REFERENCE_OUT_OF_SCOPE"],
+      "requirementRefs": ["REQ-TEACH-BACK-PROVIDER-SHADOW-002"],
+      "evidenceRefs": ["E-USER-TEACH-BACK-STAGED-002", "E-CODE-TEACH-BACK-PROVIDER-INFRA-002"],
+      "observability": {
+        "correlation": "Package fingerprint, verifier idempotency key and content-free fingerprints correlate the second synthetic call.",
+        "audit": "The unit returns a ledger-aligned in-memory candidate and performs no repository write.",
+        "metrics": "Token, latency, derived cost and grounding rejection reason may be aggregated; content is prohibited."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "anan-coach-verification-feedback-projection@v1",
+      "kind": "file",
+      "owner": "wechat_coach_orchestration",
+      "consumers": ["today-page"],
+      "schemaLocator": "inline://contracts.json#/contracts/anan-coach-verification-feedback-projection@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "Same-user task-before snapshot plus the current authoritative learning-brain profile and Today dashboard.",
+        "properties": {
+          "ownerUserId": {"type": "string", "description": "Exact authenticated snapshot owner."},
+          "beforeProfileVersionId": {"type": "string", "description": "Profile version captured before navigation."},
+          "currentProfileVersionId": {"type": "string", "description": "Current profile version after return."},
+          "beforeErrorPatterns": {"type": "array", "description": "Bounded pre-task pattern summaries.", "items": {"type": "object", "description": "One immutable pattern summary.", "properties": {"patternId": {"type": "string", "description": "Stable pattern identity."}, "displayName": {"type": "string", "description": "Captured visible name."}, "status": {"type": "string", "description": "Captured state.", "enum": ["confirmed", "counterevidence", "retired"]}, "counterevidenceCount": {"type": "integer", "description": "Captured counterevidence count.", "minimum": 0}}, "required": ["patternId", "displayName", "status", "counterevidenceCount"], "additionalProperties": false}},
+          "currentErrorPatterns": {"type": "array", "description": "Current profile pattern summaries with the same shape.", "items": {"type": "object", "description": "One current pattern summary.", "properties": {"patternId": {"type": "string", "description": "Stable pattern identity."}, "displayName": {"type": "string", "description": "Current visible name."}, "status": {"type": "string", "description": "Current state.", "enum": ["confirmed", "counterevidence", "retired"]}, "counterevidenceCount": {"type": "integer", "description": "Current counterevidence count.", "minimum": 0}}, "required": ["patternId", "displayName", "status", "counterevidenceCount"], "additionalProperties": false}},
+          "beforePlanVersionId": {"type": "string", "description": "Plan version captured before navigation."},
+          "currentPlanVersionId": {"type": "string", "description": "Current Today plan version."}
+        },
+        "required": ["ownerUserId", "beforeProfileVersionId", "currentProfileVersionId", "beforeErrorPatterns", "currentErrorPatterns", "beforePlanVersionId", "currentPlanVersionId"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Deterministic visible feedback about exact judgment changes after a task.",
+        "properties": {
+          "changes": {"type": "array", "description": "Verified pattern and evidence deltas only.", "items": {"type": "string", "description": "One user-facing exact delta."}},
+          "nextAction": {"type": "string", "description": "Current canonical next task or close-day action."}
+        },
+        "required": ["changes", "nextAction"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["personal", "internal"],
+      "authorization": "Local authenticated-page projection; snapshot storage key and payload owner must match the exact current user_id.",
+      "idempotency": "The same validated snapshot, current profile and dashboard always produce identical feedback without writing canonical state.",
+      "compatibility": "The snapshot extension is optional for stored v1 payloads; missing pre-task pattern summaries preserve generic evidence feedback. Changing canonical cause or mastery ownership requires a new contract version.",
+      "errorSemantics": ["SNAPSHOT_INVALID", "SNAPSHOT_EXPIRED", "OWNER_MISMATCH", "PROFILE_UNAVAILABLE"],
+      "requirementRefs": ["REQ-CAUSE-VERIFICATION-FEEDBACK-006"],
+      "evidenceRefs": ["E-USER-CAUSE-VERIFICATION-FEEDBACK-006", "E-CODE-CAUSE-COUNTEREVIDENCE-GAP-006"],
+      "observability": {
+        "correlation": "Task id, before/current profile version and before/current plan version correlate the displayed feedback.",
+        "audit": "No new audit row is written; every statement is reproducible from the snapshot and current authoritative projections.",
+        "metrics": "Count new-pattern, partial-counterevidence, withdrawn-pattern and unchanged feedback outcomes without pattern text labels."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "question-bank-runtime-reconciliation@v1",
+      "kind": "file",
+      "owner": "question_bank_runtime_alignment",
+      "consumers": ["question-bank-release-planner"],
+      "schemaLocator": "inline://contracts.json#/contracts/question-bank-runtime-reconciliation@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "Credential-free identities collected from repository manifests and the actual server runtime catalog.",
+        "properties": {
+          "runtimeDatabaseFingerprint": {"type": "string", "description": "One-way identity of the resolved runtime database target."},
+          "activeReleaseRefs": {"type": "array", "description": "Current content and knowledge release identities.", "items": {"type": "string", "description": "One immutable release reference."}},
+          "localManifestRefs": {"type": "array", "description": "Repository-local dataset manifest identities.", "items": {"type": "string", "description": "One immutable manifest reference."}},
+          "examScopes": {"type": "array", "description": "Exam scopes included in this reconciliation.", "items": {"type": "string", "description": "One exam code.", "enum": ["guokao", "shengkao", "sydw"]}, "minItems": 3, "uniqueItems": true}
+        },
+        "required": ["runtimeDatabaseFingerprint", "activeReleaseRefs", "localManifestRefs", "examScopes"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Read-only deterministic question-bank difference report and replay fingerprint.",
+        "properties": {
+          "reconciliationFingerprint": {"type": "string", "description": "SHA-256 of normalized inputs and differences."},
+          "missingCount": {"type": "integer", "description": "Manifest identities absent from runtime.", "minimum": 0},
+          "extraCount": {"type": "integer", "description": "Runtime identities absent from manifests.", "minimum": 0},
+          "mismatchCount": {"type": "integer", "description": "Same identity with differing immutable versions.", "minimum": 0},
+          "quarantinedCount": {"type": "integer", "description": "Explicitly quarantined runtime contents.", "minimum": 0},
+          "withdrawnCount": {"type": "integer", "description": "Explicitly withdrawn runtime contents.", "minimum": 0},
+          "mutationCount": {"type": "integer", "description": "Must remain zero in the read-only unit.", "const": 0}
+        },
+        "required": ["reconciliationFingerprint", "missingCount", "extraCount", "mismatchCount", "quarantinedCount", "withdrawnCount", "mutationCount"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["internal"],
+      "authorization": "Read-only operator context; credentials are consumed from runtime configuration and never serialized into the contract or report.",
+      "idempotency": "Normalized immutable manifests plus the runtime catalog snapshot produce the same reconciliation fingerprint and counts.",
+      "compatibility": "v1 is report-only and makes no server mutation; adding apply semantics or changing identity fields requires a new contract and release unit.",
+      "errorSemantics": ["RUNTIME_TARGET_UNKNOWN", "MANIFEST_IDENTITY_MISSING", "CATALOG_READ_FAILED", "ASSET_HEAD_UNREACHABLE"],
+      "requirementRefs": ["REQ-SERVER-QUESTION-BANK-ALIGNMENT-007"],
+      "evidenceRefs": ["E-USER-SERVER-QUESTION-BANK-ALIGNMENT-007", "E-CODE-SERVER-QUESTION-BANK-BASELINE-007"],
+      "observability": {
+        "correlation": "Runtime database fingerprint, release refs and local manifest refs correlate every diff row.",
+        "audit": "The report records only credential-free identities, counts and immutable version differences.",
+        "metrics": "Counts missing, extra, mismatched, quarantined and withdrawn contents by exam scope without question text labels."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "apply-question-bank-source-identity-release@v1",
+      "kind": "command",
+      "owner": "question_bank_runtime_alignment",
+      "consumers": ["question-bank-operations-release-runner"],
+      "schemaLocator": "inline://contracts.json#/contracts/apply-question-bank-source-identity-release@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "One precomputed and backed-up occurrence source-identity recovery batch.",
+        "properties": {
+          "batchId": {"type": "string", "description": "Stable operator batch identity.", "minLength": 1},
+          "runtimeDatabaseFingerprint": {"type": "string", "description": "Credential-free fingerprint of the exact runtime database."},
+          "sourceManifestFingerprint": {"type": "string", "description": "SHA-256 of normalized source paper and occurrence identities."},
+          "dryRunFingerprint": {"type": "string", "description": "SHA-256 of the exact normalized mutation plan."},
+          "backupRef": {"type": "string", "description": "Server-local verified pre-write database backup identity."},
+          "datasets": {
+            "type": "array",
+            "description": "Exact datasets permitted in this recovery batch.",
+            "items": {"type": "string", "description": "One explicitly authorized runtime source dataset.", "enum": ["qbank-import-20260801", "sydw-public-import-20260801"]},
+            "minItems": 2,
+            "maxItems": 2,
+            "uniqueItems": true
+          },
+          "expectedOccurrenceCounts": {
+            "type": "object",
+            "description": "Exact source occurrence totals by dataset.",
+            "properties": {
+              "qbank-import-20260801": {"type": "integer", "description": "Expected occurrence total from the verified 902-paper source.", "const": 104762},
+              "sydw-public-import-20260801": {"type": "integer", "description": "Expected occurrence total from the verified 1630-paper source.", "const": 123812}
+            },
+            "required": ["qbank-import-20260801", "sydw-public-import-20260801"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["batchId", "runtimeDatabaseFingerprint", "sourceManifestFingerprint", "dryRunFingerprint", "backupRef", "datasets", "expectedOccurrenceCounts"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Deterministic result of one transactional occurrence identity recovery.",
+        "properties": {
+          "batchId": {"type": "string", "description": "Input batch identity."},
+          "state": {"type": "string", "description": "Final command result.", "enum": ["applied", "unchanged"]},
+          "updatedOccurrences": {"type": "integer", "description": "Existing rows whose source identity fields changed.", "minimum": 0},
+          "insertedOccurrences": {"type": "integer", "description": "Missing source occurrences inserted.", "minimum": 0},
+          "quarantinedSurplusOccurrences": {"type": "integer", "description": "Verified surplus occurrences retained under a non-published duplicate-quarantine dataset.", "const": 5},
+          "unmappedSourceQuestions": {"type": "integer", "description": "Must be zero before commit.", "const": 0},
+          "crossExamConflicts": {"type": "integer", "description": "Must be zero before commit.", "const": 0},
+          "deliveryIneligibleSourceQuestions": {
+            "type": "object",
+            "description": "Source questions whose paper identity is restored but which remain excluded from delivery because no active content head exists.",
+            "properties": {
+              "qbank-import-20260801": {"type": "integer", "description": "Verified delivery-ineligible qbank source-question baseline.", "minimum": 0, "maximum": 119},
+              "sydw-public-import-20260801": {"type": "integer", "description": "Verified delivery-ineligible sydw source-question total.", "const": 0}
+            },
+            "required": ["qbank-import-20260801", "sydw-public-import-20260801"],
+            "additionalProperties": false
+          },
+          "mutationFingerprint": {"type": "string", "description": "SHA-256 of committed normalized row identities."}
+        },
+        "required": ["batchId", "state", "updatedOccurrences", "insertedOccurrences", "quarantinedSurplusOccurrences", "unmappedSourceQuestions", "crossExamConflicts", "deliveryIneligibleSourceQuestions", "mutationFingerprint"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["internal"],
+      "authorization": "Explicit operator release authority bound to the accepted release unit; runtime credentials and question text never enter the command artifact.",
+      "idempotency": "The same runtime, source and dry-run fingerprints replay as unchanged after the first complete transaction.",
+      "compatibility": "v1 only repairs occurrence source identity for the two enumerated existing datasets; question content, question deletion/merge, additional catalogs and publication require successor contracts.",
+      "errorSemantics": ["RUNTIME_FINGERPRINT_CHANGED", "SOURCE_MANIFEST_CHANGED", "DRY_RUN_MISMATCH", "BACKUP_UNVERIFIED", "SOURCE_QUESTION_UNMAPPED", "CROSS_EXAM_CONFLICT", "TRANSACTION_FAILED"],
+      "requirementRefs": ["REQ-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008", "REQ-QUESTION-BANK-CONTENT-HEAD-QUARANTINE-008B", "REQ-QUESTION-BANK-SURPLUS-OCCURRENCE-QUARANTINE-008C"],
+      "evidenceRefs": ["E-USER-QUESTION-BANK-SOURCE-IDENTITY-RECOVERY-008", "E-CODE-QUESTION-BANK-SOURCE-IDENTITY-GAP-008", "E-CODE-QUESTION-BANK-CONTENT-HEAD-QUARANTINE-008B", "E-CODE-QUESTION-BANK-SURPLUS-OCCURRENCE-008C"],
+      "transactionScopeResources": ["question-bank-source-identity-release"],
+      "transactionBoundary": "One PostgreSQL transaction locks the two source-dataset occurrence sets, rechecks the dry-run preconditions, updates and inserts only their occurrence source-identity rows, and commits only after exact postcondition counts pass.",
+      "transactionEmits": [],
+      "observability": {
+        "correlation": "Batch ID plus runtime, source, dry-run and mutation fingerprints correlate preparation, backup, apply and verification.",
+        "audit": "A credential-free report retains counts, fingerprints and backup identity; it excludes question text and runtime secrets.",
+        "metrics": "Count updated, inserted, unmapped and conflicting rows per dataset and compare exact postcondition occurrence totals."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "apply-question-delivery-quarantine@v1",
+      "kind": "command",
+      "owner": "question_bank_runtime_alignment",
+      "consumers": ["question-bank-operations-release-runner"],
+      "schemaLocator": "inline://contracts.json#/contracts/apply-question-delivery-quarantine@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "One precomputed, backed-up and reviewable quarantine batch for incomplete runtime questions.",
+        "properties": {
+          "batchId": {"type": "string", "description": "Stable operator batch identity.", "minLength": 1},
+          "runtimeDatabaseFingerprint": {"type": "string", "description": "Credential-free fingerprint of the exact runtime database."},
+          "dryRunFingerprint": {"type": "string", "description": "SHA-256 of the exact ordered question/reason/status plan."},
+          "backupRef": {"type": "string", "description": "Verified server-local pre-write status snapshot identity."},
+          "expectedQuestions": {"type": "integer", "description": "Exact physical question baseline.", "const": 273},
+          "expectedMissingContentHead": {"type": "integer", "description": "Exact missing current-content-head baseline.", "const": 153},
+          "expectedMissingAnswer": {"type": "integer", "description": "Exact missing question-answer baseline.", "const": 120}
+        },
+        "required": ["batchId", "runtimeDatabaseFingerprint", "dryRunFingerprint", "backupRef", "expectedQuestions", "expectedMissingContentHead", "expectedMissingAnswer"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Deterministic result of one transactional question-delivery quarantine.",
+        "properties": {
+          "batchId": {"type": "string", "description": "Input batch identity."},
+          "state": {"type": "string", "description": "Final result.", "enum": ["applied", "unchanged"]},
+          "matchedQuestions": {"type": "integer", "description": "Exact question IDs in the immutable plan.", "const": 273},
+          "updatedQuestions": {"type": "integer", "description": "Rows changed from active to quarantined.", "minimum": 0, "maximum": 273},
+          "eligibleBindings": {"type": "integer", "description": "Active-release delivery-eligible bindings after apply.", "const": 0},
+          "userEvidenceReferences": {"type": "integer", "description": "Assessment/exposure/favorite references found before apply.", "const": 0},
+          "mutationFingerprint": {"type": "string", "description": "SHA-256 of the ordered question/status post-state."}
+        },
+        "required": ["batchId", "state", "matchedQuestions", "updatedQuestions", "eligibleBindings", "userEvidenceReferences", "mutationFingerprint"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["internal"],
+      "authorization": "Explicit operator release authority bound to the accepted release unit; question text and runtime credentials are excluded from the command artifact.",
+      "idempotency": "The same dry-run and runtime fingerprints change each planned active row at most once; replay returns unchanged.",
+      "compatibility": "v1 changes only product.questions.status for the exact 273-question baseline; content repair, answer repair, unquarantine and publication require successor contracts.",
+      "errorSemantics": ["RUNTIME_FINGERPRINT_CHANGED", "DRY_RUN_MISMATCH", "BACKUP_UNVERIFIED", "QUESTION_SET_CHANGED", "USER_REFERENCE_FOUND", "ELIGIBLE_BINDING_FOUND", "TRANSACTION_FAILED"],
+      "requirementRefs": ["REQ-QUESTION-DELIVERY-QUARANTINE-009"],
+      "evidenceRefs": ["E-USER-QUESTION-DELIVERY-QUARANTINE-009", "E-CODE-QUESTION-DELIVERY-GAP-009"],
+      "transactionScopeResources": ["question-bank-delivery-quarantine-release"],
+      "transactionBoundary": "One PostgreSQL transaction locks the exact planned question IDs, rechecks reason/status/reference/binding preconditions, updates only product.questions.status, and commits only after exact postconditions pass.",
+      "transactionEmits": [],
+      "observability": {
+        "correlation": "Batch ID, runtime fingerprint, dry-run fingerprint, backup hash and mutation fingerprint correlate preparation, apply and replay.",
+        "audit": "The report records only question IDs, reason codes, statuses, counts and hashes; it excludes question text and secrets.",
+        "metrics": "Count matched, updated, missing-head, missing-answer, active, quarantined, eligible-binding and user-reference rows."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "public-question-detail@v1",
+      "kind": "query",
+      "owner": "question_catalog_delivery",
+      "consumers": ["knowledge-question-detail-route"],
+      "schemaLocator": "inline://contracts.json#/contracts/public-question-detail@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "One public question-detail lookup by stable question ID.",
+        "properties": {"questionId": {"type": "string", "description": "Stable product question ID.", "minLength": 1}},
+        "required": ["questionId"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "A public-delivery-visible question summary identity.",
+        "properties": {
+          "questionId": {"type": "string", "description": "Stable question ID."},
+          "status": {"type": "string", "description": "Only publicly readable states.", "enum": ["active", "canonical"]},
+          "available": {"type": "boolean", "description": "Successful detail availability.", "const": true}
+        },
+        "required": ["questionId", "status", "available"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["public"],
+      "authorization": "Public catalog read; non-delivery statuses are intentionally indistinguishable from unknown IDs.",
+      "idempotency": "The same question ID and catalog status return the same visible question or the same not-found result.",
+      "compatibility": "Existing active/canonical detail payload remains unchanged; v1 tightens only non-public state handling from leak/500 to 404.",
+      "errorSemantics": ["QUESTION_NOT_FOUND", "DATABASE_UNAVAILABLE"],
+      "requirementRefs": ["REQ-QUESTION-CATALOG-QUARANTINE-VISIBILITY-009C"],
+      "evidenceRefs": ["E-USER-QUESTION-DELIVERY-QUARANTINE-009", "E-CODE-QUARANTINED-QUESTION-DETAIL-GAP-009C"],
+      "observability": {"correlation": "HTTP request ID correlates public lookup without logging question content.", "audit": "No content or status is returned for a non-public question.", "metrics": "Count successful and not-found detail lookups without question text labels."},
+      "status": "specified"
+    },
+    {
+      "id": "structured-visual-teaching-evidence@v1",
+      "kind": "file",
+      "owner": "teaching_package_compilation",
+      "consumers": ["teach-back-shadow-evaluation", "teach-back-provider-shadow-runtime"],
+      "schemaLocator": "inline://contracts.json#/contracts/structured-visual-teaching-evidence@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "A compiled v2 teaching-package identity plus exact visual bindings for its student and transfer questions.",
+        "properties": {
+          "packageFingerprint": {"type": "string", "description": "SHA-256 fingerprint of the already compiled teaching package."},
+          "studentQuestionRef": {"type": "string", "description": "Selected Question A immutable reference."},
+          "userTransferQuestionRef": {"type": "string", "description": "Selected Question B immutable reference."},
+          "bindings": {
+            "type": "array",
+            "description": "Resolved visual requirement and optional evidence for the two selected questions.",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "description": "One immutable question-to-visual binding.",
+              "properties": {
+                "questionRef": {"type": "string", "description": "Question reference that must match one selected slot."},
+                "contentVersionId": {"type": "string", "description": "Immutable current content version for this question."},
+                "visualRequired": {"type": "boolean", "description": "Whether the question cannot be attempted without its visual."},
+                "sourceAssetSha256s": {"type": "array", "description": "Exact allowed source asset hashes for the content version.", "items": {"type": "string", "description": "One lowercase SHA-256 hash."}},
+                "evidence": {
+                  "type": "object",
+                  "description": "Optional structured visual candidate; only verified and identity-matching evidence is attachable.",
+                  "properties": {
+                    "evidenceRef": {"type": "string", "description": "Stable evidence reference."},
+                    "questionRef": {"type": "string", "description": "Question identity asserted by this evidence."},
+                    "contentVersionId": {"type": "string", "description": "Content version asserted by this evidence."},
+                    "sourceAssetSha256": {"type": "string", "description": "Source image hash asserted by this evidence."},
+                    "reviewState": {"type": "string", "description": "Explicit evidence review state.", "enum": ["candidate", "needs_review", "verified"]},
+                    "chartType": {"type": "string", "description": "Bounded chart or table type."},
+                    "title": {"type": "string", "description": "Answer-free chart title when present."},
+                    "unit": {"type": "string", "description": "Default chart unit when present."},
+                    "facts": {"type": "array", "description": "Answer-free atomic chart facts.", "minItems": 1, "items": {"type": "object", "description": "One structured visual fact.", "properties": {"factRef": {"type": "string", "description": "Stable fact reference."}, "kind": {"type": "string", "description": "Fact shape.", "enum": ["title", "unit", "axis", "category", "legend", "series_value", "table_cell", "relationship"]}, "dimensions": {"type": "array", "description": "Ordered row, column, category or series coordinates.", "items": {"type": "string", "description": "One coordinate label."}}, "value": {"type": "string", "description": "Literal fact value without derived answer."}, "unit": {"type": "string", "description": "Fact-local unit when present."}}, "required": ["factRef", "kind", "dimensions", "value", "unit"], "additionalProperties": false}}
+                  },
+                  "required": ["evidenceRef", "questionRef", "contentVersionId", "sourceAssetSha256", "reviewState", "chartType", "title", "unit", "facts"],
+                  "additionalProperties": false
+                }
+              },
+              "required": ["questionRef", "contentVersionId", "visualRequired", "sourceAssetSha256s"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["packageFingerprint", "studentQuestionRef", "userTransferQuestionRef", "bindings"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "One complete answer-free visual sidecar or a stable closed failure with no partial evidence.",
+        "properties": {
+          "state": {"type": "string", "description": "Visual attachment state.", "enum": ["attachable", "unavailable"]},
+          "reasonCodes": {"type": "array", "description": "Stable failure reasons.", "items": {"type": "string", "description": "One visual bridge reason."}},
+          "packageCandidates": {"type": "array", "description": "Exactly one complete sidecar or none.", "maxItems": 1, "items": {"type": "object", "description": "Package-bound visual evidence sidecar.", "properties": {"contractVersion": {"type": "string", "description": "Sidecar version.", "const": "structured-visual-teaching-evidence@v1"}, "packageFingerprint": {"type": "string", "description": "Base teaching package fingerprint."}, "fingerprint": {"type": "string", "description": "SHA-256 of the complete visual binding input."}, "studentVisualEvidenceRef": {"type": "string", "description": "Answer-free Question A visual evidence reference when present."}, "userTransferVisualEvidenceRef": {"type": "string", "description": "Answer-free Question B visual evidence reference when present."}}, "required": ["contractVersion", "packageFingerprint", "fingerprint"], "additionalProperties": false}}
+        },
+        "required": ["state", "reasonCodes", "packageCandidates"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["internal"],
+      "authorization": "Server-internal pure compilation after the caller has resolved an immutable question content version and source asset identity.",
+      "idempotency": "Canonical package fingerprint, selected question identities and complete visual bindings produce one deterministic SHA-256 sidecar fingerprint.",
+      "compatibility": "Additive sidecar over multi-exam-teaching-package@v2; non-visual questions preserve existing behavior and no current package consumer is forced to accept visual evidence.",
+      "errorSemantics": ["VISUAL_EVIDENCE_UNAVAILABLE", "VISUAL_EVIDENCE_UNVERIFIED", "VISUAL_EVIDENCE_VERSION_MISMATCH", "VISUAL_EVIDENCE_BINDING_DUPLICATE"],
+      "requirementRefs": ["REQ-DATA-ANALYSIS-TEACHING-BRIDGE-010"],
+      "evidenceRefs": ["E-USER-DATA-ANALYSIS-TEACHING-BRIDGE-010", "E-CODE-DATA-ANALYSIS-TEACHING-BRIDGE-GAP-010"],
+      "observability": {"correlation": "Package and sidecar fingerprints correlate compilation without user identity or answer text.", "audit": "The pure bridge writes no fact and never promotes a review state.", "metrics": "Count state and reason code only; titles, values, question refs and image hashes are not metric labels."},
+      "status": "specified"
+    },
+    {
+      "id": "teach-back-structured-visual-shadow@v2",
+      "kind": "file",
+      "owner": "teach_back_shadow",
+      "consumers": ["teach-back-provider-shadow-runtime", "future-teach-back-session-runtime"],
+      "schemaLocator": "inline://contracts.json#/contracts/teach-back-structured-visual-shadow@v2",
+      "inputSchema": {"type": "object", "description": "Visual integration fragment for one existing teach-back shadow input.", "properties": {"packageFingerprint": {"type": "string", "description": "Current teaching package identity."}, "studentQuestionRef": {"type": "string", "description": "Question A identity."}, "studentVisualEvidenceRef": {"type": "string", "description": "Optional safe visual sidecar reference already bound by structured-visual-teaching-evidence@v1."}}, "required": ["packageFingerprint", "studentQuestionRef"], "additionalProperties": false},
+      "outputSchema": {"type": "object", "description": "Visual integration fragment for isolated student and verifier candidates.", "properties": {"studentVisualEvidenceRef": {"type": "string", "description": "Optional exact visual sidecar reference sent to the student context."}, "allowedVisualEvidenceRefs": {"type": "array", "description": "Visual fact references added to the verifier whitelist.", "items": {"type": "string", "description": "One exact visual fact reference."}}}, "required": ["allowedVisualEvidenceRefs"], "additionalProperties": false},
+      "dataClasses": ["internal"],
+      "authorization": "Offline or server-internal shadow preparation only; visual facts are read-only and contain no learner identity.",
+      "idempotency": "The same package, explanation, safe question and visual sidecar produce the same immutable requests.",
+      "compatibility": "v2 is additive over teach-back-shadow-evaluation@v1; omitted visual evidence preserves byte-equivalent v1 preparation semantics.",
+      "errorSemantics": ["EXPLANATION_REQUIRED", "GROUNDING_REFERENCE_OUT_OF_SCOPE"],
+      "requirementRefs": ["REQ-DATA-ANALYSIS-TEACHING-BRIDGE-010"],
+      "evidenceRefs": ["E-USER-DATA-ANALYSIS-TEACHING-BRIDGE-010", "E-CODE-DATA-ANALYSIS-TEACHING-BRIDGE-GAP-010"],
+      "observability": {"correlation": "Package fingerprint and visual evidence reference correlate the in-memory case.", "audit": "No model, repository or business fact is called or written by preparation.", "metrics": "Count preparation states only; visual content is prohibited as labels."},
+      "status": "specified"
+    },
+    {
+      "id": "teach-back-structured-visual-provider@v2",
+      "kind": "ai_candidate",
+      "owner": "teach_back_shadow",
+      "consumers": ["teach-back-provider-shadow-runtime", "future-teach-back-session-runtime"],
+      "schemaLocator": "inline://contracts.json#/contracts/teach-back-structured-visual-provider@v2",
+      "inputSchema": {"type": "object", "description": "Visual integration fragment for two physically isolated provider requests.", "properties": {"studentVisualEvidenceRef": {"type": "string", "description": "Optional answer-free visual sidecar sent only with the safe student question."}, "verifierAllowedEvidenceRefs": {"type": "array", "description": "Method, answer and visual fact references for the verifier.", "items": {"type": "string", "description": "One exact allowed evidence reference."}}}, "required": ["verifierAllowedEvidenceRefs"], "additionalProperties": false},
+      "outputSchema": {"type": "object", "description": "Provider visual integration outcome with no partial result on invalid output or out-of-scope evidence.", "properties": {"state": {"type": "string", "description": "Complete provider shadow state.", "enum": ["displayable", "undisplayable"]}, "reasonCodes": {"type": "array", "description": "Stable closed failure reasons.", "items": {"type": "string", "description": "One provider shadow reason."}}}, "required": ["state", "reasonCodes"], "additionalProperties": false},
+      "dataClasses": ["internal"],
+      "authorization": "Synthetic provider-shadow cases only; no authenticated user, persistence or production scenario activation.",
+      "idempotency": "Existing package and phase-specific keys remain stable; adding a visual sidecar changes only the content fingerprint.",
+      "compatibility": "v2 adds safe visual evidence to the student wire and matching fact refs to verifier authority; cases without visual evidence retain v1 request semantics.",
+      "errorSemantics": ["PROVIDER_CONFIGURATION_INVALID", "PROVIDER_OUTCOME_UNCERTAIN", "PROVIDER_RESPONSE_INVALID", "GROUNDING_REFERENCE_OUT_OF_SCOPE"],
+      "requirementRefs": ["REQ-DATA-ANALYSIS-TEACHING-BRIDGE-010"],
+      "evidenceRefs": ["E-USER-DATA-ANALYSIS-TEACHING-BRIDGE-010", "E-CODE-DATA-ANALYSIS-TEACHING-BRIDGE-GAP-010"],
+      "observability": {"correlation": "Package fingerprint, evidence reference, phase key and provider content fingerprint correlate synthetic calls.", "audit": "Ledger-aligned candidates remain content-free and in memory.", "metrics": "Token, latency, cost, state and reason may be counted; visual facts are not labels."},
+      "status": "specified"
+    },
+    {
+      "id": "structured-visual-evidence-publication@v1",
+      "kind": "command",
+      "owner": "teaching_package_compilation",
+      "consumers": ["teaching-package-runtime", "teach-back-shadow-evaluation", "teach-back-provider-shadow-runtime"],
+      "schemaLocator": "inline://contracts.json#/contracts/structured-visual-evidence-publication@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "A deterministic publication plan for one offline structured visual candidate and all exact current question bindings.",
+        "properties": {
+          "batchId": {"type": "string", "description": "Stable import batch identity."},
+          "evidenceRef": {"type": "string", "description": "Stable structured asset identity."},
+          "sourceAssetSha256": {"type": "string", "description": "Exact source image SHA-256."},
+          "sourcePayloadSha256": {"type": "string", "description": "Canonical structured candidate payload SHA-256."},
+          "verificationPolicyVersion": {"type": "string", "description": "Deterministic acceptance policy."},
+          "payload": {"type": "object", "description": "Answer-free published structured visual payload.", "properties": {"chartType": {"type": "string", "description": "Published visual type."}, "facts": {"type": "array", "description": "Answer-free atomic facts.", "items": {"type": "object", "description": "One closed fact object.", "properties": {"factRef": {"type": "string", "description": "Stable fact identity."}, "kind": {"type": "string", "description": "Fact kind."}, "dimensions": {"type": "array", "description": "Ordered coordinates.", "items": {"type": "string", "description": "One coordinate."}}, "value": {"type": "string", "description": "Literal value."}, "unit": {"type": "string", "description": "Literal unit."}}, "required": ["factRef", "kind", "dimensions", "value", "unit"], "additionalProperties": false}}}, "required": ["chartType", "facts"], "additionalProperties": false},
+          "bindings": {"type": "array", "description": "Exact current question/content/image bindings.", "items": {"type": "object", "description": "One immutable binding.", "properties": {"questionId": {"type": "string", "description": "Current question identity."}, "contentVersionId": {"type": "string", "description": "Current immutable content version."}, "runtimeAssetId": {"type": "string", "description": "Runtime question asset whose TOS bytes match sourceAssetSha256."}}, "required": ["questionId", "contentVersionId", "runtimeAssetId"], "additionalProperties": false}},
+          "quarantineReasons": {"type": "array", "description": "Stable reasons when publication is ineligible.", "items": {"type": "string", "description": "One closed reason code."}}
+        },
+        "required": ["batchId", "evidenceRef", "sourceAssetSha256", "sourcePayloadSha256", "verificationPolicyVersion", "payload", "bindings", "quarantineReasons"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Idempotent publish outcome and exact counts.",
+        "properties": {
+          "state": {"type": "string", "description": "Complete outcome.", "enum": ["dry_run_ready", "published", "quarantined"]},
+          "publishedEvidence": {"type": "integer", "description": "Immutable evidence versions inserted or already identical."},
+          "publishedBindings": {"type": "integer", "description": "Current-version question bindings inserted or already identical."},
+          "reasonCodes": {"type": "array", "description": "Stable closed reasons.", "items": {"type": "string", "description": "One reason code."}}
+        },
+        "required": ["state", "publishedEvidence", "publishedBindings", "reasonCodes"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["internal"],
+      "authorization": "Server maintenance import after frozen dry-run and backup; runtime is read-only.",
+      "idempotency": "Canonical source payload hash plus verification policy defines one immutable evidence revision; exact question/content/source binding is unique.",
+      "compatibility": "Successor publication source for structured-visual-teaching-evidence@v1; non-visual questions and frozen v2 teaching packages remain unchanged.",
+      "errorSemantics": ["SOURCE_SCHEMA_INVALID", "SEMANTIC_CONFLICT", "SOURCE_OCCURRENCE_UNRESOLVED", "QUESTION_NOT_ACTIVE", "CONTENT_HEAD_MISSING", "SOURCE_ASSET_HASH_MISMATCH", "SOURCE_ASSET_AMBIGUOUS", "PUBLICATION_STALE"],
+      "requirementRefs": ["REQ-DATA-ANALYSIS-EVIDENCE-PUBLICATION-011"],
+      "evidenceRefs": ["E-USER-DATA-ANALYSIS-FULL-INGESTION-011", "E-CODE-DATA-ANALYSIS-RUNTIME-RECONCILIATION-011", "E-CODE-DATA-ANALYSIS-SEMANTIC-CONFLICTS-011"],
+      "observability": {"correlation": "Batch, evidence, policy and content-version identities correlate import and runtime reads.", "audit": "Import receipts record exact counts and reason codes without user data.", "metrics": "Count published/quarantined evidence and stale bindings; never label chart content."},
+      "status": "specified"
+    },
+    {
+      "id": "structured-visual-teaching-evidence@v2",
+      "kind": "file",
+      "owner": "teaching_package_compilation",
+      "consumers": ["teach-back-shadow-evaluation", "teach-back-provider-shadow-runtime"],
+      "schemaLocator": "inline://contracts.json#/contracts/structured-visual-teaching-evidence@v2",
+      "inputSchema": {
+        "type": "object",
+        "description": "Compiled v2 package identity plus zero-or-more exact visual evidence records for each selected question.",
+        "properties": {
+          "packageFingerprint": {"type": "string", "description": "Frozen base package fingerprint."},
+          "bindings": {"type": "array", "description": "Exactly the two selected question bindings.", "minItems": 2, "maxItems": 2, "items": {"type": "object", "description": "One selected question binding.", "properties": {"questionRef": {"type": "string", "description": "Selected question identity."}, "contentVersionId": {"type": "string", "description": "Current immutable content version."}, "visualRequired": {"type": "boolean", "description": "Whether at least one published visual is required."}, "evidence": {"type": "array", "description": "All published visual evidence for the question, ordered by evidenceRef.", "maxItems": 100, "items": {"type": "object", "description": "One verified answer-free visual evidence projection.", "properties": {"evidenceRef": {"type": "string", "description": "Stable evidence identity."}, "questionRef": {"type": "string", "description": "Bound question identity."}, "contentVersionId": {"type": "string", "description": "Bound content version."}, "sourceAssetSha256": {"type": "string", "description": "Bound image SHA-256."}, "reviewState": {"type": "string", "description": "Published review state.", "enum": ["verified"]}, "chartType": {"type": "string", "description": "Visual type."}, "title": {"type": "string", "description": "Optional title."}, "unit": {"type": "string", "description": "Optional unit."}, "facts": {"type": "array", "description": "Answer-free facts.", "items": {"type": "object", "description": "One fact.", "properties": {"factRef": {"type": "string", "description": "Stable fact identity."}, "kind": {"type": "string", "description": "Fact kind."}, "dimensions": {"type": "array", "description": "Ordered coordinates.", "items": {"type": "string", "description": "One coordinate."}}, "value": {"type": "string", "description": "Literal value."}, "unit": {"type": "string", "description": "Literal unit."}}, "required": ["factRef", "kind", "dimensions", "value", "unit"], "additionalProperties": false}}}, "required": ["evidenceRef", "questionRef", "contentVersionId", "sourceAssetSha256", "reviewState", "chartType", "title", "unit", "facts"], "additionalProperties": false}}}, "required": ["questionRef", "contentVersionId", "visualRequired", "evidence"], "additionalProperties": false}}
+        },
+        "required": ["packageFingerprint", "bindings"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "One complete package sidecar containing all evidence per slot or one stable failure.",
+        "properties": {"state": {"type": "string", "description": "Attachment state.", "enum": ["attachable", "unavailable"]}, "reasonCodes": {"type": "array", "description": "Stable failure reasons.", "items": {"type": "string", "description": "One reason."}}, "packageCandidates": {"type": "array", "description": "Exactly one complete sidecar or none.", "maxItems": 1, "items": {"type": "object", "description": "Multi-visual package sidecar.", "properties": {"contractVersion": {"type": "string", "description": "Sidecar version.", "const": "structured-visual-teaching-evidence@v2"}, "packageFingerprint": {"type": "string", "description": "Base package fingerprint."}, "fingerprint": {"type": "string", "description": "Complete sidecar fingerprint."}, "studentVisualEvidence": {"type": "array", "description": "Question A safe projections.", "items": {"type": "object", "description": "One safe projection.", "properties": {"evidenceRef": {"type": "string", "description": "Stable evidence identity."}, "facts": {"type": "array", "description": "Answer-free facts.", "items": {"type": "string", "description": "One fact reference."}}}, "required": ["evidenceRef", "facts"], "additionalProperties": false}}, "userTransferVisualEvidence": {"type": "array", "description": "Question B safe projections.", "items": {"type": "object", "description": "One safe projection.", "properties": {"evidenceRef": {"type": "string", "description": "Stable evidence identity."}, "facts": {"type": "array", "description": "Answer-free facts.", "items": {"type": "string", "description": "One fact reference."}}}, "required": ["evidenceRef", "facts"], "additionalProperties": false}}}, "required": ["contractVersion", "packageFingerprint", "fingerprint", "studentVisualEvidence", "userTransferVisualEvidence"], "additionalProperties": false}}},
+        "required": ["state", "reasonCodes", "packageCandidates"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["internal"],
+      "authorization": "Server-internal pure compilation from current published evidence only.",
+      "idempotency": "Question bindings and evidence are canonically ordered before SHA-256 fingerprinting.",
+      "compatibility": "v2 supersedes the one-evidence-per-question v1 sidecar; omitted evidence retains non-visual behavior.",
+      "errorSemantics": ["VISUAL_EVIDENCE_UNAVAILABLE", "VISUAL_EVIDENCE_UNVERIFIED", "VISUAL_EVIDENCE_VERSION_MISMATCH", "VISUAL_EVIDENCE_BINDING_DUPLICATE"],
+      "requirementRefs": ["REQ-DATA-ANALYSIS-TEACHING-BRIDGE-010", "REQ-DATA-ANALYSIS-EVIDENCE-PUBLICATION-011"],
+      "evidenceRefs": ["E-USER-DATA-ANALYSIS-FULL-INGESTION-011", "E-CODE-DATA-ANALYSIS-RUNTIME-RECONCILIATION-011"],
+      "observability": {"correlation": "Package, content-version and evidence fingerprints correlate compilation.", "audit": "Pure attachment performs no write.", "metrics": "Count evidence per slot and reason codes only."},
+      "status": "specified"
+    },
+    {
+      "id": "question-media-evidence-publication@v2",
+      "kind": "file",
+      "owner": "teaching_package_compilation",
+      "consumers": ["teaching-package-runtime", "teach-back-shadow-evaluation", "teach-back-provider-shadow-runtime"],
+      "schemaLocator": "inline://contracts.json#/contracts/question-media-evidence-publication@v2",
+      "inputSchema": {
+        "type": "object",
+        "description": "One content-addressed non-graphic media publication item.",
+        "properties": {
+          "batchId": {"type": "string", "description": "Stable batch identity."},
+          "evidenceRef": {"type": "string", "description": "Stable evidence identity."},
+          "sourceAssetSha256": {"type": "string", "description": "Exact source bytes."},
+          "sourcePayloadSha256": {"type": "string", "description": "Canonical offline payload identity."},
+          "verificationPolicyVersion": {"type": "string", "description": "Deterministic policy identity."},
+          "payload": {
+            "type": "object",
+            "description": "Answer-free media projection and audience boundary.",
+            "properties": {
+              "chartType": {"type": "string", "description": "Compatibility visual type."},
+              "evidenceKind": {"type": "string", "description": "data_visual, reasoning_diagram, perceptual_grid, annotated_raster or formula."},
+              "reviewState": {"type": "string", "description": "verified or machine_verified.", "enum": ["verified", "machine_verified"]},
+              "sourceRoles": {"type": "array", "description": "Observed question asset roles.", "items": {"type": "string", "description": "One source role."}},
+              "audiences": {"type": "array", "description": "Closed student/verifier audiences.", "items": {"type": "string", "description": "One audience.", "enum": ["student", "verifier"]}},
+              "facts": {
+                "type": "array",
+                "description": "Answer-free atomic visual or formula facts.",
+                "items": {
+                  "type": "object",
+                  "description": "One immutable fact.",
+                  "properties": {
+                    "factRef": {"type": "string", "description": "Stable fact identity."},
+                    "kind": {"type": "string", "description": "Fact kind."},
+                    "dimensions": {"type": "array", "description": "Ordered source coordinates.", "items": {"type": "string", "description": "One coordinate."}},
+                    "value": {"type": "string", "description": "Literal answer-free value."},
+                    "unit": {"type": "string", "description": "Literal unit."}
+                  },
+                  "required": ["factRef", "kind", "dimensions", "value", "unit"],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": ["chartType", "evidenceKind", "reviewState", "sourceRoles", "audiences", "facts"],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "array",
+            "description": "Exact current question/content/runtime-asset bindings.",
+            "items": {
+              "type": "object",
+              "description": "One binding.",
+              "properties": {
+                "questionId": {"type": "string", "description": "Current question."},
+                "contentVersionId": {"type": "string", "description": "Current content head."},
+                "runtimeAssetId": {"type": "string", "description": "Matching runtime asset."}
+              },
+              "required": ["questionId", "contentVersionId", "runtimeAssetId"],
+              "additionalProperties": false
+            }
+          },
+          "quarantineReasons": {"type": "array", "description": "Stable failed-closed reasons.", "items": {"type": "string", "description": "One reason."}}
+        },
+        "required": ["batchId", "evidenceRef", "sourceAssetSha256", "sourcePayloadSha256", "verificationPolicyVersion", "payload", "bindings", "quarantineReasons"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Deterministic batch publication outcome.",
+        "properties": {
+          "state": {"type": "string", "description": "Complete batch state.", "enum": ["dry_run_ready", "published", "withdrawn"]},
+          "publishedEvidence": {"type": "integer", "description": "Published or identical evidence count."},
+          "publishedBindings": {"type": "integer", "description": "Published or identical binding count."},
+          "quarantined": {"type": "integer", "description": "Precisely isolated candidates."}
+        },
+        "required": ["state", "publishedEvidence", "publishedBindings", "quarantined"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["internal"],
+      "authorization": "Server maintenance publication after a frozen dry-run plan and backup; runtime readers are read-only.",
+      "idempotency": "Canonical source payload, policy, current content version and exact source bytes define immutable versions and bindings.",
+      "compatibility": "Reuses the existing append-only structured visual tables and preserves data-analysis v1 rows; v3 teaching projections read metadata when present and retain v2 defaults otherwise.",
+      "errorSemantics": ["SOURCE_SCHEMA_INVALID", "SEMANTIC_CONFLICT", "SOURCE_OCCURRENCE_UNRESOLVED", "QUESTION_NOT_ACTIVE", "CONTENT_HEAD_MISSING", "SOURCE_ASSET_HASH_MISMATCH", "SOURCE_AUDIENCE_UNRESOLVED", "PUBLICATION_STALE"],
+      "requirementRefs": ["REQ-NON-GRAPHIC-MEDIA-EVIDENCE-PUBLICATION-012"],
+      "evidenceRefs": ["E-USER-NON-GRAPHIC-MEDIA-INGESTION-012", "E-CODE-NON-GRAPHIC-MEDIA-OFFLINE-012"],
+      "observability": {"correlation": "Batch, evidence, content-version, runtime-asset and audience identities correlate publication and reads.", "audit": "Receipts and plans record exact published, bound and quarantined counts without user data.", "metrics": "Count per evidenceKind, reviewState, audience and reason only."},
+      "status": "specified"
+    },
+    {
+      "id": "analysis-media-verifier-evidence-publication@v1",
+      "kind": "command",
+      "owner": "teaching_package_compilation",
+      "consumers": ["teaching-package-runtime", "teach-back-shadow-evaluation", "teach-back-provider-shadow-runtime"],
+      "schemaLocator": "inline://contracts.json#/contracts/analysis-media-verifier-evidence-publication@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "One content-addressed verifier-only analysis media publication item.",
+        "properties": {
+          "batchId": {"type": "string", "description": "Stable batch identity."},
+          "evidenceRef": {"type": "string", "description": "Stable evidence identity."},
+          "sourceAssetSha256": {"type": "string", "description": "Exact source bytes."},
+          "sourcePayloadSha256": {"type": "string", "description": "Canonical offline payload identity."},
+          "verificationPolicyVersion": {"type": "string", "description": "Deterministic policy identity."},
+          "payload": {
+            "type": "object",
+            "description": "Answer-free verifier-only media projection.",
+            "properties": {
+              "chartType": {"type": "string", "description": "Compatibility visual type."},
+              "evidenceKind": {"type": "string", "description": "Media evidence kind."},
+              "reviewState": {"type": "string", "description": "Quality state.", "enum": ["verified", "machine_verified"]},
+              "sourceRoles": {"type": "array", "description": "Observed analysis roles.", "items": {"type": "string", "description": "One role."}},
+              "audiences": {"type": "array", "description": "Verifier-only audience.", "items": {"type": "string", "description": "Verifier discriminator.", "const": "verifier"}, "minItems": 1, "maxItems": 1},
+              "facts": {"type": "array", "description": "Answer-free atomic facts.", "items": {"type": "object", "description": "One immutable fact.", "properties": {"factRef": {"type": "string", "description": "Stable fact identity."}, "kind": {"type": "string", "description": "Fact kind."}, "dimensions": {"type": "array", "description": "Ordered coordinates.", "items": {"type": "string", "description": "One coordinate."}}, "value": {"type": "string", "description": "Literal value."}, "unit": {"type": "string", "description": "Literal unit."}}, "required": ["factRef", "kind", "dimensions", "value", "unit"], "additionalProperties": false}, "minItems": 1}
+            },
+            "required": ["chartType", "evidenceKind", "reviewState", "sourceRoles", "audiences", "facts"],
+            "additionalProperties": false
+          },
+          "analysisBindings": {"type": "array", "description": "Exact current analysis bindings.", "items": {"type": "object", "description": "One binding.", "properties": {"questionId": {"type": "string", "description": "Current question."}, "contentVersionId": {"type": "string", "description": "Current content head."}, "analysisSource": {"type": "string", "description": "Current explanation source."}, "sourceImageRef": {"type": "string", "description": "Source HTML image reference."}, "runtimeObjectKey": {"type": "string", "description": "Optional published object key; empty while source-only."}}, "required": ["questionId", "contentVersionId", "analysisSource", "sourceImageRef", "runtimeObjectKey"], "additionalProperties": false}},
+          "quarantineReasons": {"type": "array", "description": "Stable failed-closed reasons.", "items": {"type": "string", "description": "One reason."}}
+        },
+        "required": ["batchId", "evidenceRef", "sourceAssetSha256", "sourcePayloadSha256", "verificationPolicyVersion", "payload", "analysisBindings", "quarantineReasons"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Deterministic verifier-only publication outcome.",
+        "properties": {
+          "state": {"type": "string", "description": "Complete batch state.", "enum": ["dry_run_ready", "published", "withdrawn"]},
+          "publishedEvidence": {"type": "integer", "description": "Evidence count."},
+          "publishedAnalysisBindings": {"type": "integer", "description": "Analysis binding count."},
+          "quarantined": {"type": "integer", "description": "Precisely isolated candidates."}
+        },
+        "required": ["state", "publishedEvidence", "publishedAnalysisBindings", "quarantined"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["internal"],
+      "authorization": "Server maintenance publication after frozen dry-run and backup; runtime readers are read-only.",
+      "idempotency": "Canonical source payload, policy, current content version, analysis source, image ref and source bytes define immutable versions and bindings.",
+      "compatibility": "Adds a verifier-only analysis binding beside existing question-asset bindings; existing student and data-analysis reads remain compatible.",
+      "errorSemantics": ["SOURCE_SCHEMA_INVALID", "SEMANTIC_CONFLICT", "SOURCE_OCCURRENCE_UNRESOLVED", "QUESTION_NOT_ACTIVE", "CONTENT_HEAD_MISSING", "ANALYSIS_SOURCE_MISMATCH", "ANALYSIS_ASSET_UNRESOLVED", "PUBLICATION_STALE"],
+      "requirementRefs": ["REQ-ANALYSIS-MEDIA-VERIFIER-EVIDENCE-013"],
+      "evidenceRefs": ["E-USER-ANALYSIS-MEDIA-VERIFIER-013", "E-CODE-ANALYSIS-MEDIA-IDENTITY-GAP-013"],
+      "observability": {"correlation": "Batch, evidence, question, content version, analysis source and source image identity correlate publication and reads.", "audit": "Receipts and plans record exact counts without user data.", "metrics": "Count evidence kind, review state and quarantine reason only."},
+      "status": "specified"
+    },
+    {
+      "id": "learner-coach-context@v1",
+      "kind": "query",
+      "owner": "learner_coach_context",
+      "consumers": ["today-page", "companion-page", "companion-provider-context", "companion-retrieval-audit"],
+      "schemaLocator": "inline://contracts.json#/contracts/learner-coach-context@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "Authenticated current-user read request; the user identity comes only from the access token.",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "One deterministic, read-only learner context compiled from the current learning-brain profile and strategy projection.",
+        "properties": {
+          "contractVersion": {"type": "string", "description": "Exact public contract discriminator.", "const": "learner-coach-context@v1"},
+          "profileVersionId": {"type": "string", "description": "Current same-user learning-brain profile version."},
+          "profile": {
+            "type": "object",
+            "description": "Complete learning-brain-profile@v1 value including evidence refs and error patterns.",
+            "properties": {
+              "profileVersionId": {"type": "string", "description": "Exact profile version."},
+              "contractVersion": {"type": "string", "description": "Profile contract discriminator."},
+              "evidenceSummary": {"type": "object", "description": "Canonical evidence counters.", "properties": {}, "required": [], "additionalProperties": false},
+              "modules": {"type": "array", "description": "Module ability projections.", "items": {"type": "object", "description": "One module projection.", "properties": {}, "required": [], "additionalProperties": false}},
+              "errorPatterns": {"type": "array", "description": "Evidence-backed current error patterns.", "items": {"type": "object", "description": "One error pattern projection.", "properties": {}, "required": [], "additionalProperties": false}},
+              "sourceRefs": {"type": "array", "description": "Owner/entity/version references.", "items": {"type": "object", "description": "One evidence reference.", "properties": {}, "required": [], "additionalProperties": false}}
+            },
+            "required": ["profileVersionId", "contractVersion", "evidenceSummary", "modules", "errorPatterns", "sourceRefs"],
+            "additionalProperties": false
+          },
+          "recognition": {
+            "type": "object",
+            "description": "Server-owned learner-recognition maturity projection.",
+            "properties": {
+              "level": {"type": "string", "description": "Deterministic maturity level.", "enum": ["just_met", "initial_hypothesis", "verifying", "understands"]},
+              "label": {"type": "string", "description": "User-facing maturity label."},
+              "observation": {"type": "string", "description": "Evidence-bounded user-facing observation."},
+              "evidenceCount": {"type": "integer", "description": "Total canonical evidence count used for maturity.", "minimum": 0},
+              "stableMasteryCount": {"type": "integer", "description": "Stable mastery records contributing to understands.", "minimum": 0}
+            },
+            "required": ["level", "label", "observation", "evidenceCount", "stableMasteryCount"],
+            "additionalProperties": false
+          },
+          "freshness": {"type": "string", "description": "Explicit compiled freshness boundary.", "enum": ["current", "stale", "conflicted", "unavailable"]},
+          "strategyDirective": {
+            "type": "object",
+            "description": "Current active and awaiting-confirmation strategy projection; both fields may be null when no strategy exists.",
+            "properties": {
+              "active": {"type": "string", "description": "Serialized active strategy entry or empty string when none."},
+              "pending": {"type": "string", "description": "Serialized pending strategy entry or empty string when none."}
+            },
+            "required": ["active", "pending"],
+            "additionalProperties": false
+          },
+          "generatedAt": {"type": "string", "description": "ISO-8601 context compilation time."},
+          "validUntil": {"type": "string", "description": "ISO-8601 upper freshness bound inherited from the profile."}
+        },
+        "required": ["contractVersion", "profileVersionId", "profile", "recognition", "freshness", "strategyDirective", "generatedAt", "validUntil"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["personal", "internal"],
+      "authorization": "Authenticated same-user query only; user_id is derived from the access token and is never accepted from input.",
+      "idempotency": "The same profile version, current strategy projection and compilation instant produce the same semantic recognition and freshness; the query does not write learner facts.",
+      "compatibility": "Additive API beside learning-brain-profile@v1. Consumers migrate to coach-context while existing profile readers remain supported.",
+      "errorSemantics": ["UNAUTHENTICATED", "PROFILE_CONFLICT", "SAFE_UNAVAILABLE"],
+      "requirementRefs": ["REQ-LEARNER-COACH-CONTEXT-014"],
+      "evidenceRefs": ["E-USER-LEARNER-COACH-CONTEXT-014", "E-CODE-LEARNER-COACH-CONTEXT-DIVERGENCE-014"],
+      "observability": {
+        "correlation": "profileVersionId correlates Today, Companion request state and retrieval audit without exposing it in conversational prose.",
+        "audit": "Existing Companion retrieval bundles record the exact context source and version; the query itself writes no learner facts.",
+        "metrics": "Count successful, stale, conflicted and unavailable reads without recording learner content."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "learner-coach-context@v2",
+      "kind": "query",
+      "owner": "learner_coach_context",
+      "consumers": ["today-page", "companion-page", "companion-provider-context", "coach-understanding-page"],
+      "schemaLocator": "inline://contracts.json#/contracts/learner-coach-context@v2",
+      "inputSchema": {"type": "object", "description": "Authenticated current-user read; identity is derived from the access token.", "properties": {}, "required": [], "additionalProperties": false},
+      "outputSchema": {
+        "type": "object",
+        "description": "v1 learner context plus explicit user preferences, pending judgment rechecks and canonical retest summary.",
+        "properties": {
+          "contractVersion": {"type": "string", "description": "Exact discriminator.", "const": "learner-coach-context@v2"},
+          "profileVersionId": {"type": "string", "description": "Current same-user learning-brain profile version."},
+          "profile": {"type": "object", "description": "Complete learning-brain-profile@v1 value serialized separately.", "properties": {"profileVersionId": {"type": "string", "description": "Exact profile version."}}, "required": ["profileVersionId"], "additionalProperties": false},
+          "recognition": {"type": "object", "description": "Server-owned recognition projection.", "properties": {"level": {"type": "string", "description": "Maturity level."}, "label": {"type": "string", "description": "User label."}, "observation": {"type": "string", "description": "Evidence-bounded observation."}, "evidenceCount": {"type": "integer", "description": "Evidence count."}, "stableMasteryCount": {"type": "integer", "description": "Stable count."}}, "required": ["level", "label", "observation", "evidenceCount", "stableMasteryCount"], "additionalProperties": false},
+          "freshness": {"type": "string", "description": "Current context freshness.", "enum": ["current", "stale", "conflicted", "unavailable"]},
+          "strategyDirective": {"type": "object", "description": "Existing active and pending strategy projection represented by nullable IDs.", "properties": {"active": {"type": "string", "description": "Serialized active strategy or empty."}, "pending": {"type": "string", "description": "Serialized pending strategy or empty."}}, "required": ["active", "pending"], "additionalProperties": false},
+          "explicitPreferences": {"type": "array", "description": "User-managed memories with explicit application semantics.", "items": {"type": "object", "description": "One memory projection.", "properties": {"memoryId": {"type": "string", "description": "Stable memory ID."}, "revision": {"type": "integer", "description": "Revision."}, "category": {"type": "string", "description": "Category."}, "content": {"type": "string", "description": "User wording."}, "effect": {"type": "string", "description": "Application semantics."}, "actionUrl": {"type": "string", "description": "Confirmation URL or empty."}}, "required": ["memoryId", "revision", "category", "content", "effect", "actionUrl"], "additionalProperties": false}},
+          "pendingRechecks": {"type": "array", "description": "Append-only requests to reverify a coach judgment.", "items": {"type": "object", "description": "One pending recheck.", "properties": {"requestId": {"type": "string", "description": "Request ID."}, "patternId": {"type": "string", "description": "Pattern ID."}, "revision": {"type": "integer", "description": "Revision."}, "state": {"type": "string", "description": "Pending state."}, "retestUrl": {"type": "string", "description": "Retest entry."}}, "required": ["requestId", "patternId", "revision", "state", "retestUrl"], "additionalProperties": false}},
+          "retest": {"type": "object", "description": "Canonical due, scheduled and stable mastery summary with one action URL.", "properties": {"dueNow": {"type": "integer", "description": "Due now."}, "scheduled": {"type": "integer", "description": "Scheduled."}, "stable": {"type": "integer", "description": "Stable."}, "actionUrl": {"type": "string", "description": "Queue URL."}}, "required": ["dueNow", "scheduled", "stable", "actionUrl"], "additionalProperties": false},
+          "generatedAt": {"type": "string", "description": "ISO-8601 compilation time."},
+          "validUntil": {"type": "string", "description": "ISO-8601 upper freshness bound."}
+        },
+        "required": ["contractVersion", "profileVersionId", "profile", "recognition", "freshness", "strategyDirective", "explicitPreferences", "pendingRechecks", "retest", "generatedAt", "validUntil"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["personal", "internal"],
+      "authorization": "Authenticated same-user query only; user_id never comes from request input.",
+      "idempotency": "The same current profile, memory revisions, recheck heads and compilation time produce the same semantic projection without writing facts.",
+      "compatibility": "Successor to learner-coach-context@v1; profile@v1 remains available and all active first-party consumers migrate atomically.",
+      "errorSemantics": ["UNAUTHENTICATED", "PROFILE_CONFLICT", "SAFE_UNAVAILABLE"],
+      "requirementRefs": ["REQ-EXPLICIT-COACH-MEMORY-015", "REQ-COACH-CROSS-DAY-RETEST-015"],
+      "evidenceRefs": ["E-USER-LEARNER-COACH-COMPLETION-015", "E-CODE-EXPLICIT-MEMORY-INTEGRATION-GAP-015", "E-CODE-CROSS-DAY-RETEST-REUSE-015"],
+      "observability": {"correlation": "profileVersionId and memory/recheck revision refs correlate the exact context used by Today and Companion.", "audit": "Companion retrieval records each selected explicit memory separately; the query writes no learning fact.", "metrics": "Count freshness, due retests, selected explicit preferences and pending rechecks without content labels."},
+      "status": "specified"
+    },
+    {
+      "id": "request-coach-judgment-recheck@v1",
+      "kind": "command",
+      "owner": "companion_memory",
+      "consumers": ["error-pattern-page", "coach-understanding-page"],
+      "schemaLocator": "inline://contracts.json#/contracts/request-coach-judgment-recheck@v1",
+      "inputSchema": {"type": "object", "description": "Explicit same-user recheck request.", "properties": {"commandId": {"type": "string", "description": "Stable idempotency identity."}, "profileVersionId": {"type": "string", "description": "Exact current profile."}, "patternId": {"type": "string", "description": "Pattern present in that profile."}, "note": {"type": "string", "description": "Optional user wording."}}, "required": ["commandId", "profileVersionId", "patternId"], "additionalProperties": false},
+      "outputSchema": {"type": "object", "description": "Stored recheck receipt.", "properties": {"requestId": {"type": "string", "description": "Stable request identity."}, "state": {"type": "string", "description": "Current state.", "const": "pending_reverification"}, "revision": {"type": "integer", "description": "Current append-only revision."}, "retestUrl": {"type": "string", "description": "Canonical due-verification entry."}}, "required": ["requestId", "state", "revision", "retestUrl"], "additionalProperties": false},
+      "transactionScopeResources": ["coach-judgment-recheck-request"],
+      "transactionBoundary": "One database transaction locks the user and pattern, validates the current profile, appends or replays the request and commits no learning-fact mutation.",
+      "transactionEmits": [],
+      "dataClasses": ["personal"],
+      "authorization": "Authenticated same-user command; referenced profile and pattern must be current and owned by the caller.",
+      "idempotency": "commandId is unique per user; an exact replay returns the same receipt and a payload mismatch is rejected.",
+      "compatibility": "Additive correction route; it does not change error-pattern or mastery contracts.",
+      "errorSemantics": ["UNAUTHENTICATED", "PROFILE_STALE", "PATTERN_NOT_FOUND", "IDEMPOTENCY_CONFLICT"],
+      "requirementRefs": ["REQ-EXPLICIT-COACH-MEMORY-015"],
+      "evidenceRefs": ["E-USER-LEARNER-COACH-COMPLETION-015", "E-CODE-EXPLICIT-MEMORY-INTEGRATION-GAP-015"],
+      "observability": {"correlation": "commandId, requestId, profileVersionId and patternId.", "audit": "Persist state and immutable lineage without copying the pattern body.", "metrics": "Count pending rechecks and replay/conflict outcomes."},
+      "status": "specified"
+    },
+    {
+      "id": "grounded-teach-back-session@v1",
+      "kind": "query",
+      "owner": "teach_back_runtime",
+      "consumers": ["xingce-reflection-page"],
+      "schemaLocator": "inline://contracts.json#/contracts/grounded-teach-back-session@v1",
+      "inputSchema": {"type": "object", "description": "Same-user session read.", "properties": {"sessionId": {"type": "string", "description": "Teach-back session identity."}}, "required": ["sessionId"], "additionalProperties": false},
+      "outputSchema": {"type": "object", "description": "Recoverable answer-free user-facing session state.", "properties": {"sessionId": {"type": "string", "description": "Stable identity."}, "revision": {"type": "integer", "description": "Current revision."}, "state": {"type": "string", "description": "User-facing state.", "enum": ["ready_for_transfer", "blocked", "provider_failed", "completed"]}, "student": {"type": "object", "description": "Safe student reproduction or clarification.", "properties": {"state": {"type": "string", "description": "Student state."}, "summary": {"type": "string", "description": "Safe summary."}}, "required": ["state", "summary"], "additionalProperties": false}, "grounding": {"type": "object", "description": "Displayable evidence-bounded verifier summary.", "properties": {"nextAction": {"type": "string", "description": "Grounded next action."}, "summaries": {"type": "array", "description": "Grounded claims.", "items": {"type": "string", "description": "One summary."}}}, "required": ["nextAction", "summaries"], "additionalProperties": false}, "transferQuestion": {"type": "object", "description": "Answer-free question B.", "properties": {"questionId": {"type": "string", "description": "Question ID."}, "stem": {"type": "string", "description": "Stem."}, "options": {"type": "array", "description": "Answer-free options.", "items": {"type": "string", "description": "One option."}}}, "required": ["questionId", "stem", "options"], "additionalProperties": false}, "nextActionUrl": {"type": "string", "description": "Canonical next action."}}, "required": ["sessionId", "revision", "state", "student", "grounding", "transferQuestion", "nextActionUrl"], "additionalProperties": false},
+      "dataClasses": ["sensitive", "internal"],
+      "authorization": "Authenticated same-user read only.",
+      "idempotency": "Read current version without a provider call or state change.",
+      "compatibility": "Additive within the existing reflection page; no new tab.",
+      "errorSemantics": ["UNAUTHENTICATED", "NOT_FOUND"],
+      "requirementRefs": ["REQ-GROUNDED-FEYNMAN-RUNTIME-015"],
+      "evidenceRefs": ["E-CODE-GROUNDED-TEACHBACK-RUNTIME-GAP-015"],
+      "observability": {"correlation": "sessionId and revision.", "audit": "Read-only; source versions remain in the stored server authority.", "metrics": "Count state reads without explanation content."},
+      "status": "specified"
+    },
+    {
+      "id": "start-grounded-teach-back@v1",
+      "kind": "command",
+      "owner": "teach_back_runtime",
+      "consumers": ["xingce-reflection-page"],
+      "schemaLocator": "inline://contracts.json#/contracts/start-grounded-teach-back@v1",
+      "inputSchema": {"type": "object", "description": "Start one grounded explanation evaluation.", "properties": {"commandId": {"type": "string", "description": "Idempotency identity."}, "reviewId": {"type": "string", "description": "Current review."}, "sourceQuestionId": {"type": "string", "description": "Confirmed weak question."}, "userExplanation": {"type": "string", "description": "What the user teaches student Anan."}}, "required": ["commandId", "reviewId", "sourceQuestionId", "userExplanation"], "additionalProperties": false},
+      "outputSchema": {"type": "object", "description": "Stored session projection handle.", "properties": {"sessionId": {"type": "string", "description": "Session identity."}, "revision": {"type": "integer", "description": "Revision."}, "state": {"type": "string", "description": "Evaluation state.", "enum": ["ready_for_transfer", "blocked", "provider_failed"]}}, "required": ["sessionId", "revision", "state"], "additionalProperties": false},
+      "transactionScopeResources": ["grounded-teach-back-session-version"],
+      "transactionBoundary": "The provider runs outside a database lock; one transaction then validates the same frozen authorities and appends exactly one evaluated session version or an exact replay.",
+      "transactionEmits": [],
+      "dataClasses": ["sensitive", "internal"],
+      "authorization": "Authenticated same-user review, source question and current confirmed cause.",
+      "idempotency": "The same command and request fingerprint return the stored session without another provider call; mismatch is rejected.",
+      "compatibility": "Additive action on the existing rescue card.",
+      "errorSemantics": ["UNAUTHENTICATED", "REVIEW_NOT_FOUND", "TEACHING_PACKAGE_UNAVAILABLE", "PROVIDER_UNAVAILABLE", "IDEMPOTENCY_CONFLICT"],
+      "requirementRefs": ["REQ-GROUNDED-FEYNMAN-RUNTIME-015"],
+      "evidenceRefs": ["E-USER-LEARNER-COACH-COMPLETION-015", "E-CODE-GROUNDED-TEACHBACK-RUNTIME-GAP-015"],
+      "observability": {"correlation": "commandId, sessionId, reviewId and package fingerprint.", "audit": "Persist two content-free provider call audits and frozen authority identities.", "metrics": "Count ready, blocked, provider-failed and replay outcomes plus tokens/cost from existing provider metadata."},
+      "status": "specified"
+    },
+    {
+      "id": "submit-grounded-teach-back-transfer@v1",
+      "kind": "command",
+      "owner": "teach_back_runtime",
+      "consumers": ["xingce-reflection-page"],
+      "schemaLocator": "inline://contracts.json#/contracts/submit-grounded-teach-back-transfer@v1",
+      "inputSchema": {"type": "object", "description": "Independent user answer to unseen transfer question B.", "properties": {"commandId": {"type": "string", "description": "Idempotency identity."}, "sessionId": {"type": "string", "description": "Teach-back session."}, "revision": {"type": "integer", "description": "Expected current revision."}, "selectedOptionIds": {"type": "array", "description": "User selections.", "items": {"type": "string", "description": "One option ID."}}, "confidence": {"type": "string", "description": "User confidence.", "enum": ["low", "medium", "high"]}}, "required": ["commandId", "sessionId", "revision", "selectedOptionIds", "confidence"], "additionalProperties": false},
+      "outputSchema": {"type": "object", "description": "Completed session and canonical mastery handoff.", "properties": {"sessionId": {"type": "string", "description": "Session identity."}, "revision": {"type": "integer", "description": "New revision."}, "state": {"type": "string", "description": "Terminal state.", "const": "completed"}, "correct": {"type": "boolean", "description": "Server-verified transfer result."}, "masteryStage": {"type": "string", "description": "Current canonical mastery stage."}, "nextDueAt": {"type": "string", "description": "Next canonical due time or an empty string when stable."}, "nextActionUrl": {"type": "string", "description": "Canonical mastery queue."}}, "required": ["sessionId", "revision", "state", "correct", "masteryStage", "nextDueAt", "nextActionUrl"], "additionalProperties": false},
+      "transactionScopeResources": ["grounded-teach-back-session-version"],
+      "transactionBoundary": "One transaction compare-and-appends the exact teach-back session revision and delegates transfer evidence to the existing xingce mastery version writer before committing both or neither.",
+      "transactionEmits": [],
+      "dataClasses": ["sensitive", "internal"],
+      "authorization": "Authenticated same-user session and current revision only.",
+      "idempotency": "An exact replay returns the completed receipt; command reuse or stale revision is rejected.",
+      "compatibility": "Adds a new verified evidence source to existing mastery scheduling without changing review interval semantics.",
+      "errorSemantics": ["UNAUTHENTICATED", "NOT_FOUND", "REVISION_CONFLICT", "TRANSFER_QUESTION_STALE", "MASTERY_STATE_CONFLICT", "IDEMPOTENCY_CONFLICT"],
+      "requirementRefs": ["REQ-GROUNDED-FEYNMAN-RUNTIME-015", "REQ-COACH-CROSS-DAY-RETEST-015"],
+      "evidenceRefs": ["E-USER-LEARNER-COACH-COMPLETION-015", "E-CODE-CROSS-DAY-RETEST-REUSE-015"],
+      "observability": {"correlation": "commandId, sessionId, session revision and resulting mastery version.", "audit": "Persist selected options, confidence, correctness and exact package/question versions; never expose the answer before commit.", "metrics": "Count transfer correct/incorrect, conflict and replay outcomes."},
+      "status": "specified"
+    },
+    {
+      "id": "question-unit-match-query@v1",
+      "kind": "query",
+      "owner": "external_ingestion",
+      "consumers": ["external-learning-matching-service"],
+      "schemaLocator": "inline://contracts.json#/contracts/question-unit-match-query@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "One server-sealed question unit and its recognition revision.",
+        "properties": {
+          "recognitionRevisionId": {"type": "string", "description": "Confirmed recognition revision identity."},
+          "questionUnitId": {"type": "string", "description": "Question unit sealed inside the revision."},
+          "track": {"type": "string", "description": "Learning track.", "enum": ["xingce", "essay"]}
+        },
+        "required": ["recognitionRevisionId", "questionUnitId", "track"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Existing matcher query containing only evidence attributable to this question unit.",
+        "properties": {
+          "promptText": {"type": "string", "description": "Prompt text from this unit."},
+          "optionTexts": {"type": "array", "description": "Option text from this unit.", "items": {"type": "string", "description": "One option block."}},
+          "materialTexts": {"type": "array", "description": "Material text explicitly referenced by this unit.", "items": {"type": "string", "description": "One material block."}},
+          "visualFingerprints": {"type": "array", "description": "Page fingerprints uniquely attributable to this unit.", "items": {"type": "string", "description": "One SHA-256 visual fingerprint."}},
+          "visualFeatureHashes": {"type": "array", "description": "Transform-tolerant hashes only when the whole visual input belongs to one question.", "items": {"type": "object", "description": "One four-hash feature set.", "properties": {"phash": {"type": "string", "description": "Perceptual hash."}, "dhash": {"type": "string", "description": "Difference hash."}, "ahash": {"type": "string", "description": "Average hash."}, "edgeDhash": {"type": "string", "description": "Edge difference hash."}}, "required": ["phash", "dhash", "ahash", "edgeDhash"], "additionalProperties": false}}
+        },
+        "required": ["promptText", "optionTexts", "materialTexts", "visualFingerprints", "visualFeatureHashes"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["sensitive", "internal"],
+      "authorization": "Internal projection after same-user artifact and recognition authorization.",
+      "idempotency": "Pure deterministic projection of one immutable recognition revision and question unit.",
+      "compatibility": "Narrows evidence inside the existing MatchQuery shape; no public API field changes.",
+      "errorSemantics": ["QUESTION_UNIT_NOT_FOUND"],
+      "requirementRefs": ["REQ-PRIVATE-QUESTION-BOOK-INGESTION-018"],
+      "evidenceRefs": ["E-CODE-PRIVATE-QUESTION-BOOK-GAP-018", "E-USER-PRIVATE-QUESTION-BOOK-018"],
+      "observability": {
+        "correlation": "recognitionRevisionId and questionUnitId.",
+        "audit": "The stored match version keeps the input fingerprint; no source image content is logged.",
+        "metrics": "Count text-only, page-scoped-visual and ambiguous outcomes without uploaded content."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "register-private-question-book@v1",
+      "kind": "command",
+      "owner": "private_question_books",
+      "consumers": ["external-learning-question-book-router"],
+      "schemaLocator": "inline://contracts.json#/contracts/register-private-question-book@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "Bind one owned resolved import and its current confirmed recognition revision as a private question book.",
+        "properties": {
+          "commandId": {"type": "string", "description": "Idempotency identity."},
+          "importId": {"type": "string", "description": "Owned upload session identity."},
+          "recognitionRevisionId": {"type": "string", "description": "Current confirmed exam segmentation revision."},
+          "title": {"type": "string", "description": "User-visible private title."}
+        },
+        "required": ["commandId", "importId", "recognitionRevisionId", "title"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Recoverable question-book projection handle.",
+        "properties": {
+          "bookId": {"type": "string", "description": "Private source identity."},
+          "sourceVersionId": {"type": "string", "description": "Immutable private source version."},
+          "totalQuestionCount": {"type": "integer", "description": "Recognized unit count."},
+          "unresolvedQuestionCount": {"type": "integer", "description": "Current unresolved count."}
+        },
+        "required": ["bookId", "sourceVersionId", "totalQuestionCount", "unresolvedQuestionCount"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["sensitive", "internal"],
+      "authorization": "Authenticated same-user command; import, artifact and current recognition must all belong to the caller.",
+      "idempotency": "commandId is unique per user; exact replay returns the same book, payload mismatch is rejected, and a second key for the same artifact returns the existing current book.",
+      "compatibility": "Additive facade over existing private upload, recognition, match and private-knowledge storage.",
+      "errorSemantics": ["UNAUTHENTICATED", "IMPORT_NOT_FOUND", "SOURCE_UNAVAILABLE", "RECOGNITION_STALE", "IDEMPOTENCY_CONFLICT"],
+      "requirementRefs": ["REQ-PRIVATE-QUESTION-BOOK-PERSISTENCE-019"],
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-PERSISTENCE-019", "E-CODE-PRIVATE-QUESTION-BOOK-LIFECYCLE-019"],
+      "observability": {"correlation": "commandId, bookId, importId, artifactVersionId and recognitionRevisionId.", "audit": "Persist identities and fingerprints without logging uploaded content.", "metrics": "Count created, deduplicated, replayed, stale and cross-owner rejected outcomes."},
+      "status": "specified"
+    },
+    {
+      "id": "private-question-book-view@v1",
+      "kind": "query",
+      "owner": "private_question_books",
+      "consumers": ["external-learning-question-book-router"],
+      "schemaLocator": "inline://contracts.json#/contracts/private-question-book-view@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "Read current same-user books or one book.",
+        "properties": {"bookId": {"type": "string", "description": "Optional private book identity."}},
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Current projection derived from recognition and content match heads.",
+        "properties": {
+          "bookId": {"type": "string", "description": "Private book identity."},
+          "title": {"type": "string", "description": "Private title."},
+          "totalQuestionCount": {"type": "integer", "description": "Recognized unit count."},
+          "resolvedQuestionCount": {"type": "integer", "description": "Confirmed match count."},
+          "unresolvedQuestionCount": {"type": "integer", "description": "Candidate or unmatched count."},
+          "nextUnresolvedQuestionUnitId": {"type": "string", "description": "Next unit to continue in the existing workspace; omitted when all units are resolved."}
+        },
+        "required": ["bookId", "title", "totalQuestionCount", "resolvedQuestionCount", "unresolvedQuestionCount"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["sensitive", "internal"],
+      "authorization": "Authenticated same-user read only.",
+      "idempotency": "Pure read of current immutable recognition and match heads; no provider call or write.",
+      "compatibility": "Additive question-book view; existing ImportWorkspace and private-note APIs are unchanged.",
+      "errorSemantics": ["UNAUTHENTICATED", "NOT_FOUND", "SOURCE_UNAVAILABLE"],
+      "requirementRefs": ["REQ-PRIVATE-QUESTION-BOOK-PERSISTENCE-019"],
+      "evidenceRefs": ["E-CODE-PRIVATE-QUESTION-BOOK-LIFECYCLE-019"],
+      "observability": {"correlation": "bookId, sourceVersionId, artifactVersionId and recognitionRevisionId.", "audit": "Read-only projection; content bodies are not logged.", "metrics": "Count list/detail reads and unresolved-state distributions."},
+      "status": "specified"
+    },
+    {
+      "id": "delete-private-question-book@v1",
+      "kind": "command",
+      "owner": "private_question_books",
+      "consumers": ["external-learning-question-book-router"],
+      "schemaLocator": "inline://contracts.json#/contracts/delete-private-question-book@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "Request deletion of one same-user private question book.",
+        "properties": {
+          "commandId": {"type": "string", "description": "Idempotency identity."},
+          "bookId": {"type": "string", "description": "Private question book identity."}
+        },
+        "required": ["commandId", "bookId"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Existing asynchronous private-material deletion receipt.",
+        "properties": {
+          "requestId": {"type": "string", "description": "Deletion request identity."},
+          "state": {"type": "string", "description": "Deletion state.", "enum": ["queued", "running", "completed", "failed"]}
+        },
+        "required": ["requestId", "state"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["sensitive", "internal"],
+      "authorization": "Authenticated same-user command; non-question-book private sources are rejected by this facade.",
+      "idempotency": "Exact command replay returns the same deletion request and conflicting payload is rejected.",
+      "compatibility": "Reuses existing private-material deletion states and account-erasure propagation.",
+      "errorSemantics": ["UNAUTHENTICATED", "NOT_FOUND", "IDEMPOTENCY_CONFLICT"],
+      "requirementRefs": ["REQ-PRIVATE-QUESTION-BOOK-PERSISTENCE-019"],
+      "evidenceRefs": ["E-CODE-PRIVATE-QUESTION-BOOK-LIFECYCLE-019"],
+      "observability": {"correlation": "commandId, bookId and deletion requestId.", "audit": "Existing deletion events record propagation without content logging.", "metrics": "Count queued, completed, failed and replayed question-book deletions."},
+      "status": "specified"
+    },
+    {
+      "id": "launch-private-question-book-practice@v1",
+      "kind": "command",
+      "owner": "private_question_books",
+      "consumers": ["external-learning-question-book-router", "xingce-real-attempt-runtime"],
+      "schemaLocator": "inline://contracts.json#/contracts/launch-private-question-book-practice@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "Use one owned question book as the exact selection source for an existing current objective practice task.",
+        "properties": {
+          "commandId": {"type": "string", "description": "Idempotency identity."},
+          "bookId": {"type": "string", "description": "Owned current private question-book identity."},
+          "planTaskId": {"type": "string", "description": "Existing current objective_practice task to consume; never synthesized by this command."}
+        },
+        "required": ["commandId", "bookId", "planTaskId"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "The existing real Xingce task session plus a non-blocking selection summary.",
+        "properties": {
+          "bookId": {"type": "string", "description": "Frozen private book identity."},
+          "sourceVersionId": {"type": "string", "description": "Frozen private source version."},
+          "selectedQuestionCount": {"type": "integer", "description": "Questions frozen into this existing runtime session."},
+          "excludedQuestionCount": {"type": "integer", "description": "Unresolved, stale, ineligible or over-capacity units left out without changing their state."},
+          "sessionId": {"type": "string", "description": "Existing Xingce task-session identity."},
+          "planTaskId": {"type": "string", "description": "Consumed existing plan-task identity."},
+          "startUrl": {"type": "string", "description": "Existing mini-program task route carrying planTaskId; the page resumes the frozen session through the normal API."}
+        },
+        "required": ["bookId", "sourceVersionId", "selectedQuestionCount", "excludedQuestionCount", "sessionId", "planTaskId", "startUrl"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["sensitive", "internal"],
+      "authorization": "Authenticated same-user command; both the private book and current plan task belong to the caller, and selected content must have a current delivery-eligible Xingce publication.",
+      "idempotency": "commandId is unique per user; exact replay returns the frozen existing session. One work item can have only one source-compatible session; a different source conflicts instead of silently resuming it.",
+      "compatibility": "Additive orchestration facade over the current question-book view and xingce task-session runtime; no schema migration or plan-task creation.",
+      "errorSemantics": ["UNAUTHENTICATED", "BOOK_NOT_FOUND", "PLAN_TASK_UNAVAILABLE", "PLAN_TASK_INCOMPATIBLE", "NO_DELIVERY_ELIGIBLE_MATCH", "SOURCE_CONFLICT", "IDEMPOTENCY_CONFLICT"],
+      "requirementRefs": ["REQ-PRIVATE-QUESTION-BOOK-PRACTICE-020"],
+      "evidenceRefs": ["E-USER-PRIVATE-QUESTION-BOOK-PRACTICE-020", "E-CODE-PRIVATE-QUESTION-BOOK-PRACTICE-GAP-020"],
+      "observability": {
+        "correlation": "commandId, bookId, sourceVersionId, planTaskId, task sessionId and frozen match/content/release identities.",
+        "audit": "Freeze only opaque source identities and counts in the private scoring context; never copy the book title, OCR text or raw upload into attempt lineage.",
+        "metrics": "Count started, resumed, replayed, source-conflicted, zero-eligible and excluded-by-reason outcomes."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "question-region-visual-evidence@v1",
+      "kind": "query",
+      "owner": "external_ingestion",
+      "consumers": ["question-unit-match-query@v1"],
+      "schemaLocator": "inline://contracts.json#/contracts/question-region-visual-evidence@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "Read immutable region evidence already embedded in one recognition revision for an exact question unit.",
+        "properties": {
+          "recognitionRevisionId": {"type": "string", "description": "Immutable recognition revision identity."},
+          "questionUnitId": {"type": "string", "description": "Exact unit identity inside that revision."}
+        },
+        "required": ["recognitionRevisionId", "questionUnitId"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Optional deterministic visual evidence derived from a trusted server-rendered page; absence is a normal safe fallback.",
+        "properties": {
+          "contractVersion": {"type": "string", "description": "Closed evidence contract discriminator.", "enum": ["question-region-visual-evidence@v1"]},
+          "questionUnitId": {"type": "string", "description": "Exact question unit that owns every returned hash."},
+          "pageNo": {"type": "integer", "description": "One-based trusted rendered page number.", "minimum": 1},
+          "box": {
+            "type": "object",
+            "description": "Full-width normalized vertical band used for transient in-memory cropping.",
+            "properties": {
+              "x": {"type": "number", "description": "Normalized left coordinate; always zero in v1.", "minimum": 0, "maximum": 1},
+              "y": {"type": "number", "description": "Normalized top coordinate.", "minimum": 0, "maximum": 1},
+              "width": {"type": "number", "description": "Normalized width; always one in v1.", "minimum": 0, "maximum": 1},
+              "height": {"type": "number", "description": "Normalized positive band height.", "minimum": 0, "maximum": 1}
+            },
+            "required": ["x", "y", "width", "height"],
+            "additionalProperties": false
+          },
+          "sourcePageImageSha256": {"type": "string", "description": "SHA-256 of the exact trusted rendered page bytes.", "pattern": "^[0-9a-f]{64}$"},
+          "visualFingerprints": {"type": "array", "description": "Exact crop fingerprints compatible with current catalog matching.", "items": {"type": "string", "description": "One SHA-256 visual fingerprint.", "pattern": "^[0-9a-f]{64}$"}, "minItems": 1},
+          "visualFeatureHashes": {
+            "type": "array",
+            "description": "Transform-tolerant crop hashes compatible with current catalog matching.",
+            "items": {
+              "type": "object",
+              "description": "One closed current visual hash family.",
+              "properties": {
+                "phash": {"type": "string", "description": "Perceptual hash.", "pattern": "^[0-9a-f]{16}$"},
+                "dhash": {"type": "string", "description": "Difference hash.", "pattern": "^[0-9a-f]{16}$"},
+                "ahash": {"type": "string", "description": "Average hash.", "pattern": "^[0-9a-f]{16}$"},
+                "edgeDhash": {"type": "string", "description": "Edge difference hash.", "pattern": "^[0-9a-f]{16}$"}
+              },
+              "required": ["phash", "dhash", "ahash", "edgeDhash"],
+              "additionalProperties": false
+            },
+            "minItems": 1
+          },
+          "derivation": {"type": "string", "description": "Closed deterministic crop algorithm version.", "enum": ["prompt-vertical-band@v1"]}
+        },
+        "required": ["contractVersion", "questionUnitId", "pageNo", "box", "sourcePageImageSha256", "visualFingerprints", "visualFeatureHashes", "derivation"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["sensitive", "internal"],
+      "authorization": "Only the authenticated owner of the private recognition revision may consume this embedded evidence through the existing match projection.",
+      "idempotency": "Pure deterministic projection of sealed page bytes and sealed question geometry; identical inputs yield identical hashes.",
+      "compatibility": "Additive optional evidence on recognition-candidate-payload@v1. Old revisions remain valid and use the 018 single-question/page or text-only fallback.",
+      "errorSemantics": ["UNAUTHENTICATED", "NOT_FOUND", "EVIDENCE_UNAVAILABLE"],
+      "requirementRefs": ["REQ-PRIVATE-QUESTION-BOOK-REGION-VISUAL-021"],
+      "evidenceRefs": ["E-CODE-PRIVATE-QUESTION-BOOK-REGION-VISUAL-GAP-021"],
+      "observability": {
+        "correlation": "recognitionRevisionId, questionUnitId, pageNo and source page hash.",
+        "audit": "Persist normalized geometry and hashes only; never log or persist crop bytes or data URLs.",
+        "metrics": "Count derived, ambiguous-overlap, cross-page, missing-page and untrusted-adapter fallbacks."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "repair-knowledge-map-release-manifest@v1",
+      "kind": "command",
+      "owner": "question_bank_runtime_alignment",
+      "consumers": ["alembic-20260815-113"],
+      "schemaLocator": "inline://contracts.json#/contracts/repair-knowledge-map-release-manifest@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "The exact backup-proven historical release-manifest repair authority.",
+        "properties": {
+          "contractVersion": {"type": "string", "description": "Closed repair contract discriminator.", "const": "repair-knowledge-map-release-manifest@v1"},
+          "legacyReleaseId": {"type": "string", "description": "Deterministic migration-65 legacy release identity.", "const": "86064dad-c59f-1939-e8d6-1076e75ef9a3"},
+          "expectedNodeCount": {"type": "integer", "description": "Exact immutable legacy node count.", "const": 2462},
+          "expectedNodeFingerprint": {"type": "string", "description": "Migration-65 normalized legacy node SHA-256.", "const": "6012a30ea3b90ce00b11b0e13d758bbf6d5cfdad1515ba1d497a654cbcd94a0e"},
+          "successorReleaseId": {"type": "string", "description": "First formal release whose original supersedes link is restored.", "const": "f4e8d3e7-fc73-4886-8d8d-8fa256b05b0b"},
+          "backupEvidenceSha256": {"type": "string", "description": "Immutable forensic artifact containing the two independent backup observations.", "const": "b9597e82c1dd37845fe31100cab9d15cbee95b9df264a8a570ae64090e8d1731"}
+        },
+        "required": ["contractVersion", "legacyReleaseId", "expectedNodeCount", "expectedNodeFingerprint", "successorReleaseId", "backupEvidenceSha256"],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Deterministic terminal result after manifest and foreign-key verification.",
+        "properties": {
+          "state": {"type": "string", "description": "Whether the exact defect was repaired or the exact healthy state already existed.", "enum": ["repaired", "unchanged"]},
+          "restoredReleaseRows": {"type": "integer", "description": "Historical parent rows inserted in this execution.", "minimum": 0, "maximum": 1},
+          "restoredSuccessorLinks": {"type": "integer", "description": "Successor links restored in this execution.", "minimum": 0, "maximum": 1},
+          "orphanNodeCount": {"type": "integer", "description": "Release-scope orphan nodes after commit.", "const": 0},
+          "foreignKeyValidated": {"type": "boolean", "description": "The release-scope FK was physically recreated and validated.", "const": true},
+          "activeReleaseId": {"type": "string", "description": "Unchanged active v5 knowledge release.", "const": "198bae5c-6008-44dc-97a2-b2f97284368e"},
+          "activeReleaseNodeCount": {"type": "integer", "description": "Unchanged active release node count.", "const": 640},
+          "activeQuestionBindingCount": {"type": "integer", "description": "Unchanged active release question-binding count.", "const": 158366}
+        },
+        "required": ["state", "restoredReleaseRows", "restoredSuccessorLinks", "orphanNodeCount", "foreignKeyValidated", "activeReleaseId", "activeReleaseNodeCount", "activeQuestionBindingCount"],
+        "additionalProperties": false
+      },
+      "dataClasses": ["internal"],
+      "authorization": "Only the frozen 024 migration artifact may execute this repair; production execution additionally requires a separate backed-up release gate.",
+      "idempotency": "Exact healthy parent and successor facts replay unchanged; the one exact historical gap repairs at most once; every conflicting or partially changed state aborts.",
+      "compatibility": "v1 applies only to the migration-65 guokao/xingce legacy release proven by the frozen evidence and does not generalize to other releases, scopes or tracks.",
+      "errorSemantics": ["LEGACY_NODE_SET_CHANGED", "LEGACY_MANIFEST_CONFLICT", "SUCCESSOR_IDENTITY_CHANGED", "ACTIVE_RELEASE_CHANGED", "FOREIGN_KEY_VALIDATION_FAILED", "TRANSACTION_FAILED"],
+      "requirementRefs": ["REQ-KNOWLEDGE-MAP-RELEASE-MANIFEST-INTEGRITY-024"],
+      "evidenceRefs": ["E-OPS-KNOWLEDGE-MAP-MANIFEST-FORENSICS-024"],
+      "transactionScopeResources": ["knowledge-map-release-manifest-integrity"],
+      "transactionBoundary": "One PostgreSQL transaction takes table-level locks on knowledge_map_releases and knowledge_map_nodes, validates the complete immutable legacy and active-release fingerprints, temporarily bypasses only the release lifecycle guard for the exact historical insert/update, recreates and validates the release-scope FK, and commits only after all postconditions pass.",
+      "transactionEmits": [],
+      "observability": {
+        "correlation": "Alembic revision 20260815_113 plus legacy, successor, active-release and forensic artifact fingerprints.",
+        "audit": "Migration and rehearsal reports record only release identities, counts, hashes, constraint status and backup artifact identities; no credentials, question text or learner data.",
+        "metrics": "Count restored parent/link rows, remaining orphans, validated constraint state, active release nodes and active question bindings."
       },
       "status": "specified"
     }

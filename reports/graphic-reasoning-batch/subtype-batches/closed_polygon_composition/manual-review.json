@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "graphic-reasoning-subtype-manual-review-v1",
+  "subtype": "closed_polygon_composition",
+  "status": "reviewed_not_final",
+  "reviewedAssets": [
+    {
+      "assetId": "gr_23f25a75395bc1aef297d311",
+      "observation": "low-complexity line/polygon topology is substantially retained and the question-mark panel is left empty",
+      "result": "candidate_for_more_manual_review"
+    },
+    {
+      "assetId": "gr_528020222e966acdf011a41e",
+      "observation": "standalone polygon options are retained; printed option labels are not yet promoted to textGlyph",
+      "result": "repair_pending_text_evidence"
+    },
+    {
+      "assetId": "gr_084cef384f8c288553a030fb",
+      "observation": "simple closed polygons and relative placement are retained",
+      "result": "candidate_for_more_manual_review"
+    },
+    {
+      "assetId": "gr_a6d60ea696cfebe9b8b07d10",
+      "observation": "circles and curved interiors are lost, so this asset does not belong in the simple closed-polygon renderer",
+      "result": "reroute_required"
+    },
+    {
+      "assetId": "gr_5307b0cba5784ee06be1cf53",
+      "observation": "curved matrix cells are approximated by dense short line segments",
+      "result": "reroute_required"
+    },
+    {
+      "assetId": "gr_51d537198e6a561310120468",
+      "observation": "solid triangular regions are not preserved and Hough line artifacts dominate",
+      "result": "reroute_required"
+    },
+    {
+      "assetId": "gr_3c64600fd1aff21d80724e30",
+      "observation": "large filled regions become dense line fans instead of face primitives",
+      "result": "reroute_required"
+    },
+    {
+      "assetId": "gr_3331589a54377523ba6db2de",
+      "observation": "triangular lattice and shading semantics are not retained consistently",
+      "result": "reroute_required"
+    }
+  ],
+  "conclusion": "The first pass proves a useful simple-polygon subset but does not validate the whole subtype. No asset is final-accepted in this review."
+}

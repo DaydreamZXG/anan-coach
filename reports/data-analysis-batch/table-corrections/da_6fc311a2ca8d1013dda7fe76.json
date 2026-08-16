@@ -1,0 +1,155 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "第1季度",
+          "第2季度",
+          "第3季度",
+          "第4季度"
+        ],
+        "label": "季度"
+      }
+    ],
+    "columns": [
+      "第1季度",
+      "第2季度",
+      "第3季度",
+      "第4季度"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "销售情况",
+      "style": "diagonal",
+      "upper_label": "季度"
+    },
+    "missing_cells": [],
+    "row_header_label": "产品",
+    "rows": [
+      {
+        "label": "甲产品",
+        "unit": null,
+        "values": [
+          20350,
+          22010,
+          18080,
+          19320
+        ]
+      },
+      {
+        "label": "甲产品单位成本（元）",
+        "unit": "元",
+        "values": [
+          10,
+          10,
+          11,
+          10
+        ]
+      },
+      {
+        "label": "甲产品销售单价（元）",
+        "unit": "元",
+        "values": [
+          12,
+          12,
+          13,
+          13
+        ]
+      },
+      {
+        "label": "乙产品",
+        "unit": null,
+        "values": [
+          12260,
+          13130,
+          13280,
+          13550
+        ]
+      },
+      {
+        "label": "乙产品单位成本（元）",
+        "unit": "元",
+        "values": [
+          12,
+          13,
+          11,
+          12
+        ]
+      },
+      {
+        "label": "乙产品销售单价（元）",
+        "unit": "元",
+        "values": [
+          15,
+          15,
+          15,
+          15
+        ]
+      },
+      {
+        "label": "丙产品",
+        "unit": null,
+        "values": [
+          46350,
+          48980,
+          45610,
+          45820
+        ]
+      },
+      {
+        "label": "丙产品单位成本（元）",
+        "unit": "元",
+        "values": [
+          2.5,
+          2.5,
+          3.0,
+          2.6
+        ]
+      },
+      {
+        "label": "丙产品销售单价（元）",
+        "unit": "元",
+        "values": [
+          4.5,
+          4.5,
+          5.0,
+          4.6
+        ]
+      },
+      {
+        "label": "丁产品",
+        "unit": null,
+        "values": [
+          4360,
+          4578,
+          3940,
+          4256
+        ]
+      },
+      {
+        "label": "丁产品单位成本（元）",
+        "unit": "元",
+        "values": [
+          100,
+          105,
+          110,
+          102
+        ]
+      },
+      {
+        "label": "丁产品销售单价（元）",
+        "unit": "元",
+        "values": [
+          130,
+          138,
+          128,
+          136
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

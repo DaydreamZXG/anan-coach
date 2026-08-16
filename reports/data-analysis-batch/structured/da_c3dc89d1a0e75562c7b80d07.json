@@ -1,0 +1,522 @@
+{
+  "asset_id": "da_c3dc89d1a0e75562c7b80d07",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "指标",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "绝对量（亿元）",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比增长（%）",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "绝对量（亿元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        47993,
+        21840,
+        3991,
+        41135,
+        6858,
+        5079,
+        1356,
+        42913,
+        20484,
+        3278,
+        2329,
+        322,
+        564,
+        763,
+        1169,
+        1191,
+        379,
+        298,
+        492,
+        2667,
+        5549,
+        349
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增长（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.7,
+        8.1,
+        47.4,
+        10.6,
+        11.6,
+        11.2,
+        5.1,
+        10.7,
+        8.4,
+        9.6,
+        9.1,
+        9.9,
+        -2.4,
+        14.6,
+        12.4,
+        16.4,
+        10.0,
+        12.4,
+        38.5,
+        -6.7,
+        10.8,
+        12.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河北/2015年河北省公务员录用考试《行测》题_images/img_0063_aa71dcf28721d28c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河北省公务员录用考试《行测》题_images/img_0063_aa71dcf28721d28c.png",
+        "paper_title": "2015年河北省公务员录用考试《行测》题",
+        "question_id": "pq_7fb2cb3f5fdccdbb458a",
+        "question_number": 111,
+        "source_jsonl_line": 55240
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河北省公务员录用考试《行测》题_images/img_0063_aa71dcf28721d28c.png",
+        "paper_title": "2015年河北省公务员录用考试《行测》题",
+        "question_id": "pq_a2d554f6bc28bdf5bb5e",
+        "question_number": 112,
+        "source_jsonl_line": 55241
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河北省公务员录用考试《行测》题_images/img_0063_aa71dcf28721d28c.png",
+        "paper_title": "2015年河北省公务员录用考试《行测》题",
+        "question_id": "pq_7c70d1242e77f127995f",
+        "question_number": 113,
+        "source_jsonl_line": 55242
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河北省公务员录用考试《行测》题_images/img_0078_4a147a6a0538fc04.png",
+        "paper_title": "2015年河北省公务员录用考试《行测》题",
+        "question_id": "pq_611d7412c46afb966313",
+        "question_number": 114,
+        "source_jsonl_line": 55243
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河北省公务员录用考试《行测》题_images/img_0078_4a147a6a0538fc04.png",
+        "paper_title": "2015年河北省公务员录用考试《行测》题",
+        "question_id": "pq_3405a6dc965fc88a7b84",
+        "question_number": 115,
+        "source_jsonl_line": 55244
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）_images/img_0062_aa71dcf28721d28c.png",
+        "paper_title": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）",
+        "question_id": "pq_b3cf375920abc7f21b7b",
+        "question_number": 99,
+        "source_jsonl_line": 55353
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）_images/img_0062_aa71dcf28721d28c.png",
+        "paper_title": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）",
+        "question_id": "pq_bf57210b4f4352313c5e",
+        "question_number": 100,
+        "source_jsonl_line": 55354
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）_images/img_0062_aa71dcf28721d28c.png",
+        "paper_title": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）",
+        "question_id": "pq_42d0262a86ac853489d5",
+        "question_number": 101,
+        "source_jsonl_line": 55355
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）_images/img_0062_aa71dcf28721d28c.png",
+        "paper_title": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）",
+        "question_id": "pq_27dd2f09632c07e8ae71",
+        "question_number": 102,
+        "source_jsonl_line": 55356
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）_images/img_0062_aa71dcf28721d28c.png",
+        "paper_title": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）",
+        "question_id": "pq_fc5295e3dfba366e6341",
+        "question_number": 103,
+        "source_jsonl_line": 55357
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）_images/img_0056_aa71dcf28721d28c.png",
+        "paper_title": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）",
+        "question_id": "pq_f1fa2fb8e31b13cb2468",
+        "question_number": 99,
+        "source_jsonl_line": 85252
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）_images/img_0056_aa71dcf28721d28c.png",
+        "paper_title": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）",
+        "question_id": "pq_7ed0093d5376d5434415",
+        "question_number": 100,
+        "source_jsonl_line": 85253
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）_images/img_0056_aa71dcf28721d28c.png",
+        "paper_title": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）",
+        "question_id": "pq_aa61fb962d34b35990d7",
+        "question_number": 101,
+        "source_jsonl_line": 85254
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）_images/img_0056_aa71dcf28721d28c.png",
+        "paper_title": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）",
+        "question_id": "pq_e3dd1ac731dee98e0155",
+        "question_number": 102,
+        "source_jsonl_line": 85255
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）_images/img_0076_4a147a6a0538fc04.png",
+        "paper_title": "2015年河北省选调生招录考试 《行政职业能力测试》试卷（精选）",
+        "question_id": "pq_bbb4ca0456a7312df1b1",
+        "question_number": 103,
+        "source_jsonl_line": 85256
+      }
+    ],
+    "sha256": "c3dc89d1a0e75562c7b80d0787e742744e89c664708c6e28fca32242970d9ae1"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "1-2月绝对量（亿元）",
+      "同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "社会消费品零售总额",
+        "unit": null,
+        "values": [
+          "社会消费品零售总额",
+          47993,
+          10.7
+        ]
+      },
+      {
+        "label": "其中：限额以上单位消费品零售额",
+        "unit": null,
+        "values": [
+          "其中：限额以上单位消费品零售额",
+          21840,
+          8.1
+        ]
+      },
+      {
+        "label": "其中：网上商品零售额",
+        "unit": null,
+        "values": [
+          "其中：网上商品零售额",
+          3991,
+          47.4
+        ]
+      },
+      {
+        "label": "按经营地分",
+        "unit": null,
+        "values": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "城镇",
+        "unit": null,
+        "values": [
+          41135,
+          null,
+          10.6
+        ]
+      },
+      {
+        "label": "乡村",
+        "unit": null,
+        "values": [
+          6858,
+          null,
+          11.6
+        ]
+      },
+      {
+        "label": "按消费类型分",
+        "unit": null,
+        "values": [
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "餐饮收入",
+        "unit": null,
+        "values": [
+          5079,
+          null,
+          11.2
+        ]
+      },
+      {
+        "label": "其中：限额以上单位餐饮收入",
+        "unit": null,
+        "values": [
+          1356,
+          null,
+          5.1
+        ]
+      },
+      {
+        "label": "商品零售",
+        "unit": null,
+        "values": [
+          42913,
+          null,
+          10.7
+        ]
+      },
+      {
+        "label": "其中：限额以上单位商品零售",
+        "unit": null,
+        "values": [
+          20484,
+          null,
+          8.4
+        ]
+      },
+      {
+        "label": "其中：粮油食品、饮料烟酒",
+        "unit": null,
+        "values": [
+          3278,
+          null,
+          9.6
+        ]
+      },
+      {
+        "label": "服装鞋帽、针纺织品",
+        "unit": null,
+        "values": [
+          "服装鞋帽、针纺织品",
+          2329,
+          9.1
+        ]
+      },
+      {
+        "label": "化妆品",
+        "unit": null,
+        "values": [
+          "化妆品",
+          322,
+          9.9
+        ]
+      },
+      {
+        "label": "金银珠宝",
+        "unit": null,
+        "values": [
+          "金银珠宝",
+          564,
+          -2.4
+        ]
+      },
+      {
+        "label": "日用品",
+        "unit": null,
+        "values": [
+          "日用品",
+          763,
+          14.6
+        ]
+      },
+      {
+        "label": "家用电器和音像器材",
+        "unit": null,
+        "values": [
+          "家用电器和音像器材",
+          1169,
+          12.4
+        ]
+      },
+      {
+        "label": "中西药品",
+        "unit": null,
+        "values": [
+          "中西药品",
+          1191,
+          16.4
+        ]
+      },
+      {
+        "label": "文化办公用品",
+        "unit": null,
+        "values": [
+          "文化办公用品",
+          379,
+          10.0
+        ]
+      },
+      {
+        "label": "家具",
+        "unit": null,
+        "values": [
+          "家具",
+          298,
+          12.4
+        ]
+      },
+      {
+        "label": "通讯器材",
+        "unit": null,
+        "values": [
+          "通讯器材",
+          492,
+          38.5
+        ]
+      },
+      {
+        "label": "石油及制品",
+        "unit": null,
+        "values": [
+          "石油及制品",
+          2667,
+          -6.7
+        ]
+      },
+      {
+        "label": "汽车",
+        "unit": null,
+        "values": [
+          "汽车",
+          5549,
+          10.8
+        ]
+      },
+      {
+        "label": "建筑及装潢材料",
+        "unit": null,
+        "values": [
+          "建筑及装潢材料",
+          349,
+          12.5
+        ]
+      }
+    ]
+  },
+  "title": "2015年1-2月社会消费品零售总额主要数据",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c3dc89d1a0e75562c7b80d07/row_band_01.jpg",
+        "review-crops/da_c3dc89d1a0e75562c7b80d07/row_band_02.jpg",
+        "review-crops/da_c3dc89d1a0e75562c7b80d07/row_band_03.jpg",
+        "review-crops/da_c3dc89d1a0e75562c7b80d07/row_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:16.175",
+      "crop_verification_elapsed_seconds:10.855",
+      "candidate_value_changes_after_crop:16",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:社会消费品零售总额:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:其中：限额以上单位消费品零售额:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:其中：网上商品零售额:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:按经营地分:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:城镇:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:商品零售:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:其中：限额以上单位商品零售:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:其中：粮油食品、饮料烟酒:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:服装鞋帽、针纺织品:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:化妆品:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:金银珠宝:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:日用品:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:家用电器和音像器材:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:中西药品:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:文化办公用品:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:家用电器和音像器材:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:中西药品:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:文化办公用品:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:家具:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:通讯器材:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:石油及制品:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:汽车:2!=3",
+      "crop_note:ignored_table_row_length_mismatch:建筑及装潢材料:2!=3"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

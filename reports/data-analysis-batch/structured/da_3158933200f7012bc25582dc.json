@@ -1,0 +1,234 @@
+{
+  "asset_id": "da_3158933200f7012bc25582dc",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2015年江西省法检系统招录考试《行测》题_images/img_0116_9ff4c9573315a79d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江西省法检系统招录考试《行测》题_images/img_0116_9ff4c9573315a79d.png",
+        "paper_title": "2015年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_e43e5105269a08f56c54",
+        "question_number": 111,
+        "source_jsonl_line": 52270
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江西省法检系统招录考试《行测》题_images/img_0116_9ff4c9573315a79d.png",
+        "paper_title": "2015年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_314d6abfca7cd4941270",
+        "question_number": 112,
+        "source_jsonl_line": 52271
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江西省法检系统招录考试《行测》题_images/img_0116_9ff4c9573315a79d.png",
+        "paper_title": "2015年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_6e134e67e252d61ebf75",
+        "question_number": 113,
+        "source_jsonl_line": 52272
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江西省法检系统招录考试《行测》题_images/img_0116_9ff4c9573315a79d.png",
+        "paper_title": "2015年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_a146886f00e5ef344913",
+        "question_number": 114,
+        "source_jsonl_line": 52273
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年江西省法检系统招录考试《行测》题_images/img_0116_9ff4c9573315a79d.png",
+        "paper_title": "2015年江西省法检系统招录考试《行测》题",
+        "question_id": "pq_d553c29a2216bf7ade75",
+        "question_number": 115,
+        "source_jsonl_line": 52274
+      }
+    ],
+    "sha256": "3158933200f7012bc25582dceb65ce001b0def9d8167bde54147ebfef9635d35"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口｜出口额（亿元）",
+          "出口｜比上年增长（%）"
+        ],
+        "label": "出口"
+      },
+      {
+        "columns": [
+          "进口｜进口额（亿元）",
+          "进口｜比上年增长（%）"
+        ],
+        "label": "进口"
+      }
+    ],
+    "columns": [
+      "出口｜出口额（亿元）",
+      "出口｜比上年增长（%）",
+      "进口｜进口额（亿元）",
+      "进口｜比上年增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家和地区",
+    "rows": [
+      {
+        "display_label": "欧盟",
+        "group": null,
+        "label": "欧盟",
+        "unit": "亿元",
+        "values": [
+          22787,
+          8.3,
+          15031,
+          9.7
+        ]
+      },
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": "亿元",
+        "values": [
+          24328,
+          6.4,
+          9764,
+          3.1
+        ]
+      },
+      {
+        "display_label": "东盟",
+        "group": null,
+        "label": "东盟",
+        "unit": "亿元",
+        "values": [
+          16712,
+          10.3,
+          12794,
+          3.3
+        ]
+      },
+      {
+        "display_label": "中国香港",
+        "group": null,
+        "label": "中国香港",
+        "unit": "亿元",
+        "values": [
+          22307,
+          -6.6,
+          792,
+          -21.5
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": "亿元",
+        "values": [
+          9187,
+          -1.4,
+          10027,
+          -0.5
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": "亿元",
+        "values": [
+          6162,
+          8.9,
+          11677,
+          2.8
+        ]
+      },
+      {
+        "display_label": "中国台湾",
+        "group": null,
+        "label": "中国台湾",
+        "unit": "亿元",
+        "values": [
+          2843,
+          12.7,
+          9337,
+          -3.9
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": null,
+        "label": "俄罗斯",
+        "unit": "亿元",
+        "values": [
+          3297,
+          7.2,
+          2555,
+          3.7
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": null,
+        "label": "印度",
+        "unit": "亿元",
+        "values": [
+          3331,
+          10.7,
+          1005,
+          -4.6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "asset_id": "da_a6af31f09a405a7587e87b02",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 21,
+        "min": 11,
+        "ticks": [],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1-6月 2014年",
+    "1-7月 2014年",
+    "1-8月 2014年",
+    "1-9月 2014年",
+    "1-10月 2014年",
+    "1-11月 2014年",
+    "1-12月 2014年",
+    "1-2月 2015年",
+    "1-3月 2015年",
+    "1-4月 2015年",
+    "1-5月 2015年",
+    "1-6月 2015年"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "民间固定资产投资同比增速",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "全国固定资产投资同比增速",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "民间固定资产投资同比增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        17.3,
+        17.0,
+        16.5,
+        16.1,
+        15.9,
+        15.8,
+        15.7,
+        13.9,
+        13.5,
+        12.0,
+        11.4,
+        11.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "全国固定资产投资同比增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        20.1,
+        19.6,
+        19.0,
+        18.3,
+        18.0,
+        17.9,
+        18.1,
+        14.7,
+        13.6,
+        12.7,
+        12.1,
+        11.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2016年北京市公务员录用考试《行测》题_images/img_0127_d247f6fbce50df21.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年北京市公务员录用考试《行测》题_images/img_0127_d247f6fbce50df21.png",
+        "paper_title": "2016年北京市公务员录用考试《行测》题",
+        "question_id": "pq_4e42b405d98cb1dd8c9b",
+        "question_number": 121,
+        "source_jsonl_line": 9724
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年北京市公务员录用考试《行测》题_images/img_0137_b5320fb12567f8a6.png",
+        "paper_title": "2016年北京市公务员录用考试《行测》题",
+        "question_id": "pq_3974f58aeb647bfa6ebf",
+        "question_number": 122,
+        "source_jsonl_line": 9725
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年北京市公务员录用考试《行测》题_images/img_0127_d247f6fbce50df21.png",
+        "paper_title": "2016年北京市公务员录用考试《行测》题",
+        "question_id": "pq_88df32eebe9294499e1e",
+        "question_number": 123,
+        "source_jsonl_line": 9726
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年北京市公务员录用考试《行测》题_images/img_0127_d247f6fbce50df21.png",
+        "paper_title": "2016年北京市公务员录用考试《行测》题",
+        "question_id": "pq_ace2487dbaf85bcf65eb",
+        "question_number": 124,
+        "source_jsonl_line": 9727
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年北京市公务员录用考试《行测》题_images/img_0137_b5320fb12567f8a6.png",
+        "paper_title": "2016年北京市公务员录用考试《行测》题",
+        "question_id": "pq_42b35e95411ebe7a074d",
+        "question_number": 125,
+        "source_jsonl_line": 9728
+      }
+    ],
+    "sha256": "a6af31f09a405a7587e87b024cf60e06b1c72844eb4701b80928e05baa99db61"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "民间固定资产投资和全国固定资产投资同比增速",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.708",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "independent_compact_chart_adjudication"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b_compact_chart",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

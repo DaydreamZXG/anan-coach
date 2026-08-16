@@ -1,0 +1,170 @@
+{
+  "asset_id": "da_a9ab85b63d61374b9feecb8b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "A年",
+    "B年",
+    "C年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.9,
+  "legend": [
+    {
+      "label": "医疗费",
+      "style": {
+        "dash": "solid",
+        "fill": "hatch",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "离退休费",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "其他费用",
+      "style": {
+        "dash": "solid",
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "职工劳保福利费",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        27.9,
+        66.9,
+        335.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "相当于工资总额的%",
+      "render_as": "point",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        18,
+        14,
+        26
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2017年天津滨海新区公务员考试《行测》题（网友回忆版）_images/img_0170_6efb883f4fe57b2c.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）_images/img_0170_6efb883f4fe57b2c.jpg",
+        "paper_title": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_54e85a0943e3006d7ff3",
+        "question_number": 116,
+        "source_jsonl_line": 23398
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）_images/img_0174_5ea90edd308878ec.jpg",
+        "paper_title": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_87a83732d9973eac533f",
+        "question_number": 117,
+        "source_jsonl_line": 23399
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）_images/img_0174_5ea90edd308878ec.jpg",
+        "paper_title": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_cf2c8e50d86cc1c6447e",
+        "question_number": 118,
+        "source_jsonl_line": 23400
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）_images/img_0170_6efb883f4fe57b2c.jpg",
+        "paper_title": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_9534502a228b4e9ce36d",
+        "question_number": 119,
+        "source_jsonl_line": 23401
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）_images/img_0170_6efb883f4fe57b2c.jpg",
+        "paper_title": "2017年天津滨海新区公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_1bd12271850251c0e7a1",
+        "question_number": 120,
+        "source_jsonl_line": 23402
+      }
+    ],
+    "sha256": "a9ab85b63d61374b9feecb8b6bd39808edfd3cc3a1debab220d216e59db72ee9"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "全民所有制单位职工劳保福利费",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a9ab85b63d61374b9feecb8b/column_band_01.jpg",
+        "review-crops/da_a9ab85b63d61374b9feecb8b/column_band_02.jpg",
+        "review-crops/da_a9ab85b63d61374b9feecb8b/column_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.633",
+      "crop_verification_elapsed_seconds:1.958",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:饼图中百分比数值可能因图像分辨率存在轻微误差",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.9,
+    "schema_valid": true
+  }
+}

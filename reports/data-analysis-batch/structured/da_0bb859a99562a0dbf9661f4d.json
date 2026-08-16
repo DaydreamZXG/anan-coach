@@ -1,0 +1,246 @@
+{
+  "asset_id": "da_0bb859a99562a0dbf9661f4d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2011年内蒙古自治区公务员录用考试《行测》题_images/img_0111_2d23f4a89dd7d469.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年内蒙古自治区公务员录用考试《行测》题_images/img_0111_2d23f4a89dd7d469.png",
+        "paper_title": "2011年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_6a5a9746eb61121c15d0",
+        "question_number": 111,
+        "source_jsonl_line": 6790
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年内蒙古自治区公务员录用考试《行测》题_images/img_0111_2d23f4a89dd7d469.png",
+        "paper_title": "2011年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_37573efd844c5a42ee43",
+        "question_number": 112,
+        "source_jsonl_line": 6791
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年内蒙古自治区公务员录用考试《行测》题_images/img_0111_2d23f4a89dd7d469.png",
+        "paper_title": "2011年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_e976f9e2be31d0702e2c",
+        "question_number": 113,
+        "source_jsonl_line": 6792
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年内蒙古自治区公务员录用考试《行测》题_images/img_0119_40d1875c8887938f.png",
+        "paper_title": "2011年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_208e0e438701037de3e8",
+        "question_number": 114,
+        "source_jsonl_line": 6793
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年内蒙古自治区公务员录用考试《行测》题_images/img_0111_2d23f4a89dd7d469.png",
+        "paper_title": "2011年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_5303fce4471b4c3b38c9",
+        "question_number": 115,
+        "source_jsonl_line": 6794
+      }
+    ],
+    "sha256": "0bb859a99562a0dbf9661f4de55fd3261364c8345582f6fa504661a3ce47c95d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2010年 1-3月｜数量（吨）",
+          "2010年 1-3月｜金额（万美元）"
+        ],
+        "label": "2010年 1-3月"
+      },
+      {
+        "columns": [
+          "2009年 1-3月｜数量（吨）",
+          "2009年 1-3月｜金额（万美元）"
+        ],
+        "label": "2009年 1-3月"
+      }
+    ],
+    "columns": [
+      "2010年 1-3月｜数量（吨）",
+      "2010年 1-3月｜金额（万美元）",
+      "2009年 1-3月｜数量（吨）",
+      "2009年 1-3月｜金额（万美元）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "山东",
+        "group": null,
+        "label": "山东",
+        "unit": null,
+        "values": [
+          144923.4,
+          11506.7,
+          165411.2,
+          11118.7
+        ]
+      },
+      {
+        "display_label": "新疆",
+        "group": null,
+        "label": "新疆",
+        "unit": null,
+        "values": [
+          49511.8,
+          3087.6,
+          48199.6,
+          2621.5
+        ]
+      },
+      {
+        "display_label": "广西",
+        "group": null,
+        "label": "广西",
+        "unit": null,
+        "values": [
+          30804.0,
+          1174.6,
+          37128.5,
+          1236.9
+        ]
+      },
+      {
+        "display_label": "黑龙江",
+        "group": null,
+        "label": "黑龙江",
+        "unit": null,
+        "values": [
+          25890.3,
+          1500.3,
+          49013.9,
+          2589.3
+        ]
+      },
+      {
+        "display_label": "辽宁",
+        "group": null,
+        "label": "辽宁",
+        "unit": null,
+        "values": [
+          20597.2,
+          1466.2,
+          12389.0,
+          791.4
+        ]
+      },
+      {
+        "display_label": "广东",
+        "group": null,
+        "label": "广东",
+        "unit": null,
+        "values": [
+          8122.6,
+          395.4,
+          11299.4,
+          430.3
+        ]
+      },
+      {
+        "display_label": "西藏",
+        "group": null,
+        "label": "西藏",
+        "unit": null,
+        "values": [
+          7804.8,
+          457.3,
+          3734.0,
+          218.4
+        ]
+      },
+      {
+        "display_label": "陕西",
+        "group": null,
+        "label": "陕西",
+        "unit": null,
+        "values": [
+          5049.9,
+          326.5,
+          5545.6,
+          297.0
+        ]
+      },
+      {
+        "display_label": "甘肃",
+        "group": null,
+        "label": "甘肃",
+        "unit": null,
+        "values": [
+          4778.3,
+          358.9,
+          4170.1,
+          297.9
+        ]
+      },
+      {
+        "display_label": "内蒙古",
+        "group": null,
+        "label": "内蒙古",
+        "unit": null,
+        "values": [
+          4766.0,
+          168.3,
+          3401.5,
+          155.8
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

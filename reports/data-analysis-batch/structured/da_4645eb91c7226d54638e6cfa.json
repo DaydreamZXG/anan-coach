@@ -1,0 +1,151 @@
+{
+  "asset_id": "da_4645eb91c7226d54638e6cfa",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0168_c86e865525ca885f.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2025年天津市公务员录用考试《行测》题（网友回忆版）_images/img_0168_c86e865525ca885f.png",
+        "paper_title": "2025年天津市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8b6a9ec2e07200e3287e",
+        "question_number": 120,
+        "source_jsonl_line": 24382
+      }
+    ],
+    "sha256": "4645eb91c7226d54638e6cfa626171122121de5634fd378c0162ff9997c0907d"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 0,
+      "estimatedDrawCommandCount": 4,
+      "panelCount": 1,
+      "pointCount": 4
+    },
+    "coordinateSpace": {
+      "height": 117,
+      "width": 230
+    },
+    "evidence": {
+      "converterVersion": "semantic-microcharts-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "75e52818540157299ae93bf1e175e33fe2f79740ac1246717cb0e9de3665b967",
+      "sourceAsset": "da_4645eb91c7226d54638e6cfa",
+      "sourceSha256": "4645eb91c7226d54638e6cfa626171122121de5634fd378c0162ff9997c0907d"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 79,
+          "width": 193,
+          "x": 22,
+          "y": 19
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.28846
+            },
+            {
+              "x": 0.33854,
+              "y": 0.96795
+            },
+            {
+              "x": 0.67188,
+              "y": 0.74359
+            },
+            {
+              "x": 1.0,
+              "y": 0.03205
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_4645eb91c7226d54638e6cfa-0",
+        "label": null,
+        "position": 0
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "line_sequence"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4645eb91c7226d54638e6cfa/column_band_01.jpg",
+        "review-crops/da_4645eb91c7226d54638e6cfa/column_band_02.jpg",
+        "review-crops/da_4645eb91c7226d54638e6cfa/column_band_03.jpg",
+        "review-crops/da_4645eb91c7226d54638e6cfa/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.515",
+      "crop_verification_elapsed_seconds:3.417",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:x-axis labels are missing",
+      "model_uncertainty:y-axis labels are missing",
+      "model_uncertainty:data values are not explicitly labeled",
+      "non_data_option_sparkline",
+      "foreground_iou:0.814516",
+      "mean_absolute_error:1.71126",
+      "trace_parameters:{\"epsilonRatio\": 0.0012, \"minimumContourArea\": 0.6, \"paletteSize\": 2}",
+      "visual_grammar:line_sequence",
+      "visual_grammar:line_sequence",
+      "converter:semantic-microcharts-v1",
+      "visual_grammar:line_sequence",
+      "comparison_artifact:previews/structured_visual/da_4645eb91c7226d54638e6cfa-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

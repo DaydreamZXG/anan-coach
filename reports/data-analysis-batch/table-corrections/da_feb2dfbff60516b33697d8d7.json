@@ -1,0 +1,209 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口量（万吨）｜精白米",
+          "出口量（万吨）｜茉莉香米",
+          "出口量（万吨）｜其他"
+        ],
+        "label": "出口量（万吨）"
+      },
+      {
+        "columns": [
+          "出口额（亿元）｜精白米",
+          "出口额（亿元）｜茉莉香米",
+          "出口额（亿元）｜其他"
+        ],
+        "label": "出口额（亿元）"
+      },
+      "rows:[{"
+    ],
+    "columns": [
+      "出口量（万吨）｜精白米",
+      "出口量（万吨）｜茉莉香米",
+      "出口量（万吨）｜其他",
+      "出口额（亿元）｜精白米",
+      "出口额（亿元）｜茉莉香米",
+      "出口额（亿元）｜其他"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "月份",
+    "rows": [
+      {
+        "display_label": "1月",
+        "group": null,
+        "label": "1月",
+        "unit": null,
+        "values": [
+          31.1,
+          12.3,
+          17.4,
+          41.9,
+          41.4,
+          25.6
+        ]
+      },
+      {
+        "display_label": "2月",
+        "group": null,
+        "label": "2月",
+        "unit": null,
+        "values": [
+          32.3,
+          9.9,
+          31.0,
+          44.5,
+          33.0,
+          42.1
+        ]
+      },
+      {
+        "display_label": "3月",
+        "group": null,
+        "label": "3月",
+        "unit": null,
+        "values": [
+          39.3,
+          12.0,
+          27.3,
+          51.9,
+          38.7,
+          38.6
+        ]
+      },
+      {
+        "display_label": "4月",
+        "group": null,
+        "label": "4月",
+        "unit": null,
+        "values": [
+          30.2,
+          11.4,
+          28.5,
+          38.7,
+          36.3,
+          39.8
+        ]
+      },
+      {
+        "display_label": "5月",
+        "group": null,
+        "label": "5月",
+        "unit": null,
+        "values": [
+          41.7,
+          10.7,
+          42.2,
+          52.7,
+          33.8,
+          54.6
+        ]
+      },
+      {
+        "display_label": "6月",
+        "group": null,
+        "label": "6月",
+        "unit": null,
+        "values": [
+          30.1,
+          9.4,
+          29.1,
+          38.5,
+          30.7,
+          38.6
+        ]
+      },
+      {
+        "display_label": "7月",
+        "group": null,
+        "label": "7月",
+        "unit": null,
+        "values": [
+          38.2,
+          10.5,
+          24.8,
+          48.3,
+          34.0,
+          33.9
+        ]
+      },
+      {
+        "display_label": "8月",
+        "group": null,
+        "label": "8月",
+        "unit": null,
+        "values": [
+          36.3,
+          9.8,
+          23.7,
+          47.2,
+          32.0,
+          32.2
+        ]
+      },
+      {
+        "display_label": "9月",
+        "group": null,
+        "label": "9月",
+        "unit": null,
+        "values": [
+          31.8,
+          10.4,
+          29.9,
+          42.7,
+          35.0,
+          41.3
+        ]
+      },
+      {
+        "display_label": "10月",
+        "group": null,
+        "label": "10月",
+        "unit": null,
+        "values": [
+          62.4,
+          10.0,
+          47.9,
+          78.0,
+          33.3,
+          63.1
+        ]
+      },
+      {
+        "display_label": "11月",
+        "group": null,
+        "label": "11月",
+        "unit": null,
+        "values": [
+          44.7,
+          13.8,
+          17.8,
+          56.1,
+          44.4,
+          25.3
+        ]
+      },
+      {
+        "display_label": "12月",
+        "group": null,
+        "label": "12月",
+        "unit": null,
+        "values": [
+          68.7,
+          18.3,
+          34.8,
+          87.1,
+          56.0,
+          48.0
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

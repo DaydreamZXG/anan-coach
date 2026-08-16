@@ -35,6 +35,7 @@
 .edit-profile::after,
 .card-link::after,
 .target-action::after,
+.archive-empty::after,
 .coach-setting::after,
 .asset-item::after,
 .service-row::after,
@@ -210,6 +211,37 @@ button.card-link {
   font-size: var(--text-body-lg);
   font-weight: 700;
   line-height: 1.45;
+}
+
+.archive-empty {
+  display: flex;
+  width: 100%;
+  min-height: calc(112 * var(--rpx));
+  align-items: center;
+  gap: calc(20 * var(--rpx));
+  margin-top: calc(28 * var(--rpx));
+  padding: calc(24 * var(--rpx));
+  border-radius: var(--radius-32);
+  background: var(--bg);
+  color: var(--ink);
+  text-align: left;
+}
+
+.archive-empty__main {
+  min-width: 0;
+  flex: 1;
+}
+
+.archive-empty__title {
+  font-size: var(--text-body);
+  font-weight: 800;
+}
+
+.archive-empty__copy {
+  margin-top: calc(6 * var(--rpx));
+  color: var(--ink-3);
+  font-size: var(--text-micro);
+  line-height: 1.55;
 }
 .archive-prompt {
   margin-top: calc(28 * var(--rpx));
@@ -841,12 +873,7 @@ button.profile-editor__save {
   }
 }
 
-/*
- * wide 布局：把“我的”组成一张备考工作台。
- * 档案跨两行，与右侧的岗位 + 提醒形成一组；
- * 学习方式与方法卡社区等高对应，避免自动两列造成的大面积空洞。
- * 断点只由可用布局宽度决定，不推断设备、平台或屏幕方向。
- */
+/* wide 布局仍以学习状态和资产优先；断点只由可用布局宽度决定。 */
 @media (min-width: 1024px) {
   .profile-page {
     max-width: 1160px;
@@ -860,10 +887,10 @@ button.profile-editor__save {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-areas:
       "identity identity"
-      "archive target"
-      "archive coach"
-      "study community"
+      "target study"
       "assets assets"
+      "coach archive"
+      "community community"
       "services services"
       "error error";
   }

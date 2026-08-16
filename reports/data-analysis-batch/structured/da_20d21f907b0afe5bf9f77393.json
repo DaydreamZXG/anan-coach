@@ -1,0 +1,152 @@
+{
+  "asset_id": "da_20d21f907b0afe5bf9f77393",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 4765,
+        "min": 4740,
+        "ticks": [
+          4740,
+          4745,
+          4750,
+          4755,
+          4760,
+          4765
+        ],
+        "title": null,
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "就业人口数量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "就业人口数量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        4760.83,
+        4758.5,
+        4756.22,
+        4757.8,
+        4750.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0087_6e66f549f289c509.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0087_6e66f549f289c509.png",
+        "paper_title": "2022年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_071997eb3596d047815d",
+        "question_number": 121,
+        "source_jsonl_line": 10794
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0077_0ebf84a208045ade.png",
+        "paper_title": "2022年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5681bf4404144daf21ec",
+        "question_number": 122,
+        "source_jsonl_line": 10795
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0077_0ebf84a208045ade.png",
+        "paper_title": "2022年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1cdd253e76debb3108ec",
+        "question_number": 123,
+        "source_jsonl_line": 10796
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0077_0ebf84a208045ade.png",
+        "paper_title": "2022年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7458e94c30d9157b28a0",
+        "question_number": 124,
+        "source_jsonl_line": 10797
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年北京市公务员录用考试《行测》题（网友回忆版）_images/img_0077_0ebf84a208045ade.png",
+        "paper_title": "2022年北京市公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d0ab33e739b5412fb5aa",
+        "question_number": 125,
+        "source_jsonl_line": 10798
+      }
+    ],
+    "sha256": "20d21f907b0afe5bf9f77393c2032de7a6416383611ea00171b5a36164758107"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2016—2020年末S省就业人口数量",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_20d21f907b0afe5bf9f77393/column_band_01.jpg",
+        "review-crops/da_20d21f907b0afe5bf9f77393/column_band_02.jpg",
+        "review-crops/da_20d21f907b0afe5bf9f77393/column_band_03.jpg",
+        "review-crops/da_20d21f907b0afe5bf9f77393/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.029",
+      "crop_verification_elapsed_seconds:5.229",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

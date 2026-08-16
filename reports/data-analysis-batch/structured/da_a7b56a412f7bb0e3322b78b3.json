@@ -1,0 +1,189 @@
+{
+  "asset_id": "da_a7b56a412f7bb0e3322b78b3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2012年浙江省公务员录用考试《行测》题_images/img_0133_7ce7ce6cf569ab22.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年浙江省公务员录用考试《行测》题_images/img_0133_7ce7ce6cf569ab22.png",
+        "paper_title": "2012年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_0f3605bbff5403b2143c",
+        "question_number": 116,
+        "source_jsonl_line": 60418
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年浙江省公务员录用考试《行测》题_images/img_0133_7ce7ce6cf569ab22.png",
+        "paper_title": "2012年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_89a74f12ef643c63ea02",
+        "question_number": 117,
+        "source_jsonl_line": 60419
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年浙江省公务员录用考试《行测》题_images/img_0141_49a5c42e03051663.png",
+        "paper_title": "2012年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_d8968a005b0f42957a00",
+        "question_number": 118,
+        "source_jsonl_line": 60420
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年浙江省公务员录用考试《行测》题_images/img_0133_7ce7ce6cf569ab22.png",
+        "paper_title": "2012年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_9a857f08a441468f61f2",
+        "question_number": 119,
+        "source_jsonl_line": 60421
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年浙江省公务员录用考试《行测》题_images/img_0133_7ce7ce6cf569ab22.png",
+        "paper_title": "2012年浙江省公务员录用考试《行测》题",
+        "question_id": "pq_c7b2eec90a05f9da3839",
+        "question_number": 120,
+        "source_jsonl_line": 60422
+      }
+    ],
+    "sha256": "a7b56a412f7bb0e3322b78b3bd60f76427aaf572c33c400eacc8e3ca507665bc"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "纯收入（元/人）",
+      "比上年增加（元/人）",
+      "比上年名义增长（%）",
+      "扣除价格因素影响比上年实际增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2005",
+        "unit": null,
+        "values": [
+          2005,
+          3255,
+          null,
+          10.8,
+          6.2
+        ]
+      },
+      {
+        "label": "2006",
+        "unit": null,
+        "values": [
+          2006,
+          3587,
+          332,
+          10.2,
+          7.4
+        ]
+      },
+      {
+        "label": "2007",
+        "unit": null,
+        "values": [
+          2007,
+          4140,
+          553,
+          15.4,
+          9.5
+        ]
+      },
+      {
+        "label": "2008",
+        "unit": null,
+        "values": [
+          2008,
+          4761,
+          620,
+          15.0,
+          8.0
+        ]
+      },
+      {
+        "label": "2009",
+        "unit": null,
+        "values": [
+          2009,
+          5153,
+          393,
+          8.2,
+          8.5
+        ]
+      },
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          5919,
+          766,
+          14.9,
+          10.9
+        ]
+      }
+    ]
+  },
+  "title": "2005-2010年农村居民纯收入及增长情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a7b56a412f7bb0e3322b78b3/row_band_01.jpg",
+        "review-crops/da_a7b56a412f7bb0e3322b78b3/row_band_02.jpg",
+        "review-crops/da_a7b56a412f7bb0e3322b78b3/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.826",
+      "crop_verification_elapsed_seconds:5.152",
+      "candidate_value_changes_after_crop:1",
+      "model_uncertainty:'x'值为文本占位符，非数值，无法确定具体数值",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

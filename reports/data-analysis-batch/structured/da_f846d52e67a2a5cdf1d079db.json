@@ -1,0 +1,237 @@
+{
+  "asset_id": "da_f846d52e67a2a5cdf1d079db",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 16000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000,
+          12000,
+          14000,
+          16000
+        ],
+        "title": "亿元",
+        "unit": "亿美元"
+      },
+      {
+        "max": 140,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100,
+          120,
+          140
+        ],
+        "title": "增长率",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "货物出口额",
+      "style": {
+        "dash": null,
+        "fill": "#4D4D4D",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "货物进口额",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "货物进出口总额比上年增长",
+      "style": {
+        "dash": "solid",
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "货物出口额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        5933,
+        7620,
+        9690,
+        12186,
+        14285
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "货物进口额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        5612,
+        6600,
+        7915,
+        9560,
+        11331
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "货物进出口总额比上年增长",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        35.7,
+        23.2,
+        23.8,
+        23.5,
+        17.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2009年广东省公务员录用考试《行测》题_images/img_0172_533fbf282e93ee89.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年广东省公务员录用考试《行测》题_images/img_0172_533fbf282e93ee89.png",
+        "paper_title": "2009年广东省公务员录用考试《行测》题",
+        "question_id": "pq_001cbe155ab38055054f",
+        "question_number": 96,
+        "source_jsonl_line": 33744
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年广东省公务员录用考试《行测》题_images/img_0172_533fbf282e93ee89.png",
+        "paper_title": "2009年广东省公务员录用考试《行测》题",
+        "question_id": "pq_19a80c02dfe48e825a66",
+        "question_number": 97,
+        "source_jsonl_line": 33745
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年广东省公务员录用考试《行测》题_images/img_0172_533fbf282e93ee89.png",
+        "paper_title": "2009年广东省公务员录用考试《行测》题",
+        "question_id": "pq_27d5b7197fd748af5cde",
+        "question_number": 98,
+        "source_jsonl_line": 33746
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年广东省公务员录用考试《行测》题_images/img_0186_f1e2701b170de78f.png",
+        "paper_title": "2009年广东省公务员录用考试《行测》题",
+        "question_id": "pq_812e14bb889ac536779c",
+        "question_number": 99,
+        "source_jsonl_line": 33747
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年广东省公务员录用考试《行测》题_images/img_0172_533fbf282e93ee89.png",
+        "paper_title": "2009年广东省公务员录用考试《行测》题",
+        "question_id": "pq_12b077e5f90193516075",
+        "question_number": 100,
+        "source_jsonl_line": 33748
+      }
+    ],
+    "sha256": "f846d52e67a2a5cdf1d079db16c6ea71f6993e99396981802c7e2db7a3d6c700"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2004-2008年我国大陆地区货物进出口总额及增长速度",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f846d52e67a2a5cdf1d079db/column_band_01.jpg",
+        "review-crops/da_f846d52e67a2a5cdf1d079db/column_band_02.jpg",
+        "review-crops/da_f846d52e67a2a5cdf1d079db/column_band_03.jpg",
+        "review-crops/da_f846d52e67a2a5cdf1d079db/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.406",
+      "crop_verification_elapsed_seconds:4.516",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,489 @@
+{
+  "asset_id": "da_c5520411cb622c452d47fadc",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/甘肃/2015年甘肃省公务员录用考试《行测》题_images/img_0150_cd77bf47b30c135f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年甘肃省公务员录用考试《行测》题_images/img_0150_cd77bf47b30c135f.png",
+        "paper_title": "2015年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_faf932a397f90976a198",
+        "question_number": 106,
+        "source_jsonl_line": 74841
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年甘肃省公务员录用考试《行测》题_images/img_0150_cd77bf47b30c135f.png",
+        "paper_title": "2015年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_6b364428d985e999dcae",
+        "question_number": 107,
+        "source_jsonl_line": 74842
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年甘肃省公务员录用考试《行测》题_images/img_0189_58e9528f58a76051.png",
+        "paper_title": "2015年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_c27d5091dfec228508d5",
+        "question_number": 108,
+        "source_jsonl_line": 74843
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年甘肃省公务员录用考试《行测》题_images/img_0189_58e9528f58a76051.png",
+        "paper_title": "2015年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_2867c57beb4d1c6780f4",
+        "question_number": 109,
+        "source_jsonl_line": 74844
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年甘肃省公务员录用考试《行测》题_images/img_0189_58e9528f58a76051.png",
+        "paper_title": "2015年甘肃省公务员录用考试《行测》题",
+        "question_id": "pq_c60c375314602de0056b",
+        "question_number": 110,
+        "source_jsonl_line": 74845
+      }
+    ],
+    "sha256": "c5520411cb622c452d47fadc01d469a6fd0a6afb7e27882622245572525f9d87"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "数量",
+      "载重"
+    ],
+    "corner_header": {
+      "lower_label": "载重",
+      "style": "diagonal",
+      "upper_label": "数量"
+    },
+    "missing_cells": [
+      {
+        "column": "载重",
+        "display": "—",
+        "row": "合计｜2008年"
+      },
+      {
+        "column": "载重",
+        "display": "—",
+        "row": "合计｜2009年"
+      },
+      {
+        "column": "载重",
+        "display": "—",
+        "row": "合计｜2010年"
+      },
+      {
+        "column": "载重",
+        "display": "—",
+        "row": "合计｜2011年"
+      },
+      {
+        "column": "载重",
+        "display": "—",
+        "row": "合计｜2012年"
+      }
+    ],
+    "row_header_label": "载重",
+    "rows": [
+      {
+        "display_label": "集装箱船｜2008年",
+        "group": null,
+        "label": "集装箱船｜2008年",
+        "unit": null,
+        "values": [
+          93,
+          30.0
+        ]
+      },
+      {
+        "display_label": "集装箱船｜2009年",
+        "group": null,
+        "label": "集装箱船｜2009年",
+        "unit": null,
+        "values": [
+          92,
+          31.5
+        ]
+      },
+      {
+        "display_label": "集装箱船｜2010年",
+        "group": null,
+        "label": "集装箱船｜2010年",
+        "unit": null,
+        "values": [
+          101,
+          35.9
+        ]
+      },
+      {
+        "display_label": "集装箱船｜2011年",
+        "group": null,
+        "label": "集装箱船｜2011年",
+        "unit": null,
+        "values": [
+          100,
+          35.9
+        ]
+      },
+      {
+        "display_label": "集装箱船｜2012年",
+        "group": null,
+        "label": "集装箱船｜2012年",
+        "unit": null,
+        "values": [
+          105,
+          39.5
+        ]
+      },
+      {
+        "display_label": "干散货船｜2008年",
+        "group": null,
+        "label": "干散货船｜2008年",
+        "unit": null,
+        "values": [
+          224,
+          1476.0
+        ]
+      },
+      {
+        "display_label": "干散货船｜2009年",
+        "group": null,
+        "label": "干散货船｜2009年",
+        "unit": null,
+        "values": [
+          238,
+          1745.0
+        ]
+      },
+      {
+        "display_label": "干散货船｜2010年",
+        "group": null,
+        "label": "干散货船｜2010年",
+        "unit": null,
+        "values": [
+          245,
+          1882.1
+        ]
+      },
+      {
+        "display_label": "干散货船｜2011年",
+        "group": null,
+        "label": "干散货船｜2011年",
+        "unit": null,
+        "values": [
+          249,
+          1997.3
+        ]
+      },
+      {
+        "display_label": "干散货船｜2012年",
+        "group": null,
+        "label": "干散货船｜2012年",
+        "unit": null,
+        "values": [
+          237,
+          1970.0
+        ]
+      },
+      {
+        "display_label": "游轮｜2008年",
+        "group": null,
+        "label": "游轮｜2008年",
+        "unit": null,
+        "values": [
+          24,
+          347.0
+        ]
+      },
+      {
+        "display_label": "游轮｜2009年",
+        "group": null,
+        "label": "游轮｜2009年",
+        "unit": null,
+        "values": [
+          25,
+          382.0
+        ]
+      },
+      {
+        "display_label": "游轮｜2010年",
+        "group": null,
+        "label": "游轮｜2010年",
+        "unit": null,
+        "values": [
+          29,
+          463.0
+        ]
+      },
+      {
+        "display_label": "游轮｜2011年",
+        "group": null,
+        "label": "游轮｜2011年",
+        "unit": null,
+        "values": [
+          31,
+          522.0
+        ]
+      },
+      {
+        "display_label": "游轮｜2012年",
+        "group": null,
+        "label": "游轮｜2012年",
+        "unit": null,
+        "values": [
+          32,
+          552.0
+        ]
+      },
+      {
+        "display_label": "其他液体散货船｜2008年",
+        "group": null,
+        "label": "其他液体散货船｜2008年",
+        "unit": null,
+        "values": [
+          22,
+          10.4
+        ]
+      },
+      {
+        "display_label": "其他液体散货船｜2009年",
+        "group": null,
+        "label": "其他液体散货船｜2009年",
+        "unit": null,
+        "values": [
+          18,
+          9.3
+        ]
+      },
+      {
+        "display_label": "其他液体散货船｜2010年",
+        "group": null,
+        "label": "其他液体散货船｜2010年",
+        "unit": null,
+        "values": [
+          19,
+          10.0
+        ]
+      },
+      {
+        "display_label": "其他液体散货船｜2011年",
+        "group": null,
+        "label": "其他液体散货船｜2011年",
+        "unit": null,
+        "values": [
+          15,
+          8.5
+        ]
+      },
+      {
+        "display_label": "其他液体散货船｜2012年",
+        "group": null,
+        "label": "其他液体散货船｜2012年",
+        "unit": null,
+        "values": [
+          15,
+          8.5
+        ]
+      },
+      {
+        "display_label": "杂货船｜2008年",
+        "group": null,
+        "label": "杂货船｜2008年",
+        "unit": null,
+        "values": [
+          93,
+          166.0
+        ]
+      },
+      {
+        "display_label": "杂货船｜2009年",
+        "group": null,
+        "label": "杂货船｜2009年",
+        "unit": null,
+        "values": [
+          74,
+          143.0
+        ]
+      },
+      {
+        "display_label": "杂货船｜2010年",
+        "group": null,
+        "label": "杂货船｜2010年",
+        "unit": null,
+        "values": [
+          73,
+          157.2
+        ]
+      },
+      {
+        "display_label": "杂货船｜2011年",
+        "group": null,
+        "label": "杂货船｜2011年",
+        "unit": null,
+        "values": [
+          68,
+          153.0
+        ]
+      },
+      {
+        "display_label": "杂货船｜2012年",
+        "group": null,
+        "label": "杂货船｜2012年",
+        "unit": null,
+        "values": [
+          75,
+          174.2
+        ]
+      },
+      {
+        "display_label": "其他船｜2008年",
+        "group": null,
+        "label": "其他船｜2008年",
+        "unit": null,
+        "values": [
+          18,
+          20.7
+        ]
+      },
+      {
+        "display_label": "其他船｜2009年",
+        "group": null,
+        "label": "其他船｜2009年",
+        "unit": null,
+        "values": [
+          15,
+          21.4
+        ]
+      },
+      {
+        "display_label": "其他船｜2010年",
+        "group": null,
+        "label": "其他船｜2010年",
+        "unit": null,
+        "values": [
+          14,
+          22.9
+        ]
+      },
+      {
+        "display_label": "其他船｜2011年",
+        "group": null,
+        "label": "其他船｜2011年",
+        "unit": null,
+        "values": [
+          18,
+          41.6
+        ]
+      },
+      {
+        "display_label": "其他船｜2012年",
+        "group": null,
+        "label": "其他船｜2012年",
+        "unit": null,
+        "values": [
+          22,
+          49.2
+        ]
+      },
+      {
+        "display_label": "合计｜2008年",
+        "group": null,
+        "label": "合计｜2008年",
+        "unit": null,
+        "values": [
+          474,
+          null
+        ]
+      },
+      {
+        "display_label": "合计｜2009年",
+        "group": null,
+        "label": "合计｜2009年",
+        "unit": null,
+        "values": [
+          462,
+          null
+        ]
+      },
+      {
+        "display_label": "合计｜2010年",
+        "group": null,
+        "label": "合计｜2010年",
+        "unit": null,
+        "values": [
+          481,
+          null
+        ]
+      },
+      {
+        "display_label": "合计｜2011年",
+        "group": null,
+        "label": "合计｜2011年",
+        "unit": null,
+        "values": [
+          481,
+          null
+        ]
+      },
+      {
+        "display_label": "合计｜2012年",
+        "group": null,
+        "label": "合计｜2012年",
+        "unit": null,
+        "values": [
+          486,
+          null
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

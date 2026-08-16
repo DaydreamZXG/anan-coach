@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "graphic-reasoning-model-route-audit-v1",
+  "assetId": "gr_7b00c758d0ab44e2c464e04f",
+  "decision": "repair_pending",
+  "successStateFrozen": true,
+  "passingEvidence": {
+    "deterministicPanelCount": 10,
+    "deterministicOptionCount": 4,
+    "outerInnerFrameDeduplication": "pass",
+    "rasterBackgroundFallback": false,
+    "typedJsonSyntax": "pass"
+  },
+  "failingEvidence": [
+    "straight segments are missing or replaced by local curve tangents",
+    "several smooth curves have incorrect endpoints or curvature",
+    "primitive syntax validity does not prove visual or puzzle-semantic fidelity"
+  ],
+  "prohibitedClosureMethods": [
+    "lowering pixel IoU or visual thresholds",
+    "marking candidate status as final",
+    "using source raster as a Canvas or SVG background",
+    "accepting raw model SVG coordinates as final geometry"
+  ],
+  "nextRoute": "per-panel specialized vector model candidate followed by typed parsing, deterministic pixel fitting, topology checks, and frontend contract validation"
+}

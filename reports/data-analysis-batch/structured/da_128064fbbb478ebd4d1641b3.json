@@ -1,0 +1,219 @@
+{
+  "asset_id": "da_128064fbbb478ebd4d1641b3",
+  "axes": {
+    "x": {
+      "max": 7,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 20000.0,
+        "min": 0,
+        "ticks": [
+          0.0,
+          2000.0,
+          4000.0,
+          6000.0,
+          8000.0,
+          10000.0,
+          12000.0,
+          14000.0,
+          16000.0,
+          18000.0,
+          20000.0
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "第一产业",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "第二产业",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "第三产业",
+      "style": {
+        "dash": null,
+        "fill": "#666666",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "第一产业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1575.76,
+        1627.85,
+        1617.42,
+        1637.39,
+        1649.77,
+        1753.82
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "第二产业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        9104.08,
+        9119.79,
+        9000.58,
+        8553.63,
+        6399.68,
+        6807.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "第三产业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        6236.66,
+        7022.55,
+        7213.51,
+        7937.08,
+        8046.76,
+        8728.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/新疆/2020年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0217_8fe6e820c0d049c9.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0217_8fe6e820c0d049c9.jpg",
+        "paper_title": "2020年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_da37bacb2ea18c958ee7",
+        "question_number": 111,
+        "source_jsonl_line": 43326
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0217_8fe6e820c0d049c9.jpg",
+        "paper_title": "2020年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_5e450c430aba2bd516ec",
+        "question_number": 112,
+        "source_jsonl_line": 43327
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0217_8fe6e820c0d049c9.jpg",
+        "paper_title": "2020年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_d7ca8c5daaf851284dab",
+        "question_number": 113,
+        "source_jsonl_line": 43328
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0249_ab7c63fa11ca3fd1.jpg",
+        "paper_title": "2020年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_c40e1de4b70f3a3e07d6",
+        "question_number": 114,
+        "source_jsonl_line": 43329
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年新疆公务员录用考试《行测》试题（网友回忆版）_images/img_0217_8fe6e820c0d049c9.jpg",
+        "paper_title": "2020年新疆公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_6c5693b2e6cd4ab0d9b2",
+        "question_number": 115,
+        "source_jsonl_line": 43330
+      }
+    ],
+    "sha256": "128064fbbb478ebd4d1641b3656f625560be616b49b1096935b37305b1ccb7f2"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2013-2018年N省GDP中三大产业构成",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_128064fbbb478ebd4d1641b3/column_band_01.jpg",
+        "review-crops/da_128064fbbb478ebd4d1641b3/column_band_02.jpg",
+        "review-crops/da_128064fbbb478ebd4d1641b3/column_band_03.jpg",
+        "review-crops/da_128064fbbb478ebd4d1641b3/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.243",
+      "crop_verification_elapsed_seconds:7.522",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

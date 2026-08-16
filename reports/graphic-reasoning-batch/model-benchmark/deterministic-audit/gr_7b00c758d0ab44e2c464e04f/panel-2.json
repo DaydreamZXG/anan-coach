@@ -1,0 +1,37 @@
+{
+  "duplicateGeometry": [],
+  "gates": {
+    "duplicateSuppression": "pass",
+    "pixelFit": "fail",
+    "semanticFamilies": "pending",
+    "solidFillOnly": "pass",
+    "topology": "fail"
+  },
+  "panelId": "panel-2",
+  "pixelEvidence": {
+    "candidatePrecision": 0.4381,
+    "sourceRecall": 0.5554
+  },
+  "primitiveCount": 8,
+  "redrawnTopology": {
+    "componentCount": 1,
+    "edgeCount": 17,
+    "endpointCount": 3,
+    "junctionCount": 10,
+    "loopCount": 0,
+    "nodeCount": 13
+  },
+  "semanticEvidence": {
+    "reason": "semantic_candidate_not_run_for_this_panel",
+    "status": "pending"
+  },
+  "sourceTopology": {
+    "componentCount": 1,
+    "edgeCount": 17,
+    "endpointCount": 0,
+    "junctionCount": 11,
+    "loopCount": 0,
+    "nodeCount": 11
+  },
+  "status": "repair_pending"
+}

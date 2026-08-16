@@ -1,0 +1,285 @@
+{
+  "asset_id": "da_e406abf5c91b38664c8b0741",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2011年北京市公务员录用考试《行测》题_images/img_0102_5fc8d57b1c7c3b9e.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年北京市公务员录用考试《行测》题_images/img_0102_5fc8d57b1c7c3b9e.jpg",
+        "paper_title": "2011年北京市公务员录用考试《行测》题",
+        "question_id": "pq_a004676b0dee37f6eb29",
+        "question_number": 121,
+        "source_jsonl_line": 9049
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年北京市公务员录用考试《行测》题_images/img_0102_5fc8d57b1c7c3b9e.jpg",
+        "paper_title": "2011年北京市公务员录用考试《行测》题",
+        "question_id": "pq_f53066810996b53d5a0c",
+        "question_number": 122,
+        "source_jsonl_line": 9050
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年北京市公务员录用考试《行测》题_images/img_0112_ea8bc75256385f43.jpg",
+        "paper_title": "2011年北京市公务员录用考试《行测》题",
+        "question_id": "pq_1ee46cf3b83dabc6d911",
+        "question_number": 123,
+        "source_jsonl_line": 9051
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年北京市公务员录用考试《行测》题_images/img_0112_ea8bc75256385f43.jpg",
+        "paper_title": "2011年北京市公务员录用考试《行测》题",
+        "question_id": "pq_33f2e1d260f9b8563aaa",
+        "question_number": 124,
+        "source_jsonl_line": 9052
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年北京市公务员录用考试《行测》题_images/img_0112_ea8bc75256385f43.jpg",
+        "paper_title": "2011年北京市公务员录用考试《行测》题",
+        "question_id": "pq_fd110da661c1c8ba3d6a",
+        "question_number": 125,
+        "source_jsonl_line": 9053
+      }
+    ],
+    "sha256": "e406abf5c91b38664c8b074171d5d062c8ca4419435137a330b33f13a06d6137"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "学校数（所）",
+      "注册学生数",
+      "结业学生数",
+      "教职工数",
+      "专任教师"
+    ],
+    "corner_header": {
+      "lower_label": "注册学生数",
+      "style": "diagonal",
+      "upper_label": "学校数（所）"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "总计",
+        "group": "指标",
+        "label": "指标｜总计",
+        "unit": null,
+        "values": [
+          162049,
+          50195384,
+          57209055,
+          495848,
+          252881
+        ]
+      },
+      {
+        "display_label": "职业技术培训学校（机构）",
+        "group": "指标",
+        "label": "指标｜职业技术培训学校（机构）",
+        "unit": null,
+        "values": [
+          3385,
+          2675288,
+          2693125,
+          44962,
+          32412
+        ]
+      },
+      {
+        "display_label": "教育部门和集体办",
+        "group": "指标",
+        "label": "指标｜职业技术培训学校（机构）｜教育部门和集体办",
+        "unit": null,
+        "values": [
+          1318,
+          1033272,
+          1048307,
+          24640,
+          18620
+        ]
+      },
+      {
+        "display_label": "其他部门办",
+        "group": "指标",
+        "label": "指标｜职业技术培训学校（机构）｜其他部门办",
+        "unit": null,
+        "values": [
+          1012,
+          1338448,
+          1336952,
+          11383,
+          7400
+        ]
+      },
+      {
+        "display_label": "民办",
+        "group": "指标",
+        "label": "指标｜职业技术培训学校（机构）｜民办",
+        "unit": null,
+        "values": [
+          1055,
+          303568,
+          307865,
+          8939,
+          6392
+        ]
+      },
+      {
+        "display_label": "农村成人技术培训学校（机构）",
+        "group": "指标",
+        "label": "指标｜农村成人技术培训学校（机构）",
+        "unit": null,
+        "values": [
+          137827,
+          36948254,
+          43582242,
+          218263,
+          100725
+        ]
+      },
+      {
+        "display_label": "教育部门和集体办",
+        "group": "指标",
+        "label": "指标｜农村成人技术培训学校（机构）｜教育部门和集体办",
+        "unit": null,
+        "values": [
+          134245,
+          35846934,
+          42410974,
+          210189,
+          96191
+        ]
+      },
+      {
+        "display_label": "其他部门办",
+        "group": "指标",
+        "label": "指标｜农村成人技术培训学校（机构）｜其他部门办",
+        "unit": null,
+        "values": [
+          2652,
+          836622,
+          907119,
+          4452,
+          2240
+        ]
+      },
+      {
+        "display_label": "民办",
+        "group": "指标",
+        "label": "指标｜农村成人技术培训学校（机构）｜民办",
+        "unit": null,
+        "values": [
+          930,
+          261968,
+          264449,
+          3622,
+          2294
+        ]
+      },
+      {
+        "display_label": "其他培训机构（含社会培训机构）",
+        "group": "指标",
+        "label": "指标｜其他培训机构（含社会培训机构）",
+        "unit": null,
+        "values": [
+          20637,
+          10571842,
+          10934588,
+          232623,
+          119744
+        ]
+      },
+      {
+        "display_label": "教育部门和集体办",
+        "group": "指标",
+        "label": "指标｜其他培训机构（含社会培训机构）｜教育部门和集体办",
+        "unit": null,
+        "values": [
+          857,
+          1110135,
+          1183997,
+          14286,
+          8000
+        ]
+      },
+      {
+        "display_label": "其他部门办",
+        "group": "指标",
+        "label": "指标｜其他培训机构（含社会培训机构）｜其他部门办",
+        "unit": null,
+        "values": [
+          2386,
+          1679721,
+          2032370,
+          19321,
+          13158
+        ]
+      },
+      {
+        "display_label": "民办",
+        "group": "指标",
+        "label": "指标｜其他培训机构（含社会培训机构）｜民办",
+        "unit": null,
+        "values": [
+          17694,
+          7781986,
+          7718221,
+          199016,
+          97986
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,376 @@
+{
+  "asset_id": "da_c20aca3f30a7410da30ea57f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2011年吉林省公务员录用考试《行测》题_images/img_0074_081b7d1cb29d407e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年吉林省公务员录用考试《行测》题_images/img_0074_081b7d1cb29d407e.png",
+        "paper_title": "2011年吉林省公务员录用考试《行测》题",
+        "question_id": "pq_e3da636b192cd44349bc",
+        "question_number": 101,
+        "source_jsonl_line": 11459
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年吉林省公务员录用考试《行测》题_images/img_0074_081b7d1cb29d407e.png",
+        "paper_title": "2011年吉林省公务员录用考试《行测》题",
+        "question_id": "pq_a45fff8bab35d329d5d8",
+        "question_number": 102,
+        "source_jsonl_line": 11460
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年吉林省公务员录用考试《行测》题_images/img_0074_081b7d1cb29d407e.png",
+        "paper_title": "2011年吉林省公务员录用考试《行测》题",
+        "question_id": "pq_e994c1756a9b91a3bd3a",
+        "question_number": 103,
+        "source_jsonl_line": 11461
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年吉林省公务员录用考试《行测》题_images/img_0074_081b7d1cb29d407e.png",
+        "paper_title": "2011年吉林省公务员录用考试《行测》题",
+        "question_id": "pq_53c79d3536f818e314f1",
+        "question_number": 104,
+        "source_jsonl_line": 11462
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年吉林省公务员录用考试《行测》题_images/img_0102_eef1db494b6b7bd1.png",
+        "paper_title": "2011年吉林省公务员录用考试《行测》题",
+        "question_id": "pq_cff774415e109140a23c",
+        "question_number": 105,
+        "source_jsonl_line": 11463
+      }
+    ],
+    "sha256": "c20aca3f30a7410da30ea57fc8b1d58bd6a0962997634a0976c907ddd4f078a2"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "总量（人年）｜第1列",
+      "比重（%）｜第2列",
+      "总量（万元）｜第3列",
+      "比重（%）｜第4列",
+      "总量（人年）｜第5列",
+      "比重（%）｜第6列",
+      "总量（万元）｜第7列",
+      "比重（%）｜第8列"
+    ],
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "比重（%）｜第2列",
+        "display": "—",
+        "row": "总计"
+      },
+      {
+        "column": "比重（%）｜第4列",
+        "display": "—",
+        "row": "总计"
+      },
+      {
+        "column": "比重（%）｜第6列",
+        "display": "—",
+        "row": "总计"
+      },
+      {
+        "column": "比重（%）｜第8列",
+        "display": "—",
+        "row": "总计"
+      }
+    ],
+    "row_header_label": "行业",
+    "rows": [
+      {
+        "display_label": "总计",
+        "group": null,
+        "label": "总计",
+        "unit": null,
+        "values": [
+          2291252,
+          null,
+          58021068,
+          null,
+          2291252,
+          null,
+          58021068,
+          null
+        ]
+      },
+      {
+        "display_label": "农、林、牧、渔业",
+        "group": null,
+        "label": "农、林、牧、渔业",
+        "unit": null,
+        "values": [
+          12196,
+          0.53,
+          134523,
+          0.23,
+          12196,
+          0.53,
+          134523,
+          0.23
+        ]
+      },
+      {
+        "display_label": "采矿业",
+        "group": null,
+        "label": "采矿业",
+        "unit": null,
+        "values": [
+          75624,
+          3.3,
+          1702767,
+          2.93,
+          75624,
+          3.3,
+          1702767,
+          2.93
+        ]
+      },
+      {
+        "display_label": "制造业",
+        "group": null,
+        "label": "制造业",
+        "unit": null,
+        "values": [
+          1355658,
+          59.17,
+          35712795,
+          61.55,
+          1355658,
+          59.17,
+          35712795,
+          61.55
+        ]
+      },
+      {
+        "display_label": "电力、燃气及水的生产和供应业",
+        "group": null,
+        "label": "电力、燃气及水的生产和供应业",
+        "unit": null,
+        "values": [
+          15544,
+          0.68,
+          341552,
+          0.59,
+          15544,
+          0.68,
+          341552,
+          0.59
+        ]
+      },
+      {
+        "display_label": "建筑业",
+        "group": null,
+        "label": "建筑业",
+        "unit": null,
+        "values": [
+          63432,
+          2.77,
+          1351240,
+          2.33,
+          63432,
+          2.77,
+          1351240,
+          2.33
+        ]
+      },
+      {
+        "display_label": "交通运输、仓储和邮政业",
+        "group": null,
+        "label": "交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          4991,
+          0.22,
+          106345,
+          0.18,
+          4991,
+          0.22,
+          106345,
+          0.18
+        ]
+      },
+      {
+        "display_label": "信息传输、计算机服务和软件业",
+        "group": null,
+        "label": "信息传输、计算机服务和软件业",
+        "unit": null,
+        "values": [
+          73188,
+          3.19,
+          1575173,
+          2.71,
+          73188,
+          3.19,
+          1575173,
+          2.71
+        ]
+      },
+      {
+        "display_label": "金融业",
+        "group": null,
+        "label": "金融业",
+        "unit": null,
+        "values": [
+          397,
+          0.02,
+          10780,
+          0.02,
+          397,
+          0.02,
+          10780,
+          0.02
+        ]
+      },
+      {
+        "display_label": "租赁和商务服务业",
+        "group": null,
+        "label": "租赁和商务服务业",
+        "unit": null,
+        "values": [
+          1965,
+          0.86,
+          452081,
+          0.78,
+          1965,
+          0.86,
+          452081,
+          0.78
+        ]
+      },
+      {
+        "display_label": "科学研究、技术服务和地质勘查业",
+        "group": null,
+        "label": "科学研究、技术服务和地质勘查业",
+        "unit": null,
+        "values": [
+          326812,
+          14.26,
+          11386905,
+          19.63,
+          326812,
+          14.26,
+          11386905,
+          19.63
+        ]
+      },
+      {
+        "display_label": "水利、环境和公共设施管理业",
+        "group": null,
+        "label": "水利、环境和公共设施管理业",
+        "unit": null,
+        "values": [
+          2273,
+          0.1,
+          25465,
+          0.04,
+          2273,
+          0.1,
+          25465,
+          0.04
+        ]
+      },
+      {
+        "display_label": "教育",
+        "group": null,
+        "label": "教育",
+        "unit": null,
+        "values": [
+          241350,
+          10.53,
+          4515354,
+          7.78,
+          241350,
+          10.53,
+          4515354,
+          7.78
+        ]
+      },
+      {
+        "display_label": "卫生、社会保障和社会福利业",
+        "group": null,
+        "label": "卫生、社会保障和社会福利业",
+        "unit": null,
+        "values": [
+          99068,
+          4.32,
+          689819,
+          1.19,
+          99068,
+          4.32,
+          689819,
+          1.19
+        ]
+      },
+      {
+        "display_label": "文化、体育和娱乐业",
+        "group": null,
+        "label": "文化、体育和娱乐业",
+        "unit": null,
+        "values": [
+          1060,
+          0.05,
+          16271,
+          0.03,
+          1060,
+          0.05,
+          16271,
+          0.03
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

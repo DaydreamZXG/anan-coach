@@ -1,0 +1,96 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "会议（商务）",
+          "观光休闲",
+          "探亲访友",
+          "服务员工",
+          "其他"
+        ],
+        "label": "入境目的"
+      }
+    ],
+    "columns": [
+      "会议（商务）",
+      "观光休闲",
+      "探亲访友",
+      "服务员工",
+      "其他"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "来源",
+    "rows": [
+      {
+        "display_label": "亚洲",
+        "group": null,
+        "label": "亚洲",
+        "unit": null,
+        "values": [
+          219,
+          388,
+          12,
+          176,
+          389
+        ]
+      },
+      {
+        "display_label": "美洲",
+        "group": null,
+        "label": "美洲",
+        "unit": null,
+        "values": [
+          41,
+          84,
+          19,
+          14,
+          71
+        ]
+      },
+      {
+        "display_label": "欧洲",
+        "group": null,
+        "label": "欧洲",
+        "unit": null,
+        "values": [
+          109,
+          147,
+          7,
+          46,
+          99
+        ]
+      },
+      {
+        "display_label": "大洋洲",
+        "group": null,
+        "label": "大洋洲",
+        "unit": null,
+        "values": [
+          10,
+          20,
+          6,
+          3,
+          19
+        ]
+      },
+      {
+        "display_label": "非洲",
+        "group": null,
+        "label": "非洲",
+        "unit": null,
+        "values": [
+          15,
+          12,
+          0,
+          4,
+          12
+        ]
+      }
+    ]
+  },
+  "uncertainties": []
+}

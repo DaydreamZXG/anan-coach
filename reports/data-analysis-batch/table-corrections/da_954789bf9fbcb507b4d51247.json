@@ -1,0 +1,175 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "毕业生人数｜2012年",
+          "毕业生人数｜2011年"
+        ],
+        "label": "毕业生人数"
+      },
+      {
+        "columns": [
+          "招生人数｜2012年",
+          "招生人数｜2011年"
+        ],
+        "label": "招生人数"
+      },
+      {
+        "columns": [
+          "在校生人数｜2012年",
+          "在校生人数｜2011年"
+        ],
+        "label": "在校生人数"
+      }
+    ],
+    "columns": [
+      "毕业生人数｜2012年",
+      "毕业生人数｜2011年",
+      "招生人数｜2012年",
+      "招生人数｜2011年",
+      "在校生人数｜2012年",
+      "在校生人数｜2011年"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "毕业生人数",
+      "style": "diagonal",
+      "upper_label": "高等教育"
+    },
+    "missing_cells": [],
+    "row_header_label": "毕业生人数",
+    "rows": [
+      {
+        "display_label": "研究生｜2012年",
+        "group": null,
+        "label": "研究生｜2012年",
+        "unit": null,
+        "values": [
+          48.65,
+          43.0,
+          58.97,
+          56.02,
+          171.98,
+          164.58
+        ]
+      },
+      {
+        "display_label": "博士｜2012年",
+        "group": null,
+        "label": "博士｜2012年",
+        "unit": null,
+        "values": [
+          5.17,
+          5.03,
+          6.84,
+          6.56,
+          28.38,
+          27.13
+        ]
+      },
+      {
+        "display_label": "硕士｜2012年",
+        "group": null,
+        "label": "硕士｜2012年",
+        "unit": null,
+        "values": [
+          43.47,
+          37.97,
+          52.13,
+          49.46,
+          143.6,
+          137.46
+        ]
+      },
+      {
+        "display_label": "普通本专科｜2012年",
+        "group": null,
+        "label": "普通本专科｜2012年",
+        "unit": null,
+        "values": [
+          624.73,
+          608.16,
+          688.83,
+          681.5,
+          2391.32,
+          2308.51
+        ]
+      },
+      {
+        "display_label": "本科｜2012年",
+        "group": null,
+        "label": "本科｜2012年",
+        "unit": null,
+        "values": [
+          303.85,
+          279.62,
+          374.06,
+          356.64,
+          1427.09,
+          1349.66
+        ]
+      },
+      {
+        "display_label": "专科｜2012年",
+        "group": null,
+        "label": "专科｜2012年",
+        "unit": null,
+        "values": [
+          320.89,
+          328.53,
+          314.78,
+          324.86,
+          964.23,
+          958.85
+        ]
+      },
+      {
+        "display_label": "成人本专科｜2012年",
+        "group": null,
+        "label": "成人本专科｜2012年",
+        "unit": null,
+        "values": [
+          195.44,
+          190.66,
+          243.96,
+          218.51,
+          583.11,
+          547.5
+        ]
+      },
+      {
+        "display_label": "本科｜2011年",
+        "group": null,
+        "label": "本科｜2011年",
+        "unit": null,
+        "values": [
+          80.1,
+          75.54,
+          98.48,
+          89.72,
+          247.55,
+          233.61
+        ]
+      },
+      {
+        "display_label": "专科｜2011年",
+        "group": null,
+        "label": "专科｜2011年",
+        "unit": null,
+        "values": [
+          115.33,
+          115.12,
+          145.47,
+          128.79,
+          335.56,
+          313.88
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

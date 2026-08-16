@@ -1,0 +1,121 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "数量（万个）",
+          "面积（万平方米）"
+        ],
+        "label": "2024年末广东省各类体育场地数量及面积（部分）"
+      }
+    ],
+    "columns": [
+      "数量（万个）",
+      "面积（万平方米）"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "数量（万个）",
+      "style": "diagonal",
+      "upper_label": "类型"
+    },
+    "missing_cells": [],
+    "row_header_label": "数量（万个）",
+    "rows": [
+      {
+        "display_label": "田径场地",
+        "group": null,
+        "label": "田径场地",
+        "unit": null,
+        "values": [
+          1.64,
+          8603.93
+        ]
+      },
+      {
+        "display_label": "游泳场地",
+        "group": null,
+        "label": "游泳场地",
+        "unit": null,
+        "values": [
+          0.78,
+          849.25
+        ]
+      },
+      {
+        "display_label": "球类运动场地",
+        "group": null,
+        "label": "球类运动场地",
+        "unit": null,
+        "values": [
+          24.78,
+          19350.29
+        ]
+      },
+      {
+        "display_label": "乒乓球、羽毛球场地",
+        "group": null,
+        "label": "乒乓球、羽毛球场地",
+        "unit": null,
+        "values": [
+          10.33,
+          1126.57
+        ]
+      },
+      {
+        "display_label": "其他球类运动场地",
+        "group": null,
+        "label": "其他球类运动场地",
+        "unit": null,
+        "values": [
+          1.15,
+          7268.73
+        ]
+      },
+      {
+        "display_label": "冰雪运动场地",
+        "group": null,
+        "label": "冰雪运动场地",
+        "unit": null,
+        "values": [
+          "33（个）",
+          13.16
+        ]
+      },
+      {
+        "display_label": "全民健身路径",
+        "group": null,
+        "label": "全民健身路径",
+        "unit": null,
+        "values": [
+          5.14,
+          228.72
+        ]
+      },
+      {
+        "display_label": "健身房",
+        "group": null,
+        "label": "健身房",
+        "unit": null,
+        "values": [
+          0.97,
+          505.67
+        ]
+      },
+      {
+        "display_label": "健身步道",
+        "group": null,
+        "label": "健身步道",
+        "unit": null,
+        "values": [
+          0.98,
+          8568.87
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

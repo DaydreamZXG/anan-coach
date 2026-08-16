@@ -1,0 +1,227 @@
+{
+  "asset_id": "da_82e6e7794fac35a5e7bf719f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 73,
+        "min": 1,
+        "ticks": [],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2000",
+    "2001",
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "第一产业",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "第二产业",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "第三产业",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "第一产业",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        1.8,
+        1.9,
+        2.1,
+        2.4,
+        2.1,
+        2.4,
+        2.4,
+        2.6,
+        2.3,
+        1.8,
+        1.8,
+        null
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "第二产业",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        25.7,
+        27.3,
+        31.4,
+        32.8,
+        32.1,
+        32.9,
+        36.4,
+        37.8,
+        38.9,
+        38.7,
+        39.3,
+        null
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "第三产业",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        72.5,
+        70.8,
+        66.5,
+        64.8,
+        65.8,
+        64.7,
+        61.2,
+        59.6,
+        58.8,
+        59.5,
+        58.9,
+        null
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2014年山东省公务员录用考试《行测》题_images/img_0094_ed35d395a3960408.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省公务员录用考试《行测》题_images/img_0094_ed35d395a3960408.jpg",
+        "paper_title": "2014年山东省公务员录用考试《行测》题",
+        "question_id": "pq_ae811e697e438d1d065d",
+        "question_number": 101,
+        "source_jsonl_line": 29715
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省公务员录用考试《行测》题_images/img_0094_ed35d395a3960408.jpg",
+        "paper_title": "2014年山东省公务员录用考试《行测》题",
+        "question_id": "pq_021fbdf0664e702e7e3a",
+        "question_number": 102,
+        "source_jsonl_line": 29716
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省公务员录用考试《行测》题_images/img_0092_5a1b3ffee892976b.jpg",
+        "paper_title": "2014年山东省公务员录用考试《行测》题",
+        "question_id": "pq_ac3b3170632303b5542b",
+        "question_number": 103,
+        "source_jsonl_line": 29717
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省公务员录用考试《行测》题_images/img_0092_5a1b3ffee892976b.jpg",
+        "paper_title": "2014年山东省公务员录用考试《行测》题",
+        "question_id": "pq_e1c40a063ad78ffa126d",
+        "question_number": 104,
+        "source_jsonl_line": 29718
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年山东省公务员录用考试《行测》题_images/img_0092_5a1b3ffee892976b.jpg",
+        "paper_title": "2014年山东省公务员录用考试《行测》题",
+        "question_id": "pq_2078679ccbd028d11ce4",
+        "question_number": 105,
+        "source_jsonl_line": 29719
+      }
+    ],
+    "sha256": "82e6e7794fac35a5e7bf719f59047b65e250807f139b2b4446e8bc46de247fdb"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.504",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "independent_compact_chart_adjudication"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b_compact_chart",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

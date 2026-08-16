@@ -1,0 +1,261 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "国内增值税｜实征税收",
+      "国内增值税｜营业税",
+      "归宿税收｜国内增值税",
+      "归宿税收｜营业税"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "display_label": "一、第一产业",
+        "group": null,
+        "label": "一、第一产业",
+        "unit": null,
+        "values": [
+          4.38,
+          3,
+          224.02,
+          52.52
+        ]
+      },
+      {
+        "display_label": "二、第二产业",
+        "group": null,
+        "label": "二、第二产业",
+        "unit": null,
+        "values": [
+          14715.79,
+          2065.97,
+          13655.76,
+          3399.78
+        ]
+      },
+      {
+        "display_label": "（一）采矿业",
+        "group": null,
+        "label": "（一）采矿业",
+        "unit": null,
+        "values": [
+          2059.89,
+          31.17,
+          127.33,
+          36.54
+        ]
+      },
+      {
+        "display_label": "（二）制造业",
+        "group": null,
+        "label": "（二）制造业",
+        "unit": null,
+        "values": [
+          11035.77,
+          92.73,
+          10387.21,
+          943.8
+        ]
+      },
+      {
+        "display_label": "（三）电力、燃气及水的生产和供应业",
+        "group": null,
+        "label": "（三）电力、燃气及水的生产和供应业",
+        "unit": null,
+        "values": [
+          1603.31,
+          20.37,
+          437.34,
+          42.91
+        ]
+      },
+      {
+        "display_label": "（四）建筑业",
+        "group": null,
+        "label": "（四）建筑业",
+        "unit": null,
+        "values": [
+          16.81,
+          1921.7,
+          2703.88,
+          2376.54
+        ]
+      },
+      {
+        "display_label": "三、第三产业",
+        "group": null,
+        "label": "三、第三产业",
+        "unit": null,
+        "values": [
+          4099.6,
+          6946.22,
+          4939.99,
+          5562.88
+        ]
+      },
+      {
+        "display_label": "（一）交通运输、仓储及邮政业",
+        "group": null,
+        "label": "（一）交通运输、仓储及邮政业",
+        "unit": null,
+        "values": [
+          22.54,
+          668.86,
+          252.29,
+          361.71
+        ]
+      },
+      {
+        "display_label": "（二）信息传输、计算机服务和软件业",
+        "group": null,
+        "label": "（二）信息传输、计算机服务和软件业",
+        "unit": null,
+        "values": [
+          37.07,
+          334.89,
+          118.83,
+          267.08
+        ]
+      },
+      {
+        "display_label": "（三）批发和零售业",
+        "group": null,
+        "label": "（三）批发和零售业",
+        "unit": null,
+        "values": [
+          3833.15,
+          123.49,
+          2855.52,
+          269.26
+        ]
+      },
+      {
+        "display_label": "（四）住宿和餐饮业",
+        "group": null,
+        "label": "（四）住宿和餐饮业",
+        "unit": null,
+        "values": [
+          1.54,
+          357.39,
+          154.85,
+          283.6
+        ]
+      },
+      {
+        "display_label": "（五）金融业",
+        "group": null,
+        "label": "（五）金融业",
+        "unit": null,
+        "values": [
+          2.95,
+          1478.54,
+          43.55,
+          661.84
+        ]
+      },
+      {
+        "display_label": "（六）房地产业",
+        "group": null,
+        "label": "（六）房地产业",
+        "unit": null,
+        "values": [
+          1.66,
+          2368.8,
+          72.16,
+          2265.24
+        ]
+      },
+      {
+        "display_label": "（七）租赁业和商务服务业",
+        "group": null,
+        "label": "（七）租赁业和商务服务业",
+        "unit": null,
+        "values": [
+          31.59,
+          594.25,
+          160.44,
+          389.45
+        ]
+      },
+      {
+        "display_label": "（八）居民服务和其他服务业",
+        "group": null,
+        "label": "（八）居民服务和其他服务业",
+        "unit": null,
+        "values": [
+          41.69,
+          459.29,
+          151.44,
+          378.72
+        ]
+      },
+      {
+        "display_label": "（九）教育",
+        "group": null,
+        "label": "（九）教育",
+        "unit": null,
+        "values": [
+          0.12,
+          19.79,
+          223.26,
+          113.31
+        ]
+      },
+      {
+        "display_label": "（十）卫生、社会保障和社会福利业",
+        "group": null,
+        "label": "（十）卫生、社会保障和社会福利业",
+        "unit": null,
+        "values": [
+          0.15,
+          6.95,
+          374.64,
+          63.19
+        ]
+      },
+      {
+        "display_label": "（十一）文化、体育和娱乐业",
+        "group": null,
+        "label": "（十一）文化、体育和娱乐业",
+        "unit": null,
+        "values": [
+          12.79,
+          100.87,
+          58.17,
+          93.24
+        ]
+      },
+      {
+        "display_label": "（十二）公共管理和社会组织",
+        "group": null,
+        "label": "（十二）公共管理和社会组织",
+        "unit": null,
+        "values": [
+          null,
+          57.87,
+          305.78,
+          172.72
+        ]
+      },
+      {
+        "display_label": "（十三）其他行业",
+        "group": null,
+        "label": "（十三）其他行业",
+        "unit": null,
+        "values": [
+          104.08,
+          375.25,
+          169.06,
+          243.53
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

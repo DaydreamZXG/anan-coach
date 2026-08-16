@@ -1,0 +1,279 @@
+{
+  "asset_id": "da_c7e34f571ff0db6041de4573",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 140,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100,
+          120,
+          140
+        ],
+        "title": null,
+        "unit": "万台"
+      }
+    ]
+  },
+  "categories": [
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "公共充电桩数量",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "公共充电桩数量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万台",
+      "values": [
+        5.7,
+        15,
+        21.4,
+        30,
+        51.6,
+        80.7,
+        114.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/安徽/2022年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0132_ddc908d49879503a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0132_ddc908d49879503a.png",
+        "paper_title": "2022年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c26e1f909e42e3fcdafb",
+        "question_number": 101,
+        "source_jsonl_line": 28295
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0130_32ab209d6df51b80.png",
+        "paper_title": "2022年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_559b946487069d3d18b5",
+        "question_number": 102,
+        "source_jsonl_line": 28296
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0130_32ab209d6df51b80.png",
+        "paper_title": "2022年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cf2a96036d9867f2b080",
+        "question_number": 103,
+        "source_jsonl_line": 28297
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0130_32ab209d6df51b80.png",
+        "paper_title": "2022年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7cf6fbdd55e152117b42",
+        "question_number": 104,
+        "source_jsonl_line": 28298
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年安徽省公务员录用考试《行测》题（网友回忆版）_images/img_0130_32ab209d6df51b80.png",
+        "paper_title": "2022年安徽省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e2003e14bfea11fe5570",
+        "question_number": 105,
+        "source_jsonl_line": 28299
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0148_32ab209d6df51b80.png",
+        "paper_title": "2022年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b282e1d7623ec4334567",
+        "question_number": 121,
+        "source_jsonl_line": 32924
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0149_ddc908d49879503a.png",
+        "paper_title": "2022年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b3a3103c2ea304700040",
+        "question_number": 122,
+        "source_jsonl_line": 32925
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0148_32ab209d6df51b80.png",
+        "paper_title": "2022年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6b8e2be202c860e41892",
+        "question_number": 123,
+        "source_jsonl_line": 32926
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0149_ddc908d49879503a.png",
+        "paper_title": "2022年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c71873b9df1c30690051",
+        "question_number": 124,
+        "source_jsonl_line": 32927
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年山西省公务员录用考试《行测》题（网友回忆版）_images/img_0148_32ab209d6df51b80.png",
+        "paper_title": "2022年山西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3856dcc2b51fa79d71e7",
+        "question_number": 125,
+        "source_jsonl_line": 32928
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0097_32ab209d6df51b80.png",
+        "paper_title": "2022年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_36c54daf75f243f479c9",
+        "question_number": 116,
+        "source_jsonl_line": 53810
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0097_32ab209d6df51b80.png",
+        "paper_title": "2022年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_373ad6c129985563336f",
+        "question_number": 117,
+        "source_jsonl_line": 53811
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0097_32ab209d6df51b80.png",
+        "paper_title": "2022年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c4436724434c12a323e7",
+        "question_number": 118,
+        "source_jsonl_line": 53812
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0097_32ab209d6df51b80.png",
+        "paper_title": "2022年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_00d22244126c274acefb",
+        "question_number": 119,
+        "source_jsonl_line": 53813
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江西省公务员录用考试《行测》题（网友回忆版）_images/img_0115_ddc908d49879503a.png",
+        "paper_title": "2022年江西省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_76be3ae863ec7f89b03f",
+        "question_number": 120,
+        "source_jsonl_line": 53814
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0076_32ab209d6df51b80.png",
+        "paper_title": "2022年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_52c47f0f9be728171b4a",
+        "question_number": 111,
+        "source_jsonl_line": 56258
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0076_32ab209d6df51b80.png",
+        "paper_title": "2022年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1b83451ff7be16bcd1f1",
+        "question_number": 112,
+        "source_jsonl_line": 56259
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0076_32ab209d6df51b80.png",
+        "paper_title": "2022年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4e0d6c5cd58654d8c147",
+        "question_number": 113,
+        "source_jsonl_line": 56260
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0076_32ab209d6df51b80.png",
+        "paper_title": "2022年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ff7b900537fc5e14302e",
+        "question_number": 114,
+        "source_jsonl_line": 56261
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河北省公务员录用考试《行测》题（网友回忆版）_images/img_0076_32ab209d6df51b80.png",
+        "paper_title": "2022年河北省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ef448f3d03f3224d0ddf",
+        "question_number": 115,
+        "source_jsonl_line": 56262
+      }
+    ],
+    "sha256": "c7e34f571ff0db6041de45731a90396f4ace0c1b2138267845b250c88dc94e28"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图1:2015-2021年我国公共充电桩数量",
+  "unit": "万台",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c7e34f571ff0db6041de4573/column_band_01.jpg",
+        "review-crops/da_c7e34f571ff0db6041de4573/column_band_02.jpg",
+        "review-crops/da_c7e34f571ff0db6041de4573/column_band_03.jpg",
+        "review-crops/da_c7e34f571ff0db6041de4573/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.25",
+      "crop_verification_elapsed_seconds:1.969",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

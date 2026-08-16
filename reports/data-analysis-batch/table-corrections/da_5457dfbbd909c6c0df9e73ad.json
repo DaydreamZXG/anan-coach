@@ -1,0 +1,120 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口量(万吨)",
+          "同比增长率(%)"
+        ],
+        "label": "出口量"
+      },
+      {
+        "columns": [
+          "出口额(亿美元)",
+          "同比增长率(%)"
+        ],
+        "label": "出口额"
+      }
+    ],
+    "columns": [
+      "出口量(万吨)",
+      "同比增长率(%)",
+      "出口额(亿美元)",
+      "同比增长率(%)"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "出口目的地",
+    "rows": [
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": null,
+        "values": [
+          13.24,
+          8.27,
+          6.45,
+          16.95
+        ]
+      },
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": null,
+        "values": [
+          10.72,
+          3.05,
+          4.66,
+          8.76
+        ]
+      },
+      {
+        "display_label": "欧盟",
+        "group": null,
+        "label": "欧盟",
+        "unit": null,
+        "values": [
+          10.68,
+          11.5,
+          3.71,
+          12.89
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          10.3,
+          16.21,
+          3.04,
+          48.68
+        ]
+      },
+      {
+        "display_label": "中国香港",
+        "group": null,
+        "label": "中国香港",
+        "unit": null,
+        "values": [
+          3.42,
+          9.98,
+          2.08,
+          23.78
+        ]
+      },
+      {
+        "display_label": "东盟",
+        "group": null,
+        "label": "东盟",
+        "unit": null,
+        "values": [
+          6.83,
+          -14.6,
+          1.73,
+          19.43
+        ]
+      },
+      {
+        "display_label": "中国台湾",
+        "group": null,
+        "label": "中国台湾",
+        "unit": null,
+        "values": [
+          2.1,
+          52.3,
+          1.28,
+          124.9
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

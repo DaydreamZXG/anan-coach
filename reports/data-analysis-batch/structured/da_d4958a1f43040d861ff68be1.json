@@ -1,0 +1,193 @@
+{
+  "asset_id": "da_d4958a1f43040d861ff68be1",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 140.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          20.0,
+          40.0,
+          60.0,
+          80.0,
+          100.0,
+          120.0,
+          140.0
+        ],
+        "title": null,
+        "unit": "分钟"
+      }
+    ]
+  },
+  "categories": [
+    "做作业",
+    "外出游玩",
+    "使用电子产品",
+    "做家务",
+    "玩耍",
+    "阅读",
+    "锻炼",
+    "社会学习"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "上学日",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "周末",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "上学日",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "分钟",
+      "values": [
+        87.6,
+        46.7,
+        43.2,
+        28.1,
+        26.9,
+        25.6,
+        23.5,
+        12.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "周末",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "分钟",
+      "values": [
+        115.9,
+        118.3,
+        96.3,
+        50.1,
+        49.9,
+        37.1,
+        34.7,
+        29.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0360_9ed06e11790642b6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0360_9ed06e11790642b6.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_764c9ff513d72d8e5ae2",
+        "question_number": 121,
+        "source_jsonl_line": 49101
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0358_63c03968ae3b7a58.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_7f50d5374b462e98b972",
+        "question_number": 122,
+        "source_jsonl_line": 49102
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0358_63c03968ae3b7a58.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_ec8126bda137296fb25c",
+        "question_number": 123,
+        "source_jsonl_line": 49103
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0358_63c03968ae3b7a58.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_12896f41a1f4f357f236",
+        "question_number": 124,
+        "source_jsonl_line": 49104
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0358_63c03968ae3b7a58.png",
+        "paper_title": "2020年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_48861d074027d065927c",
+        "question_number": 125,
+        "source_jsonl_line": 49105
+      }
+    ],
+    "sha256": "d4958a1f43040d861ff68be1cadc27d70b569d1ecc5eeedd11b8e88d79a388a0"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "我国儿童各类校外活动日平均用时的调查结果",
+  "unit": "分钟",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d4958a1f43040d861ff68be1/column_band_01.jpg",
+        "review-crops/da_d4958a1f43040d861ff68be1/column_band_02.jpg",
+        "review-crops/da_d4958a1f43040d861ff68be1/column_band_03.jpg",
+        "review-crops/da_d4958a1f43040d861ff68be1/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.82",
+      "crop_verification_elapsed_seconds:3.846",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

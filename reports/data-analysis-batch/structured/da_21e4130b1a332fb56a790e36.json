@@ -1,0 +1,256 @@
+{
+  "asset_id": "da_21e4130b1a332fb56a790e36",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0254_d3437ba47d3616ab.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2019年420联考《行测》题（四川卷）（网友回忆版）_images/img_0254_d3437ba47d3616ab.png",
+        "paper_title": "2019年420联考《行测》题（四川卷）（网友回忆版）",
+        "question_id": "pq_76cf9873917ae3b722e0",
+        "question_number": 99,
+        "source_jsonl_line": 16014
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）_images/img_0249_d3437ba47d3616ab.png",
+        "paper_title": "2019年四川省选调优秀大学毕业生到基层工作《行测》试题（网友回忆版）",
+        "question_id": "pq_b2e80a2c768033ce9d4e",
+        "question_number": 99,
+        "source_jsonl_line": 88454
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）_images/img_0319_32b275293da2a93b.png",
+        "paper_title": "2019年420联考《行测》题（黑龙江公检法卷）（网友回忆版）",
+        "question_id": "pq_a8b30a3edd39ab748891",
+        "question_number": 124,
+        "source_jsonl_line": 103306
+      }
+    ],
+    "sha256": "21e4130b1a332fb56a790e3682a52520931344a9c2d4d3d2fe955e940399a14a"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 0,
+      "estimatedDrawCommandCount": 12,
+      "panelCount": 4,
+      "pointCount": 12
+    },
+    "coordinateSpace": {
+      "height": 129,
+      "width": 700
+    },
+    "evidence": {
+      "converterVersion": "semantic-microcharts-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "9d7e3937a2c49cab2c01911a19d7f6537e48fe04abba4c6c27c0b96d8904a08a",
+      "sourceAsset": "da_21e4130b1a332fb56a790e36",
+      "sourceSha256": "21e4130b1a332fb56a790e3682a52520931344a9c2d4d3d2fe955e940399a14a"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 88,
+          "width": 73,
+          "x": 77,
+          "y": 13
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.2069
+            },
+            {
+              "x": 0.36111,
+              "y": 0.98276
+            },
+            {
+              "x": 1.0,
+              "y": 0.00575
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_21e4130b1a332fb56a790e36-0",
+        "label": "A",
+        "position": 0
+      },
+      {
+        "bounds": {
+          "height": 71,
+          "width": 69,
+          "x": 260,
+          "y": 30
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.97857
+            },
+            {
+              "x": 0.57353,
+              "y": 0.00714
+            },
+            {
+              "x": 1.0,
+              "y": 0.49286
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_21e4130b1a332fb56a790e36-1",
+        "label": "B",
+        "position": 1
+      },
+      {
+        "bounds": {
+          "height": 79,
+          "width": 66,
+          "x": 425,
+          "y": 30
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 0.61538,
+              "y": 0.44872
+            },
+            {
+              "x": 1.0,
+              "y": 0.99359
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_21e4130b1a332fb56a790e36-2",
+        "label": "C",
+        "position": 2
+      },
+      {
+        "bounds": {
+          "height": 68,
+          "width": 60,
+          "x": 607,
+          "y": 41
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.49254
+            },
+            {
+              "x": 0.42373,
+              "y": 0.02239
+            },
+            {
+              "x": 1.0,
+              "y": 0.98507
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_21e4130b1a332fb56a790e36-3",
+        "label": "D",
+        "position": 3
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "line_options"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.202",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:图中仅显示四个不完整的折线图形，无法确定其数据来源、坐标轴、单位或类别信息，无法识别为标准图表类型",
+      "route_reason:A/B/C/D图形选项为选择题的视觉选项",
+      "route_panel_count:1",
+      "foreground_iou:0.779835",
+      "mean_absolute_error:1.790598",
+      "trace_parameters:{\"epsilonRatio\": 0.0012, \"minimumContourArea\": 0.6, \"paletteSize\": 2}",
+      "visual_grammar:line_options",
+      "visual_grammar:line_options",
+      "converter:semantic-microcharts-v1",
+      "visual_grammar:line_options",
+      "comparison_artifact:previews/structured_visual/da_21e4130b1a332fb56a790e36-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

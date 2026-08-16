@@ -1,0 +1,166 @@
+{
+  "asset_id": "da_bb86dc981d43929c6fa929ee",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 6000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000
+        ],
+        "title": "里程",
+        "unit": "公里"
+      }
+    ]
+  },
+  "categories": [
+    "河南",
+    "广东",
+    "河北",
+    "山东",
+    "江苏",
+    "湖北",
+    "陕西",
+    "浙江",
+    "辽宁",
+    "江西",
+    "山西"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "高速公路里程",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "高速公路里程",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "公里",
+      "values": [
+        5016,
+        4839,
+        4307,
+        4285,
+        4059,
+        3674,
+        3403,
+        3383,
+        3056,
+        3051,
+        3003
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2012年国家公务员录用考试《行测》题_images/img_0134_ed085c57dd51925d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0134_ed085c57dd51925d.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_9f0eddd045dc8afa06e8",
+        "question_number": 126,
+        "source_jsonl_line": 17796
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0134_ed085c57dd51925d.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_3b8dd4d178d6058ad353",
+        "question_number": 127,
+        "source_jsonl_line": 17797
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0135_3c98177d4b4fbc6a.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_f3ddee5a23984d375477",
+        "question_number": 128,
+        "source_jsonl_line": 17798
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0134_ed085c57dd51925d.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_97bc0b1e4dd7e5175402",
+        "question_number": 129,
+        "source_jsonl_line": 17799
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年国家公务员录用考试《行测》题_images/img_0135_3c98177d4b4fbc6a.png",
+        "paper_title": "2012年国家公务员录用考试《行测》题",
+        "question_id": "pq_7744cc71a8d714273d56",
+        "question_number": 130,
+        "source_jsonl_line": 17800
+      }
+    ],
+    "sha256": "bb86dc981d43929c6fa929eea51e953b06332923c1b5962808b37d639551ac7a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图2 2010年底部分省份高速公路里程",
+  "unit": "公里",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_bb86dc981d43929c6fa929ee/column_band_01.jpg",
+        "review-crops/da_bb86dc981d43929c6fa929ee/column_band_02.jpg",
+        "review-crops/da_bb86dc981d43929c6fa929ee/column_band_03.jpg",
+        "review-crops/da_bb86dc981d43929c6fa929ee/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.823",
+      "crop_verification_elapsed_seconds:2.041",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

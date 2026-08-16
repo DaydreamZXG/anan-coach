@@ -1,0 +1,234 @@
+{
+  "asset_id": "da_984faabf1fed86dc153b68ef",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广州市考/2015年广州市公务员录用考试《行测》题_images/img_0072_3270daeb003cb41f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年广州市公务员录用考试《行测》题_images/img_0072_3270daeb003cb41f.png",
+        "paper_title": "2015年广州市公务员录用考试《行测》题",
+        "question_id": "pq_877dbf91a9bf1860b38f",
+        "question_number": 86,
+        "source_jsonl_line": 37248
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年广州市公务员录用考试《行测》题_images/img_0077_f2e931932dda8858.png",
+        "paper_title": "2015年广州市公务员录用考试《行测》题",
+        "question_id": "pq_c85655f6fa2c79b3fbad",
+        "question_number": 87,
+        "source_jsonl_line": 37249
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年广州市公务员录用考试《行测》题_images/img_0072_3270daeb003cb41f.png",
+        "paper_title": "2015年广州市公务员录用考试《行测》题",
+        "question_id": "pq_ec5d00ebc77d7308b115",
+        "question_number": 88,
+        "source_jsonl_line": 37250
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年广州市公务员录用考试《行测》题_images/img_0072_3270daeb003cb41f.png",
+        "paper_title": "2015年广州市公务员录用考试《行测》题",
+        "question_id": "pq_ce812d8ca2caee994dfd",
+        "question_number": 89,
+        "source_jsonl_line": 37251
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年广州市公务员录用考试《行测》题_images/img_0072_3270daeb003cb41f.png",
+        "paper_title": "2015年广州市公务员录用考试《行测》题",
+        "question_id": "pq_efeb19733d26bac09cff",
+        "question_number": 90,
+        "source_jsonl_line": 37252
+      }
+    ],
+    "sha256": "984faabf1fed86dc153b68ef16ac1aad49c89a8a7958eb1741559f03d44fa2c7"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "合同利用外资额｜合同利用外资额",
+          "合同利用外资额｜同比增长（%）"
+        ],
+        "label": "合同利用外资额"
+      },
+      {
+        "columns": [
+          "实际利用外资额｜实际利用外资额",
+          "实际利用外资额｜同比增长（%）"
+        ],
+        "label": "实际利用外资额"
+      }
+    ],
+    "columns": [
+      "合同利用外资额｜合同利用外资额",
+      "合同利用外资额｜同比增长（%）",
+      "实际利用外资额｜实际利用外资额",
+      "实际利用外资额｜同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "城市",
+    "rows": [
+      {
+        "display_label": "广州",
+        "group": null,
+        "label": "广州",
+        "unit": null,
+        "values": [
+          68.02,
+          0.8,
+          45.75,
+          7.1
+        ]
+      },
+      {
+        "display_label": "深圳",
+        "group": null,
+        "label": "深圳",
+        "unit": null,
+        "values": [
+          62.62,
+          -18,
+          53.29,
+          13.7
+        ]
+      },
+      {
+        "display_label": "珠海",
+        "group": null,
+        "label": "珠海",
+        "unit": null,
+        "values": [
+          21.9,
+          23.3,
+          14.47,
+          8.2
+        ]
+      },
+      {
+        "display_label": "佛山",
+        "group": null,
+        "label": "佛山",
+        "unit": null,
+        "values": [
+          33.05,
+          1.5,
+          23.5,
+          9.1
+        ]
+      },
+      {
+        "display_label": "东莞",
+        "group": null,
+        "label": "东莞",
+        "unit": null,
+        "values": [
+          38.1,
+          8.6,
+          33.69,
+          10.5
+        ]
+      },
+      {
+        "display_label": "中山",
+        "group": null,
+        "label": "中山",
+        "unit": null,
+        "values": [
+          13.19,
+          22.3,
+          8.42,
+          15.3
+        ]
+      },
+      {
+        "display_label": "惠州",
+        "group": null,
+        "label": "惠州",
+        "unit": null,
+        "values": [
+          26.5,
+          22.5,
+          17.3,
+          10.2
+        ]
+      },
+      {
+        "display_label": "肇庆",
+        "group": null,
+        "label": "肇庆",
+        "unit": null,
+        "values": [
+          29.13,
+          25.5,
+          11.52,
+          10.9
+        ]
+      },
+      {
+        "display_label": "江门",
+        "group": null,
+        "label": "江门",
+        "unit": null,
+        "values": [
+          13.65,
+          1,
+          8.7,
+          10.2
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

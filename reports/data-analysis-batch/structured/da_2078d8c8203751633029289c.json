@@ -1,0 +1,159 @@
+{
+  "asset_id": "da_2078d8c8203751633029289c",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 700,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500,
+          600,
+          700
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "客户端游戏",
+    "网页游戏",
+    "移动游戏",
+    "社交游戏",
+    "单机游戏"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "销售收入",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "销售收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        608.9,
+        202.7,
+        274.9,
+        57.8,
+        0.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0269_a3579ef63ba9e295.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0269_a3579ef63ba9e295.png",
+        "paper_title": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_e831f5d0d181fec50a77",
+        "question_number": 106,
+        "source_jsonl_line": 85492
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0269_a3579ef63ba9e295.png",
+        "paper_title": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_ca317ac21d9959275a75",
+        "question_number": 107,
+        "source_jsonl_line": 85493
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0269_a3579ef63ba9e295.png",
+        "paper_title": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_f8db85480758656bc289",
+        "question_number": 108,
+        "source_jsonl_line": 85494
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0269_a3579ef63ba9e295.png",
+        "paper_title": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_67b9c767fba8c4267be6",
+        "question_number": 109,
+        "source_jsonl_line": 85495
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）_images/img_0269_a3579ef63ba9e295.png",
+        "paper_title": "2015年浙江省选调村官考试 行政职业能力测验试卷（精选）",
+        "question_id": "pq_b1523f4bb92cb0876621",
+        "question_number": 110,
+        "source_jsonl_line": 85496
+      }
+    ],
+    "sha256": "2078d8c8203751633029289cd0c1fcefed2f56de724addf020ebcb9637fe8065"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014年中国游戏市场具体销售收入构成",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2078d8c8203751633029289c/column_band_01.jpg",
+        "review-crops/da_2078d8c8203751633029289c/column_band_02.jpg",
+        "review-crops/da_2078d8c8203751633029289c/column_band_03.jpg",
+        "review-crops/da_2078d8c8203751633029289c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.168",
+      "crop_verification_elapsed_seconds:5.27",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'客户端游戏'的数值为608.9",
+      "crop_note:修正了'网页游戏'的数值为202.7",
+      "crop_note:修正了'移动游戏'的数值为274.9",
+      "crop_note:修正了'社交游戏'的数值为57.8",
+      "crop_note:修正了'单机游戏'的数值为0.5"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

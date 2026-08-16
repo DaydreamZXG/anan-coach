@@ -1,0 +1,200 @@
+{
+  "asset_id": "da_3f5f62f1993e59c44f1ff324",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0102_238e619f2580dc70.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0102_238e619f2580dc70.jpg",
+        "paper_title": "2009年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_36996b388160feb8e095",
+        "question_number": 101,
+        "source_jsonl_line": 11254
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0102_238e619f2580dc70.jpg",
+        "paper_title": "2009年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_5be0d2bc65156c69453d",
+        "question_number": 102,
+        "source_jsonl_line": 11255
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0102_238e619f2580dc70.jpg",
+        "paper_title": "2009年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_2a8fbc85aaae7cba3741",
+        "question_number": 103,
+        "source_jsonl_line": 11256
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0110_d1edfde70385c095.jpg",
+        "paper_title": "2009年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_d15eb81c2cbdde9d5ed8",
+        "question_number": 104,
+        "source_jsonl_line": 11257
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年吉林省公务员录用考试《行测》题（甲级）_images/img_0102_238e619f2580dc70.jpg",
+        "paper_title": "2009年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_7fb34ea65b5c1d27f1d0",
+        "question_number": 105,
+        "source_jsonl_line": 11258
+      }
+    ],
+    "sha256": "3f5f62f1993e59c44f1ff324f4c850a77fc9e98acde249b263bc61aff6e3132e"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "绝对贫困｜标准（元）",
+          "绝对贫困｜人口规模（万人）",
+          "绝对贫困｜人口比重（%）"
+        ],
+        "label": "绝对贫困"
+      },
+      {
+        "columns": [
+          "低收入｜标准（元）",
+          "低收入｜人口规模（万人）",
+          "低收入｜人口比重（%）"
+        ],
+        "label": "低收入"
+      }
+    ],
+    "columns": [
+      "绝对贫困｜标准（元）",
+      "绝对贫困｜人口规模（万人）",
+      "绝对贫困｜人口比重（%）",
+      "低收入｜标准（元）",
+      "低收入｜人口规模（万人）",
+      "低收入｜人口比重（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年度",
+    "rows": [
+      {
+        "display_label": "2000",
+        "group": null,
+        "label": "2000",
+        "unit": null,
+        "values": [
+          625,
+          3209,
+          3.5,
+          865,
+          6213,
+          6.7
+        ]
+      },
+      {
+        "display_label": "2001",
+        "group": null,
+        "label": "2001",
+        "unit": null,
+        "values": [
+          630,
+          2927,
+          3.2,
+          872,
+          6102,
+          6.6
+        ]
+      },
+      {
+        "display_label": "2002",
+        "group": null,
+        "label": "2002",
+        "unit": null,
+        "values": [
+          627,
+          2820,
+          3,
+          869,
+          5825,
+          6.2
+        ]
+      },
+      {
+        "display_label": "2003",
+        "group": null,
+        "label": "2003",
+        "unit": null,
+        "values": [
+          637,
+          2900,
+          3.1,
+          882,
+          5617,
+          6
+        ]
+      },
+      {
+        "display_label": "2004",
+        "group": null,
+        "label": "2004",
+        "unit": null,
+        "values": [
+          668,
+          2610,
+          2.8,
+          924,
+          4977,
+          5.3
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

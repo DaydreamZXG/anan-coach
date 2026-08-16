@@ -1,0 +1,51 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "2006",
+      "2007",
+      "2008",
+      "2009",
+      "2010"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "专业技术人员(万人)",
+    "rows": [
+      {
+        "display_label": "专业技术人员(万人)",
+        "group": null,
+        "label": "专业技术人员(万人)",
+        "unit": null,
+        "values": [
+          null,
+          565.5,
+          555.1,
+          531.6,
+          528.9,
+          499.3
+        ]
+      },
+      {
+        "display_label": "财政科技拨款(亿元)",
+        "group": null,
+        "label": "财政科技拨款(亿元)",
+        "unit": null,
+        "values": [
+          null,
+          272.8,
+          277.2,
+          359.5,
+          398.6,
+          416.6
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

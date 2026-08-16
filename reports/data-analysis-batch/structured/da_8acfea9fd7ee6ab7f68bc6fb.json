@@ -1,0 +1,267 @@
+{
+  "asset_id": "da_8acfea9fd7ee6ab7f68bc6fb",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河北/2013年河北省公务员录用考试《行测》题_images/img_0079_b1aa69c2ea283fbf.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年河北省公务员录用考试《行测》题_images/img_0079_b1aa69c2ea283fbf.png",
+        "paper_title": "2013年河北省公务员录用考试《行测》题",
+        "question_id": "pq_5876926cf1b97db154b0",
+        "question_number": 86,
+        "source_jsonl_line": 54965
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年河北省公务员录用考试《行测》题_images/img_0079_b1aa69c2ea283fbf.png",
+        "paper_title": "2013年河北省公务员录用考试《行测》题",
+        "question_id": "pq_0de7c2bc277d8bb0196b",
+        "question_number": 87,
+        "source_jsonl_line": 54966
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年河北省公务员录用考试《行测》题_images/img_0106_8df681b50ff7d41f.png",
+        "paper_title": "2013年河北省公务员录用考试《行测》题",
+        "question_id": "pq_39281a6a4a13c45f4b17",
+        "question_number": 88,
+        "source_jsonl_line": 54967
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年河北省公务员录用考试《行测》题_images/img_0079_b1aa69c2ea283fbf.png",
+        "paper_title": "2013年河北省公务员录用考试《行测》题",
+        "question_id": "pq_24ca7ac276124e6311cc",
+        "question_number": 89,
+        "source_jsonl_line": 54968
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年河北省公务员录用考试《行测》题_images/img_0106_8df681b50ff7d41f.png",
+        "paper_title": "2013年河北省公务员录用考试《行测》题",
+        "question_id": "pq_eb0eabe113beb9c8e184",
+        "question_number": 90,
+        "source_jsonl_line": 54969
+      }
+    ],
+    "sha256": "8acfea9fd7ee6ab7f68bc6fbc293c680b0dadf4089e648d6849adcfc268c82ab"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "城市",
+      "公共图书馆(个)",
+      "公共图书馆图书藏量(千册)",
+      "医院和卫生院(个)",
+      "医院和卫生院床位数(张)",
+      "医生数(人)",
+      "注册护士数(人)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "石家庄",
+        "unit": null,
+        "values": [
+          "石家庄",
+          8,
+          3522,
+          93,
+          18640,
+          12550,
+          11079
+        ]
+      },
+      {
+        "label": "承德",
+        "unit": null,
+        "values": [
+          "承德",
+          3,
+          315,
+          32,
+          4470,
+          2266,
+          2254
+        ]
+      },
+      {
+        "label": "张家口",
+        "unit": null,
+        "values": [
+          "张家口",
+          2,
+          754,
+          40,
+          5860,
+          2817,
+          2568
+        ]
+      },
+      {
+        "label": "秦皇岛",
+        "unit": null,
+        "values": [
+          "秦皇岛",
+          2,
+          605,
+          55,
+          6014,
+          3642,
+          3169
+        ]
+      },
+      {
+        "label": "唐山",
+        "unit": null,
+        "values": [
+          "唐山",
+          5,
+          1235,
+          144,
+          17550,
+          9309,
+          10057
+        ]
+      },
+      {
+        "label": "廊坊",
+        "unit": null,
+        "values": [
+          "廊坊",
+          2,
+          1358,
+          45,
+          3813,
+          2567,
+          1953
+        ]
+      },
+      {
+        "label": "保定",
+        "unit": null,
+        "values": [
+          "保定",
+          1,
+          750,
+          41,
+          10385,
+          4731,
+          5131
+        ]
+      },
+      {
+        "label": "沧州",
+        "unit": null,
+        "values": [
+          "沧州",
+          1,
+          270,
+          14,
+          5974,
+          3281,
+          3374
+        ]
+      },
+      {
+        "label": "衡水",
+        "unit": null,
+        "values": [
+          "衡水",
+          1,
+          133,
+          35,
+          3575,
+          2483,
+          1623
+        ]
+      },
+      {
+        "label": "邢台",
+        "unit": null,
+        "values": [
+          "邢台",
+          1,
+          365,
+          52,
+          6537,
+          3387,
+          3215
+        ]
+      },
+      {
+        "label": "邯郸",
+        "unit": null,
+        "values": [
+          "邯郸",
+          4,
+          615,
+          92,
+          12395,
+          5759,
+          5502
+        ]
+      }
+    ]
+  },
+  "title": "2011年河北省各市文化、卫生情况统计表",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_8acfea9fd7ee6ab7f68bc6fb/row_band_01.jpg",
+        "review-crops/da_8acfea9fd7ee6ab7f68bc6fb/row_band_02.jpg",
+        "review-crops/da_8acfea9fd7ee6ab7f68bc6fb/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.021",
+      "crop_verification_elapsed_seconds:12.412",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

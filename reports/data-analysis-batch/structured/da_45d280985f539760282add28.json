@@ -1,0 +1,342 @@
+{
+  "asset_id": "da_45d280985f539760282add28",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.92,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2013年浙江省公务员录用考试《行测》题（B类）_images/img_0207_8ba2152abda91057.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0207_8ba2152abda91057.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_58be743aa67b403f0341",
+        "question_number": 101,
+        "source_jsonl_line": 60663
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0144_ad3480c5173bc30e.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_0b2ea6006b87bf09b014",
+        "question_number": 102,
+        "source_jsonl_line": 60664
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0144_ad3480c5173bc30e.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_990e8d4c3e92f2f2eef3",
+        "question_number": 103,
+        "source_jsonl_line": 60665
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0144_ad3480c5173bc30e.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_67b7a28a78b0f53f40ff",
+        "question_number": 104,
+        "source_jsonl_line": 60666
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年浙江省公务员录用考试《行测》题（B类）_images/img_0144_ad3480c5173bc30e.png",
+        "paper_title": "2013年浙江省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_e0deddcf1d069656c9db",
+        "question_number": 105,
+        "source_jsonl_line": 60667
+      }
+    ],
+    "sha256": "45d280985f539760282add287d71887ffe6ab0ccee0280610de4240d89a6a6cd"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "绝对值(亿元)｜GDP｜绝对值(亿元)",
+          "绝对值(亿元)｜第一产业｜绝对值(亿元)",
+          "绝对值(亿元)｜第二产业｜绝对值(亿元)",
+          "绝对值(亿元)｜第三产业｜绝对值(亿元)"
+        ],
+        "label": "绝对值(亿元)"
+      },
+      {
+        "columns": [
+          "可比价增长速度(%)｜GDP｜可比价增长速度(%)",
+          "可比价增长速度(%)｜第一产业｜可比价增长速度(%)",
+          "可比价增长速度(%)｜第二产业｜可比价增长速度(%)",
+          "可比价增长速度(%)｜第三产业｜可比价增长速度(%)"
+        ],
+        "label": "可比价增长速度(%)"
+      }
+    ],
+    "columns": [
+      "绝对值(亿元)｜GDP｜绝对值(亿元)",
+      "绝对值(亿元)｜第一产业｜绝对值(亿元)",
+      "绝对值(亿元)｜第二产业｜绝对值(亿元)",
+      "绝对值(亿元)｜第三产业｜绝对值(亿元)",
+      "可比价增长速度(%)｜GDP｜可比价增长速度(%)",
+      "可比价增长速度(%)｜第一产业｜可比价增长速度(%)",
+      "可比价增长速度(%)｜第二产业｜可比价增长速度(%)",
+      "可比价增长速度(%)｜第三产业｜可比价增长速度(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "全省",
+        "group": null,
+        "label": "全省",
+        "unit": null,
+        "values": [
+          34606.3,
+          1669.49,
+          17312.37,
+          15624.44,
+          8.0,
+          2.0,
+          7.3,
+          9.3
+        ]
+      },
+      {
+        "display_label": "杭州",
+        "group": null,
+        "label": "杭州",
+        "unit": null,
+        "values": [
+          7803.98,
+          255.93,
+          3626.88,
+          3921.17,
+          9.0,
+          2.5,
+          8.5,
+          10.1
+        ]
+      },
+      {
+        "display_label": "宁波",
+        "group": null,
+        "label": "宁波",
+        "unit": null,
+        "values": [
+          6524.7,
+          269.97,
+          3516.73,
+          2738.0,
+          7.8,
+          1.6,
+          6.0,
+          10.9
+        ]
+      },
+      {
+        "display_label": "温州",
+        "group": null,
+        "label": "温州",
+        "unit": null,
+        "values": [
+          3650.06,
+          112.9,
+          1843.06,
+          1694.1,
+          6.7,
+          1.2,
+          6.0,
+          8.0
+        ]
+      },
+      {
+        "display_label": "嘉兴",
+        "group": null,
+        "label": "嘉兴",
+        "unit": null,
+        "values": [
+          2884.94,
+          150.05,
+          1620.82,
+          1114.07,
+          8.7,
+          1.1,
+          8.4,
+          10.2
+        ]
+      },
+      {
+        "display_label": "湖州",
+        "group": null,
+        "label": "湖州",
+        "unit": null,
+        "values": [
+          1661.97,
+          123.31,
+          888.2,
+          650.46,
+          9.7,
+          2.5,
+          10.7,
+          9.6
+        ]
+      },
+      {
+        "display_label": "绍兴",
+        "group": null,
+        "label": "绍兴",
+        "unit": null,
+        "values": [
+          3620.1,
+          184.72,
+          1949.07,
+          1486.31,
+          9.7,
+          2.9,
+          9.7,
+          10.8
+        ]
+      },
+      {
+        "display_label": "金华",
+        "group": null,
+        "label": "金华",
+        "unit": null,
+        "values": [
+          2700.12,
+          134.44,
+          1344.66,
+          1221.02,
+          10.2,
+          4.0,
+          10.2,
+          10.9
+        ]
+      },
+      {
+        "display_label": "义乌",
+        "group": null,
+        "label": "义乌",
+        "unit": null,
+        "values": [
+          802.94,
+          21.1,
+          334.15,
+          447.69,
+          10.2,
+          3.9,
+          10.1,
+          10.5
+        ]
+      },
+      {
+        "display_label": "衢州",
+        "group": null,
+        "label": "衢州",
+        "unit": null,
+        "values": [
+          982.75,
+          79.85,
+          531.91,
+          370.99,
+          8.7,
+          3.1,
+          8.7,
+          10.0
+        ]
+      },
+      {
+        "display_label": "舟山",
+        "group": null,
+        "label": "舟山",
+        "unit": null,
+        "values": [
+          851.95,
+          83.05,
+          385.42,
+          383.48,
+          10.2,
+          5.5,
+          12.3,
+          9.1
+        ]
+      },
+      {
+        "display_label": "台州",
+        "group": null,
+        "label": "台州",
+        "unit": null,
+        "values": [
+          2927.34,
+          201.12,
+          1435.04,
+          1291.18,
+          7.5,
+          2.5,
+          7.1,
+          8.6
+        ]
+      },
+      {
+        "display_label": "丽水",
+        "group": null,
+        "label": "丽水",
+        "unit": null,
+        "values": [
+          885.17,
+          79.35,
+          446.09,
+          359.73,
+          10.5,
+          3.6,
+          12.6,
+          9.6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.92,
+    "schema_valid": true
+  }
+}

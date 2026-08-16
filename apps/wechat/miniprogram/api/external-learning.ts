@@ -11,9 +11,15 @@ import type {
   ProcessImportCommand as ApiProcessImportCommand,
   RequestImportAiAnswerCommand as ApiRequestImportAIAnswerCommand,
   ConfirmImportAiAnswerCommand as ApiConfirmImportAIAnswerCommand,
+  CreatePrivateQuestionBookCommand,
+  PrivateQuestionBookDetail,
+  PrivateQuestionBookList,
+  PrivateQuestionBookPracticeLaunch,
+  PrivateSourceDeletionView,
   RenewPacketCommand as ApiRenewPacketCommand,
   RetryPacketCommand as ApiRetryPacketCommand,
   StartRecognitionCommand as ApiStartRecognitionCommand,
+  StartPrivateQuestionBookPracticeCommand,
 } from "./generated/types.gen";
 import { SourceArtifactApi } from "./source-artifact";
 import { persistUserDataFile } from "../platform/persistent-file";
@@ -33,6 +39,7 @@ import type {
   MatchConfirmationCommand,
   PacketAccessGrant,
   PacketListSnapshot,
+  PrivateQuestionBookGateway,
   RecognitionConfirmationCommand,
   RecognitionCorrectionCommand,
   RenewPacketCommand,
@@ -66,7 +73,7 @@ const importRecoveryDelayMs = 1_000;
 
 type RecognitionRevisionProjection = RecognitionRevision;
 
-export class ExternalLearningApi implements ExternalLearningGateway {
+export class ExternalLearningApi implements ExternalLearningGateway, PrivateQuestionBookGateway {
   private readonly artifacts: SourceArtifactApi;
 
   constructor(private readonly client: ApiClient) {
@@ -202,6 +209,61 @@ export class ExternalLearningApi implements ExternalLearningGateway {
       payload,
       { idempotencyKey, timeoutMs: 30_000 },
     );
+  }
+
+  async createQuestionBook(
+    command: CreatePrivateQuestionBookCommand,
+    idempotencyKey: string,
+  ): Promise<PrivateQuestionBookDetail> {
+    const response = await this.client.post<PrivateQuestionBookDetail>(
+      "/api/v2/external-learning/question-books",
+      command,
+      { idempotencyKey, timeoutMs: 30_000 },
+    );
+    return response.data;
+  }
+
+  async listQuestionBooks(): Promise<PrivateQuestionBookList> {
+    const response = await this.client.get<PrivateQuestionBookList>(
+      "/api/v2/external-learning/question-books",
+    );
+    return response.data;
+  }
+
+  async getQuestionBook(bookId: string): Promise<PrivateQuestionBookDetail> {
+    const response = await this.client.get<PrivateQuestionBookDetail>(questionBookPath(bookId));
+    return response.data;
+  }
+
+  async startQuestionBookPractice(
+    bookId: string,
+    command: StartPrivateQuestionBookPracticeCommand,
+    idempotencyKey: string,
+  ): Promise<PrivateQuestionBookPracticeLaunch> {
+    const response = await this.client.post<PrivateQuestionBookPracticeLaunch>(
+      `${questionBookPath(bookId)}/practice-sessions`,
+      command,
+      { idempotencyKey, timeoutMs: 30_000 },
+    );
+    return response.data;
+  }
+
+  async deleteQuestionBook(
+    bookId: string,
+    idempotencyKey: string,
+  ): Promise<PrivateSourceDeletionView> {
+    const response = await this.client.delete<PrivateSourceDeletionView>(questionBookPath(bookId), {
+      idempotencyKey,
+      timeoutMs: 30_000,
+    });
+    return response.data;
+  }
+
+  async getQuestionBookDeletion(deletionRequestId: string): Promise<PrivateSourceDeletionView> {
+    const response = await this.client.get<PrivateSourceDeletionView>(
+      `/api/v2/external-learning/question-books/deletions/${encodeURIComponent(requiredId(deletionRequestId, "deletionRequestId"))}`,
+    );
+    return response.data;
   }
 
   async listPackets(): Promise<PacketListSnapshot> {
@@ -399,6 +461,10 @@ function answerWorkspace(envelope: ApiEnvelope<AnswerWorkspaceData>): AnswerInge
 
 function importPath(importId: string): string {
   return `/api/v2/external-learning/imports/${encodeURIComponent(requiredId(importId, "importId"))}`;
+}
+
+function questionBookPath(bookId: string): string {
+  return `/api/v2/external-learning/question-books/${encodeURIComponent(requiredId(bookId, "bookId"))}`;
 }
 
 function answerIngestionPath(ingestionId: string): string {

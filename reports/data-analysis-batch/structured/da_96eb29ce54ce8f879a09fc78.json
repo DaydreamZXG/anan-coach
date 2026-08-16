@@ -1,0 +1,191 @@
+{
+  "asset_id": "da_96eb29ce54ce8f879a09fc78",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 72,
+        "min": 32,
+        "ticks": [],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "15Q1",
+    "15Q2",
+    "15Q3",
+    "15Q4",
+    "16Q1",
+    "16Q2",
+    "16Q3",
+    "16Q4",
+    "17Q1",
+    "17Q2"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "移动端广告收入占比",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "移动端广告收入占比",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        32.8,
+        40.9,
+        44.1,
+        56.3,
+        58.4,
+        60.8,
+        67.4,
+        65.9,
+        71.4,
+        70.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2019年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0358_44aa46141426229a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0358_44aa46141426229a.png",
+        "paper_title": "2019年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_81489337d0cbcb6a742f",
+        "question_number": 126,
+        "source_jsonl_line": 62073
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0363_f2884435d2c53dda.png",
+        "paper_title": "2019年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_3bb2291091aead7231b1",
+        "question_number": 127,
+        "source_jsonl_line": 62074
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0363_f2884435d2c53dda.png",
+        "paper_title": "2019年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_1eee5acfc1783fcf2a7c",
+        "question_number": 128,
+        "source_jsonl_line": 62075
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0358_44aa46141426229a.png",
+        "paper_title": "2019年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_3cb2055f48f48e5a0de9",
+        "question_number": 129,
+        "source_jsonl_line": 62076
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0358_44aa46141426229a.png",
+        "paper_title": "2019年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_d49dc470a69da2bf42fc",
+        "question_number": 130,
+        "source_jsonl_line": 62077
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0353_f2884435d2c53dda.png",
+        "paper_title": "2019年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_b3cb1c21f9dc0d2a8f26",
+        "question_number": 126,
+        "source_jsonl_line": 62203
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0353_f2884435d2c53dda.png",
+        "paper_title": "2019年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_6a8a53841c7ab1bfd592",
+        "question_number": 127,
+        "source_jsonl_line": 62204
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0353_f2884435d2c53dda.png",
+        "paper_title": "2019年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_c90020418d46294248bb",
+        "question_number": 128,
+        "source_jsonl_line": 62205
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0353_f2884435d2c53dda.png",
+        "paper_title": "2019年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_dd70adf1f964f88a6482",
+        "question_number": 129,
+        "source_jsonl_line": 62206
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0353_f2884435d2c53dda.png",
+        "paper_title": "2019年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_ade8a4867df94de69940",
+        "question_number": 130,
+        "source_jsonl_line": 62207
+      }
+    ],
+    "sha256": "96eb29ce54ce8f879a09fc787b5580a6d531fd80e78c4b9e0f6f2945805c905a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2015年1季度~2017年2季度移动端广告收入占在线视频广告收入比重",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:1.595",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "independent_compact_chart_adjudication"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b_compact_chart",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

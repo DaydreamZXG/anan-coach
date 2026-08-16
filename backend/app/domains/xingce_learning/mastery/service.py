@@ -113,6 +113,85 @@ class XingceMasteryService:
             now=now,
         )
 
+    def record_teach_back_transfer(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        review_id: str,
+        command_id: str,
+        question_id: str,
+        correct: bool,
+        confidence: str,
+        evidence_ref: str,
+        recorded_at: datetime,
+    ) -> RowMapping:
+        current = self._repository.current_for_review(
+            session,
+            user_id=user_id,
+            review_id=review_id,
+            for_update=True,
+        )
+        if current is None or str(current["verification_stage"]) != "immediate":
+            raise XingceMasteryConflict("teach-back transfer no longer matches immediate verification")
+        if question_id in set(current["used_question_ids"]):
+            raise XingceMasteryConflict("teach-back transfer question was already used")
+        advanced = advance_schedule(
+            card_payload=dict(current["scheduler_card"]),
+            current_stage="immediate",
+            evidence=[
+                VerificationEvidence(
+                    result_code="correct" if correct else "incorrect",
+                    confidence=confidence,
+                )
+            ],
+            reviewed_at=recorded_at,
+            parameters=tuple(float(value) for value in current["scheduler_parameters"]),
+            policy_version=str(current["scheduler_policy_version"]),
+        )
+        row = self._repository.insert_version(
+            session,
+            values={
+                "mastery_version_id": str(uuid4()),
+                "mastery_id": str(current["mastery_id"]),
+                "command_id": command_id,
+                "user_id": user_id,
+                "version_no": int(current["version_no"]) + 1,
+                "state": advanced.state,
+                "verification_stage": advanced.stage,
+                "due_at": advanced.due_at,
+                "rating": int(advanced.rating),
+                "module_name": current["module_name"],
+                "scheduler_card": json_value(advanced.card),
+                "scheduler_review_log": json_value(advanced.review_log),
+                "scheduler_parameters": json_value(list(current["scheduler_parameters"])),
+                "scheduler_algorithm_version": str(current["scheduler_algorithm_version"]),
+                "scheduler_policy_version": str(current["scheduler_policy_version"]),
+                "used_question_ids": json_value(sorted(set(current["used_question_ids"]) | {question_id})),
+                "source_review_id": str(current["source_review_id"]),
+                "source_review_version_id": str(current["source_review_version_id"]),
+                "source_session_id": str(current["source_session_id"]),
+                "evidence_refs": json_value([
+                    f"mastery-version:{current['mastery_version_id']}",
+                    evidence_ref,
+                    f"question:{question_id}",
+                    f"review-version:{current['source_review_version_id']}",
+                ]),
+                "supersedes_mastery_version_id": str(current["mastery_version_id"]),
+                "created_at": recorded_at,
+            },
+        )
+        self._append_event(
+            session,
+            user_id=user_id,
+            command_id=command_id,
+            row=row,
+            from_state=str(current["state"]),
+            reason_code=f"teach_back_transfer_{advanced.reason_code}",
+            occurred_at=recorded_at,
+        )
+        return row
+
     def record_cause_decision(
         self,
         session: Session,
@@ -149,6 +228,38 @@ class XingceMasteryService:
             recorded_at=recorded_at,
         )
 
+    def record_objective_verification(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        task_session: RowMapping,
+        review: RowMapping,
+        command_id: str,
+        recorded_at: datetime,
+    ) -> RowMapping:
+        """Advance an all-correct verification without inventing a user reflection."""
+        if str(task_session["mode"]) != "verification":
+            raise XingceMasteryConflict(
+                "objective verification settlement requires verification mode"
+            )
+        if not self._repository.session_content_is_eligible(
+            session,
+            user_id=user_id,
+            session_id=str(task_session["session_id"]),
+        ):
+            raise XingceMasteryConflict(
+                "mastery evidence contains withdrawn or invalidated content"
+            )
+        return self._advance_verification(
+            session,
+            user_id=user_id,
+            task_session=task_session,
+            review=review,
+            command_id=command_id,
+            recorded_at=recorded_at,
+        )
+
     def _create_reflected(
         self,
         session: Session,
@@ -163,7 +274,18 @@ class XingceMasteryService:
         mastery_version_id = str(uuid4())
         bundle = SafeQuestionBundle.model_validate(task_session["safe_bundle"])
         module_names = {question.module_name for question in bundle.questions}
-        module_name = next(iter(module_names)) if len(module_names) == 1 else None
+        module_name = self._repository.focused_module_name(
+            session,
+            user_id=user_id,
+            session_id=str(task_session["session_id"]),
+            candidate_version_id=(
+                str(review["cause_candidate_version_id"])
+                if review["cause_candidate_version_id"] is not None
+                else None
+            ),
+        )
+        if module_name is None and len(module_names) == 1:
+            module_name = next(iter(module_names))
         question_ids = sorted(question.question_id for question in bundle.questions)
         evidence_refs = _review_evidence_refs(task_session, review)
         row = self._repository.insert_version(
@@ -236,7 +358,11 @@ class XingceMasteryService:
             session,
             user_id=user_id,
             session_id=str(task_session["session_id"]),
-            reflection_version_id=str(review["reflection_version_id"]),
+            reflection_version_id=(
+                str(review["reflection_version_id"])
+                if review["reflection_version_id"] is not None
+                else None
+            ),
         )
         evidence = [
             VerificationEvidence(
@@ -365,10 +491,13 @@ def _review_evidence_refs(
         f"task-session:{task_session['session_id']}:{task_session['revision']}",
         f"attempt-group:{task_session['attempt_group_id']}",
         f"review-version:{review['review_version_id']}",
-        f"reflection-version:{review['reflection_version_id']}",
-        f"cause-candidate-version:{review['cause_candidate_version_id']}",
-        f"cause-decision-version:{review['cause_decision_version_id']}",
     ]
+    if review["reflection_version_id"] is not None:
+        refs.append(f"reflection-version:{review['reflection_version_id']}")
+    if review["cause_candidate_version_id"] is not None:
+        refs.append(f"cause-candidate-version:{review['cause_candidate_version_id']}")
+    if review["cause_decision_version_id"] is not None:
+        refs.append(f"cause-decision-version:{review['cause_decision_version_id']}")
     return refs
 
 

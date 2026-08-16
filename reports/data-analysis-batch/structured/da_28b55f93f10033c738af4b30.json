@@ -1,0 +1,253 @@
+{
+  "asset_id": "da_28b55f93f10033c738af4b30",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 90000.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          10000.0,
+          20000.0,
+          30000.0,
+          40000.0,
+          50000.0,
+          60000.0,
+          70000.0,
+          80000.0,
+          90000.0
+        ],
+        "title": null,
+        "unit": "亿元"
+      },
+      {
+        "max": 50.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          5.0,
+          10.0,
+          15.0,
+          20.0,
+          25.0,
+          30.0,
+          35.0,
+          40.0,
+          45.0,
+          50.0
+        ],
+        "title": null,
+        "unit": "万公顷"
+      }
+    ]
+  },
+  "categories": [
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "出让面积",
+      "style": {
+        "dash": null,
+        "fill": "#808080",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "出让成交价款",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "circle",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "出让面积",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        26.0,
+        27.9,
+        31.5,
+        30.7,
+        30.7
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "出让成交价款",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万公顷",
+      "values": [
+        58850.5,
+        66006.0,
+        80409.6,
+        77187.0,
+        60314.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0103_ca874a7b642a2049.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0103_ca874a7b642a2049.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_9234d7f63e99c31caca2",
+        "question_number": 41,
+        "source_jsonl_line": 63588
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0103_ca874a7b642a2049.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_30f8d4354cb25a843fef",
+        "question_number": 42,
+        "source_jsonl_line": 63589
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0103_ca874a7b642a2049.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_bdacccc0b2e143ce0b91",
+        "question_number": 43,
+        "source_jsonl_line": 63590
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0103_ca874a7b642a2049.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_c96984064c9716844572",
+        "question_number": 44,
+        "source_jsonl_line": 63591
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0119_f3655cc26268c562.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_4ab8222fe1c2b0a2f8f9",
+        "question_number": 45,
+        "source_jsonl_line": 63592
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0114_f3655cc26268c562.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_c098ca9967ab0252ec8e",
+        "question_number": 41,
+        "source_jsonl_line": 90181
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0105_ca874a7b642a2049.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_101c1080b71de54ca0c6",
+        "question_number": 42,
+        "source_jsonl_line": 90182
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0105_ca874a7b642a2049.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_7c8d7f3c92e04f60a156",
+        "question_number": 43,
+        "source_jsonl_line": 90183
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0114_f3655cc26268c562.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_88607727736cf4e9d06e",
+        "question_number": 44,
+        "source_jsonl_line": 90184
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）_images/img_0105_ca874a7b642a2049.png",
+        "paper_title": "2024年度浙江省党政机关选调应届优秀大学毕业生《行测》题（网友回忆版）",
+        "question_id": "pq_4a1bcfd3eb1fdec56d82",
+        "question_number": 45,
+        "source_jsonl_line": 90185
+      }
+    ],
+    "sha256": "28b55f93f10033c738af4b307606e383667e19f4ffc98d4c8766982221f347c3"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图2 2018-2022年国有建设用地出让情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_28b55f93f10033c738af4b30/column_band_01.jpg",
+        "review-crops/da_28b55f93f10033c738af4b30/column_band_02.jpg",
+        "review-crops/da_28b55f93f10033c738af4b30/column_band_03.jpg",
+        "review-crops/da_28b55f93f10033c738af4b30/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.026",
+      "crop_verification_elapsed_seconds:12.074",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'出让面积'系列的数值，根据图像确认2018年为26.0，2019年为27.9，2020年为31.5，2021年为30.7，2022年为30.7。",
+      "crop_note:修正了'出让成交价款'系列的数值，根据图像确认2018年为58850.5，2019年为66006.0，2020年为80409.6，2021年为77187.0，2022年为60314.4。",
+      "crop_note:确认了Y轴单位为'亿元'和'万公顷'，并根据图像调整了数值的精确度。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

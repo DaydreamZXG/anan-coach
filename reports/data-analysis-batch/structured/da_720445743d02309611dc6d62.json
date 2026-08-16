@@ -1,0 +1,244 @@
+{
+  "asset_id": "da_720445743d02309611dc6d62",
+  "axes": {
+    "x": {
+      "max": 2020,
+      "min": 2015,
+      "ticks": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 2,
+        "min": 0,
+        "ticks": [
+          0,
+          0.5,
+          1,
+          1.5,
+          2
+        ],
+        "title": null,
+        "unit": "亿人"
+      },
+      {
+        "max": 400,
+        "min": 200,
+        "ticks": [
+          200,
+          250,
+          300,
+          350,
+          400
+        ],
+        "title": null,
+        "unit": "万个"
+      }
+    ]
+  },
+  "categories": [
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "职工人数",
+      "style": {
+        "dash": "solid",
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "单位数",
+      "style": {
+        "dash": "dot",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "职工人数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿人",
+      "values": [
+        1.24,
+        1.31,
+        1.37,
+        1.44,
+        1.49,
+        1.53
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "单位数",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万个",
+      "values": [
+        231,
+        238,
+        262,
+        292,
+        322,
+        365
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0254_2c5158adf9ab3e6f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0254_2c5158adf9ab3e6f.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_e4df2791a2169c20c37a",
+        "question_number": 126,
+        "source_jsonl_line": 49636
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0254_2c5158adf9ab3e6f.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_708f1b6e13da0fc757a0",
+        "question_number": 127,
+        "source_jsonl_line": 49637
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0254_2c5158adf9ab3e6f.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_561d38a48a8c1bf3c9d5",
+        "question_number": 128,
+        "source_jsonl_line": 49638
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0254_2c5158adf9ab3e6f.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_25b3669fc8ea2b2173a8",
+        "question_number": 129,
+        "source_jsonl_line": 49639
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0254_2c5158adf9ab3e6f.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_2aba14d878a5613216bb",
+        "question_number": 130,
+        "source_jsonl_line": 49640
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0227_2c5158adf9ab3e6f.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_5e66660a0f628ab019ed",
+        "question_number": 121,
+        "source_jsonl_line": 49901
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0227_2c5158adf9ab3e6f.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_aded08f32571bc7ddbbb",
+        "question_number": 122,
+        "source_jsonl_line": 49902
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0248_d7a6b0bc41c31b1e.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_78b56ac98266b19e563c",
+        "question_number": 123,
+        "source_jsonl_line": 49903
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0248_d7a6b0bc41c31b1e.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_32fb220fd1f131202b2b",
+        "question_number": 124,
+        "source_jsonl_line": 49904
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0248_d7a6b0bc41c31b1e.png",
+        "paper_title": "2022年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_c0332cf5527111950029",
+        "question_number": 125,
+        "source_jsonl_line": 49905
+      }
+    ],
+    "sha256": "720445743d02309611dc6d624e7a78b55d4f1b8b66531fd9ffb2d44cb955b5fd"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2015-2020年我国住房公积金实缴职工人数和实缴单位数",
+  "unit": "亿人, 万个",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_720445743d02309611dc6d62/column_band_01.jpg",
+        "review-crops/da_720445743d02309611dc6d62/column_band_02.jpg",
+        "review-crops/da_720445743d02309611dc6d62/column_band_03.jpg",
+        "review-crops/da_720445743d02309611dc6d62/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.848",
+      "crop_verification_elapsed_seconds:1.785",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

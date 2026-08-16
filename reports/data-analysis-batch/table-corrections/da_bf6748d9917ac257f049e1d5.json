@@ -1,0 +1,139 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "数量"
+    ],
+    "confidence": 0.95,
+    "corner_header": {
+      "lower_label": "数量",
+      "style": "diagonal",
+      "upper_label": "单位"
+    },
+    "missing_cells": [],
+    "row_header_label": "数量",
+    "rows": [
+      {
+        "display_label": "基础大项场地｜田径场地",
+        "group": null,
+        "label": "基础大项场地｜田径场地",
+        "unit": null,
+        "values": [
+          19.74
+        ]
+      },
+      {
+        "display_label": "基础大项场地｜游泳场地",
+        "group": null,
+        "label": "基础大项场地｜游泳场地",
+        "unit": null,
+        "values": [
+          3.6
+        ]
+      },
+      {
+        "display_label": "球类运动场地｜足球场地",
+        "group": null,
+        "label": "球类运动场地｜足球场地",
+        "unit": null,
+        "values": [
+          13.59
+        ]
+      },
+      {
+        "display_label": "球类运动场地｜篮球场地",
+        "group": null,
+        "label": "球类运动场地｜篮球场地",
+        "unit": null,
+        "values": [
+          110.28
+        ]
+      },
+      {
+        "display_label": "球类运动场地｜排球场地",
+        "group": null,
+        "label": "球类运动场地｜排球场地",
+        "unit": null,
+        "values": [
+          10.12
+        ]
+      },
+      {
+        "display_label": "球类运动场地｜乒乓球场地",
+        "group": null,
+        "label": "球类运动场地｜乒乓球场地",
+        "unit": null,
+        "values": [
+          93.53
+        ]
+      },
+      {
+        "display_label": "球类运动场地｜羽毛球场地",
+        "group": null,
+        "label": "球类运动场地｜羽毛球场地",
+        "unit": null,
+        "values": [
+          24.61
+        ]
+      },
+      {
+        "display_label": "球类运动场地｜其他球类运动场地",
+        "group": null,
+        "label": "球类运动场地｜其他球类运动场地",
+        "unit": null,
+        "values": [
+          10.53
+        ]
+      },
+      {
+        "display_label": "冰雪运动场地｜滑冰场地",
+        "group": null,
+        "label": "冰雪运动场地｜滑冰场地",
+        "unit": null,
+        "values": [
+          1576
+        ]
+      },
+      {
+        "display_label": "冰雪运动场地｜滑雪场地",
+        "group": null,
+        "label": "冰雪运动场地｜滑雪场地",
+        "unit": null,
+        "values": [
+          876
+        ]
+      },
+      {
+        "display_label": "体育健身场地｜全民健身路径",
+        "group": null,
+        "label": "体育健身场地｜全民健身路径",
+        "unit": null,
+        "values": [
+          98.02
+        ]
+      },
+      {
+        "display_label": "体育健身场地｜健身房",
+        "group": null,
+        "label": "体育健身场地｜健身房",
+        "unit": null,
+        "values": [
+          14.29
+        ]
+      },
+      {
+        "display_label": "体育健身场地｜健身步道",
+        "group": null,
+        "label": "体育健身场地｜健身步道",
+        "unit": null,
+        "values": [
+          12.78
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

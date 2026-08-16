@@ -1,0 +1,434 @@
+{
+  "asset_id": "da_d37b4bc2f83e5e5e29faa4aa",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "指标",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "绝对量 (亿元)",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "比上年增长 (%)",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "绝对量 (亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1864,
+        240,
+        763,
+        1034,
+        2000,
+        8416,
+        212,
+        4429,
+        1186,
+        13441,
+        2462,
+        2455,
+        4059,
+        1608
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比上年增长 (%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -18.3,
+        -4.6,
+        -35.4,
+        -6.2,
+        1.1,
+        18.4,
+        -29.7,
+        2.2,
+        12.8,
+        5.8,
+        13.7,
+        19.9,
+        4.1,
+        -25.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/宁夏/2017年422联考《行测》题（宁夏卷）_images/img_0098_79919ca320b35929.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（宁夏卷）_images/img_0098_79919ca320b35929.png",
+        "paper_title": "2017年422联考《行测》题（宁夏卷）",
+        "question_id": "pq_7e0188db038ae0a61279",
+        "question_number": 101,
+        "source_jsonl_line": 25631
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（宁夏卷）_images/img_0092_439cf1ee52bcf06c.png",
+        "paper_title": "2017年422联考《行测》题（宁夏卷）",
+        "question_id": "pq_d742451bcfc1fa62692e",
+        "question_number": 102,
+        "source_jsonl_line": 25632
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（宁夏卷）_images/img_0098_79919ca320b35929.png",
+        "paper_title": "2017年422联考《行测》题（宁夏卷）",
+        "question_id": "pq_d24ec12ce3a74abca728",
+        "question_number": 103,
+        "source_jsonl_line": 25633
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（宁夏卷）_images/img_0092_439cf1ee52bcf06c.png",
+        "paper_title": "2017年422联考《行测》题（宁夏卷）",
+        "question_id": "pq_28968e8f6f11bc9fdbda",
+        "question_number": 104,
+        "source_jsonl_line": 25634
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（宁夏卷）_images/img_0098_79919ca320b35929.png",
+        "paper_title": "2017年422联考《行测》题（宁夏卷）",
+        "question_id": "pq_d819b75fd61c75132e44",
+        "question_number": 105,
+        "source_jsonl_line": 25635
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）_images/img_0144_79919ca320b35929.png",
+        "paper_title": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_16118e82ef44bd028b57",
+        "question_number": 101,
+        "source_jsonl_line": 58558
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）_images/img_0198_439cf1ee52bcf06c.png",
+        "paper_title": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_2593b07840b7fc196613",
+        "question_number": 102,
+        "source_jsonl_line": 58559
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）_images/img_0144_79919ca320b35929.png",
+        "paper_title": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_7747ed70596444fdddb8",
+        "question_number": 103,
+        "source_jsonl_line": 58560
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）_images/img_0144_79919ca320b35929.png",
+        "paper_title": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_0c53d7d4d0f5ec9a4255",
+        "question_number": 104,
+        "source_jsonl_line": 58561
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）_images/img_0144_79919ca320b35929.png",
+        "paper_title": "2017年河南省选调生选拔考试《行测》试卷（网友回忆版）",
+        "question_id": "pq_99d12ae16c44b9c3796d",
+        "question_number": 105,
+        "source_jsonl_line": 58562
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（海南卷）_images/img_0229_79919ca320b35929.png",
+        "paper_title": "2017年422联考《行测》题（海南卷）",
+        "question_id": "pq_aae82bd4153cac09f916",
+        "question_number": 106,
+        "source_jsonl_line": 65872
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（海南卷）_images/img_0229_79919ca320b35929.png",
+        "paper_title": "2017年422联考《行测》题（海南卷）",
+        "question_id": "pq_bbafc0cf8725f2178a52",
+        "question_number": 107,
+        "source_jsonl_line": 65873
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（海南卷）_images/img_0229_79919ca320b35929.png",
+        "paper_title": "2017年422联考《行测》题（海南卷）",
+        "question_id": "pq_29cac49b818a6949ddc1",
+        "question_number": 108,
+        "source_jsonl_line": 65874
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（海南卷）_images/img_0237_439cf1ee52bcf06c.png",
+        "paper_title": "2017年422联考《行测》题（海南卷）",
+        "question_id": "pq_0463fc50c2a9e1c77590",
+        "question_number": 109,
+        "source_jsonl_line": 65875
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（海南卷）_images/img_0237_439cf1ee52bcf06c.png",
+        "paper_title": "2017年422联考《行测》题（海南卷）",
+        "question_id": "pq_f0e2bbe4aba6c0e1c064",
+        "question_number": 110,
+        "source_jsonl_line": 65876
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（甘肃卷）_images/img_0116_439cf1ee52bcf06c.png",
+        "paper_title": "2017年422联考《行测》题（甘肃卷）",
+        "question_id": "pq_a04941466447e8a11382",
+        "question_number": 106,
+        "source_jsonl_line": 75081
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（甘肃卷）_images/img_0110_79919ca320b35929.png",
+        "paper_title": "2017年422联考《行测》题（甘肃卷）",
+        "question_id": "pq_3c3b9798d2524e63f684",
+        "question_number": 107,
+        "source_jsonl_line": 75082
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（甘肃卷）_images/img_0110_79919ca320b35929.png",
+        "paper_title": "2017年422联考《行测》题（甘肃卷）",
+        "question_id": "pq_4a118c3055c77833490c",
+        "question_number": 108,
+        "source_jsonl_line": 75083
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（甘肃卷）_images/img_0110_79919ca320b35929.png",
+        "paper_title": "2017年422联考《行测》题（甘肃卷）",
+        "question_id": "pq_92d08402ae6dfea92fa3",
+        "question_number": 109,
+        "source_jsonl_line": 75084
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（甘肃卷）_images/img_0110_79919ca320b35929.png",
+        "paper_title": "2017年422联考《行测》题（甘肃卷）",
+        "question_id": "pq_a274678a27eb6a22a26c",
+        "question_number": 110,
+        "source_jsonl_line": 75085
+      }
+    ],
+    "sha256": "d37b4bc2f83e5e5e29faa4aab92bd83b843143b07298e47c7a9de6a5a89a3fe8"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "绝对量 (亿元)",
+      "比上年增长 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "煤炭开采和洗选业",
+        "unit": null,
+        "values": [
+          "煤炭开采和洗选业",
+          1864,
+          -18.3
+        ]
+      },
+      {
+        "label": "石油和天然气开采业",
+        "unit": null,
+        "values": [
+          "石油和天然气开采业",
+          240,
+          -4.6
+        ]
+      },
+      {
+        "label": "黑色金属矿采选业",
+        "unit": null,
+        "values": [
+          "黑色金属矿采选业",
+          763,
+          -35.4
+        ]
+      },
+      {
+        "label": "有色金属矿采选业",
+        "unit": null,
+        "values": [
+          "有色金属矿采选业",
+          1034,
+          -6.2
+        ]
+      },
+      {
+        "label": "非金属矿采选业",
+        "unit": null,
+        "values": [
+          "非金属矿采选业",
+          2000,
+          1.1
+        ]
+      },
+      {
+        "label": "电力、热力生产和供应业",
+        "unit": null,
+        "values": [
+          "电力、热力生产和供应业",
+          8416,
+          18.4
+        ]
+      },
+      {
+        "label": "铁路运输业",
+        "unit": null,
+        "values": [
+          "铁路运输业",
+          212,
+          -29.7
+        ]
+      },
+      {
+        "label": "道路运输业",
+        "unit": null,
+        "values": [
+          "道路运输业",
+          4429,
+          2.2
+        ]
+      },
+      {
+        "label": "水利管理业",
+        "unit": null,
+        "values": [
+          "水利管理业",
+          1186,
+          12.8
+        ]
+      },
+      {
+        "label": "公共设施管理业",
+        "unit": null,
+        "values": [
+          "公共设施管理业",
+          13441,
+          5.8
+        ]
+      },
+      {
+        "label": "教育",
+        "unit": null,
+        "values": [
+          "教育",
+          2462,
+          13.7
+        ]
+      },
+      {
+        "label": "卫生和社会工作",
+        "unit": null,
+        "values": [
+          "卫生和社会工作",
+          2455,
+          19.9
+        ]
+      },
+      {
+        "label": "文化、体育和娱乐业",
+        "unit": null,
+        "values": [
+          "文化、体育和娱乐业",
+          4059,
+          4.1
+        ]
+      },
+      {
+        "label": "公共管理、社会保障和社会组织",
+        "unit": null,
+        "values": [
+          "公共管理、社会保障和社会组织",
+          1608,
+          -25.6
+        ]
+      }
+    ]
+  },
+  "title": "2016年民间固定资产投资部分数据",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d37b4bc2f83e5e5e29faa4aa/row_band_01.jpg",
+        "review-crops/da_d37b4bc2f83e5e5e29faa4aa/row_band_02.jpg",
+        "review-crops/da_d37b4bc2f83e5e5e29faa4aa/row_band_03.jpg",
+        "review-crops/da_d37b4bc2f83e5e5e29faa4aa/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.971",
+      "crop_verification_elapsed_seconds:5.817",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:表中数据因四舍五入存在总计与分项合计不等的情况，可能影响精确计算。",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

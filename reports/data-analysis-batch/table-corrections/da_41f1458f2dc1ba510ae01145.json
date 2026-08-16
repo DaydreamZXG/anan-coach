@@ -1,0 +1,121 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口量｜数量（万辆）",
+          "出口量｜增速（%）"
+        ],
+        "label": "出口量"
+      },
+      {
+        "columns": [
+          "出口额｜金额（亿元）",
+          "出口额｜增速（%）"
+        ],
+        "label": "出口额"
+      },
+      "rows:[{"
+    ],
+    "columns": [
+      "出口量｜数量（万辆）",
+      "出口量｜增速（%）",
+      "出口额｜金额（亿元）",
+      "出口额｜增速（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "月份",
+    "rows": [
+      {
+        "display_label": "1月",
+        "group": null,
+        "label": "1月",
+        "unit": null,
+        "values": [
+          155.8,
+          34.7,
+          6.7,
+          24.9
+        ]
+      },
+      {
+        "display_label": "2月",
+        "group": null,
+        "label": "2月",
+        "unit": null,
+        "values": [
+          107.6,
+          26.2,
+          4.9,
+          37.6
+        ]
+      },
+      {
+        "display_label": "3月",
+        "group": null,
+        "label": "3月",
+        "unit": null,
+        "values": [
+          126.9,
+          -0.4,
+          5.0,
+          -5.5
+        ]
+      },
+      {
+        "display_label": "4月",
+        "group": null,
+        "label": "4月",
+        "unit": null,
+        "values": [
+          136.1,
+          9.6,
+          5.2,
+          3.1
+        ]
+      },
+      {
+        "display_label": "5月",
+        "group": null,
+        "label": "5月",
+        "unit": null,
+        "values": [
+          117.5,
+          9.8,
+          4.3,
+          -5.0
+        ]
+      },
+      {
+        "display_label": "6月",
+        "group": null,
+        "label": "6月",
+        "unit": null,
+        "values": [
+          134.4,
+          9.5,
+          4.7,
+          2.9
+        ]
+      },
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          778.3,
+          14.0,
+          30.8,
+          8.6
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

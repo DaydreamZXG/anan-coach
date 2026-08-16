@@ -1,0 +1,342 @@
+{
+  "asset_id": "da_080e25ec860ffd688fc861b6",
+  "axes": {
+    "x": {
+      "max": 12,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 50,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50
+        ],
+        "title": "货运量",
+        "unit": "亿吨"
+      },
+      {
+        "max": 7000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000
+        ],
+        "title": "货物周转量",
+        "unit": "亿吨公里"
+      }
+    ]
+  },
+  "categories": [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "货运量（亿吨）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "货物周转量（亿吨公里）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "货运量（亿吨）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿吨",
+      "values": [
+        21.07,
+        8.27,
+        23.53,
+        29.05,
+        30.43,
+        30.85,
+        30.81,
+        32.52,
+        34.04,
+        33.07,
+        35.24,
+        33.73
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "货物周转量（亿吨公里）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿吨公里",
+      "values": [
+        3690.2,
+        1396.4,
+        4141.3,
+        5156.7,
+        5217.3,
+        5583.5,
+        5341.2,
+        5576.3,
+        6122.3,
+        5837.8,
+        6167.6,
+        5941.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/宁夏/2021年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0260_5846f21baa919a5e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0260_5846f21baa919a5e.png",
+        "paper_title": "2021年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_eaecc28de7f05dca4499",
+        "question_number": 116,
+        "source_jsonl_line": 26126
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0260_5846f21baa919a5e.png",
+        "paper_title": "2021年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cfd8add2394f7e70a1c8",
+        "question_number": 117,
+        "source_jsonl_line": 26127
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0260_5846f21baa919a5e.png",
+        "paper_title": "2021年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_07b227bdbc08c47a02e6",
+        "question_number": 118,
+        "source_jsonl_line": 26128
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0260_5846f21baa919a5e.png",
+        "paper_title": "2021年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_386ebdecc8d046074fa3",
+        "question_number": 119,
+        "source_jsonl_line": 26129
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0260_5846f21baa919a5e.png",
+        "paper_title": "2021年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3f10343e52ce2e084af5",
+        "question_number": 120,
+        "source_jsonl_line": 26130
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0335_bb3abe34ef3af911.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_f0b3bcc90f8892f93467",
+        "question_number": 111,
+        "source_jsonl_line": 43676
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0335_bb3abe34ef3af911.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_aa5294c543b08b4db6ef",
+        "question_number": 112,
+        "source_jsonl_line": 43677
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0322_5846f21baa919a5e.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_4bd5e3056054ac1e0c37",
+        "question_number": 113,
+        "source_jsonl_line": 43678
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0322_5846f21baa919a5e.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_8efe34f51051c7fe22b8",
+        "question_number": 114,
+        "source_jsonl_line": 43679
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0322_5846f21baa919a5e.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_a04c0ed418a440a2c6f4",
+        "question_number": 115,
+        "source_jsonl_line": 43680
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0197_5846f21baa919a5e.png",
+        "paper_title": "2021年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8b906b58b239fd9fa78a",
+        "question_number": 106,
+        "source_jsonl_line": 66312
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0197_5846f21baa919a5e.png",
+        "paper_title": "2021年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9e2e2253c9df2d8bd92c",
+        "question_number": 107,
+        "source_jsonl_line": 66313
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0197_5846f21baa919a5e.png",
+        "paper_title": "2021年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7f8900c86d9e53bf0f63",
+        "question_number": 108,
+        "source_jsonl_line": 66314
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0217_bb3abe34ef3af911.png",
+        "paper_title": "2021年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b276cb37f8804b1d1111",
+        "question_number": 109,
+        "source_jsonl_line": 66315
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0197_5846f21baa919a5e.png",
+        "paper_title": "2021年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cc3aa90472aa2511898e",
+        "question_number": 110,
+        "source_jsonl_line": 66316
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0200_5846f21baa919a5e.png",
+        "paper_title": "2021年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c88b5c02eada27ff7077",
+        "question_number": 111,
+        "source_jsonl_line": 73786
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0200_5846f21baa919a5e.png",
+        "paper_title": "2021年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_465ddbc7fd5d7859f2d7",
+        "question_number": 112,
+        "source_jsonl_line": 73787
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0200_5846f21baa919a5e.png",
+        "paper_title": "2021年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_763f08c58e5c00cade79",
+        "question_number": 113,
+        "source_jsonl_line": 73788
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0200_5846f21baa919a5e.png",
+        "paper_title": "2021年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_148e9eccf9a00c8f9b4f",
+        "question_number": 114,
+        "source_jsonl_line": 73789
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0200_5846f21baa919a5e.png",
+        "paper_title": "2021年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bf632ec26a9a4ba679c6",
+        "question_number": 115,
+        "source_jsonl_line": 73790
+      }
+    ],
+    "sha256": "080e25ec860ffd688fc861b6f95b80538dff4db35c730ccd0dc08df1016c95f5"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2020年1-12月全国公路货物运输情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_080e25ec860ffd688fc861b6/column_band_01.jpg",
+        "review-crops/da_080e25ec860ffd688fc861b6/column_band_02.jpg",
+        "review-crops/da_080e25ec860ffd688fc861b6/column_band_03.jpg",
+        "review-crops/da_080e25ec860ffd688fc861b6/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.995",
+      "crop_verification_elapsed_seconds:5.523",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了货运量和货物周转量的数值，确保与图中数据一致。",
+      "crop_note:确认了所有数值的小数点和单位正确无误。",
+      "crop_note:确认了所有缺失值保持为null，未补0。",
+      "crop_note:确认了图中所有标签和注释与数据匹配。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

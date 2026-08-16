@@ -1,0 +1,218 @@
+{
+  "asset_id": "da_3ccf351d35b38be002a6ac58",
+  "axes": {
+    "x": {
+      "max": 2007,
+      "min": 2003,
+      "ticks": [
+        2003,
+        2004,
+        2005,
+        2006,
+        2007
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 4500,
+        "min": 0,
+        "ticks": [
+          0,
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          3000,
+          3500,
+          4000,
+          4500
+        ],
+        "title": "农村居民人均纯收入",
+        "unit": "元"
+      },
+      {
+        "max": 14,
+        "min": 0,
+        "ticks": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14
+        ],
+        "title": "比上年增长（扣除价格上涨因素）",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "农村居民人均纯收入",
+      "style": {
+        "dash": "solid",
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "比上年增长（扣除价格上涨因素）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "农村居民人均纯收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        2622,
+        2936,
+        3255,
+        3587,
+        4140
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比上年增长（扣除价格上涨因素）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        4.3,
+        6.6,
+        6.2,
+        7.4,
+        9.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2009年北京市公务员录用考试《行测》题（应届）_images/img_0221_fb3e8ac61b323364.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（应届）_images/img_0221_fb3e8ac61b323364.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（应届）",
+        "question_id": "pq_8939471335d8ea93d263",
+        "question_number": 121,
+        "source_jsonl_line": 8779
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（应届）_images/img_0227_80d5116ea49c5e41.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（应届）",
+        "question_id": "pq_57d53db248cfda823b21",
+        "question_number": 122,
+        "source_jsonl_line": 8780
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（应届）_images/img_0221_fb3e8ac61b323364.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（应届）",
+        "question_id": "pq_24b8e8901dc112321f14",
+        "question_number": 123,
+        "source_jsonl_line": 8781
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（应届）_images/img_0221_fb3e8ac61b323364.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（应届）",
+        "question_id": "pq_6bfbe281460c3d526ce3",
+        "question_number": 124,
+        "source_jsonl_line": 8782
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年北京市公务员录用考试《行测》题（应届）_images/img_0227_80d5116ea49c5e41.jpg",
+        "paper_title": "2009年北京市公务员录用考试《行测》题（应届）",
+        "question_id": "pq_9d2678a013277a6109b8",
+        "question_number": 125,
+        "source_jsonl_line": 8783
+      }
+    ],
+    "sha256": "3ccf351d35b38be002a6ac582170c0759812232158833e3c6a1d3c51bbe4bbba"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2003-2007年农村居民人均纯收入及其增长速度",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3ccf351d35b38be002a6ac58/column_band_01.jpg",
+        "review-crops/da_3ccf351d35b38be002a6ac58/column_band_02.jpg",
+        "review-crops/da_3ccf351d35b38be002a6ac58/column_band_03.jpg",
+        "review-crops/da_3ccf351d35b38be002a6ac58/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.996",
+      "crop_verification_elapsed_seconds:11.137",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2003年收入数值为2622，原候选为2622，正确。",
+      "crop_note:修正了2004年收入数值为2936，原候选为2936，正确。",
+      "crop_note:修正了2005年收入数值为3255，原候选为3255，正确。",
+      "crop_note:修正了2006年收入数值为3587，原候选为3587，正确。",
+      "crop_note:修正了2007年收入数值为4140，原候选为4140，正确。",
+      "crop_note:修正了2003年增长率4.3，原候选为4.3，正确。",
+      "crop_note:修正了2004年增长率6.6，原候选为6.6，正确。",
+      "crop_note:修正了2005年增长率6.2，原候选为6.2，正确。",
+      "crop_note:修正了2006年增长率7.4，原候选为7.4，正确。",
+      "crop_note:修正了2007年增长率9.5，原候选为9.5，正确。",
+      "crop_note:确认所有数值均与图像一致，无缺失值。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "asset_id": "da_cc43bc7b1c3cb7ec474507eb",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 29500,
+        "min": 27000,
+        "ticks": [
+          27000,
+          27500,
+          28000,
+          28500,
+          29000,
+          29500
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 2,
+        "min": 0,
+        "ticks": [
+          0,
+          0.4,
+          0.8,
+          1.2,
+          1.6,
+          2
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2015年",
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "规模（万人）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "增速（%）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "规模（万人）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        27747,
+        28171,
+        28652,
+        28836,
+        29077
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "增速（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        1.3,
+        1.5,
+        1.7,
+        0.6,
+        0.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/新疆/2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）_images/img_0194_e5ecbc00790ad0d9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）_images/img_0194_e5ecbc00790ad0d9.png",
+        "paper_title": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_d49b385294d5d1530e97",
+        "question_number": 106,
+        "source_jsonl_line": 43556
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）_images/img_0220_4dcd9e561767d382.png",
+        "paper_title": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_b7df5a75ad51ea9fa753",
+        "question_number": 107,
+        "source_jsonl_line": 43557
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）_images/img_0194_e5ecbc00790ad0d9.png",
+        "paper_title": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_1715a29e25cde550a3dc",
+        "question_number": 108,
+        "source_jsonl_line": 43558
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）_images/img_0194_e5ecbc00790ad0d9.png",
+        "paper_title": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_c26c628f1b092461d1d2",
+        "question_number": 109,
+        "source_jsonl_line": 43559
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）_images/img_0194_e5ecbc00790ad0d9.png",
+        "paper_title": "2021年新疆生产建设兵团行政执法类公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_78ac9c2c7874bd115ab5",
+        "question_number": 110,
+        "source_jsonl_line": 43560
+      }
+    ],
+    "sha256": "cc43bc7b1c3cb7ec474507eb1bd7abc1632ae3f38c368e84f65cd218b9e2e4a0"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2015-2019年我国农民工规模及增速",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cc43bc7b1c3cb7ec474507eb/column_band_01.jpg",
+        "review-crops/da_cc43bc7b1c3cb7ec474507eb/column_band_02.jpg",
+        "review-crops/da_cc43bc7b1c3cb7ec474507eb/column_band_03.jpg",
+        "review-crops/da_cc43bc7b1c3cb7ec474507eb/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.776",
+      "crop_verification_elapsed_seconds:3.255",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

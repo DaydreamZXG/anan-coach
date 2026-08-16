@@ -1,0 +1,185 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "总额（百亿美元）｜第1列",
+      "占世界的比重（%）｜第2列",
+      "国家或地区｜第3列",
+      "总额（百亿美元）｜第4列",
+      "占世界的比重（%）｜第5列",
+      "国家或地区｜第6列",
+      "总额（百亿美元）｜第7列",
+      "占世界的比重（%）｜第8列"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家或地区",
+    "rows": [
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": null,
+        "values": [
+          388.2,
+          10.4,
+          "中国",
+          465.6,
+          13.1,
+          "中国",
+          605.2,
+          13.5
+        ]
+      },
+      {
+        "display_label": "中国",
+        "group": null,
+        "label": "中国",
+        "unit": null,
+        "values": [
+          386.7,
+          10.4,
+          "美国",
+          383.2,
+          10.8,
+          "美国",
+          469.2,
+          10.5
+        ]
+      },
+      {
+        "display_label": "德国",
+        "group": null,
+        "label": "德国",
+        "unit": null,
+        "values": [
+          255.6,
+          6.9,
+          "德国",
+          255.4,
+          7.2,
+          "德国",
+          305.1,
+          6.8
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": null,
+        "values": [
+          168.4,
+          4.5,
+          "日本",
+          127.7,
+          3.6,
+          "荷兰",
+          159.3,
+          3.6
+        ]
+      },
+      {
+        "display_label": "法国",
+        "group": null,
+        "label": "法国",
+        "unit": null,
+        "values": [
+          124.3,
+          3.3,
+          "荷兰",
+          127.0,
+          3.6,
+          "日本",
+          152.5,
+          3.4
+        ]
+      },
+      {
+        "display_label": "荷兰",
+        "group": null,
+        "label": "荷兰",
+        "unit": null,
+        "values": [
+          124.2,
+          3.3,
+          "中国香港",
+          111.9,
+          3.1,
+          "中国香港",
+          138.2,
+          3.1
+        ]
+      },
+      {
+        "display_label": "英国",
+        "group": null,
+        "label": "英国",
+        "unit": null,
+        "values": [
+          118.2,
+          3.2,
+          "法国",
+          107.0,
+          3.0,
+          "法国",
+          129.9,
+          2.9
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          106.8,
+          2.9,
+          "英国",
+          103.8,
+          2.9,
+          "韩国",
+          125.0,
+          2.6
+        ]
+      },
+      {
+        "display_label": "中国香港",
+        "group": null,
+        "label": "中国香港",
+        "unit": null,
+        "values": [
+          104.6,
+          2.8,
+          "韩国",
+          98.0,
+          2.8,
+          "英国",
+          116.3,
+          2.6
+        ]
+      },
+      {
+        "display_label": "意大利",
+        "group": null,
+        "label": "意大利",
+        "unit": null,
+        "values": [
+          99.0,
+          2.7,
+          "意大利",
+          92.7,
+          2.6,
+          "意大利",
+          116.1,
+          2.6
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

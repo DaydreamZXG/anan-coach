@@ -1,0 +1,299 @@
+{
+  "asset_id": "da_d303af080078d6ef376522e4",
+  "axes": {
+    "x": {
+      "max": 4,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1000,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000
+        ],
+        "title": "产值",
+        "unit": "万元"
+      }
+    ]
+  },
+  "categories": [
+    "甲",
+    "乙",
+    "丙",
+    "丁"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "1月",
+      "style": {
+        "dash": null,
+        "fill": "hatch",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "2月",
+      "style": {
+        "dash": null,
+        "fill": "hatch",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "1",
+      "label": "1月",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        500,
+        600,
+        250,
+        300
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2",
+      "label": "2月",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        850,
+        880,
+        280,
+        320
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）_images/img_0187_01de5f459040bb06.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）_images/img_0187_01de5f459040bb06.png",
+        "paper_title": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）",
+        "question_id": "pq_338ffed1a621293deed0",
+        "question_number": 111,
+        "source_jsonl_line": 7904
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）_images/img_0187_01de5f459040bb06.png",
+        "paper_title": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）",
+        "question_id": "pq_fa0666469dd028b21c00",
+        "question_number": 112,
+        "source_jsonl_line": 7905
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）_images/img_0205_e30e3a7bda79edf3.png",
+        "paper_title": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）",
+        "question_id": "pq_6967d4c23b5408a5f8d1",
+        "question_number": 113,
+        "source_jsonl_line": 7906
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）_images/img_0187_01de5f459040bb06.png",
+        "paper_title": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）",
+        "question_id": "pq_4b230fb94988e46100a4",
+        "question_number": 114,
+        "source_jsonl_line": 7907
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）_images/img_0187_01de5f459040bb06.png",
+        "paper_title": "2020年内蒙古自治区公务员公安类考试《行测》试题（网友回忆版）",
+        "question_id": "pq_a64b3ce9166898848003",
+        "question_number": 115,
+        "source_jsonl_line": 7908
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年天津市公务员考试《行测》试题（网友回忆版）_images/img_0174_01de5f459040bb06.png",
+        "paper_title": "2020年天津市公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_47a420853297f9f7877c",
+        "question_number": 106,
+        "source_jsonl_line": 23798
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年天津市公务员考试《行测》试题（网友回忆版）_images/img_0174_01de5f459040bb06.png",
+        "paper_title": "2020年天津市公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_36ee70f26941b1951128",
+        "question_number": 107,
+        "source_jsonl_line": 23799
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年天津市公务员考试《行测》试题（网友回忆版）_images/img_0174_01de5f459040bb06.png",
+        "paper_title": "2020年天津市公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_6f35f4cad36e79e0f88c",
+        "question_number": 108,
+        "source_jsonl_line": 23800
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年天津市公务员考试《行测》试题（网友回忆版）_images/img_0174_01de5f459040bb06.png",
+        "paper_title": "2020年天津市公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_a4f369aec739ff0058ca",
+        "question_number": 109,
+        "source_jsonl_line": 23801
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年天津市公务员考试《行测》试题（网友回忆版）_images/img_0174_01de5f459040bb06.png",
+        "paper_title": "2020年天津市公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_8eea36ca5f0ed0c1b39c",
+        "question_number": 110,
+        "source_jsonl_line": 23802
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年河南省公务员考试《行测》试题（网友回忆版）_images/img_0148_01de5f459040bb06.png",
+        "paper_title": "2020年河南省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_630a358fb3ea1dfaaa47",
+        "question_number": 106,
+        "source_jsonl_line": 58803
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年河南省公务员考试《行测》试题（网友回忆版）_images/img_0148_01de5f459040bb06.png",
+        "paper_title": "2020年河南省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_02c0ca72728649c236a7",
+        "question_number": 107,
+        "source_jsonl_line": 58804
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年河南省公务员考试《行测》试题（网友回忆版）_images/img_0168_e30e3a7bda79edf3.png",
+        "paper_title": "2020年河南省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_b660abc56d1e662dd52a",
+        "question_number": 108,
+        "source_jsonl_line": 58805
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年河南省公务员考试《行测》试题（网友回忆版）_images/img_0148_01de5f459040bb06.png",
+        "paper_title": "2020年河南省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_5db06d6d93039f392012",
+        "question_number": 109,
+        "source_jsonl_line": 58806
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年河南省公务员考试《行测》试题（网友回忆版）_images/img_0168_e30e3a7bda79edf3.png",
+        "paper_title": "2020年河南省公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_296e864a9b26abfa8549",
+        "question_number": 110,
+        "source_jsonl_line": 58807
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年湖南公务员考试《行测》试题（网友回忆版）_images/img_0116_e30e3a7bda79edf3.png",
+        "paper_title": "2020年湖南公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_f8ca11632ba47ec5e8eb",
+        "question_number": 106,
+        "source_jsonl_line": 73661
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年湖南公务员考试《行测》试题（网友回忆版）_images/img_0116_e30e3a7bda79edf3.png",
+        "paper_title": "2020年湖南公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_6e71cb2b667551a6ae3e",
+        "question_number": 107,
+        "source_jsonl_line": 73662
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年湖南公务员考试《行测》试题（网友回忆版）_images/img_0157_01de5f459040bb06.png",
+        "paper_title": "2020年湖南公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_f249ed2b0a433bda3c99",
+        "question_number": 108,
+        "source_jsonl_line": 73663
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年湖南公务员考试《行测》试题（网友回忆版）_images/img_0157_01de5f459040bb06.png",
+        "paper_title": "2020年湖南公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_0414f1a26384f093a36d",
+        "question_number": 109,
+        "source_jsonl_line": 73664
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年湖南公务员考试《行测》试题（网友回忆版）_images/img_0116_e30e3a7bda79edf3.png",
+        "paper_title": "2020年湖南公务员考试《行测》试题（网友回忆版）",
+        "question_id": "pq_0a6daed78e9896e467d8",
+        "question_number": 110,
+        "source_jsonl_line": 73665
+      }
+    ],
+    "sha256": "d303af080078d6ef376522e4181c0656c69c0575a3685818d1ba02772a06c71a"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "表二:C集团公司各车间产值情况",
+  "unit": "万元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d303af080078d6ef376522e4/column_band_01.jpg",
+        "review-crops/da_d303af080078d6ef376522e4/column_band_02.jpg",
+        "review-crops/da_d303af080078d6ef376522e4/column_band_03.jpg",
+        "review-crops/da_d303af080078d6ef376522e4/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.404",
+      "crop_verification_elapsed_seconds:2.042",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

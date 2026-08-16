@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "formula-asset-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "asset_id",
+    "sha256",
+    "source_path",
+    "priority",
+    "status",
+    "provider",
+    "provider_request_id",
+    "blocks",
+    "confidence",
+    "verification"
+  ],
+  "properties": {
+    "schema_version": {"const": "formula-asset-v1"},
+    "asset_id": {"type": "string", "pattern": "^(qi|da)_[0-9a-f]{24}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "source_path": {"type": "string", "minLength": 1},
+    "priority": {"enum": ["question_critical", "explanation"]},
+    "status": {"enum": ["verified_override", "candidate_auto", "needs_manual_review", "failed"]},
+    "provider": {"enum": ["xfyun_formula", "texo_local", "qwen3_vl_local", "manual_verified"]},
+    "provider_request_id": {"type": ["string", "null"]},
+    "blocks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "format", "expression", "display"],
+        "properties": {
+          "type": {"const": "formula"},
+          "format": {"const": "latex"},
+          "expression": {"type": "string", "minLength": 1, "maxLength": 4000},
+          "display": {"type": "boolean"}
+        }
+      }
+    },
+    "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_hash_matches", "latex_nonempty", "braces_balanced", "note"],
+      "properties": {
+        "source_hash_matches": {"type": "boolean"},
+        "latex_nonempty": {"type": "boolean"},
+        "braces_balanced": {"type": "boolean"},
+        "note": {"type": "string"}
+      }
+    }
+  }
+}

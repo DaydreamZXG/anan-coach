@@ -1,0 +1,245 @@
+{
+  "asset_id": "da_0e57b4adeb9ed947dbc50614",
+  "axes": {
+    "x": {
+      "max": 2010,
+      "min": 2006,
+      "ticks": [
+        2006,
+        2007,
+        2008,
+        2009,
+        2010
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 9118,
+        "min": 3587,
+        "ticks": [
+          3587,
+          4140,
+          4761,
+          5153,
+          5919,
+          6561,
+          7357,
+          8004,
+          9118
+        ],
+        "title": "人均纯收入 (元)",
+        "unit": "元"
+      },
+      {
+        "max": 15.4,
+        "min": 8.2,
+        "ticks": [
+          8.2,
+          10.2,
+          12.1,
+          13.9,
+          14.9,
+          15.0,
+          15.4
+        ],
+        "title": "比上年增长 (%)",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "人均纯收入 (元)",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "比上年增长 (%)",
+      "style": {
+        "dash": null,
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "人均纯收入 (元)",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        3587,
+        4140,
+        4761,
+        5153,
+        5919
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比上年增长 (%)",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.2,
+        15.4,
+        15.0,
+        8.2,
+        14.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "人均纯收入 (元)",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        5813,
+        6561,
+        7357,
+        8004,
+        9118
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "比上年增长 (%)",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.2,
+        12.9,
+        12.1,
+        8.8,
+        13.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2011年江苏省公务员录用考试《行测》题（B类）_images/img_0296_b9e0591bf422a546.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（B类）_images/img_0296_b9e0591bf422a546.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_185ae6486f252fd2dfc4",
+        "question_number": 151,
+        "source_jsonl_line": 45706
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（B类）_images/img_0296_b9e0591bf422a546.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_8671d22a81e893b82b24",
+        "question_number": 152,
+        "source_jsonl_line": 45707
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（B类）_images/img_0301_77b276232f605044.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_89670939069a04962b54",
+        "question_number": 153,
+        "source_jsonl_line": 45708
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（B类）_images/img_0296_b9e0591bf422a546.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_75731419c8fffd37bc76",
+        "question_number": 154,
+        "source_jsonl_line": 45709
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年江苏省公务员录用考试《行测》题（B类）_images/img_0301_77b276232f605044.png",
+        "paper_title": "2011年江苏省公务员录用考试《行测》题（B类）",
+        "question_id": "pq_ea35db906a2c3264f22c",
+        "question_number": 155,
+        "source_jsonl_line": 45710
+      }
+    ],
+    "sha256": "0e57b4adeb9ed947dbc50614bc5494ed65fc3e15f42a636e5bcab167bd7f6ccf"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "“十一五”时期农村居民人均纯收入及其增长速度（江苏与全国对照）",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0e57b4adeb9ed947dbc50614/column_band_01.jpg",
+        "review-crops/da_0e57b4adeb9ed947dbc50614/column_band_02.jpg",
+        "review-crops/da_0e57b4adeb9ed947dbc50614/column_band_03.jpg",
+        "review-crops/da_0e57b4adeb9ed947dbc50614/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.442",
+      "crop_verification_elapsed_seconds:6.654",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

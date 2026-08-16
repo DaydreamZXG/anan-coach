@@ -1,0 +1,204 @@
+{
+  "asset_id": "da_f074c521402465f4ec994f67",
+  "axes": {
+    "x": {
+      "max": 4000,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 5,
+        "min": 0,
+        "ticks": [],
+        "title": "年份",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2004",
+    "2003",
+    "2002",
+    "2001",
+    "2000"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "企业",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "事业",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "机关",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "企业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2867.3,
+        2684.6,
+        2417.2,
+        1988.5,
+        1846.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "事业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1157.4,
+        1032.4,
+        873.0,
+        768.9,
+        635.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "机关",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        486.2,
+        431.9,
+        369.2,
+        313.8,
+        151.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/深圳市考/2012年深圳市公务员录用考试《行测》题（上半年）_images/img_0116_5411c11a8cc219c9.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年深圳市公务员录用考试《行测》题（上半年）_images/img_0116_5411c11a8cc219c9.png",
+        "paper_title": "2012年深圳市公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_2c605fe928629c3060f4",
+        "question_number": 81,
+        "source_jsonl_line": 67247
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年深圳市公务员录用考试《行测》题（上半年）_images/img_0110_772ee59a588e386b.png",
+        "paper_title": "2012年深圳市公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_ec367be9397d217a19de",
+        "question_number": 82,
+        "source_jsonl_line": 67248
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年深圳市公务员录用考试《行测》题（上半年）_images/img_0116_5411c11a8cc219c9.png",
+        "paper_title": "2012年深圳市公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_c9cbef150891a1189c93",
+        "question_number": 83,
+        "source_jsonl_line": 67249
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年深圳市公务员录用考试《行测》题（上半年）_images/img_0116_5411c11a8cc219c9.png",
+        "paper_title": "2012年深圳市公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_7e81d782640a96fd2634",
+        "question_number": 84,
+        "source_jsonl_line": 67250
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年深圳市公务员录用考试《行测》题（上半年）_images/img_0110_772ee59a588e386b.png",
+        "paper_title": "2012年深圳市公务员录用考试《行测》题（上半年）",
+        "question_id": "pq_8655715971dc66c3308d",
+        "question_number": 85,
+        "source_jsonl_line": 67251
+      }
+    ],
+    "sha256": "f074c521402465f4ec994f67159775629fb14e922511e0dd49083025e9f527f3"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2000-2004年企业、事业、机关支出情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f074c521402465f4ec994f67/column_band_01.jpg",
+        "review-crops/da_f074c521402465f4ec994f67/column_band_02.jpg",
+        "review-crops/da_f074c521402465f4ec994f67/column_band_03.jpg",
+        "review-crops/da_f074c521402465f4ec994f67/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.612",
+      "crop_verification_elapsed_seconds:4.363",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

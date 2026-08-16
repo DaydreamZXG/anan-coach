@@ -1,0 +1,217 @@
+{
+  "asset_id": "da_3f3aa052fa7f3c9e2d3fa407",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "产值（亿元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        12130.7,
+        6206.5,
+        227.3,
+        3003.5,
+        1729.7,
+        963.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "比上年增长（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        4.8,
+        4.7,
+        8.5,
+        3.5,
+        4.4,
+        9.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0082_35fd10d01d4e0f4d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0082_35fd10d01d4e0f4d.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_99cc600fc7e4543c7411",
+        "question_number": 101,
+        "source_jsonl_line": 30795
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0082_35fd10d01d4e0f4d.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_6bf411adb0ab7a2e9c48",
+        "question_number": 102,
+        "source_jsonl_line": 30796
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0082_35fd10d01d4e0f4d.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_98502a84dea906641b6b",
+        "question_number": 103,
+        "source_jsonl_line": 30797
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0082_35fd10d01d4e0f4d.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_67e76e85c11fbdc7eb80",
+        "question_number": 104,
+        "source_jsonl_line": 30798
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0082_35fd10d01d4e0f4d.png",
+        "paper_title": "2024年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_9bb045e9ab393f529c06",
+        "question_number": 105,
+        "source_jsonl_line": 30799
+      }
+    ],
+    "sha256": "3f3aa052fa7f3c9e2d3fa407a65d5c16dfea7528e199db8b10a2871413ff7ae5"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "产值（亿元）",
+      "比上年增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "农林牧渔业",
+        "unit": null,
+        "values": [
+          "农林牧渔业",
+          12130.7,
+          4.8
+        ]
+      },
+      {
+        "label": "农业",
+        "unit": null,
+        "values": [
+          "农业",
+          6206.5,
+          4.7
+        ]
+      },
+      {
+        "label": "林业",
+        "unit": null,
+        "values": [
+          "林业",
+          227.3,
+          8.5
+        ]
+      },
+      {
+        "label": "牧业",
+        "unit": null,
+        "values": [
+          "牧业",
+          3003.5,
+          3.5
+        ]
+      },
+      {
+        "label": "渔业",
+        "unit": null,
+        "values": [
+          "渔业",
+          1729.7,
+          4.4
+        ]
+      },
+      {
+        "label": "农林牧渔专业及辅助性活动",
+        "unit": null,
+        "values": [
+          "农林牧渔专业及辅助性活动",
+          963.7,
+          9.1
+        ]
+      }
+    ]
+  },
+  "title": "表1 2022年农林牧渔业产值及增长速度",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3f3aa052fa7f3c9e2d3fa407/row_band_01.jpg",
+        "review-crops/da_3f3aa052fa7f3c9e2d3fa407/row_band_02.jpg",
+        "review-crops/da_3f3aa052fa7f3c9e2d3fa407/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.874",
+      "crop_verification_elapsed_seconds:7.734",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'农林牧渔'为'农林牧渔业'，'农林牧渔专业及辅助性活动'为'农林牧渔专业及辅助性活动'，并确认所有数值与单位正确无误。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

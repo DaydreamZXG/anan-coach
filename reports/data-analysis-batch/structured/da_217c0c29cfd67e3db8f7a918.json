@@ -1,0 +1,222 @@
+{
+  "asset_id": "da_217c0c29cfd67e3db8f7a918",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2021年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0195_c14d8b75165aab38.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0195_c14d8b75165aab38.png",
+        "paper_title": "2021年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5f94819d150ad0b7151d",
+        "question_number": 91,
+        "source_jsonl_line": 16506
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0198_0ffa7f98f6b23f05.png",
+        "paper_title": "2021年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0e92c23a72ba78349db8",
+        "question_number": 92,
+        "source_jsonl_line": 16507
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0198_0ffa7f98f6b23f05.png",
+        "paper_title": "2021年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d1be1fc3fc6a956c4c68",
+        "question_number": 93,
+        "source_jsonl_line": 16508
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0195_c14d8b75165aab38.png",
+        "paper_title": "2021年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_936b6f8838775ca69f16",
+        "question_number": 94,
+        "source_jsonl_line": 16509
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年四川省公务员录用考试《行测》题（网友回忆版）_images/img_0195_c14d8b75165aab38.png",
+        "paper_title": "2021年四川省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_910d0e7eca694da4c67c",
+        "question_number": 95,
+        "source_jsonl_line": 16510
+      }
+    ],
+    "sha256": "217c0c29cfd67e3db8f7a918b4654d2737c94a909257c33af9d565d79a527512"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "进口额（亿元）｜2016年",
+          "进口额（亿元）｜2017年"
+        ],
+        "label": "进口额（亿元）"
+      },
+      {
+        "columns": [
+          "出口额（亿元）｜2016年",
+          "出口额（亿元）｜2017年"
+        ],
+        "label": "出口额（亿元）"
+      }
+    ],
+    "columns": [
+      "进口额（亿元）｜2016年",
+      "进口额（亿元）｜2017年",
+      "出口额（亿元）｜2016年",
+      "出口额（亿元）｜2017年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家和地区",
+    "rows": [
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": "亿元",
+        "values": [
+          1791.99,
+          2072.56,
+          2956.08,
+          3147.1
+        ]
+      },
+      {
+        "display_label": "欧盟",
+        "group": null,
+        "label": "欧盟",
+        "unit": "亿元",
+        "values": [
+          3729.41,
+          4488.51,
+          1990.54,
+          2327.78
+        ]
+      },
+      {
+        "display_label": "东盟",
+        "group": null,
+        "label": "东盟",
+        "unit": "亿元",
+        "values": [
+          2069.86,
+          2642.73,
+          1446.0,
+          1595.16
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": "亿元",
+        "values": [
+          1941.73,
+          2224.75,
+          1266.95,
+          1308.98
+        ]
+      },
+      {
+        "display_label": "中国香港",
+        "group": null,
+        "label": "中国香港",
+        "unit": "亿元",
+        "values": [
+          267.37,
+          26.89,
+          1196.48,
+          1217.63
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": "亿元",
+        "values": [
+          1079.57,
+          1258.42,
+          484.09,
+          429.61
+        ]
+      },
+      {
+        "display_label": "中国台湾",
+        "group": null,
+        "label": "中国台湾",
+        "unit": "亿元",
+        "values": [
+          1050.67,
+          1212.35,
+          425.55,
+          468.63
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": null,
+        "label": "俄罗斯",
+        "unit": "亿元",
+        "values": [
+          137.1,
+          136.97,
+          108.65,
+          162.3
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

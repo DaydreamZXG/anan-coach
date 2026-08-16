@@ -1,0 +1,242 @@
+{
+  "asset_id": "da_093602020a7122faf2094ec1",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1200,
+        "min": 0,
+        "ticks": [
+          0,
+          200,
+          400,
+          600,
+          800,
+          1000,
+          1200
+        ],
+        "title": null,
+        "unit": "亿美元"
+      }
+    ]
+  },
+  "categories": [
+    "2000",
+    "2001",
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "中国对非洲出口",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "中国自非洲进口",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "中非贸易总额",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "中国对非洲出口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        50,
+        60,
+        70,
+        100,
+        150,
+        200,
+        250,
+        350,
+        500,
+        450
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "中国自非洲进口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        70,
+        80,
+        90,
+        120,
+        180,
+        220,
+        280,
+        380,
+        550,
+        420
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "中非贸易总额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿美元",
+      "values": [
+        120,
+        140,
+        160,
+        220,
+        330,
+        420,
+        530,
+        730,
+        1050,
+        870
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2013年山东省公务员录用考试《行测》题_images/img_0093_ab11553bfb72f79a.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年山东省公务员录用考试《行测》题_images/img_0093_ab11553bfb72f79a.jpg",
+        "paper_title": "2013年山东省公务员录用考试《行测》题",
+        "question_id": "pq_61c9ab548216cb6b30a1",
+        "question_number": 106,
+        "source_jsonl_line": 29600
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年山东省公务员录用考试《行测》题_images/img_0093_ab11553bfb72f79a.jpg",
+        "paper_title": "2013年山东省公务员录用考试《行测》题",
+        "question_id": "pq_8055d10c6d81d8841548",
+        "question_number": 107,
+        "source_jsonl_line": 29601
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年山东省公务员录用考试《行测》题_images/img_0094_9dbe875ea01373e6.jpg",
+        "paper_title": "2013年山东省公务员录用考试《行测》题",
+        "question_id": "pq_554e0de689ba3577d443",
+        "question_number": 108,
+        "source_jsonl_line": 29602
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年山东省公务员录用考试《行测》题_images/img_0093_ab11553bfb72f79a.jpg",
+        "paper_title": "2013年山东省公务员录用考试《行测》题",
+        "question_id": "pq_7866d5ee5d1ee197d115",
+        "question_number": 109,
+        "source_jsonl_line": 29603
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年山东省公务员录用考试《行测》题_images/img_0094_9dbe875ea01373e6.jpg",
+        "paper_title": "2013年山东省公务员录用考试《行测》题",
+        "question_id": "pq_94260b3180a2ddb8f40a",
+        "question_number": 110,
+        "source_jsonl_line": 29604
+      }
+    ],
+    "sha256": "093602020a7122faf2094ec126114bdee94bab95c651bb1dd86330e440d7f839"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2000—2009年中国与非洲贸易额",
+  "unit": "亿美元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_093602020a7122faf2094ec1/column_band_01.jpg",
+        "review-crops/da_093602020a7122faf2094ec1/column_band_02.jpg",
+        "review-crops/da_093602020a7122faf2094ec1/column_band_03.jpg",
+        "review-crops/da_093602020a7122faf2094ec1/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.67",
+      "crop_verification_elapsed_seconds:6.881",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

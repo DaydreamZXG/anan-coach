@@ -1,0 +1,228 @@
+{
+  "asset_id": "da_0d15ac9935d3c9a4f917ff83",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/新疆/2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0121_a04bc8c131ac343f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0121_a04bc8c131ac343f.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_2cd11435098876c59b6c",
+        "question_number": 96,
+        "source_jsonl_line": 43196
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0121_a04bc8c131ac343f.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_d00ab94bc0902cbb5498",
+        "question_number": 97,
+        "source_jsonl_line": 43197
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0121_a04bc8c131ac343f.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_abcbe080248bd45b8ffd",
+        "question_number": 98,
+        "source_jsonl_line": 43198
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0121_a04bc8c131ac343f.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_d58138f21060540d030f",
+        "question_number": 99,
+        "source_jsonl_line": 43199
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0121_a04bc8c131ac343f.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_16f36b2d7fd19e55cbf7",
+        "question_number": 100,
+        "source_jsonl_line": 43200
+      }
+    ],
+    "sha256": "0d15ac9935d3c9a4f917ff833dac83166d03f6cf0a30e41c34e93e7c12d28907"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标",
+      "机构（个）",
+      "床位（万张）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "合计",
+        "unit": null,
+        "values": [
+          "合计",
+          31291,
+          408.1
+        ]
+      },
+      {
+        "label": "养老机构",
+        "unit": null,
+        "values": [
+          "养老机构",
+          28671,
+          379.4
+        ]
+      },
+      {
+        "label": "其中：社会福利院",
+        "unit": null,
+        "values": [
+          "其中：社会福利院",
+          1499,
+          36.8
+        ]
+      },
+      {
+        "label": "农村特困人员救助供养机构",
+        "unit": null,
+        "values": [
+          "农村特困人员救助供养机构",
+          13885,
+          154.2
+        ]
+      },
+      {
+        "label": "精神疾病服务中心",
+        "unit": null,
+        "values": [
+          "精神疾病服务中心",
+          145,
+          6.3
+        ]
+      },
+      {
+        "label": "社会福利医院",
+        "unit": null,
+        "values": [
+          "社会福利医院",
+          145,
+          6.3
+        ]
+      },
+      {
+        "label": "儿童福利和救助机构",
+        "unit": null,
+        "values": [
+          "儿童福利和救助机构",
+          651,
+          9.7
+        ]
+      },
+      {
+        "label": "儿童福利机构",
+        "unit": null,
+        "values": [
+          "儿童福利机构",
+          475,
+          8.9
+        ]
+      },
+      {
+        "label": "未成年人救助保护中心",
+        "unit": null,
+        "values": [
+          "未成年人救助保护中心",
+          176,
+          0.8
+        ]
+      },
+      {
+        "label": "其他提供住宿机构",
+        "unit": null,
+        "values": [
+          "其他提供住宿机构",
+          1824,
+          12.7
+        ]
+      },
+      {
+        "label": "生活无着人员求助管理站",
+        "unit": null,
+        "values": [
+          "生活无着人员求助管理站",
+          1534,
+          10.2
+        ]
+      },
+      {
+        "label": "其他提供住宿的机构",
+        "unit": null,
+        "values": [
+          "其他提供住宿的机构",
+          290,
+          2.6
+        ]
+      }
+    ]
+  },
+  "title": "表：2018年提供住宿的民政服务机构情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0d15ac9935d3c9a4f917ff83/row_band_01.jpg",
+        "review-crops/da_0d15ac9935d3c9a4f917ff83/row_band_02.jpg",
+        "review-crops/da_0d15ac9935d3c9a4f917ff83/row_band_03.jpg",
+        "review-crops/da_0d15ac9935d3c9a4f917ff83/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.399",
+      "crop_verification_elapsed_seconds:5.441",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

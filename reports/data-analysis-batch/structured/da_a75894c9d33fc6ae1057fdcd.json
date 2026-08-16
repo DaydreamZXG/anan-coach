@@ -1,0 +1,205 @@
+{
+  "asset_id": "da_a75894c9d33fc6ae1057fdcd",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2万元及以下",
+    "2-10万元"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2万元及以下",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "2-10万元",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "10-50万元",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "50-100万元",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "100万元以上",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -145.967,
+      42.113,
+      214.033
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 42.113,
+        "label": "2万元及以下",
+        "share": 0.52244297,
+        "start_angle": -145.967,
+        "sweep_angle": 188.079
+      },
+      {
+        "end_angle": 214.033,
+        "label": "2-10万元",
+        "share": 0.47755703,
+        "start_angle": 42.113,
+        "sweep_angle": 171.921
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.52244297,
+        0.47755703
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2016年江苏省公务员录用考试《行测》题（A类）_images/img_0241_74e1f897bbadc436.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0241_74e1f897bbadc436.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_89d1b195006c9f99fc39",
+        "question_number": 131,
+        "source_jsonl_line": 47241
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0235_5c01206d1d44a0ba.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_0fb02fc4ca50cfaecdb4",
+        "question_number": 132,
+        "source_jsonl_line": 47242
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0235_5c01206d1d44a0ba.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_0f4089e4af23327ae5d4",
+        "question_number": 133,
+        "source_jsonl_line": 47243
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0235_5c01206d1d44a0ba.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_1a20872131e2018c57af",
+        "question_number": 134,
+        "source_jsonl_line": 47244
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年江苏省公务员录用考试《行测》题（A类）_images/img_0235_5c01206d1d44a0ba.png",
+        "paper_title": "2016年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_eecea6ac962b45f40dd3",
+        "question_number": 135,
+        "source_jsonl_line": 47245
+      }
+    ],
+    "sha256": "a75894c9d33fc6ae1057fdcd1922aa701736a023cc449d532877e56de1603003"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "有创业打算的受访应届毕业生能承担的创业资金额度情况",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a75894c9d33fc6ae1057fdcd/quadrant_01.jpg",
+        "review-crops/da_a75894c9d33fc6ae1057fdcd/quadrant_02.jpg",
+        "review-crops/da_a75894c9d33fc6ae1057fdcd/quadrant_03.jpg",
+        "review-crops/da_a75894c9d33fc6ae1057fdcd/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.109",
+      "crop_verification_elapsed_seconds:1.169",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "label_geometry_count_mismatch:5!=2",
+      "circle_edge_coverage:0.5931",
+      "hough_circle_radius_ratio:0.2211",
+      "radial_line_candidates:4",
+      "detected_boundaries:2"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

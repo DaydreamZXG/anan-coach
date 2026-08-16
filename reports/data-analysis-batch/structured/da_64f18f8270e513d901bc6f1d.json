@@ -1,0 +1,296 @@
+{
+  "asset_id": "da_64f18f8270e513d901bc6f1d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "区域",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "2020年",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "2021年",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "全省",
+    "珠江三角洲核心区",
+    "沿海经济带东翼地区",
+    "沿海经济带西翼地区",
+    "北部生态发展区"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2020年",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    },
+    {
+      "label": "2021年",
+      "style": {
+        "dash": "null",
+        "fill": "null",
+        "marker": "null",
+        "stroke": "null"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2020",
+      "label": "2020年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        955.73,
+        823.41,
+        12.98,
+        8.69,
+        26.69
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "2021",
+      "label": "2021年",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        952.76,
+        845.09,
+        15.22,
+        5.52,
+        14.88
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0130_4155c09f37c5f352.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0130_4155c09f37c5f352.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_2fec8b7d716d9e7b7e8d",
+        "question_number": 91,
+        "source_jsonl_line": 35923
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0136_9dd2570a63a4fafd.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_e0c3224279162132fc98",
+        "question_number": 92,
+        "source_jsonl_line": 35924
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0130_4155c09f37c5f352.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_50115e072cfdcf182576",
+        "question_number": 93,
+        "source_jsonl_line": 35925
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0130_4155c09f37c5f352.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_446ff1cafcf0c29571f3",
+        "question_number": 94,
+        "source_jsonl_line": 35926
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0130_4155c09f37c5f352.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_e7cc95ab97d9993be35b",
+        "question_number": 95,
+        "source_jsonl_line": 35927
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0090_9dd2570a63a4fafd.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_88eb86057d7caade7bf2",
+        "question_number": 86,
+        "source_jsonl_line": 36018
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0102_4155c09f37c5f352.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_813271547bf508f2e9a6",
+        "question_number": 87,
+        "source_jsonl_line": 36019
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0090_9dd2570a63a4fafd.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_57f519bb72d1e5b3e9dd",
+        "question_number": 88,
+        "source_jsonl_line": 36020
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0090_9dd2570a63a4fafd.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_fc7f34d0dd23decf6af6",
+        "question_number": 89,
+        "source_jsonl_line": 36021
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0090_9dd2570a63a4fafd.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_ca46943098a6e7db527a",
+        "question_number": 90,
+        "source_jsonl_line": 36022
+      }
+    ],
+    "sha256": "64f18f8270e513d901bc6f1d04b70380a03f8fc5cdef207732bb55b9799fbe9d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2020年",
+      "2021年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "区域",
+    "rows": [
+      {
+        "label": "全省",
+        "unit": null,
+        "values": [
+          955.73,
+          952.76
+        ]
+      },
+      {
+        "label": "珠江三角洲核心区",
+        "unit": null,
+        "values": [
+          823.41,
+          845.09
+        ]
+      },
+      {
+        "label": "沿海经济带东翼地区",
+        "unit": null,
+        "values": [
+          12.98,
+          12.98
+        ]
+      },
+      {
+        "label": "沿海经济带西翼地区",
+        "unit": null,
+        "values": [
+          8.69,
+          8.69
+        ]
+      },
+      {
+        "label": "北部生态发展区",
+        "unit": null,
+        "values": [
+          26.69,
+          26.69
+        ]
+      }
+    ]
+  },
+  "title": "2020-2021年广东省各经济区财政科技技术支出情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_64f18f8270e513d901bc6f1d/row_band_01.jpg",
+        "review-crops/da_64f18f8270e513d901bc6f1d/row_band_02.jpg",
+        "review-crops/da_64f18f8270e513d901bc6f1d/row_band_03.jpg"
+      ],
+      "matched": 2,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.661",
+      "crop_verification_elapsed_seconds:7.94",
+      "candidate_value_changes_after_crop:3",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_out_of_range_table_cell:沿海经济带东翼地区:2021年",
+      "crop_note:ignored_out_of_range_table_cell:沿海经济带西翼地区:2021年",
+      "crop_note:ignored_out_of_range_table_cell:北部生态发展区:2021年",
+      "crop_note:ignored_unknown_table_cell:科学管理事务:2020年",
+      "crop_note:ignored_unknown_table_cell:科学管理事务:2021年",
+      "crop_note:ignored_unknown_table_cell:基础研究:2020年",
+      "crop_note:ignored_unknown_table_cell:基础研究:2021年",
+      "crop_note:ignored_unknown_table_cell:应用研究:2020年",
+      "crop_note:ignored_unknown_table_cell:应用研究:2021年",
+      "crop_note:ignored_unknown_table_cell:技术研究与开发:2020年",
+      "crop_note:ignored_unknown_table_cell:技术研究与开发:2021年",
+      "crop_note:ignored_unknown_table_cell:科技条件与服务:2020年",
+      "crop_note:ignored_unknown_table_cell:科技条件与服务:2021年",
+      "crop_note:ignored_unknown_table_cell:社会科技:2020年",
+      "crop_note:ignored_unknown_table_cell:社会科技:2021年",
+      "crop_note:ignored_unknown_table_cell:科技技术普及:2020年",
+      "crop_note:ignored_unknown_table_cell:科技技术普及:2021年",
+      "crop_note:ignored_unknown_table_cell:科技交流与合作:2020年",
+      "crop_note:ignored_unknown_table_cell:科技交流与合作:2021年",
+      "crop_note:ignored_unknown_table_cell:科技重大项目:2020年",
+      "crop_note:ignored_unknown_table_cell:科技重大项目:2021年",
+      "crop_note:ignored_unknown_table_cell:其他科学技术支出:2020年",
+      "crop_note:ignored_unknown_table_cell:其他科学技术支出:2021年",
+      "table_row_label_column_removed:区域"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

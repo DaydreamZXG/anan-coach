@@ -1,0 +1,530 @@
+{
+  "asset_id": "da_5df47d03d2d15efd4280d2eb",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "总计",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        16719,
+        8.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "其中：新闻出版发行服务",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        579,
+        13.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "广播电影电视服务",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        325,
+        24.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "文化艺术服务",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        54,
+        25.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "文化信息传输服务",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1131,
+        27.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "文化创意和设计服务",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2041,
+        12.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "文化休闲娱乐服务",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        223,
+        25.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_8",
+      "label": "工艺美术品的生产",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        3272,
+        4.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_9",
+      "label": "文化产品生产的辅助生产",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1828,
+        7.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_10",
+      "label": "文化用品的生产",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        6422,
+        6.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_11",
+      "label": "文化专用设备的生产",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        844,
+        3.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_12",
+      "label": "东部地区",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        12528,
+        7.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_13",
+      "label": "中部地区",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        2825,
+        12.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_14",
+      "label": "西部地区",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1130,
+        10.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_15",
+      "label": "东北地区",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        237,
+        -5.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2017年422联考《行测》题（山东卷）_images/img_0122_22a38fae61d0abe6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0122_22a38fae61d0abe6.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_5ebb266c9e2842df6975",
+        "question_number": 101,
+        "source_jsonl_line": 30075
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0132_833e965157ccf3dd.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_8281e5e90200e918f153",
+        "question_number": 102,
+        "source_jsonl_line": 30076
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0132_833e965157ccf3dd.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_590c319e65ded204d17b",
+        "question_number": 103,
+        "source_jsonl_line": 30077
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0132_833e965157ccf3dd.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_d1bccebdcce0df336e7a",
+        "question_number": 104,
+        "source_jsonl_line": 30078
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（山东卷）_images/img_0132_833e965157ccf3dd.png",
+        "paper_title": "2017年422联考《行测》题（山东卷）",
+        "question_id": "pq_62ebb013ab90ff724da8",
+        "question_number": 105,
+        "source_jsonl_line": 30079
+      }
+    ],
+    "sha256": "5df47d03d2d15efd4280d2ebf0b2abbe66bb9b7d2ec6c8bdd116d75a5a598248"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "",
+      "收入（亿元）",
+      "增速（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "总计",
+        "unit": "亿元",
+        "values": [
+          "总计",
+          16719,
+          8.6
+        ]
+      },
+      {
+        "label": "按产业分:",
+        "unit": null,
+        "values": [
+          "按产业分:",
+          null,
+          null
+        ]
+      },
+      {
+        "label": "其中：新闻出版发行服务",
+        "unit": "亿元",
+        "values": [
+          "其中：新闻出版发行服务",
+          579,
+          13.9
+        ]
+      },
+      {
+        "label": "广播电影电视服务",
+        "unit": "亿元",
+        "values": [
+          "广播电影电视服务",
+          325,
+          24.2
+        ]
+      },
+      {
+        "label": "文化艺术服务",
+        "unit": "亿元",
+        "values": [
+          "文化艺术服务",
+          54,
+          25.0
+        ]
+      },
+      {
+        "label": "文化信息传输服务",
+        "unit": "亿元",
+        "values": [
+          "文化信息传输服务",
+          1131,
+          27.8
+        ]
+      },
+      {
+        "label": "文化创意和设计服务",
+        "unit": "亿元",
+        "values": [
+          "文化创意和设计服务",
+          2041,
+          12.2
+        ]
+      },
+      {
+        "label": "文化休闲娱乐服务",
+        "unit": "亿元",
+        "values": [
+          "文化休闲娱乐服务",
+          223,
+          25.0
+        ]
+      },
+      {
+        "label": "工艺美术品的生产",
+        "unit": "亿元",
+        "values": [
+          "工艺美术品的生产",
+          3272,
+          4.4
+        ]
+      },
+      {
+        "label": "文化产品生产的辅助生产",
+        "unit": "亿元",
+        "values": [
+          "文化产品生产的辅助生产",
+          1828,
+          7.6
+        ]
+      },
+      {
+        "label": "文化用品的生产",
+        "unit": "亿元",
+        "values": [
+          "文化用品的生产",
+          6422,
+          6.3
+        ]
+      },
+      {
+        "label": "文化专用设备的生产",
+        "unit": "亿元",
+        "values": [
+          "文化专用设备的生产",
+          844,
+          3.1
+        ]
+      },
+      {
+        "label": "按区域分:",
+        "unit": null,
+        "values": [
+          "按区域分:",
+          null,
+          null
+        ]
+      },
+      {
+        "label": "其中：东部地区",
+        "unit": null,
+        "values": [
+          "其中：东部地区",
+          12528,
+          7.9
+        ]
+      },
+      {
+        "label": "中部地区",
+        "unit": "亿元",
+        "values": [
+          "中部地区",
+          2825,
+          12.7
+        ]
+      },
+      {
+        "label": "西部地区",
+        "unit": "亿元",
+        "values": [
+          "西部地区",
+          1130,
+          10.6
+        ]
+      },
+      {
+        "label": "东北地区",
+        "unit": "亿元",
+        "values": [
+          "东北地区",
+          237,
+          -5.0
+        ]
+      }
+    ]
+  },
+  "title": "2016年1季度全国规模以上文化及相关产业企业营业收入",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_5df47d03d2d15efd4280d2eb/row_band_01.jpg",
+        "review-crops/da_5df47d03d2d15efd4280d2eb/row_band_02.jpg",
+        "review-crops/da_5df47d03d2d15efd4280d2eb/row_band_03.jpg",
+        "review-crops/da_5df47d03d2d15efd4280d2eb/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:16.949",
+      "crop_verification_elapsed_seconds:2.894",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

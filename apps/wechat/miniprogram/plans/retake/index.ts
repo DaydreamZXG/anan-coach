@@ -13,6 +13,7 @@ interface RetakePageCustom {
   selectEvidence(event: WechatMiniprogram.BaseEvent): void;
   startProgram(): void;
   importEvidence(): void;
+  editPreparationExperience(): void;
   enterToday(): void;
   retry(): void;
 }
@@ -47,6 +48,10 @@ Page<RetakePageData, RetakePageCustom>({
 
   importEvidence() {
     void wx.navigateTo({ url: routes.externalReport });
+  },
+
+  editPreparationExperience() {
+    void wx.navigateTo({ url: routes.onboardingPreparationExperience });
   },
 
   enterToday() {

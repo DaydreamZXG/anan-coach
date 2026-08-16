@@ -1,0 +1,268 @@
+{
+  "asset_id": "da_cc0b24e8729fe82fc4d84d8a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "国内生产总值 (亿元)",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "人均国内生产总值 (元)",
+        "unit": "元"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "国内生产总值 (亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        3645,
+        4546,
+        9016,
+        18668,
+        60794,
+        99215,
+        184937,
+        401513,
+        473104,
+        518942
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "人均国内生产总值 (元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        381,
+        463,
+        858,
+        1644,
+        5046,
+        7858,
+        14185,
+        30015,
+        35198,
+        38420
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2014年吉林省公务员录用考试《行测》题（乙级）_images/img_0080_e02d3b5bf5080c4f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（乙级）_images/img_0080_e02d3b5bf5080c4f.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_b5d0fdae853956fcb138",
+        "question_number": 86,
+        "source_jsonl_line": 11867
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（乙级）_images/img_0087_7bf3920352a7447f.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_efeab39aa66ad0f85e4c",
+        "question_number": 87,
+        "source_jsonl_line": 11868
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（乙级）_images/img_0080_e02d3b5bf5080c4f.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_96bb20d55803a264b27c",
+        "question_number": 88,
+        "source_jsonl_line": 11869
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（乙级）_images/img_0080_e02d3b5bf5080c4f.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_74ff63cd2c96a90d9af2",
+        "question_number": 89,
+        "source_jsonl_line": 11870
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年吉林省公务员录用考试《行测》题（乙级）_images/img_0080_e02d3b5bf5080c4f.png",
+        "paper_title": "2014年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_46d4d8528b0ca8a19039",
+        "question_number": 90,
+        "source_jsonl_line": 11871
+      }
+    ],
+    "sha256": "cc0b24e8729fe82fc4d84d8a19b7473b52481dbf29ea563ec03ea18994c92b5c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "国内生产总值 (亿元)",
+      "人均国内生产总值 (元)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "1978",
+        "unit": null,
+        "values": [
+          1978,
+          3645,
+          381
+        ]
+      },
+      {
+        "label": "1980",
+        "unit": null,
+        "values": [
+          1980,
+          4546,
+          463
+        ]
+      },
+      {
+        "label": "1985",
+        "unit": null,
+        "values": [
+          1985,
+          9016,
+          858
+        ]
+      },
+      {
+        "label": "1990",
+        "unit": null,
+        "values": [
+          1990,
+          18668,
+          1644
+        ]
+      },
+      {
+        "label": "1995",
+        "unit": null,
+        "values": [
+          1995,
+          60794,
+          5046
+        ]
+      },
+      {
+        "label": "2000",
+        "unit": null,
+        "values": [
+          2000,
+          99215,
+          7858
+        ]
+      },
+      {
+        "label": "2005",
+        "unit": null,
+        "values": [
+          2005,
+          184937,
+          14185
+        ]
+      },
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          401513,
+          30015
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          473104,
+          35198
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          518942,
+          38420
+        ]
+      }
+    ]
+  },
+  "title": "1978-2012年国内生产总值及人均国内生产总值",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_cc0b24e8729fe82fc4d84d8a/row_band_01.jpg",
+        "review-crops/da_cc0b24e8729fe82fc4d84d8a/row_band_02.jpg",
+        "review-crops/da_cc0b24e8729fe82fc4d84d8a/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.287",
+      "crop_verification_elapsed_seconds:5.108",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

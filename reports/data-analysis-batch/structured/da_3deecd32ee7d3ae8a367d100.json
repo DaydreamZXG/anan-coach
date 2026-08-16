@@ -1,0 +1,167 @@
+{
+  "asset_id": "da_3deecd32ee7d3ae8a367d100",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2026年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0076_a95d424a3fb4ab40.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0076_a95d424a3fb4ab40.png",
+        "paper_title": "2026年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_3d007d05bc48ae89d4ac",
+        "question_number": 115,
+        "source_jsonl_line": 8513
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0132_5610fe7919b7c003.png",
+        "paper_title": "2026年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f320d90baa060134a18a",
+        "question_number": 115,
+        "source_jsonl_line": 84586
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0105_5610fe7919b7c003.png",
+        "paper_title": "2026年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f01f3314f2a76aa7272b",
+        "question_number": 115,
+        "source_jsonl_line": 104757
+      }
+    ],
+    "sha256": "3deecd32ee7d3ae8a367d1000df591b5005bcdba800e4df0ff5e670feb0ec57b"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 0,
+      "estimatedDrawCommandCount": 4,
+      "panelCount": 1,
+      "pointCount": 4
+    },
+    "coordinateSpace": {
+      "height": 123,
+      "width": 240
+    },
+    "evidence": {
+      "converterVersion": "semantic-microcharts-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "2f39421d532d73f8c0e02c6739e5b506d8802a5061f64b04eeda14701a993443",
+      "sourceAsset": "da_3deecd32ee7d3ae8a367d100",
+      "sourceSha256": "3deecd32ee7d3ae8a367d1000df591b5005bcdba800e4df0ff5e670feb0ec57b"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 116,
+          "width": 226,
+          "x": 6,
+          "y": 4
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.70435
+            },
+            {
+              "x": 0.33333,
+              "y": 0.98696
+            },
+            {
+              "x": 0.65778,
+              "y": 0.02174
+            },
+            {
+              "x": 1.0,
+              "y": 0.27391
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_3deecd32ee7d3ae8a367d100-0",
+        "label": null,
+        "position": 0
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "line_sequence"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3deecd32ee7d3ae8a367d100/column_band_01.jpg",
+        "review-crops/da_3deecd32ee7d3ae8a367d100/column_band_02.jpg",
+        "review-crops/da_3deecd32ee7d3ae8a367d100/column_band_03.jpg",
+        "review-crops/da_3deecd32ee7d3ae8a367d100/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.079",
+      "crop_verification_elapsed_seconds:3.468",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:X轴和Y轴的标题、单位、刻度和范围均未在图中明确标出，无法确定",
+      "model_uncertainty:数据点的具体数值未标注，仅能通过相对位置推断",
+      "model_uncertainty:图中未提供图例，系列名称未知",
+      "non_data_option_sparkline",
+      "foreground_iou:0.744703",
+      "mean_absolute_error:2.890007",
+      "trace_parameters:{\"epsilonRatio\": 0.006, \"minimumContourArea\": 3.0, \"paletteSize\": 3}",
+      "visual_grammar:line_sequence",
+      "visual_grammar:line_sequence",
+      "converter:semantic-microcharts-v1",
+      "visual_grammar:line_sequence",
+      "comparison_artifact:previews/structured_visual/da_3deecd32ee7d3ae8a367d100-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

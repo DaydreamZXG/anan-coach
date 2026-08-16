@@ -1,0 +1,200 @@
+{
+  "asset_id": "da_bbd71828e89bc191a5efc962",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 300,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300
+        ],
+        "title": null,
+        "unit": "平方米"
+      }
+    ]
+  },
+  "categories": [
+    "2006年",
+    "2007年",
+    "2008年",
+    "2009年",
+    "2010年",
+    "2011年",
+    "2012年",
+    "2013年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "全国平均每万人群众文化设施建筑面积",
+      "style": {
+        "dash": null,
+        "fill": "#696969",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "全国平均每万人群众文化设施建筑面积",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "平方米",
+      "values": [
+        123.5,
+        126.2,
+        145.4,
+        164.3,
+        188.6,
+        221.2,
+        234.2,
+        249.1
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2015年国家公务员录用考试《行测》题（地市级）_images/img_0177_04f9a302de7b2826.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（地市级）_images/img_0177_04f9a302de7b2826.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_7f752e9b2e2505f80015",
+        "question_number": 126,
+        "source_jsonl_line": 18201
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（地市级）_images/img_0177_04f9a302de7b2826.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_bf963008565eb9ceada9",
+        "question_number": 127,
+        "source_jsonl_line": 18202
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（地市级）_images/img_0177_04f9a302de7b2826.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_577dfcd6330ed7387381",
+        "question_number": 128,
+        "source_jsonl_line": 18203
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（地市级）_images/img_0177_04f9a302de7b2826.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_09809aad275f40b86eeb",
+        "question_number": 129,
+        "source_jsonl_line": 18204
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（地市级）_images/img_0177_04f9a302de7b2826.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（地市级）",
+        "question_id": "pq_32f65a3ecccc10fb6de8",
+        "question_number": 130,
+        "source_jsonl_line": 18205
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（省部级）_images/img_0233_04f9a302de7b2826.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（省部级）",
+        "question_id": "pq_7edda22b8afbb7272f09",
+        "question_number": 131,
+        "source_jsonl_line": 18336
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（省部级）_images/img_0233_04f9a302de7b2826.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（省部级）",
+        "question_id": "pq_be2f22e77e85166f79b6",
+        "question_number": 132,
+        "source_jsonl_line": 18337
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（省部级）_images/img_0233_04f9a302de7b2826.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（省部级）",
+        "question_id": "pq_62ac5717f42cd7b73e30",
+        "question_number": 133,
+        "source_jsonl_line": 18338
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（省部级）_images/img_0233_04f9a302de7b2826.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（省部级）",
+        "question_id": "pq_2a9f8111d8843b2af1a7",
+        "question_number": 134,
+        "source_jsonl_line": 18339
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年国家公务员录用考试《行测》题（省部级）_images/img_0233_04f9a302de7b2826.png",
+        "paper_title": "2015年国家公务员录用考试《行测》题（省部级）",
+        "question_id": "pq_b81f4605da4826103ee7",
+        "question_number": 135,
+        "source_jsonl_line": 18340
+      }
+    ],
+    "sha256": "bbd71828e89bc191a5efc96279a2784a5100586c1b155d997682123b514537a7"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2006~2013年全国平均每万人群众文化设施建筑面积",
+  "unit": "平方米",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_bbd71828e89bc191a5efc962/column_band_01.jpg",
+        "review-crops/da_bbd71828e89bc191a5efc962/column_band_02.jpg",
+        "review-crops/da_bbd71828e89bc191a5efc962/column_band_03.jpg",
+        "review-crops/da_bbd71828e89bc191a5efc962/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.185",
+      "crop_verification_elapsed_seconds:3.357",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

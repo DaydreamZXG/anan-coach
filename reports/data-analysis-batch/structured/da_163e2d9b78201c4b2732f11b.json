@@ -1,0 +1,518 @@
+{
+  "asset_id": "da_163e2d9b78201c4b2732f11b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "产品名称",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "产量",
+        "unit": "万吨"
+      }
+    ]
+  },
+  "categories": [
+    "2007年",
+    "2008年",
+    "2009年"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "粮食",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        6170,
+        6677,
+        7566
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "夏粮",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        2012,
+        2200,
+        2456
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "早稻",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        1034,
+        1453,
+        1412
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "秋粮",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        3124,
+        3024,
+        3698
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "油料",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        887,
+        849,
+        885
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "油菜籽",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        436,
+        387,
+        412
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "花生",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        451,
+        462,
+        473
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_8",
+      "label": "棉花",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        32,
+        34,
+        28
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_9",
+      "label": "糖料",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        1184,
+        1429,
+        1507
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_10",
+      "label": "甜菜",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        572,
+        781,
+        794
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_11",
+      "label": "甘蔗",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        612,
+        648,
+        713
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_12",
+      "label": "茶叶",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        6,
+        7,
+        9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_13",
+      "label": "水果",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        3821,
+        3814,
+        4102
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_14",
+      "label": "蔬菜",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        6231,
+        7423,
+        7812
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2014年天津市公务员录用考试《行测》题_images/img_0161_90bc9ddaf8c1e730.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年天津市公务员录用考试《行测》题_images/img_0161_90bc9ddaf8c1e730.png",
+        "paper_title": "2014年天津市公务员录用考试《行测》题",
+        "question_id": "pq_4e240958dba336623d0a",
+        "question_number": 116,
+        "source_jsonl_line": 22501
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年天津市公务员录用考试《行测》题_images/img_0161_90bc9ddaf8c1e730.png",
+        "paper_title": "2014年天津市公务员录用考试《行测》题",
+        "question_id": "pq_45ded02f2ea8203ae645",
+        "question_number": 117,
+        "source_jsonl_line": 22502
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年天津市公务员录用考试《行测》题_images/img_0170_8382338b9905c57b.png",
+        "paper_title": "2014年天津市公务员录用考试《行测》题",
+        "question_id": "pq_ef8d023361fd41666d38",
+        "question_number": 118,
+        "source_jsonl_line": 22503
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年天津市公务员录用考试《行测》题_images/img_0161_90bc9ddaf8c1e730.png",
+        "paper_title": "2014年天津市公务员录用考试《行测》题",
+        "question_id": "pq_ee227243c88301b1875e",
+        "question_number": 119,
+        "source_jsonl_line": 22504
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年天津市公务员录用考试《行测》题_images/img_0161_90bc9ddaf8c1e730.png",
+        "paper_title": "2014年天津市公务员录用考试《行测》题",
+        "question_id": "pq_a1bcdf45a4a2d6b83f38",
+        "question_number": 120,
+        "source_jsonl_line": 22505
+      }
+    ],
+    "sha256": "163e2d9b78201c4b2732f11b8f40f8dd87588ac1dae9b41fbce34bebfc91e5e7"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "产品名称",
+      "2007年",
+      "2008年",
+      "2009年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "粮食",
+        "unit": "万吨",
+        "values": [
+          "粮食",
+          6170,
+          6677,
+          7566
+        ]
+      },
+      {
+        "label": "夏粮",
+        "unit": "万吨",
+        "values": [
+          "夏粮",
+          2012,
+          2200,
+          2456
+        ]
+      },
+      {
+        "label": "早稻",
+        "unit": "万吨",
+        "values": [
+          "早稻",
+          1034,
+          1453,
+          1412
+        ]
+      },
+      {
+        "label": "秋粮",
+        "unit": "万吨",
+        "values": [
+          "秋粮",
+          3124,
+          3024,
+          3698
+        ]
+      },
+      {
+        "label": "油料",
+        "unit": "万吨",
+        "values": [
+          "油料",
+          887,
+          849,
+          885
+        ]
+      },
+      {
+        "label": "油菜籽",
+        "unit": "万吨",
+        "values": [
+          "油菜籽",
+          436,
+          387,
+          412
+        ]
+      },
+      {
+        "label": "花生",
+        "unit": "万吨",
+        "values": [
+          "花生",
+          451,
+          462,
+          473
+        ]
+      },
+      {
+        "label": "棉花",
+        "unit": "万吨",
+        "values": [
+          "棉花",
+          32,
+          34,
+          28
+        ]
+      },
+      {
+        "label": "糖料",
+        "unit": "万吨",
+        "values": [
+          "糖料",
+          1184,
+          1429,
+          1507
+        ]
+      },
+      {
+        "label": "甜菜",
+        "unit": "万吨",
+        "values": [
+          "甜菜",
+          572,
+          781,
+          794
+        ]
+      },
+      {
+        "label": "甘蔗",
+        "unit": "万吨",
+        "values": [
+          "甘蔗",
+          612,
+          648,
+          713
+        ]
+      },
+      {
+        "label": "茶叶",
+        "unit": "万吨",
+        "values": [
+          "茶叶",
+          6,
+          7,
+          9
+        ]
+      },
+      {
+        "label": "水果",
+        "unit": "万吨",
+        "values": [
+          "水果",
+          3821,
+          3814,
+          4102
+        ]
+      },
+      {
+        "label": "蔬菜",
+        "unit": "万吨",
+        "values": [
+          "蔬菜",
+          6231,
+          7423,
+          7812
+        ]
+      }
+    ]
+  },
+  "title": "某地区主要农产品的产量统计表",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_163e2d9b78201c4b2732f11b/row_band_01.jpg",
+        "review-crops/da_163e2d9b78201c4b2732f11b/row_band_02.jpg",
+        "review-crops/da_163e2d9b78201c4b2732f11b/row_band_03.jpg",
+        "review-crops/da_163e2d9b78201c4b2732f11b/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.641",
+      "crop_verification_elapsed_seconds:13.413",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

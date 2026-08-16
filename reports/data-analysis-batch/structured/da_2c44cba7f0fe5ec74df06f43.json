@@ -1,0 +1,555 @@
+{
+  "asset_id": "da_2c44cba7f0fe5ec74df06f43",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0058_6c10c7046bbc3ac1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0058_6c10c7046bbc3ac1.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_1a4a066ff177ef7bd6d8",
+        "question_number": 91,
+        "source_jsonl_line": 71202
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0058_6c10c7046bbc3ac1.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_640952b6671ac02c73c9",
+        "question_number": 92,
+        "source_jsonl_line": 71203
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0058_6c10c7046bbc3ac1.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_465a1703a2defc141274",
+        "question_number": 93,
+        "source_jsonl_line": 71204
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0085_7e17592f9bcf5b0e.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_2fb23d6bde0100fa8a5b",
+        "question_number": 94,
+        "source_jsonl_line": 71205
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0058_6c10c7046bbc3ac1.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_3a5775dd2a9f04dcd4a3",
+        "question_number": 95,
+        "source_jsonl_line": 71206
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0057_7e17592f9bcf5b0e.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_b606797aa53ee5b327b2",
+        "question_number": 91,
+        "source_jsonl_line": 89731
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0057_7e17592f9bcf5b0e.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_91ebccc2b99e0def6068",
+        "question_number": 92,
+        "source_jsonl_line": 89732
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0084_6c10c7046bbc3ac1.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_d85a93113919f2d00a2f",
+        "question_number": 93,
+        "source_jsonl_line": 89733
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0084_6c10c7046bbc3ac1.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_5dc32f423e9025d02f9d",
+        "question_number": 94,
+        "source_jsonl_line": 89734
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0084_6c10c7046bbc3ac1.png",
+        "paper_title": "2022年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_9744dfcff266fe6ca4f0",
+        "question_number": 95,
+        "source_jsonl_line": 89735
+      }
+    ],
+    "sha256": "2c44cba7f0fe5ec74df06f43a30f8d192b0df46e14a4ab97cc8ff853b6b49e50"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "计算单位",
+      "本月｜实际完成数",
+      "本月｜比上年同期增长%",
+      "当年累计｜实际完成数",
+      "当年累计｜比上年同期增长%"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "统计指标",
+    "rows": [
+      {
+        "display_label": "运输完成情况｜运输总周转量",
+        "group": null,
+        "label": "运输完成情况｜运输总周转量",
+        "unit": null,
+        "values": [
+          "亿吨公里",
+          61.4,
+          -23.3,
+          856.7,
+          7.3
+        ]
+      },
+      {
+        "display_label": "运输完成情况｜国内航线",
+        "group": "运输完成情况｜运输总周转量",
+        "label": "运输完成情况｜运输总周转量｜运输完成情况｜国内航线",
+        "unit": null,
+        "values": [
+          "亿吨公里",
+          41.8,
+          -32.9,
+          641.1,
+          9.1
+        ]
+      },
+      {
+        "display_label": "运输完成情况｜其中：港澳台航线",
+        "group": "运输完成情况｜运输总周转量",
+        "label": "运输完成情况｜运输总周转量｜运输完成情况｜其中：港澳台航线",
+        "unit": null,
+        "values": [
+          "亿吨公里",
+          0.3,
+          2.2,
+          3.0,
+          -5.5
+        ]
+      },
+      {
+        "display_label": "运输完成情况｜国际航线",
+        "group": "运输完成情况｜运输总周转量",
+        "label": "运输完成情况｜运输总周转量｜运输完成情况｜国际航线",
+        "unit": null,
+        "values": [
+          "亿吨公里",
+          19.6,
+          10.2,
+          215.6,
+          2.3
+        ]
+      },
+      {
+        "display_label": "运输完成情况｜旅客运输量",
+        "group": null,
+        "label": "运输完成情况｜旅客运输量",
+        "unit": null,
+        "values": [
+          "万人",
+          2709.5,
+          -36.0,
+          44055.7,
+          5.5
+        ]
+      },
+      {
+        "display_label": "运输完成情况｜国内航线",
+        "group": "运输完成情况｜旅客运输量",
+        "label": "运输完成情况｜旅客运输量｜运输完成情况｜国内航线",
+        "unit": null,
+        "values": [
+          "万人",
+          2698.0,
+          -36.0,
+          43908.0,
+          7.6
+        ]
+      },
+      {
+        "display_label": "运输完成情况｜其中：港澳台航线",
+        "group": "运输完成情况｜旅客运输量",
+        "label": "运输完成情况｜旅客运输量｜运输完成情况｜其中：港澳台航线",
+        "unit": null,
+        "values": [
+          "万人",
+          5.1,
+          56.4,
+          59.3,
+          -38.4
+        ]
+      },
+      {
+        "display_label": "运输完成情况｜国际航线",
+        "group": "运输完成情况｜旅客运输量",
+        "label": "运输完成情况｜旅客运输量｜运输完成情况｜国际航线",
+        "unit": null,
+        "values": [
+          "万人",
+          11.5,
+          -29.4,
+          147.7,
+          -84.6
+        ]
+      },
+      {
+        "display_label": "运输完成情况｜货邮运输量",
+        "group": null,
+        "label": "运输完成情况｜货邮运输量",
+        "unit": null,
+        "values": [
+          "万吨",
+          64.6,
+          -7.0,
+          731.8,
+          8.2
+        ]
+      },
+      {
+        "display_label": "运输完成情况｜国内航线",
+        "group": "运输完成情况｜货邮运输量",
+        "label": "运输完成情况｜货邮运输量｜运输完成情况｜国内航线",
+        "unit": null,
+        "values": [
+          "万吨",
+          39.8,
+          -16.0,
+          465.1,
+          2.6
+        ]
+      },
+      {
+        "display_label": "运输完成情况｜其中：港澳台航线",
+        "group": "运输完成情况｜货邮运输量",
+        "label": "运输完成情况｜货邮运输量｜运输完成情况｜其中：港澳台航线",
+        "unit": null,
+        "values": [
+          "万吨",
+          1.5,
+          -13.9,
+          19.0,
+          8.0
+        ]
+      },
+      {
+        "display_label": "运输完成情况｜国际航线",
+        "group": "运输完成情况｜货邮运输量",
+        "label": "运输完成情况｜货邮运输量｜运输完成情况｜国际航线",
+        "unit": null,
+        "values": [
+          "万吨",
+          24.9,
+          12.1,
+          266.7,
+          19.6
+        ]
+      },
+      {
+        "display_label": "运输完成情况｜旅客周转量",
+        "group": null,
+        "label": "运输完成情况｜旅客周转量",
+        "unit": null,
+        "values": [
+          "亿人公里",
+          407.9,
+          -35.0,
+          6529.7,
+          3.5
+        ]
+      },
+      {
+        "display_label": "运输完成情况｜国内航线",
+        "group": "运输完成情况｜旅客周转量",
+        "label": "运输完成情况｜旅客周转量｜运输完成情况｜国内航线",
+        "unit": null,
+        "values": [
+          "亿人公里",
+          400.5,
+          -35.3,
+          6439.1,
+          9.7
+        ]
+      },
+      {
+        "display_label": "运输完成情况｜其中：港澳台航线",
+        "group": "运输完成情况｜旅客周转量",
+        "label": "运输完成情况｜旅客周转量｜运输完成情况｜其中：港澳台航线",
+        "unit": null,
+        "values": [
+          "亿人公里",
+          0.7,
+          67.5,
+          8.2,
+          -36.1
+        ]
+      },
+      {
+        "display_label": "运输完成情况｜国际航线",
+        "group": "运输完成情况｜旅客周转量",
+        "label": "运输完成情况｜旅客周转量｜运输完成情况｜国际航线",
+        "unit": null,
+        "values": [
+          "亿人公里",
+          7.4,
+          -18.9,
+          90.6,
+          -79.5
+        ]
+      },
+      {
+        "display_label": "机场完成情况｜旅客吞吐量",
+        "group": null,
+        "label": "机场完成情况｜旅客吞吐量",
+        "unit": null,
+        "values": [
+          "万人次",
+          5590.3,
+          -36.0,
+          90745.3,
+          5.9
+        ]
+      },
+      {
+        "display_label": "机场完成情况｜其中：东部地区",
+        "group": "机场完成情况｜旅客吞吐量",
+        "label": "机场完成情况｜旅客吞吐量｜机场完成情况｜其中：东部地区",
+        "unit": null,
+        "values": [
+          "万人次",
+          2762.5,
+          -38.5,
+          44274.4,
+          3.6
+        ]
+      },
+      {
+        "display_label": "机场完成情况｜中部地区",
+        "group": "机场完成情况｜旅客吞吐量",
+        "label": "机场完成情况｜旅客吞吐量｜机场完成情况｜中部地区",
+        "unit": null,
+        "values": [
+          "万人次",
+          730.3,
+          -30.9,
+          11290.1,
+          11.3
+        ]
+      },
+      {
+        "display_label": "机场完成情况｜西部地区",
+        "group": "机场完成情况｜旅客吞吐量",
+        "label": "机场完成情况｜旅客吞吐量｜机场完成情况｜西部地区",
+        "unit": null,
+        "values": [
+          "万人次",
+          1776.1,
+          -32.6,
+          29719.0,
+          6.5
+        ]
+      },
+      {
+        "display_label": "机场完成情况｜东北地区",
+        "group": "机场完成情况｜旅客吞吐量",
+        "label": "机场完成情况｜旅客吞吐量｜机场完成情况｜东北地区",
+        "unit": null,
+        "values": [
+          "万人次",
+          321.5,
+          -41.0,
+          5462.0,
+          10.8
+        ]
+      },
+      {
+        "display_label": "机场完成情况｜货邮吞吐量",
+        "group": null,
+        "label": "机场完成情况｜货邮吞吐量",
+        "unit": null,
+        "values": [
+          "万吨",
+          156.9,
+          -5.8,
+          1782.5,
+          10.9
+        ]
+      },
+      {
+        "display_label": "机场完成情况｜其中：东部地区",
+        "group": "机场完成情况｜货邮吞吐量",
+        "label": "机场完成情况｜货邮吞吐量｜机场完成情况｜其中：东部地区",
+        "unit": null,
+        "values": [
+          "万吨",
+          114.4,
+          -4.7,
+          1298.8,
+          11.2
+        ]
+      },
+      {
+        "display_label": "机场完成情况｜中部地区",
+        "group": "机场完成情况｜货邮吞吐量",
+        "label": "机场完成情况｜货邮吞吐量｜机场完成情况｜中部地区",
+        "unit": null,
+        "values": [
+          "万吨",
+          14.6,
+          -3.9,
+          159.0,
+          15.9
+        ]
+      },
+      {
+        "display_label": "机场完成情况｜西部地区",
+        "group": "机场完成情况｜货邮吞吐量",
+        "label": "机场完成情况｜货邮吞吐量｜机场完成情况｜西部地区",
+        "unit": null,
+        "values": [
+          "万吨",
+          23.4,
+          -10.2,
+          272.4,
+          8.1
+        ]
+      },
+      {
+        "display_label": "机场完成情况｜东北地区",
+        "group": "机场完成情况｜货邮吞吐量",
+        "label": "机场完成情况｜货邮吞吐量｜机场完成情况｜东北地区",
+        "unit": null,
+        "values": [
+          "万吨",
+          4.6,
+          -13.6,
+          52.3,
+          4.7
+        ]
+      },
+      {
+        "display_label": "机场完成情况｜起降架次",
+        "group": null,
+        "label": "机场完成情况｜起降架次",
+        "unit": null,
+        "values": [
+          "万架次",
+          72.8,
+          -21.6,
+          977.7,
+          8.0
+        ]
+      },
+      {
+        "display_label": "机场完成情况｜其中：东部地区",
+        "group": "机场完成情况｜起降架次",
+        "label": "机场完成情况｜起降架次｜机场完成情况｜其中：东部地区",
+        "unit": null,
+        "values": [
+          "万架次",
+          31.2,
+          -26.4,
+          417.3,
+          4.2
+        ]
+      },
+      {
+        "display_label": "机场完成情况｜中部地区",
+        "group": "机场完成情况｜起降架次",
+        "label": "机场完成情况｜起降架次｜机场完成情况｜中部地区",
+        "unit": null,
+        "values": [
+          "万架次",
+          12.0,
+          -14.8,
+          152.9,
+          15.1
+        ]
+      },
+      {
+        "display_label": "机场完成情况｜西部地区",
+        "group": "机场完成情况｜起降架次",
+        "label": "机场完成情况｜起降架次｜机场完成情况｜西部地区",
+        "unit": null,
+        "values": [
+          "万架次",
+          24.9,
+          -17.9,
+          345.0,
+          8.9
+        ]
+      },
+      {
+        "display_label": "机场完成情况｜东北地区",
+        "group": "机场完成情况｜起降架次",
+        "label": "机场完成情况｜起降架次｜机场完成情况｜东北地区",
+        "unit": null,
+        "values": [
+          "万架次",
+          4.7,
+          -21.9,
+          62.5,
+          14.2
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

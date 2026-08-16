@@ -1,0 +1,378 @@
+{
+  "asset_id": "da_227bc963c0fb5fdd9c55fc5a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2008年云南省公务员录用考试《行测》题_images/img_0120_fb7e300a3c4f39ab.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年云南省公务员录用考试《行测》题_images/img_0120_fb7e300a3c4f39ab.png",
+        "paper_title": "2008年云南省公务员录用考试《行测》题",
+        "question_id": "pq_4e064487bb49f1cd4ffd",
+        "question_number": 116,
+        "source_jsonl_line": 4186
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年云南省公务员录用考试《行测》题_images/img_0121_99d130091693c93d.png",
+        "paper_title": "2008年云南省公务员录用考试《行测》题",
+        "question_id": "pq_3f3e92a0fbab003c257c",
+        "question_number": 117,
+        "source_jsonl_line": 4187
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年云南省公务员录用考试《行测》题_images/img_0120_fb7e300a3c4f39ab.png",
+        "paper_title": "2008年云南省公务员录用考试《行测》题",
+        "question_id": "pq_12a571c3dfdc19c35c31",
+        "question_number": 118,
+        "source_jsonl_line": 4188
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年云南省公务员录用考试《行测》题_images/img_0120_fb7e300a3c4f39ab.png",
+        "paper_title": "2008年云南省公务员录用考试《行测》题",
+        "question_id": "pq_bb94c7e20814b65e5f91",
+        "question_number": 119,
+        "source_jsonl_line": 4189
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年云南省公务员录用考试《行测》题_images/img_0120_fb7e300a3c4f39ab.png",
+        "paper_title": "2008年云南省公务员录用考试《行测》题",
+        "question_id": "pq_dd8e2a9d21457b9d1f43",
+        "question_number": 120,
+        "source_jsonl_line": 4190
+      }
+    ],
+    "sha256": "227bc963c0fb5fdd9c55fc5afa60386de7cdbe5663b4ecc8c9071b61916d4253"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "原价",
+      "现价",
+      "涨跌"
+    ],
+    "corner_header": {
+      "lower_label": "品牌型号",
+      "style": "diagonal",
+      "upper_label": "品名"
+    },
+    "missing_cells": [],
+    "row_header_label": "品牌型号",
+    "rows": [
+      {
+        "display_label": "彩电｜长虹 PT4209",
+        "group": null,
+        "label": "彩电｜长虹 PT4209",
+        "unit": null,
+        "values": [
+          16990,
+          10990,
+          6000
+        ]
+      },
+      {
+        "display_label": "彩电｜长虹 LT4018",
+        "group": null,
+        "label": "彩电｜长虹 LT4018",
+        "unit": null,
+        "values": [
+          19990,
+          12990,
+          7000
+        ]
+      },
+      {
+        "display_label": "彩电｜长虹 LT4219B",
+        "group": null,
+        "label": "彩电｜长虹 LT4219B",
+        "unit": null,
+        "values": [
+          22990,
+          14990,
+          8000
+        ]
+      },
+      {
+        "display_label": "彩电｜HPCLWD40 - 4SI",
+        "group": null,
+        "label": "彩电｜HPCLWD40 - 4SI",
+        "unit": null,
+        "values": [
+          13680,
+          11968,
+          1612
+        ]
+      },
+      {
+        "display_label": "彩电｜HPCPP - 42SC",
+        "group": null,
+        "label": "彩电｜HPCPP - 42SC",
+        "unit": null,
+        "values": [
+          11800,
+          9966,
+          1834
+        ]
+      },
+      {
+        "display_label": "小家电｜格兰仕微波炉 G8023ETL - X3",
+        "group": null,
+        "label": "小家电｜格兰仕微波炉 G8023ETL - X3",
+        "unit": null,
+        "values": [
+          1198,
+          958,
+          240
+        ]
+      },
+      {
+        "display_label": "小家电｜格兰仕微波炉 C18A - DP",
+        "group": null,
+        "label": "小家电｜格兰仕微波炉 C18A - DP",
+        "unit": null,
+        "values": [
+          498,
+          188,
+          310
+        ]
+      },
+      {
+        "display_label": "小家电｜美的微波炉 KJ17C - M",
+        "group": null,
+        "label": "小家电｜美的微波炉 KJ17C - M",
+        "unit": null,
+        "values": [
+          596,
+          299,
+          297
+        ]
+      },
+      {
+        "display_label": "电冰箱｜冰箱伊莱克斯 BCD - 206E",
+        "group": null,
+        "label": "电冰箱｜冰箱伊莱克斯 BCD - 206E",
+        "unit": null,
+        "values": [
+          2200,
+          1499,
+          701
+        ]
+      },
+      {
+        "display_label": "电冰箱｜康拜恩 BC - 50D",
+        "group": null,
+        "label": "电冰箱｜康拜恩 BC - 50D",
+        "unit": null,
+        "values": [
+          510,
+          288,
+          222
+        ]
+      },
+      {
+        "display_label": "电冰箱｜荣事达 BCD - 110",
+        "group": null,
+        "label": "电冰箱｜荣事达 BCD - 110",
+        "unit": null,
+        "values": [
+          688,
+          410,
+          270
+        ]
+      },
+      {
+        "display_label": "洗衣机｜小天鹅 XFB20 - 15B",
+        "group": null,
+        "label": "洗衣机｜小天鹅 XFB20 - 15B",
+        "unit": null,
+        "values": [
+          299,
+          88,
+          211
+        ]
+      },
+      {
+        "display_label": "洗衣机｜美菱 XFB55 - 768SM",
+        "group": null,
+        "label": "洗衣机｜美菱 XFB55 - 768SM",
+        "unit": null,
+        "values": [
+          633,
+          288,
+          345
+        ]
+      },
+      {
+        "display_label": "洗衣机｜三洋 XQB50 - 149",
+        "group": null,
+        "label": "洗衣机｜三洋 XQB50 - 149",
+        "unit": null,
+        "values": [
+          980,
+          788,
+          192
+        ]
+      },
+      {
+        "display_label": "洗衣机｜老板 907XT",
+        "group": null,
+        "label": "洗衣机｜老板 907XT",
+        "unit": null,
+        "values": [
+          1217,
+          700,
+          517
+        ]
+      },
+      {
+        "display_label": "厨卫电器｜伊莱克斯 198 - EA31",
+        "group": null,
+        "label": "厨卫电器｜伊莱克斯 198 - EA31",
+        "unit": null,
+        "values": [
+          2190,
+          998,
+          1192
+        ]
+      },
+      {
+        "display_label": "厨卫电器｜万和 JS916 - 8A",
+        "group": null,
+        "label": "厨卫电器｜万和 JS916 - 8A",
+        "unit": null,
+        "values": [
+          888,
+          488,
+          400
+        ]
+      },
+      {
+        "display_label": "数码｜索尼数码摄像机 DVD803",
+        "group": null,
+        "label": "数码｜索尼数码摄像机 DVD803",
+        "unit": null,
+        "values": [
+          8258,
+          7886,
+          372
+        ]
+      },
+      {
+        "display_label": "数码｜索尼数码摄像机 HC21E",
+        "group": null,
+        "label": "数码｜索尼数码摄像机 HC21E",
+        "unit": null,
+        "values": [
+          3329,
+          3143,
+          186
+        ]
+      },
+      {
+        "display_label": "数码｜柯达数码相机 C360",
+        "group": null,
+        "label": "数码｜柯达数码相机 C360",
+        "unit": null,
+        "values": [
+          2299,
+          3088,
+          789
+        ]
+      },
+      {
+        "display_label": "电脑｜惠普笔记本 2226",
+        "group": null,
+        "label": "电脑｜惠普笔记本 2226",
+        "unit": null,
+        "values": [
+          7999,
+          7299,
+          700
+        ]
+      },
+      {
+        "display_label": "电脑｜海尔笔记本 H40",
+        "group": null,
+        "label": "电脑｜海尔笔记本 H40",
+        "unit": null,
+        "values": [
+          5999,
+          5499,
+          500
+        ]
+      },
+      {
+        "display_label": "空调｜长虹 XFR - 23GW/A (05)",
+        "group": null,
+        "label": "空调｜长虹 XFR - 23GW/A (05)",
+        "unit": null,
+        "values": [
+          1680,
+          1297,
+          383
+        ]
+      },
+      {
+        "display_label": "空调｜科龙 KFR - 26GW/S2F",
+        "group": null,
+        "label": "空调｜科龙 KFR - 26GW/S2F",
+        "unit": null,
+        "values": [
+          2660,
+          2393,
+          467
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -13,7 +13,10 @@ from app.domains.knowledge.module_vocabulary import (
     ReleasedModuleVocabulary,
     load_current_module_vocabulary,
 )
-from app.domains.learning_brain.service import LearningBrainService
+from app.domains.learning_brain.service import (
+    LearningBrainNotFoundError,
+    LearningBrainService,
+)
 
 
 @dataclass(frozen=True)
@@ -43,6 +46,7 @@ class CompanionContextRecord:
     consecutive_days: int | None = None
     xp: int | None = None
     learning_brain_profile: dict[str, object] | None = None
+    learner_coach_context: dict[str, object] | None = None
     today_practice_answers: int = 0
     today_wrong_answers: int = 0
 
@@ -581,34 +585,17 @@ class CompanionRepository:
             .mappings()
             .one_or_none()
         )
-        learning_brain = (
-            self._session.execute(
-                text(
-                    """
-                select profile_version_id, version_no, readiness,
-                       ability_snapshot, evidence_summary, module_abilities,
-                       error_patterns, decision_summary, conflicts,
-                       input_fingerprint, generated_at, valid_until
-                  from learning.learner_brain_profile_versions profile
-                 where profile.user_id = cast(:user_id as uuid)
-                   and not exists (
-                     select 1
-                       from learning.learner_brain_profile_versions successor
-                      where successor.supersedes_profile_version_id =
-                            profile.profile_version_id
-                   )
-                 order by profile.version_no desc
-                 limit 1
-                """
-                ),
-                {"user_id": user_id},
-            )
-            .mappings()
-            .one_or_none()
-        )
-        strategy_directive = LearningBrainService().current_strategy_directive(
-            self._session,
-            user_id=user_id,
+        try:
+            learner_coach_context = LearningBrainService().get_current_coach_context(
+                self._session,
+                user_id=user_id,
+            ).model_dump(by_alias=True, mode="json")
+        except LearningBrainNotFoundError:
+            learner_coach_context = None
+        provider_coach_context = (
+            _provider_coach_context_payload(learner_coach_context)
+            if learner_coach_context is not None
+            else None
         )
         return CompanionContextRecord(
             target_exam=profile["target_exam"] if profile else None,
@@ -673,28 +660,11 @@ class CompanionRepository:
             else None,
             xp=int(rank["xp"]) if rank and rank["xp"] is not None else None,
             learning_brain_profile=(
-                {
-                    "profileVersionId": str(learning_brain["profile_version_id"]),
-                    "versionNo": int(learning_brain["version_no"]),
-                    "readiness": str(learning_brain["readiness"]),
-                    "ability": dict(learning_brain["ability_snapshot"]),
-                    "evidenceSummary": dict(learning_brain["evidence_summary"]),
-                    "modules": _relabel_display_name(learning_brain["module_abilities"]),
-                    "errorPatterns": _relabel_display_name(learning_brain["error_patterns"]),
-                    "decisionSummary": dict(learning_brain["decision_summary"]),
-                    "conflicts": list(learning_brain["conflicts"]),
-                    "inputFingerprint": str(learning_brain["input_fingerprint"]),
-                    "generatedAt": learning_brain["generated_at"].isoformat(),
-                    "validUntil": learning_brain["valid_until"].isoformat(),
-                    "strategyDirective": (
-                        strategy_directive.model_dump(by_alias=True, mode="json")
-                        if strategy_directive is not None
-                        else None
-                    ),
-                }
-                if learning_brain is not None
+                _legacy_learning_brain_payload(provider_coach_context)
+                if provider_coach_context is not None
                 else None
             ),
+            learner_coach_context=provider_coach_context,
         )
 
     def resolve_candidate(
@@ -1015,6 +985,31 @@ def _relabel_display_name(items: Any) -> list[dict[str, object]]:
             entry["label"] = entry.pop("displayName")
         renamed.append(entry)
     return renamed
+
+
+def _provider_coach_context_payload(
+    context_payload: dict[str, object],
+) -> dict[str, object]:
+    context = dict(context_payload)
+    provider_profile = dict(context["profile"])
+    provider_profile["modules"] = _relabel_display_name(provider_profile["modules"])
+    provider_profile["errorPatterns"] = _relabel_display_name(
+        provider_profile["errorPatterns"]
+    )
+    context["profile"] = provider_profile
+    return context
+
+
+def _legacy_learning_brain_payload(
+    coach_context: dict[str, object],
+) -> dict[str, object]:
+    legacy = dict(coach_context["profile"])
+    directive = coach_context["strategyDirective"]
+    assert isinstance(directive, dict)
+    legacy["strategyDirective"] = (
+        directive if directive.get("active") is not None or directive.get("pending") is not None else None
+    )
+    return legacy
 
 
 def _essay_review_summary(row: Any) -> dict[str, object] | None:

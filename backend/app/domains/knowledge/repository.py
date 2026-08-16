@@ -118,6 +118,7 @@ class KnowledgeRepository:
                   source_member_count
                 from product.questions
                 where question_id = :question_id
+                  and status in ('active', 'canonical')
                 """
             ),
             {"question_id": question_id},

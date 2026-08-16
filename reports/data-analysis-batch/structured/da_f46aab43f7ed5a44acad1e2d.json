@@ -1,0 +1,285 @@
+{
+  "asset_id": "da_f46aab43f7ed5a44acad1e2d",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2016年423联考《行测》题（四川卷）_images/img_0127_d30c02f89f0b6d9f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0127_d30c02f89f0b6d9f.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_1ed2f2d348bfa61d7770",
+        "question_number": 96,
+        "source_jsonl_line": 15311
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0131_d83eee13219db746.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_9adc0f1f89116090d5a2",
+        "question_number": 97,
+        "source_jsonl_line": 15312
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0131_d83eee13219db746.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_0da07a85bc1435787802",
+        "question_number": 98,
+        "source_jsonl_line": 15313
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0127_d30c02f89f0b6d9f.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_baa3b4142154f5837aef",
+        "question_number": 99,
+        "source_jsonl_line": 15314
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（四川卷）_images/img_0127_d30c02f89f0b6d9f.png",
+        "paper_title": "2016年423联考《行测》题（四川卷）",
+        "question_id": "pq_817aa8ab16f5a58dbda2",
+        "question_number": 100,
+        "source_jsonl_line": 15315
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0176_d30c02f89f0b6d9f.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_f25a353187598bbc341f",
+        "question_number": 111,
+        "source_jsonl_line": 22876
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0181_d83eee13219db746.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_f3be8caaa25f6db72db5",
+        "question_number": 112,
+        "source_jsonl_line": 22877
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0176_d30c02f89f0b6d9f.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_f47095a319190d6d2d76",
+        "question_number": 113,
+        "source_jsonl_line": 22878
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0176_d30c02f89f0b6d9f.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_af4339d8d9ed5bccf704",
+        "question_number": 114,
+        "source_jsonl_line": 22879
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（天津卷）_images/img_0176_d30c02f89f0b6d9f.png",
+        "paper_title": "2016年423联考《行测》题（天津卷）",
+        "question_id": "pq_77cb6f86e502bfafc12c",
+        "question_number": 115,
+        "source_jsonl_line": 22880
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（山西卷）_images/img_0107_d30c02f89f0b6d9f.png",
+        "paper_title": "2016年423联考《行测》题（山西卷）",
+        "question_id": "pq_f161977861d76873dd5f",
+        "question_number": 106,
+        "source_jsonl_line": 32184
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（山西卷）_images/img_0113_d83eee13219db746.png",
+        "paper_title": "2016年423联考《行测》题（山西卷）",
+        "question_id": "pq_f8f45db11058fd3e53ca",
+        "question_number": 107,
+        "source_jsonl_line": 32185
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（山西卷）_images/img_0113_d83eee13219db746.png",
+        "paper_title": "2016年423联考《行测》题（山西卷）",
+        "question_id": "pq_19d08ece9c4daf31fb70",
+        "question_number": 108,
+        "source_jsonl_line": 32186
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（山西卷）_images/img_0107_d30c02f89f0b6d9f.png",
+        "paper_title": "2016年423联考《行测》题（山西卷）",
+        "question_id": "pq_ca3acf9607fa73c1144f",
+        "question_number": 109,
+        "source_jsonl_line": 32187
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（山西卷）_images/img_0107_d30c02f89f0b6d9f.png",
+        "paper_title": "2016年423联考《行测》题（山西卷）",
+        "question_id": "pq_5b79d926c0a7a70130c3",
+        "question_number": 110,
+        "source_jsonl_line": 32188
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（新疆兵团网友回忆版）_images/img_0181_d30c02f89f0b6d9f.png",
+        "paper_title": "2016年423联考《行测》题（新疆兵团网友回忆版）",
+        "question_id": "pq_5f9334482efc0f0ef1b5",
+        "question_number": 111,
+        "source_jsonl_line": 42391
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（新疆兵团网友回忆版）_images/img_0191_d83eee13219db746.png",
+        "paper_title": "2016年423联考《行测》题（新疆兵团网友回忆版）",
+        "question_id": "pq_42a55055e6f28e9d9b3b",
+        "question_number": 112,
+        "source_jsonl_line": 42392
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（新疆兵团网友回忆版）_images/img_0181_d30c02f89f0b6d9f.png",
+        "paper_title": "2016年423联考《行测》题（新疆兵团网友回忆版）",
+        "question_id": "pq_51193fd7e556cafa1aeb",
+        "question_number": 113,
+        "source_jsonl_line": 42393
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（新疆兵团网友回忆版）_images/img_0181_d30c02f89f0b6d9f.png",
+        "paper_title": "2016年423联考《行测》题（新疆兵团网友回忆版）",
+        "question_id": "pq_50e9b4da1f2c29f6f0d7",
+        "question_number": 114,
+        "source_jsonl_line": 42394
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年423联考《行测》题（新疆兵团网友回忆版）_images/img_0181_d30c02f89f0b6d9f.png",
+        "paper_title": "2016年423联考《行测》题（新疆兵团网友回忆版）",
+        "question_id": "pq_542d06e5d9f7fd8bcedc",
+        "question_number": 115,
+        "source_jsonl_line": 42395
+      }
+    ],
+    "sha256": "f46aab43f7ed5a44acad1e2d09a9ae4c4f308eac05a84734513152344c94dee6"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "延误",
+      "丢失损毁",
+      "投递服务",
+      "其他"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "企业",
+    "rows": [
+      {
+        "label": "企业1",
+        "unit": null,
+        "values": [
+          87,
+          49,
+          53,
+          -46
+        ]
+      },
+      {
+        "label": "企业2",
+        "unit": null,
+        "values": [
+          72,
+          87,
+          44,
+          -38
+        ]
+      },
+      {
+        "label": "企业3",
+        "unit": null,
+        "values": [
+          217,
+          114,
+          139,
+          -9
+        ]
+      },
+      {
+        "label": "企业4",
+        "unit": null,
+        "values": [
+          54,
+          55,
+          41,
+          -48
+        ]
+      }
+    ]
+  },
+  "title": "2015年2月对四家企业每百万件快递业务有效申诉量环比增长率",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f46aab43f7ed5a44acad1e2d/row_band_01.jpg",
+        "review-crops/da_f46aab43f7ed5a44acad1e2d/row_band_02.jpg",
+        "review-crops/da_f46aab43f7ed5a44acad1e2d/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:2.126",
+      "crop_verification_elapsed_seconds:2.746",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了第二张图中'丢失损毁'列的'企业2'行数值为87，与第三张图一致。",
+      "crop_note:确认所有数值的负号、小数点和百分号格式正确。",
+      "crop_note:确认所有缺失值保持为null，未补0。",
+      "crop_note:确认表格行列拓扑结构完整，未发生错位。",
+      "table_row_label_column_removed:企业"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

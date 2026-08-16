@@ -1,0 +1,216 @@
+{
+  "asset_id": "da_e0e67e93dad639f7d43f5dd9",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河北/2012年河北省公务员录用考试《行测》题_images/img_0073_b9c0d6a544a48ef8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年河北省公务员录用考试《行测》题_images/img_0073_b9c0d6a544a48ef8.png",
+        "paper_title": "2012年河北省公务员录用考试《行测》题",
+        "question_id": "pq_944c8905367d86965b12",
+        "question_number": 91,
+        "source_jsonl_line": 54845
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年河北省公务员录用考试《行测》题_images/img_0117_85800f068337db44.png",
+        "paper_title": "2012年河北省公务员录用考试《行测》题",
+        "question_id": "pq_8674bb0bd28cedea4dde",
+        "question_number": 92,
+        "source_jsonl_line": 54846
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年河北省公务员录用考试《行测》题_images/img_0073_b9c0d6a544a48ef8.png",
+        "paper_title": "2012年河北省公务员录用考试《行测》题",
+        "question_id": "pq_90aead75dd192570b7d9",
+        "question_number": 93,
+        "source_jsonl_line": 54847
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年河北省公务员录用考试《行测》题_images/img_0073_b9c0d6a544a48ef8.png",
+        "paper_title": "2012年河北省公务员录用考试《行测》题",
+        "question_id": "pq_5e56d8ed7f772b1ce84d",
+        "question_number": 94,
+        "source_jsonl_line": 54848
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年河北省公务员录用考试《行测》题_images/img_0073_b9c0d6a544a48ef8.png",
+        "paper_title": "2012年河北省公务员录用考试《行测》题",
+        "question_id": "pq_32a5b7a46a5ec710012c",
+        "question_number": 95,
+        "source_jsonl_line": 54849
+      }
+    ],
+    "sha256": "e0e67e93dad639f7d43f5dd969f7e696da68f8c6076aab1e449007a93eb96005"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "巴西",
+      "中国",
+      "印度",
+      "俄罗斯",
+      "南非"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "国土面积（万平方公里）",
+        "group": "国家",
+        "label": "国家｜国土面积（万平方公里）",
+        "unit": null,
+        "values": [
+          852,
+          960,
+          329,
+          1710,
+          122
+        ]
+      },
+      {
+        "display_label": "人口（万人）",
+        "group": "国家",
+        "label": "国家｜人口（万人）",
+        "unit": null,
+        "values": [
+          19070,
+          133787,
+          118211,
+          14191,
+          4999
+        ]
+      },
+      {
+        "display_label": "GDP（现价，亿美元）",
+        "group": "国家",
+        "label": "国家｜GDP（现价，亿美元）",
+        "unit": null,
+        "values": [
+          20898,
+          58790,
+          12930,
+          14651,
+          3630
+        ]
+      },
+      {
+        "display_label": "进出口总额（亿美元）",
+        "group": "国家",
+        "label": "国家｜进出口总额（亿美元）",
+        "unit": null,
+        "values": [
+          4783,
+          24466,
+          4655,
+          5439,
+          1996
+        ]
+      },
+      {
+        "display_label": "外汇储备（亿美元）",
+        "group": "国家",
+        "label": "国家｜外汇储备（亿美元）",
+        "unit": null,
+        "values": [
+          2886,
+          28473,
+          2791,
+          4058,
+          438
+        ]
+      },
+      {
+        "display_label": "原油产量（万吨）",
+        "group": "国家",
+        "label": "国家｜原油产量（万吨）",
+        "unit": null,
+        "values": [
+          10397,
+          20300,
+          3351,
+          50500,
+          259
+        ]
+      },
+      {
+        "display_label": "铁路里程（公里）",
+        "group": "国家",
+        "label": "国家｜铁路里程（公里）",
+        "unit": null,
+        "values": [
+          30837,
+          91000,
+          64000,
+          85600,
+          20953
+        ]
+      },
+      {
+        "display_label": "公共教育支出占GDP的比重（%）",
+        "group": "国家",
+        "label": "国家｜公共教育支出占GDP的比重（%）",
+        "unit": null,
+        "values": [
+          4.3,
+          3.6,
+          3.8,
+          4.3,
+          10.1
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

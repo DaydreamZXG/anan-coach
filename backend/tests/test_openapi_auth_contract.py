@@ -71,14 +71,24 @@ def test_openapi_bearer_operations_match_code_dependency_graph() -> None:
         }
     }
     code_operations = _code_bearer_operations(app)
-    assert len(code_operations) == 240
+    assert len(code_operations) == 254
     assert {
+        ("/api/v2/learning-brain/coach-context", "get"),
+        ("/api/v2/companion/coach-understanding", "get"),
+        ("/api/v2/companion/coach-rechecks", "post"),
         ("/api/v2/xfyun/speech-to-text", "post"),
         ("/api/v2/xfyun/text-to-speech", "post"),
         ("/api/v2/xingce/attempt-reviews/{review_id}/rescue", "get"),
+        ("/api/v2/xingce/attempt-reviews/{review_id}/teach-back", "post"),
+        ("/api/v2/xingce/teach-back/{session_id}", "get"),
+        ("/api/v2/xingce/teach-back/{session_id}/transfer", "post"),
         ("/api/v2/xingce/question-favorites", "get"),
         ("/api/v2/xingce/question-favorites/{question_id}", "get"),
         ("/api/v2/xingce/question-favorites/{question_id}", "put"),
+        (
+            "/api/v2/external-learning/question-books/{book_id}/practice-sessions",
+            "post",
+        ),
     }.issubset(code_operations)
     assert _openapi_bearer_operations(schema) == code_operations
     for path, path_item in schema["paths"].items():

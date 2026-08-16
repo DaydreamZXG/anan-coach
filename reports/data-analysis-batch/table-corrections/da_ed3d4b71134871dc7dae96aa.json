@@ -1,0 +1,57 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "1-12月累计金额(亿元)",
+          "1-12月累计同比增速(%)"
+        ],
+        "label": "社会消费品零售总额情况"
+      }
+    ],
+    "columns": [
+      "1-12月累计金额(亿元)",
+      "1-12月累计同比增速(%)"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "社会消费品零售总额",
+        "group": null,
+        "label": "社会消费品零售总额",
+        "unit": null,
+        "values": [
+          6582.85,
+          6.7
+        ]
+      },
+      {
+        "display_label": "其中：批发和零售业",
+        "group": null,
+        "label": "其中：批发和零售业",
+        "unit": null,
+        "values": [
+          5754.74,
+          6.1
+        ]
+      },
+      {
+        "display_label": "住宿和餐饮业",
+        "group": null,
+        "label": "住宿和餐饮业",
+        "unit": null,
+        "values": [
+          828.11,
+          11.2
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

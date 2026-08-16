@@ -29,6 +29,7 @@ from app.domains.xingce_learning.cause_agent.contracts import (
 CAUSE_AGENT_PROMPT_VERSION = "xingce-cause-prompt@v4"
 CAUSE_AGENT_SCHEMA_VERSION = "cause-candidate@v2"
 CAUSE_AGENT_PROVIDER_INPUT_VERSION = "xingce-cause-provider-input@v1"
+DEEPSEEK_CAUSE_OUTPUT_ADAPTER = "deepseek-json-object@v1"
 
 
 class CauseAgentProviderConfigurationError(RuntimeError):
@@ -213,6 +214,21 @@ class CauseAgentProvider:
             "evidence": evidence.model_dump(by_alias=True, mode="json"),
             "followupAnswer": followup_answer,
         }
+        output_adapter = _cause_output_adapter(self.model)
+        response_format = (
+            {"type": "json_object"}
+            if output_adapter == DEEPSEEK_CAUSE_OUTPUT_ADAPTER
+            else {
+                "type": "json_schema",
+                "json_schema": {
+                    "name": "xingce_cause_candidate",
+                    "strict": True,
+                    "schema": CauseAgentProviderEnvelope.model_json_schema(
+                        by_alias=True
+                    ),
+                },
+            }
+        )
         body = {
             "model": self.model,
             "messages": [
@@ -223,16 +239,12 @@ class CauseAgentProvider:
                 },
             ],
             "temperature": 0.1,
-            "response_format": {
-                "type": "json_schema",
-                "json_schema": {
-                    "name": "xingce_cause_candidate",
-                    "strict": True,
-                    "schema": CauseAgentProviderEnvelope.model_json_schema(
-                        by_alias=True
-                    ),
-                },
-            },
+            "response_format": response_format,
+            **(
+                {"thinking": {"type": "disabled"}}
+                if output_adapter == DEEPSEEK_CAUSE_OUTPUT_ADAPTER
+                else {}
+            ),
         }
         try:
             validate_minimized_external_payload(prompt)
@@ -356,3 +368,9 @@ def _usage(value: object) -> ModelTokenUsage:
         cached_input_tokens=cached,
         output_tokens=output_tokens,
     )
+
+
+def _cause_output_adapter(model: str) -> str:
+    if model.strip().casefold().startswith("deepseek-v4-"):
+        return DEEPSEEK_CAUSE_OUTPUT_ADAPTER
+    return "strict-json-schema@v1"

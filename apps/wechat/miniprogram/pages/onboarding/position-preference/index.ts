@@ -6,6 +6,10 @@ import { routes } from "../../../app/navigation/routes";
 import { PageControllerRegistry } from "../../../app/runtime/controller-registry";
 import { currentAuthSession } from "../../../auth/session";
 import {
+  markCoachEntryEvidence,
+  readCoachEntryIntent,
+} from "../../../features/onboarding/coach-entry";
+import {
   PositionPreferenceController,
   type PositionPreferenceControllerState,
 } from "../features/position-preference-controller";
@@ -164,6 +168,11 @@ function mountController(page: PositionPreferencePage): void {
     },
     onAdvance: () => {
       if (!runtimes.owns(page, runtime)) return;
+      if (readCoachEntryIntent(session.userId)?.path === "position_first") {
+        markCoachEntryEvidence(session.userId, "position_preference");
+        void wx.switchTab({ url: routes.today });
+        return;
+      }
       if (page.data.exitAfterSave) {
         page.setData({ exitAfterSave: false });
         void wx.redirectTo({ url: routes.profileArchive });

@@ -1,0 +1,227 @@
+{
+  "asset_id": "da_c6496686691421b69191da84",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 11.0,
+        "min": 9.0,
+        "ticks": [
+          9.0,
+          9.2,
+          9.4,
+          9.6,
+          9.8,
+          10.0,
+          10.2,
+          10.4,
+          10.6,
+          10.8,
+          11.0
+        ],
+        "title": "利用率",
+        "unit": "小时/日"
+      },
+      {
+        "max": 88,
+        "min": 68,
+        "ticks": [
+          68,
+          70,
+          72,
+          74,
+          76,
+          78,
+          80,
+          82,
+          84,
+          86,
+          88
+        ],
+        "title": "客座率",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "日利用率",
+      "style": {
+        "dash": "solid",
+        "fill": "blue",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "客座率",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "orange"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "日利用率",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "小时/日",
+      "values": [
+        9.2,
+        10.1,
+        9.6,
+        9.4,
+        9.2,
+        9.1,
+        9.9,
+        10.0,
+        9.4,
+        9.3,
+        9.1,
+        9.1
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "客座率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        77.5,
+        84.5,
+        84.3,
+        84.1,
+        81.2,
+        81.8,
+        83.3,
+        85.8,
+        81.8,
+        82.3,
+        80.2,
+        78.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2016年四川省公务员录用考试《行测》题（下半年）_images/img_0157_a84942168ecaf210.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0157_a84942168ecaf210.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_87e59391cb812ca4aa15",
+        "question_number": 91,
+        "source_jsonl_line": 15406
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0157_a84942168ecaf210.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_a1a27ca3886ad537152d",
+        "question_number": 92,
+        "source_jsonl_line": 15407
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0157_a84942168ecaf210.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_3e21839b83003c15ed2a",
+        "question_number": 93,
+        "source_jsonl_line": 15408
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0171_8b415de7625d7778.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_5fd33f9028c970a93f09",
+        "question_number": 94,
+        "source_jsonl_line": 15409
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年四川省公务员录用考试《行测》题（下半年）_images/img_0157_a84942168ecaf210.png",
+        "paper_title": "2016年四川省公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_a21f6090ee4629fe64aa",
+        "question_number": 95,
+        "source_jsonl_line": 15410
+      }
+    ],
+    "sha256": "c6496686691421b69191da84a16ef3c4646e580f330c183c4948dd0a5b25ebe4"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2015年民航航班日利用率和客座率",
+  "unit": "小时/日",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c6496686691421b69191da84/column_band_01.jpg",
+        "review-crops/da_c6496686691421b69191da84/column_band_02.jpg",
+        "review-crops/da_c6496686691421b69191da84/column_band_03.jpg",
+        "review-crops/da_c6496686691421b69191da84/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.754",
+      "crop_verification_elapsed_seconds:5.731",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "asset_id": "da_0eff164284c56ae6c3553e95",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 7000,
+        "min": 0,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "移动数据流量业务收入 (亿元)",
+      "style": {
+        "dash": null,
+        "fill": "#000000",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "新兴业务收入 (亿元)",
+      "style": {
+        "dash": null,
+        "fill": "#808080",
+        "marker": null,
+        "stroke": "#808080"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "移动数据流量业务收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        5984,
+        6096,
+        6204,
+        6381,
+        6397
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "新兴业务收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1084,
+        1374,
+        1737,
+        2372,
+        3072
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0155_f54c2504dd8c40dc.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0155_f54c2504dd8c40dc.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_c26db5c853bdf456d1e3",
+        "question_number": 96,
+        "source_jsonl_line": 36028
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0155_f54c2504dd8c40dc.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_1e1451f8a3d0b385d60c",
+        "question_number": 97,
+        "source_jsonl_line": 36029
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0155_f54c2504dd8c40dc.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_84b22f30dc844bbb472d",
+        "question_number": 98,
+        "source_jsonl_line": 36030
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0155_f54c2504dd8c40dc.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_fb4a35b04ea29570e192",
+        "question_number": 99,
+        "source_jsonl_line": 36031
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0184_0ad5e19b232b4b9a.png",
+        "paper_title": "2023年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_eb73fb11f0d42b14bb13",
+        "question_number": 100,
+        "source_jsonl_line": 36032
+      }
+    ],
+    "sha256": "0eff164284c56ae6c3553e95a82375935b0c13154698d6cee1ebd8eabce042de"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2018-2022年移动数据流量及新兴业务收入情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0eff164284c56ae6c3553e95/column_band_01.jpg",
+        "review-crops/da_0eff164284c56ae6c3553e95/column_band_02.jpg",
+        "review-crops/da_0eff164284c56ae6c3553e95/column_band_03.jpg",
+        "review-crops/da_0eff164284c56ae6c3553e95/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.806",
+      "crop_verification_elapsed_seconds:7.368",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2018年新兴业务收入为1084（原为1084，正确）",
+      "crop_note:修正了2019年移动数据流量业务收入为6096（原为6096，正确）",
+      "crop_note:修正了2019年新兴业务收入为1374（原为1374，正确）",
+      "crop_note:修正了2020年移动数据流量业务收入为6204（原为6204，正确）",
+      "crop_note:修正了2020年新兴业务收入为1737（原为1737，正确）",
+      "crop_note:修正了2021年移动数据流量业务收入为6381（原为6381，正确）",
+      "crop_note:修正了2021年新兴业务收入为2372（原为2372，正确）",
+      "crop_note:修正了2022年移动数据流量业务收入为6397（原为6397，正确）",
+      "crop_note:修正了2022年新兴业务收入为3072（原为3072，正确）"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

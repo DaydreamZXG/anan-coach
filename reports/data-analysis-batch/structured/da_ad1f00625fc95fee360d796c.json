@@ -1,0 +1,247 @@
+{
+  "asset_id": "da_ad1f00625fc95fee360d796c",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2012.12,
+        2013.12,
+        2014.12,
+        2015.12,
+        2016.12,
+        2017.12,
+        2018.12,
+        2020.03
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 3.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          0.5,
+          1.0,
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 16.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          4.0,
+          8.0,
+          12.0,
+          16.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2012.12",
+    "2013.12",
+    "2014.12",
+    "2015.12",
+    "2016.12",
+    "2017.12",
+    "2018.12",
+    "2020.03"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "农村网民规模 (单位：亿元)",
+      "style": {
+        "dash": "solid",
+        "fill": "#D3D3D3",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "同比增长率",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "非同比增长率",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "农村网民规模 (单位：亿元)",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1.56,
+        1.77,
+        1.78,
+        1.95,
+        2.01,
+        2.09,
+        2.22,
+        2.55
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增长率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        14.6,
+        13.5,
+        0.6,
+        9.6,
+        3.1,
+        4.0,
+        6.2,
+        14.9
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "非同比增长率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0188_91c51adde993225d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0188_91c51adde993225d.png",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_efdcec40612bb4cba739",
+        "question_number": 86,
+        "source_jsonl_line": 35318
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0203_8b7b814d778d903b.png",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_8211c76458322a264793",
+        "question_number": 87,
+        "source_jsonl_line": 35319
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0188_91c51adde993225d.png",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_474fcef2895614014c04",
+        "question_number": 88,
+        "source_jsonl_line": 35320
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0188_91c51adde993225d.png",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_5a16fa43df3790e639f9",
+        "question_number": 89,
+        "source_jsonl_line": 35321
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）_images/img_0188_91c51adde993225d.png",
+        "paper_title": "2020年广东省公务员录用考试《行测》试题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_eac0e612a9ce2b5b8c81",
+        "question_number": 90,
+        "source_jsonl_line": 35322
+      }
+    ],
+    "sha256": "ad1f00625fc95fee360d796c7c48d5f846da2fa10cde9d25f6b9c382b2d31fea"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2012-2020年我国农村网民规模及增速",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ad1f00625fc95fee360d796c/column_band_01.jpg",
+        "review-crops/da_ad1f00625fc95fee360d796c/column_band_02.jpg",
+        "review-crops/da_ad1f00625fc95fee360d796c/column_band_03.jpg",
+        "review-crops/da_ad1f00625fc95fee360d796c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:9.842",
+      "crop_verification_elapsed_seconds:6.603",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:非同比增长率在2012.12至2018.12的数据未明确标出，仅在2020.03有数据",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

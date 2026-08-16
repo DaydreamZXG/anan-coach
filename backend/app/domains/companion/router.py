@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Request, status
+from fastapi import APIRouter, Depends, Header, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
@@ -17,14 +17,17 @@ from app.domains.commerce.deps import get_commerce_service
 from app.domains.commerce.service import CommerceService
 from app.domains.companion.commands import CompanionCommandConflict
 from app.domains.companion.memory import (
+    CompanionCoachRecheckConflict,
     CompanionMemoryConflict,
-    CompanionMemoryLimitReached,
     CompanionMemoryNotFound,
     CompanionMemoryStore,
     CompanionMemoryUnsafeContent,
 )
 from app.domains.companion.repository import CompanionRepository
 from app.domains.companion.schemas import (
+    CompanionCoachRecheckCommand,
+    CompanionCoachRecheckReceipt,
+    CompanionCoachUnderstanding,
     CompanionAskRequest,
     CompanionAskResponse,
     CompanionMemoryItem,
@@ -56,6 +59,7 @@ from app.platform.http import (
     COMMON_API_ERROR_RESPONSES,
     PublicApiEnvelope,
     public_error_response,
+    public_success_envelope,
     public_success_response,
 )
 
@@ -75,6 +79,69 @@ IdempotencyKey = Annotated[
         pattern=r"^[A-Za-z0-9][A-Za-z0-9._:-]{7,159}$",
     ),
 ]
+
+
+@v2_router.get(
+    "/coach-understanding",
+    response_model=PublicApiEnvelope[CompanionCoachUnderstanding],
+)
+def get_coach_understanding(
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[CompanionCoachUnderstanding]:
+    coach = LearningBrainService().get_coach_context(
+        session,
+        user_id=current_user.user_id,
+    ).model_dump(mode="json", by_alias=True)
+    result = CompanionMemoryStore(session).coach_understanding(
+        user_id=current_user.user_id,
+        coach_context=coach,
+    )
+    session.commit()
+    return public_success_envelope(request=request, response=response, data=result)
+
+
+@v2_router.post(
+    "/coach-rechecks",
+    response_model=PublicApiEnvelope[CompanionCoachRecheckReceipt],
+)
+def request_coach_recheck(
+    command: CompanionCoachRecheckCommand,
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[CompanionCoachRecheckReceipt] | JSONResponse:
+    try:
+        coach = LearningBrainService().get_coach_context(
+            session,
+            user_id=current_user.user_id,
+        ).model_dump(mode="json", by_alias=True)
+        result = CompanionMemoryStore(session).request_coach_recheck(
+            user_id=current_user.user_id,
+            command=command,
+            coach_context=coach,
+        )
+        session.commit()
+        return public_success_envelope(request=request, response=response, data=result)
+    except CompanionMemoryNotFound as exc:
+        session.rollback()
+        return public_error_response(
+            request=request,
+            status_code=status.HTTP_404_NOT_FOUND,
+            code="coach_judgment_not_found",
+            message=str(exc),
+        )
+    except CompanionCoachRecheckConflict as exc:
+        session.rollback()
+        return public_error_response(
+            request=request,
+            status_code=status.HTTP_409_CONFLICT,
+            code="coach_recheck_conflict",
+            message=str(exc),
+        )
 
 
 def get_companion_service(
@@ -222,14 +289,6 @@ def create_companion_memory(
             status_code=status.HTTP_409_CONFLICT,
             code="memory_command_conflict",
             message="这次保存和之前的操作冲突，请刷新后再试。",
-        )
-    except CompanionMemoryLimitReached:
-        session.rollback()
-        return public_error_response(
-            request=request,
-            status_code=status.HTTP_409_CONFLICT,
-            code="memory_limit_reached",
-            message="最多保存 20 条记忆，请先删除一条。",
         )
     except CompanionMemoryUnsafeContent:
         session.rollback()

@@ -1,0 +1,261 @@
+{
+  "asset_id": "da_0131e7b7f97005323487b32b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0319_382d127bb6ba8430.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0319_382d127bb6ba8430.jpg",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_63d7743dd35be5742dc5",
+        "question_number": 126,
+        "source_jsonl_line": 49236
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0319_382d127bb6ba8430.jpg",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_58977f8b7f3a157d6f41",
+        "question_number": 127,
+        "source_jsonl_line": 49237
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0319_382d127bb6ba8430.jpg",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_51c6aa8f8b0038186a06",
+        "question_number": 128,
+        "source_jsonl_line": 49238
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0319_382d127bb6ba8430.jpg",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_0a1a664eaaafd1b005ef",
+        "question_number": 129,
+        "source_jsonl_line": 49239
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0319_382d127bb6ba8430.jpg",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_665798685753055298d7",
+        "question_number": 130,
+        "source_jsonl_line": 49240
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0252_382d127bb6ba8430.jpg",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_b02d0acf2dade4cc37f7",
+        "question_number": 116,
+        "source_jsonl_line": 49496
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0252_382d127bb6ba8430.jpg",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_7e6594849561b998c413",
+        "question_number": 117,
+        "source_jsonl_line": 49497
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0252_382d127bb6ba8430.jpg",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_e6bf087580405948ad79",
+        "question_number": 118,
+        "source_jsonl_line": 49498
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0252_382d127bb6ba8430.jpg",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_87b876defe6b27e889a5",
+        "question_number": 119,
+        "source_jsonl_line": 49499
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0252_382d127bb6ba8430.jpg",
+        "paper_title": "2021年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_06c8e551c6a5b361ba79",
+        "question_number": 120,
+        "source_jsonl_line": 49500
+      }
+    ],
+    "sha256": "0131e7b7f97005323487b32b74817ee70201f14d6290d4b3dca2f08224622a0d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2019年｜2019｜增长"
+        ],
+        "label": "2019年"
+      },
+      {
+        "columns": [
+          "2018年｜2018｜增长"
+        ],
+        "label": "2018年"
+      },
+      {
+        "columns": [
+          "2017年｜2017｜增长"
+        ],
+        "label": "2017年"
+      },
+      {
+        "columns": [
+          "2016年｜2016｜增长"
+        ],
+        "label": "2016年"
+      },
+      {
+        "columns": [
+          "2015年｜2015｜增长"
+        ],
+        "label": "2015年"
+      }
+    ],
+    "columns": [
+      "2019年｜2019｜增长",
+      "2018年｜2018｜增长",
+      "2017年｜2017｜增长",
+      "2016年｜2016｜增长",
+      "2015年｜2015｜增长"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标名称",
+    "rows": [
+      {
+        "display_label": "经济发展新动能",
+        "group": null,
+        "label": "经济发展新动能",
+        "unit": null,
+        "values": [
+          332.0,
+          269.0,
+          204.1,
+          159.1,
+          124.8
+        ]
+      },
+      {
+        "display_label": "经济活力",
+        "group": null,
+        "label": "经济活力",
+        "unit": null,
+        "values": [
+          313.6,
+          292.0,
+          266.5,
+          225.2,
+          153.5
+        ]
+      },
+      {
+        "display_label": "创新活动",
+        "group": null,
+        "label": "创新活动",
+        "unit": null,
+        "values": [
+          201.4,
+          174.2,
+          143.2,
+          126.2,
+          113.5
+        ]
+      },
+      {
+        "display_label": "网络经济",
+        "group": null,
+        "label": "网络经济",
+        "unit": null,
+        "values": [
+          856.5,
+          603.0,
+          362.1,
+          199.9,
+          136.3
+        ]
+      },
+      {
+        "display_label": "转型升级",
+        "group": null,
+        "label": "转型升级",
+        "unit": null,
+        "values": [
+          141.4,
+          140.0,
+          120.4,
+          119.3,
+          107.9
+        ]
+      },
+      {
+        "display_label": "知识能力",
+        "group": null,
+        "label": "知识能力",
+        "unit": null,
+        "values": [
+          147.2,
+          135.9,
+          128.5,
+          125.1,
+          112.6
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

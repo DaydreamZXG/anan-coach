@@ -1,0 +1,323 @@
+{
+  "asset_id": "da_d07b5b4ec1010917feea4f7d",
+  "axes": {
+    "x": {
+      "max": 9,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 35,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35
+        ],
+        "title": null,
+        "unit": "亿亩"
+      },
+      {
+        "max": 200,
+        "min": 60,
+        "ticks": [
+          60,
+          80,
+          100,
+          120,
+          140,
+          160,
+          180,
+          200
+        ],
+        "title": null,
+        "unit": "亿立方米"
+      }
+    ]
+  },
+  "categories": [
+    "第1次",
+    "第2次",
+    "第3次",
+    "第4次",
+    "第5次",
+    "第6次",
+    "第7次",
+    "第8次",
+    "第9次"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "森林面积",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "森林蓄积量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "森林面积",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿亩",
+      "values": [
+        18.28,
+        17.29,
+        18.7,
+        20.06,
+        23.84,
+        26.24,
+        29.32,
+        31.15,
+        33.07
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "森林蓄积量",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿立方米",
+      "values": [
+        86.56,
+        90.28,
+        91.41,
+        101.37,
+        101.37,
+        124.56,
+        137.21,
+        151.37,
+        175.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0123_d010445ec1790064.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0123_d010445ec1790064.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_884a3695a20eb039a9bc",
+        "question_number": 91,
+        "source_jsonl_line": 35723
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0160_03db0d2b3be4e64d.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_32b8654df52e58814b48",
+        "question_number": 92,
+        "source_jsonl_line": 35724
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0123_d010445ec1790064.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_d67677d31912a1a0a7ab",
+        "question_number": 93,
+        "source_jsonl_line": 35725
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0160_03db0d2b3be4e64d.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_a05a7d34dad8e2e9548a",
+        "question_number": 94,
+        "source_jsonl_line": 35726
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0123_d010445ec1790064.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_d079ef4ea9712a90c0bc",
+        "question_number": 95,
+        "source_jsonl_line": 35727
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0127_d010445ec1790064.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_472e10c8cb1f87997915",
+        "question_number": 91,
+        "source_jsonl_line": 35823
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0127_d010445ec1790064.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_1bb5f1539d97ef3632d3",
+        "question_number": 92,
+        "source_jsonl_line": 35824
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0127_d010445ec1790064.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_3c7eefe0ac88e90e152d",
+        "question_number": 93,
+        "source_jsonl_line": 35825
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0127_d010445ec1790064.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_b524e7b7dcd867e51326",
+        "question_number": 94,
+        "source_jsonl_line": 35826
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）_images/img_0127_d010445ec1790064.png",
+        "paper_title": "2022年广东省公务员录用考试《行测》题（县级卷）（网友回忆版）",
+        "question_id": "pq_0693fd105232cda8c0e6",
+        "question_number": 95,
+        "source_jsonl_line": 35827
+      }
+    ],
+    "sha256": "d07b5b4ec1010917feea4f7db9a29cfe421ec7418ed897ddaf6c33ffa697bdfb"
+  },
+  "structured_visual": null,
+  "table": {
+    "columns": [
+      "森林面积",
+      "森林蓄积量"
+    ],
+    "rows": [
+      {
+        "label": "第1次",
+        "values": [
+          18.28,
+          86.56
+        ]
+      },
+      {
+        "label": "第2次",
+        "values": [
+          17.29,
+          90.28
+        ]
+      },
+      {
+        "label": "第3次",
+        "values": [
+          18.7,
+          91.41
+        ]
+      },
+      {
+        "label": "第4次",
+        "values": [
+          20.06,
+          101.37
+        ]
+      },
+      {
+        "label": "第5次",
+        "values": [
+          23.84,
+          101.37
+        ]
+      },
+      {
+        "label": "第6次",
+        "values": [
+          26.24,
+          124.56
+        ]
+      },
+      {
+        "label": "第7次",
+        "values": [
+          29.32,
+          137.21
+        ]
+      },
+      {
+        "label": "第8次",
+        "values": [
+          31.15,
+          151.37
+        ]
+      },
+      {
+        "label": "第9次",
+        "values": [
+          33.07,
+          175.6
+        ]
+      }
+    ]
+  },
+  "title": "森林资源清查面积蓄积变化",
+  "unit": "亿亩",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d07b5b4ec1010917feea4f7d/column_band_01.jpg",
+        "review-crops/da_d07b5b4ec1010917feea4f7d/column_band_02.jpg",
+        "review-crops/da_d07b5b4ec1010917feea4f7d/column_band_03.jpg",
+        "review-crops/da_d07b5b4ec1010917feea4f7d/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.263",
+      "crop_verification_elapsed_seconds:4.614",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "table_row_label_column_removed:<blank>"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

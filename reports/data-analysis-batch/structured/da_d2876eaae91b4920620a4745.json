@@ -1,0 +1,347 @@
+{
+  "asset_id": "da_d2876eaae91b4920620a4745",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0085_23cdd9807296d60d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0085_23cdd9807296d60d.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_bf472db9d55747d0a23e",
+        "question_number": 86,
+        "source_jsonl_line": 90436
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0085_23cdd9807296d60d.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_5fbbcfe5ea564b1e2b57",
+        "question_number": 87,
+        "source_jsonl_line": 90437
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0085_23cdd9807296d60d.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_4f36c742964e5f471967",
+        "question_number": 88,
+        "source_jsonl_line": 90438
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0085_23cdd9807296d60d.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_d35f611070da7c8824d8",
+        "question_number": 89,
+        "source_jsonl_line": 90439
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0085_23cdd9807296d60d.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_06160c8b44d30dd0fa20",
+        "question_number": 90,
+        "source_jsonl_line": 90440
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0085_23cdd9807296d60d.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_2b0d245c3777afc2bc4f",
+        "question_number": 86,
+        "source_jsonl_line": 95929
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0085_23cdd9807296d60d.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_f8dd0a00f97fc94be542",
+        "question_number": 87,
+        "source_jsonl_line": 95930
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0085_23cdd9807296d60d.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_834514fc15757687b4c7",
+        "question_number": 88,
+        "source_jsonl_line": 95931
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0085_23cdd9807296d60d.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_1885c65b730d33d02f9c",
+        "question_number": 89,
+        "source_jsonl_line": 95932
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0085_23cdd9807296d60d.png",
+        "paper_title": "2024年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_8d2ac829288fdfe9e48e",
+        "question_number": 90,
+        "source_jsonl_line": 95933
+      }
+    ],
+    "sha256": "d2876eaae91b4920620a4745dc54c437f62d1ff48558ebdc502d4a31aa67967c"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "投入金额｜第1列",
+      "投入强度｜第2列",
+      "地区｜第3列",
+      "投入金额｜第4列",
+      "投入强度｜第5列"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          2629.3,
+          6.53,
+          "湖北",
+          1160.2,
+          2.32
+        ]
+      },
+      {
+        "display_label": "天津",
+        "group": null,
+        "label": "天津",
+        "unit": null,
+        "values": [
+          574.3,
+          3.66,
+          "湖南",
+          1028.9,
+          2.23
+        ]
+      },
+      {
+        "display_label": "河北",
+        "group": null,
+        "label": "河北",
+        "unit": null,
+        "values": [
+          745.5,
+          1.85,
+          "广东",
+          4002.2,
+          3.22
+        ]
+      },
+      {
+        "display_label": "山西",
+        "group": null,
+        "label": "山西",
+        "unit": null,
+        "values": [
+          251.9,
+          1.12,
+          "广西",
+          199.5,
+          0.81
+        ]
+      },
+      {
+        "display_label": "内蒙古",
+        "group": null,
+        "label": "内蒙古",
+        "unit": null,
+        "values": [
+          190.1,
+          0.93,
+          "海南",
+          47.0,
+          0.73
+        ]
+      },
+      {
+        "display_label": "辽宁",
+        "group": null,
+        "label": "辽宁",
+        "unit": null,
+        "values": [
+          600.4,
+          2.18,
+          "重庆",
+          603.8,
+          2.16
+        ]
+      },
+      {
+        "display_label": "吉林",
+        "group": null,
+        "label": "吉林",
+        "unit": null,
+        "values": [
+          183.7,
+          1.39,
+          "四川",
+          1214.5,
+          2.26
+        ]
+      },
+      {
+        "display_label": "黑龙江",
+        "group": null,
+        "label": "黑龙江",
+        "unit": null,
+        "values": [
+          194.6,
+          1.31,
+          "贵州",
+          180.4,
+          0.92
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          1819.8,
+          4.21,
+          "云南",
+          281.9,
+          1.04
+        ]
+      },
+      {
+        "display_label": "江苏",
+        "group": null,
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          3438.6,
+          2.95,
+          "西藏",
+          6.0,
+          0.29
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": null,
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          2157.7,
+          2.94,
+          "陕西",
+          700.6,
+          2.35
+        ]
+      },
+      {
+        "display_label": "安徽",
+        "group": null,
+        "label": "安徽",
+        "unit": null,
+        "values": [
+          1006.1,
+          2.34,
+          "甘肃",
+          129.5,
+          1.26
+        ]
+      },
+      {
+        "display_label": "福建",
+        "group": null,
+        "label": "福建",
+        "unit": null,
+        "values": [
+          968.6,
+          1.98,
+          "青海",
+          26.8,
+          0.8
+        ]
+      },
+      {
+        "display_label": "江西",
+        "group": null,
+        "label": "江西",
+        "unit": null,
+        "values": [
+          502.2,
+          1.7,
+          "宁夏",
+          70.4,
+          1.56
+        ]
+      },
+      {
+        "display_label": "山东",
+        "group": null,
+        "label": "山东",
+        "unit": null,
+        "values": [
+          1944.7,
+          2.34,
+          "新疆",
+          78.3,
+          0.49
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

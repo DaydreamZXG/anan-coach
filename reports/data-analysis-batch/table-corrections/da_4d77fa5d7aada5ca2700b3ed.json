@@ -1,0 +1,93 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "人均居住面积（平方米）｜城镇",
+      "人均居住面积（平方米）｜农村牧区",
+      "平均每百户家用汽车拥有量（辆）｜城镇",
+      "平均每百户家用汽车拥有量（辆）｜农村牧区",
+      "平均每百户移动电话拥有量（部）｜城镇",
+      "平均每百户移动电话拥有量（部）｜农村牧区"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "人均居住面积（平方米）｜2012年末",
+        "group": null,
+        "label": "人均居住面积（平方米）｜2012年末",
+        "unit": null,
+        "values": [
+          29.89,
+          24.9,
+          23.58,
+          9.27,
+          206.11,
+          201.65
+        ]
+      },
+      {
+        "display_label": "人均居住面积（平方米）｜2013年末",
+        "group": null,
+        "label": "人均居住面积（平方米）｜2013年末",
+        "unit": null,
+        "values": [
+          29.6,
+          26.01,
+          23.72,
+          15.31,
+          202.63,
+          194.55
+        ]
+      },
+      {
+        "display_label": "人均居住面积（平方米）｜2014年末",
+        "group": null,
+        "label": "人均居住面积（平方米）｜2014年末",
+        "unit": null,
+        "values": [
+          30.65,
+          25.8,
+          28.71,
+          17.12,
+          212.13,
+          206.74
+        ]
+      },
+      {
+        "display_label": "人均居住面积（平方米）｜2015年末",
+        "group": null,
+        "label": "人均居住面积（平方米）｜2015年末",
+        "unit": null,
+        "values": [
+          31.39,
+          26.07,
+          32.12,
+          23.08,
+          216.91,
+          220.58
+        ]
+      },
+      {
+        "display_label": "人均居住面积（平方米）｜2016年末",
+        "group": null,
+        "label": "人均居住面积（平方米）｜2016年末",
+        "unit": null,
+        "values": [
+          32.2,
+          27.4,
+          38.48,
+          27.29,
+          222.21,
+          231.53
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

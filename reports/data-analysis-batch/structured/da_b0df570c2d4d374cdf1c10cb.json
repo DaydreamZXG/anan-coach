@@ -1,0 +1,178 @@
+{
+  "asset_id": "da_b0df570c2d4d374cdf1c10cb",
+  "axes": {
+    "x": {
+      "max": 4,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 2000,
+        "min": 0,
+        "ticks": [
+          0,
+          500,
+          1000,
+          1500,
+          2000
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "乐透数字型",
+    "竞猜型",
+    "即开型",
+    "基诺型和视频型"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2021年销售额",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "2022年销售额",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2021",
+      "label": "2021年销售额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1618.9,
+        1343.2,
+        543.9,
+        226.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2022",
+      "label": "2022年销售额",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        1554.2,
+        1809.3,
+        594.5,
+        288.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2023年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0059_42abf92dcbe669ae.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0059_42abf92dcbe669ae.jpg",
+        "paper_title": "2023年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5cfc7cd00a7fc41de002",
+        "question_number": 91,
+        "source_jsonl_line": 13607
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0056_b818600e51b64506.jpg",
+        "paper_title": "2023年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6f814a376712212ddc24",
+        "question_number": 92,
+        "source_jsonl_line": 13608
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0056_b818600e51b64506.jpg",
+        "paper_title": "2023年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2ef433e985d7218081f2",
+        "question_number": 93,
+        "source_jsonl_line": 13609
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0059_42abf92dcbe669ae.jpg",
+        "paper_title": "2023年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_67dc7095bca1749883f1",
+        "question_number": 94,
+        "source_jsonl_line": 13610
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年吉林省公务员录用考试《行测》题（网友回忆版）_images/img_0059_42abf92dcbe669ae.jpg",
+        "paper_title": "2023年吉林省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_256b5a9ae02f01d45574",
+        "question_number": 95,
+        "source_jsonl_line": 13611
+      }
+    ],
+    "sha256": "b0df570c2d4d374cdf1c10cbaf97ba322d5b3c4594149706681d4b9c4867baa7"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2021年和2022年各类型彩票销售额",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b0df570c2d4d374cdf1c10cb/column_band_01.jpg",
+        "review-crops/da_b0df570c2d4d374cdf1c10cb/column_band_02.jpg",
+        "review-crops/da_b0df570c2d4d374cdf1c10cb/column_band_03.jpg",
+        "review-crops/da_b0df570c2d4d374cdf1c10cb/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.61",
+      "crop_verification_elapsed_seconds:2.991",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

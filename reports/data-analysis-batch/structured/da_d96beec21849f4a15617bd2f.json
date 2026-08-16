@@ -1,0 +1,200 @@
+{
+  "asset_id": "da_d96beec21849f4a15617bd2f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 1500,
+        "min": 0,
+        "ticks": [],
+        "title": null,
+        "unit": "万元"
+      }
+    ]
+  },
+  "categories": [
+    "甲企业",
+    "乙企业",
+    "丙企业",
+    "丁企业"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "材料",
+      "style": {
+        "dash": null,
+        "fill": "hatch",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "费用",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "工资",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "材料",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        900,
+        600,
+        650,
+        741
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "费用",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        350,
+        350,
+        360,
+        286
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "工资",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万元",
+      "values": [
+        250,
+        50,
+        210,
+        273
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山西/2009年山西省党群机关录用考试《行测》题_images/img_0158_b811ae6a17afa8a6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山西省党群机关录用考试《行测》题_images/img_0158_b811ae6a17afa8a6.png",
+        "paper_title": "2009年山西省党群机关录用考试《行测》题",
+        "question_id": "pq_dc99057c9ebbf6c940ef",
+        "question_number": 131,
+        "source_jsonl_line": 31190
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山西省党群机关录用考试《行测》题_images/img_0159_bbf2cf29c92cb9e8.png",
+        "paper_title": "2009年山西省党群机关录用考试《行测》题",
+        "question_id": "pq_51df65ef1850e050a875",
+        "question_number": 132,
+        "source_jsonl_line": 31191
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山西省党群机关录用考试《行测》题_images/img_0158_b811ae6a17afa8a6.png",
+        "paper_title": "2009年山西省党群机关录用考试《行测》题",
+        "question_id": "pq_a585bf7d2a34e3b878b7",
+        "question_number": 133,
+        "source_jsonl_line": 31192
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山西省党群机关录用考试《行测》题_images/img_0158_b811ae6a17afa8a6.png",
+        "paper_title": "2009年山西省党群机关录用考试《行测》题",
+        "question_id": "pq_90005616c245f1f36029",
+        "question_number": 134,
+        "source_jsonl_line": 31193
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年山西省党群机关录用考试《行测》题_images/img_0158_b811ae6a17afa8a6.png",
+        "paper_title": "2009年山西省党群机关录用考试《行测》题",
+        "question_id": "pq_bd1b2806c02f9ab79ebb",
+        "question_number": 135,
+        "source_jsonl_line": 31194
+      }
+    ],
+    "sha256": "d96beec21849f4a15617bd2f46e1e6c42d34c2e9f9d39191efa00209f3fba8a0"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": "万元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d96beec21849f4a15617bd2f/column_band_01.jpg",
+        "review-crops/da_d96beec21849f4a15617bd2f/column_band_02.jpg",
+        "review-crops/da_d96beec21849f4a15617bd2f/column_band_03.jpg",
+        "review-crops/da_d96beec21849f4a15617bd2f/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.583",
+      "crop_verification_elapsed_seconds:2.864",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

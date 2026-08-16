@@ -1,0 +1,255 @@
+{
+  "asset_id": "da_6bcd16b93fa7d0bf3c8669d9",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 25000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000
+        ],
+        "title": null,
+        "unit": "万人"
+      },
+      {
+        "max": 500,
+        "min": 0,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500
+        ],
+        "title": null,
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2004年",
+    "2005年",
+    "2006年",
+    "2007年",
+    "2008年",
+    "2009年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "用户规模（万人）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "市场收入规模（亿元）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "用户规模（万人）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        1511,
+        2784,
+        4483,
+        5028,
+        10049,
+        20514
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "市场收入规模（亿元）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        29,
+        54,
+        69,
+        118,
+        205,
+        388
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2011年内蒙古自治区公务员录用考试《行测》题_images/img_0137_37ee983b5a4d4885.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年内蒙古自治区公务员录用考试《行测》题_images/img_0137_37ee983b5a4d4885.png",
+        "paper_title": "2011年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_5f3ed63b9599c4148619",
+        "question_number": 116,
+        "source_jsonl_line": 6795
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年内蒙古自治区公务员录用考试《行测》题_images/img_0135_d559a54595bcf019.png",
+        "paper_title": "2011年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_1c2f0f488680718c3fa7",
+        "question_number": 117,
+        "source_jsonl_line": 6796
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年内蒙古自治区公务员录用考试《行测》题_images/img_0137_37ee983b5a4d4885.png",
+        "paper_title": "2011年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_3d539c974f214784b17c",
+        "question_number": 118,
+        "source_jsonl_line": 6797
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年内蒙古自治区公务员录用考试《行测》题_images/img_0137_37ee983b5a4d4885.png",
+        "paper_title": "2011年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_a4c61db0c1baf4aa3b65",
+        "question_number": 119,
+        "source_jsonl_line": 6798
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年内蒙古自治区公务员录用考试《行测》题_images/img_0137_37ee983b5a4d4885.png",
+        "paper_title": "2011年内蒙古自治区公务员录用考试《行测》题",
+        "question_id": "pq_59abd06b82a1b530c811",
+        "question_number": 120,
+        "source_jsonl_line": 6799
+      }
+    ],
+    "sha256": "6bcd16b93fa7d0bf3c8669d9da996fbc8974495a64176609a36754bcf8d59902"
+  },
+  "structured_visual": null,
+  "table": {
+    "columns": [
+      "年份",
+      "用户规模（万人）",
+      "市场收入规模（亿元）"
+    ],
+    "rows": [
+      {
+        "label": "2004年",
+        "values": [
+          "2004年",
+          1511,
+          29
+        ]
+      },
+      {
+        "label": "2005年",
+        "values": [
+          "2005年",
+          2784,
+          54
+        ]
+      },
+      {
+        "label": "2006年",
+        "values": [
+          "2006年",
+          4483,
+          69
+        ]
+      },
+      {
+        "label": "2007年",
+        "values": [
+          "2007年",
+          5028,
+          118
+        ]
+      },
+      {
+        "label": "2008年",
+        "values": [
+          "2008年",
+          10049,
+          205
+        ]
+      },
+      {
+        "label": "2009年",
+        "values": [
+          "2009年",
+          20514,
+          388
+        ]
+      }
+    ]
+  },
+  "title": "2004—2009年我国移动互联网用户及行业收入规模",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6bcd16b93fa7d0bf3c8669d9/column_band_01.jpg",
+        "review-crops/da_6bcd16b93fa7d0bf3c8669d9/column_band_02.jpg",
+        "review-crops/da_6bcd16b93fa7d0bf3c8669d9/column_band_03.jpg",
+        "review-crops/da_6bcd16b93fa7d0bf3c8669d9/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.484",
+      "crop_verification_elapsed_seconds:3.912",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

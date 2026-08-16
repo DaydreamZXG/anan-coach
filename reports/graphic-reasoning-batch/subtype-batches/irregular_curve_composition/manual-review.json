@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "graphic-reasoning-manual-visual-review-v1",
+  "subtype": "irregular_curve_composition",
+  "status": "all_candidates_rejected_pending_typed_geometry",
+  "reviewedAssets": 6,
+  "finalAcceptedAssets": 0,
+  "decisions": [
+    {
+      "assetId": "gr_3c67a321d6f60ea47cfa8497",
+      "status": "repair_pending",
+      "reasons": ["text_must_be_textGlyph", "arrowheads_require_directional_symbol", "line_curve_types_not_yet_verified"]
+    },
+    {
+      "assetId": "gr_592ad62d4c602460c0adfd4b",
+      "status": "repair_pending",
+      "reasons": ["straight_curve_corner_types_not_yet_verified"]
+    },
+    {
+      "assetId": "gr_8076be3209fc6a7f26829c44",
+      "status": "repair_pending",
+      "reasons": ["straight_line_and_corner_angles_not_yet_verified"]
+    },
+    {
+      "assetId": "gr_b4ea0706506ffd28acf0d255",
+      "status": "repair_pending",
+      "reasons": ["junction_degrees_and_straight_line_types_not_yet_verified"]
+    },
+    {
+      "assetId": "gr_bd83acb0e33bd0802a55cc62",
+      "status": "repair_pending",
+      "reasons": ["mixed_straight_curve_types_not_yet_verified", "corner_angles_not_yet_verified"]
+    },
+    {
+      "assetId": "gr_f8e0f84896acc17e166a2542",
+      "status": "repair_pending",
+      "reasons": ["orthogonal_line_and_right_angle_constraints_not_yet_verified"]
+    }
+  ],
+  "gate": "Continuous redraw and raster similarity are insufficient. Every edge must have a verified primitive type; right angles, glyphs, and directional symbols must be represented explicitly before acceptance."
+}

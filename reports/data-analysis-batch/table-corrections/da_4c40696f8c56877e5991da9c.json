@@ -1,0 +1,186 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2010年｜进口量",
+          "2010年｜占世界比重"
+        ],
+        "label": "2010年"
+      },
+      {
+        "columns": [
+          "2016年｜进口量",
+          "2016年｜占世界比重"
+        ],
+        "label": "2016年"
+      },
+      {
+        "columns": [
+          "2010年｜出口量",
+          "2010年｜占世界比重"
+        ],
+        "label": "2010年"
+      },
+      {
+        "columns": [
+          "2016年｜出口量",
+          "2016年｜占世界比重"
+        ],
+        "label": "2016年"
+      }
+    ],
+    "columns": [
+      "2010年｜进口量",
+      "2010年｜占世界比重",
+      "2016年｜进口量",
+      "2016年｜占世界比重",
+      "2010年｜出口量",
+      "2010年｜占世界比重",
+      "2016年｜出口量",
+      "2016年｜占世界比重"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "占世界比重",
+      "style": "diagonal",
+      "upper_label": "出口量"
+    },
+    "missing_cells": [],
+    "row_header_label": "占世界比重",
+    "rows": [
+      {
+        "display_label": "北美",
+        "group": null,
+        "label": "北美",
+        "unit": null,
+        "values": [
+          10627,
+          24.7,
+          8768,
+          19.5,
+          1520,
+          3.7,
+          3262,
+          7.4
+        ]
+      },
+      {
+        "display_label": "拉丁美洲",
+        "group": null,
+        "label": "拉丁美洲",
+        "unit": null,
+        "values": [
+          1381,
+          3.2,
+          837,
+          1.9,
+          4624,
+          11.2,
+          5122,
+          11.6
+        ]
+      },
+      {
+        "display_label": "东欧",
+        "group": null,
+        "label": "东欧",
+        "unit": null,
+        "values": [
+          1850,
+          4.3,
+          1771,
+          3.9,
+          7273,
+          17.7,
+          7382,
+          16.7
+        ]
+      },
+      {
+        "display_label": "西欧",
+        "group": null,
+        "label": "西欧",
+        "unit": null,
+        "values": [
+          10625,
+          24.7,
+          10303,
+          22.9,
+          2555,
+          6.2,
+          2096,
+          4.7
+        ]
+      },
+      {
+        "display_label": "中东",
+        "group": null,
+        "label": "中东",
+        "unit": null,
+        "values": [
+          519,
+          1.2,
+          501,
+          1.1,
+          15988,
+          38.8,
+          19211,
+          43.5
+        ]
+      },
+      {
+        "display_label": "非洲",
+        "group": null,
+        "label": "非洲",
+        "unit": null,
+        "values": [
+          805,
+          1.9,
+          653,
+          1.5,
+          7635,
+          18.6,
+          5747,
+          13.0
+        ]
+      },
+      {
+        "display_label": "亚太地区",
+        "group": null,
+        "label": "亚太地区",
+        "unit": null,
+        "values": [
+          17269,
+          40.1,
+          22074,
+          49.2,
+          1565,
+          3.8,
+          1356,
+          3.1
+        ]
+      },
+      {
+        "display_label": "世界",
+        "group": null,
+        "label": "世界",
+        "unit": null,
+        "values": [
+          43075,
+          100.0,
+          44908,
+          100.0,
+          41159,
+          100.0,
+          44175,
+          100.0
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

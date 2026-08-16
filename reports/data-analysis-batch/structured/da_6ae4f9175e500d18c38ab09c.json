@@ -1,0 +1,161 @@
+{
+  "asset_id": "da_6ae4f9175e500d18c38ab09c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0175_19159d4b38cdd905.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0175_19159d4b38cdd905.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_64df1385b3cff4442b6b",
+        "question_number": 91,
+        "source_jsonl_line": 34923
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0175_19159d4b38cdd905.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_b80255269e2829957a39",
+        "question_number": 92,
+        "source_jsonl_line": 34924
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0197_b18066a31ee602e3.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_75b63aaf1e7887c1bd6d",
+        "question_number": 93,
+        "source_jsonl_line": 34925
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0175_19159d4b38cdd905.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_de0cfa98941690cbcba0",
+        "question_number": 94,
+        "source_jsonl_line": 34926
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）_images/img_0175_19159d4b38cdd905.png",
+        "paper_title": "2017年广东省公务员录用考试《行测》题（县级、乡镇统一卷）",
+        "question_id": "pq_fd09dae03fb7953e7d59",
+        "question_number": 95,
+        "source_jsonl_line": 34927
+      }
+    ],
+    "sha256": "6ae4f9175e500d18c38ab09ca966abd0737184000064fc7a12ed143b15644f0d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "民营经济增加值（亿元）",
+      "增速（%）",
+      "占地区生产总值比重（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "珠三角",
+        "unit": null,
+        "values": [
+          "珠三角",
+          31529.6,
+          8.7,
+          46.4
+        ]
+      },
+      {
+        "label": "粤东",
+        "unit": null,
+        "values": [
+          "粤东",
+          4352.77,
+          8.1,
+          73.5
+        ]
+      },
+      {
+        "label": "粤西",
+        "unit": null,
+        "values": [
+          "粤西",
+          4268.21,
+          7.9,
+          65.3
+        ]
+      },
+      {
+        "label": "粤北",
+        "unit": null,
+        "values": [
+          "粤北",
+          3343.16,
+          7.6,
+          62.7
+        ]
+      }
+    ]
+  },
+  "title": "2016年广东各地区民营经济发展情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_6ae4f9175e500d18c38ab09c/row_band_01.jpg",
+        "review-crops/da_6ae4f9175e500d18c38ab09c/row_band_02.jpg",
+        "review-crops/da_6ae4f9175e500d18c38ab09c/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.212",
+      "crop_verification_elapsed_seconds:3.775",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

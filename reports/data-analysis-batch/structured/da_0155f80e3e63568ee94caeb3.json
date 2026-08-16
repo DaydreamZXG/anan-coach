@@ -1,0 +1,187 @@
+{
+  "asset_id": "da_0155f80e3e63568ee94caeb3",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2010年江西省公务员录用考试《行测》题_images/img_0148_554f866734286faa.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江西省公务员录用考试《行测》题_images/img_0148_554f866734286faa.png",
+        "paper_title": "2010年江西省公务员录用考试《行测》题",
+        "question_id": "pq_ed84e9bfd874f0052216",
+        "question_number": 101,
+        "source_jsonl_line": 51331
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江西省公务员录用考试《行测》题_images/img_0148_554f866734286faa.png",
+        "paper_title": "2010年江西省公务员录用考试《行测》题",
+        "question_id": "pq_d359b13823c017da46a6",
+        "question_number": 102,
+        "source_jsonl_line": 51332
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江西省公务员录用考试《行测》题_images/img_0160_4fe4cc56a7b95daf.png",
+        "paper_title": "2010年江西省公务员录用考试《行测》题",
+        "question_id": "pq_6bb97a2089253a165635",
+        "question_number": 103,
+        "source_jsonl_line": 51333
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江西省公务员录用考试《行测》题_images/img_0160_4fe4cc56a7b95daf.png",
+        "paper_title": "2010年江西省公务员录用考试《行测》题",
+        "question_id": "pq_fc4a299eec32c99d7baf",
+        "question_number": 104,
+        "source_jsonl_line": 51334
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2010年江西省公务员录用考试《行测》题_images/img_0160_4fe4cc56a7b95daf.png",
+        "paper_title": "2010年江西省公务员录用考试《行测》题",
+        "question_id": "pq_888490e4e0c6fbd81407",
+        "question_number": 105,
+        "source_jsonl_line": 51335
+      }
+    ],
+    "sha256": "0155f80e3e63568ee94caeb3555feaf165ca4ea104d22a6929ffbfdcf7d89559"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "指标地区",
+      "国民生产总值(亿元)",
+      "地方财政收入(亿元)",
+      "城镇固定资产投资(亿元)",
+      "城镇居民人均可支配收入(元)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "河南",
+        "unit": null,
+        "values": [
+          "河南",
+          8962.8,
+          589.93,
+          4691.52,
+          7428.62
+        ]
+      },
+      {
+        "label": "山西",
+        "unit": null,
+        "values": [
+          "山西",
+          3105.99,
+          464.26,
+          1437.49,
+          6858.54
+        ]
+      },
+      {
+        "label": "安徽",
+        "unit": null,
+        "values": [
+          "安徽",
+          4512.9,
+          419.2,
+          3752.6,
+          7133.8
+        ]
+      },
+      {
+        "label": "江西",
+        "unit": null,
+        "values": [
+          "江西",
+          2907.8,
+          295.1,
+          2182.71,
+          6922.0
+        ]
+      },
+      {
+        "label": "湖北",
+        "unit": null,
+        "values": [
+          "湖北",
+          5378.05,
+          398.33,
+          3334.8,
+          7470.0
+        ]
+      },
+      {
+        "label": "湖南",
+        "unit": null,
+        "values": [
+          "湖南",
+          5350.21,
+          722.81,
+          2689.15,
+          7748.7
+        ]
+      }
+    ]
+  },
+  "title": "2009年上半年中部地区主要经济指标",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_0155f80e3e63568ee94caeb3/row_band_01.jpg",
+        "review-crops/da_0155f80e3e63568ee94caeb3/row_band_02.jpg",
+        "review-crops/da_0155f80e3e63568ee94caeb3/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.807",
+      "crop_verification_elapsed_seconds:4.937",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

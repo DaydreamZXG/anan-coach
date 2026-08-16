@@ -1,0 +1,332 @@
+{
+  "asset_id": "da_a17f9561c67155407e0c6d4f",
+  "axes": {
+    "x": {
+      "max": 100,
+      "min": 0,
+      "ticks": [
+        0,
+        20,
+        40,
+        60,
+        80,
+        100
+      ],
+      "title": "城市",
+      "unit": "%"
+    },
+    "y": [
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ],
+        "title": "郊区",
+        "unit": "%"
+      },
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ],
+        "title": "农村",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2017年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0053_ae058592fbc36bf6.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0053_ae058592fbc36bf6.png",
+        "paper_title": "2017年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_0247742aed7e3a0a3bc9",
+        "question_number": 46,
+        "source_jsonl_line": 23184
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0054_8ea98225aaf94e10.png",
+        "paper_title": "2017年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_6ca5fecb41bd2471d2ea",
+        "question_number": 47,
+        "source_jsonl_line": 23185
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0054_8ea98225aaf94e10.png",
+        "paper_title": "2017年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_2ed81e7cb373dd35e539",
+        "question_number": 48,
+        "source_jsonl_line": 23186
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0054_8ea98225aaf94e10.png",
+        "paper_title": "2017年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_4f6d08ead8be0fd8779f",
+        "question_number": 49,
+        "source_jsonl_line": 23187
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0054_8ea98225aaf94e10.png",
+        "paper_title": "2017年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_11c9a8ff3a0e9f634b2a",
+        "question_number": 50,
+        "source_jsonl_line": 23188
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0054_ae058592fbc36bf6.png",
+        "paper_title": "2017年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_fb27f1074d24c5de47a8",
+        "question_number": 46,
+        "source_jsonl_line": 86529
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0051_8ea98225aaf94e10.png",
+        "paper_title": "2017年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_8e0f3eee1ab53e9617b7",
+        "question_number": 47,
+        "source_jsonl_line": 86530
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0054_ae058592fbc36bf6.png",
+        "paper_title": "2017年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_331981d1183b9035fc66",
+        "question_number": 48,
+        "source_jsonl_line": 86531
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0054_ae058592fbc36bf6.png",
+        "paper_title": "2017年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_e85fcebbdf7627a5cddf",
+        "question_number": 49,
+        "source_jsonl_line": 86532
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年天津市选调生选拔考试 综合知识试卷（精选）_images/img_0054_ae058592fbc36bf6.png",
+        "paper_title": "2017年天津市选调生选拔考试 综合知识试卷（精选）",
+        "question_id": "pq_c881a5d8307fb6d27c8d",
+        "question_number": 50,
+        "source_jsonl_line": 86533
+      }
+    ],
+    "sha256": "a17f9561c67155407e0c6d4f21bd4112560faa919b0f6c25a673a2bdca988c94"
+  },
+  "structured_visual": {
+    "axes": [
+      {
+        "label": "农村100%",
+        "labelPosition": {
+          "x": 345,
+          "y": 10
+        }
+      },
+      {
+        "label": "城市100%",
+        "labelPosition": {
+          "x": 45,
+          "y": 465
+        }
+      },
+      {
+        "label": "郊区100%",
+        "labelPosition": {
+          "x": 650,
+          "y": 465
+        }
+      }
+    ],
+    "caption": "某省城市、郊区、农村各类学校的分布情况图",
+    "complexity": {
+      "estimatedDrawCommandCount": 77,
+      "gridLineCount": 21,
+      "pointCount": 7,
+      "vertexCount": 3
+    },
+    "coordinateSpace": {
+      "height": 538,
+      "width": 700
+    },
+    "divisions": 7,
+    "evidence": {
+      "converterVersion": "semantic-simplex-grids-v1",
+      "geometryEngine": "human_verified_simplex_geometry",
+      "renderSha256": "45fe984b0c9e71c7a711add33e69fb8329d5c8983416973d885a3d1b5284078f",
+      "sourceAsset": "da_a17f9561c67155407e0c6d4f",
+      "sourceSha256": "a17f9561c67155407e0c6d4f21bd4112560faa919b0f6c25a673a2bdca988c94"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticSimplexGrid",
+    "layoutType": "single",
+    "points": [
+      {
+        "label": "A",
+        "labelOffset": {
+          "x": 0,
+          "y": 30
+        },
+        "position": {
+          "x": 237,
+          "y": 469
+        }
+      },
+      {
+        "label": "B",
+        "labelOffset": {
+          "x": 0,
+          "y": 24
+        },
+        "position": {
+          "x": 348,
+          "y": 410
+        }
+      },
+      {
+        "label": "C",
+        "labelOffset": {
+          "x": 8,
+          "y": 24
+        },
+        "position": {
+          "x": 455,
+          "y": 343
+        }
+      },
+      {
+        "label": "D",
+        "labelOffset": {
+          "x": 8,
+          "y": 24
+        },
+        "position": {
+          "x": 310,
+          "y": 343
+        }
+      },
+      {
+        "label": "E",
+        "labelOffset": {
+          "x": 0,
+          "y": 24
+        },
+        "position": {
+          "x": 273,
+          "y": 407
+        }
+      },
+      {
+        "label": "F",
+        "labelOffset": {
+          "x": 8,
+          "y": 24
+        },
+        "position": {
+          "x": 346,
+          "y": 282
+        }
+      },
+      {
+        "label": "G",
+        "labelOffset": {
+          "x": 28,
+          "y": -12
+        },
+        "position": {
+          "x": 199,
+          "y": 409
+        }
+      }
+    ],
+    "schemaVersion": "semantic-simplex-grids-v1",
+    "shape": "triangle",
+    "styling": {
+      "axisFontSize": 20,
+      "captionFontSize": 20,
+      "gridLineWidth": 3,
+      "outerLineWidth": 4,
+      "pointFontSize": 20,
+      "pointRadius": 10
+    },
+    "vertices": [
+      {
+        "x": 345,
+        "y": 25
+      },
+      {
+        "x": 88,
+        "y": 473
+      },
+      {
+        "x": 605,
+        "y": 473
+      }
+    ],
+    "visualGrammar": "ternary_grid"
+  },
+  "table": null,
+  "title": "某省城市、郊区、农村各类学校的分布情况图",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.755",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:图中未提供具体数值，仅能识别点位和坐标系结构",
+      "route_reason:该图为某省城市、郊区、农村各类学校的分布情况的三元坐标图，属于真实资料材料中的统计图表",
+      "route_panel_count:1",
+      "foreground_iou:0.611736",
+      "mean_absolute_error:10.582519",
+      "trace_parameters:{\"epsilonRatio\": 0.02, \"minimumContourArea\": 8.0, \"paletteSize\": 3}",
+      "visual_grammar:ternary_grid",
+      "converter:semantic-simplex-grids-v1",
+      "visual_grammar:ternary_grid",
+      "comparison_artifact:previews/structured_visual/da_a17f9561c67155407e0c6d4f-comparison.png",
+      "manual_qa:seven_division_grid_and_all_seven_point_centers_verified_against_source_pixels"
+    ],
+    "ocr_engine": "human_verified_simplex_geometry",
+    "ocr_mean_confidence": 0.94,
+    "schema_valid": true
+  }
+}

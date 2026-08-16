@@ -1,0 +1,116 @@
+{
+  "confidence": null,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "出口额（亿美元）",
+          "比上年增长（%）"
+        ],
+        "label": "出口"
+      },
+      {
+        "columns": [
+          "进口额（亿美元）",
+          "比上年增长（%）"
+        ],
+        "label": "进口"
+      }
+    ],
+    "columns": [
+      "出口额（亿美元）",
+      "比上年增长（%）",
+      "进口额（亿美元）",
+      "比上年增长（%）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "国家或地区",
+    "rows": [
+      {
+        "label": "欧盟",
+        "unit": "亿美元",
+        "values": [
+          557.7,
+          15.4,
+          111.9,
+          19.2
+        ]
+      },
+      {
+        "label": "东盟",
+        "unit": "亿美元",
+        "values": [
+          147.5,
+          34.0,
+          106.5,
+          55.0
+        ]
+      },
+      {
+        "label": "美国",
+        "unit": "亿美元",
+        "values": [
+          349.2,
+          14.7,
+          77.6,
+          26.8
+        ]
+      },
+      {
+        "label": "日本",
+        "unit": "亿美元",
+        "values": [
+          133.4,
+          26.4,
+          118.6,
+          18.4
+        ]
+      },
+      {
+        "label": "俄罗斯",
+        "unit": "亿美元",
+        "values": [
+          70.1,
+          37.1,
+          18.3,
+          49.5
+        ]
+      },
+      {
+        "label": "韩国",
+        "unit": "亿美元",
+        "values": [
+          54.5,
+          20.1,
+          87.2,
+          37.3
+        ]
+      },
+      {
+        "label": "中国香港",
+        "unit": "亿美元",
+        "values": [
+          59.4,
+          -7.8,
+          3.3,
+          30.8
+        ]
+      },
+      {
+        "label": "中国台湾",
+        "unit": "亿美元",
+        "values": [
+          23.7,
+          17.9,
+          112.4,
+          10.3
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

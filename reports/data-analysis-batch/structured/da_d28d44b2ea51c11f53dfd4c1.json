@@ -1,0 +1,221 @@
+{
+  "asset_id": "da_d28d44b2ea51c11f53dfd4c1",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 20,
+        "min": -80,
+        "ticks": [
+          -80,
+          -60,
+          -40,
+          -20,
+          0,
+          20
+        ],
+        "title": null,
+        "unit": "%"
+      },
+      {
+        "max": 300,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200,
+          250,
+          300
+        ],
+        "title": null,
+        "unit": "万辆"
+      }
+    ]
+  },
+  "categories": [
+    "2018年7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月",
+    "2019年1月",
+    "2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "销量",
+      "style": {
+        "dash": null,
+        "fill": "#696969",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "增速",
+      "style": {
+        "dash": "solid",
+        "fill": null,
+        "marker": "square",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "right",
+      "id": "series_1",
+      "label": "销量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万辆",
+      "values": [
+        130.3,
+        122.7,
+        128.1,
+        115.9,
+        120.9,
+        134.0,
+        117.2,
+        83.1,
+        142.8,
+        135.2,
+        141.1,
+        147.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        -8.6,
+        -11.1,
+        14.1,
+        -14.8,
+        -17.2,
+        -11.4,
+        -12.0,
+        -13.6,
+        -0.9,
+        -0.3,
+        -1.3,
+        6.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/四川/2024年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0165_b0c778de0682cffa.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0165_b0c778de0682cffa.png",
+        "paper_title": "2024年四川省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_405fd6b57ac8a4b30947",
+        "question_number": 96,
+        "source_jsonl_line": 16911
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0165_b0c778de0682cffa.png",
+        "paper_title": "2024年四川省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_93a79db2ea49b72f8fd9",
+        "question_number": 97,
+        "source_jsonl_line": 16912
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0174_31a5ee3eea92ac8a.png",
+        "paper_title": "2024年四川省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_239754e2bcfced8f1021",
+        "question_number": 98,
+        "source_jsonl_line": 16913
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0165_b0c778de0682cffa.png",
+        "paper_title": "2024年四川省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_95266dc6013303f9293c",
+        "question_number": 99,
+        "source_jsonl_line": 16914
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0165_b0c778de0682cffa.png",
+        "paper_title": "2024年四川省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_39a77aad383a29e58c00",
+        "question_number": 100,
+        "source_jsonl_line": 16915
+      }
+    ],
+    "sha256": "d28d44b2ea51c11f53dfd4c1ca107ac600c99ceb1e7cda1178863378508b6871"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图2 2018年7月~2019年6月 我国摩托车销量及同比增速",
+  "unit": "万辆",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_d28d44b2ea51c11f53dfd4c1/column_band_01.jpg",
+        "review-crops/da_d28d44b2ea51c11f53dfd4c1/column_band_02.jpg",
+        "review-crops/da_d28d44b2ea51c11f53dfd4c1/column_band_03.jpg",
+        "review-crops/da_d28d44b2ea51c11f53dfd4c1/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.921",
+      "crop_verification_elapsed_seconds:5.733",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_chart_point:2019年2月:销量",
+      "crop_note:ignored_unknown_chart_point:7月:增速",
+      "crop_note:ignored_unknown_chart_point:2019年2月:增速"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

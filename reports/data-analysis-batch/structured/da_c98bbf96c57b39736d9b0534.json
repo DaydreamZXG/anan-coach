@@ -1,0 +1,416 @@
+{
+  "asset_id": "da_c98bbf96c57b39736d9b0534",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "人数",
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "普通高中",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        2434.3,
+        2427.3,
+        2454.8,
+        2467.2,
+        2435.9,
+        2400.5,
+        2374.4,
+        2366.6,
+        2374.6,
+        2375.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "成人高中",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        11.5,
+        11.5,
+        26.5,
+        14.4,
+        11.1,
+        14.9,
+        6.6,
+        4.4,
+        3.9,
+        4.0
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "中等专业学校",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        840.4,
+        877.7,
+        855.2,
+        812.6,
+        772.2,
+        749.1,
+        732.7,
+        718.1,
+        713.0,
+        699.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "中等职业教育",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        161.0,
+        212.4,
+        238.7,
+        254.3,
+        230.0,
+        194.4,
+        162.2,
+        141.2,
+        127.2,
+        113.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "职业高中",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        778.4,
+        726.3,
+        681.0,
+        623.0,
+        534.2,
+        472.8,
+        439.9,
+        416.6,
+        414.1,
+        401.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "技工学校",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        414.3,
+        421.0,
+        429.4,
+        422.8,
+        386.6,
+        339.0,
+        321.5,
+        323.2,
+        338.2,
+        341.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/新疆/2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0270_b17bb0adaee0d6ac.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0270_b17bb0adaee0d6ac.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_4738f458e5591e93c6dd",
+        "question_number": 111,
+        "source_jsonl_line": 43211
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0270_b17bb0adaee0d6ac.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_82ca06cf1d1651451d37",
+        "question_number": 112,
+        "source_jsonl_line": 43212
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0280_72f5ef156a1fbef5.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_eff9fe46f2dad8b8b5b1",
+        "question_number": 113,
+        "source_jsonl_line": 43213
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0270_b17bb0adaee0d6ac.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_fe554b75de20b6533a46",
+        "question_number": 114,
+        "source_jsonl_line": 43214
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0270_b17bb0adaee0d6ac.png",
+        "paper_title": "2019年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_25d34c6b07973171461a",
+        "question_number": 115,
+        "source_jsonl_line": 43215
+      }
+    ],
+    "sha256": "c98bbf96c57b39736d9b0534dcfa2246a8f0cf877e9c699f7673430738138c80"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "普通高中",
+      "成人高中",
+      "中等专业学校",
+      "中等职业教育",
+      "职业高中",
+      "技工学校"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2009",
+        "unit": null,
+        "values": [
+          2009,
+          2434.3,
+          11.5,
+          840.4,
+          161.0,
+          778.4,
+          414.3
+        ]
+      },
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          2427.3,
+          11.5,
+          877.7,
+          212.4,
+          726.3,
+          421.0
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          2454.8,
+          26.5,
+          855.2,
+          238.7,
+          681.0,
+          429.4
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          2467.2,
+          14.4,
+          812.6,
+          254.3,
+          623.0,
+          422.8
+        ]
+      },
+      {
+        "label": "2013",
+        "unit": null,
+        "values": [
+          2013,
+          2435.9,
+          11.1,
+          772.2,
+          230.0,
+          534.2,
+          386.6
+        ]
+      },
+      {
+        "label": "2014",
+        "unit": null,
+        "values": [
+          2014,
+          2400.5,
+          14.9,
+          749.1,
+          194.4,
+          472.8,
+          339.0
+        ]
+      },
+      {
+        "label": "2015",
+        "unit": null,
+        "values": [
+          2015,
+          2374.4,
+          6.6,
+          732.7,
+          162.2,
+          439.9,
+          321.5
+        ]
+      },
+      {
+        "label": "2016",
+        "unit": null,
+        "values": [
+          2016,
+          2366.6,
+          4.4,
+          718.1,
+          141.2,
+          416.6,
+          323.2
+        ]
+      },
+      {
+        "label": "2017",
+        "unit": null,
+        "values": [
+          2017,
+          2374.6,
+          3.9,
+          713.0,
+          127.2,
+          414.1,
+          338.2
+        ]
+      },
+      {
+        "label": "2018",
+        "unit": null,
+        "values": [
+          2018,
+          2375.4,
+          4.0,
+          699.4,
+          113.1,
+          401.1,
+          341.6
+        ]
+      }
+    ]
+  },
+  "title": "2009-2018年高中阶段在校生人数构成情况",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_c98bbf96c57b39736d9b0534/row_band_01.jpg",
+        "review-crops/da_c98bbf96c57b39736d9b0534/row_band_02.jpg",
+        "review-crops/da_c98bbf96c57b39736d9b0534/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:19.233",
+      "crop_verification_elapsed_seconds:9.403",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

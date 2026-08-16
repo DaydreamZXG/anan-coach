@@ -1,0 +1,184 @@
+{
+  "asset_id": "da_500319e6fac1f7fe791e40dc",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 20,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20
+        ],
+        "title": null,
+        "unit": "亿户"
+      }
+    ]
+  },
+  "categories": [
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "移动电话用户数",
+      "style": {
+        "dash": null,
+        "fill": "darkgray",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "蜂窝物联网终端用户数",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "移动电话用户数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿户",
+      "values": [
+        14.17,
+        15.66,
+        16.01,
+        15.94,
+        16.43,
+        16.83
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "蜂窝物联网终端用户数",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿户",
+      "values": [
+        2.7,
+        6.71,
+        10.28,
+        11.36,
+        13.98,
+        18.45
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/国考/2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0166_61e596063db89935.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0166_61e596063db89935.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_72f6b9b419b59cfd3bd4",
+        "question_number": 126,
+        "source_jsonl_line": 20981
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0166_61e596063db89935.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_500ab595048942d6e7eb",
+        "question_number": 127,
+        "source_jsonl_line": 20982
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0172_05ae3df81db092cd.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_16382e34b60e90333574",
+        "question_number": 128,
+        "source_jsonl_line": 20983
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0172_05ae3df81db092cd.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_e4ad73dc937edc6fb0e6",
+        "question_number": 129,
+        "source_jsonl_line": 20984
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）_images/img_0166_61e596063db89935.png",
+        "paper_title": "2024年国家公务员录用考试《行测》题（地市级网友回忆版）",
+        "question_id": "pq_aa9e42d8159f134f0b43",
+        "question_number": 130,
+        "source_jsonl_line": 20985
+      }
+    ],
+    "sha256": "500319e6fac1f7fe791e40dc344d22e0f599b45604e009e001e2d4f20eebb7ad"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2017~2022年全国年末移动电话和蜂窝物联网终端用户数",
+  "unit": "亿户",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_500319e6fac1f7fe791e40dc/column_band_01.jpg",
+        "review-crops/da_500319e6fac1f7fe791e40dc/column_band_02.jpg",
+        "review-crops/da_500319e6fac1f7fe791e40dc/column_band_03.jpg",
+        "review-crops/da_500319e6fac1f7fe791e40dc/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.394",
+      "crop_verification_elapsed_seconds:3.86",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

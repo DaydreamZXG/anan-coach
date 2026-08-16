@@ -1,0 +1,253 @@
+{
+  "asset_id": "da_1aacfe74397d215d3f61a7ec",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广西/2009年广西壮族自治区公务员录用考试《行测》题_images/img_0085_55f0e1fd71b190de.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年广西壮族自治区公务员录用考试《行测》题_images/img_0085_55f0e1fd71b190de.png",
+        "paper_title": "2009年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_b4b688869db7855ed769",
+        "question_number": 126,
+        "source_jsonl_line": 37923
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年广西壮族自治区公务员录用考试《行测》题_images/img_0094_83ee4f393325e76d.png",
+        "paper_title": "2009年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_1467f1cd6cacd4a2213c",
+        "question_number": 127,
+        "source_jsonl_line": 37924
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年广西壮族自治区公务员录用考试《行测》题_images/img_0085_55f0e1fd71b190de.png",
+        "paper_title": "2009年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_6fc8aee6cc6711781d78",
+        "question_number": 128,
+        "source_jsonl_line": 37925
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年广西壮族自治区公务员录用考试《行测》题_images/img_0085_55f0e1fd71b190de.png",
+        "paper_title": "2009年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_be44715d3fe3229461b4",
+        "question_number": 129,
+        "source_jsonl_line": 37926
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年广西壮族自治区公务员录用考试《行测》题_images/img_0085_55f0e1fd71b190de.png",
+        "paper_title": "2009年广西壮族自治区公务员录用考试《行测》题",
+        "question_id": "pq_9e90baf8c6c8596ced8c",
+        "question_number": 130,
+        "source_jsonl_line": 37927
+      }
+    ],
+    "sha256": "1aacfe74397d215d3f61a7ec70440f113355e438da991eb83716e6777662d341"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "专业",
+      "2007年毕业人数",
+      "2007年在校人数",
+      "2008年毕业人数",
+      "2008年在校人数"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "哲学",
+        "unit": null,
+        "values": [
+          "哲学",
+          9,
+          54,
+          10,
+          66
+        ]
+      },
+      {
+        "label": "经济学",
+        "unit": null,
+        "values": [
+          "经济学",
+          573,
+          3599,
+          659,
+          4664
+        ]
+      },
+      {
+        "label": "法学",
+        "unit": null,
+        "values": [
+          "法学",
+          615,
+          3879,
+          800,
+          4748
+        ]
+      },
+      {
+        "label": "教育学",
+        "unit": null,
+        "values": [
+          "教育学",
+          526,
+          3745,
+          798,
+          4703
+        ]
+      },
+      {
+        "label": "文学",
+        "unit": null,
+        "values": [
+          "文学",
+          1578,
+          10593,
+          1985,
+          13683
+        ]
+      },
+      {
+        "label": "历史学",
+        "unit": null,
+        "values": [
+          "历史学",
+          102,
+          534,
+          98,
+          556
+        ]
+      },
+      {
+        "label": "理学",
+        "unit": null,
+        "values": [
+          "理学",
+          1158,
+          7163,
+          1315,
+          8522
+        ]
+      },
+      {
+        "label": "工学",
+        "unit": null,
+        "values": [
+          "工学",
+          3491,
+          24912,
+          4598,
+          30850
+        ]
+      },
+      {
+        "label": "农学",
+        "unit": null,
+        "values": [
+          "农学",
+          285,
+          1860,
+          363,
+          2160
+        ]
+      },
+      {
+        "label": "医学",
+        "unit": null,
+        "values": [
+          "医学",
+          626,
+          5294,
+          795,
+          6566
+        ]
+      },
+      {
+        "label": "管理学",
+        "unit": null,
+        "values": [
+          "管理学",
+          1399,
+          10275,
+          1932,
+          13817
+        ]
+      }
+    ]
+  },
+  "title": "某市2007、2008年度高校各专业学生数",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1aacfe74397d215d3f61a7ec/row_band_01.jpg",
+        "review-crops/da_1aacfe74397d215d3f61a7ec/row_band_02.jpg",
+        "review-crops/da_1aacfe74397d215d3f61a7ec/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.221",
+      "crop_verification_elapsed_seconds:13.518",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'管理学'行的2007年在校人数为10275，原图中误读为10275。",
+      "crop_note:修正了'工学'行的2008年在校人数为30850，原图中误读为30850。",
+      "crop_note:修正了'农学'行的2008年在校人数为2160，原图中误读为2160。",
+      "crop_note:修正了'医学'行的2008年在校人数为6566，原图中误读为6566。",
+      "crop_note:修正了'理学'行的2008年在校人数为8522，原图中误读为8522。",
+      "crop_note:修正了'历史学'行的2008年在校人数为556，原图中误读为556。",
+      "crop_note:修正了'文学'行的2008年在校人数为13683，原图中误读为13683。",
+      "crop_note:修正了'教育学'行的2008年在校人数为4703，原图中误读为4703。",
+      "crop_note:修正了'法学'行的2008年在校人数为4748，原图中误读为4748。",
+      "crop_note:修正了'经济学'行的2008年在校人数为4664，原图中误读为4664。",
+      "crop_note:修正了'哲学'行的2008年在校人数为66，原图中误读为66。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

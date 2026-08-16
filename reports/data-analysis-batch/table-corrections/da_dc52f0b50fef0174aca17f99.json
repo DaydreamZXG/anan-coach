@@ -1,0 +1,53 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "客运量（人次）｜第1列",
+      "航线｜第2列",
+      "客运量（人次）｜第3列"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "航线",
+    "rows": [
+      {
+        "display_label": "厦门—金门",
+        "group": null,
+        "label": "厦门—金门",
+        "unit": null,
+        "values": [
+          79289,
+          "金门—厦门",
+          81961
+        ]
+      },
+      {
+        "display_label": "马尾—马祖",
+        "group": null,
+        "label": "马尾—马祖",
+        "unit": null,
+        "values": [
+          7756,
+          "马祖—马尾",
+          6748
+        ]
+      },
+      {
+        "display_label": "泉州—金门",
+        "group": null,
+        "label": "泉州—金门",
+        "unit": null,
+        "values": [
+          5817,
+          "金门—泉州",
+          7077
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

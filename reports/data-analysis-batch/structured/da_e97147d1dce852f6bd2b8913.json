@@ -1,0 +1,255 @@
+{
+  "asset_id": "da_e97147d1dce852f6bd2b8913",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "地区",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "投资额(亿元)",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "同比增长(%)",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "全国总计",
+    "东部地区",
+    "中部地区",
+    "西部地区"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "投资额(亿元)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        10927,
+        6593,
+        2070,
+        2264
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "住宅",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        7443,
+        4455,
+        1417,
+        1571
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "同比增长(%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        23.5,
+        20.6,
+        25.7,
+        30.5
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "住宅同比增长(%)",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        19.0,
+        16.5,
+        18.2,
+        27.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2013年天津市公务员录用考试《行测》题_images/img_0154_083f0a4e85af9e4f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年天津市公务员录用考试《行测》题_images/img_0154_083f0a4e85af9e4f.png",
+        "paper_title": "2013年天津市公务员录用考试《行测》题",
+        "question_id": "pq_d974e804a516e064e30e",
+        "question_number": 106,
+        "source_jsonl_line": 22371
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年天津市公务员录用考试《行测》题_images/img_0201_c0c6541266c008ae.png",
+        "paper_title": "2013年天津市公务员录用考试《行测》题",
+        "question_id": "pq_813a83e0099c2c54faec",
+        "question_number": 107,
+        "source_jsonl_line": 22372
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年天津市公务员录用考试《行测》题_images/img_0154_083f0a4e85af9e4f.png",
+        "paper_title": "2013年天津市公务员录用考试《行测》题",
+        "question_id": "pq_797ab9a8c9cafee0bf2b",
+        "question_number": 108,
+        "source_jsonl_line": 22373
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年天津市公务员录用考试《行测》题_images/img_0154_083f0a4e85af9e4f.png",
+        "paper_title": "2013年天津市公务员录用考试《行测》题",
+        "question_id": "pq_db10359e554400794403",
+        "question_number": 109,
+        "source_jsonl_line": 22374
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2013年天津市公务员录用考试《行测》题_images/img_0154_083f0a4e85af9e4f.png",
+        "paper_title": "2013年天津市公务员录用考试《行测》题",
+        "question_id": "pq_235074489306187376a9",
+        "question_number": 110,
+        "source_jsonl_line": 22375
+      }
+    ],
+    "sha256": "e97147d1dce852f6bd2b89133e7e400ec9929956298750e87f762ea79f9793c9"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "投资额(亿元)",
+      "住宅",
+      "同比增长(%)",
+      "住宅同比增长(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全国总计",
+        "unit": null,
+        "values": [
+          "全国总计",
+          10927,
+          7443,
+          23.5,
+          19.0
+        ]
+      },
+      {
+        "label": "东部地区",
+        "unit": null,
+        "values": [
+          "东部地区",
+          6593,
+          4455,
+          20.6,
+          16.5
+        ]
+      },
+      {
+        "label": "中部地区",
+        "unit": null,
+        "values": [
+          "中部地区",
+          2070,
+          1417,
+          25.7,
+          18.2
+        ]
+      },
+      {
+        "label": "西部地区",
+        "unit": null,
+        "values": [
+          "西部地区",
+          2264,
+          1571,
+          30.5,
+          27.8
+        ]
+      }
+    ]
+  },
+  "title": "2012年1-3月东中西部地区房地产开发投资情况",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e97147d1dce852f6bd2b8913/row_band_01.jpg",
+        "review-crops/da_e97147d1dce852f6bd2b8913/row_band_02.jpg",
+        "review-crops/da_e97147d1dce852f6bd2b8913/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.21",
+      "crop_verification_elapsed_seconds:3.438",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

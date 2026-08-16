@@ -1,0 +1,255 @@
+{
+  "asset_id": "da_b3f0e1f33728513efcdda376",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2012年北京市公务员录用考试《行测》题_images/img_0111_b370a3cd08eb8ea7.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年北京市公务员录用考试《行测》题_images/img_0111_b370a3cd08eb8ea7.png",
+        "paper_title": "2012年北京市公务员录用考试《行测》题",
+        "question_id": "pq_c76d6d135917dccae7dd",
+        "question_number": 126,
+        "source_jsonl_line": 9189
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年北京市公务员录用考试《行测》题_images/img_0111_b370a3cd08eb8ea7.png",
+        "paper_title": "2012年北京市公务员录用考试《行测》题",
+        "question_id": "pq_556c74c183c071d7b30a",
+        "question_number": 127,
+        "source_jsonl_line": 9190
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年北京市公务员录用考试《行测》题_images/img_0111_b370a3cd08eb8ea7.png",
+        "paper_title": "2012年北京市公务员录用考试《行测》题",
+        "question_id": "pq_be993fc2e197914ce092",
+        "question_number": 128,
+        "source_jsonl_line": 9191
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年北京市公务员录用考试《行测》题_images/img_0109_039c876f641e3f20.png",
+        "paper_title": "2012年北京市公务员录用考试《行测》题",
+        "question_id": "pq_fec707f0d5d976799643",
+        "question_number": 129,
+        "source_jsonl_line": 9192
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年北京市公务员录用考试《行测》题_images/img_0111_b370a3cd08eb8ea7.png",
+        "paper_title": "2012年北京市公务员录用考试《行测》题",
+        "question_id": "pq_d728cafeee049caec2eb",
+        "question_number": 130,
+        "source_jsonl_line": 9193
+      }
+    ],
+    "sha256": "b3f0e1f33728513efcdda3766b905fe3a433f947fa64909808a738a45a784685"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "领域",
+      "项目数量(项)",
+      "占项目总数的比重(%)",
+      "项目经费(亿元)",
+      "占所有研究经费的比重(%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "农业",
+        "unit": null,
+        "values": [
+          "农业",
+          42,
+          7.7,
+          2.29,
+          8.8
+        ]
+      },
+      {
+        "label": "能源",
+        "unit": null,
+        "values": [
+          "能源",
+          41,
+          7.5,
+          2.4,
+          9.2
+        ]
+      },
+      {
+        "label": "信息",
+        "unit": null,
+        "values": [
+          "信息",
+          41,
+          7.5,
+          2.03,
+          7.8
+        ]
+      },
+      {
+        "label": "资源环境",
+        "unit": null,
+        "values": [
+          "资源环境",
+          42,
+          7.7,
+          2.37,
+          9.1
+        ]
+      },
+      {
+        "label": "人口与健康",
+        "unit": null,
+        "values": [
+          "人口与健康",
+          74,
+          13.5,
+          3.2,
+          12.3
+        ]
+      },
+      {
+        "label": "材料",
+        "unit": null,
+        "values": [
+          "材料",
+          41,
+          7.5,
+          2.13,
+          8.2
+        ]
+      },
+      {
+        "label": "综合交叉",
+        "unit": null,
+        "values": [
+          "综合交叉",
+          61,
+          11.1,
+          2.35,
+          9.1
+        ]
+      },
+      {
+        "label": "重要科学前沿",
+        "unit": null,
+        "values": [
+          "重要科学前沿",
+          49,
+          9.0,
+          2.22,
+          8.6
+        ]
+      },
+      {
+        "label": "蛋白质研究",
+        "unit": null,
+        "values": [
+          "蛋白质研究",
+          37,
+          6.8,
+          1.55,
+          5.9
+        ]
+      },
+      {
+        "label": "量子调控研究",
+        "unit": null,
+        "values": [
+          "量子调控研究",
+          26,
+          4.7,
+          1.25,
+          4.8
+        ]
+      },
+      {
+        "label": "纳米研究",
+        "unit": null,
+        "values": [
+          "纳米研究",
+          54,
+          9.9,
+          2.4,
+          9.2
+        ]
+      },
+      {
+        "label": "发育与生殖研究",
+        "unit": null,
+        "values": [
+          "发育与生殖研究",
+          39,
+          7.1,
+          1.81,
+          7.0
+        ]
+      }
+    ]
+  },
+  "title": "973计划（含重大科学研究计划）新立和在研项目数量及研究经费按领域分布情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b3f0e1f33728513efcdda376/row_band_01.jpg",
+        "review-crops/da_b3f0e1f33728513efcdda376/row_band_02.jpg",
+        "review-crops/da_b3f0e1f33728513efcdda376/row_band_03.jpg",
+        "review-crops/da_b3f0e1f33728513efcdda376/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.948",
+      "crop_verification_elapsed_seconds:10.327",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

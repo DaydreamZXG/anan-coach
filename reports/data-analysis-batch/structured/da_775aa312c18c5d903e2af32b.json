@@ -1,0 +1,210 @@
+{
+  "asset_id": "da_775aa312c18c5d903e2af32b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/重庆/2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0256_413277bc983c2224.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0256_413277bc983c2224.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_7c1f77bb9edb968c92ae",
+        "question_number": 116,
+        "source_jsonl_line": 94399
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0256_413277bc983c2224.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_88fd1d6c839b4b152c7e",
+        "question_number": 117,
+        "source_jsonl_line": 94400
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0256_413277bc983c2224.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_88f4f24bdc3591e9efad",
+        "question_number": 118,
+        "source_jsonl_line": 94401
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0270_e369c023a38a32d0.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_29102aeb60f3cd7b0924",
+        "question_number": 119,
+        "source_jsonl_line": 94402
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市公务员录用考试《行测》题（下半年）_images/img_0256_413277bc983c2224.png",
+        "paper_title": "2018年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_593089256804e6fc7258",
+        "question_number": 120,
+        "source_jsonl_line": 94403
+      }
+    ],
+    "sha256": "775aa312c18c5d903e2af32be44ac3b640400d960d5ad8fbe97addc47515a856"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "省（直辖市）",
+      "软件业务收入（亿元）",
+      "同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "广东",
+        "unit": null,
+        "values": [
+          "广东",
+          4370,
+          13.4
+        ]
+      },
+      {
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          "江苏",
+          3791,
+          11.1
+        ]
+      },
+      {
+        "label": "北京",
+        "unit": null,
+        "values": [
+          "北京",
+          3057,
+          19.5
+        ]
+      },
+      {
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          "浙江",
+          1995,
+          20.3
+        ]
+      },
+      {
+        "label": "山东",
+        "unit": null,
+        "values": [
+          "山东",
+          1989,
+          13.1
+        ]
+      },
+      {
+        "label": "上海",
+        "unit": null,
+        "values": [
+          "上海",
+          1858,
+          12.1
+        ]
+      },
+      {
+        "label": "四川",
+        "unit": null,
+        "values": [
+          "四川",
+          1114,
+          10.5
+        ]
+      },
+      {
+        "label": "福建",
+        "unit": null,
+        "values": [
+          "福建",
+          954,
+          15.4
+        ]
+      },
+      {
+        "label": "辽宁",
+        "unit": null,
+        "values": [
+          "辽宁",
+          813,
+          7.6
+        ]
+      },
+      {
+        "label": "陕西",
+        "unit": null,
+        "values": [
+          "陕西",
+          779,
+          15.0
+        ]
+      }
+    ]
+  },
+  "title": "2018年1-5月软件业务收入总量前十位城市同比增长情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_775aa312c18c5d903e2af32b/row_band_01.jpg",
+        "review-crops/da_775aa312c18c5d903e2af32b/row_band_02.jpg",
+        "review-crops/da_775aa312c18c5d903e2af32b/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.195",
+      "crop_verification_elapsed_seconds:5.214",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

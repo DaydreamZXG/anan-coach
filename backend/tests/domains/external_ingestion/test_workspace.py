@@ -4,7 +4,18 @@ from types import MethodType, SimpleNamespace
 from uuid import uuid4
 
 from app.contracts.external_learning.models import CandidateState, LearningTrack
-from app.domains.external_ingestion.workspace import ExternalImportWorkspaceService
+from app.domains.external_ingestion.recognition.models import (
+    BoundingBox,
+    PageSegment,
+    QuestionUnit,
+    RecognitionCandidatePayload,
+    TextSpan,
+    VisualFeatureHash,
+)
+from app.domains.external_ingestion.workspace import (
+    ExternalImportWorkspaceService,
+    _match_query,
+)
 
 
 class _Uploads:
@@ -141,3 +152,132 @@ def test_deduplicated_candidate_is_automatically_confirmed_and_searched() -> Non
     assert result["expected_revision_no"] == 3
     assert result["idempotency_key"] == "deduplicated-candidate:automatic-search"
     assert recognitions.artifact_version_id is None
+
+
+def test_single_question_match_query_keeps_whole_input_visual_evidence() -> None:
+    recognition, units = _recognition_with_units(page_numbers=(1,))
+
+    query = _match_query(
+        recognition,
+        track=LearningTrack.XINGCE,
+        question_unit_id=units[0].question_unit_id,
+    )
+
+    assert query.visual_fingerprints == ("a" * 64,)
+    assert len(query.visual_feature_hashes) == 1
+
+
+def test_multi_question_same_page_drops_global_visual_evidence() -> None:
+    recognition, units = _recognition_with_units(page_numbers=(1, 1))
+
+    queries = [
+        _match_query(
+            recognition,
+            track=LearningTrack.XINGCE,
+            question_unit_id=unit.question_unit_id,
+        )
+        for unit in units
+    ]
+
+    assert [query.prompt_text for query in queries] == ["题干1", "题干2"]
+    assert all(query.visual_fingerprints == () for query in queries)
+    assert all(query.visual_feature_hashes == () for query in queries)
+
+
+def test_multi_page_book_scopes_one_page_fingerprint_to_each_question() -> None:
+    recognition, units = _recognition_with_units(page_numbers=(1, 2))
+
+    first = _match_query(
+        recognition,
+        track=LearningTrack.XINGCE,
+        question_unit_id=units[0].question_unit_id,
+    )
+    second = _match_query(
+        recognition,
+        track=LearningTrack.XINGCE,
+        question_unit_id=units[1].question_unit_id,
+    )
+
+    assert first.visual_fingerprints == ("a" * 64,)
+    assert second.visual_fingerprints == ("b" * 64,)
+    assert first.visual_feature_hashes == ()
+    assert second.visual_feature_hashes == ()
+
+
+def test_multi_question_book_drops_unscoped_visual_hash_collections() -> None:
+    recognition, units = _recognition_with_units(
+        page_numbers=(1, 2),
+        visual_fingerprints=("a" * 64, "b" * 64, "c" * 64),
+    )
+
+    query = _match_query(
+        recognition,
+        track=LearningTrack.XINGCE,
+        question_unit_id=units[0].question_unit_id,
+    )
+
+    assert query.visual_fingerprints == ()
+    assert query.visual_feature_hashes == ()
+
+
+def _recognition_with_units(
+    *,
+    page_numbers: tuple[int, ...],
+    visual_fingerprints: tuple[str, ...] | None = None,
+) -> tuple[SimpleNamespace, tuple[QuestionUnit, ...]]:
+    spans = tuple(
+        TextSpan(
+            spanId=f"span-{index}",
+            text=f"题干{index}",
+            box=BoundingBox(
+                pageNo=page_no,
+                x=0.1,
+                y=0.1 if index == 1 else 0.55,
+                width=0.8,
+                height=0.2,
+            ),
+            confidence=0.95,
+        )
+        for index, page_no in enumerate(page_numbers, start=1)
+    )
+    segments = tuple(
+        PageSegment(
+            segmentId=f"segment-{index}",
+            segmentKind="question",
+            box=span.box,
+            textSpanRefs=(span.span_id,),
+            confidence=0.95,
+        )
+        for index, span in enumerate(spans, start=1)
+    )
+    units = tuple(
+        QuestionUnit(
+            questionUnitId=f"{index:x}" * 64,
+            ordinal=index,
+            promptSegmentRefs=(segment.segment_id,),
+        )
+        for index, segment in enumerate(segments, start=1)
+    )
+    page_count = max(page_numbers)
+    payload = RecognitionCandidatePayload(
+        kind="exam_segmentation",
+        textSpans=spans,
+        segments=segments,
+        questionUnits=units,
+        pageImageSha256=tuple(f"{index + 8:x}" * 64 for index in range(page_count)),
+        visualFingerprints=visual_fingerprints
+        if visual_fingerprints is not None
+        else tuple(f"{index + 10:x}" * 64 for index in range(page_count)),
+        visualFeatureHashes=(
+            VisualFeatureHash(
+                phash="1" * 16,
+                dhash="2" * 16,
+                ahash="3" * 16,
+                edgeDhash="4" * 16,
+            ),
+        ),
+        processorRequestIdHash="d" * 64,
+        processorOutputContract="recognition-processor-output@v1",
+        requestHash="e" * 64,
+    )
+    return SimpleNamespace(candidate_payload=payload.model_dump(by_alias=True, mode="json")), units

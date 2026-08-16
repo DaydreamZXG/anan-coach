@@ -1,0 +1,335 @@
+{
+  "asset_id": "da_34797e338f7b5a749bff07da",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "种类",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "占比（%）",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "占比（%）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        4.5,
+        4.8,
+        5.1,
+        6.9,
+        9.3,
+        12.1,
+        22.7,
+        26.0,
+        8.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0084_b127a4f2b8094b57.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0084_b127a4f2b8094b57.png",
+        "paper_title": "2023年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_717b26774d64e497292f",
+        "question_number": 96,
+        "source_jsonl_line": 5980
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0095_c35aa5bfa9cf2764.png",
+        "paper_title": "2023年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b297176a4c137ca46b2a",
+        "question_number": 97,
+        "source_jsonl_line": 5981
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0095_c35aa5bfa9cf2764.png",
+        "paper_title": "2023年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d0c3df15b6d6dd3f13db",
+        "question_number": 98,
+        "source_jsonl_line": 5982
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0084_b127a4f2b8094b57.png",
+        "paper_title": "2023年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_000ead2199a23b4fa03c",
+        "question_number": 99,
+        "source_jsonl_line": 5983
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年云南公务员录用考试《行测》题（网友回忆版）_images/img_0084_b127a4f2b8094b57.png",
+        "paper_title": "2023年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_704fa056224c571098a7",
+        "question_number": 100,
+        "source_jsonl_line": 5984
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0106_b127a4f2b8094b57.png",
+        "paper_title": "2023年四川省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_a6f0f50f50a1b44bf372",
+        "question_number": 91,
+        "source_jsonl_line": 16806
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0106_b127a4f2b8094b57.png",
+        "paper_title": "2023年四川省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_2c4d69319ac37d49d85d",
+        "question_number": 92,
+        "source_jsonl_line": 16807
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0106_b127a4f2b8094b57.png",
+        "paper_title": "2023年四川省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_e17110c3c442b66f093e",
+        "question_number": 93,
+        "source_jsonl_line": 16808
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0106_b127a4f2b8094b57.png",
+        "paper_title": "2023年四川省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_4b1bf0aed5add547d0d6",
+        "question_number": 94,
+        "source_jsonl_line": 16809
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年四川省公务员录用考试《行测》试题（网友回忆版）_images/img_0106_b127a4f2b8094b57.png",
+        "paper_title": "2023年四川省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_01fea5984652d3cb1730",
+        "question_number": 95,
+        "source_jsonl_line": 16810
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0080_c35aa5bfa9cf2764.png",
+        "paper_title": "2023年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_97e2248bd2d50b873656",
+        "question_number": 111,
+        "source_jsonl_line": 26241
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0080_c35aa5bfa9cf2764.png",
+        "paper_title": "2023年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_778140cbb5a9335ec739",
+        "question_number": 112,
+        "source_jsonl_line": 26242
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0102_b127a4f2b8094b57.png",
+        "paper_title": "2023年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7efb8c3e131ba7a64913",
+        "question_number": 113,
+        "source_jsonl_line": 26243
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0102_b127a4f2b8094b57.png",
+        "paper_title": "2023年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ed440063981d9a3a3f34",
+        "question_number": 114,
+        "source_jsonl_line": 26244
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年宁夏公务员录用考试《行测》题（网友回忆版）_images/img_0080_c35aa5bfa9cf2764.png",
+        "paper_title": "2023年宁夏公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_7cd273d8f114cf9cd223",
+        "question_number": 115,
+        "source_jsonl_line": 26245
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0075_c35aa5bfa9cf2764.png",
+        "paper_title": "2023年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e33a007e9d88b37dca1a",
+        "question_number": 101,
+        "source_jsonl_line": 39677
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0082_b127a4f2b8094b57.png",
+        "paper_title": "2023年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_93876ae380ddd805f815",
+        "question_number": 102,
+        "source_jsonl_line": 39678
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0082_b127a4f2b8094b57.png",
+        "paper_title": "2023年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_70dd16cd482f91feacc1",
+        "question_number": 103,
+        "source_jsonl_line": 39679
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0082_b127a4f2b8094b57.png",
+        "paper_title": "2023年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2bdfd7a9213af1960f9c",
+        "question_number": 104,
+        "source_jsonl_line": 39680
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0082_b127a4f2b8094b57.png",
+        "paper_title": "2023年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_051c06870819dc70b4b1",
+        "question_number": 105,
+        "source_jsonl_line": 39681
+      }
+    ],
+    "sha256": "34797e338f7b5a749bff07da8626a59d9bb18ab8a9492aadde5987707c69fd5d"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "种类",
+      "占比（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "保健品",
+        "unit": null,
+        "values": [
+          "保健品",
+          4.5
+        ]
+      },
+      {
+        "label": "玩具",
+        "unit": null,
+        "values": [
+          "玩具",
+          4.8
+        ]
+      },
+      {
+        "label": "喂养及床具",
+        "unit": null,
+        "values": [
+          "喂养及床具",
+          5.1
+        ]
+      },
+      {
+        "label": "洗护用品",
+        "unit": null,
+        "values": [
+          "洗护用品",
+          6.9
+        ]
+      },
+      {
+        "label": "辅食",
+        "unit": null,
+        "values": [
+          "辅食",
+          9.3
+        ]
+      },
+      {
+        "label": "纸尿裤",
+        "unit": null,
+        "values": [
+          "纸尿裤",
+          12.1
+        ]
+      },
+      {
+        "label": "奶粉",
+        "unit": null,
+        "values": [
+          "奶粉",
+          22.7
+        ]
+      },
+      {
+        "label": "服装鞋帽",
+        "unit": null,
+        "values": [
+          "服装鞋帽",
+          26.0
+        ]
+      },
+      {
+        "label": "其他",
+        "unit": null,
+        "values": [
+          "其他",
+          8.6
+        ]
+      }
+    ]
+  },
+  "title": "表1 2021年中国母婴商品消费品类构成",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_34797e338f7b5a749bff07da/row_band_01.jpg",
+        "review-crops/da_34797e338f7b5a749bff07da/row_band_02.jpg",
+        "review-crops/da_34797e338f7b5a749bff07da/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.912",
+      "crop_verification_elapsed_seconds:6.01",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

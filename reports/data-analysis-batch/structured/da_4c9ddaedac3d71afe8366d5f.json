@@ -1,0 +1,299 @@
+{
+  "asset_id": "da_4c9ddaedac3d71afe8366d5f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "时间",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 500.0,
+        "min": 0.0,
+        "ticks": [
+          0.0,
+          100.0,
+          200.0,
+          300.0,
+          400.0,
+          500.0
+        ],
+        "title": "日均发电量",
+        "unit": "亿千瓦时"
+      },
+      {
+        "max": 10,
+        "min": -20,
+        "ticks": [
+          -20,
+          -15,
+          -10,
+          -5,
+          0,
+          5,
+          10
+        ],
+        "title": "当月同比增速",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "7月",
+    "8月",
+    "9月",
+    "10月",
+    "11月",
+    "12月",
+    "1-2月",
+    "3月",
+    "4月",
+    "5月",
+    "6月",
+    "7月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "日均发电量",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "当月同比增速",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "日均发电量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿千瓦时",
+      "values": [
+        278.0,
+        272.6,
+        248.5,
+        227.2,
+        243.7,
+        267.4,
+        247.8,
+        230.0,
+        231.6,
+        256.2,
+        284.9,
+        284.9
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "当月同比增速",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        2.5,
+        1.1,
+        7.7,
+        5.2,
+        8.4,
+        8.0,
+        8.3,
+        2.8,
+        3.1,
+        2.3,
+        2.3,
+        2.5
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/内蒙古/2025年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0094_0b6399bec5301422.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0094_0b6399bec5301422.png",
+        "paper_title": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2a5460cefee567bc7175",
+        "question_number": 116,
+        "source_jsonl_line": 8389
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0094_0b6399bec5301422.png",
+        "paper_title": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_c3dea726a39f0ce21f76",
+        "question_number": 117,
+        "source_jsonl_line": 8390
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0094_0b6399bec5301422.png",
+        "paper_title": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_350204d0e6103164b3f6",
+        "question_number": 118,
+        "source_jsonl_line": 8391
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0094_0b6399bec5301422.png",
+        "paper_title": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d5e0772a37088722ccb9",
+        "question_number": 119,
+        "source_jsonl_line": 8392
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）_images/img_0124_4d4ebe32eb7482e4.png",
+        "paper_title": "2025年内蒙古公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1bca883c7bce7fb495e3",
+        "question_number": 120,
+        "source_jsonl_line": 8393
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0099_4d4ebe32eb7482e4.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_af3c4350673bd0880d19",
+        "question_number": 111,
+        "source_jsonl_line": 84462
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0099_4d4ebe32eb7482e4.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_371a17c0fa6d70ec1e36",
+        "question_number": 112,
+        "source_jsonl_line": 84463
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0106_0b6399bec5301422.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_0a2dff9620381c7f7ec9",
+        "question_number": 113,
+        "source_jsonl_line": 84464
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0099_4d4ebe32eb7482e4.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_857e4dd0368b04d65be3",
+        "question_number": 114,
+        "source_jsonl_line": 84465
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0106_0b6399bec5301422.png",
+        "paper_title": "2025年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_42d92f99b713d85fe465",
+        "question_number": 115,
+        "source_jsonl_line": 84466
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0061_4d4ebe32eb7482e4.png",
+        "paper_title": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_fde3ab4002fdd3292c66",
+        "question_number": 106,
+        "source_jsonl_line": 104628
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0061_4d4ebe32eb7482e4.png",
+        "paper_title": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_74907d315d3f89471123",
+        "question_number": 107,
+        "source_jsonl_line": 104629
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0061_4d4ebe32eb7482e4.png",
+        "paper_title": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_6f4dbff1ad2f50fd6cca",
+        "question_number": 108,
+        "source_jsonl_line": 104630
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0068_0b6399bec5301422.png",
+        "paper_title": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_bebe81f5e825f9a2491c",
+        "question_number": 109,
+        "source_jsonl_line": 104631
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）_images/img_0068_0b6399bec5301422.png",
+        "paper_title": "2025年黑龙江公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_af3409585ab681cd1a08",
+        "question_number": 110,
+        "source_jsonl_line": 104632
+      }
+    ],
+    "sha256": "4c9ddaedac3d71afe8366d5f5300e16d8bcaef3f0448485ac129095465a1e3e4"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "规模以上工业发电量月度走势",
+  "unit": "亿千瓦时",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4c9ddaedac3d71afe8366d5f/column_band_01.jpg",
+        "review-crops/da_4c9ddaedac3d71afe8366d5f/column_band_02.jpg",
+        "review-crops/da_4c9ddaedac3d71afe8366d5f/column_band_03.jpg",
+        "review-crops/da_4c9ddaedac3d71afe8366d5f/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:12.342",
+      "crop_verification_elapsed_seconds:8.443",
+      "candidate_value_changes_after_crop:6",
+      "model_uncertainty:1-2月的'日均发电量'数据缺失，无法确定具体数值",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

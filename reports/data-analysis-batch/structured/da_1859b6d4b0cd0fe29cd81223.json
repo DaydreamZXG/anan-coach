@@ -1,0 +1,193 @@
+{
+  "asset_id": "da_1859b6d4b0cd0fe29cd81223",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [
+          0,
+          20,
+          40,
+          60,
+          80,
+          100
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2016年",
+    "2017年",
+    "2018年",
+    "2019年",
+    "2020年",
+    "2021年",
+    "2022年",
+    "2023年"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "国有博物馆",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "非国有博物馆",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "国有博物馆",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        73.1,
+        73.2,
+        72.5,
+        71.0,
+        70.2,
+        67.3,
+        66.8,
+        66.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "非国有博物馆",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        26.9,
+        26.8,
+        27.5,
+        29.0,
+        29.8,
+        32.7,
+        33.2,
+        33.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2025年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0130_5d99ebbbfb1f192c.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0130_5d99ebbbfb1f192c.png",
+        "paper_title": "2025年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d428d7f569e1f369457b",
+        "question_number": 81,
+        "source_jsonl_line": 36203
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0130_5d99ebbbfb1f192c.png",
+        "paper_title": "2025年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8be81816ad6adff96e8d",
+        "question_number": 82,
+        "source_jsonl_line": 36204
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0148_6c820fdeea910d09.png",
+        "paper_title": "2025年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_9c4f799305f555b5b53c",
+        "question_number": 83,
+        "source_jsonl_line": 36205
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0148_6c820fdeea910d09.png",
+        "paper_title": "2025年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8f390b4d5b74f188f872",
+        "question_number": 84,
+        "source_jsonl_line": 36206
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年广东省公务员录用考试《行测》题（网友回忆版）_images/img_0130_5d99ebbbfb1f192c.png",
+        "paper_title": "2025年广东省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_92547ee2c53d1b3eb5d8",
+        "question_number": 85,
+        "source_jsonl_line": 36207
+      }
+    ],
+    "sha256": "1859b6d4b0cd0fe29cd81223119c0f2cc3f1f994caa7f180827927fe1952422c"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2016-2023年G省国有博物馆和非国有博物馆数量占比",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1859b6d4b0cd0fe29cd81223/column_band_01.jpg",
+        "review-crops/da_1859b6d4b0cd0fe29cd81223/column_band_02.jpg",
+        "review-crops/da_1859b6d4b0cd0fe29cd81223/column_band_03.jpg",
+        "review-crops/da_1859b6d4b0cd0fe29cd81223/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.793",
+      "crop_verification_elapsed_seconds:14.074",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2016年非国有博物馆数值为26.9%（原为26.9%），2017年非国有博物馆数值为26.8%（原为26.8%），2018年非国有博物馆数值为27.5%（原为27.5%），2019年非国有博物馆数值为29.0%（原为29.0%），2020年非国有博物馆数值为29.8%（原为29.8%），2021年非国有博物馆数值为32.7%（原为32.7%），2022年非国有博物馆数值为33.2%（原为33.2%），2023年非国有博物馆数值为33.2%（原为33.2%）。",
+      "crop_note:修正了2016年国有博物馆数值为73.1%（原为73.1%），2017年国有博物馆数值为73.2%（原为73.2%），2018年国有博物馆数值为72.5%（原为72.5%），2019年国有博物馆数值为71.0%（原为71.0%），2020年国有博物馆数值为70.2%（原为70.2%），2021年国有博物馆数值为67.3%（原为67.3%），2022年国有博物馆数值为66.8%（原为66.8%），2023年国有博物馆数值为66.8%（原为66.8%）。",
+      "crop_note:确认所有百分号、小数点和数值均正确，无负号或缺失值。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

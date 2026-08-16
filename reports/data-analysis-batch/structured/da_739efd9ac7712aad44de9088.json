@@ -1,0 +1,340 @@
+{
+  "asset_id": "da_739efd9ac7712aad44de9088",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "佳能",
+    "索尼",
+    "三星",
+    "柯达",
+    "尼康",
+    "松下",
+    "富士",
+    "奥林巴斯",
+    "卡西欧",
+    "理光",
+    "其他"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "佳能",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "索尼",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "三星",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "柯达",
+      "style": {
+        "dash": null,
+        "fill": "lightgray",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "尼康",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "松下",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "富士",
+      "style": {
+        "dash": null,
+        "fill": "gray",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "奥林巴斯",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "卡西欧",
+      "style": {
+        "dash": null,
+        "fill": "lightgray",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "理光",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": "square",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "其他",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": "square",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      -3.5,
+      25.0,
+      54.0,
+      79.434,
+      107.5,
+      131.5,
+      146.5,
+      176.5,
+      240.5,
+      282.048,
+      348.5,
+      356.5
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 25.0,
+        "label": "佳能",
+        "share": 0.07916667,
+        "start_angle": -3.5,
+        "sweep_angle": 28.5
+      },
+      {
+        "end_angle": 54.0,
+        "label": "索尼",
+        "share": 0.08055556,
+        "start_angle": 25.0,
+        "sweep_angle": 29.0
+      },
+      {
+        "end_angle": 79.434,
+        "label": "三星",
+        "share": 0.07065038,
+        "start_angle": 54.0,
+        "sweep_angle": 25.434
+      },
+      {
+        "end_angle": 107.5,
+        "label": "柯达",
+        "share": 0.07796074,
+        "start_angle": 79.434,
+        "sweep_angle": 28.066
+      },
+      {
+        "end_angle": 131.5,
+        "label": "尼康",
+        "share": 0.06666667,
+        "start_angle": 107.5,
+        "sweep_angle": 24.0
+      },
+      {
+        "end_angle": 146.5,
+        "label": "松下",
+        "share": 0.04166667,
+        "start_angle": 131.5,
+        "sweep_angle": 15.0
+      },
+      {
+        "end_angle": 176.5,
+        "label": "富士",
+        "share": 0.08333333,
+        "start_angle": 146.5,
+        "sweep_angle": 30.0
+      },
+      {
+        "end_angle": 240.5,
+        "label": "奥林巴斯",
+        "share": 0.17777778,
+        "start_angle": 176.5,
+        "sweep_angle": 64.0
+      },
+      {
+        "end_angle": 282.048,
+        "label": "卡西欧",
+        "share": 0.11541064,
+        "start_angle": 240.5,
+        "sweep_angle": 41.548
+      },
+      {
+        "end_angle": 348.5,
+        "label": "理光",
+        "share": 0.18458936,
+        "start_angle": 282.048,
+        "sweep_angle": 66.452
+      },
+      {
+        "end_angle": 356.5,
+        "label": "其他",
+        "share": 0.02222222,
+        "start_angle": 348.5,
+        "sweep_angle": 8.0
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.07916667,
+        0.08055556,
+        0.07065038,
+        0.07796074,
+        0.06666667,
+        0.04166667,
+        0.08333333,
+        0.17777778,
+        0.11541064,
+        0.18458936,
+        0.02222222
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0064_ec71e752affaa0fc.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0064_ec71e752affaa0fc.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_775224c888bb18503f5c",
+        "question_number": 96,
+        "source_jsonl_line": 11039
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0064_ec71e752affaa0fc.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_3c0e7346e80d2c20e97f",
+        "question_number": 97,
+        "source_jsonl_line": 11040
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0071_44a4ec7c5277d856.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_a8cbdc6a55ca913d5ec5",
+        "question_number": 98,
+        "source_jsonl_line": 11041
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0071_44a4ec7c5277d856.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_571db5f2dfd93a0aebc0",
+        "question_number": 99,
+        "source_jsonl_line": 11042
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（乙级）_images/img_0071_44a4ec7c5277d856.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（乙级）",
+        "question_id": "pq_2ebfc0fea1fc23d25003",
+        "question_number": 100,
+        "source_jsonl_line": 11043
+      }
+    ],
+    "sha256": "739efd9ac7712aad44de90886b4415433de4ebc7faca8b2553a183eda5bd6d7d"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2006年最受用户关注的十大消费类数码相机品牌",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_739efd9ac7712aad44de9088/quadrant_01.jpg",
+        "review-crops/da_739efd9ac7712aad44de9088/quadrant_02.jpg",
+        "review-crops/da_739efd9ac7712aad44de9088/quadrant_03.jpg",
+        "review-crops/da_739efd9ac7712aad44de9088/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.37",
+      "crop_verification_elapsed_seconds:2.317",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:0.5737",
+      "hough_circle_radius_ratio:0.2509",
+      "radial_line_candidates:8",
+      "detected_boundaries:11"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

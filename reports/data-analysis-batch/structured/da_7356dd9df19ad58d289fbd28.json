@@ -1,0 +1,393 @@
+{
+  "asset_id": "da_7356dd9df19ad58d289fbd28",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "structured_visual",
+  "confidence": 0.96,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0180_b2cea0346ae0c8c4.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）_images/img_0180_b2cea0346ae0c8c4.png",
+        "paper_title": "2019年辽宁省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4249f544170885851259",
+        "question_number": 107,
+        "source_jsonl_line": 83738
+      }
+    ],
+    "sha256": "7356dd9df19ad58d289fbd28d3eaca16c8ded29ec255bd3a9bc04d308425f636"
+  },
+  "structured_visual": {
+    "complexity": {
+      "barCount": 0,
+      "estimatedDrawCommandCount": 27,
+      "panelCount": 8,
+      "pointCount": 27
+    },
+    "coordinateSpace": {
+      "height": 166,
+      "width": 700
+    },
+    "evidence": {
+      "converterVersion": "semantic-microcharts-v1",
+      "geometryEngine": "opencv_connected_components",
+      "renderSha256": "07c6331955a60766b275c3c2a23d4849cb453b31f39fcfcd760238814da9e58c",
+      "sourceAsset": "da_7356dd9df19ad58d289fbd28",
+      "sourceSha256": "7356dd9df19ad58d289fbd28d3eaca16c8ded29ec255bd3a9bc04d308425f636"
+    },
+    "fidelityTier": "semantic_vector",
+    "kind": "semanticMicrocharts",
+    "layoutType": "sequence",
+    "panels": [
+      {
+        "bounds": {
+          "height": 97,
+          "width": 107,
+          "x": 14,
+          "y": 20
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.49479
+            },
+            {
+              "x": 0.0283,
+              "y": 0.99479
+            },
+            {
+              "x": 1.0,
+              "y": 0.99479
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_7356dd9df19ad58d289fbd28-0",
+        "label": "A",
+        "position": 0
+      },
+      {
+        "bounds": {
+          "height": 45,
+          "width": 63,
+          "x": 24,
+          "y": 58
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.02273
+            },
+            {
+              "x": 0.41935,
+              "y": 0.36364
+            },
+            {
+              "x": 0.64516,
+              "y": 0.96591
+            },
+            {
+              "x": 1.0,
+              "y": 0.20455
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_7356dd9df19ad58d289fbd28-1",
+        "label": "B",
+        "position": 1
+      },
+      {
+        "bounds": {
+          "height": 97,
+          "width": 107,
+          "x": 214,
+          "y": 20
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.49479
+            },
+            {
+              "x": 0.0283,
+              "y": 0.99479
+            },
+            {
+              "x": 1.0,
+              "y": 0.99479
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_7356dd9df19ad58d289fbd28-2",
+        "label": "C",
+        "position": 2
+      },
+      {
+        "bounds": {
+          "height": 49,
+          "width": 64,
+          "x": 232,
+          "y": 54
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.02083
+            },
+            {
+              "x": 0.50794,
+              "y": 0.96875
+            },
+            {
+              "x": 1.0,
+              "y": 0.01042
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_7356dd9df19ad58d289fbd28-3",
+        "label": "D",
+        "position": 3
+      },
+      {
+        "bounds": {
+          "height": 97,
+          "width": 107,
+          "x": 394,
+          "y": 20
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.49479
+            },
+            {
+              "x": 0.0283,
+              "y": 0.99479
+            },
+            {
+              "x": 1.0,
+              "y": 0.98958
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_7356dd9df19ad58d289fbd28-4",
+        "label": "E",
+        "position": 4
+      },
+      {
+        "bounds": {
+          "height": 45,
+          "width": 80,
+          "x": 416,
+          "y": 58
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.43182
+            },
+            {
+              "x": 0.20253,
+              "y": 0.03409
+            },
+            {
+              "x": 0.59494,
+              "y": 0.97727
+            },
+            {
+              "x": 1.0,
+              "y": 0.02273
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_7356dd9df19ad58d289fbd28-5",
+        "label": "F",
+        "position": 5
+      },
+      {
+        "bounds": {
+          "height": 97,
+          "width": 107,
+          "x": 581,
+          "y": 20
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.49479
+            },
+            {
+              "x": 0.0283,
+              "y": 0.99479
+            },
+            {
+              "x": 1.0,
+              "y": 0.99479
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_7356dd9df19ad58d289fbd28-6",
+        "label": "G",
+        "position": 6
+      },
+      {
+        "bounds": {
+          "height": 60,
+          "width": 73,
+          "x": 596,
+          "y": 43
+        },
+        "chart": {
+          "axis": null,
+          "interpolation": "linear",
+          "markers": [],
+          "points": [
+            {
+              "x": 0.0,
+              "y": 0.00847
+            },
+            {
+              "x": 0.36111,
+              "y": 0.28814
+            },
+            {
+              "x": 0.73611,
+              "y": 0.98305
+            },
+            {
+              "x": 1.0,
+              "y": 0.5339
+            }
+          ],
+          "strokeStyle": "solid",
+          "strokeWidth": 2,
+          "type": "polyline"
+        },
+        "id": "da_7356dd9df19ad58d289fbd28-7",
+        "label": "H",
+        "position": 7
+      }
+    ],
+    "schemaVersion": "semantic-microcharts-v1",
+    "visualGrammar": "line_options"
+  },
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_7356dd9df19ad58d289fbd28/column_band_01.jpg",
+        "review-crops/da_7356dd9df19ad58d289fbd28/column_band_02.jpg",
+        "review-crops/da_7356dd9df19ad58d289fbd28/column_band_03.jpg",
+        "review-crops/da_7356dd9df19ad58d289fbd28/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.742",
+      "crop_verification_elapsed_seconds:0.774",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:无法从图像中提取具体数值，仅能识别线条趋势",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_unknown_chart_point:A:A",
+      "crop_note:ignored_unknown_chart_point:B:B",
+      "crop_note:ignored_unknown_chart_point:C:C",
+      "crop_note:ignored_unknown_chart_point:D:D",
+      "non_data_option_sparkline",
+      "foreground_iou:0.820465",
+      "mean_absolute_error:2.205792",
+      "trace_parameters:{\"epsilonRatio\": 0.0012, \"minimumContourArea\": 0.6, \"paletteSize\": 6}",
+      "visual_grammar:line_options",
+      "visual_grammar:line_options",
+      "converter:semantic-microcharts-v1",
+      "visual_grammar:line_options",
+      "comparison_artifact:previews/structured_visual/da_7356dd9df19ad58d289fbd28-comparison.png",
+      "manual_qa:source_redraw_contact_sheet_inspected"
+    ],
+    "ocr_engine": "deterministic_semantic_cv",
+    "ocr_mean_confidence": 0.88,
+    "schema_valid": true
+  }
+}

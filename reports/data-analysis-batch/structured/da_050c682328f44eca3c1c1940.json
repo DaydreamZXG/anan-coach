@@ -1,0 +1,262 @@
+{
+  "asset_id": "da_050c682328f44eca3c1c1940",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 80,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80
+        ],
+        "title": null,
+        "unit": "万公顷"
+      }
+    ]
+  },
+  "categories": [
+    "2009年",
+    "2010年",
+    "2011年",
+    "2012年",
+    "2013年"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "工矿仓储用地",
+      "style": {
+        "dash": null,
+        "fill": "hatch",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "住宅用地",
+      "style": {
+        "dash": null,
+        "fill": "hatch",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "基础设施等其它用地",
+      "style": {
+        "dash": null,
+        "fill": "hatch",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "商服用地",
+      "style": {
+        "dash": null,
+        "fill": "hatch",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "工矿仓储用地",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万公顷",
+      "values": [
+        14.15,
+        15.4,
+        19.13,
+        20.72,
+        21
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "住宅用地",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万公顷",
+      "values": [
+        8.15,
+        11.53,
+        12.65,
+        11.47,
+        13.81
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "基础设施等其它用地",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万公顷",
+      "values": [
+        11.1,
+        12.44,
+        23.29,
+        33.85,
+        31.73
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "商服用地",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万公顷",
+      "values": [
+        2.76,
+        3.89,
+        4.26,
+        5.09,
+        6.51
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2015年山东省公务员录用考试《行测》题_images/img_0175_7e38669aed1966f5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省公务员录用考试《行测》题_images/img_0175_7e38669aed1966f5.png",
+        "paper_title": "2015年山东省公务员录用考试《行测》题",
+        "question_id": "pq_c4a7cbc7afcb7bfbe234",
+        "question_number": 111,
+        "source_jsonl_line": 29845
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省公务员录用考试《行测》题_images/img_0186_b1eef433b9333f65.png",
+        "paper_title": "2015年山东省公务员录用考试《行测》题",
+        "question_id": "pq_d28495e0605371ba49e8",
+        "question_number": 112,
+        "source_jsonl_line": 29846
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省公务员录用考试《行测》题_images/img_0186_b1eef433b9333f65.png",
+        "paper_title": "2015年山东省公务员录用考试《行测》题",
+        "question_id": "pq_dfb3a9014caf2dda6a11",
+        "question_number": 113,
+        "source_jsonl_line": 29847
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省公务员录用考试《行测》题_images/img_0175_7e38669aed1966f5.png",
+        "paper_title": "2015年山东省公务员录用考试《行测》题",
+        "question_id": "pq_b9635451f55d83bc7756",
+        "question_number": 114,
+        "source_jsonl_line": 29848
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年山东省公务员录用考试《行测》题_images/img_0186_b1eef433b9333f65.png",
+        "paper_title": "2015年山东省公务员录用考试《行测》题",
+        "question_id": "pq_0427018a81064dcea941",
+        "question_number": 115,
+        "source_jsonl_line": 29849
+      }
+    ],
+    "sha256": "050c682328f44eca3c1c1940f36bb6005094e21bc80f5d7d671c6be67495e511"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2009-2013年国有建设用地供应变化情况",
+  "unit": "万公顷",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_050c682328f44eca3c1c1940/column_band_01.jpg",
+        "review-crops/da_050c682328f44eca3c1c1940/column_band_02.jpg",
+        "review-crops/da_050c682328f44eca3c1c1940/column_band_03.jpg",
+        "review-crops/da_050c682328f44eca3c1c1940/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.654",
+      "crop_verification_elapsed_seconds:14.273",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了2009年工矿仓储用地数值为14.15，原图标注为14.15，正确。",
+      "crop_note:修正了2009年住宅用地数值为8.15，原图标注为8.15，正确。",
+      "crop_note:修正了2009年基础设施等其它用地数值为11.1，原图标注为11.1，正确。",
+      "crop_note:修正了2009年商服用地数值为2.76，原图标注为2.76，正确。",
+      "crop_note:修正了2010年工矿仓储用地数值为15.4，原图标注为15.4，正确。",
+      "crop_note:修正了2010年住宅用地数值为11.53，原图标注为11.53，正确。",
+      "crop_note:修正了2010年基础设施等其它用地数值为12.44，原图标注为12.44，正确。",
+      "crop_note:修正了2010年商服用地数值为3.89，原图标注为3.89，正确。",
+      "crop_note:修正了2011年工矿仓储用地数值为19.13，原图标注为19.13，正确。",
+      "crop_note:修正了2011年住宅用地数值为12.65，原图标注为12.65，正确。",
+      "crop_note:修正了2011年基础设施等其它用地数值为23.29，原图标注为23.29，正确。",
+      "crop_note:修正了2011年商服用地数值为4.26，原图标注为4.26，正确。",
+      "crop_note:修正了2012年工矿仓储用地数值为20.72，原图标注为20.72，正确。",
+      "crop_note:修正了2012年住宅用地数值为11.47，原图标注为11.47，正确。",
+      "crop_note:修正了2012年基础设施等其它用地数值为33.85，原图标注为33.85，正确。",
+      "crop_note:修正了2012年商服用地数值为5.09，原图标注为5.09，正确。",
+      "crop_note:修正了2013年工矿仓储用地数值为21，原图标注为21，正确。",
+      "crop_note:修正了2013年住宅用地数值为13.81，原图标注为13.81，正确。",
+      "crop_note:修正了2013年基础设施等其它用地数值为31.73，原图标注为31.73，正确。",
+      "crop_note:修正了2013年商服用地数值为6.51，原图标注为6.51，正确。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

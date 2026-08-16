@@ -1,0 +1,156 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2018年1~2月|数量",
+          "2018年1~2月|增速"
+        ],
+        "label": "2018年1~2月"
+      },
+      {
+        "columns": [
+          "2017年1季度|数量",
+          "2017年1季度|增速"
+        ],
+        "label": "2017年1季度"
+      }
+    ],
+    "columns": [
+      "2018年1~2月|数量",
+      "2018年1~2月|增速",
+      "2017年1季度|数量",
+      "2017年1季度|增速"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "乘用车",
+    "rows": [
+      {
+        "display_label": "乘用车｜产量",
+        "group": null,
+        "label": "乘用车｜产量",
+        "unit": null,
+        "values": [
+          377.0,
+          -3.8,
+          610.7,
+          7.2
+        ]
+      },
+      {
+        "display_label": "乘用车｜销量",
+        "group": null,
+        "label": "乘用车｜销量",
+        "unit": null,
+        "values": [
+          393.2,
+          2.1,
+          594.7,
+          5.1
+        ]
+      },
+      {
+        "display_label": "其中：轿车｜产量",
+        "group": null,
+        "label": "其中：轿车｜产量",
+        "unit": null,
+        "values": [
+          174.9,
+          -6.6,
+          291.3,
+          2.0
+        ]
+      },
+      {
+        "display_label": "其中：轿车｜销量",
+        "group": null,
+        "label": "其中：轿车｜销量",
+        "unit": null,
+        "values": [
+          183.6,
+          -0.7,
+          284.0,
+          0.8
+        ]
+      },
+      {
+        "display_label": "多功能乘用车（MPV）｜产量",
+        "group": null,
+        "label": "多功能乘用车（MPV）｜产量",
+        "unit": null,
+        "values": [
+          29.3,
+          -16.6,
+          55.5,
+          -15.9
+        ]
+      },
+      {
+        "display_label": "多功能乘用车（MPV）｜销量",
+        "group": null,
+        "label": "多功能乘用车（MPV）｜销量",
+        "unit": null,
+        "values": [
+          30.0,
+          -15.3,
+          55.3,
+          -17.4
+        ]
+      },
+      {
+        "display_label": "运动型多用途乘用车（SUV）｜产量",
+        "group": null,
+        "label": "运动型多用途乘用车（SUV）｜产量",
+        "unit": null,
+        "values": [
+          167.3,
+          4.5,
+          249.5,
+          27.5
+        ]
+      },
+      {
+        "display_label": "运动型多用途乘用车（SUV）｜销量",
+        "group": null,
+        "label": "运动型多用途乘用车（SUV）｜销量",
+        "unit": null,
+        "values": [
+          173.4,
+          11.6,
+          238.6,
+          22.0
+        ]
+      },
+      {
+        "display_label": "交叉型乘用车｜产量",
+        "group": null,
+        "label": "交叉型乘用车｜产量",
+        "unit": null,
+        "values": [
+          5.4,
+          -41.9,
+          14.5,
+          -35.1
+        ]
+      },
+      {
+        "display_label": "交叉型乘用车｜销量",
+        "group": null,
+        "label": "交叉型乘用车｜销量",
+        "unit": null,
+        "values": [
+          6.1,
+          -34.7,
+          16.9,
+          -22.8
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

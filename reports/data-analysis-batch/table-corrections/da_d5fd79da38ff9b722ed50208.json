@@ -1,0 +1,84 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "新上市公司数量（家）｜2022年上半年",
+          "新上市公司数量（家）｜2023年上半年"
+        ],
+        "label": "新上市公司数量（家）"
+      },
+      {
+        "columns": [
+          "首次募集资金金额（亿元）｜2022年上半年",
+          "首次募集资金金额（亿元）｜2023年上半年"
+        ],
+        "label": "首次募集资金金额（亿元）"
+      }
+    ],
+    "columns": [
+      "新上市公司数量（家）｜2022年上半年",
+      "新上市公司数量（家）｜2023年上半年",
+      "首次募集资金金额（亿元）｜2022年上半年",
+      "首次募集资金金额（亿元）｜2023年上半年"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "A股市场",
+    "rows": [
+      {
+        "display_label": "主板",
+        "group": null,
+        "label": "主板",
+        "unit": null,
+        "values": [
+          30,
+          38,
+          1064,
+          490
+        ]
+      },
+      {
+        "display_label": "科创板",
+        "group": null,
+        "label": "科创板",
+        "unit": null,
+        "values": [
+          54,
+          41,
+          1156,
+          877
+        ]
+      },
+      {
+        "display_label": "创业板",
+        "group": null,
+        "label": "创业板",
+        "unit": null,
+        "values": [
+          68,
+          52,
+          871,
+          678
+        ]
+      },
+      {
+        "display_label": "北交所",
+        "group": null,
+        "label": "北交所",
+        "unit": null,
+        "values": [
+          19,
+          42,
+          29,
+          81
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

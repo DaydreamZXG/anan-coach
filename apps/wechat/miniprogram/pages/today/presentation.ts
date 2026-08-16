@@ -1,9 +1,17 @@
 import type {
   AppDomainsPlanningSchemasTodayTask as TodayTask,
+  InferenceCandidateVersion,
+  LearnerCoachContext,
+  LearningBrainProfileVersion,
   PlanningEvidenceRef,
   TodayDashboard,
   TrackAllocation,
 } from "../../api/generated/types.gen";
+import type { CoachEntryIntent } from "../../features/onboarding/coach-entry";
+import type {
+  CoachEvidenceCounters,
+  CoachTaskBeforeSnapshot,
+} from "../../features/coach-loop/feedback-store";
 import {
   registeredTaskNavigationTarget,
   type RegisteredNavigationTarget,
@@ -74,6 +82,53 @@ export interface TodayTrackView {
 
 export type TodayDayState = "active" | "recovery" | "unavailable" | "complete";
 
+export type CoachLoopPhase = "act" | "resume" | "reflect" | "verify";
+
+export type CoachRecognitionLevel = "just_met" | "initial_hypothesis" | "verifying" | "understands";
+
+export interface CoachStrategyCandidateView {
+  candidateId: string;
+  candidateVersionId: string;
+  title: string;
+  rationale: string;
+}
+
+export interface CoachReturnFeedbackView {
+  title: string;
+  changes: string[];
+  nextAction: string;
+}
+
+export interface CoachLoopPresentationContext {
+  profileStatus: "loading" | "ready" | "unavailable";
+  coachContext: LearnerCoachContext | null;
+  candidate: InferenceCandidateVersion | null;
+  beforeSnapshot: CoachTaskBeforeSnapshot | null;
+  entryIntent?: CoachEntryIntent | null;
+}
+
+export interface CoachLoopView {
+  phase: CoachLoopPhase;
+  statusLabel: string;
+  recognitionLevel: CoachRecognitionLevel;
+  recognitionLabel: string;
+  observation: string;
+  judgment: string;
+  why: string;
+  actionTitle: string;
+  completionRule: string;
+  verification: string;
+  correction: string;
+  feedbackPromise: string;
+  feedback: CoachReturnFeedbackView | null;
+  candidate: CoachStrategyCandidateView | null;
+}
+
+type CoachLoopTask = Pick<
+  TaskView,
+  "id" | "kind" | "status" | "reason" | "title" | "completionRule"
+>;
+
 export interface TodayView {
   headline: string;
   rationale: string;
@@ -101,6 +156,7 @@ export interface TodayView {
   omittedTrackReasons: OmittedTrackReasonView[];
   tasks: TaskView[];
   activeTasks: TaskView[];
+  loop: CoachLoopView | null;
   secondaryTasks: TaskQueueView[];
   completedTasks: TaskView[];
   hiddenCompletedCount: number;
@@ -204,7 +260,10 @@ const roleLabels: Readonly<Record<string, string>> = {
   abandoned: "已结束",
 };
 
-export function presentTodayDashboard(dashboard: TodayDashboard): TodayView {
+export function presentTodayDashboard(
+  dashboard: TodayDashboard,
+  coachContext: CoachLoopPresentationContext = loadingCoachContext(),
+): TodayView {
   const gap = presentGoalGap(dashboard);
   const tasks = orderedTasks(dashboard.tasks).map(presentTask);
   const activeTasks = tasks.filter(
@@ -249,6 +308,11 @@ export function presentTodayDashboard(dashboard: TodayDashboard): TodayView {
     omittedTrackReasons: presentOmittedReasons(dashboard, allocationTracks),
     tasks,
     activeTasks,
+    loop: presentCoachLoop(
+      dashboard,
+      activeTasks[0] ?? coachTaskFromSnapshot(coachContext.beforeSnapshot),
+      coachContext,
+    ),
     secondaryTasks,
     completedTasks,
     hiddenCompletedCount,
@@ -263,6 +327,314 @@ export function presentTodayDashboard(dashboard: TodayDashboard): TodayView {
     dueSummary: presentObjectiveClosureSummary(dashboard),
     isRecoveryDay: dashboard.dayMode === "recovery",
   };
+}
+
+export function presentCoachLoop(
+  dashboard: TodayDashboard,
+  task: CoachLoopTask | null,
+  context: CoachLoopPresentationContext = loadingCoachContext(),
+): CoachLoopView | null {
+  if (!task) return null;
+  const resumed = task.status === "in_progress";
+  const recognition = presentRecognition(
+    context.profileStatus,
+    context.coachContext,
+    context.entryIntent ?? null,
+  );
+  const profile = context.coachContext?.profile ?? null;
+  const candidate = presentStrategyCandidate(context.candidate, profile);
+  return {
+    phase: resumed
+      ? "resume"
+      : task.kind === "reflection"
+        ? "reflect"
+        : task.kind === "verification"
+          ? "verify"
+          : "act",
+    statusLabel: resumed ? "继续上次进度" : coachLoopStatusLabel(task.kind),
+    recognitionLevel: recognition.level,
+    recognitionLabel: recognition.label,
+    observation: recognition.observation,
+    judgment: candidate?.rationale || dashboard.headline.trim() || "岸岸正在整理当前判断",
+    why: task.reason.trim() || dashboard.rationale.trim() || "当前任务暂未附带更多判断依据。",
+    actionTitle: task.title,
+    completionRule: task.completionRule.trim() || "任务页暂未给出完成标准。",
+    verification: coachLoopVerification(task),
+    correction: "如果完成后的权威证据不支持这个判断，岸岸会收回它，再用新证据重排下一项。",
+    feedbackPromise: coachLoopFeedbackPromise(task.kind),
+    feedback: presentReturnFeedback(dashboard, profile, context.beforeSnapshot),
+    candidate,
+  };
+}
+
+function loadingCoachContext(): CoachLoopPresentationContext {
+  return {
+    profileStatus: "loading",
+    coachContext: null,
+    candidate: null,
+    beforeSnapshot: null,
+    entryIntent: null,
+  };
+}
+
+function presentRecognition(
+  status: CoachLoopPresentationContext["profileStatus"],
+  coachContext: LearnerCoachContext | null,
+  entryIntent: CoachEntryIntent | null,
+): { level: CoachRecognitionLevel; label: string; observation: string } {
+  if (status === "loading") {
+    return {
+      level: "just_met",
+      label: "正在同步证据",
+      observation: "岸岸正在核对你的成绩、作答和复测记录，不会用缺失数据假装精准。",
+    };
+  }
+  if (status === "unavailable" || !coachContext) {
+    return {
+      level: "just_met",
+      label: "证据待同步",
+      observation: "学习记录暂时没有同步成功；今天的任务仍可继续，但岸岸先不升级判断。",
+    };
+  }
+  const recognition = coachContext.recognition;
+  if (recognition.level !== "just_met") return recognition;
+  return {
+    ...recognition,
+    observation: entryIntent ? entryIntentObservation(entryIntent) : recognition.observation,
+  };
+}
+
+function entryIntentObservation(intent: CoachEntryIntent | null): string {
+  if (!intent) return "岸岸还没看过你的真实作答，现在只用目标和可用时间决定先从哪里开始。";
+  if (intent.path === "score_report") {
+    return intent.evidenceSource === "score_report"
+      ? "你刚导入了成绩单，岸岸正在等权威画像同步；同步前先不把粗轮廓当定论。"
+      : "你选择先用最近成绩单认识自己；岸岸会先看分差，再安排一道任务验证粗判断。";
+  }
+  if (intent.path === "wrong_question") {
+    return intent.evidenceSource === "external_answer"
+      ? "你刚导入了真实错题作答，岸岸正在等它进入画像；暂时只把错因当候选。"
+      : "你选择从错题开始；岸岸会结合当时答案、用时和思路提出一个待验证错因。";
+  }
+  if (intent.path === "quick_diagnostic") {
+    return "你选择了快速诊断；这次只用来决定先从哪里开始，不会包装成完整能力测评。";
+  }
+  return intent.evidenceSource === "position_preference"
+    ? "你已经确认了目标地区和岗位层级；岸岸会把它用于后续岗位筛选，再用真实作答校准目标分。"
+    : "你还没选岗；岸岸先用岗位方向和目标分确定起点，再逐步补真实作答证据。";
+}
+
+export function coachEvidenceCounters(profile: LearningBrainProfileVersion): CoachEvidenceCounters {
+  return {
+    scoreEvidenceCount: profile.evidenceSummary.scoreEvidenceCount,
+    xingceAttemptCount: profile.evidenceSummary.xingceAttemptCount,
+    xingceMasteryCount: profile.evidenceSummary.xingceMasteryCount,
+    essayMasteryCount: profile.evidenceSummary.essayMasteryCount,
+    taskExecutionCount: profile.evidenceSummary.taskExecutionCount,
+    externalAnswerCount: profile.evidenceSummary.externalAnswerCount ?? 0,
+  };
+}
+
+function presentStrategyCandidate(
+  candidate: InferenceCandidateVersion | null,
+  profile: LearningBrainProfileVersion | null,
+): CoachStrategyCandidateView | null {
+  if (!candidate || candidate.status !== "awaiting_confirmation" || !profile) return null;
+  const basedOnProfileVersionId = candidate.value.basedOnProfileVersionId;
+  if (
+    typeof basedOnProfileVersionId !== "string" ||
+    basedOnProfileVersionId !== profile.profileVersionId
+  ) {
+    return null;
+  }
+  const rationale = candidate.value.rationale;
+  const decisionType = candidate.value.decisionType;
+  const scopeKey = candidate.value.scopeKey;
+  if (typeof rationale !== "string" || !rationale.trim()) return null;
+  return {
+    candidateId: candidate.candidateId,
+    candidateVersionId: candidate.candidateVersionId,
+    title: strategyCandidateTitle(decisionType, scopeKey),
+    rationale: rationale.trim(),
+  };
+}
+
+function strategyCandidateTitle(decisionType: unknown, scopeKey: unknown): string {
+  const scope =
+    scopeKey === "xingce"
+      ? "行测"
+      : scopeKey === "essay"
+        ? "申论"
+        : typeof scopeKey === "string" && scopeKey.trim()
+          ? scopeKey.trim()
+          : "当前阶段";
+  return (
+    {
+      baseline_guidance: `先校准${scope}基线`,
+      exam_skip: `暂时跳过${scope}`,
+      phase_deprioritize: `降低${scope}优先级`,
+      strategic_abandon: `阶段性放下${scope}`,
+    }[typeof decisionType === "string" ? decisionType : ""] ?? `调整${scope}侧重`
+  );
+}
+
+function coachLoopVerification(task: CoachLoopTask): string {
+  const evidence = {
+    practice: "用本次正确率、用时和作答过程，看问题是知识缺口、方法不稳还是速度问题。",
+    reflection: "用错因确认和下一次同类题复测，看这次归因能否解释并修复错误。",
+    verification: "用间隔后的同类题表现，看改善是否稳定，而不是只在刚练完时记得。",
+    mock_exam: "用整卷成绩、节奏和分模块表现，校准当前两科判断与训练侧重。",
+    essay: "用本次作答、评阅证据和后续改写，验证当前申论卡点是否判断正确。",
+  }[task.kind];
+  return `${evidence} 完成标准：${task.completionRule.trim() || "以任务页的权威完成记录为准。"}`;
+}
+
+function coachTaskFromSnapshot(before: CoachTaskBeforeSnapshot | null): CoachLoopTask | null {
+  if (!before) return null;
+  return {
+    id: before.taskId,
+    kind: before.taskKind,
+    status: "complete",
+    reason: before.taskReason,
+    title: before.taskTitle,
+    completionRule: before.completionRule,
+  };
+}
+
+export function coachReturnFeedbackConsumedAuthoritatively(
+  dashboard: TodayDashboard,
+  profile: LearningBrainProfileVersion | null,
+  before: CoachTaskBeforeSnapshot | null,
+): boolean {
+  if (!before) return false;
+  const currentTask = dashboard.tasks.find((task) => task.id === before.taskId);
+  return (
+    currentTask?.status === "complete" ||
+    dashboard.planVersionId !== before.planVersionId ||
+    Boolean(
+      profile && before.profileVersionId && profile.profileVersionId !== before.profileVersionId,
+    )
+  );
+}
+
+function presentReturnFeedback(
+  dashboard: TodayDashboard,
+  profile: LearningBrainProfileVersion | null,
+  before: CoachTaskBeforeSnapshot | null,
+): CoachReturnFeedbackView | null {
+  if (!before) return null;
+  const changes: string[] = [];
+  const currentTask = dashboard.tasks.find((task) => task.id === before.taskId);
+  if (currentTask?.status === "complete") {
+    changes.push(`你刚完成了“${before.taskTitle}”，这次结果已经记下来。`);
+  }
+  if (profile && before.evidence) {
+    const current = coachEvidenceCounters(profile);
+    addErrorPatternDeltas(changes, profile, before);
+    addEvidenceDelta(
+      changes,
+      current.scoreEvidenceCount - before.evidence.scoreEvidenceCount,
+      "份成绩证据已进入岸岸的判断",
+    );
+    addEvidenceDelta(
+      changes,
+      current.xingceAttemptCount - before.evidence.xingceAttemptCount,
+      "道真实作答让岸岸更了解你的做题过程",
+    );
+    addEvidenceDelta(
+      changes,
+      current.externalAnswerCount - before.evidence.externalAnswerCount,
+      "条你导入的作答已用于校准判断",
+    );
+    addEvidenceDelta(
+      changes,
+      current.xingceMasteryCount +
+        current.essayMasteryCount -
+        before.evidence.xingceMasteryCount -
+        before.evidence.essayMasteryCount,
+      "条掌握或复测证据改变了当前判断",
+    );
+    if (before.profileVersionId && profile.profileVersionId !== before.profileVersionId) {
+      changes.push("岸岸已根据这次证据更新了对你的认识。");
+    }
+  }
+  if (dashboard.planVersionId !== before.planVersionId) {
+    changes.push("接下来的安排已经根据这次结果重新排过。");
+  }
+  if (changes.length === 0) {
+    changes.push(
+      currentTask?.status === "in_progress"
+        ? "这项任务仍在进行中，岸岸还没有把过程当成新的结论。"
+        : "暂时还没收到新的权威完成或学习证据，当前判断保持不变。",
+    );
+  }
+  const next = dashboard.tasks.find(
+    (task) => task.status === "ready" || task.status === "in_progress",
+  );
+  return {
+    title: "这次练习带来了这些真实变化",
+    changes: changes.map((item) => item.trim()),
+    nextAction: next ? `下一步：${next.title}` : "下一步：今天先收口，等待结算和后续复测。",
+  };
+}
+
+function addEvidenceDelta(changes: string[], delta: number, label: string): void {
+  if (delta > 0) changes.push(`${String(delta)} ${label}。`);
+}
+
+function addErrorPatternDeltas(
+  changes: string[],
+  profile: LearningBrainProfileVersion,
+  before: CoachTaskBeforeSnapshot,
+): void {
+  if (!before.errorPatterns) return;
+  const previous = new Map(before.errorPatterns.map((pattern) => [pattern.patternId, pattern]));
+  const current = new Map(profile.errorPatterns.map((pattern) => [pattern.patternId, pattern]));
+
+  for (const pattern of profile.errorPatterns) {
+    const prior = previous.get(pattern.patternId);
+    if (!prior && pattern.status === "confirmed") {
+      changes.push(`岸岸新增了一条待验证判断：“${pattern.displayName}”。`);
+      continue;
+    }
+    if (!prior) continue;
+    if (prior.status === "confirmed" && pattern.status === "counterevidence") {
+      changes.push(`独立复测已形成反证，岸岸收回“${pattern.displayName}”这个当前弱项判断。`);
+      continue;
+    }
+    if (
+      pattern.status === "confirmed" &&
+      pattern.counterevidenceCount > prior.counterevidenceCount
+    ) {
+      changes.push(`“${pattern.displayName}”出现了新的反向证据，但还有未修复记录，岸岸暂不收回。`);
+    }
+  }
+
+  for (const pattern of before.errorPatterns) {
+    if (pattern.status === "confirmed" && !current.has(pattern.patternId)) {
+      changes.push(`“${pattern.displayName}”已不再出现在当前错误模式中，岸岸停止按它安排训练。`);
+    }
+  }
+}
+
+function coachLoopStatusLabel(kind: TodayTask["kind"]): string {
+  return {
+    practice: "先解决最高收益缺口",
+    reflection: "先复盘，再加练",
+    verification: "到了复测时间",
+    mock_exam: "用整卷校准判断",
+    essay: "推进申论主线",
+  }[kind];
+}
+
+function coachLoopFeedbackPromise(kind: TodayTask["kind"]): string {
+  return {
+    practice: "完成后，岸岸会根据正确率、用时和过程记录更新当前判断与后续安排。",
+    reflection: "完成后，岸岸会更新错因判断，并安排下一次复测时间。",
+    verification: "完成后，岸岸会判断这个问题是否已经稳定修复，还是需要继续训练。",
+    mock_exam: "完成后，岸岸会根据整卷结果更新两科判断和接下来的训练重点。",
+    essay: "完成后，岸岸会根据本次作答与评阅结果更新当前卡点和下一步。",
+  }[kind];
 }
 
 function todayDayState(

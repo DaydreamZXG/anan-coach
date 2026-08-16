@@ -1,0 +1,475 @@
+{
+  "asset_id": "da_2f19b8599ff603946ae3c54b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "广东",
+    "江苏",
+    "山东",
+    "浙江"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "GDP",
+      "label": "GDP",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        38.7,
+        40.7,
+        34.4,
+        40.3
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "第一产业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        99.3,
+        88.1,
+        95.9,
+        94.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "第二产业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        36.8,
+        35.7,
+        25.6,
+        38.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "工业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        35.5,
+        33.2,
+        24.2,
+        35.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_5",
+      "label": "建筑业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        53.7,
+        59.6,
+        39.0,
+        65.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_6",
+      "label": "第三产业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        32.4,
+        39.2,
+        31.8,
+        34.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_7",
+      "label": "交通运输、仓储和邮政业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        27.3,
+        28.7,
+        21.2,
+        26.4
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_8",
+      "label": "批发和零售业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        20.3,
+        32.1,
+        17.5,
+        17.1
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_9",
+      "label": "住宿和餐饮业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        35.2,
+        51.0,
+        29.0,
+        39.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_10",
+      "label": "金融业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        36.9,
+        23.6,
+        27.2,
+        20.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_11",
+      "label": "房地产业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        14.4,
+        8.0,
+        11.2,
+        7.2
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_12",
+      "label": "其他服务业",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        47.4,
+        59.8,
+        54.5,
+        61.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2008年广东省公务员录用考试《行测》题_images/img_0085_6460253bdb814b01.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广东省公务员录用考试《行测》题_images/img_0085_6460253bdb814b01.png",
+        "paper_title": "2008年广东省公务员录用考试《行测》题",
+        "question_id": "pq_20707d7b7ce5e48d5e8c",
+        "question_number": 91,
+        "source_jsonl_line": 33639
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广东省公务员录用考试《行测》题_images/img_0093_f26bf8d0e6724e5a.png",
+        "paper_title": "2008年广东省公务员录用考试《行测》题",
+        "question_id": "pq_9b031b2fa522bff93949",
+        "question_number": 92,
+        "source_jsonl_line": 33640
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广东省公务员录用考试《行测》题_images/img_0085_6460253bdb814b01.png",
+        "paper_title": "2008年广东省公务员录用考试《行测》题",
+        "question_id": "pq_d65571c73a078f006e4e",
+        "question_number": 93,
+        "source_jsonl_line": 33641
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广东省公务员录用考试《行测》题_images/img_0093_f26bf8d0e6724e5a.png",
+        "paper_title": "2008年广东省公务员录用考试《行测》题",
+        "question_id": "pq_13d91efdaec533b04b4c",
+        "question_number": 94,
+        "source_jsonl_line": 33642
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年广东省公务员录用考试《行测》题_images/img_0085_6460253bdb814b01.png",
+        "paper_title": "2008年广东省公务员录用考试《行测》题",
+        "question_id": "pq_32815509d33e8e264d11",
+        "question_number": 95,
+        "source_jsonl_line": 33643
+      }
+    ],
+    "sha256": "2f19b8599ff603946ae3c54bf9e2c927394abdedc545ba90de93029740958b05"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "广东",
+      "江苏",
+      "山东",
+      "浙江"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "GDP",
+        "unit": "%",
+        "values": [
+          38.7,
+          40.7,
+          34.4,
+          40.3
+        ]
+      },
+      {
+        "label": "第一产业",
+        "unit": "%",
+        "values": [
+          99.3,
+          88.1,
+          95.9,
+          94.7
+        ]
+      },
+      {
+        "label": "第二产业",
+        "unit": "%",
+        "values": [
+          36.8,
+          35.7,
+          25.6,
+          38.6
+        ]
+      },
+      {
+        "label": "工业",
+        "unit": "%",
+        "values": [
+          35.5,
+          33.2,
+          24.2,
+          35.4
+        ]
+      },
+      {
+        "label": "建筑业",
+        "unit": "%",
+        "values": [
+          53.7,
+          59.6,
+          39.0,
+          65.2
+        ]
+      },
+      {
+        "label": "第三产业",
+        "unit": "%",
+        "values": [
+          32.4,
+          39.2,
+          31.8,
+          34.7
+        ]
+      },
+      {
+        "label": "交通运输、仓储和邮政业",
+        "unit": "%",
+        "values": [
+          27.3,
+          28.7,
+          21.2,
+          26.4
+        ]
+      },
+      {
+        "label": "批发和零售业",
+        "unit": "%",
+        "values": [
+          20.3,
+          32.1,
+          17.5,
+          17.1
+        ]
+      },
+      {
+        "label": "住宿和餐饮业",
+        "unit": "%",
+        "values": [
+          35.2,
+          51.0,
+          29.0,
+          39.7
+        ]
+      },
+      {
+        "label": "金融业",
+        "unit": "%",
+        "values": [
+          36.9,
+          23.6,
+          27.2,
+          20.6
+        ]
+      },
+      {
+        "label": "房地产业",
+        "unit": "%",
+        "values": [
+          14.4,
+          8.0,
+          11.2,
+          7.2
+        ]
+      },
+      {
+        "label": "其他服务业",
+        "unit": "%",
+        "values": [
+          47.4,
+          59.8,
+          54.5,
+          61.7
+        ]
+      }
+    ]
+  },
+  "title": "表二 广东与部分省 2006 年分行业劳动报酬占 GDP 比重",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2f19b8599ff603946ae3c54b/row_band_01.jpg",
+        "review-crops/da_2f19b8599ff603946ae3c54b/row_band_02.jpg",
+        "review-crops/da_2f19b8599ff603946ae3c54b/row_band_03.jpg",
+        "review-crops/da_2f19b8599ff603946ae3c54b/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:16.48",
+      "crop_verification_elapsed_seconds:16.917",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

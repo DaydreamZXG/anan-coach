@@ -2290,3 +2290,142 @@ button.review-material-entry {
 .rescue-retry::after {
   border: 0;
 }
+
+/* 费曼复述复用完成态卡片的既有黑色主按钮与留白，不另造视觉语言。 */
+.teach-back {
+  margin-top: calc(28 * var(--rpx));
+  padding-top: calc(28 * var(--rpx));
+  border-top: calc(1 * var(--rpx)) solid var(--color-line);
+}
+
+.teach-back__title,
+.teach-back__receipt-title {
+  color: var(--color-ink);
+  font-size: var(--text-body);
+  font-weight: 800;
+}
+
+.teach-back__hint,
+.teach-back__unavailable,
+.teach-back__receipt-copy {
+  margin-top: calc(10 * var(--rpx));
+  color: var(--color-muted);
+  font-size: var(--text-micro);
+  line-height: 1.55;
+}
+
+.teach-back__textarea {
+  margin-top: calc(20 * var(--rpx));
+}
+
+.teach-back__submit {
+  width: 100%;
+  margin-top: calc(16 * var(--rpx));
+}
+
+.teach-back__result {
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(24 * var(--rpx));
+  border-radius: var(--radius-24);
+  background: var(--color-surface-soft);
+}
+
+.teach-back__coach {
+  color: var(--color-primary-deep);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.teach-back__steps,
+.teach-back__claims,
+.teach-back__transfer {
+  margin-top: calc(20 * var(--rpx));
+}
+
+.teach-back__step,
+.teach-back__claim,
+.teach-back__visual-fact {
+  margin-top: calc(8 * var(--rpx));
+  color: var(--color-ink-secondary);
+  font-size: var(--text-micro);
+  line-height: 1.55;
+}
+
+.teach-back__eyebrow,
+.teach-back__visual-title {
+  color: var(--color-muted);
+  font-size: var(--text-micro);
+  font-weight: 700;
+}
+
+.teach-back__stem {
+  margin-top: calc(12 * var(--rpx));
+  color: var(--color-ink);
+  font-size: var(--text-caption);
+  line-height: 1.6;
+}
+
+.teach-back__visual {
+  margin-top: calc(16 * var(--rpx));
+  padding: calc(16 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
+  border-radius: var(--radius-24);
+  background: var(--figma-color-surface);
+}
+
+.teach-back__option {
+  display: flex;
+  gap: calc(14 * var(--rpx));
+  margin-top: calc(12 * var(--rpx));
+  padding: calc(18 * var(--rpx)) calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
+  border-radius: var(--radius-24);
+  color: var(--color-ink-secondary);
+  background: var(--figma-color-surface);
+  font-size: var(--text-caption);
+}
+
+.teach-back__option--selected {
+  border-color: var(--color-primary-deep);
+  color: var(--color-ink);
+  box-shadow: inset 0 0 0 calc(1 * var(--rpx)) var(--color-primary-deep);
+}
+
+.teach-back__option-label {
+  flex: 0 0 auto;
+  font-weight: 800;
+}
+
+.teach-back__confidence {
+  display: flex;
+  gap: calc(12 * var(--rpx));
+  margin-top: calc(20 * var(--rpx));
+}
+
+.teach-back__confidence-chip {
+  flex: 1;
+  padding: calc(14 * var(--rpx)) 0;
+  border-radius: var(--radius-24);
+  color: var(--color-muted);
+  background: var(--figma-color-surface);
+  font-size: var(--text-micro);
+  font-weight: 700;
+  text-align: center;
+}
+
+.teach-back__confidence-chip--selected {
+  color: var(--figma-color-on-dark);
+  background: var(--color-ink);
+}
+
+.teach-back__receipt {
+  margin-top: calc(20 * var(--rpx));
+  padding: calc(20 * var(--rpx));
+  border-radius: var(--radius-24);
+  background: var(--color-primary-soft);
+}
+
+.teach-back__receipt--correct {
+  background: rgb(16 185 129 / 10%);
+}

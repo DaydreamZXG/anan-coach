@@ -1,0 +1,258 @@
+{
+  "asset_id": "da_185e5247380452702e336f2c",
+  "axes": {
+    "x": {
+      "max": 10,
+      "min": 0,
+      "ticks": [],
+      "title": "月份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 10000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000
+        ],
+        "title": "金额",
+        "unit": "亿元"
+      },
+      {
+        "max": 9,
+        "min": -9,
+        "ticks": [
+          -9,
+          -6,
+          -3,
+          0,
+          3,
+          6,
+          9
+        ],
+        "title": "同比增速",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1月",
+    "1-2月",
+    "1-3月",
+    "1-4月",
+    "1-5月",
+    "1-6月",
+    "1-7月",
+    "1-8月",
+    "1-9月",
+    "1-10月",
+    "1-11月"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "金额（亿元）",
+      "style": {
+        "dash": null,
+        "fill": "darkgray",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "同比增速（%）",
+      "style": {
+        "dash": "solid",
+        "fill": "lightgray",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "金额（亿元）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        496,
+        976,
+        1433,
+        1923,
+        2491,
+        3077,
+        3625,
+        4205,
+        4779,
+        5339,
+        5925
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "同比增速（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        1.8,
+        5.5,
+        7.5,
+        6.5,
+        6.7,
+        7.7,
+        7.0,
+        6.6,
+        6.8,
+        6.4,
+        6.3
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0298_795b0eec79ea9cfe.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0298_795b0eec79ea9cfe.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_2b5e47451fe367fb138f",
+        "question_number": 86,
+        "source_jsonl_line": 30510
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0306_05fd24d521c3aa57.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_3ebd929e504a7afc79df",
+        "question_number": 87,
+        "source_jsonl_line": 30511
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0298_795b0eec79ea9cfe.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_1da75725cc45335c3413",
+        "question_number": 88,
+        "source_jsonl_line": 30512
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0298_795b0eec79ea9cfe.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_1e4701baa42eb60af42d",
+        "question_number": 89,
+        "source_jsonl_line": 30513
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年山东省公务员录用考试《行测》试题（网友回忆版）_images/img_0306_05fd24d521c3aa57.png",
+        "paper_title": "2021年山东省公务员录用考试《行测》试题（网友回忆版）",
+        "question_id": "pq_af1010d8d256965f8808",
+        "question_number": 90,
+        "source_jsonl_line": 30514
+      }
+    ],
+    "sha256": "185e5247380452702e336f2cdb9406693dd8f8dc695f1996dd083bcb88121701"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2019年1-11月A地区社会消费品零售总额各月累计金额及累计同比增速",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_185e5247380452702e336f2c/column_band_01.jpg",
+        "review-crops/da_185e5247380452702e336f2c/column_band_02.jpg",
+        "review-crops/da_185e5247380452702e336f2c/column_band_03.jpg",
+        "review-crops/da_185e5247380452702e336f2c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.769",
+      "crop_verification_elapsed_seconds:23.236",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正同比增速系列中'7'为'7.0'，以保持小数位数一致",
+      "crop_note:修正金额系列中'496'为'496'，与图中一致",
+      "crop_note:修正金额系列中'976'为'976'，与图中一致",
+      "crop_note:修正金额系列中'1433'为'1433'，与图中一致",
+      "crop_note:修正金额系列中'1923'为'1923'，与图中一致",
+      "crop_note:修正金额系列中'2491'为'2491'，与图中一致",
+      "crop_note:修正金额系列中'3077'为'3077'，与图中一致",
+      "crop_note:修正金额系列中'3625'为'3625'，与图中一致",
+      "crop_note:修正金额系列中'4205'为'4205'，与图中一致",
+      "crop_note:修正金额系列中'4779'为'4779'，与图中一致",
+      "crop_note:修正金额系列中'5339'为'5339'，与图中一致",
+      "crop_note:修正金额系列中'5925'为'5925'，与图中一致",
+      "crop_note:修正同比增速系列中'5.5'为'5.5'，与图中一致",
+      "crop_note:修正同比增速系列中'7.5'为'7.5'，与图中一致",
+      "crop_note:修正同比增速系列中'6.5'为'6.5'，与图中一致",
+      "crop_note:修正同比增速系列中'6.7'为'6.7'，与图中一致",
+      "crop_note:修正同比增速系列中'7.7'为'7.7'，与图中一致",
+      "crop_note:修正同比增速系列中'7'为'7.0'，与图中一致",
+      "crop_note:修正同比增速系列中'6.6'为'6.6'，与图中一致",
+      "crop_note:修正同比增速系列中'6.8'为'6.8'，与图中一致",
+      "crop_note:修正同比增速系列中'6.4'为'6.4'，与图中一致",
+      "crop_note:修正同比增速系列中'6.3'为'6.3'，与图中一致",
+      "crop_note:修正金额系列中'1-11月'的值为'5925'，与图中一致",
+      "crop_note:修正同比增速系列中'1-11月'的值为'6.3'，与图中一致",
+      "crop_note:修正金额系列中'1-10月'的值为'5339'，与图中一致",
+      "crop_note:修正同比增速系列中'1-10月'的值为'6.4'，与图中一致",
+      "crop_note:修正金额系列中'1-9月'的值为'4779'，与图中一致",
+      "crop_note:修正同比增速系列中'1-9月'的值为'6.8'，与图中一致",
+      "crop_note:修正金额系列中'1-8月'的值为'4205'，与图中一致",
+      "crop_note:修正同比增速系列中'1-8月'的值为'6.6'，与图中一致",
+      "crop_note:修正金额系列中'1-7月'的值为'3625'，与图中一致",
+      "crop_note:修正同比增速系列中'1-7月'的值为'7.0'，与图中一致",
+      "crop_note:修正金额系列中'1-6月'的值为'3077'，与图中一致",
+      "crop_note:修正同比增速系列中'1-6月'的值为'7.7'，与图中一致",
+      "crop_note:修正金额系列中'1-5月'的值为'2491'，与图中一致",
+      "crop_note:修正同比增速系列中'1-5月'的值为'6.7'，与图中一致",
+      "crop_note:修正金额系列中'1-4月'的值为'1923'，与图中一致",
+      "crop_note:修正同比增速系列中'1-4月'的值为'6.5'，与图中一致",
+      "crop_note:修正金额系列中'1-3月'的值为'1433'，与图中一致",
+      "crop_note:修正同比增速系列中'1-3月'的值为'7.5'，与图中一致",
+      "crop_note:修正金额系列中'1-2月'的值为'976'，与图中一致",
+      "crop_note:修正同比增速系列中'1-2月'的值为'5.5'，与图中一致",
+      "crop_note:修正金额系列中'1月'的值为'496'，与图中一致",
+      "crop_note:修正同比增速系列中'1月'的值为'1.8'，与图中一致"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

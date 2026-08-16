@@ -1,0 +1,225 @@
+{
+  "asset_id": "da_39c6e2a2e466c3da68db982c",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 90000,
+        "min": 0,
+        "ticks": [
+          0,
+          10000,
+          20000,
+          30000,
+          40000,
+          50000,
+          60000,
+          70000,
+          80000,
+          90000
+        ],
+        "title": null,
+        "unit": "万人"
+      }
+    ]
+  },
+  "categories": [
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "城镇就业人员",
+      "style": {
+        "dash": null,
+        "fill": "#DCDCDC",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "乡村就业人员",
+      "style": {
+        "dash": null,
+        "fill": "#696969",
+        "marker": null,
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇就业人员",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        37102,
+        38737,
+        37943,
+        37041,
+        36175
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "乡村就业人员",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        39602,
+        38240,
+        39310,
+        40410,
+        41428
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2018年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0059_68f042a40660f140.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0059_68f042a40660f140.png",
+        "paper_title": "2018年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_634047de3b6e00e57abf",
+        "question_number": 91,
+        "source_jsonl_line": 88296
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0065_f3effb146b261976.png",
+        "paper_title": "2018年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_d71ccdd117b4050c3833",
+        "question_number": 92,
+        "source_jsonl_line": 88297
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0065_f3effb146b261976.png",
+        "paper_title": "2018年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_130e1ab6f70f36c6f964",
+        "question_number": 93,
+        "source_jsonl_line": 88298
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0059_68f042a40660f140.png",
+        "paper_title": "2018年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_661e838298a8f16e6a0e",
+        "question_number": 94,
+        "source_jsonl_line": 88299
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0059_68f042a40660f140.png",
+        "paper_title": "2018年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_b20b780d96cfe1d30c7e",
+        "question_number": 95,
+        "source_jsonl_line": 88300
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0051_f3effb146b261976.png",
+        "paper_title": "2018年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_045f4d6ed68be15f7a3b",
+        "question_number": 91,
+        "source_jsonl_line": 94494
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0067_68f042a40660f140.png",
+        "paper_title": "2018年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_fb23afca24d144d975ae",
+        "question_number": 92,
+        "source_jsonl_line": 94495
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0067_68f042a40660f140.png",
+        "paper_title": "2018年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_f2824c2bd37cb295cb67",
+        "question_number": 93,
+        "source_jsonl_line": 94496
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0067_68f042a40660f140.png",
+        "paper_title": "2018年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_c3e204ec978b5588c3a3",
+        "question_number": 94,
+        "source_jsonl_line": 94497
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0067_68f042a40660f140.png",
+        "paper_title": "2018年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_9959bbe83fdd285df7d2",
+        "question_number": 95,
+        "source_jsonl_line": 94498
+      }
+    ],
+    "sha256": "39c6e2a2e466c3da68db982cea99cf7688cc70b098c3bf93500a3d24100e2866"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2012-2016年全国就业人员数量",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_39c6e2a2e466c3da68db982c/column_band_01.jpg",
+        "review-crops/da_39c6e2a2e466c3da68db982c/column_band_02.jpg",
+        "review-crops/da_39c6e2a2e466c3da68db982c/column_band_03.jpg",
+        "review-crops/da_39c6e2a2e466c3da68db982c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.97",
+      "crop_verification_elapsed_seconds:6.975",
+      "candidate_value_changes_after_crop:0"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

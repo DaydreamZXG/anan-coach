@@ -92,11 +92,26 @@ class _VisionOutput(_StrictModel):
 
 
 class _VisionPage:
-    __slots__ = ("page_no", "data_url", "content_sha256", "visual_fingerprint")
+    __slots__ = (
+        "page_no",
+        "data_url",
+        "encoded_bytes",
+        "content_sha256",
+        "visual_fingerprint",
+    )
 
-    def __init__(self, *, page_no: int, data_url: str, content_sha256: str, visual_fingerprint: str) -> None:
+    def __init__(
+        self,
+        *,
+        page_no: int,
+        data_url: str,
+        encoded_bytes: bytes,
+        content_sha256: str,
+        visual_fingerprint: str,
+    ) -> None:
         self.page_no = page_no
         self.data_url = data_url
+        self.encoded_bytes = encoded_bytes
         self.content_sha256 = content_sha256
         self.visual_fingerprint = visual_fingerprint
 
@@ -155,6 +170,12 @@ class GemmaVisionRecognitionProcessor:
     @property
     def provider_release(self) -> str:
         return self._release
+
+    @property
+    def supplies_trusted_rendered_pages(self) -> bool:
+        """The adapter itself rendered the exact immutable bytes sent to the model."""
+
+        return True
 
     def process(self, request: ProcessorRequest) -> ProcessorResult:
         try:
@@ -314,6 +335,7 @@ class GemmaVisionRecognitionProcessor:
             omrMarks=marks,
             pageImageSha256=tuple(page.content_sha256 for page in pages),
             visualFingerprints=tuple(page.visual_fingerprint for page in pages),
+            trusted_rendered_page_images=tuple(page.encoded_bytes for page in pages),
             confidence=parsed.confidence,
         )
 
@@ -460,6 +482,7 @@ def _encode_page(image: Image.Image, *, page_no: int) -> _VisionPage:
     return _VisionPage(
         page_no=page_no,
         data_url="data:image/jpeg;base64," + base64.b64encode(payload).decode("ascii"),
+        encoded_bytes=payload,
         content_sha256=sha256(dimension_bytes + normalized.tobytes()).hexdigest(),
         visual_fingerprint=_difference_hash_256(normalized),
     )

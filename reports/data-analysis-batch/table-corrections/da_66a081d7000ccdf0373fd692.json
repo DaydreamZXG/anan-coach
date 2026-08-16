@@ -1,0 +1,108 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "主营业务收入｜本月止累计(亿元)",
+          "主营业务收入｜同比增长(%)"
+        ],
+        "label": "主营业务收入"
+      },
+      {
+        "columns": [
+          "利润总额｜本月止累计(亿元)",
+          "利润总额｜同比增长(%)"
+        ],
+        "label": "利润总额"
+      }
+    ],
+    "columns": [
+      "主营业务收入｜本月止累计(亿元)",
+      "主营业务收入｜同比增长(%)",
+      "利润总额｜本月止累计(亿元)",
+      "利润总额｜同比增长(%)"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "分组名称",
+    "rows": [
+      {
+        "display_label": "总体",
+        "group": null,
+        "label": "总体",
+        "unit": null,
+        "values": [
+          222363.6,
+          11.9,
+          11740.1,
+          12.1
+        ]
+      },
+      {
+        "display_label": "其中：国有及国有控股企业",
+        "group": null,
+        "label": "其中：国有及国有控股企业",
+        "unit": null,
+        "values": [
+          58770.1,
+          4.9,
+          3412.2,
+          7.6
+        ]
+      },
+      {
+        "display_label": "私营企业",
+        "group": null,
+        "label": "私营企业",
+        "unit": null,
+        "values": [
+          70021.4,
+          18.4,
+          3757.1,
+          17.8
+        ]
+      },
+      {
+        "display_label": "集体企业",
+        "group": null,
+        "label": "集体企业",
+        "unit": null,
+        "values": [
+          2719.9,
+          10.4,
+          177.7,
+          7.5
+        ]
+      },
+      {
+        "display_label": "股份制企业",
+        "group": null,
+        "label": "股份制企业",
+        "unit": null,
+        "values": [
+          129554.9,
+          14.0,
+          6843.2,
+          12.9
+        ]
+      },
+      {
+        "display_label": "外商及港澳台商投资企业",
+        "group": null,
+        "label": "外商及港澳台商投资企业",
+        "unit": null,
+        "values": [
+          54066.7,
+          8.0,
+          2687.8,
+          7.1
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

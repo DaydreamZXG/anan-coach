@@ -68,6 +68,7 @@ from app.domains.external_ingestion.upload.service import (
     UploadUnavailable,
 )
 from app.platform.http import COMMON_API_ERROR_RESPONSES, PublicApiEnvelope, public_success_envelope
+from app.domains.private_question_books.router import router as question_books_router
 
 
 router = APIRouter(
@@ -75,6 +76,7 @@ router = APIRouter(
     tags=["external-learning-ingestion"],
     responses=COMMON_API_ERROR_RESPONSES,
 )
+router.include_router(question_books_router)
 
 IdempotencyKey = Annotated[
     str,

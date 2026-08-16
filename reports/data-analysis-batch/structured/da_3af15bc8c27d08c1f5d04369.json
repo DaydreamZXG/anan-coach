@@ -1,0 +1,185 @@
+{
+  "asset_id": "da_3af15bc8c27d08c1f5d04369",
+  "axes": {
+    "x": {
+      "max": 12,
+      "min": 1,
+      "ticks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "title": "月度",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 10,
+        "min": 0,
+        "ticks": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "title": "涨跌幅度%",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "涨跌幅度%",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "diamond",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "涨跌幅度%",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        4.2,
+        5,
+        5.3,
+        5.1,
+        5.6,
+        7,
+        7.4,
+        6.6,
+        6.9,
+        6.1,
+        4.7,
+        4.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河北/2012年河北省公务员录用考试《行测》题_images/img_0058_d7e62483699ce742.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年河北省公务员录用考试《行测》题_images/img_0058_d7e62483699ce742.png",
+        "paper_title": "2012年河北省公务员录用考试《行测》题",
+        "question_id": "pq_39b423e00e4cd817be58",
+        "question_number": 86,
+        "source_jsonl_line": 54840
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年河北省公务员录用考试《行测》题_images/img_0065_86a323b264b2259d.png",
+        "paper_title": "2012年河北省公务员录用考试《行测》题",
+        "question_id": "pq_1c7546157df9b2498dc5",
+        "question_number": 87,
+        "source_jsonl_line": 54841
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年河北省公务员录用考试《行测》题_images/img_0065_86a323b264b2259d.png",
+        "paper_title": "2012年河北省公务员录用考试《行测》题",
+        "question_id": "pq_9b1ad052e573d2f86064",
+        "question_number": 88,
+        "source_jsonl_line": 54842
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年河北省公务员录用考试《行测》题_images/img_0058_d7e62483699ce742.png",
+        "paper_title": "2012年河北省公务员录用考试《行测》题",
+        "question_id": "pq_3eb5fa5571d2f3eaa17f",
+        "question_number": 89,
+        "source_jsonl_line": 54843
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2012年河北省公务员录用考试《行测》题_images/img_0058_d7e62483699ce742.png",
+        "paper_title": "2012年河北省公务员录用考试《行测》题",
+        "question_id": "pq_0e38359e47440a5cafc5",
+        "question_number": 90,
+        "source_jsonl_line": 54844
+      }
+    ],
+    "sha256": "3af15bc8c27d08c1f5d04369005e5a8b365a9ac4ca887f5226c68bd636f9e181"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2011年河北省居民消费价格涨跌幅度（月度同比）",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_3af15bc8c27d08c1f5d04369/column_band_01.jpg",
+        "review-crops/da_3af15bc8c27d08c1f5d04369/column_band_02.jpg",
+        "review-crops/da_3af15bc8c27d08c1f5d04369/column_band_03.jpg",
+        "review-crops/da_3af15bc8c27d08c1f5d04369/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.831",
+      "crop_verification_elapsed_seconds:5.14",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_crop_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

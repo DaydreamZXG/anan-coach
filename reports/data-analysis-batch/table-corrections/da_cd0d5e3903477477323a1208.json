@@ -1,0 +1,180 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "获奖人数"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "洲别",
+    "rows": [
+      {
+        "display_label": "北美洲｜美国",
+        "group": null,
+        "label": "北美洲｜美国",
+        "unit": null,
+        "values": [
+          178
+        ]
+      },
+      {
+        "display_label": "北美洲｜加拿大",
+        "group": null,
+        "label": "北美洲｜加拿大",
+        "unit": null,
+        "values": [
+          8
+        ]
+      },
+      {
+        "display_label": "拉丁美洲｜阿根廷",
+        "group": null,
+        "label": "拉丁美洲｜阿根廷",
+        "unit": null,
+        "values": [
+          5
+        ]
+      },
+      {
+        "display_label": "欧洲｜英国",
+        "group": null,
+        "label": "欧洲｜英国",
+        "unit": null,
+        "values": [
+          78
+        ]
+      },
+      {
+        "display_label": "欧洲｜德国",
+        "group": null,
+        "label": "欧洲｜德国",
+        "unit": null,
+        "values": [
+          64
+        ]
+      },
+      {
+        "display_label": "欧洲｜法国",
+        "group": null,
+        "label": "欧洲｜法国",
+        "unit": null,
+        "values": [
+          43
+        ]
+      },
+      {
+        "display_label": "欧洲｜瑞典",
+        "group": null,
+        "label": "欧洲｜瑞典",
+        "unit": null,
+        "values": [
+          28
+        ]
+      },
+      {
+        "display_label": "欧洲｜前苏联",
+        "group": null,
+        "label": "欧洲｜前苏联",
+        "unit": null,
+        "values": [
+          16
+        ]
+      },
+      {
+        "display_label": "欧洲｜瑞士",
+        "group": null,
+        "label": "欧洲｜瑞士",
+        "unit": null,
+        "values": [
+          15
+        ]
+      },
+      {
+        "display_label": "欧洲｜奥地利",
+        "group": null,
+        "label": "欧洲｜奥地利",
+        "unit": null,
+        "values": [
+          14
+        ]
+      },
+      {
+        "display_label": "欧洲｜意大利",
+        "group": null,
+        "label": "欧洲｜意大利",
+        "unit": null,
+        "values": [
+          13
+        ]
+      },
+      {
+        "display_label": "欧洲｜荷兰",
+        "group": null,
+        "label": "欧洲｜荷兰",
+        "unit": null,
+        "values": [
+          13
+        ]
+      },
+      {
+        "display_label": "欧洲｜丹麦",
+        "group": null,
+        "label": "欧洲｜丹麦",
+        "unit": null,
+        "values": [
+          11
+        ]
+      },
+      {
+        "display_label": "欧洲｜挪威",
+        "group": null,
+        "label": "欧洲｜挪威",
+        "unit": null,
+        "values": [
+          8
+        ]
+      },
+      {
+        "display_label": "欧洲｜比利时",
+        "group": null,
+        "label": "欧洲｜比利时",
+        "unit": null,
+        "values": [
+          6
+        ]
+      },
+      {
+        "display_label": "欧洲｜南斯拉夫",
+        "group": null,
+        "label": "欧洲｜南斯拉夫",
+        "unit": null,
+        "values": [
+          6
+        ]
+      },
+      {
+        "display_label": "欧洲｜爱尔兰",
+        "group": null,
+        "label": "欧洲｜爱尔兰",
+        "unit": null,
+        "values": [
+          6
+        ]
+      },
+      {
+        "display_label": "亚洲｜日本",
+        "group": null,
+        "label": "亚洲｜日本",
+        "unit": null,
+        "values": [
+          6
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

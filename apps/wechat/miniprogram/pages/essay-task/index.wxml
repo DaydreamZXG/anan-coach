@@ -684,7 +684,6 @@
   </view>
 
   <view slot="footer" class="footer-content">
-    <view wx:if="{{submissionMessage}}" class="footer-message">{{submissionMessage}}</view>
     <button hover-class="item--hover"
       class="primary-button submit-button {{!canSubmit || submissionStatus === 'submitting' ? 'submit-button--disabled' : ''}} tap-tactile"
       loading="{{submissionStatus === 'submitting'}}"

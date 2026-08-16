@@ -1,0 +1,7 @@
+interface:
+  display_name: "岸岸题库云"
+  short_description: "为国考、省考与事业编应用接入练习题、完整套卷和提交后解析"
+  brand_color: "#2E7D6B"
+  default_prompt: "Use $anan-qbank-cloud to create and deliver a paid exam practice or complete mock-paper session."
+policy:
+  allow_implicit_invocation: true

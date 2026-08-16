@@ -1,0 +1,121 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "生态移民",
+          "农村居民"
+        ],
+        "label": "人均生活消费支出"
+      }
+    ],
+    "columns": [
+      "生态移民",
+      "农村居民"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "农村居民",
+      "style": "diagonal",
+      "upper_label": "生态移民"
+    },
+    "missing_cells": [],
+    "row_header_label": "农村居民",
+    "rows": [
+      {
+        "display_label": "食品烟酒",
+        "group": null,
+        "label": "食品烟酒",
+        "unit": null,
+        "values": [
+          2033,
+          2296
+        ]
+      },
+      {
+        "display_label": "衣着",
+        "group": null,
+        "label": "衣着",
+        "unit": null,
+        "values": [
+          411,
+          602
+        ]
+      },
+      {
+        "display_label": "居住",
+        "group": null,
+        "label": "居住",
+        "unit": null,
+        "values": [
+          939,
+          1388
+        ]
+      },
+      {
+        "display_label": "生活用品及服务",
+        "group": null,
+        "label": "生活用品及服务",
+        "unit": null,
+        "values": [
+          261,
+          496
+        ]
+      },
+      {
+        "display_label": "交通通信",
+        "group": null,
+        "label": "交通通信",
+        "unit": null,
+        "values": [
+          526,
+          961
+        ]
+      },
+      {
+        "display_label": "教育文化娱乐",
+        "group": null,
+        "label": "教育文化娱乐",
+        "unit": null,
+        "values": [
+          393,
+          867
+        ]
+      },
+      {
+        "display_label": "医疗保健",
+        "group": null,
+        "label": "医疗保健",
+        "unit": null,
+        "values": [
+          427,
+          857
+        ]
+      },
+      {
+        "display_label": "其他用品服务类",
+        "group": null,
+        "label": "其他用品服务类",
+        "unit": null,
+        "values": [
+          100,
+          209
+        ]
+      },
+      {
+        "display_label": "总计",
+        "group": null,
+        "label": "总计",
+        "unit": null,
+        "values": [
+          5090,
+          7676
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,248 @@
+{
+  "asset_id": "da_e32c5f3e33e1c36cddfb0fc3",
+  "axes": {
+    "x": {
+      "max": 2012,
+      "min": 2007,
+      "ticks": [
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 30000,
+        "min": 0,
+        "ticks": [
+          0,
+          5000,
+          10000,
+          15000,
+          20000,
+          25000,
+          30000
+        ],
+        "title": "城镇居民人均可支配收入",
+        "unit": "元"
+      },
+      {
+        "max": 12.0,
+        "min": 0,
+        "ticks": [
+          0.0,
+          2.0,
+          4.0,
+          6.0,
+          8.0,
+          10.0,
+          12.0
+        ],
+        "title": "比上年实际增长",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "城镇居民人均可支配收入",
+      "style": {
+        "dash": null,
+        "fill": "pattern",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "比上年实际增长",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇居民人均可支配收入",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "元",
+      "values": [
+        15505,
+        17961,
+        19577,
+        21781,
+        24907,
+        28055
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "比上年实际增长",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        10.1,
+        10.8,
+        10.9,
+        8.0,
+        8.7,
+        10.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/福建/2018年福建省选调生考试《行政职业能力测验》_images/img_0130_6c70e289ffb6710b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年福建省选调生考试《行政职业能力测验》_images/img_0130_6c70e289ffb6710b.png",
+        "paper_title": "2018年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_71e442619895657ad8d1",
+        "question_number": 101,
+        "source_jsonl_line": 78240
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年福建省选调生考试《行政职业能力测验》_images/img_0130_6c70e289ffb6710b.png",
+        "paper_title": "2018年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_d06862b738ca4444531f",
+        "question_number": 102,
+        "source_jsonl_line": 78241
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年福建省选调生考试《行政职业能力测验》_images/img_0130_6c70e289ffb6710b.png",
+        "paper_title": "2018年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_1866090ad09a127290bb",
+        "question_number": 103,
+        "source_jsonl_line": 78242
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年福建省选调生考试《行政职业能力测验》_images/img_0130_6c70e289ffb6710b.png",
+        "paper_title": "2018年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_e519b65deb8c997b1a82",
+        "question_number": 104,
+        "source_jsonl_line": 78243
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年福建省选调生考试《行政职业能力测验》_images/img_0130_6c70e289ffb6710b.png",
+        "paper_title": "2018年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_ba1c2960890fcc0105ca",
+        "question_number": 105,
+        "source_jsonl_line": 78244
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年福建省选调生考试《行政职业能力测验》_images/img_0139_6c70e289ffb6710b.png",
+        "paper_title": "2018年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_c955f1a79671e6f0aa00",
+        "question_number": 101,
+        "source_jsonl_line": 88081
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年福建省选调生考试《行政职业能力测验》_images/img_0139_6c70e289ffb6710b.png",
+        "paper_title": "2018年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_455ba107c8841dd915f7",
+        "question_number": 102,
+        "source_jsonl_line": 88082
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年福建省选调生考试《行政职业能力测验》_images/img_0139_6c70e289ffb6710b.png",
+        "paper_title": "2018年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_5c8443572c7a10ca0c58",
+        "question_number": 103,
+        "source_jsonl_line": 88083
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年福建省选调生考试《行政职业能力测验》_images/img_0139_6c70e289ffb6710b.png",
+        "paper_title": "2018年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_9628358f71caba3b36be",
+        "question_number": 104,
+        "source_jsonl_line": 88084
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年福建省选调生考试《行政职业能力测验》_images/img_0161_eef37de4996aa992.png",
+        "paper_title": "2018年福建省选调生考试《行政职业能力测验》",
+        "question_id": "pq_c977fee3249671842256",
+        "question_number": 105,
+        "source_jsonl_line": 88085
+      }
+    ],
+    "sha256": "e32c5f3e33e1c36cddfb0fc3e6de9a13b176eac4be17c65fb97046487551608f"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2007年-2012年福建省城镇居民人均可支配收入及其实际增长速度",
+  "unit": "元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_e32c5f3e33e1c36cddfb0fc3/column_band_01.jpg",
+        "review-crops/da_e32c5f3e33e1c36cddfb0fc3/column_band_02.jpg",
+        "review-crops/da_e32c5f3e33e1c36cddfb0fc3/column_band_03.jpg",
+        "review-crops/da_e32c5f3e33e1c36cddfb0fc3/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.161",
+      "crop_verification_elapsed_seconds:3.627",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

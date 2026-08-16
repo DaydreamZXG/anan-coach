@@ -1,0 +1,412 @@
+{
+  "asset_id": "da_9909383046b3a0165ac379d5",
+  "axes": {
+    "x": {
+      "max": 2018,
+      "min": 2008,
+      "ticks": [
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018
+      ],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 927.9,
+        "min": 74.0,
+        "ticks": [],
+        "title": "市场规模",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018"
+  ],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "硬件市场",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        361.9,
+        410.2,
+        473.1,
+        517.0,
+        566.1,
+        645.8,
+        711.0,
+        791.5,
+        896.6,
+        960.7,
+        1010.5
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "网络设备市场",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        141.4,
+        149.9,
+        153.7,
+        184.2,
+        209.7,
+        244.4,
+        289.0,
+        334.3,
+        377.6,
+        413.8,
+        444.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "软件市场",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        74.0,
+        94.8,
+        121.3,
+        154.5,
+        202.7,
+        282.2,
+        374.7,
+        470.5,
+        552.3,
+        650.8,
+        723.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "服务市场",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        162.8,
+        206.8,
+        262.8,
+        332.8,
+        419.3,
+        461.8,
+        540.3,
+        649.0,
+        742.4,
+        836.5,
+        927.9
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0070_3e3fb5283386cb92.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0070_3e3fb5283386cb92.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_330f13c7863e483954ff",
+        "question_number": 86,
+        "source_jsonl_line": 36648
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0079_3eeca5dd0d34ba02.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_a53fdd452c2a6aa3ee42",
+        "question_number": 87,
+        "source_jsonl_line": 36649
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0079_3eeca5dd0d34ba02.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_6bf925c21422a6778594",
+        "question_number": 88,
+        "source_jsonl_line": 36650
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0070_3e3fb5283386cb92.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_e84c95c4ad0738f2d64d",
+        "question_number": 89,
+        "source_jsonl_line": 36651
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0079_3eeca5dd0d34ba02.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_2926285b549c3e75e750",
+        "question_number": 90,
+        "source_jsonl_line": 36652
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0074_3eeca5dd0d34ba02.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_da5b7614437635b6e0ed",
+        "question_number": 86,
+        "source_jsonl_line": 91355
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0074_3eeca5dd0d34ba02.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_b0ca4423efefdb58f733",
+        "question_number": 87,
+        "source_jsonl_line": 91356
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0074_3eeca5dd0d34ba02.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_b1f575088749bb9cdd93",
+        "question_number": 88,
+        "source_jsonl_line": 91357
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0103_3e3fb5283386cb92.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_14ac3aa1f8e7f8078f5d",
+        "question_number": 89,
+        "source_jsonl_line": 91358
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）_images/img_0074_3eeca5dd0d34ba02.png",
+        "paper_title": "广东省2020年度选调生和急需紧缺专业公务员招录笔试 综合行政能力测验（网友回忆版）",
+        "question_id": "pq_68f08de7bf306b1d6ea1",
+        "question_number": 90,
+        "source_jsonl_line": 91359
+      }
+    ],
+    "sha256": "9909383046b3a0165ac379d57663a1575f8f9f1162b69988825e62595b13d9c2"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "硬件市场",
+      "网络设备市场",
+      "软件市场",
+      "服务市场"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2008",
+        "unit": null,
+        "values": [
+          2008,
+          361.9,
+          141.4,
+          74.0,
+          162.8
+        ]
+      },
+      {
+        "label": "2009",
+        "unit": null,
+        "values": [
+          2009,
+          410.2,
+          149.9,
+          94.8,
+          206.8
+        ]
+      },
+      {
+        "label": "2010",
+        "unit": null,
+        "values": [
+          2010,
+          473.1,
+          153.7,
+          121.3,
+          262.8
+        ]
+      },
+      {
+        "label": "2011",
+        "unit": null,
+        "values": [
+          2011,
+          517.0,
+          184.2,
+          154.5,
+          332.8
+        ]
+      },
+      {
+        "label": "2012",
+        "unit": null,
+        "values": [
+          2012,
+          566.1,
+          209.7,
+          202.7,
+          419.3
+        ]
+      },
+      {
+        "label": "2013",
+        "unit": null,
+        "values": [
+          2013,
+          645.8,
+          244.4,
+          282.2,
+          461.8
+        ]
+      },
+      {
+        "label": "2014",
+        "unit": null,
+        "values": [
+          2014,
+          711.0,
+          289.0,
+          374.7,
+          540.3
+        ]
+      },
+      {
+        "label": "2015",
+        "unit": null,
+        "values": [
+          2015,
+          791.5,
+          334.3,
+          470.5,
+          649.0
+        ]
+      },
+      {
+        "label": "2016",
+        "unit": null,
+        "values": [
+          2016,
+          896.6,
+          377.6,
+          552.3,
+          742.4
+        ]
+      },
+      {
+        "label": "2017",
+        "unit": null,
+        "values": [
+          2017,
+          960.7,
+          413.8,
+          650.8,
+          836.5
+        ]
+      },
+      {
+        "label": "2018",
+        "unit": null,
+        "values": [
+          2018,
+          1010.5,
+          444.6,
+          723.9,
+          927.9
+        ]
+      }
+    ]
+  },
+  "title": "2008-2018年中国电子政务细分市场规模走势（亿元）",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9909383046b3a0165ac379d5/row_band_01.jpg",
+        "review-crops/da_9909383046b3a0165ac379d5/row_band_02.jpg",
+        "review-crops/da_9909383046b3a0165ac379d5/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:16.953",
+      "crop_verification_elapsed_seconds:12.076",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

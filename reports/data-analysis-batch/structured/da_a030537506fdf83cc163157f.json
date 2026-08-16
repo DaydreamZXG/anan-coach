@@ -1,0 +1,282 @@
+{
+  "asset_id": "da_a030537506fdf83cc163157f",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0081_89372b1357946a41.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0081_89372b1357946a41.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_ecbbf39c0c51fa04990c",
+        "question_number": 96,
+        "source_jsonl_line": 11139
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0081_89372b1357946a41.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_14593d89f5a8816e8a9e",
+        "question_number": 97,
+        "source_jsonl_line": 11140
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0081_89372b1357946a41.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_7b90660594145637fdc9",
+        "question_number": 98,
+        "source_jsonl_line": 11141
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0081_89372b1357946a41.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_33c8f9eab534e7d7f983",
+        "question_number": 99,
+        "source_jsonl_line": 11142
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年吉林省公务员录用考试《行测》题（甲级）_images/img_0096_0ad8791b81b40df5.png",
+        "paper_title": "2008年吉林省公务员录用考试《行测》题（甲级）",
+        "question_id": "pq_f8e9c2459dc970bc0f4d",
+        "question_number": 100,
+        "source_jsonl_line": 11143
+      }
+    ],
+    "sha256": "a030537506fdf83cc163157f71481f3a5924da4252f2866ee0c03300c9e611c8"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2005年｜2005年招待人次",
+          "2005年｜所占国外总游客比例%"
+        ],
+        "label": "2005年"
+      },
+      {
+        "columns": [
+          "2004年｜2004年招待人次",
+          "2004年｜所占国外总游客比例%"
+        ],
+        "label": "2004年"
+      }
+    ],
+    "columns": [
+      "2005年｜2005年招待人次",
+      "2005年｜所占国外总游客比例%",
+      "2004年｜2004年招待人次",
+      "2004年｜所占国外总游客比例%"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "客源国名称",
+    "rows": [
+      {
+        "display_label": "日本",
+        "group": null,
+        "label": "日本",
+        "unit": null,
+        "values": [
+          26159,
+          31.78,
+          20938,
+          30
+        ]
+      },
+      {
+        "display_label": "美国",
+        "group": null,
+        "label": "美国",
+        "unit": null,
+        "values": [
+          9021,
+          10.96,
+          10650,
+          15.26
+        ]
+      },
+      {
+        "display_label": "新加坡",
+        "group": null,
+        "label": "新加坡",
+        "unit": null,
+        "values": [
+          4247,
+          5.16,
+          2631,
+          3.77
+        ]
+      },
+      {
+        "display_label": "英国",
+        "group": null,
+        "label": "英国",
+        "unit": null,
+        "values": [
+          3589,
+          4.36,
+          2150,
+          3.08
+        ]
+      },
+      {
+        "display_label": "马来西亚",
+        "group": null,
+        "label": "马来西亚",
+        "unit": null,
+        "values": [
+          3564,
+          4.33,
+          2031,
+          2.91
+        ]
+      },
+      {
+        "display_label": "加拿大",
+        "group": null,
+        "label": "加拿大",
+        "unit": null,
+        "values": [
+          2774,
+          3.37,
+          1703,
+          2.44
+        ]
+      },
+      {
+        "display_label": "德国",
+        "group": null,
+        "label": "德国",
+        "unit": null,
+        "values": [
+          2362,
+          2.87,
+          2010,
+          2.88
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": null,
+        "label": "俄罗斯",
+        "unit": null,
+        "values": [
+          2041,
+          2.48,
+          1277,
+          1.83
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": null,
+        "label": "韩国",
+        "unit": null,
+        "values": [
+          1729,
+          2.1,
+          1368,
+          1.96
+        ]
+      },
+      {
+        "display_label": "澳大利亚",
+        "group": null,
+        "label": "澳大利亚",
+        "unit": null,
+        "values": [
+          1622,
+          1.97,
+          1298,
+          1.86
+        ]
+      },
+      {
+        "display_label": "法国",
+        "group": null,
+        "label": "法国",
+        "unit": null,
+        "values": [
+          1523,
+          1.85,
+          1389,
+          1.99
+        ]
+      },
+      {
+        "display_label": "瑞士",
+        "group": null,
+        "label": "瑞士",
+        "unit": null,
+        "values": [
+          1432,
+          1.74,
+          1577,
+          2.26
+        ]
+      },
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          60063,
+          72.97,
+          49022,
+          70.24
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

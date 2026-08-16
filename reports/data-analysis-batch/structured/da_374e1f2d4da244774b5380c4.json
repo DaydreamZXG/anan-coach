@@ -1,0 +1,392 @@
+{
+  "asset_id": "da_374e1f2d4da244774b5380c4",
+  "axes": {
+    "x": {
+      "max": 2020,
+      "min": 2009,
+      "ticks": [
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 35,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35
+        ],
+        "title": null,
+        "unit": "平方米"
+      },
+      {
+        "max": 45,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "人均公园绿地面积",
+      "style": {
+        "dash": "solid",
+        "fill": "white",
+        "marker": "none",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "建成区绿化覆盖率",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "建成区绿地率",
+      "style": {
+        "dash": "dot",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "人均公园绿地面积",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "平方米",
+      "values": [
+        10.66,
+        11.18,
+        11.8,
+        12.26,
+        12.64,
+        13.08,
+        13.35,
+        13.7,
+        14.01,
+        14.11,
+        14.36,
+        14.78
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "建成区绿化覆盖率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "平方米",
+      "values": [
+        38.22,
+        38.62,
+        39.22,
+        39.59,
+        39.7,
+        40.22,
+        40.12,
+        40.3,
+        40.91,
+        41.11,
+        41.51,
+        42.06
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_3",
+      "label": "建成区绿地率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        34.17,
+        34.47,
+        35.27,
+        35.72,
+        35.78,
+        36.29,
+        36.36,
+        36.43,
+        37.11,
+        37.34,
+        37.63,
+        38.24
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0132_d948a629a0a507ed.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0132_d948a629a0a507ed.jpg",
+        "paper_title": "2022年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e4b35a61b944f6222f6e",
+        "question_number": 96,
+        "source_jsonl_line": 5880
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0132_d948a629a0a507ed.jpg",
+        "paper_title": "2022年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d18308dba11f4a4f4b4b",
+        "question_number": 97,
+        "source_jsonl_line": 5881
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0132_d948a629a0a507ed.jpg",
+        "paper_title": "2022年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a40096361e4f6af2aa9b",
+        "question_number": 98,
+        "source_jsonl_line": 5882
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0132_d948a629a0a507ed.jpg",
+        "paper_title": "2022年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_584ee72fd84f6855c580",
+        "question_number": 99,
+        "source_jsonl_line": 5883
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0132_d948a629a0a507ed.jpg",
+        "paper_title": "2022年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d371e0e1916d2949d14c",
+        "question_number": 100,
+        "source_jsonl_line": 5884
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0085_d948a629a0a507ed.jpg",
+        "paper_title": "2022年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a6abae84b558a5c62c21",
+        "question_number": 96,
+        "source_jsonl_line": 39562
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0096_a9b38afd2038894c.jpg",
+        "paper_title": "2022年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_f5106a945c8158dd079e",
+        "question_number": 97,
+        "source_jsonl_line": 39563
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0096_a9b38afd2038894c.jpg",
+        "paper_title": "2022年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5f747cf0bb7259d32f98",
+        "question_number": 98,
+        "source_jsonl_line": 39564
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0085_d948a629a0a507ed.jpg",
+        "paper_title": "2022年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ed1872a2a4d5bab2a6b0",
+        "question_number": 99,
+        "source_jsonl_line": 39565
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0085_d948a629a0a507ed.jpg",
+        "paper_title": "2022年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_d53397efc9a158e4733d",
+        "question_number": 100,
+        "source_jsonl_line": 39566
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0106_a9b38afd2038894c.jpg",
+        "paper_title": "2022年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_aaabe3bfc3adbc478a6e",
+        "question_number": 111,
+        "source_jsonl_line": 59048
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0109_d948a629a0a507ed.jpg",
+        "paper_title": "2022年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5bb95e4dca7daae9ca9e",
+        "question_number": 112,
+        "source_jsonl_line": 59049
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0109_d948a629a0a507ed.jpg",
+        "paper_title": "2022年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_72dabce5c6e5c5ff2322",
+        "question_number": 113,
+        "source_jsonl_line": 59050
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0109_d948a629a0a507ed.jpg",
+        "paper_title": "2022年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e6578a05cd10aa95a9da",
+        "question_number": 114,
+        "source_jsonl_line": 59051
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0109_d948a629a0a507ed.jpg",
+        "paper_title": "2022年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a8880b8a867353683977",
+        "question_number": 115,
+        "source_jsonl_line": 59052
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0120_d948a629a0a507ed.jpg",
+        "paper_title": "2022年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ae265952c648e1c604e0",
+        "question_number": 101,
+        "source_jsonl_line": 66417
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0118_a9b38afd2038894c.jpg",
+        "paper_title": "2022年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_1869730997d7f6e33cc9",
+        "question_number": 102,
+        "source_jsonl_line": 66418
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0120_d948a629a0a507ed.jpg",
+        "paper_title": "2022年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_dfe18e0959ca5149248c",
+        "question_number": 103,
+        "source_jsonl_line": 66419
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0118_a9b38afd2038894c.jpg",
+        "paper_title": "2022年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_006fb94b3639ec482d68",
+        "question_number": 104,
+        "source_jsonl_line": 66420
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2022年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0120_d948a629a0a507ed.jpg",
+        "paper_title": "2022年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cef5afdc4fdc56e8ee0c",
+        "question_number": 105,
+        "source_jsonl_line": 66421
+      }
+    ],
+    "sha256": "374e1f2d4da244774b5380c4c0be7ac90e8f623130327187cca295982ca73394"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2009~2020年全国城市绿化状况",
+  "unit": "平方米",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_374e1f2d4da244774b5380c4/column_band_01.jpg",
+        "review-crops/da_374e1f2d4da244774b5380c4/column_band_02.jpg",
+        "review-crops/da_374e1f2d4da244774b5380c4/column_band_03.jpg",
+        "review-crops/da_374e1f2d4da244774b5380c4/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.597",
+      "crop_verification_elapsed_seconds:8.086",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

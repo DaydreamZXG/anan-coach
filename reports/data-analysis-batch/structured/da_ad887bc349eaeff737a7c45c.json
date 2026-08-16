@@ -1,0 +1,177 @@
+{
+  "asset_id": "da_ad887bc349eaeff737a7c45c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.99,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "verified_sample",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/山东/2018年421联考《行测》题（山东卷）（网友回忆版）_images/img_0202_d097a0074be9350b.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（山东卷）（网友回忆版）_images/img_0202_d097a0074be9350b.png",
+        "paper_title": "2018年421联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_8c7f9afca5410aa204b7",
+        "question_number": 111,
+        "source_jsonl_line": 30205
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（山东卷）（网友回忆版）_images/img_0202_d097a0074be9350b.png",
+        "paper_title": "2018年421联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_4887babbaa9251c6c804",
+        "question_number": 112,
+        "source_jsonl_line": 30206
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（山东卷）（网友回忆版）_images/img_0202_d097a0074be9350b.png",
+        "paper_title": "2018年421联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_80f9f81a58f210ae2af2",
+        "question_number": 113,
+        "source_jsonl_line": 30207
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（山东卷）（网友回忆版）_images/img_0202_d097a0074be9350b.png",
+        "paper_title": "2018年421联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_4fc1d769c1e411c031c8",
+        "question_number": 114,
+        "source_jsonl_line": 30208
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年421联考《行测》题（山东卷）（网友回忆版）_images/img_0202_d097a0074be9350b.png",
+        "paper_title": "2018年421联考《行测》题（山东卷）（网友回忆版）",
+        "question_id": "pq_f409675a1d4945cfd8e3",
+        "question_number": 115,
+        "source_jsonl_line": 30209
+      }
+    ],
+    "sha256": "ad887bc349eaeff737a7c45ce6ea3118d8cd95aecb80fa6d3f2e8fef42ba9654"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "单日票房（亿元）",
+      "排片占比（%）",
+      "上座率（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "影片",
+    "rows": [
+      {
+        "display_label": "A影片",
+        "group": null,
+        "label": "A影片",
+        "unit": null,
+        "values": [
+          4.05,
+          50.9,
+          55.5
+        ]
+      },
+      {
+        "display_label": "B影片",
+        "group": null,
+        "label": "B影片",
+        "unit": null,
+        "values": [
+          0.87,
+          31.2,
+          21.4
+        ]
+      },
+      {
+        "display_label": "C影片",
+        "group": null,
+        "label": "C影片",
+        "unit": null,
+        "values": [
+          0.12,
+          5.0,
+          32.9
+        ]
+      },
+      {
+        "display_label": "D影片",
+        "group": null,
+        "label": "D影片",
+        "unit": null,
+        "values": [
+          0.04,
+          2.9,
+          18.4
+        ]
+      },
+      {
+        "display_label": "E影片",
+        "group": null,
+        "label": "E影片",
+        "unit": null,
+        "values": [
+          0.04,
+          1.8,
+          21.8
+        ]
+      }
+    ],
+    "sections": [],
+    "title": "8月5日部分影片票房及排片上座率"
+  },
+  "title": "8月5日部分影片票房及排片上座率",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_ad887bc349eaeff737a7c45c/column_band_01.jpg",
+        "review-crops/da_ad887bc349eaeff737a7c45c/column_band_02.jpg",
+        "review-crops/da_ad887bc349eaeff737a7c45c/column_band_03.jpg",
+        "review-crops/da_ad887bc349eaeff737a7c45c/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:1.555",
+      "crop_verification_elapsed_seconds:0.328",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "route_reason:图像为纯黑色，无任何可识别内容",
+      "route_panel_count:1",
+      "foreground_iou:0.62745",
+      "mean_absolute_error:16.658169",
+      "trace_parameters:{\"epsilonRatio\": 0.01, \"minimumContourArea\": 5.0, \"paletteSize\": 2}",
+      "comparison_artifact:previews/structured_visual/da_ad887bc349eaeff737a7c45c-comparison.png",
+      "manual_override:human_verified_chart_transcription"
+    ],
+    "ocr_engine": "human_verified_transcription",
+    "ocr_mean_confidence": 0.99,
+    "schema_valid": true
+  }
+}

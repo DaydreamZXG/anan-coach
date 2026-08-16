@@ -1,0 +1,139 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "500强排名",
+          "2011年收入（百万美元）",
+          "收入与2010年相比变化（%）"
+        ],
+        "label": "2011年收入增长最快的公司（前10名）"
+      }
+    ],
+    "columns": [
+      "500强排名",
+      "2011年收入（百万美元）",
+      "收入与2010年相比变化（%）"
+    ],
+    "confidence": 0.98,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "排名",
+    "rows": [
+      {
+        "display_label": "德国巴登-符腾堡州银行",
+        "group": null,
+        "label": "德国巴登-符腾堡州银行",
+        "unit": null,
+        "values": [
+          128,
+          57431.4,
+          209.8
+        ]
+      },
+      {
+        "display_label": "国际石油投资公司",
+        "group": null,
+        "label": "国际石油投资公司",
+        "unit": null,
+        "values": [
+          305,
+          35495.4,
+          131
+        ]
+      },
+      {
+        "display_label": "浙江吉利控股集团",
+        "group": null,
+        "label": "浙江吉利控股集团",
+        "unit": null,
+        "values": [
+          475,
+          23355.7,
+          125.9
+        ]
+      },
+      {
+        "display_label": "西班牙 ACS 集团",
+        "group": null,
+        "label": "西班牙 ACS 集团",
+        "unit": null,
+        "values": [
+          240,
+          42654.9,
+          97.9
+        ]
+      },
+      {
+        "display_label": "新兴际华集团",
+        "group": null,
+        "label": "新兴际华集团",
+        "unit": null,
+        "values": [
+          484,
+          22332.3,
+          92.3
+        ]
+      },
+      {
+        "display_label": "全球燃料服务公司",
+        "group": null,
+        "label": "全球燃料服务公司",
+        "unit": null,
+        "values": [
+          313,
+          34622.9,
+          81
+        ]
+      },
+      {
+        "display_label": "国际航空集团",
+        "group": null,
+        "label": "国际航空集团",
+        "unit": null,
+        "values": [
+          494,
+          22390.4,
+          75.7
+        ]
+      },
+      {
+        "display_label": "韩国友利金融控股公司",
+        "group": null,
+        "label": "韩国友利金融控股公司",
+        "unit": null,
+        "values": [
+          449,
+          24435.3,
+          67.6
+        ]
+      },
+      {
+        "display_label": "苹果公司",
+        "group": null,
+        "label": "苹果公司",
+        "unit": null,
+        "values": [
+          55,
+          108249.0,
+          66
+        ]
+      },
+      {
+        "display_label": "coop 美国",
+        "group": null,
+        "label": "coop 美国",
+        "unit": null,
+        "values": [
+          364,
+          40022.2,
+          65
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

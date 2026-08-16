@@ -1,0 +1,228 @@
+{
+  "asset_id": "da_b6a736f4a8d3d04faf8caf14",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 1.0,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0040_e919f2e4a61dab09.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0040_e919f2e4a61dab09.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_1e6881ad211229f70d5b",
+        "question_number": 91,
+        "source_jsonl_line": 71427
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0040_e919f2e4a61dab09.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_04754a86b3ecf9349435",
+        "question_number": 92,
+        "source_jsonl_line": 71428
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0055_11a927e5a40274c9.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_8cfc82ec13bf16bad706",
+        "question_number": 93,
+        "source_jsonl_line": 71429
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0055_11a927e5a40274c9.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_0f25859e68b6139ba997",
+        "question_number": 94,
+        "source_jsonl_line": 71430
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0055_11a927e5a40274c9.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_e6d3e4b459c01bc84ffe",
+        "question_number": 95,
+        "source_jsonl_line": 71431
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0041_e919f2e4a61dab09.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_e1d104bd1c1f2853d363",
+        "question_number": 91,
+        "source_jsonl_line": 90031
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0041_e919f2e4a61dab09.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_4c051df19252fd3b91c3",
+        "question_number": 92,
+        "source_jsonl_line": 90032
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0053_11a927e5a40274c9.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_76b09f99fb60e68e262c",
+        "question_number": 93,
+        "source_jsonl_line": 90033
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0053_11a927e5a40274c9.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_67b025bf44edef90b4ed",
+        "question_number": 94,
+        "source_jsonl_line": 90034
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0053_11a927e5a40274c9.png",
+        "paper_title": "2023年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_a6ceb1ffcf318e0ada72",
+        "question_number": 95,
+        "source_jsonl_line": 90035
+      }
+    ],
+    "sha256": "b6a736f4a8d3d04faf8caf140fa7115ea3869fd8c76a5f465c9c3ab002951948"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "原煤产量（亿吨）",
+      "原油产量（亿吨）",
+      "天然气产量（亿立方米）",
+      "发电量（万亿千瓦时）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2016",
+        "unit": null,
+        "values": [
+          2016,
+          33.8,
+          2.0,
+          1369,
+          6.14
+        ]
+      },
+      {
+        "label": "2017",
+        "unit": null,
+        "values": [
+          2017,
+          35.0,
+          1.92,
+          1480,
+          6.5
+        ]
+      },
+      {
+        "label": "2018",
+        "unit": null,
+        "values": [
+          2018,
+          36.5,
+          1.89,
+          1602,
+          6.8
+        ]
+      },
+      {
+        "label": "2019",
+        "unit": null,
+        "values": [
+          2019,
+          38.1,
+          1.91,
+          1754,
+          7.14
+        ]
+      },
+      {
+        "label": "2020",
+        "unit": null,
+        "values": [
+          2020,
+          38.6,
+          1.95,
+          1897,
+          7.5
+        ]
+      },
+      {
+        "label": "2021",
+        "unit": null,
+        "values": [
+          2021,
+          40.7,
+          1.99,
+          2053,
+          8.11
+        ]
+      }
+    ]
+  },
+  "title": "2016-2021年我国主要能源品种生产总量",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b6a736f4a8d3d04faf8caf14/row_band_01.jpg",
+        "review-crops/da_b6a736f4a8d3d04faf8caf14/row_band_02.jpg",
+        "review-crops/da_b6a736f4a8d3d04faf8caf14/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.855",
+      "crop_verification_elapsed_seconds:6.828",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 1.0,
+    "schema_valid": true
+  }
+}

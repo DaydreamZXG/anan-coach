@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+from collections.abc import Callable
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from hashlib import sha256
 import json
 from typing import Any
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from pydantic import BaseModel
 from sqlalchemy import text
@@ -32,6 +34,7 @@ from app.domains.xingce_learning.real_attempt.completion import (
 )
 from app.domains.xingce_learning.real_attempt.evidence import (
     record_pending_xingce_evidence,
+    record_settled_xingce_evidence,
 )
 from app.domains.xingce_learning.content_version import question_content_version_id
 from app.domains.xingce_learning.mastery.service import (
@@ -92,6 +95,18 @@ class XingceAttemptError(RuntimeError):
         self.status_code = status_code
 
 
+@dataclass(frozen=True, slots=True)
+class ExplicitQuestionSelection:
+    questions: tuple[dict[str, Any], ...]
+    selection_context: dict[str, Any]
+
+
+@dataclass(frozen=True, slots=True)
+class ExplicitTaskSessionStart:
+    session: TaskSessionProjection
+    selection_context: dict[str, Any]
+
+
 class XingceAttemptService:
     def __init__(
         self,
@@ -123,8 +138,89 @@ class XingceAttemptService:
         command: StartTaskSessionCommand,
         now: datetime | None = None,
     ) -> TaskSessionProjection:
+        return self._start_or_resume(
+            session,
+            user_id=user_id,
+            command_id=command_id,
+            command=command,
+            explicit_source_identity=None,
+            explicit_selection_loader=None,
+            now=now,
+        )
+
+    def start_or_resume_from_question_book(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        command_id: str,
+        plan_task_id: UUID,
+        book_id: UUID,
+        selection_loader: Callable[[int], ExplicitQuestionSelection],
+        now: datetime | None = None,
+    ) -> ExplicitTaskSessionStart:
+        source_identity = f"private-question-book:{book_id}"
+        projection = self._start_or_resume(
+            session,
+            user_id=user_id,
+            command_id=command_id,
+            command=StartTaskSessionCommand(planTaskId=plan_task_id),
+            explicit_source_identity=source_identity,
+            explicit_selection_loader=selection_loader,
+            now=now,
+        )
+        task_session = self._runtime_repository.task_session(
+            session,
+            user_id=user_id,
+            session_id=str(projection.session_id),
+        )
+        if task_session is None:
+            raise XingceAttemptError(
+                "xingce_task_session_not_found",
+                "题本练习会话不存在，请重新开始。",
+                status_code=404,
+            )
+        scoring_bundle = dict(task_session["scoring_bundle"])
+        context = scoring_bundle.get("selectionContext")
+        if not _explicit_session_source_matches(
+            task_session,
+            expected_source_identity=source_identity,
+        ) or not isinstance(context, dict):
+            raise XingceAttemptError(
+                "xingce_plan_task_source_conflict",
+                "这个今日任务已经由其他题目来源开始，请继续原会话或选择另一个任务。",
+                status_code=409,
+            )
+        _question_book_lineage_refs(context, scoring_bundle=scoring_bundle)
+        return ExplicitTaskSessionStart(
+            session=projection,
+            selection_context=dict(context),
+        )
+
+    def _start_or_resume(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        command_id: str,
+        command: StartTaskSessionCommand,
+        explicit_source_identity: str | None,
+        explicit_selection_loader: Callable[[int], ExplicitQuestionSelection]
+        | None,
+        now: datetime | None,
+    ) -> TaskSessionProjection:
         created_at = _utc(now)
-        fingerprint = _fingerprint("session_start", str(command.plan_task_id), command)
+        fingerprint = _fingerprint(
+            "session_start",
+            str(command.plan_task_id),
+            (
+                {"sourceIdentity": explicit_source_identity}
+                if explicit_source_identity is not None
+                else command
+            ),
+        )
+        if (explicit_source_identity is None) != (explicit_selection_loader is None):
+            raise ValueError("explicit source identity and loader must be supplied together")
         self._runtime_repository.lock_user(session, user_id=user_id)
         replay = self._replay(session, user_id, command_id, fingerprint)
         if replay is not None:
@@ -147,6 +243,15 @@ class XingceAttemptService:
             work_item_key=str(task["work_item_key"]),
         )
         if existing is not None:
+            if explicit_source_identity is not None and not _explicit_session_source_matches(
+                existing,
+                expected_source_identity=explicit_source_identity,
+            ):
+                raise XingceAttemptError(
+                    "xingce_plan_task_source_conflict",
+                    "这个今日任务已经由其他题目来源开始，请继续原会话或选择另一个任务。",
+                    status_code=409,
+                )
             projection = self._projection(session, user_id=user_id, task_session=existing)
             self._record_command(
                 session,
@@ -161,6 +266,12 @@ class XingceAttemptService:
             return projection
 
         mode, module_name = _task_scope(task)
+        if explicit_source_identity is not None and mode != "targeted":
+            raise XingceAttemptError(
+                "xingce_plan_task_incompatible",
+                "题本练习需要当前的行测专项任务；诊断和复测仍按原任务完成。",
+                status_code=409,
+            )
         source_mastery_id: str | None = None
         source_mastery_version_id: str | None = None
         verification_stage: str | None = None
@@ -194,9 +305,26 @@ class XingceAttemptService:
         question_count = xingce_question_count(
             mode=mode,
             estimated_minutes=int(task["estimated_minutes"]),
+            module_name=module_name,
         )
         selection_context: dict[str, Any] | None = None
-        if mode == "targeted":
+        if explicit_selection_loader is not None:
+            explicit = explicit_selection_loader(question_count)
+            source_questions = list(explicit.questions)
+            selection_context = dict(explicit.selection_context)
+            if not source_questions:
+                raise XingceAttemptError(
+                    "xingce_explicit_content_unavailable",
+                    "这本题本暂时没有可直接练的已确认题，请先处理一个歧义项或等待题库发布。",
+                    status_code=409,
+                )
+            if len(source_questions) > question_count:
+                raise XingceAttemptError(
+                    "xingce_explicit_selection_invalid",
+                    "题本选题超过当前任务容量，请重新开始。",
+                    status_code=500,
+                )
+        elif mode == "targeted":
             persisted_intent = task["selection_intent"]
             try:
                 targeted_selection = (
@@ -275,7 +403,7 @@ class XingceAttemptService:
                 user_id=user_id,
                 excluded_question_ids=excluded_question_ids,
             )
-        if len(source_questions) < question_count:
+        if explicit_selection_loader is None and len(source_questions) < question_count:
             raise XingceAttemptError(
                 "xingce_content_unavailable",
                 f"当前计划模块只有 {len(source_questions)} 道可用题，"
@@ -284,7 +412,14 @@ class XingceAttemptService:
             )
         safe_bundle, scoring_bundle = _freeze_bundle(
             source_questions,
-            estimated_minutes=int(task["estimated_minutes"]),
+            estimated_minutes=(
+                min(
+                    int(task["estimated_minutes"]),
+                    max(2, len(source_questions) * 2),
+                )
+                if explicit_selection_loader is not None
+                else int(task["estimated_minutes"])
+            ),
             source_mastery_version_id=source_mastery_version_id,
             verification_stage=verification_stage,
             selection_context=selection_context,
@@ -865,13 +1000,17 @@ class XingceAttemptService:
         if submitted is None:
             raise _conflict("attempt revision changed")
         review_id = str(uuid4())
-        # 全对（无 incorrect/timeout/unanswered/guessed 之外的失败结果）时，
-        # 没有错因可确认，requires_cause_decision 置 False，前端不再强制选错因。
+        # 只有“复测 + 每题客观答对”可以直接结算。猜对仍然需要用户
+        # 补充过程证据；普通训练也保留原话复盘，不把这条快路扩大成假精准。
         all_correct = bool(result_items) and all(
             item["resultCode"] in {"correct", "guessed_correct"} for item in result_items
         )
+        auto_settle_verification = _can_auto_settle_objective_verification(
+            mode=submitted["mode"],
+            result_items=result_items,
+        )
         requires_cause = not all_correct
-        self._repository.insert_review_version(
+        review = self._repository.insert_review_version(
             session,
             values={
                 "review_version_id": str(uuid4()),
@@ -880,7 +1019,11 @@ class XingceAttemptService:
                 "user_id": user_id,
                 "session_id": session_id,
                 "revision": 1,
-                "state": "reflection_due",
+                "state": (
+                    "mastery_recorded"
+                    if auto_settle_verification
+                    else "reflection_due"
+                ),
                 "requires_cause_decision": requires_cause,
                 "reflection_version_id": None,
                 "cause_candidate_version_id": None,
@@ -889,14 +1032,18 @@ class XingceAttemptService:
                 "created_at": submitted_at,
             },
         )
-        pending = record_pending_xingce_evidence(
-            session,
-            repository=self._repository,
-            command_id=command_id,
-            user_id=user_id,
-            task_session=submitted,
-            assessment_ids=assessment_ids,
-            created_at=submitted_at,
+        pending = (
+            None
+            if auto_settle_verification
+            else record_pending_xingce_evidence(
+                session,
+                repository=self._repository,
+                command_id=command_id,
+                user_id=user_id,
+                task_session=submitted,
+                assessment_ids=assessment_ids,
+                created_at=submitted_at,
+            )
         )
         plan_completion = complete_xingce_plan_task(
             session,
@@ -906,6 +1053,48 @@ class XingceAttemptService:
             completed_at=submitted_at,
         )
         completion = completion_receipt(plan_completion)
+        evidence = (
+            record_settled_xingce_evidence(
+                session,
+                repository=self._repository,
+                command_id=command_id,
+                user_id=user_id,
+                task_session=submitted,
+                assessment_ids=assessment_ids,
+                execution_version_id=plan_completion.execution_version_id,
+                created_at=submitted_at,
+            )
+            if auto_settle_verification
+            else pending
+        )
+        if evidence is None:
+            raise RuntimeError("Xingce submission evidence was not recorded")
+        transitioned = submitted
+        mastery = None
+        if auto_settle_verification:
+            try:
+                mastery = self._mastery_service.record_objective_verification(
+                    session,
+                    user_id=user_id,
+                    task_session=submitted,
+                    review=review,
+                    command_id=command_id,
+                    recorded_at=submitted_at,
+                )
+            except XingceMasteryConflict as exc:
+                raise XingceAttemptError(
+                    "xingce_mastery_source_conflict",
+                    "复测绑定的掌握状态已经变化，请刷新今日计划后重试。",
+                    status_code=409,
+                ) from exc
+            transitioned = self._runtime_repository.settle_session(
+                session,
+                session_id=session_id,
+                user_id=user_id,
+                updated_at=submitted_at,
+            )
+            if transitioned is None:
+                raise _conflict("task session settlement state changed")
         for attempt_record, assessment_id, result_item in zip(
             attempt_records,
             assessment_ids,
@@ -952,14 +1141,53 @@ class XingceAttemptService:
             resource_version_refs=[
                 f"task-session:{session_id}:{submitted['revision']}",
                 *[f"attempt-record:{record['attempt_record_id']}" for record in attempt_records],
-                f"planning-evidence:{pending['evidence_version_id']}",
+                f"planning-evidence:{evidence['evidence_version_id']}",
             ],
             reason_code="xingce_attempt_group_submitted",
         )
+        if auto_settle_verification:
+            _append_state_event(
+                self._outbox,
+                session,
+                event_type="xingce-verification-auto-settled@v1",
+                producer="xingce_learning",
+                aggregate_type="xingce_attempt_review",
+                aggregate_id=review_id,
+                aggregate_revision=int(review["revision"]),
+                user_id=user_id,
+                command_id=command_id,
+                occurred_at=submitted_at,
+                from_state="",
+                to_state="mastery_recorded",
+                resource_version_refs=[
+                    f"review:{review_id}:{review['revision']}",
+                    f"mastery-version:{mastery['mastery_version_id']}",
+                ],
+                reason_code="objective_verification_all_correct_no_cause",
+            )
+            _append_state_event(
+                self._outbox,
+                session,
+                event_type="task-session-state-changed@v1",
+                producer="task_runtime",
+                aggregate_type="task_session",
+                aggregate_id=session_id,
+                aggregate_revision=int(transitioned["revision"]),
+                user_id=user_id,
+                command_id=command_id,
+                occurred_at=submitted_at,
+                from_state="submitted",
+                to_state="settled",
+                resource_version_refs=[
+                    f"task-session:{session_id}:{transitioned['revision']}",
+                    f"review:{review_id}:{review['revision']}",
+                ],
+                reason_code="objective_verification_all_correct_no_cause",
+            )
         projection = self._projection(
             session,
             user_id=user_id,
-            task_session=submitted,
+            task_session=transitioned,
             completion=completion,
         )
         self._record_command(
@@ -2166,6 +2394,8 @@ def _selection_lineage_refs(
             "针对训练的知识树选择证据不完整，不能提交本次结果。",
             status_code=500,
         )
+    if context.get("contractVersion") == "private-question-book-selection@v1":
+        return _question_book_lineage_refs(context, scoring_bundle=scoring_bundle)
     if context.get("contractVersion") == "xingce-selection-context@v2":
         return _selection_v2_lineage_refs(context, scoring_bundle=scoring_bundle)
     if context.get("contractVersion") == "xingce-module-selection@v1":
@@ -2221,6 +2451,133 @@ def _selection_lineage_refs(
             "xingce_selection_context_invalid",
             "针对训练的知识树选择证据不完整，不能提交本次结果。",
             status_code=500,
+        )
+    return refs
+
+
+def _explicit_session_source_matches(
+    task_session: RowMapping,
+    *,
+    expected_source_identity: str,
+) -> bool:
+    scoring_bundle = task_session["scoring_bundle"]
+    if not isinstance(scoring_bundle, dict):
+        return False
+    context = scoring_bundle.get("selectionContext")
+    if not isinstance(context, dict):
+        return False
+    if context.get("contractVersion") != "private-question-book-selection@v1":
+        return False
+    book_id = context.get("bookId")
+    return (
+        isinstance(book_id, str)
+        and expected_source_identity == f"private-question-book:{book_id}"
+    )
+
+
+def _question_book_lineage_refs(
+    context: dict[str, Any],
+    *,
+    scoring_bundle: dict[str, Any],
+) -> list[str]:
+    required_context = {
+        "contractVersion",
+        "sourceKind",
+        "bookId",
+        "sourceVersionId",
+        "artifactVersionId",
+        "recognitionRevisionId",
+        "totalQuestionCount",
+        "selectedItems",
+        "excludedCounts",
+    }
+    excluded_fields = {
+        "needsConfirmation",
+        "unmatched",
+        "contentHeadChanged",
+        "notDeliveryEligible",
+        "contentContractInvalid",
+        "duplicate",
+        "overPlanLimit",
+    }
+    item_fields = {
+        "questionUnitId",
+        "contentMatchVersionId",
+        "questionId",
+        "contentVersionId",
+        "deliveryReleaseId",
+    }
+    selected = context.get("selectedItems")
+    excluded = context.get("excludedCounts")
+    if (
+        set(context) != required_context
+        or context.get("contractVersion") != "private-question-book-selection@v1"
+        or context.get("sourceKind") != "question_book"
+        or not isinstance(selected, list)
+        or not selected
+        or not isinstance(excluded, dict)
+        or set(excluded) != excluded_fields
+        or any(
+            isinstance(value, bool) or not isinstance(value, int) or value < 0
+            for value in excluded.values()
+        )
+        or isinstance(context.get("totalQuestionCount"), bool)
+        or not isinstance(context.get("totalQuestionCount"), int)
+        or context["totalQuestionCount"] != len(selected) + sum(excluded.values())
+    ):
+        raise _invalid_selection_context()
+    for field in (
+        "bookId",
+        "sourceVersionId",
+        "artifactVersionId",
+        "recognitionRevisionId",
+    ):
+        try:
+            UUID(str(context.get(field)))
+        except (TypeError, ValueError) as exc:
+            raise _invalid_selection_context() from exc
+    scoring_questions = scoring_bundle.get("questions")
+    if not isinstance(scoring_questions, list) or len(scoring_questions) != len(selected):
+        raise _invalid_selection_context()
+    seen_questions: set[str] = set()
+    refs = [
+        f"private-question-book:{context['bookId']}",
+        f"private-question-book-version:{context['sourceVersionId']}",
+        f"source-artifact-version:{context['artifactVersionId']}",
+        f"recognition-revision:{context['recognitionRevisionId']}",
+    ]
+    for index, item in enumerate(selected):
+        if not isinstance(item, dict) or set(item) != item_fields:
+            raise _invalid_selection_context()
+        scoring = scoring_questions[index]
+        if not isinstance(scoring, dict):
+            raise _invalid_selection_context()
+        question_id = item.get("questionId")
+        content_version_id = item.get("contentVersionId")
+        question_unit_id = item.get("questionUnitId")
+        if (
+            not isinstance(question_id, str)
+            or not question_id
+            or question_id in seen_questions
+            or scoring.get("questionId") != question_id
+            or not isinstance(content_version_id, str)
+            or len(content_version_id) != 64
+            or scoring.get("contentVersionId") != content_version_id
+            or not isinstance(question_unit_id, str)
+            or len(question_unit_id) != 64
+        ):
+            raise _invalid_selection_context()
+        try:
+            UUID(str(item.get("contentMatchVersionId")))
+            UUID(str(item.get("deliveryReleaseId")))
+        except (TypeError, ValueError) as exc:
+            raise _invalid_selection_context() from exc
+        seen_questions.add(question_id)
+        refs.extend(
+            (
+                f"content-match-version:{item['contentMatchVersionId']}",
+                f"knowledge-map-release:{item['deliveryReleaseId']}",
+            )
         )
     return refs
 
@@ -2497,6 +2854,19 @@ def _not_found() -> XingceAttemptError:
     )
 
 
+def _can_auto_settle_objective_verification(
+    *,
+    mode: object,
+    result_items: list[dict[str, Any]],
+) -> bool:
+    """Keep the no-reflection fast path narrower than generic all-correct."""
+    return (
+        str(mode) == "verification"
+        and bool(result_items)
+        and all(item.get("resultCode") == "correct" for item in result_items)
+    )
+
+
 def _selection_change_count(payloads: list[dict[str, Any]]) -> int:
     """改答 = 一个非空选择被替换为另一个不同的非空选择。
 
@@ -2522,8 +2892,14 @@ def _conflict(message: str) -> XingceAttemptError:
     )
 
 
-def _fingerprint(command_type: str, target: str, command: BaseModel) -> str:
-    body = command.model_dump(by_alias=True, mode="json")
+def _fingerprint(
+    command_type: str, target: str, command: BaseModel | dict[str, object]
+) -> str:
+    body = (
+        command.model_dump(by_alias=True, mode="json")
+        if isinstance(command, BaseModel)
+        else command
+    )
     return _hash({"commandType": command_type, "target": target, "body": body})
 
 

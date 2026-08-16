@@ -1,0 +1,191 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "货物贸易｜出口（亿元）",
+          "货物贸易｜进口（亿元）"
+        ],
+        "label": "货物贸易"
+      },
+      {
+        "columns": [
+          "服务贸易及其他经常项目（亿元）"
+        ],
+        "label": "服务贸易及其他经常项目"
+      },
+      {
+        "columns": [
+          "合计（亿元）"
+        ],
+        "label": "合计"
+      },
+      {
+        "columns": [
+          "占比（%）"
+        ],
+        "label": "占比"
+      }
+    ],
+    "columns": [
+      "货物贸易｜出口（亿元）",
+      "货物贸易｜进口（亿元）",
+      "服务贸易及其他经常项目（亿元）",
+      "合计（亿元）",
+      "占比（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "广东",
+        "group": null,
+        "label": "广东",
+        "unit": null,
+        "values": [
+          7368.0,
+          8704.4,
+          1448.9,
+          17521.3,
+          26.7
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          3202.3,
+          5065.3,
+          1881.7,
+          10149.3,
+          15.5
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": null,
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          3795.3,
+          3453.0,
+          190.2,
+          7438.5,
+          11.4
+        ]
+      },
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          885.8,
+          4534.7,
+          1314.4,
+          6734.9,
+          10.3
+        ]
+      },
+      {
+        "display_label": "山东",
+        "group": null,
+        "label": "山东",
+        "unit": null,
+        "values": [
+          1577.8,
+          3904.8,
+          188.5,
+          5671.1,
+          8.6
+        ]
+      },
+      {
+        "display_label": "江苏",
+        "group": null,
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          1871.0,
+          1818.4,
+          451.6,
+          4141.0,
+          6.3
+        ]
+      },
+      {
+        "display_label": "天津",
+        "group": null,
+        "label": "天津",
+        "unit": null,
+        "values": [
+          664.9,
+          899.1,
+          230.9,
+          1794.9,
+          2.7
+        ]
+      },
+      {
+        "display_label": "广西",
+        "group": null,
+        "label": "广西",
+        "unit": null,
+        "values": [
+          890.0,
+          531.3,
+          14.1,
+          1435.4,
+          2.2
+        ]
+      },
+      {
+        "display_label": "福建",
+        "group": null,
+        "label": "福建",
+        "unit": null,
+        "values": [
+          614.6,
+          617.1,
+          77.3,
+          1309.0,
+          2.0
+        ]
+      },
+      {
+        "display_label": "其他地区",
+        "group": null,
+        "label": "其他地区",
+        "unit": null,
+        "values": [
+          4300.6,
+          4274.8,
+          767.7,
+          9343.1,
+          14.3
+        ]
+      },
+      {
+        "display_label": "合计",
+        "group": null,
+        "label": "合计",
+        "unit": null,
+        "values": [
+          25170.5,
+          33803.0,
+          6565.2,
+          65538.7,
+          100.0
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

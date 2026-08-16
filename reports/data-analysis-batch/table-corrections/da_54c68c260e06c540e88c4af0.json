@@ -1,0 +1,81 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "生态移民",
+          "农村居民"
+        ],
+        "label": "人均可支配收入"
+      }
+    ],
+    "columns": [
+      "生态移民",
+      "农村居民"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "农村居民",
+      "style": "diagonal",
+      "upper_label": "生态移民"
+    },
+    "missing_cells": [],
+    "row_header_label": "农村居民",
+    "rows": [
+      {
+        "display_label": "工资性收入",
+        "group": null,
+        "label": "工资性收入",
+        "unit": null,
+        "values": [
+          3470,
+          3391
+        ]
+      },
+      {
+        "display_label": "经营净收入",
+        "group": null,
+        "label": "经营净收入",
+        "unit": null,
+        "values": [
+          692,
+          3645
+        ]
+      },
+      {
+        "display_label": "财产净收入",
+        "group": null,
+        "label": "财产净收入",
+        "unit": null,
+        "values": [
+          123,
+          149
+        ]
+      },
+      {
+        "display_label": "转移净收入",
+        "group": null,
+        "label": "转移净收入",
+        "unit": null,
+        "values": [
+          799,
+          1225
+        ]
+      },
+      {
+        "display_label": "总计",
+        "group": null,
+        "label": "总计",
+        "unit": null,
+        "values": [
+          5084,
+          8410
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

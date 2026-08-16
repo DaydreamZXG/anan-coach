@@ -1,0 +1,127 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "绝对数（亿美元）",
+          "比上年增长（%）"
+        ],
+        "label": "2011年Z省进出口主要分类情况"
+      }
+    ],
+    "columns": [
+      "绝对数（亿美元）",
+      "比上年增长（%）"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "指标",
+    "rows": [
+      {
+        "display_label": "进出口总额",
+        "group": null,
+        "label": "进出口总额",
+        "unit": null,
+        "values": [
+          3094.0,
+          22.0
+        ]
+      },
+      {
+        "display_label": "出口额",
+        "group": null,
+        "label": "出口额",
+        "unit": null,
+        "values": [
+          2163.6,
+          19.9
+        ]
+      },
+      {
+        "display_label": "一般贸易",
+        "group": "出口额",
+        "label": "出口额｜一般贸易",
+        "unit": null,
+        "values": [
+          1765.0,
+          21.7
+        ]
+      },
+      {
+        "display_label": "加工贸易",
+        "group": "出口额",
+        "label": "出口额｜加工贸易",
+        "unit": null,
+        "values": [
+          360.4,
+          9.2
+        ]
+      },
+      {
+        "display_label": "机电产品",
+        "group": "出口额",
+        "label": "出口额｜机电产品",
+        "unit": null,
+        "values": [
+          921.0,
+          16.4
+        ]
+      },
+      {
+        "display_label": "高新技术产品",
+        "group": null,
+        "label": "高新技术产品",
+        "unit": null,
+        "values": [
+          155.2,
+          5.4
+        ]
+      },
+      {
+        "display_label": "进口额",
+        "group": null,
+        "label": "进口额",
+        "unit": null,
+        "values": [
+          930.4,
+          27.3
+        ]
+      },
+      {
+        "display_label": "一般贸易",
+        "group": "进口额",
+        "label": "进口额｜一般贸易",
+        "unit": null,
+        "values": [
+          653.5,
+          32.2
+        ]
+      },
+      {
+        "display_label": "加工贸易",
+        "group": "进口额",
+        "label": "进口额｜加工贸易",
+        "unit": null,
+        "values": [
+          172.0,
+          9.2
+        ]
+      },
+      {
+        "display_label": "机电产品",
+        "group": "进口额",
+        "label": "进口额｜机电产品",
+        "unit": null,
+        "values": [
+          180.5,
+          10.7
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

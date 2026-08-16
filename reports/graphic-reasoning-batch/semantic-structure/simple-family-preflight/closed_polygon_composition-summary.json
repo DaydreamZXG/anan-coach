@@ -1,0 +1,13 @@
+{
+  "candidates": 315,
+  "cpuOnly": true,
+  "exactFamilyPass": 1,
+  "familyCounts": {
+    "closed_polygon_other": 314,
+    "four_hollow_right_triangles": 1
+  },
+  "observedAt": "2026-08-11T12:46:47.010772+00:00",
+  "repairPending": 314,
+  "schemaVersion": "graphic-reasoning-simple-family-preflight-v1",
+  "subtype": "closed_polygon_composition"
+}

@@ -1,0 +1,152 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "总人口/万人(年末)｜第1列",
+      "城镇人口数/万人｜第2列",
+      "年份｜第3列",
+      "总人口/万人(年末)｜第4列",
+      "城镇人口数/万人｜第5列"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年份",
+    "rows": [
+      {
+        "display_label": "1978",
+        "group": null,
+        "label": "1978",
+        "unit": null,
+        "values": [
+          96259,
+          17245,
+          1978,
+          96259,
+          17245
+        ]
+      },
+      {
+        "display_label": "1979",
+        "group": null,
+        "label": "1979",
+        "unit": null,
+        "values": [
+          97542,
+          18495,
+          1979,
+          97542,
+          18495
+        ]
+      },
+      {
+        "display_label": "1980",
+        "group": null,
+        "label": "1980",
+        "unit": null,
+        "values": [
+          98705,
+          19140,
+          1980,
+          98705,
+          19140
+        ]
+      },
+      {
+        "display_label": "1981",
+        "group": null,
+        "label": "1981",
+        "unit": null,
+        "values": [
+          100072,
+          20171,
+          1981,
+          100072,
+          20171
+        ]
+      },
+      {
+        "display_label": "1982",
+        "group": null,
+        "label": "1982",
+        "unit": null,
+        "values": [
+          101654,
+          21480,
+          1982,
+          101654,
+          21480
+        ]
+      },
+      {
+        "display_label": "2012",
+        "group": null,
+        "label": "2012",
+        "unit": null,
+        "values": [
+          135404,
+          71182,
+          2012,
+          135404,
+          71182
+        ]
+      },
+      {
+        "display_label": "2013",
+        "group": null,
+        "label": "2013",
+        "unit": null,
+        "values": [
+          136072,
+          73111,
+          2013,
+          136072,
+          73111
+        ]
+      },
+      {
+        "display_label": "2014",
+        "group": null,
+        "label": "2014",
+        "unit": null,
+        "values": [
+          136782,
+          74916,
+          2014,
+          136782,
+          74916
+        ]
+      },
+      {
+        "display_label": "2015",
+        "group": null,
+        "label": "2015",
+        "unit": null,
+        "values": [
+          137462,
+          77116,
+          2015,
+          137462,
+          77116
+        ]
+      },
+      {
+        "display_label": "2016",
+        "group": null,
+        "label": "2016",
+        "unit": null,
+        "values": [
+          138271,
+          79298,
+          2016,
+          138271,
+          79298
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

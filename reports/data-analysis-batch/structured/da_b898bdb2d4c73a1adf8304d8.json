@@ -1,0 +1,154 @@
+{
+  "asset_id": "da_b898bdb2d4c73a1adf8304d8",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 70000,
+        "min": 40000,
+        "ticks": [
+          40000,
+          45000,
+          50000,
+          55000,
+          60000,
+          65000,
+          70000
+        ],
+        "title": null,
+        "unit": "万吨"
+      }
+    ]
+  },
+  "categories": [
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "粮食产量",
+      "style": {
+        "dash": "solid",
+        "fill": "gray",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "粮食产量",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        57121,
+        58958,
+        60194,
+        60703,
+        62144
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2017年422联考《行测》题（江西卷）_images/img_0172_64549ea946bd8d4e.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（江西卷）_images/img_0172_64549ea946bd8d4e.png",
+        "paper_title": "2017年422联考《行测》题（江西卷）",
+        "question_id": "pq_9513bd0f14dc02232fcd",
+        "question_number": 126,
+        "source_jsonl_line": 52655
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（江西卷）_images/img_0182_2311eae062a666b0.png",
+        "paper_title": "2017年422联考《行测》题（江西卷）",
+        "question_id": "pq_fc9316d77c4629df82e7",
+        "question_number": 127,
+        "source_jsonl_line": 52656
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（江西卷）_images/img_0172_64549ea946bd8d4e.png",
+        "paper_title": "2017年422联考《行测》题（江西卷）",
+        "question_id": "pq_cf9d35164f7dcbd0014a",
+        "question_number": 128,
+        "source_jsonl_line": 52657
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（江西卷）_images/img_0182_2311eae062a666b0.png",
+        "paper_title": "2017年422联考《行测》题（江西卷）",
+        "question_id": "pq_34fbf64fae958c80ebd7",
+        "question_number": 129,
+        "source_jsonl_line": 52658
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年422联考《行测》题（江西卷）_images/img_0182_2311eae062a666b0.png",
+        "paper_title": "2017年422联考《行测》题（江西卷）",
+        "question_id": "pq_6007acdd54305300186b",
+        "question_number": 130,
+        "source_jsonl_line": 52659
+      }
+    ],
+    "sha256": "b898bdb2d4c73a1adf8304d8aebfe386c781a64b21675aa35cca718670f658f3"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "图9 2011-2015年粮食产量",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b898bdb2d4c73a1adf8304d8/column_band_01.jpg",
+        "review-crops/da_b898bdb2d4c73a1adf8304d8/column_band_02.jpg",
+        "review-crops/da_b898bdb2d4c73a1adf8304d8/column_band_03.jpg",
+        "review-crops/da_b898bdb2d4c73a1adf8304d8/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.301",
+      "crop_verification_elapsed_seconds:1.863",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

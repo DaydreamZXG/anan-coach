@@ -1,0 +1,205 @@
+{
+  "asset_id": "da_1d0a165cc7b3ad011ba35744",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "时间",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "项目",
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/政法干警/2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0244_1572213bf96106d8.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0244_1572213bf96106d8.png",
+        "paper_title": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）",
+        "question_id": "pq_5d224ac7d0961f4f1390",
+        "question_number": 86,
+        "source_jsonl_line": 41626
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0244_1572213bf96106d8.png",
+        "paper_title": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）",
+        "question_id": "pq_73498ca384bcd9a4a813",
+        "question_number": 87,
+        "source_jsonl_line": 41627
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0244_1572213bf96106d8.png",
+        "paper_title": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）",
+        "question_id": "pq_4dd245f40cca99dd07a4",
+        "question_number": 88,
+        "source_jsonl_line": 41628
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0244_1572213bf96106d8.png",
+        "paper_title": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）",
+        "question_id": "pq_b47ad5de16f52ede2bf4",
+        "question_number": 89,
+        "source_jsonl_line": 41629
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）_images/img_0244_1572213bf96106d8.png",
+        "paper_title": "2016年9月政法干警联考《行政职业能力测验》（本硕网友回忆版）",
+        "question_id": "pq_9dcdff0be13d7f3067ea",
+        "question_number": 90,
+        "source_jsonl_line": 41630
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市公务员录用考试《行测》题（下半年）_images/img_0273_1572213bf96106d8.png",
+        "paper_title": "2016年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_a9ba7a9d802a17f42f6b",
+        "question_number": 116,
+        "source_jsonl_line": 93719
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市公务员录用考试《行测》题（下半年）_images/img_0273_1572213bf96106d8.png",
+        "paper_title": "2016年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_0999f845bc1727fe2e96",
+        "question_number": 117,
+        "source_jsonl_line": 93720
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市公务员录用考试《行测》题（下半年）_images/img_0273_1572213bf96106d8.png",
+        "paper_title": "2016年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_ca8d3b54dedc11168f95",
+        "question_number": 118,
+        "source_jsonl_line": 93721
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市公务员录用考试《行测》题（下半年）_images/img_0273_1572213bf96106d8.png",
+        "paper_title": "2016年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_27b8c3a1795aa0ea1225",
+        "question_number": 119,
+        "source_jsonl_line": 93722
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年重庆市公务员录用考试《行测》题（下半年）_images/img_0322_f63c8945ee1c4ad1.png",
+        "paper_title": "2016年重庆市公务员录用考试《行测》题（下半年）",
+        "question_id": "pq_a3d95d3a90a0a23ab874",
+        "question_number": 120,
+        "source_jsonl_line": 93723
+      }
+    ],
+    "sha256": "1d0a165cc7b3ad011ba3574449ecf5ec70bbe9728dd22ff2fb37107773473130"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "2016年 第1季度",
+      "2015年 第4季度",
+      "2015年 第3季度",
+      "2015年 第2季度",
+      "2015年 第1季度"
+    ],
+    "corner_header": {
+      "lower_label": "项目",
+      "style": "diagonal",
+      "upper_label": "时间"
+    },
+    "missing_cells": [],
+    "row_header_label": "项目",
+    "rows": [
+      {
+        "label": "正常类贷款",
+        "unit": null,
+        "values": [
+          751471,
+          719756,
+          705664,
+          690695,
+          669789
+        ]
+      },
+      {
+        "label": "关注类贷款",
+        "unit": null,
+        "values": [
+          31953,
+          28854,
+          28130,
+          26465,
+          24826
+        ]
+      },
+      {
+        "label": "不良贷款余额",
+        "unit": null,
+        "values": [
+          13922,
+          12745,
+          11864,
+          10919,
+          9825
+        ]
+      }
+    ]
+  },
+  "title": "商业银行信用风险情况表",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_1d0a165cc7b3ad011ba35744/row_band_01.jpg",
+        "review-crops/da_1d0a165cc7b3ad011ba35744/row_band_02.jpg",
+        "review-crops/da_1d0a165cc7b3ad011ba35744/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.254",
+      "crop_verification_elapsed_seconds:3.055",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:正常类贷款:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:关注类贷款:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:关注类贷款:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:不良贷款余额:5!=6",
+      "table_row_label_column_removed:项目",
+      "table_diagonal_corner_header_verified_from_source"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

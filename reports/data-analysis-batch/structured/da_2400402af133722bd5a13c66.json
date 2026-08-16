@@ -1,0 +1,338 @@
+{
+  "asset_id": "da_2400402af133722bd5a13c66",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/浙江/2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0200_80def46c77e34a6f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0200_80def46c77e34a6f.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_0e50600bd7064247d951",
+        "question_number": 116,
+        "source_jsonl_line": 63713
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0205_92989b341a0739a3.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_92c885daa44e3431867c",
+        "question_number": 117,
+        "source_jsonl_line": 63714
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0205_92989b341a0739a3.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_4aa41e74d6828bf09431",
+        "question_number": 118,
+        "source_jsonl_line": 63715
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0205_92989b341a0739a3.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_bce06ada0ddff0d4d1ff",
+        "question_number": 119,
+        "source_jsonl_line": 63716
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）_images/img_0205_92989b341a0739a3.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（A类）（网友回忆版）",
+        "question_id": "pq_50ade12d9ce775b4df1c",
+        "question_number": 120,
+        "source_jsonl_line": 63717
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0199_92989b341a0739a3.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_b21bc740a190b82bc364",
+        "question_number": 111,
+        "source_jsonl_line": 63833
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0208_80def46c77e34a6f.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_e4c78413f68c53c6adc1",
+        "question_number": 112,
+        "source_jsonl_line": 63834
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0199_92989b341a0739a3.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_848f1719d213cd782898",
+        "question_number": 113,
+        "source_jsonl_line": 63835
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0199_92989b341a0739a3.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_cc2d1ec8567617c76838",
+        "question_number": 114,
+        "source_jsonl_line": 63836
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0199_92989b341a0739a3.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_ed47adfab61c6ab876d8",
+        "question_number": 115,
+        "source_jsonl_line": 63837
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0161_92989b341a0739a3.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_39730367bc3d9a4f89a8",
+        "question_number": 106,
+        "source_jsonl_line": 63948
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0161_92989b341a0739a3.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_c36d875727ed83eb5fe3",
+        "question_number": 107,
+        "source_jsonl_line": 63949
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0161_92989b341a0739a3.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_4e8a1ad12509bf058063",
+        "question_number": 108,
+        "source_jsonl_line": 63950
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0187_80def46c77e34a6f.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_1ae7babbe0628e6d7345",
+        "question_number": 109,
+        "source_jsonl_line": 63951
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0187_80def46c77e34a6f.png",
+        "paper_title": "2024年浙江省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_58b0b227e2e61423370a",
+        "question_number": 110,
+        "source_jsonl_line": 63952
+      }
+    ],
+    "sha256": "2400402af133722bd5a13c66ca5bdf3d6d99282894ca180393516946726384d7"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "软件业务收入｜本年累计（亿元）",
+          "软件业务收入｜同比增长（%）"
+        ],
+        "label": "软件业务收入"
+      },
+      {
+        "columns": [
+          "其中：信息技术服务收入｜本年累计（亿元）",
+          "其中：信息技术服务收入｜同比增长（%）"
+        ],
+        "label": "其中：信息技术服务收入"
+      }
+    ],
+    "columns": [
+      "软件业务收入｜本年累计（亿元）",
+      "软件业务收入｜同比增长（%）",
+      "其中：信息技术服务收入｜本年累计（亿元）",
+      "其中：信息技术服务收入｜同比增长（%）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "名称",
+    "rows": [
+      {
+        "display_label": "全国",
+        "group": null,
+        "label": "全国",
+        "unit": null,
+        "values": [
+          20059.67,
+          11.6,
+          13102.09,
+          13.7
+        ]
+      },
+      {
+        "display_label": "贵州",
+        "group": null,
+        "label": "贵州",
+        "unit": null,
+        "values": [
+          144.3,
+          100.8,
+          133.14,
+          101.4
+        ]
+      },
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          4394.68,
+          13.2,
+          2894.97,
+          13.9
+        ]
+      },
+      {
+        "display_label": "天津",
+        "group": null,
+        "label": "天津",
+        "unit": null,
+        "values": [
+          420.08,
+          2.1,
+          273.05,
+          1.3
+        ]
+      },
+      {
+        "display_label": "河北",
+        "group": null,
+        "label": "河北",
+        "unit": null,
+        "values": [
+          84.18,
+          20.3,
+          73.43,
+          21.7
+        ]
+      },
+      {
+        "display_label": "上海",
+        "group": null,
+        "label": "上海",
+        "unit": null,
+        "values": [
+          1647.5,
+          17.6,
+          1126.03,
+          22
+        ]
+      },
+      {
+        "display_label": "江苏",
+        "group": null,
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          2805.58,
+          10.5,
+          1697.25,
+          11.7
+        ]
+      },
+      {
+        "display_label": "浙江",
+        "group": null,
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          1725.91,
+          5.4,
+          1357.55,
+          5.3
+        ]
+      },
+      {
+        "display_label": "福建",
+        "group": null,
+        "label": "福建",
+        "unit": null,
+        "values": [
+          414.63,
+          15.7,
+          231.61,
+          17.5
+        ]
+      },
+      {
+        "display_label": "山东",
+        "group": null,
+        "label": "山东",
+        "unit": null,
+        "values": [
+          1274.51,
+          18,
+          618.44,
+          24.8
+        ]
+      },
+      {
+        "display_label": "广东",
+        "group": null,
+        "label": "广东",
+        "unit": null,
+        "values": [
+          3785.08,
+          6.1,
+          2610.26,
+          10.2
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,281 @@
+{
+  "asset_id": "da_7cd4ffb1552627397cd56650",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/上海/2016年上海市公务员录用考试《行测》题（B类）_images/img_0149_cb95f35f6c5ad32a.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0149_cb95f35f6c5ad32a.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_1258b48e46ebbbe55724",
+        "question_number": 131,
+        "source_jsonl_line": 1746
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0153_6b7f791fc6063224.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_c17c94ad9cdf1fe96eda",
+        "question_number": 132,
+        "source_jsonl_line": 1747
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0149_cb95f35f6c5ad32a.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_0357966aaee94478fd7f",
+        "question_number": 133,
+        "source_jsonl_line": 1748
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0149_cb95f35f6c5ad32a.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_21b9db1e5a2ce81b20de",
+        "question_number": 134,
+        "source_jsonl_line": 1749
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0149_cb95f35f6c5ad32a.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_813d13e918bcf044839b",
+        "question_number": 135,
+        "source_jsonl_line": 1750
+      }
+    ],
+    "sha256": "7cd4ffb1552627397cd566501b6f4fe19ca41b1f9569ab2ed066f7d88933bc7a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "1970年",
+      "1980年",
+      "1990年",
+      "2000年",
+      "2010年",
+      "2011年"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "世界",
+        "group": "部分国家和地区城镇化率",
+        "label": "部分国家和地区城镇化率｜世界",
+        "unit": null,
+        "values": [
+          36.54,
+          39.32,
+          42.88,
+          46.61,
+          51.52,
+          51.99
+        ]
+      },
+      {
+        "display_label": "高收入国家",
+        "group": "部分国家和地区城镇化率",
+        "label": "部分国家和地区城镇化率｜高收入国家",
+        "unit": null,
+        "values": [
+          68.78,
+          71.77,
+          74.1,
+          76.53,
+          80.23,
+          80.5
+        ]
+      },
+      {
+        "display_label": "上中等收入国家",
+        "group": "部分国家和地区城镇化率",
+        "label": "部分国家和地区城镇化率｜上中等收入国家",
+        "unit": null,
+        "values": [
+          32.45,
+          36.57,
+          43.39,
+          50.63,
+          59.75,
+          60.62
+        ]
+      },
+      {
+        "display_label": "中等收入国家",
+        "group": "部分国家和地区城镇化率",
+        "label": "部分国家和地区城镇化率｜中等收入国家",
+        "unit": null,
+        "values": [
+          28.82,
+          32.66,
+          37.88,
+          42.92,
+          48.99,
+          49.58
+        ]
+      },
+      {
+        "display_label": "低收入国家",
+        "group": "部分国家和地区城镇化率",
+        "label": "部分国家和地区城镇化率｜低收入国家",
+        "unit": null,
+        "values": [
+          14.82,
+          18.61,
+          21.48,
+          24.26,
+          27.6,
+          28.0
+        ]
+      },
+      {
+        "display_label": "美国",
+        "group": "部分国家和地区城镇化率",
+        "label": "部分国家和地区城镇化率｜美国",
+        "unit": null,
+        "values": [
+          73.6,
+          73.74,
+          75.3,
+          79.09,
+          82.14,
+          82.38
+        ]
+      },
+      {
+        "display_label": "日本",
+        "group": "部分国家和地区城镇化率",
+        "label": "部分国家和地区城镇化率｜日本",
+        "unit": null,
+        "values": [
+          71.88,
+          76.18,
+          77.34,
+          78.65,
+          90.54,
+          91.14
+        ]
+      },
+      {
+        "display_label": "德国",
+        "group": "部分国家和地区城镇化率",
+        "label": "部分国家和地区城镇化率｜德国",
+        "unit": null,
+        "values": [
+          72.27,
+          72.84,
+          73.12,
+          73.07,
+          73.82,
+          73.94
+        ]
+      },
+      {
+        "display_label": "俄罗斯",
+        "group": "部分国家和地区城镇化率",
+        "label": "部分国家和地区城镇化率｜俄罗斯",
+        "unit": null,
+        "values": [
+          62.47,
+          69.75,
+          73.39,
+          73.35,
+          73.65,
+          73.82
+        ]
+      },
+      {
+        "display_label": "巴西",
+        "group": "部分国家和地区城镇化率",
+        "label": "部分国家和地区城镇化率｜巴西",
+        "unit": null,
+        "values": [
+          55.91,
+          65.47,
+          73.92,
+          81.19,
+          84.34,
+          84.6
+        ]
+      },
+      {
+        "display_label": "印度",
+        "group": "部分国家和地区城镇化率",
+        "label": "部分国家和地区城镇化率｜印度",
+        "unit": null,
+        "values": [
+          19.76,
+          23.1,
+          25.55,
+          27.67,
+          30.93,
+          31.3
+        ]
+      },
+      {
+        "display_label": "韩国",
+        "group": "部分国家和地区城镇化率",
+        "label": "部分国家和地区城镇化率｜韩国",
+        "unit": null,
+        "values": [
+          40.7,
+          56.72,
+          73.84,
+          79.62,
+          82.93,
+          83.2
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

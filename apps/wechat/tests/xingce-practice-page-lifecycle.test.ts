@@ -458,7 +458,12 @@ describe("xingce practice page lifecycle", () => {
       "wx:if=\"{{annotationMode === 'annotate' || questionAnnotations.length}}\"",
     );
     expect(practiceTemplate).toContain(
-      "mode=\"{{annotationMode === 'annotate' && annotationSurface === 'question' ? 'annotate' : 'static'}}\"",
+      "mode=\"{{annotationMode === 'annotate' ? 'annotate' : 'static'}}\"",
+    );
+    expect(practiceTemplate).toContain("annotationOpen=\"{{annotationMode === 'annotate'}}\"");
+    expect(practiceTemplate).toContain('surfaceSwitchAvailable="{{false}}"');
+    expect(practiceTemplate).toContain(
+      "toolbarAvailable=\"{{annotationCanvas === 'question' && !materialOpen}}\"",
     );
 
     runtime.page.openAnnotation.call(runtime.page);

@@ -1,0 +1,226 @@
+{
+  "asset_id": "da_bb341023948fb22561b5a93a",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "中小企业B2B电子商务",
+    "规模以上企业B2B",
+    "网络购物",
+    "在线旅游",
+    "本地生活服务O2O"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "中小企业B2B电子商务",
+      "style": {
+        "dash": null,
+        "fill": "#1F77B4",
+        "marker": null,
+        "stroke": "#1F77B4"
+      }
+    },
+    {
+      "label": "规模以上企业B2B",
+      "style": {
+        "dash": null,
+        "fill": "#D62728",
+        "marker": null,
+        "stroke": "#D62728"
+      }
+    },
+    {
+      "label": "网络购物",
+      "style": {
+        "dash": null,
+        "fill": "#9467BD",
+        "marker": null,
+        "stroke": "#9467BD"
+      }
+    },
+    {
+      "label": "在线旅游",
+      "style": {
+        "dash": null,
+        "fill": "#2CA02C",
+        "marker": null,
+        "stroke": "#2CA02C"
+      }
+    },
+    {
+      "label": "本地生活服务O2O",
+      "style": {
+        "dash": null,
+        "fill": "#FF7F0E",
+        "marker": null,
+        "stroke": "#FF7F0E"
+      }
+    }
+  ],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      161.0,
+      259.843,
+      342.721,
+      352.127,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 161.0,
+        "label": "中小企业B2B电子商务",
+        "share": 0.44722222,
+        "start_angle": 0.0,
+        "sweep_angle": 161.0
+      },
+      {
+        "end_angle": 259.843,
+        "label": "规模以上企业B2B",
+        "share": 0.27456518,
+        "start_angle": 161.0,
+        "sweep_angle": 98.843
+      },
+      {
+        "end_angle": 342.721,
+        "label": "网络购物",
+        "share": 0.23021516,
+        "start_angle": 259.843,
+        "sweep_angle": 82.877
+      },
+      {
+        "end_angle": 352.127,
+        "label": "在线旅游",
+        "share": 0.02612871,
+        "start_angle": 342.721,
+        "sweep_angle": 9.406
+      },
+      {
+        "end_angle": 360.0,
+        "label": "本地生活服务O2O",
+        "share": 0.02186873,
+        "start_angle": 352.127,
+        "sweep_angle": 7.873
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.44722222,
+        0.27456518,
+        0.23021516,
+        0.02612871,
+        0.02186873
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/河南/2016年河南省公务员录用考试《行测》题_images/img_0198_cab8fa9d0ff0ee93.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年河南省公务员录用考试《行测》题_images/img_0198_cab8fa9d0ff0ee93.png",
+        "paper_title": "2016年河南省公务员录用考试《行测》题",
+        "question_id": "pq_a32fa99f68d581bd94e6",
+        "question_number": 111,
+        "source_jsonl_line": 58208
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年河南省公务员录用考试《行测》题_images/img_0198_cab8fa9d0ff0ee93.png",
+        "paper_title": "2016年河南省公务员录用考试《行测》题",
+        "question_id": "pq_48f7dd95581769818163",
+        "question_number": 112,
+        "source_jsonl_line": 58209
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年河南省公务员录用考试《行测》题_images/img_0198_cab8fa9d0ff0ee93.png",
+        "paper_title": "2016年河南省公务员录用考试《行测》题",
+        "question_id": "pq_bd845c155b1e49767111",
+        "question_number": 113,
+        "source_jsonl_line": 58210
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年河南省公务员录用考试《行测》题_images/img_0206_9d6f9a16b038798c.png",
+        "paper_title": "2016年河南省公务员录用考试《行测》题",
+        "question_id": "pq_3e5449e3ba92bb34f812",
+        "question_number": 114,
+        "source_jsonl_line": 58211
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年河南省公务员录用考试《行测》题_images/img_0198_cab8fa9d0ff0ee93.png",
+        "paper_title": "2016年河南省公务员录用考试《行测》题",
+        "question_id": "pq_297706c71b08b432a5aa",
+        "question_number": 115,
+        "source_jsonl_line": 58212
+      }
+    ],
+    "sha256": "bb341023948fb22561b5a93a6ea78056d3f4cdbd17fd247120700c8fa891fd13"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2015年中国电子商务市场细分行业构成",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_bb341023948fb22561b5a93a/quadrant_01.jpg",
+        "review-crops/da_bb341023948fb22561b5a93a/quadrant_02.jpg",
+        "review-crops/da_bb341023948fb22561b5a93a/quadrant_03.jpg",
+        "review-crops/da_bb341023948fb22561b5a93a/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.243",
+      "crop_verification_elapsed_seconds:1.181",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:1.0000",
+      "hough_circle_radius_ratio:0.3563",
+      "radial_line_candidates:5",
+      "detected_boundaries:5"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

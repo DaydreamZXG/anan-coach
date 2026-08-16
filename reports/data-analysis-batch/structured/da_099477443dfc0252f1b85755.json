@@ -1,0 +1,387 @@
+{
+  "asset_id": "da_099477443dfc0252f1b85755",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "法人单位（个）",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "有证照个体经营户（个）",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "法人单位（个）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        130914,
+        1182,
+        19348,
+        1149,
+        4942,
+        28095,
+        3152,
+        1594,
+        2399,
+        606,
+        4384,
+        8223,
+        4556,
+        1335,
+        2942,
+        5572,
+        3483,
+        2736,
+        27606
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "有证照个体经营户（个）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "个",
+      "values": [
+        719319,
+        221,
+        20331,
+        104,
+        989,
+        283054,
+        286138,
+        61225,
+        1465,
+        null,
+        389,
+        3456,
+        2172,
+        29,
+        46998,
+        2196,
+        6702,
+        3133,
+        null
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2015年吉林省公务员录用考试《行测》题（9月乙级）_images/img_0071_8143c5ca8d397c19.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（9月乙级）_images/img_0071_8143c5ca8d397c19.png",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（9月乙级）",
+        "question_id": "pq_883e6f2c08217b72f11d",
+        "question_number": 96,
+        "source_jsonl_line": 12287
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（9月乙级）_images/img_0077_b603508f0162e738.png",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（9月乙级）",
+        "question_id": "pq_547dc96cf77ecbe0d55f",
+        "question_number": 97,
+        "source_jsonl_line": 12288
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（9月乙级）_images/img_0071_8143c5ca8d397c19.png",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（9月乙级）",
+        "question_id": "pq_5567e69e0b27250b0d71",
+        "question_number": 98,
+        "source_jsonl_line": 12289
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（9月乙级）_images/img_0077_b603508f0162e738.png",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（9月乙级）",
+        "question_id": "pq_6dd4ec03ae83ac226a24",
+        "question_number": 99,
+        "source_jsonl_line": 12290
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（9月乙级）_images/img_0077_b603508f0162e738.png",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（9月乙级）",
+        "question_id": "pq_1a391453a11e586de16a",
+        "question_number": 100,
+        "source_jsonl_line": 12291
+      }
+    ],
+    "sha256": "099477443dfc0252f1b8575531eb5d4ecf44dfd0f20bf4ef55a00411794e37b8"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "行业",
+      "法人单位（个）",
+      "有证照个体经营户（个）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "合计",
+        "unit": null,
+        "values": [
+          "合计",
+          130914,
+          719319
+        ]
+      },
+      {
+        "label": "采矿业",
+        "unit": null,
+        "values": [
+          "采矿业",
+          1182,
+          221
+        ]
+      },
+      {
+        "label": "制造业",
+        "unit": null,
+        "values": [
+          "制造业",
+          19348,
+          20331
+        ]
+      },
+      {
+        "label": "电力、热力、燃气及水生产和供应业",
+        "unit": null,
+        "values": [
+          "电力、热力、燃气及水生产和供应业",
+          1149,
+          104
+        ]
+      },
+      {
+        "label": "建筑业",
+        "unit": null,
+        "values": [
+          "建筑业",
+          4942,
+          989
+        ]
+      },
+      {
+        "label": "批发和零售业",
+        "unit": null,
+        "values": [
+          "批发和零售业",
+          28095,
+          283054
+        ]
+      },
+      {
+        "label": "交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          "交通运输、仓储和邮政业",
+          3152,
+          286138
+        ]
+      },
+      {
+        "label": "住宿和餐饮业",
+        "unit": null,
+        "values": [
+          "住宿和餐饮业",
+          1594,
+          61225
+        ]
+      },
+      {
+        "label": "信息传输、软件和信息技术服务业",
+        "unit": null,
+        "values": [
+          "信息传输、软件和信息技术服务业",
+          2399,
+          1465
+        ]
+      },
+      {
+        "label": "金融业",
+        "unit": null,
+        "values": [
+          "金融业",
+          606,
+          null
+        ]
+      },
+      {
+        "label": "房地产业",
+        "unit": null,
+        "values": [
+          "房地产业",
+          4384,
+          389
+        ]
+      },
+      {
+        "label": "租赁和商务服务业",
+        "unit": null,
+        "values": [
+          "租赁和商务服务业",
+          8223,
+          3456
+        ]
+      },
+      {
+        "label": "科学研究和技术服务业",
+        "unit": null,
+        "values": [
+          "科学研究和技术服务业",
+          4556,
+          2172
+        ]
+      },
+      {
+        "label": "水利、环境和公共设施管理业",
+        "unit": null,
+        "values": [
+          "水利、环境和公共设施管理业",
+          1335,
+          29
+        ]
+      },
+      {
+        "label": "居民服务、修理和其他服务业",
+        "unit": null,
+        "values": [
+          "居民服务、修理和其他服务业",
+          2942,
+          46998
+        ]
+      },
+      {
+        "label": "教育",
+        "unit": null,
+        "values": [
+          "教育",
+          5572,
+          2196
+        ]
+      },
+      {
+        "label": "卫生和社会工作",
+        "unit": null,
+        "values": [
+          "卫生和社会工作",
+          3483,
+          6702
+        ]
+      },
+      {
+        "label": "文化、体育和娱乐业",
+        "unit": null,
+        "values": [
+          "文化、体育和娱乐业",
+          2736,
+          3133
+        ]
+      },
+      {
+        "label": "公共管理、社会保障和社会组织",
+        "unit": null,
+        "values": [
+          "公共管理、社会保障和社会组织",
+          27606,
+          null
+        ]
+      }
+    ]
+  },
+  "title": "2013年末吉林省第二和第三产业按行业分组的法人单位与有证照个体经营户情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_099477443dfc0252f1b85755/row_band_01.jpg",
+        "review-crops/da_099477443dfc0252f1b85755/row_band_02.jpg",
+        "review-crops/da_099477443dfc0252f1b85755/row_band_03.jpg",
+        "review-crops/da_099477443dfc0252f1b85755/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:11.558",
+      "crop_verification_elapsed_seconds:13.502",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:表中存在明确的缺失值，标记为 null，未进行补全。",
+      "crop_note:修正了第一张图中'合计'行的法人单位数值，原为130914，与后续数据一致，确认正确。",
+      "crop_note:修正了第一张图中'合计'行的有证照个体经营户数值，原为719319，与后续数据一致，确认正确。",
+      "crop_note:确认所有数值均为整数，无小数点或百分号。",
+      "crop_note:确认所有缺失值均保持为null，未补0。",
+      "crop_note:确认'公共管理、社会保障和社会组织'行的有证照个体经营户数值为null，与图中一致。",
+      "crop_note:确认'金融业'行的有证照个体经营户数值为null，与图中一致。",
+      "crop_note:确认'合计'行的数值与各行业数值之和一致，验证正确。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

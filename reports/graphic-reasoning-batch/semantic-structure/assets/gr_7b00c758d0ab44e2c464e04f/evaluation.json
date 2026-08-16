@@ -1,0 +1,47 @@
+{
+  "assetId": "gr_7b00c758d0ab44e2c464e04f",
+  "questionAnswers": [
+    {
+      "answerLabel": "C",
+      "optionLabels": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "questionId": "pq_05ff290151a80dc6b59c"
+    },
+    {
+      "answerLabel": "C",
+      "optionLabels": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "questionId": "pq_18c82ae463249f011d2b"
+    },
+    {
+      "answerLabel": "C",
+      "optionLabels": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "questionId": "pq_79010c9e4e30eb5365b4"
+    },
+    {
+      "answerLabel": "C",
+      "optionLabels": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "questionId": "pq_d01a9f06ed249664219b"
+    }
+  ],
+  "schemaVersion": "graphic-reasoning-semantic-evaluation-v1",
+  "solverInputExcludesAnswer": true
+}

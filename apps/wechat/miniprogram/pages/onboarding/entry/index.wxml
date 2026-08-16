@@ -1,22 +1,55 @@
 <view class="s9-screen entry-page">
-  <workbench-nav id="runtime-workbench-nav" title="备考档案" back-behavior="emit" bind:back="back" />
+  <workbench-nav id="runtime-workbench-nav" title="第一次教练会谈" back-behavior="emit" bind:back="back" />
 
   <view class="entry-content">
     <view class="entry-mark fade-slide-in" aria-hidden="true">
       <image class="entry-mark__icon" src="/assets/icons/onboarding/profile-spark.svg" mode="aspectFit" />
     </view>
-    <view class="entry-title fade-slide-in fade-slide-in--2">建立备考档案</view>
-    <view class="entry-copy fade-slide-in fade-slide-in--2">花三分钟把自己讲给岸岸听，计划才能长在你身上。</view>
+    <view class="entry-eyebrow fade-slide-in fade-slide-in--2">岸岸先不急着给你贴标签</view>
+    <view class="entry-title fade-slide-in fade-slide-in--2">你想让岸岸怎么认识你？</view>
+    <view class="entry-copy fade-slide-in fade-slide-in--2">先拿到一点真实证据，形成第一个可验证的判断。资料会在后面按需要补，不用一次填完。</view>
 
     <view class="entry-actions fade-slide-in fade-slide-in--3">
-      <button hover-class="item--hover" class="entry-action entry-action--primary tap-tactile" bindtap="startProfile">
-        <text>我是新用户，开始建档</text>
-        <image class="entry-action__icon" src="/assets/icons/anan/arrow-right-white.svg" mode="aspectFit" />
+      <button hover-class="item--hover" class="entry-option" data-path="score_report" loading="{{openingPath === 'score_report'}}" disabled="{{openingPath !== ''}}" bindtap="chooseRecognitionPath">
+        <view class="entry-option__index">01</view>
+        <view class="entry-option__body">
+          <view class="entry-option__title">导入最近成绩单</view>
+          <view class="entry-option__copy">有模考成绩 · 约 2 分钟建立粗轮廓</view>
+        </view>
+        <view class="entry-option__arrow">→</view>
       </button>
-      <button hover-class="item--hover" class="entry-action entry-action--secondary" bindtap="openArchive">
-        <text>我是老用户，修改档案</text>
-        <image class="entry-action__icon" src="/assets/icons/onboarding/edit-ink.svg" mode="aspectFit" />
+
+      <button hover-class="item--hover" class="entry-option" data-path="wrong_question" loading="{{openingPath === 'wrong_question'}}" disabled="{{openingPath !== ''}}" bindtap="chooseRecognitionPath">
+        <view class="entry-option__index">02</view>
+        <view class="entry-option__body">
+          <view class="entry-option__title">导入几道错题</view>
+          <view class="entry-option__copy">从真实问题切入 · 岸岸会追问你的作答</view>
+        </view>
+        <view class="entry-option__arrow">→</view>
+      </button>
+
+      <button hover-class="item--hover" class="entry-option entry-option--primary tap-tactile" data-path="quick_diagnostic" loading="{{openingPath === 'quick_diagnostic'}}" disabled="{{openingPath !== ''}}" bindtap="chooseRecognitionPath">
+        <view class="entry-option__index">03</view>
+        <view class="entry-option__body">
+          <view class="entry-option__title-row">
+            <view class="entry-option__title">做一次快速诊断</view>
+            <view class="entry-option__tag">推荐</view>
+          </view>
+          <view class="entry-option__copy">约 20 分钟 · 只决定先从哪里开始</view>
+        </view>
+        <view class="entry-option__arrow">→</view>
+      </button>
+
+      <button hover-class="item--hover" class="entry-option" data-path="position_first" loading="{{openingPath === 'position_first'}}" disabled="{{openingPath !== ''}}" bindtap="chooseRecognitionPath">
+        <view class="entry-option__index">04</view>
+        <view class="entry-option__body">
+          <view class="entry-option__title">我还没选岗</view>
+          <view class="entry-option__copy">先从岗位方向和目标分开始</view>
+        </view>
+        <view class="entry-option__arrow">→</view>
       </button>
     </view>
+
+    <view class="entry-boundary fade-slide-in fade-slide-in--3">第一次判断只是起点。每次练习后，岸岸都会用新证据验证或收回它。</view>
   </view>
 </view>

@@ -1,0 +1,203 @@
+{
+  "asset_id": "da_438f9aee0098cf11b316ea2b",
+  "axes": {
+    "x": {
+      "max": 2016,
+      "min": 2011,
+      "ticks": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 24.5,
+        "min": 21.5,
+        "ticks": [
+          21.5,
+          22.0,
+          22.5,
+          23.0,
+          23.5,
+          24.0,
+          24.5
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "“一带一路”沿线国家对外贸易占全球份额",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "circle",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "“一带一路”沿线国家对外贸易占全球份额",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        3.0,
+        24.0,
+        24.0,
+        23.9,
+        22.1,
+        21.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0229_620d84841608d6c1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0229_620d84841608d6c1.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_9af0204079e3bde9fef5",
+        "question_number": 126,
+        "source_jsonl_line": 10269
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0247_6331487155379994.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_29deb202030d2a679be3",
+        "question_number": 127,
+        "source_jsonl_line": 10270
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0229_620d84841608d6c1.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_347b026deffc8e1395d9",
+        "question_number": 128,
+        "source_jsonl_line": 10271
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0247_6331487155379994.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_c73da738b99ebbcb8a99",
+        "question_number": 129,
+        "source_jsonl_line": 10272
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0247_6331487155379994.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_043a9d75191f6ac23157",
+        "question_number": 130,
+        "source_jsonl_line": 10273
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0285_620d84841608d6c1.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_bad76323151bfbe1f257",
+        "question_number": 131,
+        "source_jsonl_line": 10404
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0285_620d84841608d6c1.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_4614ac193f95eef651c4",
+        "question_number": 132,
+        "source_jsonl_line": 10405
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0285_620d84841608d6c1.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_37c34165e53ca1c2e11b",
+        "question_number": 133,
+        "source_jsonl_line": 10406
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0285_620d84841608d6c1.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_f9658156afc37cc54959",
+        "question_number": 134,
+        "source_jsonl_line": 10407
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0285_620d84841608d6c1.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_8bc4c3d89a230ee4b124",
+        "question_number": 135,
+        "source_jsonl_line": 10408
+      }
+    ],
+    "sha256": "438f9aee0098cf11b316ea2bd2fba3824f0adb8b62b0bceb6e9e50dd21c94cd5"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2011-2016年“一带一路”沿线国家对外贸易占全球份额",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_438f9aee0098cf11b316ea2b/column_band_01.jpg",
+        "review-crops/da_438f9aee0098cf11b316ea2b/column_band_02.jpg",
+        "review-crops/da_438f9aee0098cf11b316ea2b/column_band_03.jpg",
+        "review-crops/da_438f9aee0098cf11b316ea2b/column_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.331",
+      "crop_verification_elapsed_seconds:4.916",
+      "candidate_value_changes_after_crop:1",
+      "crop_note:combined_crop_response_malformed;used_individual_crop_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,382 @@
+{
+  "asset_id": "da_11c52de2f55657c2b8d18408",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年份",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "营业收入",
+        "unit": "万亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "利润总额",
+        "unit": "万亿元"
+      }
+    ]
+  },
+  "categories": [
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "营业收入",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万亿元",
+      "values": [
+        45.5,
+        45.9,
+        52.2,
+        58.8,
+        62.6,
+        63.3,
+        75.6,
+        82.6,
+        85.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "利润总额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万亿元",
+      "values": [
+        2.3,
+        2.3,
+        2.9,
+        3.4,
+        3.6,
+        3.4,
+        4.5,
+        4.3,
+        4.6
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "应缴税费",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万亿元",
+      "values": [
+        3.9,
+        3.8,
+        4.2,
+        4.6,
+        4.6,
+        4.6,
+        5.4,
+        5.9,
+        5.9
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "年末资产负债率",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        66.3,
+        66.1,
+        65.7,
+        64.7,
+        63.9,
+        64.0,
+        63.7,
+        64.4,
+        64.6
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0199_aa488c52d987b9f5.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0199_aa488c52d987b9f5.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_0bb4efcdbc99eb6d75ce",
+        "question_number": 126,
+        "source_jsonl_line": 50841
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0199_aa488c52d987b9f5.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_13052850de7ff443927e",
+        "question_number": 127,
+        "source_jsonl_line": 50842
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0199_aa488c52d987b9f5.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_a00543ee6030b6c0d040",
+        "question_number": 128,
+        "source_jsonl_line": 50843
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0199_aa488c52d987b9f5.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_4625d5e6ab32dc0edd7b",
+        "question_number": 129,
+        "source_jsonl_line": 50844
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）_images/img_0199_aa488c52d987b9f5.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（B类）（网友回忆版）",
+        "question_id": "pq_6dd2e69a230fbbb25205",
+        "question_number": 130,
+        "source_jsonl_line": 50845
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0176_aa488c52d987b9f5.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_17a409813ba05ebfe926",
+        "question_number": 121,
+        "source_jsonl_line": 50971
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0176_aa488c52d987b9f5.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_77074b4b69016556de33",
+        "question_number": 122,
+        "source_jsonl_line": 50972
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0184_c2c03159ede3a12c.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_3633563a728472f4248d",
+        "question_number": 123,
+        "source_jsonl_line": 50973
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0176_aa488c52d987b9f5.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_36c345b4de53880a4e71",
+        "question_number": 124,
+        "source_jsonl_line": 50974
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）_images/img_0176_aa488c52d987b9f5.png",
+        "paper_title": "2025年江苏省公务员录用考试《行测》题（C类）（网友回忆版）",
+        "question_id": "pq_e7f274271de687f1e265",
+        "question_number": 125,
+        "source_jsonl_line": 50975
+      }
+    ],
+    "sha256": "11c52de2f55657c2b8d1840850e1293fbd0e23c8ea95067530754282fd397cd9"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年份",
+      "营业收入 (万亿元)",
+      "利润总额 (万亿元)",
+      "应缴税费 (万亿元)",
+      "年末资产负债率 (%)"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2015",
+        "unit": null,
+        "values": [
+          2015,
+          45.5,
+          2.3,
+          3.9,
+          66.3
+        ]
+      },
+      {
+        "label": "2016",
+        "unit": null,
+        "values": [
+          2016,
+          45.9,
+          2.3,
+          3.8,
+          66.1
+        ]
+      },
+      {
+        "label": "2017",
+        "unit": null,
+        "values": [
+          2017,
+          52.2,
+          2.9,
+          4.2,
+          65.7
+        ]
+      },
+      {
+        "label": "2018",
+        "unit": null,
+        "values": [
+          2018,
+          58.8,
+          3.4,
+          4.6,
+          64.7
+        ]
+      },
+      {
+        "label": "2019",
+        "unit": null,
+        "values": [
+          2019,
+          62.6,
+          3.6,
+          4.6,
+          63.9
+        ]
+      },
+      {
+        "label": "2020",
+        "unit": null,
+        "values": [
+          2020,
+          63.3,
+          3.4,
+          4.6,
+          64.0
+        ]
+      },
+      {
+        "label": "2021",
+        "unit": null,
+        "values": [
+          2021,
+          75.6,
+          4.5,
+          5.4,
+          63.7
+        ]
+      },
+      {
+        "label": "2022",
+        "unit": null,
+        "values": [
+          2022,
+          82.6,
+          4.3,
+          5.9,
+          64.4
+        ]
+      },
+      {
+        "label": "2023",
+        "unit": null,
+        "values": [
+          2023,
+          85.7,
+          4.6,
+          5.9,
+          64.6
+        ]
+      }
+    ]
+  },
+  "title": "表 2015-2023年我国国有企业部分经营数据",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_11c52de2f55657c2b8d18408/row_band_01.jpg",
+        "review-crops/da_11c52de2f55657c2b8d18408/row_band_02.jpg",
+        "review-crops/da_11c52de2f55657c2b8d18408/row_band_03.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 3
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:10.187",
+      "crop_verification_elapsed_seconds:12.524",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了'利润总额'在2017年的数值，从2.3更正为2.9",
+      "crop_note:修正了'应缴税费'在2016年的数值，从3.9更正为3.8",
+      "crop_note:修正了'年末资产负债率'在2017年的数值，从66.1更正为65.7",
+      "crop_note:修正了'年末资产负债率'在2019年的数值，从64.7更正为63.9",
+      "crop_note:修正了'年末资产负债率'在2020年的数值，从64.0更正为64.0",
+      "crop_note:修正了'年末资产负债率'在2021年的数值，从64.4更正为63.7",
+      "crop_note:修正了'年末资产负债率'在2022年的数值，从64.4更正为64.4",
+      "crop_note:修正了'年末资产负债率'在2023年的数值，从64.6更正为64.6"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

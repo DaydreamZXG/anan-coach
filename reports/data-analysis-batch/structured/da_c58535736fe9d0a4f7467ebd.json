@@ -1,0 +1,185 @@
+{
+  "asset_id": "da_c58535736fe9d0a4f7467ebd",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 74916,
+        "min": 56212,
+        "ticks": [],
+        "title": null,
+        "unit": "(万人)"
+      }
+    ]
+  },
+  "categories": [
+    "2005年",
+    "2006年",
+    "2007年",
+    "2008年",
+    "2009年",
+    "2010年",
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "城镇人口",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "乡村人口",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "城镇人口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(万人)",
+      "values": [
+        56212,
+        58288,
+        60633,
+        62403,
+        64512,
+        66978,
+        69079,
+        71182,
+        73111,
+        74916
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "乡村人口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "(万人)",
+      "values": [
+        74544,
+        73160,
+        71496,
+        70399,
+        68938,
+        67113,
+        65656,
+        64222,
+        62961,
+        61866
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/上海/2016年上海市公务员录用考试《行测》题（B类）_images/img_0151_c160b63ba3998604.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0151_c160b63ba3998604.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_1258b48e46ebbbe55724",
+        "question_number": 131,
+        "source_jsonl_line": 1746
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0157_fc20dc6248256e0a.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_c17c94ad9cdf1fe96eda",
+        "question_number": 132,
+        "source_jsonl_line": 1747
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0151_c160b63ba3998604.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_0357966aaee94478fd7f",
+        "question_number": 133,
+        "source_jsonl_line": 1748
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0151_c160b63ba3998604.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_21b9db1e5a2ce81b20de",
+        "question_number": 134,
+        "source_jsonl_line": 1749
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2016年上海市公务员录用考试《行测》题（B类）_images/img_0151_c160b63ba3998604.png",
+        "paper_title": "2016年上海市公务员录用考试《行测》题（B类）",
+        "question_id": "pq_813d13e918bcf044839b",
+        "question_number": 135,
+        "source_jsonl_line": 1750
+      }
+    ],
+    "sha256": "c58535736fe9d0a4f7467ebdcd5c758d0f90907d030c0560ecfd7dd4c9f9502b"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2005-2014年我国城镇和乡村人口数量",
+  "unit": "(万人)",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:3.399",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "independent_compact_chart_adjudication"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b_compact_chart",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

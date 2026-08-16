@@ -3353,6 +3353,52 @@
         "title": "CoachPreferenceView",
         "type": "object"
       },
+      "CoachRecognition": {
+        "additionalProperties": false,
+        "properties": {
+          "evidenceCount": {
+            "minimum": 0.0,
+            "title": "Evidencecount",
+            "type": "integer"
+          },
+          "label": {
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Label",
+            "type": "string"
+          },
+          "level": {
+            "enum": [
+              "just_met",
+              "initial_hypothesis",
+              "verifying",
+              "understands"
+            ],
+            "title": "Level",
+            "type": "string"
+          },
+          "observation": {
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Observation",
+            "type": "string"
+          },
+          "stableMasteryCount": {
+            "minimum": 0.0,
+            "title": "Stablemasterycount",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "level",
+          "label",
+          "observation",
+          "evidenceCount",
+          "stableMasteryCount"
+        ],
+        "title": "CoachRecognition",
+        "type": "object"
+      },
       "CoachTemplateView": {
         "additionalProperties": false,
         "properties": {
@@ -4139,6 +4185,266 @@
         "title": "CompanionCitation",
         "type": "object"
       },
+      "CompanionCoachPreference": {
+        "properties": {
+          "actionUrl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actionurl"
+          },
+          "category": {
+            "enum": [
+              "explanation_preference",
+              "study_constraint",
+              "personal_note"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "content": {
+            "maxLength": 240,
+            "minLength": 1,
+            "title": "Content",
+            "type": "string"
+          },
+          "effect": {
+            "enum": [
+              "applied_to_answers",
+              "needs_confirmation",
+              "context_only"
+            ],
+            "title": "Effect",
+            "type": "string"
+          },
+          "memoryId": {
+            "format": "uuid",
+            "title": "Memoryid",
+            "type": "string"
+          },
+          "revision": {
+            "minimum": 1.0,
+            "title": "Revision",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "memoryId",
+          "revision",
+          "category",
+          "content",
+          "effect"
+        ],
+        "title": "CompanionCoachPreference",
+        "type": "object"
+      },
+      "CompanionCoachRecheck": {
+        "properties": {
+          "createdAt": {
+            "format": "date-time",
+            "title": "Createdat",
+            "type": "string"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "patternId": {
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Patternid",
+            "type": "string"
+          },
+          "profileVersionId": {
+            "format": "uuid",
+            "title": "Profileversionid",
+            "type": "string"
+          },
+          "requestId": {
+            "format": "uuid",
+            "title": "Requestid",
+            "type": "string"
+          },
+          "retestUrl": {
+            "title": "Retesturl",
+            "type": "string"
+          },
+          "revision": {
+            "minimum": 1.0,
+            "title": "Revision",
+            "type": "integer"
+          },
+          "state": {
+            "const": "pending_reverification",
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": [
+          "requestId",
+          "revision",
+          "profileVersionId",
+          "patternId",
+          "state",
+          "createdAt",
+          "retestUrl"
+        ],
+        "title": "CompanionCoachRecheck",
+        "type": "object"
+      },
+      "CompanionCoachRecheckCommand": {
+        "properties": {
+          "commandId": {
+            "maxLength": 260,
+            "minLength": 8,
+            "title": "Commandid",
+            "type": "string"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "patternId": {
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Patternid",
+            "type": "string"
+          },
+          "profileVersionId": {
+            "format": "uuid",
+            "title": "Profileversionid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "commandId",
+          "profileVersionId",
+          "patternId"
+        ],
+        "title": "CompanionCoachRecheckCommand",
+        "type": "object"
+      },
+      "CompanionCoachRecheckReceipt": {
+        "properties": {
+          "requestId": {
+            "format": "uuid",
+            "title": "Requestid",
+            "type": "string"
+          },
+          "retestUrl": {
+            "title": "Retesturl",
+            "type": "string"
+          },
+          "revision": {
+            "minimum": 1.0,
+            "title": "Revision",
+            "type": "integer"
+          },
+          "state": {
+            "const": "pending_reverification",
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": [
+          "requestId",
+          "state",
+          "revision",
+          "retestUrl"
+        ],
+        "title": "CompanionCoachRecheckReceipt",
+        "type": "object"
+      },
+      "CompanionCoachRetest": {
+        "properties": {
+          "actionUrl": {
+            "title": "Actionurl",
+            "type": "string"
+          },
+          "dueNow": {
+            "minimum": 0.0,
+            "title": "Duenow",
+            "type": "integer"
+          },
+          "scheduled": {
+            "minimum": 0.0,
+            "title": "Scheduled",
+            "type": "integer"
+          },
+          "stable": {
+            "minimum": 0.0,
+            "title": "Stable",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "dueNow",
+          "scheduled",
+          "stable",
+          "actionUrl"
+        ],
+        "title": "CompanionCoachRetest",
+        "type": "object"
+      },
+      "CompanionCoachUnderstanding": {
+        "properties": {
+          "coachContext": {
+            "additionalProperties": true,
+            "title": "Coachcontext",
+            "type": "object"
+          },
+          "contractVersion": {
+            "const": "learner-coach-context@v2",
+            "default": "learner-coach-context@v2",
+            "title": "Contractversion",
+            "type": "string"
+          },
+          "explicitPreferences": {
+            "items": {
+              "$ref": "#/components/schemas/CompanionCoachPreference"
+            },
+            "title": "Explicitpreferences",
+            "type": "array"
+          },
+          "pendingRechecks": {
+            "items": {
+              "$ref": "#/components/schemas/CompanionCoachRecheck"
+            },
+            "title": "Pendingrechecks",
+            "type": "array"
+          },
+          "retest": {
+            "$ref": "#/components/schemas/CompanionCoachRetest"
+          }
+        },
+        "required": [
+          "coachContext",
+          "explicitPreferences",
+          "pendingRechecks",
+          "retest"
+        ],
+        "title": "CompanionCoachUnderstanding",
+        "type": "object"
+      },
       "CompanionHighImpactDecision": {
         "properties": {
           "decisionType": {
@@ -4303,10 +4609,8 @@
             "type": "boolean"
           },
           "maximumLongTermItems": {
-            "const": 20,
-            "default": 20,
             "title": "Maximumlongtermitems",
-            "type": "integer"
+            "type": "null"
           },
           "shortTerm": {
             "$ref": "#/components/schemas/CompanionMemorySummary"
@@ -5120,6 +5424,34 @@
         "title": "CreatePacketCommand",
         "type": "object"
       },
+      "CreatePrivateQuestionBookCommand": {
+        "additionalProperties": false,
+        "properties": {
+          "importId": {
+            "format": "uuid",
+            "title": "Importid",
+            "type": "string"
+          },
+          "recognitionRevisionId": {
+            "format": "uuid",
+            "title": "Recognitionrevisionid",
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "importId",
+          "recognitionRevisionId",
+          "title"
+        ],
+        "title": "CreatePrivateQuestionBookCommand",
+        "type": "object"
+      },
       "CreatePrivateSourceCommand": {
         "additionalProperties": false,
         "properties": {
@@ -5515,6 +5847,69 @@
           "generatedAt"
         ],
         "title": "DailySettlementView",
+        "type": "object"
+      },
+      "DailyStrategySuggestionCommand": {
+        "additionalProperties": false,
+        "description": "Empty body for the authenticated, per-user daily suggestion trigger.",
+        "properties": {},
+        "title": "DailyStrategySuggestionCommand",
+        "type": "object"
+      },
+      "DailyStrategySuggestionResult": {
+        "additionalProperties": false,
+        "properties": {
+          "candidate": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/InferenceCandidateVersion"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "skippedReason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skippedreason"
+          },
+          "status": {
+            "enum": [
+              "suggested",
+              "unavailable"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "suggestionId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suggestionid"
+          },
+          "triggerKind": {
+            "const": "daily_first_entry",
+            "default": "daily_first_entry",
+            "title": "Triggerkind",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "DailyStrategySuggestionResult",
         "type": "object"
       },
       "DataCategoryView": {
@@ -13526,6 +13921,63 @@
         "title": "KnowledgePointWeakness",
         "type": "object"
       },
+      "LearnerCoachContext": {
+        "additionalProperties": false,
+        "description": "岸岸对用户的唯一只读认识投影。\n\n不持有新事实，只把当前 profile 和策略编译成所有岸岸消费端\n共用的合约。",
+        "properties": {
+          "contractVersion": {
+            "const": "learner-coach-context@v1",
+            "default": "learner-coach-context@v1",
+            "title": "Contractversion",
+            "type": "string"
+          },
+          "freshness": {
+            "enum": [
+              "current",
+              "stale",
+              "conflicted",
+              "unavailable"
+            ],
+            "title": "Freshness",
+            "type": "string"
+          },
+          "generatedAt": {
+            "format": "date-time",
+            "title": "Generatedat",
+            "type": "string"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/LearningBrainProfileVersion"
+          },
+          "profileVersionId": {
+            "format": "uuid",
+            "title": "Profileversionid",
+            "type": "string"
+          },
+          "recognition": {
+            "$ref": "#/components/schemas/CoachRecognition"
+          },
+          "strategyDirective": {
+            "$ref": "#/components/schemas/StrategyDirective"
+          },
+          "validUntil": {
+            "format": "date-time",
+            "title": "Validuntil",
+            "type": "string"
+          }
+        },
+        "required": [
+          "profileVersionId",
+          "profile",
+          "recognition",
+          "freshness",
+          "strategyDirective",
+          "generatedAt",
+          "validUntil"
+        ],
+        "title": "LearnerCoachContext",
+        "type": "object"
+      },
       "LearnerMemory": {
         "properties": {
           "profile": {
@@ -16519,6 +16971,44 @@
           "source"
         ],
         "title": "ModuleAbilityEstimate",
+        "type": "object"
+      },
+      "NormalizedRegionBox": {
+        "additionalProperties": false,
+        "description": "Normalized page region without a duplicated page identity.",
+        "properties": {
+          "height": {
+            "exclusiveMinimum": 0.0,
+            "maximum": 1.0,
+            "title": "Height",
+            "type": "number"
+          },
+          "width": {
+            "exclusiveMinimum": 0.0,
+            "maximum": 1.0,
+            "title": "Width",
+            "type": "number"
+          },
+          "x": {
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "X",
+            "type": "number"
+          },
+          "y": {
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Y",
+            "type": "number"
+          }
+        },
+        "required": [
+          "x",
+          "y",
+          "width",
+          "height"
+        ],
+        "title": "NormalizedRegionBox",
         "type": "object"
       },
       "OMRMark": {
@@ -21261,6 +21751,334 @@
         "title": "PrivateCitation",
         "type": "object"
       },
+      "PrivateQuestionBookDetail": {
+        "additionalProperties": false,
+        "properties": {
+          "artifactVersionId": {
+            "format": "uuid",
+            "title": "Artifactversionid",
+            "type": "string"
+          },
+          "bookId": {
+            "format": "uuid",
+            "title": "Bookid",
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "title": "Createdat",
+            "type": "string"
+          },
+          "importId": {
+            "format": "uuid",
+            "title": "Importid",
+            "type": "string"
+          },
+          "nextUnresolvedQuestionUnitId": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nextunresolvedquestionunitid"
+          },
+          "questions": {
+            "items": {
+              "$ref": "#/components/schemas/PrivateQuestionBookItem"
+            },
+            "title": "Questions",
+            "type": "array"
+          },
+          "recognitionRevisionId": {
+            "format": "uuid",
+            "title": "Recognitionrevisionid",
+            "type": "string"
+          },
+          "resolvedQuestionCount": {
+            "minimum": 0.0,
+            "title": "Resolvedquestioncount",
+            "type": "integer"
+          },
+          "sourceVersionId": {
+            "format": "uuid",
+            "title": "Sourceversionid",
+            "type": "string"
+          },
+          "state": {
+            "enum": [
+              "ready",
+              "needs_review"
+            ],
+            "title": "State",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "totalQuestionCount": {
+            "minimum": 1.0,
+            "title": "Totalquestioncount",
+            "type": "integer"
+          },
+          "unresolvedQuestionCount": {
+            "minimum": 0.0,
+            "title": "Unresolvedquestioncount",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "bookId",
+          "sourceVersionId",
+          "importId",
+          "artifactVersionId",
+          "recognitionRevisionId",
+          "title",
+          "state",
+          "totalQuestionCount",
+          "resolvedQuestionCount",
+          "unresolvedQuestionCount",
+          "createdAt",
+          "questions"
+        ],
+        "title": "PrivateQuestionBookDetail",
+        "type": "object"
+      },
+      "PrivateQuestionBookItem": {
+        "additionalProperties": false,
+        "properties": {
+          "candidateCount": {
+            "minimum": 0.0,
+            "title": "Candidatecount",
+            "type": "integer"
+          },
+          "confirmedContentVersionId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmedcontentversionid"
+          },
+          "contentMatchVersionId": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contentmatchversionid"
+          },
+          "ordinal": {
+            "minimum": 1.0,
+            "title": "Ordinal",
+            "type": "integer"
+          },
+          "questionUnitId": {
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Questionunitid",
+            "type": "string"
+          },
+          "state": {
+            "enum": [
+              "matched",
+              "needs_confirmation",
+              "unmatched"
+            ],
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ordinal",
+          "questionUnitId",
+          "state",
+          "candidateCount"
+        ],
+        "title": "PrivateQuestionBookItem",
+        "type": "object"
+      },
+      "PrivateQuestionBookList": {
+        "additionalProperties": false,
+        "properties": {
+          "books": {
+            "items": {
+              "$ref": "#/components/schemas/PrivateQuestionBookSummary"
+            },
+            "title": "Books",
+            "type": "array"
+          },
+          "generatedAt": {
+            "format": "date-time",
+            "title": "Generatedat",
+            "type": "string"
+          }
+        },
+        "required": [
+          "books",
+          "generatedAt"
+        ],
+        "title": "PrivateQuestionBookList",
+        "type": "object"
+      },
+      "PrivateQuestionBookPracticeLaunch": {
+        "additionalProperties": false,
+        "properties": {
+          "bookId": {
+            "format": "uuid",
+            "title": "Bookid",
+            "type": "string"
+          },
+          "excludedCounts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Excludedcounts",
+            "type": "object"
+          },
+          "excludedQuestionCount": {
+            "minimum": 0.0,
+            "title": "Excludedquestioncount",
+            "type": "integer"
+          },
+          "planTaskId": {
+            "format": "uuid",
+            "title": "Plantaskid",
+            "type": "string"
+          },
+          "selectedQuestionCount": {
+            "minimum": 1.0,
+            "title": "Selectedquestioncount",
+            "type": "integer"
+          },
+          "sessionId": {
+            "format": "uuid",
+            "title": "Sessionid",
+            "type": "string"
+          },
+          "sourceVersionId": {
+            "format": "uuid",
+            "title": "Sourceversionid",
+            "type": "string"
+          },
+          "startUrl": {
+            "minLength": 1,
+            "title": "Starturl",
+            "type": "string"
+          }
+        },
+        "required": [
+          "bookId",
+          "sourceVersionId",
+          "selectedQuestionCount",
+          "excludedQuestionCount",
+          "excludedCounts",
+          "sessionId",
+          "planTaskId",
+          "startUrl"
+        ],
+        "title": "PrivateQuestionBookPracticeLaunch",
+        "type": "object"
+      },
+      "PrivateQuestionBookSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "artifactVersionId": {
+            "format": "uuid",
+            "title": "Artifactversionid",
+            "type": "string"
+          },
+          "bookId": {
+            "format": "uuid",
+            "title": "Bookid",
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "title": "Createdat",
+            "type": "string"
+          },
+          "importId": {
+            "format": "uuid",
+            "title": "Importid",
+            "type": "string"
+          },
+          "nextUnresolvedQuestionUnitId": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nextunresolvedquestionunitid"
+          },
+          "recognitionRevisionId": {
+            "format": "uuid",
+            "title": "Recognitionrevisionid",
+            "type": "string"
+          },
+          "resolvedQuestionCount": {
+            "minimum": 0.0,
+            "title": "Resolvedquestioncount",
+            "type": "integer"
+          },
+          "sourceVersionId": {
+            "format": "uuid",
+            "title": "Sourceversionid",
+            "type": "string"
+          },
+          "state": {
+            "enum": [
+              "ready",
+              "needs_review"
+            ],
+            "title": "State",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "totalQuestionCount": {
+            "minimum": 1.0,
+            "title": "Totalquestioncount",
+            "type": "integer"
+          },
+          "unresolvedQuestionCount": {
+            "minimum": 0.0,
+            "title": "Unresolvedquestioncount",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "bookId",
+          "sourceVersionId",
+          "importId",
+          "artifactVersionId",
+          "recognitionRevisionId",
+          "title",
+          "state",
+          "totalQuestionCount",
+          "resolvedQuestionCount",
+          "unresolvedQuestionCount",
+          "createdAt"
+        ],
+        "title": "PrivateQuestionBookSummary",
+        "type": "object"
+      },
       "PrivateSearchResult": {
         "additionalProperties": false,
         "properties": {
@@ -22141,6 +22959,52 @@
         "title": "PublicApiEnvelope[CompanionAskResponse]",
         "type": "object"
       },
+      "PublicApiEnvelope_CompanionCoachRecheckReceipt_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CompanionCoachRecheckReceipt"
+          },
+          "generatedAt": {
+            "format": "date-time",
+            "title": "Generatedat",
+            "type": "string"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "data",
+          "requestId",
+          "generatedAt"
+        ],
+        "title": "PublicApiEnvelope[CompanionCoachRecheckReceipt]",
+        "type": "object"
+      },
+      "PublicApiEnvelope_CompanionCoachUnderstanding_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CompanionCoachUnderstanding"
+          },
+          "generatedAt": {
+            "format": "date-time",
+            "title": "Generatedat",
+            "type": "string"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "data",
+          "requestId",
+          "generatedAt"
+        ],
+        "title": "PublicApiEnvelope[CompanionCoachUnderstanding]",
+        "type": "object"
+      },
       "PublicApiEnvelope_CompanionMemoryItem_": {
         "properties": {
           "data": {
@@ -22392,6 +23256,29 @@
           "generatedAt"
         ],
         "title": "PublicApiEnvelope[DailySettlementView]",
+        "type": "object"
+      },
+      "PublicApiEnvelope_DailyStrategySuggestionResult_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/DailyStrategySuggestionResult"
+          },
+          "generatedAt": {
+            "format": "date-time",
+            "title": "Generatedat",
+            "type": "string"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "data",
+          "requestId",
+          "generatedAt"
+        ],
+        "title": "PublicApiEnvelope[DailyStrategySuggestionResult]",
         "type": "object"
       },
       "PublicApiEnvelope_DataExportPayload_": {
@@ -23176,6 +24063,29 @@
         "title": "PublicApiEnvelope[ImpressionResult]",
         "type": "object"
       },
+      "PublicApiEnvelope_LearnerCoachContext_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/LearnerCoachContext"
+          },
+          "generatedAt": {
+            "format": "date-time",
+            "title": "Generatedat",
+            "type": "string"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "data",
+          "requestId",
+          "generatedAt"
+        ],
+        "title": "PublicApiEnvelope[LearnerCoachContext]",
+        "type": "object"
+      },
       "PublicApiEnvelope_LearnerTargetScoreProjection_": {
         "properties": {
           "data": {
@@ -23887,6 +24797,75 @@
           "generatedAt"
         ],
         "title": "PublicApiEnvelope[PrivacyOverview]",
+        "type": "object"
+      },
+      "PublicApiEnvelope_PrivateQuestionBookDetail_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/PrivateQuestionBookDetail"
+          },
+          "generatedAt": {
+            "format": "date-time",
+            "title": "Generatedat",
+            "type": "string"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "data",
+          "requestId",
+          "generatedAt"
+        ],
+        "title": "PublicApiEnvelope[PrivateQuestionBookDetail]",
+        "type": "object"
+      },
+      "PublicApiEnvelope_PrivateQuestionBookList_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/PrivateQuestionBookList"
+          },
+          "generatedAt": {
+            "format": "date-time",
+            "title": "Generatedat",
+            "type": "string"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "data",
+          "requestId",
+          "generatedAt"
+        ],
+        "title": "PublicApiEnvelope[PrivateQuestionBookList]",
+        "type": "object"
+      },
+      "PublicApiEnvelope_PrivateQuestionBookPracticeLaunch_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/PrivateQuestionBookPracticeLaunch"
+          },
+          "generatedAt": {
+            "format": "date-time",
+            "title": "Generatedat",
+            "type": "string"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "data",
+          "requestId",
+          "generatedAt"
+        ],
+        "title": "PublicApiEnvelope[PrivateQuestionBookPracticeLaunch]",
         "type": "object"
       },
       "PublicApiEnvelope_PrivateSearchResult_": {
@@ -24715,6 +25694,52 @@
           "generatedAt"
         ],
         "title": "PublicApiEnvelope[TaskSessionProjection]",
+        "type": "object"
+      },
+      "PublicApiEnvelope_TeachBackSessionProjection_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/TeachBackSessionProjection"
+          },
+          "generatedAt": {
+            "format": "date-time",
+            "title": "Generatedat",
+            "type": "string"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "data",
+          "requestId",
+          "generatedAt"
+        ],
+        "title": "PublicApiEnvelope[TeachBackSessionProjection]",
+        "type": "object"
+      },
+      "PublicApiEnvelope_TeachBackTransferReceipt_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/TeachBackTransferReceipt"
+          },
+          "generatedAt": {
+            "format": "date-time",
+            "title": "Generatedat",
+            "type": "string"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "data",
+          "requestId",
+          "generatedAt"
+        ],
+        "title": "PublicApiEnvelope[TeachBackTransferReceipt]",
         "type": "object"
       },
       "PublicApiEnvelope_TextToSpeechResponse_": {
@@ -26644,6 +27669,69 @@
         "title": "QuestionOption",
         "type": "object"
       },
+      "QuestionRegionVisualEvidence": {
+        "additionalProperties": false,
+        "description": "Immutable visual hashes owned by exactly one recognized question unit.",
+        "properties": {
+          "box": {
+            "$ref": "#/components/schemas/NormalizedRegionBox"
+          },
+          "contractVersion": {
+            "const": "question-region-visual-evidence@v1",
+            "default": "question-region-visual-evidence@v1",
+            "title": "Contractversion",
+            "type": "string"
+          },
+          "derivation": {
+            "const": "prompt-vertical-band@v1",
+            "default": "prompt-vertical-band@v1",
+            "title": "Derivation",
+            "type": "string"
+          },
+          "pageNo": {
+            "minimum": 1.0,
+            "title": "Pageno",
+            "type": "integer"
+          },
+          "questionUnitId": {
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Questionunitid",
+            "type": "string"
+          },
+          "sourcePageImageSha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Sourcepageimagesha256",
+            "type": "string"
+          },
+          "visualFeatureHashes": {
+            "items": {
+              "$ref": "#/components/schemas/VisualFeatureHash"
+            },
+            "minItems": 1,
+            "title": "Visualfeaturehashes",
+            "type": "array"
+          },
+          "visualFingerprints": {
+            "items": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Visualfingerprints",
+            "type": "array"
+          }
+        },
+        "required": [
+          "questionUnitId",
+          "pageNo",
+          "box",
+          "sourcePageImageSha256",
+          "visualFingerprints",
+          "visualFeatureHashes"
+        ],
+        "title": "QuestionRegionVisualEvidence",
+        "type": "object"
+      },
       "QuestionSearchResponse": {
         "properties": {
           "items": {
@@ -27101,6 +28189,14 @@
             "pattern": "^[0-9a-f]{64}$",
             "title": "Processorrequestidhash",
             "type": "string"
+          },
+          "questionRegionVisualEvidence": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/QuestionRegionVisualEvidence"
+            },
+            "title": "Questionregionvisualevidence",
+            "type": "array"
           },
           "questionUnits": {
             "default": [],
@@ -28553,24 +29649,6 @@
             "title": "Contentversionid",
             "type": "string"
           },
-          "correctOptionIds": {
-            "items": {
-              "type": "string"
-            },
-            "title": "Correctoptionids",
-            "type": "array"
-          },
-          "explanation": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Explanation"
-          },
           "moduleName": {
             "title": "Modulename",
             "type": "string"
@@ -28596,8 +29674,7 @@
           "contentVersionId",
           "moduleName",
           "stem",
-          "options",
-          "correctOptionIds"
+          "options"
         ],
         "title": "RescueSimilarQuestion",
         "type": "object"
@@ -29826,6 +30903,65 @@
         "title": "SafeQuestionBundle",
         "type": "object"
       },
+      "SafeStructuredVisualProjection": {
+        "additionalProperties": false,
+        "description": "Only this literal, answer-free shape may enter a student prompt.",
+        "properties": {
+          "audiences": {
+            "default": [
+              "student",
+              "verifier"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/StructuredVisualAudience"
+            },
+            "title": "Audiences",
+            "type": "array"
+          },
+          "chartType": {
+            "title": "Charttype",
+            "type": "string"
+          },
+          "evidenceKind": {
+            "default": "data_visual",
+            "title": "Evidencekind",
+            "type": "string"
+          },
+          "evidenceRef": {
+            "title": "Evidenceref",
+            "type": "string"
+          },
+          "facts": {
+            "items": {
+              "$ref": "#/components/schemas/StructuredVisualFact"
+            },
+            "title": "Facts",
+            "type": "array"
+          },
+          "questionRef": {
+            "title": "Questionref",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          }
+        },
+        "required": [
+          "evidenceRef",
+          "questionRef",
+          "chartType",
+          "title",
+          "unit",
+          "facts"
+        ],
+        "title": "SafeStructuredVisualProjection",
+        "type": "object"
+      },
       "SaveCheckpointCommand": {
         "properties": {
           "answers": {
@@ -30567,6 +31703,21 @@
         "title": "StartLearningMediaUploadCommand",
         "type": "object"
       },
+      "StartPrivateQuestionBookPracticeCommand": {
+        "additionalProperties": false,
+        "properties": {
+          "planTaskId": {
+            "format": "uuid",
+            "title": "Plantaskid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "planTaskId"
+        ],
+        "title": "StartPrivateQuestionBookPracticeCommand",
+        "type": "object"
+      },
       "StartRecognitionCommand": {
         "additionalProperties": false,
         "properties": {
@@ -30623,6 +31774,35 @@
           "planTaskId"
         ],
         "title": "StartTaskSessionCommand",
+        "type": "object"
+      },
+      "StartTeachBackCommand": {
+        "properties": {
+          "commandId": {
+            "maxLength": 260,
+            "minLength": 8,
+            "title": "Commandid",
+            "type": "string"
+          },
+          "sourceQuestionId": {
+            "maxLength": 240,
+            "minLength": 1,
+            "title": "Sourcequestionid",
+            "type": "string"
+          },
+          "userExplanation": {
+            "maxLength": 50000,
+            "minLength": 1,
+            "title": "Userexplanation",
+            "type": "string"
+          }
+        },
+        "required": [
+          "commandId",
+          "sourceQuestionId",
+          "userExplanation"
+        ],
+        "title": "StartTeachBackCommand",
         "type": "object"
       },
       "StartUploadCommand": {
@@ -30950,6 +32130,118 @@
         "title": "StrategyDecisionVersion",
         "type": "object"
       },
+      "StrategyDirective": {
+        "additionalProperties": false,
+        "description": "岸岸可引用的当前策略投影：已生效策略 + 待确认候选。\n\n由 learning_brain 的只读方法 ``current_strategy_directive`` 返回，\n不落库、不进 profile fingerprint。",
+        "properties": {
+          "active": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StrategyDirectiveEntry"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "pending": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StrategyDirectiveEntry"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "title": "StrategyDirective",
+        "type": "object"
+      },
+      "StrategyDirectiveEntry": {
+        "additionalProperties": false,
+        "description": "一条策略指令快照：active 已生效 / awaiting_confirmation 待确认。\n\n供岸岸引用 rationale 解释「为什么这样排」。字段只带用户可理解的\n决策方向与理由，不暴露内部版本号。",
+        "properties": {
+          "decisionType": {
+            "enum": [
+              "exam_skip",
+              "phase_deprioritize",
+              "strategic_abandon",
+              "baseline_guidance"
+            ],
+            "title": "Decisiontype",
+            "type": "string"
+          },
+          "effectiveUntil": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effectiveuntil"
+          },
+          "expiresAt": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expiresat"
+          },
+          "generatedAt": {
+            "format": "date-time",
+            "title": "Generatedat",
+            "type": "string"
+          },
+          "rationale": {
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Rationale",
+            "type": "string"
+          },
+          "scopeKey": {
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Scopekey",
+            "type": "string"
+          },
+          "scopeType": {
+            "enum": [
+              "track",
+              "module",
+              "question_type"
+            ],
+            "title": "Scopetype",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "awaiting_confirmation"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "decisionType",
+          "scopeType",
+          "scopeKey",
+          "rationale",
+          "generatedAt"
+        ],
+        "title": "StrategyDirectiveEntry",
+        "type": "object"
+      },
       "StreakRestartCard": {
         "properties": {
           "cardId": {
@@ -31072,6 +32364,75 @@
         ],
         "title": "StructureCandidate",
         "type": "object"
+      },
+      "StructuredVisualAudience": {
+        "enum": [
+          "student",
+          "verifier"
+        ],
+        "title": "StructuredVisualAudience",
+        "type": "string"
+      },
+      "StructuredVisualFact": {
+        "additionalProperties": false,
+        "description": "One answer-free literal transcribed from the current visual asset.",
+        "properties": {
+          "dimensions": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 20,
+            "title": "Dimensions",
+            "type": "array"
+          },
+          "factRef": {
+            "maxLength": 240,
+            "minLength": 1,
+            "title": "Factref",
+            "type": "string"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/StructuredVisualFactKind"
+          },
+          "unit": {
+            "default": "",
+            "maxLength": 120,
+            "title": "Unit",
+            "type": "string"
+          },
+          "value": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Value",
+            "type": "string"
+          }
+        },
+        "required": [
+          "factRef",
+          "kind",
+          "value"
+        ],
+        "title": "StructuredVisualFact",
+        "type": "object"
+      },
+      "StructuredVisualFactKind": {
+        "enum": [
+          "title",
+          "unit",
+          "axis",
+          "category",
+          "legend",
+          "series_value",
+          "table_cell",
+          "relationship",
+          "entity",
+          "label",
+          "formula",
+          "source_only"
+        ],
+        "title": "StructuredVisualFactKind",
+        "type": "string"
       },
       "StudyPreferenceResult": {
         "additionalProperties": false,
@@ -32356,6 +33717,341 @@
           "totalElapsedSeconds"
         ],
         "title": "TaskSessionProjection",
+        "type": "object"
+      },
+      "TeachBackGroundingClaim": {
+        "properties": {
+          "classification": {
+            "enum": [
+              "supported",
+              "omitted",
+              "conflict",
+              "unknown"
+            ],
+            "title": "Classification",
+            "type": "string"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "classification",
+          "summary"
+        ],
+        "title": "TeachBackGroundingClaim",
+        "type": "object"
+      },
+      "TeachBackOption": {
+        "properties": {
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "optionId": {
+            "title": "Optionid",
+            "type": "string"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "optionId",
+          "label",
+          "text"
+        ],
+        "title": "TeachBackOption",
+        "type": "object"
+      },
+      "TeachBackQuestion": {
+        "properties": {
+          "options": {
+            "items": {
+              "$ref": "#/components/schemas/TeachBackOption"
+            },
+            "title": "Options",
+            "type": "array"
+          },
+          "questionId": {
+            "title": "Questionid",
+            "type": "string"
+          },
+          "stem": {
+            "title": "Stem",
+            "type": "string"
+          },
+          "visualEvidence": {
+            "items": {
+              "$ref": "#/components/schemas/SafeStructuredVisualProjection"
+            },
+            "title": "Visualevidence",
+            "type": "array"
+          }
+        },
+        "required": [
+          "questionId",
+          "stem",
+          "options"
+        ],
+        "title": "TeachBackQuestion",
+        "type": "object"
+      },
+      "TeachBackSessionProjection": {
+        "properties": {
+          "coachMessage": {
+            "title": "Coachmessage",
+            "type": "string"
+          },
+          "contractVersion": {
+            "const": "grounded-teach-back@v1",
+            "default": "grounded-teach-back@v1",
+            "title": "Contractversion",
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "title": "Createdat",
+            "type": "string"
+          },
+          "grounding": {
+            "items": {
+              "$ref": "#/components/schemas/TeachBackGroundingClaim"
+            },
+            "title": "Grounding",
+            "type": "array"
+          },
+          "reviewId": {
+            "format": "uuid",
+            "title": "Reviewid",
+            "type": "string"
+          },
+          "revision": {
+            "minimum": 1.0,
+            "title": "Revision",
+            "type": "integer"
+          },
+          "sessionId": {
+            "format": "uuid",
+            "title": "Sessionid",
+            "type": "string"
+          },
+          "sourceQuestionId": {
+            "title": "Sourcequestionid",
+            "type": "string"
+          },
+          "state": {
+            "enum": [
+              "ready_for_transfer",
+              "blocked",
+              "provider_failed",
+              "completed"
+            ],
+            "title": "State",
+            "type": "string"
+          },
+          "student": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TeachBackStudentResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "transferQuestion": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TeachBackQuestion"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "sessionId",
+          "revision",
+          "state",
+          "reviewId",
+          "sourceQuestionId",
+          "coachMessage",
+          "createdAt"
+        ],
+        "title": "TeachBackSessionProjection",
+        "type": "object"
+      },
+      "TeachBackStudentResult": {
+        "properties": {
+          "attemptedOptionId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Attemptedoptionid"
+          },
+          "blockedAt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Blockedat"
+          },
+          "clarificationQuestion": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clarificationquestion"
+          },
+          "reproducedSteps": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Reproducedsteps",
+            "type": "array"
+          },
+          "state": {
+            "enum": [
+              "blocked",
+              "reproduced"
+            ],
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": [
+          "state",
+          "reproducedSteps"
+        ],
+        "title": "TeachBackStudentResult",
+        "type": "object"
+      },
+      "TeachBackTransferCommand": {
+        "properties": {
+          "commandId": {
+            "maxLength": 260,
+            "minLength": 8,
+            "title": "Commandid",
+            "type": "string"
+          },
+          "confidence": {
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "title": "Confidence",
+            "type": "string"
+          },
+          "revision": {
+            "minimum": 1.0,
+            "title": "Revision",
+            "type": "integer"
+          },
+          "selectedOptionIds": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 12,
+            "minItems": 1,
+            "title": "Selectedoptionids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "commandId",
+          "revision",
+          "selectedOptionIds",
+          "confidence"
+        ],
+        "title": "TeachBackTransferCommand",
+        "type": "object"
+      },
+      "TeachBackTransferReceipt": {
+        "properties": {
+          "coachMessage": {
+            "title": "Coachmessage",
+            "type": "string"
+          },
+          "contractVersion": {
+            "const": "teach-back-transfer-receipt@v1",
+            "default": "teach-back-transfer-receipt@v1",
+            "title": "Contractversion",
+            "type": "string"
+          },
+          "correct": {
+            "title": "Correct",
+            "type": "boolean"
+          },
+          "dueAt": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dueat"
+          },
+          "masteryState": {
+            "title": "Masterystate",
+            "type": "string"
+          },
+          "masteryVersionId": {
+            "format": "uuid",
+            "title": "Masteryversionid",
+            "type": "string"
+          },
+          "revision": {
+            "minimum": 2.0,
+            "title": "Revision",
+            "type": "integer"
+          },
+          "sessionId": {
+            "format": "uuid",
+            "title": "Sessionid",
+            "type": "string"
+          },
+          "state": {
+            "const": "completed",
+            "default": "completed",
+            "title": "State",
+            "type": "string"
+          },
+          "verificationStage": {
+            "title": "Verificationstage",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sessionId",
+          "revision",
+          "correct",
+          "masteryVersionId",
+          "masteryState",
+          "verificationStage",
+          "coachMessage"
+        ],
+        "title": "TeachBackTransferReceipt",
         "type": "object"
       },
       "TextSpan": {
@@ -35384,6 +37080,22 @@
                 "type": "null"
               }
             ]
+          },
+          "teachBackAvailable": {
+            "default": false,
+            "title": "Teachbackavailable",
+            "type": "boolean"
+          },
+          "teachBackReason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Teachbackreason"
           }
         },
         "required": [
@@ -43491,6 +45203,248 @@
         ]
       }
     },
+    "/api/v2/companion/coach-rechecks": {
+      "post": {
+        "operationId": "request_coach_recheck_api_v2_companion_coach_rechecks_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompanionCoachRecheckCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_CompanionCoachRecheckReceipt_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request is invalid for the current business state."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "Authentication is required or no longer valid."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The authenticated account cannot perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The requested resource does not exist."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request conflicts with the current resource revision."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request body or parameters failed validation."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request exceeded a controlled rate or quota."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The server could not complete the request."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "A required service is temporarily unavailable."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Request Coach Recheck",
+        "tags": [
+          "companion"
+        ]
+      }
+    },
+    "/api/v2/companion/coach-understanding": {
+      "get": {
+        "operationId": "get_coach_understanding_api_v2_companion_coach_understanding_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_CompanionCoachUnderstanding_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request is invalid for the current business state."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "Authentication is required or no longer valid."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The authenticated account cannot perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The requested resource does not exist."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request conflicts with the current resource revision."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request body or parameters failed validation."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request exceeded a controlled rate or quota."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The server could not complete the request."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "A required service is temporarily unavailable."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get Coach Understanding",
+        "tags": [
+          "companion"
+        ]
+      }
+    },
     "/api/v2/companion/conversation-memory": {
       "delete": {
         "operationId": "clear_companion_conversation_memory_api_v2_companion_conversation_memory_delete",
@@ -50786,6 +52740,939 @@
         ]
       }
     },
+    "/api/v2/external-learning/question-books": {
+      "get": {
+        "operationId": "list_question_books_api_v2_external_learning_question_books_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_PrivateQuestionBookList_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request is invalid for the current business state."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "Authentication is required or no longer valid."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The authenticated account cannot perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The requested resource does not exist."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request conflicts with the current resource revision."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request body or parameters failed validation."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request exceeded a controlled rate or quota."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The server could not complete the request."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "A required service is temporarily unavailable."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "List Question Books",
+        "tags": [
+          "external-learning-ingestion",
+          "private-question-books"
+        ]
+      },
+      "post": {
+        "operationId": "create_question_book_api_v2_external_learning_question_books_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 160,
+              "minLength": 8,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{7,159}$",
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePrivateQuestionBookCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_PrivateQuestionBookDetail_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request is invalid for the current business state."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "Authentication is required or no longer valid."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The authenticated account cannot perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The requested resource does not exist."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request conflicts with the current resource revision."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request body or parameters failed validation."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request exceeded a controlled rate or quota."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The server could not complete the request."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "A required service is temporarily unavailable."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Create Question Book",
+        "tags": [
+          "external-learning-ingestion",
+          "private-question-books"
+        ]
+      }
+    },
+    "/api/v2/external-learning/question-books/deletions/{deletion_id}": {
+      "get": {
+        "operationId": "get_question_book_deletion_api_v2_external_learning_question_books_deletions__deletion_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deletion_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Deletion Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_PrivateSourceDeletionView_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request is invalid for the current business state."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "Authentication is required or no longer valid."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The authenticated account cannot perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The requested resource does not exist."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request conflicts with the current resource revision."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request body or parameters failed validation."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request exceeded a controlled rate or quota."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The server could not complete the request."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "A required service is temporarily unavailable."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get Question Book Deletion",
+        "tags": [
+          "external-learning-ingestion",
+          "private-question-books"
+        ]
+      }
+    },
+    "/api/v2/external-learning/question-books/{book_id}": {
+      "delete": {
+        "operationId": "delete_question_book_api_v2_external_learning_question_books__book_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "book_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Book Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 160,
+              "minLength": 8,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{7,159}$",
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_PrivateSourceDeletionView_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request is invalid for the current business state."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "Authentication is required or no longer valid."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The authenticated account cannot perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The requested resource does not exist."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request conflicts with the current resource revision."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request body or parameters failed validation."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request exceeded a controlled rate or quota."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The server could not complete the request."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "A required service is temporarily unavailable."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Delete Question Book",
+        "tags": [
+          "external-learning-ingestion",
+          "private-question-books"
+        ]
+      },
+      "get": {
+        "operationId": "get_question_book_api_v2_external_learning_question_books__book_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "book_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Book Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_PrivateQuestionBookDetail_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request is invalid for the current business state."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "Authentication is required or no longer valid."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The authenticated account cannot perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The requested resource does not exist."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request conflicts with the current resource revision."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request body or parameters failed validation."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request exceeded a controlled rate or quota."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The server could not complete the request."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "A required service is temporarily unavailable."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get Question Book",
+        "tags": [
+          "external-learning-ingestion",
+          "private-question-books"
+        ]
+      }
+    },
+    "/api/v2/external-learning/question-books/{book_id}/export": {
+      "get": {
+        "operationId": "export_question_book_api_v2_external_learning_question_books__book_id__export_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "book_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Book Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_MarkdownExport_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request is invalid for the current business state."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "Authentication is required or no longer valid."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The authenticated account cannot perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The requested resource does not exist."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request conflicts with the current resource revision."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request body or parameters failed validation."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request exceeded a controlled rate or quota."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The server could not complete the request."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "A required service is temporarily unavailable."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Export Question Book",
+        "tags": [
+          "external-learning-ingestion",
+          "private-question-books"
+        ]
+      }
+    },
+    "/api/v2/external-learning/question-books/{book_id}/practice-sessions": {
+      "post": {
+        "operationId": "start_question_book_practice_api_v2_external_learning_question_books__book_id__practice_sessions_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "book_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Book Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "maxLength": 160,
+              "minLength": 8,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{7,159}$",
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StartPrivateQuestionBookPracticeCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_PrivateQuestionBookPracticeLaunch_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request is invalid for the current business state."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "Authentication is required or no longer valid."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The authenticated account cannot perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The requested resource does not exist."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request conflicts with the current resource revision."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request body or parameters failed validation."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request exceeded a controlled rate or quota."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The server could not complete the request."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "A required service is temporarily unavailable."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Start Question Book Practice",
+        "tags": [
+          "external-learning-ingestion",
+          "private-question-books"
+        ]
+      }
+    },
     "/api/v2/external-learning/recognitions": {
       "post": {
         "operationId": "start_recognition_api_v2_external_learning_recognitions_post",
@@ -53375,6 +56262,122 @@
         ]
       }
     },
+    "/api/v2/learning-brain/coach-context": {
+      "get": {
+        "operationId": "get_learner_coach_context_api_v2_learning_brain_coach_context_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_LearnerCoachContext_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request is invalid for the current business state."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "Authentication is required or no longer valid."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The authenticated account cannot perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The requested resource does not exist."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request conflicts with the current resource revision."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request body or parameters failed validation."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request exceeded a controlled rate or quota."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The server could not complete the request."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "A required service is temporarily unavailable."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get Learner Coach Context",
+        "tags": [
+          "learning-brain"
+        ]
+      }
+    },
     "/api/v2/learning-brain/error-patterns/{pattern_id}": {
       "get": {
         "operationId": "get_learning_brain_error_pattern_api_v2_learning_brain_error_patterns__pattern_id__get",
@@ -54041,6 +57044,132 @@
           }
         ],
         "summary": "Decide Learning Strategy Candidate",
+        "tags": [
+          "learning-brain"
+        ]
+      }
+    },
+    "/api/v2/learning-brain/strategy-suggestions/daily": {
+      "post": {
+        "operationId": "suggest_daily_learning_strategy_api_v2_learning_brain_strategy_suggestions_daily_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DailyStrategySuggestionCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_DailyStrategySuggestionResult_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request is invalid for the current business state."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "Authentication is required or no longer valid."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The authenticated account cannot perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The requested resource does not exist."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request conflicts with the current resource revision."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request body or parameters failed validation."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request exceeded a controlled rate or quota."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The server could not complete the request."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "A required service is temporarily unavailable."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Suggest Daily Learning Strategy",
         "tags": [
           "learning-brain"
         ]
@@ -64180,6 +67309,144 @@
         ]
       }
     },
+    "/api/v2/xingce/attempt-reviews/{review_id}/teach-back": {
+      "post": {
+        "operationId": "start_teach_back_api_v2_xingce_attempt_reviews__review_id__teach_back_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "review_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Review Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StartTeachBackCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_TeachBackSessionProjection_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request is invalid for the current business state."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "Authentication is required or no longer valid."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The authenticated account cannot perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The requested resource does not exist."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request conflicts with the current resource revision."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request body or parameters failed validation."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request exceeded a controlled rate or quota."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The server could not complete the request."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "A required service is temporarily unavailable."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Start Teach Back",
+        "tags": [
+          "xingce-learning"
+        ]
+      }
+    },
     "/api/v2/xingce/mastery-queue": {
       "get": {
         "operationId": "get_mastery_queue_api_v2_xingce_mastery_queue_get",
@@ -65674,6 +68941,272 @@
           }
         ],
         "summary": "Submit Task Session",
+        "tags": [
+          "xingce-learning"
+        ]
+      }
+    },
+    "/api/v2/xingce/teach-back/{session_id}": {
+      "get": {
+        "operationId": "get_teach_back_api_v2_xingce_teach_back__session_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "session_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Session Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_TeachBackSessionProjection_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request is invalid for the current business state."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "Authentication is required or no longer valid."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The authenticated account cannot perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The requested resource does not exist."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request conflicts with the current resource revision."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request body or parameters failed validation."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request exceeded a controlled rate or quota."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The server could not complete the request."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "A required service is temporarily unavailable."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get Teach Back",
+        "tags": [
+          "xingce-learning"
+        ]
+      }
+    },
+    "/api/v2/xingce/teach-back/{session_id}/transfer": {
+      "post": {
+        "operationId": "submit_teach_back_transfer_api_v2_xingce_teach_back__session_id__transfer_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "session_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Session Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeachBackTransferCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_TeachBackTransferReceipt_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request is invalid for the current business state."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "Authentication is required or no longer valid."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The authenticated account cannot perform this action."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The requested resource does not exist."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request conflicts with the current resource revision."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request body or parameters failed validation."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The request exceeded a controlled rate or quota."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "The server could not complete the request."
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiError"
+                }
+              }
+            },
+            "description": "A required service is temporarily unavailable."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Submit Teach Back Transfer",
         "tags": [
           "xingce-learning"
         ]

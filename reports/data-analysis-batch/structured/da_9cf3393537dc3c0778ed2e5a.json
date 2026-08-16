@@ -1,0 +1,206 @@
+{
+  "asset_id": "da_9cf3393537dc3c0778ed2e5a",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 5,
+        "min": 0,
+        "ticks": [
+          0,
+          0.5,
+          1,
+          1.5,
+          2,
+          2.5,
+          3,
+          3.5,
+          4,
+          4.5,
+          5
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 35,
+        "min": 0,
+        "ticks": [
+          0.0,
+          5.0,
+          10.0,
+          15.0,
+          20.0,
+          25.0,
+          30.0,
+          35.0
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2011年",
+    "2012年",
+    "2013年",
+    "2014年",
+    "2015年",
+    "2016年"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "利润总额（万亿元）",
+      "style": {
+        "dash": null,
+        "fill": "blue",
+        "marker": null,
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "增速（%）",
+      "style": {
+        "dash": null,
+        "fill": "orange",
+        "marker": null,
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "利润总额（万亿元）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万亿元",
+      "values": [
+        3.7,
+        3.4,
+        3.8,
+        4.0,
+        4.1,
+        4.3
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "增速（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        32.1,
+        14.1,
+        15.8,
+        5.3,
+        4.2,
+        6.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/辽宁/2017年辽宁省公安机关及省属监狱系统考试录用公务员（人民警察）考试《行测》题_images/img_0203_c2a4a101ba7e3717.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年辽宁省公安机关及省属监狱系统考试录用公务员（人民警察）考试《行测》题_images/img_0203_c2a4a101ba7e3717.png",
+        "paper_title": "2017年辽宁省公安机关及省属监狱系统考试录用公务员（人民警察）考试《行测》题",
+        "question_id": "pq_c9a6621dde6f1f0fa8f3",
+        "question_number": 116,
+        "source_jsonl_line": 83507
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年辽宁省公安机关及省属监狱系统考试录用公务员（人民警察）考试《行测》题_images/img_0207_bfa550b5f8dee72c.png",
+        "paper_title": "2017年辽宁省公安机关及省属监狱系统考试录用公务员（人民警察）考试《行测》题",
+        "question_id": "pq_66da25fdca1973480e84",
+        "question_number": 117,
+        "source_jsonl_line": 83508
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年辽宁省公安机关及省属监狱系统考试录用公务员（人民警察）考试《行测》题_images/img_0207_bfa550b5f8dee72c.png",
+        "paper_title": "2017年辽宁省公安机关及省属监狱系统考试录用公务员（人民警察）考试《行测》题",
+        "question_id": "pq_700cfdd436f5332da5ec",
+        "question_number": 118,
+        "source_jsonl_line": 83509
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年辽宁省公安机关及省属监狱系统考试录用公务员（人民警察）考试《行测》题_images/img_0203_c2a4a101ba7e3717.png",
+        "paper_title": "2017年辽宁省公安机关及省属监狱系统考试录用公务员（人民警察）考试《行测》题",
+        "question_id": "pq_b865460d97e78b9bb047",
+        "question_number": 119,
+        "source_jsonl_line": 83510
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年辽宁省公安机关及省属监狱系统考试录用公务员（人民警察）考试《行测》题_images/img_0207_bfa550b5f8dee72c.png",
+        "paper_title": "2017年辽宁省公安机关及省属监狱系统考试录用公务员（人民警察）考试《行测》题",
+        "question_id": "pq_95aa654ba9840bd57ea7",
+        "question_number": 120,
+        "source_jsonl_line": 83511
+      }
+    ],
+    "sha256": "9cf3393537dc3c0778ed2e5a7214555442c185d626fc7171d1e57442a91daaae"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2011～2016年中小企业利润总额及增速情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_9cf3393537dc3c0778ed2e5a/column_band_01.jpg",
+        "review-crops/da_9cf3393537dc3c0778ed2e5a/column_band_02.jpg",
+        "review-crops/da_9cf3393537dc3c0778ed2e5a/column_band_03.jpg",
+        "review-crops/da_9cf3393537dc3c0778ed2e5a/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.22",
+      "crop_verification_elapsed_seconds:3.061",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

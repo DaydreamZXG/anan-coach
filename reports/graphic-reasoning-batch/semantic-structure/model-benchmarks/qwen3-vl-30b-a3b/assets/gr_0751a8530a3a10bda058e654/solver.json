@@ -1,0 +1,1199 @@
+{
+  "assetId": "gr_0751a8530a3a10bda058e654",
+  "crossPanelPatterns": [
+    {
+      "confidence": 0.8,
+      "description": "internal_line rotates from diagonal_down to diagonal_up",
+      "from_panels": [
+        1,
+        2,
+        3
+      ],
+      "subjects": [
+        "p1e2",
+        "p2e2",
+        "p3e2",
+        "p4e2",
+        "p5e2"
+      ],
+      "to_panels": [
+        4,
+        5
+      ],
+      "type": "rotation"
+    },
+    {
+      "confidence": 0.7,
+      "description": "black_dot positions shift across panels",
+      "from_panels": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "subjects": [
+        "p1e3",
+        "p2e3",
+        "p3e3",
+        "p4e3",
+        "p5e3"
+      ],
+      "to_panels": [
+        6
+      ],
+      "type": "translation"
+    }
+  ],
+  "layout": {
+    "authority": "qwen_missing_marker_recovery",
+    "cvCandidate": {
+      "layoutType": "sequence",
+      "optionCount": 4,
+      "panelCount": 9,
+      "panelRoles": [
+        "stem",
+        "stem",
+        "stem",
+        "stem",
+        "stem",
+        "option",
+        "option",
+        "option",
+        "option"
+      ],
+      "source": "phase1_benchmark_cv"
+    },
+    "layoutType": "sequence",
+    "optionCount": 4,
+    "panelCount": 10
+  },
+  "panels": [
+    {
+      "counts": {
+        "circle_count": 1,
+        "closed_shape_count": 1,
+        "curve_count": 0,
+        "dot_count": 3,
+        "filled_region_count": 0,
+        "straight_segment_count": 1,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p1e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "circle",
+          "label": "outer_circle",
+          "line_character": "curved",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p1e2",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_line",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 3,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p1e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "bottom_left"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom_right"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "top_right"
+            }
+          ],
+          "kind": "dot",
+          "label": "black_dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "bottom_left",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 1,
+      "relations": [
+        {
+          "description": "internal_line is inside outer_circle",
+          "subjects": [
+            "p1e1",
+            "p1e2"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "black_dot is inside outer_circle",
+          "subjects": [
+            "p1e1",
+            "p1e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "internal_line touches black_dot",
+          "subjects": [
+            "p1e2",
+            "p1e3"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 2,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 1,
+        "closed_shape_count": 1,
+        "curve_count": 0,
+        "dot_count": 3,
+        "filled_region_count": 0,
+        "straight_segment_count": 1,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p2e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "circle",
+          "label": "outer_circle",
+          "line_character": "curved",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p2e2",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_line",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 3,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p2e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "top_right"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom_right"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom"
+            }
+          ],
+          "kind": "dot",
+          "label": "black_dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "top_right",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 2,
+      "relations": [
+        {
+          "description": "internal_line is inside outer_circle",
+          "subjects": [
+            "p2e1",
+            "p2e2"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "black_dot is inside outer_circle",
+          "subjects": [
+            "p2e1",
+            "p2e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "internal_line touches black_dot",
+          "subjects": [
+            "p2e2",
+            "p2e3"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 2,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 1,
+        "closed_shape_count": 1,
+        "curve_count": 0,
+        "dot_count": 3,
+        "filled_region_count": 0,
+        "straight_segment_count": 1,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p3e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "circle",
+          "label": "outer_circle",
+          "line_character": "curved",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p3e2",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_line",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 3,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p3e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "bottom_left"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom_right"
+            }
+          ],
+          "kind": "dot",
+          "label": "black_dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "bottom_left",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 3,
+      "relations": [
+        {
+          "description": "internal_line is inside outer_circle",
+          "subjects": [
+            "p3e1",
+            "p3e2"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "black_dot is inside outer_circle",
+          "subjects": [
+            "p3e1",
+            "p3e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "internal_line touches black_dot",
+          "subjects": [
+            "p3e2",
+            "p3e3"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 2,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 1,
+        "closed_shape_count": 1,
+        "curve_count": 0,
+        "dot_count": 3,
+        "filled_region_count": 0,
+        "straight_segment_count": 1,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p4e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "circle",
+          "label": "outer_circle",
+          "line_character": "curved",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p4e2",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_line",
+          "line_character": "straight",
+          "orientation": "diagonal_up",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 3,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p4e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "top_left"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom_left"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom"
+            }
+          ],
+          "kind": "dot",
+          "label": "black_dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 4,
+      "relations": [
+        {
+          "description": "internal_line is inside outer_circle",
+          "subjects": [
+            "p4e1",
+            "p4e2"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "black_dot is inside outer_circle",
+          "subjects": [
+            "p4e1",
+            "p4e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "internal_line touches black_dot",
+          "subjects": [
+            "p4e2",
+            "p4e3"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 2,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 1,
+        "closed_shape_count": 1,
+        "curve_count": 0,
+        "dot_count": 3,
+        "filled_region_count": 0,
+        "straight_segment_count": 1,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p5e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "circle",
+          "label": "outer_circle",
+          "line_character": "curved",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p5e2",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_line",
+          "line_character": "straight",
+          "orientation": "diagonal_up",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 3,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p5e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "top_right"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom_right"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom"
+            }
+          ],
+          "kind": "dot",
+          "label": "black_dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "top_right",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": null,
+      "position": 5,
+      "relations": [
+        {
+          "description": "internal_line is inside outer_circle",
+          "subjects": [
+            "p5e1",
+            "p5e2"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "black_dot is inside outer_circle",
+          "subjects": [
+            "p5e1",
+            "p5e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "internal_line touches black_dot",
+          "subjects": [
+            "p5e2",
+            "p5e3"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "stem",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 2,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 0,
+        "closed_shape_count": 0,
+        "curve_count": 0,
+        "dot_count": 0,
+        "filled_region_count": 0,
+        "straight_segment_count": 0,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [],
+      "observations": [],
+      "option_label": null,
+      "position": 6,
+      "relations": [],
+      "role": "missing",
+      "topology": {
+        "component_count": 0,
+        "endpoint_count": 0,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 1,
+        "closed_shape_count": 1,
+        "curve_count": 0,
+        "dot_count": 3,
+        "filled_region_count": 0,
+        "straight_segment_count": 1,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p7e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "circle",
+          "label": "outer_circle",
+          "line_character": "curved",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p7e2",
+          "instances": [
+            {
+              "orientation": "vertical",
+              "relative_region": "left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_line",
+          "line_character": "straight",
+          "orientation": "vertical",
+          "parts": [],
+          "relative_region": "left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 3,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p7e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "bottom_left"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom_right"
+            }
+          ],
+          "kind": "dot",
+          "label": "black_dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "bottom_left",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "A",
+      "position": 7,
+      "relations": [
+        {
+          "description": "internal_line is inside outer_circle",
+          "subjects": [
+            "p7e1",
+            "p7e2"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "black_dot is inside outer_circle",
+          "subjects": [
+            "p7e1",
+            "p7e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "internal_line touches black_dot",
+          "subjects": [
+            "p7e2",
+            "p7e3"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 2,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 1,
+        "closed_shape_count": 1,
+        "curve_count": 0,
+        "dot_count": 3,
+        "filled_region_count": 0,
+        "straight_segment_count": 1,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p8e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "circle",
+          "label": "outer_circle",
+          "line_character": "curved",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p8e2",
+          "instances": [
+            {
+              "orientation": "horizontal",
+              "relative_region": "bottom_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_line",
+          "line_character": "straight",
+          "orientation": "horizontal",
+          "parts": [],
+          "relative_region": "bottom_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 3,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p8e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "bottom_left"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom_right"
+            }
+          ],
+          "kind": "dot",
+          "label": "black_dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "bottom_left",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "B",
+      "position": 8,
+      "relations": [
+        {
+          "description": "internal_line is inside outer_circle",
+          "subjects": [
+            "p8e1",
+            "p8e2"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "black_dot is inside outer_circle",
+          "subjects": [
+            "p8e1",
+            "p8e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "internal_line touches black_dot",
+          "subjects": [
+            "p8e2",
+            "p8e3"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 2,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 1,
+        "closed_shape_count": 1,
+        "curve_count": 0,
+        "dot_count": 3,
+        "filled_region_count": 0,
+        "straight_segment_count": 1,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p9e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "circle",
+          "label": "outer_circle",
+          "line_character": "curved",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p9e2",
+          "instances": [
+            {
+              "orientation": "diagonal_down",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_line",
+          "line_character": "straight",
+          "orientation": "diagonal_down",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 3,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p9e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "top_left"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom_left"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom"
+            }
+          ],
+          "kind": "dot",
+          "label": "black_dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "C",
+      "position": 9,
+      "relations": [
+        {
+          "description": "internal_line is inside outer_circle",
+          "subjects": [
+            "p9e1",
+            "p9e2"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "black_dot is inside outer_circle",
+          "subjects": [
+            "p9e1",
+            "p9e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "internal_line touches black_dot",
+          "subjects": [
+            "p9e2",
+            "p9e3"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 2,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    },
+    {
+      "counts": {
+        "circle_count": 1,
+        "closed_shape_count": 1,
+        "curve_count": 0,
+        "dot_count": 3,
+        "filled_region_count": 0,
+        "straight_segment_count": 1,
+        "symbol_count": 0,
+        "text_count": 0
+      },
+      "elements": [
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "hollow",
+          "id": "p10e1",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "center"
+            }
+          ],
+          "kind": "circle",
+          "label": "outer_circle",
+          "line_character": "curved",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "center",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 1,
+          "features": [],
+          "fill_state": "none",
+          "id": "p10e2",
+          "instances": [
+            {
+              "orientation": "diagonal_up",
+              "relative_region": "top_left"
+            }
+          ],
+          "kind": "polyline",
+          "label": "internal_line",
+          "line_character": "straight",
+          "orientation": "diagonal_up",
+          "parts": [],
+          "relative_region": "top_left",
+          "text_content": null,
+          "texture": "none"
+        },
+        {
+          "count": 3,
+          "features": [],
+          "fill_state": "solid",
+          "id": "p10e3",
+          "instances": [
+            {
+              "orientation": "none",
+              "relative_region": "top_right"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom_right"
+            },
+            {
+              "orientation": "none",
+              "relative_region": "bottom"
+            }
+          ],
+          "kind": "dot",
+          "label": "black_dot",
+          "line_character": "not_applicable",
+          "orientation": "none",
+          "parts": [],
+          "relative_region": "top_right",
+          "text_content": null,
+          "texture": "none"
+        }
+      ],
+      "observations": [],
+      "option_label": "D",
+      "position": 10,
+      "relations": [
+        {
+          "description": "internal_line is inside outer_circle",
+          "subjects": [
+            "p10e1",
+            "p10e2"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "black_dot is inside outer_circle",
+          "subjects": [
+            "p10e1",
+            "p10e3"
+          ],
+          "type": "inside"
+        },
+        {
+          "description": "internal_line touches black_dot",
+          "subjects": [
+            "p10e2",
+            "p10e3"
+          ],
+          "type": "touching"
+        }
+      ],
+      "role": "option",
+      "topology": {
+        "component_count": 3,
+        "endpoint_count": 2,
+        "junction_count": 0,
+        "loop_count": 0,
+        "notes": []
+      }
+    }
+  ],
+  "presentation": {
+    "imageAuthority": "source_sha256",
+    "mode": "original_image",
+    "vectorRequired": false
+  },
+  "schemaVersion": "graphic-reasoning-ai-semantic-v1",
+  "source": {
+    "imagePaths": [
+      "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/湖北/2008年湖北省公务员录用考试《行测》题（A类）_images/img_0070_198ea436cb84d7bb.png"
+    ],
+    "questionReferences": [
+      {
+        "field": "stem_html",
+        "knowledgePoint": "",
+        "questionId": "pq_17b21c1d0b1af59efa4b",
+        "role": "stem",
+        "sourceJsonlLine": 68670
+      }
+    ],
+    "sha256": "0751a8530a3a10bda058e654de4edf5d9c707de62310eef4ec47d27c1f638d75"
+  },
+  "uncertainties": [
+    "The exact nature of the rotation pattern is uncertain due to limited panel data.",
+    "The translation of black dots is not fully consistent across panels."
+  ],
+  "vectorEnhancement": {
+    "blocking": false,
+    "status": "repair_pending"
+  },
+  "visualGrammar": "regular_geometry"
+}

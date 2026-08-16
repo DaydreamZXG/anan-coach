@@ -1,0 +1,188 @@
+{
+  "asset_id": "da_f349e17c38b65e4231e2669a",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 16000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000,
+          12000,
+          14000,
+          16000
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2003年",
+    "2004年",
+    "2005年",
+    "2006年",
+    "2007年",
+    "2008年"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "货物出口",
+      "style": {
+        "dash": null,
+        "fill": "white",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "货物进口",
+      "style": {
+        "dash": null,
+        "fill": "black",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "货物出口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        4382,
+        5933,
+        7620,
+        9689,
+        12180,
+        14285
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "货物进口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        4128,
+        5612,
+        6600,
+        7915,
+        9550,
+        11331
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2009年江苏省公务员录用考试《行测》题（C类）_images/img_0285_bf994dcdad5a56b7.jpg",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（C类）_images/img_0285_bf994dcdad5a56b7.jpg",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_3237e3728041417fb000",
+        "question_number": 96,
+        "source_jsonl_line": 45086
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（C类）_images/img_0307_f78d885693cdca3b.jpg",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_8cfb8ee72272b3a03148",
+        "question_number": 97,
+        "source_jsonl_line": 45087
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（C类）_images/img_0307_f78d885693cdca3b.jpg",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_2529feba831a58f7014b",
+        "question_number": 98,
+        "source_jsonl_line": 45088
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（C类）_images/img_0307_f78d885693cdca3b.jpg",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_ed6d22f1166d59b3c02d",
+        "question_number": 99,
+        "source_jsonl_line": 45089
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年江苏省公务员录用考试《行测》题（C类）_images/img_0307_f78d885693cdca3b.jpg",
+        "paper_title": "2009年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_08c292f155b84e2f1d73",
+        "question_number": 100,
+        "source_jsonl_line": 45090
+      }
+    ],
+    "sha256": "f349e17c38b65e4231e2669a18591a31e12df297aa971d36878ef8127f68ae94"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_f349e17c38b65e4231e2669a/column_band_01.jpg",
+        "review-crops/da_f349e17c38b65e4231e2669a/column_band_02.jpg",
+        "review-crops/da_f349e17c38b65e4231e2669a/column_band_03.jpg",
+        "review-crops/da_f349e17c38b65e4231e2669a/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.109",
+      "crop_verification_elapsed_seconds:3.266",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

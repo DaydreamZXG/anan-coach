@@ -1,0 +1,105 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "5月",
+      "比上年同月增长%",
+      "1~5月累计",
+      "比上年同期增长%"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "社会消费品零售总额",
+    "rows": [
+      {
+        "display_label": "社会消费品零售总额",
+        "group": null,
+        "label": "社会消费品零售总额",
+        "unit": null,
+        "values": [
+          8703.5,
+          21.6,
+          42400.7,
+          21.1
+        ]
+      },
+      {
+        "display_label": "市",
+        "group": null,
+        "label": "市",
+        "unit": null,
+        "values": [
+          5946.5,
+          22.3,
+          28883.2,
+          21.8
+        ]
+      },
+      {
+        "display_label": "县",
+        "group": null,
+        "label": "县",
+        "unit": null,
+        "values": [
+          966.9,
+          22.4,
+          4695.1,
+          21.6
+        ]
+      },
+      {
+        "display_label": "县以下",
+        "group": null,
+        "label": "县以下",
+        "unit": null,
+        "values": [
+          1790.1,
+          18.9,
+          8822.4,
+          18.6
+        ]
+      },
+      {
+        "display_label": "批发和零售业",
+        "group": null,
+        "label": "批发和零售业",
+        "unit": null,
+        "values": [
+          7372.4,
+          21.8,
+          35761.4,
+          21.0
+        ]
+      },
+      {
+        "display_label": "住宿和餐饮业",
+        "group": null,
+        "label": "住宿和餐饮业",
+        "unit": null,
+        "values": [
+          1203.6,
+          22.4,
+          6012.9,
+          23.6
+        ]
+      },
+      {
+        "display_label": "其他",
+        "group": null,
+        "label": "其他",
+        "unit": null,
+        "values": [
+          127.5,
+          4.5,
+          626.4,
+          4.3
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

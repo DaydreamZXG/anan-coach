@@ -1,0 +1,162 @@
+{
+  "asset_id": "da_812e8181a9b23e582c47ae27",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 0,
+        "min": 0,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "第1年",
+    "第2年",
+    "第3年",
+    "第4年"
+  ],
+  "chart_type": "line",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": null,
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/云南/2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0140_9908d83186fd1800.png",
+    "occurrences": [
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年云南公务员录用考试《行测》题（网友回忆版）_images/img_0140_9908d83186fd1800.png",
+        "paper_title": "2022年云南公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_584ee72fd84f6855c580",
+        "question_number": 99,
+        "source_jsonl_line": 5883
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年广西区考公务员录用考试《行测》题（网友回忆版）_images/img_0087_9908d83186fd1800.png",
+        "paper_title": "2022年广西区考公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ed1872a2a4d5bab2a6b0",
+        "question_number": 99,
+        "source_jsonl_line": 39565
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年河南省公务员录用考试《行测》题（网友回忆版）_images/img_0107_9908d83186fd1800.png",
+        "paper_title": "2022年河南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_e6578a05cd10aa95a9da",
+        "question_number": 114,
+        "source_jsonl_line": 59051
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0123_91fd4cf1bc94f403.png",
+        "paper_title": "2022年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_006fb94b3639ec482d68",
+        "question_number": 104,
+        "source_jsonl_line": 66420
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年湖南省公务员录用考试《行测》题（网友回忆版）_images/img_0091_9908d83186fd1800.png",
+        "paper_title": "2022年湖南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_5d69a2a884947c6a30fd",
+        "question_number": 109,
+        "source_jsonl_line": 73904
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年甘肃公务员录用考试《行测》题（网友回忆版）_images/img_0124_9908d83186fd1800.png",
+        "paper_title": "2022年甘肃公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_2fd3f1c23e536cf4fcca",
+        "question_number": 109,
+        "source_jsonl_line": 75684
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年福建省公务员录用考试《行测》题（网友回忆版）_images/img_0108_9908d83186fd1800.png",
+        "paper_title": "2022年福建省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_46e0a5bcf8ee5860c732",
+        "question_number": 114,
+        "source_jsonl_line": 78833
+      },
+      {
+        "html_field": "stem_html",
+        "image_ref": "2022年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0129_91fd4cf1bc94f403.png",
+        "paper_title": "2022年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b9c2fc59333555151c01",
+        "question_number": 104,
+        "source_jsonl_line": 81604
+      }
+    ],
+    "sha256": "812e8181a9b23e582c47ae275e7537d6b14b8f327d5459ba19f694d6ef67a684"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_812e8181a9b23e582c47ae27/column_band_01.jpg",
+        "review-crops/da_812e8181a9b23e582c47ae27/column_band_02.jpg",
+        "review-crops/da_812e8181a9b23e582c47ae27/column_band_03.jpg",
+        "review-crops/da_812e8181a9b23e582c47ae27/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:1.646",
+      "crop_verification_elapsed_seconds:2.787",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:数值未明确标出，仅能根据点的位置估算",
+      "crop_note:确认x轴刻度为'第1年'、'第2年'、'第3年'、'第4年'，顺序正确。",
+      "crop_note:确认y轴原点为'0'，无负号或小数。",
+      "crop_note:确认线条为折线，连接四个点，无额外数值标注。",
+      "crop_note:确认所有数值缺失，保持为null，未补0。"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

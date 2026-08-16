@@ -1,0 +1,107 @@
+{
+  "confidence": 0.98,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "全国",
+          "东部地区",
+          "中部地区",
+          "西部地区"
+        ],
+        "label": "地区"
+      }
+    ],
+    "columns": [
+      "全国",
+      "东部地区",
+      "中部地区",
+      "西部地区"
+    ],
+    "confidence": 0.98,
+    "corner_header": {
+      "lower_label": "/",
+      "style": "diagonal",
+      "upper_label": "/"
+    },
+    "missing_cells": [],
+    "row_header_label": "/",
+    "rows": [
+      {
+        "display_label": "制造业",
+        "group": null,
+        "label": "制造业",
+        "unit": null,
+        "values": [
+          36.0,
+          44.8,
+          23.0,
+          15.4
+        ]
+      },
+      {
+        "display_label": "建筑业",
+        "group": null,
+        "label": "建筑业",
+        "unit": null,
+        "values": [
+          17.7,
+          13.4,
+          24.7,
+          27.4
+        ]
+      },
+      {
+        "display_label": "交通运输、仓储和邮政业",
+        "group": null,
+        "label": "交通运输、仓储和邮政业",
+        "unit": null,
+        "values": [
+          6.6,
+          5.5,
+          8.1,
+          9.3
+        ]
+      },
+      {
+        "display_label": "批发零售业",
+        "group": null,
+        "label": "批发零售业",
+        "unit": null,
+        "values": [
+          10.1,
+          8.7,
+          13.1,
+          12.5
+        ]
+      },
+      {
+        "display_label": "住宿餐饮业",
+        "group": null,
+        "label": "住宿餐饮业",
+        "unit": null,
+        "values": [
+          5.3,
+          4.5,
+          5.9,
+          7.3
+        ]
+      },
+      {
+        "display_label": "居民服务和其他服务业",
+        "group": null,
+        "label": "居民服务和其他服务业",
+        "unit": null,
+        "values": [
+          12.2,
+          12.3,
+          11.4,
+          12.2
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

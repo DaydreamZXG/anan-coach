@@ -1,0 +1,14 @@
+{
+  "modelCalls": 0,
+  "pending": 4857,
+  "representativeAssets": [
+    "gr_7b00c758d0ab44e2c464e04f",
+    "gr_06e94661142e35ee6757e42d",
+    "gr_0751a8530a3a10bda058e654",
+    "gr_09a239f1f5c89bec86ff315d",
+    "gr_814f04ca63ec75e0fd69a9fb"
+  ],
+  "schemaVersion": "graphic-reasoning-semantic-queue-state-v1",
+  "textOnlyGlyphQuestions": 32,
+  "totalAssets": 4857
+}

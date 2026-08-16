@@ -1,0 +1,288 @@
+{
+  "asset_id": "da_55790c753884ce9603d1d542",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/北京/2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0230_9c8fe0e2dbc96612.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0230_9c8fe0e2dbc96612.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_9af0204079e3bde9fef5",
+        "question_number": 126,
+        "source_jsonl_line": 10269
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0246_e166a34aa580cdb1.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_29deb202030d2a679be3",
+        "question_number": 127,
+        "source_jsonl_line": 10270
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0230_9c8fe0e2dbc96612.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_347b026deffc8e1395d9",
+        "question_number": 128,
+        "source_jsonl_line": 10271
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0246_e166a34aa580cdb1.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_c73da738b99ebbcb8a99",
+        "question_number": 129,
+        "source_jsonl_line": 10272
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）_images/img_0246_e166a34aa580cdb1.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（乡镇卷）（网友回忆版）",
+        "question_id": "pq_043a9d75191f6ac23157",
+        "question_number": 130,
+        "source_jsonl_line": 10273
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0284_9c8fe0e2dbc96612.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_bad76323151bfbe1f257",
+        "question_number": 131,
+        "source_jsonl_line": 10404
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0284_9c8fe0e2dbc96612.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_4614ac193f95eef651c4",
+        "question_number": 132,
+        "source_jsonl_line": 10405
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0284_9c8fe0e2dbc96612.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_37c34165e53ca1c2e11b",
+        "question_number": 133,
+        "source_jsonl_line": 10406
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0284_9c8fe0e2dbc96612.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_f9658156afc37cc54959",
+        "question_number": 134,
+        "source_jsonl_line": 10407
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）_images/img_0284_9c8fe0e2dbc96612.png",
+        "paper_title": "2020年北京市公务员录用考试《行测》题（区级及以上卷）（网友回忆版）",
+        "question_id": "pq_8bc4c3d89a230ee4b124",
+        "question_number": 135,
+        "source_jsonl_line": 10408
+      }
+    ],
+    "sha256": "55790c753884ce9603d1d542f1d9ef4284d3eb5f628a20d82125b3ce0bda3e83"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "人口（万人）",
+      "GDP（亿美元）",
+      "进口额（亿美元）",
+      "出口额（亿美元）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "总计",
+        "unit": null,
+        "values": [
+          63852.5,
+          63852.5,
+          11267.2,
+          11788.5
+        ]
+      },
+      {
+        "label": "新加坡",
+        "unit": null,
+        "values": [
+          558.4,
+          2945.6,
+          2945.6,
+          3468.1
+        ]
+      },
+      {
+        "label": "泰国",
+        "unit": null,
+        "values": [
+          6898.1,
+          4097.2,
+          1957.4,
+          1957.4
+        ]
+      },
+      {
+        "label": "越南",
+        "unit": null,
+        "values": [
+          9263.7,
+          2013.6,
+          1909.5,
+          1865.0
+        ]
+      },
+      {
+        "label": "马来西亚",
+        "unit": null,
+        "values": [
+          3152.3,
+          3092.6,
+          1685.4,
+          1685.4
+        ]
+      },
+      {
+        "label": "印度尼西亚",
+        "unit": null,
+        "values": [
+          25880.2,
+          9369.6,
+          1426.9,
+          1426.9
+        ]
+      },
+      {
+        "label": "菲律宾",
+        "unit": null,
+        "values": [
+          10419.5,
+          3103.1,
+          859.4,
+          859.4
+        ]
+      },
+      {
+        "label": "缅甸",
+        "unit": null,
+        "values": [
+          5225.4,
+          740.1,
+          219.1,
+          219.1
+        ]
+      },
+      {
+        "label": "柬埔寨",
+        "unit": null,
+        "values": [
+          1577.6,
+          194.8,
+          141.7,
+          141.7
+        ]
+      },
+      {
+        "label": "文莱",
+        "unit": null,
+        "values": [
+          42.3,
+          91.0,
+          32.4,
+          32.4
+        ]
+      },
+      {
+        "label": "老挝",
+        "unit": null,
+        "values": [
+          718.3,
+          133.6,
+          60.4,
+          60.4
+        ]
+      },
+      {
+        "label": "东帝汶",
+        "unit": null,
+        "values": [
+          118.7,
+          21.0,
+          6.1,
+          6.1
+        ]
+      }
+    ]
+  },
+  "title": "2016年东南亚“一带一路”沿线国家情况",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_55790c753884ce9603d1d542/row_band_01.jpg",
+        "review-crops/da_55790c753884ce9603d1d542/row_band_02.jpg",
+        "review-crops/da_55790c753884ce9603d1d542/row_band_03.jpg",
+        "review-crops/da_55790c753884ce9603d1d542/row_band_04.jpg"
+      ],
+      "matched": 3,
+      "mismatched": 1,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:8.798",
+      "crop_verification_elapsed_seconds:4.814",
+      "candidate_value_changes_after_crop:11",
+      "crop_note:compact_delta_verification",
+      "crop_note:ignored_out_of_range_table_cell:越南:出口额（亿美元）",
+      "crop_note:ignored_out_of_range_table_cell:柬埔寨:出口额（亿美元）",
+      "crop_note:ignored_out_of_range_table_cell:文莱:出口额（亿美元）",
+      "crop_note:ignored_out_of_range_table_cell:老挝:出口额（亿美元）",
+      "crop_note:ignored_out_of_range_table_cell:东帝汶:出口额（亿美元）",
+      "table_row_label_column_removed:<blank>"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

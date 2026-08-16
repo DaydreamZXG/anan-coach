@@ -1,0 +1,76 @@
+{
+  "assetId": "gr_048b858b959cf9ba2f67f676",
+  "candidate": {
+    "authority": "semantic_candidate",
+    "elements": [
+      {
+        "count": 1,
+        "fill_state": "hollow",
+        "id": "e1",
+        "kind": "polyline",
+        "label": null,
+        "line_character": "straight",
+        "observations": [
+          "a continuous closed line composed of straight segments forming a complex shape",
+          "the line appears to be a single continuous stroke without breaks"
+        ],
+        "orientation_bucket": "mixed",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      },
+      {
+        "count": 1,
+        "fill_state": "hollow",
+        "id": "e2",
+        "kind": "polygon",
+        "label": null,
+        "line_character": "straight",
+        "observations": [
+          "a closed shape formed by straight-line segments",
+          "the polygon encloses an internal region"
+        ],
+        "orientation_bucket": "mixed",
+        "parts": [],
+        "relative_region": "center",
+        "text_content": null
+      }
+    ],
+    "relations": [
+      {
+        "confidence": 0.9,
+        "subjects": [
+          "e2",
+          "e1"
+        ],
+        "type": "inside"
+      }
+    ],
+    "schema_version": "graphic-semantic-candidate-v1",
+    "topology_candidates": {
+      "component_count": 1,
+      "endpoint_count": 0,
+      "junction_count": 0,
+      "loop_count": 1,
+      "notes": [
+        "the figure consists of a single connected component",
+        "no endpoints are visible; the lines form closed loops",
+        "one loop is present, formed by the closed polyline"
+      ]
+    },
+    "uncertainties": [
+      "the internal structure of the shape is ambiguous; it may be a single continuous line or multiple overlapping lines"
+    ],
+    "visual_grammar": "regular_geometry"
+  },
+  "geometryAuthority": false,
+  "model": "qwen3-vl-30b-a3b",
+  "modelInputSha256": "83b5beceb3f0a17c37a64aa02bc08f9c8e03b8f19bb054bff8cc6dfd1d4a82a0",
+  "panelId": "panel-1",
+  "regularSubtype": "straight_line_network",
+  "role": "stem",
+  "schemaVersion": "graphic-semantic-observation-v1",
+  "sourceSha256": "048b858b959cf9ba2f67f676d3afc231712c5a95443793b4b90ad459ba71039a",
+  "status": "valid_semantic_candidate",
+  "validationErrors": []
+}

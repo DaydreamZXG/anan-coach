@@ -1,0 +1,151 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "天数",
+          "上年同期天数",
+          "排名",
+          "上年同期排名"
+        ],
+        "label": "当年非蓝天日数排名前10位的城市"
+      }
+    ],
+    "columns": [
+      "天数",
+      "上年同期天数",
+      "排名",
+      "上年同期排名"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "城市",
+    "rows": [
+      {
+        "display_label": "兰州",
+        "group": null,
+        "label": "兰州",
+        "unit": null,
+        "values": [
+          141,
+          121,
+          1,
+          1
+        ]
+      },
+      {
+        "display_label": "乌鲁木齐",
+        "group": null,
+        "label": "乌鲁木齐",
+        "unit": null,
+        "values": [
+          105,
+          101,
+          2,
+          2
+        ]
+      },
+      {
+        "display_label": "北京",
+        "group": null,
+        "label": "北京",
+        "unit": null,
+        "values": [
+          79,
+          81,
+          3,
+          3
+        ]
+      },
+      {
+        "display_label": "合肥",
+        "group": null,
+        "label": "合肥",
+        "unit": null,
+        "values": [
+          76,
+          36,
+          4,
+          29
+        ]
+      },
+      {
+        "display_label": "武汉",
+        "group": null,
+        "label": "武汉",
+        "unit": null,
+        "values": [
+          74,
+          71,
+          5,
+          6
+        ]
+      },
+      {
+        "display_label": "赤峰",
+        "group": null,
+        "label": "赤峰",
+        "unit": null,
+        "values": [
+          73,
+          30,
+          6,
+          38
+        ]
+      },
+      {
+        "display_label": "西安",
+        "group": null,
+        "label": "西安",
+        "unit": null,
+        "values": [
+          68,
+          62,
+          7,
+          9
+        ]
+      },
+      {
+        "display_label": "开封",
+        "group": null,
+        "label": "开封",
+        "unit": null,
+        "values": [
+          65,
+          32,
+          8,
+          34
+        ]
+      },
+      {
+        "display_label": "扬州",
+        "group": null,
+        "label": "扬州",
+        "unit": null,
+        "values": [
+          62,
+          35,
+          9,
+          31
+        ]
+      },
+      {
+        "display_label": "太原",
+        "group": null,
+        "label": "太原",
+        "unit": null,
+        "values": [
+          56,
+          78,
+          10,
+          4
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

@@ -1,0 +1,119 @@
+{
+  "confidence": 0.95,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "2020年｜日均产量(万吨)",
+          "2020年｜同比增长(%)"
+        ],
+        "label": "2020年"
+      },
+      {
+        "columns": [
+          "2021年｜日均产量(万吨)",
+          "2021年｜同比增长(%)"
+        ],
+        "label": "2021年"
+      }
+    ],
+    "columns": [
+      "2020年｜日均产量(万吨)",
+      "2020年｜同比增长(%)",
+      "2021年｜日均产量(万吨)",
+      "2021年｜同比增长(%)"
+    ],
+    "confidence": 0.95,
+    "corner_header": null,
+    "missing_cells": [
+      {
+        "column": "2021年｜日均产量(万吨)",
+        "display": "—",
+        "row": "12 月"
+      },
+      {
+        "column": "2021年｜同比增长(%)",
+        "display": "—",
+        "row": "12 月"
+      }
+    ],
+    "row_header_label": "月份",
+    "rows": [
+      {
+        "display_label": "7 月",
+        "group": null,
+        "label": "7 月",
+        "unit": null,
+        "values": [
+          53.1,
+          0.6,
+          54.4,
+          0.4
+        ]
+      },
+      {
+        "display_label": "8 月",
+        "group": null,
+        "label": "8 月",
+        "unit": null,
+        "values": [
+          53.7,
+          2.3,
+          55.1,
+          3.3
+        ]
+      },
+      {
+        "display_label": "9 月",
+        "group": null,
+        "label": "9 月",
+        "unit": null,
+        "values": [
+          53.7,
+          2.4,
+          54.7,
+          3.4
+        ]
+      },
+      {
+        "display_label": "10 月",
+        "group": null,
+        "label": "10 月",
+        "unit": null,
+        "values": [
+          52.9,
+          1.4,
+          54.9,
+          3.5
+        ]
+      },
+      {
+        "display_label": "11 月",
+        "group": null,
+        "label": "11 月",
+        "unit": null,
+        "values": [
+          53.2,
+          1.2,
+          55.6,
+          2.8
+        ]
+      },
+      {
+        "display_label": "12 月",
+        "group": null,
+        "label": "12 月",
+        "unit": null,
+        "values": [
+          52.5,
+          0.9,
+          null,
+          null
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

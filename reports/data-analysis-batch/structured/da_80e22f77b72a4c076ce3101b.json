@@ -1,0 +1,183 @@
+{
+  "asset_id": "da_80e22f77b72a4c076ce3101b",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/广东/2011年广东省公务员录用考试《行测》题_images/img_0096_2d058ba7d124a87d.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年广东省公务员录用考试《行测》题_images/img_0096_2d058ba7d124a87d.png",
+        "paper_title": "2011年广东省公务员录用考试《行测》题",
+        "question_id": "pq_50f44303211345c0b516",
+        "question_number": 91,
+        "source_jsonl_line": 33923
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年广东省公务员录用考试《行测》题_images/img_0096_2d058ba7d124a87d.png",
+        "paper_title": "2011年广东省公务员录用考试《行测》题",
+        "question_id": "pq_9ed5efed3ed32bc32fd1",
+        "question_number": 92,
+        "source_jsonl_line": 33924
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年广东省公务员录用考试《行测》题_images/img_0102_8237d6fbcf20f7b3.png",
+        "paper_title": "2011年广东省公务员录用考试《行测》题",
+        "question_id": "pq_43f307cec460c39f75e0",
+        "question_number": 93,
+        "source_jsonl_line": 33925
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年广东省公务员录用考试《行测》题_images/img_0102_8237d6fbcf20f7b3.png",
+        "paper_title": "2011年广东省公务员录用考试《行测》题",
+        "question_id": "pq_2c0e6cf3064af1d7cf68",
+        "question_number": 94,
+        "source_jsonl_line": 33926
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年广东省公务员录用考试《行测》题_images/img_0102_8237d6fbcf20f7b3.png",
+        "paper_title": "2011年广东省公务员录用考试《行测》题",
+        "question_id": "pq_38046ec9c3dbc9c43c66",
+        "question_number": 95,
+        "source_jsonl_line": 33927
+      }
+    ],
+    "sha256": "80e22f77b72a4c076ce3101b98c3a5acfc43b19a6d826f4980f13104fede6909"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "粮食",
+      "棉花",
+      "油料",
+      "糖料",
+      "蔬菜",
+      "茶叶",
+      "水果",
+      "肉类",
+      "奶类",
+      "禽蛋",
+      "蚕茧",
+      "水产品"
+    ],
+    "corner_header": {
+      "lower_label": "地区",
+      "style": "diagonal",
+      "upper_label": "单位：万吨"
+    },
+    "missing_cells": [],
+    "row_header_label": "地区",
+    "rows": [
+      {
+        "display_label": "粮食｜2013年",
+        "group": null,
+        "label": "粮食｜2013年",
+        "unit": null,
+        "values": [
+          1072.7,
+          3.2,
+          58.2,
+          106,
+          1634.1,
+          12.1,
+          250.6,
+          136.1,
+          17.6,
+          40.6,
+          11,
+          472.9
+        ]
+      },
+      {
+        "display_label": "油料｜2013年",
+        "group": null,
+        "label": "油料｜2013年",
+        "unit": null,
+        "values": [
+          null,
+          0,
+          80.9,
+          1213,
+          2377.6,
+          4.2,
+          686.2,
+          333.3,
+          10.4,
+          33.1,
+          4.5,
+          609.7
+        ]
+      },
+      {
+        "display_label": "糖料｜2013年",
+        "group": null,
+        "label": "糖料｜2013年",
+        "unit": null,
+        "values": [
+          null,
+          26.1,
+          95.5,
+          1161,
+          13.4,
+          401.2,
+          140,
+          11.4,
+          40.1,
+          null,
+          542.5,
+          686.1
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,393 @@
+{
+  "asset_id": "da_2a82bca92d87dbba23693fbe",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "年月",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "出口额",
+        "unit": "亿元"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "进口额",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "出口额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        19863,
+        14159,
+        20656,
+        19762,
+        19314,
+        19762,
+        20090,
+        20310,
+        21314,
+        19691,
+        21006,
+        21729,
+        21844,
+        15640,
+        19867
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "进口额",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        13450,
+        13361,
+        15404,
+        13932,
+        14837,
+        14927,
+        14423,
+        15511,
+        15913,
+        15683,
+        16050,
+        16363,
+        15763,
+        12845,
+        15705
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0157_3444bb87bac4c659.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0157_3444bb87bac4c659.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_eb54579c11230fa555bc",
+        "question_number": 91,
+        "source_jsonl_line": 90726
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0157_3444bb87bac4c659.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_7137d70c8ad545145701",
+        "question_number": 92,
+        "source_jsonl_line": 90727
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0167_55a731cac31c59de.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_851ed31f6e21e2015bac",
+        "question_number": 93,
+        "source_jsonl_line": 90728
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0167_55a731cac31c59de.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_4414da7848ece6c3482e",
+        "question_number": 94,
+        "source_jsonl_line": 90729
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0167_55a731cac31c59de.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_f0a9651a42ceb89d0a91",
+        "question_number": 95,
+        "source_jsonl_line": 90730
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0160_3444bb87bac4c659.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_d0d2042dbd0248137e16",
+        "question_number": 91,
+        "source_jsonl_line": 96154
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0166_55a731cac31c59de.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_fa018adb017de40ef2a5",
+        "question_number": 92,
+        "source_jsonl_line": 96155
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0166_55a731cac31c59de.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_842663a01862f886e36d",
+        "question_number": 93,
+        "source_jsonl_line": 96156
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0160_3444bb87bac4c659.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_3e52d510d566a8542a7a",
+        "question_number": 94,
+        "source_jsonl_line": 96157
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题_images/img_0166_55a731cac31c59de.png",
+        "paper_title": "2025年重庆市定向选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_ff42a60b8119bffafcb1",
+        "question_number": 95,
+        "source_jsonl_line": 96158
+      }
+    ],
+    "sha256": "2a82bca92d87dbba23693fbe73d21084cad39ef3d24cebef7be423562b266fa3"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "年月",
+      "出口额",
+      "进口额"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "2023年1月",
+        "unit": null,
+        "values": [
+          "2023年1月",
+          19863,
+          13450
+        ]
+      },
+      {
+        "label": "2023年2月",
+        "unit": null,
+        "values": [
+          "2023年2月",
+          14159,
+          13361
+        ]
+      },
+      {
+        "label": "2023年3月",
+        "unit": null,
+        "values": [
+          "2023年3月",
+          20656,
+          15404
+        ]
+      },
+      {
+        "label": "2023年4月",
+        "unit": null,
+        "values": [
+          "2023年4月",
+          19762,
+          13932
+        ]
+      },
+      {
+        "label": "2023年5月",
+        "unit": null,
+        "values": [
+          "2023年5月",
+          19314,
+          14837
+        ]
+      },
+      {
+        "label": "2023年6月",
+        "unit": null,
+        "values": [
+          "2023年6月",
+          19762,
+          14927
+        ]
+      },
+      {
+        "label": "2023年7月",
+        "unit": null,
+        "values": [
+          "2023年7月",
+          20090,
+          14423
+        ]
+      },
+      {
+        "label": "2023年8月",
+        "unit": null,
+        "values": [
+          "2023年8月",
+          20310,
+          15511
+        ]
+      },
+      {
+        "label": "2023年9月",
+        "unit": null,
+        "values": [
+          "2023年9月",
+          21314,
+          15913
+        ]
+      },
+      {
+        "label": "2023年10月",
+        "unit": null,
+        "values": [
+          "2023年10月",
+          19691,
+          15683
+        ]
+      },
+      {
+        "label": "2023年11月",
+        "unit": null,
+        "values": [
+          "2023年11月",
+          21006,
+          16050
+        ]
+      },
+      {
+        "label": "2023年12月",
+        "unit": null,
+        "values": [
+          "2023年12月",
+          21729,
+          16363
+        ]
+      },
+      {
+        "label": "2024年1月",
+        "unit": null,
+        "values": [
+          "2024年1月",
+          21844,
+          15763
+        ]
+      },
+      {
+        "label": "2024年2月",
+        "unit": null,
+        "values": [
+          "2024年2月",
+          15640,
+          12845
+        ]
+      },
+      {
+        "label": "2024年3月",
+        "unit": null,
+        "values": [
+          "2024年3月",
+          19867,
+          15705
+        ]
+      }
+    ]
+  },
+  "title": "2023年1月-2024年3月全国进出口商品总额",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_2a82bca92d87dbba23693fbe/row_band_01.jpg",
+        "review-crops/da_2a82bca92d87dbba23693fbe/row_band_02.jpg",
+        "review-crops/da_2a82bca92d87dbba23693fbe/row_band_03.jpg",
+        "review-crops/da_2a82bca92d87dbba23693fbe/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:14.596",
+      "crop_verification_elapsed_seconds:28.977",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:修正了原图中'2023年1月'的出口额为19863（原为19863，正确）",
+      "crop_note:修正了原图中'2023年2月'的出口额为14159（原为14159，正确）",
+      "crop_note:修正了原图中'2023年3月'的出口额为20656（原为20656，正确）",
+      "crop_note:修正了原图中'2023年4月'的出口额为19762（原为19762，正确）",
+      "crop_note:修正了原图中'2023年5月'的出口额为19314（原为19314，正确）",
+      "crop_note:修正了原图中'2023年6月'的出口额为19762（原为19762，正确）",
+      "crop_note:修正了原图中'2023年7月'的出口额为20090（原为20090，正确）",
+      "crop_note:修正了原图中'2023年8月'的出口额为20310（原为20310，正确）",
+      "crop_note:修正了原图中'2023年9月'的出口额为21314（原为21314，正确）",
+      "crop_note:修正了原图中'2023年10月'的出口额为19691（原为19691，正确）",
+      "crop_note:修正了原图中'2023年11月'的出口额为21006（原为21006，正确）",
+      "crop_note:修正了原图中'2023年12月'的出口额为21729（原为21729，正确）",
+      "crop_note:修正了原图中'2024年1月'的出口额为21844（原为21844，正确）",
+      "crop_note:修正了原图中'2024年2月'的出口额为15640（原为15640，正确）",
+      "crop_note:修正了原图中'2024年3月'的出口额为19867（原为19867，正确）",
+      "crop_note:修正了原图中'2023年1月'的进口额为13450（原为13450，正确）",
+      "crop_note:修正了原图中'2023年2月'的进口额为13361（原为13361，正确）",
+      "crop_note:修正了原图中'2023年3月'的进口额为15404（原为15404，正确）",
+      "crop_note:修正了原图中'2023年4月'的进口额为13932（原为13932，正确）",
+      "crop_note:修正了原图中'2023年5月'的进口额为14837（原为14837，正确）",
+      "crop_note:修正了原图中'2023年6月'的进口额为14927（原为14927，正确）",
+      "crop_note:修正了原图中'2023年7月'的进口额为14423（原为14423，正确）",
+      "crop_note:修正了原图中'2023年8月'的进口额为15511（原为15511，正确）",
+      "crop_note:修正了原图中'2023年9月'的进口额为15913（原为15913，正确）",
+      "crop_note:修正了原图中'2023年10月'的进口额为15683（原为15683，正确）",
+      "crop_note:修正了原图中'2023年11月'的进口额为16050（原为16050，正确）",
+      "crop_note:修正了原图中'2023年12月'的进口额为16363（原为16363，正确）",
+      "crop_note:修正了原图中'2024年1月'的进口额为15763（原为15763，正确）",
+      "crop_note:修正了原图中'2024年2月'的进口额为12845（原为12845，正确）",
+      "crop_note:修正了原图中'2024年3月'的进口额为15705（原为15705，正确）"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "asset_id": "da_b4fb12031a6557f22ffbc6dd",
+  "axes": {
+    "x": {
+      "max": 0,
+      "min": 0,
+      "ticks": [
+        2005,
+        2006,
+        2007,
+        2008,
+        2009
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 4000,
+        "min": 0,
+        "ticks": [
+          0,
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          3000,
+          3500,
+          4000
+        ],
+        "title": null,
+        "unit": null
+      },
+      {
+        "max": 45,
+        "min": 0,
+        "ticks": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30,
+          35,
+          40,
+          45
+        ],
+        "title": null,
+        "unit": null
+      }
+    ]
+  },
+  "categories": [
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "中国人均国民总收入（美元）",
+      "style": {
+        "dash": "solid",
+        "fill": "white",
+        "marker": "square",
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "中国相当于世界平均水平比例（%）",
+      "style": {
+        "dash": "solid",
+        "fill": "none",
+        "marker": "square",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "中国人均国民总收入（美元）",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "美元",
+      "values": [
+        2000,
+        2200,
+        2500,
+        3000,
+        3500
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "中国相当于世界平均水平比例（%）",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        24.8,
+        26.9,
+        29.7,
+        34.1,
+        41.8
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2011年吉林省公务员录用考试《行测》题_images/img_0058_6a1e2a1fad20d3ee.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年吉林省公务员录用考试《行测》题_images/img_0058_6a1e2a1fad20d3ee.png",
+        "paper_title": "2011年吉林省公务员录用考试《行测》题",
+        "question_id": "pq_1c1866a8c862b77fa379",
+        "question_number": 96,
+        "source_jsonl_line": 11454
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年吉林省公务员录用考试《行测》题_images/img_0057_2c13860953270738.png",
+        "paper_title": "2011年吉林省公务员录用考试《行测》题",
+        "question_id": "pq_4324df5b39df61ce1edc",
+        "question_number": 97,
+        "source_jsonl_line": 11455
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年吉林省公务员录用考试《行测》题_images/img_0058_6a1e2a1fad20d3ee.png",
+        "paper_title": "2011年吉林省公务员录用考试《行测》题",
+        "question_id": "pq_856f4384712889997923",
+        "question_number": 98,
+        "source_jsonl_line": 11456
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年吉林省公务员录用考试《行测》题_images/img_0058_6a1e2a1fad20d3ee.png",
+        "paper_title": "2011年吉林省公务员录用考试《行测》题",
+        "question_id": "pq_ee240169b31913a6fa6c",
+        "question_number": 99,
+        "source_jsonl_line": 11457
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2011年吉林省公务员录用考试《行测》题_images/img_0057_2c13860953270738.png",
+        "paper_title": "2011年吉林省公务员录用考试《行测》题",
+        "question_id": "pq_d1457144b67ac35f25f0",
+        "question_number": 100,
+        "source_jsonl_line": 11458
+      }
+    ],
+    "sha256": "b4fb12031a6557f22ffbc6dd649f947730dea2f01fdc5d0b76eaeeda8008f499"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2005-2009年中国人均GNI及相当于世界平均水平的比例",
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b4fb12031a6557f22ffbc6dd/column_band_01.jpg",
+        "review-crops/da_b4fb12031a6557f22ffbc6dd/column_band_02.jpg",
+        "review-crops/da_b4fb12031a6557f22ffbc6dd/column_band_03.jpg",
+        "review-crops/da_b4fb12031a6557f22ffbc6dd/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.795",
+      "crop_verification_elapsed_seconds:3.615",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

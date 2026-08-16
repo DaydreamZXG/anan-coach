@@ -1,0 +1,103 @@
+{
+  "confidence": 1,
+  "reason": "Automated table-topology re-extraction from the source image.",
+  "table": {
+    "column_groups": [
+      {
+        "columns": [
+          "串门聊天",
+          "听收音机、看电视",
+          "打牌、打麻将",
+          "看书",
+          "户外运动",
+          "上网",
+          "旅游",
+          "其他"
+        ],
+        "label": "社区不同年龄群体业余生活情况"
+      }
+    ],
+    "columns": [
+      "串门聊天",
+      "听收音机、看电视",
+      "打牌、打麻将",
+      "看书",
+      "户外运动",
+      "上网",
+      "旅游",
+      "其他"
+    ],
+    "confidence": 1,
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": "年龄阶段",
+    "rows": [
+      {
+        "display_label": "18岁及以下",
+        "group": null,
+        "label": "18岁及以下",
+        "unit": null,
+        "values": [
+          15,
+          37.5,
+          2.5,
+          25,
+          45,
+          85,
+          30,
+          2.5
+        ]
+      },
+      {
+        "display_label": "19—36岁",
+        "group": null,
+        "label": "19—36岁",
+        "unit": null,
+        "values": [
+          26.8,
+          47.7,
+          20.9,
+          29.5,
+          38.6,
+          59.8,
+          19.8,
+          9.1
+        ]
+      },
+      {
+        "display_label": "37—59岁",
+        "group": null,
+        "label": "37—59岁",
+        "unit": null,
+        "values": [
+          23.2,
+          49.2,
+          21.3,
+          21.8,
+          38.9,
+          33.4,
+          13.7,
+          3.7
+        ]
+      },
+      {
+        "display_label": "60岁及以上",
+        "group": null,
+        "label": "60岁及以上",
+        "unit": null,
+        "values": [
+          37.1,
+          50.8,
+          34.5,
+          19,
+          12.9,
+          2.6,
+          6,
+          13.8
+        ]
+      }
+    ],
+    "uncertainties": []
+  },
+  "uncertainties": []
+}

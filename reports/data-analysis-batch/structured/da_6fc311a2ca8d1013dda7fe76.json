@@ -1,0 +1,339 @@
+{
+  "asset_id": "da_6fc311a2ca8d1013dda7fe76",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/新疆/2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0158_0a9da0b3f7b118b3.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0158_0a9da0b3f7b118b3.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_652faa66356d9ab79f1c",
+        "question_number": 96,
+        "source_jsonl_line": 43661
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0153_0fd3f3f92eb66182.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_47de7015e148105c244c",
+        "question_number": 97,
+        "source_jsonl_line": 43662
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0158_0a9da0b3f7b118b3.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_7d8833dc32903c8c12b5",
+        "question_number": 98,
+        "source_jsonl_line": 43663
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0158_0a9da0b3f7b118b3.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_e621f736d8fea32d4f17",
+        "question_number": 99,
+        "source_jsonl_line": 43664
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）_images/img_0153_0fd3f3f92eb66182.png",
+        "paper_title": "2021年新疆生产建设兵团面向社会招录公务员考试《行测》题（网友回忆版）",
+        "question_id": "pq_94ecb1e546f3c30b77f1",
+        "question_number": 100,
+        "source_jsonl_line": 43665
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0135_0a9da0b3f7b118b3.png",
+        "paper_title": "2021年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_50f7cac2d2e1879c61c1",
+        "question_number": 96,
+        "source_jsonl_line": 66302
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0135_0a9da0b3f7b118b3.png",
+        "paper_title": "2021年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b17d7b6b15d8012593e9",
+        "question_number": 97,
+        "source_jsonl_line": 66303
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0131_0fd3f3f92eb66182.png",
+        "paper_title": "2021年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_b28e4dd294ccac697b0b",
+        "question_number": 98,
+        "source_jsonl_line": 66304
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0135_0a9da0b3f7b118b3.png",
+        "paper_title": "2021年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_a13a546f0ab79d1e9c5b",
+        "question_number": 99,
+        "source_jsonl_line": 66305
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年海南省公务员录用考试《行测》题（网友回忆版）_images/img_0135_0a9da0b3f7b118b3.png",
+        "paper_title": "2021年海南省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_4bb9ee9372bbb30e647b",
+        "question_number": 100,
+        "source_jsonl_line": 66306
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0221_0fd3f3f92eb66182.png",
+        "paper_title": "2021年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8ff54110cdce70aea0ff",
+        "question_number": 101,
+        "source_jsonl_line": 81486
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0221_0fd3f3f92eb66182.png",
+        "paper_title": "2021年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_cdcf879c6f8594bd9bc1",
+        "question_number": 102,
+        "source_jsonl_line": 81487
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0236_0a9da0b3f7b118b3.png",
+        "paper_title": "2021年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_413fc284b972a66a1b3b",
+        "question_number": 103,
+        "source_jsonl_line": 81488
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0236_0a9da0b3f7b118b3.png",
+        "paper_title": "2021年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_8a32de6f9141a7dabbf2",
+        "question_number": 104,
+        "source_jsonl_line": 81489
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2021年贵州省公务员录用考试《行测》题（网友回忆版）_images/img_0236_0a9da0b3f7b118b3.png",
+        "paper_title": "2021年贵州省公务员录用考试《行测》题（网友回忆版）",
+        "question_id": "pq_ba9778084d1d7b1360b4",
+        "question_number": 105,
+        "source_jsonl_line": 81490
+      }
+    ],
+    "sha256": "6fc311a2ca8d1013dda7fe76f047f62c626943af9d02f918487acb9fab652aab"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "第1季度",
+      "第2季度",
+      "第3季度",
+      "第4季度"
+    ],
+    "corner_header": {
+      "lower_label": "销售情况",
+      "style": "diagonal",
+      "upper_label": "季度"
+    },
+    "missing_cells": [],
+    "row_header_label": "类别｜指标",
+    "rows": [
+      {
+        "display_label": "甲产品",
+        "group": "季度",
+        "label": "季度｜甲产品",
+        "unit": null,
+        "values": [
+          20350,
+          22010,
+          18080,
+          19320
+        ]
+      },
+      {
+        "display_label": "甲产品单位成本（元）",
+        "group": "季度",
+        "label": "季度｜甲产品单位成本（元）",
+        "unit": "元",
+        "values": [
+          10,
+          10,
+          11,
+          10
+        ]
+      },
+      {
+        "display_label": "甲产品销售单价（元）",
+        "group": "季度",
+        "label": "季度｜甲产品销售单价（元）",
+        "unit": "元",
+        "values": [
+          12,
+          12,
+          13,
+          13
+        ]
+      },
+      {
+        "display_label": "乙产品",
+        "group": "季度",
+        "label": "季度｜乙产品",
+        "unit": null,
+        "values": [
+          12260,
+          13130,
+          13280,
+          13550
+        ]
+      },
+      {
+        "display_label": "乙产品单位成本（元）",
+        "group": "季度",
+        "label": "季度｜乙产品单位成本（元）",
+        "unit": "元",
+        "values": [
+          12,
+          13,
+          11,
+          12
+        ]
+      },
+      {
+        "display_label": "乙产品销售单价（元）",
+        "group": "季度",
+        "label": "季度｜乙产品销售单价（元）",
+        "unit": "元",
+        "values": [
+          15,
+          15,
+          15,
+          15
+        ]
+      },
+      {
+        "display_label": "丙产品",
+        "group": "季度",
+        "label": "季度｜丙产品",
+        "unit": null,
+        "values": [
+          46350,
+          48980,
+          45610,
+          45820
+        ]
+      },
+      {
+        "display_label": "丙产品单位成本（元）",
+        "group": "季度",
+        "label": "季度｜丙产品单位成本（元）",
+        "unit": "元",
+        "values": [
+          2.5,
+          2.5,
+          3.0,
+          2.6
+        ]
+      },
+      {
+        "display_label": "丙产品销售单价（元）",
+        "group": "季度",
+        "label": "季度｜丙产品销售单价（元）",
+        "unit": "元",
+        "values": [
+          4.5,
+          4.5,
+          5.0,
+          4.6
+        ]
+      },
+      {
+        "display_label": "丁产品",
+        "group": "季度",
+        "label": "季度｜丁产品",
+        "unit": null,
+        "values": [
+          4360,
+          4578,
+          3940,
+          4256
+        ]
+      },
+      {
+        "display_label": "丁产品单位成本（元）",
+        "group": "季度",
+        "label": "季度｜丁产品单位成本（元）",
+        "unit": "元",
+        "values": [
+          100,
+          105,
+          110,
+          102
+        ]
+      },
+      {
+        "display_label": "丁产品销售单价（元）",
+        "group": "季度",
+        "label": "季度｜丁产品销售单价（元）",
+        "unit": "元",
+        "values": [
+          130,
+          138,
+          128,
+          136
+        ]
+      }
+    ],
+    "sections": [],
+    "title": null
+  },
+  "title": null,
+  "unit": null,
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [],
+      "matched": 0,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 0
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:0.0",
+      "crop_verification_elapsed_seconds:None",
+      "candidate_value_changes_after_crop:0",
+      "curated_table_topology_correction_applied"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

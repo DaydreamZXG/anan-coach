@@ -1,0 +1,296 @@
+{
+  "asset_id": "da_7653e5a99ce4e8b48d113d5f",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 100,
+        "min": 0,
+        "ticks": [
+          0,
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90,
+          100
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2003年",
+    "2004年",
+    "2005年",
+    "2006年",
+    "2007年"
+  ],
+  "chart_type": "stacked_bar",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "第一产业",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "第二产业",
+      "style": {
+        "dash": null,
+        "fill": "#696969",
+        "marker": null,
+        "stroke": "black"
+      }
+    },
+    {
+      "label": "第三产业",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": null,
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "第一产业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        49.1,
+        46.9,
+        44.8,
+        42.6,
+        40.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "第二产业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        21.6,
+        22.5,
+        23.8,
+        25.2,
+        26.8
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "第三产业",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        29.8,
+        30.6,
+        31.4,
+        32.2,
+        32.4
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/天津/2009年426联考《行测》题（天津_陕西_湖北）_images/img_0228_7c6d159d96442335.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0228_7c6d159d96442335.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_f84d0012f6764a21f17a",
+        "question_number": 116,
+        "source_jsonl_line": 22021
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0235_9e237188b3752d12.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_1fcd3268c48382b8ec3e",
+        "question_number": 117,
+        "source_jsonl_line": 22022
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0235_9e237188b3752d12.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_64d69e69fab82de93674",
+        "question_number": 118,
+        "source_jsonl_line": 22023
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0235_9e237188b3752d12.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_2eaf02e13d1b9bb4ca92",
+        "question_number": 119,
+        "source_jsonl_line": 22024
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0235_9e237188b3752d12.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_92b17a934ab67f72c0b9",
+        "question_number": 120,
+        "source_jsonl_line": 22025
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0230_9e237188b3752d12.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_ac0ebf094e2605d740f7",
+        "question_number": 116,
+        "source_jsonl_line": 68992
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0230_9e237188b3752d12.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_9197360d9b4f4e992257",
+        "question_number": 117,
+        "source_jsonl_line": 68993
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0230_9e237188b3752d12.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_9658df8b32d766df02ac",
+        "question_number": 118,
+        "source_jsonl_line": 68994
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0230_9e237188b3752d12.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_8661f131498c26a1fd2d",
+        "question_number": 119,
+        "source_jsonl_line": 68995
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0230_9e237188b3752d12.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_f58586dd34977fe17ac4",
+        "question_number": 120,
+        "source_jsonl_line": 68996
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0226_9e237188b3752d12.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_c9d1c86e9d5d4df7e28d",
+        "question_number": 116,
+        "source_jsonl_line": 96539
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0226_9e237188b3752d12.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_a4260e6ba74a5a8f6d8b",
+        "question_number": 117,
+        "source_jsonl_line": 96540
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0226_9e237188b3752d12.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_f7ae6d298067d9ffd251",
+        "question_number": 118,
+        "source_jsonl_line": 96541
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0226_9e237188b3752d12.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_e5bed8389202a053d66b",
+        "question_number": 119,
+        "source_jsonl_line": 96542
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2009年426联考《行测》题（天津_陕西_湖北）_images/img_0257_7c6d159d96442335.png",
+        "paper_title": "2009年426联考《行测》题（天津/陕西/湖北）",
+        "question_id": "pq_6af7d85c5abffdb8069b",
+        "question_number": 120,
+        "source_jsonl_line": 96543
+      }
+    ],
+    "sha256": "7653e5a99ce4e8b48d113d5fa50f1d1f86bcb36e5bb4175602c483e2faace520"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2003年-2007年全国就业人员产业构成情况",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_7653e5a99ce4e8b48d113d5f/column_band_01.jpg",
+        "review-crops/da_7653e5a99ce4e8b48d113d5f/column_band_02.jpg",
+        "review-crops/da_7653e5a99ce4e8b48d113d5f/column_band_03.jpg",
+        "review-crops/da_7653e5a99ce4e8b48d113d5f/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:7.434",
+      "crop_verification_elapsed_seconds:2.515",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

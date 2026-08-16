@@ -1,0 +1,78 @@
+{
+  "count": {
+    "circle": 0,
+    "closed": 1,
+    "curve": 1,
+    "dot": 0,
+    "filled": 0,
+    "seg": 6,
+    "symbol": 0,
+    "text": 0
+  },
+  "facts": [
+    "面板包含一个内缩方框",
+    "方框内部由直线和一段圆弧组成分割线"
+  ],
+  "frame": {
+    "grid": null,
+    "k": "square"
+  },
+  "obj": [
+    {
+      "feat": [],
+      "fill": "hollow",
+      "k": "polyline",
+      "lc": "mixed",
+      "n": 1,
+      "ori": [
+        "mixed"
+      ],
+      "parts": [],
+      "reg": [
+        "center"
+      ],
+      "txt": null
+    },
+    {
+      "feat": [],
+      "fill": "hollow",
+      "k": "arc",
+      "lc": "curved",
+      "n": 1,
+      "ori": [
+        "bottom-left"
+      ],
+      "parts": [],
+      "reg": [
+        "bottom-left"
+      ],
+      "txt": null
+    },
+    {
+      "feat": [],
+      "fill": "hollow",
+      "k": "rect",
+      "lc": "straight",
+      "n": 1,
+      "ori": [
+        "vertical"
+      ],
+      "parts": [],
+      "reg": [
+        "center"
+      ],
+      "txt": null
+    }
+  ],
+  "opt": null,
+  "p": 1,
+  "role": "stem",
+  "schema": "graphic-reasoning-panel-semantics-v3",
+  "topo": [
+    null,
+    null,
+    null,
+    null
+  ],
+  "uncertain": []
+}

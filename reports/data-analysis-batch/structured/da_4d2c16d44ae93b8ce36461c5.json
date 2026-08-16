@@ -1,0 +1,622 @@
+{
+  "asset_id": "da_4d2c16d44ae93b8ce36461c5",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "地区",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "主要污染物排放量（万吨）",
+        "unit": "万吨"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "地区生产总值（亿元）",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "全国",
+    "北京",
+    "河北",
+    "山西",
+    "内蒙古",
+    "辽宁",
+    "上海",
+    "江苏",
+    "浙江",
+    "安徽",
+    "福建",
+    "江西",
+    "山东",
+    "河南",
+    "湖北",
+    "广东",
+    "广西",
+    "重庆",
+    "四川"
+  ],
+  "chart_type": "table",
+  "confidence": 0.98,
+  "legend": [
+    {
+      "label": "化学需氧量",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "氨氮",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "二氧化硫",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "氮氧化物",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    },
+    {
+      "label": "地区生产总值（亿元）",
+      "style": {
+        "dash": "none",
+        "fill": "none",
+        "marker": "none",
+        "stroke": "none"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "化学需氧量",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        1172.2,
+        9.07,
+        64.78,
+        23.35,
+        43.29,
+        61.99,
+        11.55,
+        56.84,
+        37.42,
+        45.5,
+        32.56,
+        36.89,
+        91.91,
+        67.92,
+        52.32,
+        84.41,
+        37.19,
+        19.36,
+        62.44
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_2",
+      "label": "氨氮",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        122.5,
+        0.95,
+        5.24,
+        2.79,
+        2.61,
+        5.13,
+        2.39,
+        7.22,
+        5.33,
+        5.19,
+        4.62,
+        4.39,
+        8.18,
+        7.22,
+        6.18,
+        10.46,
+        4.2,
+        2.54,
+        6.79
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_3",
+      "label": "二氧化硫",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        1037.2,
+        3.83,
+        62.55,
+        64.57,
+        70.29,
+        50.39,
+        9.06,
+        49.41,
+        29.41,
+        25.98,
+        19.1,
+        26.8,
+        86.78,
+        63.93,
+        31.32,
+        38.52,
+        21.66,
+        27.69,
+        40.06
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "series_4",
+      "label": "氮氧化物",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万吨",
+      "values": [
+        1099.5,
+        7.89,
+        79.69,
+        55.58,
+        70.82,
+        44.29,
+        18.39,
+        68.77,
+        37.48,
+        44.9,
+        23.54,
+        27.87,
+        85.08,
+        73.36,
+        29.17,
+        60.81,
+        22.38,
+        18.37,
+        32.57
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_5",
+      "label": "地区生产总值（亿元）",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        278740.4,
+        9769.32,
+        13640.0,
+        6097.8,
+        7338.66,
+        13207.48,
+        10952.64,
+        30115.0,
+        17978.21,
+        9350.54,
+        9733.61,
+        6464.95,
+        28080.26,
+        15778.62,
+        12061.99,
+        30879.09,
+        6327.87,
+        6440.51,
+        12697.39
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/吉林/2015年吉林省公务员录用考试《行测》题（4月乙级）_images/img_0045_88593f1223f4b7c1.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（4月乙级）_images/img_0045_88593f1223f4b7c1.png",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（4月乙级）",
+        "question_id": "pq_98f9da6254b90a4d7035",
+        "question_number": 91,
+        "source_jsonl_line": 12077
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（4月乙级）_images/img_0040_46a9ab8c610bfef3.png",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（4月乙级）",
+        "question_id": "pq_fb4dbf69bab3a2f1b332",
+        "question_number": 92,
+        "source_jsonl_line": 12078
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（4月乙级）_images/img_0040_46a9ab8c610bfef3.png",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（4月乙级）",
+        "question_id": "pq_00f11002f71a8a978385",
+        "question_number": 93,
+        "source_jsonl_line": 12079
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（4月乙级）_images/img_0040_46a9ab8c610bfef3.png",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（4月乙级）",
+        "question_id": "pq_1db16a8438b43a757222",
+        "question_number": 94,
+        "source_jsonl_line": 12080
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2015年吉林省公务员录用考试《行测》题（4月乙级）_images/img_0045_88593f1223f4b7c1.png",
+        "paper_title": "2015年吉林省公务员录用考试《行测》题（4月乙级）",
+        "question_id": "pq_567ca728ddd0d915555c",
+        "question_number": 95,
+        "source_jsonl_line": 12081
+      }
+    ],
+    "sha256": "4d2c16d44ae93b8ce36461c5a129da7da2351072676a4d2c95457b5ff443f68a"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "化学需氧量",
+      "氨氮",
+      "二氧化硫",
+      "氮氧化物",
+      "地区生产总值（亿元）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全国",
+        "unit": null,
+        "values": [
+          "全国",
+          1172.2,
+          122.5,
+          1037.2,
+          1099.5,
+          278740.4
+        ]
+      },
+      {
+        "label": "北京",
+        "unit": null,
+        "values": [
+          "北京",
+          9.07,
+          0.95,
+          3.83,
+          7.89,
+          9769.32
+        ]
+      },
+      {
+        "label": "河北",
+        "unit": null,
+        "values": [
+          "河北",
+          64.78,
+          5.24,
+          62.55,
+          79.69,
+          13640.0
+        ]
+      },
+      {
+        "label": "山西",
+        "unit": null,
+        "values": [
+          "山西",
+          23.35,
+          2.79,
+          64.57,
+          55.58,
+          6097.8
+        ]
+      },
+      {
+        "label": "内蒙古",
+        "unit": null,
+        "values": [
+          "内蒙古",
+          43.29,
+          2.61,
+          70.29,
+          70.82,
+          7338.66
+        ]
+      },
+      {
+        "label": "辽宁",
+        "unit": null,
+        "values": [
+          "辽宁",
+          61.99,
+          5.13,
+          50.39,
+          44.29,
+          13207.48
+        ]
+      },
+      {
+        "label": "上海",
+        "unit": null,
+        "values": [
+          "上海",
+          11.55,
+          2.39,
+          9.06,
+          18.39,
+          10952.64
+        ]
+      },
+      {
+        "label": "江苏",
+        "unit": null,
+        "values": [
+          "江苏",
+          56.84,
+          7.22,
+          49.41,
+          68.77,
+          30115.0
+        ]
+      },
+      {
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          "浙江",
+          37.42,
+          5.33,
+          29.41,
+          37.48,
+          17978.21
+        ]
+      },
+      {
+        "label": "安徽",
+        "unit": null,
+        "values": [
+          "安徽",
+          45.5,
+          5.19,
+          25.98,
+          44.9,
+          9350.54
+        ]
+      },
+      {
+        "label": "福建",
+        "unit": null,
+        "values": [
+          "福建",
+          32.56,
+          4.62,
+          19.1,
+          23.54,
+          9733.61
+        ]
+      },
+      {
+        "label": "江西",
+        "unit": null,
+        "values": [
+          "江西",
+          36.89,
+          4.39,
+          26.8,
+          27.87,
+          6464.95
+        ]
+      },
+      {
+        "label": "山东",
+        "unit": null,
+        "values": [
+          "山东",
+          91.91,
+          8.18,
+          86.78,
+          85.08,
+          28080.26
+        ]
+      },
+      {
+        "label": "河南",
+        "unit": null,
+        "values": [
+          "河南",
+          67.92,
+          7.22,
+          63.93,
+          73.36,
+          15778.62
+        ]
+      },
+      {
+        "label": "湖北",
+        "unit": null,
+        "values": [
+          "湖北",
+          52.32,
+          6.18,
+          31.32,
+          29.17,
+          12061.99
+        ]
+      },
+      {
+        "label": "广东",
+        "unit": null,
+        "values": [
+          "广东",
+          84.41,
+          10.46,
+          38.52,
+          60.81,
+          30879.09
+        ]
+      },
+      {
+        "label": "广西",
+        "unit": null,
+        "values": [
+          "广西",
+          37.19,
+          4.2,
+          21.66,
+          22.38,
+          6327.87
+        ]
+      },
+      {
+        "label": "重庆",
+        "unit": null,
+        "values": [
+          "重庆",
+          19.36,
+          2.54,
+          27.69,
+          18.37,
+          6440.51
+        ]
+      },
+      {
+        "label": "四川",
+        "unit": null,
+        "values": [
+          "四川",
+          62.44,
+          6.79,
+          40.06,
+          32.57,
+          12697.39
+        ]
+      }
+    ]
+  },
+  "title": "主要污染物排放量（万吨）",
+  "unit": "万吨",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_4d2c16d44ae93b8ce36461c5/row_band_01.jpg",
+        "review-crops/da_4d2c16d44ae93b8ce36461c5/row_band_02.jpg",
+        "review-crops/da_4d2c16d44ae93b8ce36461c5/row_band_03.jpg",
+        "review-crops/da_4d2c16d44ae93b8ce36461c5/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:29.809",
+      "crop_verification_elapsed_seconds:15.605",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:全国:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:北京:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:河北:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:山西:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:河北:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:山西:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:内蒙古:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:辽宁:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:上海:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:江苏:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:浙江:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:安徽:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:江苏:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:浙江:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:安徽:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:福建:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:江西:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:山东:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:河南:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:湖北:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:河南:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:湖北:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:广东:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:广西:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:重庆:5!=6",
+      "crop_note:ignored_table_row_length_mismatch:四川:5!=6"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.98,
+    "schema_valid": true
+  }
+}

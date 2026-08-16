@@ -1,0 +1,190 @@
+{
+  "asset_id": "da_a6e30612c7ed5acb3a918200",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": null,
+      "unit": null
+    },
+    "y": []
+  },
+  "categories": [
+    "2012, 700.6",
+    "2013, 839.9",
+    "2014, 998.2",
+    "2015, 1225.4",
+    "2016, 1579.4",
+    "2017, 1941.2"
+  ],
+  "chart_type": "pie_donut",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": {
+    "boundaries_degrees": [
+      0.0,
+      34.228,
+      76.004,
+      125.586,
+      186.544,
+      264.19,
+      360.0
+    ],
+    "geometry_owner": "opencv_hough_radial_scan",
+    "rotation_convention": "top_clockwise",
+    "slices": [
+      {
+        "end_angle": 34.228,
+        "label": "2012, 700.6",
+        "share": 0.0950782,
+        "start_angle": 0.0,
+        "sweep_angle": 34.228
+      },
+      {
+        "end_angle": 76.004,
+        "label": "2013, 839.9",
+        "share": 0.11604539,
+        "start_angle": 34.228,
+        "sweep_angle": 41.776
+      },
+      {
+        "end_angle": 125.586,
+        "label": "2014, 998.2",
+        "share": 0.13772568,
+        "start_angle": 76.004,
+        "sweep_angle": 49.581
+      },
+      {
+        "end_angle": 186.544,
+        "label": "2015, 1225.4",
+        "share": 0.1693273,
+        "start_angle": 125.586,
+        "sweep_angle": 60.958
+      },
+      {
+        "end_angle": 264.19,
+        "label": "2016, 1579.4",
+        "share": 0.21568587,
+        "start_angle": 186.544,
+        "sweep_angle": 77.647
+      },
+      {
+        "end_angle": 360.0,
+        "label": "2017, 1941.2",
+        "share": 0.26613756,
+        "start_angle": 264.19,
+        "sweep_angle": 95.81
+      }
+    ]
+  },
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "none",
+      "id": "share",
+      "label": "share",
+      "render_as": "slice",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": null,
+      "values": [
+        0.0950782,
+        0.11604539,
+        0.13772568,
+        0.1693273,
+        0.21568587,
+        0.26613756
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0187_b73303c5ab2fb23f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0187_b73303c5ab2fb23f.png",
+        "paper_title": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_7a7a665850ac1d00f1ee",
+        "question_number": 121,
+        "source_jsonl_line": 87976
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0187_b73303c5ab2fb23f.png",
+        "paper_title": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_c92929b64f2e800879de",
+        "question_number": 122,
+        "source_jsonl_line": 87977
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0196_ffa35c55c82f5a9c.png",
+        "paper_title": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_7a8d9a86bce1639c010f",
+        "question_number": 123,
+        "source_jsonl_line": 87978
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0196_ffa35c55c82f5a9c.png",
+        "paper_title": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_8f10dadc8b0b9d5674bf",
+        "question_number": 124,
+        "source_jsonl_line": 87979
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）_images/img_0187_b73303c5ab2fb23f.png",
+        "paper_title": "2018年湖北省选调生招录考试综合知识和行政职业能力测验试卷（网友回忆版）",
+        "question_id": "pq_7dfa71e4f9e079ea435e",
+        "question_number": 125,
+        "source_jsonl_line": 87980
+      }
+    ],
+    "sha256": "a6e30612c7ed5acb3a918200d4ad3cc4d951474c8be49ee360f86d624a55fe0e"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2012-2017年我国在线教育行业市场规模 (亿元)",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_a6e30612c7ed5acb3a918200/quadrant_01.jpg",
+        "review-crops/da_a6e30612c7ed5acb3a918200/quadrant_02.jpg",
+        "review-crops/da_a6e30612c7ed5acb3a918200/quadrant_03.jpg",
+        "review-crops/da_a6e30612c7ed5acb3a918200/quadrant_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:4.829",
+      "crop_verification_elapsed_seconds:1.857",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification",
+      "circle_edge_coverage:1.0000",
+      "hough_circle_radius_ratio:0.3459",
+      "radial_line_candidates:8",
+      "detected_boundaries:6"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

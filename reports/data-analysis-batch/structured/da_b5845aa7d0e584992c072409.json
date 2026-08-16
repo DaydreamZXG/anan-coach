@@ -1,0 +1,464 @@
+{
+  "asset_id": "da_b5845aa7d0e584992c072409",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "医疗卫生机构",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "诊疗人次（万人次）",
+        "unit": "万人次"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "出院人数（万人次）",
+        "unit": "万人次"
+      }
+    ]
+  },
+  "categories": [
+    "一、医院",
+    "按经济类型分：",
+    "公立医院",
+    "民营医院",
+    "按医院等级分：",
+    "三级医院",
+    "二级医院",
+    "一级医院",
+    "未定级医院",
+    "二、基层医疗卫生机构",
+    "社区卫生服务中心（站）",
+    "乡镇卫生院",
+    "诊所（医务室）",
+    "村卫生室",
+    "三、其他机构"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "2012年1~8月",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    },
+    {
+      "label": "2013年1~8月",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "2012_1_8",
+      "label": "2012年1~8月",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        159816.2,
+        144747.5,
+        15068.6,
+        64521.5,
+        70296.5,
+        10566.4,
+        14431.8,
+        256591.2,
+        37192.8,
+        60227.0,
+        34870.0,
+        119820.0,
+        13811.7
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "2013_1_8",
+      "label": "2013年1~8月",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        174472.5,
+        157018.5,
+        17454.0,
+        76550.8,
+        71952.5,
+        10884.0,
+        15085.2,
+        274098.1,
+        40483.1,
+        92970.4,
+        36040.0,
+        128960.1,
+        15253.8
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "2012_1_8",
+      "label": "2012年1~8月",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        7843.0,
+        7060.0,
+        782.8,
+        2722.5,
+        4071.4,
+        363.2,
+        665.9,
+        2644.4,
+        170.5,
+        2449.4,
+        null,
+        null,
+        540.2
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "2013_1_8",
+      "label": "2013年1~8月",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人次",
+      "values": [
+        8682.4,
+        7876.8,
+        985.6,
+        3351.3,
+        4316.6,
+        433.3,
+        761.2,
+        2735.0,
+        181.4,
+        2523.8,
+        null,
+        null,
+        571.0
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2014年江苏省公务员录用考试《行测》题（C类）_images/img_0301_e7969a0180c64f20.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0301_e7969a0180c64f20.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_28ba5d06f75e81843ec3",
+        "question_number": 96,
+        "source_jsonl_line": 46811
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0302_e0396c16a85302a0.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_4d72d7573feb06b272b0",
+        "question_number": 97,
+        "source_jsonl_line": 46812
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0301_e7969a0180c64f20.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_aecbcd0cee906dfcaecb",
+        "question_number": 98,
+        "source_jsonl_line": 46813
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0301_e7969a0180c64f20.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_837226379ca425d65268",
+        "question_number": 99,
+        "source_jsonl_line": 46814
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2014年江苏省公务员录用考试《行测》题（C类）_images/img_0301_e7969a0180c64f20.png",
+        "paper_title": "2014年江苏省公务员录用考试《行测》题（C类）",
+        "question_id": "pq_030bc017e39335aa8638",
+        "question_number": 100,
+        "source_jsonl_line": 46815
+      }
+    ],
+    "sha256": "b5845aa7d0e584992c072409f2b532fea17a177d37fc1c8ced853d46614652e9"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "医疗卫生机构",
+      "2012年1~8月 诊疗人次（万人次）",
+      "2013年1~8月 诊疗人次（万人次）",
+      "2012年1~8月 出院人数（万人次）",
+      "2013年1~8月 出院人数（万人次）"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "一、医院",
+        "unit": null,
+        "values": [
+          "一、医院",
+          159816.2,
+          174472.5,
+          7843.0,
+          8682.4
+        ]
+      },
+      {
+        "label": "按经济类型分：",
+        "unit": null,
+        "values": [
+          "按经济类型分：",
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "公立医院",
+        "unit": null,
+        "values": [
+          "公立医院",
+          144747.5,
+          157018.5,
+          7060.0,
+          7876.8
+        ]
+      },
+      {
+        "label": "民营医院",
+        "unit": null,
+        "values": [
+          "民营医院",
+          15068.6,
+          17454.0,
+          782.8,
+          985.6
+        ]
+      },
+      {
+        "label": "按医院等级分：",
+        "unit": null,
+        "values": [
+          "按医院等级分：",
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "三级医院",
+        "unit": null,
+        "values": [
+          "三级医院",
+          64521.5,
+          76550.8,
+          2722.5,
+          3351.3
+        ]
+      },
+      {
+        "label": "二级医院",
+        "unit": null,
+        "values": [
+          "二级医院",
+          70296.5,
+          71952.5,
+          4071.4,
+          4316.6
+        ]
+      },
+      {
+        "label": "一级医院",
+        "unit": null,
+        "values": [
+          "一级医院",
+          10566.4,
+          10884.0,
+          363.2,
+          433.3
+        ]
+      },
+      {
+        "label": "未定级医院",
+        "unit": null,
+        "values": [
+          "未定级医院",
+          14431.8,
+          15085.2,
+          665.9,
+          761.2
+        ]
+      },
+      {
+        "label": "二、基层医疗卫生机构",
+        "unit": null,
+        "values": [
+          "二、基层医疗卫生机构",
+          256591.2,
+          274098.1,
+          2644.4,
+          2735.0
+        ]
+      },
+      {
+        "label": "社区卫生服务中心（站）",
+        "unit": null,
+        "values": [
+          "社区卫生服务中心（站）",
+          37192.8,
+          40483.1,
+          170.5,
+          181.4
+        ]
+      },
+      {
+        "label": "乡镇卫生院",
+        "unit": null,
+        "values": [
+          "乡镇卫生院",
+          60227.0,
+          92970.4,
+          2449.4,
+          2523.8
+        ]
+      },
+      {
+        "label": "诊所（医务室）",
+        "unit": null,
+        "values": [
+          "诊所（医务室）",
+          34870.0,
+          36040.0,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "村卫生室",
+        "unit": null,
+        "values": [
+          "村卫生室",
+          119820.0,
+          128960.1,
+          null,
+          null
+        ]
+      },
+      {
+        "label": "三、其他机构",
+        "unit": null,
+        "values": [
+          "三、其他机构",
+          13811.7,
+          15253.8,
+          540.2,
+          571.0
+        ]
+      }
+    ]
+  },
+  "title": "2012年1~8月与2013年1~8月全国医疗卫生机构医疗服务情况",
+  "unit": "万人次",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_b5845aa7d0e584992c072409/row_band_01.jpg",
+        "review-crops/da_b5845aa7d0e584992c072409/row_band_02.jpg",
+        "review-crops/da_b5845aa7d0e584992c072409/row_band_03.jpg",
+        "review-crops/da_b5845aa7d0e584992c072409/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:22.959",
+      "crop_verification_elapsed_seconds:10.006",
+      "candidate_value_changes_after_crop:0",
+      "model_uncertainty:表格中'诊所（医务室）'和'村卫生室'的'2012年1~8月'和'2013年1~8月'出院人数数据缺失，标记为null",
+      "crop_note:combined_crop_response_malformed;used_individual_table_crop_verification",
+      "crop_note:ignored_table_row_length_mismatch:一、医院:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:按经济类型分：:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:公立医院:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:民营医院:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:公立医院:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:民营医院:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:三级医院:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:二级医院:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:三级医院:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:二级医院:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:一级医院:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:未定级医院:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:二、基层医疗卫生机构:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:社区卫生服务中心（站）:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:乡镇卫生院:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:社区卫生服务中心（站）:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:乡镇卫生院:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:诊所（医务室）:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:村卫生室:4!=5",
+      "crop_note:ignored_table_row_length_mismatch:三、其他机构:4!=5"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

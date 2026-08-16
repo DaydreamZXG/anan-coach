@@ -1,0 +1,203 @@
+{
+  "asset_id": "da_684b195e3beedcdd0b62c361",
+  "axes": {
+    "x": {
+      "max": 5,
+      "min": 0,
+      "ticks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "title": null,
+      "unit": null
+    },
+    "y": [
+      {
+        "max": 10000,
+        "min": 0,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000,
+          10000
+        ],
+        "title": null,
+        "unit": "万人"
+      },
+      {
+        "max": 15,
+        "min": 0,
+        "ticks": [
+          0,
+          3,
+          6,
+          9,
+          12,
+          15
+        ],
+        "title": null,
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018"
+  ],
+  "chart_type": "combo",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "贫困人口",
+      "style": {
+        "dash": null,
+        "fill": "#D3D3D3",
+        "marker": "none",
+        "stroke": "#000000"
+      }
+    },
+    {
+      "label": "贫困发生率",
+      "style": {
+        "dash": null,
+        "fill": "#FFFFFF",
+        "marker": "circle",
+        "stroke": "#000000"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "贫困人口",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "万人",
+      "values": [
+        7017,
+        5575,
+        4335,
+        3046,
+        1660
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_2",
+      "label": "贫困发生率",
+      "render_as": "line",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        7.2,
+        5.7,
+        4.5,
+        3.1,
+        1.7
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江西/2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）_images/img_0151_308f716aedd83895.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）_images/img_0151_308f716aedd83895.png",
+        "paper_title": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_05a0d76760a17bba25db",
+        "question_number": 116,
+        "source_jsonl_line": 53170
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）_images/img_0158_08ab90e636f7152a.png",
+        "paper_title": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_b84359bc840d75bd6d9b",
+        "question_number": 117,
+        "source_jsonl_line": 53171
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）_images/img_0151_308f716aedd83895.png",
+        "paper_title": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_4dfbb5bd40a036429af6",
+        "question_number": 118,
+        "source_jsonl_line": 53172
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）_images/img_0151_308f716aedd83895.png",
+        "paper_title": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_400504f9493392bfe419",
+        "question_number": 119,
+        "source_jsonl_line": 53173
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）_images/img_0158_08ab90e636f7152a.png",
+        "paper_title": "2019年江西省法检统一考录公务员笔试《行测》题（网友回忆版）",
+        "question_id": "pq_debbf0365355d6bf1969",
+        "question_number": 120,
+        "source_jsonl_line": 53174
+      }
+    ],
+    "sha256": "684b195e3beedcdd0b62c361541c2eca93f76a74e71560f54aeb70209a491408"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "2014-2018年全国农村贫困人口和贫困发生率",
+  "unit": "万人",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_684b195e3beedcdd0b62c361/column_band_01.jpg",
+        "review-crops/da_684b195e3beedcdd0b62c361/column_band_02.jpg",
+        "review-crops/da_684b195e3beedcdd0b62c361/column_band_03.jpg",
+        "review-crops/da_684b195e3beedcdd0b62c361/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:6.42",
+      "crop_verification_elapsed_seconds:2.906",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

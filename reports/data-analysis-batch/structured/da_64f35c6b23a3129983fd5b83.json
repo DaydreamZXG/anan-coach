@@ -1,0 +1,170 @@
+{
+  "asset_id": "da_64f35c6b23a3129983fd5b83",
+  "axes": {
+    "x": {
+      "max": 2006,
+      "min": 1998,
+      "ticks": [
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006
+      ],
+      "title": "年",
+      "unit": "年"
+    },
+    "y": [
+      {
+        "max": 200,
+        "min": 0,
+        "ticks": [
+          0,
+          50,
+          100,
+          150,
+          200
+        ],
+        "title": "直接经济损失",
+        "unit": "亿元"
+      }
+    ]
+  },
+  "categories": [
+    "1998",
+    "1999",
+    "2000",
+    "2001",
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006"
+  ],
+  "chart_type": "grouped_bar",
+  "confidence": 0.95,
+  "legend": [
+    {
+      "label": "直接经济损失",
+      "style": {
+        "dash": "solid",
+        "fill": "black",
+        "marker": "none",
+        "stroke": "black"
+      }
+    }
+  ],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "series_1",
+      "label": "直接经济损失",
+      "render_as": "bar",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "亿元",
+      "values": [
+        150.0,
+        24.5,
+        49.5,
+        35.0,
+        51.0,
+        48.7,
+        40.9,
+        36.5,
+        43.2
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/江苏/2008年江苏省公务员录用考试《行测》题（A类）_images/img_0184_99eec7805c53577f.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（A类）_images/img_0184_99eec7805c53577f.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_2b1ef5c721ecbb839842",
+        "question_number": 101,
+        "source_jsonl_line": 44471
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（A类）_images/img_0201_8eb72c74fa0df49f.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_42bdf0d2ee71e708155b",
+        "question_number": 102,
+        "source_jsonl_line": 44472
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（A类）_images/img_0201_8eb72c74fa0df49f.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_e58f79e0d3c2169195d5",
+        "question_number": 103,
+        "source_jsonl_line": 44473
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（A类）_images/img_0184_99eec7805c53577f.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_0b4acc666e7b7736c24a",
+        "question_number": 104,
+        "source_jsonl_line": 44474
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2008年江苏省公务员录用考试《行测》题（A类）_images/img_0184_99eec7805c53577f.png",
+        "paper_title": "2008年江苏省公务员录用考试《行测》题（A类）",
+        "question_id": "pq_ab5129453336956939eb",
+        "question_number": 105,
+        "source_jsonl_line": 44475
+      }
+    ],
+    "sha256": "64f35c6b23a3129983fd5b8333823429cb7f459a7501250b5abf007ce215a9a0"
+  },
+  "structured_visual": null,
+  "table": null,
+  "title": "全国1998年至2006年地质灾害造成直接经济损失情况图",
+  "unit": "亿元",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_64f35c6b23a3129983fd5b83/column_band_01.jpg",
+        "review-crops/da_64f35c6b23a3129983fd5b83/column_band_02.jpg",
+        "review-crops/da_64f35c6b23a3129983fd5b83/column_band_03.jpg",
+        "review-crops/da_64f35c6b23a3129983fd5b83/column_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:5.518",
+      "crop_verification_elapsed_seconds:2.011",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}

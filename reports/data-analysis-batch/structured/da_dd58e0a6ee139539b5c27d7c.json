@@ -1,0 +1,524 @@
+{
+  "asset_id": "da_dd58e0a6ee139539b5c27d7c",
+  "axes": {
+    "x": {
+      "max": null,
+      "min": null,
+      "ticks": [],
+      "title": "地区",
+      "unit": null
+    },
+    "y": [
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "占总人口比重 (%)",
+        "unit": "%"
+      },
+      {
+        "max": null,
+        "min": null,
+        "ticks": [],
+        "title": "抚养比 (%)",
+        "unit": "%"
+      }
+    ]
+  },
+  "categories": [
+    "全国",
+    "北京",
+    "天津",
+    "辽宁",
+    "上海",
+    "浙江",
+    "河南",
+    "湖南",
+    "广东",
+    "海南",
+    "重庆",
+    "贵州",
+    "西藏"
+  ],
+  "chart_type": "table",
+  "confidence": 0.95,
+  "legend": [],
+  "pie_geometry": null,
+  "review_status": "candidate_auto",
+  "schema_version": "data-analysis-chart-candidate-v1",
+  "series": [
+    {
+      "axis": "left",
+      "id": "0-14",
+      "label": "0-14岁",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        16.61,
+        8.6,
+        9.8,
+        11.42,
+        8.61,
+        13.21,
+        21,
+        17.62,
+        16.87,
+        19.78,
+        17,
+        25.26,
+        24.37
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "15-59",
+      "label": "15-59岁",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        70.07,
+        78.85,
+        77.18,
+        73.15,
+        76.31,
+        72.9,
+        66.27,
+        67.84,
+        73.39,
+        68.89,
+        65.58,
+        61.9,
+        67.95
+      ]
+    },
+    {
+      "axis": "left",
+      "id": "60",
+      "label": "60岁及以上",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        13.32,
+        12.55,
+        13.02,
+        15.43,
+        15.08,
+        13.89,
+        12.73,
+        14.54,
+        9.74,
+        11.33,
+        17.42,
+        12.84,
+        7.68
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_4",
+      "label": "总抚养比",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        23.7,
+        10.91,
+        12.69,
+        16.62,
+        11.29,
+        18.12,
+        31.69,
+        25.97,
+        22.99,
+        28.71,
+        25.92,
+        40.81,
+        35.86
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_5",
+      "label": "少儿抚养比",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        23.7,
+        10.91,
+        12.69,
+        16.62,
+        11.29,
+        18.12,
+        31.69,
+        25.97,
+        22.99,
+        28.71,
+        25.92,
+        40.81,
+        35.86
+      ]
+    },
+    {
+      "axis": "right",
+      "id": "series_6",
+      "label": "老年抚养比",
+      "render_as": "cell",
+      "style": {
+        "dash": null,
+        "fill": null,
+        "marker": null,
+        "stroke": null
+      },
+      "unit": "%",
+      "values": [
+        19.02,
+        15.91,
+        16.87,
+        21.1,
+        19.75,
+        19.05,
+        19.21,
+        21.44,
+        13.26,
+        16.44,
+        26.56,
+        20.74,
+        11.29
+      ]
+    }
+  ],
+  "source": {
+    "local_path": "/Users/zxg/Documents/新项目/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/选调/2017年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0212_35301e7b7a0702fc.png",
+    "occurrences": [
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0212_35301e7b7a0702fc.png",
+        "paper_title": "2017年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_b683af2d578b744c7b84",
+        "question_number": 96,
+        "source_jsonl_line": 87268
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0212_35301e7b7a0702fc.png",
+        "paper_title": "2017年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_9c1b8439ba27268ab00f",
+        "question_number": 97,
+        "source_jsonl_line": 87269
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0222_64ef0e946f6be5ce.png",
+        "paper_title": "2017年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_aec1cdc703b1e05196b0",
+        "question_number": 98,
+        "source_jsonl_line": 87270
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0212_35301e7b7a0702fc.png",
+        "paper_title": "2017年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_eaf1293befb3677821b3",
+        "question_number": 99,
+        "source_jsonl_line": 87271
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0212_35301e7b7a0702fc.png",
+        "paper_title": "2017年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_42760751f2cf40b70f38",
+        "question_number": 100,
+        "source_jsonl_line": 87272
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0204_64ef0e946f6be5ce.png",
+        "paper_title": "2017年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_c9ef632dd6c3f7157506",
+        "question_number": 96,
+        "source_jsonl_line": 94159
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0215_35301e7b7a0702fc.png",
+        "paper_title": "2017年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_c854336c2ccdb890c0c5",
+        "question_number": 97,
+        "source_jsonl_line": 94160
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0204_64ef0e946f6be5ce.png",
+        "paper_title": "2017年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_b85e53e36935a062f314",
+        "question_number": 98,
+        "source_jsonl_line": 94161
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0215_35301e7b7a0702fc.png",
+        "paper_title": "2017年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_1be60d2d8af948b2ea87",
+        "question_number": 99,
+        "source_jsonl_line": 94162
+      },
+      {
+        "html_field": "material_html",
+        "image_ref": "2017年重庆市选调优秀大学生到基层工作考试《行测》题_images/img_0215_35301e7b7a0702fc.png",
+        "paper_title": "2017年重庆市选调优秀大学生到基层工作考试《行测》题",
+        "question_id": "pq_f6dcc9a59cf2587d4721",
+        "question_number": 100,
+        "source_jsonl_line": 94163
+      }
+    ],
+    "sha256": "dd58e0a6ee139539b5c27d7c145f433c278f5a0fcc7ba34084f200983d60ff44"
+  },
+  "structured_visual": null,
+  "table": {
+    "column_groups": [],
+    "columns": [
+      "地区",
+      "0-14岁",
+      "15-59岁",
+      "60岁及以上",
+      "总抚养比",
+      "少儿抚养比",
+      "老年抚养比"
+    ],
+    "corner_header": null,
+    "missing_cells": [],
+    "row_header_label": null,
+    "rows": [
+      {
+        "label": "全国",
+        "unit": null,
+        "values": [
+          "全国",
+          16.61,
+          70.07,
+          13.32,
+          23.7,
+          23.7,
+          19.02
+        ]
+      },
+      {
+        "label": "北京",
+        "unit": null,
+        "values": [
+          "北京",
+          8.6,
+          78.85,
+          12.55,
+          10.91,
+          10.91,
+          15.91
+        ]
+      },
+      {
+        "label": "天津",
+        "unit": null,
+        "values": [
+          "天津",
+          9.8,
+          77.18,
+          13.02,
+          12.69,
+          12.69,
+          16.87
+        ]
+      },
+      {
+        "label": "辽宁",
+        "unit": null,
+        "values": [
+          "辽宁",
+          11.42,
+          73.15,
+          15.43,
+          16.62,
+          16.62,
+          21.1
+        ]
+      },
+      {
+        "label": "上海",
+        "unit": null,
+        "values": [
+          "上海",
+          8.61,
+          76.31,
+          15.08,
+          11.29,
+          11.29,
+          19.75
+        ]
+      },
+      {
+        "label": "浙江",
+        "unit": null,
+        "values": [
+          "浙江",
+          13.21,
+          72.9,
+          13.89,
+          18.12,
+          18.12,
+          19.05
+        ]
+      },
+      {
+        "label": "河南",
+        "unit": null,
+        "values": [
+          "河南",
+          21,
+          66.27,
+          12.73,
+          31.69,
+          31.69,
+          19.21
+        ]
+      },
+      {
+        "label": "湖南",
+        "unit": null,
+        "values": [
+          "湖南",
+          17.62,
+          67.84,
+          14.54,
+          25.97,
+          25.97,
+          21.44
+        ]
+      },
+      {
+        "label": "广东",
+        "unit": null,
+        "values": [
+          "广东",
+          16.87,
+          73.39,
+          9.74,
+          22.99,
+          22.99,
+          13.26
+        ]
+      },
+      {
+        "label": "海南",
+        "unit": null,
+        "values": [
+          "海南",
+          19.78,
+          68.89,
+          11.33,
+          28.71,
+          28.71,
+          16.44
+        ]
+      },
+      {
+        "label": "重庆",
+        "unit": null,
+        "values": [
+          "重庆",
+          17,
+          65.58,
+          17.42,
+          25.92,
+          25.92,
+          26.56
+        ]
+      },
+      {
+        "label": "贵州",
+        "unit": null,
+        "values": [
+          "贵州",
+          25.26,
+          61.9,
+          12.84,
+          40.81,
+          40.81,
+          20.74
+        ]
+      },
+      {
+        "label": "西藏",
+        "unit": null,
+        "values": [
+          "西藏",
+          24.37,
+          67.95,
+          7.68,
+          35.86,
+          35.86,
+          11.29
+        ]
+      }
+    ]
+  },
+  "title": "2010年部分省（区、市）人口年龄构成表",
+  "unit": "%",
+  "verification": {
+    "local_crop_checks": {
+      "artifacts": [
+        "review-crops/da_dd58e0a6ee139539b5c27d7c/row_band_01.jpg",
+        "review-crops/da_dd58e0a6ee139539b5c27d7c/row_band_02.jpg",
+        "review-crops/da_dd58e0a6ee139539b5c27d7c/row_band_03.jpg",
+        "review-crops/da_dd58e0a6ee139539b5c27d7c/row_band_04.jpg"
+      ],
+      "matched": 4,
+      "mismatched": 0,
+      "reasons": [
+        "adjacent_numeric",
+        "negative",
+        "decimal",
+        "percent",
+        "missing_value"
+      ],
+      "total": 4
+    },
+    "missing_values_preserved": true,
+    "notes": [
+      "whole_image_elapsed_seconds:23.123",
+      "crop_verification_elapsed_seconds:20.22",
+      "candidate_value_changes_after_crop:0",
+      "crop_note:compact_delta_verification"
+    ],
+    "ocr_engine": "qwen3-vl-30b-a3b",
+    "ocr_mean_confidence": 0.95,
+    "schema_valid": true
+  }
+}
