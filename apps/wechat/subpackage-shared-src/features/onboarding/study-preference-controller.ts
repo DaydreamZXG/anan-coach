@@ -140,15 +140,9 @@ export class StudyPreferenceController {
         this.onAdvance(progress.nextStep);
         return;
       }
-      if (this.mode === "settings" && !progress.studyPreferenceReady) {
-        clearPendingStudyPreference(this.userId);
-        this.onAdvance(progress.nextStep);
-        return;
-      }
-
       let draft = { ...defaultStudyPreferenceDraft };
       let preferenceVersion = progress.studyPreferenceVersion ?? 0;
-      if (progress.studyPreferenceReady || this.mode === "settings") {
+      if (progress.studyPreferenceReady) {
         const preferenceResponse = await this.api.getStudyPreference();
         if (!this.isCurrent(epoch)) return;
         const preference = preferenceResponse.data;

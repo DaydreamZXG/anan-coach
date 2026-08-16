@@ -12,6 +12,7 @@ import {
   assertMasteryQueuePage,
   masteryQueueActionTarget,
 } from "../miniprogram/xingce/shared/features/xingce/mastery/contracts";
+import { presentMasteryQueueItem } from "../miniprogram/xingce/shared/features/xingce/mastery/presentation";
 import { apiSuccess } from "./work_packages/vj-02-real-xingce-wechat/harness";
 
 afterEach(() => {
@@ -119,6 +120,7 @@ describe("C08 mastery queue page", () => {
       bucket: "pending_reflection",
       actionState: "ready",
       actionLabel: "继续复盘",
+      questionLabel: "本组 3 道错题",
     });
 
     runtime.page.selectBucket.call(runtime.page, bucketEvent("due_verification"));
@@ -131,6 +133,42 @@ describe("C08 mastery queue page", () => {
     });
     expect(runtime.requests[1]?.url).toContain("bucket=due_verification&pageSize=30");
     expect(runtime.requests[1]?.url).not.toContain("cursor=");
+  });
+
+  it("opens the first non-empty queue when the default group has no items", async () => {
+    const runtime = await createPage((options) => {
+      const bucket = requestBucket(options.url);
+      options.success?.(
+        apiSuccess(
+          queuePage(bucket, {
+            items: bucket === "pending_reflection" ? [] : [queueItem(bucket)],
+          }),
+        ),
+      );
+    });
+
+    expect(runtime.requests.map((request) => requestBucket(request.url))).toEqual([
+      "pending_reflection",
+      "due_verification",
+    ]);
+    expect(runtime.page.data.activeBucket).toBe("due_verification");
+    expect(runtime.page.data.items[0]).toMatchObject({
+      questionLabel: "累计 3 道待复测",
+    });
+  });
+
+  it("keeps an explicitly requested empty group instead of silently switching it", async () => {
+    const runtime = await createPage(
+      (options) => {
+        const bucket = requestBucket(options.url);
+        options.success?.(apiSuccess(queuePage(bucket, { items: [] })));
+      },
+      { onLoadOptions: { bucket: "pending_reflection" } },
+    );
+
+    expect(runtime.requests).toHaveLength(1);
+    expect(runtime.page.data.activeBucket).toBe("pending_reflection");
+    expect(runtime.page.data.items).toEqual([]);
   });
 
   it("reuses the exact next cursor, preserves partial data and deduplicates item IDs", async () => {
@@ -289,6 +327,22 @@ describe("C08 mastery queue page", () => {
     });
   });
 
+  it("distinguishes cumulative queue counts from the size of the next verification task", () => {
+    const due = queueItem("due_verification", {
+      questionCount: 15,
+      action: {
+        state: "ready",
+        startUrl: "/xingce/xingce-task-intro/index?mode=verification&planTaskId=plan-a",
+        planTaskId: "plan-a",
+      },
+    });
+
+    expect(presentMasteryQueueItem(due)).toMatchObject({
+      questionLabel: "累计 15 道待复测",
+      actionLabel: "开始本次复测",
+    });
+  });
+
   it("recovers an initial failure and exposes an expired login state without stale items", async () => {
     let requestNo = 0;
     const runtime = await createPage(
@@ -348,7 +402,7 @@ describe("C08 mastery queue page", () => {
 
 interface CapturedMasteryPage {
   data: Record<string, unknown>;
-  onLoad(this: TestMasteryPage): void;
+  onLoad(this: TestMasteryPage, options?: Record<string, string | undefined>): void;
   onShow(this: TestMasteryPage): void;
   onUnload(this: TestMasteryPage): void;
   retry(this: TestMasteryPage): void;
@@ -376,6 +430,7 @@ interface MasteryPageData extends Record<string, unknown> {
     invalidated: boolean;
     stateLabel: string;
     stageLabel: string;
+    questionLabel: string;
   }>;
   hasMore: boolean;
   partialErrorMessage: string;
@@ -387,7 +442,13 @@ interface MasteryPageData extends Record<string, unknown> {
 
 type RequestHandler = (options: WechatMiniprogram.RequestOption) => void;
 
-async function createPage(handleRequest: RequestHandler, options: { waitForReady?: boolean } = {}) {
+async function createPage(
+  handleRequest: RequestHandler,
+  options: {
+    waitForReady?: boolean;
+    onLoadOptions?: Record<string, string | undefined>;
+  } = {},
+) {
   let captured: CapturedMasteryPage | undefined;
   const requests: WechatMiniprogram.RequestOption[] = [];
   const globalData: { accessToken?: string; userId?: string } = {
@@ -428,7 +489,7 @@ async function createPage(handleRequest: RequestHandler, options: { waitForReady
     data: JSON.parse(JSON.stringify(captured.data)) as MasteryPageData,
     setData,
   };
-  page.onLoad.call(page);
+  page.onLoad.call(page, options.onLoadOptions);
   if (options.waitForReady !== false) {
     await vi.waitFor(() => {
       expect(page.data.status).toBe("ready");

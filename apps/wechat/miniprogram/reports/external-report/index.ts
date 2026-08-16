@@ -1,7 +1,4 @@
-import type {
-  ExternalMockReportDraftCommand,
-  ExternalMockReportProjection,
-} from "../../api/generated/types.gen";
+import type { ExternalMockReportProjection } from "../../api/generated/types.gen";
 import { ReportingApi } from "../shared/api/reporting";
 import { routes } from "../../app/navigation/routes";
 import { currentAuthSession } from "../../auth/session";
@@ -17,8 +14,15 @@ import {
   reviewingExternalScoreState,
   toggleExternalScoreSpan,
   verifiedExternalScoreSpans,
+  ExternalScoreWorkflowError,
   type ExternalScoreOcrState,
 } from "../shared/features/reporting/external-score-workflow";
+import {
+  buildExternalScoreDraftCommand,
+  ExternalScoreFormError,
+  initialExternalScoreForm,
+  type ExternalScoreForm,
+} from "./features/form";
 import { errorView, requireAuthenticatedClient } from "../../features/learning-brain/presentation";
 import { createIdempotencyKey } from "../../platform/command-id";
 import {
@@ -28,24 +32,14 @@ import {
   type LocalSourceImageFile,
 } from "../shared/platform/source-image";
 
-interface ExternalScoreForm {
-  platformName: string;
-  examName: string;
-  occurredDate: string;
-  timedStatus: "timed" | "untimed" | "unknown";
-  durationMinutes: string;
-  totalScore: string;
-  xingceScore: string;
-  shenlunScore: string;
-  moduleScoresText: string;
-}
-
 Page({
   data: {
     workflow: emptyExternalScoreState(),
     errorMessage: "",
     requestId: "",
-    form: initialForm(),
+    form: initialExternalScoreForm(),
+    formErrorMessage: "",
+    formErrorField: "",
     candidate: null as ExternalMockReportProjection | null,
     submitting: false,
     evidenceLabel: "",
@@ -152,10 +146,18 @@ Page({
   updateField(event: WechatMiniprogram.Input) {
     const field = String(event.currentTarget.dataset.field ?? "") as keyof ExternalScoreForm;
     if (!(field in this.data.form)) return;
-    this.setData({ form: { ...this.data.form, [field]: event.detail.value } });
+    this.setData({
+      form: { ...this.data.form, [field]: event.detail.value },
+      formErrorMessage: "",
+      formErrorField: "",
+    });
   },
   updateDate(event: WechatMiniprogram.CustomEvent<{ value: string }>) {
-    this.setData({ form: { ...this.data.form, occurredDate: event.detail.value } });
+    this.setData({
+      form: { ...this.data.form, occurredDate: event.detail.value },
+      formErrorMessage: "",
+      formErrorField: "",
+    });
   },
   setTimedStatus(event: WechatMiniprogram.BaseEvent) {
     const value = String(event.currentTarget.dataset.value ?? "");
@@ -166,15 +168,25 @@ Page({
         timedStatus: value,
         durationMinutes: value === "timed" ? this.data.form.durationMinutes : "",
       },
+      formErrorMessage: "",
+      formErrorField: "",
     });
   },
   async createCandidate() {
     const client = requireAuthenticatedClient();
     const revision = this.data.workflow.revision;
     if (!client || !revision || this.data.submitting) return;
-    this.setData({ submitting: true, errorMessage: "" });
+    this.setData({
+      submitting: true,
+      errorMessage: "",
+      formErrorMessage: "",
+      formErrorField: "",
+    });
     try {
-      const command = buildDraftCommand(this.data.form, confirmedExternalScoreRevision(revision));
+      const command = buildExternalScoreDraftCommand(
+        this.data.form,
+        confirmedExternalScoreRevision(revision),
+      );
       const { data } = await new ReportingApi(client).createExternalMockDraft(
         command,
         await createIdempotencyKey("external-score-structured-draft"),
@@ -191,7 +203,15 @@ Page({
       });
       if (data.state === "confirmed") markCurrentCoachEntryEvidence();
     } catch (error) {
-      this.setWorkflowError(error, "没有识别出可核对的成绩字段。");
+      if (error instanceof ExternalScoreFormError) {
+        this.setData({
+          formErrorMessage: error.message,
+          formErrorField: error.field,
+          requestId: "",
+        });
+      } else {
+        this.setWorkflowError(error, "成绩草稿没有保存成功，请稍后再试。");
+      }
     } finally {
       this.setData({ submitting: false });
     }
@@ -224,7 +244,9 @@ Page({
       workflow: emptyExternalScoreState(),
       errorMessage: "",
       requestId: "",
-      form: initialForm(),
+      form: initialExternalScoreForm(),
+      formErrorMessage: "",
+      formErrorField: "",
       candidate: null,
       evidenceLabel: "",
       abilityLabel: "",
@@ -241,7 +263,10 @@ Page({
     void wx.switchTab({ url: routes.today });
   },
   setWorkflowError(error: unknown, fallback: string) {
-    const view = errorView(error, fallback);
+    const view =
+      error instanceof ExternalScoreWorkflowError
+        ? { message: error.message, requestId: "" }
+        : errorView(error, fallback);
     this.setData({
       workflow: { ...this.data.workflow, phase: "error", message: view.message },
       errorMessage: view.message,
@@ -253,73 +278,6 @@ Page({
 function markCurrentCoachEntryEvidence(): void {
   const session = currentAuthSession();
   if (session) markCoachEntryEvidence(session.userId, "score_report");
-}
-
-function initialForm(): ExternalScoreForm {
-  const today = new Date();
-  return {
-    platformName: "粉笔",
-    examName: "",
-    occurredDate: `${String(today.getFullYear())}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`,
-    timedStatus: "timed",
-    durationMinutes: "120",
-    totalScore: "",
-    xingceScore: "",
-    shenlunScore: "",
-    moduleScoresText: "",
-  };
-}
-
-function buildDraftCommand(
-  form: ExternalScoreForm,
-  revision: ReturnType<typeof confirmedExternalScoreRevision>,
-): ExternalMockReportDraftCommand {
-  const platformName = required(form.platformName, "平台名称");
-  const examName = required(form.examName, "模考名称");
-  const durationMinutes = optionalNumber(form.durationMinutes, "作答时长");
-  if (form.timedStatus === "timed" && durationMinutes === undefined) {
-    throw new Error("计时模考必须填写作答时长。");
-  }
-  return {
-    artifactVersionId: revision.artifactVersionId,
-    recognitionRevisionId: revision.recognitionRevisionId,
-    platformName,
-    examName,
-    occurredAt: new Date(`${form.occurredDate}T12:00:00+08:00`).toISOString(),
-    timedStatus: form.timedStatus,
-    durationMinutes: form.timedStatus === "timed" ? (durationMinutes ?? null) : null,
-    totalScore: optionalNumber(form.totalScore, "总分") ?? null,
-    xingceScore: optionalNumber(form.xingceScore, "行测分") ?? null,
-    shenlunScore: optionalNumber(form.shenlunScore, "申论分") ?? null,
-    moduleScores: parseModuleScores(form.moduleScoresText),
-  };
-}
-
-function parseModuleScores(value: string): Record<string, number> {
-  const normalized = value.trim();
-  if (!normalized) return {};
-  return Object.fromEntries(
-    normalized.split(/[,，\n]/).map((part) => {
-      const [name = "", raw = ""] = part.split(/[:：]/, 2);
-      const key = required(name, "模块名称");
-      const score = optionalNumber(raw, `${key}分数`);
-      if (score === undefined) throw new Error(`${key}缺少分数。`);
-      return [key, score];
-    }),
-  );
-}
-
-function optionalNumber(value: string, label: string): number | undefined {
-  if (!value.trim()) return undefined;
-  const parsed = Number(value);
-  if (!Number.isFinite(parsed) || parsed < 0) throw new Error(`${label}必须是非负数字。`);
-  return parsed;
-}
-
-function required(value: string, label: string): string {
-  const normalized = value.trim();
-  if (!normalized) throw new Error(`请填写${label}。`);
-  return normalized;
 }
 
 function evidenceGradeLabel(value: ExternalMockReportProjection["evidenceGrade"]): string {

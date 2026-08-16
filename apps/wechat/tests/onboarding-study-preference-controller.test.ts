@@ -26,6 +26,31 @@ beforeEach(() => {
 });
 
 describe("study preference controller", () => {
+  it("opens settings with a safe default when legacy onboarding lacks a preference", async () => {
+    const getStudyPreference = vi.fn(() => Promise.resolve(envelope(studyResult().preference)));
+    const advance = vi.fn();
+    let current: StudyPreferenceControllerState | undefined;
+    const controller = new StudyPreferenceController({
+      userId: "mixed-user",
+      api: api({ getStudyPreference }),
+      mode: "settings",
+      onChange: (state) => {
+        current = state;
+      },
+      onAdvance: advance,
+    });
+
+    await controller.load();
+
+    expect(advance).not.toHaveBeenCalled();
+    expect(getStudyPreference).not.toHaveBeenCalled();
+    expect(current).toMatchObject({
+      status: "ready",
+      preferenceVersion: 0,
+      progressVersion: 2,
+    });
+  });
+
   it("writes the versioned weekly rhythm and advances only from the server response", async () => {
     const putStudyPreference = vi.fn(() => Promise.resolve(envelope(studyResult())));
     const advance = vi.fn();

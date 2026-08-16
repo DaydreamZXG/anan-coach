@@ -4406,6 +4406,297 @@
         "A backend, data, upload, deployment or destructive action is required"
       ],
       "status": "planned"
+    },
+    {
+      "id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033",
+      "wave": "integration",
+      "owner": "wechat-full-product-audit-repair",
+      "riskClass": "high",
+      "objective": "按闭环阻断、任务信任和体验可理解性三阶段修复 2026-08-16 全产品模拟器审计确认的全部九项问题。",
+      "deliverables": [
+        "统一新老用户入口决策与学习偏好设置守卫",
+        "可恢复上传/识别/匹配不确定结果的导入控制器",
+        "一致的复测题量语义、非空掌握队列默认页和分包导航即时反馈",
+        "可自然发现的条款入口、面向用户的证据角色、本地字段校验和网络错误反馈",
+        "成功、失败、重放、过期、竞态和恢复六类专项测试与模拟器关键旅程证据"
+      ],
+      "requirementRefs": ["REQ-FULL-PRODUCT-AUDIT-REPAIR-033"],
+      "decisionRefs": ["DEC-FULL-PRODUCT-AUDIT-REPAIR-033", "DEC-FREEZE-RU-FULL-PRODUCT-AUDIT-REPAIR-033"],
+      "blockingDecisionRefs": [],
+      "nonGoals": [
+        "不重写后端 onboarding、mastery、planning 或 evidence 的事实语义",
+        "不改变 OpenAPI schema、数据库表、迁移、题库或真实用户记录",
+        "不以 mock 投影、静态路由或历史证据冒充真实闭环完成",
+        "不上传体验版、不部署、不执行付费、删除、导出或外部发送"
+      ],
+      "dependsOn": ["WP-DIRECT-DRAFT-CANVAS-031", "WP-DIRECT-DRAFT-TEST-CONTRACT-032"],
+      "allowedPaths": [
+        "apps/wechat/miniprogram/pages/onboarding/**",
+        "apps/wechat/miniprogram/plans/shared/features/onboarding/**",
+        "apps/wechat/miniprogram/plans/study-preference/**",
+        "apps/wechat/miniprogram/pages/capture-import/**",
+        "apps/wechat/miniprogram/xingce/xingce-mastery/**",
+        "apps/wechat/miniprogram/xingce/shared/features/xingce/**",
+        "apps/wechat/miniprogram/xingce/xingce-task-intro/**",
+        "apps/wechat/miniprogram/pages/today/**",
+        "apps/wechat/miniprogram/pages/anan/**",
+        "apps/wechat/miniprogram/pages/me/**",
+        "apps/wechat/miniprogram/account/privacy/**",
+        "apps/wechat/miniprogram/account/membership/**",
+        "apps/wechat/miniprogram/reports/error-pattern/**",
+        "apps/wechat/miniprogram/reports/external-report/**",
+        "apps/wechat/miniprogram/features/learning-brain/**",
+        "apps/wechat/miniprogram/platform/**",
+        "apps/wechat/tests/**",
+        "apps/wechat/scripts/**"
+      ],
+      "forbiddenPaths": [
+        ".product-governance/**",
+        "backend/**",
+        "audit/api-contract/**",
+        "apps/wechat/miniprogram/api/generated/**",
+        "apps/wechat/project.config.json",
+        "apps/wechat/project.private.config.json",
+        "apps/wechat/cloudfunctions/**",
+        "data/**",
+        "qbank-cloud/**",
+        "reports/**",
+        "ops/**"
+      ],
+      "migrationPolicy": {
+        "mode": "none",
+        "ownedPaths": [],
+        "dataBackfill": "No schema or data backfill. Existing onboarding, task, evidence, annotation and import facts remain canonical.",
+        "rollback": "Revert only the 033 frontend projections, recovery routing, navigation feedback and 033 scenario tests."
+      },
+      "compatibilityPolicy": {
+        "strategy": "Preserve current API contracts and canonical server facts; reconcile presentation and recovery from existing fields without inventing completion.",
+        "supportedVersions": "current generated WeChat API types, page request-owner contract, practice/mock annotation contracts and import idempotency keys.",
+        "removalGate": "Any backend fact, API schema, persistence, entitlement, upload, privacy or track-semantics change requires a separate successor release unit."
+      },
+      "inputContracts": ["wechat-page-request-owner@v1"],
+      "outputContracts": [],
+      "acceptanceCommands": [
+        {"id": "full-audit-repair-happy-033", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033/happy.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-repair-failure-033", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033/failure.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-repair-replay-033", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033/replay.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-repair-stale-033", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033/stale.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-repair-race-033", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033/race.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-repair-recovery-033", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033/recovery.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300}
+      ],
+      "requiredAcceptanceScenarios": [
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033-AS-01", "assertion": "mixed and fresh users receive one truthful coach entry while every visible count, legal link and evidence label is understandable", "testSelector": "tests/work_packages/full-product-audit-repair-033/happy.test.ts", "acceptanceCommandId": "full-audit-repair-happy-033"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033-AS-02", "assertion": "missing baseline, missing form fields, unknown evidence roles and offline requests produce specific recoverable feedback instead of dead actions or internal codes", "testSelector": "tests/work_packages/full-product-audit-repair-033/failure.test.ts", "acceptanceCommandId": "full-audit-repair-failure-033"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033-AS-03", "assertion": "uncertain import confirmation replays the same pending command and existing annotations and tasks remain replayable without duplicate facts", "testSelector": "tests/work_packages/full-product-audit-repair-033/replay.test.ts", "acceptanceCommandId": "full-audit-repair-replay-033"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033-AS-04", "assertion": "stale onboarding, mastery and request states reconcile to current server truth without inventing completion or hiding an executable due task", "testSelector": "tests/work_packages/full-product-audit-repair-033/stale.test.ts", "acceptanceCommandId": "full-audit-repair-stale-033"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033-AS-05", "assertion": "rapid navigation, recovery taps and task refreshes keep one active owner, one visible transition and one latest result", "testSelector": "tests/work_packages/full-product-audit-repair-033/race.test.ts", "acceptanceCommandId": "full-audit-repair-race-033"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033-AS-06", "assertion": "network recovery, page re-entry and generated subpackage checks restore the same user task with no blank or fabricated success state", "testSelector": "tests/work_packages/full-product-audit-repair-033/recovery.test.ts", "acceptanceCommandId": "full-audit-repair-recovery-033"}
+      ],
+      "verificationOnly": false,
+      "stopConditions": [
+        "A confirmed finding cannot be fixed without changing backend facts, OpenAPI, database,题库 or production data",
+        "A safe recovery cannot preserve the original idempotency key or distinguish pending operation ownership",
+        "A production write, upload, deployment, payment, deletion or external send is required for implementation verification"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033A",
+      "wave": "integration",
+      "owner": "wechat-full-product-audit-repair",
+      "riskClass": "high",
+      "objective": "接管 033 并按闭环阻断、任务信任和体验可理解性三阶段修复九项审计问题，同时恢复和验证短材料连续圈画修正。",
+      "deliverables": [
+        "统一新老用户入口决策与学习偏好设置守卫",
+        "可恢复上传/识别/匹配不确定结果的导入控制器",
+        "一致的复测题量语义、非空掌握队列默认页和分包导航即时反馈",
+        "可自然发现的条款入口、面向用户的证据角色、本地字段校验和网络错误反馈",
+        "短材料非零画布、组件数组属性兼容和所有 task-runtime 生成副本",
+        "成功、失败、重放、过期、竞态和恢复六类专项测试与模拟器关键旅程证据"
+      ],
+      "requirementRefs": ["REQ-FULL-PRODUCT-AUDIT-REPAIR-033"],
+      "decisionRefs": ["DEC-FULL-PRODUCT-AUDIT-REPAIR-033", "DEC-FREEZE-RU-FULL-PRODUCT-AUDIT-REPAIR-033A"],
+      "blockingDecisionRefs": [],
+      "nonGoals": [
+        "不重写后端 onboarding、mastery、planning 或 evidence 的事实语义",
+        "不改变 OpenAPI schema、数据库表、迁移、题库或真实用户记录",
+        "不以 mock 投影、静态路由或历史证据冒充真实闭环完成",
+        "不上传体验版、不部署、不执行付费、删除、导出或外部发送"
+      ],
+      "dependsOn": [],
+      "allowedPaths": [
+        "apps/wechat/miniprogram/pages/onboarding/**",
+        "apps/wechat/miniprogram/plans/shared/features/onboarding/**",
+        "apps/wechat/miniprogram/plans/study-preference/**",
+        "apps/wechat/miniprogram/pages/capture-import/**",
+        "apps/wechat/miniprogram/xingce/xingce-mastery/**",
+        "apps/wechat/miniprogram/xingce/shared/features/xingce/**",
+        "apps/wechat/miniprogram/xingce/xingce-task-intro/**",
+        "apps/wechat/miniprogram/pages/today/**",
+        "apps/wechat/miniprogram/pages/anan/**",
+        "apps/wechat/miniprogram/pages/me/**",
+        "apps/wechat/miniprogram/account/privacy/**",
+        "apps/wechat/miniprogram/account/membership/**",
+        "apps/wechat/miniprogram/reports/error-pattern/**",
+        "apps/wechat/miniprogram/reports/external-report/**",
+        "apps/wechat/miniprogram/features/learning-brain/**",
+        "apps/wechat/miniprogram/platform/**",
+        "apps/wechat/miniprogram/pages/practice/**",
+        "apps/wechat/miniprogram/pages/mock-exam/shared/**",
+        "apps/wechat/miniprogram/pages/reflection/shared/**",
+        "apps/wechat/subpackage-shared-src/task-runtime/**",
+        "apps/wechat/tests/**",
+        "apps/wechat/scripts/**"
+      ],
+      "forbiddenPaths": [
+        ".product-governance/**",
+        "backend/**",
+        "audit/api-contract/**",
+        "apps/wechat/miniprogram/api/generated/**",
+        "apps/wechat/project.config.json",
+        "apps/wechat/project.private.config.json",
+        "apps/wechat/cloudfunctions/**",
+        "data/**",
+        "qbank-cloud/**",
+        "reports/**",
+        "ops/**"
+      ],
+      "migrationPolicy": {
+        "mode": "none",
+        "ownedPaths": [],
+        "dataBackfill": "No schema or data backfill. Existing onboarding, task, evidence, annotation and import facts remain canonical.",
+        "rollback": "Revert only 033A frontend projections, recovery routing, navigation feedback, material runtime corrections and scenario tests."
+      },
+      "compatibilityPolicy": {
+        "strategy": "Preserve current API contracts and canonical server facts; retain question/material reducer identity while restoring non-zero material drawing surfaces.",
+        "supportedVersions": "current generated WeChat API types, page request-owner contract, practice/mock annotation contracts and import idempotency keys.",
+        "removalGate": "Any backend fact, API schema, persistence, entitlement, upload, privacy or track-semantics change requires another successor release unit."
+      },
+      "inputContracts": ["wechat-page-request-owner@v1"],
+      "outputContracts": [],
+      "acceptanceCommands": [
+        {"id": "full-audit-repair-happy-033a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033a/happy.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-repair-failure-033a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033a/failure.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-repair-replay-033a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033a/replay.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-repair-stale-033a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033a/stale.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-repair-race-033a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033a/race.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-repair-recovery-033a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033a/recovery.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300}
+      ],
+      "requiredAcceptanceScenarios": [
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033A-AS-01", "assertion": "mixed and fresh users receive one truthful coach entry while counts, legal links, evidence labels and visible material canvases are understandable", "testSelector": "tests/work_packages/full-product-audit-repair-033a/happy.test.ts", "acceptanceCommandId": "full-audit-repair-happy-033a"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033A-AS-02", "assertion": "missing baseline, missing form fields, unknown evidence roles, zero-height materials and offline requests produce specific recoverable behavior", "testSelector": "tests/work_packages/full-product-audit-repair-033a/failure.test.ts", "acceptanceCommandId": "full-audit-repair-failure-033a"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033A-AS-03", "assertion": "uncertain import confirmation replays one pending command while existing tasks and annotations replay without duplicate facts", "testSelector": "tests/work_packages/full-product-audit-repair-033a/replay.test.ts", "acceptanceCommandId": "full-audit-repair-replay-033a"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033A-AS-04", "assertion": "stale onboarding, mastery and request states reconcile to current truth without hiding a due task or erasing saved material strokes", "testSelector": "tests/work_packages/full-product-audit-repair-033a/stale.test.ts", "acceptanceCommandId": "full-audit-repair-stale-033a"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033A-AS-05", "assertion": "rapid navigation, recovery taps, task refreshes and tool changes keep one active owner and one latest result per surface", "testSelector": "tests/work_packages/full-product-audit-repair-033a/race.test.ts", "acceptanceCommandId": "full-audit-repair-race-033a"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033A-AS-06", "assertion": "network recovery, page re-entry and generated subpackage sync restore the same task and non-zero material canvas with no fabricated success", "testSelector": "tests/work_packages/full-product-audit-repair-033a/recovery.test.ts", "acceptanceCommandId": "full-audit-repair-recovery-033a"}
+      ],
+      "verificationOnly": false,
+      "stopConditions": [
+        "A confirmed finding cannot be fixed without changing backend facts, OpenAPI, database,题库 or production data",
+        "A safe recovery cannot preserve the original idempotency key or distinguish pending operation ownership",
+        "A production write, upload, deployment, payment, deletion or external send is required for implementation verification"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033B",
+      "wave": "integration",
+      "owner": "wechat-full-product-audit-repair",
+      "riskClass": "high",
+      "objective": "接管 033A，补齐学习偏好与掌握队列生成权威源所有权，并稳定完成九项审计修复、短材料圈画与完整模拟器回归。",
+      "deliverables": [
+        "统一新老用户入口决策与学习偏好设置守卫",
+        "可恢复上传/识别/匹配不确定结果的导入控制器",
+        "一致的复测题量语义、非空掌握队列默认页和分包导航即时反馈",
+        "可自然发现的条款入口、面向用户的证据角色、本地字段校验和网络错误反馈",
+        "短材料非零画布、组件数组属性兼容、权威共享源和所有生成副本",
+        "成功、失败、重放、过期、竞态和恢复六类专项测试与模拟器关键旅程证据"
+      ],
+      "requirementRefs": ["REQ-FULL-PRODUCT-AUDIT-REPAIR-033"],
+      "decisionRefs": ["DEC-FULL-PRODUCT-AUDIT-REPAIR-033", "DEC-FREEZE-RU-FULL-PRODUCT-AUDIT-REPAIR-033B"],
+      "blockingDecisionRefs": [],
+      "nonGoals": [
+        "不重写后端 onboarding、mastery、planning 或 evidence 的事实语义",
+        "不改变 OpenAPI schema、数据库表、迁移、题库或真实用户记录",
+        "不以 mock 投影、静态路由或历史证据冒充真实闭环完成",
+        "不上传体验版、不部署、不执行付费、删除、导出或外部发送"
+      ],
+      "dependsOn": [],
+      "allowedPaths": [
+        "apps/wechat/miniprogram/pages/onboarding/**",
+        "apps/wechat/miniprogram/plans/shared/features/onboarding/**",
+        "apps/wechat/miniprogram/plans/study-preference/**",
+        "apps/wechat/miniprogram/pages/capture-import/**",
+        "apps/wechat/miniprogram/xingce/xingce-mastery/**",
+        "apps/wechat/miniprogram/xingce/shared/features/xingce/**",
+        "apps/wechat/miniprogram/xingce/xingce-task-intro/**",
+        "apps/wechat/miniprogram/pages/today/**",
+        "apps/wechat/miniprogram/pages/anan/**",
+        "apps/wechat/miniprogram/pages/me/**",
+        "apps/wechat/miniprogram/account/privacy/**",
+        "apps/wechat/miniprogram/account/membership/**",
+        "apps/wechat/miniprogram/reports/error-pattern/**",
+        "apps/wechat/miniprogram/reports/external-report/**",
+        "apps/wechat/miniprogram/features/learning-brain/**",
+        "apps/wechat/miniprogram/platform/**",
+        "apps/wechat/miniprogram/pages/practice/**",
+        "apps/wechat/miniprogram/pages/mock-exam/shared/**",
+        "apps/wechat/miniprogram/pages/reflection/shared/**",
+        "apps/wechat/subpackage-shared-src/task-runtime/**",
+        "apps/wechat/subpackage-shared-src/features/onboarding/**",
+        "apps/wechat/subpackage-shared-src/features/xingce/mastery/**",
+        "apps/wechat/tests/**",
+        "apps/wechat/scripts/**"
+      ],
+      "forbiddenPaths": [
+        ".product-governance/**",
+        "backend/**",
+        "audit/api-contract/**",
+        "apps/wechat/miniprogram/api/generated/**",
+        "apps/wechat/project.config.json",
+        "apps/wechat/project.private.config.json",
+        "apps/wechat/cloudfunctions/**",
+        "data/**",
+        "qbank-cloud/**",
+        "reports/**",
+        "ops/**"
+      ],
+      "migrationPolicy": {
+        "mode": "none",
+        "ownedPaths": [],
+        "dataBackfill": "No schema or data backfill. Existing onboarding, task, evidence, annotation and import facts remain canonical.",
+        "rollback": "Revert only 033B frontend projections, shared authorities, generated replicas, recovery routing, navigation feedback, material runtime corrections and scenario tests."
+      },
+      "compatibilityPolicy": {
+        "strategy": "Preserve current API contracts and canonical server facts; generate all replicas from shared authorities and retain question/material reducer identity.",
+        "supportedVersions": "current generated WeChat API types, page request-owner contract, practice/mock annotation contracts, subpackage generation contract and import idempotency keys.",
+        "removalGate": "Any backend fact, API schema, persistence, entitlement, upload, privacy or track-semantics change requires another successor release unit."
+      },
+      "inputContracts": ["wechat-page-request-owner@v1"],
+      "outputContracts": [],
+      "acceptanceCommands": [
+        {"id": "full-audit-repair-happy-033b", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033a/happy.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-repair-failure-033b", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033a/failure.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-repair-replay-033b", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033a/replay.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-repair-stale-033b", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033a/stale.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-repair-race-033b", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033a/race.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-repair-recovery-033b", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/full-product-audit-repair-033a/recovery.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300}
+      ],
+      "requiredAcceptanceScenarios": [
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033B-AS-01", "assertion": "mixed and fresh users receive one truthful coach entry while counts, legal links, evidence labels and visible material canvases are understandable", "testSelector": "tests/work_packages/full-product-audit-repair-033a/happy.test.ts", "acceptanceCommandId": "full-audit-repair-happy-033b"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033B-AS-02", "assertion": "missing baseline, missing form fields, unknown evidence roles, zero-height materials and offline requests produce specific recoverable behavior", "testSelector": "tests/work_packages/full-product-audit-repair-033a/failure.test.ts", "acceptanceCommandId": "full-audit-repair-failure-033b"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033B-AS-03", "assertion": "uncertain import confirmation replays one pending command while existing tasks and annotations replay without duplicate facts", "testSelector": "tests/work_packages/full-product-audit-repair-033a/replay.test.ts", "acceptanceCommandId": "full-audit-repair-replay-033b"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033B-AS-04", "assertion": "stale onboarding, mastery and request states reconcile to current truth without hiding a due task or erasing saved material strokes", "testSelector": "tests/work_packages/full-product-audit-repair-033a/stale.test.ts", "acceptanceCommandId": "full-audit-repair-stale-033b"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033B-AS-05", "assertion": "rapid navigation, recovery taps, task refreshes and tool changes keep one active owner and one latest result per surface", "testSelector": "tests/work_packages/full-product-audit-repair-033a/race.test.ts", "acceptanceCommandId": "full-audit-repair-race-033b"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIR-033B-AS-06", "assertion": "network recovery, page re-entry and generated subpackage sync restore the same task and non-zero material canvas with no fabricated success", "testSelector": "tests/work_packages/full-product-audit-repair-033a/recovery.test.ts", "acceptanceCommandId": "full-audit-repair-recovery-033b"}
+      ],
+      "verificationOnly": false,
+      "stopConditions": [
+        "A confirmed finding cannot be fixed without changing backend facts, OpenAPI, database,题库 or production data",
+        "A safe recovery cannot preserve the original idempotency key or distinguish pending operation ownership",
+        "A production write, upload, deployment, payment, deletion or external send is required for implementation verification"
+      ],
+      "status": "planned"
     }
   ]
 }

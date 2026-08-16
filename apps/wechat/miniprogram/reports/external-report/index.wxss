@@ -67,6 +67,18 @@
   min-height: calc(130 * var(--rpx));
 }
 
+.form-control--error {
+  border-color: var(--color-danger);
+  background: var(--color-danger-soft);
+}
+
+.form-error {
+  margin-top: calc(18 * var(--rpx));
+  color: var(--color-danger);
+  font-size: var(--text-caption);
+  line-height: 1.5;
+}
+
 button.check-button {
   min-height: calc(80 * var(--rpx));
   margin-top: calc(16 * var(--rpx));

@@ -2,9 +2,11 @@ import { ApiClient } from "../../../api/client";
 import { PlanningApi } from "../../../api/planning";
 import { routes, type RegisteredNavigationTarget } from "../../../app/navigation/routes";
 import { currentAuthSession } from "../../../auth/session";
+import { navigateWithImmediateFeedback } from "../../../platform/navigation-feedback";
 import {
-  quickDiagnosticTarget,
+  resolveQuickDiagnostic,
   staticCoachRecognitionTarget,
+  type QuickDiagnosticResolution,
 } from "../features/coach-recognition-routing";
 import {
   storeCoachEntryIntent,
@@ -45,8 +47,11 @@ Page({
       const target =
         path === "quick_diagnostic"
           ? await loadQuickDiagnosticTarget(session.accessToken)
-          : staticCoachRecognitionTarget(path);
-      await navigateToCoachRecognitionTarget(target);
+          : { target: staticCoachRecognitionTarget(path), source: null };
+      if (target.source === "existing_xingce_task") {
+        void wx.showToast({ title: "已有记录，先做今天的复测", icon: "none" });
+      }
+      await navigateToCoachRecognitionTarget(target.target);
     } catch (error) {
       console.error("[onboarding] failed to open coach recognition path", { path, error });
       void wx.showModal({
@@ -60,21 +65,17 @@ Page({
   },
 });
 
-async function loadQuickDiagnosticTarget(accessToken: string): Promise<RegisteredNavigationTarget> {
+async function loadQuickDiagnosticTarget(accessToken: string): Promise<QuickDiagnosticResolution> {
   const { data } = await new PlanningApi(new ApiClient(undefined, accessToken)).getToday();
-  const target = quickDiagnosticTarget(data);
-  if (!target) {
+  const resolution = resolveQuickDiagnostic(data);
+  if (!resolution) {
     throw new Error("current plan did not produce an executable objective baseline task");
   }
-  return target;
+  return resolution;
 }
 
 async function navigateToCoachRecognitionTarget(target: RegisteredNavigationTarget): Promise<void> {
-  if (target.mode === "switchTab") {
-    await wx.switchTab({ url: target.url });
-    return;
-  }
-  await wx.navigateTo({ url: target.url });
+  await navigateWithImmediateFeedback(target, "正在准备路径");
 }
 
 function isCoachRecognitionPath(value: string): value is CoachRecognitionPath {

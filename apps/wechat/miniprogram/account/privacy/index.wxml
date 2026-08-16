@@ -41,6 +41,15 @@
     </view>
 
     <view class="s9-section">
+      <view class="s9-section-head"><view class="s9-section-title">规则与说明</view><view class="s9-section-meta">随时可查</view></view>
+      <navigator hover-class="item--hover" class="s9-card" url="/account/terms/index">
+        <view class="s9-card-title">查看服务条款</view>
+        <view class="s9-card-copy">了解服务边界、账户规则和你的权利，不需要等到购买或上传时才看。</view>
+        <view class="s9-card-meta">打开完整条款 →</view>
+      </navigator>
+    </view>
+
+    <view class="s9-section">
       <view class="s9-section-head"><view class="s9-section-title">导出个人数据</view><view class="s9-section-meta">生成后 24 小时过期</view></view>
       <view class="s9-card export-card">
         <view class="s9-card-copy export-copy">包括账户、资格岗位、学习记录、原始资料、报告、订单和会员信息；不包括密钥和第三方支付凭据。</view>

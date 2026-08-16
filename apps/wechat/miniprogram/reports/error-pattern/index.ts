@@ -1,5 +1,5 @@
 import { LearningBrainApi } from "../../api/learning-brain";
-import type { BrainEvidenceRef, ErrorPatternDetail } from "../../api/generated/types.gen";
+import type { ErrorPatternDetail } from "../../api/generated/types.gen";
 import { routes } from "../../app/navigation/routes";
 import { currentAuthSession } from "../../auth/session";
 import { createIdempotencyKey } from "../../platform/command-id";
@@ -9,6 +9,7 @@ import {
   errorView,
   requireAuthenticatedClient,
 } from "../../features/learning-brain/presentation";
+import { presentErrorPatternEvidence } from "./features/evidence-presentation";
 
 Page({
   data: {
@@ -52,7 +53,7 @@ Page({
           counterevidence: "出现反向证据",
           retired: "已不再生效",
         }[data.pattern.status],
-        supportingEvidence: data.supportingEvidence.map(evidenceView),
+        supportingEvidence: data.supportingEvidence.map(presentErrorPatternEvidence),
         retryAllowed: false,
       });
     } catch (error) {
@@ -125,20 +126,3 @@ Page({
     void wx.switchTab({ url: routes.anan });
   },
 });
-
-function evidenceView(item: BrainEvidenceRef): { label: string; meta: string } {
-  const label =
-    item.role?.trim() ||
-    {
-      question_attempt: "真实作答记录",
-      task_execution: "任务完成记录",
-      reflection: "错题复盘",
-      essay_review: "申论评阅",
-      verification: "复测记录",
-    }[item.entityType] ||
-    "相关学习记录";
-  return {
-    label,
-    meta: item.occurredAt ? dateTimeLabel(item.occurredAt) : "已纳入当前判断",
-  };
-}

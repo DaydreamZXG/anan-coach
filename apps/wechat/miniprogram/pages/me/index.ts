@@ -515,6 +515,10 @@ Page({
     void wx.navigateTo({ url: routes.privacy });
   },
 
+  openTerms() {
+    void wx.navigateTo({ url: routes.terms });
+  },
+
   openSupport() {
     void wx.navigateTo({ url: routes.support });
   },

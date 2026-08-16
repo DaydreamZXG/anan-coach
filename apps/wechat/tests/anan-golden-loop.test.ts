@@ -20,6 +20,7 @@ import {
 import { silentEntryNavigationTarget } from "../miniprogram/features/identity/silent-entry";
 import {
   quickDiagnosticTarget,
+  resolveQuickDiagnostic,
   staticCoachRecognitionTarget,
 } from "../miniprogram/pages/onboarding/features/coach-recognition-routing";
 import {
@@ -114,6 +115,20 @@ describe("岸岸新用户黄金链路", () => {
     expect(quickDiagnosticTarget(dashboard)).toEqual({
       mode: "navigateTo",
       url: validTask.startUrl,
+    });
+
+    dashboard.tasks = [
+      {
+        ...validTask,
+        stage: "objective_verification",
+        kind: "verification",
+        startUrl:
+          "/xingce/xingce-task-intro/index?mode=verification&planTaskId=00000000-0000-4000-8000-000000000099",
+      },
+    ];
+    expect(resolveQuickDiagnostic(dashboard)).toEqual({
+      source: "existing_xingce_task",
+      target: { mode: "navigateTo", url: dashboard.tasks[0]?.startUrl },
     });
 
     expect(

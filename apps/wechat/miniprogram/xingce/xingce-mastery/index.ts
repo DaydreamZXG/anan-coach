@@ -7,6 +7,7 @@ import {
 import { routes } from "../../app/navigation/routes";
 import { currentAuthSession, type AuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
+import { navigateWithImmediateFeedback } from "../../platform/navigation-feedback";
 import {
   assertMasteryQueuePage,
   emptyMasteryQueueSummary,
@@ -21,6 +22,7 @@ import {
   generatedAtLabel,
   masteryQueueEmptyCopy,
   masteryQueueTabs,
+  preferredNonEmptyMasteryBucket,
   presentMasteryQueueItem,
   type MasteryQueueItemView,
   type MasteryQueueTabView,
@@ -76,9 +78,10 @@ Page<XingceMasteryPageData, XingceMasteryPageCustom>({
       return;
     }
     const requestedBucket = options.bucket ?? "";
-    const initialBucket = isMasteryQueueBucket(requestedBucket) ? requestedBucket : defaultBucket;
+    const hasExplicitBucket = isMasteryQueueBucket(requestedBucket);
+    const initialBucket = hasExplicitBucket ? requestedBucket : defaultBucket;
     resetForAccount(this, initialBucket);
-    const runtime = attachRuntime(this, session, initialBucket);
+    const runtime = attachRuntime(this, session, initialBucket, !hasExplicitBucket);
     void loadPage(this, runtime, false);
   },
 
@@ -92,7 +95,7 @@ Page<XingceMasteryPageData, XingceMasteryPageCustom>({
     }
     if (runtime && runtime.ownerUserId === session.userId) return;
     const bucket = runtime?.bucket ?? this.data.activeBucket;
-    const nextRuntime = attachRuntime(this, session, bucket);
+    const nextRuntime = attachRuntime(this, session, bucket, false);
     resetForAccount(this, bucket);
     void loadPage(this, nextRuntime, false);
   },
@@ -128,6 +131,7 @@ Page<XingceMasteryPageData, XingceMasteryPageCustom>({
     runtime.requestEpoch += 1;
     runtime.requestInFlight = false;
     runtime.loadingMore = false;
+    runtime.autoSelectNonEmpty = false;
     runtime.bucket = bucketValue;
     runtime.nextCursor = null;
     this.setData({
@@ -172,8 +176,15 @@ Page<XingceMasteryPageData, XingceMasteryPageCustom>({
       });
       return;
     }
-    if (target.mode === "switchTab") await wx.switchTab({ url: target.url });
-    else await wx.navigateTo({ url: target.url });
+    try {
+      await navigateWithImmediateFeedback(target, "正在打开复测");
+    } catch (error) {
+      this.setData({
+        partialErrorMessage:
+          error instanceof Error ? `页面没打开：${error.message}` : "页面没打开，请再试一次。",
+        partialRequestId: "",
+      });
+    }
   },
 });
 
@@ -181,6 +192,7 @@ function attachRuntime(
   page: XingceMasteryPage,
   session: AuthSession,
   bucket: XingceMasteryQueueBucket,
+  autoSelectNonEmpty: boolean,
 ): XingceMasteryPageRuntime {
   return runtimes.attach(page, {
     api: new XingceLearningApi(new ApiClient(environment.apiBaseUrl, session.accessToken)),
@@ -190,6 +202,7 @@ function attachRuntime(
     requestEpoch: 0,
     requestInFlight: false,
     loadingMore: false,
+    autoSelectNonEmpty,
     disposed: false,
   });
 }
@@ -204,6 +217,7 @@ async function loadPage(
   const cursor = append ? runtime.nextCursor : null;
   if (append && !cursor) return;
   const epoch = ++runtime.requestEpoch;
+  let followupBucket: XingceMasteryQueueBucket | null = null;
   runtime.requestInFlight = true;
   runtime.loadingMore = append;
   if (append) {
@@ -237,26 +251,41 @@ async function loadPage(
     const sourceItems = append
       ? deduplicateItems(page.data.items, queue.items.map(presentMasteryQueueItem))
       : queue.items.map(presentMasteryQueueItem);
-    runtime.nextCursor = queue.nextCursor;
-    const empty = masteryQueueEmptyCopy(bucket);
-    page.setData({
-      status: "ready",
-      activeBucket: bucket,
-      summary: queue.summary,
-      tabs: masteryQueueTabs(queue.summary, bucket),
-      items: sourceItems,
-      emptyTitle: empty.title,
-      emptyDescription: empty.description,
-      generatedAtLabel: generatedAtLabel(queue.generatedAt),
-      loadingMore: false,
-      hasMore: queue.nextCursor !== null,
-      errorTitle: "",
-      errorMessage: "",
-      requestId: "",
-      partialErrorMessage: "",
-      partialRequestId: "",
-      showLoginAction: false,
-    });
+    if (!append && sourceItems.length === 0 && runtime.autoSelectNonEmpty) {
+      followupBucket = preferredNonEmptyMasteryBucket(queue.summary, bucket);
+      runtime.autoSelectNonEmpty = false;
+    }
+    if (followupBucket) {
+      runtime.bucket = followupBucket;
+      runtime.nextCursor = null;
+      page.setData({
+        activeBucket: followupBucket,
+        summary: queue.summary,
+        tabs: masteryQueueTabs(queue.summary, followupBucket),
+      });
+    } else {
+      runtime.autoSelectNonEmpty = false;
+      runtime.nextCursor = queue.nextCursor;
+      const empty = masteryQueueEmptyCopy(bucket);
+      page.setData({
+        status: "ready",
+        activeBucket: bucket,
+        summary: queue.summary,
+        tabs: masteryQueueTabs(queue.summary, bucket),
+        items: sourceItems,
+        emptyTitle: empty.title,
+        emptyDescription: empty.description,
+        generatedAtLabel: generatedAtLabel(queue.generatedAt),
+        loadingMore: false,
+        hasMore: queue.nextCursor !== null,
+        errorTitle: "",
+        errorMessage: "",
+        requestId: "",
+        partialErrorMessage: "",
+        partialRequestId: "",
+        showLoginAction: false,
+      });
+    }
   } catch (error) {
     if (!runtimes.owns(page, runtime, epoch)) return;
     if (!currentAccountOwns(runtime)) {
@@ -294,6 +323,9 @@ async function loadPage(
       runtime.requestInFlight = false;
       runtime.loadingMore = false;
     }
+  }
+  if (followupBucket && runtimes.owns(page, runtime) && currentAccountOwns(runtime)) {
+    await loadPage(page, runtime, false);
   }
 }
 

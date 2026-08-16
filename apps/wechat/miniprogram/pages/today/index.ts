@@ -34,6 +34,7 @@ import {
   type CoachEntryIntent,
 } from "../../features/onboarding/coach-entry";
 import { suppressNativeTabBar } from "../../platform/tab-bar";
+import { navigateWithImmediateFeedback } from "../../platform/navigation-feedback";
 import { appShareMessage, appTimelineShare, enableAppShareMenu } from "../../platform/share";
 import { createIdempotencyKey } from "../../platform/command-id";
 import {
@@ -471,11 +472,14 @@ function openTodayTask(page: TodayPageInstance, taskId: string): void {
     const session = currentAuthSession();
     if (session) clearCoachTaskBeforeSnapshot(session.userId);
   };
-  if (task.navigationMode === "switchTab") {
-    wx.switchTab({ url: task.navigationUrl, fail });
-    return;
-  }
-  wx.navigateTo({ url: task.navigationUrl, fail });
+  void navigateWithImmediateFeedback(
+    { mode: task.navigationMode, url: task.navigationUrl },
+    "正在打开任务",
+  ).catch((error: unknown) => {
+    fail({
+      errMsg: error instanceof Error ? error.message : "navigation failed",
+    });
+  });
 }
 
 function emptyTodayCoachRuntime(): TodayCoachRuntime {

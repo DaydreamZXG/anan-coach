@@ -1007,6 +1007,42 @@
       "decidedBy": "architecture_owner",
       "decidedAt": "2026-08-16T00:17:00+08:00",
       "evidenceRefs": ["E-CODE-DIRECT-DRAFT-TEST-DRIFT-032", "E-USER-DIRECT-DRAFT-CANVAS-031"]
+    },
+    {
+      "id": "DEC-FULL-PRODUCT-AUDIT-REPAIR-033",
+      "question": "全产品模拟器审计确认的九项断链应局部打补丁，还是按闭环阻断、任务信任、体验可理解性三阶段统一收口？",
+      "choice": "按 A 闭环阻断、B 任务信任、C 体验可理解性顺序修复全部九项；每阶段同时补成功、失败、重放、过期、竞态和恢复测试，并在最终阶段用微信模拟器重新走关键旅程。保持后端事实、数据库、题库和真实用户数据不变。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-16T16:20:00+08:00",
+      "evidenceRefs": ["E-USER-FULL-PRODUCT-AUDIT-REPAIR-033", "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-033"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-FULL-PRODUCT-AUDIT-REPAIR-033",
+      "question": "是否冻结一个直接取代 031 运行时单元和 032 测试契约单元、只收敛本轮全产品审计问题的后继发布单元？",
+      "choice": "授权 RU-FULL-PRODUCT-AUDIT-REPAIR-033 同时依赖并取代 RU-DIRECT-DRAFT-CANVAS-031 与 RU-DIRECT-DRAFT-TEST-CONTRACT-032，仅修改微信前端、分包共享源和对应测试。禁止修改后端、生成 OpenAPI、数据库、题库、真实用户数据、上传、部署、付费、删除或外部发送。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-16T16:20:00+08:00",
+      "evidenceRefs": ["E-USER-FULL-PRODUCT-AUDIT-REPAIR-033", "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-033"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-FULL-PRODUCT-AUDIT-REPAIR-033A",
+      "question": "033 遗漏短材料画布后续修正的共享源和生成副本时，应让行为倒退、越权修改，还是用后继单元补全所有权？",
+      "choice": "冻结 RU-FULL-PRODUCT-AUDIT-REPAIR-033A 直接取代 033，保持原九项产品修复与安全边界不变，并补充 practice、mock、reflection 的 task-runtime 生成副本、subpackage-shared-src 与材料批注测试路径，使先前有效修正能在新权威中恢复和验证。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-16T16:44:00+08:00",
+      "evidenceRefs": ["E-CODE-FULL-PRODUCT-AUDIT-REPAIR-SCOPE-033A", "E-USER-FULL-PRODUCT-AUDIT-REPAIR-033"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-FULL-PRODUCT-AUDIT-REPAIR-033B",
+      "question": "033A 已授权生成副本但遗漏生成权威源，是否绕过分包同步、在旧冻结单越权，还是由继任单元补全权威所有权？",
+      "choice": "冻结 RU-FULL-PRODUCT-AUDIT-REPAIR-033B 直接取代 033A，保持九项修复、六类验收和所有安全禁区不变，仅新增 subpackage-shared-src/features/onboarding 与 features/xingce/mastery 权威源所有权，使生成副本可由标准同步脚本稳定复现。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-16T17:18:00+08:00",
+      "evidenceRefs": ["E-CODE-FULL-PRODUCT-AUDIT-REPAIR-GENERATED-AUTHORITY-033B", "E-USER-FULL-PRODUCT-AUDIT-REPAIR-033"]
     }
   ]
 }

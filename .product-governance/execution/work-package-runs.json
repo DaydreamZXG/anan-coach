@@ -1536,6 +1536,54 @@
       "reportSha256": "sha256:bbd295f3cb4ac8d057f218d783ef79b495bc0448c388eaab878acfd9ae19822a",
       "releaseUnitId": "RU-DIRECT-DRAFT-TEST-CONTRACT-032",
       "releaseUnitHash": "sha256:58740489ebad3456a436353573bcc811c17e34cea03f9f0cfb35c57960f7bfbe"
+    },
+    {
+      "id": "RU-FULL-PRODUCT-AUDIT-REPAIR-033/WP-FULL-PRODUCT-AUDIT-REPAIR-033@2026-08-16T08:40:49.687259+00:00",
+      "packageId": "WP-FULL-PRODUCT-AUDIT-REPAIR-033",
+      "baselineCommit": "2d2fb00b761ef01a6b2262f78a7f478ec19c4e0c",
+      "baselineTreeHash": "sha256:cf32f1f53b040fce2a495ec5bacbe74ffeac6aa412470410b91504102af4538a",
+      "baselineSnapshotPath": "execution/baselines/6f7992aaf35c85e0.036e9565a085a45f5942.json",
+      "baselineSnapshotSha256": "sha256:d5fd63e4b0eab49708d1c8e79423b713a5c776a873718ede88c8abb66df6aa83",
+      "assignedTo": "root",
+      "status": "failed",
+      "startedAt": "2026-08-16T08:40:49.687259+00:00",
+      "finishedAt": "2026-08-16T08:42:09.496436+00:00",
+      "reportPath": "execution/reports/6f7992aaf35c85e0.036e9565a085a45f5942.json",
+      "reportSha256": "sha256:a79baed4d896e28066dd4976ac388b2ac1156d7f3397faa4daff5bfd7daf31cf",
+      "releaseUnitId": "RU-FULL-PRODUCT-AUDIT-REPAIR-033",
+      "releaseUnitHash": "sha256:bd108a5fc37d59d1e380885f5a54856f6227a10582d51b183cd44ec3b22fc0a1"
+    },
+    {
+      "id": "RU-FULL-PRODUCT-AUDIT-REPAIR-033A/WP-FULL-PRODUCT-AUDIT-REPAIR-033A@2026-08-16T08:48:09.887992+00:00",
+      "packageId": "WP-FULL-PRODUCT-AUDIT-REPAIR-033A",
+      "baselineCommit": "2d2fb00b761ef01a6b2262f78a7f478ec19c4e0c",
+      "baselineTreeHash": "sha256:9abc201d77c39a1e8b2f5211c3e25e9b42cd51c3dc302f175b7c26d73f3cf438",
+      "baselineSnapshotPath": "execution/baselines/a9aa6fe96a9c539c.2ae941816c877256595f.json",
+      "baselineSnapshotSha256": "sha256:6bc35f88643142c205b3746c61740e7e5542027b38b9b9e3c38594d99b77929a",
+      "assignedTo": "root",
+      "status": "failed",
+      "startedAt": "2026-08-16T08:48:09.887992+00:00",
+      "finishedAt": "2026-08-16T09:21:36.104557+00:00",
+      "reportPath": "execution/reports/a9aa6fe96a9c539c.2ae941816c877256595f.json",
+      "reportSha256": "sha256:62ee5c1a9bfe5f402fbb4c7ef049a523b5e4b11e873d1b54221987f1b29e420e",
+      "releaseUnitId": "RU-FULL-PRODUCT-AUDIT-REPAIR-033A",
+      "releaseUnitHash": "sha256:2307d88f459a7514f74bff14b8ac665762e608155df8b177ce5a2ffdb0ebe887"
+    },
+    {
+      "id": "RU-FULL-PRODUCT-AUDIT-REPAIR-033B/WP-FULL-PRODUCT-AUDIT-REPAIR-033B@2026-08-16T09:29:54.243372+00:00",
+      "packageId": "WP-FULL-PRODUCT-AUDIT-REPAIR-033B",
+      "baselineCommit": "2d2fb00b761ef01a6b2262f78a7f478ec19c4e0c",
+      "baselineTreeHash": "sha256:fecef5de3f73abbc12d83f71121f40a147f6f42aa7d07d198f22bb1f09c3f7b3",
+      "baselineSnapshotPath": "execution/baselines/7c62c9082b0e1e8c.83bf9d59eef69570e7a8.json",
+      "baselineSnapshotSha256": "sha256:6bb896f4a6bd31ed0a5eee41487c561147eed13e822ff44b16eb64b7935ef187",
+      "assignedTo": "codex-root",
+      "status": "completed",
+      "startedAt": "2026-08-16T09:29:54.243372+00:00",
+      "finishedAt": "2026-08-16T09:50:19.229906+00:00",
+      "reportPath": "execution/reports/7c62c9082b0e1e8c.83bf9d59eef69570e7a8.json",
+      "reportSha256": "sha256:8bb5fa7d38b91c5ce9748a6994c4bc8625bc86844208162b2b085d15a8449a58",
+      "releaseUnitId": "RU-FULL-PRODUCT-AUDIT-REPAIR-033B",
+      "releaseUnitHash": "sha256:29bceb1cce2813e368c2dda89d51702b07cba1cd312cfdfe3d2e84b35640c54d"
     }
   ]
 }

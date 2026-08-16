@@ -520,6 +520,45 @@ describe("capture import controller", () => {
     expect(controller.snapshot()).toMatchObject({ status: "review", pendingRecovery: false });
   });
 
+  it("replays an uncertain recognition confirmation with the original command key", async () => {
+    const confirmedWorkspace = importWorkspace({
+      recognition: recognition({
+        state: "confirmed",
+        confirmedAt: "2026-07-15T02:00:00Z",
+      }),
+      questionUnits: [questionUnit()],
+    });
+    const confirmRecognition = vi
+      .fn()
+      .mockRejectedValueOnce({ status: 0, message: "network", requestId: "request-confirm" })
+      .mockResolvedValueOnce(confirmedWorkspace);
+    const controller = new CaptureImportController({
+      gateway: gateway({ confirmRecognition }),
+      onChange: vi.fn(),
+      createCommandKey: () => Promise.resolve("stable-confirm-command"),
+    });
+
+    await controller.startImport(image());
+    await controller.confirm();
+    expect(controller.snapshot()).toMatchObject({
+      status: "error",
+      pendingRecovery: true,
+      pendingRecoveryKind: "confirmation",
+    });
+
+    await controller.retryPendingOperation();
+
+    expect(confirmRecognition).toHaveBeenCalledTimes(2);
+    expect(confirmRecognition.mock.calls[0]?.[1]).toBe("stable-confirm-command:recognition");
+    expect(confirmRecognition.mock.calls[1]?.[1]).toBe("stable-confirm-command:recognition");
+    expect(controller.snapshot()).toMatchObject({
+      status: "review",
+      reviewStep: "match",
+      pendingRecovery: false,
+      pendingRecoveryKind: null,
+    });
+  });
+
   it("starts a new upload command when the user selects a different file after uncertainty", async () => {
     const beginImport = vi
       .fn()

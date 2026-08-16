@@ -42,6 +42,7 @@ export interface CaptureImportState {
   dirty: boolean;
   submitting: boolean;
   pendingRecovery: boolean;
+  pendingRecoveryKind: "import" | "confirmation" | null;
   validationError: string;
   error: ExternalLearningError | null;
 }
@@ -143,7 +144,12 @@ export class CaptureImportController {
               idempotencyKey: await this.createCommandKey("external-import"),
             };
     } catch (error) {
-      this.patch({ status: "error", error: externalLearningError(error), pendingRecovery: false });
+      this.patch({
+        status: "error",
+        error: externalLearningError(error),
+        pendingRecovery: false,
+        pendingRecoveryKind: null,
+      });
       return;
     } finally {
       this.commandPreparing = false;
@@ -158,6 +164,7 @@ export class CaptureImportController {
       validationError: "",
       error: null,
       pendingRecovery: false,
+      pendingRecoveryKind: null,
     });
     try {
       const workspace = await this.gateway.beginImport(
@@ -180,6 +187,7 @@ export class CaptureImportController {
         status: "error",
         error: view,
         pendingRecovery: view.uncertain,
+        pendingRecoveryKind: view.uncertain ? "import" : null,
         uploadProgress: null,
       });
     }
@@ -191,11 +199,29 @@ export class CaptureImportController {
     await this.startImport(pending.command.file);
   }
 
+  async retryPendingOperation(): Promise<void> {
+    if (!this.isActive() || this.state.status !== "error") return;
+    if (this.pendingImport) {
+      await this.retryPendingImport();
+      return;
+    }
+    if (this.pendingConfirmation) {
+      await this.confirm();
+      return;
+    }
+    if (this.state.workspace) await this.refresh();
+  }
+
   async load(importId: string): Promise<void> {
     const normalized = importId.trim();
     if (!normalized || !this.isActive()) return;
     const epoch = ++this.operationEpoch;
-    this.patch({ status: "processing", error: null, pendingRecovery: false });
+    this.patch({
+      status: "processing",
+      error: null,
+      pendingRecovery: false,
+      pendingRecoveryKind: null,
+    });
     try {
       const workspace = await this.gateway.getImport(normalized);
       if (this.isCurrent(epoch)) {
@@ -365,7 +391,12 @@ export class CaptureImportController {
         };
       }
     } catch (error) {
-      this.patch({ status: "error", error: externalLearningError(error), pendingRecovery: false });
+      this.patch({
+        status: "error",
+        error: externalLearningError(error),
+        pendingRecovery: false,
+        pendingRecoveryKind: null,
+      });
       return;
     } finally {
       this.commandPreparing = false;
@@ -373,7 +404,13 @@ export class CaptureImportController {
     if (!this.isActive()) return;
     const pending = this.pendingConfirmation;
     const epoch = ++this.operationEpoch;
-    this.patch({ submitting: true, pendingRecovery: false, error: null, validationError: "" });
+    this.patch({
+      submitting: true,
+      pendingRecovery: false,
+      pendingRecoveryKind: null,
+      error: null,
+      validationError: "",
+    });
     try {
       let current = workspace;
       if (confirmingRecognition && this.state.dirty) {
@@ -436,6 +473,7 @@ export class CaptureImportController {
         status: "error",
         submitting: false,
         pendingRecovery: view.uncertain,
+        pendingRecoveryKind: view.uncertain ? "confirmation" : null,
         error: view,
       });
     }
@@ -493,6 +531,7 @@ export class CaptureImportController {
       dirty: false,
       submitting: false,
       pendingRecovery: false,
+      pendingRecoveryKind: null,
       uploadProgress: null,
       validationError: "",
       error:
@@ -653,6 +692,7 @@ function initialCaptureState(learningTrack: LearningTrack): CaptureImportState {
     dirty: false,
     submitting: false,
     pendingRecovery: false,
+    pendingRecoveryKind: null,
     validationError: "",
     error: null,
   };

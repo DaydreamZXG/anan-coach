@@ -82,7 +82,7 @@ export function presentMasteryQueueItem(item: XingceMasteryQueueItem): MasteryQu
     stateLabel: stateLabel(item),
     stageLabel: stageLabel(item),
     dateLabel: dateLabel(item),
-    questionLabel: `${String(item.questionCount)} 道题`,
+    questionLabel: questionLabel(item),
     evidenceLabel: `${String(item.evidenceRefs.length)} 条相关学习记录`,
     actionState: item.action.state,
     actionLabel: actionLabel(item),
@@ -90,6 +90,25 @@ export function presentMasteryQueueItem(item: XingceMasteryQueueItem): MasteryQu
     invalidated: item.bucket === "invalidated",
     source: item,
   };
+}
+
+export function preferredNonEmptyMasteryBucket(
+  summary: XingceMasteryQueueSummary,
+  current: XingceMasteryQueueBucket,
+): XingceMasteryQueueBucket | null {
+  const counts: Record<XingceMasteryQueueBucket, number> = {
+    pending_reflection: summary.pendingReflectionCount,
+    due_verification: summary.dueVerificationCount,
+    stable_mastery: summary.stableMasteryCount,
+    invalidated: summary.invalidatedCount,
+  };
+  const priority: XingceMasteryQueueBucket[] = [
+    "pending_reflection",
+    "due_verification",
+    "stable_mastery",
+    "invalidated",
+  ];
+  return priority.find((bucket) => bucket !== current && counts[bucket] > 0) ?? null;
 }
 
 export function masteryQueueEmptyCopy(bucket: XingceMasteryQueueBucket): {
@@ -144,9 +163,17 @@ function dateLabel(item: XingceMasteryQueueItem): string {
 function actionLabel(item: XingceMasteryQueueItem): string {
   if (item.bucket === "pending_reflection") return "继续复盘";
   if (item.bucket === "due_verification") {
-    return item.action.state === "awaiting_plan" ? "回到今日计划" : "开始复测";
+    return item.action.state === "awaiting_plan" ? "回到今日计划" : "开始本次复测";
   }
   return "";
+}
+
+function questionLabel(item: XingceMasteryQueueItem): string {
+  const count = String(item.questionCount);
+  if (item.bucket === "pending_reflection") return `本组 ${count} 道错题`;
+  if (item.bucket === "due_verification") return `累计 ${count} 道待复测`;
+  if (item.bucket === "stable_mastery") return `累计 ${count} 道已验证`;
+  return `${count} 道已撤回`;
 }
 
 function two(value: number): string {

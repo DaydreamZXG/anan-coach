@@ -1204,6 +1204,50 @@
       "status": "active",
       "verificationLevel": 1,
       "basisRefs": ["E-USER-DIRECT-DRAFT-CANVAS-031", "E-CODE-DIRECT-DRAFT-CANVAS-031"]
+    },
+    {
+      "id": "E-USER-FULL-PRODUCT-AUDIT-REPAIR-033",
+      "claim": "用户在完成 61 个注册页面的微信模拟器全产品普查后，明确授权按阶段修复审计确认的全部问题，直至每项完成代码、自动测试和模拟器回归；不得以页面可打开或 mock 投影替代真实功能结论。",
+      "class": "user_confirmed",
+      "locator": "conversation:2026-08-16:repair-all-confirmed-product-audit-findings",
+      "observedAt": "2026-08-16T16:20:00+08:00",
+      "scope": "target",
+      "status": "active",
+      "verificationLevel": 0,
+      "basisRefs": ["E-USER-DIRECT-DRAFT-CANVAS-031"]
+    },
+    {
+      "id": "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-033",
+      "claim": "当前提交的 61 页模拟器普查确认 0 个 P0、6 个 P1、3 个 P2：新老 onboarding 状态权威分裂、导入确认恢复按钮空转、到期复测累计题量与本次题量混淆、分包导航前空白、条款无自然入口、内部 evidence role 原样泄漏、掌握页默认空 bucket、外部成绩本地校验被泛化错误覆盖、离线与超时没有可行动的区分。",
+      "class": "code_observed",
+      "locator": "/tmp/岸岸-全产品审计-2026-08-16.md;apps/wechat/miniprogram/pages/onboarding/features/coach-recognition-routing.ts;apps/wechat/miniprogram/plans/shared/features/onboarding/study-preference-controller.ts;apps/wechat/miniprogram/pages/capture-import/index.ts;apps/wechat/miniprogram/pages/capture-import/features/external-learning/capture-controller.ts;apps/wechat/miniprogram/xingce/shared/features/xingce/mastery/presentation.ts;apps/wechat/miniprogram/xingce/shared/features/xingce/briefing/presentation.ts;apps/wechat/miniprogram/reports/error-pattern/index.ts;apps/wechat/miniprogram/reports/external-report/index.ts;apps/wechat/miniprogram/app/navigation/routes.ts",
+      "observedAt": "2026-08-16T16:20:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": ["E-USER-FULL-PRODUCT-AUDIT-REPAIR-033", "E-CODE-DIRECT-DRAFT-TEST-DRIFT-032"]
+    },
+    {
+      "id": "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-SCOPE-033A",
+      "claim": "033 为恢复历史验证哈希暂时回退了短材料画布高度、组件数组属性兼容和对应 mock 测试，但其冻结 allowedPaths 没有包含 practice/mock/reflection 生成副本与 subpackage-shared-src；若直接执行会让用户已确认的材料圈画修正永久倒退。",
+      "class": "code_observed",
+      "locator": ".product-governance/execution/reports/6f7992aaf35c85e0.036e9565a085a45f5942.json;apps/wechat/subpackage-shared-src/task-runtime/annotation-layer/index.ts;apps/wechat/subpackage-shared-src/task-runtime/material-reader/index.ts;apps/wechat/miniprogram/pages/practice/index.ts;apps/wechat/tests/mock-material-annotation.test.ts",
+      "observedAt": "2026-08-16T16:44:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": ["E-CODE-FULL-PRODUCT-AUDIT-REPAIR-033", "E-USER-DIRECT-DRAFT-CANVAS-031"]
+    },
+    {
+      "id": "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-GENERATED-AUTHORITY-033B",
+      "claim": "033A 的实现已通过专项测试、类型检查、Lint 与 1170 项全量 Vitest，但 package:validate 证明学习偏好控制器和掌握队列 presentation/page-runtime 是由 subpackage-shared-src/features 生成；033A 只授权生成副本而未授权三项权威源，运行同步脚本会覆盖有效修复，故该执行被验证器记录为失败，必须由继任单元接管权威源后再同步。",
+      "class": "code_observed",
+      "locator": ".product-governance/execution/reports/a9aa6fe96a9c539c.2ae941816c877256595f.json;apps/wechat/scripts/sync-subpackage-shared.mjs;apps/wechat/subpackage-shared-src/features/onboarding/study-preference-controller.ts;apps/wechat/subpackage-shared-src/features/xingce/mastery/presentation.ts;apps/wechat/subpackage-shared-src/features/xingce/mastery/page-runtime.ts",
+      "observedAt": "2026-08-16T17:18:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": ["E-CODE-FULL-PRODUCT-AUDIT-REPAIR-SCOPE-033A", "E-USER-FULL-PRODUCT-AUDIT-REPAIR-033"]
     }
   ]
 }

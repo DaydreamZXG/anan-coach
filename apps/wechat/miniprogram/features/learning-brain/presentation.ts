@@ -16,10 +16,34 @@ export function errorView(
   error: unknown,
   fallback: string,
 ): { message: string; requestId: string } {
-  if (error instanceof ApiClientError) {
+  if (error instanceof ApiClientError || isApiClientErrorViewInput(error)) {
+    if (error.statusCode === 0) {
+      const timedOut = /timeout|timed\s*out|超时/iu.test(error.message);
+      return {
+        message: timedOut
+          ? "请求超时了，请确认网络后再试一次。"
+          : "网络没有连上或响应超时，请检查网络后再试一次。",
+        requestId: error.requestId,
+      };
+    }
+    if (error.statusCode === 408 || error.statusCode === 504) {
+      return { message: "请求超时了，请稍后再试一次。", requestId: error.requestId };
+    }
     return { message: error.message || fallback, requestId: error.requestId };
   }
   return { message: fallback, requestId: "" };
+}
+
+function isApiClientErrorViewInput(
+  error: unknown,
+): error is Pick<ApiClientError, "message" | "statusCode" | "requestId"> {
+  if (typeof error !== "object" || error === null) return false;
+  const candidate = error as Partial<Pick<ApiClientError, "message" | "statusCode" | "requestId">>;
+  return (
+    typeof candidate.message === "string" &&
+    typeof candidate.statusCode === "number" &&
+    typeof candidate.requestId === "string"
+  );
 }
 
 export function percent(value: number | null | undefined): string {

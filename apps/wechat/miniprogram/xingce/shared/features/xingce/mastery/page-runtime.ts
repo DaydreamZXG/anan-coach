@@ -8,6 +8,7 @@ export interface XingceMasteryPageRuntime {
   requestEpoch: number;
   requestInFlight: boolean;
   loadingMore: boolean;
+  autoSelectNonEmpty: boolean;
   disposed: boolean;
 }
 

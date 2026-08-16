@@ -489,18 +489,17 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
   },
 
   handleErrorAction() {
-    const snapshot = runtimes.get(this)?.snapshot();
-    if (snapshot?.pendingRecovery || snapshot?.workspace) {
-      this.retryImport();
-      return;
-    }
-    this.restart();
+    const controller = runtimes.get(this);
+    if (!controller) return;
+    const snapshot = controller.snapshot();
+    if (snapshot.pendingRecovery || snapshot.workspace) void controller.retryPendingOperation();
+    else this.restart();
   },
 
   retryImport() {
     const controller = runtimes.get(this);
     if (!controller) return;
-    if (controller.snapshot().pendingRecovery) void controller.retryPendingImport();
+    if (controller.snapshot().pendingRecovery) void controller.retryPendingOperation();
     else void controller.refresh();
   },
 
