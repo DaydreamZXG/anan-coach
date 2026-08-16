@@ -4697,6 +4697,400 @@
         "A production write, upload, deployment, payment, deletion or external send is required for implementation verification"
       ],
       "status": "planned"
+    },
+    {
+      "id": "WP-ESSAY-TASK-CLOSURE-034",
+      "wave": "integration",
+      "owner": "wechat-essay-task-closure",
+      "riskClass": "high",
+      "objective": "收口申论材料梳理成功后的死页，并把要点提炼改成复用上一步证据的三步找点过程。",
+      "deliverables": [
+        "已保存、计划已更新、自动返回今日且可手动恢复的成功转场",
+        "复用上一步梳理、不默认分类、按三个用户动作组织的要点提炼界面",
+        "成功、失败、重放、过期、竞态和恢复六类专项测试与模拟器证据"
+      ],
+      "requirementRefs": ["REQ-ESSAY-TASK-CLOSURE-034"],
+      "decisionRefs": ["DEC-ESSAY-TASK-CLOSURE-034", "DEC-FREEZE-RU-ESSAY-TASK-CLOSURE-034"],
+      "blockingDecisionRefs": [],
+      "nonGoals": [
+        "不增加或伪造 AI 评判、评分或教练证据",
+        "不改变后端 completePlanTask 与 essay artifact 语义",
+        "不修改 OpenAPI、数据库、题库、真实用户记录或运营配置",
+        "不部署、不上传体验版、不执行付费、删除或外部发送"
+      ],
+      "dependsOn": [],
+      "allowedPaths": [
+        "apps/wechat/miniprogram/pages/essay-task/**",
+        "apps/wechat/tests/essay-task.test.ts",
+        "apps/wechat/tests/work_packages/essay-task-closure-034/**"
+      ],
+      "forbiddenPaths": [
+        ".product-governance/**",
+        "backend/**",
+        "audit/api-contract/**",
+        "apps/wechat/miniprogram/api/generated/**",
+        "apps/wechat/project.config.json",
+        "apps/wechat/project.private.config.json",
+        "apps/wechat/cloudfunctions/**",
+        "data/**",
+        "qbank-cloud/**",
+        "reports/**",
+        "ops/**"
+      ],
+      "migrationPolicy": {
+        "mode": "none",
+        "ownedPaths": [],
+        "dataBackfill": "No schema or data backfill. Existing essay workspace, artifact and plan completion facts remain canonical.",
+        "rollback": "Revert only the 034 essay-task presentation, local form validation, completion navigation and 034 scenario tests."
+      },
+      "compatibilityPolicy": {
+        "strategy": "Preserve existing essay workspace, artifact payload and complete-plan-task API contracts; change only user-facing presentation and local draft defaults.",
+        "supportedVersions": "current generated WeChat API types and wechat-page-request-owner@v1.",
+        "removalGate": "Any backend evaluation, AI scoring, API, persistence or plan-semantics change requires a separate successor release unit."
+      },
+      "inputContracts": ["wechat-page-request-owner@v1"],
+      "outputContracts": [],
+      "acceptanceCommands": [
+        {"id": "essay-task-closure-happy-034", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/essay-task-closure-034/happy.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "essay-task-closure-failure-034", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/essay-task-closure-034/failure.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "essay-task-closure-replay-034", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/essay-task-closure-034/replay.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "essay-task-closure-stale-034", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/essay-task-closure-034/stale.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "essay-task-closure-race-034", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/essay-task-closure-034/race.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "essay-task-closure-recovery-034", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/essay-task-closure-034/recovery.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300}
+      ],
+      "requiredAcceptanceScenarios": [
+        {"id": "WP-ESSAY-TASK-CLOSURE-034-AS-01", "assertion": "successful save locks the draft, shows truthful completion and returns to the current Today plan", "testSelector": "tests/work_packages/essay-task-closure-034/happy.test.ts", "acceptanceCommandId": "essay-task-closure-happy-034"},
+        {"id": "WP-ESSAY-TASK-CLOSURE-034-AS-02", "assertion": "missing answer-point category, statement or source segment produces specific local recovery feedback", "testSelector": "tests/work_packages/essay-task-closure-034/failure.test.ts", "acceptanceCommandId": "essay-task-closure-failure-034"},
+        {"id": "WP-ESSAY-TASK-CLOSURE-034-AS-03", "assertion": "replayed saved artifacts produce the same prior-summary guide without inventing coach evaluation", "testSelector": "tests/work_packages/essay-task-closure-034/replay.test.ts", "acceptanceCommandId": "essay-task-closure-replay-034"},
+        {"id": "WP-ESSAY-TASK-CLOSURE-034-AS-04", "assertion": "stale or absent prior annotation never fabricates a summary and keeps the point task actionable", "testSelector": "tests/work_packages/essay-task-closure-034/stale.test.ts", "acceptanceCommandId": "essay-task-closure-stale-034"},
+        {"id": "WP-ESSAY-TASK-CLOSURE-034-AS-05", "assertion": "rapid save or repeated return actions preserve one completion owner and one visible transition", "testSelector": "tests/work_packages/essay-task-closure-034/race.test.ts", "acceptanceCommandId": "essay-task-closure-race-034"},
+        {"id": "WP-ESSAY-TASK-CLOSURE-034-AS-06", "assertion": "failed automatic navigation leaves an enabled manual return-to-Today recovery action instead of a dead disabled submit button", "testSelector": "tests/work_packages/essay-task-closure-034/recovery.test.ts", "acceptanceCommandId": "essay-task-closure-recovery-034"}
+      ],
+      "verificationOnly": false,
+      "stopConditions": [
+        "The fix requires changing backend evaluation, plan facts, OpenAPI, database or production data",
+        "A truthful completion state cannot be derived from the existing completePlanTask response",
+        "A production write, deployment, upload, payment, deletion or external send is required for verification"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "WP-ESSAY-TASK-CLOSURE-AUTHORITY-034A",
+      "wave": "integration",
+      "owner": "wechat-essay-task-closure-authority",
+      "riskClass": "high",
+      "objective": "补齐 034 的申论表单分包权威源，使页面修复能被标准同步稳定复现。",
+      "deliverables": [
+        "与 034 生成副本一致的申论表单权威源",
+        "分包同步无漂移、六类专项测试和整包检查证据"
+      ],
+      "requirementRefs": ["REQ-ESSAY-TASK-CLOSURE-034"],
+      "decisionRefs": ["DEC-FREEZE-RU-ESSAY-TASK-CLOSURE-AUTHORITY-034A"],
+      "blockingDecisionRefs": [],
+      "nonGoals": [
+        "不改变 034 已冻结的产品语义和页面设计",
+        "不修改后端、OpenAPI、数据库、题库或真实用户数据",
+        "不部署、不上传体验版、不执行付费、删除或外部发送"
+      ],
+      "dependsOn": [],
+      "allowedPaths": ["apps/wechat/subpackage-shared-src/features/essay-task/forms.ts"],
+      "forbiddenPaths": [
+        ".product-governance/**",
+        "backend/**",
+        "audit/api-contract/**",
+        "apps/wechat/miniprogram/api/generated/**",
+        "apps/wechat/project.config.json",
+        "apps/wechat/project.private.config.json",
+        "apps/wechat/cloudfunctions/**",
+        "data/**",
+        "qbank-cloud/**",
+        "reports/**",
+        "ops/**"
+      ],
+      "migrationPolicy": {
+        "mode": "none",
+        "ownedPaths": [],
+        "dataBackfill": "No schema or data backfill. This unit only restores generated-source authority.",
+        "rollback": "Revert only the 034A canonical essay forms source."
+      },
+      "compatibilityPolicy": {
+        "strategy": "Keep the canonical source byte-equivalent to the validated 034 generated form behavior.",
+        "supportedVersions": "current subpackage-shared manifest and WeChat TypeScript build.",
+        "removalGate": "Any product, API, persistence or AI-semantics change requires another release unit."
+      },
+      "inputContracts": ["wechat-page-request-owner@v1"],
+      "outputContracts": [],
+      "acceptanceCommands": [
+        {"id": "essay-task-closure-happy-034a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/essay-task-closure-034/happy.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "essay-task-closure-failure-034a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/essay-task-closure-034/failure.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "essay-task-closure-replay-034a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/essay-task-closure-034/replay.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "essay-task-closure-stale-034a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/essay-task-closure-034/stale.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "essay-task-closure-race-034a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/essay-task-closure-034/race.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "essay-task-closure-recovery-034a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/essay-task-closure-034/recovery.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300}
+      ],
+      "requiredAcceptanceScenarios": [
+        {"id": "WP-ESSAY-TASK-CLOSURE-AUTHORITY-034A-AS-01", "assertion": "canonical forms reproduce the saved-reading guide and successful completion behavior", "testSelector": "tests/work_packages/essay-task-closure-034/happy.test.ts", "acceptanceCommandId": "essay-task-closure-happy-034a"},
+        {"id": "WP-ESSAY-TASK-CLOSURE-AUTHORITY-034A-AS-02", "assertion": "canonical forms retain explicit point-category validation", "testSelector": "tests/work_packages/essay-task-closure-034/failure.test.ts", "acceptanceCommandId": "essay-task-closure-failure-034a"},
+        {"id": "WP-ESSAY-TASK-CLOSURE-AUTHORITY-034A-AS-03", "assertion": "generated replay remains deterministic and does not fabricate coach judgement", "testSelector": "tests/work_packages/essay-task-closure-034/replay.test.ts", "acceptanceCommandId": "essay-task-closure-replay-034a"},
+        {"id": "WP-ESSAY-TASK-CLOSURE-AUTHORITY-034A-AS-04", "assertion": "missing prior artifact remains visibly absent after generation", "testSelector": "tests/work_packages/essay-task-closure-034/stale.test.ts", "acceptanceCommandId": "essay-task-closure-stale-034a"},
+        {"id": "WP-ESSAY-TASK-CLOSURE-AUTHORITY-034A-AS-05", "assertion": "generated behavior preserves one completion owner under repeated actions", "testSelector": "tests/work_packages/essay-task-closure-034/race.test.ts", "acceptanceCommandId": "essay-task-closure-race-034a"},
+        {"id": "WP-ESSAY-TASK-CLOSURE-AUTHORITY-034A-AS-06", "assertion": "generated page retains the manual return recovery after automatic navigation failure", "testSelector": "tests/work_packages/essay-task-closure-034/recovery.test.ts", "acceptanceCommandId": "essay-task-closure-recovery-034a"}
+      ],
+      "verificationOnly": false,
+      "stopConditions": [
+        "Canonical synchronization changes behavior outside the frozen 034 contract",
+        "The canonical source cannot reproduce the validated generated target",
+        "Verification requires backend, production data, deployment or upload changes"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "WP-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+      "wave": "integration",
+      "owner": "wechat-workspace-scratch-cause-visibility",
+      "riskClass": "high",
+      "objective": "把分栏草稿改成按题隔离的一块整屏画布，并让既有岸岸错因候选在复盘主流程中可见、可解释、可确认。",
+      "deliverables": [
+        "practice/mock 唯一整屏 viewport 草稿层和单工具栏",
+        "workspace 笔迹识别、当前题替换与旧笔迹兼容的共享纯逻辑",
+        "取消材料共享复制的新笔迹保存链与切题隔离",
+        "停留并轮询真实 cause candidate 的岸岸判断流程",
+        "岸岸先判断、用户可选补充的复盘信息层级",
+        "成功、失败、重放、过期、竞态和恢复六类测试"
+      ],
+      "requirementRefs": ["REQ-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"],
+      "decisionRefs": ["DEC-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035", "DEC-FREEZE-RU-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"],
+      "blockingDecisionRefs": [],
+      "nonGoals": [
+        "不修改 AnnotationStroke 服务端 schema 或 cause-agent API",
+        "不迁移、删除或重写已有 question/material 笔迹",
+        "不在客户端根据答案自行编造错因事实",
+        "不修改后端、数据库、题库、真实用户数据、部署或发布"
+      ],
+      "dependsOn": ["WP-DIRECT-DRAFT-CANVAS-031", "WP-DIRECT-DRAFT-TEST-CONTRACT-032"],
+      "allowedPaths": [
+        "apps/wechat/miniprogram/pages/practice/index.ts",
+        "apps/wechat/miniprogram/pages/practice/index.wxml",
+        "apps/wechat/miniprogram/pages/practice/index.wxss",
+        "apps/wechat/miniprogram/pages/mock-exam/index.ts",
+        "apps/wechat/miniprogram/pages/mock-exam/index.wxml",
+        "apps/wechat/miniprogram/pages/mock-exam/index.wxss",
+        "apps/wechat/miniprogram/pages/reflection/index.ts",
+        "apps/wechat/miniprogram/pages/reflection/index.wxml",
+        "apps/wechat/miniprogram/pages/reflection/index.wxss",
+        "apps/wechat/subpackage-shared-src/task-runtime/annotation-layer/**",
+        "apps/wechat/miniprogram/pages/practice/shared/task-runtime/annotation-layer/**",
+        "apps/wechat/miniprogram/pages/mock-exam/shared/task-runtime/annotation-layer/**",
+        "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/**",
+        "apps/wechat/tests/xingce-practice-page-lifecycle.test.ts",
+        "apps/wechat/tests/stage2-mock-exam.test.ts",
+        "apps/wechat/tests/mock-material-annotation.test.ts",
+        "apps/wechat/tests/xingce-async-cause-navigation.test.ts",
+        "apps/wechat/tests/work_packages/workspace-scratch-cause-visibility-035/**"
+      ],
+      "forbiddenPaths": [
+        ".product-governance/**",
+        "backend/**",
+        "audit/api-contract/**",
+        "apps/wechat/miniprogram/api/generated/**",
+        "apps/wechat/miniprogram/task-runtime/contracts.ts",
+        "apps/wechat/project.config.json",
+        "apps/wechat/project.private.config.json",
+        "apps/wechat/cloudfunctions/**",
+        "data/**",
+        "qbank-cloud/**",
+        "reports/**",
+        "ops/**"
+      ],
+      "migrationPolicy": {
+        "mode": "none",
+        "ownedPaths": [],
+        "dataBackfill": "No schema or data backfill. Existing question/material strokes remain readable; new workspace strokes are stored only in the current question annotation array with a stable ID prefix.",
+        "rollback": "Revert only the 035 workspace host, workspace-stroke projection, reflection visibility changes and 035 tests."
+      },
+      "compatibilityPolicy": {
+        "strategy": "Preserve AnnotationStroke and current cause-agent endpoints; distinguish viewport workspace strokes by strokeId prefix and preserve all legacy strokes without shared-material replication.",
+        "supportedVersions": "current practice/mock task runtime, annotation-layer and xingce cause-candidate review state machine.",
+        "removalGate": "Any backend annotation schema, cause-agent output, database migration or production-data change requires another successor release unit."
+      },
+      "inputContracts": ["wechat-page-request-owner@v1"],
+      "outputContracts": [],
+      "acceptanceCommands": [
+        {"id":"workspace-cause-happy-035","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/happy.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-failure-035","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/failure.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-replay-035","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/replay.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-stale-035","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/stale.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-race-035","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/race.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-recovery-035","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/recovery.test.ts","cwd":"apps/wechat","timeoutSeconds":300}
+      ],
+      "requiredAcceptanceScenarios": [
+        {"id":"WP-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035-AS-01","assertion":"one viewport layer crosses the material/question seam, saves only to the current question and leads to a visible real coach candidate","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/happy.test.ts","acceptanceCommandId":"workspace-cause-happy-035"},
+        {"id":"WP-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035-AS-02","assertion":"split active canvases, shared-material replication and automatic departure from cause processing are absent","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/failure.test.ts","acceptanceCommandId":"workspace-cause-failure-035"},
+        {"id":"WP-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035-AS-03","assertion":"legacy strokes remain intact while workspace strokes replay deterministically within their owning question","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/replay.test.ts","acceptanceCommandId":"workspace-cause-replay-035"},
+        {"id":"WP-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035-AS-04","assertion":"question transitions discard stale viewport interaction state without leaking the previous question strokes","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/stale.test.ts","acceptanceCommandId":"workspace-cause-stale-035"},
+        {"id":"WP-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035-AS-05","assertion":"rapid drawing, tool changes and repeated reflection submission preserve one current owner and one idempotent cause request","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/race.test.ts","acceptanceCommandId":"workspace-cause-race-035"},
+        {"id":"WP-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035-AS-06","assertion":"polling or candidate limitations leave visible retry, follow-up or correction actions and never a dead end","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/recovery.test.ts","acceptanceCommandId":"workspace-cause-recovery-035"}
+      ],
+      "verificationOnly": false,
+      "stopConditions": [
+        "A single viewport canvas cannot preserve current question ownership without a backend schema change",
+        "The existing cause-agent lifecycle cannot expose a real candidate or an actionable limitation without new backend facts",
+        "Verification requires production data, deployment, upload, payment, deletion or external sending"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "WP-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A",
+      "wave": "integration",
+      "owner": "wechat-workspace-scratch-test-authority",
+      "riskClass": "medium",
+      "objective": "把仍要求双活动画布和材料共享 reducer 的 030/031/032 历史测试更新为 035 整屏单画布契约。",
+      "deliverables": ["校正三个历史专项目录的过时断言", "保留旧笔迹兼容、生命周期释放与检查点证据覆盖", "六类 035 专项与整包检查通过"],
+      "requirementRefs": ["REQ-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"],
+      "decisionRefs": ["DEC-FREEZE-RU-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A"],
+      "blockingDecisionRefs": [],
+      "nonGoals": ["不修改任何生产 WXML、TypeScript、WXSS 或生成副本", "不放宽当前题所有权、生命周期释放或候选可见断言", "不修改后端、数据、题库、部署或发布"],
+      "dependsOn": ["WP-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"],
+      "allowedPaths": [
+        "apps/wechat/tests/work_packages/beta-flow-discoverability-030/**",
+        "apps/wechat/tests/work_packages/direct-draft-canvas-031/**",
+        "apps/wechat/tests/work_packages/direct-draft-test-contract-032/**"
+      ],
+      "forbiddenPaths": [".product-governance/**", "apps/wechat/miniprogram/**", "apps/wechat/subpackage-shared-src/**", "backend/**", "data/**", "reports/**", "ops/**"],
+      "migrationPolicy": {"mode":"none","ownedPaths":[],"dataBackfill":"No runtime or data migration; historical test expectations only.","rollback":"Restore only the twelve 030/031/032 historical test assertions."},
+      "compatibilityPolicy": {"strategy":"Preserve legacy-stroke and lifecycle coverage while replacing only obsolete dual-canvas expectations with the frozen 035 workspace contract.","supportedVersions":"RU-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035 release-unit hash sha256:2873e074eb2c7434c2451aca4773b94ed89910f2d309753f830d71a32de2ac70.","removalGate":"Any runtime, API, persistence or AI-semantics change requires another implementation release unit."},
+      "inputContracts": ["wechat-page-request-owner@v1"],
+      "outputContracts": [],
+      "acceptanceCommands": [
+        {"id":"workspace-cause-happy-035a","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/happy.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-failure-035a","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/failure.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-replay-035a","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/replay.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-stale-035a","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/stale.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-race-035a","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/race.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-recovery-035a","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/recovery.test.ts","cwd":"apps/wechat","timeoutSeconds":300}
+      ],
+      "requiredAcceptanceScenarios": [
+        {"id":"WP-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A-AS-01","assertion":"historical happy paths require one viewport canvas and visible coach candidate","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/happy.test.ts","acceptanceCommandId":"workspace-cause-happy-035a"},
+        {"id":"WP-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A-AS-02","assertion":"historical failure paths reject split canvases, material replication and automatic cause departure","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/failure.test.ts","acceptanceCommandId":"workspace-cause-failure-035a"},
+        {"id":"WP-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A-AS-03","assertion":"legacy stroke replay remains covered without restoring shared material behavior","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/replay.test.ts","acceptanceCommandId":"workspace-cause-replay-035a"},
+        {"id":"WP-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A-AS-04","assertion":"question transition still clears stale interaction and prevents stroke leakage","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/stale.test.ts","acceptanceCommandId":"workspace-cause-stale-035a"},
+        {"id":"WP-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A-AS-05","assertion":"latest workspace replacement and reflection idempotency remain covered","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/race.test.ts","acceptanceCommandId":"workspace-cause-race-035a"},
+        {"id":"WP-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A-AS-06","assertion":"polling and candidate correction recovery remain visible","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/recovery.test.ts","acceptanceCommandId":"workspace-cause-recovery-035a"}
+      ],
+      "verificationOnly": false,
+      "stopConditions": ["Updating history tests requires a runtime behavior change", "The replacement would weaken current-question isolation or cause visibility", "Verification requires backend, production data, deployment or external actions"],
+      "status": "planned"
+    },
+    {
+      "id": "WP-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B",
+      "wave": "integration",
+      "owner": "wechat-workspace-scratch-execution-reconciliation",
+      "riskClass": "high",
+      "objective": "为已冻结的整屏草稿、当前题隔离、旧笔迹兼容、岸岸错因候选可见链和历史测试校正建立一个无循环依赖的可执行验收边界。",
+      "deliverables": ["整屏 viewport 草稿运行时与共享权威源", "当前题笔迹所有权和旧笔迹兼容", "岸岸候选错因主流程", "历史测试契约校正", "六类可复算验收证据"],
+      "requirementRefs": ["REQ-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"],
+      "decisionRefs": ["DEC-FREEZE-RU-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B"],
+      "blockingDecisionRefs": [],
+      "nonGoals": ["不修改既有冻结单元或伪造其执行状态", "不修改后端、OpenAPI、数据库、题库或真实用户数据", "不部署、不上传体验版、不进行外部发送"],
+      "dependsOn": [],
+      "allowedPaths": [
+        "apps/wechat/miniprogram/pages/practice/index.ts",
+        "apps/wechat/miniprogram/pages/practice/index.wxml",
+        "apps/wechat/miniprogram/pages/practice/index.wxss",
+        "apps/wechat/miniprogram/pages/mock-exam/index.ts",
+        "apps/wechat/miniprogram/pages/mock-exam/index.wxml",
+        "apps/wechat/miniprogram/pages/mock-exam/index.wxss",
+        "apps/wechat/miniprogram/pages/reflection/index.ts",
+        "apps/wechat/miniprogram/pages/reflection/index.wxml",
+        "apps/wechat/miniprogram/pages/reflection/index.wxss",
+        "apps/wechat/subpackage-shared-src/task-runtime/annotation-layer/**",
+        "apps/wechat/miniprogram/pages/practice/shared/task-runtime/annotation-layer/**",
+        "apps/wechat/miniprogram/pages/mock-exam/shared/task-runtime/annotation-layer/**",
+        "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/**",
+        "apps/wechat/tests/xingce-practice-page-lifecycle.test.ts",
+        "apps/wechat/tests/stage2-mock-exam.test.ts",
+        "apps/wechat/tests/mock-material-annotation.test.ts",
+        "apps/wechat/tests/xingce-async-cause-navigation.test.ts",
+        "apps/wechat/tests/work_packages/workspace-scratch-cause-visibility-035/**",
+        "apps/wechat/tests/work_packages/beta-flow-discoverability-030/**",
+        "apps/wechat/tests/work_packages/direct-draft-canvas-031/**",
+        "apps/wechat/tests/work_packages/direct-draft-test-contract-032/**"
+      ],
+      "forbiddenPaths": [".product-governance/**", "backend/**", "audit/api-contract/**", "apps/wechat/miniprogram/api/generated/**", "apps/wechat/miniprogram/task-runtime/contracts.ts", "apps/wechat/project.config.json", "apps/wechat/project.private.config.json", "apps/wechat/cloudfunctions/**", "data/**", "qbank-cloud/**", "reports/**", "ops/**"],
+      "migrationPolicy": {"mode":"none","ownedPaths":[],"dataBackfill":"No schema or data backfill. Preserve legacy strokes and save new workspace strokes only to the current question.","rollback":"Revert only the 035/035A runtime, shared annotation source and test-contract changes."},
+      "compatibilityPolicy": {"strategy":"Preserve AnnotationStroke and cause-agent contracts while making workspace strokes and real cause candidates visible through existing fields.","supportedVersions":"current practice/mock/reflection runtime and existing xingce cause-candidate state machine.","removalGate":"Any backend schema, AI-output, persistence or production-data change requires a separate release unit."},
+      "inputContracts": ["wechat-page-request-owner@v1"],
+      "outputContracts": [],
+      "acceptanceCommands": [
+        {"id":"workspace-cause-happy-035b","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/happy.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-failure-035b","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/failure.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-replay-035b","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/replay.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-stale-035b","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/stale.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-race-035b","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/race.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-recovery-035b","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/recovery.test.ts","cwd":"apps/wechat","timeoutSeconds":300}
+      ],
+      "requiredAcceptanceScenarios": [
+        {"id":"WP-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B-AS-01","assertion":"one viewport layer crosses the seam, remains owned by the current question and reaches a visible coach candidate","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/happy.test.ts","acceptanceCommandId":"workspace-cause-happy-035b"},
+        {"id":"WP-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B-AS-02","assertion":"split active canvases, shared-material replication and automatic cause departure remain absent","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/failure.test.ts","acceptanceCommandId":"workspace-cause-failure-035b"},
+        {"id":"WP-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B-AS-03","assertion":"legacy strokes replay without leaking workspace strokes across questions","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/replay.test.ts","acceptanceCommandId":"workspace-cause-replay-035b"},
+        {"id":"WP-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B-AS-04","assertion":"question transitions clear stale interaction state","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/stale.test.ts","acceptanceCommandId":"workspace-cause-stale-035b"},
+        {"id":"WP-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B-AS-05","assertion":"rapid drawing and repeated reflection submission preserve one owner and one idempotent request","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/race.test.ts","acceptanceCommandId":"workspace-cause-race-035b"},
+        {"id":"WP-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B-AS-06","assertion":"polling and candidate limitations keep visible recovery actions","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/recovery.test.ts","acceptanceCommandId":"workspace-cause-recovery-035b"}
+      ],
+      "verificationOnly": false,
+      "stopConditions": ["Reconciliation would require mutating a frozen release unit", "Verification would require backend or production-data changes", "Verification requires deployment, upload or external sending"],
+      "status": "planned"
+    },
+    {
+      "id": "WP-WORKSPACE-SCRATCH-VERIFICATION-035C",
+      "wave": "integration",
+      "owner": "wechat-workspace-scratch-verification",
+      "riskClass": "high",
+      "objective": "只验证在派发前已经完成并通过全量门禁的整屏草稿与岸岸错因可见实现，不伪造实施期代码差异。",
+      "deliverables": ["六类场景运行证明", "当前整屏草稿与错因可见实现的哈希快照", "明确的 verification-only 执行记录"],
+      "requirementRefs": ["REQ-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"],
+      "decisionRefs": ["DEC-FREEZE-RU-WORKSPACE-SCRATCH-VERIFICATION-035C"],
+      "blockingDecisionRefs": [],
+      "nonGoals": ["不声称代码在本执行期内产生", "不修改冻结历史或失败执行记录", "不修改后端、数据、部署或发布"],
+      "dependsOn": [],
+      "allowedPaths": [
+        "apps/wechat/miniprogram/pages/practice/index.ts", "apps/wechat/miniprogram/pages/practice/index.wxml", "apps/wechat/miniprogram/pages/practice/index.wxss",
+        "apps/wechat/miniprogram/pages/mock-exam/index.ts", "apps/wechat/miniprogram/pages/mock-exam/index.wxml", "apps/wechat/miniprogram/pages/mock-exam/index.wxss",
+        "apps/wechat/miniprogram/pages/reflection/index.ts", "apps/wechat/miniprogram/pages/reflection/index.wxml", "apps/wechat/miniprogram/pages/reflection/index.wxss",
+        "apps/wechat/subpackage-shared-src/task-runtime/annotation-layer/**",
+        "apps/wechat/miniprogram/pages/practice/shared/task-runtime/annotation-layer/**",
+        "apps/wechat/miniprogram/pages/mock-exam/shared/task-runtime/annotation-layer/**",
+        "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/**",
+        "apps/wechat/tests/xingce-practice-page-lifecycle.test.ts", "apps/wechat/tests/stage2-mock-exam.test.ts", "apps/wechat/tests/mock-material-annotation.test.ts", "apps/wechat/tests/xingce-async-cause-navigation.test.ts",
+        "apps/wechat/tests/work_packages/workspace-scratch-cause-visibility-035/**",
+        "apps/wechat/tests/work_packages/beta-flow-discoverability-030/**",
+        "apps/wechat/tests/work_packages/direct-draft-canvas-031/**",
+        "apps/wechat/tests/work_packages/direct-draft-test-contract-032/**"
+      ],
+      "forbiddenPaths": [".product-governance/**", "backend/**", "audit/api-contract/**", "apps/wechat/miniprogram/api/generated/**", "apps/wechat/miniprogram/task-runtime/contracts.ts", "apps/wechat/project.config.json", "apps/wechat/project.private.config.json", "apps/wechat/cloudfunctions/**", "data/**", "qbank-cloud/**", "reports/**", "ops/**"],
+      "migrationPolicy": {"mode":"none","ownedPaths":[],"dataBackfill":"Verification only; no schema, source or data migration.","rollback":"Remove only the 035C verification metadata if it is invalid."},
+      "compatibilityPolicy": {"strategy":"Verify the frozen current runtime without changing AnnotationStroke or cause-agent contracts.","supportedVersions":"current practice/mock/reflection runtime and existing xingce cause-candidate state machine.","removalGate":"Any runtime or backend change requires a separate implementation release unit."},
+      "inputContracts": ["wechat-page-request-owner@v1"],
+      "outputContracts": [],
+      "acceptanceCommands": [
+        {"id":"workspace-cause-happy-035c","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/happy.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-failure-035c","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/failure.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-replay-035c","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/replay.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-stale-035c","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/stale.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-race-035c","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/race.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"workspace-cause-recovery-035c","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/workspace-scratch-cause-visibility-035/recovery.test.ts","cwd":"apps/wechat","timeoutSeconds":300}
+      ],
+      "requiredAcceptanceScenarios": [
+        {"id":"WP-WORKSPACE-SCRATCH-VERIFICATION-035C-AS-01","assertion":"one viewport layer crosses the seam, remains current-question owned and reaches a visible coach candidate","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/happy.test.ts","acceptanceCommandId":"workspace-cause-happy-035c"},
+        {"id":"WP-WORKSPACE-SCRATCH-VERIFICATION-035C-AS-02","assertion":"split canvases, shared-material replication and automatic cause departure are absent","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/failure.test.ts","acceptanceCommandId":"workspace-cause-failure-035c"},
+        {"id":"WP-WORKSPACE-SCRATCH-VERIFICATION-035C-AS-03","assertion":"legacy strokes replay without cross-question workspace leakage","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/replay.test.ts","acceptanceCommandId":"workspace-cause-replay-035c"},
+        {"id":"WP-WORKSPACE-SCRATCH-VERIFICATION-035C-AS-04","assertion":"question transitions clear stale interaction state","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/stale.test.ts","acceptanceCommandId":"workspace-cause-stale-035c"},
+        {"id":"WP-WORKSPACE-SCRATCH-VERIFICATION-035C-AS-05","assertion":"rapid actions preserve one stroke owner and one idempotent cause request","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/race.test.ts","acceptanceCommandId":"workspace-cause-race-035c"},
+        {"id":"WP-WORKSPACE-SCRATCH-VERIFICATION-035C-AS-06","assertion":"polling and candidate limitations keep visible recovery actions","testSelector":"tests/work_packages/workspace-scratch-cause-visibility-035/recovery.test.ts","acceptanceCommandId":"workspace-cause-recovery-035c"}
+      ],
+      "verificationOnly": true,
+      "stopConditions": ["Verification requires source modification", "Verification requires backend or production data", "Verification requires deployment or upload"],
+      "status": "planned"
     }
   ]
 }

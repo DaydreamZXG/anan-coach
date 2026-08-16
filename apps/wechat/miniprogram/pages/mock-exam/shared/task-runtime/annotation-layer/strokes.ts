@@ -5,6 +5,36 @@ export interface AnnotationSurfaces {
   material: AnnotationStroke[];
 }
 
+export const WORKSPACE_STROKE_PREFIX = "workspace-stroke-";
+
+/**
+ * 035 整屏草稿仍复用现有 AnnotationStroke 契约，但用稳定 ID 前缀声明坐标语义：
+ * points 相对当前题的可见 workspace，而不是题面或共享材料的内容坐标。
+ */
+export function isWorkspaceAnnotation(stroke: AnnotationStroke): boolean {
+  return stroke.strokeId.startsWith(WORKSPACE_STROKE_PREFIX);
+}
+
+export function workspaceAnnotationStrokes(
+  strokes: readonly AnnotationStroke[] | null | undefined,
+): AnnotationStroke[] {
+  return (strokes ?? []).filter(isWorkspaceAnnotation);
+}
+
+/**
+ * 只替换当前题的整屏笔迹，旧 question/material 笔迹原样保留且不迁移。
+ * 新笔迹不走共享材料 reducer，因此不会复制到相同 materialId 的其他题。
+ */
+export function replaceWorkspaceAnnotations(
+  current: readonly AnnotationStroke[],
+  workspace: readonly AnnotationStroke[],
+): AnnotationStroke[] {
+  return [
+    ...current.filter((stroke) => !isWorkspaceAnnotation(stroke)),
+    ...workspace.map((stroke) => ({ ...stroke, surface: "question" as const })),
+  ];
+}
+
 /** 旧会话没有 surface，但 material-stroke 前缀已经是冻结的历史识别方式。 */
 export function isMaterialAnnotation(stroke: AnnotationStroke): boolean {
   return stroke.surface === "material" || stroke.strokeId.startsWith("material-stroke-");

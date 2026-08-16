@@ -19,10 +19,22 @@ export interface MaterialAnnotationDraft {
 
 export interface PointDraft {
   pointId: string;
-  category: EssayPointCategory;
+  category: EssayPointCategory | "";
   categoryIndex: number;
   statement: string;
   sourceSegmentIds: string[];
+}
+
+export interface PointExtractionGuideItem {
+  label: string;
+  summary: string;
+}
+
+export interface PointExtractionGuide {
+  hasPriorReading: boolean;
+  sourceLabel: string;
+  overallTheme: string;
+  summaryItems: PointExtractionGuideItem[];
 }
 
 export interface OutlineSectionDraft {
@@ -67,7 +79,14 @@ export const pointCategoryValues: EssayPointCategory[] = [
   "theme",
 ];
 
-export const pointCategoryLabels = ["问题", "原因", "影响", "对策", "案例", "主题"];
+export const pointCategoryLabels = [
+  "问题",
+  "原因",
+  "影响 / 价值",
+  "做法 / 对策",
+  "例子",
+  "主题 / 观点",
+];
 
 export class EssayFormError extends Error {}
 
@@ -101,10 +120,11 @@ export function initialEssayFormDrafts(workspace: EssayTaskWorkspace): EssayForm
       const saved = annotationBySegment.get(segment.segmentId);
       return {
         segmentId: segment.segmentId,
-        label:
-          segmentCountsByMaterial.get(segment.materialOrder) === 1
-            ? `材料 ${String(segment.materialOrder)} · 整则梳理`
-            : `材料 ${String(segment.materialOrder)} · 片段 ${String(segment.segmentOrder)}`,
+        label: materialAnnotationLabel(
+          segment.materialOrder,
+          segment.segmentOrder,
+          segmentCountsByMaterial,
+        ),
         paragraphSummary: saved?.paragraphSummary ?? "",
         subjectsText: saved?.subjects.join("、") ?? "",
         evidenceQuote: saved?.evidenceQuote ?? "",
@@ -146,10 +166,51 @@ export function initialEssayFormDrafts(workspace: EssayTaskWorkspace): EssayForm
 export function newPointDraft(now = Date.now()): PointDraft {
   return {
     pointId: `point-${String(now)}-${Math.random().toString(36).slice(2, 7)}`,
-    category: "problem",
-    categoryIndex: 0,
+    category: "",
+    categoryIndex: -1,
     statement: "",
     sourceSegmentIds: [],
+  };
+}
+
+export function pointExtractionGuide(workspace: EssayTaskWorkspace): PointExtractionGuide {
+  const material = workspace.currentArtifacts.material_annotation;
+  const payload = material?.payload.schemaType === "material_annotation" ? material.payload : null;
+  const segmentCountsByMaterial = new Map<number, number>();
+  const materialOrders = new Set<number>();
+  for (const segment of workspace.material.segments) {
+    materialOrders.add(segment.materialOrder);
+    segmentCountsByMaterial.set(
+      segment.materialOrder,
+      (segmentCountsByMaterial.get(segment.materialOrder) ?? 0) + 1,
+    );
+  }
+  const segmentById = new Map(
+    workspace.material.segments.map((segment) => [segment.segmentId, segment] as const),
+  );
+  const summaryItems =
+    payload?.annotations.flatMap((annotation) => {
+      const segment = segmentById.get(annotation.segmentId);
+      const summary = annotation.paragraphSummary.trim();
+      if (!segment || !summary) return [];
+      return [
+        {
+          label: materialAnnotationLabel(
+            segment.materialOrder,
+            segment.segmentOrder,
+            segmentCountsByMaterial,
+          ),
+          summary,
+        },
+      ];
+    }) ?? [];
+  const materialOrderValues = [...materialOrders].sort((left, right) => left - right);
+  return {
+    hasPriorReading: Boolean(payload),
+    sourceLabel:
+      materialOrderValues.length === 1 ? `材料 ${String(materialOrderValues[0])}` : "这组材料",
+    overallTheme: payload?.overallTheme.trim() ?? "",
+    summaryItems,
   };
 }
 
@@ -255,16 +316,34 @@ function pointPayload(
   return {
     schemaType: "point_extraction",
     sourceMaterialAnnotationVersionId: source.artifactVersionId,
-    points: drafts.points.map((point, index) => ({
-      pointId: point.pointId,
-      category: point.category,
-      statement: required(point.statement, `请填写第 ${String(index + 1)} 个要点。`),
-      sourceSegmentIds: requiredIds(
-        point.sourceSegmentIds,
-        `请为第 ${String(index + 1)} 个要点勾选材料出处。`,
-      ),
-    })),
+    points: drafts.points.map((point, index) => {
+      if (!point.category) {
+        throw new EssayFormError(`请选择第 ${String(index + 1)} 个答案点“属于哪类信息”。`);
+      }
+      return {
+        pointId: point.pointId,
+        category: point.category,
+        statement: required(
+          point.statement,
+          `请把第 ${String(index + 1)} 个答案点写成一句完整的话。`,
+        ),
+        sourceSegmentIds: requiredIds(
+          point.sourceSegmentIds,
+          `请为第 ${String(index + 1)} 个答案点勾选至少一段材料依据。`,
+        ),
+      };
+    }),
   };
+}
+
+function materialAnnotationLabel(
+  materialOrder: number,
+  segmentOrder: number,
+  segmentCountsByMaterial: ReadonlyMap<number, number>,
+): string {
+  return segmentCountsByMaterial.get(materialOrder) === 1
+    ? `材料 ${String(materialOrder)} · 整则梳理`
+    : `材料 ${String(materialOrder)} · 片段 ${String(segmentOrder)}`;
 }
 
 function outlinePayload(workspace: EssayTaskWorkspace, drafts: EssayFormDrafts): OutlinePayload {

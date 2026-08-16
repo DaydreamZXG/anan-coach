@@ -113,7 +113,7 @@
   flex-direction: column;
 }
 
-/* 草稿画布与工具条只属于题目舞台，不能覆盖或拦截相邻的材料阅读区。 */
+/* 题目舞台只负责题面布局；035 的唯一草稿层由外层 workspace 统一承载。 */
 .mock-question-stage {
   position: relative;
   display: flex;
@@ -124,7 +124,7 @@
   flex-direction: column;
 }
 
-/* 与练习页同构：宿主只负责定位，实际触摸策略由 annotation-layer 控制。 */
+/* 与练习页同构：宿主相对 mock-workspace 铺满材料、缝隙和题目。 */
 .mock-annotation-host {
   position: absolute;
   inset: 0;

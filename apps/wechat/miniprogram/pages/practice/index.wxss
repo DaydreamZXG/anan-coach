@@ -248,7 +248,7 @@
   flex-direction: column;
 }
 
-/* 草稿画布与工具条只属于题目舞台，不能覆盖或拦截相邻的材料阅读区。 */
+/* 题目舞台只负责题面布局；035 的唯一草稿层由外层 workspace 统一承载。 */
 .practice-question-stage {
   position: relative;
   display: flex;
@@ -1302,7 +1302,8 @@ button.submit-button {
   border: 0;
 }
 
-/* 批注层宿主：仅作为相态锚点，本身不拦截触摸。
+/* 035 整屏批注宿主：相对 practice-workspace 铺满材料、分栏缝隙与题目。
+   宿主本身不拦截触摸。
    --active 只标记"批注层已打开"给内部渲染判断，宿主自身保持 pointer-events:none，
    触摸是否拦截由批注层内部的捕获层/工具栏决定（滑动工具下题目可正常滚动）。 */
 .practice-annotation-host {

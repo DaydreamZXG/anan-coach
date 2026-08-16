@@ -20502,6 +20502,2210 @@
         "releaseUnitHash": "sha256:29bceb1cce2813e368c2dda89d51702b07cba1cd312cfdfe3d2e84b35640c54d",
         "snapshotPath": "execution/release-unit-snapshots/29bceb1cce2813e368c2dda89d51702b07cba1cd312cfdfe3d2e84b35640c54d/release-unit.json"
       }
+    },
+    {
+      "id": "RU-ESSAY-TASK-CLOSURE-034",
+      "status": "frozen",
+      "objective": "修复申论材料梳理保存后死页，并把要点提炼收敛为复用上一步证据的三步找点流程。",
+      "decisionRef": "DEC-FREEZE-RU-ESSAY-TASK-CLOSURE-034",
+      "dependsOnReleaseUnits": [
+        "RU-FULL-PRODUCT-AUDIT-REPAIR-033B"
+      ],
+      "supersedesReleaseUnits": [
+        "RU-FULL-PRODUCT-AUDIT-REPAIR-033B"
+      ],
+      "roots": {
+        "workPackages": [
+          "WP-ESSAY-TASK-CLOSURE-034"
+        ],
+        "requirements": [
+          "REQ-ESSAY-TASK-CLOSURE-034"
+        ],
+        "nonFunctionalRequirements": [],
+        "domains": [
+          "wechat_frontend_lifecycle"
+        ],
+        "contracts": [
+          "wechat-page-request-owner@v1"
+        ],
+        "stateMachines": [],
+        "pages": [],
+        "journeys": [],
+        "dataLifecycleResources": [],
+        "aiScenarios": [],
+        "entitlements": [],
+        "trackCoverage": []
+      },
+      "closure": {
+        "workPackages": [
+          "WP-ESSAY-TASK-CLOSURE-034"
+        ],
+        "requirements": [
+          "REQ-ESSAY-TASK-CLOSURE-034",
+          "REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001"
+        ],
+        "nonFunctionalRequirements": [],
+        "domains": [
+          "wechat_frontend_lifecycle"
+        ],
+        "contracts": [
+          "wechat-page-request-owner@v1"
+        ],
+        "stateMachines": [],
+        "pages": [],
+        "pageStateProfiles": [],
+        "journeys": [],
+        "actors": [],
+        "dataLifecycleResources": [
+          "wechat-page-session-owner"
+        ],
+        "aiScenarios": [],
+        "entitlements": [],
+        "trackCoverage": [],
+        "evidence": [
+          "E-CODE-AUTH-SESSION-OWNER-001",
+          "E-CODE-BETA-FLOW-DISCOVERABILITY-030",
+          "E-CODE-CORE-FLOW-FRICTION-016",
+          "E-CODE-DIRECT-DRAFT-CANVAS-031",
+          "E-CODE-DIRECT-DRAFT-TEST-DRIFT-032",
+          "E-CODE-ESSAY-TASK-CLOSURE-034",
+          "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-033",
+          "E-CODE-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+          "E-CODE-ME-REQUEST-GAP-001",
+          "E-CODE-PRIVATE-KNOWLEDGE-REQUEST-GAP-001",
+          "E-CODE-REFLECTION-OWNER-GAP-001",
+          "E-CODE-WEATHER-RAIN-GLANCE-027A",
+          "E-CODE-WECHAT-INTERNAL-BETA-BLOCKERS-028",
+          "E-CODE-WORKSPACE-UX-CLUTTER-027",
+          "E-USER-ANAN-COACH-LOOP-001",
+          "E-USER-ANAN-GOLDEN-LOOP-002",
+          "E-USER-BETA-FLOW-DISCOVERABILITY-030",
+          "E-USER-CORE-FLOW-DEBURDENING-016",
+          "E-USER-DIRECT-DRAFT-CANVAS-031",
+          "E-USER-ESSAY-TASK-CLOSURE-034",
+          "E-USER-FRONTEND-LIFECYCLE-UNIT-001",
+          "E-USER-FULL-PRODUCT-AUDIT-REPAIR-033",
+          "E-USER-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+          "E-USER-LEARNER-COACH-COMPLETION-015",
+          "E-USER-LEARNER-COACH-CONTEXT-014",
+          "E-USER-WEATHER-RAIN-GLANCE-027A",
+          "E-USER-WECHAT-INTERNAL-BETA-QUALITY-028",
+          "E-USER-WORKSPACE-TRUTH-CONSISTENCY-026",
+          "E-USER-WORKSPACE-UX-DECLUTTER-027"
+        ],
+        "decisions": [
+          "DEC-ESSAY-TASK-CLOSURE-034",
+          "DEC-FREEZE-RU-ESSAY-TASK-CLOSURE-034",
+          "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001"
+        ],
+        "conflicts": [],
+        "glossaryTerms": [],
+        "resources": [
+          "wechat-page-session-owner"
+        ],
+        "tracks": [
+          "frontend-lifecycle"
+        ]
+      },
+      "deferredSnapshot": {
+        "schemaVersion": 1,
+        "catalogHash": "sha256:3bc361dd3d8c68ddb9d40f31128238fb01efc251ad955d4dea6ba9f784ac0fd8",
+        "items": [
+          {
+            "subjectKind": "actors",
+            "subjectId": "*",
+            "message": "No product actors are defined"
+          },
+          {
+            "subjectKind": "aiScenarios",
+            "subjectId": "*",
+            "message": "No AI scenarios are defined"
+          },
+          {
+            "subjectKind": "entitlements",
+            "subjectId": "*",
+            "message": "No entitlement capabilities are defined"
+          },
+          {
+            "subjectKind": "glossaryTerms",
+            "subjectId": "*",
+            "message": "No canonical glossary terms are defined"
+          },
+          {
+            "subjectKind": "journeys",
+            "subjectId": "*",
+            "message": "No end-to-end journeys are defined"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-accessibility",
+            "message": "High-impact non-functional requirement is unresolved: NFR-accessibility (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-ai_cost",
+            "message": "High-impact non-functional requirement is unresolved: NFR-ai_cost (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-ai_quality",
+            "message": "High-impact non-functional requirement is unresolved: NFR-ai_quality (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-backup_restore",
+            "message": "High-impact non-functional requirement is unresolved: NFR-backup_restore (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-capacity",
+            "message": "High-impact non-functional requirement is unresolved: NFR-capacity (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-commerce",
+            "message": "High-impact non-functional requirement is unresolved: NFR-commerce (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-migration",
+            "message": "High-impact non-functional requirement is unresolved: NFR-migration (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-observability",
+            "message": "High-impact non-functional requirement is unresolved: NFR-observability (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-operations",
+            "message": "High-impact non-functional requirement is unresolved: NFR-operations (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-performance",
+            "message": "High-impact non-functional requirement is unresolved: NFR-performance (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-privacy",
+            "message": "High-impact non-functional requirement is unresolved: NFR-privacy (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-reliability",
+            "message": "High-impact non-functional requirement is unresolved: NFR-reliability (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-security",
+            "message": "High-impact non-functional requirement is unresolved: NFR-security (unknown)"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::companion-memory",
+            "message": "Capability ability_estimate lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::frontend-lifecycle",
+            "message": "Capability ability_estimate/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::grounded-teach-back",
+            "message": "Capability ability_estimate lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::structured-visuals",
+            "message": "Capability ability_estimate lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::companion-memory",
+            "message": "Capability attempt lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::frontend-lifecycle",
+            "message": "Capability attempt/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::grounded-teach-back",
+            "message": "Capability attempt lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::structured-visuals",
+            "message": "Capability attempt lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::companion-memory",
+            "message": "Capability evidence lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::frontend-lifecycle",
+            "message": "Capability evidence/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::grounded-teach-back",
+            "message": "Capability evidence lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::structured-visuals",
+            "message": "Capability evidence lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::companion-memory",
+            "message": "Capability global_ask lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::frontend-lifecycle",
+            "message": "Capability global_ask/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::grounded-teach-back",
+            "message": "Capability global_ask lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::structured-visuals",
+            "message": "Capability global_ask lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::companion-memory",
+            "message": "Capability mastery lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::frontend-lifecycle",
+            "message": "Capability mastery/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::grounded-teach-back",
+            "message": "Capability mastery lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::structured-visuals",
+            "message": "Capability mastery lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::companion-memory",
+            "message": "Capability planning lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::frontend-lifecycle",
+            "message": "Capability planning/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::grounded-teach-back",
+            "message": "Capability planning lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::structured-visuals",
+            "message": "Capability planning lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::companion-memory",
+            "message": "Capability reflection lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::frontend-lifecycle",
+            "message": "Capability reflection/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::grounded-teach-back",
+            "message": "Capability reflection lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::structured-visuals",
+            "message": "Capability reflection lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::companion-memory",
+            "message": "Capability report lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::frontend-lifecycle",
+            "message": "Capability report/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::grounded-teach-back",
+            "message": "Capability report lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::structured-visuals",
+            "message": "Capability report lacks track structured-visuals"
+          }
+        ]
+      },
+      "freeze": {
+        "releaseUnitId": "RU-ESSAY-TASK-CLOSURE-034",
+        "decisionId": "DEC-FREEZE-RU-ESSAY-TASK-CLOSURE-034",
+        "commit": "7b94df0d6be57195c1589fb34db680d71aa2f3f9",
+        "frozenAt": "2026-08-16T10:36:51.180468+00:00",
+        "releaseUnitHash": "sha256:099afa07d80d984b12ba6aa935dbd92d4491f10791740c06ebcec0531493d0cd",
+        "snapshotPath": "execution/release-unit-snapshots/099afa07d80d984b12ba6aa935dbd92d4491f10791740c06ebcec0531493d0cd/release-unit.json"
+      }
+    },
+    {
+      "id": "RU-ESSAY-TASK-CLOSURE-AUTHORITY-034A",
+      "status": "frozen",
+      "objective": "补齐 034 申论表单的分包权威源，使修复能经标准同步稳定复现。",
+      "decisionRef": "DEC-FREEZE-RU-ESSAY-TASK-CLOSURE-AUTHORITY-034A",
+      "dependsOnReleaseUnits": [
+        "RU-ESSAY-TASK-CLOSURE-034"
+      ],
+      "supersedesReleaseUnits": [],
+      "roots": {
+        "workPackages": [
+          "WP-ESSAY-TASK-CLOSURE-AUTHORITY-034A"
+        ],
+        "requirements": [
+          "REQ-ESSAY-TASK-CLOSURE-034"
+        ],
+        "nonFunctionalRequirements": [],
+        "domains": [
+          "wechat_frontend_lifecycle"
+        ],
+        "contracts": [
+          "wechat-page-request-owner@v1"
+        ],
+        "stateMachines": [],
+        "pages": [],
+        "journeys": [],
+        "dataLifecycleResources": [],
+        "aiScenarios": [],
+        "entitlements": [],
+        "trackCoverage": []
+      },
+      "closure": {
+        "workPackages": [
+          "WP-ESSAY-TASK-CLOSURE-AUTHORITY-034A"
+        ],
+        "requirements": [
+          "REQ-ESSAY-TASK-CLOSURE-034",
+          "REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001"
+        ],
+        "nonFunctionalRequirements": [],
+        "domains": [
+          "wechat_frontend_lifecycle"
+        ],
+        "contracts": [
+          "wechat-page-request-owner@v1"
+        ],
+        "stateMachines": [],
+        "pages": [],
+        "pageStateProfiles": [],
+        "journeys": [],
+        "actors": [],
+        "dataLifecycleResources": [
+          "wechat-page-session-owner"
+        ],
+        "aiScenarios": [],
+        "entitlements": [],
+        "trackCoverage": [],
+        "evidence": [
+          "E-CODE-AUTH-SESSION-OWNER-001",
+          "E-CODE-BETA-FLOW-DISCOVERABILITY-030",
+          "E-CODE-CORE-FLOW-FRICTION-016",
+          "E-CODE-DIRECT-DRAFT-CANVAS-031",
+          "E-CODE-DIRECT-DRAFT-TEST-DRIFT-032",
+          "E-CODE-ESSAY-TASK-CLOSURE-034",
+          "E-CODE-ESSAY-TASK-CLOSURE-AUTHORITY-034A",
+          "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-033",
+          "E-CODE-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+          "E-CODE-ME-REQUEST-GAP-001",
+          "E-CODE-PRIVATE-KNOWLEDGE-REQUEST-GAP-001",
+          "E-CODE-REFLECTION-OWNER-GAP-001",
+          "E-CODE-WEATHER-RAIN-GLANCE-027A",
+          "E-CODE-WECHAT-INTERNAL-BETA-BLOCKERS-028",
+          "E-CODE-WORKSPACE-UX-CLUTTER-027",
+          "E-USER-ANAN-COACH-LOOP-001",
+          "E-USER-ANAN-GOLDEN-LOOP-002",
+          "E-USER-BETA-FLOW-DISCOVERABILITY-030",
+          "E-USER-CORE-FLOW-DEBURDENING-016",
+          "E-USER-DIRECT-DRAFT-CANVAS-031",
+          "E-USER-ESSAY-TASK-CLOSURE-034",
+          "E-USER-FRONTEND-LIFECYCLE-UNIT-001",
+          "E-USER-FULL-PRODUCT-AUDIT-REPAIR-033",
+          "E-USER-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+          "E-USER-LEARNER-COACH-COMPLETION-015",
+          "E-USER-LEARNER-COACH-CONTEXT-014",
+          "E-USER-WEATHER-RAIN-GLANCE-027A",
+          "E-USER-WECHAT-INTERNAL-BETA-QUALITY-028",
+          "E-USER-WORKSPACE-TRUTH-CONSISTENCY-026",
+          "E-USER-WORKSPACE-UX-DECLUTTER-027"
+        ],
+        "decisions": [
+          "DEC-FREEZE-RU-ESSAY-TASK-CLOSURE-AUTHORITY-034A",
+          "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001"
+        ],
+        "conflicts": [],
+        "glossaryTerms": [],
+        "resources": [
+          "wechat-page-session-owner"
+        ],
+        "tracks": [
+          "frontend-lifecycle"
+        ]
+      },
+      "deferredSnapshot": {
+        "schemaVersion": 1,
+        "catalogHash": "sha256:387672aef621f2531755cd67a422fad85ef45aa1b1162167143a7887d8b41800",
+        "items": [
+          {
+            "subjectKind": "actors",
+            "subjectId": "*",
+            "message": "No product actors are defined"
+          },
+          {
+            "subjectKind": "aiScenarios",
+            "subjectId": "*",
+            "message": "No AI scenarios are defined"
+          },
+          {
+            "subjectKind": "entitlements",
+            "subjectId": "*",
+            "message": "No entitlement capabilities are defined"
+          },
+          {
+            "subjectKind": "glossaryTerms",
+            "subjectId": "*",
+            "message": "No canonical glossary terms are defined"
+          },
+          {
+            "subjectKind": "journeys",
+            "subjectId": "*",
+            "message": "No end-to-end journeys are defined"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-accessibility",
+            "message": "High-impact non-functional requirement is unresolved: NFR-accessibility (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-ai_cost",
+            "message": "High-impact non-functional requirement is unresolved: NFR-ai_cost (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-ai_quality",
+            "message": "High-impact non-functional requirement is unresolved: NFR-ai_quality (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-backup_restore",
+            "message": "High-impact non-functional requirement is unresolved: NFR-backup_restore (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-capacity",
+            "message": "High-impact non-functional requirement is unresolved: NFR-capacity (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-commerce",
+            "message": "High-impact non-functional requirement is unresolved: NFR-commerce (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-migration",
+            "message": "High-impact non-functional requirement is unresolved: NFR-migration (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-observability",
+            "message": "High-impact non-functional requirement is unresolved: NFR-observability (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-operations",
+            "message": "High-impact non-functional requirement is unresolved: NFR-operations (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-performance",
+            "message": "High-impact non-functional requirement is unresolved: NFR-performance (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-privacy",
+            "message": "High-impact non-functional requirement is unresolved: NFR-privacy (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-reliability",
+            "message": "High-impact non-functional requirement is unresolved: NFR-reliability (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-security",
+            "message": "High-impact non-functional requirement is unresolved: NFR-security (unknown)"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::companion-memory",
+            "message": "Capability ability_estimate lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::frontend-lifecycle",
+            "message": "Capability ability_estimate/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::grounded-teach-back",
+            "message": "Capability ability_estimate lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::structured-visuals",
+            "message": "Capability ability_estimate lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::companion-memory",
+            "message": "Capability attempt lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::frontend-lifecycle",
+            "message": "Capability attempt/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::grounded-teach-back",
+            "message": "Capability attempt lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::structured-visuals",
+            "message": "Capability attempt lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::companion-memory",
+            "message": "Capability evidence lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::frontend-lifecycle",
+            "message": "Capability evidence/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::grounded-teach-back",
+            "message": "Capability evidence lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::structured-visuals",
+            "message": "Capability evidence lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::companion-memory",
+            "message": "Capability global_ask lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::frontend-lifecycle",
+            "message": "Capability global_ask/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::grounded-teach-back",
+            "message": "Capability global_ask lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::structured-visuals",
+            "message": "Capability global_ask lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::companion-memory",
+            "message": "Capability mastery lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::frontend-lifecycle",
+            "message": "Capability mastery/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::grounded-teach-back",
+            "message": "Capability mastery lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::structured-visuals",
+            "message": "Capability mastery lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::companion-memory",
+            "message": "Capability planning lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::frontend-lifecycle",
+            "message": "Capability planning/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::grounded-teach-back",
+            "message": "Capability planning lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::structured-visuals",
+            "message": "Capability planning lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::companion-memory",
+            "message": "Capability reflection lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::frontend-lifecycle",
+            "message": "Capability reflection/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::grounded-teach-back",
+            "message": "Capability reflection lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::structured-visuals",
+            "message": "Capability reflection lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::companion-memory",
+            "message": "Capability report lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::frontend-lifecycle",
+            "message": "Capability report/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::grounded-teach-back",
+            "message": "Capability report lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::structured-visuals",
+            "message": "Capability report lacks track structured-visuals"
+          }
+        ]
+      },
+      "freeze": {
+        "releaseUnitId": "RU-ESSAY-TASK-CLOSURE-AUTHORITY-034A",
+        "decisionId": "DEC-FREEZE-RU-ESSAY-TASK-CLOSURE-AUTHORITY-034A",
+        "commit": "7b94df0d6be57195c1589fb34db680d71aa2f3f9",
+        "frozenAt": "2026-08-16T10:59:06.709311+00:00",
+        "releaseUnitHash": "sha256:c8da94b5075056ec90649a5145ba7a459fc65bf741979af2bb365d3b3ad03d4e",
+        "snapshotPath": "execution/release-unit-snapshots/c8da94b5075056ec90649a5145ba7a459fc65bf741979af2bb365d3b3ad03d4e/release-unit.json"
+      }
+    },
+    {
+      "id": "RU-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+      "status": "frozen",
+      "objective": "以当前题为单位提供真正跨分栏的整屏草稿，并把既有岸岸错因候选、依据和验证动作带回复盘主流程。",
+      "decisionRef": "DEC-FREEZE-RU-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+      "dependsOnReleaseUnits": [
+        "RU-ESSAY-TASK-CLOSURE-AUTHORITY-034A",
+        "RU-ESSAY-TASK-CLOSURE-034",
+        "RU-DIRECT-DRAFT-CANVAS-031",
+        "RU-DIRECT-DRAFT-TEST-CONTRACT-032"
+      ],
+      "supersedesReleaseUnits": [
+        "RU-ESSAY-TASK-CLOSURE-AUTHORITY-034A",
+        "RU-ESSAY-TASK-CLOSURE-034"
+      ],
+      "roots": {
+        "workPackages": [
+          "WP-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+        ],
+        "requirements": [
+          "REQ-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+        ],
+        "nonFunctionalRequirements": [],
+        "domains": [
+          "wechat_frontend_lifecycle"
+        ],
+        "contracts": [
+          "wechat-page-request-owner@v1"
+        ],
+        "stateMachines": [],
+        "pages": [],
+        "journeys": [],
+        "dataLifecycleResources": [],
+        "aiScenarios": [],
+        "entitlements": [],
+        "trackCoverage": []
+      },
+      "closure": {
+        "workPackages": [
+          "WP-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+        ],
+        "requirements": [
+          "REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001",
+          "REQ-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+        ],
+        "nonFunctionalRequirements": [],
+        "domains": [
+          "wechat_frontend_lifecycle"
+        ],
+        "contracts": [
+          "wechat-page-request-owner@v1"
+        ],
+        "stateMachines": [],
+        "pages": [],
+        "pageStateProfiles": [],
+        "journeys": [],
+        "actors": [],
+        "dataLifecycleResources": [
+          "wechat-page-session-owner"
+        ],
+        "aiScenarios": [],
+        "entitlements": [],
+        "trackCoverage": [],
+        "evidence": [
+          "E-CODE-AUTH-SESSION-OWNER-001",
+          "E-CODE-BETA-FLOW-DISCOVERABILITY-030",
+          "E-CODE-CORE-FLOW-FRICTION-016",
+          "E-CODE-DIRECT-DRAFT-CANVAS-031",
+          "E-CODE-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+          "E-CODE-ME-REQUEST-GAP-001",
+          "E-CODE-PRIVATE-KNOWLEDGE-REQUEST-GAP-001",
+          "E-CODE-REFLECTION-OWNER-GAP-001",
+          "E-CODE-WEATHER-RAIN-GLANCE-027A",
+          "E-CODE-WECHAT-INTERNAL-BETA-BLOCKERS-028",
+          "E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+          "E-CODE-WORKSPACE-UX-CLUTTER-027",
+          "E-USER-ANAN-COACH-LOOP-001",
+          "E-USER-ANAN-GOLDEN-LOOP-002",
+          "E-USER-BETA-FLOW-DISCOVERABILITY-030",
+          "E-USER-CORE-FLOW-DEBURDENING-016",
+          "E-USER-DIRECT-DRAFT-CANVAS-031",
+          "E-USER-FRONTEND-LIFECYCLE-UNIT-001",
+          "E-USER-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+          "E-USER-LEARNER-COACH-COMPLETION-015",
+          "E-USER-LEARNER-COACH-CONTEXT-014",
+          "E-USER-WEATHER-RAIN-GLANCE-027A",
+          "E-USER-WECHAT-INTERNAL-BETA-QUALITY-028",
+          "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+          "E-USER-WORKSPACE-TRUTH-CONSISTENCY-026",
+          "E-USER-WORKSPACE-UX-DECLUTTER-027"
+        ],
+        "decisions": [
+          "DEC-FREEZE-RU-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+          "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001",
+          "DEC-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+        ],
+        "conflicts": [],
+        "glossaryTerms": [],
+        "resources": [
+          "wechat-page-session-owner"
+        ],
+        "tracks": [
+          "frontend-lifecycle"
+        ]
+      },
+      "deferredSnapshot": {
+        "schemaVersion": 1,
+        "catalogHash": "sha256:78056074017fcce671f2e3931e03690ba7f02d5c8f642738c142f3df54f61c2d",
+        "items": [
+          {
+            "subjectKind": "actors",
+            "subjectId": "*",
+            "message": "No product actors are defined"
+          },
+          {
+            "subjectKind": "aiScenarios",
+            "subjectId": "*",
+            "message": "No AI scenarios are defined"
+          },
+          {
+            "subjectKind": "entitlements",
+            "subjectId": "*",
+            "message": "No entitlement capabilities are defined"
+          },
+          {
+            "subjectKind": "glossaryTerms",
+            "subjectId": "*",
+            "message": "No canonical glossary terms are defined"
+          },
+          {
+            "subjectKind": "journeys",
+            "subjectId": "*",
+            "message": "No end-to-end journeys are defined"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-accessibility",
+            "message": "High-impact non-functional requirement is unresolved: NFR-accessibility (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-ai_cost",
+            "message": "High-impact non-functional requirement is unresolved: NFR-ai_cost (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-ai_quality",
+            "message": "High-impact non-functional requirement is unresolved: NFR-ai_quality (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-backup_restore",
+            "message": "High-impact non-functional requirement is unresolved: NFR-backup_restore (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-capacity",
+            "message": "High-impact non-functional requirement is unresolved: NFR-capacity (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-commerce",
+            "message": "High-impact non-functional requirement is unresolved: NFR-commerce (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-migration",
+            "message": "High-impact non-functional requirement is unresolved: NFR-migration (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-observability",
+            "message": "High-impact non-functional requirement is unresolved: NFR-observability (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-operations",
+            "message": "High-impact non-functional requirement is unresolved: NFR-operations (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-performance",
+            "message": "High-impact non-functional requirement is unresolved: NFR-performance (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-privacy",
+            "message": "High-impact non-functional requirement is unresolved: NFR-privacy (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-reliability",
+            "message": "High-impact non-functional requirement is unresolved: NFR-reliability (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-security",
+            "message": "High-impact non-functional requirement is unresolved: NFR-security (unknown)"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::companion-memory",
+            "message": "Capability ability_estimate lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::frontend-lifecycle",
+            "message": "Capability ability_estimate/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::grounded-teach-back",
+            "message": "Capability ability_estimate lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::structured-visuals",
+            "message": "Capability ability_estimate lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::companion-memory",
+            "message": "Capability attempt lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::frontend-lifecycle",
+            "message": "Capability attempt/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::grounded-teach-back",
+            "message": "Capability attempt lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::structured-visuals",
+            "message": "Capability attempt lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::companion-memory",
+            "message": "Capability evidence lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::frontend-lifecycle",
+            "message": "Capability evidence/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::grounded-teach-back",
+            "message": "Capability evidence lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::structured-visuals",
+            "message": "Capability evidence lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::companion-memory",
+            "message": "Capability global_ask lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::frontend-lifecycle",
+            "message": "Capability global_ask/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::grounded-teach-back",
+            "message": "Capability global_ask lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::structured-visuals",
+            "message": "Capability global_ask lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::companion-memory",
+            "message": "Capability mastery lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::frontend-lifecycle",
+            "message": "Capability mastery/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::grounded-teach-back",
+            "message": "Capability mastery lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::structured-visuals",
+            "message": "Capability mastery lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::companion-memory",
+            "message": "Capability planning lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::frontend-lifecycle",
+            "message": "Capability planning/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::grounded-teach-back",
+            "message": "Capability planning lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::structured-visuals",
+            "message": "Capability planning lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::companion-memory",
+            "message": "Capability reflection lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::frontend-lifecycle",
+            "message": "Capability reflection/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::grounded-teach-back",
+            "message": "Capability reflection lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::structured-visuals",
+            "message": "Capability reflection lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::companion-memory",
+            "message": "Capability report lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::frontend-lifecycle",
+            "message": "Capability report/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::grounded-teach-back",
+            "message": "Capability report lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::structured-visuals",
+            "message": "Capability report lacks track structured-visuals"
+          }
+        ]
+      },
+      "freeze": {
+        "releaseUnitId": "RU-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+        "decisionId": "DEC-FREEZE-RU-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+        "commit": "7b94df0d6be57195c1589fb34db680d71aa2f3f9",
+        "frozenAt": "2026-08-16T11:38:13.089191+00:00",
+        "releaseUnitHash": "sha256:2873e074eb2c7434c2451aca4773b94ed89910f2d309753f830d71a32de2ac70",
+        "snapshotPath": "execution/release-unit-snapshots/2873e074eb2c7434c2451aca4773b94ed89910f2d309753f830d71a32de2ac70/release-unit.json"
+      }
+    },
+    {
+      "id": "RU-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A",
+      "status": "frozen",
+      "objective": "校正 030/031/032 历史测试，使整包回归以 035 整屏单画布和岸岸候选可见链为权威。",
+      "decisionRef": "DEC-FREEZE-RU-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A",
+      "dependsOnReleaseUnits": [
+        "RU-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+      ],
+      "supersedesReleaseUnits": [
+        "RU-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+      ],
+      "roots": {
+        "workPackages": [
+          "WP-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A"
+        ],
+        "requirements": [
+          "REQ-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+        ],
+        "nonFunctionalRequirements": [],
+        "domains": [
+          "wechat_frontend_lifecycle"
+        ],
+        "contracts": [
+          "wechat-page-request-owner@v1"
+        ],
+        "stateMachines": [],
+        "pages": [],
+        "journeys": [],
+        "dataLifecycleResources": [],
+        "aiScenarios": [],
+        "entitlements": [],
+        "trackCoverage": []
+      },
+      "closure": {
+        "workPackages": [
+          "WP-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A"
+        ],
+        "requirements": [
+          "REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001",
+          "REQ-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+        ],
+        "nonFunctionalRequirements": [],
+        "domains": [
+          "wechat_frontend_lifecycle"
+        ],
+        "contracts": [
+          "wechat-page-request-owner@v1"
+        ],
+        "stateMachines": [],
+        "pages": [],
+        "pageStateProfiles": [],
+        "journeys": [],
+        "actors": [],
+        "dataLifecycleResources": [
+          "wechat-page-session-owner"
+        ],
+        "aiScenarios": [],
+        "entitlements": [],
+        "trackCoverage": [],
+        "evidence": [
+          "E-CODE-AUTH-SESSION-OWNER-001",
+          "E-CODE-BETA-FLOW-DISCOVERABILITY-030",
+          "E-CODE-CORE-FLOW-FRICTION-016",
+          "E-CODE-DIRECT-DRAFT-CANVAS-031",
+          "E-CODE-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+          "E-CODE-ME-REQUEST-GAP-001",
+          "E-CODE-PRIVATE-KNOWLEDGE-REQUEST-GAP-001",
+          "E-CODE-REFLECTION-OWNER-GAP-001",
+          "E-CODE-WEATHER-RAIN-GLANCE-027A",
+          "E-CODE-WECHAT-INTERNAL-BETA-BLOCKERS-028",
+          "E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+          "E-CODE-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A",
+          "E-CODE-WORKSPACE-UX-CLUTTER-027",
+          "E-USER-ANAN-COACH-LOOP-001",
+          "E-USER-ANAN-GOLDEN-LOOP-002",
+          "E-USER-BETA-FLOW-DISCOVERABILITY-030",
+          "E-USER-CORE-FLOW-DEBURDENING-016",
+          "E-USER-DIRECT-DRAFT-CANVAS-031",
+          "E-USER-FRONTEND-LIFECYCLE-UNIT-001",
+          "E-USER-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+          "E-USER-LEARNER-COACH-COMPLETION-015",
+          "E-USER-LEARNER-COACH-CONTEXT-014",
+          "E-USER-WEATHER-RAIN-GLANCE-027A",
+          "E-USER-WECHAT-INTERNAL-BETA-QUALITY-028",
+          "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+          "E-USER-WORKSPACE-TRUTH-CONSISTENCY-026",
+          "E-USER-WORKSPACE-UX-DECLUTTER-027"
+        ],
+        "decisions": [
+          "DEC-FREEZE-RU-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A",
+          "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001"
+        ],
+        "conflicts": [],
+        "glossaryTerms": [],
+        "resources": [
+          "wechat-page-session-owner"
+        ],
+        "tracks": [
+          "frontend-lifecycle"
+        ]
+      },
+      "deferredSnapshot": {
+        "schemaVersion": 1,
+        "catalogHash": "sha256:b8e8d147a67479dab3e4ad5945bee728c6be0e6f3fbe0381b57cb026b3af7d4f",
+        "items": [
+          {
+            "subjectKind": "actors",
+            "subjectId": "*",
+            "message": "No product actors are defined"
+          },
+          {
+            "subjectKind": "aiScenarios",
+            "subjectId": "*",
+            "message": "No AI scenarios are defined"
+          },
+          {
+            "subjectKind": "entitlements",
+            "subjectId": "*",
+            "message": "No entitlement capabilities are defined"
+          },
+          {
+            "subjectKind": "glossaryTerms",
+            "subjectId": "*",
+            "message": "No canonical glossary terms are defined"
+          },
+          {
+            "subjectKind": "journeys",
+            "subjectId": "*",
+            "message": "No end-to-end journeys are defined"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-accessibility",
+            "message": "High-impact non-functional requirement is unresolved: NFR-accessibility (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-ai_cost",
+            "message": "High-impact non-functional requirement is unresolved: NFR-ai_cost (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-ai_quality",
+            "message": "High-impact non-functional requirement is unresolved: NFR-ai_quality (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-backup_restore",
+            "message": "High-impact non-functional requirement is unresolved: NFR-backup_restore (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-capacity",
+            "message": "High-impact non-functional requirement is unresolved: NFR-capacity (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-commerce",
+            "message": "High-impact non-functional requirement is unresolved: NFR-commerce (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-migration",
+            "message": "High-impact non-functional requirement is unresolved: NFR-migration (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-observability",
+            "message": "High-impact non-functional requirement is unresolved: NFR-observability (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-operations",
+            "message": "High-impact non-functional requirement is unresolved: NFR-operations (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-performance",
+            "message": "High-impact non-functional requirement is unresolved: NFR-performance (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-privacy",
+            "message": "High-impact non-functional requirement is unresolved: NFR-privacy (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-reliability",
+            "message": "High-impact non-functional requirement is unresolved: NFR-reliability (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-security",
+            "message": "High-impact non-functional requirement is unresolved: NFR-security (unknown)"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::companion-memory",
+            "message": "Capability ability_estimate lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::frontend-lifecycle",
+            "message": "Capability ability_estimate/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::grounded-teach-back",
+            "message": "Capability ability_estimate lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::structured-visuals",
+            "message": "Capability ability_estimate lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::companion-memory",
+            "message": "Capability attempt lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::frontend-lifecycle",
+            "message": "Capability attempt/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::grounded-teach-back",
+            "message": "Capability attempt lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::structured-visuals",
+            "message": "Capability attempt lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::companion-memory",
+            "message": "Capability evidence lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::frontend-lifecycle",
+            "message": "Capability evidence/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::grounded-teach-back",
+            "message": "Capability evidence lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::structured-visuals",
+            "message": "Capability evidence lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::companion-memory",
+            "message": "Capability global_ask lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::frontend-lifecycle",
+            "message": "Capability global_ask/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::grounded-teach-back",
+            "message": "Capability global_ask lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::structured-visuals",
+            "message": "Capability global_ask lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::companion-memory",
+            "message": "Capability mastery lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::frontend-lifecycle",
+            "message": "Capability mastery/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::grounded-teach-back",
+            "message": "Capability mastery lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::structured-visuals",
+            "message": "Capability mastery lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::companion-memory",
+            "message": "Capability planning lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::frontend-lifecycle",
+            "message": "Capability planning/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::grounded-teach-back",
+            "message": "Capability planning lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::structured-visuals",
+            "message": "Capability planning lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::companion-memory",
+            "message": "Capability reflection lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::frontend-lifecycle",
+            "message": "Capability reflection/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::grounded-teach-back",
+            "message": "Capability reflection lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::structured-visuals",
+            "message": "Capability reflection lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::companion-memory",
+            "message": "Capability report lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::frontend-lifecycle",
+            "message": "Capability report/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::grounded-teach-back",
+            "message": "Capability report lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::structured-visuals",
+            "message": "Capability report lacks track structured-visuals"
+          }
+        ]
+      },
+      "freeze": {
+        "releaseUnitId": "RU-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A",
+        "decisionId": "DEC-FREEZE-RU-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A",
+        "commit": "7b94df0d6be57195c1589fb34db680d71aa2f3f9",
+        "frozenAt": "2026-08-16T12:00:10.113823+00:00",
+        "releaseUnitHash": "sha256:6a4e0285da29af6e68209e58aece0404015613f211022066d9b4f9569284c91b",
+        "snapshotPath": "execution/release-unit-snapshots/6a4e0285da29af6e68209e58aece0404015613f211022066d9b4f9569284c91b/release-unit.json"
+      }
+    },
+    {
+      "id": "RU-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B",
+      "status": "frozen",
+      "objective": "建立一个无循环依赖、同时覆盖整屏草稿运行时、岸岸错因可见链与历史测试校正的可执行验收单元。",
+      "decisionRef": "DEC-FREEZE-RU-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B",
+      "dependsOnReleaseUnits": [
+        "RU-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A"
+      ],
+      "supersedesReleaseUnits": [
+        "RU-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A"
+      ],
+      "roots": {
+        "workPackages": [
+          "WP-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B"
+        ],
+        "requirements": [
+          "REQ-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+        ],
+        "nonFunctionalRequirements": [],
+        "domains": [
+          "wechat_frontend_lifecycle"
+        ],
+        "contracts": [
+          "wechat-page-request-owner@v1"
+        ],
+        "stateMachines": [],
+        "pages": [],
+        "journeys": [],
+        "dataLifecycleResources": [],
+        "aiScenarios": [],
+        "entitlements": [],
+        "trackCoverage": []
+      },
+      "closure": {
+        "workPackages": [
+          "WP-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B"
+        ],
+        "requirements": [
+          "REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001",
+          "REQ-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+        ],
+        "nonFunctionalRequirements": [],
+        "domains": [
+          "wechat_frontend_lifecycle"
+        ],
+        "contracts": [
+          "wechat-page-request-owner@v1"
+        ],
+        "stateMachines": [],
+        "pages": [],
+        "pageStateProfiles": [],
+        "journeys": [],
+        "actors": [],
+        "dataLifecycleResources": [
+          "wechat-page-session-owner"
+        ],
+        "aiScenarios": [],
+        "entitlements": [],
+        "trackCoverage": [],
+        "evidence": [
+          "E-CODE-AUTH-SESSION-OWNER-001",
+          "E-CODE-BETA-FLOW-DISCOVERABILITY-030",
+          "E-CODE-CORE-FLOW-FRICTION-016",
+          "E-CODE-DIRECT-DRAFT-CANVAS-031",
+          "E-CODE-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+          "E-CODE-ME-REQUEST-GAP-001",
+          "E-CODE-PRIVATE-KNOWLEDGE-REQUEST-GAP-001",
+          "E-CODE-REFLECTION-OWNER-GAP-001",
+          "E-CODE-WEATHER-RAIN-GLANCE-027A",
+          "E-CODE-WECHAT-INTERNAL-BETA-BLOCKERS-028",
+          "E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+          "E-CODE-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A",
+          "E-CODE-WORKSPACE-UX-CLUTTER-027",
+          "E-USER-ANAN-COACH-LOOP-001",
+          "E-USER-ANAN-GOLDEN-LOOP-002",
+          "E-USER-BETA-FLOW-DISCOVERABILITY-030",
+          "E-USER-CORE-FLOW-DEBURDENING-016",
+          "E-USER-DIRECT-DRAFT-CANVAS-031",
+          "E-USER-FRONTEND-LIFECYCLE-UNIT-001",
+          "E-USER-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+          "E-USER-LEARNER-COACH-COMPLETION-015",
+          "E-USER-LEARNER-COACH-CONTEXT-014",
+          "E-USER-WEATHER-RAIN-GLANCE-027A",
+          "E-USER-WECHAT-INTERNAL-BETA-QUALITY-028",
+          "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+          "E-USER-WORKSPACE-TRUTH-CONSISTENCY-026",
+          "E-USER-WORKSPACE-UX-DECLUTTER-027"
+        ],
+        "decisions": [
+          "DEC-FREEZE-RU-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B",
+          "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001"
+        ],
+        "conflicts": [],
+        "glossaryTerms": [],
+        "resources": [
+          "wechat-page-session-owner"
+        ],
+        "tracks": [
+          "frontend-lifecycle"
+        ]
+      },
+      "deferredSnapshot": {
+        "schemaVersion": 1,
+        "catalogHash": "sha256:cc499becb5a0c321837916769691fa0758d8b35e696bb7b2d3387a3a19857dbd",
+        "items": [
+          {
+            "subjectKind": "actors",
+            "subjectId": "*",
+            "message": "No product actors are defined"
+          },
+          {
+            "subjectKind": "aiScenarios",
+            "subjectId": "*",
+            "message": "No AI scenarios are defined"
+          },
+          {
+            "subjectKind": "entitlements",
+            "subjectId": "*",
+            "message": "No entitlement capabilities are defined"
+          },
+          {
+            "subjectKind": "glossaryTerms",
+            "subjectId": "*",
+            "message": "No canonical glossary terms are defined"
+          },
+          {
+            "subjectKind": "journeys",
+            "subjectId": "*",
+            "message": "No end-to-end journeys are defined"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-accessibility",
+            "message": "High-impact non-functional requirement is unresolved: NFR-accessibility (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-ai_cost",
+            "message": "High-impact non-functional requirement is unresolved: NFR-ai_cost (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-ai_quality",
+            "message": "High-impact non-functional requirement is unresolved: NFR-ai_quality (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-backup_restore",
+            "message": "High-impact non-functional requirement is unresolved: NFR-backup_restore (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-capacity",
+            "message": "High-impact non-functional requirement is unresolved: NFR-capacity (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-commerce",
+            "message": "High-impact non-functional requirement is unresolved: NFR-commerce (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-migration",
+            "message": "High-impact non-functional requirement is unresolved: NFR-migration (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-observability",
+            "message": "High-impact non-functional requirement is unresolved: NFR-observability (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-operations",
+            "message": "High-impact non-functional requirement is unresolved: NFR-operations (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-performance",
+            "message": "High-impact non-functional requirement is unresolved: NFR-performance (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-privacy",
+            "message": "High-impact non-functional requirement is unresolved: NFR-privacy (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-reliability",
+            "message": "High-impact non-functional requirement is unresolved: NFR-reliability (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-security",
+            "message": "High-impact non-functional requirement is unresolved: NFR-security (unknown)"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::companion-memory",
+            "message": "Capability ability_estimate lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::frontend-lifecycle",
+            "message": "Capability ability_estimate/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::grounded-teach-back",
+            "message": "Capability ability_estimate lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::structured-visuals",
+            "message": "Capability ability_estimate lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::companion-memory",
+            "message": "Capability attempt lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::frontend-lifecycle",
+            "message": "Capability attempt/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::grounded-teach-back",
+            "message": "Capability attempt lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::structured-visuals",
+            "message": "Capability attempt lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::companion-memory",
+            "message": "Capability evidence lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::frontend-lifecycle",
+            "message": "Capability evidence/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::grounded-teach-back",
+            "message": "Capability evidence lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::structured-visuals",
+            "message": "Capability evidence lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::companion-memory",
+            "message": "Capability global_ask lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::frontend-lifecycle",
+            "message": "Capability global_ask/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::grounded-teach-back",
+            "message": "Capability global_ask lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::structured-visuals",
+            "message": "Capability global_ask lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::companion-memory",
+            "message": "Capability mastery lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::frontend-lifecycle",
+            "message": "Capability mastery/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::grounded-teach-back",
+            "message": "Capability mastery lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::structured-visuals",
+            "message": "Capability mastery lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::companion-memory",
+            "message": "Capability planning lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::frontend-lifecycle",
+            "message": "Capability planning/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::grounded-teach-back",
+            "message": "Capability planning lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::structured-visuals",
+            "message": "Capability planning lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::companion-memory",
+            "message": "Capability reflection lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::frontend-lifecycle",
+            "message": "Capability reflection/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::grounded-teach-back",
+            "message": "Capability reflection lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::structured-visuals",
+            "message": "Capability reflection lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::companion-memory",
+            "message": "Capability report lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::frontend-lifecycle",
+            "message": "Capability report/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::grounded-teach-back",
+            "message": "Capability report lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::structured-visuals",
+            "message": "Capability report lacks track structured-visuals"
+          }
+        ]
+      },
+      "freeze": {
+        "releaseUnitId": "RU-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B",
+        "decisionId": "DEC-FREEZE-RU-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B",
+        "commit": "7b94df0d6be57195c1589fb34db680d71aa2f3f9",
+        "frozenAt": "2026-08-16T12:20:09.553751+00:00",
+        "releaseUnitHash": "sha256:39addae5ed008873d55f67e39f6b38e379e7ac806c3c06441c79928b74c10090",
+        "snapshotPath": "execution/release-unit-snapshots/39addae5ed008873d55f67e39f6b38e379e7ac806c3c06441c79928b74c10090/release-unit.json"
+      }
+    },
+    {
+      "id": "RU-WORKSPACE-SCRATCH-VERIFICATION-035C",
+      "status": "frozen",
+      "objective": "以 verification-only 方式对派发前已完成的整屏草稿与岸岸错因可见实现生成可复算验收记录。",
+      "decisionRef": "DEC-FREEZE-RU-WORKSPACE-SCRATCH-VERIFICATION-035C",
+      "dependsOnReleaseUnits": [
+        "RU-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B"
+      ],
+      "supersedesReleaseUnits": [
+        "RU-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B"
+      ],
+      "roots": {
+        "workPackages": [
+          "WP-WORKSPACE-SCRATCH-VERIFICATION-035C"
+        ],
+        "requirements": [
+          "REQ-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+        ],
+        "nonFunctionalRequirements": [],
+        "domains": [
+          "wechat_frontend_lifecycle"
+        ],
+        "contracts": [
+          "wechat-page-request-owner@v1"
+        ],
+        "stateMachines": [],
+        "pages": [],
+        "journeys": [],
+        "dataLifecycleResources": [],
+        "aiScenarios": [],
+        "entitlements": [],
+        "trackCoverage": []
+      },
+      "closure": {
+        "workPackages": [
+          "WP-WORKSPACE-SCRATCH-VERIFICATION-035C"
+        ],
+        "requirements": [
+          "REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001",
+          "REQ-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+        ],
+        "nonFunctionalRequirements": [],
+        "domains": [
+          "wechat_frontend_lifecycle"
+        ],
+        "contracts": [
+          "wechat-page-request-owner@v1"
+        ],
+        "stateMachines": [],
+        "pages": [],
+        "pageStateProfiles": [],
+        "journeys": [],
+        "actors": [],
+        "dataLifecycleResources": [
+          "wechat-page-session-owner"
+        ],
+        "aiScenarios": [],
+        "entitlements": [],
+        "trackCoverage": [],
+        "evidence": [
+          "E-CODE-AUTH-SESSION-OWNER-001",
+          "E-CODE-BETA-FLOW-DISCOVERABILITY-030",
+          "E-CODE-CORE-FLOW-FRICTION-016",
+          "E-CODE-DIRECT-DRAFT-CANVAS-031",
+          "E-CODE-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+          "E-CODE-ME-REQUEST-GAP-001",
+          "E-CODE-PRIVATE-KNOWLEDGE-REQUEST-GAP-001",
+          "E-CODE-REFLECTION-OWNER-GAP-001",
+          "E-CODE-WEATHER-RAIN-GLANCE-027A",
+          "E-CODE-WECHAT-INTERNAL-BETA-BLOCKERS-028",
+          "E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+          "E-CODE-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A",
+          "E-CODE-WORKSPACE-UX-CLUTTER-027",
+          "E-USER-ANAN-COACH-LOOP-001",
+          "E-USER-ANAN-GOLDEN-LOOP-002",
+          "E-USER-BETA-FLOW-DISCOVERABILITY-030",
+          "E-USER-CORE-FLOW-DEBURDENING-016",
+          "E-USER-DIRECT-DRAFT-CANVAS-031",
+          "E-USER-FRONTEND-LIFECYCLE-UNIT-001",
+          "E-USER-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+          "E-USER-LEARNER-COACH-COMPLETION-015",
+          "E-USER-LEARNER-COACH-CONTEXT-014",
+          "E-USER-WEATHER-RAIN-GLANCE-027A",
+          "E-USER-WECHAT-INTERNAL-BETA-QUALITY-028",
+          "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+          "E-USER-WORKSPACE-TRUTH-CONSISTENCY-026",
+          "E-USER-WORKSPACE-UX-DECLUTTER-027"
+        ],
+        "decisions": [
+          "DEC-FREEZE-RU-WORKSPACE-SCRATCH-VERIFICATION-035C",
+          "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001"
+        ],
+        "conflicts": [],
+        "glossaryTerms": [],
+        "resources": [
+          "wechat-page-session-owner"
+        ],
+        "tracks": [
+          "frontend-lifecycle"
+        ]
+      },
+      "deferredSnapshot": {
+        "schemaVersion": 1,
+        "catalogHash": "sha256:b9551435d5ff074e6cb9015f4c0e2281347996af792fcae4b7a5a8b5e10eccf5",
+        "items": [
+          {
+            "subjectKind": "actors",
+            "subjectId": "*",
+            "message": "No product actors are defined"
+          },
+          {
+            "subjectKind": "aiScenarios",
+            "subjectId": "*",
+            "message": "No AI scenarios are defined"
+          },
+          {
+            "subjectKind": "entitlements",
+            "subjectId": "*",
+            "message": "No entitlement capabilities are defined"
+          },
+          {
+            "subjectKind": "glossaryTerms",
+            "subjectId": "*",
+            "message": "No canonical glossary terms are defined"
+          },
+          {
+            "subjectKind": "journeys",
+            "subjectId": "*",
+            "message": "No end-to-end journeys are defined"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-accessibility",
+            "message": "High-impact non-functional requirement is unresolved: NFR-accessibility (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-ai_cost",
+            "message": "High-impact non-functional requirement is unresolved: NFR-ai_cost (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-ai_quality",
+            "message": "High-impact non-functional requirement is unresolved: NFR-ai_quality (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-backup_restore",
+            "message": "High-impact non-functional requirement is unresolved: NFR-backup_restore (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-capacity",
+            "message": "High-impact non-functional requirement is unresolved: NFR-capacity (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-commerce",
+            "message": "High-impact non-functional requirement is unresolved: NFR-commerce (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-migration",
+            "message": "High-impact non-functional requirement is unresolved: NFR-migration (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-observability",
+            "message": "High-impact non-functional requirement is unresolved: NFR-observability (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-operations",
+            "message": "High-impact non-functional requirement is unresolved: NFR-operations (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-performance",
+            "message": "High-impact non-functional requirement is unresolved: NFR-performance (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-privacy",
+            "message": "High-impact non-functional requirement is unresolved: NFR-privacy (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-reliability",
+            "message": "High-impact non-functional requirement is unresolved: NFR-reliability (unknown)"
+          },
+          {
+            "subjectKind": "nonFunctionalRequirements",
+            "subjectId": "NFR-security",
+            "message": "High-impact non-functional requirement is unresolved: NFR-security (unknown)"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::companion-memory",
+            "message": "Capability ability_estimate lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::frontend-lifecycle",
+            "message": "Capability ability_estimate/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::grounded-teach-back",
+            "message": "Capability ability_estimate lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "ability_estimate::structured-visuals",
+            "message": "Capability ability_estimate lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::companion-memory",
+            "message": "Capability attempt lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::frontend-lifecycle",
+            "message": "Capability attempt/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::grounded-teach-back",
+            "message": "Capability attempt lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "attempt::structured-visuals",
+            "message": "Capability attempt lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::companion-memory",
+            "message": "Capability evidence lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::frontend-lifecycle",
+            "message": "Capability evidence/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::grounded-teach-back",
+            "message": "Capability evidence lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "evidence::structured-visuals",
+            "message": "Capability evidence lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::companion-memory",
+            "message": "Capability global_ask lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::frontend-lifecycle",
+            "message": "Capability global_ask/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::grounded-teach-back",
+            "message": "Capability global_ask lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "global_ask::structured-visuals",
+            "message": "Capability global_ask lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::companion-memory",
+            "message": "Capability mastery lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::frontend-lifecycle",
+            "message": "Capability mastery/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::grounded-teach-back",
+            "message": "Capability mastery lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "mastery::structured-visuals",
+            "message": "Capability mastery lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::companion-memory",
+            "message": "Capability planning lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::frontend-lifecycle",
+            "message": "Capability planning/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::grounded-teach-back",
+            "message": "Capability planning lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "planning::structured-visuals",
+            "message": "Capability planning lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::companion-memory",
+            "message": "Capability reflection lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::frontend-lifecycle",
+            "message": "Capability reflection/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::grounded-teach-back",
+            "message": "Capability reflection lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "reflection::structured-visuals",
+            "message": "Capability reflection lacks track structured-visuals"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::companion-memory",
+            "message": "Capability report lacks track companion-memory"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::frontend-lifecycle",
+            "message": "Capability report/frontend-lifecycle remains unknown"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::grounded-teach-back",
+            "message": "Capability report lacks track grounded-teach-back"
+          },
+          {
+            "subjectKind": "trackCoverage",
+            "subjectId": "report::structured-visuals",
+            "message": "Capability report lacks track structured-visuals"
+          }
+        ]
+      },
+      "freeze": {
+        "releaseUnitId": "RU-WORKSPACE-SCRATCH-VERIFICATION-035C",
+        "decisionId": "DEC-FREEZE-RU-WORKSPACE-SCRATCH-VERIFICATION-035C",
+        "commit": "7b94df0d6be57195c1589fb34db680d71aa2f3f9",
+        "frozenAt": "2026-08-16T12:28:06.867638+00:00",
+        "releaseUnitHash": "sha256:604d6648922c406f763cf675024cd72875dfe3328ba04a066f1c642a9c20bab5",
+        "snapshotPath": "execution/release-unit-snapshots/604d6648922c406f763cf675024cd72875dfe3328ba04a066f1c642a9c20bab5/release-unit.json"
+      }
     }
   ]
 }

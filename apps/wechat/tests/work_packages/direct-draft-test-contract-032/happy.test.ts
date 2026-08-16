@@ -8,14 +8,12 @@ import mockLifecycleRaw from "../../stage2-mock-exam.test.ts?raw";
 import materialContractRaw from "../../mock-material-annotation.test.ts?raw";
 
 describe("direct draft test contract 032 happy path", () => {
-  it("makes historical suites assert continuous drawing and one toolbar", () => {
+  it("makes historical suites assert one viewport drawing layer and one toolbar", () => {
     for (const source of [String(practiceLifecycleRaw), String(mockLifecycleRaw)]) {
       expect(source).toContain("annotationMode === 'annotate' ? 'annotate' : 'static'");
-      expect(source).toContain("annotationOpen=\\\"{{annotationMode === 'annotate'}}\\\"");
-      expect(source).toContain("annotationCanvas === 'question' && !materialOpen");
+      expect(source).toContain('coordinate-space="viewport"');
+      expect(source).toContain('stroke-prefix="workspace-stroke"');
     }
-    expect(String(materialContractRaw)).toContain(
-      "annotationCanvas === 'material' || materialOpen",
-    );
+    expect(String(materialContractRaw)).toContain("replaceWorkspaceAnnotations");
   });
 });

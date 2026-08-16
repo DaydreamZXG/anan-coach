@@ -7,6 +7,15 @@ interface CapturedPageDefinition {
   onUnload(this: TestPage): void;
   retry(this: TestPage): void;
   goLogin(this: TestPage): void;
+  changePointCategory(
+    this: TestPage,
+    event: WechatMiniprogram.CustomEvent<{ value: string }>,
+  ): void;
+  inputPointStatement(this: TestPage, event: WechatMiniprogram.Input): void;
+  changePointSources(
+    this: TestPage,
+    event: WechatMiniprogram.CustomEvent<{ value: string[] }>,
+  ): void;
   submitArtifact(this: TestPage): Promise<void>;
 }
 
@@ -331,6 +340,31 @@ describe("essay task page lifecycle", () => {
     expect(String(page.data.blockingReason)).toContain("确实已经过期");
     page.onUnload.call(page);
   });
+
+  it("clears a stale point validation error as soon as the learner repairs the draft", async () => {
+    const { definition } = await capturePageDefinition();
+    const page = instantiatePage(definition);
+    page.setData({
+      submissionStatus: "error",
+      submissionMessage: "请选择第 1 个答案点“属于哪类信息”。",
+      points: [
+        {
+          statement: "",
+          category: "",
+          categoryIndex: -1,
+          sourceSegmentIds: [],
+          sourceOptions: [],
+        },
+      ],
+    });
+
+    page.changePointCategory.call(page, pointEvent("2"));
+
+    expect(page.data).toMatchObject({
+      submissionStatus: "idle",
+      submissionMessage: "",
+    });
+  });
 });
 
 async function capturePageDefinition(): Promise<{
@@ -602,6 +636,13 @@ function requestHeader(request: WechatMiniprogram.RequestOption, name: string): 
   if (!headers || typeof headers !== "object") return undefined;
   const value = (headers as Record<string, unknown>)[name];
   return typeof value === "string" ? value : undefined;
+}
+
+function pointEvent(value: string): WechatMiniprogram.CustomEvent<{ value: string }> {
+  return {
+    detail: { value },
+    currentTarget: { dataset: { index: 0 } },
+  } as unknown as WechatMiniprogram.CustomEvent<{ value: string }>;
 }
 
 async function flushPromises(turns = 3): Promise<void> {

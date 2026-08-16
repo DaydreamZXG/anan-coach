@@ -139,8 +139,8 @@ function invalidateCanvasLayout(host: AnnotationLayerHost): void {
   state.activeStroke = null;
   state.activeStrokeStartedAt = 0;
   state.lassoPath = [];
-  state.contentHeight = host.data.contentHeight;
-  state.scrollTop = host.data.scrollTop;
+  state.contentHeight = effectiveContentHeight(host, state.height);
+  state.scrollTop = host.data.coordinateSpace === "viewport" ? 0 : host.data.scrollTop;
 }
 
 interface AnnotationLayerHost {
@@ -154,6 +154,7 @@ interface AnnotationLayerHost {
     horizontalRegions: unknown;
     scrollTop: number;
     contentHeight: number;
+    coordinateSpace: string;
     tool: string;
     toolbarCollapsed: boolean;
     lassoSelectedCount: number;
@@ -163,10 +164,15 @@ interface AnnotationLayerHost {
     activeSurface: string;
     toolbarAvailable: boolean;
     activeTool: string;
+    scopeLabel: string;
   };
   setData(patch: Record<string, unknown>): void;
   triggerEvent(name: string, detail?: Record<string, unknown>): void;
   createSelectorQuery(): WechatMiniprogram.SelectorQuery;
+}
+
+function effectiveContentHeight(host: AnnotationLayerHost, viewportHeight: number): number {
+  return host.data.coordinateSpace === "viewport" ? viewportHeight : host.data.contentHeight;
 }
 
 function currentStrokes(host: AnnotationLayerHost): AnnotationStroke[] {
@@ -337,8 +343,8 @@ function ensureCanvas(host: AnnotationLayerHost, ready: () => void): void {
       state.height = height;
       state.left = results[0]?.left ?? 0;
       state.top = results[0]?.top ?? 0;
-      state.contentHeight = host.data.contentHeight;
-      state.scrollTop = host.data.scrollTop;
+      state.contentHeight = effectiveContentHeight(host, height);
+      state.scrollTop = host.data.coordinateSpace === "viewport" ? 0 : host.data.scrollTop;
       // 画布尺寸就绪后按当前句段表重算内容坐标（此前可能因尺寸未就绪失败）。
       syncSegments(host);
       ready();
@@ -427,6 +433,8 @@ Component({
     scrollTop: { type: Number, value: 0 },
     /** 契约增量 v2：题目内容总高（像素），内容坐标系换算基准。 */
     contentHeight: { type: Number, value: 0 },
+    /** 035：viewport 表示整块可见工作区就是草稿坐标系，滚动不平移笔迹。 */
+    coordinateSpace: { type: String, value: "content" },
     /** 表格横滚视口；仅影响 x 换算，持久化仍沿用 AnnotationPoint。 */
     horizontalRegions: { type: null, value: [] },
     /** 多内容面共享同一题的 annotations 时，用前缀保证笔迹 ID 与所属画布稳定。 */
@@ -438,6 +446,8 @@ Component({
     toolbarAvailable: { type: Boolean, value: true },
     /** 多画布只共享临时工具，不共享笔迹坐标或持久化 reducer。 */
     activeTool: { type: String, value: "pan" },
+    /** 整屏模式向用户说明当前笔迹归属，避免误以为会跨题共享。 */
+    scopeLabel: { type: String, value: "" },
   },
   data: {
     // 打开草稿先保持题面可滚动、选项可点；用户明确选画笔后才挂载全屏作画层。
@@ -476,8 +486,10 @@ Component({
       scheduleRedraw(this, true);
     },
     // 句段/内容高变化：整表换算一次（内容坐标恒定）。纯滚动不触发本分支。
-    "segments, contentHeight"(this: AnnotationLayerHost) {
-      runtime(this).contentHeight = this.data.contentHeight;
+    "segments, contentHeight, coordinateSpace"(this: AnnotationLayerHost) {
+      const state = runtime(this);
+      state.contentHeight = effectiveContentHeight(this, state.height);
+      state.scrollTop = this.data.coordinateSpace === "viewport" ? 0 : this.data.scrollTop;
       if (this.data.mode !== "hidden") {
         syncSegments(this);
         scheduleRedraw(this);
@@ -491,7 +503,7 @@ Component({
     },
     // 滚动只更新绘制偏移，重绘即可（同步、零重测、零坐标写入）。
     scrollTop(this: AnnotationLayerHost) {
-      runtime(this).scrollTop = this.data.scrollTop;
+      runtime(this).scrollTop = this.data.coordinateSpace === "viewport" ? 0 : this.data.scrollTop;
       scheduleRedraw(this);
     },
     activeTool(this: AnnotationLayerHost) {

@@ -66,8 +66,8 @@ import { createIdempotencyKey } from "../../platform/command-id";
 import { decideAutosave, decideExit } from "./features/task-runtime/state/autosave";
 import {
   appendStrokeWithinLimit,
-  replaceQuestionAnnotations,
-  splitAnnotationSurfaces,
+  replaceWorkspaceAnnotations,
+  workspaceAnnotationStrokes,
 } from "./shared/task-runtime/annotation-layer/strokes";
 import type { AnnotationStroke } from "../../task-runtime/contracts";
 import type { AnchorSegmentRect } from "./shared/task-runtime/annotation-layer/anchor";
@@ -141,9 +141,7 @@ interface PracticePageData extends TaskInteractionProjection {
   /** 快滑切题的一次性转场方向（motion-question-in--*），动画结束即清空。 */
   questionTransition: "" | "prev" | "next";
   questionAnnotations: AnnotationStroke[];
-  materialAnnotations: AnnotationStroke[];
   annotationTool: "pan" | "pen" | "highlighter" | "eraser";
-  annotationCanvas: "question" | "material";
   /** 契约增量 v2：当前题干句段的视口矩形表，喂给批注层做锚定与滚动跟随。 */
   annotationSegments: AnchorSegmentRect[];
   /** 契约增量 v2：题干实时 scrollTop，驱动批注绘制换算（与受控 scroll-top 分离）。 */
@@ -208,21 +206,9 @@ interface PracticePageCustom {
   openAnanContext(): void;
   closeAnanContext(): void;
   openAnnotation(): void;
-  openMaterialAnnotation(): void;
-  switchAnnotationSurface(
-    event: WechatMiniprogram.CustomEvent<{ surface: "question" | "material" }>,
-  ): void;
   changeAnnotationTool(event: WechatMiniprogram.CustomEvent<{ tool: string }>): void;
-  focusQuestionAnnotation(): void;
-  focusMaterialAnnotation(): void;
   closeAnnotation(): void;
   changeAnnotations(
-    event: WechatMiniprogram.CustomEvent<{
-      strokes: AnnotationStroke[];
-      action: "added" | "erased";
-    }>,
-  ): void;
-  changeMaterialAnnotations(
     event: WechatMiniprogram.CustomEvent<{
       strokes: AnnotationStroke[];
       action: "added" | "erased";
@@ -346,9 +332,7 @@ Page<PracticePageData, PracticePageCustom>({
     questionScrollTop: 0,
     questionTransition: "",
     questionAnnotations: [] as AnnotationStroke[],
-    materialAnnotations: [] as AnnotationStroke[],
     annotationTool: "pan" as const,
-    annotationCanvas: "question" as const,
     annotationSegments: [] as AnchorSegmentRect[],
     questionScrollPosition: 0,
     questionContentHeight: 0,
@@ -661,7 +645,6 @@ Page<PracticePageData, PracticePageCustom>({
       {
         selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
         annotationTool: "pan",
-        annotationCanvas: "question",
       },
     );
   },
@@ -689,61 +672,23 @@ Page<PracticePageData, PracticePageCustom>({
   openAnnotation() {
     const runtime = runtimes.get(this);
     if (!runtime?.session || runtime.session.state !== "answering") return;
-    const surface = this.data.view?.question.material ? "material" : "question";
     transitionPracticeInteraction(
       this,
-      { type: "ANNOTATION_OPENED", surface },
+      { type: "ANNOTATION_OPENED", surface: "question" },
       {
         selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
         annotationTool: "pan",
-        annotationCanvas: surface,
       },
     );
-    // 契约增量 v2：打开批注即触发句段重测，确保批注层拿到的 anchors 是最新位置。
-    requestSegmentRects(this);
   },
 
   closeAnnotation() {
     transitionPracticeInteraction(this, { type: "ANNOTATION_CLOSED" });
   },
 
-  openMaterialAnnotation() {
-    const runtime = runtimes.get(this);
-    if (!runtime?.session || runtime.session.state !== "answering") return;
-    transitionPracticeInteraction(
-      this,
-      { type: "ANNOTATION_OPENED", surface: "material" },
-      {
-        selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
-      },
-    );
-  },
-
-  switchAnnotationSurface(event) {
-    const surface = event.detail.surface;
-    if (surface === "material" && !this.data.view?.question.material) return;
-    const runtime = runtimes.get(this);
-    if (!runtime?.session || runtime.session.state !== "answering") return;
-    transitionPracticeInteraction(this, { type: "ANNOTATION_OPENED", surface });
-    this.setData({ annotationCanvas: surface });
-    if (surface === "question") requestSegmentRects(this);
-  },
-
   changeAnnotationTool(event) {
     const tool = normalizePageAnnotationTool(event.detail.tool);
     if (tool !== this.data.annotationTool) this.setData({ annotationTool: tool });
-  },
-
-  focusQuestionAnnotation() {
-    if (this.data.annotationOpen && this.data.annotationCanvas !== "question") {
-      this.setData({ annotationCanvas: "question" });
-    }
-  },
-
-  focusMaterialAnnotation() {
-    if (this.data.annotationOpen && this.data.annotationCanvas !== "material") {
-      this.setData({ annotationCanvas: "material" });
-    }
   },
 
   // 契约增量 v2：内容坐标系下滚动天然跟随 —— 只把 scrollTop 传给批注层做
@@ -786,26 +731,11 @@ Page<PracticePageData, PracticePageCustom>({
     if (!runtime?.task || this.data.interactionLocked) return;
     runtime.task = reduceTaskRuntime(runtime.task, {
       type: "ANNOTATIONS_CHANGED",
-      strokes: replaceQuestionAnnotations(
+      strokes: replaceWorkspaceAnnotations(
         runtime.task.attempts[runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? ""]
           ?.annotations ?? [],
         event.detail.strokes,
       ),
-      action: event.detail.action,
-    });
-    render(this, runtime);
-    void autosaveCheckpoint(this, runtime);
-  },
-
-  changeMaterialAnnotations(event) {
-    const runtime = runtimes.get(this);
-    if (!runtime?.task || !runtime.session || this.data.interactionLocked) return;
-    const currentQuestionId = runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? "";
-    const sharedQuestionIds = sharedMaterialQuestionIds(runtime.session, currentQuestionId);
-    runtime.task = reduceTaskRuntime(runtime.task, {
-      type: "SHARED_MATERIAL_ANNOTATIONS_CHANGED",
-      questionIds: sharedQuestionIds.length ? sharedQuestionIds : [currentQuestionId],
-      strokes: event.detail.strokes,
       action: event.detail.action,
     });
     render(this, runtime);
@@ -1796,21 +1726,12 @@ function render(
   const answerSheetModuleCounts = `${String(answerSheetLegend.answered)} 已答 · ${String(answerSheetLegend.unanswered)} 未答 · 1 当前`;
   const alreadyReady = page.data.status === "ready";
   const favoriteQuestionChanged = page.data.favoriteQuestionId !== currentQuestionId;
-  const annotationSurfaces = splitAnnotationSurfaces(view.question.annotations);
-  const sharedMaterialAnnotations = sharedMaterialAnnotationStrokes(
-    runtime.session,
-    runtime.task,
-    currentQuestionId,
-  );
   page.setData({
     ...(alreadyReady ? { status: "ready" as const } : {}),
     errorTitle: "",
     errorMessage: "",
     view,
-    questionAnnotations: annotationSurfaces.question,
-    materialAnnotations: sharedMaterialAnnotations.length
-      ? sharedMaterialAnnotations
-      : annotationSurfaces.material,
+    questionAnnotations: workspaceAnnotationStrokes(view.question.annotations),
     sessionState: runtime.session.state,
     canSubmit: runtime.session.state === "answering",
     answerSheetItems,
@@ -2074,23 +1995,6 @@ function changeQuestion(page: PracticePageInstance, delta: number): void {
 function resetQuestionScroll(page: PracticePageInstance): void {
   // 微信 scroll-top 同值不会重新触发滚动：在 0 与 0.1 之间交替，保证每次切题都真正回到顶部。
   page.setData({ questionScrollTop: page.data.questionScrollTop === 0 ? 0.1 : 0 });
-}
-
-/**
- * 契约增量 v2：滚动跟随由宿主重测驱动——滚动时调用题干 content-renderer
- * 的 measureSegmentRects()，渲染器内部重测句段真实视口矩形并经 bindsegmentrects
- * 上报；批注层对比前后 rects 平移已锚定笔迹。
- * annotate（批注中）与 static（已完成的涂画展示）都要跟随，故不限制 annotationOpen；
- * 60ms 节流在帧率与重测成本间取平衡。
- */
-function requestSegmentRects(page: PracticePageInstance): void {
-  const runtime = runtimes.get(page);
-  if (!runtime || !runtime.task) return;
-  const renderer = page.selectComponent(".question-stem") as
-    { measureSegmentRects?: () => void } | undefined;
-  if (typeof renderer?.measureSegmentRects === "function") {
-    renderer.measureSegmentRects();
-  }
 }
 
 /**
@@ -2665,39 +2569,4 @@ function taskHelpReference(session: XingceTaskSession): TaskHelpPageObjectRefere
     taskMode: session.mode === "verification" ? "retest" : session.mode,
     lifecycle: session.state === "answering" ? "answering" : "submitted",
   };
-}
-
-function sharedMaterialQuestionIds(
-  session: XingceTaskSession,
-  currentQuestionId: string,
-): string[] {
-  const current = session.bundle.questions.find(
-    (question) => question.questionId === currentQuestionId,
-  );
-  if (!current?.materialId) return currentQuestionId ? [currentQuestionId] : [];
-  return session.bundle.questions
-    .filter((question) => question.materialId === current.materialId)
-    .map((question) => question.questionId);
-}
-
-function sharedMaterialAnnotationStrokes(
-  session: XingceTaskSession,
-  task: NonNullable<ReturnType<typeof runtimes.get>>["task"],
-  currentQuestionId: string,
-): AnnotationStroke[] {
-  if (!task) return [];
-  const questionIds = sharedMaterialQuestionIds(session, currentQuestionId);
-  const strokes = new Map<string, AnnotationStroke>();
-  for (const questionId of questionIds) {
-    const material = splitAnnotationSurfaces(task.attempts[questionId]?.annotations).material;
-    for (const stroke of material) {
-      const previous = strokes.get(stroke.strokeId);
-      if (!previous || (stroke.erasedAtMs ?? -1) >= (previous.erasedAtMs ?? -1)) {
-        strokes.set(stroke.strokeId, stroke);
-      }
-    }
-  }
-  return [...strokes.values()].sort(
-    (left, right) => left.atMs - right.atMs || left.strokeId.localeCompare(right.strokeId),
-  );
 }

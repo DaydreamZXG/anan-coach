@@ -148,19 +148,35 @@
       </view>
 
       <view class="essay-action-pane">
-    <view wx:if="{{capability.stage !== 'essay_drafting'}}" class="section-heading">
+    <view wx:if="{{completion}}" class="completion-transition card">
+      <view class="completion-transition__mark">✓</view>
+      <view class="completion-transition__body">
+        <view class="completion-transition__eyebrow">本次记录已进入计划</view>
+        <view class="completion-transition__title">{{completion.title}}</view>
+        <view class="completion-transition__copy">{{completion.message}}</view>
+        <view class="completion-transition__next">
+          <text class="completion-transition__next-label">回到今日后</text>
+          <text>{{completion.nextAction}}</text>
+        </view>
+        <view class="completion-transition__truth">{{completion.truthNote}}</view>
+        <view wx:if="{{!completionAutoReturnFailed}}" class="completion-transition__status">正在回到今日…</view>
+        <view wx:else class="completion-transition__status completion-transition__status--error">自动返回没有成功，内容不会丢，点下方按钮再试一次。</view>
+      </view>
+    </view>
+
+    <view wx:if="{{!completion && capability.stage !== 'essay_drafting'}}" class="section-heading">
       <view>
         <view class="section-title">本阶段作业</view>
         <view class="section-meta form-evidence-label">每步都会单独存下来</view>
       </view>
     </view>
 
-    <view wx:if="{{blockingReason}}" class="blocking-note">
+    <view wx:if="{{!completion && blockingReason}}" class="blocking-note">
       <view class="blocking-title">当前阶段不可提交</view>
       <view class="blocking-note__copy">{{blockingReason}}</view>
     </view>
 
-    <block wx:if="{{capability.stage === 'essay_material_reading'}}">
+    <block wx:if="{{!completion && capability.stage === 'essay_material_reading'}}">
       <view class="form-card card">
         <view class="field-label">整组材料的核心主题</view>
         <textarea cursor-spacing="24"
@@ -212,32 +228,69 @@
       </view>
     </block>
 
-    <block wx:elif="{{capability.stage === 'essay_point_extraction'}}">
+    <block wx:elif="{{!completion && capability.stage === 'essay_point_extraction'}}">
+      <view class="point-coach-guide card">
+        <view class="point-coach-guide__eyebrow">岸岸带你找答案点</view>
+        <view class="point-coach-guide__title">从{{pointGuide.sourceLabel}}找出 2–3 条可以直接写进答案的信息</view>
+        <view class="point-coach-guide__copy">不用写完整答案，每条只做三件事。</view>
+        <view class="point-coach-steps">
+          <view class="point-coach-step">
+            <text class="point-coach-step__index">1</text>
+            <text>材料说了什么</text>
+          </view>
+          <view class="point-coach-step">
+            <text class="point-coach-step__index">2</text>
+            <text>这属于哪类信息</text>
+          </view>
+          <view class="point-coach-step">
+            <text class="point-coach-step__index">3</text>
+            <text>依据在哪段</text>
+          </view>
+        </view>
+        <view wx:if="{{pointGuide.hasPriorReading}}" class="prior-reading">
+          <view class="prior-reading__label">你上一步写下的初步理解 <text>还未验证</text></view>
+          <view wx:if="{{pointGuide.overallTheme}}" class="prior-reading__theme">整组主题：{{pointGuide.overallTheme}}</view>
+          <view wx:for="{{pointGuide.summaryItems}}" wx:key="label" class="prior-reading__item">
+            <text class="prior-reading__item-label">{{item.label}}</text>
+            <text>{{item.summary}}</text>
+          </view>
+        </view>
+        <view class="point-writing-example">
+          <view class="point-writing-example__label">写法示例 · 不是本题答案</view>
+          <view>不只写“存在问题”，而要写清：“服务渠道分散，群众需要重复提交材料。”</view>
+        </view>
+      </view>
       <view wx:for="{{points}}" wx:key="pointId" class="point-card card">
         <view class="form-index-row">
           <view class="form-index type-data">{{index + 1}}</view>
-          <view class="form-item-title">要点 {{index + 1}}</view>
+          <view>
+            <view class="form-item-title">答案点 {{index + 1}}</view>
+            <view class="point-item-hint">一条只写一个意思</view>
+          </view>
           <button hover-class="item--hover" class="text-danger tap-tactile" data-index="{{index}}" bindtap="removePoint">删除</button>
         </view>
-        <view class="field-label">要点类型</view>
-        <picker
-          range="{{pointCategoryLabels}}"
-          value="{{item.categoryIndex}}"
-          data-index="{{index}}"
-          bindchange="changePointCategory"
-        >
-          <view class="essay-select">{{pointCategoryLabels[item.categoryIndex]}} <text>›</text></view>
-        </picker>
-        <view class="field-label">要点表达</view>
+        <view class="field-label">材料说了什么</view>
         <textarea cursor-spacing="24"
           class="essay-textarea essay-textarea--compact"
           value="{{item.statement}}"
           maxlength="1000"
           data-index="{{index}}"
-          placeholder="写成能直接进答案的话。"
+          placeholder="说清“谁 / 什么情况 / 带来什么”，不要只写“有价值”或“存在问题”。"
           bindinput="inputPointStatement"
         ></textarea>
-        <view class="field-label">材料出处 <text class="field-hint">至少选 1 段</text></view>
+        <view class="field-label">这属于哪类信息</view>
+        <picker
+          range="{{pointCategoryLabels}}"
+          value="{{item.category ? item.categoryIndex : 0}}"
+          data-index="{{index}}"
+          bindchange="changePointCategory"
+        >
+          <view class="essay-select {{item.category ? '' : 'essay-select--placeholder'}}">
+            <text>{{item.category ? pointCategoryLabels[item.categoryIndex] : '先选择：问题、原因、影响 / 价值、做法…'}}</text>
+            <text>›</text>
+          </view>
+        </picker>
+        <view class="field-label">依据在哪段材料里 <text class="field-hint">至少选 1 段</text></view>
         <checkbox-group data-index="{{index}}" bindchange="changePointSources">
           <label wx:for="{{item.sourceOptions}}" wx:for-item="segment" wx:key="segmentId" class="source-option">
             <checkbox value="{{segment.segmentId}}" checked="{{segment.checked}}" color="#00b8db" />
@@ -248,10 +301,10 @@
           </label>
         </checkbox-group>
       </view>
-      <button hover-class="item--hover" class="secondary-button add-button" bindtap="addPoint">＋ 添加要点</button>
+      <button hover-class="item--hover" class="secondary-button add-button" bindtap="addPoint">＋ 再找一条答案点</button>
     </block>
 
-    <block wx:elif="{{capability.stage === 'essay_outlining'}}">
+    <block wx:elif="{{!completion && capability.stage === 'essay_outlining'}}">
       <view class="form-card card">
         <view class="field-label">总论点 <text class="field-optional">选填</text></view>
         <textarea cursor-spacing="24"
@@ -291,7 +344,7 @@
       <button hover-class="item--hover" class="secondary-button add-button" bindtap="addOutlineSection">＋ 添加段落</button>
     </block>
 
-    <block wx:elif="{{capability.stage === 'essay_drafting'}}">
+    <block wx:elif="{{!completion && capability.stage === 'essay_drafting'}}">
       <block wx:if="{{draftAvailable}}">
         <view id="drafting-answer" class="draft-writing-card">
           <textarea
@@ -496,7 +549,7 @@
       </view>
     </block>
 
-    <block wx:elif="{{capability.stage === 'essay_rewrite' && rewriteDraft}}">
+    <block wx:elif="{{!completion && capability.stage === 'essay_rewrite' && rewriteDraft}}">
       <view class="closure-guide card">
         <view class="review-guide-title closure-guide__line">二次改写</view>
         <view class="closure-guide__line">这次只回应你确认过的问题。</view>
@@ -540,7 +593,7 @@
       </view>
     </block>
 
-    <block wx:elif="{{capability.stage === 'essay_transfer'}}">
+    <block wx:elif="{{!completion && capability.stage === 'essay_transfer'}}">
       <view class="closure-guide card">
         <view class="review-guide-title closure-guide__line">换新题练手</view>
         <view class="closure-guide__line">题目和材料都定稿了，每次作答都会单独存。</view>
@@ -617,7 +670,7 @@
       </block>
     </block>
 
-    <block wx:elif="{{capability.stage === 'essay_review'}}">
+    <block wx:elif="{{!completion && capability.stage === 'essay_review'}}">
       <view class="review-guide card">
         <view class="review-guide-title">逐条过一遍</view>
         <view>1. 每条问题都选一下：认可、不认可还是拿不准。</view>
@@ -670,12 +723,12 @@
       <view class="closure-result-planning">{{closureResult.planningMessage}}</view>
     </view>
 
-    <button hover-class="item--hover" wx:if="{{workspace.progression.attemptId}}" class="context-anan-action" bindtap="askAnanAboutEssay">
+    <button hover-class="item--hover" wx:if="{{!completion && workspace.progression.attemptId}}" class="context-anan-action" bindtap="askAnanAboutEssay">
       <text class="context-anan-action__mark">✦</text>
       <text>{{workspace.progression.reviewVersionId ? '带着这次评阅问岸岸' : '带着这次作答问岸岸'}}</text>
     </button>
 
-    <view wx:if="{{submissionMessage}}" class="submission-message submission-message--{{submissionStatus}}">
+    <view wx:if="{{submissionMessage && !completion}}" class="submission-message submission-message--{{submissionStatus}}">
       {{submissionMessage}}
     </view>
     <view wx:if="{{submissionRequestId}}" class="request-id">问题编号 {{submissionRequestId}}</view>
@@ -685,6 +738,14 @@
 
   <view slot="footer" class="footer-content">
     <button hover-class="item--hover"
+      wx:if="{{completion}}"
+      class="primary-button submit-button tap-tactile"
+      bindtap="returnTodayAfterCompletion"
+    >
+      {{completionAutoReturnFailed ? '再试一次：回到今日' : '回到今日看最新安排'}}
+    </button>
+    <button hover-class="item--hover"
+      wx:else
       class="primary-button submit-button {{!canSubmit || submissionStatus === 'submitting' ? 'submit-button--disabled' : ''}} tap-tactile"
       loading="{{submissionStatus === 'submitting'}}"
       disabled="{{!canSubmit || submissionStatus === 'submitting'}}"

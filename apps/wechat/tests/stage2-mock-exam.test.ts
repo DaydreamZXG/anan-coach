@@ -325,7 +325,7 @@ describe("stage 2 F02 mock exam", () => {
     vi.setSystemTime(new Date("2026-07-15T02:00:00.000Z"));
     const harness = await createMockPage(sessionPayload());
     const stroke = {
-      strokeId: "stroke-mock-1",
+      strokeId: "workspace-stroke-mock-1",
       tool: "pen" as const,
       width: 0.018,
       points: [
@@ -333,12 +333,6 @@ describe("stage 2 F02 mock exam", () => {
         { x: 0.4, y: 0.5 },
       ],
       atMs: 1_200,
-    };
-    const materialStroke = {
-      ...stroke,
-      strokeId: "material-stroke-mock-1",
-      surface: "material" as const,
-      atMs: 1_600,
     };
 
     harness.page.openAnnotation.call(harness.page);
@@ -355,17 +349,6 @@ describe("stage 2 F02 mock exam", () => {
     } as WechatMiniprogram.CustomEvent<{ strokes: [typeof stroke]; action: "added" }>);
     expect(harness.page.data.question).toMatchObject({ annotations: [stroke] });
 
-    harness.page.openMaterialAnnotation.call(harness.page);
-    expect(harness.page.data).toMatchObject({
-      annotationOpen: true,
-      annotationSurface: "material",
-    });
-    harness.page.changeMaterialAnnotations.call(harness.page, {
-      detail: { strokes: [materialStroke], action: "added" },
-    } as WechatMiniprogram.CustomEvent<{
-      strokes: [typeof materialStroke];
-      action: "added";
-    }>);
     const materialReaderState = {
       mode: "fullscreen" as const,
       position: { anchorId: "material-start", scrollTop: 320, zoom: 1.25 },
@@ -389,7 +372,7 @@ describe("stage 2 F02 mock exam", () => {
     expect(checkpoint?.data).toMatchObject({
       answers: [
         {
-          annotations: [stroke, materialStroke],
+          annotations: [stroke],
           materialPosition: materialReaderState.position,
         },
       ],
@@ -426,11 +409,10 @@ describe("stage 2 F02 mock exam", () => {
     expect(mockExamTemplate).toContain(
       "mode=\"{{annotationMode === 'annotate' ? 'annotate' : 'static'}}\"",
     );
-    expect(mockExamTemplate).toContain("annotationOpen=\"{{annotationMode === 'annotate'}}\"");
-    expect(mockExamTemplate).toContain('surfaceSwitchAvailable="{{false}}"');
-    expect(mockExamTemplate).toContain(
-      "toolbarAvailable=\"{{annotationCanvas === 'question' && !materialOpen}}\"",
-    );
+    expect(mockExamTemplate).toContain('coordinate-space="viewport"');
+    expect(mockExamTemplate).toContain('stroke-prefix="workspace-stroke"');
+    expect(String(mockExamTemplate).match(/<annotation-layer/gu)).toHaveLength(1);
+    expect(mockExamTemplate).not.toContain('bindstrokeschange="changeMaterialAnnotations"');
 
     harness.page.openAnnotation.call(harness.page);
     harness.page.nextQuestion.call(harness.page);
@@ -1494,7 +1476,6 @@ interface CapturedMockPage {
   exit(this: TestMockPage): Promise<void>;
   inputDraft(this: TestMockPage, event: WechatMiniprogram.Input): void;
   openAnnotation(this: TestMockPage): void;
-  openMaterialAnnotation(this: TestMockPage): void;
   closeAnnotation(this: TestMockPage): void;
   toggleAnswerSheet(this: TestMockPage): void;
   toggleDraft(this: TestMockPage): void;
@@ -1510,20 +1491,6 @@ interface CapturedMockPage {
     event: WechatMiniprogram.CustomEvent<{
       strokes: Array<{
         strokeId: string;
-        tool: "pen" | "highlighter";
-        width: number;
-        points: Array<{ x: number; y: number }>;
-        atMs: number;
-      }>;
-      action: "added" | "erased";
-    }>,
-  ): void;
-  changeMaterialAnnotations(
-    this: TestMockPage,
-    event: WechatMiniprogram.CustomEvent<{
-      strokes: Array<{
-        strokeId: string;
-        surface?: "question" | "material";
         tool: "pen" | "highlighter";
         width: number;
         points: Array<{ x: number; y: number }>;

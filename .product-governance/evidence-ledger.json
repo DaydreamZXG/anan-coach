@@ -1248,6 +1248,72 @@
       "status": "active",
       "verificationLevel": 1,
       "basisRefs": ["E-CODE-FULL-PRODUCT-AUDIT-REPAIR-SCOPE-033A", "E-USER-FULL-PRODUCT-AUDIT-REPAIR-033"]
+    },
+    {
+      "id": "E-USER-ESSAY-TASK-CLOSURE-034",
+      "claim": "用户在真机申论训练中确认：材料梳理点保存后没有可感知的后续动作，要点提炼页的表单意图和用法也无法理解；用户明确授权修复这两个闭环问题。",
+      "class": "user_confirmed",
+      "locator": "conversation:2026-08-16:essay-material-save-and-point-extraction-closure",
+      "observedAt": "2026-08-16T18:23:07+08:00",
+      "scope": "target",
+      "status": "active",
+      "verificationLevel": 0,
+      "basisRefs": ["E-USER-LEARNER-COACH-COMPLETION-015"]
+    },
+    {
+      "id": "E-CODE-ESSAY-TASK-CLOSURE-034",
+      "claim": "当前 essay-task 在 completePlanTask 成功后只把 submissionStatus 设为 saved 并将 canSubmit 设为 false，页面仍保留可编辑表单和禁用按钮，没有返回今日或可恢复的后续动作；要点提炼默认把类型设为 problem，并直接暴露‘要点类型/要点表达/材料出处’而没有复用上一步梳理或说明三个用户动作。",
+      "class": "code_observed",
+      "locator": "apps/wechat/miniprogram/pages/essay-task/index.ts;apps/wechat/miniprogram/pages/essay-task/index.wxml;apps/wechat/miniprogram/pages/essay-task/features/forms.ts;backend/app/domains/essay_intelligence/learning_service.py",
+      "observedAt": "2026-08-16T18:23:07+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": ["E-USER-ESSAY-TASK-CLOSURE-034", "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-033"]
+    },
+    {
+      "id": "E-CODE-ESSAY-TASK-CLOSURE-AUTHORITY-034A",
+      "claim": "034 页面与专项测试已通过，但 package:validate 确认 pages/essay-task/features/forms.ts 由 subpackage-shared-src/features/essay-task/forms.ts 生成；034 未拥有该权威源，若不补齐，标准分包同步会覆盖取消默认分类、上步证据复用和具体本地校验。",
+      "class": "code_observed",
+      "locator": "apps/wechat/scripts/subpackage-shared-manifest.mjs;apps/wechat/subpackage-shared-src/features/essay-task/forms.ts;apps/wechat/miniprogram/pages/essay-task/features/forms.ts",
+      "observedAt": "2026-08-16T18:50:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": ["E-CODE-ESSAY-TASK-CLOSURE-034", "E-USER-ESSAY-TASK-CLOSURE-034"]
+    },
+    {
+      "id": "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+      "claim": "用户在平板真机练习中确认：把材料和题目拆成两块草稿画布会让跨栏笔迹必然断开，且上一题的材料笔迹会残留到当前题；用户要求把整个可见工作区当成一张草稿纸。用户同时确认当前复盘只突出自述渠道，完全感知不到岸岸的错因推断，并明确授权修复。",
+      "class": "user_confirmed",
+      "locator": "conversation:2026-08-16:full-workspace-scratch-and-visible-cause-inference",
+      "observedAt": "2026-08-16T18:24:00+08:00",
+      "scope": "target",
+      "status": "active",
+      "verificationLevel": 0,
+      "basisRefs": ["E-USER-DIRECT-DRAFT-CANVAS-031", "E-USER-ANAN-GOLDEN-LOOP-002"]
+    },
+    {
+      "id": "E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+      "claim": "练习和模考当前在 material-reader 与 question-stage 内各挂一块独立 annotation-layer，坐标系和触摸宿主不同，跨栏一笔不可能连续；SHARED_MATERIAL_ANNOTATIONS_CHANGED 又把材料笔迹复制到同 materialId 的全部题目，造成切题后旧笔迹残留。复盘提交后虽已进入真实 cause_candidate_pending 并具备候选展示页面，却立即 switchTab 回今日，使用户在主旅程中看不到岸岸的候选错因、依据和验证动作。",
+      "class": "code_observed",
+      "locator": "apps/wechat/miniprogram/pages/practice/index.wxml;apps/wechat/miniprogram/pages/practice/index.ts;apps/wechat/miniprogram/pages/practice/shared/task-runtime/state/runtime.ts;apps/wechat/miniprogram/pages/mock-exam/index.wxml;apps/wechat/miniprogram/pages/reflection/index.ts;apps/wechat/miniprogram/pages/reflection/index.wxml",
+      "observedAt": "2026-08-16T18:24:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": ["E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035", "E-CODE-DIRECT-DRAFT-CANVAS-031"]
+    },
+    {
+      "id": "E-CODE-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A",
+      "claim": "035 运行时、六类专项测试与受影响的 93 条流程测试已通过，但全量 Vitest 仍有 beta-flow 030、direct-draft 031/032 的十二条历史测试把双活动画布、material reducer 和 surface focus 当作正确契约；这些测试与用户刚确认的整屏单画布目标直接冲突，且不在 035 冻结路径中。",
+      "class": "code_observed",
+      "locator": "command:apps/wechat:npm-run-check:2026-08-16T19:55+08:00;apps/wechat/tests/work_packages/beta-flow-discoverability-030;apps/wechat/tests/work_packages/direct-draft-canvas-031;apps/wechat/tests/work_packages/direct-draft-test-contract-032",
+      "observedAt": "2026-08-16T19:55:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": ["E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035", "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"]
     }
   ]
 }

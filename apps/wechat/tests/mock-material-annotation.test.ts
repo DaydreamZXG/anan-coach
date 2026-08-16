@@ -7,7 +7,9 @@ import {
 } from "../miniprogram/pages/mock-exam/shared/task-runtime/annotation-layer/anchor";
 import {
   replaceMaterialAnnotations,
+  replaceWorkspaceAnnotations,
   splitAnnotationSurfaces,
+  workspaceAnnotationStrokes,
 } from "../miniprogram/pages/mock-exam/shared/task-runtime/annotation-layer/strokes";
 
 // @ts-expect-error Vite exposes mini-program sources through its raw asset loader.
@@ -25,17 +27,33 @@ afterEach(() => {
 });
 
 describe("mock exam material scratch", () => {
-  it("keeps question and material strokes separate while using one checkpoint", () => {
-    expect(source).toContain("openMaterialAnnotation");
-    expect(source).toContain("changeMaterialAnnotations");
-    expect(source).toContain("replaceMaterialAnnotations");
-    expect(template).toContain("annotationOpen=\"{{annotationMode === 'annotate'}}\"");
-    expect(template).toContain('annotationSurfaceSwitchAvailable="{{false}}"');
-    expect(template).toContain(
-      "annotationToolbarAvailable=\"{{annotationCanvas === 'material' || materialOpen}}\"",
+  it("uses one full-workspace canvas and saves its strokes only through the current question", () => {
+    expect(source).toContain("replaceWorkspaceAnnotations");
+    expect(source).toContain("workspaceAnnotationStrokes");
+    expect(source).not.toContain("changeMaterialAnnotations");
+    expect(template).toContain('coordinate-space="viewport"');
+    expect(template).toContain('stroke-prefix="workspace-stroke"');
+    expect(String(template).match(/<annotation-layer/gu)).toHaveLength(1);
+    expect(template).not.toContain('bindstrokeschange="changeMaterialAnnotations"');
+  });
+
+  it("preserves legacy surfaces while replacing only workspace strokes", () => {
+    const legacyQuestion = annotation("question-old");
+    const legacyMaterial = { ...annotation("material-stroke-old"), surface: "material" as const };
+    const staleWorkspace = annotation("workspace-stroke-stale");
+    const currentWorkspace = annotation("workspace-stroke-current");
+    const next = replaceWorkspaceAnnotations(
+      [legacyQuestion, legacyMaterial, staleWorkspace],
+      [currentWorkspace],
     );
-    expect(template).toContain('bindstrokeschange="changeMaterialAnnotations"');
-    expect(readerTemplate).toContain('strokePrefix="material-stroke"');
+    expect(next.map((stroke) => stroke.strokeId)).toEqual([
+      "question-old",
+      "material-stroke-old",
+      "workspace-stroke-current",
+    ]);
+    expect(workspaceAnnotationStrokes(next)).toEqual([
+      expect.objectContaining({ strokeId: "workspace-stroke-current", surface: "question" }),
+    ]);
   });
 
   it("normalizes new and legacy material strokes without changing the checkpoint shape", () => {
@@ -236,6 +254,19 @@ describe("mock exam material scratch", () => {
     },
   );
 });
+
+function annotation(strokeId: string) {
+  return {
+    strokeId,
+    tool: "pen" as const,
+    width: 0.006,
+    points: [
+      { x: 0.1, y: 0.2, t: 0 },
+      { x: 0.3, y: 0.4, t: 80 },
+    ],
+    atMs: 100,
+  };
+}
 
 interface MiniComponentDefinition {
   data?: Record<string, unknown>;

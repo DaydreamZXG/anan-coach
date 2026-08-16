@@ -15,7 +15,7 @@ afterEach(() => {
 });
 
 describe("async cause navigation", () => {
-  it("提交复盘后立即回到今日，错因在后台继续整理", async () => {
+  it("提交复盘后留在岸岸判断页，真实错因候选继续整理", async () => {
     let captured: CapturedReflectionPage | undefined;
     const { wxStorage } = createMemoryWechatStorage();
     const writes: WechatMiniprogram.RequestOption[] = [];
@@ -45,8 +45,8 @@ describe("async cause navigation", () => {
 
     expect(writes).toHaveLength(1);
     expect(page.data.phase).toBe("cause_processing");
-    expect(showToast).toHaveBeenCalledWith({ title: "岸岸会在后台整理", icon: "none" });
-    expect(switchTab).toHaveBeenCalledWith({ url: "/pages/today/index" });
+    expect(showToast).not.toHaveBeenCalled();
+    expect(switchTab).not.toHaveBeenCalled();
     page.onUnload.call(page);
   });
 

@@ -72,6 +72,26 @@
   box-shadow: var(--shadow-elevated);
 }
 
+.annotation-layer__scope {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: calc(8 * var(--rpx));
+  color: var(--figma-color-ink);
+  font-size: var(--text-micro);
+  font-weight: 800;
+}
+
+.annotation-layer__scope-dot {
+  color: var(--color-primary-deep);
+}
+
+.annotation-layer__scope-hint {
+  margin-left: auto;
+  color: var(--color-ink-secondary);
+  font-weight: 500;
+}
+
 .annotation-layer__surface-switch {
   display: flex;
   min-width: 0;

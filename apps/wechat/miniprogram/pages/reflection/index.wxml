@@ -244,31 +244,54 @@
         </view>
       </view>
 
+      <view class="coach-handoff-card">
+        <view class="coach-handoff-card__head">
+          <view class="coach-handoff-card__mark">岸</view>
+          <view>
+            <view class="coach-handoff-card__eyebrow">岸岸先判断</view>
+            <view class="coach-handoff-card__title">你不用先给自己定错因</view>
+          </view>
+        </view>
+        <view class="coach-handoff-card__copy">这题看完后，岸岸会把答案、用时、改选、排除、草稿和信心放在一起，先提出一个可被你否定的候选判断。</view>
+        <view wx:if="{{activeReviewItem.factChips.length}}" class="coach-handoff-card__facts">
+          <view wx:for="{{activeReviewItem.factChips}}" wx:key="code" class="coach-handoff-card__fact">{{item.label}}</view>
+        </view>
+        <view class="coach-handoff-card__next">整组提交后会直接看到：更怀疑什么 → 为什么 → 下一题怎么验证。</view>
+      </view>
+
       <view class="reason-card">
-        <view class="reason-card__head">
-          <view class="reason-card__title">你也可以补充</view>
-          <button hover-class="item--hover" class="reason-card__read" disabled="{{interactionLocked || speechBusy || !rawText}}" bindtap="readRawText">{{speechPlaying ? '朗读中' : '朗读文字'}}</button>
-        </view>
-        <view class="reason-card__copy">标签和文字都选填。不填也没关系，岸岸会先用你的用时、改选、排除、草稿和作答来判断。</view>
-        <view class="tag-grid">
-          <button hover-class="item--hover"
-            wx:for="{{tagOptions}}"
-            wx:key="code"
-            class="control-center tag-chip {{item.selected ? 'tag-chip--active' : ''}}"
-            data-code="{{item.code}}"
+        <button hover-class="item--hover" class="reason-card__summary" disabled="{{interactionLocked}}" bindtap="toggleSelfEvidence">
+          <view>
+            <view class="reason-card__title">你也可以补充当时的想法 <text class="reason-card__optional">选填</text></view>
+            <view class="reason-card__copy">不填也能让岸岸判断；只在你想补一条岸岸看不到的线索时填写。</view>
+          </view>
+          <text class="reason-card__chevron">{{selfEvidenceOpen ? '收起' : '展开'}}⌄</text>
+        </button>
+        <view wx:if="{{selfEvidenceOpen}}" class="reason-card__body">
+          <view class="reason-card__head">
+            <view class="reason-card__body-title">按当时真实想法补充</view>
+            <button hover-class="item--hover" class="reason-card__read" disabled="{{interactionLocked || speechBusy || !rawText}}" bindtap="readRawText">{{speechPlaying ? '朗读中' : '朗读文字'}}</button>
+          </view>
+          <view class="tag-grid">
+            <button hover-class="item--hover"
+              wx:for="{{tagOptions}}"
+              wx:key="code"
+              class="control-center tag-chip {{item.selected ? 'tag-chip--active' : ''}}"
+              data-code="{{item.code}}"
+              disabled="{{interactionLocked}}"
+              bindtap="toggleTag"
+            >{{item.label}}</button>
+          </view>
+          <textarea
+            cursor-spacing="24"
+            class="reason-textarea"
+            value="{{rawText}}"
+            maxlength="4000"
             disabled="{{interactionLocked}}"
-            bindtap="toggleTag"
-          >{{item.label}}</button>
+            placeholder="例如：我把‘不符合’看成了‘符合’（选填）"
+            bindinput="inputRawText"
+          />
         </view>
-        <textarea
-          cursor-spacing="24"
-          class="reason-textarea"
-          value="{{rawText}}"
-          maxlength="4000"
-          disabled="{{interactionLocked}}"
-          placeholder="选填：写下当时真实的判断，例如我把“不符合”看成了“符合”"
-          bindinput="inputRawText"
-        />
       </view>
 
       <view wx:if="{{interpretationOptions.length}}" class="method-card">
@@ -347,8 +370,13 @@
     <view wx:elif="{{phase === 'cause_processing'}}" class="cause-processing">
       <view class="cause-spinner"></view>
       <view class="cause-processing__title">{{causeCandidate.stateLabel}}</view>
-      <view class="cause-processing__copy">{{causeCandidate.stateDescription}}</view>
-      <view class="cause-processing__boundary">你的作答已经存好，岸岸正在形成初步判断，别走开。</view>
+      <view class="cause-processing__copy">作答、用时、改选、排除和草稿证据已经收好。岸岸正在把它们合成一个可核对、可否定的候选判断。</view>
+      <view class="cause-processing__steps">
+        <view class="cause-processing__step cause-processing__step--done">1 · 作答证据已保存</view>
+        <view class="cause-processing__step cause-processing__step--active">2 · 正在形成候选错因</view>
+        <view class="cause-processing__step">3 · 给出下一题验证动作</view>
+      </view>
+      <view class="cause-processing__boundary">这次留在岸岸判断页，结果出来会直接显示在这里，不会再把你送回今日。</view>
       <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="refreshCauseCandidate">重新检查一次</button>
     </view>
 
@@ -379,15 +407,15 @@
 
       <view wx:if="{{causeCandidate.summary || causeCandidate.explanation || causeCandidate.improvement}}" class="candidate-card">
         <view wx:if="{{causeCandidate.summary}}" class="candidate-section">
-          <view class="candidate-section__label">可能的错因</view>
+          <view class="candidate-section__label">岸岸更怀疑</view>
           <view class="candidate-section__copy">{{causeCandidate.summary}}</view>
         </view>
         <view wx:if="{{causeCandidate.explanation}}" class="candidate-section">
-          <view class="candidate-section__label">判断依据</view>
+          <view class="candidate-section__label">为什么这样判断</view>
           <view class="candidate-section__copy">{{causeCandidate.explanation}}</view>
         </view>
         <view wx:if="{{causeCandidate.improvement}}" class="candidate-section">
-          <view class="candidate-section__label">下次动作</view>
+          <view class="candidate-section__label">下一题怎么验证</view>
           <view class="candidate-section__copy">{{causeCandidate.improvement}}</view>
         </view>
         <view wx:if="{{causeCandidate.rationale}}" class="candidate-section">
@@ -606,7 +634,7 @@
           loading="{{interactionLocked}}"
           disabled="{{interactionLocked || voiceBusy || isRecording}}"
           bindtap="confirmCauseAndNext"
-        >{{currentReviewIndex < reviewItems.length - 1 ? '看下一道关键题' : '完成复盘，交给岸岸判断'}}</button>
+        >{{currentReviewIndex < reviewItems.length - 1 ? '看下一道关键题' : '让岸岸判断这组错题'}}</button>
       </view>
     </view>
 

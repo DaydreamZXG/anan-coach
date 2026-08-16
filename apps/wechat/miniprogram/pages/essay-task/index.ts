@@ -82,15 +82,22 @@ import {
   initialEssayFormDrafts,
   newOutlineSectionDraft,
   newPointDraft,
+  pointExtractionGuide,
   pointCategoryLabels,
   pointCategoryValues,
   reviewDecisionValues,
   type EssayFormDrafts,
   type MaterialAnnotationDraft,
   type OutlineSectionDraft,
+  type PointExtractionGuide,
   type PointDraft,
   type ReviewDraft,
 } from "./features/forms";
+import {
+  essayCompletionReturnDelayMs,
+  presentEssayArtifactCompletion,
+  type EssayCompletionPresentation,
+} from "./features/completion";
 import {
   presentEssayWorkspace,
   stageBlockingReason,
@@ -179,8 +186,11 @@ interface EssayTaskPageData {
   submissionStatus: SubmissionStatus;
   submissionMessage: string;
   submissionRequestId: string;
+  completion: EssayCompletionPresentation | null;
+  completionAutoReturnFailed: boolean;
   elapsedLabel: string;
   pointCategoryLabels: string[];
+  pointGuide: PointExtractionGuide;
   overallTheme: string;
   materialAnnotations: MaterialAnnotationDraft[];
   points: PointPageDraft[];
@@ -245,6 +255,7 @@ interface EssayTaskPageCustom {
   loadWorkspace(): Promise<void>;
   retry(): void;
   exit(): void;
+  returnTodayAfterCompletion(): void;
   goLogin(): void;
   openMaterial(): void;
   openMaterialAt(event: WechatMiniprogram.BaseEvent): void;
@@ -328,6 +339,13 @@ const idleReviewDisplay: ReviewDisplay = {
 
 const emptyVoiceSummary = presentReflectionVoiceSummary([]);
 
+const emptyPointGuide: PointExtractionGuide = {
+  hasPriorReading: false,
+  sourceLabel: "这组材料",
+  overallTheme: "",
+  summaryItems: [],
+};
+
 const pageRuntimes = new EssayTaskPageRuntimeRegistry<EssayTaskPageInstance>();
 
 Page<EssayTaskPageData, EssayTaskPageCustom>({
@@ -346,8 +364,11 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     submissionStatus: "idle",
     submissionMessage: "",
     submissionRequestId: "",
+    completion: null,
+    completionAutoReturnFailed: false,
     elapsedLabel: "00:00:00",
     pointCategoryLabels,
+    pointGuide: emptyPointGuide,
     overallTheme: "",
     materialAnnotations: [],
     points: [],
@@ -450,7 +471,9 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     if (runtime.startedAt > 0) {
       startTimer(this, runtime, () => pageRuntimes.owns(this, runtime));
     }
-    if (runtime.workspaceRefreshOnShow) {
+    if (this.data.completion) {
+      scheduleEssayCompletionReturn(this, runtime);
+    } else if (runtime.workspaceRefreshOnShow) {
       runtime.workspaceRefreshOnShow = false;
       void this.loadWorkspace();
     } else if (this.data.status === "ready" && runtime.activeReviewJobId) {
@@ -479,6 +502,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     runtime.pageVisible = false;
     stopTimer(runtime);
     stopReviewPoll(runtime);
+    stopEssayCompletionReturn(runtime);
     runtime.reviewPollInFlight = false;
     runtime.voiceRecorder?.stop();
     runtime.voicePreview?.stop();
@@ -499,6 +523,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     runtime.pageVisible = false;
     stopTimer(runtime);
     stopReviewPoll(runtime);
+    stopEssayCompletionReturn(runtime);
     pageRuntimes.detach(this);
   },
 
@@ -610,6 +635,9 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
                 ? "这次作答和评阅已经保存。"
                 : "这次作答已经保存，岸岸会继续确认评阅。"
               : "",
+        completion: null,
+        completionAutoReturnFailed: false,
+        pointGuide: pointExtractionGuide(workspace),
         drafting,
         reflectionCauseOptions: reflectionCauseOptions(drafting.reflectionCauseCodes),
         workbenchLinks: essayWorkbenchLinks(workspace, runtime.activePlanTaskId),
@@ -689,6 +717,25 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
 
   exit() {
     navigateBackOr(routes.today);
+  },
+
+  returnTodayAfterCompletion() {
+    const runtime = pageRuntimes.get(this);
+    if (!runtime || runtime.completionNavigationInFlight) return;
+    stopEssayCompletionReturn(runtime);
+    runtime.completionNavigationInFlight = true;
+    wx.switchTab({
+      url: routes.today,
+      fail: () => {
+        if (!pageRuntimes.owns(this, runtime)) return;
+        runtime.completionNavigationInFlight = false;
+        this.setData({
+          completionAutoReturnFailed: true,
+          submissionStatus: "error",
+          submissionMessage: "自动返回没有成功，你的内容已经保存，点下方按钮再试一次。",
+        });
+      },
+    });
   },
 
   goLogin() {
@@ -813,6 +860,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     this.setData({
       points: [...this.data.points, decoratePoint(newPointDraft(), this.data.view?.segments ?? [])],
       submissionStatus: "idle",
+      submissionMessage: "",
     });
   },
 
@@ -830,6 +878,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       this.setData({
         points: this.data.points.filter((_, itemIndex) => itemIndex !== index),
         submissionStatus: "idle",
+        submissionMessage: "",
       });
     })();
   },
@@ -843,7 +892,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const points = [...this.data.points];
     points[index] = { ...current, category, categoryIndex };
     markDraftChanged(this);
-    this.setData({ points, submissionStatus: "idle" });
+    this.setData({ points, submissionStatus: "idle", submissionMessage: "" });
   },
 
   inputPointStatement(event: WechatMiniprogram.Input) {
@@ -853,7 +902,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const points = [...this.data.points];
     points[index] = { ...current, statement: event.detail.value };
     markDraftChanged(this);
-    this.setData({ points, submissionStatus: "idle" });
+    this.setData({ points, submissionStatus: "idle", submissionMessage: "" });
   },
 
   changePointSources(event: WechatMiniprogram.CustomEvent<{ value: string[] }>) {
@@ -870,7 +919,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       })),
     };
     markDraftChanged(this);
-    this.setData({ points, submissionStatus: "idle" });
+    this.setData({ points, submissionStatus: "idle", submissionMessage: "" });
   },
 
   inputThesis(event: WechatMiniprogram.Input) {
@@ -2496,17 +2545,27 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         refreshedDrafts,
         presentEssayWorkspace(refreshedWorkspace, result.artifact.artifactType),
       );
+      const completion = presentEssayArtifactCompletion(
+        activeStage,
+        result.completion.plan,
+        runtime.activePlanTaskId,
+        result.completion.replanned,
+      );
       this.setData({
         workspace: refreshedWorkspace,
         view: refreshedView.view,
         ...refreshedView.drafts,
         submissionStatus: "saved",
-        draftLocked: false,
+        draftLocked: true,
         canSubmit: false,
         hasSavedEvidence: true,
-        blockingReason: "材料梳理已保存，今天安排的这一步完成了；要点提炼会按后续计划继续。",
-        submissionMessage: "材料梳理已保存，今天安排的这一步完成了。",
+        blockingReason: "",
+        submissionMessage: completion.message,
+        completion,
+        completionAutoReturnFailed: false,
+        pointGuide: pointExtractionGuide(refreshedWorkspace),
       });
+      scheduleEssayCompletionReturn(this, runtime);
     } catch (error) {
       if (enterEssayAuthRequiredForEffect(this, runtime, effect, error)) return;
       if (!pageRuntimes.isEffectCurrent(this, runtime, effect)) return;
@@ -2539,6 +2598,27 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     }
   },
 });
+
+function scheduleEssayCompletionReturn(
+  page: EssayTaskPageInstance,
+  runtime: EssayTaskPageRuntime,
+): void {
+  stopEssayCompletionReturn(runtime);
+  if (!pageRuntimes.owns(page, runtime) || !runtime.pageVisible || !page.data.completion) return;
+  runtime.completionRedirectHandle = setTimeout(() => {
+    runtime.completionRedirectHandle = undefined;
+    if (pageRuntimes.owns(page, runtime) && runtime.pageVisible && page.data.completion) {
+      page.returnTodayAfterCompletion();
+    }
+  }, essayCompletionReturnDelayMs);
+}
+
+function stopEssayCompletionReturn(runtime: EssayTaskPageRuntime): void {
+  if (runtime.completionRedirectHandle !== undefined) {
+    clearTimeout(runtime.completionRedirectHandle);
+    runtime.completionRedirectHandle = undefined;
+  }
+}
 
 function bindEssaySession(
   page: EssayTaskPageInstance,

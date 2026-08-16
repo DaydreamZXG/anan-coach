@@ -1043,6 +1043,78 @@
       "decidedBy": "architecture_owner",
       "decidedAt": "2026-08-16T17:18:00+08:00",
       "evidenceRefs": ["E-CODE-FULL-PRODUCT-AUDIT-REPAIR-GENERATED-AUTHORITY-033B", "E-USER-FULL-PRODUCT-AUDIT-REPAIR-033"]
+    },
+    {
+      "id": "DEC-ESSAY-TASK-CLOSURE-034",
+      "question": "申论材料梳理成功后和要点提炼开始前，应继续暴露内部表单状态，还是以岸岸的任务因果为用户组织一个明确收口和三步找点过程？",
+      "choice": "保存成功后锁定当前草稿，显示真实已保存与计划已更新的因果，并自动返回今日，同时保留失败时的手动返回按钮。要点提炼改为‘材料说了什么→属于哪类信息→依据在哪段’，展示上一步初步梳理但不伪造 AI 已评判正确。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-16T18:23:07+08:00",
+      "evidenceRefs": ["E-USER-ESSAY-TASK-CLOSURE-034", "E-CODE-ESSAY-TASK-CLOSURE-034"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-ESSAY-TASK-CLOSURE-034",
+      "question": "是否冻结一个只修改申论任务前端和对应测试、不改变后端事实的小范围后继发布单元？",
+      "choice": "冻结 RU-ESSAY-TASK-CLOSURE-034 作为 033B 的直接后继权威，保留 033B 全部已验证修复，新增实现仅拥有 pages/essay-task 及 034 专项测试；不修改后端、OpenAPI、数据库、题库、真实用户数据，不部署或上传。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-16T18:23:07+08:00",
+      "evidenceRefs": ["E-USER-ESSAY-TASK-CLOSURE-034", "E-CODE-ESSAY-TASK-CLOSURE-034"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-ESSAY-TASK-CLOSURE-AUTHORITY-034A",
+      "question": "034 已修改申论页生成副本但遗漏 forms 权威源时，应绕过分包同步，还是用依赖已冻结 034 的补齐单元接管权威源？",
+      "choice": "冻结 RU-ESSAY-TASK-CLOSURE-AUTHORITY-034A，依赖 034 的页面与测试实现，新增所有权仅限 subpackage-shared-src/features/essay-task/forms.ts，然后运行标准同步和全部 034 验收。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-16T18:50:00+08:00",
+      "evidenceRefs": ["E-CODE-ESSAY-TASK-CLOSURE-AUTHORITY-034A", "E-USER-ESSAY-TASK-CLOSURE-034"]
+    },
+    {
+      "id": "DEC-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+      "question": "应继续协调材料/题目两块画布并把岸岸推断留在后台，还是以当前题为单位建立一块整屏草稿坐标系并让真实候选错因成为复盘主流程？",
+      "choice": "用一块覆盖可见 practice/mock workspace 的 viewport annotation-layer 取代材料与题目双宿主；新笔迹以稳定 workspace 前缀保存在当前题既有 annotations 中，不再走共享材料复制 reducer，旧 question/material 笔迹原样保留。复盘提交成功后留在 cause_processing 并轮询既有真实 cause-agent 结果，把候选、依据、动作与局限放在用户自述之前；不新增客户端猜测或后端事实。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-16T18:24:00+08:00",
+      "evidenceRefs": ["E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035", "E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+      "question": "是否冻结一个直接取代 031/032 双画布契约、并补上岸岸候选错因可见链的前端发布单元？",
+      "choice": "冻结 RU-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035 作为当前 RU-ESSAY-TASK-CLOSURE-AUTHORITY-034A 的直接后继权威，并在草稿与复盘范围内替代 031/032 的双画布契约；只修改练习/模考宿主、共享批注组件及生成副本、复盘页面和相关测试。保留现有 AnnotationStroke 与 cause-agent API，不改后端、OpenAPI、数据库、题库和真实用户数据，不部署或上传。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-16T18:24:00+08:00",
+      "evidenceRefs": ["E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035", "E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A",
+      "question": "035 已实现整屏单画布但旧 030/031/032 专项测试仍要求被用户否定的双画布时，应回退产品行为还是由后继测试单元校正权威？",
+      "choice": "冻结 RU-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A 直接取代 035，仅接管 beta-flow 030 与 direct-draft 031/032 的历史测试目录，把断言更新为单 viewport 画布、workspace 当前题所有权、旧笔迹兼容和真实岸岸候选可见链；不修改任何运行时代码、后端、数据、部署或发布。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-16T19:55:00+08:00",
+      "evidenceRefs": ["E-CODE-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A", "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B",
+      "question": "035A 取代 035 却依赖 035 已完成，导致两者均无法首次派发时，应篡改冻结历史还是建立无循环依赖的合并验收边界？",
+      "choice": "保留 035 与 035A 的冻结快照和执行状态不变，冻结 RU-WORKSPACE-SCRATCH-EXECUTION-RECONCILIATION-035B 作为 035A 的发布边界后继，但其唯一工作包不依赖两个未执行的历史工作包；它合并运行时、共享源、复盘与历史测试路径，只用于当前实现的可复算验收，不宣称两个历史单元已执行。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-16T20:10:00+08:00",
+      "evidenceRefs": ["E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035", "E-CODE-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A", "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"]
+    },
+    {
+      "id": "DEC-FREEZE-RU-WORKSPACE-SCRATCH-VERIFICATION-035C",
+      "question": "实现已经在工作包派发前完成时，应伪造实施期差异还是用 verification-only 单元验证当前哈希状态？",
+      "choice": "保留 035B 的失败执行作为时间顺序证据，冻结 035C 为 verification-only 后继；它只运行同一六类验收并记录当前实现哈希，不声称在执行期内产生代码。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-16T20:25:00+08:00",
+      "evidenceRefs": ["E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035", "E-CODE-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A", "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"]
     }
   ]
 }

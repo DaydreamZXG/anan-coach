@@ -52,6 +52,8 @@ export interface EssayTaskPageRuntime {
   timerHandle: ReturnType<typeof setInterval> | undefined;
   draftingAutosaveHandle: ReturnType<typeof setTimeout> | undefined;
   reviewPollHandle: ReturnType<typeof setTimeout> | undefined;
+  completionRedirectHandle: ReturnType<typeof setTimeout> | undefined;
+  completionNavigationInFlight: boolean;
   reviewPollInFlight: boolean;
   workspaceRefreshOnShow: boolean;
   pageVisible: boolean;
@@ -90,6 +92,8 @@ export function createEssayTaskPageRuntime(): EssayTaskPageRuntime {
     timerHandle: undefined,
     draftingAutosaveHandle: undefined,
     reviewPollHandle: undefined,
+    completionRedirectHandle: undefined,
+    completionNavigationInFlight: false,
     reviewPollInFlight: false,
     workspaceRefreshOnShow: false,
     pageVisible: false,
@@ -197,9 +201,14 @@ export class EssayTaskPageRuntimeRegistry<TPage extends object> {
     if (runtime.timerHandle !== undefined) clearInterval(runtime.timerHandle);
     if (runtime.draftingAutosaveHandle !== undefined) clearTimeout(runtime.draftingAutosaveHandle);
     if (runtime.reviewPollHandle !== undefined) clearTimeout(runtime.reviewPollHandle);
+    if (runtime.completionRedirectHandle !== undefined) {
+      clearTimeout(runtime.completionRedirectHandle);
+    }
     runtime.timerHandle = undefined;
     runtime.draftingAutosaveHandle = undefined;
     runtime.reviewPollHandle = undefined;
+    runtime.completionRedirectHandle = undefined;
+    runtime.completionNavigationInFlight = false;
     runtime.reviewPollInFlight = false;
     runtime.pageVisible = false;
     runtime.api = null;

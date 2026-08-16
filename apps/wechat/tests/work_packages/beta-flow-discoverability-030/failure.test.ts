@@ -24,7 +24,8 @@ describe("beta flow discoverability 030 failure path", () => {
 
     expect(frameCopy).not.toContain("PDF");
     expect(materialHead).not.toContain('bindtap="openMaterialAnnotation"');
-    expect(String(mockTemplateRaw)).toContain('inlineAnnotateButton="{{false}}"');
+    expect(String(mockTemplateRaw)).toContain('coordinate-space="viewport"');
+    expect(String(mockTemplateRaw)).not.toContain("openMaterialAnnotation");
     expect(String(reflectionLogicRaw)).toContain("能力 → 刚做的错题与待复盘");
   });
 });

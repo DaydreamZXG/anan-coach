@@ -27,9 +27,8 @@ import { createIdempotencyKey, stableFingerprint } from "../../platform/command-
 import type { TaskRuntimeState } from "../../task-runtime/contracts";
 import type { AnnotationStroke } from "../../task-runtime/contracts";
 import {
-  replaceMaterialAnnotations,
-  replaceQuestionAnnotations,
-  splitAnnotationSurfaces,
+  replaceWorkspaceAnnotations,
+  workspaceAnnotationStrokes,
 } from "./shared/task-runtime/annotation-layer/strokes";
 import type { AnchorSegmentRect } from "./shared/task-runtime/annotation-layer/anchor";
 import type { ContentDisplayPreferences } from "./shared/task-runtime/content-renderer/model";
@@ -128,9 +127,7 @@ interface MockExamPageData extends TaskInteractionProjection {
   answerSheetItems: MockAnswerSheetItem[];
   interactionState: TaskInteractionState;
   questionAnnotations: AnnotationStroke[];
-  materialAnnotations: AnnotationStroke[];
   annotationTool: "pan" | "pen" | "highlighter" | "eraser";
-  annotationCanvas: "question" | "material";
   annotationSegments: AnchorSegmentRect[];
   questionScrollPosition: number;
   questionContentHeight: number;
@@ -180,21 +177,9 @@ interface MockExamPageCustom {
   toggleAnswerSheet(): void;
   toggleDraft(): void;
   openAnnotation(): void;
-  openMaterialAnnotation(): void;
-  switchAnnotationSurface(
-    event: WechatMiniprogram.CustomEvent<{ surface: "question" | "material" }>,
-  ): void;
   changeAnnotationTool(event: WechatMiniprogram.CustomEvent<{ tool: string }>): void;
-  focusQuestionAnnotation(): void;
-  focusMaterialAnnotation(): void;
   closeAnnotation(): void;
   changeAnnotations(
-    event: WechatMiniprogram.CustomEvent<{
-      strokes: AnnotationStroke[];
-      action: "added" | "erased";
-    }>,
-  ): void;
-  changeMaterialAnnotations(
     event: WechatMiniprogram.CustomEvent<{
       strokes: AnnotationStroke[];
       action: "added" | "erased";
@@ -307,9 +292,7 @@ Page<MockExamPageData, MockExamPageCustom>({
     interactionState: initialMockInteractionState,
     ...initialMockInteractionProjection,
     questionAnnotations: [] as AnnotationStroke[],
-    materialAnnotations: [] as AnnotationStroke[],
     annotationTool: "pan" as const,
-    annotationCanvas: "question" as const,
     annotationSegments: [] as AnchorSegmentRect[],
     questionScrollPosition: 0,
     questionContentHeight: 0,
@@ -683,67 +666,17 @@ Page<MockExamPageData, MockExamPageCustom>({
     transitionMockInteraction(
       this,
       { type: "ANNOTATION_OPENED", surface: "question" },
-      { annotationTool: "pan", annotationCanvas: "question" },
+      { annotationTool: "pan" },
     );
-    afterRenderTick(() => {
-      if (runtimes.get(this) !== runtime) return;
-      measureQuestionContent(this, runtime);
-      requestSegmentRects(this);
-    });
   },
 
   closeAnnotation() {
     transitionMockInteraction(this, { type: "ANNOTATION_CLOSED" });
   },
 
-  openMaterialAnnotation() {
-    const runtime = runtimes.get(this);
-    if (
-      !runtime?.task ||
-      runtime.task.phase !== "answering" ||
-      this.data.interactionLocked ||
-      !this.data.question?.material
-    ) {
-      return;
-    }
-    transitionMockInteraction(
-      this,
-      { type: "ANNOTATION_OPENED", surface: "material" },
-      { annotationTool: "pan", annotationCanvas: "material" },
-    );
-  },
-
-  switchAnnotationSurface(event) {
-    const surface = event.detail.surface;
-    if (surface === "material" && !this.data.question?.material) return;
-    const runtime = runtimes.get(this);
-    if (!runtime?.task || runtime.task.phase !== "answering" || this.data.interactionLocked) return;
-    transitionMockInteraction(this, { type: "ANNOTATION_OPENED", surface });
-    this.setData({ annotationCanvas: surface });
-    if (surface === "question") {
-      afterRenderTick(() => {
-        if (runtimes.get(this) !== runtime) return;
-        measureQuestionContent(this, runtime);
-        requestSegmentRects(this);
-      });
-    }
-  },
-
   changeAnnotationTool(event) {
     const tool = normalizePageAnnotationTool(event.detail.tool);
     if (tool !== this.data.annotationTool) this.setData({ annotationTool: tool });
-  },
-
-  focusQuestionAnnotation() {
-    if (this.data.annotationOpen && this.data.annotationCanvas !== "question") {
-      this.setData({ annotationCanvas: "question" });
-    }
-  },
-
-  focusMaterialAnnotation() {
-    if (this.data.annotationOpen && this.data.annotationCanvas !== "material") {
-      this.setData({ annotationCanvas: "material" });
-    }
   },
 
   onQuestionScroll(event) {
@@ -780,25 +713,7 @@ Page<MockExamPageData, MockExamPageCustom>({
     markCurrentQuestionDirty(runtime);
     runtime.task = reduceTaskRuntime(runtime.task, {
       type: "ANNOTATIONS_CHANGED",
-      strokes: replaceQuestionAnnotations(
-        runtime.task.attempts[runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? ""]
-          ?.annotations ?? [],
-        event.detail.strokes,
-      ),
-      action: event.detail.action,
-    });
-    runtime.mutationVersion += 1;
-    applyRuntimeToPage(this, runtime, "待保存");
-    scheduleAutosave(this, runtime);
-  },
-
-  changeMaterialAnnotations(event) {
-    const runtime = runtimes.get(this);
-    if (!runtime?.task || this.data.interactionLocked) return;
-    markCurrentQuestionDirty(runtime);
-    runtime.task = reduceTaskRuntime(runtime.task, {
-      type: "ANNOTATIONS_CHANGED",
-      strokes: replaceMaterialAnnotations(
+      strokes: replaceWorkspaceAnnotations(
         runtime.task.attempts[runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? ""]
           ?.annotations ?? [],
         event.detail.strokes,
@@ -1209,9 +1124,7 @@ function applyRuntimeToPage(
       active: index === task.currentQuestionIndex,
     };
   });
-  const { question: questionAnnotations, material: materialAnnotations } = splitAnnotationSurfaces(
-    attempt.annotations,
-  );
+  const questionAnnotations = workspaceAnnotationStrokes(attempt.annotations);
   transitionMockInteraction(
     page,
     { type: "LOCK_CHANGED", locked: false },
@@ -1236,7 +1149,6 @@ function applyRuntimeToPage(
         material,
       },
       questionAnnotations,
-      materialAnnotations,
       current: task.currentQuestionIndex + 1,
       total: task.questionOrder.length,
       answered: counts.answered,

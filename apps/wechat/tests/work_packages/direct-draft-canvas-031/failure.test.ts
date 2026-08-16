@@ -10,9 +10,9 @@ import mockTemplateRaw from "../../../miniprogram/pages/mock-exam/index.wxml?raw
 describe("direct draft canvas 031 failure path", () => {
   it("does not expose a technical surface choice and keeps PDF recovery guidance", () => {
     for (const source of [String(practiceTemplateRaw), String(mockTemplateRaw)]) {
-      expect(source).toContain('surfaceSwitchAvailable="{{false}}"');
-      expect(source).toContain('annotationSurfaceSwitchAvailable="{{false}}"');
-      expect(source).not.toContain('annotationSurfaceSwitchAvailable="{{true}}"');
+      expect(source).not.toContain("switchAnnotationSurface");
+      expect(source).not.toContain("openMaterialAnnotation");
+      expect(source).not.toContain('bindstrokeschange="changeMaterialAnnotations"');
     }
 
     const practice = String(practiceTemplateRaw);

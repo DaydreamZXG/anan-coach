@@ -90,28 +90,11 @@
             anchors="{{view.question.material.anchors}}"
             state="{{materialReaderState}}"
             interactionActive="{{materialCaptureActive}}"
-            annotateAvailable="{{true}}"
-            annotateActive="{{annotationMode === 'annotate'}}"
-            annotationOpen="{{annotationMode === 'annotate'}}"
-            annotationStrokes="{{materialAnnotations}}"
-            annotationElapsedSeconds="{{view.question.elapsedSeconds}}"
-            annotationElapsedMs="{{view.question.elapsedMs || -1}}"
-            annotationSurfaceSwitchAvailable="{{false}}"
-            annotationActiveSurface="{{annotationSurface || 'material'}}"
-            annotationToolbarAvailable="{{annotationCanvas === 'material' || materialOpen}}"
-            annotationTool="{{annotationTool}}"
             bindstatechange="updateMaterialReader"
-            bindannotate="openMaterialAnnotation"
-            bindstrokeschange="changeMaterialAnnotations"
-            bindannotatedone="closeAnnotation"
-            bindannotationmore="openTaskTools"
-            bindannotationsurfacechange="switchAnnotationSurface"
-            bindannotationtoolchange="changeAnnotationTool"
-            bindannotationfocus="focusMaterialAnnotation"
           />
         </view>
 
-        <!-- 题目舞台同时承载滚动题面与草稿层；平板双栏时草稿不会再伸进左侧材料栏。 -->
+        <!-- 题目舞台只承载滚动题面；整屏草稿层在 workspace 末尾统一覆盖材料、缝隙和题目。 -->
         <view class="practice-question-stage">
         <!-- Figma 2:132：题干与选项自成滚动区，底部留出 112px 让 D 选项不被底栏遮住。 -->
         <!--
@@ -234,29 +217,26 @@
         </view>
         </scroll-view>
 
-        <!-- 草稿直接覆盖在题面上；非绘写时已有笔迹静态显示且触摸穿透。 -->
+        </view>
+
+        <!-- 035：一块真实的 viewport 画布覆盖整张当前题工作区，同一笔可跨过左右分栏。 -->
         <view class="practice-annotation-host {{touchOwner === 'annotation' ? 'practice-annotation-host--active' : ''}}">
           <annotation-layer
             wx:if="{{annotationMode === 'annotate' || questionAnnotations.length}}"
             mode="{{annotationMode === 'annotate' ? 'annotate' : 'static'}}"
+            coordinate-space="viewport"
+            scope-label="第 {{view.current}} 题 · 整屏草稿"
+            stroke-prefix="workspace-stroke"
             strokes="{{questionAnnotations}}"
             elapsedSeconds="{{view.question.elapsedSeconds}}"
             elapsedMs="{{view.question.elapsedMs || -1}}"
-            segments="{{annotationSegments}}"
-            scroll-top="{{questionScrollPosition}}"
-            content-height="{{questionContentHeight}}"
-            surfaceSwitchAvailable="{{false}}"
-            activeSurface="{{annotationSurface || 'question'}}"
-            toolbarAvailable="{{annotationCanvas === 'question' && !materialOpen}}"
+            toolbarAvailable="{{true}}"
             activeTool="{{annotationTool}}"
             bindstrokeschange="changeAnnotations"
             binddone="closeAnnotation"
             bindmore="openTaskTools"
-            bindsurfacechange="switchAnnotationSurface"
             bindtoolchange="changeAnnotationTool"
-            bindfocus="focusQuestionAnnotation"
           />
-        </view>
         </view>
       </view>
 

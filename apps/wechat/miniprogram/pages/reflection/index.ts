@@ -194,6 +194,7 @@ interface ReflectionPageData {
   displayPreferences: ContentDisplayPreferences;
   emptyRichContentBlocks: RichContentBlock[];
   emptyContentAnchors: ContentAnchor[];
+  selfEvidenceOpen: boolean;
   moreEvidenceOpen: boolean;
   completionClosure: XingceReflectionClosureView;
   hasImmediateVerification: boolean;
@@ -268,6 +269,7 @@ interface ReflectionPageCustom {
   selectReplaySurface(event: WechatMiniprogram.BaseEvent): void;
   openActionAnalysis(): void;
   closeActionAnalysis(): void;
+  toggleSelfEvidence(): void;
   toggleMoreEvidence(): void;
   noop(): void;
   toggleRescueSimilarQuestion(): void;
@@ -369,6 +371,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     displayPreferences: { fontScale: 1, colorMode: "standard" },
     emptyRichContentBlocks: [],
     emptyContentAnchors: [],
+    selfEvidenceOpen: false,
     moreEvidenceOpen: false,
     completionClosure: {
       acceptedCorrection: null,
@@ -793,6 +796,11 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     void this.submitReflection();
   },
 
+  toggleSelfEvidence() {
+    if (this.data.interactionLocked) return;
+    this.setData({ selfEvidenceOpen: !this.data.selfEvidenceOpen });
+  },
+
   toggleMoreEvidence() {
     this.setData({ moreEvidenceOpen: !this.data.moreEvidenceOpen });
   },
@@ -1058,8 +1066,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       return;
     }
     runtime.submitting = true;
-    this.setData({ interactionLocked: true, pendingMessage: "正在写入你的原话复盘…" });
-    let returnToTodayForBackgroundCause = false;
+    this.setData({ interactionLocked: true, pendingMessage: "正在保存作答证据并请岸岸判断…" });
     try {
       if (!pending) {
         const voiceArtifactVersionIds = runtime.mediaDraft.voiceSegments.flatMap((segment) =>
@@ -1112,7 +1119,6 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       );
       void deleteVoiceFiles(localPaths);
       applySession(this, runtime, response.data);
-      returnToTodayForBackgroundCause = response.data.review?.state === "cause_candidate_pending";
     } catch (error) {
       if (!isCurrent(this, runtime, epoch)) return;
       if (error instanceof ApiClientError && error.statusCode === 409) {
@@ -1123,14 +1129,6 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       handleWriteError(this, error, "复盘提交结果尚未确认，请重试同一命令。");
     } finally {
       runtime.submitting = false;
-    }
-    if (returnToTodayForBackgroundCause && runtimeIsActive(this, runtime)) {
-      void wx.showToast({ title: "岸岸会在后台整理", icon: "none" });
-      try {
-        void wx.switchTab({ url: routes.today });
-      } catch {
-        // 导航失败时保留当前处理页；已有轮询会继续恢复结果，不能重发已成功的写入。
-      }
     }
   },
 
@@ -1887,6 +1885,11 @@ function applySession(
     verificationNavigationLocked: runtime.verificationNavigationStarted,
     // 逐题候选 chip 需要真实题号：传入结果条目做位置映射，纯展示不加交互。
     causeCandidate: presentXingceCauseCandidate(review.aiCandidate, resultView?.items ?? []),
+    selfEvidenceOpen:
+      page.data.selfEvidenceOpen ||
+      hasLocalDraft ||
+      existingTags.length > 0 ||
+      Boolean(pendingReflection?.command.rawText ?? review.reflection?.rawText),
     rawText: hasLocalDraft
       ? localDraft.rawText
       : (pendingReflection?.command.rawText ?? review.reflection?.rawText ?? page.data.rawText),
@@ -2115,6 +2118,7 @@ function invalidateForAccountChange(
     replacementCodeOptions: replacementCodeOptions(""),
     tagOptions: tagOptions(new Set()),
     interpretationOptions: [],
+    selfEvidenceOpen: false,
     interactionLocked: true,
     isRecording: false,
     voiceBusy: false,
