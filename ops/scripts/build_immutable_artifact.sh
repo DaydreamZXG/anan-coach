@@ -45,7 +45,7 @@ cleanup_failed_build() {
   exit "${exit_code}"
 }
 trap cleanup_failed_build EXIT
-git -C "${root}" archive \
+git -C "${root}" -c tar.umask=0022 archive \
   --format=tar.gz \
   --output="${artifact}" \
   HEAD \

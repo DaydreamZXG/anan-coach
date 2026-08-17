@@ -425,6 +425,34 @@ def test_runtime_units_consume_the_sealed_snapshot_after_atomic_config_rotation(
         assert actual == tuple(str(snapshot / name) for name in names)
 
 
+def test_activation_preserves_json_values_in_the_sealed_snapshot(
+    tmp_path: Path,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+    )
+    config_root = Path(harness.environment["GONGKAO_CONFIG_ROOT"])
+    processor_approvals = (
+        '{"releaseId":"processors@test","processors":[{"id":"deepseek"}]}'
+    )
+    api_environment = config_root / "api.env"
+    api_environment.write_text(
+        api_environment.read_text(encoding="utf-8")
+        + f"RECOGNITION_PROCESSOR_APPROVALS_JSON={processor_approvals}\n",
+        encoding="utf-8",
+    )
+
+    result = harness.activate()
+
+    assert result.returncode == 0, result.stderr
+    snapshot = _runtime_snapshot(harness, harness.current_link.resolve())
+    assert (
+        f"RECOGNITION_PROCESSOR_APPROVALS_JSON='{processor_approvals}'\n"
+        in (snapshot / "api.env").read_text(encoding="utf-8")
+    )
+
+
 def test_activation_uses_application_boolean_aliases_for_optional_workers(
     tmp_path: Path,
 ) -> None:

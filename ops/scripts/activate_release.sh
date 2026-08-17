@@ -139,7 +139,13 @@ for number, raw in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
     if "=" not in raw:
         raise SystemExit(f"{path}: invalid snapshot environment line {number}")
     name, value = raw.split("=", 1)
-    if key.fullmatch(name) is None or any(character.isspace() for character in value):
+    if key.fullmatch(name) is None:
+        raise SystemExit(f"{path}: invalid snapshot environment assignment {number}")
+    if len(value) >= 2 and value[0] == value[-1] == "'":
+        value = value[1:-1]
+    if any(character.isspace() for character in value) or any(
+        character in value for character in "\\\\'"
+    ):
         raise SystemExit(f"{path}: invalid snapshot environment assignment {number}")
     print(f"{name}={value}")
 PY
@@ -208,10 +214,13 @@ for name in sys.argv[3:]:
         if len(value) >= 2 and value[0] == value[-1] == "'":
             value = value[1:-1]
         if any(character.isspace() for character in value) or any(
-            character in value for character in "\\\\\"'"
+            character in value for character in "\\\\'"
         ):
             raise SystemExit(f"{source}: unsupported environment value {number}")
-        output.append(f"{variable}={value}")
+        if '"' in value:
+            output.append(f"{variable}='{value}'")
+        else:
+            output.append(f"{variable}={value}")
     target = destination / name
     target.write_text("\n".join(output) + "\n", encoding="utf-8")
     target.chmod(0o400)
@@ -681,7 +690,13 @@ for number, raw in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
     if "=" not in raw:
         raise SystemExit(f"{path}: invalid snapshot environment line {number}")
     name, value = raw.split("=", 1)
-    if key.fullmatch(name) is None or any(character.isspace() for character in value):
+    if key.fullmatch(name) is None:
+        raise SystemExit(f"{path}: invalid snapshot environment assignment {number}")
+    if len(value) >= 2 and value[0] == value[-1] == chr(39):
+        value = value[1:-1]
+    if any(character.isspace() for character in value) or any(
+        character == "\\\\" or character == chr(39) for character in value
+    ):
         raise SystemExit(f"{path}: invalid snapshot environment assignment {number}")
     print(f"{name}={value}")
 PY
@@ -1285,7 +1300,7 @@ restore_control_plane() {
   local temporary
   local failed=false
   if [[ "${control_plane_changed}" != true || -z "${control_plane_backup}" ]]; then
-    return
+    return 0
   fi
   for destination in "${control_plane_destinations[@]}"; do
     name="$(basename "${destination}")"
@@ -1317,7 +1332,7 @@ restore_control_plane() {
 
 discard_control_plane_backup() {
   if [[ -z "${control_plane_backup}" ]]; then
-    return
+    return 0
   fi
   case "${control_plane_backup}" in
     /tmp/anan-control-plane.*)
@@ -1338,7 +1353,7 @@ write_failed_activation_marker() {
   local marker="${marker_root}/activation-failed.json"
   local temporary
   if [[ ! -d "${marker_root}" || -e "${marker_root}/activation.json" ]]; then
-    return
+    return 0
   fi
   temporary="$(mktemp "${marker_root}/.activation-failed.XXXXXX")"
   python3 - \
