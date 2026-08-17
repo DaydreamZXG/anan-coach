@@ -25,6 +25,7 @@
 - 前端相关测试：5 files / 22 tests passed。
 - 微信工程完整门禁：格式、TypeScript、ESLint、设计/交互/导航/分包/API 一致性全部通过；243 files / 1189 Vitest、21 Node、9 云函数测试全部通过。
 - 密钥模式扫描：Git diff 与暂存区均未发现长 `sk-` 密钥。
+- 治理验证器第一次沿系统默认 Xcode Python 3.9 收集后端场景，因项目要求的 `dataclass(slots=True)` 在导入期失败；该失败记录原样保留。后续正式验证固定使用项目 `.venv` 的 Python 3.12.13，不修改测试或降低断言。
 
 ## 生产只读检查
 
