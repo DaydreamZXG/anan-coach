@@ -11354,6 +11354,139 @@
         "title": "ExternalAIAnswerVersion",
         "type": "object"
       },
+      "ExternalAIConsentCommand": {
+        "additionalProperties": false,
+        "properties": {
+          "commandKey": {
+            "maxLength": 160,
+            "minLength": 8,
+            "title": "Commandkey",
+            "type": "string"
+          },
+          "surface": {
+            "maxLength": 120,
+            "minLength": 3,
+            "title": "Surface",
+            "type": "string"
+          }
+        },
+        "required": [
+          "commandKey",
+          "surface"
+        ],
+        "title": "ExternalAIConsentCommand",
+        "type": "object"
+      },
+      "ExternalAIConsentView": {
+        "additionalProperties": false,
+        "properties": {
+          "acceptedAt": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Acceptedat"
+          },
+          "consentEventId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Consenteventid"
+          },
+          "contractVersion": {
+            "const": "external-ai-consent-view@v1",
+            "default": "external-ai-consent-view@v1",
+            "title": "Contractversion",
+            "type": "string"
+          },
+          "dataSent": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Datasent",
+            "type": "array"
+          },
+          "generatedAt": {
+            "format": "date-time",
+            "title": "Generatedat",
+            "type": "string"
+          },
+          "policyVersion": {
+            "title": "Policyversion",
+            "type": "string"
+          },
+          "processors": {
+            "items": {
+              "$ref": "#/components/schemas/ProcessorDisclosure"
+            },
+            "title": "Processors",
+            "type": "array"
+          },
+          "providerRisk": {
+            "title": "Providerrisk",
+            "type": "string"
+          },
+          "state": {
+            "enum": [
+              "not_accepted",
+              "accepted",
+              "withdrawn"
+            ],
+            "title": "State",
+            "type": "string"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "withdrawalEffect": {
+            "title": "Withdrawaleffect",
+            "type": "string"
+          },
+          "withdrawnAt": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Withdrawnat"
+          }
+        },
+        "required": [
+          "policyVersion",
+          "state",
+          "consentEventId",
+          "acceptedAt",
+          "withdrawnAt",
+          "title",
+          "summary",
+          "dataSent",
+          "providerRisk",
+          "withdrawalEffect",
+          "processors",
+          "generatedAt"
+        ],
+        "title": "ExternalAIConsentView",
+        "type": "object"
+      },
       "ExternalCaptureNudgeCard": {
         "properties": {
           "cardId": {
@@ -22387,6 +22520,25 @@
       "ProcessorDisclosure": {
         "additionalProperties": false,
         "properties": {
+          "authorizationMode": {
+            "enum": [
+              "contracted_data_protection",
+              "user_consent"
+            ],
+            "title": "Authorizationmode",
+            "type": "string"
+          },
+          "consentPolicyVersion": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Consentpolicyversion"
+          },
           "dataCategories": {
             "items": {
               "type": "string"
@@ -22502,6 +22654,8 @@
           "retentionPolicy",
           "retentionSeconds",
           "deletionSupport",
+          "authorizationMode",
+          "consentPolicyVersion",
           "evidence",
           "verifiedAt",
           "validUntil"
@@ -23854,6 +24008,29 @@
           "generatedAt"
         ],
         "title": "PublicApiEnvelope[ExternalAIAnswerVersion]",
+        "type": "object"
+      },
+      "PublicApiEnvelope_ExternalAIConsentView_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ExternalAIConsentView"
+          },
+          "generatedAt": {
+            "format": "date-time",
+            "title": "Generatedat",
+            "type": "string"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "data",
+          "requestId",
+          "generatedAt"
+        ],
+        "title": "PublicApiEnvelope[ExternalAIConsentView]",
         "type": "object"
       },
       "PublicApiEnvelope_ExternalMockReportProjection_": {
@@ -63043,6 +63220,124 @@
         "summary": "Get Position Target Score V2",
         "tags": [
           "qualification-and-position-goals"
+        ]
+      }
+    },
+    "/api/v2/privacy/external-ai-consent": {
+      "get": {
+        "operationId": "external_ai_consent_api_v2_privacy_external_ai_consent_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_ExternalAIConsentView_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "External Ai Consent",
+        "tags": [
+          "privacy"
+        ]
+      }
+    },
+    "/api/v2/privacy/external-ai-consent/accept": {
+      "post": {
+        "operationId": "accept_external_ai_consent_api_v2_privacy_external_ai_consent_accept_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExternalAIConsentCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_ExternalAIConsentView_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Accept External Ai Consent",
+        "tags": [
+          "privacy"
+        ]
+      }
+    },
+    "/api/v2/privacy/external-ai-consent/withdraw": {
+      "post": {
+        "operationId": "withdraw_external_ai_consent_api_v2_privacy_external_ai_consent_withdraw_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExternalAIConsentCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicApiEnvelope_ExternalAIConsentView_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Withdraw External Ai Consent",
+        "tags": [
+          "privacy"
         ]
       }
     },
