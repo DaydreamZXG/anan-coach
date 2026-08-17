@@ -15,6 +15,11 @@ from sqlalchemy.engine import RowMapping
 from sqlalchemy.orm import Session
 
 from app.domains.commerce.repository import CommerceQuotaExceededError
+from app.core.config import Settings, get_settings
+from app.domains.ai.external_processing import (
+    ExternalProcessingAuthorizationError,
+    ExternalProcessingRepository,
+)
 from app.domains.planning.xingce_completion import complete_xingce_plan_task
 from app.domains.planning.xingce_start import start_xingce_plan_task
 from app.domains.learning_media.repository import LearningMediaRepository
@@ -118,6 +123,7 @@ class XingceAttemptService:
         cause_agent_repository: CauseAgentRepository | None = None,
         media_repository: LearningMediaRepository | None = None,
         outbox: OutboxRepository | None = None,
+        settings: Settings | None = None,
     ) -> None:
         self._repository = repository or XingceAttemptRepository()
         self._runtime_repository = runtime_repository or XingceTaskRuntimeRepository()
@@ -128,6 +134,7 @@ class XingceAttemptService:
         self._cause_agent_repository = cause_agent_repository or CauseAgentRepository()
         self._media_repository = media_repository or LearningMediaRepository()
         self._outbox = outbox or OutboxRepository()
+        self._settings = settings or get_settings()
 
     def start_or_resume(
         self,
@@ -205,8 +212,7 @@ class XingceAttemptService:
         command_id: str,
         command: StartTaskSessionCommand,
         explicit_source_identity: str | None,
-        explicit_selection_loader: Callable[[int], ExplicitQuestionSelection]
-        | None,
+        explicit_selection_loader: Callable[[int], ExplicitQuestionSelection] | None,
         now: datetime | None,
     ) -> TaskSessionProjection:
         created_at = _utc(now)
@@ -895,35 +901,28 @@ class XingceAttemptService:
                     status_code=500,
                 )
             material_id = safe_question.get("materialId")
-            scratch_projection, scratch_fingerprint = (
-                build_scratch_evidence_projection(
-                    projection_id=attempt_record_id,
+            scratch_projection, scratch_fingerprint = build_scratch_evidence_projection(
+                projection_id=attempt_record_id,
+                session_id=session_id,
+                question_id=question_id,
+                content_version_id=str(frozen["contentVersionId"]),
+                answer_version_id=answer_version_id,
+                answer_payload_sha256=str(answer_version["payload_sha256"]),
+                answer=answer,
+                question=safe_question,
+                material=(
+                    safe_materials.get(str(material_id)) if material_id is not None else None
+                ),
+                result=result_item,
+                formula_versions=self._runtime_repository.formula_versions_for_question(
+                    session,
+                    user_id=user_id,
                     session_id=session_id,
                     question_id=question_id,
-                    content_version_id=str(frozen["contentVersionId"]),
-                    answer_version_id=answer_version_id,
-                    answer_payload_sha256=str(answer_version["payload_sha256"]),
-                    answer=answer,
-                    question=safe_question,
-                    material=(
-                        safe_materials.get(str(material_id))
-                        if material_id is not None
-                        else None
-                    ),
-                    result=result_item,
-                    formula_versions=self._runtime_repository.formula_versions_for_question(
-                        session,
-                        user_id=user_id,
-                        session_id=session_id,
-                        question_id=question_id,
-                    ),
-                    created_at=submitted_at,
-                )
+                ),
+                created_at=submitted_at,
             )
-            scratch_ref = (
-                f"scratch-evidence-projection:{attempt_record_id}:"
-                f"{scratch_fingerprint}"
-            )
+            scratch_ref = f"scratch-evidence-projection:{attempt_record_id}:{scratch_fingerprint}"
             source_lineage_refs.append(scratch_ref)
             submission_hash = _hash(
                 {
@@ -1019,11 +1018,7 @@ class XingceAttemptService:
                 "user_id": user_id,
                 "session_id": session_id,
                 "revision": 1,
-                "state": (
-                    "mastery_recorded"
-                    if auto_settle_verification
-                    else "reflection_due"
-                ),
+                "state": ("mastery_recorded" if auto_settle_verification else "reflection_due"),
                 "requires_cause_decision": requires_cause,
                 "reflection_version_id": None,
                 "cause_candidate_version_id": None,
@@ -1218,6 +1213,38 @@ class XingceAttemptService:
         replay = self._replay(session, user_id, command_id, fingerprint)
         if replay is not None:
             return replay
+        if self._settings.environment == "production":
+            configured_releases = (
+                self._settings.ai_xingce_cause_provider_release_id,
+                (
+                    self._settings.ai_xingce_cause_deepseek_provider_release_id
+                    if self._settings.ai_xingce_cause_deepseek_api_key
+                    else ""
+                ),
+                (
+                    self._settings.ai_xingce_cause_relay_provider_release_id
+                    if self._settings.ai_xingce_cause_relay_api_key
+                    else ""
+                ),
+            )
+            processing = ExternalProcessingRepository()
+            if processing.cause_routes_require_subject_consent(
+                session,
+                provider_releases=configured_releases,
+                at=recorded_at,
+            ):
+                try:
+                    processing.require_current_cause_consent(
+                        session,
+                        user_id=user_id,
+                        at=recorded_at,
+                    )
+                except ExternalProcessingAuthorizationError as exc:
+                    raise XingceAttemptError(
+                        "external_ai_consent_required",
+                        "首次请岸岸使用外部 AI 整理错因前，请先确认一次数据使用说明。",
+                        status_code=409,
+                    ) from exc
         review = self._required_review(session, user_id, review_id)
         if (
             int(review["revision"]) != command.expected_revision
@@ -2386,9 +2413,7 @@ def _selection_lineage_refs(
         # Pre-selection-contract sessions already froze their learner-safe
         # bundle and must remain submittable without inventing release evidence.
         return []
-    if (
-        not isinstance(context, dict)
-    ):
+    if not isinstance(context, dict):
         raise XingceAttemptError(
             "xingce_selection_context_invalid",
             "针对训练的知识树选择证据不完整，不能提交本次结果。",
@@ -2470,8 +2495,7 @@ def _explicit_session_source_matches(
         return False
     book_id = context.get("bookId")
     return (
-        isinstance(book_id, str)
-        and expected_source_identity == f"private-question-book:{book_id}"
+        isinstance(book_id, str) and expected_source_identity == f"private-question-book:{book_id}"
     )
 
 
@@ -2630,14 +2654,16 @@ def _selection_v2_lineage_refs(
         or result.get("intentId") != selection_intent_fingerprint(intent)
         or result.get("difficultyPolicy") != intent["difficultyPolicy"]
         or result.get("questionIds") != scoring_question_ids
-        or result.get("hitTier") not in {
+        or result.get("hitTier")
+        not in {
             "exact_knowledge_and_cause",
             "same_knowledge",
             "same_micro_skill",
             "module",
             "high_frequency_cold_start",
         }
-        or result.get("hitReason") not in {
+        or result.get("hitReason")
+        not in {
             "all_required_selectors_matched",
             "first_tier_with_sufficient_novel_supply",
         }
@@ -2649,7 +2675,8 @@ def _selection_v2_lineage_refs(
         raise _invalid_selection_context()
     if any(
         not isinstance(item, dict)
-        or set(item) != {
+        or set(item)
+        != {
             "questionId",
             "rank",
             "anchorState",
@@ -2892,9 +2919,7 @@ def _conflict(message: str) -> XingceAttemptError:
     )
 
 
-def _fingerprint(
-    command_type: str, target: str, command: BaseModel | dict[str, object]
-) -> str:
+def _fingerprint(command_type: str, target: str, command: BaseModel | dict[str, object]) -> str:
     body = (
         command.model_dump(by_alias=True, mode="json")
         if isinstance(command, BaseModel)

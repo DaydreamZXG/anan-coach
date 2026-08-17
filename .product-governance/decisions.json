@@ -1140,6 +1140,44 @@
         "E-CODE-CAUSE-MULTI-ROUTE-RECOVERY-036",
         "E-CODE-CAUSE-BUDGET-CONSTRAINTS-036"
       ]
+    },
+    {
+      "id": "DEC-CAUSE-EXTERNAL-AI-CONSENT-037",
+      "question": "当错因模型处理方无法提供合同禁训练和零留存证明时，是继续整体禁用，还是在数据最小化、明示风险、用户逐版本同意、可撤回和逐次审计的边界内允许真实用户调用？",
+      "choice": "采用分级准入：已核验合同保护的处理方继续按原规则批准；训练用途或留存不确定但使用 TLS、用途和数据类别明确的错因处理方可标记为 user_consent。用户只在首次使用时对 xingce-cause-external-ai@v1 一次确认，随后长期无感使用；只有主动撤回或发布实质变化的新 policy_version 才重新确认。每次外发在后台静默绑定原同意事件；撤回后阻断新调用，历史外发如实说明远端删除能力未核验。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-17T14:05:00+08:00",
+      "evidenceRefs": [
+        "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037",
+        "E-CODE-CAUSE-EXTERNAL-AI-GATE-037",
+        "E-EXT-DEEPSEEK-DATA-POLICY-037",
+        "E-EXT-TOKENRHYTHM-DATA-UNKNOWN-037"
+      ]
+    },
+    {
+      "id": "DEC-FREEZE-RU-CAUSE-EXTERNAL-AI-CONSENT-037",
+      "question": "是否冻结一个直接接续并取代 036 相交路径的发布单元，以实现错因外部 AI 的分级准入、同意撤回、逐次外发审计和小程序告知？",
+      "choice": "冻结 RU-CAUSE-EXTERNAL-AI-CONSENT-037，依赖并取代 RU-CAUSE-MULTI-ROUTE-RECOVERY-036 在错因 worker、就绪检查、迁移测试和复盘页上的权威；该单元只授权同意边界和配套契约，不放宽密钥、TLS、数据最小化、真实处理方身份、发布签名或微信上传凭证。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-17T14:15:00+08:00",
+      "evidenceRefs": [
+        "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037",
+        "E-CODE-CAUSE-EXTERNAL-AI-GATE-037"
+      ]
+    },
+    {
+      "id": "DEC-FREEZE-RU-CAUSE-EXTERNAL-AI-CONSENT-038",
+      "question": "037 遗漏了 Alembic 新 head 必须同步的版本化数据库兼容性清单，是否以最小后继单元修正实施边界？",
+      "choice": "冻结 RU-CAUSE-EXTERNAL-AI-CONSENT-038，直接依赖并取代 037；保持所有用户交互、隐私、数据和模型边界不变，仅把 ops/release-db-compatibility.env 纳入迁移主包的独占路径，使 116 能通过仓库自有的 head 一致性校验。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-17T15:05:00+08:00",
+      "evidenceRefs": [
+        "E-CODE-CAUSE-EXTERNAL-AI-GATE-037",
+        "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037"
+      ]
     }
   ]
 }

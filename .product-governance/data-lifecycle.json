@@ -273,6 +273,77 @@
       "backupDisposition": "Follows immutable recognition-revision backup retention and account-erasure restore exclusion.",
       "legalHoldSemantics": "No product legal hold is introduced by this release.",
       "correctionSemantics": "Text correction preserves the sealed geometry-derived evidence; reprocessing produces a new immutable recognition revision and fresh evidence."
+    },
+    {
+      "id": "external-ai-subject-consent",
+      "owner": "external_ai_subject_consent",
+      "classification": "sensitive",
+      "state": "confirmed",
+      "purpose": "Record whether one authenticated learner currently permits minimized Xingce cause evidence to be sent to explicitly disclosed external AI processors.",
+      "source": "The learner's explicit accepted or withdrawn action against policy xingce-cause-external-ai@v1 on the reflection or data-and-privacy surface.",
+      "retention": "Append-only consent events and dispatch receipts remain with the account for authorization audit and are removed from the live product by account erasure; processor-side retention remains processor-specific and may be unknown.",
+      "deletion": "Account erasure removes local consent events and local receipts. For user-consent processors whose remote deletion support is unverified, the deletion manifest records remote_deletion_unavailable_disclosed instead of claiming remote erasure.",
+      "export": "Personal-data export includes consent action, policy version and timestamp plus each external processing receipt's processor identity, authorization mode, consent event reference, training-use disclosure and retention disclosure.",
+      "encryption": "Consent and receipts use the existing encrypted PostgreSQL boundary and TLS; provider keys remain root-only runtime secrets and never enter these records.",
+      "residency": "Consent events and receipts remain in the application database; minimized cause evidence may be processed by the three disclosed external routes whose provider-side residency is disclosed as verified or unknown.",
+      "evidenceRefs": [
+        "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037",
+        "E-CODE-CAUSE-EXTERNAL-AI-GATE-037",
+        "E-EXT-DEEPSEEK-DATA-POLICY-037",
+        "E-EXT-TOKENRHYTHM-DATA-UNKNOWN-037"
+      ],
+      "derivedFrom": [],
+      "dataSubjects": [
+        "authenticated-user"
+      ],
+      "dataElements": [
+        "consent-event-id",
+        "policy-version",
+        "action",
+        "surface",
+        "command-key",
+        "processor-release-id",
+        "dispatch-receipt-id",
+        "input-fingerprint"
+      ],
+      "processingPurposes": [
+        "cause-candidate-generate",
+        "external-processing-authorization-audit",
+        "consent-withdrawal-enforcement",
+        "personal-data-export-and-erasure"
+      ],
+      "vendorRefs": [
+        "tokenrhythm-deepseek-v4-pro",
+        "deepseek-official-v4-pro",
+        "ergouapi-deepseek-v4-flash-free"
+      ],
+      "deletionPropagation": [
+        "privacy-consent-events",
+        "external-processing-receipts",
+        "account-erasure-manifest"
+      ],
+      "lineageKeys": [
+        "user-id",
+        "policy-version",
+        "consent-event-id",
+        "processor-release-record-id",
+        "model-call-id",
+        "dispatch-receipt-id"
+      ],
+      "blockingReasons": [],
+      "legalBasisState": "confirmed",
+      "visibility": "account_private",
+      "modelTrainingUse": "separate_explicit_opt_in",
+      "classificationByState": {
+        "not_accepted": "sensitive",
+        "accepted": "sensitive",
+        "withdrawn": "sensitive",
+        "deleted": "internal"
+      },
+      "minorPolicyRef": "The product is not intended for children; no sensitive identity fields are permitted in the external payload, and consent does not authorize any use outside the declared cause-analysis purpose.",
+      "backupDisposition": "Deleted consent and receipt records are not restored into the live account; encrypted backup expiry follows the existing account-erasure restore-exclusion policy.",
+      "legalHoldSemantics": "No new legal hold is introduced; processor-side legal obligations remain outside the product's deletion control and are disclosed as unknown where not verified.",
+      "correctionSemantics": "Consent history is never edited. A learner changes the current state by appending withdrawn or accepted against the active policy; a new policy version requires a fresh acceptance."
     }
   ]
 }

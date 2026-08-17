@@ -78,6 +78,124 @@ def validate_minimized_external_payload(payload: Any) -> None:
 
 
 class ExternalProcessingRepository:
+    def cause_routes_require_subject_consent(
+        self,
+        session: Session,
+        *,
+        provider_releases: tuple[str, ...],
+        at: datetime | None = None,
+    ) -> bool:
+        releases = tuple(value.strip() for value in provider_releases if value.strip())
+        if not releases:
+            return False
+        checked_at = at or datetime.now(UTC)
+        return bool(
+            session.execute(
+                text(
+                    """
+                    select exists (
+                      select 1
+                      from ai_audit.processor_release_records
+                      where provider_release = any(cast(:provider_releases as text[]))
+                        and real_user_status = 'approved'
+                        and authorization_mode = 'user_consent'
+                        and purposes ? 'cause_candidate_generate'
+                        and valid_from <= :checked_at
+                        and (valid_until is null or valid_until > :checked_at)
+                    )
+                    """
+                ),
+                {
+                    "provider_releases": list(releases),
+                    "checked_at": checked_at,
+                },
+            ).scalar_one()
+        )
+
+    def require_current_cause_consent(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        at: datetime | None = None,
+    ) -> str:
+        checked_at = at or datetime.now(UTC)
+        event = (
+            session.execute(
+                text(
+                    """
+                    select event.consent_event_id, event.action
+                    from privacy.policy_versions policy
+                    left join lateral (
+                      select consent_event_id, action
+                      from privacy.consent_events
+                      where user_id = cast(:user_id as uuid)
+                        and policy_version = policy.policy_version
+                        and created_at <= :checked_at
+                      order by created_at desc, consent_event_id desc
+                      limit 1
+                    ) event on true
+                    where policy.state = 'active'
+                      and policy.content->>'policyKind' = 'xingce_cause_external_ai'
+                    """
+                ),
+                {"user_id": user_id, "checked_at": checked_at},
+            )
+            .mappings()
+            .one_or_none()
+        )
+        if event is None or str(event["action"]) != "accepted":
+            raise ExternalProcessingAuthorizationError(
+                "external AI consent is required before cause analysis"
+            )
+        return str(event["consent_event_id"])
+
+    def _active_release(
+        self,
+        session: Session,
+        *,
+        declared_provider_release: str,
+        provider_endpoint_fingerprint: str,
+        purpose: str,
+        data_categories: tuple[str, ...],
+        at: datetime,
+    ) -> Any | None:
+        return (
+            session.execute(
+                text(
+                    """
+                    select processor_release_record_id, authorization_mode,
+                           consent_policy_version
+                    from ai_audit.processor_release_records
+                    where provider_release = :provider_release
+                      and endpoint_fingerprint = :endpoint_fingerprint
+                      and real_user_status = 'approved'
+                      and valid_from <= :checked_at
+                      and (valid_until is null or valid_until > :checked_at)
+                      and purposes ? :purpose
+                      and not exists (
+                        select 1
+                        from jsonb_array_elements_text(
+                          cast(:data_categories as jsonb)
+                        ) category
+                        where not (processor_release_records.data_categories ? category)
+                      )
+                    order by published_at desc
+                    limit 1
+                    """
+                ),
+                {
+                    "provider_release": declared_provider_release,
+                    "endpoint_fingerprint": provider_endpoint_fingerprint,
+                    "checked_at": at,
+                    "purpose": purpose,
+                    "data_categories": json.dumps(data_categories),
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
+
     def require_active_release(
         self,
         session: Session,
@@ -89,41 +207,79 @@ class ExternalProcessingRepository:
         at: datetime | None = None,
     ) -> str:
         checked_at = at or datetime.now(UTC)
-        release_record_id = session.execute(
-            text(
-                """
-                select processor_release_record_id
-                from ai_audit.processor_release_records
-                where provider_release = :provider_release
-                  and endpoint_fingerprint = :endpoint_fingerprint
-                  and real_user_status = 'approved'
-                  and valid_from <= :checked_at
-                  and (valid_until is null or valid_until > :checked_at)
-                  and purposes ? :purpose
-                  and not exists (
-                    select 1
-                    from jsonb_array_elements_text(
-                      cast(:data_categories as jsonb)
-                    ) category
-                    where not (processor_release_records.data_categories ? category)
-                  )
-                order by published_at desc
-                limit 1
-                """
-            ),
-            {
-                "provider_release": declared_provider_release,
-                "endpoint_fingerprint": provider_endpoint_fingerprint,
-                "checked_at": checked_at,
-                "purpose": purpose,
-                "data_categories": json.dumps(data_categories),
-            },
-        ).scalar_one_or_none()
-        if release_record_id is None:
+        release = self._active_release(
+            session,
+            declared_provider_release=declared_provider_release,
+            provider_endpoint_fingerprint=provider_endpoint_fingerprint,
+            purpose=purpose,
+            data_categories=data_categories,
+            at=checked_at,
+        )
+        if release is None:
             raise ExternalProcessingAuthorizationError(
                 "no active processor release permits this real-user dispatch"
             )
-        return str(release_record_id)
+        return str(release["processor_release_record_id"])
+
+    def require_subject_authorization(
+        self,
+        session: Session,
+        *,
+        user_id: str | None,
+        declared_provider_release: str,
+        provider_endpoint_fingerprint: str,
+        purpose: str,
+        data_categories: tuple[str, ...],
+        at: datetime | None = None,
+    ) -> tuple[str, str | None]:
+        checked_at = at or datetime.now(UTC)
+        release = self._active_release(
+            session,
+            declared_provider_release=declared_provider_release,
+            provider_endpoint_fingerprint=provider_endpoint_fingerprint,
+            purpose=purpose,
+            data_categories=data_categories,
+            at=checked_at,
+        )
+        if release is None:
+            raise ExternalProcessingAuthorizationError(
+                "no active processor release permits this real-user dispatch"
+            )
+        release_id = str(release["processor_release_record_id"])
+        if str(release["authorization_mode"]) == "contracted_data_protection":
+            return release_id, None
+        policy_version = release["consent_policy_version"]
+        if user_id is None or policy_version is None:
+            raise ExternalProcessingAuthorizationError(
+                "external AI consent is required before this dispatch"
+            )
+        consent = (
+            session.execute(
+                text(
+                    """
+                    select consent_event_id, action
+                    from privacy.consent_events
+                    where user_id = cast(:user_id as uuid)
+                      and policy_version = :policy_version
+                      and created_at <= :checked_at
+                    order by created_at desc, consent_event_id desc
+                    limit 1
+                    """
+                ),
+                {
+                    "user_id": user_id,
+                    "policy_version": str(policy_version),
+                    "checked_at": checked_at,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
+        if consent is None or str(consent["action"]) != "accepted":
+            raise ExternalProcessingAuthorizationError(
+                "external AI consent is required before this dispatch"
+            )
+        return release_id, str(consent["consent_event_id"])
 
     def record_model_dispatch(
         self,
@@ -278,10 +434,12 @@ class ExternalProcessingRepository:
             )
         at = dispatched_at or datetime.now(UTC)
         release_record_id: str | None = None
+        consent_event_id: str | None = None
         authorization_state = "local_unreleased"
         if production_authorization_required:
-            release_record_id = self.require_active_release(
+            release_record_id, consent_event_id = self.require_subject_authorization(
                 session,
+                user_id=user_id,
                 declared_provider_release=declared_provider_release,
                 provider_endpoint_fingerprint=provider_endpoint_fingerprint,
                 purpose=purpose,
@@ -297,7 +455,8 @@ class ExternalProcessingRepository:
                 insert into ai_audit.external_processing_receipts (
                   receipt_id, user_id, model_call_id, external_operation_id,
                   community_candidate_id,
-                  processor_release_record_id, declared_provider_release,
+                  processor_release_record_id, consent_event_id,
+                  declared_provider_release,
                   endpoint_fingerprint, scenario_key, purpose, data_categories,
                   input_fingerprint, authorization_state, receipt_phase,
                   dispatched_at
@@ -305,7 +464,8 @@ class ExternalProcessingRepository:
                   cast(:receipt_id as uuid), cast(:user_id as uuid),
                   cast(:model_call_id as uuid), cast(:external_operation_id as uuid),
                   cast(:community_candidate_id as uuid),
-                  :release_record_id, :declared_provider_release,
+                  :release_record_id, cast(:consent_event_id as uuid),
+                  :declared_provider_release,
                   :endpoint_fingerprint, :scenario_key, :purpose,
                   cast(:data_categories as jsonb), :input_fingerprint,
                   :authorization_state, :receipt_phase, :dispatched_at
@@ -324,6 +484,7 @@ class ExternalProcessingRepository:
                     str(community_candidate_id) if community_candidate_id else None
                 ),
                 "release_record_id": release_record_id,
+                "consent_event_id": consent_event_id,
                 "declared_provider_release": declared_provider_release,
                 "endpoint_fingerprint": provider_endpoint_fingerprint,
                 "scenario_key": scenario_key,
@@ -340,6 +501,7 @@ class ExternalProcessingRepository:
                 text(
                     """
                 select receipt_id, user_id, processor_release_record_id,
+                       consent_event_id,
                        declared_provider_release, endpoint_fingerprint,
                        scenario_key, purpose, data_categories, input_fingerprint,
                        authorization_state, receipt_phase
@@ -365,6 +527,7 @@ class ExternalProcessingRepository:
         expected = (
             str(user_id) if user_id is not None else None,
             release_record_id,
+            consent_event_id,
             declared_provider_release,
             provider_endpoint_fingerprint,
             scenario_key,
@@ -377,6 +540,11 @@ class ExternalProcessingRepository:
         observed = (
             str(existing["user_id"]) if existing["user_id"] is not None else None,
             existing["processor_release_record_id"],
+            (
+                str(existing["consent_event_id"])
+                if existing["consent_event_id"] is not None
+                else None
+            ),
             str(existing["declared_provider_release"]),
             str(existing["endpoint_fingerprint"]),
             str(existing["scenario_key"]),

@@ -151,6 +151,7 @@ class ModelCallLedgerRepository:
         processor_endpoint_fingerprint: str | None = None,
         processing_purpose: str | None = None,
         processing_data_categories: tuple[str, ...] = (),
+        processing_authorization_required: bool = False,
         started_at: datetime | None = None,
     ) -> ModelCallRecord:
         values = {
@@ -237,6 +238,7 @@ class ModelCallLedgerRepository:
                 processor_endpoint_fingerprint=processor_endpoint_fingerprint,
                 processing_purpose=processing_purpose,
                 processing_data_categories=processing_data_categories,
+                processing_authorization_required=processing_authorization_required,
             )
             return existing
         record = _record(row)
@@ -253,6 +255,7 @@ class ModelCallLedgerRepository:
             processor_endpoint_fingerprint=processor_endpoint_fingerprint,
             processing_purpose=processing_purpose,
             processing_data_categories=processing_data_categories,
+            processing_authorization_required=processing_authorization_required,
         )
         return record
 
@@ -266,8 +269,9 @@ class ModelCallLedgerRepository:
         processor_endpoint_fingerprint: str | None,
         processing_purpose: str | None,
         processing_data_categories: tuple[str, ...],
+        processing_authorization_required: bool,
     ) -> None:
-        production = attribution.evaluation_state == "passed"
+        production = attribution.evaluation_state == "passed" or processing_authorization_required
         if production and (
             not processor_release_id
             or not processor_endpoint_fingerprint

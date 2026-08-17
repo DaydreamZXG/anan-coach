@@ -14,6 +14,7 @@ const declaredSubpackageSharedFiles = [
   { path: "api/commerce.ts", packages: ["account"] },
   { path: "api/question-favorites.ts", packages: ["xingce", "practice"] },
   { path: "api/data-rights.ts", packages: ["account"] },
+  { path: "api/external-ai-consent.ts", packages: ["account", "reflection"] },
   { path: "api/retake.ts", packages: ["plans"] },
   { path: "features/external-learning/answer-controller.ts", packages: ["xingce"] },
   { path: "features/external-learning/packets-controller.ts", packages: ["xingce"] },

@@ -27,7 +27,6 @@ BACKEND_ROOT = Path(__file__).resolve().parents[1]
 # This intentionally compares only objects owned by W0-MIGRATION. It is not a
 # claim that the shadow fixture is equivalent to the full production schema.
 W0_MIGRATION_OWNED_FINGERPRINT_TABLES = (
-    "ai_audit.processor_release_records",
     "learner.mock_exam_session_supersessions",
     "learner.mock_exam_sessions",
     "learner.mock_exam_trajectory_events",
@@ -66,6 +65,107 @@ def test_artifact_database_contract_matches_single_alembic_head() -> None:
     assert compatibility.compatible_revisions == {
         compatibility.migration_head,
     }
+
+
+def test_external_ai_consent_migration_preserves_contracts_and_enforces_receipts(
+    db_engine: Engine,
+) -> None:
+    user_id = "11600000-0000-4000-8000-000000000001"
+    call_id = "11600000-0000-4000-8000-000000000002"
+    with db_engine.begin() as connection:
+        assert (
+            connection.execute(text("select version_num from alembic_version")).scalar_one()
+            == "20260817_116"
+        )
+        contracted = (
+            connection.execute(
+                text(
+                    """
+                select authorization_mode, consent_policy_version,
+                       model_training_use, retention_policy, retention_seconds
+                from ai_audit.processor_release_records
+                where processor_release_record_id =
+                  'hunyuan-cloud-function-companion-20260728-1'
+                """
+                )
+            )
+            .mappings()
+            .one()
+        )
+        assert contracted["authorization_mode"] == "contracted_data_protection"
+        assert contracted["consent_policy_version"] is None
+        assert contracted["model_training_use"] == "contractually_prohibited"
+        assert contracted["retention_policy"] == "zero_retention"
+        assert contracted["retention_seconds"] == 0
+        assert (
+            connection.execute(
+                text(
+                    """
+                select count(*)
+                from ai_audit.processor_release_records
+                where authorization_mode = 'user_consent'
+                  and consent_policy_version = 'xingce-cause-external-ai@v1'
+                  and real_user_status = 'approved'
+                """
+                )
+            ).scalar_one()
+            == 3
+        )
+        connection.execute(
+            text(
+                "insert into learner.users (user_id, display_name) "
+                "values (cast(:user_id as uuid), 'Migration 116 Tester')"
+            ),
+            {"user_id": user_id},
+        )
+        connection.execute(
+            text(
+                """
+                insert into ai_audit.model_call_ledger (
+                  call_id, call_key, user_id, feature, operation,
+                  provider, model, prompt_version, schema_version, price_version,
+                  input_rate_cny_per_million,
+                  cached_input_rate_cny_per_million,
+                  output_rate_cny_per_million,
+                  input_fingerprint, status, started_at
+                ) values (
+                  cast(:call_id as uuid), 'migration-116-receipt-test',
+                  cast(:user_id as uuid), 'xingce_cause_agent',
+                  'cause_candidate_generate', 'deepseek_official',
+                  'deepseek-chat', 'cause-v1', 'cause-v1', 'test-price-v1',
+                  1, 0, 1, repeat('a', 64), 'running', now()
+                )
+                """
+            ),
+            {"call_id": call_id, "user_id": user_id},
+        )
+
+    with pytest.raises(DBAPIError, match="current subject consent"):
+        with db_engine.begin() as connection:
+            connection.execute(
+                text(
+                    """
+                    insert into ai_audit.external_processing_receipts (
+                      receipt_id, user_id, model_call_id,
+                      processor_release_record_id, consent_event_id,
+                      declared_provider_release, endpoint_fingerprint,
+                      scenario_key, purpose, data_categories, input_fingerprint,
+                      authorization_state, receipt_phase, dispatched_at
+                    ) select
+                      gen_random_uuid(), cast(:user_id as uuid),
+                      cast(:call_id as uuid), processor_release_record_id, null,
+                      provider_release, endpoint_fingerprint,
+                      'cause_candidate_generation', 'cause_candidate_generate',
+                      '["learning_evidence","learner_answer"]'::jsonb,
+                      repeat('a', 64), 'real_user_approved',
+                      'authorized_dispatch_intent', now()
+                    from ai_audit.processor_release_records
+                    where processor_release_record_id =
+                      'deepseek-official-cause-consent-20260817-v1'
+                    """
+                ),
+                {"user_id": user_id, "call_id": call_id},
+            )
 
 
 def test_cause_agent_route_budget_is_exact_and_downgrade_fails_closed(
@@ -157,9 +257,7 @@ def test_cause_agent_route_budget_is_exact_and_downgrade_fails_closed(
             },
         )
 
-    migration = import_module(
-        "migrations.versions.20260817_114_cause_agent_route_budget"
-    )
+    migration = import_module("migrations.versions.20260817_114_cause_agent_route_budget")
     with db_engine.connect() as connection:
         monkeypatch.setattr(migration.op, "get_bind", lambda: connection)
         with pytest.raises(RuntimeError, match="six-call definitions"):
@@ -202,9 +300,7 @@ def test_cause_agent_run_count_accepts_six_and_downgrade_fails_closed(
             )
         transaction.rollback()
 
-    migration = import_module(
-        "migrations.versions.20260817_115_cause_agent_run_budget"
-    )
+    migration = import_module("migrations.versions.20260817_115_cause_agent_run_budget")
     with db_engine.connect() as connection:
         monkeypatch.setattr(migration.op, "get_bind", lambda: connection)
         with pytest.raises(RuntimeError, match="routed run counts"):
@@ -2019,6 +2115,11 @@ def _w0_migration_owned_data_fingerprint(
                       retention_policy,
                       evidence_fingerprint
                     from ai_audit.processor_release_records
+                    where processor_release_record_id not in (
+                      'tokenrhythm-cause-consent-20260817-v1',
+                      'deepseek-official-cause-consent-20260817-v1',
+                      'ergouapi-cause-consent-20260817-v1'
+                    )
                     order by 1, 2
                     """
                 )

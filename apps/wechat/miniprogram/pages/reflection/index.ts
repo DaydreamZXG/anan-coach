@@ -1,5 +1,10 @@
 import { ApiClient, ApiClientError } from "../../api/client";
 import { LearningMediaApi } from "./shared/api/learning-media";
+import {
+  ExternalAIConsentApi,
+  ExternalAIConsentCoordinator,
+  type ExternalAIConsentView,
+} from "./shared/api/external-ai-consent";
 import { XfyunApi } from "./features/api/xfyun";
 import {
   XingceLearningApi,
@@ -303,6 +308,7 @@ interface ReflectionRuntime {
   selectedTags: Set<XingceReflectionTag>;
   selectedInterpretationQuestionIds: Set<string>;
   submitting: boolean;
+  externalAIConsent: ExternalAIConsentCoordinator;
   mediaDraft: ReflectionLearningMediaDraft;
   mediaBusy: boolean;
   recorder: WechatVoiceRecorder | null;
@@ -320,6 +326,16 @@ type ReflectionPageInstance = WechatMiniprogram.Page.Instance<
   ReflectionPageData,
   ReflectionPageCustom
 >;
+
+async function confirmExternalAIConsent(view: ExternalAIConsentView): Promise<boolean> {
+  const result = await wx.showModal({
+    title: "首次请岸岸分析错因",
+    content: `作答、用时、改选和草稿文字会去掉账号身份后发给外部 AI。${view.providerRisk}。同意一次后不再打扰，可在「数据与隐私」撤回。`,
+    confirmText: "同意并继续",
+    cancelText: "暂不使用",
+  });
+  return result.confirm;
+}
 
 const runtimes = new WeakMap<ReflectionPageInstance, ReflectionRuntime>();
 
@@ -452,6 +468,10 @@ Page<ReflectionPageData, ReflectionPageCustom>({
         mediaDraft.methodCorrectCalculationErrorQuestionIds,
       ),
       submitting: false,
+      externalAIConsent: new ExternalAIConsentCoordinator(
+        new ExternalAIConsentApi(client),
+        "wechat_reflection_first_use",
+      ),
       mediaDraft,
       mediaBusy: false,
       recorder: null,
@@ -465,6 +485,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       swipeGesture: idleSwipeGesture(),
     };
     runtimes.set(this, runtime);
+    runtime.externalAIConsent.prefetch();
     syncVoiceView(this, runtime);
     void this.loadReview();
   },
@@ -1089,8 +1110,17 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       return;
     }
     runtime.submitting = true;
-    this.setData({ interactionLocked: true, pendingMessage: "正在保存作答证据并请岸岸判断…" });
+    this.setData({ interactionLocked: true, pendingMessage: "正在保存并请岸岸判断…" });
     try {
+      const consented = await runtime.externalAIConsent.ensureAccepted(
+        confirmExternalAIConsent,
+        () => createIdempotencyKey("external-ai-consent"),
+      );
+      if (!isCurrent(this, runtime, epoch)) return;
+      if (!consented) {
+        this.setData({ interactionLocked: false, pendingMessage: "" });
+        return;
+      }
       if (!pending) {
         const voiceArtifactVersionIds = runtime.mediaDraft.voiceSegments.flatMap((segment) =>
           segment.state === "available" && segment.artifactVersionId
@@ -1144,6 +1174,15 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       applySession(this, runtime, response.data);
     } catch (error) {
       if (!isCurrent(this, runtime, epoch)) return;
+      if (
+        error instanceof ApiClientError &&
+        error.payload?.code === "external_ai_consent_required"
+      ) {
+        runtime.externalAIConsent.invalidate();
+        this.setData({ interactionLocked: false, pendingMessage: "" });
+        void wx.showToast({ title: "设置已更新，再点一次就能继续", icon: "none" });
+        return;
+      }
       if (error instanceof ApiClientError && error.statusCode === 409) {
         clearPendingXingceReflection(runtime.lifecycle.owner.userId, runtime.reviewId);
         await reloadAfterConflict(this, runtime);

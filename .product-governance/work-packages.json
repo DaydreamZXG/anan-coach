@@ -5288,6 +5288,325 @@
         "Acceptance discovers an API contract or canonical evidence semantic change"
       ],
       "status": "planned"
+    },
+    {
+      "id": "WP-CAUSE-EXTERNAL-AI-CONSENT-037",
+      "wave": "integration",
+      "owner": "external-ai-consent-boundary",
+      "riskClass": "critical",
+      "objective": "把错因外部 AI 门禁从单一零留存合同条件改为合同保护或逐用户明示同意的分级准入，并将同意、撤回、处理方披露和每次外发凭证闭合到数据库、后端和小程序。",
+      "deliverables": [
+        "PostgreSQL 115→116 分级处理方授权和同意凭证迁移",
+        "版本化外部 AI 同意查询、接受和撤回 API",
+        "错因提交前的最小操作明示同意和服务端双重阻断",
+        "数据与隐私页的处理方风险、当前状态和撤回控制",
+        "个人数据导出与账户删除中的真实授权和远端删除披露",
+        "七类专项验收和完整后端、小程序契约验证"
+      ],
+      "requirementRefs": [
+        "REQ-CAUSE-EXTERNAL-AI-CONSENT-037"
+      ],
+      "decisionRefs": [
+        "DEC-CAUSE-EXTERNAL-AI-CONSENT-037",
+        "DEC-FREEZE-RU-CAUSE-EXTERNAL-AI-CONSENT-037"
+      ],
+      "blockingDecisionRefs": [],
+      "nonGoals": [
+        "不把用户同意解释成处理方禁训练、零留存或可远端删除",
+        "不放宽 TLS、数据最小化、真实处理方身份、模型候选确认或跨账号隔离",
+        "不把该同意扩展到 OCR、申论、陪伴对话、营销或公共内容",
+        "不把密钥、模型输入、真实用户作答或数据库内容写入 Git、日志或测试证据",
+        "不绕过不可变发布签名、数据库备份或微信上传凭证"
+      ],
+      "dependsOn": [],
+      "allowedPaths": [
+        "backend/app/domains/ai/external_processing.py",
+        "backend/app/domains/ai/model_cost.py",
+        "backend/app/domains/ai/capability_readiness.py",
+        "backend/app/domains/processor_disclosure/**",
+        "backend/app/domains/data_rights/repository.py",
+        "backend/app/domains/xingce_learning/real_attempt/service.py",
+        "backend/app/domains/xingce_learning/cause_agent/worker.py",
+        "backend/migrations/versions/20260817_116_external_ai_user_consent.py",
+        "backend/tests/test_external_ai_data_boundary.py",
+        "backend/tests/test_ai_capability_readiness.py",
+        "backend/tests/test_stage8_commerce_privacy.py",
+        "backend/tests/test_xingce_cause_agent_billing.py",
+        "backend/tests/test_migrations.py",
+        "backend/tests/work_packages/cause_external_ai_consent_037/**",
+        "audit/api-contract/openapi.json",
+        "apps/wechat/miniprogram/api/generated/types.gen.ts",
+        "apps/wechat/scripts/subpackage-shared-manifest.mjs",
+        "apps/wechat/subpackage-shared-src/api/external-ai-consent.ts",
+        "apps/wechat/miniprogram/account/shared/api/external-ai-consent.ts",
+        "apps/wechat/miniprogram/pages/reflection/shared/api/external-ai-consent.ts",
+        "apps/wechat/miniprogram/account/privacy/index.ts",
+        "apps/wechat/miniprogram/account/privacy/index.wxml",
+        "apps/wechat/miniprogram/account/privacy/index.wxss",
+        "apps/wechat/miniprogram/pages/reflection/index.ts",
+        "apps/wechat/miniprogram/pages/reflection/index.wxml",
+        "apps/wechat/miniprogram/pages/reflection/index.wxss",
+        "apps/wechat/tests/work_packages/cause-external-ai-consent-037/**",
+        "reports/2026-08-17-cause-external-ai-consent.md"
+      ],
+      "forbiddenPaths": [
+        ".product-governance/**",
+        "apps/wechat/project.config.json",
+        "apps/wechat/project.private.config.json",
+        "apps/wechat/cloudfunctions/**",
+        "backend/migrations/versions/20260719_41_external_ai_data_boundary.py",
+        "data/**",
+        "qbank-cloud/**"
+      ],
+      "migrationPolicy": {
+        "mode": "owner",
+        "ownedPaths": [
+          "backend/migrations/versions/20260817_116_external_ai_user_consent.py"
+        ],
+        "dataBackfill": "Existing processor releases receive contracted_data_protection authorization mode. The migration publishes one consent policy and three new immutable cause-route release records without changing historical receipts or consent events.",
+        "rollback": "Forward-only after any new policy consent, user-consent processor receipt or remote-deletion-unavailable audit event exists. Before such facts, downgrade may remove only the exact 116 records, columns, constraints and policy after full precondition verification."
+      },
+      "compatibilityPolicy": {
+        "strategy": "Keep external-processor-disclosure@v1 and all contracted zero-retention authorization behavior; add external-ai-consent-view@v1 and one additive consent reference on receipts.",
+        "supportedVersions": "Database revision 115 forward-migrated to 116, existing cause-candidate@v2, and WeChat clients that either use the new consent surface or receive a truthful 409 without dispatch.",
+        "removalGate": "Retiring policy v1 or any consent processor requires a new policy version, fresh user acceptance where material risk changes, no in-flight model call using the release, and a governed forward migration."
+      },
+      "inputContracts": [
+        "wechat-page-request-owner@v1"
+      ],
+      "outputContracts": [
+        "accept-external-ai-consent@v1",
+        "withdraw-external-ai-consent@v1",
+        "external-ai-consent-view@v1"
+      ],
+      "acceptanceCommands": [
+        {
+          "id": "cause-consent-happy-037",
+          "kind": "scenario_test",
+          "adapter": "pytest-json@1",
+          "selector": "tests/work_packages/cause_external_ai_consent_037/test_happy.py",
+          "cwd": "backend",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "cause-consent-failure-037",
+          "kind": "scenario_test",
+          "adapter": "pytest-json@1",
+          "selector": "tests/work_packages/cause_external_ai_consent_037/test_failure.py",
+          "cwd": "backend",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "cause-consent-replay-037",
+          "kind": "scenario_test",
+          "adapter": "pytest-json@1",
+          "selector": "tests/work_packages/cause_external_ai_consent_037/test_replay.py",
+          "cwd": "backend",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "cause-consent-stale-037",
+          "kind": "scenario_test",
+          "adapter": "pytest-json@1",
+          "selector": "tests/work_packages/cause_external_ai_consent_037/test_stale.py",
+          "cwd": "backend",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "cause-consent-race-037",
+          "kind": "scenario_test",
+          "adapter": "vitest-json@1",
+          "selector": "tests/work_packages/cause-external-ai-consent-037/race.test.ts",
+          "cwd": "apps/wechat",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "cause-consent-recovery-037",
+          "kind": "scenario_test",
+          "adapter": "vitest-json@1",
+          "selector": "tests/work_packages/cause-external-ai-consent-037/recovery.test.ts",
+          "cwd": "apps/wechat",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "cause-consent-migration-037",
+          "kind": "scenario_test",
+          "adapter": "pytest-json@1",
+          "selector": "tests/test_migrations.py",
+          "cwd": "backend",
+          "timeoutSeconds": 600
+        }
+      ],
+      "requiredAcceptanceScenarios": [
+        {
+          "id": "WP-CAUSE-EXTERNAL-AI-CONSENT-037-AS-01",
+          "assertion": "an explicit current acceptance authorizes one minimized cause dispatch and binds its exact consent event",
+          "testSelector": "tests/work_packages/cause_external_ai_consent_037/test_happy.py",
+          "acceptanceCommandId": "cause-consent-happy-037"
+        },
+        {
+          "id": "WP-CAUSE-EXTERNAL-AI-CONSENT-037-AS-02",
+          "assertion": "a user without current acceptance is blocked before provider I/O while local attempt evidence remains recoverable",
+          "testSelector": "tests/work_packages/cause_external_ai_consent_037/test_failure.py",
+          "acceptanceCommandId": "cause-consent-failure-037"
+        },
+        {
+          "id": "WP-CAUSE-EXTERNAL-AI-CONSENT-037-AS-03",
+          "assertion": "replaying one consent command returns one event and replaying one dispatch never changes its authorization contract",
+          "testSelector": "tests/work_packages/cause_external_ai_consent_037/test_replay.py",
+          "acceptanceCommandId": "cause-consent-replay-037"
+        },
+        {
+          "id": "WP-CAUSE-EXTERNAL-AI-CONSENT-037-AS-04",
+          "assertion": "a newer withdrawal invalidates every older accepted event for future dispatch and a new policy version never inherits consent",
+          "testSelector": "tests/work_packages/cause_external_ai_consent_037/test_stale.py",
+          "acceptanceCommandId": "cause-consent-stale-037"
+        },
+        {
+          "id": "WP-CAUSE-EXTERNAL-AI-CONSENT-037-AS-05",
+          "assertion": "first use takes one confirmation and continues the reflection; later use stays silent while rapid repeated taps keep one consent request and one reflection submission",
+          "testSelector": "tests/work_packages/cause-external-ai-consent-037/race.test.ts",
+          "acceptanceCommandId": "cause-consent-race-037"
+        },
+        {
+          "id": "WP-CAUSE-EXTERNAL-AI-CONSENT-037-AS-06",
+          "assertion": "privacy and reflection surfaces recover current accepted or withdrawn state after hide re-entry and network uncertainty",
+          "testSelector": "tests/work_packages/cause-external-ai-consent-037/recovery.test.ts",
+          "acceptanceCommandId": "cause-consent-recovery-037"
+        },
+        {
+          "id": "WP-CAUSE-EXTERNAL-AI-CONSENT-037-AS-07",
+          "assertion": "PostgreSQL migration 116 preserves contracted approvals, enforces consent-bound receipts, publishes truthful route disclosures and refuses destructive downgrade with new facts",
+          "testSelector": "tests/test_migrations.py",
+          "acceptanceCommandId": "cause-consent-migration-037"
+        }
+      ],
+      "verificationOnly": false,
+      "stopConditions": [
+        "Any implementation labels unknown training, retention, residency or deletion as verified",
+        "A model call can reach provider I/O without a current accepted event or contracted protection",
+        "A withdrawal claims remote deletion that no processor contract or API can prove",
+        "Migration execution cannot obtain a verified pre-migration backup",
+        "Deployment would bypass immutable release signatures, leak a key or mutate production before approval"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "WP-CAUSE-EXTERNAL-AI-CONSENT-038",
+      "wave": "integration",
+      "owner": "external-ai-consent-boundary-correction",
+      "riskClass": "critical",
+      "objective": "取代 037 的实施权威，保持一次同意和逐次静默绑定语义不变，并补齐 116 Alembic head 的版本化发布兼容性清单。",
+      "deliverables": [
+        "PostgreSQL 115→116 分级处理方授权、同意凭证和发布 head 一致性元数据",
+        "版本化外部 AI 同意查询、一次接受和撤回 API",
+        "错因提交首次合并确认、后续静默使用和服务端双重阻断",
+        "数据与隐私页撤回、导出和删除的真实披露",
+        "七类专项验收与完整契约回归"
+      ],
+      "requirementRefs": [
+        "REQ-CAUSE-EXTERNAL-AI-CONSENT-037"
+      ],
+      "decisionRefs": [
+        "DEC-CAUSE-EXTERNAL-AI-CONSENT-037",
+        "DEC-FREEZE-RU-CAUSE-EXTERNAL-AI-CONSENT-038"
+      ],
+      "blockingDecisionRefs": [],
+      "nonGoals": [
+        "不变更 037 已确认的用户交互和数据处理决策",
+        "不把用户同意解释成处理方禁训练、零留存或可远程删除",
+        "不放宽 TLS、数据最小化、跨账号隔离、发布签名或微信上传凭证",
+        "不把密钥、真实作答或模型输入写入 Git、日志或测试证据"
+      ],
+      "dependsOn": [],
+      "allowedPaths": [
+        "backend/app/domains/ai/external_processing.py",
+        "backend/app/domains/ai/model_cost.py",
+        "backend/app/domains/ai/capability_readiness.py",
+        "backend/app/domains/processor_disclosure/**",
+        "backend/app/domains/data_rights/repository.py",
+        "backend/app/domains/xingce_learning/real_attempt/service.py",
+        "backend/app/domains/xingce_learning/cause_agent/worker.py",
+        "backend/migrations/versions/20260817_116_external_ai_user_consent.py",
+        "backend/tests/test_external_ai_data_boundary.py",
+        "backend/tests/test_ai_capability_readiness.py",
+        "backend/tests/test_stage8_commerce_privacy.py",
+        "backend/tests/test_xingce_cause_agent_billing.py",
+        "backend/tests/test_migrations.py",
+        "backend/tests/work_packages/cause_external_ai_consent_037/**",
+        "ops/release-db-compatibility.env",
+        "audit/api-contract/openapi.json",
+        "apps/wechat/miniprogram/api/generated/types.gen.ts",
+        "apps/wechat/scripts/subpackage-shared-manifest.mjs",
+        "apps/wechat/subpackage-shared-src/api/external-ai-consent.ts",
+        "apps/wechat/miniprogram/account/shared/api/external-ai-consent.ts",
+        "apps/wechat/miniprogram/pages/reflection/shared/api/external-ai-consent.ts",
+        "apps/wechat/miniprogram/account/privacy/index.ts",
+        "apps/wechat/miniprogram/account/privacy/index.wxml",
+        "apps/wechat/miniprogram/account/privacy/index.wxss",
+        "apps/wechat/miniprogram/pages/reflection/index.ts",
+        "apps/wechat/miniprogram/pages/reflection/index.wxml",
+        "apps/wechat/miniprogram/pages/reflection/index.wxss",
+        "apps/wechat/tests/work_packages/cause-external-ai-consent-037/**",
+        "reports/2026-08-17-cause-external-ai-consent.md"
+      ],
+      "forbiddenPaths": [
+        ".product-governance/**",
+        "apps/wechat/project.config.json",
+        "apps/wechat/project.private.config.json",
+        "apps/wechat/cloudfunctions/**",
+        "backend/migrations/versions/20260719_41_external_ai_data_boundary.py",
+        "data/**",
+        "qbank-cloud/**"
+      ],
+      "migrationPolicy": {
+        "mode": "owner",
+        "ownedPaths": [
+          "backend/migrations/versions/20260817_116_external_ai_user_consent.py"
+        ],
+        "dataBackfill": "Existing processor releases receive contracted_data_protection. Publish one consent policy and three immutable cause-route releases; update the artifact migration head from 115 to 116 without changing historical facts.",
+        "rollback": "Forward-only after any consent, consent-bound receipt or remote-deletion-unavailable event exists; otherwise remove only exact 116 objects and restore the 115 compatibility contract."
+      },
+      "compatibilityPolicy": {
+        "strategy": "Preserve external-processor-disclosure@v1 and contracted approvals; add consent view and receipt consent reference; declare 116 as the single artifact head.",
+        "supportedVersions": "Database 115 forward-migrated to 116 and WeChat clients that use the new first-use surface or receive a truthful 409 before dispatch.",
+        "removalGate": "A material risk change requires a new policy version and fresh one-time acceptance; release rollback remains blocked after new facts."
+      },
+      "inputContracts": [
+        "wechat-page-request-owner@v1"
+      ],
+      "outputContracts": [
+        "accept-external-ai-consent@v1",
+        "withdraw-external-ai-consent@v1",
+        "external-ai-consent-view@v1"
+      ],
+      "acceptanceCommands": [
+        {"id":"cause-consent-happy-038","kind":"scenario_test","adapter":"pytest-json@1","selector":"tests/work_packages/cause_external_ai_consent_037/test_happy.py","cwd":"backend","timeoutSeconds":300},
+        {"id":"cause-consent-failure-038","kind":"scenario_test","adapter":"pytest-json@1","selector":"tests/work_packages/cause_external_ai_consent_037/test_failure.py","cwd":"backend","timeoutSeconds":300},
+        {"id":"cause-consent-replay-038","kind":"scenario_test","adapter":"pytest-json@1","selector":"tests/work_packages/cause_external_ai_consent_037/test_replay.py","cwd":"backend","timeoutSeconds":300},
+        {"id":"cause-consent-stale-038","kind":"scenario_test","adapter":"pytest-json@1","selector":"tests/work_packages/cause_external_ai_consent_037/test_stale.py","cwd":"backend","timeoutSeconds":300},
+        {"id":"cause-consent-race-038","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/cause-external-ai-consent-037/race.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"cause-consent-recovery-038","kind":"scenario_test","adapter":"vitest-json@1","selector":"tests/work_packages/cause-external-ai-consent-037/recovery.test.ts","cwd":"apps/wechat","timeoutSeconds":300},
+        {"id":"cause-consent-migration-038","kind":"scenario_test","adapter":"pytest-json@1","selector":"tests/test_migrations.py","cwd":"backend","timeoutSeconds":600}
+      ],
+      "requiredAcceptanceScenarios": [
+        {"id":"WP-CAUSE-EXTERNAL-AI-CONSENT-038-AS-01","assertion":"current one-time acceptance authorizes one minimized cause dispatch and binds its exact event","testSelector":"tests/work_packages/cause_external_ai_consent_037/test_happy.py","acceptanceCommandId":"cause-consent-happy-038"},
+        {"id":"WP-CAUSE-EXTERNAL-AI-CONSENT-038-AS-02","assertion":"missing consent blocks before provider I/O while local evidence remains recoverable","testSelector":"tests/work_packages/cause_external_ai_consent_037/test_failure.py","acceptanceCommandId":"cause-consent-failure-038"},
+        {"id":"WP-CAUSE-EXTERNAL-AI-CONSENT-038-AS-03","assertion":"consent and dispatch replay preserve one immutable authorization contract","testSelector":"tests/work_packages/cause_external_ai_consent_037/test_replay.py","acceptanceCommandId":"cause-consent-replay-038"},
+        {"id":"WP-CAUSE-EXTERNAL-AI-CONSENT-038-AS-04","assertion":"withdrawal and new policy versions invalidate prior acceptance for future dispatch","testSelector":"tests/work_packages/cause_external_ai_consent_037/test_stale.py","acceptanceCommandId":"cause-consent-stale-038"},
+        {"id":"WP-CAUSE-EXTERNAL-AI-CONSENT-038-AS-05","assertion":"first use confirms once and continues; later and rapid taps remain silent and deduplicated","testSelector":"tests/work_packages/cause-external-ai-consent-037/race.test.ts","acceptanceCommandId":"cause-consent-race-038"},
+        {"id":"WP-CAUSE-EXTERNAL-AI-CONSENT-038-AS-06","assertion":"privacy and reflection recover accepted or withdrawn state after re-entry and uncertainty","testSelector":"tests/work_packages/cause-external-ai-consent-037/recovery.test.ts","acceptanceCommandId":"cause-consent-recovery-038"},
+        {"id":"WP-CAUSE-EXTERNAL-AI-CONSENT-038-AS-07","assertion":"migration 116 preserves contracted approvals, enforces consent receipts and matches the artifact head","testSelector":"tests/test_migrations.py","acceptanceCommandId":"cause-consent-migration-038"}
+      ],
+      "verificationOnly": false,
+      "stopConditions": [
+        "Any unknown vendor behavior is labeled verified",
+        "Provider I/O can occur without contracted protection or current subject consent",
+        "Withdrawal claims unverified remote deletion",
+        "Migration execution lacks a verified pre-migration backup",
+        "Deployment bypasses immutable release signatures or exposes a key"
+      ],
+      "status": "planned"
     }
   ]
 }

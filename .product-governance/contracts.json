@@ -1985,6 +1985,415 @@
         "metrics": "Count restored parent/link rows, remaining orphans, validated constraint state, active release nodes and active question bindings."
       },
       "status": "specified"
+    },
+    {
+      "id": "accept-external-ai-consent@v1",
+      "kind": "command",
+      "owner": "external_ai_subject_consent",
+      "consumers": [
+        "wechat-reflection-page",
+        "wechat-data-privacy-page"
+      ],
+      "schemaLocator": "inline://contracts.json#/contracts/accept-external-ai-consent@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "One explicit authenticated acceptance for the current Xingce cause external-AI policy.",
+        "properties": {
+          "contractVersion": {
+            "type": "string",
+            "description": "Closed command discriminator.",
+            "const": "accept-external-ai-consent@v1"
+          },
+          "commandKey": {
+            "type": "string",
+            "description": "Stable client command identity for replay and uncertain transport recovery.",
+            "minLength": 8,
+            "maxLength": 160
+          },
+          "surface": {
+            "type": "string",
+            "description": "The surface on which the complete disclosure was shown.",
+            "enum": [
+              "wechat_xingce_reflection",
+              "wechat_data_privacy"
+            ]
+          }
+        },
+        "required": [
+          "contractVersion",
+          "commandKey",
+          "surface"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Current consent state after the append or an exact replay.",
+        "properties": {
+          "contractVersion": {
+            "type": "string",
+            "description": "View discriminator.",
+            "const": "external-ai-consent-view@v1"
+          },
+          "policyVersion": {
+            "type": "string",
+            "description": "Exact policy whose disclosure and consent apply.",
+            "const": "xingce-cause-external-ai@v1"
+          },
+          "state": {
+            "type": "string",
+            "description": "Current effective action for this user and policy.",
+            "enum": [
+              "not_accepted",
+              "accepted",
+              "withdrawn"
+            ]
+          },
+          "accepted": {
+            "type": "boolean",
+            "description": "Whether a new cause-model dispatch is currently permitted."
+          },
+          "canWithdraw": {
+            "type": "boolean",
+            "description": "Whether the UI should offer withdrawal."
+          },
+          "currentEventId": {
+            "type": "string",
+            "description": "Current append-only event identity, or an empty string when no event exists."
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Current event timestamp, or an empty string when no event exists."
+          }
+        },
+        "required": [
+          "contractVersion",
+          "policyVersion",
+          "state",
+          "accepted",
+          "canWithdraw",
+          "currentEventId",
+          "updatedAt"
+        ],
+        "additionalProperties": false
+      },
+      "dataClasses": [
+        "sensitive"
+      ],
+      "authorization": "Authenticated current user only; user identity is derived from the access token and is never accepted from the request body.",
+      "idempotency": "The same user policy acceptance and commandKey returns the original event; reusing one commandKey for another surface fails with a conflict.",
+      "compatibility": "v1 applies only to Xingce cause analysis. A policy-content or processor-risk change publishes a new policy version and requires a fresh acceptance.",
+      "errorSemantics": [
+        "AUTH_REQUIRED",
+        "POLICY_NOT_ACTIVE",
+        "CONSENT_COMMAND_CONFLICT",
+        "DATABASE_UNAVAILABLE"
+      ],
+      "requirementRefs": [
+        "REQ-CAUSE-EXTERNAL-AI-CONSENT-037"
+      ],
+      "evidenceRefs": [
+        "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037",
+        "E-CODE-CAUSE-EXTERNAL-AI-GATE-037"
+      ],
+      "transactionScopeResources": [
+        "external-ai-subject-consent"
+      ],
+      "transactionBoundary": "One PostgreSQL transaction locks the user's policy stream, validates command replay and active policy, appends at most one consent event, and returns the effective current event.",
+      "transactionEmits": [],
+      "observability": {
+        "correlation": "HTTP request ID and commandKey correlate the user action without logging answer or prompt content.",
+        "audit": "Store user, policy, action, surface, event identity and time; never store a provider key or full model payload.",
+        "metrics": "Count accepted, withdrawn, exact replay and conflict outcomes by policy version."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "withdraw-external-ai-consent@v1",
+      "kind": "command",
+      "owner": "external_ai_subject_consent",
+      "consumers": [
+        "wechat-data-privacy-page"
+      ],
+      "schemaLocator": "inline://contracts.json#/contracts/withdraw-external-ai-consent@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "One explicit authenticated withdrawal for future Xingce cause external-AI processing.",
+        "properties": {
+          "contractVersion": {
+            "type": "string",
+            "description": "Closed withdrawal command discriminator.",
+            "const": "withdraw-external-ai-consent@v1"
+          },
+          "commandKey": {
+            "type": "string",
+            "description": "Stable client command identity for replay and uncertain transport recovery.",
+            "minLength": 8,
+            "maxLength": 160
+          },
+          "surface": {
+            "type": "string",
+            "description": "The low-frequency privacy surface where withdrawal was confirmed.",
+            "const": "wechat_data_privacy"
+          }
+        },
+        "required": [
+          "contractVersion",
+          "commandKey",
+          "surface"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Current withdrawn state after append or exact replay.",
+        "properties": {
+          "contractVersion": {
+            "type": "string",
+            "description": "View discriminator.",
+            "const": "external-ai-consent-view@v1"
+          },
+          "policyVersion": {
+            "type": "string",
+            "description": "Exact policy whose future processing is withdrawn.",
+            "const": "xingce-cause-external-ai@v1"
+          },
+          "state": {
+            "type": "string",
+            "description": "The effective state after this command.",
+            "const": "withdrawn"
+          },
+          "accepted": {
+            "type": "boolean",
+            "description": "New external cause dispatch is not permitted.",
+            "const": false
+          },
+          "canWithdraw": {
+            "type": "boolean",
+            "description": "A second withdrawal is unnecessary.",
+            "const": false
+          },
+          "currentEventId": {
+            "type": "string",
+            "description": "Current append-only withdrawal event identity."
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Current withdrawal event timestamp."
+          }
+        },
+        "required": [
+          "contractVersion",
+          "policyVersion",
+          "state",
+          "accepted",
+          "canWithdraw",
+          "currentEventId",
+          "updatedAt"
+        ],
+        "additionalProperties": false
+      },
+      "dataClasses": [
+        "sensitive"
+      ],
+      "authorization": "Authenticated current user only; user identity comes from the access token.",
+      "idempotency": "The same user policy withdrawal and commandKey returns the original event; a new commandKey records another explicit withdrawal without re-enabling processing.",
+      "compatibility": "Withdrawal affects only future xingce-cause-external-ai@v1 dispatches and does not claim retroactive provider deletion.",
+      "errorSemantics": [
+        "AUTH_REQUIRED",
+        "POLICY_NOT_ACTIVE",
+        "CONSENT_COMMAND_CONFLICT",
+        "DATABASE_UNAVAILABLE"
+      ],
+      "requirementRefs": [
+        "REQ-CAUSE-EXTERNAL-AI-CONSENT-037"
+      ],
+      "evidenceRefs": [
+        "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037",
+        "E-CODE-CAUSE-EXTERNAL-AI-GATE-037"
+      ],
+      "transactionScopeResources": [
+        "external-ai-subject-consent"
+      ],
+      "transactionBoundary": "One PostgreSQL transaction locks the user's policy stream, validates command replay and active policy, appends at most one withdrawal event, and returns the effective withdrawn event.",
+      "transactionEmits": [],
+      "observability": {
+        "correlation": "HTTP request ID and commandKey without answer or prompt content.",
+        "audit": "Store user, policy, withdrawn action, surface, event identity and time.",
+        "metrics": "Count withdrawal, exact replay and conflict outcomes by policy version."
+      },
+      "status": "specified"
+    },
+    {
+      "id": "external-ai-consent-view@v1",
+      "kind": "query",
+      "owner": "external_ai_subject_consent",
+      "consumers": [
+        "wechat-reflection-page",
+        "wechat-data-privacy-page",
+        "xingce-cause-dispatch-authorization"
+      ],
+      "schemaLocator": "inline://contracts.json#/contracts/external-ai-consent-view@v1",
+      "inputSchema": {
+        "type": "object",
+        "description": "Authenticated current-user consent and processor disclosure lookup.",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "description": "Current effective consent plus the exact risks the UI must display.",
+        "properties": {
+          "contractVersion": {
+            "type": "string",
+            "description": "Closed view discriminator.",
+            "const": "external-ai-consent-view@v1"
+          },
+          "policyVersion": {
+            "type": "string",
+            "description": "Exact active policy version.",
+            "const": "xingce-cause-external-ai@v1"
+          },
+          "state": {
+            "type": "string",
+            "description": "Current effective user state.",
+            "enum": [
+              "not_accepted",
+              "accepted",
+              "withdrawn"
+            ]
+          },
+          "accepted": {
+            "type": "boolean",
+            "description": "Whether new external cause dispatch is allowed."
+          },
+          "canWithdraw": {
+            "type": "boolean",
+            "description": "Whether withdrawal is currently actionable."
+          },
+          "currentEventId": {
+            "type": "string",
+            "description": "Current event identity or empty string."
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Current event timestamp or empty string."
+          },
+          "purposeSummary": {
+            "type": "string",
+            "description": "Plain-language bounded purpose."
+          },
+          "dataSummary": {
+            "type": "string",
+            "description": "Plain-language minimized data categories."
+          },
+          "riskSummary": {
+            "type": "string",
+            "description": "Plain-language training, retention and deletion uncertainty."
+          },
+          "withdrawalSummary": {
+            "type": "string",
+            "description": "Plain-language effect and limitation of withdrawal."
+          },
+          "processors": {
+            "type": "array",
+            "description": "Currently published user-consent processors for this purpose.",
+            "items": {
+              "type": "object",
+              "description": "One truthful processor disclosure without endpoint or credentials.",
+              "properties": {
+                "processorReleaseId": {
+                  "type": "string",
+                  "description": "Immutable processor release record identity."
+                },
+                "displayName": {
+                  "type": "string",
+                  "description": "User-facing route name."
+                },
+                "operatorName": {
+                  "type": "string",
+                  "description": "Verified operator name or the literal 未核验."
+                },
+                "modelTrainingUse": {
+                  "type": "string",
+                  "description": "Truthful training-use disclosure.",
+                  "enum": [
+                    "vendor_improvement_possible",
+                    "unknown"
+                  ]
+                },
+                "retentionPolicy": {
+                  "type": "string",
+                  "description": "Truthful provider-side retention disclosure.",
+                  "enum": [
+                    "fixed_retention",
+                    "unknown"
+                  ]
+                },
+                "deletionSupport": {
+                  "type": "string",
+                  "description": "Whether remote deletion has been verified.",
+                  "enum": [
+                    "verified",
+                    "unverified"
+                  ]
+                }
+              },
+              "required": [
+                "processorReleaseId",
+                "displayName",
+                "operatorName",
+                "modelTrainingUse",
+                "retentionPolicy",
+                "deletionSupport"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "contractVersion",
+          "policyVersion",
+          "state",
+          "accepted",
+          "canWithdraw",
+          "currentEventId",
+          "updatedAt",
+          "purposeSummary",
+          "dataSummary",
+          "riskSummary",
+          "withdrawalSummary",
+          "processors"
+        ],
+        "additionalProperties": false
+      },
+      "dataClasses": [
+        "sensitive"
+      ],
+      "authorization": "Authenticated current user only; public processor disclosure remains a separate endpoint without user state.",
+      "idempotency": "Repeated reads return the same effective event and active processor release set at the same database snapshot.",
+      "compatibility": "v1 is additive to external-processor-disclosure@v1 and does not weaken contracted zero-retention processors.",
+      "errorSemantics": [
+        "AUTH_REQUIRED",
+        "POLICY_NOT_ACTIVE",
+        "DATABASE_UNAVAILABLE"
+      ],
+      "requirementRefs": [
+        "REQ-CAUSE-EXTERNAL-AI-CONSENT-037"
+      ],
+      "evidenceRefs": [
+        "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037",
+        "E-CODE-CAUSE-EXTERNAL-AI-GATE-037",
+        "E-EXT-DEEPSEEK-DATA-POLICY-037",
+        "E-EXT-TOKENRHYTHM-DATA-UNKNOWN-037"
+      ],
+      "observability": {
+        "correlation": "HTTP request ID only.",
+        "audit": "Read current consent and published disclosures without model payloads, keys or endpoint fingerprints.",
+        "metrics": "Count state reads and unavailable-policy errors."
+      },
+      "status": "specified"
     }
   ]
 }

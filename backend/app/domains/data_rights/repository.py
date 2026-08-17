@@ -111,10 +111,7 @@ class DataRightsRepository:
                 DataCategoryView(
                     category="learning_evidence",
                     title="成绩与学习证据",
-                    item_count=(
-                        int(counts["score_count"])
-                        + int(counts["favorite_count"])
-                    ),
+                    item_count=(int(counts["score_count"]) + int(counts["favorite_count"])),
                     retention="账户存续期间；注销后解除身份映射",
                 ),
                 DataCategoryView(
@@ -169,9 +166,7 @@ class DataRightsRepository:
             server_time=now,
         )
 
-    def create_export(
-        self, *, user_id: str, command_key: str, now: datetime
-    ) -> DataExportView:
+    def create_export(self, *, user_id: str, command_key: str, now: datetime) -> DataExportView:
         existing = self._export_by_command(user_id=user_id, command_key=command_key)
         if existing is not None:
             return existing
@@ -213,9 +208,7 @@ class DataRightsRepository:
         self._session.commit()
         return _export_view(row)
 
-    def export_by_id(
-        self, *, user_id: str, export_id: UUID, now: datetime
-    ) -> DataExportView:
+    def export_by_id(self, *, user_id: str, export_id: UUID, now: datetime) -> DataExportView:
         self._session.execute(
             text(
                 """
@@ -258,15 +251,9 @@ class DataRightsRepository:
             raise DataRightsNotFound("export")
         return _export_view(row)
 
-    def export_payload(
-        self, *, user_id: str, export_id: UUID, now: datetime
-    ) -> DataExportPayload:
+    def export_payload(self, *, user_id: str, export_id: UUID, now: datetime) -> DataExportPayload:
         view = self.export_by_id(user_id=user_id, export_id=export_id, now=now)
-        if (
-            view.state != "completed"
-            or view.expires_at is None
-            or view.expires_at <= now
-        ):
+        if view.state != "completed" or view.expires_at is None or view.expires_at <= now:
             raise DataRightsConflict("export payload is not available")
         row = (
             self._session.execute(
@@ -301,9 +288,7 @@ class DataRightsRepository:
         now: datetime,
     ) -> AccountDeletionView:
         if confirmation_phrase != CONFIRMATION_PHRASE:
-            raise DataRightsConflict(
-                "account deletion confirmation phrase does not match"
-            )
+            raise DataRightsConflict("account deletion confirmation phrase does not match")
         existing = self._deletion_by_command(user_id=user_id, command_key=command_key)
         if existing is not None:
             return existing
@@ -320,9 +305,7 @@ class DataRightsRepository:
             {"user_id": user_id},
         ).scalar_one()
         if pending_financial:
-            raise DataRightsConflict(
-                "pending payment or refund must settle before deletion"
-            )
+            raise DataRightsConflict("pending payment or refund must settle before deletion")
         deletion_id = uuid4()
         job = self._jobs.enqueue(
             self._session,
@@ -522,7 +505,9 @@ class DataRightsRepository:
                 select receipt.receipt_id, receipt.scenario_key, receipt.purpose,
                        receipt.data_categories, receipt.declared_provider_release,
                        receipt.authorization_state, receipt.input_fingerprint,
-                       receipt.dispatched_at, release.display_name,
+                       receipt.dispatched_at, receipt.consent_event_id,
+                       release.display_name, release.authorization_mode,
+                       release.consent_policy_version,
                        release.operator_name, release.real_user_status,
                        release.model_training_use, release.retention_policy,
                        release.retention_seconds, release.deletion_support,
@@ -533,6 +518,19 @@ class DataRightsRepository:
                      receipt.processor_release_record_id
                 where receipt.user_id = cast(:user_id as uuid)
                 order by receipt.dispatched_at
+                """,
+                user_id,
+            ),
+            "externalAIConsentHistory": self._many_json(
+                """
+                select event.consent_event_id, event.policy_version, event.action,
+                       event.surface, event.created_at
+                from privacy.consent_events event
+                join privacy.policy_versions policy
+                  on policy.policy_version = event.policy_version
+                where event.user_id = cast(:user_id as uuid)
+                  and policy.content->>'policyKind' = 'xingce_cause_external_ai'
+                order by event.created_at, event.consent_event_id
                 """,
                 user_id,
             ),
@@ -662,9 +660,9 @@ class DataRightsRepository:
         now: datetime,
         expires_after: timedelta,
     ) -> None:
-        encoded = json.dumps(
-            payload, ensure_ascii=False, sort_keys=True, default=str
-        ).encode("utf-8")
+        encoded = json.dumps(payload, ensure_ascii=False, sort_keys=True, default=str).encode(
+            "utf-8"
+        )
         digest = sha256(encoded).hexdigest()
         self._session.execute(
             text(
@@ -788,27 +786,19 @@ class DataRightsRepository:
             now=now,
         )
         self._session.execute(
-            text(
-                "delete from privacy.data_export_payloads where user_id = cast(:user_id as uuid)"
-            ),
+            text("delete from privacy.data_export_payloads where user_id = cast(:user_id as uuid)"),
             {"user_id": user_id},
         )
         self._session.execute(
-            text(
-                "delete from learner.wechat_identities where user_id = cast(:user_id as uuid)"
-            ),
+            text("delete from learner.wechat_identities where user_id = cast(:user_id as uuid)"),
             {"user_id": user_id},
         )
         self._session.execute(
-            text(
-                "delete from learner.apple_identities where user_id = cast(:user_id as uuid)"
-            ),
+            text("delete from learner.apple_identities where user_id = cast(:user_id as uuid)"),
             {"user_id": user_id},
         )
         self._session.execute(
-            text(
-                "delete from learner.app_sessions where user_id = cast(:user_id as uuid)"
-            ),
+            text("delete from learner.app_sessions where user_id = cast(:user_id as uuid)"),
             {"user_id": user_id},
         )
         self._session.execute(
@@ -900,13 +890,24 @@ class DataRightsRepository:
                   receipt.processor_release_record_id,
                   case
                     when receipt.authorization_state = 'real_user_approved'
+                      and release.retention_policy = 'zero_retention'
                       then 'not_required_zero_retention'
+                    when receipt.authorization_state = 'real_user_approved'
+                      then 'remote_deletion_unavailable_disclosed'
                     else 'not_dispatched_local_unreleased'
                   end,
                   jsonb_build_object(
                     'authorizationState', receipt.authorization_state,
+                    'authorizationMode', release.authorization_mode,
+                    'consentEventId', receipt.consent_event_id,
                     'declaredProviderRelease', receipt.declared_provider_release,
                     'retentionPolicy', coalesce(release.retention_policy, 'local_unreleased'),
+                    'remoteDeletion', case
+                      when receipt.authorization_state = 'real_user_approved'
+                        and release.retention_policy <> 'zero_retention'
+                        then 'not_verified_and_not_claimed'
+                      else 'not_applicable'
+                    end,
                     'receiptId', receipt.receipt_id::text
                   ),
                   :now
@@ -935,15 +936,12 @@ class DataRightsRepository:
             ),
             {"deletion_id": str(deletion_id)},
         ).mappings()
-        by_disposition = {
-            str(row["disposition"]): int(row["event_count"]) for row in counts
-        }
+        by_disposition = {str(row["disposition"]): int(row["event_count"]) for row in counts}
         return {
-            "zeroRetentionReceipts": by_disposition.get(
-                "not_required_zero_retention", 0
-            ),
-            "localUnreleasedReceipts": by_disposition.get(
-                "not_dispatched_local_unreleased", 0
+            "zeroRetentionReceipts": by_disposition.get("not_required_zero_retention", 0),
+            "localUnreleasedReceipts": by_disposition.get("not_dispatched_local_unreleased", 0),
+            "remoteDeletionUnavailableReceipts": by_disposition.get(
+                "remote_deletion_unavailable_disclosed", 0
             ),
         }
 
@@ -1024,13 +1022,11 @@ class DataRightsRepository:
             ),
             (
                 "task_edit_events",
-                "delete from learning.task_edit_events "
-                "where user_id = cast(:user_id as uuid)",
+                "delete from learning.task_edit_events where user_id = cast(:user_id as uuid)",
             ),
             (
                 "task_edit_leases",
-                "delete from learning.task_edit_leases "
-                "where user_id = cast(:user_id as uuid)",
+                "delete from learning.task_edit_leases where user_id = cast(:user_id as uuid)",
             ),
             (
                 "coach_notification_jobs",
@@ -1416,9 +1412,7 @@ class DataRightsRepository:
         )
         counts: dict[str, int] = {}
         for key, statement in statements:
-            result = self._session.execute(
-                text(statement), {"user_id": user_id, "now": now}
-            )
+            result = self._session.execute(text(statement), {"user_id": user_id, "now": now})
             counts[key] = max(int(result.rowcount or 0), 0)
         self._append_deletion_event(
             deletion_id=deletion_id,
@@ -1439,9 +1433,7 @@ class DataRightsRepository:
             {"deletion_id": str(deletion_id), "user_id": user_id},
         )
 
-    def mark_export_failed(
-        self, *, export_id: UUID, user_id: str, failure_code: str
-    ) -> None:
+    def mark_export_failed(self, *, export_id: UUID, user_id: str, failure_code: str) -> None:
         self._session.execute(
             text(
                 """
@@ -1491,9 +1483,7 @@ class DataRightsRepository:
             now=now,
         )
 
-    def _export_by_command(
-        self, *, user_id: str, command_key: str
-    ) -> DataExportView | None:
+    def _export_by_command(self, *, user_id: str, command_key: str) -> DataExportView | None:
         row = (
             self._session.execute(
                 text(
@@ -1507,9 +1497,7 @@ class DataRightsRepository:
         )
         return _export_view(row) if row is not None else None
 
-    def _deletion_by_command(
-        self, *, user_id: str, command_key: str
-    ) -> AccountDeletionView | None:
+    def _deletion_by_command(self, *, user_id: str, command_key: str) -> AccountDeletionView | None:
         row = (
             self._session.execute(
                 text(
@@ -1553,11 +1541,7 @@ class DataRightsRepository:
         )
 
     def _one_json(self, query: str, user_id: str) -> dict[str, object] | None:
-        row = (
-            self._session.execute(text(query), {"user_id": user_id})
-            .mappings()
-            .one_or_none()
-        )
+        row = self._session.execute(text(query), {"user_id": user_id}).mappings().one_or_none()
         return _jsonable(dict(row)) if row is not None else None
 
     def _many_json(self, query: str, user_id: str) -> list[dict[str, object]]:
@@ -1589,9 +1573,7 @@ def _deletion_view(row: object) -> AccountDeletionView:
         requested_at=row["requested_at"],
         completed_at=row["completed_at"],
         deletion_manifest=(
-            dict(row["deletion_manifest"])
-            if row["deletion_manifest"] is not None
-            else None
+            dict(row["deletion_manifest"]) if row["deletion_manifest"] is not None else None
         ),
         failure_code=row["failure_code"],
     )

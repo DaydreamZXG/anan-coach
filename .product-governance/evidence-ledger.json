@@ -1353,6 +1353,54 @@
       "basisRefs": [
         "E-CODE-CAUSE-MULTI-ROUTE-RECOVERY-036"
       ]
+    },
+    {
+      "id": "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037",
+      "claim": "用户明确接受将行测错因作答证据发送给可能用于服务改进或模型训练、且留存期限不固定的第三方 AI，但要求在小程序中明确告知、由用户同意并可退出；用户要求把原先只接受合同禁训练和零留存的门禁改成与该产品边界一致的分级准入。",
+      "class": "user_confirmed",
+      "locator": "conversation:2026-08-17:accept-external-ai-consent-boundary",
+      "observedAt": "2026-08-17T14:05:00+08:00",
+      "scope": "target",
+      "status": "active",
+      "verificationLevel": 0,
+      "basisRefs": [
+        "E-USER-CAUSE-MULTI-ROUTE-RECOVERY-036"
+      ]
+    },
+    {
+      "id": "E-CODE-CAUSE-EXTERNAL-AI-GATE-037",
+      "claim": "当前 processor_release_records 把 real_user_status=approved 硬编码为合同禁训练、零留存和无需删除；外发凭证不能绑定用户同意事件，能力就绪检查又要求三条错因路线均存在 approved 记录，因此真实的未知训练与留存路线无法在不伪造证据的情况下启用。",
+      "class": "code_observed",
+      "locator": "backend/migrations/versions/20260719_41_external_ai_data_boundary.py;backend/app/domains/ai/external_processing.py;backend/app/domains/ai/capability_readiness.py;backend/app/domains/processor_disclosure",
+      "observedAt": "2026-08-17T14:12:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": [
+        "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037"
+      ]
+    },
+    {
+      "id": "E-EXT-DEEPSEEK-DATA-POLICY-037",
+      "claim": "DeepSeek 公开隐私政策说明用户输入可能用于改进和训练技术，留存时长根据用途和义务变化；该公开政策同时指出开发者下游应用需要自行向最终用户披露处理规则。",
+      "class": "external_verified",
+      "locator": "https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html",
+      "observedAt": "2026-08-17T14:10:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": []
+    },
+    {
+      "id": "E-EXT-TOKENRHYTHM-DATA-UNKNOWN-037",
+      "claim": "TokenRhythm 官方文档确认其为多模型聚合 API，并在用户中心提供调用日志和对话记录；公开页面未建立本产品可依赖的固定留存期限、禁训练承诺或远端删除合同，因此这些属性必须按未知披露。",
+      "class": "external_verified",
+      "locator": "https://tokenrhythm.studio/docs/overview",
+      "observedAt": "2026-08-17T14:11:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": []
     }
   ]
 }

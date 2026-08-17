@@ -312,6 +312,33 @@
       "queries": ["private-question-book-view@v1"],
       "emits": [],
       "consumes": []
+    },
+    {
+      "id": "external_ai_subject_consent",
+      "owner": "backend/app/domains/processor_disclosure",
+      "scope": "target",
+      "owns": [
+        "external-ai-subject-consent"
+      ],
+      "trackScope": [
+        "frontend-lifecycle"
+      ],
+      "invariants": [
+        "同意只授权 xingce-cause-external-ai@v1 声明的错因用途和数据类别，不能推导为其他 AI、上传、营销或公开用途的同意。",
+        "接受、撤回和重新接受只追加事件；当前状态由同一用户和 policy_version 的最后事件确定，陈旧 accepted 不得越过较新的 withdrawn。",
+        "真实外发凭证必须引用与用户、policy_version、action 和 dispatch 时间一致的 accepted 事件；撤回后的调用在 provider I/O 前失败关闭。",
+        "处理方发布、用户同意和模型候选分别是不同事实；同意不证明处理方禁训练、零留存、远端可删或模型判断正确。",
+        "查询与命令从认证会话取得用户身份，不接受客户端传入 learner/user id；幂等 commandKey 重放不得追加第二条事件。"
+      ],
+      "commands": [
+        "accept-external-ai-consent@v1",
+        "withdraw-external-ai-consent@v1"
+      ],
+      "queries": [
+        "external-ai-consent-view@v1"
+      ],
+      "emits": [],
+      "consumes": []
     }
   ]
 }

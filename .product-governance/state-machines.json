@@ -122,6 +122,118 @@
           "concurrency": "lock release and node tables for the transaction before precondition reads, then recreate and validate the release-scope foreign key before commit"
         }
       ]
+    },
+    {
+      "id": "SM-external-ai-subject-consent",
+      "owner": "external_ai_subject_consent",
+      "resource": "external-ai-subject-consent",
+      "initialState": "not_accepted",
+      "states": [
+        "not_accepted",
+        "accepted",
+        "withdrawn"
+      ],
+      "terminalStates": [],
+      "transitions": [
+        {
+          "id": "accept-external-ai-from-not-accepted",
+          "from": "not_accepted",
+          "to": "accepted",
+          "command": "accept-external-ai-consent@v1",
+          "guards": [
+            "action is accepted",
+            "policy xingce-cause-external-ai@v1 is active",
+            "authenticated user matches the append-only event subject"
+          ],
+          "emits": [],
+          "writesResources": [
+            "external-ai-subject-consent"
+          ],
+          "idempotency": "the same user policy action and commandKey returns the existing accepted event without another append",
+          "concurrency": "serialize by user and policy; after concurrent commands the event ordered last by created_at and event id is the only current state"
+        },
+        {
+          "id": "accept-external-ai-after-withdrawal",
+          "from": "withdrawn",
+          "to": "accepted",
+          "command": "accept-external-ai-consent@v1",
+          "guards": [
+            "action is accepted",
+            "policy xingce-cause-external-ai@v1 is active",
+            "authenticated user explicitly reconfirms the current policy"
+          ],
+          "emits": [],
+          "writesResources": [
+            "external-ai-subject-consent"
+          ],
+          "idempotency": "replay returns the same re-acceptance event",
+          "concurrency": "serialize by user and policy before appending"
+        },
+        {
+          "id": "withdraw-external-ai-after-acceptance",
+          "from": "accepted",
+          "to": "withdrawn",
+          "command": "withdraw-external-ai-consent@v1",
+          "guards": [
+            "action is withdrawn",
+            "authenticated user owns the consent stream"
+          ],
+          "emits": [],
+          "writesResources": [
+            "external-ai-subject-consent"
+          ],
+          "idempotency": "replay returns the same withdrawal event",
+          "concurrency": "serialize by user and policy so no dispatch authorization can use an older accepted event after commit"
+        },
+        {
+          "id": "record-withdrawn-without-prior-acceptance",
+          "from": "not_accepted",
+          "to": "withdrawn",
+          "command": "withdraw-external-ai-consent@v1",
+          "guards": [
+            "action is withdrawn",
+            "authenticated user owns the consent stream"
+          ],
+          "emits": [],
+          "writesResources": [
+            "external-ai-subject-consent"
+          ],
+          "idempotency": "replay returns the same explicit opt-out event",
+          "concurrency": "serialize by user and policy before appending"
+        },
+        {
+          "id": "repeat-current-external-ai-consent-action",
+          "from": "accepted",
+          "to": "accepted",
+          "command": "accept-external-ai-consent@v1",
+          "guards": [
+            "action is accepted",
+            "commandKey is new or an exact replay"
+          ],
+          "emits": [],
+          "writesResources": [
+            "external-ai-subject-consent"
+          ],
+          "idempotency": "same commandKey is read-only replay; a new explicit acceptance appends a new audit event",
+          "concurrency": "serialize by user and policy"
+        },
+        {
+          "id": "repeat-current-external-ai-withdrawal",
+          "from": "withdrawn",
+          "to": "withdrawn",
+          "command": "withdraw-external-ai-consent@v1",
+          "guards": [
+            "action is withdrawn",
+            "commandKey is new or an exact replay"
+          ],
+          "emits": [],
+          "writesResources": [
+            "external-ai-subject-consent"
+          ],
+          "idempotency": "same commandKey is read-only replay; a new explicit withdrawal appends a new audit event",
+          "concurrency": "serialize by user and policy"
+        }
+      ]
     }
   ]
 }

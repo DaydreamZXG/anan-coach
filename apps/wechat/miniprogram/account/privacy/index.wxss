@@ -27,6 +27,36 @@
   font-size: var(--text-caption);
   font-weight: 700;
 }
+.external-ai-detail,
+.external-ai-withdraw {
+  margin-top: calc(20 * var(--rpx));
+  padding: 0;
+  background: transparent;
+  color: var(--color-brand);
+  font-size: var(--text-caption);
+  font-weight: 800;
+  text-align: left;
+}
+.external-ai-withdraw {
+  color: var(--color-danger);
+}
+.external-ai-detail-panel {
+  margin-top: calc(16 * var(--rpx));
+  padding: calc(20 * var(--rpx));
+  border-radius: var(--radius-16);
+  background: var(--color-surface-muted);
+}
+.external-ai-risk,
+.external-ai-processor {
+  color: var(--color-ink-secondary);
+  font-size: var(--text-micro);
+  line-height: 1.55;
+}
+.external-ai-processor {
+  margin-top: calc(10 * var(--rpx));
+  color: var(--color-ink);
+  font-weight: 700;
+}
 .danger-heading .s9-section-title,
 .danger-heading .s9-section-meta {
   color: var(--color-danger);

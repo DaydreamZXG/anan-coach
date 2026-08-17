@@ -5993,6 +5993,78 @@ export type ExternalAiAnswerVersion = {
 };
 
 /**
+ * ExternalAIConsentCommand
+ */
+export type ExternalAiConsentCommand = {
+    /**
+     * Commandkey
+     */
+    commandKey: string;
+    /**
+     * Surface
+     */
+    surface: string;
+};
+
+/**
+ * ExternalAIConsentView
+ */
+export type ExternalAiConsentView = {
+    /**
+     * Acceptedat
+     */
+    acceptedAt: string | null;
+    /**
+     * Consenteventid
+     */
+    consentEventId: string | null;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'external-ai-consent-view@v1';
+    /**
+     * Datasent
+     */
+    dataSent: Array<string>;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Policyversion
+     */
+    policyVersion: string;
+    /**
+     * Processors
+     */
+    processors: Array<ProcessorDisclosure>;
+    /**
+     * Providerrisk
+     */
+    providerRisk: string;
+    /**
+     * State
+     */
+    state: 'not_accepted' | 'accepted' | 'withdrawn';
+    /**
+     * Summary
+     */
+    summary: string;
+    /**
+     * Title
+     */
+    title: string;
+    /**
+     * Withdrawaleffect
+     */
+    withdrawalEffect: string;
+    /**
+     * Withdrawnat
+     */
+    withdrawnAt: string | null;
+};
+
+/**
  * ExternalCaptureNudgeCard
  */
 export type ExternalCaptureNudgeCard = {
@@ -12061,6 +12133,14 @@ export type ProcessRewardProgress = {
  */
 export type ProcessorDisclosure = {
     /**
+     * Authorizationmode
+     */
+    authorizationMode: 'contracted_data_protection' | 'user_consent';
+    /**
+     * Consentpolicyversion
+     */
+    consentPolicyVersion: string | null;
+    /**
      * Datacategories
      */
     dataCategories: Array<string>;
@@ -12993,6 +13073,21 @@ export type PublicApiEnvelopeExposureReceipt = {
  */
 export type PublicApiEnvelopeExternalAiAnswerVersion = {
     data: ExternalAiAnswerVersion;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[ExternalAIConsentView]
+ */
+export type PublicApiEnvelopeExternalAiConsentView = {
+    data: ExternalAiConsentView;
     /**
      * Generatedat
      */
@@ -32789,6 +32884,72 @@ export type GetPositionTargetScoreV2ApiV2PositionsPositionIdTargetScoreGetRespon
 };
 
 export type GetPositionTargetScoreV2ApiV2PositionsPositionIdTargetScoreGetResponse = GetPositionTargetScoreV2ApiV2PositionsPositionIdTargetScoreGetResponses[keyof GetPositionTargetScoreV2ApiV2PositionsPositionIdTargetScoreGetResponses];
+
+export type ExternalAiConsentApiV2PrivacyExternalAiConsentGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v2/privacy/external-ai-consent';
+};
+
+export type ExternalAiConsentApiV2PrivacyExternalAiConsentGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeExternalAiConsentView;
+};
+
+export type ExternalAiConsentApiV2PrivacyExternalAiConsentGetResponse = ExternalAiConsentApiV2PrivacyExternalAiConsentGetResponses[keyof ExternalAiConsentApiV2PrivacyExternalAiConsentGetResponses];
+
+export type AcceptExternalAiConsentApiV2PrivacyExternalAiConsentAcceptPostData = {
+    body: ExternalAiConsentCommand;
+    path?: never;
+    query?: never;
+    url: '/api/v2/privacy/external-ai-consent/accept';
+};
+
+export type AcceptExternalAiConsentApiV2PrivacyExternalAiConsentAcceptPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type AcceptExternalAiConsentApiV2PrivacyExternalAiConsentAcceptPostError = AcceptExternalAiConsentApiV2PrivacyExternalAiConsentAcceptPostErrors[keyof AcceptExternalAiConsentApiV2PrivacyExternalAiConsentAcceptPostErrors];
+
+export type AcceptExternalAiConsentApiV2PrivacyExternalAiConsentAcceptPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeExternalAiConsentView;
+};
+
+export type AcceptExternalAiConsentApiV2PrivacyExternalAiConsentAcceptPostResponse = AcceptExternalAiConsentApiV2PrivacyExternalAiConsentAcceptPostResponses[keyof AcceptExternalAiConsentApiV2PrivacyExternalAiConsentAcceptPostResponses];
+
+export type WithdrawExternalAiConsentApiV2PrivacyExternalAiConsentWithdrawPostData = {
+    body: ExternalAiConsentCommand;
+    path?: never;
+    query?: never;
+    url: '/api/v2/privacy/external-ai-consent/withdraw';
+};
+
+export type WithdrawExternalAiConsentApiV2PrivacyExternalAiConsentWithdrawPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type WithdrawExternalAiConsentApiV2PrivacyExternalAiConsentWithdrawPostError = WithdrawExternalAiConsentApiV2PrivacyExternalAiConsentWithdrawPostErrors[keyof WithdrawExternalAiConsentApiV2PrivacyExternalAiConsentWithdrawPostErrors];
+
+export type WithdrawExternalAiConsentApiV2PrivacyExternalAiConsentWithdrawPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeExternalAiConsentView;
+};
+
+export type WithdrawExternalAiConsentApiV2PrivacyExternalAiConsentWithdrawPostResponse = WithdrawExternalAiConsentApiV2PrivacyExternalAiConsentWithdrawPostResponses[keyof WithdrawExternalAiConsentApiV2PrivacyExternalAiConsentWithdrawPostResponses];
 
 export type ExternalAiProcessorsApiV2PrivacyExternalAiProcessorsGetData = {
     body?: never;

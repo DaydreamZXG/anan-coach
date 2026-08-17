@@ -1,6 +1,10 @@
 import { ApiClient, ApiClientError } from "../../api/client";
 import { clearSession } from "../../api/auth";
 import { DataRightsApi } from "../shared/api/data-rights";
+import {
+  ExternalAIConsentApi,
+  type ExternalAIConsentView,
+} from "../shared/api/external-ai-consent";
 import type {
   DataCategoryView,
   DataExportView,
@@ -84,6 +88,10 @@ Page({
     deletionPhrase: "",
     deleting: false,
     confirmationPhrase,
+    externalAIConsent: null as ExternalAIConsentView | null,
+    externalAIConsentBusy: false,
+    externalAIConsentExpanded: false,
+    externalAIConsentError: "",
   },
 
   onShow() {
@@ -97,7 +105,69 @@ Page({
       await this.deleteAccount();
       return;
     }
-    await Promise.all([this.loadOverview(), this.restoreExport()]);
+    await Promise.all([this.loadOverview(), this.restoreExport(), this.loadExternalAIConsent()]);
+  },
+
+  async loadExternalAIConsent() {
+    const session = currentAuthSession();
+    if (!session) return;
+    try {
+      const response = await new ExternalAIConsentApi(
+        new ApiClient(undefined, session.accessToken),
+      ).current();
+      this.setData({
+        externalAIConsent: response.data,
+        externalAIConsentError: "",
+      });
+    } catch (error) {
+      const apiError = error instanceof ApiClientError ? error : undefined;
+      this.setData({
+        externalAIConsentError: apiError?.message ?? "外部 AI 设置暂时没加载出来。",
+      });
+    }
+  },
+
+  toggleExternalAIExplanation() {
+    this.setData({ externalAIConsentExpanded: !this.data.externalAIConsentExpanded });
+  },
+
+  async withdrawExternalAIConsent() {
+    const session = currentAuthSession();
+    const current = this.data.externalAIConsent;
+    if (!session || current?.state !== "accepted" || this.data.externalAIConsentBusy) return;
+    const confirmation = await wx.showModal({
+      title: "停止后续错因 AI 分析？",
+      content: "撤回后，新的作答证据不再发给外部 AI；处理方已收到的副本无法保证远程删除。",
+      confirmText: "确认停止",
+      cancelText: "保持开启",
+      confirmColor: "#C83F56",
+    });
+    if (!confirmation.confirm) return;
+    this.setData({ externalAIConsentBusy: true, externalAIConsentError: "" });
+    const api = new ExternalAIConsentApi(new ApiClient(undefined, session.accessToken));
+    try {
+      const commandKey = await createIdempotencyKey("external-ai-consent-withdraw");
+      const response = await api.withdraw(commandKey, "wechat_privacy_settings");
+      this.setData({ externalAIConsent: response.data });
+      void wx.showToast({ title: "已停止后续发送", icon: "success" });
+    } catch (error) {
+      try {
+        const reconciled = await api.current();
+        this.setData({ externalAIConsent: reconciled.data });
+        if (reconciled.data.state === "withdrawn") {
+          void wx.showToast({ title: "已停止后续发送", icon: "success" });
+          return;
+        }
+      } catch {
+        // onShow will reconcile again without asking the user to repeat the command.
+      }
+      const apiError = error instanceof ApiClientError ? error : undefined;
+      this.setData({
+        externalAIConsentError: apiError?.message ?? "刚才的结果还不确定，重新进入本页会自动确认。",
+      });
+    } finally {
+      this.setData({ externalAIConsentBusy: false });
+    }
   },
 
   async loadOverview() {

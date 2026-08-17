@@ -21,7 +21,10 @@ from app.domains.ai.model_cost import (
     ModelCallLedgerRepository,
     ModelPriceCard,
 )
-from app.domains.ai.external_processing import endpoint_fingerprint
+from app.domains.ai.external_processing import (
+    endpoint_fingerprint,
+    validate_minimized_external_payload,
+)
 from app.domains.ai.governance.repository import (
     AIGovernanceRepository,
     generic_evidence_ref,
@@ -404,9 +407,7 @@ class CauseAgentWorker:
             taxonomy=results["load_cause_taxonomy"],
             action_trace=results["load_action_trace"],
             ink_formulas=results["load_ink_formulas"],
-            scratch_reasoning=results["load_action_trace"].get(
-                "scratchReasoning", {}
-            ),
+            scratch_reasoning=results["load_action_trace"].get("scratchReasoning", {}),
         )
         self._jobs.checkpoint(
             session,
@@ -452,9 +453,7 @@ class CauseAgentWorker:
             if not evidence_refs:
                 evidence_refs = list(run.get("input_version_refs") or [])
             output = EvidenceInsufficient(
-                reason_code=(
-                    "no_incorrect_attempt" if result_codes else "no_reviewable_attempt"
-                ),
+                reason_code=("no_incorrect_attempt" if result_codes else "no_reviewable_attempt"),
                 explanation=(
                     "本次练习全部作答正确，没有需要整理错因的题目。"
                     if result_codes
@@ -507,9 +506,14 @@ class CauseAgentWorker:
                 "followupAnswer": followup_answer,
             }
         )
-        remaining_budget = (
-            CAUSE_AGENT_DEFINITION.budget.max_model_calls
-            - int(run["model_call_count"])
+        validate_minimized_external_payload(
+            {
+                "evidence": evidence.model_dump(by_alias=True, mode="json"),
+                "followupAnswer": followup_answer,
+            }
+        )
+        remaining_budget = CAUSE_AGENT_DEFINITION.budget.max_model_calls - int(
+            run["model_call_count"]
         )
         route_set = self._providers[: min(3, remaining_budget)]
         if not route_set:
@@ -518,12 +522,8 @@ class CauseAgentWorker:
         for index, provider in enumerate(route_set):
             provider.validate_configuration()
             route_key = str(getattr(provider, "route_key", f"route_{index + 1}"))
-            call_key = (
-                f"xingce-cause:{run['run_id']}:round:{round_no}:route:{route_key}"
-            )
-            base_url = str(
-                getattr(provider, "base_url", self._settings.ai_provider_base_url)
-            )
+            call_key = f"xingce-cause:{run['run_id']}:round:{round_no}:route:{route_key}"
+            base_url = str(getattr(provider, "base_url", self._settings.ai_provider_base_url))
             existing = self._ledger.get_existing(
                 session,
                 call_key=call_key,
@@ -575,6 +575,7 @@ class CauseAgentWorker:
                 processor_endpoint_fingerprint=endpoint_fingerprint(base_url),
                 processing_purpose="cause_candidate_generate",
                 processing_data_categories=("learning_evidence", "learner_answer"),
+                processing_authorization_required=(self._settings.environment == "production"),
             )
             session.commit()
             has_next_route = index + 1 < len(route_set)
@@ -699,9 +700,7 @@ class CauseAgentWorker:
                 result={
                     **base,
                     "phase": "provider_completed",
-                    "providerOutput": result.output.model_dump(
-                        by_alias=True, mode="json"
-                    ),
+                    "providerOutput": result.output.model_dump(by_alias=True, mode="json"),
                     "outputFingerprint": result.output_fingerprint,
                     "modelCallId": str(record.call_id),
                     "providerRoute": route_key,
@@ -709,9 +708,7 @@ class CauseAgentWorker:
                     "providerModel": provider.model,
                     "providerAttempts": route_attempts,
                     "providerRequestIdHeader": result.provider_request_id_header,
-                    "providerRequestIdFingerprint": (
-                        result.provider_request_id_fingerprint
-                    ),
+                    "providerRequestIdFingerprint": (result.provider_request_id_fingerprint),
                     "quotaState": "consumed",
                 },
             )
@@ -787,9 +784,7 @@ class CauseAgentWorker:
             return final
         current_job = self._jobs.by_id(session, job_id=job.job_id) or job
         if model_call_delta is None:
-            model_call_delta = len(
-                self._ledger.records_for_job(session, job_id=job.job_id)
-            )
+            model_call_delta = len(self._ledger.records_for_job(session, job_id=job.job_id))
         candidate_state = published_state or output.kind
         if candidate_state == "terminated":
             quota_state = self._settle_terminal_resources(
@@ -1130,9 +1125,7 @@ class CauseAgentWorker:
                     latency_ms=0,
                 )
             settled_records.append(ledger)
-        should_consume = any(
-            ledger.status == "succeeded" for ledger in settled_records
-        )
+        should_consume = any(ledger.status == "succeeded" for ledger in settled_records)
 
         commerce = CommerceRepository(session)
         reservation = commerce.feature_usage_reservation_by_key(
