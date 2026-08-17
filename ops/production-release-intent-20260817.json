@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "anan-production-release-intent/v1",
+  "approvedAt": "2026-08-17T16:58:02+08:00",
+  "approvedBy": "product-owner",
+  "deploymentEnvironment": "production",
+  "purpose": "Activate the reviewed August 17 user-experience and AI provider recovery fixes through the signed commercial-data publication and immutable application release pipeline.",
+  "rollbackBridgeCommit": "fe975d90b1729c03b079c2a3cd8957961b2b6bbb",
+  "requiredDatabaseRevision": "20260817_116",
+  "wechatAppId": "wx42824c7f7bfbf4b2"
+}
