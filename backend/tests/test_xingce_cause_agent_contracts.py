@@ -21,7 +21,7 @@ def test_cause_agent_definition_freezes_tools_and_budgets() -> None:
     assert CAUSE_AGENT_DEFINITION.contract_version == "cause-agent-definition@v1"
     assert CAUSE_AGENT_DEFINITION.prompt_version == "xingce-cause-prompt@v4"
     assert CAUSE_AGENT_DEFINITION.definition_release_id == (
-        "xingce-cause-agent-2026-07-31.1"
+        "xingce-cause-agent-2026-08-17.1"
     )
     assert [tool.name for tool in CAUSE_AGENT_DEFINITION.tools] == [
         "load_attempt_evidence",
@@ -32,7 +32,7 @@ def test_cause_agent_definition_freezes_tools_and_budgets() -> None:
         "load_ink_formulas",
     ]
     assert CAUSE_AGENT_DEFINITION.budget.model_dump(by_alias=True) == {
-        "maxModelCalls": 2,
+        "maxModelCalls": 6,
         "maxToolCalls": 6,
         "maxFollowupRounds": 1,
         "maxConsecutiveNoProgress": 2,

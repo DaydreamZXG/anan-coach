@@ -1027,6 +1027,28 @@
         "成功、失败、重放、过期、竞态和恢复六类专项测试、分包同步、apps/wechat 整包检查及微信开发者工具模拟器回归通过。",
         "不修改后端事实、OpenAPI schema、数据库、题库或真实用户数据，不部署、上传、付费、删除或外部发送。"
       ]
+    },
+    {
+      "id": "REQ-CAUSE-MULTI-ROUTE-RECOVERY-036",
+      "statement": "行测错因整理必须把已保存的作答证据可靠交给岸岸：主模型超时或服务端故障时按受控顺序尝试官方 DeepSeek 与用户指定中转站，且账单、重放、数据库约束、等待页和大屏排版共同保持真实、可恢复、不可重复结算。",
+      "scope": "target",
+      "impact": "critical",
+      "state": "confirmed",
+      "owner": "learning_brain_evidence_projection",
+      "evidenceRefs": [
+        "E-USER-CAUSE-MULTI-ROUTE-RECOVERY-036",
+        "E-CODE-CAUSE-MULTI-ROUTE-RECOVERY-036",
+        "E-CODE-CAUSE-BUDGET-CONSTRAINTS-036"
+      ],
+      "acceptance": [
+        "单次岸岸错因整理按 TokenRhythm、官方 DeepSeek、用户指定中转站的顺序执行；只对网络、超时、408、429 和 5xx 做安全切换，确定性的 4xx 立即停止。",
+        "每条模型调用账本记录真实 provider、base、model、幂等键和错误类别，不保存密钥，不把中转站伪装成官方模型。",
+        "新错因 Agent 定义和运行记录最多允许六次真实模型调用，历史两次预算定义保持原样；两条迁移可在 PostgreSQL 113→115 前向执行，危险降级必须拒绝。",
+        "一个业务错因整理只预留和结算一次额度；已完成 checkpoint 重放不再调用模型，已计费但响应不可用的调用不得被重放并重复计费。",
+        "答题卡只显示一个当前题语义；错因等待页明确证据已保存、可离开并稍后刷新；练习双栏仅在真正宽屏横屏出现。",
+        "后端成功、失败、重放、过期与前端竞态、恢复专项测试以及相关全量门禁通过。",
+        "官方与中转密钥只进入生产服务器 root 只读运行环境，不进入 Git、前端包、治理文件、测试证据或可观测日志。"
+      ]
     }
   ]
 }

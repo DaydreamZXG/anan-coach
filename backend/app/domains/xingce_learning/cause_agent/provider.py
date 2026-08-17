@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from hashlib import sha256
 import json
 import time
@@ -43,6 +43,7 @@ class CauseAgentProviderError(RuntimeError):
         message: str,
         *,
         retryable: bool,
+        failover_safe: bool = False,
         usage: ModelTokenUsage | None = None,
         output_fingerprint: str | None = None,
         latency_ms: int = 0,
@@ -50,6 +51,7 @@ class CauseAgentProviderError(RuntimeError):
         super().__init__(message)
         self.code = code
         self.retryable = retryable
+        self.failover_safe = failover_safe
         self.usage = usage
         self.output_fingerprint = output_fingerprint
         self.latency_ms = latency_ms
@@ -70,9 +72,11 @@ class CauseAgentProvider:
         self,
         settings: Settings,
         *,
+        route_key: str = "primary",
         client_factory: Callable[[], httpx.Client] | None = None,
     ) -> None:
         self._settings = settings
+        self._route_key = route_key
         self._client_factory = client_factory or (
             lambda: httpx.Client(
                 timeout=httpx.Timeout(
@@ -88,12 +92,24 @@ class CauseAgentProvider:
         return f"xingce_cause_provider@{release}"
 
     @property
+    def route_key(self) -> str:
+        return self._route_key
+
+    @property
     def provider_release_id(self) -> str:
         return self._settings.ai_xingce_cause_provider_release_id.strip() or "local-unreleased"
 
     @property
     def model(self) -> str:
         return self._settings.ai_xingce_cause_model.strip()
+
+    @property
+    def base_url(self) -> str:
+        return self._settings.ai_provider_base_url.strip()
+
+    @property
+    def idempotency_capability(self) -> str:
+        return self._settings.ai_xingce_cause_provider_idempotency_capability.strip()
 
     @property
     def prompt_version(self) -> str:
@@ -284,18 +300,23 @@ class CauseAgentProvider:
                         self._settings.ai_xingce_cause_provider_idempotency_capability
                     )
                 ),
+                failover_safe=True,
+                latency_ms=int((time.monotonic() - started) * 1000),
             ) from exc
         except httpx.HTTPStatusError as exc:
+            status_code = exc.response.status_code
             retryable = provider_failure_is_retryable(
                 idempotency_capability=(
                     self._settings.ai_xingce_cause_provider_idempotency_capability
                 ),
-                status_code=exc.response.status_code,
+                status_code=status_code,
             )
             raise CauseAgentProviderError(
-                f"provider_http_{exc.response.status_code}",
+                f"provider_http_{status_code}",
                 "cause-agent provider rejected the request",
                 retryable=retryable,
+                failover_safe=(status_code in {408, 429} or status_code >= 500),
+                latency_ms=int((time.monotonic() - started) * 1000),
             ) from exc
         latency_ms = int((time.monotonic() - started) * 1000)
         try:
@@ -323,14 +344,15 @@ class CauseAgentProvider:
             output_fingerprint = sha256(
                 json.dumps(envelope if "envelope" in locals() else {}, sort_keys=True).encode()
             ).hexdigest()
-            # 结构化响应无效通常是模型瞬态输出问题（偶发坏 JSON），重试大概率成功；
-            # 受 background job max_attempts 上限约束，不会无限重试。账单测试
-            # test_usage_known_provider_failure_keeps_consumed_quota_when_job_terminates
-            # 已按 retryable=True 断言 queued→queued→failed。
             raise CauseAgentProviderError(
                 "provider_response_invalid",
                 "cause-agent provider returned an invalid structured response",
-                retryable=True,
+                retryable=provider_failure_is_retryable(
+                    idempotency_capability=(
+                        self._settings.ai_xingce_cause_provider_idempotency_capability
+                    )
+                ),
+                failover_safe=True,
                 usage=usage if "usage" in locals() else None,
                 output_fingerprint=output_fingerprint,
                 latency_ms=latency_ms,
@@ -351,6 +373,83 @@ class CauseAgentProvider:
             provider_request_id_header=request_id_source,
             provider_request_id_fingerprint=request_id_fingerprint,
         )
+
+
+def build_cause_agent_providers(settings: Settings) -> tuple[CauseAgentProvider, ...]:
+    """Build the ordered, independently identified cause-analysis route set."""
+
+    providers: list[CauseAgentProvider] = [
+        CauseAgentProvider(settings, route_key="tokenrhythm")
+    ]
+    if settings.ai_xingce_cause_deepseek_api_key.strip():
+        providers.append(
+            CauseAgentProvider(
+                replace(
+                    settings,
+                    ai_provider_base_url=(
+                        settings.ai_xingce_cause_deepseek_provider_base_url
+                    ),
+                    ai_api_key=settings.ai_xingce_cause_deepseek_api_key,
+                    ai_xingce_cause_model=settings.ai_xingce_cause_deepseek_model,
+                    ai_xingce_cause_provider_release_id=(
+                        settings.ai_xingce_cause_deepseek_provider_release_id
+                    ),
+                    ai_xingce_cause_provider_https_host_allowlist=(
+                        settings.ai_xingce_cause_deepseek_provider_https_host_allowlist
+                    ),
+                    ai_xingce_cause_provider_idempotency_capability=(
+                        settings.ai_xingce_cause_deepseek_provider_idempotency_capability
+                    ),
+                    ai_xingce_cause_provider_idempotency_key_header=(
+                        settings.ai_xingce_cause_deepseek_provider_idempotency_key_header
+                    ),
+                    ai_xingce_cause_provider_request_id_header=(
+                        settings.ai_xingce_cause_deepseek_provider_request_id_header
+                    ),
+                    ai_xingce_cause_provider_replay_retention_seconds=(
+                        settings.ai_xingce_cause_deepseek_provider_replay_retention_seconds
+                    ),
+                    ai_xingce_cause_timeout_seconds=(
+                        settings.ai_xingce_cause_deepseek_timeout_seconds
+                    ),
+                ),
+                route_key="deepseek_official",
+            )
+        )
+    if settings.ai_xingce_cause_relay_api_key.strip():
+        providers.append(
+            CauseAgentProvider(
+                replace(
+                    settings,
+                    ai_provider_base_url=settings.ai_xingce_cause_relay_provider_base_url,
+                    ai_api_key=settings.ai_xingce_cause_relay_api_key,
+                    ai_xingce_cause_model=settings.ai_xingce_cause_relay_model,
+                    ai_xingce_cause_provider_release_id=(
+                        settings.ai_xingce_cause_relay_provider_release_id
+                    ),
+                    ai_xingce_cause_provider_https_host_allowlist=(
+                        settings.ai_xingce_cause_relay_provider_https_host_allowlist
+                    ),
+                    ai_xingce_cause_provider_idempotency_capability=(
+                        settings.ai_xingce_cause_relay_provider_idempotency_capability
+                    ),
+                    ai_xingce_cause_provider_idempotency_key_header=(
+                        settings.ai_xingce_cause_relay_provider_idempotency_key_header
+                    ),
+                    ai_xingce_cause_provider_request_id_header=(
+                        settings.ai_xingce_cause_relay_provider_request_id_header
+                    ),
+                    ai_xingce_cause_provider_replay_retention_seconds=(
+                        settings.ai_xingce_cause_relay_provider_replay_retention_seconds
+                    ),
+                    ai_xingce_cause_timeout_seconds=(
+                        settings.ai_xingce_cause_relay_timeout_seconds
+                    ),
+                ),
+                route_key="user_relay",
+            )
+        )
+    return tuple(providers)
 
 
 def _usage(value: object) -> ModelTokenUsage:

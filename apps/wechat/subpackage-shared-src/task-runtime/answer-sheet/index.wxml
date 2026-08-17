@@ -12,7 +12,7 @@
     <view class="answer-card__legend">
       <view class="answer-card__legend-item"><view class="answer-card__legend-dot answer-card__legend-dot--answered"></view><text>已答 {{answered}}</text></view>
       <view class="answer-card__legend-item"><view class="answer-card__legend-dot answer-card__legend-dot--unanswered"></view><text>未答 {{unanswered}}</text></view>
-      <view class="answer-card__legend-item"><view class="answer-card__legend-dot answer-card__legend-dot--current"></view><text>当前 1</text></view>
+      <view class="answer-card__legend-item"><view class="answer-card__legend-dot answer-card__legend-dot--current"></view><text>当前 {{current}}</text></view>
       <view class="answer-card__legend-item"><view class="answer-card__legend-dot answer-card__legend-dot--marked"></view><text>存疑 {{marked}}</text></view>
     </view>
     <view class="answer-card__section">

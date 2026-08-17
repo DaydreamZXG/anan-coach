@@ -37,7 +37,7 @@ class ToolDefinition(AgentContractModel):
 
 
 class AgentBudget(AgentContractModel):
-    max_model_calls: Literal[2] = Field(default=2, alias="maxModelCalls")
+    max_model_calls: Literal[6] = Field(default=6, alias="maxModelCalls")
     max_tool_calls: Literal[6] = Field(default=6, alias="maxToolCalls")
     max_followup_rounds: Literal[1] = Field(default=1, alias="maxFollowupRounds")
     max_consecutive_no_progress: Literal[2] = Field(
@@ -49,8 +49,8 @@ class AgentBudget(AgentContractModel):
 class AgentDefinition(AgentContractModel):
     # 审计惯例：定义内容（工具集/prompt）变更时发布新的 release id，
     # 旧 release 行在 ai_audit.agent_definition_releases 中保持不可变。
-    definition_release_id: Literal["xingce-cause-agent-2026-07-31.1"] = Field(
-        default="xingce-cause-agent-2026-07-31.1",
+    definition_release_id: Literal["xingce-cause-agent-2026-08-17.1"] = Field(
+        default="xingce-cause-agent-2026-08-17.1",
         alias="definitionReleaseId",
     )
     agent_key: Literal["xingce_cause"] = Field(default="xingce_cause", alias="agentKey")

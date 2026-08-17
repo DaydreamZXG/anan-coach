@@ -1115,6 +1115,31 @@
       "decidedBy": "architecture_owner",
       "decidedAt": "2026-08-16T20:25:00+08:00",
       "evidenceRefs": ["E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035", "E-CODE-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A", "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"]
+    },
+    {
+      "id": "DEC-CAUSE-MULTI-ROUTE-RECOVERY-036",
+      "question": "岸岸错因模型主路由长时间 504 时，应继续单路由重试，还是在保持真实身份、幂等和单次结算的前提下增加官方与用户中转后备？",
+      "choice": "按 TokenRhythm、官方 DeepSeek、用户指定中转站建立三路有序恢复；每个业务轮次最多各调用一次，只对暂时性失败切换，确定性 4xx 停止；各路由使用独立稳定幂等键和真实 provider 身份，业务额度仍只预留与结算一次。密钥只部署到 root 只读运行环境。",
+      "status": "accepted",
+      "decidedBy": "user",
+      "decidedAt": "2026-08-17T11:30:00+08:00",
+      "evidenceRefs": [
+        "E-USER-CAUSE-MULTI-ROUTE-RECOVERY-036",
+        "E-CODE-CAUSE-MULTI-ROUTE-RECOVERY-036"
+      ]
+    },
+    {
+      "id": "DEC-FREEZE-RU-CAUSE-MULTI-ROUTE-RECOVERY-036",
+      "question": "是否冻结一个接续 035C、同时拥有错因多路由、预算迁移、等待恢复和大屏排版修复的依赖闭合发布单元？",
+      "choice": "冻结 RU-CAUSE-MULTI-ROUTE-RECOVERY-036，取代 035C 在本次触及路径上的发布权威；该单元只声明这次错因恢复、约束迁移、相关前端反馈、运维模板和验收测试可实施，不宣称全产品或商业生产就绪。",
+      "status": "accepted",
+      "decidedBy": "architecture_owner",
+      "decidedAt": "2026-08-17T12:20:00+08:00",
+      "evidenceRefs": [
+        "E-USER-CAUSE-MULTI-ROUTE-RECOVERY-036",
+        "E-CODE-CAUSE-MULTI-ROUTE-RECOVERY-036",
+        "E-CODE-CAUSE-BUDGET-CONSTRAINTS-036"
+      ]
     }
   ]
 }

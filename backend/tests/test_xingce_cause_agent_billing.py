@@ -183,21 +183,11 @@ def test_usage_known_provider_failure_keeps_consumed_quota_when_job_terminates(
     )
     provider = UsageKnownFailureProvider([])
 
-    for expected_status in ("queued", "queued", "failed"):
-        _run_one(
-            db_session_factory,
-            provider,
-            expected_status=expected_status,
-        )
-        if expected_status == "queued":
-            with db_session_factory.begin() as session:
-                session.execute(
-                    text(
-                        "update platform.background_jobs "
-                        "set run_after = now() - interval '1 second' "
-                        "where job_type = 'xingce_cause_agent_v1'"
-                    )
-                )
+    _run_one(
+        db_session_factory,
+        provider,
+        expected_status="failed",
+    )
 
     current = client.get(
         f"/api/v2/xingce/task-sessions/{submitted['sessionId']}",

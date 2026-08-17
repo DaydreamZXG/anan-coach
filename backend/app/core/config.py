@@ -148,6 +148,26 @@ class Settings:
     ai_xingce_cause_max_input_bytes: int = 0
     ai_xingce_cause_max_output_bytes: int = 0
     ai_xingce_cause_timeout_seconds: float = 150.0
+    ai_xingce_cause_deepseek_provider_base_url: str = "https://api.deepseek.com"
+    ai_xingce_cause_deepseek_api_key: str = ""
+    ai_xingce_cause_deepseek_model: str = "deepseek-v4-pro"
+    ai_xingce_cause_deepseek_provider_release_id: str = "deepseek-official-v4-pro"
+    ai_xingce_cause_deepseek_provider_https_host_allowlist: str = "api.deepseek.com"
+    ai_xingce_cause_deepseek_provider_idempotency_capability: str = "nonreplayable_audited"
+    ai_xingce_cause_deepseek_provider_idempotency_key_header: str = "Idempotency-Key"
+    ai_xingce_cause_deepseek_provider_request_id_header: str = "body:id"
+    ai_xingce_cause_deepseek_provider_replay_retention_seconds: int = 0
+    ai_xingce_cause_deepseek_timeout_seconds: float = 45.0
+    ai_xingce_cause_relay_provider_base_url: str = "https://ergouapi.co/v1"
+    ai_xingce_cause_relay_api_key: str = ""
+    ai_xingce_cause_relay_model: str = "deepseek-v4-flash-free"
+    ai_xingce_cause_relay_provider_release_id: str = "ergouapi-deepseek-v4-flash-free"
+    ai_xingce_cause_relay_provider_https_host_allowlist: str = "ergouapi.co"
+    ai_xingce_cause_relay_provider_idempotency_capability: str = "nonreplayable_audited"
+    ai_xingce_cause_relay_provider_idempotency_key_header: str = "Idempotency-Key"
+    ai_xingce_cause_relay_provider_request_id_header: str = "body:id"
+    ai_xingce_cause_relay_provider_replay_retention_seconds: int = 0
+    ai_xingce_cause_relay_timeout_seconds: float = 45.0
     ai_learning_brain_agent_model: str = "gemini-3.5-flash"
     ai_learning_brain_agent_provider_release_id: str = ""
     ai_learning_brain_agent_provider_https_host_allowlist: str = ""
@@ -523,6 +543,73 @@ def get_settings() -> Settings:
         ai_xingce_cause_max_input_bytes=int(os.getenv("AI_XINGCE_CAUSE_MAX_INPUT_BYTES", "0")),
         ai_xingce_cause_max_output_bytes=int(os.getenv("AI_XINGCE_CAUSE_MAX_OUTPUT_BYTES", "0")),
         ai_xingce_cause_timeout_seconds=float(os.getenv("AI_XINGCE_CAUSE_TIMEOUT_SECONDS", "150")),
+        ai_xingce_cause_deepseek_provider_base_url=os.getenv(
+            "AI_XINGCE_CAUSE_DEEPSEEK_PROVIDER_BASE_URL", "https://api.deepseek.com"
+        ),
+        ai_xingce_cause_deepseek_api_key=os.getenv(
+            "AI_XINGCE_CAUSE_DEEPSEEK_API_KEY", ""
+        ),
+        ai_xingce_cause_deepseek_model=os.getenv(
+            "AI_XINGCE_CAUSE_DEEPSEEK_MODEL", "deepseek-v4-pro"
+        ),
+        ai_xingce_cause_deepseek_provider_release_id=os.getenv(
+            "AI_XINGCE_CAUSE_DEEPSEEK_PROVIDER_RELEASE_ID",
+            "deepseek-official-v4-pro",
+        ),
+        ai_xingce_cause_deepseek_provider_https_host_allowlist=os.getenv(
+            "AI_XINGCE_CAUSE_DEEPSEEK_PROVIDER_HTTPS_HOST_ALLOWLIST",
+            "api.deepseek.com",
+        ),
+        ai_xingce_cause_deepseek_provider_idempotency_capability=os.getenv(
+            "AI_XINGCE_CAUSE_DEEPSEEK_PROVIDER_IDEMPOTENCY_CAPABILITY",
+            "nonreplayable_audited",
+        ),
+        ai_xingce_cause_deepseek_provider_idempotency_key_header=os.getenv(
+            "AI_XINGCE_CAUSE_DEEPSEEK_PROVIDER_IDEMPOTENCY_KEY_HEADER",
+            "Idempotency-Key",
+        ),
+        ai_xingce_cause_deepseek_provider_request_id_header=os.getenv(
+            "AI_XINGCE_CAUSE_DEEPSEEK_PROVIDER_REQUEST_ID_HEADER", "body:id"
+        ),
+        ai_xingce_cause_deepseek_provider_replay_retention_seconds=int(
+            os.getenv(
+                "AI_XINGCE_CAUSE_DEEPSEEK_PROVIDER_REPLAY_RETENTION_SECONDS", "0"
+            )
+        ),
+        ai_xingce_cause_deepseek_timeout_seconds=float(
+            os.getenv("AI_XINGCE_CAUSE_DEEPSEEK_TIMEOUT_SECONDS", "45")
+        ),
+        ai_xingce_cause_relay_provider_base_url=os.getenv(
+            "AI_XINGCE_CAUSE_RELAY_PROVIDER_BASE_URL", "https://ergouapi.co/v1"
+        ),
+        ai_xingce_cause_relay_api_key=os.getenv("AI_XINGCE_CAUSE_RELAY_API_KEY", ""),
+        ai_xingce_cause_relay_model=os.getenv(
+            "AI_XINGCE_CAUSE_RELAY_MODEL", "deepseek-v4-flash-free"
+        ),
+        ai_xingce_cause_relay_provider_release_id=os.getenv(
+            "AI_XINGCE_CAUSE_RELAY_PROVIDER_RELEASE_ID",
+            "ergouapi-deepseek-v4-flash-free",
+        ),
+        ai_xingce_cause_relay_provider_https_host_allowlist=os.getenv(
+            "AI_XINGCE_CAUSE_RELAY_PROVIDER_HTTPS_HOST_ALLOWLIST", "ergouapi.co"
+        ),
+        ai_xingce_cause_relay_provider_idempotency_capability=os.getenv(
+            "AI_XINGCE_CAUSE_RELAY_PROVIDER_IDEMPOTENCY_CAPABILITY",
+            "nonreplayable_audited",
+        ),
+        ai_xingce_cause_relay_provider_idempotency_key_header=os.getenv(
+            "AI_XINGCE_CAUSE_RELAY_PROVIDER_IDEMPOTENCY_KEY_HEADER",
+            "Idempotency-Key",
+        ),
+        ai_xingce_cause_relay_provider_request_id_header=os.getenv(
+            "AI_XINGCE_CAUSE_RELAY_PROVIDER_REQUEST_ID_HEADER", "body:id"
+        ),
+        ai_xingce_cause_relay_provider_replay_retention_seconds=int(
+            os.getenv("AI_XINGCE_CAUSE_RELAY_PROVIDER_REPLAY_RETENTION_SECONDS", "0")
+        ),
+        ai_xingce_cause_relay_timeout_seconds=float(
+            os.getenv("AI_XINGCE_CAUSE_RELAY_TIMEOUT_SECONDS", "45")
+        ),
         ai_learning_brain_agent_model=os.getenv(
             "AI_LEARNING_BRAIN_AGENT_MODEL",
             os.getenv("AI_MODEL", "gemini-3.5-flash"),

@@ -10,6 +10,8 @@ from app.domains.xingce_learning.cause_agent.contracts import CauseAgentEvidence
 from app.domains.xingce_learning.cause_agent.provider import (
     CauseAgentProvider,
     CauseAgentProviderConfigurationError,
+    CauseAgentProviderError,
+    build_cause_agent_providers,
 )
 
 
@@ -151,6 +153,60 @@ def test_deepseek_v4_provider_uses_supported_json_object_mode() -> None:
     assert result.output.kind == "candidate_ready"
     assert captured["body"]["response_format"] == {"type": "json_object"}
     assert captured["body"]["thinking"] == {"type": "disabled"}
+
+
+def test_cause_provider_routes_keep_real_order_and_model_identity() -> None:
+    providers = build_cause_agent_providers(
+        _production_settings(
+            ai_xingce_cause_deepseek_api_key="official-key",
+            ai_xingce_cause_relay_api_key="relay-key",
+        )
+    )
+
+    assert [provider.route_key for provider in providers] == [
+        "tokenrhythm",
+        "deepseek_official",
+        "user_relay",
+    ]
+    assert [provider.model for provider in providers] == [
+        "gemini-3.5-flash",
+        "deepseek-v4-pro",
+        "deepseek-v4-flash-free",
+    ]
+    assert [provider.base_url for provider in providers] == [
+        "https://cause.example.test/v1",
+        "https://api.deepseek.com",
+        "https://ergouapi.co/v1",
+    ]
+    for provider in providers:
+        provider.validate_configuration()
+
+
+@pytest.mark.parametrize(
+    ("status_code", "failover_safe"),
+    [(401, False), (408, True), (429, True), (500, True), (504, True)],
+)
+def test_provider_marks_only_recoverable_http_failures_for_cross_route(
+    status_code: int,
+    failover_safe: bool,
+) -> None:
+    provider = CauseAgentProvider(
+        _production_settings(),
+        client_factory=lambda: httpx.Client(
+            transport=httpx.MockTransport(
+                lambda _request: httpx.Response(status_code, json={"error": {}})
+            )
+        ),
+    )
+
+    with pytest.raises(CauseAgentProviderError) as captured:
+        provider.generate(
+            evidence=_evidence(),
+            followup_answer=None,
+            idempotency_key="xingce-cause:failure-contract",
+        )
+
+    assert captured.value.failover_safe is failover_safe
 
 
 def _production_settings(**changes: object) -> Settings:

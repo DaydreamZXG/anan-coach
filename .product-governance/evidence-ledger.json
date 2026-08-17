@@ -1314,6 +1314,45 @@
       "status": "active",
       "verificationLevel": 1,
       "basisRefs": ["E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035", "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"]
+    },
+    {
+      "id": "E-USER-CAUSE-MULTI-ROUTE-RECOVERY-036",
+      "claim": "用户在 2026-08-17 真机复盘中确认岸岸错因整理长时间停留并最终因模型路由失败终止，同时确认旧体验版仍显示多余的继续当前题按钮和大号手机布局异常；用户明确提供官方 DeepSeek 与自有中转站作为后备并授权修复、部署和上传新体验版。",
+      "class": "user_confirmed",
+      "locator": "conversation:2026-08-17:official-deepseek-and-relay-cause-recovery",
+      "observedAt": "2026-08-17T11:30:00+08:00",
+      "scope": "target",
+      "status": "active",
+      "verificationLevel": 0,
+      "basisRefs": [
+        "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+      ]
+    },
+    {
+      "id": "E-CODE-CAUSE-MULTI-ROUTE-RECOVERY-036",
+      "claim": "生产错因工作只配置 TokenRhythm 单路由，真实任务约六十秒后以 provider_http_504 终止；当前代码又把单个 provider、两次模型预算和前端阻塞等待绑定在一起，无法在保留业务幂等与单次额度结算的同时安全切换到独立后备路由。",
+      "class": "code_observed",
+      "locator": "reports/2026-08-17-real-device-cause-recovery-baseline.md;backend/app/domains/xingce_learning/cause_agent/provider.py;backend/app/domains/xingce_learning/cause_agent/worker.py;backend/app/domains/ai/agent_runtime/contracts.py;apps/wechat/miniprogram/pages/reflection/index.wxml",
+      "observedAt": "2026-08-17T11:45:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": [
+        "E-USER-CAUSE-MULTI-ROUTE-RECOVERY-036"
+      ]
+    },
+    {
+      "id": "E-CODE-CAUSE-BUDGET-CONSTRAINTS-036",
+      "claim": "错因 Agent 新定义需要最多六次模型调用，但数据库的 agent_definition 约束和 agent_run.model_call_count 仍上限二；迁移 114 仅扩大新定义并保留历史约束，迁移 115 扩大运行计数且在存在超过二次记录时拒绝危险降级。",
+      "class": "code_observed",
+      "locator": "backend/migrations/versions/20260817_114_cause_agent_route_budget.py;backend/migrations/versions/20260817_115_cause_agent_run_budget.py;reports/2026-08-17-cause-agent-budget-constraint.md;reports/2026-08-17-cause-agent-run-budget-constraint.md",
+      "observedAt": "2026-08-17T12:10:00+08:00",
+      "scope": "target",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": [
+        "E-CODE-CAUSE-MULTI-ROUTE-RECOVERY-036"
+      ]
     }
   ]
 }

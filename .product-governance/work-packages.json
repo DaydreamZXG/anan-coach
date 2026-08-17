@@ -5091,6 +5091,203 @@
       "verificationOnly": true,
       "stopConditions": ["Verification requires source modification", "Verification requires backend or production data", "Verification requires deployment or upload"],
       "status": "planned"
+    },
+    {
+      "id": "WP-CAUSE-MULTI-ROUTE-RECOVERY-036",
+      "wave": "integration",
+      "owner": "xingce-cause-recovery",
+      "riskClass": "high",
+      "objective": "把岸岸错因整理从单路由长等待终止改为真实身份、受控切换、单次业务结算且可离开恢复的三路模型链，并以两条前向迁移安全扩大新定义与运行预算。",
+      "deliverables": [
+        "TokenRhythm、官方 DeepSeek、用户中转站的有序安全恢复",
+        "独立路由幂等账本与单次业务额度结算",
+        "Agent 定义和运行计数 113→115 PostgreSQL 迁移",
+        "可离开的错因等待反馈、单一当前题语义与宽屏横屏适配",
+        "六类专项场景、迁移和整包验证证据"
+      ],
+      "requirementRefs": [
+        "REQ-CAUSE-MULTI-ROUTE-RECOVERY-036"
+      ],
+      "decisionRefs": [
+        "DEC-CAUSE-MULTI-ROUTE-RECOVERY-036",
+        "DEC-FREEZE-RU-CAUSE-MULTI-ROUTE-RECOVERY-036"
+      ],
+      "blockingDecisionRefs": [],
+      "nonGoals": [
+        "不把后备中转站描述为官方 DeepSeek",
+        "不把模型输出直接升级为不可否定的用户事实",
+        "不宣称全产品、商业或生产就绪",
+        "不把密钥、真实用户证据或数据库内容写入仓库"
+      ],
+      "dependsOn": [],
+      "allowedPaths": [
+        "backend/app/core/config.py",
+        "backend/app/domains/ai/agent_runtime/contracts.py",
+        "backend/app/domains/ai/capability_readiness.py",
+        "backend/app/domains/xingce_learning/cause_agent/provider.py",
+        "backend/app/domains/xingce_learning/cause_agent/worker.py",
+        "backend/migrations/versions/20260817_114_cause_agent_route_budget.py",
+        "backend/migrations/versions/20260817_115_cause_agent_run_budget.py",
+        "backend/tests/test_xingce_cause_agent_provider.py",
+        "backend/tests/test_xingce_cause_agent_contracts.py",
+        "backend/tests/test_xingce_cause_agent_billing.py",
+        "backend/tests/test_migrations.py",
+        "backend/tests/test_private_question_books.py",
+        "backend/tests/work_packages/real_device_cause_recovery_033/**",
+        "apps/wechat/subpackage-shared-src/task-runtime/answer-sheet/index.wxml",
+        "apps/wechat/miniprogram/pages/practice/shared/task-runtime/answer-sheet/index.wxml",
+        "apps/wechat/miniprogram/pages/mock-exam/shared/task-runtime/answer-sheet/index.wxml",
+        "apps/wechat/miniprogram/pages/practice/index.wxss",
+        "apps/wechat/miniprogram/pages/reflection/index.wxml",
+        "apps/wechat/tests/work_packages/real-device-cause-recovery-033/**",
+        "ops/release-db-compatibility.env",
+        "ops/scripts/configure_production_ai.py",
+        "ops/worker-cause-agent.env.example",
+        "docs/ops/wechat-release-version.md",
+        "reports/2026-08-17-real-device-cause-recovery-baseline.md",
+        "reports/2026-08-17-cause-agent-budget-constraint.md",
+        "reports/2026-08-17-cause-agent-run-budget-constraint.md",
+        "reports/2026-08-17-real-device-cause-recovery.md"
+      ],
+      "forbiddenPaths": [
+        ".product-governance/**",
+        "audit/api-contract/**",
+        "apps/wechat/miniprogram/api/generated/**",
+        "apps/wechat/miniprogram/task-runtime/contracts.ts",
+        "apps/wechat/project.config.json",
+        "apps/wechat/project.private.config.json",
+        "apps/wechat/cloudfunctions/**",
+        "data/**",
+        "qbank-cloud/**"
+      ],
+      "migrationPolicy": {
+        "mode": "owner",
+        "ownedPaths": [
+          "backend/migrations/versions/20260817_114_cause_agent_route_budget.py",
+          "backend/migrations/versions/20260817_115_cause_agent_run_budget.py"
+        ],
+        "dataBackfill": "No row backfill. Migration 114 expands only the new xingce cause definition budget; migration 115 expands agent run model_call_count. Existing definitions and records remain unchanged.",
+        "rollback": "Downgrade is allowed only while no six-call definition and no run count above two exists; otherwise fail closed and use a forward fix."
+      },
+      "compatibilityPolicy": {
+        "strategy": "Preserve existing cause request/result APIs and evidence facts while changing only internal routing, budgets and user-visible recovery copy.",
+        "supportedVersions": "Database revision 113 forward-migrated to 115 and the current WeChat cause-candidate contract.",
+        "removalGate": "Removing a route or reducing budgets requires proof that no active definition, ledger or run depends on it and a new governed migration."
+      },
+      "inputContracts": [
+        "wechat-page-request-owner@v1"
+      ],
+      "outputContracts": [],
+      "acceptanceCommands": [
+        {
+          "id": "cause-recovery-happy-036",
+          "kind": "scenario_test",
+          "adapter": "pytest-json@1",
+          "selector": "tests/work_packages/real_device_cause_recovery_033/test_happy.py",
+          "cwd": "backend",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "cause-recovery-failure-036",
+          "kind": "scenario_test",
+          "adapter": "pytest-json@1",
+          "selector": "tests/work_packages/real_device_cause_recovery_033/test_failure.py",
+          "cwd": "backend",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "cause-recovery-replay-036",
+          "kind": "scenario_test",
+          "adapter": "pytest-json@1",
+          "selector": "tests/work_packages/real_device_cause_recovery_033/test_replay.py",
+          "cwd": "backend",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "cause-recovery-stale-036",
+          "kind": "scenario_test",
+          "adapter": "pytest-json@1",
+          "selector": "tests/work_packages/real_device_cause_recovery_033/test_stale.py",
+          "cwd": "backend",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "cause-recovery-race-036",
+          "kind": "scenario_test",
+          "adapter": "vitest-json@1",
+          "selector": "tests/work_packages/real-device-cause-recovery-033/race.test.ts",
+          "cwd": "apps/wechat",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "cause-recovery-recovery-036",
+          "kind": "scenario_test",
+          "adapter": "vitest-json@1",
+          "selector": "tests/work_packages/real-device-cause-recovery-033/recovery.test.ts",
+          "cwd": "apps/wechat",
+          "timeoutSeconds": 300
+        },
+        {
+          "id": "cause-recovery-migration-036",
+          "kind": "scenario_test",
+          "adapter": "pytest-json@1",
+          "selector": "tests/test_migrations.py",
+          "cwd": "backend",
+          "timeoutSeconds": 600
+        }
+      ],
+      "requiredAcceptanceScenarios": [
+        {
+          "id": "WP-CAUSE-MULTI-ROUTE-RECOVERY-036-AS-01",
+          "assertion": "a healthy primary completes once without dispatching either fallback",
+          "testSelector": "tests/work_packages/real_device_cause_recovery_033/test_happy.py",
+          "acceptanceCommandId": "cause-recovery-happy-036"
+        },
+        {
+          "id": "WP-CAUSE-MULTI-ROUTE-RECOVERY-036-AS-02",
+          "assertion": "temporary failures use ordered routes while deterministic 4xx stops without unsafe fallback",
+          "testSelector": "tests/work_packages/real_device_cause_recovery_033/test_failure.py",
+          "acceptanceCommandId": "cause-recovery-failure-036"
+        },
+        {
+          "id": "WP-CAUSE-MULTI-ROUTE-RECOVERY-036-AS-03",
+          "assertion": "replaying a completed checkpoint never calls or bills a model again",
+          "testSelector": "tests/work_packages/real_device_cause_recovery_033/test_replay.py",
+          "acceptanceCommandId": "cause-recovery-replay-036"
+        },
+        {
+          "id": "WP-CAUSE-MULTI-ROUTE-RECOVERY-036-AS-04",
+          "assertion": "missing or invalid fallback configuration fails closed without leaking secrets or using stale route identity",
+          "testSelector": "tests/work_packages/real_device_cause_recovery_033/test_stale.py",
+          "acceptanceCommandId": "cause-recovery-stale-036"
+        },
+        {
+          "id": "WP-CAUSE-MULTI-ROUTE-RECOVERY-036-AS-05",
+          "assertion": "rapid submission keeps one action path and one truthful current-question label",
+          "testSelector": "tests/work_packages/real-device-cause-recovery-033/race.test.ts",
+          "acceptanceCommandId": "cause-recovery-race-036"
+        },
+        {
+          "id": "WP-CAUSE-MULTI-ROUTE-RECOVERY-036-AS-06",
+          "assertion": "a durable background cause job can be left and refreshed while wide layout activates only on true landscape width",
+          "testSelector": "tests/work_packages/real-device-cause-recovery-033/recovery.test.ts",
+          "acceptanceCommandId": "cause-recovery-recovery-036"
+        },
+        {
+          "id": "WP-CAUSE-MULTI-ROUTE-RECOVERY-036-AS-07",
+          "assertion": "PostgreSQL migrations preserve historical definition budgets, allow six-call new runs and refuse unsafe downgrade",
+          "testSelector": "tests/test_migrations.py",
+          "acceptanceCommandId": "cause-recovery-migration-036"
+        }
+      ],
+      "verificationOnly": false,
+      "stopConditions": [
+        "Any model route requires fabricated vendor, retention or training claims",
+        "Migration execution cannot obtain a verified pre-migration backup",
+        "Deployment would expose a key outside a root-only runtime environment",
+        "Acceptance discovers an API contract or canonical evidence semantic change"
+      ],
+      "status": "planned"
     }
   ]
 }

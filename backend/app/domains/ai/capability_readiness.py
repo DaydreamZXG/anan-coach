@@ -30,8 +30,8 @@ from app.domains.external_ingestion.recognition_runtime import (
     build_recognition_service,
 )
 from app.domains.xingce_learning.cause_agent.provider import (
-    CauseAgentProvider,
     CauseAgentProviderConfigurationError,
+    build_cause_agent_providers,
 )
 
 
@@ -55,11 +55,12 @@ def cause_agent_readiness(
     if not release_id:
         return _unavailable("xingce_cause_agent", "disabled", None)
     production_settings = replace(settings, environment="production")
-    provider = CauseAgentProvider(production_settings)
+    providers = build_cause_agent_providers(production_settings)
+    provider = providers[0]
     try:
-        provider.validate_configuration()
+        for configured_provider in providers:
+            configured_provider.validate_configuration()
         price_card = ModelPriceCard.from_settings(production_settings)
-        endpoint = endpoint_fingerprint(production_settings.ai_provider_base_url)
     except (
         CauseAgentProviderConfigurationError,
         ModelCostConfigurationError,
@@ -71,19 +72,20 @@ def cause_agent_readiness(
             release_id,
         )
 
-    if not _real_user_release_is_active(
-        session,
-        provider_release=release_id,
-        endpoint=endpoint,
-        purpose="cause_candidate_generate",
-        data_categories=("learning_evidence", "learner_answer"),
-        at=at,
-    ):
-        return _unavailable(
-            "xingce_cause_agent",
-            "real_user_processing_not_approved",
-            release_id,
-        )
+    for configured_provider in providers:
+        if not _real_user_release_is_active(
+            session,
+            provider_release=configured_provider.provider_release_id,
+            endpoint=endpoint_fingerprint(configured_provider.base_url),
+            purpose="cause_candidate_generate",
+            data_categories=("learning_evidence", "learner_answer"),
+            at=at,
+        ):
+            return _unavailable(
+                "xingce_cause_agent",
+                "real_user_processing_not_approved",
+                configured_provider.provider_release_id,
+            )
     try:
         AIGovernanceRepository().require_current_deployment(
             session,

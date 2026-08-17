@@ -955,7 +955,7 @@ button.submit-button {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1024px) and (orientation: landscape) {
   /* 宽屏把材料与题目并排，但两侧仍各自滚动，底栏依旧在滚动区域之外。 */
   .practice-workspace {
     display: grid;

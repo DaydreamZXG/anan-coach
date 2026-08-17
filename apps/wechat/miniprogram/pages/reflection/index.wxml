@@ -393,8 +393,8 @@
         <view class="cause-processing__step cause-processing__step--active">2 · 正在形成候选错因</view>
         <view class="cause-processing__step">3 · 给出下一题验证动作</view>
       </view>
-      <view class="cause-processing__boundary">这次留在岸岸判断页，结果出来会直接显示在这里，不会再把你送回今日。</view>
-      <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="refreshCauseCandidate">重新检查一次</button>
+      <view class="cause-processing__boundary">你的作答和草稿证据已经存好，可以先离开；岸岸会在后台继续，结果仍回到这里。</view>
+      <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="refreshCauseCandidate">刷新进度</button>
     </view>
 
     <view wx:elif="{{phase === 'cause_followup'}}" class="cause-content">

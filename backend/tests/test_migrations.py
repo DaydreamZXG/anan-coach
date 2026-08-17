@@ -11,7 +11,7 @@ import pytest
 from sqlalchemy import inspect, text
 from sqlalchemy.engine import Engine
 from sqlalchemy.exc import DBAPIError
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, sessionmaker
 
 from app.core.database_compatibility import (
     artifact_database_revision,
@@ -66,6 +66,149 @@ def test_artifact_database_contract_matches_single_alembic_head() -> None:
     assert compatibility.compatible_revisions == {
         compatibility.migration_head,
     }
+
+
+def test_cause_agent_route_budget_is_exact_and_downgrade_fails_closed(
+    db_engine: Engine,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    insert_definition = text(
+        """
+        insert into ai_audit.agent_definition_releases (
+          definition_release_id,
+          agent_key,
+          contract_version,
+          prompt_version,
+          schema_version,
+          behavior_version,
+          completion_condition_version,
+          tool_policy_version,
+          toolset_snapshot,
+          budget_snapshot,
+          definition_sha256,
+          created_at
+        ) values (
+          :release_id,
+          'xingce-cause-agent',
+          'v1',
+          'v1',
+          'v1',
+          'v1',
+          'v1',
+          'v1',
+          '["question_evidence"]'::jsonb,
+          cast(:budget as jsonb),
+          :definition_sha256,
+          now()
+        )
+        """
+    )
+    six_call_budget = json.dumps(
+        {
+            "maxModelCalls": 6,
+            "maxToolCalls": 6,
+            "maxFollowupRounds": 1,
+            "maxConsecutiveNoProgress": 2,
+        }
+    )
+    two_call_budget = json.dumps(
+        {
+            "maxModelCalls": 2,
+            "maxToolCalls": 6,
+            "maxFollowupRounds": 1,
+            "maxConsecutiveNoProgress": 2,
+        }
+    )
+
+    with db_engine.begin() as connection:
+        connection.execute(
+            insert_definition,
+            {
+                "release_id": "historical-two-call-definition",
+                "budget": two_call_budget,
+                "definition_sha256": "2" * 64,
+            },
+        )
+
+    for release_id, budget, digest in (
+        ("xingce-cause-agent-2026-08-17.1", two_call_budget, "3" * 64),
+        ("unapproved-six-call-definition", six_call_budget, "4" * 64),
+    ):
+        with db_engine.connect() as connection:
+            transaction = connection.begin()
+            with pytest.raises(DBAPIError):
+                connection.execute(
+                    insert_definition,
+                    {
+                        "release_id": release_id,
+                        "budget": budget,
+                        "definition_sha256": digest,
+                    },
+                )
+            transaction.rollback()
+
+    with db_engine.begin() as connection:
+        connection.execute(
+            insert_definition,
+            {
+                "release_id": "xingce-cause-agent-2026-08-17.1",
+                "budget": six_call_budget,
+                "definition_sha256": "1" * 64,
+            },
+        )
+
+    migration = import_module(
+        "migrations.versions.20260817_114_cause_agent_route_budget"
+    )
+    with db_engine.connect() as connection:
+        monkeypatch.setattr(migration.op, "get_bind", lambda: connection)
+        with pytest.raises(RuntimeError, match="six-call definitions"):
+            migration.downgrade()
+
+
+def test_cause_agent_run_count_accepts_six_and_downgrade_fails_closed(
+    db_engine: Engine,
+    db_session_factory: sessionmaker[Session],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from tests.work_packages.real_device_cause_recovery_033.helpers import (
+        prepare_pending_run,
+    )
+
+    job_id = prepare_pending_run(
+        db_session_factory,
+        token="cause-run-budget-migration-token",
+    )
+    with db_engine.begin() as connection:
+        connection.exec_driver_sql("set local session_replication_role = replica")
+        connection.execute(
+            text(
+                "update ai_audit.agent_run_versions "
+                "set model_call_count = 6 where job_id = cast(:job_id as uuid)"
+            ),
+            {"job_id": str(job_id)},
+        )
+    with db_engine.connect() as connection:
+        transaction = connection.begin()
+        connection.exec_driver_sql("set local session_replication_role = replica")
+        with pytest.raises(DBAPIError):
+            connection.execute(
+                text(
+                    "update ai_audit.agent_run_versions "
+                    "set model_call_count = 7 "
+                    "where job_id = cast(:job_id as uuid)"
+                ),
+                {"job_id": str(job_id)},
+            )
+        transaction.rollback()
+
+    migration = import_module(
+        "migrations.versions.20260817_115_cause_agent_run_budget"
+    )
+    with db_engine.connect() as connection:
+        monkeypatch.setattr(migration.op, "get_bind", lambda: connection)
+        with pytest.raises(RuntimeError, match="routed run counts"):
+            migration.downgrade()
 
 
 def test_question_occurrence_source_identity_is_owned_by_v110(

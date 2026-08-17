@@ -1648,6 +1648,22 @@
       "reportSha256": "sha256:aaedd716d34e7d8d23623856cd94a3daa2a974f4df9e59c8fe4c598f71914370",
       "releaseUnitId": "RU-WORKSPACE-SCRATCH-VERIFICATION-035C",
       "releaseUnitHash": "sha256:604d6648922c406f763cf675024cd72875dfe3328ba04a066f1c642a9c20bab5"
+    },
+    {
+      "id": "RU-CAUSE-MULTI-ROUTE-RECOVERY-036/WP-CAUSE-MULTI-ROUTE-RECOVERY-036@2026-08-17T05:32:32.975331+00:00",
+      "packageId": "WP-CAUSE-MULTI-ROUTE-RECOVERY-036",
+      "baselineCommit": "af270bc2060319f3fa052962ed6382fc1d0e96e1",
+      "baselineTreeHash": "sha256:8cb6da0448c0140f5caf907e27785a0af78b84ecd43dd0fd8f6145bcda039ac6",
+      "baselineSnapshotPath": "execution/baselines/a4e9e1f3176ce361.c9edb97aec0c2002fb17.json",
+      "baselineSnapshotSha256": "sha256:f8af857db1bd30a6bfd7ddc8ac76192f8c8110a17d74492b165d807fefe3c332",
+      "assignedTo": "codex-root",
+      "status": "in_progress",
+      "startedAt": "2026-08-17T05:32:32.975331+00:00",
+      "finishedAt": null,
+      "reportPath": null,
+      "reportSha256": null,
+      "releaseUnitId": "RU-CAUSE-MULTI-ROUTE-RECOVERY-036",
+      "releaseUnitHash": "sha256:77f83087d63f2418c5e5f01b49c908f34218dfcdf36af1c1a405b1383facb51c"
     }
   ]
 }

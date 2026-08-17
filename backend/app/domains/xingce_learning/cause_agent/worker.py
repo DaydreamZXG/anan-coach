@@ -39,6 +39,7 @@ from app.domains.xingce_learning.cause_agent.provider import (
     CauseAgentProviderConfigurationError,
     CauseAgentProviderError,
     CauseAgentProviderResult,
+    build_cause_agent_providers,
 )
 from app.domains.xingce_learning.cause_agent.repository import CauseAgentRepository
 from app.domains.xingce_learning.cause_agent.service import CAUSE_AGENT_JOB_TYPE
@@ -57,6 +58,7 @@ class CauseAgentWorker:
         *,
         settings: Settings,
         provider: CauseAgentProvider | Any | None = None,
+        providers: tuple[CauseAgentProvider | Any, ...] | None = None,
         price_card: ModelPriceCard | None = None,
         repository: CauseAgentRepository | None = None,
         attempt_repository: XingceAttemptRepository | None = None,
@@ -65,7 +67,18 @@ class CauseAgentWorker:
         outbox: OutboxRepository | None = None,
     ) -> None:
         self._settings = settings
-        self._provider = provider or CauseAgentProvider(settings)
+        if provider is not None and providers is not None:
+            raise ValueError("pass either provider or providers, not both")
+        self._providers = (
+            tuple(providers)
+            if providers is not None
+            else (provider,)
+            if provider is not None
+            else build_cause_agent_providers(settings)
+        )
+        if not self._providers:
+            raise ValueError("cause-agent requires at least one provider route")
+        self._provider = self._providers[0]
         self._price_card = price_card or ModelPriceCard.from_settings(settings)
         self._repository = repository or CauseAgentRepository()
         self._attempts = attempt_repository or XingceAttemptRepository()
@@ -487,8 +500,6 @@ class CauseAgentWorker:
             )
             session.commit()
             return output, output_fingerprint
-        self._provider.validate_configuration()
-        call_key = f"xingce-cause:{run['run_id']}:round:{round_no}"
         input_fingerprint = fingerprint(
             {
                 "runInputFingerprint": str(run["input_fingerprint"]),
@@ -496,61 +507,132 @@ class CauseAgentWorker:
                 "followupAnswer": followup_answer,
             }
         )
-        record = self._ledger.begin(
-            session,
-            call_key=call_key,
-            user_id=str(run["user_id"]),
-            job_id=job.job_id,
-            feature="xingce_cause_analysis",
-            operation="cause_candidate_generate",
-            provider=str(run["provider"]),
-            model=str(run["model"]),
-            prompt_version=str(run["prompt_version"]),
-            schema_version=str(run["schema_version"]),
-            price_card=self._price_card,
-            input_fingerprint=input_fingerprint,
-            attribution=AIGovernanceRepository().attribution(
-                session,
-                environment=self._settings.environment,
-                scenario_key="xingce_cause_analysis",
-                operation="cause_candidate_generate",
-                provider=str(run["provider"]),
-                model=str(run["model"]),
-                prompt_version=str(run["prompt_version"]),
-                schema_version=str(run["schema_version"]),
-                evidence_refs=tuple(
-                    generic_evidence_ref(
-                        kind="xingce_cause_evidence",
-                        source_id=value,
-                        version=value,
-                    )
-                    for value in sorted(evidence.allowed_evidence_refs)[:50]
-                ),
-                retrieval_bundle_id=None,
-                reservation_id=UUID(str(job.payload["reservationId"])),
-                reservation_source=str(job.payload["reservationSource"]),
-                price_version=self._price_card.version,
-                # 个人测试发布不以企业式“预先登记评测发布证明”
-                # 作为模型调用门禁。调用归因、证据指纹和成本流水仍落库。
-                enforce_evaluated_deployment=False,
-            ),
-            processor_release_id=self._provider.provider_release_id,
-            processor_endpoint_fingerprint=endpoint_fingerprint(
-                self._settings.ai_provider_base_url
-            ),
-            processing_purpose="cause_candidate_generate",
-            processing_data_categories=("learning_evidence", "learner_answer"),
+        remaining_budget = (
+            CAUSE_AGENT_DEFINITION.budget.max_model_calls
+            - int(run["model_call_count"])
         )
-        session.commit()
-        try:
-            result: CauseAgentProviderResult = self._provider.generate(
-                evidence=evidence,
-                followup_answer=followup_answer,
-                idempotency_key=call_key,
+        route_set = self._providers[: min(3, remaining_budget)]
+        if not route_set:
+            raise AgentRuntimeViolation("model_call_budget_exhausted")
+        route_attempts: list[dict[str, str]] = []
+        for index, provider in enumerate(route_set):
+            provider.validate_configuration()
+            route_key = str(getattr(provider, "route_key", f"route_{index + 1}"))
+            call_key = (
+                f"xingce-cause:{run['run_id']}:round:{round_no}:route:{route_key}"
             )
-        except CauseAgentProviderError as exc:
-            if exc.usage is not None and exc.output_fingerprint is not None:
+            base_url = str(
+                getattr(provider, "base_url", self._settings.ai_provider_base_url)
+            )
+            existing = self._ledger.get_existing(
+                session,
+                call_key=call_key,
+                user_id=str(run["user_id"]),
+                job_id=job.job_id,
+                feature="xingce_cause_analysis",
+                operation="cause_candidate_generate",
+                input_fingerprint=input_fingerprint,
+            )
+            record = existing or self._ledger.begin(
+                session,
+                call_key=call_key,
+                user_id=str(run["user_id"]),
+                job_id=job.job_id,
+                feature="xingce_cause_analysis",
+                operation="cause_candidate_generate",
+                provider=provider.provider_name,
+                model=provider.model,
+                prompt_version=provider.prompt_version,
+                schema_version=provider.schema_version,
+                price_card=self._price_card,
+                input_fingerprint=input_fingerprint,
+                attribution=AIGovernanceRepository().attribution(
+                    session,
+                    environment=self._settings.environment,
+                    scenario_key="xingce_cause_analysis",
+                    operation="cause_candidate_generate",
+                    provider=provider.provider_name,
+                    model=provider.model,
+                    prompt_version=provider.prompt_version,
+                    schema_version=provider.schema_version,
+                    evidence_refs=tuple(
+                        generic_evidence_ref(
+                            kind="xingce_cause_evidence",
+                            source_id=value,
+                            version=value,
+                        )
+                        for value in sorted(evidence.allowed_evidence_refs)[:50]
+                    ),
+                    retrieval_bundle_id=None,
+                    reservation_id=UUID(str(job.payload["reservationId"])),
+                    reservation_source=str(job.payload["reservationSource"]),
+                    price_version=self._price_card.version,
+                    # 个人测试发布不以企业式“预先登记评测发布证明”
+                    # 作为模型调用门禁。调用归因、证据指纹和成本流水仍落库。
+                    enforce_evaluated_deployment=False,
+                ),
+                processor_release_id=provider.provider_release_id,
+                processor_endpoint_fingerprint=endpoint_fingerprint(base_url),
+                processing_purpose="cause_candidate_generate",
+                processing_data_categories=("learning_evidence", "learner_answer"),
+            )
+            session.commit()
+            has_next_route = index + 1 < len(route_set)
+            replayable_existing = (
+                existing is not None
+                and existing.status == "running"
+                and str(
+                    getattr(
+                        provider,
+                        "idempotency_capability",
+                        "replayable_queryable",
+                    )
+                )
+                == "replayable_queryable"
+            )
+            if existing is not None and not replayable_existing:
+                recovered_code = str(
+                    record.error_code
+                    or (
+                        "provider_replay_output_unavailable"
+                        if record.status == "succeeded"
+                        else "provider_transport_uncertain"
+                    )
+                )
                 if record.status == "running":
+                    record = self._ledger.fail_if_running(
+                        session,
+                        call_id=record.call_id,
+                        error_code="provider_transport_uncertain",
+                        latency_ms=0,
+                    )
+                    recovered_code = "provider_transport_uncertain"
+                    session.commit()
+                route_attempts.append(
+                    {
+                        "route": route_key,
+                        "model": provider.model,
+                        "status": str(record.status),
+                        "errorCode": recovered_code,
+                    }
+                )
+                failover_safe = _provider_error_allows_failover(recovered_code)
+                if failover_safe and has_next_route:
+                    continue
+                raise CauseAgentProviderError(
+                    recovered_code,
+                    "cause-agent provider replay cannot produce a new result",
+                    retryable=False,
+                    failover_safe=failover_safe,
+                )
+            try:
+                result: CauseAgentProviderResult = provider.generate(
+                    evidence=evidence,
+                    followup_answer=followup_answer,
+                    idempotency_key=call_key,
+                )
+            except CauseAgentProviderError as exc:
+                if exc.usage is not None and exc.output_fingerprint is not None:
                     self._ledger.succeed(
                         session,
                         call_id=record.call_id,
@@ -558,17 +640,40 @@ class CauseAgentWorker:
                         output_fingerprint=exc.output_fingerprint,
                         latency_ms=exc.latency_ms,
                     )
-                self._consume_reservation(session, job=job)
-                session.commit()
-            raise
-        if record.status == "succeeded":
-            if record.output_fingerprint != result.output_fingerprint:
-                raise CauseAgentProviderError(
-                    "provider_idempotency_violation",
-                    "cause-agent provider changed a replayed response",
-                    retryable=False,
+                    self._consume_reservation(session, job=job)
+                    attempt_status = "response_rejected"
+                elif (exc.failover_safe and has_next_route) or not exc.retryable:
+                    self._ledger.fail_if_running(
+                        session,
+                        call_id=record.call_id,
+                        error_code=exc.code,
+                        latency_ms=exc.latency_ms,
+                    )
+                    attempt_status = "failed"
+                else:
+                    attempt_status = "retry_pending"
+                route_attempts.append(
+                    {
+                        "route": route_key,
+                        "model": provider.model,
+                        "status": attempt_status,
+                        "errorCode": exc.code,
+                    }
                 )
-        else:
+                session.commit()
+                if exc.failover_safe and has_next_route:
+                    continue
+                if exc.usage is not None and exc.output_fingerprint is not None:
+                    raise CauseAgentProviderError(
+                        exc.code,
+                        "cause-agent provider response was already billed and cannot be replayed",
+                        retryable=False,
+                        failover_safe=exc.failover_safe,
+                        usage=exc.usage,
+                        output_fingerprint=exc.output_fingerprint,
+                        latency_ms=exc.latency_ms,
+                    ) from exc
+                raise
             self._ledger.succeed(
                 session,
                 call_id=record.call_id,
@@ -576,26 +681,47 @@ class CauseAgentWorker:
                 output_fingerprint=result.output_fingerprint,
                 latency_ms=result.latency_ms,
             )
-        self._consume_reservation(session, job=job)
-        current_job = self._jobs.by_id(session, job_id=job.job_id)
-        base = current_job.result if current_job and current_job.result else {}
-        self._jobs.checkpoint(
-            session,
-            job_id=job.job_id,
-            claim_token=job.claim_token,
-            result={
-                **base,
-                "phase": "provider_completed",
-                "providerOutput": result.output.model_dump(by_alias=True, mode="json"),
-                "outputFingerprint": result.output_fingerprint,
-                "modelCallId": str(record.call_id),
-                "providerRequestIdHeader": result.provider_request_id_header,
-                "providerRequestIdFingerprint": (result.provider_request_id_fingerprint),
-                "quotaState": "consumed",
-            },
+            self._consume_reservation(session, job=job)
+            route_attempts.append(
+                {
+                    "route": route_key,
+                    "model": provider.model,
+                    "status": "succeeded",
+                    "errorCode": "",
+                }
+            )
+            current_job = self._jobs.by_id(session, job_id=job.job_id)
+            base = current_job.result if current_job and current_job.result else {}
+            self._jobs.checkpoint(
+                session,
+                job_id=job.job_id,
+                claim_token=job.claim_token,
+                result={
+                    **base,
+                    "phase": "provider_completed",
+                    "providerOutput": result.output.model_dump(
+                        by_alias=True, mode="json"
+                    ),
+                    "outputFingerprint": result.output_fingerprint,
+                    "modelCallId": str(record.call_id),
+                    "providerRoute": route_key,
+                    "providerReleaseId": provider.provider_release_id,
+                    "providerModel": provider.model,
+                    "providerAttempts": route_attempts,
+                    "providerRequestIdHeader": result.provider_request_id_header,
+                    "providerRequestIdFingerprint": (
+                        result.provider_request_id_fingerprint
+                    ),
+                    "quotaState": "consumed",
+                },
+            )
+            session.commit()
+            return result.output, result.output_fingerprint
+        raise CauseAgentProviderError(
+            "provider_routes_exhausted",
+            "cause-agent provider routes were exhausted",
+            retryable=False,
         )
-        session.commit()
-        return result.output, result.output_fingerprint
 
     def _publish_output(
         self,
@@ -607,7 +733,7 @@ class CauseAgentWorker:
         output_fingerprint: str,
         published_state: str | None = None,
         termination_reason: str | None = None,
-        model_call_delta: int = 1,
+        model_call_delta: int | None = None,
     ) -> BackgroundJob:
         session.execute(
             text("select pg_advisory_xact_lock(hashtextextended(:key, 0))"),
@@ -660,6 +786,10 @@ class CauseAgentWorker:
             session.commit()
             return final
         current_job = self._jobs.by_id(session, job_id=job.job_id) or job
+        if model_call_delta is None:
+            model_call_delta = len(
+                self._ledger.records_for_job(session, job_id=job.job_id)
+            )
         candidate_state = published_state or output.kind
         if candidate_state == "terminated":
             quota_state = self._settle_terminal_resources(
@@ -841,10 +971,19 @@ class CauseAgentWorker:
             if evidence is not None
             else list(run["input_version_refs"])[:20]
         )
+        provider_failure = _provider_error_is_route_failure(code)
         output = EvidenceInsufficient(
             reasonCode=code,
-            explanation="解题 Agent 未能在冻结证据和预算内形成可确认候选。",
-            missingEvidence=["需要用户自行补充或选择暂不归因"],
+            explanation=(
+                "模型线路暂时都没能完成判断。你的作答、用时、改选、排除和草稿证据已经保存，不需要重做。"
+                if provider_failure
+                else "岸岸还没有足够可核对的证据形成候选错因。"
+            ),
+            missingEvidence=(
+                ["可以稍后刷新；也可选择性补充你自己的想法"]
+                if provider_failure
+                else ["可选择性补充当时的思路，或暂不归因"]
+            ),
             evidenceRefs=evidence_refs,
         )
         terminal_payload = {
@@ -852,15 +991,6 @@ class CauseAgentWorker:
             **output.model_dump(by_alias=True, mode="json"),
             "terminationReason": code,
         }
-        model_call_delta = int(
-            session.execute(
-                text(
-                    "select exists (select 1 from ai_audit.model_call_ledger "
-                    "where job_id = cast(:job_id as uuid))"
-                ),
-                {"job_id": str(job.job_id)},
-            ).scalar_one()
-        )
         return self._publish_output(
             session,
             job=job,
@@ -869,7 +999,6 @@ class CauseAgentWorker:
             output_fingerprint=fingerprint(terminal_payload),
             published_state="terminated",
             termination_reason=code,
-            model_call_delta=model_call_delta,
         )
 
     def _reconcile_persisted_terminal_jobs(self, session: Session) -> None:
@@ -991,17 +1120,19 @@ class CauseAgentWorker:
             job_id=job.job_id,
             for_update=True,
         )
-        if len(records) > 1:
-            raise JobContractError("cause-agent job has more than one model-call ledger")
-        ledger = records[0] if records else None
-        if ledger is not None and ledger.status == "running":
-            ledger = self._ledger.fail_if_running(
-                session,
-                call_id=ledger.call_id,
-                error_code=code,
-                latency_ms=0,
-            )
-        should_consume = ledger is not None and ledger.status == "succeeded"
+        settled_records = []
+        for ledger in records:
+            if ledger.status == "running":
+                ledger = self._ledger.fail_if_running(
+                    session,
+                    call_id=ledger.call_id,
+                    error_code=code,
+                    latency_ms=0,
+                )
+            settled_records.append(ledger)
+        should_consume = any(
+            ledger.status == "succeeded" for ledger in settled_records
+        )
 
         commerce = CommerceRepository(session)
         reservation = commerce.feature_usage_reservation_by_key(
@@ -1152,6 +1283,29 @@ def _next_run_values(
         "candidate_version_id": candidate_version_id,
         "supersedes_run_version_id": str(current["run_version_id"]),
         "created_at": datetime.now(UTC),
+    }
+
+
+def _provider_error_allows_failover(code: str) -> bool:
+    if code in {
+        "provider_transport_uncertain",
+        "provider_response_invalid",
+        "provider_replay_output_unavailable",
+    }:
+        return True
+    if not code.startswith("provider_http_"):
+        return False
+    try:
+        status_code = int(code.removeprefix("provider_http_"))
+    except ValueError:
+        return False
+    return status_code in {408, 429} or status_code >= 500
+
+
+def _provider_error_is_route_failure(code: str) -> bool:
+    return code.startswith("provider_") or code in {
+        "cause_agent_provider_configuration_invalid",
+        "provider_routes_exhausted",
     }
 
 

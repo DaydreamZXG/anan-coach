@@ -314,7 +314,7 @@ def test_question_book_export_delete_and_migration_lifecycle(
             ),
             {"artifact": str(seeded.artifact_id)},
         ).scalar_one() is True
-        assert session.execute(text("select version_num from alembic_version")).scalar_one() == "20260815_113"
+        assert session.execute(text("select version_num from alembic_version")).scalar_one() == "20260817_115"
         assert session.execute(
             text(
                 "select state from privacy.private_material_deletion_requests "
@@ -326,7 +326,7 @@ def test_question_book_export_delete_and_migration_lifecycle(
     compatibility = (
         Path(__file__).parents[2] / "ops" / "release-db-compatibility.env"
     ).read_text()
-    assert "ARTIFACT_DATABASE_MIGRATION_HEAD=20260815_113" in compatibility
+    assert "ARTIFACT_DATABASE_MIGRATION_HEAD=20260817_115" in compatibility
     migration = import_module(
         "migrations.versions.20260814_111_private_question_book_kind"
     )
