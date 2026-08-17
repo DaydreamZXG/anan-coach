@@ -224,9 +224,7 @@ if [[ -n "${GONGKAO_KNOWLEDGE_MAP_DATABASE_URL:-}" ]]; then
     >&2
   exit 1
 fi
-knowledge_database_url="${
-  MIGRATION_DATABASE_URL/postgresql+psycopg:/postgresql:
-}"
+knowledge_database_url="${MIGRATION_DATABASE_URL/postgresql+psycopg:/postgresql:}"
 migration_database_os_user="${MIGRATION_DATABASE_OS_USER:-postgres}"
 if [[ ! "${MIGRATION_PGPASSFILE}" =~ ^/[A-Za-z0-9._/-]+$ ]]; then
   printf '%s\n' "migration pgpass file must be a safe absolute path" >&2

@@ -90,9 +90,7 @@ case "${ANAN_TEMPORARY_ROOT}" in
 esac
 
 migration_database_os_user="${MIGRATION_DATABASE_OS_USER:-postgres}"
-knowledge_database_url="${
-  MIGRATION_DATABASE_URL/postgresql+psycopg:/postgresql:
-}"
+knowledge_database_url="${MIGRATION_DATABASE_URL/postgresql+psycopg:/postgresql:}"
 artifact_contract="${root}/ops/release-db-compatibility.env"
 artifact_revision="$(
   "${root}/backend/.venv/bin/python" \
