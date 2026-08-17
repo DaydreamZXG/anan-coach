@@ -350,6 +350,7 @@ def test_activation_enables_and_restarts_cause_agent_in_standard_topology(
         encoding="utf-8"
     )
     assert events.index("data-release-authority verify") < events.index("systemctl restart")
+    assert "systemctl enable --now gongkao-dazi-backup.timer" in events
     _assert_runtime_identity(harness, commit=CANDIDATE_COMMIT)
 
 
@@ -1669,7 +1670,7 @@ def test_third_activation_replaces_donor_before_retention_two_prunes_it(
     assert third.is_dir()
     assert not harness.candidate_target.exists()
     assert not _runtime_snapshot(harness, harness.candidate_target).exists()
-    assert _backup_timer_states(harness) == ("disabled", "inactive")
+    assert _backup_timer_states(harness) == ("enabled", "active")
 
 
 def test_post_commit_cleanup_failure_never_restores_a_pruned_donor(
@@ -1737,7 +1738,7 @@ def test_release_readiness_probe_cannot_inherit_a_proxy_or_curl_config() -> None
         assert "curl \\\n    --disable" in probe
         assert "--noproxy '*'" in probe
         assert "--connect-timeout 1" in probe
-        assert "--max-time 2" in probe
+        assert "--max-time 10" in probe
         assert "--proto '=http'" in probe
         assert "http://127.0.0.1:8000/ready" in probe
 

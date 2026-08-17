@@ -1851,7 +1851,7 @@ for _ in $(seq 1 30); do
     --show-error \
     --noproxy '*' \
     --connect-timeout 1 \
-    --max-time 2 \
+    --max-time 10 \
     --proto '=http' \
     http://127.0.0.1:8000/ready >/dev/null; then
     ready=true

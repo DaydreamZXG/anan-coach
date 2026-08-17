@@ -2009,7 +2009,7 @@ for _ in $(seq 1 30); do
     --show-error \
     --noproxy '*' \
     --connect-timeout 1 \
-    --max-time 2 \
+    --max-time 10 \
     --proto '=http' \
     http://127.0.0.1:8000/ready >/dev/null; then
     ready=true
@@ -2025,6 +2025,7 @@ for unit in "${runtime_units[@]}"; do
   systemctl is-active --quiet "${unit}"
 done
 assert_installed_target_backup_control_plane
+systemctl enable --now gongkao-dazi-backup.timer
 write_success_activation_markers
 discard_control_plane_backup
 control_plane_changed=false
