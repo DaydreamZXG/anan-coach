@@ -307,6 +307,27 @@ export function methodInterpretationEligibleQuestionIds(result: XingceAttemptRes
     .map((item) => item.questionId);
 }
 
+/**
+ * “方法正确但计算错”只适用于本身需要计算的模块。判断推理、言语等题型即使答错，
+ * 也不能因为共用复盘页就出现计算失误入口。
+ */
+export function calculationInterpretationEligibleQuestionIds(session: XingceTaskSession): string[] {
+  if (!session.result) return [];
+  const objectivelyEligible = new Set(methodInterpretationEligibleQuestionIds(session.result));
+  return session.bundle.questions
+    .filter(
+      (question) =>
+        objectivelyEligible.has(question.questionId) &&
+        isCalculationXingceModule(question.moduleName),
+    )
+    .map((question) => question.questionId);
+}
+
+export function isCalculationXingceModule(moduleName: string): boolean {
+  const normalized = moduleName.replace(/\s+/gu, "");
+  return normalized.includes("资料分析") || normalized.includes("数量关系");
+}
+
 function assertFactoredResultItem(item: XingceResultItem): void {
   if (
     item.factContractVersion !== "xingce-result-facts@v1" ||

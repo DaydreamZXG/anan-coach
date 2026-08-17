@@ -50,7 +50,8 @@ import {
 import {
   isXingceReflectionTag,
   isXingceReplacementCauseCode,
-  methodInterpretationEligibleQuestionIds,
+  calculationInterpretationEligibleQuestionIds,
+  isCalculationXingceModule,
   xingceReflectionTagLabels,
   xingceReflectionTags,
   xingceReplacementCauseCodeLabels,
@@ -164,6 +165,9 @@ interface ReflectionPageData {
   doubtNote: string;
   tagOptions: Array<{ code: XingceReflectionTag; label: string; selected: boolean }>;
   causeCandidate: XingceCauseCandidateView | null;
+  candidateEvidenceOpen: boolean;
+  questionCausesOpen: boolean;
+  correctionOpen: boolean;
   followupAnswer: string;
   replacementCause: string;
   /** 改写错因的可选结构化 8 码单选 chip（可不选，单选可再点取消）。 */
@@ -226,6 +230,9 @@ interface ReflectionPageCustom {
   startReflection(): void;
   showSummary(): void;
   toggleSummaryBasis(): void;
+  toggleCandidateEvidence(): void;
+  toggleQuestionCauses(): void;
+  toggleCauseCorrection(): void;
   askAnanAboutGroup(): void;
   updateMaterialReader(event: WechatMiniprogram.CustomEvent<{ state: MaterialReaderState }>): void;
   inputRawText(event: WechatMiniprogram.Input): void;
@@ -347,6 +354,9 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     doubtNote: "",
     tagOptions: tagOptions(new Set()),
     causeCandidate: null,
+    candidateEvidenceOpen: false,
+    questionCausesOpen: false,
+    correctionOpen: false,
     followupAnswer: "",
     replacementCause: "",
     replacementCodeOptions: replacementCodeOptions(""),
@@ -584,6 +594,19 @@ Page<ReflectionPageData, ReflectionPageCustom>({
 
   toggleSummaryBasis() {
     this.setData({ summaryBasisOpen: !this.data.summaryBasisOpen });
+  },
+
+  toggleCandidateEvidence() {
+    this.setData({ candidateEvidenceOpen: !this.data.candidateEvidenceOpen });
+  },
+
+  toggleQuestionCauses() {
+    this.setData({ questionCausesOpen: !this.data.questionCausesOpen });
+  },
+
+  toggleCauseCorrection() {
+    if (this.data.interactionLocked) return;
+    this.setData({ correctionOpen: !this.data.correctionOpen });
   },
 
   askAnanAboutGroup() {
@@ -835,8 +858,8 @@ Page<ReflectionPageData, ReflectionPageCustom>({
   toggleMethodInterpretation(event) {
     const runtime = runtimes.get(this);
     const questionId = String(event.currentTarget.dataset.questionid ?? "");
-    const eligible = runtime?.session?.result
-      ? methodInterpretationEligibleQuestionIds(runtime.session.result)
+    const eligible = runtime?.session
+      ? calculationInterpretationEligibleQuestionIds(runtime.session)
       : [];
     if (!runtime || this.data.interactionLocked || !eligible.includes(questionId)) return;
     if (runtime.selectedInterpretationQuestionIds.has(questionId)) {
@@ -1189,7 +1212,15 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     const code = String(event.currentTarget.dataset.code ?? "");
     if (this.data.interactionLocked || !isXingceReplacementCauseCode(code)) return;
     const next = selectedReplacementCode(this.data.replacementCodeOptions) === code ? "" : code;
-    this.setData({ replacementCodeOptions: replacementCodeOptions(next) });
+    const allowCalculation =
+      runtimes
+        .get(this)
+        ?.session?.bundle.questions.some((question) =>
+          isCalculationXingceModule(question.moduleName),
+        ) ?? false;
+    this.setData({
+      replacementCodeOptions: replacementCodeOptions(next, allowCalculation),
+    });
   },
 
   async replaceCause() {
@@ -1824,9 +1855,7 @@ function applySession(
   if (hasLocalDraft) runtime.selectedTags = new Set(localTags);
   else if (pendingTags.length > 0) runtime.selectedTags = new Set(pendingTags);
   else if (existingTags.length > 0) runtime.selectedTags = new Set(existingTags);
-  const eligibleInterpretations = new Set(
-    session.result ? methodInterpretationEligibleQuestionIds(session.result) : [],
-  );
+  const eligibleInterpretations = new Set(calculationInterpretationEligibleQuestionIds(session));
   const pendingInterpretations =
     pendingReflection?.command.itemInterpretations?.map((item) => item.questionId) ?? [];
   const existingInterpretations =
@@ -1917,6 +1946,7 @@ function applySession(
     replacementCodeOptions: replacementCodeOptions(
       pendingCause?.command.replacementCode ??
         selectedReplacementCode(page.data.replacementCodeOptions),
+      session.bundle.questions.some((question) => isCalculationXingceModule(question.moduleName)),
     ),
     interactionLocked: hasPendingWrite,
     pendingMessage: hasPendingWrite ? "有一次保存没确认，需要把刚才那次操作再试一次。" : "",
@@ -1979,12 +2009,17 @@ function tagOptions(selected: ReadonlySet<XingceReflectionTag>): ReflectionPageD
   }));
 }
 
-function replacementCodeOptions(selected: string): ReflectionPageData["replacementCodeOptions"] {
-  return xingceReplacementCauseCodes.map((code) => ({
-    code,
-    label: xingceReplacementCauseCodeLabels[code],
-    selected: code === selected,
-  }));
+function replacementCodeOptions(
+  selected: string,
+  allowCalculation = true,
+): ReflectionPageData["replacementCodeOptions"] {
+  return xingceReplacementCauseCodes
+    .filter((code) => allowCalculation || code !== "calculation_error")
+    .map((code) => ({
+      code,
+      label: xingceReplacementCauseCodeLabels[code],
+      selected: code === selected,
+    }));
 }
 
 function selectedReplacementCode(options: ReflectionPageData["replacementCodeOptions"]): string {
@@ -1997,7 +2032,7 @@ function interpretationOptions(
 ): ReflectionPageData["interpretationOptions"] {
   const result = session.result;
   if (!result) return [];
-  const eligible = new Set(methodInterpretationEligibleQuestionIds(result));
+  const eligible = new Set(calculationInterpretationEligibleQuestionIds(session));
   return result.items.flatMap((item, index) =>
     eligible.has(item.questionId)
       ? [
@@ -2113,6 +2148,9 @@ function invalidateForAccountChange(
     strategyNote: "",
     doubtNote: "",
     causeCandidate: null,
+    candidateEvidenceOpen: false,
+    questionCausesOpen: false,
+    correctionOpen: false,
     followupAnswer: "",
     replacementCause: "",
     replacementCodeOptions: replacementCodeOptions(""),

@@ -74,7 +74,6 @@
 }
 .answer-card__close::after,
 .answer-card__question::after,
-.answer-card__cta::after,
 .answer-card__submit::after {
   border: 0;
 }
@@ -233,7 +232,6 @@
   font-weight: 500;
   line-height: calc(28 * var(--rpx));
 }
-.answer-card__cta,
 .answer-card__submit {
   box-sizing: border-box;
   display: flex;
@@ -247,10 +245,6 @@
   border-radius: var(--radius-40);
   font-size: var(--text-section);
   font-weight: 700;
-}
-.answer-card__cta {
-  color: var(--figma-color-on-dark);
-  background: var(--figma-color-ink);
 }
 .answer-card__submit {
   color: var(--color-surface);

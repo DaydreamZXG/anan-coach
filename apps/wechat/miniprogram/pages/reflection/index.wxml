@@ -248,15 +248,15 @@
         <view class="coach-handoff-card__head">
           <view class="coach-handoff-card__mark">岸</view>
           <view>
-            <view class="coach-handoff-card__eyebrow">岸岸先判断</view>
-            <view class="coach-handoff-card__title">你不用先给自己定错因</view>
+            <view class="coach-handoff-card__eyebrow">判断进度</view>
+            <view class="coach-handoff-card__title">这组错因尚未生成</view>
           </view>
         </view>
-        <view class="coach-handoff-card__copy">这题看完后，岸岸会把答案、用时、改选、排除、草稿和信心放在一起，先提出一个可被你否定的候选判断。</view>
+        <view class="coach-handoff-card__copy">岸岸已经读到这题的答案、用时、改选、排除、草稿和信心。这里先展示事实，不把事实冒充错因。</view>
         <view wx:if="{{activeReviewItem.factChips.length}}" class="coach-handoff-card__facts">
           <view wx:for="{{activeReviewItem.factChips}}" wx:key="code" class="coach-handoff-card__fact">{{item.label}}</view>
         </view>
-        <view class="coach-handoff-card__next">整组提交后会直接看到：更怀疑什么 → 为什么 → 下一题怎么验证。</view>
+        <view class="coach-handoff-card__next">看完本组后提交证据，下一页直接显示：更怀疑什么 → 判断边界 → 下一题怎么验证。</view>
       </view>
 
       <view class="reason-card">
@@ -294,9 +294,9 @@
         </view>
       </view>
 
-      <view wx:if="{{interpretationOptions.length}}" class="method-card">
-        <view class="method-card__title">哪些题是“方法正确，但计算错了”？</view>
-        <view class="method-card__copy">这道题只记事实，不会因为选了“计算失误”就自动认定。</view>
+      <view wx:if="{{selfEvidenceOpen && interpretationOptions.length}}" class="method-card">
+        <view class="method-card__title">如果你确认会做，只是算错了</view>
+        <view class="method-card__copy">只在资料分析或数量关系中出现。选中只是补充事实，不会替岸岸直接下结论。</view>
         <button hover-class="item--hover"
           wx:for="{{interpretationOptions}}"
           wx:key="questionId"
@@ -364,7 +364,24 @@
       </view>
 
       <view class="reflection-boundary">你只要留下真实的作答，岸岸先做判断；有不对的地方咱们再改。</view>
-      <view class="reflection-bottom-spacer"></view>
+      <view class="reflection-inline-actions">
+        <view class="s9-action-row">
+          <button
+            wx:if="{{currentReviewIndex > 0}}"
+            hover-class="item--hover"
+            class="s9-secondary-button tap-tactile"
+            disabled="{{interactionLocked || voiceBusy || isRecording}}"
+            bindtap="previousReviewItem"
+          >上一道关键题</button>
+          <button
+            hover-class="item--hover"
+            class="s9-primary-button tap-tactile"
+            loading="{{interactionLocked}}"
+            disabled="{{interactionLocked || voiceBusy || isRecording}}"
+            bindtap="confirmCauseAndNext"
+          >{{currentReviewIndex < reviewItems.length - 1 ? '看下一道关键题' : '提交证据，查看岸岸判断'}}</button>
+        </view>
+      </view>
     </view>
 
     <view wx:elif="{{phase === 'cause_processing'}}" class="cause-processing">
@@ -406,64 +423,89 @@
       </view>
 
       <view wx:if="{{causeCandidate.summary || causeCandidate.explanation || causeCandidate.improvement}}" class="candidate-card">
-        <view wx:if="{{causeCandidate.summary}}" class="candidate-section">
-          <view class="candidate-section__label">岸岸更怀疑</view>
-          <view class="candidate-section__copy">{{causeCandidate.summary}}</view>
+        <view wx:if="{{causeCandidate.summary}}" class="candidate-verdict">
+          <view class="candidate-verdict__label">岸岸更怀疑</view>
+          <view class="candidate-verdict__copy">{{causeCandidate.summary}}</view>
         </view>
-        <view wx:if="{{causeCandidate.explanation}}" class="candidate-section">
-          <view class="candidate-section__label">为什么这样判断</view>
-          <view class="candidate-section__copy">{{causeCandidate.explanation}}</view>
+        <view wx:if="{{causeCandidate.improvement}}" class="candidate-next">
+          <view class="candidate-next__label">下一题先这样验证</view>
+          <view class="candidate-next__copy">{{causeCandidate.improvement}}</view>
         </view>
-        <view wx:if="{{causeCandidate.improvement}}" class="candidate-section">
-          <view class="candidate-section__label">下一题怎么验证</view>
-          <view class="candidate-section__copy">{{causeCandidate.improvement}}</view>
-        </view>
-        <view wx:if="{{causeCandidate.rationale}}" class="candidate-section">
-          <view class="candidate-section__label">判断理由</view>
-          <view class="candidate-section__copy">{{causeCandidate.rationale}}</view>
-        </view>
-      </view>
-
-      <!-- 逐题候选错因：错题卡 + 灰底 chip，纯展示不加交互；证据不足显式标注。 -->
-      <view wx:if="{{causeCandidate.questionCandidates.length}}" class="question-cause-card">
-        <view class="question-cause-card__title">每题的候选错因</view>
-        <view class="question-cause-card__copy">按题给出岸岸的判断；可以直接继续，也可以在下面纠正。</view>
-        <view wx:for="{{causeCandidate.questionCandidates}}" wx:key="questionId" class="question-cause-item">
-          <view class="question-cause-item__head">
-            <text class="question-cause-item__position">{{item.positionLabel}}</text>
-            <view class="question-cause-chip {{item.status === 'evidence_insufficient' ? 'question-cause-chip--insufficient' : ''}}">{{item.causeLabel}}</view>
-            <view wx:if="{{item.confidenceLabel}}" class="question-cause-chip question-cause-chip--meta">{{item.confidenceLabel}}</view>
+        <button
+          wx:if="{{causeCandidate.explanation || causeCandidate.rationale}}"
+          hover-class="item--hover"
+          class="candidate-evidence-toggle"
+          bindtap="toggleCandidateEvidence"
+        >
+          <text>{{causeCandidate.canConfirm ? (candidateEvidenceOpen ? '收起判断依据' : '查看判断依据') : (candidateEvidenceOpen ? '收起未形成判断的原因' : '查看未形成判断的原因')}}</text>
+          <text>{{candidateEvidenceOpen ? '⌃' : '⌄'}}</text>
+        </button>
+        <view wx:if="{{candidateEvidenceOpen}}" class="candidate-evidence">
+          <view wx:if="{{causeCandidate.explanation}}" class="candidate-section">
+            <view class="candidate-section__label">岸岸为什么这样想</view>
+            <view class="candidate-section__copy">{{causeCandidate.explanation}}</view>
           </view>
-          <view wx:if="{{item.rationale}}" class="question-cause-item__rationale">{{item.rationale}}</view>
+          <view wx:if="{{causeCandidate.rationale}}" class="candidate-section">
+            <view class="candidate-section__label">这次用到的依据</view>
+            <view class="candidate-section__copy">{{causeCandidate.rationale}}</view>
+          </view>
         </view>
       </view>
 
       <view wx:if="{{causeCandidate.missingEvidence.length || causeCandidate.limitations.length}}" class="candidate-limitations">
-        <view wx:for="{{causeCandidate.missingEvidence}}" wx:key="*this" class="candidate-limitations__line">· {{item}}</view>
-        <view wx:for="{{causeCandidate.limitations}}" wx:key="*this" class="candidate-limitations__line">· {{item}}</view>
+        <view class="candidate-limitations__title">这次判断的边界</view>
+        <view wx:for="{{causeCandidate.missingEvidence}}" wx:key="*this" class="candidate-limitations__line">{{item}}</view>
+        <view wx:for="{{causeCandidate.limitations}}" wx:key="*this" class="candidate-limitations__line">{{item}}</view>
+      </view>
+
+      <!-- 逐题候选默认收起，先让用户看清组级判断，再按需核对细节。 -->
+      <view wx:if="{{causeCandidate.questionCandidates.length}}" class="question-cause-card">
+        <button hover-class="item--hover" class="question-cause-card__summary" bindtap="toggleQuestionCauses">
+          <view>
+            <view class="question-cause-card__title">核对每道题的判断</view>
+            <view class="question-cause-card__copy">共 {{causeCandidate.questionCandidates.length}} 道，已按题号排列</view>
+          </view>
+          <text class="question-cause-card__chevron">{{questionCausesOpen ? '收起' : '展开'}}⌄</text>
+        </button>
+        <view wx:if="{{questionCausesOpen}}" class="question-cause-card__body">
+          <view wx:for="{{causeCandidate.questionCandidates}}" wx:key="questionId" class="question-cause-item">
+            <view class="question-cause-item__head">
+              <text class="question-cause-item__position">{{item.positionLabel}}</text>
+              <view class="question-cause-chip {{item.status === 'evidence_insufficient' ? 'question-cause-chip--insufficient' : ''}}">{{item.causeLabel}}</view>
+              <view wx:if="{{item.confidenceLabel}}" class="question-cause-chip question-cause-chip--meta">{{item.confidenceLabel}}</view>
+            </view>
+            <view wx:if="{{item.rationale}}" class="question-cause-item__rationale">{{item.rationale}}</view>
+          </view>
+        </view>
       </view>
 
       <block wx:if="{{causeCandidate.canDecide}}">
-        <button hover-class="item--hover" wx:if="{{causeCandidate.canConfirm}}" class="reflection-primary tap-tactile" disabled="{{interactionLocked}}" bindtap="confirmCause">按岸岸的判断继续</button>
-        <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="rejectCause">这不是我的错因</button>
-        <!-- 改写错因的可选结构化归类：单选 chip，可不选，再点一次取消。 -->
-        <view class="cause-code-hint">如果换成你的说法，它更像下面哪一类？选一个可以帮你以后归类，也可以不选。</view>
-        <view class="tag-grid cause-code-grid">
-          <button hover-class="item--hover"
-            wx:for="{{replacementCodeOptions}}"
-            wx:key="code"
-            class="control-center tag-chip {{item.selected ? 'tag-chip--active' : ''}}"
-            data-code="{{item.code}}"
-            disabled="{{interactionLocked}}"
-            bindtap="selectReplacementCode"
-          >{{item.label}}</button>
+        <view class="cause-decision-card">
+          <view class="cause-decision-card__title">{{causeCandidate.canConfirm ? '这个判断符合你当时的真实情况吗？' : '岸岸这次没有足够把握，你想补充真实原因吗？'}}</view>
+          <button hover-class="item--hover" wx:if="{{causeCandidate.canConfirm}}" class="reflection-primary tap-tactile" disabled="{{interactionLocked}}" bindtap="confirmCause">符合，按这个判断继续</button>
+          <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="toggleCauseCorrection">{{correctionOpen ? '收起补充' : (causeCandidate.canConfirm ? '不符合，我来纠正' : '我来补充真实原因')}}</button>
+
+          <view wx:if="{{correctionOpen}}" class="cause-correction-panel">
+            <view class="cause-code-hint">先选一个更接近的方向，也可以直接写下你的真实原因。</view>
+            <view class="tag-grid cause-code-grid">
+              <button hover-class="item--hover"
+                wx:for="{{replacementCodeOptions}}"
+                wx:key="code"
+                class="control-center tag-chip {{item.selected ? 'tag-chip--active' : ''}}"
+                data-code="{{item.code}}"
+                disabled="{{interactionLocked}}"
+                bindtap="selectReplacementCode"
+              >{{item.label}}</button>
+            </view>
+            <textarea cursor-spacing="24" class="cause-textarea" value="{{replacementCause}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="例如：我不是不会方法，是把题干中的“不符合”看漏了" bindinput="inputReplacementCause" />
+            <button hover-class="item--hover" class="reflection-secondary cause-correction-submit" disabled="{{interactionLocked}}" bindtap="replaceCause">采用我的说法</button>
+            <button hover-class="item--hover" class="control-center cause-reject-only" disabled="{{interactionLocked}}" bindtap="rejectCause">{{causeCandidate.canConfirm ? '只否定这次判断，暂不补充' : '不补充，结束本次归因'}}</button>
+          </view>
+          <button hover-class="item--hover" class="control-center cause-later" disabled="{{interactionLocked}}" bindtap="deferCause">稍后再处理</button>
         </view>
-        <textarea cursor-spacing="24" class="cause-textarea" value="{{replacementCause}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="也可以写下你认可的错因" bindinput="inputReplacementCause" />
-        <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="replaceCause">采用我补充的错因</button>
-        <button hover-class="item--hover" class="control-center cause-later" disabled="{{interactionLocked}}" bindtap="deferCause">稍后处理</button>
       </block>
       <view wx:else class="legacy-notice">这是一条旧记录，暂时没有可以确认的候选错因。</view>
-      <view class="reflection-bottom-spacer"></view>
+      <view class="cause-bottom-safe"></view>
     </view>
 
     <!-- Figma 15:2：顶部空白已压缩（15:8 paddingTop=28），完成态整体上移。 -->
@@ -616,26 +658,6 @@
     <!-- Figma 113:2 Summary/FixedActionDock：主 CTA 固定在底部操作坞，不随正文滚动。 -->
     <view wx:if="{{phase === 'summary' && result}}" class="s9-action-dock">
       <button hover-class="item--hover" class="s9-primary-button tap-tactile" bindtap="startReflection">{{reviewItems.length > 0 ? '复盘 ' + reviewItems.length + ' 道关键题' : '完成本组复盘'}}</button>
-    </view>
-
-    <!-- 复盘正文可滚动；逐题浏览不等于逐题确认错因，统一在最后提交给岸岸判断。 -->
-    <view wx:if="{{phase === 'reflection'}}" class="s9-action-dock">
-      <view class="s9-action-row">
-        <button
-          wx:if="{{currentReviewIndex > 0}}"
-          hover-class="item--hover"
-          class="s9-secondary-button tap-tactile"
-          disabled="{{interactionLocked || voiceBusy || isRecording}}"
-          bindtap="previousReviewItem"
-        >上一道关键题</button>
-        <button
-          hover-class="item--hover"
-          class="s9-primary-button tap-tactile"
-          loading="{{interactionLocked}}"
-          disabled="{{interactionLocked || voiceBusy || isRecording}}"
-          bindtap="confirmCauseAndNext"
-        >{{currentReviewIndex < reviewItems.length - 1 ? '看下一道关键题' : '让岸岸判断这组错题'}}</button>
-      </view>
     </view>
 
     <!-- Figma 75:2 · 原题轨迹回放：题面 + 笔迹回放 + 底部回放工具栏。 -->

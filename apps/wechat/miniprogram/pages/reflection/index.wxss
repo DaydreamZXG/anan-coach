@@ -1254,6 +1254,11 @@
   text-align: center;
 }
 
+.reflection-inline-actions {
+  margin-top: calc(28 * var(--rpx));
+  padding-bottom: calc(calc(40 * var(--rpx)) + env(safe-area-inset-bottom));
+}
+
 /* 固定操作坞高约 calc(150 * var(--rpx))，正文底部必须完整让出。 */
 .reflection-bottom-spacer {
   height: calc(calc(180 * var(--rpx)) + env(safe-area-inset-bottom));
@@ -1366,7 +1371,7 @@
 }
 
 .cause-intro__title {
-  color: var(--color-muted);
+  color: var(--ink);
   font-size: var(--text-body-lg);
   font-weight: 700;
 }
@@ -1398,6 +1403,78 @@
   border-bottom: calc(1 * var(--rpx)) solid var(--line);
 }
 
+.candidate-card {
+  padding: 0;
+  overflow: hidden;
+  border-color: var(--color-primary-soft-strong);
+}
+
+.candidate-verdict {
+  padding: calc(36 * var(--rpx)) calc(36 * var(--rpx)) calc(32 * var(--rpx));
+}
+
+.candidate-verdict__label,
+.candidate-next__label {
+  color: var(--primary);
+  font-size: var(--text-micro);
+  font-weight: 800;
+}
+
+.candidate-verdict__copy {
+  margin-top: calc(14 * var(--rpx));
+  color: var(--ink);
+  font-size: var(--text-body-lg);
+  font-weight: 700;
+  line-height: 1.65;
+}
+
+.candidate-next {
+  margin: 0 calc(20 * var(--rpx)) calc(20 * var(--rpx));
+  padding: calc(28 * var(--rpx));
+  border-radius: var(--radius-32);
+  background: var(--primary-soft);
+}
+
+.candidate-next__copy {
+  margin-top: calc(10 * var(--rpx));
+  color: var(--color-ink-secondary);
+  font-size: var(--text-body);
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.candidate-evidence-toggle,
+.question-cause-card__summary {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.candidate-evidence-toggle {
+  min-height: calc(84 * var(--rpx));
+  padding: 0 calc(36 * var(--rpx));
+  border-top: calc(1 * var(--rpx)) solid var(--line);
+  color: var(--primary);
+  font-size: var(--text-micro);
+  font-weight: 700;
+}
+
+.candidate-evidence-toggle::after,
+.question-cause-card__summary::after {
+  border: 0;
+}
+
+.candidate-evidence {
+  padding: 0 calc(36 * var(--rpx)) calc(16 * var(--rpx));
+  border-top: calc(1 * var(--rpx)) solid var(--line);
+}
+
 .candidate-section__label {
   color: var(--ink-3);
   font-size: var(--text-micro);
@@ -1423,9 +1500,13 @@
   box-shadow: var(--shadow-card);
 }
 
+.question-cause-card__summary {
+  padding: 0;
+}
+
 .question-cause-card__title {
-  color: var(--ink-3);
-  font-size: var(--text-micro);
+  color: var(--ink);
+  font-size: var(--text-body);
   font-weight: 700;
 }
 
@@ -1434,6 +1515,19 @@
   color: var(--color-muted);
   font-size: var(--text-micro);
   line-height: 1.55;
+}
+
+.question-cause-card__chevron {
+  flex: 0 0 auto;
+  color: var(--primary);
+  font-size: var(--text-micro);
+  font-weight: 700;
+}
+
+.question-cause-card__body {
+  margin-top: calc(24 * var(--rpx));
+  padding-top: calc(4 * var(--rpx));
+  border-top: calc(1 * var(--rpx)) solid var(--line);
 }
 
 .question-cause-item {
@@ -1493,12 +1587,64 @@
   background: var(--figma-color-warning-soft);
 }
 
+.candidate-limitations__title {
+  color: var(--figma-color-warning-deep);
+  font-size: var(--text-caption);
+  font-weight: 800;
+}
+
 .candidate-limitations__line {
-  margin-top: calc(8 * var(--rpx));
+  position: relative;
+  margin-top: calc(12 * var(--rpx));
+  padding-left: calc(24 * var(--rpx));
   color: var(--figma-color-warning-deep);
   font-size: var(--text-micro);
   font-weight: 600;
   line-height: 1.55;
+}
+
+.candidate-limitations__line::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "·";
+}
+
+.cause-decision-card {
+  box-sizing: border-box;
+  margin-bottom: calc(28 * var(--rpx));
+  padding: calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
+  border-radius: var(--radius-48);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.cause-decision-card__title {
+  margin-bottom: calc(24 * var(--rpx));
+  color: var(--ink);
+  font-size: var(--text-body);
+  font-weight: 700;
+}
+
+.cause-correction-panel {
+  margin-top: calc(24 * var(--rpx));
+  padding-top: calc(24 * var(--rpx));
+  border-top: calc(1 * var(--rpx)) solid var(--line);
+}
+
+.cause-correction-submit {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.cause-reject-only {
+  width: 100%;
+  min-height: calc(72 * var(--rpx));
+  margin-top: calc(12 * var(--rpx));
+  color: var(--ink-3);
+  font-size: var(--text-micro);
+  font-weight: 700;
 }
 
 .cause-later {
@@ -1508,6 +1654,10 @@
   color: var(--ink-3);
   font-size: var(--text-micro);
   font-weight: 700;
+}
+
+.cause-bottom-safe {
+  height: calc(calc(24 * var(--rpx)) + env(safe-area-inset-bottom));
 }
 
 /* Figma 15:8：paddingTop 28，删除过大的顶部空白，整体上移。 */

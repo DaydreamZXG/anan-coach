@@ -40,7 +40,6 @@
         <view class="answer-card__insight-sub">交卷后优先进入证据复盘</view>
       </view>
     </view>
-    <button hover-class="item--hover" class="answer-card__cta" bindtap="close">继续第 {{current}} 题</button>
     <button hover-class="item--hover" class="answer-card__submit" bindtap="submit">{{submitLabel}}</button>
   </view>
 </view>

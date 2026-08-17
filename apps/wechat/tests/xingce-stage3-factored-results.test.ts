@@ -10,6 +10,7 @@ import {
   presentXingceResult,
   xingceReflectionReviewItems,
 } from "../miniprogram/pages/practice/shared/features/xingce/real_attempt/presentation";
+import { calculationInterpretationEligibleQuestionIds } from "../miniprogram/features/xingce/real_attempt/contracts";
 import {
   apiSuccess,
   completedXingceSession,
@@ -54,6 +55,39 @@ describe("stage 3 factored result presentation", () => {
     expect(reflectionTemplate).toContain('bindtouchcancel="onReviewTouchEnd"');
     expect(reflectionTemplate).toContain("上一道关键题");
     expect(reflectionTemplate).not.toContain("确认错因，看下一题");
+    expect(reflectionTemplate).toContain("这组错因尚未生成");
+    expect(reflectionTemplate).toContain("提交证据，查看岸岸判断");
+    expect(reflectionTemplate).toContain("selfEvidenceOpen && interpretationOptions.length");
+    expect(reflectionTemplate).not.toContain(
+      'wx:if="{{phase === \'reflection\'}}" class="s9-action-dock"',
+    );
+  });
+
+  it("只有资料分析和数量关系可以补充会做但算错，判断推理不会出现", () => {
+    const session = submittedXingceSession("incorrect");
+    expect(calculationInterpretationEligibleQuestionIds(session)).toEqual(["q-1", "q-2", "q-3"]);
+
+    session.bundle.questions.forEach((question) => {
+      question.moduleName = "判断推理";
+    });
+    expect(calculationInterpretationEligibleQuestionIds(session)).toEqual([]);
+  });
+
+  it("答案正文已带选项字母时不再重复显示序号", () => {
+    const session = submittedXingceSession("incorrect");
+    const firstQuestion = session.bundle.questions[0];
+    if (!firstQuestion) throw new Error("fixture question is required");
+    firstQuestion.options = firstQuestion.options.map((option) => ({
+      ...option,
+      text: option.optionId === "A" ? "A、德语" : option.optionId === "B" ? "B、法语" : option.text,
+    }));
+
+    expect(presentXingceResult(session)?.items[0]).toMatchObject({
+      selectedLabel: "B",
+      selectedAnswerText: "法语",
+      correctLabel: "A",
+      correctAnswerText: "德语",
+    });
   });
 
   it("把重复的逐题长标签收束成诊断分区，题号只负责定位", () => {
@@ -399,8 +433,14 @@ describe("stage 3 cause workflow", () => {
     const candidate: XingceCauseCandidate = {
       ...causeCandidate("candidate_ready", xingceIds.candidate),
       causeCode: "stem_misread",
-      summary: "漏看了题干中的关键限定词",
+      summary: "用户漏看了题干中的关键限定词",
       questionCandidates: [
+        {
+          questionId: "q-2",
+          status: "evidence_insufficient",
+          evidenceRefs: ["assessment:2"],
+          rationale: "该用户没有留下过程证据，不硬给错因。",
+        },
         {
           questionId: "q-1",
           status: "candidate",
@@ -408,12 +448,6 @@ describe("stage 3 cause workflow", () => {
           confidence: "medium",
           evidenceRefs: ["assessment:1"],
           rationale: "草稿与改答记录支持计算失误。",
-        },
-        {
-          questionId: "q-2",
-          status: "evidence_insufficient",
-          evidenceRefs: ["assessment:2"],
-          rationale: "该题没有过程证据，不硬给错因。",
         },
         {
           questionId: "q-unmapped",
@@ -434,13 +468,14 @@ describe("stage 3 cause workflow", () => {
     expect(view.candidateVersionLabel).toBe("本次岸岸判断");
     expect(view.canConfirm).toBe(true);
     expect(view.canDecide).toBe(true);
+    expect(view.summary).toBe("你漏看了题干中的关键限定词");
     expect(view.questionCandidates).toEqual([
       {
         questionId: "q-1",
         positionLabel: "第 1 题",
         status: "candidate",
-        causeLabel: "方法成立但计算、单位或抄写错误",
-        confidenceLabel: "判断信心 中",
+        causeLabel: "方法会用，但算错或抄错了",
+        confidenceLabel: "中等把握",
         rationale: "草稿与改答记录支持计算失误。",
       },
       {
@@ -449,14 +484,14 @@ describe("stage 3 cause workflow", () => {
         status: "evidence_insufficient",
         causeLabel: "证据不足",
         confidenceLabel: "",
-        rationale: "该题没有过程证据，不硬给错因。",
+        rationale: "你没有留下过程证据，不硬给错因。",
       },
       {
         questionId: "q-unmapped",
         positionLabel: "本组题目",
         status: "candidate",
         causeLabel: "future_taxonomy_code",
-        confidenceLabel: "判断信心 高",
+        confidenceLabel: "把握较高",
         rationale: "未知编码原样展示，不在端上翻译或猜测。",
       },
     ]);

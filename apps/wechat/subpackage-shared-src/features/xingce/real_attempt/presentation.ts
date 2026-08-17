@@ -389,20 +389,20 @@ export function xingceReflectionReviewItems(
 
 /** 镜像 backend xingce-cause-taxonomy@v1：只翻译已发布编码，未知编码原样展示。 */
 const chipConfidenceLabels: Record<"low" | "medium" | "high", string> = {
-  low: "低",
-  medium: "中",
-  high: "高",
+  low: "把握较低",
+  medium: "中等把握",
+  high: "把握较高",
 };
 
 const xingceCauseDisplayNames: Record<string, string> = {
-  stem_misread: "题干条件或问法审读错误",
-  knowledge_gap: "知识或概念缺口",
-  method_selection: "方法选择或步骤组织不当",
-  calculation_error: "方法成立但计算、单位或抄写错误",
-  time_pressure: "时间分配导致超时或仓促作答",
-  guessing: "证据不足时凭感觉作答",
-  active_abandon: "主动放弃或跳过",
-  other: "现有分类无法覆盖",
+  stem_misread: "题干条件可能看反了",
+  knowledge_gap: "这个知识点还没站稳",
+  method_selection: "方法选错或步骤没理顺",
+  calculation_error: "方法会用，但算错或抄错了",
+  time_pressure: "时间太紧，作答变仓促",
+  guessing: "依据不够，更多是在猜",
+  active_abandon: "主动放弃或跳过了",
+  other: "暂时归不到已有类型",
 };
 
 export function presentXingceCauseCandidate(
@@ -441,25 +441,31 @@ export function presentXingceCauseCandidate(
     resultItems.map((item) => [item.questionId, item.positionNumber] as const),
   );
   // 纯展示投影：只透传后端逐题事实，不在端上推断或补全错因。
-  const questionCandidates: XingceQuestionCauseChipView[] = (
-    candidate.questionCandidates ?? []
-  ).map((item) => {
-    const position = positionByQuestion.get(item.questionId);
-    return {
-      questionId: item.questionId,
-      positionLabel: position === undefined ? "本组题目" : `第 ${String(position)} 题`,
-      status: item.status,
-      causeLabel:
-        item.status === "evidence_insufficient"
-          ? "证据不足"
-          : (xingceCauseDisplayNames[item.causeCode ?? ""] ?? item.causeCode ?? "证据不足"),
-      confidenceLabel:
-        item.status === "candidate" && item.confidence
-          ? `判断信心 ${chipConfidenceLabels[item.confidence]}`
-          : "",
-      rationale: item.rationale ?? "",
-    };
-  });
+  const questionCandidates: XingceQuestionCauseChipView[] = [
+    ...(candidate.questionCandidates ?? []),
+  ]
+    .sort((left, right) => {
+      const leftPosition = positionByQuestion.get(left.questionId) ?? Number.MAX_SAFE_INTEGER;
+      const rightPosition = positionByQuestion.get(right.questionId) ?? Number.MAX_SAFE_INTEGER;
+      return leftPosition - rightPosition;
+    })
+    .map((item) => {
+      const position = positionByQuestion.get(item.questionId);
+      return {
+        questionId: item.questionId,
+        positionLabel: position === undefined ? "本组题目" : `第 ${String(position)} 题`,
+        status: item.status,
+        causeLabel:
+          item.status === "evidence_insufficient"
+            ? "证据不足"
+            : (xingceCauseDisplayNames[item.causeCode ?? ""] ?? item.causeCode ?? "证据不足"),
+        confidenceLabel:
+          item.status === "candidate" && item.confidence
+            ? chipConfidenceLabels[item.confidence]
+            : "",
+        rationale: coachVoice(item.rationale ?? ""),
+      };
+    });
   return {
     state: candidate.state,
     stateLabel: copy.label,
@@ -467,14 +473,14 @@ export function presentXingceCauseCandidate(
     candidateVersionId,
     candidateVersionLabel: candidateVersionId ? "本次岸岸判断" : "当前没有可用判断",
     causeCode: candidate.causeCode ?? "",
-    summary: candidate.summary ?? "",
-    improvement: candidate.improvement ?? "",
+    summary: coachVoice(candidate.summary ?? ""),
+    improvement: coachVoice(candidate.improvement ?? ""),
     question: candidate.question ?? "",
-    rationale: candidate.rationale ?? "",
-    explanation: candidate.explanation ?? "",
-    missingEvidence: [...(candidate.missingEvidence ?? [])],
+    rationale: coachVoice(candidate.rationale ?? ""),
+    explanation: coachVoice(candidate.explanation ?? ""),
+    missingEvidence: (candidate.missingEvidence ?? []).map(coachVoice),
     evidenceRefs: [...(candidate.evidenceRefs ?? [])],
-    limitations: [...(candidate.limitations ?? [])],
+    limitations: (candidate.limitations ?? []).map(coachVoice),
     questionCandidates,
     canConfirm: candidate.state === "candidate_ready" && hasBoundVersion,
     canDecide:
@@ -878,9 +884,26 @@ function answerText(optionIds: string[], question: XingceLearnerQuestion): strin
   return optionIds
     .map((optionId) => {
       const option = question.options.find((candidate) => candidate.optionId === optionId);
-      return option?.text.trim() || `选项 ${optionId} 的内容暂不可用`;
+      return option
+        ? optionTextWithoutDuplicateLabel(optionId, option.text)
+        : `选项 ${optionId} 的内容暂不可用`;
     })
     .join("；");
+}
+
+function optionTextWithoutDuplicateLabel(optionId: string, value: string): string {
+  const normalized = value.trim();
+  const escapedOptionId = optionId.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
+  const prefix = new RegExp(`^${escapedOptionId}(?:\\s*[、.．。:：)）-]+\\s*|\\s+)`, "u");
+  const withoutLabel = normalized.replace(prefix, "").trim();
+  return withoutLabel || normalized;
+}
+
+function coachVoice(value: string): string {
+  return value
+    .trim()
+    .replace(/该用户/gu, "你")
+    .replace(/用户/gu, "你");
 }
 
 function resultFactChips(
