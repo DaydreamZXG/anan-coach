@@ -1689,11 +1689,11 @@
       "baselineSnapshotPath": "execution/baselines/a4e9e1f3176ce361.4fcf5f0dcdcaba16b7ed.json",
       "baselineSnapshotSha256": "sha256:b4318444643273238afd4de8224091977c057381b5f386e7db3bdc6e42ee4e1e",
       "assignedTo": "codex-root-py312-report",
-      "status": "in_progress",
+      "status": "completed",
       "startedAt": "2026-08-17T05:50:27.448699+00:00",
-      "finishedAt": null,
-      "reportPath": null,
-      "reportSha256": null,
+      "finishedAt": "2026-08-17T05:54:57.178276+00:00",
+      "reportPath": "execution/reports/a4e9e1f3176ce361.4fcf5f0dcdcaba16b7ed.json",
+      "reportSha256": "sha256:30fa4f2baacd6781b1a2506dc010eb0e3f2736a45034c35207130d8d4ac5ca49",
       "releaseUnitId": "RU-CAUSE-MULTI-ROUTE-RECOVERY-036",
       "releaseUnitHash": "sha256:77f83087d63f2418c5e5f01b49c908f34218dfcdf36af1c1a405b1383facb51c"
     }
