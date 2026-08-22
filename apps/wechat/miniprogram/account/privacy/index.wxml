@@ -45,13 +45,13 @@
       <view class="s9-card external-ai-card">
         <view class="s9-card-title">{{externalAIConsent.state === 'accepted' ? '首次确认已完成，之后不再打扰' : '下次使用时再问你一次'}}</view>
         <view class="s9-card-copy">{{externalAIConsent.summary}}</view>
-        <button class="external-ai-detail" bindtap="toggleExternalAIExplanation">{{externalAIConsentExpanded ? '收起说明' : '查看说明'}}</button>
+        <button hover-class="item--hover" class="external-ai-detail" bindtap="toggleExternalAIExplanation">{{externalAIConsentExpanded ? '收起说明' : '查看说明'}}</button>
         <view wx:if="{{externalAIConsentExpanded}}" class="external-ai-detail-panel">
           <view class="external-ai-risk">{{externalAIConsent.providerRisk}}</view>
           <view class="external-ai-processor" wx:for="{{externalAIConsent.processors}}" wx:key="processorReleaseId">{{item.displayName}}</view>
           <view class="external-ai-risk">{{externalAIConsent.withdrawalEffect}}</view>
         </view>
-        <button wx:if="{{externalAIConsent.state === 'accepted'}}" class="external-ai-withdraw" loading="{{externalAIConsentBusy}}" bindtap="withdrawExternalAIConsent">停止后续发送</button>
+        <button hover-class="item--hover" wx:if="{{externalAIConsent.state === 'accepted'}}" class="external-ai-withdraw" loading="{{externalAIConsentBusy}}" bindtap="withdrawExternalAIConsent">停止后续发送</button>
       </view>
     </view>
     <view wx:if="{{externalAIConsentError}}" class="s9-inline-error">{{externalAIConsentError}}</view>

@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
+  acceptedExternalAIConsent,
   apiSuccess,
   completedXingceSession,
   createMemoryWechatStorage,
@@ -24,6 +25,10 @@ describe("VJ-02 real xingce WeChat AS-04", () => {
     const switchTab = vi.fn(() => Promise.resolve());
     const writes: WechatMiniprogram.RequestOption[] = [];
     const request = vi.fn((options: WechatMiniprogram.RequestOption) => {
+      if (options.url.endsWith("/privacy/external-ai-consent")) {
+        options.success?.(apiSuccess(acceptedExternalAIConsent()));
+        return;
+      }
       if (options.method === "GET") {
         options.success?.(apiSuccess(submittedXingceSession("incorrect")));
         return;
@@ -120,6 +125,10 @@ describe("VJ-02 real xingce WeChat AS-04", () => {
     const { wxStorage } = createMemoryWechatStorage();
     const writes: WechatMiniprogram.RequestOption[] = [];
     const request = vi.fn((options: WechatMiniprogram.RequestOption) => {
+      if (options.url.endsWith("/privacy/external-ai-consent")) {
+        options.success?.(apiSuccess(acceptedExternalAIConsent()));
+        return;
+      }
       if (options.method === "GET") {
         options.success?.(apiSuccess(submittedXingceSession("incorrect")));
         return;

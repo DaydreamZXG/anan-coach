@@ -12,6 +12,7 @@ import {
 } from "../miniprogram/pages/practice/shared/features/xingce/real_attempt/presentation";
 import { calculationInterpretationEligibleQuestionIds } from "../miniprogram/features/xingce/real_attempt/contracts";
 import {
+  acceptedExternalAIConsent,
   apiSuccess,
   completedXingceSession,
   createMemoryWechatStorage,
@@ -358,6 +359,10 @@ describe("stage 3 cause workflow", () => {
     const writes: WechatMiniprogram.RequestOption[] = [];
     let reads = 0;
     const request = vi.fn((options: WechatMiniprogram.RequestOption) => {
+      if (options.url.endsWith("/privacy/external-ai-consent")) {
+        options.success?.(apiSuccess(acceptedExternalAIConsent()));
+        return;
+      }
       if (options.method === "GET") {
         reads += 1;
         options.success?.(

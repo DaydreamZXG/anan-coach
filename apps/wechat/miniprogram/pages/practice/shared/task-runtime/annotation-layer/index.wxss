@@ -72,6 +72,70 @@
   box-shadow: var(--shadow-elevated);
 }
 
+.annotation-layer__scope {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: calc(8 * var(--rpx));
+  color: var(--figma-color-ink);
+  font-size: var(--text-micro);
+  font-weight: 800;
+}
+
+.annotation-layer__scope-dot {
+  color: var(--color-primary-deep);
+}
+
+.annotation-layer__scope-hint {
+  margin-left: auto;
+  color: var(--color-ink-secondary);
+  font-weight: 500;
+}
+
+.annotation-layer__surface-switch {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(16 * var(--rpx));
+}
+
+.annotation-layer__surface-label {
+  flex: none;
+  color: var(--color-ink-secondary);
+  font-size: var(--text-micro);
+  font-weight: 700;
+}
+
+.annotation-layer__surface-options {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  padding: calc(4 * var(--rpx));
+  border-radius: var(--radius-capsule);
+  background: var(--figma-color-canvas);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.annotation-layer__surface-option {
+  min-width: 0;
+  height: calc(56 * var(--rpx));
+  margin: 0;
+  padding: 0 calc(16 * var(--rpx));
+  border: 0;
+  border-radius: var(--radius-capsule);
+  color: var(--color-ink-secondary);
+  background: transparent;
+  font-size: var(--text-micro);
+  font-weight: 700;
+  line-height: normal;
+}
+
+.annotation-layer__surface-option--active {
+  color: var(--figma-color-on-dark);
+  background: var(--color-primary-deep);
+}
+
 .annotation-layer__tools {
   display: grid;
   gap: calc(8 * var(--rpx));

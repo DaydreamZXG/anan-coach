@@ -66,9 +66,8 @@ import { createIdempotencyKey } from "../../platform/command-id";
 import { decideAutosave, decideExit } from "./features/task-runtime/state/autosave";
 import {
   appendStrokeWithinLimit,
-  replaceMaterialAnnotations,
-  replaceQuestionAnnotations,
-  splitAnnotationSurfaces,
+  replaceWorkspaceAnnotations,
+  workspaceAnnotationStrokes,
 } from "./shared/task-runtime/annotation-layer/strokes";
 import type { AnnotationStroke } from "../../task-runtime/contracts";
 import {
@@ -146,8 +145,6 @@ interface PracticePageData extends TaskInteractionProjection {
   /** 快滑切题的一次性转场方向（motion-question-in--*），动画结束即清空。 */
   questionTransition: "" | "prev" | "next";
   questionAnnotations: AnnotationStroke[];
-  materialAnnotations: AnnotationStroke[];
-  emptyAnnotationStrokes: AnnotationStroke[];
   annotationTool: "pan" | "pen" | "highlighter" | "eraser";
   /** 契约增量 v2：当前题干句段的视口矩形表，喂给批注层做锚定与滚动跟随。 */
   annotationSegments: AnchorSegmentRect[];
@@ -205,16 +202,9 @@ interface PracticePageCustom {
   openAnanContext(): void;
   closeAnanContext(): void;
   openAnnotation(): void;
-  openMaterialAnnotation(): void;
   changeAnnotationTool(event: WechatMiniprogram.CustomEvent<{ tool: string }>): void;
   closeAnnotation(): void;
   changeAnnotations(
-    event: WechatMiniprogram.CustomEvent<{
-      strokes: AnnotationStroke[];
-      action: "added" | "erased";
-    }>,
-  ): void;
-  changeMaterialAnnotations(
     event: WechatMiniprogram.CustomEvent<{
       strokes: AnnotationStroke[];
       action: "added" | "erased";
@@ -338,8 +328,6 @@ Page<PracticePageData, PracticePageCustom>({
     questionScrollTop: 0,
     questionTransition: "",
     questionAnnotations: [] as AnnotationStroke[],
-    materialAnnotations: [] as AnnotationStroke[],
-    emptyAnnotationStrokes: [] as AnnotationStroke[],
     annotationTool: "pan" as const,
     annotationSegments: [] as AnchorSegmentRect[],
     questionScrollPosition: 0,
@@ -693,18 +681,6 @@ Page<PracticePageData, PracticePageCustom>({
     transitionPracticeInteraction(this, { type: "ANNOTATION_CLOSED" });
   },
 
-  openMaterialAnnotation() {
-    const runtime = runtimes.get(this);
-    if (!runtime?.session || runtime.session.state !== "answering") return;
-    transitionPracticeInteraction(
-      this,
-      { type: "ANNOTATION_OPENED", surface: "material" },
-      {
-        selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
-      },
-    );
-  },
-
   changeAnnotationTool(event) {
     const tool = normalizePageAnnotationTool(event.detail.tool);
     if (tool !== this.data.annotationTool) this.setData({ annotationTool: tool });
@@ -750,25 +726,11 @@ Page<PracticePageData, PracticePageCustom>({
     if (!runtime?.task || this.data.interactionLocked) return;
     runtime.task = reduceTaskRuntime(runtime.task, {
       type: "ANNOTATIONS_CHANGED",
-      strokes: replaceQuestionAnnotations(
+      strokes: replaceWorkspaceAnnotations(
         runtime.task.attempts[runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? ""]
           ?.annotations ?? [],
         event.detail.strokes,
       ),
-      action: event.detail.action,
-    });
-    render(this, runtime);
-    void autosaveCheckpoint(this, runtime);
-  },
-
-  changeMaterialAnnotations(event) {
-    const runtime = runtimes.get(this);
-    if (!runtime?.task || !runtime.session || this.data.interactionLocked) return;
-    const currentQuestionId = runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? "";
-    const current = runtime.task.attempts[currentQuestionId]?.annotations ?? [];
-    runtime.task = reduceTaskRuntime(runtime.task, {
-      type: "ANNOTATIONS_CHANGED",
-      strokes: replaceMaterialAnnotations(current, event.detail.strokes),
       action: event.detail.action,
     });
     render(this, runtime);
@@ -1761,14 +1723,12 @@ function render(
   };
   const alreadyReady = page.data.status === "ready";
   const favoriteQuestionChanged = page.data.favoriteQuestionId !== currentQuestionId;
-  const annotationSurfaces = splitAnnotationSurfaces(view.question.annotations);
   page.setData({
     ...(alreadyReady ? { status: "ready" as const } : {}),
     errorTitle: "",
     errorMessage: "",
     view,
-    questionAnnotations: annotationSurfaces.question,
-    materialAnnotations: annotationSurfaces.material,
+    questionAnnotations: workspaceAnnotationStrokes(view.question.annotations),
     sessionState: runtime.session.state,
     canSubmit: runtime.session.state === "answering",
     answerSheetSections: answerSheetProjection.sections,

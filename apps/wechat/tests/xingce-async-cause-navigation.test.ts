@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import type { XingceTaskSession } from "../miniprogram/xingce/shared/api/xingce-learning";
 import {
+  acceptedExternalAIConsent,
   apiSuccess,
   createMemoryWechatStorage,
   reflectedXingceSession,
@@ -22,6 +23,10 @@ describe("async cause navigation", () => {
     const showToast = vi.fn(() => Promise.resolve());
     const switchTab = vi.fn(() => Promise.resolve());
     const request = vi.fn((options: WechatMiniprogram.RequestOption) => {
+      if (options.url.endsWith("/privacy/external-ai-consent")) {
+        options.success?.(apiSuccess(acceptedExternalAIConsent()));
+        return;
+      }
       if (options.method === "GET") {
         options.success?.(apiSuccess(submittedXingceSession("incorrect")));
         return;
@@ -55,6 +60,10 @@ describe("async cause navigation", () => {
     const { wxStorage } = createMemoryWechatStorage();
     const writes: WechatMiniprogram.RequestOption[] = [];
     const request = vi.fn((options: WechatMiniprogram.RequestOption) => {
+      if (options.url.endsWith("/privacy/external-ai-consent")) {
+        options.success?.(apiSuccess(acceptedExternalAIConsent()));
+        return;
+      }
       if (options.method === "GET") {
         options.success?.(apiSuccess(submittedXingceSession("incorrect")));
         return;

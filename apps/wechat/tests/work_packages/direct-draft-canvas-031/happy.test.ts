@@ -6,18 +6,14 @@ import practiceTemplateRaw from "../../../miniprogram/pages/practice/index.wxml?
 import mockTemplateRaw from "../../../miniprogram/pages/mock-exam/index.wxml?raw";
 
 describe("direct draft canvas 031 happy path", () => {
-  it("uses one current-question workspace canvas and reserves material canvas for fullscreen", () => {
+  it("opens one viewport drawing layer across material and question with one toolbar", () => {
     for (const source of [String(practiceTemplateRaw), String(mockTemplateRaw)]) {
-      expect(source).toContain('strokePrefix="workspace-stroke"');
       expect(source).toContain(
         "mode=\"{{annotationMode === 'annotate' ? 'annotate' : 'static'}}\"",
       );
-      expect(source).toContain(
-        "annotationOpen=\"{{materialOpen && annotationMode === 'annotate'}}\"",
-      );
-      expect(source).toContain('toolbarAvailable="{{true}}"');
-      expect(source).not.toContain("annotationCanvas");
-      expect(source).toContain('annotationTool="{{annotationTool}}"');
+      expect(source).toContain('coordinate-space="viewport"');
+      expect(source).toContain('stroke-prefix="workspace-stroke"');
+      expect(source.match(/<annotation-layer/gu)).toHaveLength(1);
       expect(source).toContain('activeTool="{{annotationTool}}"');
     }
   });

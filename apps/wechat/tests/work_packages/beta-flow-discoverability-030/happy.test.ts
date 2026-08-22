@@ -10,7 +10,7 @@ import practiceTemplateRaw from "../../../miniprogram/pages/practice/index.wxml?
 import annotationTemplateRaw from "../../../subpackage-shared-src/task-runtime/annotation-layer/index.wxml?raw";
 
 describe("beta flow discoverability 030 happy path", () => {
-  it("offers one understandable path for PDF, fresh wrong questions, and cross-surface draft", () => {
+  it("offers one understandable path for PDF, fresh wrong questions, and full-workspace draft", () => {
     const capture = String(captureTemplateRaw);
     const materialActions = capture.indexOf('class="material-actions"');
     const pdfUpload = capture.indexOf('class="pdf-upload-card tap-tactile"');
@@ -25,11 +25,9 @@ describe("beta flow discoverability 030 happy path", () => {
       "`${routes.xingceMastery}?bucket=pending_reflection`",
     );
     expect(String(practiceTemplateRaw)).toContain('binddraft="openAnnotation"');
-    expect(String(practiceTemplateRaw)).toContain('strokePrefix="workspace-stroke"');
-    expect(String(practiceTemplateRaw)).not.toContain(
-      'bindannotationsurfacechange="switchAnnotationSurface"',
-    );
-    expect(String(annotationTemplateRaw)).not.toContain("surfaceSwitchAvailable");
-    expect(String(annotationTemplateRaw)).not.toContain("草稿写在");
+    expect(String(practiceTemplateRaw)).toContain('coordinate-space="viewport"');
+    expect(String(practiceTemplateRaw)).toContain('stroke-prefix="workspace-stroke"');
+    expect(String(practiceTemplateRaw)).not.toContain("switchAnnotationSurface");
+    expect(String(annotationTemplateRaw)).toContain("只保存在当前题");
   });
 });

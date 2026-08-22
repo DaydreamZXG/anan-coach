@@ -79,22 +79,8 @@
         anchors="{{question.material.anchors}}"
         state="{{materialReaderState}}"
         interactionActive="{{materialCaptureActive}}"
-        annotateAvailable="{{true}}"
-        inlineAnnotateButton="{{false}}"
-        annotateActive="{{annotationMode === 'annotate'}}"
-        annotationOpen="{{materialOpen && annotationMode === 'annotate'}}"
-        annotationStrokes="{{materialOpen ? materialAnnotations : emptyAnnotationStrokes}}"
-        annotationElapsedSeconds="{{question.elapsedSeconds}}"
-        annotationElapsedMs="{{question.elapsedMs || -1}}"
-        annotationToolbarAvailable="{{materialOpen}}"
-        annotationTool="{{annotationTool}}"
         bindstatechange="updateMaterialReaderState"
         bindpositionchange="updateMaterialPosition"
-        bindannotate="openMaterialAnnotation"
-        bindstrokeschange="changeMaterialAnnotations"
-        bindannotatedone="closeAnnotation"
-        bindannotationmore="toggleTools"
-        bindannotationtoolchange="changeAnnotationTool"
       />
 
       <!-- 题目舞台同时承载滚动题面与草稿层；平板双栏时草稿不会再伸进左侧材料栏。 -->
@@ -186,17 +172,17 @@
 
       </view>
 
-      <!-- 一张工作台草稿层覆盖当前题材料与题目，分栏不再是手势边界。 -->
+      <!-- 一张 viewport 草稿层覆盖当前题材料与题目，分栏不再是手势边界。 -->
       <view class="mock-annotation-host {{touchOwner === 'annotation' ? 'mock-annotation-host--active' : ''}}">
         <annotation-layer
-          wx:if="{{!materialOpen && (annotationMode === 'annotate' || questionAnnotations.length)}}"
+          wx:if="{{annotationMode === 'annotate' || questionAnnotations.length}}"
           mode="{{annotationMode === 'annotate' ? 'annotate' : 'static'}}"
+          coordinate-space="viewport"
+          scope-label="第 {{current}} 题 · 整屏草稿"
+          stroke-prefix="workspace-stroke"
           strokes="{{questionAnnotations}}"
           elapsedSeconds="{{question.elapsedSeconds}}"
           elapsedMs="{{question.elapsedMs || -1}}"
-          scroll-top="{{0}}"
-          content-height="{{questionContentHeight}}"
-          strokePrefix="workspace-stroke"
           toolbarAvailable="{{true}}"
           activeTool="{{annotationTool}}"
           bindstrokeschange="changeAnnotations"

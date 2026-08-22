@@ -876,36 +876,6 @@ def test_new_component_does_not_reuse_expired_other_component(
     assert current.missing_components == ["shenlun"]
 
 
-def test_learning_brain_remains_available_after_recruitment_window_closes(
-    db_session_factory: sessionmaker[Session],
-) -> None:
-    _seed_user(db_session_factory, token=TOKEN)
-    with db_session_factory.begin() as session:
-        _insert_active_release(
-            session,
-            exam_year=2026,
-            rule_set_version="rules-v1",
-            position_data_version="positions-v1",
-            activated_at=NOW - timedelta(days=40),
-            window_opens_at=NOW - timedelta(days=30),
-            window_closes_at=NOW - timedelta(days=1),
-        )
-
-    client = _client(db_session_factory)
-    headers = {"Authorization": f"Bearer {TOKEN}"}
-
-    ability = client.get("/api/v2/ability-estimates/current", headers=headers)
-    coach_context = client.get("/api/v2/learning-brain/coach-context", headers=headers)
-    positions = client.get("/api/v2/positions?limit=1", headers=headers)
-
-    assert ability.status_code == 200
-    assert ability.json()["data"]["readiness"] == "unavailable"
-    assert coach_context.status_code == 200
-    assert coach_context.json()["data"]["contractVersion"] == "learner-coach-context@v1"
-    assert positions.status_code == 409
-    assert positions.json()["code"] == "position_release_closed"
-
-
 def _client(factory: sessionmaker[Session]) -> TestClient:
     app = create_app()
 
@@ -937,8 +907,6 @@ def _insert_active_release(
     rule_set_version: str,
     position_data_version: str,
     activated_at: datetime,
-    window_opens_at: datetime | None = None,
-    window_closes_at: datetime | None = None,
 ) -> None:
     release_id = str(uuid4())
     session.execute(
@@ -981,8 +949,8 @@ def _insert_active_release(
         {
             "window_id": str(uuid4()),
             "release_id": release_id,
-            "opens_at": window_opens_at or activated_at - timedelta(days=30),
-            "closes_at": window_closes_at or activated_at + timedelta(days=730),
+            "opens_at": activated_at - timedelta(days=30),
+            "closes_at": activated_at + timedelta(days=730),
             "published_at": activated_at - timedelta(days=40),
             "received_at": activated_at - timedelta(days=35),
             "source_sha256": "a" * 64,

@@ -5,6 +5,7 @@ import type {
   XingceTaskMode,
   XingceTaskSession,
 } from "../../../miniprogram/xingce/shared/api/xingce-learning";
+import type { ExternalAIConsentView } from "../../../miniprogram/pages/reflection/shared/api/external-ai-consent";
 
 export const xingceIds = {
   planTask: "10000000-0000-4000-8000-000000000001",
@@ -320,6 +321,24 @@ export function apiSuccess(data: unknown): WechatMiniprogram.RequestSuccessCallb
     profile: {} as WechatMiniprogram.RequestProfile,
     useHttpDNS: false,
     errMsg: "request:ok",
+  };
+}
+
+export function acceptedExternalAIConsent(): ExternalAIConsentView {
+  return {
+    contractVersion: "external-ai-consent-view@v1",
+    policyVersion: "xingce-cause-external-ai@v1",
+    state: "accepted",
+    consentEventId: "consent-test-accepted",
+    acceptedAt: "2026-08-17T00:00:00Z",
+    withdrawnAt: null,
+    title: "岸岸外部 AI 错因分析说明",
+    summary: "生成错因候选",
+    dataSent: ["作答结果"],
+    providerRisk: "处理方规则可能变化",
+    withdrawalEffect: "撤回后不再发送新内容",
+    processors: [],
+    generatedAt: "2026-08-17T00:00:00Z",
   };
 }
 

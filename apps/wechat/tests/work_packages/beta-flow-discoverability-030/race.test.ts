@@ -8,7 +8,7 @@ import practiceLogicRaw from "../../../miniprogram/pages/practice/index.ts?raw";
 import mockLogicRaw from "../../../miniprogram/pages/mock-exam/index.ts?raw";
 
 describe("beta flow discoverability 030 race path", () => {
-  it("keeps one workspace owner while fullscreen legacy material remains recoverable", () => {
+  it("lets the current question own the latest workspace replacement", () => {
     const interaction = String(interactionStateRaw);
     expect(interaction).toContain(
       'return { ...state, overlay: "none", annotationSurface: action.surface };',
@@ -17,9 +17,9 @@ describe("beta flow discoverability 030 race path", () => {
     for (const source of [String(practiceLogicRaw), String(mockLogicRaw)]) {
       expect(source).not.toContain("switchAnnotationSurface(event)");
       expect(source).toContain('type: "ANNOTATION_OPENED", surface: "question"');
-      expect(source).toContain('type: "ANNOTATION_OPENED", surface: "material"');
       expect(source).toContain("changeAnnotations(");
-      expect(source).toContain("changeMaterialAnnotations(");
+      expect(source).toContain("replaceWorkspaceAnnotations(");
+      expect(source).not.toContain("changeMaterialAnnotations(");
     }
   });
 });

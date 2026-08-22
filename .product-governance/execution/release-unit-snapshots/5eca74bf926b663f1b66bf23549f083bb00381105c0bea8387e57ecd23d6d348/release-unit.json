@@ -1,0 +1,1612 @@
+{
+  "schemaVersion": 1,
+  "releaseUnitId": "RU-AUDIT-RELEASE-INTEGRATION-039",
+  "releaseUnitHash": "sha256:5eca74bf926b663f1b66bf23549f083bb00381105c0bea8387e57ecd23d6d348",
+  "decisionId": "DEC-FREEZE-RU-AUDIT-RELEASE-INTEGRATION-039",
+  "objective": "验证全产品审计修复、整屏草稿与外部 AI 同意边界在生产 116 基线上的单一组合状态，并生成可复算的发布前权威。",
+  "dependsOnReleaseUnits": [
+    "RU-CAUSE-EXTERNAL-AI-CONSENT-038"
+  ],
+  "supersedesReleaseUnits": [
+    "RU-CAUSE-EXTERNAL-AI-CONSENT-038"
+  ],
+  "roots": {
+    "workPackages": [
+      "WP-AUDIT-RELEASE-INTEGRATION-039"
+    ],
+    "requirements": [
+      "REQ-FULL-PRODUCT-AUDIT-REPAIR-033",
+      "REQ-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+      "REQ-CAUSE-EXTERNAL-AI-CONSENT-037"
+    ],
+    "nonFunctionalRequirements": [],
+    "domains": [],
+    "contracts": [],
+    "stateMachines": [],
+    "pages": [],
+    "journeys": [],
+    "dataLifecycleResources": [],
+    "aiScenarios": [],
+    "entitlements": [],
+    "trackCoverage": []
+  },
+  "commit": "fe975d90b1729c03b079c2a3cd8957961b2b6bbb",
+  "frozenAt": "2026-08-22T13:55:30.705376+00:00",
+  "catalogManifest": {
+    "schemaVersion": 1,
+    "product": {
+      "name": "岸岸小程序前端生命周期重构单元",
+      "createdAt": "2026-08-09T02:51:09.269724+00:00"
+    },
+    "authority": {
+      "bundleRoot": ".product-governance",
+      "precedence": [
+        "user_confirmed",
+        "applicable_policy",
+        "frozen_decision",
+        "code_observed",
+        "existing_document",
+        "inferred",
+        "proposed"
+      ]
+    },
+    "tracks": [
+      "frontend-lifecycle",
+      "companion-memory",
+      "structured-visuals",
+      "grounded-teach-back"
+    ],
+    "trackDecisionRefs": {
+      "frontend-lifecycle": "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001",
+      "companion-memory": "DEC-COMPANION-MEMORY-AUTHORITY-001",
+      "structured-visuals": "DEC-FREEZE-RU-DATA-VISUAL-ZERO-UNSUPPORTED-001",
+      "grounded-teach-back": "DEC-TEACHING-PACKAGE-SCOPE-001"
+    },
+    "requiredPageStates": [
+      "default",
+      "loading",
+      "empty",
+      "partial",
+      "error",
+      "expired",
+      "conflict",
+      "recovery",
+      "processing"
+    ],
+    "dualTrackCapabilities": [
+      "evidence",
+      "attempt",
+      "reflection",
+      "mastery",
+      "ability_estimate",
+      "planning",
+      "report",
+      "global_ask"
+    ],
+    "requiredNfrCategories": [
+      "security",
+      "privacy",
+      "reliability",
+      "observability",
+      "performance",
+      "capacity",
+      "accessibility",
+      "ai_quality",
+      "ai_cost",
+      "commerce",
+      "migration",
+      "backup_restore",
+      "operations"
+    ]
+  },
+  "closure": {
+    "workPackages": [
+      "WP-AUDIT-RELEASE-INTEGRATION-039"
+    ],
+    "requirements": [
+      "REQ-CAUSE-EXTERNAL-AI-CONSENT-037",
+      "REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001",
+      "REQ-FULL-PRODUCT-AUDIT-REPAIR-033",
+      "REQ-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+    ],
+    "nonFunctionalRequirements": [],
+    "domains": [
+      "external_ai_subject_consent",
+      "wechat_frontend_lifecycle"
+    ],
+    "contracts": [
+      "external-ai-consent-view@v1",
+      "wechat-page-request-owner@v1"
+    ],
+    "stateMachines": [],
+    "pages": [],
+    "pageStateProfiles": [],
+    "journeys": [],
+    "actors": [],
+    "dataLifecycleResources": [],
+    "aiScenarios": [],
+    "entitlements": [],
+    "trackCoverage": [],
+    "evidence": [
+      "E-CODE-AUTH-SESSION-OWNER-001",
+      "E-CODE-BETA-FLOW-DISCOVERABILITY-030",
+      "E-CODE-CAUSE-EXTERNAL-AI-GATE-037",
+      "E-CODE-CORE-FLOW-FRICTION-016",
+      "E-CODE-DIRECT-DRAFT-CANVAS-031",
+      "E-CODE-DIRECT-DRAFT-TEST-DRIFT-032",
+      "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-033",
+      "E-CODE-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+      "E-CODE-ME-REQUEST-GAP-001",
+      "E-CODE-PRIVATE-KNOWLEDGE-REQUEST-GAP-001",
+      "E-CODE-REFLECTION-OWNER-GAP-001",
+      "E-CODE-WEATHER-RAIN-GLANCE-027A",
+      "E-CODE-WECHAT-INTERNAL-BETA-BLOCKERS-028",
+      "E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+      "E-CODE-WORKSPACE-UX-CLUTTER-027",
+      "E-EXT-DEEPSEEK-DATA-POLICY-037",
+      "E-EXT-TOKENRHYTHM-DATA-UNKNOWN-037",
+      "E-USER-ANAN-COACH-LOOP-001",
+      "E-USER-ANAN-GOLDEN-LOOP-002",
+      "E-USER-BETA-FLOW-DISCOVERABILITY-030",
+      "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037",
+      "E-USER-CAUSE-MULTI-ROUTE-RECOVERY-036",
+      "E-USER-CORE-FLOW-DEBURDENING-016",
+      "E-USER-DIRECT-DRAFT-CANVAS-031",
+      "E-USER-FRONTEND-LIFECYCLE-UNIT-001",
+      "E-USER-FULL-PRODUCT-AUDIT-REPAIR-033",
+      "E-USER-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+      "E-USER-LEARNER-COACH-COMPLETION-015",
+      "E-USER-LEARNER-COACH-CONTEXT-014",
+      "E-USER-WEATHER-RAIN-GLANCE-027A",
+      "E-USER-WECHAT-INTERNAL-BETA-QUALITY-028",
+      "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+      "E-USER-WORKSPACE-TRUTH-CONSISTENCY-026",
+      "E-USER-WORKSPACE-UX-DECLUTTER-027"
+    ],
+    "decisions": [
+      "DEC-FREEZE-RU-AUDIT-RELEASE-INTEGRATION-039",
+      "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001"
+    ],
+    "conflicts": [],
+    "glossaryTerms": [],
+    "resources": [],
+    "tracks": [
+      "frontend-lifecycle"
+    ]
+  },
+  "deferredSnapshot": {
+    "schemaVersion": 1,
+    "catalogHash": "sha256:6fe78215b95a54fe78bc667126fe872a626cbb6262c9a06ff42abb93603e59c1",
+    "items": [
+      {
+        "subjectKind": "actors",
+        "subjectId": "*",
+        "message": "No product actors are defined"
+      },
+      {
+        "subjectKind": "aiScenarios",
+        "subjectId": "*",
+        "message": "No AI scenarios are defined"
+      },
+      {
+        "subjectKind": "entitlements",
+        "subjectId": "*",
+        "message": "No entitlement capabilities are defined"
+      },
+      {
+        "subjectKind": "glossaryTerms",
+        "subjectId": "*",
+        "message": "No canonical glossary terms are defined"
+      },
+      {
+        "subjectKind": "journeys",
+        "subjectId": "*",
+        "message": "No end-to-end journeys are defined"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-accessibility",
+        "message": "High-impact non-functional requirement is unresolved: NFR-accessibility (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-ai_cost",
+        "message": "High-impact non-functional requirement is unresolved: NFR-ai_cost (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-ai_quality",
+        "message": "High-impact non-functional requirement is unresolved: NFR-ai_quality (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-backup_restore",
+        "message": "High-impact non-functional requirement is unresolved: NFR-backup_restore (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-capacity",
+        "message": "High-impact non-functional requirement is unresolved: NFR-capacity (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-commerce",
+        "message": "High-impact non-functional requirement is unresolved: NFR-commerce (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-migration",
+        "message": "High-impact non-functional requirement is unresolved: NFR-migration (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-observability",
+        "message": "High-impact non-functional requirement is unresolved: NFR-observability (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-operations",
+        "message": "High-impact non-functional requirement is unresolved: NFR-operations (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-performance",
+        "message": "High-impact non-functional requirement is unresolved: NFR-performance (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-privacy",
+        "message": "High-impact non-functional requirement is unresolved: NFR-privacy (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-reliability",
+        "message": "High-impact non-functional requirement is unresolved: NFR-reliability (unknown)"
+      },
+      {
+        "subjectKind": "nonFunctionalRequirements",
+        "subjectId": "NFR-security",
+        "message": "High-impact non-functional requirement is unresolved: NFR-security (unknown)"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "ability_estimate::companion-memory",
+        "message": "Capability ability_estimate lacks track companion-memory"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "ability_estimate::frontend-lifecycle",
+        "message": "Capability ability_estimate/frontend-lifecycle remains unknown"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "ability_estimate::grounded-teach-back",
+        "message": "Capability ability_estimate lacks track grounded-teach-back"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "ability_estimate::structured-visuals",
+        "message": "Capability ability_estimate lacks track structured-visuals"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "attempt::companion-memory",
+        "message": "Capability attempt lacks track companion-memory"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "attempt::frontend-lifecycle",
+        "message": "Capability attempt/frontend-lifecycle remains unknown"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "attempt::grounded-teach-back",
+        "message": "Capability attempt lacks track grounded-teach-back"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "attempt::structured-visuals",
+        "message": "Capability attempt lacks track structured-visuals"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "evidence::companion-memory",
+        "message": "Capability evidence lacks track companion-memory"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "evidence::frontend-lifecycle",
+        "message": "Capability evidence/frontend-lifecycle remains unknown"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "evidence::grounded-teach-back",
+        "message": "Capability evidence lacks track grounded-teach-back"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "evidence::structured-visuals",
+        "message": "Capability evidence lacks track structured-visuals"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "global_ask::companion-memory",
+        "message": "Capability global_ask lacks track companion-memory"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "global_ask::frontend-lifecycle",
+        "message": "Capability global_ask/frontend-lifecycle remains unknown"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "global_ask::grounded-teach-back",
+        "message": "Capability global_ask lacks track grounded-teach-back"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "global_ask::structured-visuals",
+        "message": "Capability global_ask lacks track structured-visuals"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "mastery::companion-memory",
+        "message": "Capability mastery lacks track companion-memory"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "mastery::frontend-lifecycle",
+        "message": "Capability mastery/frontend-lifecycle remains unknown"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "mastery::grounded-teach-back",
+        "message": "Capability mastery lacks track grounded-teach-back"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "mastery::structured-visuals",
+        "message": "Capability mastery lacks track structured-visuals"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "planning::companion-memory",
+        "message": "Capability planning lacks track companion-memory"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "planning::frontend-lifecycle",
+        "message": "Capability planning/frontend-lifecycle remains unknown"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "planning::grounded-teach-back",
+        "message": "Capability planning lacks track grounded-teach-back"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "planning::structured-visuals",
+        "message": "Capability planning lacks track structured-visuals"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "reflection::companion-memory",
+        "message": "Capability reflection lacks track companion-memory"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "reflection::frontend-lifecycle",
+        "message": "Capability reflection/frontend-lifecycle remains unknown"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "reflection::grounded-teach-back",
+        "message": "Capability reflection lacks track grounded-teach-back"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "reflection::structured-visuals",
+        "message": "Capability reflection lacks track structured-visuals"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "report::companion-memory",
+        "message": "Capability report lacks track companion-memory"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "report::frontend-lifecycle",
+        "message": "Capability report/frontend-lifecycle remains unknown"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "report::grounded-teach-back",
+        "message": "Capability report lacks track grounded-teach-back"
+      },
+      {
+        "subjectKind": "trackCoverage",
+        "subjectId": "report::structured-visuals",
+        "message": "Capability report lacks track structured-visuals"
+      }
+    ]
+  },
+  "artifacts": {
+    "evidenceLedger": {
+      "schemaVersion": 1,
+      "entries": [
+        {
+          "id": "E-CODE-AUTH-SESSION-OWNER-001",
+          "claim": "当前认证模块将 session owner 定义为 accessToken、userId 与 generation 三者完全相等，并提供 sameSessionOwner。",
+          "class": "code_observed",
+          "locator": "apps/wechat/miniprogram/auth/session.ts:83",
+          "observedAt": "2026-08-09T10:55:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": []
+        },
+        {
+          "id": "E-CODE-BETA-FLOW-DISCOVERABILITY-030",
+          "claim": "当前 capture-import 把拍摄材料、相册和 PDF 放在同一 material-actions；实践页把材料头铅笔和题目栏草稿分别绑定 openMaterialAnnotation/openAnnotation，模考页还启用了 material-reader 内联材料批注入口。最近真实账号 21:38 提交的 10 题会话已持久化为 submitted，含 3 道 incorrect 且 review 为 reflection_due；数据未丢，但‘我的→错题与反思’进入能力页，能力页只展示复盘后形成的长期 errorPatterns，没有进入 pending_reflection 队列的入口。底层 annotations 已按 question/material surface 分离并把共享材料笔迹同步到同材料题目，可复用而无需迁移。",
+          "class": "code_observed",
+          "locator": "apps/wechat/miniprogram/pages/capture-import/index.wxml;apps/wechat/miniprogram/pages/practice/index.wxml;apps/wechat/miniprogram/pages/mock-exam/index.wxml;apps/wechat/subpackage-shared-src/task-runtime/annotation-layer/index.wxml;apps/wechat/miniprogram/pages/ability/index.wxml;apps/wechat/miniprogram/xingce/xingce-mastery/index.ts;database:gongkao_dazi_staging:2026-08-15T21:38:44+08:00:submitted-10-total-3-wrong-reflection_due",
+          "observedAt": "2026-08-15T22:33:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": [
+            "E-USER-BETA-FLOW-DISCOVERABILITY-030",
+            "E-CODE-INTERNAL-BETA-RUNTIME-BLOCKERS-029"
+          ]
+        },
+        {
+          "id": "E-CODE-CAUSE-EXTERNAL-AI-GATE-037",
+          "claim": "当前 processor_release_records 把 real_user_status=approved 硬编码为合同禁训练、零留存和无需删除；外发凭证不能绑定用户同意事件，能力就绪检查又要求三条错因路线均存在 approved 记录，因此真实的未知训练与留存路线无法在不伪造证据的情况下启用。",
+          "class": "code_observed",
+          "locator": "backend/migrations/versions/20260719_41_external_ai_data_boundary.py;backend/app/domains/ai/external_processing.py;backend/app/domains/ai/capability_readiness.py;backend/app/domains/processor_disclosure",
+          "observedAt": "2026-08-17T14:12:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": [
+            "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037"
+          ]
+        },
+        {
+          "id": "E-CODE-CORE-FLOW-FRICTION-016",
+          "claim": "当前静默微信入口会按 onboarding nextStep 把未完成用户导向独立认识入口，今日控制器又次检查 completed 并在读取计划前重定向；新账户 profile.daily_minutes/study_mode 为空时，规划仓储直接拒绝生成今日计划。同时今日在主任务之前还有独立的每日开场与‘开始学习’按钮，实际只会滚动到下方任务；练后反馈虽有确定性错因变化，但混入‘新增 N 条记录’等系统语言。",
+          "class": "code_observed",
+          "locator": "apps/wechat/miniprogram/features/identity/silent-entry.ts;apps/wechat/miniprogram/features/planning/today-controller.ts;apps/wechat/miniprogram/pages/today/index.ts;apps/wechat/miniprogram/pages/today/index.wxml;apps/wechat/miniprogram/pages/today/presentation.ts;backend/app/domains/planning/capacity_repository.py;backend/app/domains/auth/repository.py",
+          "observedAt": "2026-08-13T22:29:48+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": [
+            "E-USER-CORE-FLOW-DEBURDENING-016"
+          ]
+        },
+        {
+          "id": "E-CODE-DIRECT-DRAFT-CANVAS-031",
+          "claim": "练习与模考当前分别为题目和共享材料挂载独立 annotation-layer；030 通过 annotationSurface 与显式切换只让其中一层进入 annotate。两层已有独立 question/material reducer、strokePrefix、共享材料同步和内容坐标，可在同一草稿会话中同时进入 annotate，并以一个宿主同步工具状态、仅显示一套工具栏，从而不合并持久化坐标系。",
+          "class": "code_observed",
+          "locator": "apps/wechat/miniprogram/pages/practice/index.wxml;apps/wechat/miniprogram/pages/practice/index.ts;apps/wechat/miniprogram/pages/mock-exam/index.wxml;apps/wechat/miniprogram/pages/mock-exam/index.ts;apps/wechat/subpackage-shared-src/task-runtime/annotation-layer/index.ts;apps/wechat/subpackage-shared-src/task-runtime/annotation-layer/index.wxml",
+          "observedAt": "2026-08-15T23:42:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": [
+            "E-USER-DIRECT-DRAFT-CANVAS-031",
+            "E-CODE-BETA-FLOW-DISCOVERABILITY-030"
+          ]
+        },
+        {
+          "id": "E-CODE-DIRECT-DRAFT-TEST-DRIFT-032",
+          "claim": "031 专项、类型、Lint、交互、控件、导航、结构、视觉、分包与 API 检查通过；全量 Vitest 仅有 xingce-practice-page-lifecycle、stage2-mock-exam 和 mock-material-annotation 三条历史断言失败，三者仍要求 annotationSurface 单选门控，与用户确认的连续双画布行为相反。",
+          "class": "code_observed",
+          "locator": "command:apps/wechat:npm-run-check:2026-08-16T00:15+08:00;tests/xingce-practice-page-lifecycle.test.ts;tests/stage2-mock-exam.test.ts;tests/mock-material-annotation.test.ts",
+          "observedAt": "2026-08-16T00:17:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": [
+            "E-USER-DIRECT-DRAFT-CANVAS-031",
+            "E-CODE-DIRECT-DRAFT-CANVAS-031"
+          ]
+        },
+        {
+          "id": "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-033",
+          "claim": "当前提交的 61 页模拟器普查确认 0 个 P0、6 个 P1、3 个 P2：新老 onboarding 状态权威分裂、导入确认恢复按钮空转、到期复测累计题量与本次题量混淆、分包导航前空白、条款无自然入口、内部 evidence role 原样泄漏、掌握页默认空 bucket、外部成绩本地校验被泛化错误覆盖、离线与超时没有可行动的区分。",
+          "class": "code_observed",
+          "locator": "/tmp/岸岸-全产品审计-2026-08-16.md;apps/wechat/miniprogram/pages/onboarding/features/coach-recognition-routing.ts;apps/wechat/miniprogram/plans/shared/features/onboarding/study-preference-controller.ts;apps/wechat/miniprogram/pages/capture-import/index.ts;apps/wechat/miniprogram/pages/capture-import/features/external-learning/capture-controller.ts;apps/wechat/miniprogram/xingce/shared/features/xingce/mastery/presentation.ts;apps/wechat/miniprogram/xingce/shared/features/xingce/briefing/presentation.ts;apps/wechat/miniprogram/reports/error-pattern/index.ts;apps/wechat/miniprogram/reports/external-report/index.ts;apps/wechat/miniprogram/app/navigation/routes.ts",
+          "observedAt": "2026-08-16T16:20:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": [
+            "E-USER-FULL-PRODUCT-AUDIT-REPAIR-033",
+            "E-CODE-DIRECT-DRAFT-TEST-DRIFT-032"
+          ]
+        },
+        {
+          "id": "E-CODE-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+          "claim": "服务日志将截图时刻定位到 complete-plan-task 409，数据库显示该计划任务早已 complete 且已有 answer/reflection，但待确认评阅意图仍存在；客户端将所有 409 统一处理为刷新重试并在正文与底部重复渲染。PDF 日志无上传请求，选择器使用仅面向微信会话的 chooseMessageFile 且提示不足；图片编辑代码优先调用 cropImage 并硬编码 cropScale=9:16。",
+          "class": "code_observed",
+          "locator": "server-journal:2026-08-15T20:52:25+08:00:POST-/api/v2/essay-intelligence/drafting/complete-plan-task-409;database:gongkao_dazi_staging:plan-task-642d0d5d-6a30-4ca0-9281-bec85d4a9c90;apps/wechat/miniprogram/pages/essay-task/index.ts;apps/wechat/miniprogram/pages/essay-task/index.wxml;apps/wechat/subpackage-shared-src/features/external-learning/platform.ts;apps/wechat/node_modules/miniprogram-api-typings/types/wx/lib.wx.api.d.ts",
+          "observedAt": "2026-08-15T21:10:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": [
+            "E-USER-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+            "E-CODE-WECHAT-INTERNAL-BETA-BLOCKERS-028"
+          ]
+        },
+        {
+          "id": "E-CODE-ME-REQUEST-GAP-001",
+          "claim": "当前 me 页面每次请求只读取 token，没有页面实例 owner、onUnload 保护或重复 onShow 请求世代。",
+          "class": "code_observed",
+          "locator": "apps/wechat/miniprogram/pages/me/index.ts:143",
+          "observedAt": "2026-08-09T10:55:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": []
+        },
+        {
+          "id": "E-CODE-PRIVATE-KNOWLEDGE-REQUEST-GAP-001",
+          "claim": "当前 private-knowledge 页面按操作重新读取当前认证创建 API gateway，onUnload 只删除 retry file，列表、搜索、上传、删除轮询均没有页面实例/session request owner。",
+          "class": "code_observed",
+          "locator": "apps/wechat/miniprogram/pages/private-knowledge/index.ts:111",
+          "observedAt": "2026-08-09T10:55:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": []
+        },
+        {
+          "id": "E-CODE-REFLECTION-OWNER-GAP-001",
+          "claim": "当前 reflection runtime 只保存 ownerUserId，currentAccountOwns 也只比较 userId；同 user 更换 token 或 generation 不会使旧页面失去 owner。",
+          "class": "code_observed",
+          "locator": "apps/wechat/miniprogram/pages/reflection/index.ts:261",
+          "observedAt": "2026-08-09T10:55:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": []
+        },
+        {
+          "id": "E-CODE-WEATHER-RAIN-GLANCE-027A",
+          "claim": "每日开场天气摘要已经提供 precipitationChance、conditionCode 与 currentCelsius，但紧凑投影只输出天气现象和温度，未把现有降雨概率带到问候旁；位置尚未授权时按钮文案仅为‘天气’。无需后端或权限变更即可补足一眼可读的降雨信息。",
+          "class": "code_observed",
+          "locator": "apps/wechat/miniprogram/features/daily-opening/presentation.ts;apps/wechat/miniprogram/pages/today/index.wxml;apps/wechat/tests/stage10-daily-opening.test.ts;/tmp/anan-today-ux-027.png",
+          "observedAt": "2026-08-15T17:30:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": [
+            "E-USER-WEATHER-RAIN-GLANCE-027A",
+            "E-CODE-WORKSPACE-UX-CLUTTER-027"
+          ]
+        },
+        {
+          "id": "E-CODE-WECHAT-INTERNAL-BETA-BLOCKERS-028",
+          "claim": "微信端整包预检显示类型、导航、交互、视觉、API 与微信模拟器编译通过，但 format:check 有 6 个文件、lint 有 9 个文件 54 项、package:validate 有 1 个主包/分包放置错误，Vitest 1110 项中 12 项失败；失败集中在记忆页跨接口耦合、掌握队列无参 onLoad、当前 UI 契约漂移和路线图历史验收文案。",
+          "class": "code_observed",
+          "locator": "command:2026-08-15:apps/wechat npm quality preflight;/tmp/anan-wechat-lint.log;/tmp/anan-wechat-vitest.json;wechat-devtools-mcp:pages/today/index",
+          "observedAt": "2026-08-15T18:10:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": [
+            "E-USER-WECHAT-INTERNAL-BETA-QUALITY-028",
+            "E-CODE-WEATHER-RAIN-GLANCE-027A"
+          ]
+        },
+        {
+          "id": "E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+          "claim": "练习和模考当前在 material-reader 与 question-stage 内各挂一块独立 annotation-layer，坐标系和触摸宿主不同，跨栏一笔不可能连续；SHARED_MATERIAL_ANNOTATIONS_CHANGED 又把材料笔迹复制到同 materialId 的全部题目，造成切题后旧笔迹残留。复盘提交后虽已进入真实 cause_candidate_pending 并具备候选展示页面，却立即 switchTab 回今日，使用户在主旅程中看不到岸岸的候选错因、依据和验证动作。",
+          "class": "code_observed",
+          "locator": "apps/wechat/miniprogram/pages/practice/index.wxml;apps/wechat/miniprogram/pages/practice/index.ts;apps/wechat/miniprogram/pages/practice/shared/task-runtime/state/runtime.ts;apps/wechat/miniprogram/pages/mock-exam/index.wxml;apps/wechat/miniprogram/pages/reflection/index.ts;apps/wechat/miniprogram/pages/reflection/index.wxml",
+          "observedAt": "2026-08-16T18:24:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": [
+            "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+            "E-CODE-DIRECT-DRAFT-CANVAS-031"
+          ]
+        },
+        {
+          "id": "E-CODE-WORKSPACE-UX-CLUTTER-027",
+          "claim": "当前今日页在真实主任务之前渲染独立今日节奏/天气/咖啡卡，任务标题旁同时放置加练与调整两个动作，并把较长的岸岸解释置于任务标题和黑色开始按钮之前；我的页把六项资格档案置于目标、学习状态和学习资产之前，资料未完成时仍逐项显示待补充。现有接口和任务闭环已可用，问题集中在微信前端模板的信息顺序与错误呈现，而非后端数据冲突。",
+          "class": "code_observed",
+          "locator": "apps/wechat/miniprogram/pages/today/index.wxml;apps/wechat/miniprogram/pages/today/index.wxss;apps/wechat/miniprogram/pages/me/index.wxml;apps/wechat/miniprogram/pages/me/index.wxss;wechat-devtools-mcp:2026-08-15:experience-account",
+          "observedAt": "2026-08-15T16:45:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": [
+            "E-USER-WORKSPACE-UX-DECLUTTER-027",
+            "E-CODE-CORE-FLOW-FRICTION-016"
+          ]
+        },
+        {
+          "id": "E-EXT-DEEPSEEK-DATA-POLICY-037",
+          "claim": "DeepSeek 公开隐私政策说明用户输入可能用于改进和训练技术，留存时长根据用途和义务变化；该公开政策同时指出开发者下游应用需要自行向最终用户披露处理规则。",
+          "class": "external_verified",
+          "locator": "https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html",
+          "observedAt": "2026-08-17T14:10:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": []
+        },
+        {
+          "id": "E-EXT-TOKENRHYTHM-DATA-UNKNOWN-037",
+          "claim": "TokenRhythm 官方文档确认其为多模型聚合 API，并在用户中心提供调用日志和对话记录；公开页面未建立本产品可依赖的固定留存期限、禁训练承诺或远端删除合同，因此这些属性必须按未知披露。",
+          "class": "external_verified",
+          "locator": "https://tokenrhythm.studio/docs/overview",
+          "observedAt": "2026-08-17T14:11:00+08:00",
+          "scope": "current",
+          "status": "active",
+          "verificationLevel": 1,
+          "basisRefs": []
+        },
+        {
+          "id": "E-USER-ANAN-COACH-LOOP-001",
+          "claim": "用户确认保留今日卡片现有紫色渐变图标与极光背景，授权补上从判断、行动到反馈和再判断的学习循环，并要求岸岸成为用户唯一能感知到的大脑和备考教练。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-11:anan-single-coach-loop",
+          "observedAt": "2026-08-11T00:00:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": []
+        },
+        {
+          "id": "E-USER-ANAN-GOLDEN-LOOP-002",
+          "claim": "用户明确要求统一使用“岸岸建议”，把新用户冷启动改成最短可验证假设：成绩单、错题、快速诊断或未选岗四种认识路径；岸岸公开证据成熟度，并在今日呈现观察、暂时判断、行动、验证和判断错误后的修正，同时将现有半死功能串入这条黄金链路。用户随后授权直接修复。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-11:anan-golden-loop-fix",
+          "observedAt": "2026-08-11T18:00:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": []
+        },
+        {
+          "id": "E-USER-BETA-FLOW-DISCOVERABILITY-030",
+          "claim": "体验用户确认三处真实阻塞：PDF 应作为独立上传入口而非混在拍照/相册操作里；完成行测后从‘错题与反思/岸岸错因’找不到刚做的错题；资料分析同页出现材料铅笔与题目草稿两个入口，期望只保留一个绑定当前题目的草稿入口且仍能在共享材料上涂画。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-15:pdf-wrong-question-unified-draft;attachments:codex-clipboard-e4cbc5d2-abc3-479a-96fb-5dae8ef340e2.png,codex-clipboard-09167a9e-01a5-4dfd-825f-621707838343.jpg",
+          "observedAt": "2026-08-15T22:33:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": [
+            "E-USER-INTERNAL-BETA-RUNTIME-BLOCKERS-029"
+          ]
+        },
+        {
+          "id": "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037",
+          "claim": "用户明确接受将行测错因作答证据发送给可能用于服务改进或模型训练、且留存期限不固定的第三方 AI，但要求在小程序中明确告知、由用户同意并可退出；用户要求把原先只接受合同禁训练和零留存的门禁改成与该产品边界一致的分级准入。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-17:accept-external-ai-consent-boundary",
+          "observedAt": "2026-08-17T14:05:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": [
+            "E-USER-CAUSE-MULTI-ROUTE-RECOVERY-036"
+          ]
+        },
+        {
+          "id": "E-USER-CAUSE-MULTI-ROUTE-RECOVERY-036",
+          "claim": "用户在 2026-08-17 真机复盘中确认岸岸错因整理长时间停留并最终因模型路由失败终止，同时确认旧体验版仍显示多余的继续当前题按钮和大号手机布局异常；用户明确提供官方 DeepSeek 与自有中转站作为后备并授权修复、部署和上传新体验版。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-17:official-deepseek-and-relay-cause-recovery",
+          "observedAt": "2026-08-17T11:30:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": [
+            "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+          ]
+        },
+        {
+          "id": "E-USER-CORE-FLOW-DEBURDENING-016",
+          "claim": "用户确认下一轮小程序流程优化要同时解决备考焦虑与操作阻塞：安全建立微信身份后直接进今日，旧的五步建档不再是开始学习的硬门，成绩单、错题、快速诊断和选岗作为可选加速入口；今日保留现有紫色渐变、极光背景和黑色主按钮，优先展示当下任务和真实进步反馈。用户特别要求不得破坏现有错因候选、确认、驳回、替换、稍后、复测证伪和掌握度回写链。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-13:core-flow-deburdening-and-cause-protection",
+          "observedAt": "2026-08-13T22:29:48+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": [
+            "E-USER-ANAN-GOLDEN-LOOP-002",
+            "E-USER-LEARNER-COACH-COMPLETION-015"
+          ]
+        },
+        {
+          "id": "E-USER-DIRECT-DRAFT-CANVAS-031",
+          "claim": "用户纠正草稿交互：一个草稿入口打开后不应再要求选择‘本题/共享材料’，而应默认允许在当前可见的题面、选项和共享材料上直接涂画；PDF 与错题链路还需另开独立模拟器任务，从用户方便度验证真实上传与恢复，而不能只证明导航连通。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-15:direct-draft-canvas-and-fresh-simulator-walkthrough",
+          "observedAt": "2026-08-15T23:42:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": [
+            "E-USER-BETA-FLOW-DISCOVERABILITY-030"
+          ]
+        },
+        {
+          "id": "E-USER-FRONTEND-LIFECYCLE-UNIT-001",
+          "claim": "当前独立 worktree 只实施 reflection、me 与 private-knowledge 页面生命周期重构；owner 必须绑定 user、token、generation，覆盖重复 onShow、账号切换、快速切页、onHide/onUnload、资源清理和迟到响应隔离；不部署、不上传、不推送。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-09:delegated-frontend-lifecycle-unit",
+          "observedAt": "2026-08-09T10:45:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": []
+        },
+        {
+          "id": "E-USER-FULL-PRODUCT-AUDIT-REPAIR-033",
+          "claim": "用户在完成 61 个注册页面的微信模拟器全产品普查后，明确授权按阶段修复审计确认的全部问题，直至每项完成代码、自动测试和模拟器回归；不得以页面可打开或 mock 投影替代真实功能结论。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-16:repair-all-confirmed-product-audit-findings",
+          "observedAt": "2026-08-16T16:20:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": [
+            "E-USER-DIRECT-DRAFT-CANVAS-031"
+          ]
+        },
+        {
+          "id": "E-USER-INTERNAL-BETA-RUNTIME-BLOCKERS-029",
+          "claim": "用户在 0.1.21 体验版真机中确认三类阻断：已完成的申论作答再次提交显示重复冲突报错且页面排版异常，PDF 题本无法从微信文件流程进入，拍照后固定剪切框无法按题目区域自由调整。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-15:experience-version-runtime-blockers;attachments:dba8adcea70a27cf2cd4b71508185990.jpg,e7a531f15709bd00d6a4c5426a11adb0.jpg,cf2907b54c3bca6c55d544e581e511fc.jpg",
+          "observedAt": "2026-08-15T21:10:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": [
+            "E-USER-WECHAT-INTERNAL-BETA-QUALITY-028"
+          ]
+        },
+        {
+          "id": "E-USER-LEARNER-COACH-COMPLETION-015",
+          "claim": "用户要求把长期学员模型剩余阶段一并完成：明示长期记忆与纠错、跨天复测闭环，以及把费曼讲回接入现有错因、方法卡、掌握和次日复测链路；不得再产生半死不活或并行的功能。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-13:complete-all-remaining-learner-coach-stages",
+          "observedAt": "2026-08-13T20:05:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": [
+            "E-USER-LEARNER-COACH-CONTEXT-014",
+            "E-USER-ANAN-GOLDEN-LOOP-002"
+          ]
+        },
+        {
+          "id": "E-USER-LEARNER-COACH-CONTEXT-014",
+          "claim": "用户确认开始长期学员模型落地，并同意先从统一岸岸对用户的认识上下文开发：今日和岸岸对话应共用同一份证据、判断、成熟度和新鲜度投影，不将聊天文本或 AI 推断另存为学习事实。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-13:start-learner-coach-context-development",
+          "observedAt": "2026-08-13T18:05:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": [
+            "E-USER-ANAN-COACH-LOOP-001",
+            "E-USER-ANAN-GOLDEN-LOOP-002"
+          ]
+        },
+        {
+          "id": "E-USER-WEATHER-RAIN-GLANCE-027A",
+          "claim": "用户在真实今日页截图上确认紧凑天气入口只写‘天气’仍难以识别，希望在不恢复独立天气卡的前提下，稍微展示会不会下雨。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-15:weather-rain-glance",
+          "observedAt": "2026-08-15T17:30:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": [
+            "E-USER-WORKSPACE-UX-DECLUTTER-027"
+          ]
+        },
+        {
+          "id": "E-USER-WECHAT-INTERNAL-BETA-QUALITY-028",
+          "claim": "用户在得知当前微信体验版仍有格式、lint、包边界和回归测试阻塞后，明确要求先修好再进入内测上传；修复不得借机改变已经确认的产品方向。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-15:wechat-internal-beta-quality-fix",
+          "observedAt": "2026-08-15T18:10:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": [
+            "E-USER-WEATHER-RAIN-GLANCE-027A",
+            "E-USER-WORKSPACE-UX-DECLUTTER-027"
+          ]
+        },
+        {
+          "id": "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+          "claim": "用户在平板真机练习中确认：把材料和题目拆成两块草稿画布会让跨栏笔迹必然断开，且上一题的材料笔迹会残留到当前题；用户要求把整个可见工作区当成一张草稿纸。用户同时确认当前复盘只突出自述渠道，完全感知不到岸岸的错因推断，并明确授权修复。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-16:full-workspace-scratch-and-visible-cause-inference",
+          "observedAt": "2026-08-16T18:24:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": [
+            "E-USER-DIRECT-DRAFT-CANVAS-031",
+            "E-USER-ANAN-GOLDEN-LOOP-002"
+          ]
+        },
+        {
+          "id": "E-USER-WORKSPACE-TRUTH-CONSISTENCY-026",
+          "claim": "用户确认必须彻底解决当前小程序各工作区对同一账号状态说法互相矛盾的问题：功能已经可用时不得再被前端门禁挡住或显示为未生成，岸岸、今日、能力、我的与周计划必须围绕同一份真实计划和学习证据给出一致反馈。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-15:workspace-truth-consistency",
+          "observedAt": "2026-08-15T14:45:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": [
+            "E-USER-CORE-FLOW-DEBURDENING-016"
+          ]
+        },
+        {
+          "id": "E-USER-WORKSPACE-UX-DECLUTTER-027",
+          "claim": "用户明确要求把当前小程序从焦虑型考生的实际使用视角收尾：删除占据一整卡的天气与今日节奏，把低信息量天气放到问候旁；今日首屏必须先给一个真实任务和黑色主按钮，少操作、少阻塞；我的页优先呈现目标、学习状态与学习资产，未补资格资料不能用大量待补充字段制造压力。保留现有紫色渐变、极光、岸岸建议、错因分析和完整学习闭环，不整套重画界面。",
+          "class": "user_confirmed",
+          "locator": "conversation:2026-08-15:workspace-ux-declutter",
+          "observedAt": "2026-08-15T16:45:00+08:00",
+          "scope": "target",
+          "status": "active",
+          "verificationLevel": 0,
+          "basisRefs": [
+            "E-USER-CORE-FLOW-DEBURDENING-016",
+            "E-USER-WORKSPACE-TRUTH-CONSISTENCY-026"
+          ]
+        }
+      ]
+    },
+    "conflictRegister": {
+      "schemaVersion": 1,
+      "conflicts": []
+    },
+    "decisionRegister": {
+      "schemaVersion": 1,
+      "decisions": [
+        {
+          "id": "DEC-FREEZE-RU-AUDIT-RELEASE-INTEGRATION-039",
+          "question": "如何在不改写既有冻结历史的前提下，验证全产品审计修复、整屏草稿和外部 AI 同意边界在生产 116 基线上的组合状态？",
+          "choice": "冻结 RU-AUDIT-RELEASE-INTEGRATION-039 为 verification-only 后继，同时依赖并取代 033B、035C 和 038 的相交实施权威；它只验证当前组合哈希、完整前端回归、数据库 116 契约和六类场景，不声称在执行期内产生代码。",
+          "status": "accepted",
+          "decidedBy": "architecture_owner",
+          "decidedAt": "2026-08-22T21:30:00+08:00",
+          "evidenceRefs": [
+            "E-USER-FULL-PRODUCT-AUDIT-REPAIR-033",
+            "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-033",
+            "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+            "E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+            "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037",
+            "E-CODE-CAUSE-EXTERNAL-AI-GATE-037"
+          ]
+        },
+        {
+          "id": "DEC-FRONTEND-LIFECYCLE-BOUNDARY-001",
+          "question": "本并行窗口允许改变哪些 owner 与页面行为？",
+          "choice": "只在 reflection、me、private-knowledge 页面及其页面私有 runtime/test 内建立 user+token+generation owner；onHide/onUnload 立即使请求、轮询、录音、试听、speech、replay 与 timer 失效，重复 onShow 只接受最新请求。API、存储 key、路由、支付、data_rights、业务智能和其他窗口文件均不改变。",
+          "status": "accepted",
+          "decidedBy": "user",
+          "decidedAt": "2026-08-09T10:45:00+08:00",
+          "evidenceRefs": [
+            "E-USER-FRONTEND-LIFECYCLE-UNIT-001"
+          ]
+        }
+      ]
+    },
+    "glossary": {
+      "schemaVersion": 1,
+      "terms": []
+    },
+    "requirements": {
+      "schemaVersion": 1,
+      "requirements": [
+        {
+          "id": "REQ-CAUSE-EXTERNAL-AI-CONSENT-037",
+          "statement": "岸岸错因分析必须在不伪造第三方训练、留存或删除承诺的前提下可用：用户在看见真实风险后逐版本同意，系统把同意绑定到每次外发，撤回后停止所有新外发，并在反思与数据隐私页面提供普通用户可理解的控制。",
+          "scope": "target",
+          "impact": "critical",
+          "state": "confirmed",
+          "owner": "external_ai_subject_consent",
+          "evidenceRefs": [
+            "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037",
+            "E-CODE-CAUSE-EXTERNAL-AI-GATE-037",
+            "E-EXT-DEEPSEEK-DATA-POLICY-037",
+            "E-EXT-TOKENRHYTHM-DATA-UNKNOWN-037"
+          ],
+          "acceptance": [
+            "数据库保留原有合同禁训练加零留存的批准模式，并新增只适用于明确 policy_version 的 user_consent 模式；未知事实必须显示为 unknown，不得填成零留存或禁训练。",
+            "TokenRhythm、官方 DeepSeek 和用户中转三条错因路线以真实处理方身份、TLS、目的和数据类别登记；任何密钥、账号标识或对象存储地址都不得进入批准记录或模型载荷。",
+            "用户接受、撤回和重新接受均追加版本化同意事件；每条真实外发凭证绑定当时仍有效的 accepted 事件，撤回后的新调用在 provider I/O 前失败关闭。",
+            "反思页在提交错因证据前说明会发送哪些数据、训练与留存的不确定性以及撤回影响；用户一次明确确认后继续原操作，不同意时仍可保留本地作答和自行补充错因。",
+            "同一 policy_version 一次接受后长期静默生效，后续训练和复盘不再弹窗、勾选或增加操作；只有用户主动撤回或风险内容发生实质变化并发布新 policy_version 时才重新确认。",
+            "数据与隐私页展示当前同意状态和三类处理风险，支持撤回与重新开启；撤回不伪称能抹除第三方既有副本，账户删除审计明确记录远端删除不可核验。",
+            "能力就绪检查验证处理方发布记录而不要求存在某个用户的同意；真正外发同时验证当前用户同意，并可从导出数据追溯处理方、授权模式和同意事件。",
+            "成功、拒绝、重放、撤回后陈旧授权、并发点击、退出恢复和 PostgreSQL 115→116 迁移场景均有可执行测试；完整后端与小程序契约门禁通过。"
+          ]
+        },
+        {
+          "id": "REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001",
+          "statement": "reflection、me 与 private-knowledge 的异步页面状态只能由当前页面实例且 userId、accessToken、generation 全部匹配的可见 session owner 更新；更新的 onShow、onHide、onUnload 或账号切换必须使旧响应与资源失效。",
+          "scope": "target",
+          "impact": "high",
+          "state": "confirmed",
+          "owner": "wechat_frontend_lifecycle",
+          "evidenceRefs": [
+            "E-USER-FRONTEND-LIFECYCLE-UNIT-001",
+            "E-CODE-AUTH-SESSION-OWNER-001",
+            "E-CODE-REFLECTION-OWNER-GAP-001",
+            "E-CODE-ME-REQUEST-GAP-001",
+            "E-CODE-PRIVATE-KNOWLEDGE-REQUEST-GAP-001"
+          ],
+          "acceptance": [
+            "同 user 更换 token 或 generation 后，旧请求、回调、timer 与媒体回调不能 setData。",
+            "账号 A 切换到 B、快速切页、onHide、onUnload 后，A 或旧页面实例的迟到响应不能改变当前页面。",
+            "重复 onShow 的列表/档案加载仅最新请求可提交页面状态。",
+            "reflection 隐藏或卸载时停止 replay、cause poll、录音、试听和 speech preview，并使进行中的 media/speech 请求失效。",
+            "private-knowledge 删除轮询的等待 timer 在隐藏或卸载时被清理且等待正常结束。",
+            "页面 WXSS 只使用 600px 与 1024px 布局层级断点，不用方向或设备身份决定 wide 布局。"
+          ]
+        },
+        {
+          "id": "REQ-FULL-PRODUCT-AUDIT-REPAIR-033",
+          "statement": "微信小程序必须修复 2026-08-16 全产品模拟器普查确认的九项断链，使新老用户状态、导入恢复、任务承诺、导航反馈、法律入口、证据文案、掌握队列、本地校验和网络恢复都向普通用户呈现单一、可行动且不伪造完成的真相。",
+          "scope": "target",
+          "impact": "high",
+          "state": "confirmed",
+          "owner": "wechat_frontend_lifecycle",
+          "evidenceRefs": [
+            "E-USER-FULL-PRODUCT-AUDIT-REPAIR-033",
+            "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-033"
+          ],
+          "acceptance": [
+            "混合状态账号不再被推荐到不存在的 objective_baseline，也不因缺失 onboarding 偏好把已有任务和证据的老用户送回首会谈；干净新用户仍按真实 onboarding 进度推进。",
+            "图片/题本导入在上传、识别确认或匹配确认发生结果不确定时，恢复动作必须重放当前待定操作并复用原幂等键；没有待定操作时不得显示假恢复。",
+            "掌握队列明确区分累计待验证题量与本次任务题量，默认展示优先级最高的非空队列；今日、队列和任务说明不再给互相矛盾的承诺。",
+            "从来源页进入高频分包任务时立即显示不可重复的导航反馈，页面创建前和 API loading 均不出现无反馈空白。",
+            "服务条款从我的/隐私或会员至少一个自然入口可达；内部 evidence role 永不原样展示，未知值安全回退为普通用户文案。",
+            "外部成绩本地字段错误必须显示具体字段并保留结构化表单；offline、timeout、expired、conflict 与未知服务错误提供不同真相和恢复动作。",
+            "成功、失败、重放、过期、竞态和恢复六类专项测试、apps/wechat 整包检查及微信开发者工具模拟器回归全部通过。",
+            "不修改后端事实语义、OpenAPI schema、数据库、题库、真实用户记录，不上传体验版、不部署、不执行付费、删除或外部发送。"
+          ]
+        },
+        {
+          "id": "REQ-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+          "statement": "行测练习与模考必须把当前可见工作区实现为一张真正连续、按题隔离的草稿画布；错题复盘必须让用户在主流程中先看见岸岸基于真实过程证据形成的候选错因、判断依据和验证动作，再决定确认或补充。",
+          "scope": "target",
+          "impact": "critical",
+          "state": "confirmed",
+          "owner": "wechat_frontend_lifecycle",
+          "evidenceRefs": [
+            "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+            "E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+          ],
+          "acceptance": [
+            "练习和模考的材料、分栏缝隙与题目区域上方只有一个可写 annotation-layer；同一笔可以连续跨过平板左右分栏，不出现两个独立触摸宿主或技术 surface 选择。",
+            "整屏笔迹只归属当前 questionId，切题、答题卡跳题、返回重进均不得把上一题笔迹复制到当前题；旧 question/material 笔迹保持可读且不被迁移、覆盖或伪造。",
+            "滑动模式仍允许材料和题目分别滚动、选项可点；画笔、荧光笔与橡皮模式只由唯一整屏层捕获，完成后恢复底层交互。",
+            "提交逐题复盘后停留在岸岸判断阶段并轮询真实 cause candidate，不自动跳回今日；候选页明确显示岸岸更怀疑什么、为什么、下一题验证什么以及置信或局限。",
+            "用户标签、文字、语音和自定义错因继续作为可选补充，不再成为首要或必填诊断入口；证据不足时不得把猜测包装成事实，而应展示局限、追问或待验证假设。",
+            "成功、失败、重放、过期、竞态和恢复六类专项测试、分包同步、apps/wechat 整包检查及微信开发者工具模拟器回归通过。",
+            "不修改后端事实、OpenAPI schema、数据库、题库或真实用户数据，不部署、上传、付费、删除或外部发送。"
+          ]
+        }
+      ]
+    },
+    "journeys": {
+      "schemaVersion": 1,
+      "actors": [],
+      "journeys": []
+    },
+    "domains": {
+      "schemaVersion": 1,
+      "domains": [
+        {
+          "id": "external_ai_subject_consent",
+          "owner": "backend/app/domains/processor_disclosure",
+          "scope": "target",
+          "trackScope": [
+            "frontend-lifecycle"
+          ],
+          "invariants": [
+            "同意只授权 xingce-cause-external-ai@v1 声明的错因用途和数据类别，不能推导为其他 AI、上传、营销或公开用途的同意。",
+            "接受、撤回和重新接受只追加事件；当前状态由同一用户和 policy_version 的最后事件确定，陈旧 accepted 不得越过较新的 withdrawn。",
+            "真实外发凭证必须引用与用户、policy_version、action 和 dispatch 时间一致的 accepted 事件；撤回后的调用在 provider I/O 前失败关闭。",
+            "处理方发布、用户同意和模型候选分别是不同事实；同意不证明处理方禁训练、零留存、远端可删或模型判断正确。",
+            "查询与命令从认证会话取得用户身份，不接受客户端传入 learner/user id；幂等 commandKey 重放不得追加第二条事件。"
+          ]
+        },
+        {
+          "id": "wechat_frontend_lifecycle",
+          "owner": "apps/wechat/miniprogram/pages",
+          "scope": "target",
+          "trackScope": [
+            "frontend-lifecycle"
+          ],
+          "invariants": [
+            "页面 session owner 由 userId、accessToken、generation 与页面实例共同确定，展示名不参与 owner。",
+            "只有当前可见页面实例的最新 lane request 才能提交 setData；hide、unload 或 owner 变化单调失效旧 lease。",
+            "页面 owner 只拥有客户端瞬时生命周期，不拥有 API、认证事实、存储 key 或业务事实。"
+          ]
+        }
+      ]
+    },
+    "stateMachines": {
+      "schemaVersion": 1,
+      "machines": []
+    },
+    "contracts": {
+      "schemaVersion": 1,
+      "contracts": [
+        {
+          "id": "external-ai-consent-view@v1",
+          "kind": "query",
+          "owner": "external_ai_subject_consent",
+          "consumers": [
+            "wechat-reflection-page",
+            "wechat-data-privacy-page",
+            "xingce-cause-dispatch-authorization"
+          ],
+          "schemaLocator": "inline://contracts.json#/contracts/external-ai-consent-view@v1",
+          "inputSchema": {
+            "type": "object",
+            "description": "Authenticated current-user consent and processor disclosure lookup.",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false
+          },
+          "outputSchema": {
+            "type": "object",
+            "description": "Current effective consent plus the exact risks the UI must display.",
+            "properties": {
+              "contractVersion": {
+                "type": "string",
+                "description": "Closed view discriminator.",
+                "const": "external-ai-consent-view@v1"
+              },
+              "policyVersion": {
+                "type": "string",
+                "description": "Exact active policy version.",
+                "const": "xingce-cause-external-ai@v1"
+              },
+              "state": {
+                "type": "string",
+                "description": "Current effective user state.",
+                "enum": [
+                  "not_accepted",
+                  "accepted",
+                  "withdrawn"
+                ]
+              },
+              "accepted": {
+                "type": "boolean",
+                "description": "Whether new external cause dispatch is allowed."
+              },
+              "canWithdraw": {
+                "type": "boolean",
+                "description": "Whether withdrawal is currently actionable."
+              },
+              "currentEventId": {
+                "type": "string",
+                "description": "Current event identity or empty string."
+              },
+              "updatedAt": {
+                "type": "string",
+                "description": "Current event timestamp or empty string."
+              },
+              "purposeSummary": {
+                "type": "string",
+                "description": "Plain-language bounded purpose."
+              },
+              "dataSummary": {
+                "type": "string",
+                "description": "Plain-language minimized data categories."
+              },
+              "riskSummary": {
+                "type": "string",
+                "description": "Plain-language training, retention and deletion uncertainty."
+              },
+              "withdrawalSummary": {
+                "type": "string",
+                "description": "Plain-language effect and limitation of withdrawal."
+              },
+              "processors": {
+                "type": "array",
+                "description": "Currently published user-consent processors for this purpose.",
+                "items": {
+                  "type": "object",
+                  "description": "One truthful processor disclosure without endpoint or credentials.",
+                  "properties": {
+                    "processorReleaseId": {
+                      "type": "string",
+                      "description": "Immutable processor release record identity."
+                    },
+                    "displayName": {
+                      "type": "string",
+                      "description": "User-facing route name."
+                    },
+                    "operatorName": {
+                      "type": "string",
+                      "description": "Verified operator name or the literal 未核验."
+                    },
+                    "modelTrainingUse": {
+                      "type": "string",
+                      "description": "Truthful training-use disclosure.",
+                      "enum": [
+                        "vendor_improvement_possible",
+                        "unknown"
+                      ]
+                    },
+                    "retentionPolicy": {
+                      "type": "string",
+                      "description": "Truthful provider-side retention disclosure.",
+                      "enum": [
+                        "fixed_retention",
+                        "unknown"
+                      ]
+                    },
+                    "deletionSupport": {
+                      "type": "string",
+                      "description": "Whether remote deletion has been verified.",
+                      "enum": [
+                        "verified",
+                        "unverified"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "processorReleaseId",
+                    "displayName",
+                    "operatorName",
+                    "modelTrainingUse",
+                    "retentionPolicy",
+                    "deletionSupport"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "contractVersion",
+              "policyVersion",
+              "state",
+              "accepted",
+              "canWithdraw",
+              "currentEventId",
+              "updatedAt",
+              "purposeSummary",
+              "dataSummary",
+              "riskSummary",
+              "withdrawalSummary",
+              "processors"
+            ],
+            "additionalProperties": false
+          },
+          "dataClasses": [
+            "sensitive"
+          ],
+          "authorization": "Authenticated current user only; public processor disclosure remains a separate endpoint without user state.",
+          "idempotency": "Repeated reads return the same effective event and active processor release set at the same database snapshot.",
+          "compatibility": "v1 is additive to external-processor-disclosure@v1 and does not weaken contracted zero-retention processors.",
+          "errorSemantics": [
+            "AUTH_REQUIRED",
+            "POLICY_NOT_ACTIVE",
+            "DATABASE_UNAVAILABLE"
+          ],
+          "requirementRefs": [
+            "REQ-CAUSE-EXTERNAL-AI-CONSENT-037"
+          ],
+          "evidenceRefs": [
+            "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037",
+            "E-CODE-CAUSE-EXTERNAL-AI-GATE-037",
+            "E-EXT-DEEPSEEK-DATA-POLICY-037",
+            "E-EXT-TOKENRHYTHM-DATA-UNKNOWN-037"
+          ],
+          "observability": {
+            "correlation": "HTTP request ID only.",
+            "audit": "Read current consent and published disclosures without model payloads, keys or endpoint fingerprints.",
+            "metrics": "Count state reads and unavailable-policy errors."
+          },
+          "status": "specified"
+        },
+        {
+          "id": "wechat-page-request-owner@v1",
+          "kind": "file",
+          "owner": "wechat_frontend_lifecycle",
+          "consumers": [
+            "reflection-page",
+            "me-page",
+            "private-knowledge-page"
+          ],
+          "schemaLocator": "inline://contracts.json#/contracts/wechat-page-request-owner@v1",
+          "inputSchema": {
+            "type": "object",
+            "description": "One page-owned asynchronous effect lease evaluated before a client-side state commit.",
+            "properties": {
+              "userId": {
+                "type": "string",
+                "description": "Authenticated user owner."
+              },
+              "accessToken": {
+                "type": "string",
+                "description": "Exact token owner; never logged by the runtime."
+              },
+              "generation": {
+                "type": "string",
+                "description": "Exact authenticated session generation."
+              },
+              "pageInstanceGeneration": {
+                "type": "integer",
+                "description": "Monotonic page visibility generation."
+              },
+              "requestGeneration": {
+                "type": "integer",
+                "description": "Monotonic request generation within the lane."
+              },
+              "lane": {
+                "type": "string",
+                "description": "Page-private latest-wins request lane."
+              }
+            },
+            "required": [
+              "userId",
+              "accessToken",
+              "generation",
+              "pageInstanceGeneration",
+              "requestGeneration",
+              "lane"
+            ],
+            "additionalProperties": false
+          },
+          "outputSchema": {
+            "type": "object",
+            "description": "Deterministic decision whether the effect may update the current page instance.",
+            "properties": {
+              "accepted": {
+                "type": "boolean",
+                "description": "True only for the current visible exact owner and latest lane request."
+              },
+              "reason": {
+                "type": "string",
+                "description": "Stable rejection or acceptance reason.",
+                "enum": [
+                  "current",
+                  "hidden",
+                  "unloaded",
+                  "owner_changed",
+                  "superseded"
+                ]
+              }
+            },
+            "required": [
+              "accepted",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "dataClasses": [
+            "personal",
+            "sensitive"
+          ],
+          "authorization": "Local-only guard: currentAuthSession must exactly match userId, accessToken and generation before any page state commit.",
+          "idempotency": "Latest-wins per page instance and lane; invalidation is monotonic within a visibility generation.",
+          "compatibility": "v1 changes no API or storage contract; adding or weakening owner fields requires a new contract version and release unit.",
+          "errorSemantics": [
+            "HIDDEN",
+            "UNLOADED",
+            "OWNER_CHANGED",
+            "SUPERSEDED"
+          ],
+          "requirementRefs": [
+            "REQ-FRONTEND-PAGE-SESSION-OWNERSHIP-001"
+          ],
+          "evidenceRefs": [
+            "E-USER-FRONTEND-LIFECYCLE-UNIT-001",
+            "E-CODE-AUTH-SESSION-OWNER-001"
+          ],
+          "observability": {
+            "correlation": "The lane and monotonic request generation correlate local effects without exposing the access token.",
+            "audit": "No persistent audit record or token logging is added; executable tests prove accepted and rejected transitions.",
+            "metrics": "No production metric is added in this scoped unit; tests count accepted versus stale effects deterministically."
+          },
+          "status": "specified"
+        }
+      ]
+    },
+    "pageMatrix": {
+      "schemaVersion": 1,
+      "stateProfiles": [],
+      "pages": []
+    },
+    "trackCoverage": {
+      "schemaVersion": 1,
+      "capabilities": []
+    },
+    "dataLifecycle": {
+      "schemaVersion": 1,
+      "resources": []
+    },
+    "aiScenarios": {
+      "schemaVersion": 1,
+      "scenarios": []
+    },
+    "entitlements": {
+      "schemaVersion": 1,
+      "capabilities": []
+    },
+    "nonFunctionalRequirements": {
+      "schemaVersion": 1,
+      "requirements": []
+    },
+    "workPackages": {
+      "schemaVersion": 1,
+      "packages": [
+        {
+          "id": "WP-AUDIT-RELEASE-INTEGRATION-039",
+          "wave": "integration",
+          "owner": "audit-release-integration-verifier",
+          "riskClass": "critical",
+          "objective": "只验证已经完成的全产品审计修复、整屏草稿、答题卡、复盘反馈、外部 AI 同意和数据库 116 契约在同一生产基线上的组合状态。",
+          "deliverables": [
+            "六类用户场景的机器可复算证明",
+            "完整小程序类型、包边界和测试回归证明",
+            "数据库 116 与关键后端契约回归证明",
+            "当前组合源文件的完整哈希快照"
+          ],
+          "requirementRefs": [
+            "REQ-FULL-PRODUCT-AUDIT-REPAIR-033",
+            "REQ-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+            "REQ-CAUSE-EXTERNAL-AI-CONSENT-037"
+          ],
+          "decisionRefs": [
+            "DEC-FREEZE-RU-AUDIT-RELEASE-INTEGRATION-039"
+          ],
+          "blockingDecisionRefs": [],
+          "nonGoals": [
+            "不声称代码在本次验证执行期内产生",
+            "不修改历史冻结单元、历史运行或真实生产数据",
+            "不放宽一次同意、可撤回、密钥、TLS、发布签名或微信上传凭证边界",
+            "不把模拟器或 mock 结果伪装成真机手指验证"
+          ],
+          "dependsOn": [],
+          "allowedPaths": [
+            "apps/wechat/e2e/visual-scenarios.mjs",
+            "apps/wechat/miniprogram/account/membership/**",
+            "apps/wechat/miniprogram/account/privacy/**",
+            "apps/wechat/miniprogram/account/shared/api/external-ai-consent.ts",
+            "apps/wechat/miniprogram/api/generated/types.gen.ts",
+            "apps/wechat/miniprogram/components/safe-top/metrics.ts",
+            "apps/wechat/miniprogram/features/identity/silent-entry.ts",
+            "apps/wechat/miniprogram/features/learning-brain/**",
+            "apps/wechat/miniprogram/pages/anan/**",
+            "apps/wechat/miniprogram/pages/capture-import/**",
+            "apps/wechat/miniprogram/pages/login/index.ts",
+            "apps/wechat/miniprogram/pages/me/**",
+            "apps/wechat/miniprogram/pages/mock-exam/**",
+            "apps/wechat/miniprogram/pages/onboarding/**",
+            "apps/wechat/miniprogram/pages/practice/**",
+            "apps/wechat/miniprogram/pages/reflection/**",
+            "apps/wechat/miniprogram/pages/today/**",
+            "apps/wechat/miniprogram/plans/daily-settlement/**",
+            "apps/wechat/miniprogram/plans/shared/features/onboarding/**",
+            "apps/wechat/miniprogram/plans/study-preference/**",
+            "apps/wechat/miniprogram/platform/**",
+            "apps/wechat/miniprogram/reports/error-pattern/**",
+            "apps/wechat/miniprogram/reports/external-report/**",
+            "apps/wechat/miniprogram/xingce/shared/features/xingce/**",
+            "apps/wechat/miniprogram/xingce/xingce-mastery/**",
+            "apps/wechat/miniprogram/xingce/xingce-task-intro/**",
+            "apps/wechat/scripts/**",
+            "apps/wechat/subpackage-shared-src/**",
+            "apps/wechat/tests/**",
+            "audit/api-contract/openapi.json",
+            "backend/app/domains/ability_estimation/service.py",
+            "backend/app/domains/ai/capability_readiness.py",
+            "backend/app/domains/ai/external_processing.py",
+            "backend/app/domains/ai/model_cost.py",
+            "backend/app/domains/data_rights/repository.py",
+            "backend/app/domains/processor_disclosure/**",
+            "backend/app/domains/qualification/repository.py",
+            "backend/app/domains/xingce_learning/cause_agent/worker.py",
+            "backend/app/domains/xingce_learning/real_attempt/service.py",
+            "backend/migrations/versions/20260817_116_external_ai_user_consent.py",
+            "backend/tests/test_ability_estimation.py",
+            "backend/tests/test_ai_capability_readiness.py",
+            "backend/tests/test_backup_recovery_contract.py",
+            "backend/tests/test_commercial_data_publication_protocol.py",
+            "backend/tests/test_external_ai_data_boundary.py",
+            "backend/tests/test_migrations.py",
+            "backend/tests/test_position_release_lifecycle.py",
+            "backend/tests/test_stage8_commerce_privacy.py",
+            "backend/tests/test_wave1_db_contracts.py",
+            "backend/tests/test_xingce_cause_agent_billing.py",
+            "backend/tests/work_packages/cause_external_ai_consent_037/**",
+            "ops/env.example",
+            "ops/release-db-compatibility.env",
+            "reports/2026-08-17-cause-external-ai-consent.md",
+            "reports/2026-08-22-wechat-full-product-audit-progress.md"
+          ],
+          "forbiddenPaths": [
+            ".product-governance/**",
+            "apps/wechat/project.config.json",
+            "apps/wechat/project.private.config.json",
+            "apps/wechat/cloudfunctions/**",
+            "data/**",
+            "qbank-cloud/**"
+          ],
+          "migrationPolicy": {
+            "mode": "none",
+            "ownedPaths": [],
+            "dataBackfill": "Verification only; database remains at the already deployed single head 20260817_116.",
+            "rollback": "Remove only 039 verification metadata if invalid; source rollback requires a separately frozen release unit."
+          },
+          "compatibilityPolicy": {
+            "strategy": "Verify the merged production baseline without changing existing API, persistence, consent or annotation contracts.",
+            "supportedVersions": "WeChat current source package and PostgreSQL migration head 20260817_116.",
+            "removalGate": "Any further source, schema or external-processing change requires another successor release unit."
+          },
+          "inputContracts": [
+            "wechat-page-request-owner@v1",
+            "external-ai-consent-view@v1"
+          ],
+          "outputContracts": [],
+          "acceptanceCommands": [
+            {
+              "id": "audit-integration-happy-039",
+              "kind": "scenario_test",
+              "adapter": "vitest-json@1",
+              "selector": "tests/work_packages/workspace-scratch-cause-visibility-035/happy.test.ts",
+              "cwd": "apps/wechat",
+              "timeoutSeconds": 300
+            },
+            {
+              "id": "audit-integration-failure-039",
+              "kind": "scenario_test",
+              "adapter": "vitest-json@1",
+              "selector": "tests/work_packages/workspace-scratch-cause-visibility-035/failure.test.ts",
+              "cwd": "apps/wechat",
+              "timeoutSeconds": 300
+            },
+            {
+              "id": "audit-integration-replay-039",
+              "kind": "scenario_test",
+              "adapter": "vitest-json@1",
+              "selector": "tests/work_packages/workspace-scratch-cause-visibility-035/replay.test.ts",
+              "cwd": "apps/wechat",
+              "timeoutSeconds": 300
+            },
+            {
+              "id": "audit-integration-stale-039",
+              "kind": "scenario_test",
+              "adapter": "vitest-json@1",
+              "selector": "tests/work_packages/workspace-scratch-cause-visibility-035/stale.test.ts",
+              "cwd": "apps/wechat",
+              "timeoutSeconds": 300
+            },
+            {
+              "id": "audit-integration-race-039",
+              "kind": "scenario_test",
+              "adapter": "vitest-json@1",
+              "selector": "tests/work_packages/cause-external-ai-consent-037/race.test.ts",
+              "cwd": "apps/wechat",
+              "timeoutSeconds": 300
+            },
+            {
+              "id": "audit-integration-recovery-039",
+              "kind": "scenario_test",
+              "adapter": "vitest-json@1",
+              "selector": "tests/work_packages/cause-external-ai-consent-037/recovery.test.ts",
+              "cwd": "apps/wechat",
+              "timeoutSeconds": 300
+            },
+            {
+              "id": "audit-integration-answer-sheet-039",
+              "kind": "scenario_test",
+              "adapter": "vitest-json@1",
+              "selector": "tests/stage2-mock-exam.test.ts",
+              "cwd": "apps/wechat",
+              "timeoutSeconds": 300
+            },
+            {
+              "id": "audit-integration-ability-039",
+              "kind": "scenario_test",
+              "adapter": "pytest-json@1",
+              "selector": "tests/test_ability_estimation.py",
+              "cwd": "backend",
+              "timeoutSeconds": 300
+            },
+            {
+              "id": "audit-integration-db-head-039",
+              "kind": "scenario_test",
+              "adapter": "pytest-json@1",
+              "selector": "tests/test_wave1_db_contracts.py",
+              "cwd": "backend",
+              "timeoutSeconds": 300
+            }
+          ],
+          "requiredAcceptanceScenarios": [
+            {
+              "id": "WP-AUDIT-RELEASE-INTEGRATION-039-AS-01",
+              "assertion": "one viewport canvas crosses the material seam and preserves current-question ownership",
+              "testSelector": "tests/work_packages/workspace-scratch-cause-visibility-035/happy.test.ts",
+              "acceptanceCommandId": "audit-integration-happy-039"
+            },
+            {
+              "id": "WP-AUDIT-RELEASE-INTEGRATION-039-AS-02",
+              "assertion": "obsolete split canvases and silent review completion remain absent",
+              "testSelector": "tests/work_packages/workspace-scratch-cause-visibility-035/failure.test.ts",
+              "acceptanceCommandId": "audit-integration-failure-039"
+            },
+            {
+              "id": "WP-AUDIT-RELEASE-INTEGRATION-039-AS-03",
+              "assertion": "legacy strokes replay without leaking to the next question",
+              "testSelector": "tests/work_packages/workspace-scratch-cause-visibility-035/replay.test.ts",
+              "acceptanceCommandId": "audit-integration-replay-039"
+            },
+            {
+              "id": "WP-AUDIT-RELEASE-INTEGRATION-039-AS-04",
+              "assertion": "question and session transitions clear stale drawing and coach state",
+              "testSelector": "tests/work_packages/workspace-scratch-cause-visibility-035/stale.test.ts",
+              "acceptanceCommandId": "audit-integration-stale-039"
+            },
+            {
+              "id": "WP-AUDIT-RELEASE-INTEGRATION-039-AS-05",
+              "assertion": "rapid consent and cause actions stay deduplicated",
+              "testSelector": "tests/work_packages/cause-external-ai-consent-037/race.test.ts",
+              "acceptanceCommandId": "audit-integration-race-039"
+            },
+            {
+              "id": "WP-AUDIT-RELEASE-INTEGRATION-039-AS-06",
+              "assertion": "consent and cause recovery remain visible after re-entry and uncertainty",
+              "testSelector": "tests/work_packages/cause-external-ai-consent-037/recovery.test.ts",
+              "acceptanceCommandId": "audit-integration-recovery-039"
+            },
+            {
+              "id": "WP-AUDIT-RELEASE-INTEGRATION-039-AS-07",
+              "assertion": "mock answer sheet sections, option layout and formatted result percentages retain their runtime contracts",
+              "testSelector": "tests/stage2-mock-exam.test.ts",
+              "acceptanceCommandId": "audit-integration-answer-sheet-039"
+            },
+            {
+              "id": "WP-AUDIT-RELEASE-INTEGRATION-039-AS-08",
+              "assertion": "ability evidence integration preserves deterministic estimation contracts",
+              "testSelector": "tests/test_ability_estimation.py",
+              "acceptanceCommandId": "audit-integration-ability-039"
+            },
+            {
+              "id": "WP-AUDIT-RELEASE-INTEGRATION-039-AS-09",
+              "assertion": "the database migration chain remains linear at the single 20260817_116 head",
+              "testSelector": "tests/test_wave1_db_contracts.py",
+              "acceptanceCommandId": "audit-integration-db-head-039"
+            }
+          ],
+          "verificationOnly": true,
+          "stopConditions": [
+            "Verification requires source modification",
+            "Any acceptance selector fails or produces no selected test",
+            "Database compatibility differs from 20260817_116",
+            "Deployment would bypass immutable signatures or external release evidence"
+          ],
+          "status": "planned"
+        }
+      ]
+    }
+  }
+}

@@ -32,6 +32,7 @@ import {
 } from "../miniprogram/pages/reflection/features/replay-runtime";
 import { strokesVisibleAtReplay } from "../miniprogram/pages/reflection/shared/task-runtime/annotation-layer/strokes";
 import {
+  acceptedExternalAIConsent,
   activeXingceSession,
   apiSuccess,
   reflectedXingceSession,
@@ -764,6 +765,10 @@ async function createReflectionPage(
     showToast,
     request: (request: WechatMiniprogram.RequestOption) => {
       requests.push(request);
+      if (request.url.endsWith("/privacy/external-ai-consent")) {
+        request.success?.(apiSuccess(acceptedExternalAIConsent()));
+        return;
+      }
       if (request.method === "GET") {
         request.success?.(apiSuccess(session));
         return;

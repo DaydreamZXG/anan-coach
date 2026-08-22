@@ -30,6 +30,32 @@
 
   <!-- 草稿工具栏只暴露必要动作；阅读时可收成一个不拦截滚动的小胶囊。 -->
   <view wx:if="{{mode === 'annotate' && toolbarAvailable && !toolbarCollapsed}}" class="annotation-layer__toolbar">
+    <view wx:if="{{scopeLabel}}" class="annotation-layer__scope">
+      <text class="annotation-layer__scope-dot">✦</text>
+      <text>{{scopeLabel}}</text>
+      <text class="annotation-layer__scope-hint">只保存在当前题</text>
+    </view>
+    <view wx:if="{{surfaceSwitchAvailable}}" class="annotation-layer__surface-switch">
+      <text class="annotation-layer__surface-label">草稿写在</text>
+      <view class="annotation-layer__surface-options" role="tablist" aria-label="草稿书写区域">
+        <button
+          hover-class="item--hover"
+          class="control-center annotation-layer__surface-option {{activeSurface === 'question' ? 'annotation-layer__surface-option--active' : ''}}"
+          data-surface="question"
+          role="tab"
+          aria-selected="{{activeSurface === 'question'}}"
+          catchtap="switchSurface"
+        >本题</button>
+        <button
+          hover-class="item--hover"
+          class="control-center annotation-layer__surface-option {{activeSurface === 'material' ? 'annotation-layer__surface-option--active' : ''}}"
+          data-surface="material"
+          role="tab"
+          aria-selected="{{activeSurface === 'material'}}"
+          catchtap="switchSurface"
+        >共享材料</button>
+      </view>
+    </view>
     <view class="annotation-layer__tools">
       <button hover-class="item--hover"
         wx:for="{{tools}}"
@@ -63,7 +89,7 @@
       catchtap="expandToolbar"
     >
       <text class="annotation-layer__dock-glyph">✎</text>
-      <text>草稿</text>
+      <text>{{scopeLabel || '草稿'}}</text>
       <text class="annotation-layer__dock-hint">展开</text>
     </button>
     <view class="annotation-layer__dock-divider" aria-hidden="true"></view>

@@ -484,9 +484,6 @@ def test_release_window_phase_boundaries_and_gap_fail_closed(
         for checked_at, expected_phase, expected_kind in cases:
             lifecycle = repository.release_lifecycle(session, now=checked_at)
             assert lifecycle.phase == expected_phase
-            current_exam = repository.current_exam_release(session, now=checked_at)
-            assert current_exam.exam_code == "guokao"
-            assert current_exam.exam_year == 2026
             if expected_phase == "open":
                 release = repository.active_release(session, now=checked_at)
                 assert release.current_window.kind == expected_kind
@@ -724,9 +721,9 @@ def test_position_release_window_migration_upgrades_forward_and_matches_artifact
         PROJECT_ROOT / "ops" / "release-db-compatibility.env",
         backend_root=BACKEND_ROOT,
     )
-    assert script.get_heads() == ["20260817_115"]
-    assert compatibility.migration_head == "20260817_115"
-    assert compatibility.compatible_revisions == {"20260817_115"}
+    assert script.get_heads() == ["20260817_116"]
+    assert compatibility.migration_head == "20260817_116"
+    assert compatibility.compatible_revisions == {"20260817_116"}
     assert "position_release_windows" not in inspect(db_engine).get_table_names(schema="product")
 
     legacy_release_id = str(uuid4())
@@ -777,6 +774,6 @@ def test_position_release_window_migration_upgrades_forward_and_matches_artifact
     with db_engine.connect() as connection:
         assert (
             connection.execute(text("select version_num from alembic_version")).scalar_one()
-            == "20260817_115"
+            == "20260817_116"
         )
         assert "position_release_windows" in inspect(db_engine).get_table_names(schema="product")

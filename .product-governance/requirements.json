@@ -1073,64 +1073,6 @@
         "能力就绪检查验证处理方发布记录而不要求存在某个用户的同意；真正外发同时验证当前用户同意，并可从导出数据追溯处理方、授权模式和同意事件。",
         "成功、拒绝、重放、撤回后陈旧授权、并发点击、退出恢复和 PostgreSQL 115→116 迁移场景均有可执行测试；完整后端与小程序契约门禁通过。"
       ]
-    },
-    {
-      "id": "REQ-REAL-DEVICE-PRACTICE-WORKSPACE-035",
-      "statement": "练习与模考必须在手机和平板提供一张连续、题目隔离的可见工作台：答题卡可原生滚动并按真实模块分组，长选项自然增高且首行对齐，百分比稳定格式化，草稿手势可以跨当前可见的材料与题目区域连续书写，不再暴露或依赖 question/material 画布门控。",
-      "scope": "target",
-      "impact": "high",
-      "state": "confirmed",
-      "owner": "wechat_frontend_lifecycle",
-      "evidenceRefs": [
-        "E-USER-REAL-DEVICE-PRACTICE-WORKSPACE-035",
-        "E-CODE-REAL-DEVICE-PRACTICE-WORKSPACE-GAP-035"
-      ],
-      "acceptance": [
-        "135 题答题卡的中间内容使用微信原生纵向 scroll-view，页头与提交区固定；题号按 session.questions 的真实 moduleName 连续分组，并自动把当前题所在模块和题号滚入视野。",
-        "题号状态、总计和每个模块的已答/未答/存疑计数均来自真实 attempt；任何模块不得用当前题模块名冒充整卷标签。",
-        "单行和多行选项按内容自然增高，字母标记对齐首行，排除动作不再永久切走一整列正文宽度，不出现单字符被挤到下一行的布局性断裂。",
-        "所有百分比在 TypeScript 投影层完成有限精度格式化并去除无意义尾零；WXML 不执行原始浮点乘法。",
-        "普通做题态只有一个覆盖当前可见工作区的草稿捕获层和一套工具栏；一次触摸从材料侧跨过分栏进入题目侧时仍形成一条连续笔迹。",
-        "工作台草稿按当前 question attempt 保存并在切题时隔离；历史 material 笔迹只读兼容，不再自动把上一题共享材料笔迹带入当前题的可写草稿层。",
-        "旧 031/032 的源码字符串伪验收被后继测试取代；专项测试必须至少执行模块分组投影、跨边界连续触点、切题隔离、旧数据恢复、长选项和百分比格式化。",
-        "手机、纵向平板与横向平板模拟器回归通过后才允许上传新版体验版；不得以模板编译通过代替真实交互结论。"
-      ]
-    },
-    {
-      "id": "REQ-FULL-PRODUCT-AUDIT-FRONTEND-036",
-      "statement": "微信端必须在证据缺失、旧基础库、长文案和异步失败时保持可恢复：新用户不能被未知证据冒充为老用户，安全区不得因缺少新 API 崩溃，岸岸/复盘/结算必须提供可见且可点击的下一步，视觉回归数据必须使用真实模板字段。",
-      "scope": "target",
-      "impact": "high",
-      "state": "confirmed",
-      "owner": "wechat_frontend_lifecycle",
-      "evidenceRefs": [
-        "E-USER-FULL-PRODUCT-AUDIT-REPAIRS-036",
-        "E-CODE-FULL-PRODUCT-AUDIT-REPAIRS-036"
-      ],
-      "acceptance": [
-        "学习证据未知或教练上下文缺字段时，新用户进入第一次教练会谈且控制台不抛 TypeError；只有明确存在学习证据或建档完成才直达今日。",
-        "缺少 getWindowInfo 或菜单胶囊信息时安全区使用有界降级值；复盘回放信息不遮挡微信胶囊。",
-        "每日结算的岸岸动作保持不透明、可点击并进入下一环；岸岸长标题可换行且不溢出。",
-        "视觉 fixture 使用页面模板真实字段，材料和结算场景不能以空白或缺证据状态通过。"
-      ]
-    },
-    {
-      "id": "REQ-YEAR-ROUND-LEARNING-RELEASE-036",
-      "statement": "当前已发布考试身份必须全年供学习证据、能力估计和岸岸使用；岗位检索与资格判断仍必须单独要求官方招录窗口开放，不能因窗口关闭阻断学习闭环，也不能反向放开岗位能力。",
-      "scope": "target",
-      "impact": "high",
-      "state": "confirmed",
-      "owner": "learning_brain_evidence_projection",
-      "evidenceRefs": [
-        "E-USER-FULL-PRODUCT-AUDIT-REPAIRS-036",
-        "E-CODE-FULL-PRODUCT-AUDIT-REPAIRS-036"
-      ],
-      "acceptance": [
-        "已发布且唯一的考试版本在 upcoming、between_windows 与 closed 阶段仍可被学习和能力服务读取。",
-        "缺少发布或发布冲突继续失败关闭；岗位搜索和资格动作继续要求 active_release 与开放窗口。",
-        "部署要求的数据库修订与当前迁移头一致，备份、发布和商业数据协议测试使用同一头版本。",
-        "用户可见错因错误不泄漏内部 Agent 名称，且不改变候选、计费或学习事实。"
-      ]
     }
   ]
 }

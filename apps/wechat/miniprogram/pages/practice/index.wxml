@@ -90,20 +90,7 @@
             anchors="{{view && view.question && view.question.material && view.question.material.anchors ? view.question.material.anchors : emptyContentAnchors}}"
             state="{{materialReaderState}}"
             interactionActive="{{materialCaptureActive}}"
-            annotateAvailable="{{true}}"
-            annotateActive="{{annotationMode === 'annotate'}}"
-            annotationOpen="{{materialOpen && annotationMode === 'annotate'}}"
-            annotationStrokes="{{materialOpen ? materialAnnotations : emptyAnnotationStrokes}}"
-            annotationElapsedSeconds="{{view.question.elapsedSeconds}}"
-            annotationElapsedMs="{{view.question.elapsedMs || -1}}"
-            annotationToolbarAvailable="{{materialOpen}}"
-            annotationTool="{{annotationTool}}"
             bindstatechange="updateMaterialReader"
-            bindannotate="openMaterialAnnotation"
-            bindstrokeschange="changeMaterialAnnotations"
-            bindannotatedone="closeAnnotation"
-            bindannotationmore="openTaskTools"
-            bindannotationtoolchange="changeAnnotationTool"
           />
         </view>
 
@@ -232,18 +219,18 @@
 
         </view>
 
-        <!-- 当前题只有这一张可写草稿层：横屏时跨过材料/题目分栏仍是同一笔。 -->
-        <view class="practice-annotation-host {{touchOwner === 'annotation' ? 'practice-annotation-host--active' : ''}}">
-          <annotation-layer
-            wx:if="{{!materialOpen && (annotationMode === 'annotate' || questionAnnotations.length)}}"
-            mode="{{annotationMode === 'annotate' ? 'annotate' : 'static'}}"
-            strokes="{{questionAnnotations}}"
-            elapsedSeconds="{{view.question.elapsedSeconds}}"
-            elapsedMs="{{view.question.elapsedMs || -1}}"
-            scroll-top="{{0}}"
-            content-height="{{questionContentHeight}}"
-            strokePrefix="workspace-stroke"
-            toolbarAvailable="{{true}}"
+          <!-- 当前题只有这一张 viewport 草稿层：横屏时跨过材料/题目分栏仍是同一笔。 -->
+          <view class="practice-annotation-host {{touchOwner === 'annotation' ? 'practice-annotation-host--active' : ''}}">
+            <annotation-layer
+              wx:if="{{annotationMode === 'annotate' || questionAnnotations.length}}"
+              mode="{{annotationMode === 'annotate' ? 'annotate' : 'static'}}"
+              coordinate-space="viewport"
+              scope-label="第 {{view.current}} 题 · 整屏草稿"
+              stroke-prefix="workspace-stroke"
+              strokes="{{questionAnnotations}}"
+              elapsedSeconds="{{view.question.elapsedSeconds}}"
+              elapsedMs="{{view.question.elapsedMs || -1}}"
+              toolbarAvailable="{{true}}"
             activeTool="{{annotationTool}}"
             bindstrokeschange="changeAnnotations"
             binddone="closeAnnotation"

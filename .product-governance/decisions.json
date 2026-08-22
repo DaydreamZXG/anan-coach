@@ -1180,75 +1180,19 @@
       ]
     },
     {
-      "id": "DEC-REAL-DEVICE-PRACTICE-WORKSPACE-035",
-      "question": "真实平板已经否定 031 的双画布连续性后，应继续修补两个内容画布，还是把草稿改成当前题独立的整张可见工作台？",
-      "choice": "以当前 question attempt 为草稿所有者，在练习/模考工作区最外层只保留一个覆盖材料与题目的可见坐标面和一套工具栏；新笔迹不再通过 annotationCanvas 在 question/material 间切换。历史 material 笔迹保持可读兼容但不再跨题注入当前可写层。答题卡同步改为原生滚动的模块分组导航，长选项改为自然高度首行对齐，百分比在投影层格式化。",
+      "id": "DEC-FREEZE-RU-AUDIT-RELEASE-INTEGRATION-039",
+      "question": "如何在不改写既有冻结历史的前提下，验证全产品审计修复、整屏草稿和外部 AI 同意边界在生产 116 基线上的组合状态？",
+      "choice": "冻结 RU-AUDIT-RELEASE-INTEGRATION-039 为 verification-only 后继，同时依赖并取代 033B、035C 和 038 的相交实施权威；它只验证当前组合哈希、完整前端回归、数据库 116 契约和六类场景，不声称在执行期内产生代码。",
       "status": "accepted",
       "decidedBy": "architecture_owner",
-      "decidedAt": "2026-08-22T15:25:00+08:00",
+      "decidedAt": "2026-08-22T21:30:00+08:00",
       "evidenceRefs": [
-        "E-USER-REAL-DEVICE-PRACTICE-WORKSPACE-035",
-        "E-CODE-REAL-DEVICE-PRACTICE-WORKSPACE-GAP-035"
-      ]
-    },
-    {
-      "id": "DEC-FREEZE-RU-REAL-DEVICE-PRACTICE-WORKSPACE-035",
-      "question": "是否冻结一个取代 031/032/033 做题工作台前端所有权的后继修复单元，并在真实模拟器回归后提交和上传体验版？",
-      "choice": "冻结 RU-REAL-DEVICE-PRACTICE-WORKSPACE-035，依赖既有 031、032、033 与 034B，只接管练习/模考工作台、共享答题卡/批注生成副本、直接相关测试、报告和微信发布记录。禁止改题库、数据库 schema、真实作答事实和 AI/计划域；只有专项测试、整包检查、手机/纵向平板/横向平板模拟器证据全部通过后才提交并上传新体验版。",
-      "status": "accepted",
-      "decidedBy": "architecture_owner",
-      "decidedAt": "2026-08-22T15:25:00+08:00",
-      "evidenceRefs": [
-        "E-USER-REAL-DEVICE-PRACTICE-WORKSPACE-035",
-        "E-CODE-REAL-DEVICE-PRACTICE-WORKSPACE-GAP-035"
-      ]
-    },
-    {
-      "id": "DEC-FULL-PRODUCT-AUDIT-REPAIRS-036",
-      "question": "全产品模拟器普查暴露的跨页面与学习服务阻断，应散落修补后直接上传，还是作为一个独立后继发布单元闭合？",
-      "choice": "建立独立的全产品审计修复单元：前端只修静默身份分流、安全区、岸岸排版、复盘反馈、每日结算与可信视觉 fixture；后端只把全年学习所需的考试发布身份从岗位招录开放窗口中分离，并保持岗位检索继续受窗口约束。所有 mock、真实只读和未验证能力继续分级，不把 mock 写成生产成功。",
-      "status": "accepted",
-      "decidedBy": "user",
-      "decidedAt": "2026-08-22T19:18:00+08:00",
-      "evidenceRefs": [
-        "E-USER-FULL-PRODUCT-AUDIT-REPAIRS-036",
-        "E-CODE-FULL-PRODUCT-AUDIT-REPAIRS-036"
-      ]
-    },
-    {
-      "id": "DEC-FREEZE-RU-FULL-PRODUCT-AUDIT-REPAIRS-036",
-      "question": "如何在不改写 032、033 与 034B 历史证据的前提下接管本轮跨页面和后端修复并继续发布？",
-      "choice": "冻结 RU-FULL-PRODUCT-AUDIT-REPAIRS-036，显式依赖并取代 032、033 与 034B 的当前执行权，只拥有本轮非做题工作台的精确文件；035 改为依赖该后继单元并单独拥有做题工作台。禁止数据库迁移、生产数据回填、题库改写和未审计付费动作；两个单元均完成机器验收后才提交、部署和上传体验版。",
-      "status": "accepted",
-      "decidedBy": "user",
-      "decidedAt": "2026-08-22T19:18:00+08:00",
-      "evidenceRefs": [
-        "E-USER-FULL-PRODUCT-AUDIT-REPAIRS-036",
-        "E-CODE-FULL-PRODUCT-AUDIT-REPAIRS-036"
-      ]
-    },
-    {
-      "id": "DEC-FREEZE-RU-FULL-PRODUCT-AUDIT-REPAIRS-036A",
-      "question": "036 派工时发现旧 032/034B 输出在后继权威冻结前已经漂移，无法作为可验证包依赖，应如何恢复而不伪造旧运行？",
-      "choice": "冻结后继 RU-FULL-PRODUCT-AUDIT-REPAIRS-036A，取代 036 的执行权并吸收当前工作区已存在的审计修复基线；新工作包不声明消费已经漂移的旧包运行，但继续继承 036 的精确允许路径、验收命令、禁止项和业务边界。035 改为依赖并取代 036A 后再执行。",
-      "status": "accepted",
-      "decidedBy": "architecture_owner",
-      "decidedAt": "2026-08-22T20:06:00+08:00",
-      "evidenceRefs": [
-        "E-USER-FULL-PRODUCT-AUDIT-REPAIRS-036",
-        "E-CODE-FULL-PRODUCT-AUDIT-REPAIRS-036"
-      ]
-    },
-    {
-      "id": "DEC-FREEZE-RU-REAL-DEVICE-PRACTICE-WORKSPACE-035A",
-      "question": "035 完成后仅发生格式化与门禁兼容修正，旧完成运行因此不可复用；如何验证最终代码而不改写历史证据？",
-      "choice": "冻结 verification-only 后继 RU-REAL-DEVICE-PRACTICE-WORKSPACE-035A，取代 035 的执行权并复用其精确路径、六类场景和禁止项；它不要求派发后继续改业务代码，只对最终提交候选重新生成完整性锁定的机器证据。",
-      "status": "accepted",
-      "decidedBy": "architecture_owner",
-      "decidedAt": "2026-08-22T20:48:00+08:00",
-      "evidenceRefs": [
-        "E-USER-REAL-DEVICE-PRACTICE-WORKSPACE-035",
-        "E-CODE-REAL-DEVICE-PRACTICE-WORKSPACE-GAP-035"
+        "E-USER-FULL-PRODUCT-AUDIT-REPAIR-033",
+        "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-033",
+        "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+        "E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+        "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037",
+        "E-CODE-CAUSE-EXTERNAL-AI-GATE-037"
       ]
     }
   ]

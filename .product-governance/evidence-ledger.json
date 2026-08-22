@@ -1206,157 +1206,201 @@
       "basisRefs": ["E-USER-DIRECT-DRAFT-CANVAS-031", "E-CODE-DIRECT-DRAFT-CANVAS-031"]
     },
     {
-      "id": "E-USER-REAL-DEVICE-CAUSE-RECOVERY-033",
-      "claim": "用户在 2026-08-17 真机体验中确认：答题卡末题的“继续第 15 题”是多余操作；错因整理长时间停留后以模型 504 终止且把线路故障误写成证据或预算不足；大号手机纵向作答被按宽屏工作台缩成过窄内容。用户授权保留 TokenRhythm 主线路，接入 DeepSeek 官方线路作为第一兜底，再接入其自有 NewAPI 中转站作为最终兜底；两份新密钥均只允许进入 root-only 生产环境，同时解决这些已观察问题并发布验证。",
+      "id": "E-USER-FULL-PRODUCT-AUDIT-REPAIR-033",
+      "claim": "用户在完成 61 个注册页面的微信模拟器全产品普查后，明确授权按阶段修复审计确认的全部问题，直至每项完成代码、自动测试和模拟器回归；不得以页面可打开或 mock 投影替代真实功能结论。",
       "class": "user_confirmed",
-      "locator": "conversation:2026-08-17:real-device-cause-timeout-fallback-and-layout;attachments:f181940135e049d20547ff9cdb62974b.jpg,25d770100c7813c39684d1ea7c02010c.jpg,38eef3818c96cf258fffaa7bb816191a.jpg,3dc1284349116b19e79bec5c10081523.jpg",
-      "observedAt": "2026-08-17T11:46:00+08:00",
+      "locator": "conversation:2026-08-16:repair-all-confirmed-product-audit-findings",
+      "observedAt": "2026-08-16T16:20:00+08:00",
       "scope": "target",
       "status": "active",
       "verificationLevel": 0,
       "basisRefs": ["E-USER-DIRECT-DRAFT-CANVAS-031"]
     },
     {
-      "id": "E-CODE-REAL-DEVICE-CAUSE-RECOVERY-033",
-      "claim": "生产 cause-agent 在 2026-08-17 11:01 的真实作答运行只请求 https://tokenrhythm.studio/v1/chat/completions，约一分钟后以 provider_http_504 终止；线上虽已配置 Companion 的方舟和 DeepSeek 官方凭据，CauseAgentProvider 仍只读取 AI_PROVIDER_BASE_URL/AI_API_KEY，没有独立备用路由。provider_failure_is_retryable 对 nonreplayable_audited 返回 false，worker 终止文案固定宣称未在证据和预算内形成候选。答题卡仍额外渲染继续当前题按钮，练习页 1024px 宽屏规则未限定横屏。",
+      "id": "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-033",
+      "claim": "当前提交的 61 页模拟器普查确认 0 个 P0、6 个 P1、3 个 P2：新老 onboarding 状态权威分裂、导入确认恢复按钮空转、到期复测累计题量与本次题量混淆、分包导航前空白、条款无自然入口、内部 evidence role 原样泄漏、掌握页默认空 bucket、外部成绩本地校验被泛化错误覆盖、离线与超时没有可行动的区分。",
       "class": "code_observed",
-      "locator": "production-journal:2026-08-17T11:01:25+08:00:cause-job-9a3cae01-provider_http_504;production-env-status:2026-08-17:AI_COMPANION_DEEPSEEK_API_KEY-set-AI_XINGCE_CAUSE_FALLBACK_API_KEY-unset;backend/app/domains/xingce_learning/cause_agent/provider.py;backend/app/domains/xingce_learning/cause_agent/worker.py;backend/app/domains/ai/provider_contract.py;apps/wechat/subpackage-shared-src/task-runtime/answer-sheet/index.wxml;apps/wechat/miniprogram/pages/practice/index.wxss",
-      "observedAt": "2026-08-17T11:46:00+08:00",
+      "locator": "/tmp/岸岸-全产品审计-2026-08-16.md;apps/wechat/miniprogram/pages/onboarding/features/coach-recognition-routing.ts;apps/wechat/miniprogram/plans/shared/features/onboarding/study-preference-controller.ts;apps/wechat/miniprogram/pages/capture-import/index.ts;apps/wechat/miniprogram/pages/capture-import/features/external-learning/capture-controller.ts;apps/wechat/miniprogram/xingce/shared/features/xingce/mastery/presentation.ts;apps/wechat/miniprogram/xingce/shared/features/xingce/briefing/presentation.ts;apps/wechat/miniprogram/reports/error-pattern/index.ts;apps/wechat/miniprogram/reports/external-report/index.ts;apps/wechat/miniprogram/app/navigation/routes.ts",
+      "observedAt": "2026-08-16T16:20:00+08:00",
       "scope": "current",
       "status": "active",
-      "verificationLevel": 6,
-      "artifact": {
-        "path": "reports/2026-08-17-real-device-cause-recovery-baseline.md",
-        "sha256": "sha256:b3260d5ee7c61a410c40790663a50c3d159d016b942fe892e9b8c5e339ae98f5"
-      },
-      "basisRefs": ["E-USER-REAL-DEVICE-CAUSE-RECOVERY-033"]
+      "verificationLevel": 1,
+      "basisRefs": ["E-USER-FULL-PRODUCT-AUDIT-REPAIR-033", "E-CODE-DIRECT-DRAFT-TEST-DRIFT-032"]
     },
     {
-      "id": "E-EXTERNAL-DEEPSEEK-V4-API-033",
-      "claim": "DeepSeek 官方当前 OpenAI 兼容基地址为 https://api.deepseek.com，并正式提供 deepseek-v4-flash 与 deepseek-v4-pro；旧 deepseek-chat/deepseek-reasoner 名称已于 2026-07-24 弃用。",
+      "id": "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-SCOPE-033A",
+      "claim": "033 为恢复历史验证哈希暂时回退了短材料画布高度、组件数组属性兼容和对应 mock 测试，但其冻结 allowedPaths 没有包含 practice/mock/reflection 生成副本与 subpackage-shared-src；若直接执行会让用户已确认的材料圈画修正永久倒退。",
+      "class": "code_observed",
+      "locator": ".product-governance/execution/reports/6f7992aaf35c85e0.036e9565a085a45f5942.json;apps/wechat/subpackage-shared-src/task-runtime/annotation-layer/index.ts;apps/wechat/subpackage-shared-src/task-runtime/material-reader/index.ts;apps/wechat/miniprogram/pages/practice/index.ts;apps/wechat/tests/mock-material-annotation.test.ts",
+      "observedAt": "2026-08-16T16:44:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": ["E-CODE-FULL-PRODUCT-AUDIT-REPAIR-033", "E-USER-DIRECT-DRAFT-CANVAS-031"]
+    },
+    {
+      "id": "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-GENERATED-AUTHORITY-033B",
+      "claim": "033A 的实现已通过专项测试、类型检查、Lint 与 1170 项全量 Vitest，但 package:validate 证明学习偏好控制器和掌握队列 presentation/page-runtime 是由 subpackage-shared-src/features 生成；033A 只授权生成副本而未授权三项权威源，运行同步脚本会覆盖有效修复，故该执行被验证器记录为失败，必须由继任单元接管权威源后再同步。",
+      "class": "code_observed",
+      "locator": ".product-governance/execution/reports/a9aa6fe96a9c539c.2ae941816c877256595f.json;apps/wechat/scripts/sync-subpackage-shared.mjs;apps/wechat/subpackage-shared-src/features/onboarding/study-preference-controller.ts;apps/wechat/subpackage-shared-src/features/xingce/mastery/presentation.ts;apps/wechat/subpackage-shared-src/features/xingce/mastery/page-runtime.ts",
+      "observedAt": "2026-08-16T17:18:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": ["E-CODE-FULL-PRODUCT-AUDIT-REPAIR-SCOPE-033A", "E-USER-FULL-PRODUCT-AUDIT-REPAIR-033"]
+    },
+    {
+      "id": "E-USER-ESSAY-TASK-CLOSURE-034",
+      "claim": "用户在真机申论训练中确认：材料梳理点保存后没有可感知的后续动作，要点提炼页的表单意图和用法也无法理解；用户明确授权修复这两个闭环问题。",
+      "class": "user_confirmed",
+      "locator": "conversation:2026-08-16:essay-material-save-and-point-extraction-closure",
+      "observedAt": "2026-08-16T18:23:07+08:00",
+      "scope": "target",
+      "status": "active",
+      "verificationLevel": 0,
+      "basisRefs": ["E-USER-LEARNER-COACH-COMPLETION-015"]
+    },
+    {
+      "id": "E-CODE-ESSAY-TASK-CLOSURE-034",
+      "claim": "当前 essay-task 在 completePlanTask 成功后只把 submissionStatus 设为 saved 并将 canSubmit 设为 false，页面仍保留可编辑表单和禁用按钮，没有返回今日或可恢复的后续动作；要点提炼默认把类型设为 problem，并直接暴露‘要点类型/要点表达/材料出处’而没有复用上一步梳理或说明三个用户动作。",
+      "class": "code_observed",
+      "locator": "apps/wechat/miniprogram/pages/essay-task/index.ts;apps/wechat/miniprogram/pages/essay-task/index.wxml;apps/wechat/miniprogram/pages/essay-task/features/forms.ts;backend/app/domains/essay_intelligence/learning_service.py",
+      "observedAt": "2026-08-16T18:23:07+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": ["E-USER-ESSAY-TASK-CLOSURE-034", "E-CODE-FULL-PRODUCT-AUDIT-REPAIR-033"]
+    },
+    {
+      "id": "E-CODE-ESSAY-TASK-CLOSURE-AUTHORITY-034A",
+      "claim": "034 页面与专项测试已通过，但 package:validate 确认 pages/essay-task/features/forms.ts 由 subpackage-shared-src/features/essay-task/forms.ts 生成；034 未拥有该权威源，若不补齐，标准分包同步会覆盖取消默认分类、上步证据复用和具体本地校验。",
+      "class": "code_observed",
+      "locator": "apps/wechat/scripts/subpackage-shared-manifest.mjs;apps/wechat/subpackage-shared-src/features/essay-task/forms.ts;apps/wechat/miniprogram/pages/essay-task/features/forms.ts",
+      "observedAt": "2026-08-16T18:50:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": ["E-CODE-ESSAY-TASK-CLOSURE-034", "E-USER-ESSAY-TASK-CLOSURE-034"]
+    },
+    {
+      "id": "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+      "claim": "用户在平板真机练习中确认：把材料和题目拆成两块草稿画布会让跨栏笔迹必然断开，且上一题的材料笔迹会残留到当前题；用户要求把整个可见工作区当成一张草稿纸。用户同时确认当前复盘只突出自述渠道，完全感知不到岸岸的错因推断，并明确授权修复。",
+      "class": "user_confirmed",
+      "locator": "conversation:2026-08-16:full-workspace-scratch-and-visible-cause-inference",
+      "observedAt": "2026-08-16T18:24:00+08:00",
+      "scope": "target",
+      "status": "active",
+      "verificationLevel": 0,
+      "basisRefs": ["E-USER-DIRECT-DRAFT-CANVAS-031", "E-USER-ANAN-GOLDEN-LOOP-002"]
+    },
+    {
+      "id": "E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035",
+      "claim": "练习和模考当前在 material-reader 与 question-stage 内各挂一块独立 annotation-layer，坐标系和触摸宿主不同，跨栏一笔不可能连续；SHARED_MATERIAL_ANNOTATIONS_CHANGED 又把材料笔迹复制到同 materialId 的全部题目，造成切题后旧笔迹残留。复盘提交后虽已进入真实 cause_candidate_pending 并具备候选展示页面，却立即 switchTab 回今日，使用户在主旅程中看不到岸岸的候选错因、依据和验证动作。",
+      "class": "code_observed",
+      "locator": "apps/wechat/miniprogram/pages/practice/index.wxml;apps/wechat/miniprogram/pages/practice/index.ts;apps/wechat/miniprogram/pages/practice/shared/task-runtime/state/runtime.ts;apps/wechat/miniprogram/pages/mock-exam/index.wxml;apps/wechat/miniprogram/pages/reflection/index.ts;apps/wechat/miniprogram/pages/reflection/index.wxml",
+      "observedAt": "2026-08-16T18:24:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": ["E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035", "E-CODE-DIRECT-DRAFT-CANVAS-031"]
+    },
+    {
+      "id": "E-CODE-WORKSPACE-SCRATCH-TEST-AUTHORITY-035A",
+      "claim": "035 运行时、六类专项测试与受影响的 93 条流程测试已通过，但全量 Vitest 仍有 beta-flow 030、direct-draft 031/032 的十二条历史测试把双活动画布、material reducer 和 surface focus 当作正确契约；这些测试与用户刚确认的整屏单画布目标直接冲突，且不在 035 冻结路径中。",
+      "class": "code_observed",
+      "locator": "command:apps/wechat:npm-run-check:2026-08-16T19:55+08:00;apps/wechat/tests/work_packages/beta-flow-discoverability-030;apps/wechat/tests/work_packages/direct-draft-canvas-031;apps/wechat/tests/work_packages/direct-draft-test-contract-032",
+      "observedAt": "2026-08-16T19:55:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": ["E-CODE-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035", "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"]
+    },
+    {
+      "id": "E-USER-CAUSE-MULTI-ROUTE-RECOVERY-036",
+      "claim": "用户在 2026-08-17 真机复盘中确认岸岸错因整理长时间停留并最终因模型路由失败终止，同时确认旧体验版仍显示多余的继续当前题按钮和大号手机布局异常；用户明确提供官方 DeepSeek 与自有中转站作为后备并授权修复、部署和上传新体验版。",
+      "class": "user_confirmed",
+      "locator": "conversation:2026-08-17:official-deepseek-and-relay-cause-recovery",
+      "observedAt": "2026-08-17T11:30:00+08:00",
+      "scope": "target",
+      "status": "active",
+      "verificationLevel": 0,
+      "basisRefs": [
+        "E-USER-WORKSPACE-SCRATCH-CAUSE-VISIBILITY-035"
+      ]
+    },
+    {
+      "id": "E-CODE-CAUSE-MULTI-ROUTE-RECOVERY-036",
+      "claim": "生产错因工作只配置 TokenRhythm 单路由，真实任务约六十秒后以 provider_http_504 终止；当前代码又把单个 provider、两次模型预算和前端阻塞等待绑定在一起，无法在保留业务幂等与单次额度结算的同时安全切换到独立后备路由。",
+      "class": "code_observed",
+      "locator": "reports/2026-08-17-real-device-cause-recovery-baseline.md;backend/app/domains/xingce_learning/cause_agent/provider.py;backend/app/domains/xingce_learning/cause_agent/worker.py;backend/app/domains/ai/agent_runtime/contracts.py;apps/wechat/miniprogram/pages/reflection/index.wxml",
+      "observedAt": "2026-08-17T11:45:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": [
+        "E-USER-CAUSE-MULTI-ROUTE-RECOVERY-036"
+      ]
+    },
+    {
+      "id": "E-CODE-CAUSE-BUDGET-CONSTRAINTS-036",
+      "claim": "错因 Agent 新定义需要最多六次模型调用，但数据库的 agent_definition 约束和 agent_run.model_call_count 仍上限二；迁移 114 仅扩大新定义并保留历史约束，迁移 115 扩大运行计数且在存在超过二次记录时拒绝危险降级。",
+      "class": "code_observed",
+      "locator": "backend/migrations/versions/20260817_114_cause_agent_route_budget.py;backend/migrations/versions/20260817_115_cause_agent_run_budget.py;reports/2026-08-17-cause-agent-budget-constraint.md;reports/2026-08-17-cause-agent-run-budget-constraint.md",
+      "observedAt": "2026-08-17T12:10:00+08:00",
+      "scope": "target",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": [
+        "E-CODE-CAUSE-MULTI-ROUTE-RECOVERY-036"
+      ]
+    },
+    {
+      "id": "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037",
+      "claim": "用户明确接受将行测错因作答证据发送给可能用于服务改进或模型训练、且留存期限不固定的第三方 AI，但要求在小程序中明确告知、由用户同意并可退出；用户要求把原先只接受合同禁训练和零留存的门禁改成与该产品边界一致的分级准入。",
+      "class": "user_confirmed",
+      "locator": "conversation:2026-08-17:accept-external-ai-consent-boundary",
+      "observedAt": "2026-08-17T14:05:00+08:00",
+      "scope": "target",
+      "status": "active",
+      "verificationLevel": 0,
+      "basisRefs": [
+        "E-USER-CAUSE-MULTI-ROUTE-RECOVERY-036"
+      ]
+    },
+    {
+      "id": "E-CODE-CAUSE-EXTERNAL-AI-GATE-037",
+      "claim": "当前 processor_release_records 把 real_user_status=approved 硬编码为合同禁训练、零留存和无需删除；外发凭证不能绑定用户同意事件，能力就绪检查又要求三条错因路线均存在 approved 记录，因此真实的未知训练与留存路线无法在不伪造证据的情况下启用。",
+      "class": "code_observed",
+      "locator": "backend/migrations/versions/20260719_41_external_ai_data_boundary.py;backend/app/domains/ai/external_processing.py;backend/app/domains/ai/capability_readiness.py;backend/app/domains/processor_disclosure",
+      "observedAt": "2026-08-17T14:12:00+08:00",
+      "scope": "current",
+      "status": "active",
+      "verificationLevel": 1,
+      "basisRefs": [
+        "E-USER-CAUSE-EXTERNAL-AI-CONSENT-037"
+      ]
+    },
+    {
+      "id": "E-EXT-DEEPSEEK-DATA-POLICY-037",
+      "claim": "DeepSeek 公开隐私政策说明用户输入可能用于改进和训练技术，留存时长根据用途和义务变化；该公开政策同时指出开发者下游应用需要自行向最终用户披露处理规则。",
       "class": "external_verified",
-      "locator": "https://api-docs.deepseek.com/quick_start/pricing/",
-      "observedAt": "2026-08-17T11:42:00+08:00",
+      "locator": "https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html",
+      "observedAt": "2026-08-17T14:10:00+08:00",
       "scope": "current",
       "status": "active",
       "verificationLevel": 1,
       "basisRefs": []
     },
     {
-      "id": "E-EXTERNAL-ERGOU-NEWAPI-COMPAT-033",
-      "claim": "对用户自有 https://ergouapi.co 的受控兼容性探测已确认：/v1/models 通过授权返回 200，当前 DeepSeek 路由标识为 deepseek-v4-flash-free；/v1/chat/completions 接受 OpenAI 兼容 JSON Object 请求，在足够的输出预算下返回可解析 JSON。该路由不得冒充 deepseek-v4-pro，只作为第三应急线路。",
+      "id": "E-EXT-TOKENRHYTHM-DATA-UNKNOWN-037",
+      "claim": "TokenRhythm 官方文档确认其为多模型聚合 API，并在用户中心提供调用日志和对话记录；公开页面未建立本产品可依赖的固定留存期限、禁训练承诺或远端删除合同，因此这些属性必须按未知披露。",
       "class": "external_verified",
-      "locator": "https://ergouapi.co/v1/models",
-      "observedAt": "2026-08-17T12:24:00+08:00",
+      "locator": "https://tokenrhythm.studio/docs/overview",
+      "observedAt": "2026-08-17T14:11:00+08:00",
       "scope": "current",
       "status": "active",
       "verificationLevel": 1,
-      "basisRefs": ["E-USER-REAL-DEVICE-CAUSE-RECOVERY-033"]
-    },
-    {
-      "id": "E-CODE-CAUSE-ROUTE-BUDGET-CONSTRAINT-033B",
-      "claim": "真实 PostgreSQL 迁移测试确认：agent_definition_releases_budget_snapshot_check 硬编码只允许 maxModelCalls=2，新的三线路、两业务轮次有界预算 maxModelCalls=6 无法持久；其余工具、追问和无进展约束不需改变。",
-      "class": "code_observed",
-      "locator": "reports/2026-08-17-cause-agent-budget-constraint.md",
-      "observedAt": "2026-08-17T12:29:00+08:00",
-      "scope": "current",
-      "status": "active",
-      "verificationLevel": 6,
-      "artifact": {
-        "path": "reports/2026-08-17-cause-agent-budget-constraint.md",
-        "sha256": "sha256:f2d242844fdaa13b672f02e85fa48050c0dbfef9eac727e8f7f45e9f3163e8ea"
-      },
-      "basisRefs": ["E-CODE-REAL-DEVICE-CAUSE-RECOVERY-033"]
-    },
-    {
-      "id": "E-CODE-CAUSE-RUN-BUDGET-CONSTRAINT-033C",
-      "claim": "真实 PostgreSQL 三线路失败恢复测试确认：前两条线路失败账本和第三条成功账本均已持久，但候选发布把 model_call_count 写为 3 时被 agent_run_versions 的 between 0 and 2 检查约束拒绝，worker 因而把已经成功的模型结果误排为重试。",
-      "class": "code_observed",
-      "locator": "reports/2026-08-17-cause-agent-run-budget-constraint.md",
-      "observedAt": "2026-08-17T12:55:00+08:00",
-      "scope": "current",
-      "status": "active",
-      "verificationLevel": 6,
-      "artifact": {
-        "path": "reports/2026-08-17-cause-agent-run-budget-constraint.md",
-        "sha256": "sha256:e5bf6dea1bc4d38ca29bdf3460ac6affaa8f0388cdc2bcfa0c432ec0cd780afd"
-      },
-      "basisRefs": [
-        "E-CODE-CAUSE-ROUTE-BUDGET-CONSTRAINT-033B",
-        "E-USER-REAL-DEVICE-CAUSE-RECOVERY-033"
-      ]
-    },
-    {
-      "id": "E-USER-STRUCTURED-VISUAL-RUNTIME-BRIDGE-034",
-      "claim": "用户在 2026-08-18 确认将已有视觉积木接入正式产品内容链：发布保留完整绘图数据，练习、模考、复盘和讲回共用渲染，无法验证的数据自动回退题目原图，不新建产品入口。",
-      "class": "user_confirmed",
-      "locator": "conversation:2026-08-18:structured-visual-runtime-bridge-approved",
-      "observedAt": "2026-08-18T00:00:00+08:00",
-      "scope": "target",
-      "status": "active",
-      "verificationLevel": 0,
       "basisRefs": []
-    },
-    {
-      "id": "E-CODE-STRUCTURED-VISUAL-RUNTIME-GAP-034",
-      "claim": "当前资料分析发布器只将候选图压平为 chartType 和 facts，丢失小程序绘图组件所需的完整版本化 payload；任务内容联合只包含 paragraph/formula/image/graph/table；公共内容渲染器未注册 structured-visual；讲回迁移页面只逐条显示 facts 文字。",
-      "class": "code_observed",
-      "locator": "backend/app/domains/teaching_packages/publication/projector.py:265;backend/app/domains/task_content/schemas.py:75;apps/wechat/subpackage-shared-src/task-runtime/content-renderer/index.json;apps/wechat/miniprogram/pages/reflection/index.wxml:538",
-      "observedAt": "2026-08-18T00:00:00+08:00",
-      "scope": "current",
-      "status": "active",
-      "verificationLevel": 1,
-      "basisRefs": [
-        "E-USER-STRUCTURED-VISUAL-RUNTIME-BRIDGE-034"
-      ]
-    },
-    {
-      "id": "E-USER-REAL-DEVICE-PRACTICE-WORKSPACE-035",
-      "claim": "用户在 2026-08-22 的真实平板体验中确认：135 题答题卡无法滚动且没有按模块分组，长选项被等高卡和独立排除栏挤出难看的断行，模考模块百分比出现浮点尾数，资料分析仍被题目/材料两个画布割裂；目标是把当前题整个可见工作区作为一张连续草稿面板，并清理造成这些问题的旧分区与静态伪验收。",
-      "class": "user_confirmed",
-      "locator": "conversation:2026-08-22:real-device-practice-workspace-screenshots",
-      "observedAt": "2026-08-22T14:46:00+08:00",
-      "scope": "target",
-      "status": "active",
-      "verificationLevel": 0,
-      "basisRefs": []
-    },
-    {
-      "id": "E-CODE-REAL-DEVICE-PRACTICE-WORKSPACE-GAP-035",
-      "claim": "当前答题卡在 catchtouchmove 祖先内用普通 view 的 overflow-y:auto 渲染一张扁平题号表，并把当前题模块名错误投影为整卷模块；练习和模考以 annotationCanvas 在题目层与材料层间切换工具栏和触摸所有权，031/032 验收只匹配源码字符串而没有执行跨分栏手势；选项使用 grid-auto-rows:1fr、垂直居中和永久独立排除列；模考结果直接在 WXML 计算 accuracy*100。",
-      "class": "code_observed",
-      "locator": "apps/wechat/subpackage-shared-src/task-runtime/answer-sheet/index.wxml;apps/wechat/miniprogram/pages/practice/index.ts:1772;apps/wechat/miniprogram/pages/practice/index.wxml:40;apps/wechat/miniprogram/pages/mock-exam/index.wxml:52;apps/wechat/tests/work_packages/direct-draft-canvas-031/happy.test.ts",
-      "observedAt": "2026-08-22T15:20:00+08:00",
-      "scope": "current",
-      "status": "active",
-      "verificationLevel": 1,
-      "basisRefs": [
-        "E-USER-REAL-DEVICE-PRACTICE-WORKSPACE-035"
-      ]
-    },
-    {
-      "id": "E-USER-FULL-PRODUCT-AUDIT-REPAIRS-036",
-      "claim": "用户要求对微信小程序全产品、全页面和全功能继续修复，并在治理门禁暴露旧冻结所有权漂移后明确要求处理好，再提交、部署并上传新体验版；真机手指、原生文件选择器和真实生产写入仍必须按证据等级单独标注。",
-      "class": "user_confirmed",
-      "locator": "conversation:2026-08-22:full-product-audit-repairs-release-approved",
-      "observedAt": "2026-08-22T19:18:00+08:00",
-      "scope": "target",
-      "status": "active",
-      "verificationLevel": 0,
-      "basisRefs": []
-    },
-    {
-      "id": "E-CODE-FULL-PRODUCT-AUDIT-REPAIRS-036",
-      "claim": "全量路由与模拟器普查发现并修复新用户证据未知时误进今日、旧基础库安全区 API 缺失、岸岸标题挤压、复盘回放胶囊遮挡、每日结算底栏点击弱反馈、视觉 fixture 空白、学习能力被招录窗口错误阻断以及用户可见内部 Agent 文案；当前矩阵记录 61/61 注册页成屏和明确的 mock、真实只读、静态及未验证边界。",
-      "class": "code_observed",
-      "locator": "reports/2026-08-22-wechat-full-product-audit-progress.md;apps/wechat/miniprogram/pages/login/index.ts;backend/app/domains/qualification/repository.py",
-      "observedAt": "2026-08-22T19:18:00+08:00",
-      "scope": "current",
-      "status": "active",
-      "verificationLevel": 1,
-      "basisRefs": [
-        "E-USER-FULL-PRODUCT-AUDIT-REPAIRS-036"
-      ]
     }
   ]
 }

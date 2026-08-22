@@ -46,6 +46,8 @@ interface MaterialReaderData {
   annotationElapsedMs: number;
   annotationContentHeight: number;
   horizontalRegions: HorizontalAnnotationRegion[];
+  annotationSurfaceSwitchAvailable: boolean;
+  annotationActiveSurface: string;
   annotationToolbarAvailable: boolean;
   annotationTool: string;
 }
@@ -76,6 +78,8 @@ type MaterialReaderViewData = Omit<
   | "annotationStrokes"
   | "annotationElapsedSeconds"
   | "annotationElapsedMs"
+  | "annotationSurfaceSwitchAvailable"
+  | "annotationActiveSurface"
   | "annotationToolbarAvailable"
   | "annotationTool"
 >;
@@ -115,6 +119,8 @@ Component({
     annotationStrokes: { type: null, value: [] },
     annotationElapsedSeconds: { type: Number, value: 0 },
     annotationElapsedMs: { type: Number, value: -1 },
+    annotationSurfaceSwitchAvailable: { type: Boolean, value: false },
+    annotationActiveSurface: { type: String, value: "material" },
     annotationToolbarAvailable: { type: Boolean, value: true },
     annotationTool: { type: String, value: "pan" },
     blocks: { type: null, value: [] },
@@ -299,6 +305,11 @@ Component({
     },
     openAnnotationMore() {
       this.triggerEvent("annotationmore");
+    },
+    switchAnnotationSurface(
+      event: WechatMiniprogram.CustomEvent<{ surface: "question" | "material" }>,
+    ) {
+      this.triggerEvent("annotationsurfacechange", event.detail);
     },
     changeAnnotationTool(event: WechatMiniprogram.CustomEvent<{ tool: string }>) {
       this.triggerEvent("annotationtoolchange", event.detail);

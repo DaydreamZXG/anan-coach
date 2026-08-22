@@ -17,6 +17,7 @@ describe("direct draft canvas 031 stale path", () => {
     expect(activeToolObserver).toContain("state.activeStroke = null");
     expect(activeToolObserver).not.toContain("strokeschange");
     expect(String(practiceLogicRaw)).toContain('annotationTool: "pan"');
+    expect(String(practiceLogicRaw)).toContain("workspaceAnnotationStrokes");
     expect(String(practiceLogicRaw)).not.toContain("annotationCanvas");
   });
 });
