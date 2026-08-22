@@ -1760,6 +1760,38 @@
       "reportSha256": "sha256:dce1391b9b4a2f90f048be3c9138a30f2246773ffd61c3928b20449684f235f3",
       "releaseUnitId": "RU-CAUSE-EXTERNAL-AI-CONSENT-038",
       "releaseUnitHash": "sha256:1a81c0ed55a5253aede11fcc385014bd3fc00d0aa7a48333e1d7cea9c9c6b54f"
+    },
+    {
+      "id": "RU-AUDIT-RELEASE-INTEGRATION-039/WP-AUDIT-RELEASE-INTEGRATION-039@2026-08-22T14:02:30.696785+00:00",
+      "packageId": "WP-AUDIT-RELEASE-INTEGRATION-039",
+      "baselineCommit": "601517bedf8f041f5b47501f85398be581f7fd2b",
+      "baselineTreeHash": "sha256:554f4adda97f8d5b610d6db6fdb581dc2656b0c39cd1ae14e9274a9b9594117a",
+      "baselineSnapshotPath": "execution/baselines/624ca43dfaef1923.e5eb6d2e721d05ac01b8.json",
+      "baselineSnapshotSha256": "sha256:5acf66fccd9175b091951e0961086f5a3e0ca8ad3c50883a9e5238eb68f2eda4",
+      "assignedTo": "codex-root",
+      "status": "failed",
+      "startedAt": "2026-08-22T14:02:30.696785+00:00",
+      "finishedAt": "2026-08-22T14:04:15.659342+00:00",
+      "reportPath": "execution/reports/624ca43dfaef1923.e5eb6d2e721d05ac01b8.json",
+      "reportSha256": "sha256:aba0a8aa8b3b32cafb8ca3b80cc7b4e5c0610223a8182c53291f108bc40e5c33",
+      "releaseUnitId": "RU-AUDIT-RELEASE-INTEGRATION-039",
+      "releaseUnitHash": "sha256:5eca74bf926b663f1b66bf23549f083bb00381105c0bea8387e57ecd23d6d348"
+    },
+    {
+      "id": "RU-AUDIT-RELEASE-INTEGRATION-039/WP-AUDIT-RELEASE-INTEGRATION-039@2026-08-22T14:05:49.529667+00:00",
+      "packageId": "WP-AUDIT-RELEASE-INTEGRATION-039",
+      "baselineCommit": "601517bedf8f041f5b47501f85398be581f7fd2b",
+      "baselineTreeHash": "sha256:554f4adda97f8d5b610d6db6fdb581dc2656b0c39cd1ae14e9274a9b9594117a",
+      "baselineSnapshotPath": "execution/baselines/624ca43dfaef1923.5b9a1e90eb4eade1c251.json",
+      "baselineSnapshotSha256": "sha256:5acf66fccd9175b091951e0961086f5a3e0ca8ad3c50883a9e5238eb68f2eda4",
+      "assignedTo": "codex-root",
+      "status": "completed",
+      "startedAt": "2026-08-22T14:05:49.529667+00:00",
+      "finishedAt": "2026-08-22T14:09:20.999332+00:00",
+      "reportPath": "execution/reports/624ca43dfaef1923.5b9a1e90eb4eade1c251.json",
+      "reportSha256": "sha256:aace5a8c283d4e680d1755f7a63e81bf339fbade5c8109fb196e7e7b9ade6d5f",
+      "releaseUnitId": "RU-AUDIT-RELEASE-INTEGRATION-039",
+      "releaseUnitHash": "sha256:5eca74bf926b663f1b66bf23549f083bb00381105c0bea8387e57ecd23d6d348"
     }
   ]
 }
