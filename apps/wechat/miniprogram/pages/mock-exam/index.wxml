@@ -49,7 +49,7 @@
     </view>
     <view class="module-result card" wx:for="{{receipt.review.modules}}" wx:key="moduleName">
       <view>{{item.moduleName}}</view>
-      <view class="module-result-data type-data">做对 {{item.correct}} / {{item.total}} · {{item.accuracy * 100}}%</view>
+      <view class="module-result-data type-data">做对 {{item.correct}} / {{item.total}} · {{item.accuracyLabel}}</view>
     </view>
     <view class="next-week card">{{receipt.review.nextWeekReason}}</view>
     <button hover-class="item--hover" class="primary-button" bindtap="openMockReport">查看模考报告</button>
@@ -79,11 +79,25 @@
         anchors="{{question.material.anchors}}"
         state="{{materialReaderState}}"
         interactionActive="{{materialCaptureActive}}"
+        annotateAvailable="{{true}}"
+        inlineAnnotateButton="{{false}}"
+        annotateActive="{{annotationMode === 'annotate'}}"
+        annotationOpen="{{materialOpen && annotationMode === 'annotate'}}"
+        annotationStrokes="{{materialOpen ? materialAnnotations : emptyAnnotationStrokes}}"
+        annotationElapsedSeconds="{{question.elapsedSeconds}}"
+        annotationElapsedMs="{{question.elapsedMs || -1}}"
+        annotationToolbarAvailable="{{materialOpen}}"
+        annotationTool="{{annotationTool}}"
         bindstatechange="updateMaterialReaderState"
         bindpositionchange="updateMaterialPosition"
+        bindannotate="openMaterialAnnotation"
+        bindstrokeschange="changeMaterialAnnotations"
+        bindannotatedone="closeAnnotation"
+        bindannotationmore="toggleTools"
+        bindannotationtoolchange="changeAnnotationTool"
       />
 
-      <!-- 题目舞台只承载滚动题面；整屏草稿层在 workspace 末尾统一覆盖。 -->
+      <!-- 题目舞台同时承载滚动题面与草稿层；平板双栏时草稿不会再伸进左侧材料栏。 -->
       <view class="mock-question-stage">
       <!--
         左右快滑切题只绑在题目栏（平板双栏时材料栏不参与）。
@@ -172,17 +186,17 @@
 
       </view>
 
-      <!-- 035：唯一 viewport 画布跨过材料、分栏缝隙与题目，并且只保存到当前题。 -->
+      <!-- 一张工作台草稿层覆盖当前题材料与题目，分栏不再是手势边界。 -->
       <view class="mock-annotation-host {{touchOwner === 'annotation' ? 'mock-annotation-host--active' : ''}}">
         <annotation-layer
-          wx:if="{{annotationMode === 'annotate' || questionAnnotations.length}}"
+          wx:if="{{!materialOpen && (annotationMode === 'annotate' || questionAnnotations.length)}}"
           mode="{{annotationMode === 'annotate' ? 'annotate' : 'static'}}"
-          coordinate-space="viewport"
-          scope-label="第 {{current}} 题 · 整屏草稿"
-          stroke-prefix="workspace-stroke"
           strokes="{{questionAnnotations}}"
           elapsedSeconds="{{question.elapsedSeconds}}"
           elapsedMs="{{question.elapsedMs || -1}}"
+          scroll-top="{{0}}"
+          content-height="{{questionContentHeight}}"
+          strokePrefix="workspace-stroke"
           toolbarAvailable="{{true}}"
           activeTool="{{annotationTool}}"
           bindstrokeschange="changeAnnotations"
@@ -197,13 +211,12 @@
   <answer-sheet
     visible="{{answerSheetOpen}}"
     current="{{current}}"
-    items="{{answerSheetItems}}"
+    sections="{{answerSheetSections}}"
+    currentAnchorId="{{answerSheetCurrentAnchorId}}"
     answered="{{answered}}"
     unanswered="{{unanswered}}"
     marked="{{marked}}"
-    subtitle="{{question.moduleName}} · 共 {{total}} 题"
-    moduleName="{{question.moduleName}}"
-    moduleCounts="{{answered}} 已答 · {{unanswered}} 未答 · 1 正在答"
+    subtitle="{{answerSheetSubtitle}}"
     hint="点题号即可直接切换，存疑题会保留标记"
     submitLabel="检查后提交"
     bindclose="toggleAnswerSheet"

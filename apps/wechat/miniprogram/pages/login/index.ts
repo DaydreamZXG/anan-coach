@@ -19,6 +19,7 @@ import {
 } from "../../features/identity/wechat-login-controller";
 import {
   bootstrapSilentWechatSession,
+  learningEvidenceStateFromCoachContext,
   SILENT_WECHAT_LEGAL_ACCEPTED,
   silentEntryErrorMessage,
   silentEntryNavigationTarget,
@@ -130,11 +131,11 @@ async function loadLearningEvidenceState(
     const { data } = await new LearningBrainApi(
       new ApiClient(undefined, accessToken),
     ).getCoachContext();
-    return data.recognition.evidenceCount > 0;
+    return learningEvidenceStateFromCoachContext(data);
   } catch (error) {
-    // The legacy onboarding checklist must never become a hard gate when the
-    // read-only coach projection is temporarily unavailable. Today can still
-    // build a default real task for a learner with no evidence.
+    // Unknown evidence must not impersonate established learning history. A
+    // genuinely new learner continues into the progressive first coach
+    // meeting; completed users already carry nextStep=workspace.
     console.warn("[identity] coach recognition unavailable during silent entry", error);
     return null;
   }

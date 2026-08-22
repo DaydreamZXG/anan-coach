@@ -661,7 +661,11 @@
     </view>
 
     <!-- Figma 75:2 · 原题轨迹回放：题面 + 笔迹回放 + 底部回放工具栏。 -->
-    <view wx:if="{{replayOpen && activeReviewItem}}" class="replay-surface">
+    <view
+      wx:if="{{replayOpen && activeReviewItem}}"
+      class="replay-surface"
+      style="--replay-status-bar: {{replayStatusBarHeight}}px; --replay-navigation-height: {{replayNavigationHeight}}px; --replay-capsule-reserve: {{replayCapsuleReserve}}px;"
+    >
       <view class="replay-chip">
         <view class="replay-chip__dot" aria-hidden="true"></view>
         <text>轨迹回放 · {{replayCurrentLabel}}</text>

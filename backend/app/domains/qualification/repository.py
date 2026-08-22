@@ -107,6 +107,25 @@ class PositionRuleRelease:
 
 
 @dataclass(frozen=True)
+class CurrentExamRelease:
+    """Published exam identity that remains usable outside recruitment windows.
+
+    Position discovery and eligibility still require ``active_release`` and an
+    open official window. Learning evidence, ability estimates, and coaching
+    only need the currently published exam/version identity, so closing a
+    recruitment window must not stop the learner's study loop.
+    """
+
+    release_id: str
+    exam_code: str
+    exam_year: int
+    rule_set_version: str
+    position_data_version: str
+    content_digest: str
+    activated_at: datetime
+
+
+@dataclass(frozen=True)
 class PositionReleaseLifecycle:
     phase: PositionReleasePhase
     release_id: str | None
@@ -138,6 +157,51 @@ class FactMutation:
 
 
 class QualificationRepository:
+    def current_exam_release(
+        self,
+        session: Session,
+        *,
+        exam_code: str = "guokao",
+        exam_year: int | None = None,
+        now: datetime | None = None,
+    ) -> CurrentExamRelease:
+        """Return the published exam identity regardless of window phase.
+
+        This deliberately accepts upcoming, between-window, and closed
+        lifecycles. Those phases block position/application operations, not
+        year-round learning evidence and coaching. Missing or conflicting
+        releases remain hard failures.
+        """
+
+        lifecycle = self.release_lifecycle(
+            session,
+            exam_code=exam_code,
+            exam_year=exam_year,
+            now=now,
+        )
+        if (
+            lifecycle.phase in {"no_release", "conflict"}
+            or lifecycle.release_id is None
+            or lifecycle.exam_year is None
+            or lifecycle.rule_set_version is None
+            or lifecycle.position_data_version is None
+            or lifecycle.content_digest is None
+            or lifecycle.activated_at is None
+        ):
+            raise PositionRuleReleaseUnavailable(
+                f"No current {exam_code} exam release (phase={lifecycle.phase})",
+                lifecycle=lifecycle,
+            )
+        return CurrentExamRelease(
+            release_id=lifecycle.release_id,
+            exam_code=lifecycle.exam_code,
+            exam_year=lifecycle.exam_year,
+            rule_set_version=lifecycle.rule_set_version,
+            position_data_version=lifecycle.position_data_version,
+            content_digest=lifecycle.content_digest,
+            activated_at=lifecycle.activated_at,
+        )
+
     def active_release(
         self,
         session: Session,

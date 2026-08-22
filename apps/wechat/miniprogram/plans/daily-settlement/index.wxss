@@ -164,6 +164,11 @@ button.settlement-primary {
   width: 100%;
 }
 
+.settlement-dock {
+  background: var(--color-canvas);
+  box-shadow: 0 calc(-12 * var(--rpx)) calc(32 * var(--rpx)) rgb(15 23 42 / 6%);
+}
+
 button.settlement-companion {
   width: 100%;
   min-height: calc(60 * var(--rpx));
@@ -174,6 +179,7 @@ button.settlement-companion {
   font-size: var(--text-body);
   font-weight: 700;
   line-height: calc(60 * var(--rpx));
+  pointer-events: auto;
   text-align: center;
 }
 

@@ -96,7 +96,7 @@ class AbilityEstimateService:
         exam_year: int | None = None,
         now: datetime | None = None,
     ) -> AbilityEstimateCurrent:
-        release = self._qualification.active_release(
+        release = self._qualification.current_exam_release(
             session,
             exam_code="guokao",
             exam_year=exam_year,
@@ -154,7 +154,7 @@ class AbilityEstimateService:
         user_id: str,
         now: datetime | None = None,
     ) -> ScoreEvidenceHistory:
-        release = self._qualification.active_release(
+        release = self._qualification.current_exam_release(
             session,
             exam_code="guokao",
             now=now,
@@ -238,7 +238,7 @@ class AbilityEstimateService:
             raise AbilityEstimateContractError(
                 f"Score evidence must be newer than {MAX_EVIDENCE_AGE_DAYS} days"
             )
-        release = self._qualification.active_release(
+        release = self._qualification.current_exam_release(
             session,
             exam_code="guokao",
             now=timestamp,
@@ -393,7 +393,7 @@ class AbilityEstimateService:
         ).scalar_one_or_none()
         if owner is None:
             raise AbilityEstimateContractError("Learner does not exist")
-        release = self._qualification.active_release(
+        release = self._qualification.current_exam_release(
             session,
             exam_code="guokao",
             now=timestamp,
@@ -523,7 +523,7 @@ class AbilityEstimateService:
         ).scalar_one_or_none()
         if owner is None:
             raise AbilityEstimateContractError("Learner does not exist")
-        release = self._qualification.active_release(
+        release = self._qualification.current_exam_release(
             session,
             exam_code="guokao",
             now=timestamp,

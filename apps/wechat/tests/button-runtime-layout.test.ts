@@ -10,6 +10,8 @@ import dayAdjustmentTemplate from "../miniprogram/plans/day-adjustment/index.wxm
 import dayAdjustmentStylesRaw from "../miniprogram/plans/day-adjustment/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import dailySettlementStylesRaw from "../miniprogram/plans/daily-settlement/index.wxss?raw";
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import dailySettlementTemplate from "../miniprogram/plans/daily-settlement/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import captureStylesRaw from "../miniprogram/pages/capture-import/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
@@ -124,5 +126,15 @@ describe("WeChat runtime button layout contracts", () => {
   it("allows the learning asset grid to wrap without cropping a fifth item", () => {
     expect(meStyles).toMatch(/\.asset-grid\s*\{[^}]*flex-wrap:\s*wrap;/u);
     expect(meStyles).toContain("flex: 0 0 calc((100% - 48rpx) / 4)");
+  });
+
+  it("keeps both daily-settlement dock actions visible and tappable above page content", () => {
+    expect(dailySettlementTemplate).toContain('class="s9-action-dock settlement-dock"');
+    expect(dailySettlementStyles).toMatch(
+      /\.settlement-dock\s*\{[^}]*background:\s*var\(--color-canvas\);/u,
+    );
+    expect(dailySettlementStyles).toMatch(
+      /button\.settlement-companion\s*\{[^}]*pointer-events:\s*auto;/u,
+    );
   });
 });

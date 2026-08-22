@@ -72,6 +72,10 @@ describe("Design File core tab composition", () => {
     expect(ananStyles).toContain("min-height: 90rpx");
     expect(ananStyles).toContain("min-height: 112rpx");
     expect(ananStyles).toContain("bottom: max(180rpx, calc(116rpx + env(safe-area-inset-bottom)))");
+    expect(ananStyles).toMatch(
+      /\.coach-core__copy\s*\{[^}]*overflow-wrap:\s*anywhere;[^}]*white-space:\s*normal;/su,
+    );
+    expect(ananStyles).not.toMatch(/\.coach-core__copy\s*\{[^}]*white-space:\s*nowrap;/su);
   });
 
   it("reserves the system safe area instead of adding it twice to the tab bar", () => {

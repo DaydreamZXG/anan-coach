@@ -20,7 +20,8 @@ describe("beta flow discoverability 030 recovery path", () => {
       String(reflectionMaterialReaderRaw),
     ]) {
       expect(replica).toBe(neutral);
-      expect(replica).toContain('bindsurfacechange="switchAnnotationSurface"');
+      expect(replica).not.toContain("bindsurfacechange");
+      expect(replica).not.toContain("annotationSurfaceSwitchAvailable");
     }
 
     const platform = String(importPlatformRaw);

@@ -27,8 +27,14 @@ import { createIdempotencyKey, stableFingerprint } from "../../platform/command-
 import type { TaskRuntimeState } from "../../task-runtime/contracts";
 import type { AnnotationStroke } from "../../task-runtime/contracts";
 import {
-  replaceWorkspaceAnnotations,
-  workspaceAnnotationStrokes,
+  buildAnswerSheetProjection,
+  type AnswerSheetSection,
+} from "./shared/task-runtime/answer-sheet/model";
+import { formatPercentRatio } from "./format";
+import {
+  replaceMaterialAnnotations,
+  replaceQuestionAnnotations,
+  splitAnnotationSurfaces,
 } from "./shared/task-runtime/annotation-layer/strokes";
 import type { AnchorSegmentRect } from "./shared/task-runtime/annotation-layer/anchor";
 import type { ContentDisplayPreferences } from "./shared/task-runtime/content-renderer/model";
@@ -102,12 +108,23 @@ interface MockQuestionView extends Omit<MockExamLearnerQuestion, "options"> {
   material: MockExamLearnerMaterial | null;
 }
 
-interface MockAnswerSheetItem {
-  index: number;
-  label: string;
-  state: "answered" | "unanswered";
-  marked: boolean;
-  active: boolean;
+type MockExamSubmitReceiptView = Omit<MockExamSubmitReceipt, "review"> & {
+  review: Omit<MockExamSubmitReceipt["review"], "modules"> & {
+    modules: Array<MockExamSubmitReceipt["review"]["modules"][number] & { accuracyLabel: string }>;
+  };
+};
+
+function presentMockReceipt(receipt: MockExamSubmitReceipt): MockExamSubmitReceiptView {
+  return {
+    ...receipt,
+    review: {
+      ...receipt.review,
+      modules: receipt.review.modules.map((module) => ({
+        ...module,
+        accuracyLabel: formatPercentRatio(module.accuracy),
+      })),
+    },
+  };
 }
 
 interface MockExamPageData extends TaskInteractionProjection {
@@ -124,9 +141,13 @@ interface MockExamPageData extends TaskInteractionProjection {
   marked: number;
   remainingLabel: string;
   syncLabel: string;
-  answerSheetItems: MockAnswerSheetItem[];
+  answerSheetSections: AnswerSheetSection[];
+  answerSheetCurrentAnchorId: string;
+  answerSheetSubtitle: string;
   interactionState: TaskInteractionState;
   questionAnnotations: AnnotationStroke[];
+  materialAnnotations: AnnotationStroke[];
+  emptyAnnotationStrokes: AnnotationStroke[];
   annotationTool: "pan" | "pen" | "highlighter" | "eraser";
   annotationSegments: AnchorSegmentRect[];
   questionScrollPosition: number;
@@ -146,7 +167,7 @@ interface MockExamPageData extends TaskInteractionProjection {
   disputeStatus: "idle" | "submitting" | "resolved" | "error";
   disputeMessage: string;
   disputeReceipt: MockExamDisputeReceipt | null;
-  receipt: MockExamSubmitReceipt | null;
+  receipt: MockExamSubmitReceiptView | null;
   reportSessionId: string;
   /** Figma 98:173 交卷确认面板。 */
   submitElapsedLabel: string;
@@ -177,9 +198,16 @@ interface MockExamPageCustom {
   toggleAnswerSheet(): void;
   toggleDraft(): void;
   openAnnotation(): void;
+  openMaterialAnnotation(): void;
   changeAnnotationTool(event: WechatMiniprogram.CustomEvent<{ tool: string }>): void;
   closeAnnotation(): void;
   changeAnnotations(
+    event: WechatMiniprogram.CustomEvent<{
+      strokes: AnnotationStroke[];
+      action: "added" | "erased";
+    }>,
+  ): void;
+  changeMaterialAnnotations(
     event: WechatMiniprogram.CustomEvent<{
       strokes: AnnotationStroke[];
       action: "added" | "erased";
@@ -288,10 +316,14 @@ Page<MockExamPageData, MockExamPageCustom>({
     marked: 0,
     remainingLabel: "02:00:00",
     syncLabel: "正在连接",
-    answerSheetItems: [],
+    answerSheetSections: [] as AnswerSheetSection[],
+    answerSheetCurrentAnchorId: "",
+    answerSheetSubtitle: "",
     interactionState: initialMockInteractionState,
     ...initialMockInteractionProjection,
     questionAnnotations: [] as AnnotationStroke[],
+    materialAnnotations: [] as AnnotationStroke[],
+    emptyAnnotationStrokes: [] as AnnotationStroke[],
     annotationTool: "pan" as const,
     annotationSegments: [] as AnchorSegmentRect[],
     questionScrollPosition: 0,
@@ -668,10 +700,32 @@ Page<MockExamPageData, MockExamPageCustom>({
       { type: "ANNOTATION_OPENED", surface: "question" },
       { annotationTool: "pan" },
     );
+    afterRenderTick(() => {
+      if (runtimes.get(this) !== runtime) return;
+      measureQuestionContent(this, runtime);
+      requestSegmentRects(this);
+    });
   },
 
   closeAnnotation() {
     transitionMockInteraction(this, { type: "ANNOTATION_CLOSED" });
+  },
+
+  openMaterialAnnotation() {
+    const runtime = runtimes.get(this);
+    if (
+      !runtime?.task ||
+      runtime.task.phase !== "answering" ||
+      this.data.interactionLocked ||
+      !this.data.question?.material
+    ) {
+      return;
+    }
+    transitionMockInteraction(
+      this,
+      { type: "ANNOTATION_OPENED", surface: "material" },
+      { annotationTool: "pan" },
+    );
   },
 
   changeAnnotationTool(event) {
@@ -713,7 +767,25 @@ Page<MockExamPageData, MockExamPageCustom>({
     markCurrentQuestionDirty(runtime);
     runtime.task = reduceTaskRuntime(runtime.task, {
       type: "ANNOTATIONS_CHANGED",
-      strokes: replaceWorkspaceAnnotations(
+      strokes: replaceQuestionAnnotations(
+        runtime.task.attempts[runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? ""]
+          ?.annotations ?? [],
+        event.detail.strokes,
+      ),
+      action: event.detail.action,
+    });
+    runtime.mutationVersion += 1;
+    applyRuntimeToPage(this, runtime, "待保存");
+    scheduleAutosave(this, runtime);
+  },
+
+  changeMaterialAnnotations(event) {
+    const runtime = runtimes.get(this);
+    if (!runtime?.task || this.data.interactionLocked) return;
+    markCurrentQuestionDirty(runtime);
+    runtime.task = reduceTaskRuntime(runtime.task, {
+      type: "ANNOTATIONS_CHANGED",
+      strokes: replaceMaterialAnnotations(
         runtime.task.attempts[runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? ""]
           ?.annotations ?? [],
         event.detail.strokes,
@@ -1059,16 +1131,16 @@ function afterRenderTick(callback: () => void): void {
   void Promise.resolve().then(callback);
 }
 
-/** 批注层与题目 scroll-view 共用内容坐标系，必须以真实 scrollHeight 为基准。 */
+/** 整张可见工作台是草稿坐标面，横屏材料/题目分栏不能成为触摸边界。 */
 function measureQuestionContent(page: MockExamPageInstance, runtime: PageRuntime): void {
   if (!runtime.task || typeof page.createSelectorQuery !== "function") return;
   const query = page.createSelectorQuery();
-  query.select(".mock-question-pane").fields({ size: true, scrollOffset: true });
-  query.exec((results: Array<{ scrollHeight?: number } | null>) => {
+  query.select(".mock-workspace").boundingClientRect();
+  query.exec((results: Array<{ height?: number } | null>) => {
     if (runtimes.get(page) !== runtime) return;
-    const scrollHeight = results[0]?.scrollHeight;
-    if (scrollHeight && Number.isFinite(scrollHeight) && scrollHeight > 0) {
-      page.setData({ questionContentHeight: scrollHeight });
+    const height = results[0]?.height;
+    if (height && Number.isFinite(height) && height > 0) {
+      page.setData({ questionContentHeight: height });
     }
   });
 }
@@ -1113,18 +1185,28 @@ function applyRuntimeToPage(
   const projectedMaterialReaderState = page.data.materialOpen
     ? materialReaderState
     : reduceMaterialReader(materialReaderState, { type: "RETURN_TO_QUESTION" });
-  const answerSheetItems = task.questionOrder.map((questionId, index): MockAnswerSheetItem => {
+  const moduleNameByQuestionId = new Map(
+    session.questions.map((sessionQuestion) => [
+      sessionQuestion.questionId,
+      sessionQuestion.moduleName,
+    ]),
+  );
+  const answerSheetSourceItems = task.questionOrder.map((questionId, index) => {
     const item = task.attempts[questionId];
     if (!item) throw new Error("Mock answer sheet is incomplete");
     return {
       index,
       label: String(index + 1),
-      state: item.selectedOptionIds.length > 0 ? "answered" : "unanswered",
+      moduleName: moduleNameByQuestionId.get(questionId) ?? "未分组",
+      state: item.selectedOptionIds.length > 0 ? ("answered" as const) : ("unanswered" as const),
       marked: item.marked,
       active: index === task.currentQuestionIndex,
     };
   });
-  const questionAnnotations = workspaceAnnotationStrokes(attempt.annotations);
+  const answerSheetProjection = buildAnswerSheetProjection(answerSheetSourceItems);
+  const { question: questionAnnotations, material: materialAnnotations } = splitAnnotationSurfaces(
+    attempt.annotations,
+  );
   transitionMockInteraction(
     page,
     { type: "LOCK_CHANGED", locked: false },
@@ -1149,13 +1231,16 @@ function applyRuntimeToPage(
         material,
       },
       questionAnnotations,
+      materialAnnotations,
       current: task.currentQuestionIndex + 1,
       total: task.questionOrder.length,
       answered: counts.answered,
       unanswered: counts.unanswered,
       marked: counts.marked,
       syncLabel,
-      answerSheetItems,
+      answerSheetSections: answerSheetProjection.sections,
+      answerSheetCurrentAnchorId: answerSheetProjection.currentAnchorId,
+      answerSheetSubtitle: answerSheetProjection.subtitle,
       materialReaderState: projectedMaterialReaderState,
       materialQuestionId: question.questionId,
       pageObjectReference: {
@@ -1413,7 +1498,7 @@ async function executeSubmit(
       {
         status: "submitted",
         syncLabel: "已提交",
-        receipt,
+        receipt: presentMockReceipt(receipt),
         reportSessionId: committedSession.sessionId,
         toolPolicy: taskToolPolicy("mock", "submitted"),
         pageObjectReference: {

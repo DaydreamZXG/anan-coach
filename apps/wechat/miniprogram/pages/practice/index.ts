@@ -66,10 +66,15 @@ import { createIdempotencyKey } from "../../platform/command-id";
 import { decideAutosave, decideExit } from "./features/task-runtime/state/autosave";
 import {
   appendStrokeWithinLimit,
-  replaceWorkspaceAnnotations,
-  workspaceAnnotationStrokes,
+  replaceMaterialAnnotations,
+  replaceQuestionAnnotations,
+  splitAnnotationSurfaces,
 } from "./shared/task-runtime/annotation-layer/strokes";
 import type { AnnotationStroke } from "../../task-runtime/contracts";
+import {
+  buildAnswerSheetProjection,
+  type AnswerSheetSection,
+} from "./shared/task-runtime/answer-sheet/model";
 import type { AnchorSegmentRect } from "./shared/task-runtime/annotation-layer/anchor";
 import { reduceTaskRuntime, unansweredQuestionIds } from "./shared/task-runtime/state/runtime";
 import {
@@ -141,6 +146,8 @@ interface PracticePageData extends TaskInteractionProjection {
   /** 快滑切题的一次性转场方向（motion-question-in--*），动画结束即清空。 */
   questionTransition: "" | "prev" | "next";
   questionAnnotations: AnnotationStroke[];
+  materialAnnotations: AnnotationStroke[];
+  emptyAnnotationStrokes: AnnotationStroke[];
   annotationTool: "pan" | "pen" | "highlighter" | "eraser";
   /** 契约增量 v2：当前题干句段的视口矩形表，喂给批注层做锚定与滚动跟随。 */
   annotationSegments: AnchorSegmentRect[];
@@ -172,13 +179,8 @@ interface PracticePageData extends TaskInteractionProjection {
   canSubmit: boolean;
   hasPendingCheckpoint: boolean;
   pendingCheckpointMessage: string;
-  answerSheetItems: Array<{
-    index: number;
-    label: string;
-    state: "answered" | "skipped" | "unanswered";
-    marked: boolean;
-    active: boolean;
-  }>;
+  answerSheetSections: AnswerSheetSection[];
+  answerSheetCurrentAnchorId: string;
   /** Figma 61:2：图例的真实计数。 */
   answerSheetLegend: {
     answered: number;
@@ -187,9 +189,6 @@ interface PracticePageData extends TaskInteractionProjection {
   };
   /** Figma 60:10：`资料分析 · 共 5 题`，来自真实 bundle。 */
   answerSheetSubtitle: string;
-  /** Figma 61:16：模块行右侧 `2 已答 · 2 未答 · 1 当前`。 */
-  answerSheetModuleName: string;
-  answerSheetModuleCounts: string;
   confidenceOptions: Array<{ value: "low" | "medium" | "high"; label: string }>;
 }
 
@@ -206,9 +205,16 @@ interface PracticePageCustom {
   openAnanContext(): void;
   closeAnanContext(): void;
   openAnnotation(): void;
+  openMaterialAnnotation(): void;
   changeAnnotationTool(event: WechatMiniprogram.CustomEvent<{ tool: string }>): void;
   closeAnnotation(): void;
   changeAnnotations(
+    event: WechatMiniprogram.CustomEvent<{
+      strokes: AnnotationStroke[];
+      action: "added" | "erased";
+    }>,
+  ): void;
+  changeMaterialAnnotations(
     event: WechatMiniprogram.CustomEvent<{
       strokes: AnnotationStroke[];
       action: "added" | "erased";
@@ -332,6 +338,8 @@ Page<PracticePageData, PracticePageCustom>({
     questionScrollTop: 0,
     questionTransition: "",
     questionAnnotations: [] as AnnotationStroke[],
+    materialAnnotations: [] as AnnotationStroke[],
+    emptyAnnotationStrokes: [] as AnnotationStroke[],
     annotationTool: "pan" as const,
     annotationSegments: [] as AnchorSegmentRect[],
     questionScrollPosition: 0,
@@ -351,11 +359,10 @@ Page<PracticePageData, PracticePageCustom>({
     canSubmit: false,
     hasPendingCheckpoint: false,
     pendingCheckpointMessage: "",
-    answerSheetItems: [],
+    answerSheetSections: [] as AnswerSheetSection[],
+    answerSheetCurrentAnchorId: "",
     answerSheetLegend: { answered: 0, unanswered: 0, marked: 0 },
     answerSheetSubtitle: "",
-    answerSheetModuleName: "",
-    answerSheetModuleCounts: "",
     confidenceOptions: [
       { value: "low", label: "不确定" },
       { value: "medium", label: "比较确定" },
@@ -686,6 +693,18 @@ Page<PracticePageData, PracticePageCustom>({
     transitionPracticeInteraction(this, { type: "ANNOTATION_CLOSED" });
   },
 
+  openMaterialAnnotation() {
+    const runtime = runtimes.get(this);
+    if (!runtime?.session || runtime.session.state !== "answering") return;
+    transitionPracticeInteraction(
+      this,
+      { type: "ANNOTATION_OPENED", surface: "material" },
+      {
+        selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
+      },
+    );
+  },
+
   changeAnnotationTool(event) {
     const tool = normalizePageAnnotationTool(event.detail.tool);
     if (tool !== this.data.annotationTool) this.setData({ annotationTool: tool });
@@ -731,11 +750,25 @@ Page<PracticePageData, PracticePageCustom>({
     if (!runtime?.task || this.data.interactionLocked) return;
     runtime.task = reduceTaskRuntime(runtime.task, {
       type: "ANNOTATIONS_CHANGED",
-      strokes: replaceWorkspaceAnnotations(
+      strokes: replaceQuestionAnnotations(
         runtime.task.attempts[runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? ""]
           ?.annotations ?? [],
         event.detail.strokes,
       ),
+      action: event.detail.action,
+    });
+    render(this, runtime);
+    void autosaveCheckpoint(this, runtime);
+  },
+
+  changeMaterialAnnotations(event) {
+    const runtime = runtimes.get(this);
+    if (!runtime?.task || !runtime.session || this.data.interactionLocked) return;
+    const currentQuestionId = runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? "";
+    const current = runtime.task.attempts[currentQuestionId]?.annotations ?? [];
+    runtime.task = reduceTaskRuntime(runtime.task, {
+      type: "ANNOTATIONS_CHANGED",
+      strokes: replaceMaterialAnnotations(current, event.detail.strokes),
       action: event.detail.action,
     });
     render(this, runtime);
@@ -1700,11 +1733,15 @@ function render(
   const projectedMaterialReaderState = page.data.materialOpen
     ? materialReaderState
     : reduceMaterialReader(materialReaderState, { type: "RETURN_TO_QUESTION" });
-  const answerSheetItems = runtime.task.questionOrder.map((questionId, index) => {
+  const moduleNameByQuestionId = new Map(
+    runtime.session.bundle.questions.map((question) => [question.questionId, question.moduleName]),
+  );
+  const answerSheetSourceItems = runtime.task.questionOrder.map((questionId, index) => {
     const attempt = runtime.task?.attempts[questionId];
     return {
       index,
       label: String(index + 1),
+      moduleName: moduleNameByQuestionId.get(questionId) ?? "未分组",
       state: attempt?.skipped
         ? ("skipped" as const)
         : (attempt?.selectedOptionIds.length ?? 0) > 0
@@ -1714,31 +1751,30 @@ function render(
       active: index === runtime.task?.currentQuestionIndex,
     };
   });
+  const answerSheetProjection = buildAnswerSheetProjection(answerSheetSourceItems);
   // Figma 60:4 答题卡：图例、模块行与题号圆点全部来自真实作答状态。
-  const answeredCount = answerSheetItems.filter((item) => item.state === "answered").length;
+  const answeredCount = answerSheetSourceItems.filter((item) => item.state === "answered").length;
   const answerSheetLegend = {
     answered: answeredCount,
-    unanswered: answerSheetItems.length - answeredCount,
-    marked: answerSheetItems.filter((item) => item.marked).length,
+    unanswered: answerSheetSourceItems.length - answeredCount,
+    marked: answerSheetSourceItems.filter((item) => item.marked).length,
   };
-  const answerSheetModuleName = view.question.moduleName;
-  const answerSheetSubtitle = `${answerSheetModuleName} · 共 ${String(answerSheetItems.length)} 题`;
-  const answerSheetModuleCounts = `${String(answerSheetLegend.answered)} 已答 · ${String(answerSheetLegend.unanswered)} 未答 · 1 当前`;
   const alreadyReady = page.data.status === "ready";
   const favoriteQuestionChanged = page.data.favoriteQuestionId !== currentQuestionId;
+  const annotationSurfaces = splitAnnotationSurfaces(view.question.annotations);
   page.setData({
     ...(alreadyReady ? { status: "ready" as const } : {}),
     errorTitle: "",
     errorMessage: "",
     view,
-    questionAnnotations: workspaceAnnotationStrokes(view.question.annotations),
+    questionAnnotations: annotationSurfaces.question,
+    materialAnnotations: annotationSurfaces.material,
     sessionState: runtime.session.state,
     canSubmit: runtime.session.state === "answering",
-    answerSheetItems,
+    answerSheetSections: answerSheetProjection.sections,
+    answerSheetCurrentAnchorId: answerSheetProjection.currentAnchorId,
     answerSheetLegend,
-    answerSheetSubtitle,
-    answerSheetModuleName,
-    answerSheetModuleCounts,
+    answerSheetSubtitle: answerSheetProjection.subtitle,
     materialQuestionId: currentQuestionId,
     materialReaderState: projectedMaterialReaderState,
     toolPolicy: taskToolPolicy(
@@ -1927,22 +1963,19 @@ function afterRenderTick(callback: () => void): void {
   void Promise.resolve().then(callback);
 }
 
-/**
- * 契约增量 v2：测量题目内容总高（px），作为批注层内容坐标系的换算基准。
- * scroll-view 的 scrollHeight 即全部内容高度，与 scrollTop 同源，天然匹配。
- */
+/** 整张可见工作台是草稿坐标面，题目/材料滚动不再切换画布。 */
 function measureQuestionContent(
   page: PracticePageInstance,
   runtime: NonNullable<ReturnType<typeof runtimes.get>>,
 ): void {
   if (!runtime.task) return;
   const query = page.createSelectorQuery();
-  query.select(".practice-question-pane").fields({ size: true, scrollOffset: true });
-  query.exec((results: Array<{ height?: number; scrollHeight?: number } | null>) => {
+  query.select(".practice-workspace").boundingClientRect();
+  query.exec((results: Array<{ height?: number } | null>) => {
     if (!runtimes.owns(page, runtime)) return;
-    const scrollHeight = results[0]?.scrollHeight;
-    if (scrollHeight && Number.isFinite(scrollHeight) && scrollHeight > 0) {
-      page.setData({ questionContentHeight: scrollHeight });
+    const height = results[0]?.height;
+    if (height && Number.isFinite(height) && height > 0) {
+      page.setData({ questionContentHeight: height });
     }
   });
 }

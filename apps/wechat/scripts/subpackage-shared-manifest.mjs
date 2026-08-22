@@ -201,6 +201,7 @@ const declaredSubpackageSharedFiles = [
     packages: ["practice", "mock-exam", "reflection"],
   },
   { path: "task-runtime/answer-sheet/index.ts", packages: ["practice", "mock-exam"] },
+  { path: "task-runtime/answer-sheet/model.ts", packages: ["practice", "mock-exam"] },
   { path: "task-runtime/question-toolbar/index.ts", packages: ["practice", "mock-exam"] },
   { path: "components/math-ink-pad/index.ts", packages: ["practice"] },
   ...componentFiles("task-runtime/annotation-layer", ["practice", "mock-exam", "reflection"]),

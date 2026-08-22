@@ -1310,7 +1310,7 @@ class XingceAttemptService:
         except CauseAgentWorkflowError as exc:
             raise XingceAttemptError(
                 "xingce_cause_agent_contract_conflict",
-                "解题 Agent 输入版本已经变化，请刷新复盘状态后重试。",
+                "岸岸整理错因时发现证据版本已经变化，请刷新复盘状态后重试。",
                 status_code=409,
             ) from exc
         except CommerceQuotaExceededError as exc:
@@ -1765,7 +1765,7 @@ class XingceAttemptService:
             if candidate is not None and bool(candidate["charged"]):
                 raise XingceAttemptError(
                     "xingce_candidate_contract_invalid",
-                    "行测解题 Agent 属于训练闭环内含能力，不能发布 charged 候选。",
+                    "错因判断属于训练闭环内含能力，不能生成付费候选。",
                     status_code=500,
                 )
             candidate_projection = _candidate_projection(candidate)

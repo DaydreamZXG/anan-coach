@@ -9,9 +9,11 @@ describe("direct draft test contract 032 race path", () => {
   it("keeps latest tool ownership separate from persistent stroke ownership", () => {
     for (const source of [String(practiceLogicRaw), String(mockLogicRaw)]) {
       expect(source).toContain("changeAnnotationTool(event)");
+      expect(source).not.toContain("focusQuestionAnnotation()");
+      expect(source).not.toContain("focusMaterialAnnotation()");
+      expect(source).not.toContain("annotationCanvas");
       expect(source).toContain("changeAnnotations(event)");
-      expect(source).toContain("replaceWorkspaceAnnotations(");
-      expect(source).not.toContain("changeMaterialAnnotations(event)");
+      expect(source).toContain("changeMaterialAnnotations(event)");
     }
   });
 });

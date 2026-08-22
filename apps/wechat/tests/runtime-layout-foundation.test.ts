@@ -38,6 +38,12 @@ import positionPreferenceTemplate from "../miniprogram/pages/onboarding/position
 import preparationExperienceTemplate from "../miniprogram/pages/onboarding/preparation-experience/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program page templates through its raw asset loader.
 import studyPreferenceTemplate from "../miniprogram/pages/onboarding/study-preference/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program page templates through its raw asset loader.
+import reflectionTemplate from "../miniprogram/pages/reflection/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
+import reflectionStylesRaw from "../miniprogram/pages/reflection/index.wxss?raw";
+// @ts-expect-error Vite exposes mini-program source through its raw asset loader.
+import reflectionSource from "../miniprogram/pages/reflection/index.ts?raw";
 
 function normalizeRpxCalc(source: unknown): string {
   if (typeof source !== "string") throw new Error("Raw mini-program asset must be text.");
@@ -48,6 +54,7 @@ const primitiveStyles = normalizeRpxCalc(primitiveStylesRaw);
 const workbenchNavStyles = normalizeRpxCalc(workbenchNavStylesRaw);
 const onboardingShellStyles = normalizeRpxCalc(onboardingShellStylesRaw);
 const tabBarStyles = normalizeRpxCalc(tabBarStylesRaw);
+const reflectionStyles = normalizeRpxCalc(reflectionStylesRaw);
 
 describe("runtime layout foundation", () => {
   it("keeps generic section layout out of the global namespace", () => {
@@ -70,6 +77,16 @@ describe("runtime layout foundation", () => {
       expect(template).toContain('<safe-top gap="4" />');
       expect(template).not.toContain('mode="status"');
     }
+  });
+
+  it("keeps trajectory replay metadata outside the WeChat capsule", () => {
+    expect(reflectionSource).toContain("measureSystemChrome(8)");
+    expect(reflectionTemplate).toContain("--replay-capsule-reserve: {{replayCapsuleReserve}}px");
+    expect(reflectionStyles).toContain("var(--replay-capsule-reserve, 96px)");
+    expect(reflectionStyles).toContain("var(--replay-navigation-height, 44px)");
+    expect(reflectionStyles).not.toContain(
+      ".replay-chip {\n  position: absolute;\n  top: calc(env(safe-area-inset-top)",
+    );
   });
 
   it("keeps all five onboarding steps in the capsule row and moves save to the action dock", () => {

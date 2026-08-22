@@ -8,16 +8,18 @@ import practiceLogicRaw from "../../../miniprogram/pages/practice/index.ts?raw";
 import practiceTemplateRaw from "../../../miniprogram/pages/practice/index.wxml?raw";
 
 describe("beta flow discoverability 030 stale data path", () => {
-  it("keeps legacy strokes stored while rendering only the current question workspace", () => {
+  it("keeps old question and material strokes on their original surfaces", () => {
     const annotation = String(annotationLogicRaw);
     const practice = String(practiceLogicRaw);
     const template = String(practiceTemplateRaw);
 
-    expect(annotation).toContain('coordinateSpace: { type: String, value: "content" }');
-    expect(practice).toContain("replaceWorkspaceAnnotations(");
-    expect(practice).toContain("workspaceAnnotationStrokes(");
-    expect(practice).not.toContain('type: "SHARED_MATERIAL_ANNOTATIONS_CHANGED"');
+    expect(annotation).not.toContain("switchSurface(event");
+    expect(annotation).not.toContain('triggerEvent("surfacechange"');
+    expect(practice).toContain("replaceQuestionAnnotations(");
+    expect(practice).toContain("replaceMaterialAnnotations(current, event.detail.strokes)");
     expect(template).toContain('strokes="{{questionAnnotations}}"');
-    expect(template).not.toContain('annotationStrokes="{{materialAnnotations}}"');
+    expect(template).toContain(
+      'annotationStrokes="{{materialOpen ? materialAnnotations : emptyAnnotationStrokes}}"',
+    );
   });
 });

@@ -138,7 +138,7 @@ describe("xingce practice page lifecycle", () => {
     runtime.page.onUnload.call(runtime.page);
   });
 
-  it("retries a failed draft and the full-workspace scratch with the same checkpoint command", async () => {
+  it("retries a failed draft and both scratch surfaces with the same checkpoint command", async () => {
     vi.useFakeTimers();
     let checkpointAttempts = 0;
     const runtime = await createPracticePage(
@@ -159,14 +159,12 @@ describe("xingce practice page lifecycle", () => {
       "targeted",
       { sharedMaterial: true },
     );
-    const questionStroke = annotationStroke("workspace-stroke-retry-1", "question");
-    const materialStroke = annotationStroke("workspace-stroke-retry-2", "question");
+    const questionStroke = annotationStroke("question-stroke-retry", "question");
+    const materialStroke = annotationStroke("material-stroke-retry", "material");
 
     runtime.page.inputDraft.call(runtime.page, inputEvent("先圈分母，再核对增长率。"));
-    runtime.page.changeAnnotations.call(
-      runtime.page,
-      annotationEvent(questionStroke, materialStroke),
-    );
+    runtime.page.changeAnnotations.call(runtime.page, annotationEvent(questionStroke));
+    runtime.page.changeMaterialAnnotations.call(runtime.page, annotationEvent(materialStroke));
     runtime.page.onHide.call(runtime.page);
     await flushMicrotasks();
 
@@ -245,10 +243,11 @@ describe("xingce practice page lifecycle", () => {
       sharedMaterial: true,
       storage,
     });
-    const questionStroke = annotationStroke("workspace-stroke-rebuild-1", "question");
-    const materialStroke = annotationStroke("workspace-stroke-rebuild-2", "question");
+    const questionStroke = annotationStroke("question-stroke-rebuild", "question");
+    const materialStroke = annotationStroke("material-stroke-rebuild", "material");
     first.page.inputDraft.call(first.page, inputEvent("重建后也要保留的草稿"));
-    first.page.changeAnnotations.call(first.page, annotationEvent(questionStroke, materialStroke));
+    first.page.changeAnnotations.call(first.page, annotationEvent(questionStroke));
+    first.page.changeMaterialAnnotations.call(first.page, annotationEvent(materialStroke));
     first.page.onHide.call(first.page);
     await flushMicrotasks();
     const failed = first.requests.find(
@@ -272,8 +271,8 @@ describe("xingce practice page lifecycle", () => {
     };
     expect(view.question.draftText).toBe("重建后也要保留的草稿");
     expect(view.question.annotations.map(({ strokeId }) => strokeId)).toEqual([
-      "workspace-stroke-rebuild-1",
-      "workspace-stroke-rebuild-2",
+      "question-stroke-rebuild",
+      "material-stroke-rebuild",
     ]);
     rebuilt.page.onUnload.call(rebuilt.page);
   });
@@ -456,15 +455,17 @@ describe("xingce practice page lifecycle", () => {
     expect(practiceTemplate).toContain('wx:if="{{pauseCaptureActive}}"');
     expect(practiceTemplate).not.toContain('wx:if="{{taskPaused}}" class="pause-mask');
     expect(practiceTemplate).toContain(
-      "wx:if=\"{{annotationMode === 'annotate' || questionAnnotations.length}}\"",
+      "wx:if=\"{{!materialOpen && (annotationMode === 'annotate' || questionAnnotations.length)}}\"",
     );
     expect(practiceTemplate).toContain(
       "mode=\"{{annotationMode === 'annotate' ? 'annotate' : 'static'}}\"",
     );
-    expect(practiceTemplate).toContain('coordinate-space="viewport"');
-    expect(practiceTemplate).toContain('stroke-prefix="workspace-stroke"');
-    expect(String(practiceTemplate).match(/<annotation-layer/gu)).toHaveLength(1);
-    expect(practiceTemplate).not.toContain('bindstrokeschange="changeMaterialAnnotations"');
+    expect(practiceTemplate).toContain(
+      "annotationOpen=\"{{materialOpen && annotationMode === 'annotate'}}\"",
+    );
+    expect(practiceTemplate).not.toContain("surfaceSwitchAvailable");
+    expect(practiceTemplate).toContain('toolbarAvailable="{{true}}"');
+    expect(practiceTemplate).toContain('strokePrefix="workspace-stroke"');
 
     runtime.page.openAnnotation.call(runtime.page);
     runtime.page.openTaskTools.call(runtime.page);
@@ -1163,6 +1164,10 @@ interface CapturedPracticePage {
   loadTask(this: TestPracticePage): Promise<void>;
   inputDraft(this: TestPracticePage, event: WechatMiniprogram.Input): void;
   changeAnnotations(this: TestPracticePage, event: ReturnType<typeof annotationEvent>): void;
+  changeMaterialAnnotations(
+    this: TestPracticePage,
+    event: ReturnType<typeof annotationEvent>,
+  ): void;
   retryPendingCheckpoint(this: TestPracticePage): Promise<void>;
   nextQuestion(this: TestPracticePage): void;
   selectQuestion(this: TestPracticePage, event: WechatMiniprogram.BaseEvent): void;
@@ -1254,9 +1259,9 @@ function annotationStroke(strokeId: string, surface: "question" | "material") {
   };
 }
 
-function annotationEvent(...strokes: Array<ReturnType<typeof annotationStroke>>) {
+function annotationEvent(stroke: ReturnType<typeof annotationStroke>) {
   return {
-    detail: { strokes, action: "added" as const },
+    detail: { strokes: [stroke], action: "added" as const },
   } as WechatMiniprogram.CustomEvent<{
     strokes: Array<ReturnType<typeof annotationStroke>>;
     action: "added";

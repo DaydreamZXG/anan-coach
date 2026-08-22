@@ -86,15 +86,28 @@
             subtitle="{{view.question.moduleName}}{{view.materialScopeLabel ? ' · 第 ' + view.materialScopeLabel : ''}}"
             chipLabel="{{view.question.moduleName}} · 共享材料{{view.materialScopeLabel ? '（' + view.materialScopeLabel + '）' : ''}}"
             returnLabel="回到第 {{view.current}} 题"
-            blocks="{{view.question.material.content}}"
-            anchors="{{view.question.material.anchors}}"
+            blocks="{{view && view.question && view.question.material && view.question.material.content ? view.question.material.content : emptyRichContentBlocks}}"
+            anchors="{{view && view.question && view.question.material && view.question.material.anchors ? view.question.material.anchors : emptyContentAnchors}}"
             state="{{materialReaderState}}"
             interactionActive="{{materialCaptureActive}}"
+            annotateAvailable="{{true}}"
+            annotateActive="{{annotationMode === 'annotate'}}"
+            annotationOpen="{{materialOpen && annotationMode === 'annotate'}}"
+            annotationStrokes="{{materialOpen ? materialAnnotations : emptyAnnotationStrokes}}"
+            annotationElapsedSeconds="{{view.question.elapsedSeconds}}"
+            annotationElapsedMs="{{view.question.elapsedMs || -1}}"
+            annotationToolbarAvailable="{{materialOpen}}"
+            annotationTool="{{annotationTool}}"
             bindstatechange="updateMaterialReader"
+            bindannotate="openMaterialAnnotation"
+            bindstrokeschange="changeMaterialAnnotations"
+            bindannotatedone="closeAnnotation"
+            bindannotationmore="openTaskTools"
+            bindannotationtoolchange="changeAnnotationTool"
           />
         </view>
 
-        <!-- 题目舞台只承载滚动题面；整屏草稿层在 workspace 末尾统一覆盖材料、缝隙和题目。 -->
+        <!-- 题目舞台同时承载滚动题面与草稿层；平板双栏时草稿不会再伸进左侧材料栏。 -->
         <view class="practice-question-stage">
         <!-- Figma 2:132：题干与选项自成滚动区，底部留出 112px 让 D 选项不被底栏遮住。 -->
         <!--
@@ -145,7 +158,7 @@
               <!-- Figma 84:2 画词：题干句段可选中，点选后浮出工具条。 -->
               <content-renderer
                 class="question-stem question-rich-content"
-                blocks="{{view.question.stemContent}}"
+                blocks="{{view && view.question && view.question.stemContent ? view.question.stemContent : emptyRichContentBlocks}}"
                 zoom="{{1}}"
                 preferences="{{displayPreferences}}"
                 selectable
@@ -171,7 +184,7 @@
                 <view class="option-label">{{item.label}}</view>
                 <content-renderer
                   class="option-copy option-rich-content"
-                  blocks="{{item.content}}"
+                  blocks="{{item.content ? item.content : emptyRichContentBlocks}}"
                   zoom="{{1}}"
                   preferences="{{displayPreferences}}"
                 />
@@ -219,17 +232,17 @@
 
         </view>
 
-        <!-- 035：一块真实的 viewport 画布覆盖整张当前题工作区，同一笔可跨过左右分栏。 -->
+        <!-- 当前题只有这一张可写草稿层：横屏时跨过材料/题目分栏仍是同一笔。 -->
         <view class="practice-annotation-host {{touchOwner === 'annotation' ? 'practice-annotation-host--active' : ''}}">
           <annotation-layer
-            wx:if="{{annotationMode === 'annotate' || questionAnnotations.length}}"
+            wx:if="{{!materialOpen && (annotationMode === 'annotate' || questionAnnotations.length)}}"
             mode="{{annotationMode === 'annotate' ? 'annotate' : 'static'}}"
-            coordinate-space="viewport"
-            scope-label="第 {{view.current}} 题 · 整屏草稿"
-            stroke-prefix="workspace-stroke"
             strokes="{{questionAnnotations}}"
             elapsedSeconds="{{view.question.elapsedSeconds}}"
             elapsedMs="{{view.question.elapsedMs || -1}}"
+            scroll-top="{{0}}"
+            content-height="{{questionContentHeight}}"
+            strokePrefix="workspace-stroke"
             toolbarAvailable="{{true}}"
             activeTool="{{annotationTool}}"
             bindstrokeschange="changeAnnotations"
@@ -320,13 +333,12 @@
         id="runtime-answer-sheet"
         visible="{{answerSheetOpen}}"
         current="{{view.current}}"
-        items="{{answerSheetItems}}"
+        sections="{{answerSheetSections}}"
+        currentAnchorId="{{answerSheetCurrentAnchorId}}"
         answered="{{answerSheetLegend.answered}}"
         unanswered="{{answerSheetLegend.unanswered}}"
         marked="{{answerSheetLegend.marked}}"
         subtitle="{{answerSheetSubtitle}}"
-        moduleName="{{answerSheetModuleName}}"
-        moduleCounts="{{answerSheetModuleCounts}}"
         insightAvailable="{{true}}"
         hint="{{answerSheetLegend.unanswered > 0 ? '没答的题按未作答算，直接提交就行' : '点题号直接切换，存疑的题复盘优先'}}"
         submitLabel="{{answerSheetLegend.unanswered > 0 ? '保留未答并提交' : '提交并查看结果'}}"

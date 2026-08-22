@@ -15,6 +15,7 @@ import {
 } from "./shared/api/xingce-learning";
 import { routes, type AppRoute } from "../../app/navigation/routes";
 import { navigateBackOr } from "./shared/app/navigation/safe-back";
+import { measureSystemChrome } from "../../components/safe-top/metrics";
 import { currentAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
 import { storeCompanionLaunchContext } from "../../features/companion/context-store";
@@ -157,6 +158,9 @@ interface ReflectionPageData {
   replaySurface: "question" | "material";
   replaySurfaceOptions: Array<{ value: "question" | "material"; label: string }>;
   replayAnnotations: XingceResultItemView["annotations"];
+  replayStatusBarHeight: number;
+  replayNavigationHeight: number;
+  replayCapsuleReserve: number;
   /** Figma 78:2 · 岸岸动作分析。 */
   analysisOpen: boolean;
   actionAnalysis: {
@@ -363,6 +367,9 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     replaySurface: "question",
     replaySurfaceOptions: [],
     replayAnnotations: [],
+    replayStatusBarHeight: 20,
+    replayNavigationHeight: 44,
+    replayCapsuleReserve: 96,
     analysisOpen: false,
     actionAnalysis: null,
     rawText: "",
@@ -426,9 +433,13 @@ Page<ReflectionPageData, ReflectionPageCustom>({
 
   onLoad(options: Record<string, string | undefined>) {
     const displayPreferences = loadTaskDisplayPreferences();
+    const chrome = measureSystemChrome(8);
     this.setData({
       displayPreferences,
       materialReaderState: createMaterialReaderState(undefined, displayPreferences),
+      replayStatusBarHeight: chrome.statusBarHeight,
+      replayNavigationHeight: chrome.navigationHeight,
+      replayCapsuleReserve: Math.max(48, chrome.capsuleReserve),
     });
     const sessionId = options.sessionId?.trim() ?? "";
     const reviewId = options.reviewId?.trim() ?? "";

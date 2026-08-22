@@ -17,7 +17,9 @@
   left: 0;
   box-sizing: border-box;
   display: flex;
+  height: 88vh;
   flex-direction: column;
+  max-height: 88vh;
   gap: calc(24 * var(--rpx));
   padding: calc(16 * var(--rpx)) calc(40 * var(--rpx))
     calc(calc(40 * var(--rpx)) + env(safe-area-inset-bottom));
@@ -119,6 +121,14 @@
   gap: calc(28 * var(--rpx));
   padding: calc(12 * var(--rpx)) 0 calc(8 * var(--rpx));
 }
+.answer-card__scroll {
+  min-height: 0;
+  flex: 1;
+}
+.answer-card__scroll .answer-card__section + .answer-card__section {
+  padding-top: calc(36 * var(--rpx));
+  border-top: calc(1 * var(--rpx)) solid var(--figma-color-line);
+}
 .answer-card__module-row {
   display: flex;
   align-items: center;
@@ -136,11 +146,9 @@
 }
 .answer-card__grid {
   display: grid;
-  max-height: 40vh;
   grid-template-columns: repeat(auto-fill, calc(88 * var(--rpx)));
   justify-content: space-between;
   gap: calc(28 * var(--rpx)) calc(16 * var(--rpx));
-  overflow-y: auto;
 }
 .answer-card__cell {
   position: relative;
@@ -201,6 +209,7 @@
   line-height: 1;
 }
 .answer-card__hint {
+  padding: calc(20 * var(--rpx)) 0 calc(8 * var(--rpx));
   color: var(--figma-color-muted);
   font-size: var(--text-micro);
   font-weight: 500;
@@ -258,6 +267,8 @@
     left: auto;
     width: 100%;
     max-width: 560px;
+    height: 86vh;
+    max-height: 86vh;
     padding: 8px 20px calc(20px + env(safe-area-inset-bottom));
     border-radius: 28px 28px 0 0;
     transform: translateX(50%);

@@ -5607,6 +5607,409 @@
         "Deployment bypasses immutable release signatures or exposes a key"
       ],
       "status": "planned"
+    },
+    {
+      "id": "WP-FULL-PRODUCT-AUDIT-REPAIRS-036",
+      "wave": "integration",
+      "owner": "product-audit-integration",
+      "riskClass": "high",
+      "objective": "闭合全产品普查发现的非做题工作台前端阻断、全年学习发布身份错误和部署修订漂移，同时保留真实、mock、静态与未验证证据边界。",
+      "deliverables": [
+        "新用户证据未知时进入第一次教练会谈且运行时结构缺失不崩溃",
+        "旧基础库安全区降级、岸岸长文案、复盘回放和每日结算交互修复",
+        "视觉 fixture 与页面真实字段同步并防止空白场景通过",
+        "全年学习使用当前考试发布身份而岗位检索继续受招录窗口约束",
+        "部署迁移头、备份与商业发布协议使用同一当前版本",
+        "61 页覆盖矩阵与分级验证报告"
+      ],
+      "requirementRefs": [
+        "REQ-FULL-PRODUCT-AUDIT-FRONTEND-036",
+        "REQ-YEAR-ROUND-LEARNING-RELEASE-036"
+      ],
+      "decisionRefs": [
+        "DEC-FULL-PRODUCT-AUDIT-REPAIRS-036",
+        "DEC-FREEZE-RU-FULL-PRODUCT-AUDIT-REPAIRS-036"
+      ],
+      "blockingDecisionRefs": [],
+      "nonGoals": [
+        "不写入或重置真实用户学习数据",
+        "不修改数据库 schema、题库内容、答案或解析",
+        "不把 MCP mock、包内测试文件或静态检查描述为真实微信文件选择和生产写入成功"
+      ],
+      "dependsOn": [
+        "WP-DIRECT-DRAFT-TEST-CONTRACT-032",
+        "WP-STRUCTURED-VISUAL-RUNTIME-BRIDGE-034B"
+      ],
+      "allowedPaths": [
+        "apps/wechat/e2e/visual-scenarios.mjs",
+        "apps/wechat/miniprogram/components/safe-top/metrics.ts",
+        "apps/wechat/miniprogram/features/identity/silent-entry.ts",
+        "apps/wechat/miniprogram/pages/anan/index.wxss",
+        "apps/wechat/miniprogram/pages/login/index.ts",
+        "apps/wechat/miniprogram/pages/reflection/index.ts",
+        "apps/wechat/miniprogram/pages/reflection/index.wxml",
+        "apps/wechat/miniprogram/pages/reflection/index.wxss",
+        "apps/wechat/miniprogram/plans/daily-settlement/index.wxml",
+        "apps/wechat/miniprogram/plans/daily-settlement/index.wxss",
+        "apps/wechat/scripts/subpackage-shared-manifest.mjs",
+        "apps/wechat/tests/anan-silent-entry.test.ts",
+        "apps/wechat/tests/button-runtime-layout.test.ts",
+        "apps/wechat/tests/design-file-core-tabs.test.ts",
+        "apps/wechat/tests/essay-material-reading.test.ts",
+        "apps/wechat/tests/runtime-layout-foundation.test.ts",
+        "apps/wechat/tests/visual-delivery-contracts.test.ts",
+        "backend/app/domains/ability_estimation/service.py",
+        "backend/app/domains/qualification/repository.py",
+        "backend/app/domains/xingce_learning/real_attempt/service.py",
+        "backend/tests/test_ability_estimation.py",
+        "backend/tests/test_backup_recovery_contract.py",
+        "backend/tests/test_commercial_data_publication_protocol.py",
+        "backend/tests/test_position_release_lifecycle.py",
+        "backend/tests/test_wave1_db_contracts.py",
+        "ops/env.example",
+        "reports/2026-08-22-wechat-full-product-audit-progress.md"
+      ],
+      "forbiddenPaths": [
+        ".product-governance/**",
+        "backend/migrations/**",
+        "backend/app/domains/xingce_learning/cause_agent/**",
+        "backend/app/domains/planning/**",
+        "apps/wechat/miniprogram/api/generated/**",
+        "data/**",
+        "qbank-cloud/**"
+      ],
+      "migrationPolicy": {
+        "mode": "none",
+        "ownedPaths": [],
+        "dataBackfill": "不回填、不删除、不重置任何用户、岗位或学习事实；只改变当前发布身份读取语义和客户端恢复行为。",
+        "rollback": "回滚精确前端和服务文件；数据库 schema 与已有事实不变，岗位窗口门禁始终保留。"
+      },
+      "compatibilityPolicy": {
+        "strategy": "客户端缺字段与旧基础库 fail soft，服务端缺发布或发布冲突 fail closed；岗位和学习使用不同但可追溯的发布读取方法。",
+        "supportedVersions": "Current mini-program contracts and database revision 20260817_115.",
+        "removalGate": "真实干净账号、真机平台能力和部署后生产只读链形成证据前，不移除 mock/静态与真实状态的分级标记。"
+      },
+      "inputContracts": ["wechat-page-request-owner@v1"],
+      "outputContracts": [],
+      "acceptanceCommands": [
+        {"id": "full-audit-happy-036", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/anan-silent-entry.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-failure-036", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/runtime-layout-foundation.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-replay-036", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/button-runtime-layout.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-stale-036", "kind": "scenario_test", "adapter": "pytest-json@1", "selector": "tests/test_position_release_lifecycle.py", "cwd": "backend", "timeoutSeconds": 300},
+        {"id": "full-audit-race-036", "kind": "scenario_test", "adapter": "pytest-json@1", "selector": "tests/test_ability_estimation.py", "cwd": "backend", "timeoutSeconds": 300},
+        {"id": "full-audit-recovery-036", "kind": "scenario_test", "adapter": "pytest-json@1", "selector": "tests/test_backup_recovery_contract.py", "cwd": "backend", "timeoutSeconds": 300}
+      ],
+      "requiredAcceptanceScenarios": [
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIRS-036-AS-01", "assertion": "unknown or incomplete coach evidence routes a new learner into the first coach meeting without a runtime crash", "testSelector": "tests/anan-silent-entry.test.ts", "acceptanceCommandId": "full-audit-happy-036"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIRS-036-AS-02", "assertion": "legacy system chrome APIs and replay capsule layout preserve a bounded recoverable viewport", "testSelector": "tests/runtime-layout-foundation.test.ts", "acceptanceCommandId": "full-audit-failure-036"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIRS-036-AS-03", "assertion": "daily settlement actions remain visible tappable and replay-safe above content", "testSelector": "tests/button-runtime-layout.test.ts", "acceptanceCommandId": "full-audit-replay-036"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIRS-036-AS-04", "assertion": "closed or between-window position lifecycles remain stale for recruitment while exposing one current published exam identity for learning", "testSelector": "tests/test_position_release_lifecycle.py", "acceptanceCommandId": "full-audit-stale-036"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIRS-036-AS-05", "assertion": "ability estimation reads the same current exam release under concurrent learning requests without opening position eligibility", "testSelector": "tests/test_ability_estimation.py", "acceptanceCommandId": "full-audit-race-036"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIRS-036-AS-06", "assertion": "backup and deployment contracts reject a stale database revision and recover only on the declared current migration head", "testSelector": "tests/test_backup_recovery_contract.py", "acceptanceCommandId": "full-audit-recovery-036"}
+      ],
+      "verificationOnly": false,
+      "stopConditions": [
+        "任何修复需要数据库迁移、生产用户数据写入或题库改写",
+        "学习发布身份无法与岗位窗口门禁保持确定性分离",
+        "真实接口与前端契约出现无法由当前 OpenAPI 或测试解释的冲突"
+      ],
+      "status": "retired"
+    },
+    {
+      "id": "WP-FULL-PRODUCT-AUDIT-REPAIRS-036A",
+      "wave": "integration",
+      "owner": "product-audit-integration",
+      "riskClass": "high",
+      "objective": "接管 036 已冻结的业务边界，吸收当前审计修复基线并重新执行完整验收，不依赖已经漂移的旧工作包运行。",
+      "deliverables": [
+        "新用户证据未知时进入第一次教练会谈且运行时结构缺失不崩溃",
+        "旧基础库安全区降级、岸岸长文案、复盘回放和每日结算交互修复",
+        "视觉 fixture 与页面真实字段同步并防止空白场景通过",
+        "全年学习使用当前考试发布身份而岗位检索继续受招录窗口约束",
+        "部署迁移头、备份与商业发布协议使用同一当前版本",
+        "61 页覆盖矩阵与分级验证报告"
+      ],
+      "requirementRefs": [
+        "REQ-FULL-PRODUCT-AUDIT-FRONTEND-036",
+        "REQ-YEAR-ROUND-LEARNING-RELEASE-036"
+      ],
+      "decisionRefs": [
+        "DEC-FULL-PRODUCT-AUDIT-REPAIRS-036",
+        "DEC-FREEZE-RU-FULL-PRODUCT-AUDIT-REPAIRS-036A"
+      ],
+      "blockingDecisionRefs": [],
+      "nonGoals": [
+        "不写入或重置真实用户学习数据",
+        "不修改数据库 schema、题库内容、答案或解析",
+        "不把 MCP mock、包内测试文件或静态检查描述为真实微信文件选择和生产写入成功"
+      ],
+      "dependsOn": [],
+      "allowedPaths": [
+        "apps/wechat/e2e/visual-scenarios.mjs",
+        "apps/wechat/miniprogram/components/safe-top/metrics.ts",
+        "apps/wechat/miniprogram/features/identity/silent-entry.ts",
+        "apps/wechat/miniprogram/pages/anan/index.wxss",
+        "apps/wechat/miniprogram/pages/login/index.ts",
+        "apps/wechat/miniprogram/pages/reflection/index.ts",
+        "apps/wechat/miniprogram/pages/reflection/index.wxml",
+        "apps/wechat/miniprogram/pages/reflection/index.wxss",
+        "apps/wechat/miniprogram/plans/daily-settlement/index.wxml",
+        "apps/wechat/miniprogram/plans/daily-settlement/index.wxss",
+        "apps/wechat/scripts/subpackage-shared-manifest.mjs",
+        "apps/wechat/tests/anan-silent-entry.test.ts",
+        "apps/wechat/tests/button-runtime-layout.test.ts",
+        "apps/wechat/tests/design-file-core-tabs.test.ts",
+        "apps/wechat/tests/essay-material-reading.test.ts",
+        "apps/wechat/tests/runtime-layout-foundation.test.ts",
+        "apps/wechat/tests/visual-delivery-contracts.test.ts",
+        "backend/app/domains/ability_estimation/service.py",
+        "backend/app/domains/qualification/repository.py",
+        "backend/app/domains/xingce_learning/real_attempt/service.py",
+        "backend/tests/test_ability_estimation.py",
+        "backend/tests/test_backup_recovery_contract.py",
+        "backend/tests/test_commercial_data_publication_protocol.py",
+        "backend/tests/test_position_release_lifecycle.py",
+        "backend/tests/test_wave1_db_contracts.py",
+        "ops/env.example",
+        "reports/2026-08-22-wechat-full-product-audit-progress.md"
+      ],
+      "forbiddenPaths": [
+        ".product-governance/**",
+        "backend/migrations/**",
+        "backend/app/domains/xingce_learning/cause_agent/**",
+        "backend/app/domains/planning/**",
+        "apps/wechat/miniprogram/api/generated/**",
+        "data/**",
+        "qbank-cloud/**"
+      ],
+      "migrationPolicy": {
+        "mode": "none",
+        "ownedPaths": [],
+        "dataBackfill": "不回填、不删除、不重置任何用户、岗位或学习事实；只改变当前发布身份读取语义和客户端恢复行为。",
+        "rollback": "回滚精确前端和服务文件；数据库 schema 与已有事实不变，岗位窗口门禁始终保留。"
+      },
+      "compatibilityPolicy": {
+        "strategy": "客户端缺字段与旧基础库 fail soft，服务端缺发布或发布冲突 fail closed；岗位和学习使用不同但可追溯的发布读取方法。",
+        "supportedVersions": "Current mini-program contracts and database revision 20260817_115.",
+        "removalGate": "真实干净账号、真机平台能力和部署后生产只读链形成证据前，不移除 mock/静态与真实状态的分级标记。"
+      },
+      "inputContracts": ["wechat-page-request-owner@v1"],
+      "outputContracts": [],
+      "acceptanceCommands": [
+        {"id": "full-audit-happy-036a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/anan-silent-entry.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-failure-036a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/runtime-layout-foundation.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-replay-036a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/button-runtime-layout.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "full-audit-stale-036a", "kind": "scenario_test", "adapter": "pytest-json@1", "selector": "tests/test_position_release_lifecycle.py", "cwd": "backend", "timeoutSeconds": 300},
+        {"id": "full-audit-race-036a", "kind": "scenario_test", "adapter": "pytest-json@1", "selector": "tests/test_ability_estimation.py", "cwd": "backend", "timeoutSeconds": 300},
+        {"id": "full-audit-recovery-036a", "kind": "scenario_test", "adapter": "pytest-json@1", "selector": "tests/test_backup_recovery_contract.py", "cwd": "backend", "timeoutSeconds": 300}
+      ],
+      "requiredAcceptanceScenarios": [
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIRS-036A-AS-01", "assertion": "unknown or incomplete coach evidence routes a new learner into the first coach meeting without a runtime crash", "testSelector": "tests/anan-silent-entry.test.ts", "acceptanceCommandId": "full-audit-happy-036a"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIRS-036A-AS-02", "assertion": "legacy system chrome APIs and replay capsule layout preserve a bounded recoverable viewport", "testSelector": "tests/runtime-layout-foundation.test.ts", "acceptanceCommandId": "full-audit-failure-036a"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIRS-036A-AS-03", "assertion": "daily settlement actions remain visible tappable and replay-safe above content", "testSelector": "tests/button-runtime-layout.test.ts", "acceptanceCommandId": "full-audit-replay-036a"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIRS-036A-AS-04", "assertion": "closed or between-window position lifecycles remain stale for recruitment while exposing one current published exam identity for learning", "testSelector": "tests/test_position_release_lifecycle.py", "acceptanceCommandId": "full-audit-stale-036a"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIRS-036A-AS-05", "assertion": "ability estimation reads the same current exam release under concurrent learning requests without opening position eligibility", "testSelector": "tests/test_ability_estimation.py", "acceptanceCommandId": "full-audit-race-036a"},
+        {"id": "WP-FULL-PRODUCT-AUDIT-REPAIRS-036A-AS-06", "assertion": "backup and deployment contracts reject a stale database revision and recover only on the declared current migration head", "testSelector": "tests/test_backup_recovery_contract.py", "acceptanceCommandId": "full-audit-recovery-036a"}
+      ],
+      "verificationOnly": false,
+      "stopConditions": [
+        "任何修复需要数据库迁移、生产用户数据写入或题库改写",
+        "学习发布身份无法与岗位窗口门禁保持确定性分离",
+        "真实接口与前端契约出现无法由当前 OpenAPI 或测试解释的冲突"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "WP-REAL-DEVICE-PRACTICE-WORKSPACE-035",
+      "wave": "integration",
+      "owner": "wechat-practice-workspace",
+      "riskClass": "high",
+      "objective": "用真实平板证据重做练习与模考工作台，消除扁平不可滚动答题卡、长选项断行、浮点尾数和题目/材料双画布割裂。",
+      "deliverables": [
+        "原生滚动、真实模块分组并自动定位当前题的共享答题卡",
+        "自然高度、首行对齐且正文宽度完整的选项布局",
+        "稳定有限精度的模考结果百分比投影",
+        "当前题独立、可跨材料与题目分栏连续书写的单一工作台草稿层",
+        "取代 031/032 字符串伪验收的行为测试与三类设备模拟器证据",
+        "提交记录与新版微信体验版上传凭证"
+      ],
+      "requirementRefs": ["REQ-REAL-DEVICE-PRACTICE-WORKSPACE-035"],
+      "decisionRefs": [
+        "DEC-REAL-DEVICE-PRACTICE-WORKSPACE-035",
+        "DEC-FREEZE-RU-REAL-DEVICE-PRACTICE-WORKSPACE-035"
+      ],
+      "blockingDecisionRefs": [],
+      "nonGoals": [
+        "不修改题库题目、答案或解析",
+        "不修改数据库 schema、AI 错因、能力估计或计划域",
+        "不把源码字符串命中或 mock 截图说成真实手势验证"
+      ],
+      "dependsOn": ["WP-FULL-PRODUCT-AUDIT-REPAIRS-036A"],
+      "allowedPaths": [
+        "apps/wechat/miniprogram/pages/mock-exam/format.ts",
+        "apps/wechat/subpackage-shared-src/task-runtime/annotation-layer/**",
+        "apps/wechat/subpackage-shared-src/task-runtime/answer-sheet/**",
+        "apps/wechat/subpackage-shared-src/task-runtime/material-reader/**",
+        "apps/wechat/miniprogram/pages/practice/shared/task-runtime/annotation-layer/**",
+        "apps/wechat/miniprogram/pages/mock-exam/shared/task-runtime/annotation-layer/**",
+        "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/**",
+        "apps/wechat/miniprogram/pages/practice/shared/task-runtime/answer-sheet/**",
+        "apps/wechat/miniprogram/pages/mock-exam/shared/task-runtime/answer-sheet/**",
+        "apps/wechat/miniprogram/pages/practice/shared/task-runtime/material-reader/**",
+        "apps/wechat/miniprogram/pages/mock-exam/shared/task-runtime/material-reader/**",
+        "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/material-reader/**",
+        "apps/wechat/miniprogram/pages/practice/index.ts",
+        "apps/wechat/miniprogram/pages/practice/index.wxml",
+        "apps/wechat/miniprogram/pages/practice/index.wxss",
+        "apps/wechat/miniprogram/pages/mock-exam/index.ts",
+        "apps/wechat/miniprogram/pages/mock-exam/index.wxml",
+        "apps/wechat/miniprogram/pages/mock-exam/index.wxss",
+        "apps/wechat/tests/work_packages/direct-draft-canvas-031/**",
+        "apps/wechat/tests/work_packages/direct-draft-test-contract-032/**",
+        "apps/wechat/tests/work_packages/beta-flow-discoverability-030/**",
+        "apps/wechat/tests/work_packages/real-device-practice-workspace-035/**",
+        "apps/wechat/tests/mock-material-annotation.test.ts",
+        "apps/wechat/tests/stage2-mock-exam.test.ts",
+        "apps/wechat/tests/xingce-practice-page-lifecycle.test.ts"
+      ],
+      "forbiddenPaths": [
+        ".product-governance/**",
+        "backend/**",
+        "apps/wechat/miniprogram/api/generated/**",
+        "apps/wechat/miniprogram/pages/today/**",
+        "data/**",
+        "qbank-cloud/**"
+      ],
+      "migrationPolicy": {
+        "mode": "none",
+        "ownedPaths": [],
+        "dataBackfill": "不回填或改写历史作答；旧 question/material 笔迹继续可读，新工作台笔迹随当前 question attempt 保存。",
+        "rollback": "回滚前端工作台与投影代码即可；服务器契约和历史作答数据不变。"
+      },
+      "compatibilityPolicy": {
+        "strategy": "保留现有 AnnotationStroke 与 checkpoint 契约；只改变前端捕获坐标面、投影与布局。",
+        "supportedVersions": "Existing question/material AnnotationStroke payloads and current practice/mock session contracts.",
+        "removalGate": "在真实设备确认新工作台笔迹保存、切题隔离和旧数据回放前，不删除历史 material 读取兼容。"
+      },
+      "inputContracts": ["wechat-page-request-owner@v1"],
+      "outputContracts": [],
+      "acceptanceCommands": [
+        {"id": "practice-workspace-happy-035", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/real-device-practice-workspace-035/happy.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "practice-workspace-failure-035", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/real-device-practice-workspace-035/failure.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "practice-workspace-replay-035", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/real-device-practice-workspace-035/replay.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "practice-workspace-stale-035", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/real-device-practice-workspace-035/stale.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "practice-workspace-race-035", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/real-device-practice-workspace-035/race.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "practice-workspace-recovery-035", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/real-device-practice-workspace-035/recovery.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300}
+      ],
+      "requiredAcceptanceScenarios": [
+        {"id": "WP-REAL-DEVICE-PRACTICE-WORKSPACE-035-AS-01", "assertion": "a 135-question paper projects real module sections and a native scroll target for the current question", "testSelector": "tests/work_packages/real-device-practice-workspace-035/happy.test.ts", "acceptanceCommandId": "practice-workspace-happy-035"},
+        {"id": "WP-REAL-DEVICE-PRACTICE-WORKSPACE-035-AS-02", "assertion": "a continuous touch path crossing the material-question divider remains one current-question workspace stroke", "testSelector": "tests/work_packages/real-device-practice-workspace-035/failure.test.ts", "acceptanceCommandId": "practice-workspace-failure-035"},
+        {"id": "WP-REAL-DEVICE-PRACTICE-WORKSPACE-035-AS-03", "assertion": "switching questions replays only that question workspace strokes while legacy material evidence remains readable", "testSelector": "tests/work_packages/real-device-practice-workspace-035/replay.test.ts", "acceptanceCommandId": "practice-workspace-replay-035"},
+        {"id": "WP-REAL-DEVICE-PRACTICE-WORKSPACE-035-AS-04", "assertion": "stale shared-material strokes do not become the writable canvas of the next question", "testSelector": "tests/work_packages/real-device-practice-workspace-035/stale.test.ts", "acceptanceCommandId": "practice-workspace-stale-035"},
+        {"id": "WP-REAL-DEVICE-PRACTICE-WORKSPACE-035-AS-05", "assertion": "single-line and wrapped options use natural height first-line alignment and an in-card eliminate action", "testSelector": "tests/work_packages/real-device-practice-workspace-035/race.test.ts", "acceptanceCommandId": "practice-workspace-race-035"},
+        {"id": "WP-REAL-DEVICE-PRACTICE-WORKSPACE-035-AS-06", "assertion": "module result percentages are finite formatted strings and all generated answer-sheet copies remain synchronized", "testSelector": "tests/work_packages/real-device-practice-workspace-035/recovery.test.ts", "acceptanceCommandId": "practice-workspace-recovery-035"}
+      ],
+      "verificationOnly": false,
+      "stopConditions": [
+        "需要修改题库、答案、数据库 schema 或真实用户作答事实",
+        "单一工作台捕获层无法在微信真机跨分栏保持一条连续触摸笔迹",
+        "任何修复要求移除旧笔迹的只读恢复能力"
+      ],
+      "status": "retired"
+    },
+    {
+      "id": "WP-REAL-DEVICE-PRACTICE-WORKSPACE-035A",
+      "wave": "integration",
+      "owner": "wechat-practice-workspace",
+      "riskClass": "high",
+      "objective": "对格式化和门禁兼容修正后的最终做题工作台候选重新执行完整验收，不改写 035 的历史完成证据。",
+      "deliverables": [
+        "最终答题卡滚动分组、长选项排版、百分比投影和整屏草稿候选的锁定证据",
+        "六类专项场景的最终机器验收报告"
+      ],
+      "requirementRefs": ["REQ-REAL-DEVICE-PRACTICE-WORKSPACE-035"],
+      "decisionRefs": [
+        "DEC-REAL-DEVICE-PRACTICE-WORKSPACE-035",
+        "DEC-FREEZE-RU-REAL-DEVICE-PRACTICE-WORKSPACE-035A"
+      ],
+      "blockingDecisionRefs": [],
+      "nonGoals": [
+        "不修改题库题目、答案或解析",
+        "不修改数据库 schema、AI 错因、能力估计或计划域",
+        "不把源码字符串命中或 mock 截图说成真实手势验证"
+      ],
+      "dependsOn": [],
+      "allowedPaths": [
+        "apps/wechat/miniprogram/pages/mock-exam/format.ts",
+        "apps/wechat/subpackage-shared-src/task-runtime/annotation-layer/**",
+        "apps/wechat/subpackage-shared-src/task-runtime/answer-sheet/**",
+        "apps/wechat/subpackage-shared-src/task-runtime/material-reader/**",
+        "apps/wechat/miniprogram/pages/practice/shared/task-runtime/annotation-layer/**",
+        "apps/wechat/miniprogram/pages/mock-exam/shared/task-runtime/annotation-layer/**",
+        "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/annotation-layer/**",
+        "apps/wechat/miniprogram/pages/practice/shared/task-runtime/answer-sheet/**",
+        "apps/wechat/miniprogram/pages/mock-exam/shared/task-runtime/answer-sheet/**",
+        "apps/wechat/miniprogram/pages/practice/shared/task-runtime/material-reader/**",
+        "apps/wechat/miniprogram/pages/mock-exam/shared/task-runtime/material-reader/**",
+        "apps/wechat/miniprogram/pages/reflection/shared/task-runtime/material-reader/**",
+        "apps/wechat/miniprogram/pages/practice/index.ts",
+        "apps/wechat/miniprogram/pages/practice/index.wxml",
+        "apps/wechat/miniprogram/pages/practice/index.wxss",
+        "apps/wechat/miniprogram/pages/mock-exam/index.ts",
+        "apps/wechat/miniprogram/pages/mock-exam/index.wxml",
+        "apps/wechat/miniprogram/pages/mock-exam/index.wxss",
+        "apps/wechat/tests/work_packages/direct-draft-canvas-031/**",
+        "apps/wechat/tests/work_packages/direct-draft-test-contract-032/**",
+        "apps/wechat/tests/work_packages/beta-flow-discoverability-030/**",
+        "apps/wechat/tests/work_packages/real-device-practice-workspace-035/**",
+        "apps/wechat/tests/mock-material-annotation.test.ts",
+        "apps/wechat/tests/stage2-mock-exam.test.ts",
+        "apps/wechat/tests/xingce-practice-page-lifecycle.test.ts"
+      ],
+      "forbiddenPaths": [
+        ".product-governance/**",
+        "backend/**",
+        "apps/wechat/miniprogram/api/generated/**",
+        "apps/wechat/miniprogram/pages/today/**",
+        "data/**",
+        "qbank-cloud/**"
+      ],
+      "migrationPolicy": {
+        "mode": "none",
+        "ownedPaths": [],
+        "dataBackfill": "不回填或改写历史作答；只验证最终前端候选。",
+        "rollback": "回滚前端工作台与投影代码；服务器契约和历史作答数据不变。"
+      },
+      "compatibilityPolicy": {
+        "strategy": "保留现有 AnnotationStroke 与 checkpoint 契约并验证最终投影。",
+        "supportedVersions": "Existing question/material AnnotationStroke payloads and current practice/mock session contracts.",
+        "removalGate": "真实设备确认前保留历史 material 读取兼容。"
+      },
+      "inputContracts": ["wechat-page-request-owner@v1"],
+      "outputContracts": [],
+      "acceptanceCommands": [
+        {"id": "practice-workspace-happy-035a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/real-device-practice-workspace-035/happy.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "practice-workspace-failure-035a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/real-device-practice-workspace-035/failure.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "practice-workspace-replay-035a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/real-device-practice-workspace-035/replay.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "practice-workspace-stale-035a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/real-device-practice-workspace-035/stale.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "practice-workspace-race-035a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/real-device-practice-workspace-035/race.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300},
+        {"id": "practice-workspace-recovery-035a", "kind": "scenario_test", "adapter": "vitest-json@1", "selector": "tests/work_packages/real-device-practice-workspace-035/recovery.test.ts", "cwd": "apps/wechat", "timeoutSeconds": 300}
+      ],
+      "requiredAcceptanceScenarios": [
+        {"id": "WP-REAL-DEVICE-PRACTICE-WORKSPACE-035A-AS-01", "assertion": "the final 135-question paper groups real modules and scrolls to the current item", "testSelector": "tests/work_packages/real-device-practice-workspace-035/happy.test.ts", "acceptanceCommandId": "practice-workspace-happy-035a"},
+        {"id": "WP-REAL-DEVICE-PRACTICE-WORKSPACE-035A-AS-02", "assertion": "the final workspace keeps a continuous stroke across the material-question divider", "testSelector": "tests/work_packages/real-device-practice-workspace-035/failure.test.ts", "acceptanceCommandId": "practice-workspace-failure-035a"},
+        {"id": "WP-REAL-DEVICE-PRACTICE-WORKSPACE-035A-AS-03", "assertion": "the final workspace replays only current-question strokes with legacy material compatibility", "testSelector": "tests/work_packages/real-device-practice-workspace-035/replay.test.ts", "acceptanceCommandId": "practice-workspace-replay-035a"},
+        {"id": "WP-REAL-DEVICE-PRACTICE-WORKSPACE-035A-AS-04", "assertion": "the final workspace does not inject stale material strokes into the next question", "testSelector": "tests/work_packages/real-device-practice-workspace-035/stale.test.ts", "acceptanceCommandId": "practice-workspace-stale-035a"},
+        {"id": "WP-REAL-DEVICE-PRACTICE-WORKSPACE-035A-AS-05", "assertion": "the final option cards preserve natural height and first-line alignment", "testSelector": "tests/work_packages/real-device-practice-workspace-035/race.test.ts", "acceptanceCommandId": "practice-workspace-race-035a"},
+        {"id": "WP-REAL-DEVICE-PRACTICE-WORKSPACE-035A-AS-06", "assertion": "the final result percentages are finite and generated answer-sheet copies are synchronized", "testSelector": "tests/work_packages/real-device-practice-workspace-035/recovery.test.ts", "acceptanceCommandId": "practice-workspace-recovery-035a"}
+      ],
+      "verificationOnly": true,
+      "stopConditions": [
+        "最终候选与 035 冻结路径或场景不一致",
+        "任何验收命令未生成完整性锁定的通过证据",
+        "验证需要修改题库、数据库或真实用户数据"
+      ],
+      "status": "planned"
     }
   ]
 }

@@ -248,7 +248,7 @@
   flex-direction: column;
 }
 
-/* 题目舞台只负责题面布局；035 的唯一草稿层由外层 workspace 统一承载。 */
+/* 题目舞台只承载题面；连续草稿画布由外层 workspace 统一覆盖。 */
 .practice-question-stage {
   position: relative;
   display: flex;
@@ -366,13 +366,12 @@
   letter-spacing: calc(-0.32 * var(--rpx));
 }
 
-/* Figma 2:141；grid-auto-rows 让同题各选项等高，避免单行/双行参差。 */
+/* 选项按内容自然增高；长句不再被最短选项强行拉成等高卡。 */
 .option-list {
   display: grid;
   gap: calc(24 * var(--rpx));
   margin-top: 0;
   padding: calc(48 * var(--rpx)) 0 0;
-  grid-auto-rows: 1fr;
 }
 
 .option-list--locked {
@@ -380,22 +379,19 @@
   opacity: 0.72;
 }
 
-/* Figma 2:142：选项卡 + 48px 排除键，二者同高。 */
 .option-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) calc(96 * var(--rpx));
-  align-items: stretch;
-  gap: calc(16 * var(--rpx));
+  position: relative;
 }
 
-/* Figma 2:157；等高卡内内容垂直居中，单行不显得空。 */
 .option-card {
+  box-sizing: border-box;
   display: grid;
+  width: 100%;
   grid-template-columns: calc(48 * var(--rpx)) minmax(0, 1fr);
-  align-items: center;
+  align-items: start;
   gap: calc(24 * var(--rpx));
   min-height: 0;
-  padding: calc(32 * var(--rpx));
+  padding: calc(32 * var(--rpx)) calc(120 * var(--rpx)) calc(32 * var(--rpx)) calc(32 * var(--rpx));
   border: calc(1 * var(--rpx)) solid var(--figma-color-line);
   border-radius: var(--radius-40);
   background: var(--figma-color-surface);
@@ -457,19 +453,21 @@
   text-decoration: line-through;
 }
 
-/* Figma 2:166：排除键与选项卡等高，圆角一致。 */
 .eliminate-action {
+  position: absolute;
+  top: calc(16 * var(--rpx));
+  right: calc(16 * var(--rpx));
   display: flex;
-  width: calc(96 * var(--rpx));
-  min-width: calc(96 * var(--rpx));
-  height: auto;
+  width: calc(88 * var(--rpx));
+  min-width: calc(88 * var(--rpx));
+  height: calc(88 * var(--rpx));
   align-items: center;
   justify-content: center;
   padding: 0;
   border: calc(1 * var(--rpx)) solid var(--figma-color-line);
-  border-radius: var(--radius-40);
-  background: var(--figma-color-surface);
-  box-shadow: var(--shadow-crisp);
+  border-radius: 50%;
+  background: var(--figma-color-canvas);
+  box-shadow: none;
 }
 
 /* Figma 2:152：已排除时换成实心 line-strong，无描边无投影。 */
@@ -880,16 +878,11 @@ button.submit-button {
     padding: 24px 0 0;
   }
 
-  .option-row {
-    grid-template-columns: minmax(0, 1fr) 48px;
-    gap: 8px;
-  }
-
   .option-card {
     grid-template-columns: 24px minmax(0, 1fr);
     gap: 12px;
     min-height: 0;
-    padding: 17px;
+    padding: 17px 60px 17px 17px;
     border-width: 1px;
     border-radius: 20px;
   }
@@ -907,10 +900,12 @@ button.submit-button {
   }
 
   .eliminate-action {
-    width: 48px;
-    min-width: 48px;
-    height: auto;
-    border-radius: 20px;
+    top: 8px;
+    right: 8px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    border-radius: 50%;
   }
 
   .eliminate-action__icon {
@@ -1302,8 +1297,7 @@ button.submit-button {
   border: 0;
 }
 
-/* 035 整屏批注宿主：相对 practice-workspace 铺满材料、分栏缝隙与题目。
-   宿主本身不拦截触摸。
+/* 批注层宿主：仅作为相态锚点，本身不拦截触摸。
    --active 只标记"批注层已打开"给内部渲染判断，宿主自身保持 pointer-events:none，
    触摸是否拦截由批注层内部的捕获层/工具栏决定（滑动工具下题目可正常滚动）。 */
 .practice-annotation-host {

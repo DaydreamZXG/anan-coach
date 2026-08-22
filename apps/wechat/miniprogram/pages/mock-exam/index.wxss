@@ -191,25 +191,23 @@
   display: grid;
   gap: calc(24 * var(--rpx));
   padding: calc(48 * var(--rpx)) 0 0;
-  grid-auto-rows: 1fr;
 }
 .option-list--locked {
   pointer-events: none;
   opacity: 0.65;
 }
 .option-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) calc(96 * var(--rpx));
-  align-items: stretch;
-  gap: calc(16 * var(--rpx));
+  position: relative;
 }
 .option-card {
+  box-sizing: border-box;
   display: grid;
+  width: 100%;
   grid-template-columns: calc(48 * var(--rpx)) minmax(0, 1fr);
-  align-items: center;
+  align-items: start;
   gap: calc(24 * var(--rpx));
   min-height: 0;
-  padding: calc(32 * var(--rpx));
+  padding: calc(32 * var(--rpx)) calc(120 * var(--rpx)) calc(32 * var(--rpx)) calc(32 * var(--rpx));
   border: calc(1 * var(--rpx)) solid var(--figma-color-line);
   border-radius: var(--radius-40);
   background: var(--figma-color-surface);
@@ -263,18 +261,21 @@
   text-decoration: line-through;
 }
 .eliminate-action {
+  position: absolute;
+  top: calc(16 * var(--rpx));
+  right: calc(16 * var(--rpx));
   display: flex;
-  width: calc(96 * var(--rpx));
-  min-width: calc(96 * var(--rpx));
-  height: auto;
+  width: calc(88 * var(--rpx));
+  min-width: calc(88 * var(--rpx));
+  height: calc(88 * var(--rpx));
   align-items: center;
   justify-content: center;
   margin: 0;
   padding: 0;
   border: calc(1 * var(--rpx)) solid var(--figma-color-line);
-  border-radius: var(--radius-40);
-  background: var(--figma-color-surface);
-  box-shadow: var(--shadow-crisp);
+  border-radius: 50%;
+  background: var(--figma-color-canvas);
+  box-shadow: none;
 }
 .eliminate-action::after {
   border: 0;
@@ -456,7 +457,7 @@
     grid-template-columns: 24px minmax(0, 1fr);
     gap: 12px;
     min-height: 0;
-    padding: 17px;
+    padding: 17px 60px 17px 17px;
     border-width: 1px;
     border-radius: 20px;
   }
@@ -467,10 +468,12 @@
   }
 
   .eliminate-action {
-    width: 48px;
-    min-width: 48px;
-    height: auto;
-    border-radius: 20px;
+    top: 8px;
+    right: 8px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    border-radius: 50%;
   }
 }
 

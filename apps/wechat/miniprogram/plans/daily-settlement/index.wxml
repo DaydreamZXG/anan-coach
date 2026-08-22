@@ -100,7 +100,7 @@
     </block>
   </view>
 
-  <view wx:if="{{settlement}}" class="s9-action-dock">
+  <view wx:if="{{settlement}}" class="s9-action-dock settlement-dock">
     <button hover-class="item--hover" class="s9-primary-button settlement-primary tap-tactile" bindtap="returnToday" disabled="{{closing}}">
       {{closing ? '正在收好今天…' : '确认结算，结束今天'}}
     </button>

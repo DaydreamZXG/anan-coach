@@ -87,7 +87,8 @@
   font-size: var(--text-section);
   font-weight: 500;
   line-height: calc(45 * var(--rpx));
-  white-space: nowrap;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .context-chips {

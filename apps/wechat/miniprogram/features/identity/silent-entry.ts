@@ -33,12 +33,21 @@ export async function bootstrapSilentWechatSession(
   if (!hasCurrentSession()) await controller.login();
 }
 
+export function learningEvidenceStateFromCoachContext(context: unknown): boolean | null {
+  if (typeof context !== "object" || context === null) return null;
+  const recognition = (context as Record<string, unknown>).recognition;
+  if (typeof recognition !== "object" || recognition === null) return null;
+  const evidenceCount = (recognition as Record<string, unknown>).evidenceCount;
+  if (typeof evidenceCount !== "number" || !Number.isFinite(evidenceCount)) return null;
+  return evidenceCount > 0;
+}
+
 export function silentEntryNavigationTarget(
   nextStep: OnboardingProgress["nextStep"],
   pendingReturn: RegisteredNavigationTarget | null,
   hasLearningEvidence: boolean | null = false,
 ): RegisteredNavigationTarget {
-  const workspaceReady = nextStep === "workspace" || hasLearningEvidence !== false;
+  const workspaceReady = nextStep === "workspace" || hasLearningEvidence === true;
   if (!workspaceReady) return onboardingNavigationTarget(nextStep);
   if (pendingReturn) return pendingReturn;
   const target = registeredNavigationTarget(routes.today);

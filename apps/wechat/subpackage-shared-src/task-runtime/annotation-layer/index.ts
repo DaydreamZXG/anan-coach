@@ -160,8 +160,6 @@ interface AnnotationLayerHost {
     lassoSelectedCount: number;
     drawnStrokeCount: number;
     strokePrefix: string;
-    surfaceSwitchAvailable: boolean;
-    activeSurface: string;
     toolbarAvailable: boolean;
     activeTool: string;
     scopeLabel: string;
@@ -439,12 +437,9 @@ Component({
     horizontalRegions: { type: null, value: [] },
     /** 多内容面共享同一题的 annotations 时，用前缀保证笔迹 ID 与所属画布稳定。 */
     strokePrefix: { type: String, value: "stroke" },
-    /** 一个草稿入口在题面与共享材料之间切换；仅控制入口，不合并两种笔迹坐标系。 */
-    surfaceSwitchAvailable: { type: Boolean, value: false },
-    activeSurface: { type: String, value: "question" },
-    /** 连续草稿由宿主指定哪一块画布承载唯一工具栏。 */
+    /** 连续草稿由宿主指定当前唯一工作台画布是否承载工具栏。 */
     toolbarAvailable: { type: Boolean, value: true },
-    /** 多画布只共享临时工具，不共享笔迹坐标或持久化 reducer。 */
+    /** 沉浸材料与普通工作台共享当前临时工具。 */
     activeTool: { type: String, value: "pan" },
     /** 整屏模式向用户说明当前笔迹归属，避免误以为会跨题共享。 */
     scopeLabel: { type: String, value: "" },
@@ -577,13 +572,6 @@ Component({
       ensureCanvas(this, () => {
         redraw(this);
       });
-    },
-
-    switchSurface(event: WechatMiniprogram.BaseEvent) {
-      const surface = String(event.currentTarget.dataset.surface ?? "");
-      if (surface !== "question" && surface !== "material") return;
-      if (surface === this.data.activeSurface) return;
-      this.triggerEvent("surfacechange", { surface });
     },
 
     onTouchStart(event: WechatMiniprogram.TouchEvent) {

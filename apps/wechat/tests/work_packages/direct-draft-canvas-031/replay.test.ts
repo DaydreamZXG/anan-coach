@@ -8,14 +8,14 @@ import mockLogicRaw from "../../../miniprogram/pages/mock-exam/index.ts?raw";
 import replayRuntimeRaw from "../../../miniprogram/pages/reflection/features/replay-runtime.ts?raw";
 
 describe("direct draft canvas 031 replay path", () => {
-  it("keeps old question and material strokes readable while workspace strokes stay current", () => {
+  it("keeps old question and material strokes on their canonical reducers", () => {
     const practice = String(practiceLogicRaw);
     const mock = String(mockLogicRaw);
 
-    expect(practice).toContain("replaceWorkspaceAnnotations(");
-    expect(practice).not.toContain('type: "SHARED_MATERIAL_ANNOTATIONS_CHANGED"');
-    expect(mock).toContain("replaceWorkspaceAnnotations(");
-    expect(mock).toContain("workspaceAnnotationStrokes(");
+    expect(practice).toContain("replaceQuestionAnnotations(");
+    expect(practice).toContain("replaceMaterialAnnotations(current, event.detail.strokes)");
+    expect(mock).toContain("replaceQuestionAnnotations(");
+    expect(mock).toContain("replaceMaterialAnnotations(");
     expect(String(replayRuntimeRaw)).toContain("splitAnnotationSurfaces");
   });
 });

@@ -1,4 +1,4 @@
-<view wx:if="{{visible}}" class="answer-card" catchtouchmove="noop">
+<view wx:if="{{visible}}" class="answer-card">
   <view class="answer-card__mask" catchtap="close" aria-label="关闭答题卡"></view>
   <view class="answer-card__sheet">
     <view class="answer-card__handle-row" aria-hidden="true"><view class="answer-card__handle"></view></view>
@@ -15,24 +15,45 @@
       <view class="answer-card__legend-item"><view class="answer-card__legend-dot answer-card__legend-dot--current"></view><text>当前 {{current}}</text></view>
       <view class="answer-card__legend-item"><view class="answer-card__legend-dot answer-card__legend-dot--marked"></view><text>存疑 {{marked}}</text></view>
     </view>
-    <view class="answer-card__section">
-      <view class="answer-card__module-row">
-        <view class="answer-card__module-name">{{moduleName}}</view>
-        <view class="answer-card__module-counts">{{moduleCounts}}</view>
-      </view>
-      <view class="answer-card__grid">
-        <view wx:for="{{renderItems}}" wx:key="index" class="answer-card__cell">
-          <button hover-class="item--hover"
-            class="answer-card__question answer-card__question--{{item.active ? 'current' : item.state}} {{!item.active && item.marked ? 'answer-card__question--marked' : ''}}"
-            aria-label="第 {{item.label}} 题{{item.active ? '，当前题' : item.marked ? '，已存疑' : item.state === 'answered' ? '，已作答' : '，未作答'}}"
-            data-index="{{item.index}}"
-            bindtap="selectQuestion"
-          >{{item.label}}</button>
-          <view wx:if="{{item.marked && !item.active}}" class="answer-card__marked-badge" aria-hidden="true">!</view>
+    <scroll-view
+      class="answer-card__scroll"
+      scroll-y
+      enhanced
+      show-scrollbar="{{false}}"
+      scroll-with-animation
+      scroll-into-view="{{scrollTarget}}"
+    >
+      <view
+        wx:for="{{sections}}"
+        wx:for-item="section"
+        wx:key="id"
+        id="{{section.id}}"
+        class="answer-card__section"
+      >
+        <view class="answer-card__module-row">
+          <view class="answer-card__module-name">{{section.moduleName}}</view>
+          <view class="answer-card__module-counts">{{section.counts}}</view>
+        </view>
+        <view class="answer-card__grid">
+          <view
+            wx:for="{{section.items}}"
+            wx:for-item="question"
+            wx:key="index"
+            id="{{question.anchorId}}"
+            class="answer-card__cell"
+          >
+            <button hover-class="item--hover"
+              class="answer-card__question answer-card__question--{{question.active ? 'current' : question.state}} {{!question.active && question.marked ? 'answer-card__question--marked' : ''}}"
+              aria-label="第 {{question.label}} 题{{question.active ? '，当前题' : question.marked ? '，已存疑' : question.state === 'answered' ? '，已作答' : '，未作答'}}"
+              data-index="{{question.index}}"
+              bindtap="selectQuestion"
+            >{{question.label}}</button>
+            <view wx:if="{{question.marked && !question.active}}" class="answer-card__marked-badge" aria-hidden="true">!</view>
+          </view>
         </view>
       </view>
       <view class="answer-card__hint">{{hint}}</view>
-    </view>
+    </scroll-view>
     <view wx:if="{{insightAvailable}}" class="answer-card__insight">
       <image class="answer-card__insight-icon" src="/assets/icons/task/answer-card-insight.svg" mode="aspectFit" aria-hidden="true" />
       <view>

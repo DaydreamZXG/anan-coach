@@ -100,6 +100,27 @@ describe("Figma delivery runtime visual contracts", () => {
     expect(reused).toEqual([]);
   });
 
+  it("keeps the practice annotation scenario aligned with the current writable canvas contract", () => {
+    const scenario = scenarios.find(({ id }) => id === "c13-xingce-annotation");
+    const data = scenario?.data as
+      | { annotationMode?: unknown; annotationTool?: unknown; questionAnnotations?: unknown[] }
+      | undefined;
+
+    expect(data?.annotationMode).toBe("annotate");
+    expect(data?.annotationTool).toBe("pen");
+    expect(data?.questionAnnotations?.length).toBeGreaterThan(0);
+  });
+
+  it("keeps daily settlement mock evidence traceable before opening 岸岸", () => {
+    const scenario = scenarios.find(({ id }) => id === "b04-daily-settlement-ready");
+    const settlement = (scenario?.data as { settlement?: Record<string, unknown> } | undefined)
+      ?.settlement;
+
+    expect(settlement?.localDate).toBeTruthy();
+    expect(settlement?.planVersionId).toBeTruthy();
+    expect(settlement?.planVersionNo).toBeGreaterThan(0);
+  });
+
   it("keeps every required visible phrase in the production WXML or its deterministic scenario", () => {
     const scenarioById = new Map(scenarios.map((scenario) => [scenario.id, scenario] as const));
     const missing = contracts.flatMap((contract) => {

@@ -11,7 +11,8 @@ describe("direct draft test contract 032 failure path", () => {
       expect(source).not.toContain(
         "mode=\\\"{{annotationMode === 'annotate' && annotationSurface === 'question' ? 'annotate' : 'static'}}\\\"",
       );
-      expect(source).not.toContain("annotationCanvas === 'material'");
+      expect(source).not.toContain("toContain('surfaceSwitchAvailable");
+      expect(source).toContain('not.toContain("surfaceSwitchAvailable")');
     }
   });
 });

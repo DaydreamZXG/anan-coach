@@ -5,6 +5,7 @@ import entrySource from "../miniprogram/pages/login/index.ts?raw";
 import { routes } from "../miniprogram/app/navigation/routes";
 import {
   bootstrapSilentWechatSession,
+  learningEvidenceStateFromCoachContext,
   SILENT_WECHAT_LEGAL_ACCEPTED,
   silentEntryErrorMessage,
   silentEntryNavigationTarget,
@@ -107,11 +108,24 @@ describe("岸岸静默微信入口", () => {
     expect(silentEntryNavigationTarget("preparation_experience", pending, true)).toBe(pending);
   });
 
-  it("岸岸认识投影暂时失败时不把用户堵回旧建档", () => {
+  it("岸岸认识投影暂时失败时不把未知证据冒充老用户证据", () => {
     expect(silentEntryNavigationTarget("preparation_experience", null, null)).toEqual({
-      mode: "switchTab",
-      url: routes.today,
+      mode: "navigateTo",
+      url: routes.onboardingEntry,
     });
+  });
+
+  it("岸岸认识投影缺字段时返回未知，不因运行时结构不完整而崩溃", () => {
+    expect(learningEvidenceStateFromCoachContext(undefined)).toBeNull();
+    expect(learningEvidenceStateFromCoachContext({})).toBeNull();
+    expect(learningEvidenceStateFromCoachContext({ recognition: {} })).toBeNull();
+    expect(
+      learningEvidenceStateFromCoachContext({ recognition: { evidenceCount: Number.NaN } }),
+    ).toBeNull();
+    expect(learningEvidenceStateFromCoachContext({ recognition: { evidenceCount: 0 } })).toBe(
+      false,
+    );
+    expect(learningEvidenceStateFromCoachContext({ recognition: { evidenceCount: 2 } })).toBe(true);
   });
 
   it("恢复失败只提示重新进入岸岸，不重新制造登录产品门槛", () => {
